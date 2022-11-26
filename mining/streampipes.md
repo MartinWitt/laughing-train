@@ -1,7 +1,7 @@
 # streampipes 
  
 # Bad smells
-I found 2838 bad smells with 585 repairable:
+I found 2837 bad smells with 585 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | MarkedForRemoval | 444 | false |
@@ -93,7 +93,6 @@ I found 2838 bad smells with 585 repairable:
 | Java8ListReplaceAll | 1 | false |
 | TrivialStringConcatenation | 1 | false |
 | SimplifiableBooleanExpression | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | CastConflictsWithInstanceof | 1 | false |
 | TypeParameterHidesVisibleType | 1 | false |
 | ProtectedMemberInFinalClass | 1 | true |
@@ -222,18 +221,6 @@ in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/ap
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/textfilter/TextFilterProcessor.java`
-#### Snippet
-```java
-  @Override
-  public void onEvent(Event event, SpOutputCollector spOutputCollector) throws SpRuntimeException {
-    Boolean satisfiesFilter = false;
-    String value = event.getFieldBySelector(this.filterProperty)
-            .getAsPrimitive()
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
 in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/threshold/ThresholdDetectionProcessor.java`
 #### Snippet
 ```java
@@ -242,6 +229,18 @@ in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/
     Boolean satisfiesFilter = false;
 
     Double value = event.getFieldBySelector(this.filterProperty).getAsPrimitive()
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/textfilter/TextFilterProcessor.java`
+#### Snippet
+```java
+  @Override
+  public void onEvent(Event event, SpOutputCollector spOutputCollector) throws SpRuntimeException {
+    Boolean satisfiesFilter = false;
+    String value = event.getFieldBySelector(this.filterProperty)
+            .getAsPrimitive()
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -504,9 +503,9 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```java
    * @throws BoilerpipeProcessingException
    */
-  public String getText(TextDocument doc) throws BoilerpipeProcessingException;
-}
+  public String getText(final Reader r) throws BoilerpipeProcessingException;
 
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -528,9 +527,9 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```java
    * @throws BoilerpipeProcessingException
    */
-  public String getText(final InputSource is) throws BoilerpipeProcessingException;
+  public String getText(TextDocument doc) throws BoilerpipeProcessingException;
+}
 
-  /**
 ```
 
 ### UnnecessaryModifier
@@ -540,7 +539,7 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```java
    * @throws BoilerpipeProcessingException
    */
-  public String getText(final Reader r) throws BoilerpipeProcessingException;
+  public String getText(final InputSource is) throws BoilerpipeProcessingException;
 
   /**
 ```
@@ -575,30 +574,6 @@ public interface PipelineTemplate {
 in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/params/runtime/EventProcessorRuntimeParams.java`
 #### Snippet
 ```java
-        getSourceInfo(),
-        getSchemaInfo(),
-        bindingParams.getOutputStreamParams().getSourceInfo(),
-        bindingParams.getOutputStreamParams().getSchemaInfo(),
-        bindingParams.getGraph().getCorrespondingUser(),
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/params/runtime/EventProcessorRuntimeParams.java`
-#### Snippet
-```java
-        getSchemaInfo(),
-        bindingParams.getOutputStreamParams().getSourceInfo(),
-        bindingParams.getOutputStreamParams().getSchemaInfo(),
-        bindingParams.getGraph().getCorrespondingUser(),
-        configExtractor,
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/params/runtime/EventProcessorRuntimeParams.java`
-#### Snippet
-```java
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.context.SpEventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
@@ -616,6 +591,30 @@ import java.io.Serializable;
 public class EventProcessorRuntimeParams<B extends EventProcessorBindingParams> extends
     RuntimeParams<B, DataProcessorInvocation, EventProcessorRuntimeContext> implements Serializable {
 
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/params/runtime/EventProcessorRuntimeParams.java`
+#### Snippet
+```java
+        getSourceInfo(),
+        getSchemaInfo(),
+        bindingParams.getOutputStreamParams().getSourceInfo(),
+        bindingParams.getOutputStreamParams().getSchemaInfo(),
+        bindingParams.getGraph().getCorrespondingUser(),
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/params/runtime/EventProcessorRuntimeParams.java`
+#### Snippet
+```java
+        getSchemaInfo(),
+        bindingParams.getOutputStreamParams().getSourceInfo(),
+        bindingParams.getOutputStreamParams().getSchemaInfo(),
+        bindingParams.getGraph().getCorrespondingUser(),
+        configExtractor,
 ```
 
 ### MarkedForRemoval
@@ -647,10 +646,10 @@ public interface ExternalEventProcessor<B extends EventProcessorBindingParams> e
 in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/runtime/EventProcessor.java`
 #### Snippet
 ```java
-
-@Deprecated(since = "0.70.0", forRemoval = true)
-public interface EventProcessor<B extends EventProcessorBindingParams> extends
-        PipelineElement<B, DataProcessorInvocation> {
+import org.apache.streampipes.model.runtime.Event;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 
 ```
 
@@ -659,10 +658,10 @@ public interface EventProcessor<B extends EventProcessorBindingParams> extends
 in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/runtime/EventProcessor.java`
 #### Snippet
 ```java
-import org.apache.streampipes.model.runtime.Event;
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+
+@Deprecated(since = "0.70.0", forRemoval = true)
+public interface EventProcessor<B extends EventProcessorBindingParams> extends
+        PipelineElement<B, DataProcessorInvocation> {
 
 ```
 
@@ -719,6 +718,18 @@ public class SetEpsgParameter extends EventProcessorBindingParams {
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEPSG.java`
 #### Snippet
 ```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+import org.apache.streampipes.model.runtime.Event;
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEPSG.java`
+#### Snippet
+```java
 
 
 public class SetEPSG implements EventProcessor<SetEpsgParameter> {
@@ -727,8 +738,56 @@ public class SetEPSG implements EventProcessor<SetEpsgParameter> {
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsParameter.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class CreateTrajectoryFromPointsParameter extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsParameter.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class CreateTrajectoryFromPointsParameter extends EventProcessorBindingParams {
+
+  private String epsg;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoParameter.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class LatLngToGeoParameter extends EventProcessorBindingParams {
+
+  private String epsg;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoParameter.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class LatLngToGeoParameter extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEPSG.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeo.java`
 #### Snippet
 ```java
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
@@ -739,123 +798,15 @@ import org.apache.streampipes.model.runtime.Event;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsParameter.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPoints.java`
 #### Snippet
 ```java
 
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class CreateTrajectoryFromPointsParameter extends EventProcessorBindingParams {
-```
+public class CreateTrajectoryFromPoints implements EventProcessor<CreateTrajectoryFromPointsParameter> {
 
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsParameter.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class CreateTrajectoryFromPointsParameter extends EventProcessorBindingParams {
-
-  private String epsg;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEpsgController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.SO;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-import org.apache.streampipes.sdk.utils.Assets;
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEpsgController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-
-public class SetEpsgController extends StandaloneEventProcessingDeclarer<SetEpsgParameter> {
-
-  public final static String EPA_NAME = "EPSG Enricher";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoParameter.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class LatLngToGeoParameter extends EventProcessorBindingParams {
-
-  private String epsg;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoParameter.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class LatLngToGeoParameter extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.Geo;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class LatLngToGeoController extends StandaloneEventProcessingDeclarer<LatLngToGeoParameter> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class LatLngToGeoController extends StandaloneEventProcessingDeclarer<LatLngToGeoParameter> {
-
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.SO;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class CreateTrajectoryFromPointsController extends StandaloneEventProcessingDeclarer<CreateTrajectoryFromPointsParameter> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class CreateTrajectoryFromPointsController extends StandaloneEventProcessingDeclarer<CreateTrajectoryFromPointsParameter> {
-
-
+  private static Logger LOG;
 ```
 
 ### MarkedForRemoval
@@ -872,13 +823,49 @@ public class LatLngToGeo implements EventProcessor<LatLngToGeoParameter> {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeo.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPoints.java`
 #### Snippet
 ```java
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
-import org.apache.streampipes.model.runtime.Event;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/speed/SpeedCalculatorParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class SpeedCalculatorParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEpsgController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+
+public class SetEpsgController extends StandaloneEventProcessingDeclarer<SetEpsgParameter> {
+
+  public final static String EPA_NAME = "EPSG Enricher";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/setEPSG/SetEpsgController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import org.apache.streampipes.sdk.utils.Assets;
 
 ```
 
@@ -896,14 +883,74 @@ public class SpeedCalculatorParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/speed/SpeedCalculatorParameters.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocodingParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class SpeedCalculatorParameters extends EventProcessorBindingParams {
+public class GoogleMapsGeocodingParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocodingParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class GoogleMapsGeocodingParameters extends EventProcessorBindingParams {
+
+  private String placeField;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class LatLngToGeoController extends StandaloneEventProcessingDeclarer<LatLngToGeoParameter> {
+
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.Geo;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class LatLngToGeoController extends StandaloneEventProcessingDeclarer<LatLngToGeoParameter> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class CreateTrajectoryFromPointsController extends StandaloneEventProcessingDeclarer<CreateTrajectoryFromPointsParameter> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class CreateTrajectoryFromPointsController extends StandaloneEventProcessingDeclarer<CreateTrajectoryFromPointsParameter> {
+
+
 ```
 
 ### MarkedForRemoval
@@ -931,78 +978,6 @@ public class GoogleMapsGeocodingController extends StandaloneEventProcessingDecl
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPoints.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.Point;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPoints.java`
-#### Snippet
-```java
-
-
-public class CreateTrajectoryFromPoints implements EventProcessor<CreateTrajectoryFromPointsParameter> {
-
-  private static Logger LOG;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocodingParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class GoogleMapsGeocodingParameters extends EventProcessorBindingParams {
-
-  private String placeField;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocodingParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class GoogleMapsGeocodingParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/speed/SpeedCalculatorController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.SO;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-import java.net.URI;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/speed/SpeedCalculatorController.java`
-#### Snippet
-```java
-import java.net.URI;
-
-public class SpeedCalculatorController extends StandaloneEventProcessingDeclarer<SpeedCalculatorParameters> {
-
-  private static final String TIMESTAMP_KEY = "timestamp-key";
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocodingParameters.java`
 #### Snippet
@@ -1024,18 +999,6 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public class ReverseGeocodingParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocodingController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class ReverseGeocodingController extends StandaloneEventProcessingDeclarer<ReverseGeocodingParameters> {
-
-  private static final String LATITUDE_MAPPING = "latitude-mapping";
 ```
 
 ### MarkedForRemoval
@@ -1063,27 +1026,27 @@ public class SpeedCalculator implements EventProcessor<SpeedCalculatorParameters
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocoding.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/speed/SpeedCalculatorController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
+import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-import java.io.ByteArrayInputStream;
+import java.net.URI;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocoding.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/speed/SpeedCalculatorController.java`
 #### Snippet
 ```java
-import java.util.zip.ZipInputStream;
+import java.net.URI;
 
-public class ReverseGeocoding implements EventProcessor<ReverseGeocodingParameters> {
+public class SpeedCalculatorController extends StandaloneEventProcessingDeclarer<SpeedCalculatorParameters> {
 
-  private static final String CITIES_DATASET_URL = "http://download.geonames" +
+  private static final String TIMESTAMP_KEY = "timestamp-key";
 ```
 
 ### MarkedForRemoval
@@ -1099,6 +1062,54 @@ public class ReverseGeocodingController extends StandaloneEventProcessingDeclare
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocodingController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class ReverseGeocodingController extends StandaloneEventProcessingDeclarer<ReverseGeocodingParameters> {
+
+  private static final String LATITUDE_MAPPING = "latitude-mapping";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocoding.java`
+#### Snippet
+```java
+import java.util.zip.ZipInputStream;
+
+public class ReverseGeocoding implements EventProcessor<ReverseGeocodingParameters> {
+
+  private static final String CITIES_DATASET_URL = "http://download.geonames" +
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/revgeocoder/ReverseGeocoding.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.io.ByteArrayInputStream;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class StaticGoogleMapsGeocodingParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingParameters.java`
 #### Snippet
@@ -1108,138 +1119,6 @@ import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams
 public class StaticGoogleMapsGeocodingParameters extends EventProcessorBindingParams {
 
   private String place;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class StaticGoogleMapsGeocodingParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class DistanceCalculatorParameters extends EventProcessorBindingParams {
-
-  public String lat1PropertyName;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class DistanceCalculatorParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculator.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class DistanceCalculator implements EventProcessor<DistanceCalculatorParameters> {
-
-  private DistanceCalculatorParameters params;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculator.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class DistanceCalculator implements EventProcessor<DistanceCalculatorParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocoding.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-public class GoogleMapsGeocoding implements EventProcessor<GoogleMapsGeocodingParameters> {
-
-  private GeoApiContext context;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocoding.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.io.IOException;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class StaticDistanceCalculatorParameters extends EventProcessorBindingParams {
-
-  private String latitudeFieldName;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class StaticDistanceCalculatorParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class StaticGoogleMapsGeocodingController extends StandaloneEventProcessingDeclarer<StaticGoogleMapsGeocodingParameters> {
-
-  private static final String PLACE = "place";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.Geo;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class StaticGoogleMapsGeocodingController extends StandaloneEventProcessingDeclarer<StaticGoogleMapsGeocodingParameters> {
 ```
 
 ### MarkedForRemoval
@@ -1268,6 +1147,150 @@ public class StaticGoogleMapsGeocoder implements EventProcessor<StaticGoogleMaps
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocoding.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class GoogleMapsGeocoding implements EventProcessor<GoogleMapsGeocodingParameters> {
+
+  private GeoApiContext context;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocoding.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.io.IOException;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculator.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class DistanceCalculator implements EventProcessor<DistanceCalculatorParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculator.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class DistanceCalculator implements EventProcessor<DistanceCalculatorParameters> {
+
+  private DistanceCalculatorParameters params;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class DistanceCalculatorParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class DistanceCalculatorParameters extends EventProcessorBindingParams {
+
+  public String lat1PropertyName;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class StaticGoogleMapsGeocodingController extends StandaloneEventProcessingDeclarer<StaticGoogleMapsGeocodingParameters> {
+
+  private static final String PLACE = "place";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocodingController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.Geo;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class StaticGoogleMapsGeocodingController extends StandaloneEventProcessingDeclarer<StaticGoogleMapsGeocodingParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class DistanceCalculatorController extends StandaloneEventProcessingDeclarer<DistanceCalculatorParameters> {
+
+  private static final String LAT_1_KEY = "lat1";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class DistanceCalculatorController extends StandaloneEventProcessingDeclarer<DistanceCalculatorParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class StaticDistanceCalculatorParameters extends EventProcessorBindingParams {
+
+  private String latitudeFieldName;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class StaticDistanceCalculatorParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculator.java`
 #### Snippet
 ```java
@@ -1295,18 +1318,6 @@ public class StaticDistanceCalculator implements EventProcessor<StaticDistanceCa
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.vocabulary.SO;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-import java.net.URI;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorController.java`
-#### Snippet
-```java
 import java.net.URI;
 
 public class StaticDistanceCalculatorController extends StandaloneEventProcessingDeclarer<StaticDistanceCalculatorParameters> {
@@ -1316,50 +1327,26 @@ public class StaticDistanceCalculatorController extends StandaloneEventProcessin
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorController.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticdistancecalculator/StaticDistanceCalculatorController.java`
 #### Snippet
 ```java
 import org.apache.streampipes.vocabulary.SO;
 import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public class DistanceCalculatorController extends StandaloneEventProcessingDeclarer<DistanceCalculatorParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/distancecalculator/DistanceCalculatorController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class DistanceCalculatorController extends StandaloneEventProcessingDeclarer<DistanceCalculatorParameters> {
-
-  private static final String LAT_1_KEY = "lat1";
+import java.net.URI;
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/processor/gridenricher/SpatialGridEnrichmentParameters.java`
+in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/AbstractGeoProgram.java`
 #### Snippet
 ```java
+import org.apache.streampipes.wrapper.flink.FlinkDataProcessorRuntime;
+import org.apache.streampipes.wrapper.flink.FlinkDeploymentConfig;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class SpatialGridEnrichmentParameters extends EventProcessorBindingParams {
-
-  private EnrichmentSettings enrichmentSettings;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/processor/gridenricher/SpatialGridEnrichmentParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class SpatialGridEnrichmentParameters extends EventProcessorBindingParams {
+public abstract class AbstractGeoProgram<B extends EventProcessorBindingParams> extends FlinkDataProcessorRuntime<B> {
 ```
 
 ### MarkedForRemoval
@@ -1376,14 +1363,26 @@ public abstract class AbstractGeoProgram<B extends EventProcessorBindingParams> 
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/AbstractGeoProgram.java`
+in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/processor/gridenricher/SpatialGridEnrichmentParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.flink.FlinkDataProcessorRuntime;
-import org.apache.streampipes.wrapper.flink.FlinkDeploymentConfig;
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public abstract class AbstractGeoProgram<B extends EventProcessorBindingParams> extends FlinkDataProcessorRuntime<B> {
+public class SpatialGridEnrichmentParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/processor/gridenricher/SpatialGridEnrichmentParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class SpatialGridEnrichmentParameters extends EventProcessorBindingParams {
+
+  private EnrichmentSettings enrichmentSettings;
 ```
 
 ### MarkedForRemoval
@@ -1411,6 +1410,30 @@ public class JSEvalParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/jseval/JSEvalController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class JSEvalController extends StandaloneEventProcessingDeclarer<JSEvalParameters> {
+
+    private static final String JS_FUNCTION = "jsFunction";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/jseval/JSEvalController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class JSEvalController extends StandaloneEventProcessingDeclarer<JSEvalParameters> {
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasureParameters.java`
 #### Snippet
@@ -1435,27 +1458,15 @@ public class SizeMeasureParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/jseval/JSEvalController.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasure.java`
 #### Snippet
 ```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import java.io.ObjectOutputStream;
 
-public class JSEvalController extends StandaloneEventProcessingDeclarer<JSEvalParameters> {
-```
+public class SizeMeasure implements EventProcessor<SizeMeasureParameters> {
 
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/jseval/JSEvalController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class JSEvalController extends StandaloneEventProcessingDeclarer<JSEvalParameters> {
-
-    private static final String JS_FUNCTION = "jsFunction";
+  private SizeMeasureParameters sizeMeasureParameters;
 ```
 
 ### MarkedForRemoval
@@ -1472,14 +1483,14 @@ import java.io.ByteArrayOutputStream;
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasure.java`
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/jseval/JSEval.java`
 #### Snippet
 ```java
-import java.io.ObjectOutputStream;
-
-public class SizeMeasure implements EventProcessor<SizeMeasureParameters> {
-
-  private SizeMeasureParameters sizeMeasureParameters;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.Value;
 ```
 
 ### MarkedForRemoval
@@ -1495,30 +1506,6 @@ public class JSEval implements EventProcessor<JSEvalParameters> {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/jseval/JSEval.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-import org.graalvm.polyglot.Context;
-import org.graalvm.polyglot.Value;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasureController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class SizeMeasureController extends StandaloneEventProcessingDeclarer<SizeMeasureParameters> {
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasureController.java`
 #### Snippet
@@ -1531,15 +1518,15 @@ public class SizeMeasureController extends StandaloneEventProcessingDeclarer<Siz
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/AbstractEnricherProgram.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasureController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public abstract class AbstractEnricherProgram<B extends EventProcessorBindingParams> extends FlinkDataProcessorRuntime<B> {
-
-  public AbstractEnricherProgram(B params,
+public class SizeMeasureController extends StandaloneEventProcessingDeclarer<SizeMeasureParameters> {
 ```
 
 ### MarkedForRemoval
@@ -1556,6 +1543,30 @@ public abstract class AbstractEnricherProgram<B extends EventProcessorBindingPar
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/AbstractEnricherProgram.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public abstract class AbstractEnricherProgram<B extends EventProcessorBindingParams> extends FlinkDataProcessorRuntime<B> {
+
+  public AbstractEnricherProgram(B params,
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/processor/timestamp/TimestampParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class TimestampParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/processor/timestamp/TimestampParameters.java`
 #### Snippet
 ```java
@@ -1568,30 +1579,6 @@ public class TimestampParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/processor/timestamp/TimestampParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class TimestampParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/processor/urldereferencing/UrlDereferencingParameter.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class UrlDereferencingParameter extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/processor/urldereferencing/UrlDereferencingParameter.java`
 #### Snippet
 ```java
@@ -1600,6 +1587,18 @@ import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams
 public class UrlDereferencingParameter extends EventProcessorBindingParams {
 
     private String urlString;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/processor/urldereferencing/UrlDereferencingParameter.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class UrlDereferencingParameter extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -1652,30 +1651,6 @@ import java.util.Arrays;
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/filter/NumericalFilterParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.siddhi.query.expression.RelationalOperator;
-
-public class NumericalFilterParameters extends EventProcessorBindingParams {
-
-  private double threshold;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/filter/NumericalFilterParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.siddhi.query.expression.RelationalOperator;
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/trend/TrendParameters.java`
 #### Snippet
 ```java
@@ -1699,15 +1674,27 @@ public class TrendParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/trend/TrendController.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/filter/NumericalFilterParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import org.apache.streampipes.wrapper.siddhi.query.expression.RelationalOperator;
 
-import java.util.List;
+public class NumericalFilterParameters extends EventProcessorBindingParams {
+
+  private double threshold;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/filter/NumericalFilterParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.siddhi.query.expression.RelationalOperator;
+
 ```
 
 ### MarkedForRemoval
@@ -1723,51 +1710,15 @@ public class TrendController extends StandaloneEventProcessingDeclarer<TrendPara
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class SequenceParameters extends EventProcessorBindingParams {
-
-  private int duration;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class SequenceParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class SequenceController extends StandaloneEventProcessingDeclarer<SequenceParameters> {
-
-  private static final String Duration = "duration";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceController.java`
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/trend/TrendController.java`
 #### Snippet
 ```java
 import org.apache.streampipes.sdk.utils.Assets;
 import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public class SequenceController extends StandaloneEventProcessingDeclarer<SequenceParameters> {
+import java.util.List;
 ```
 
 ### MarkedForRemoval
@@ -1796,6 +1747,30 @@ public class NumericalFilterController extends StandaloneEventProcessingDeclarer
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class SequenceParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class SequenceParameters extends EventProcessorBindingParams {
+
+  private int duration;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/frequency/FrequencyParameters.java`
 #### Snippet
 ```java
@@ -1816,6 +1791,30 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public class FrequencyParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class SequenceController extends StandaloneEventProcessingDeclarer<SequenceParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/SequenceController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class SequenceController extends StandaloneEventProcessingDeclarer<SequenceParameters> {
+
+  private static final String Duration = "duration";
 ```
 
 ### MarkedForRemoval
@@ -1888,6 +1887,18 @@ import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
 public class FrequencyChangeController extends StandaloneEventProcessingDeclarer<FrequencyChangeParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/ChunkerParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class ChunkerParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -1900,18 +1911,6 @@ import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams
 public class ChunkerParameters extends EventProcessorBindingParams {
     private String tags;
     private String tokens;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/ChunkerParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class ChunkerParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -1943,6 +1942,18 @@ public class ChunkerController extends StandaloneEventProcessingDeclarer<Chunker
 in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetectionParameters.java`
 #### Snippet
 ```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class LanguageDetectionParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetectionParameters.java`
+#### Snippet
+```java
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public class LanguageDetectionParameters extends EventProcessorBindingParams {
@@ -1952,14 +1963,98 @@ public class LanguageDetectionParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetectionParameters.java`
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class LanguageDetectionParameters extends EventProcessorBindingParams {
+public class TokenizerParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class TokenizerParameters extends EventProcessorBindingParams {
+    private byte[] fileContent;
+    private String detectionName;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/Tokenizer.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.io.ByteArrayInputStream;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/Tokenizer.java`
+#### Snippet
+```java
+import java.io.InputStream;
+
+public class Tokenizer implements EventProcessor<TokenizerParameters> {
+
+  private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerController.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class TokenizerController extends StandaloneEventProcessingDeclarer<TokenizerParameters> {
+
+  private static final String DETECTION_FIELD_KEY = "detectionField";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerController.java`
+#### Snippet
+```java
+import org.apache.streampipes.service.extensions.base.client.StreamPipesClientResolver;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import java.io.IOException;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetection.java`
+#### Snippet
+```java
+import java.io.InputStream;
+
+public class LanguageDetection implements EventProcessor<LanguageDetectionParameters> {
+
+  private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetection.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.io.ByteArrayInputStream;
 ```
 
 ### MarkedForRemoval
@@ -2012,74 +2107,26 @@ import java.io.IOException;
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class TokenizerParameters extends EventProcessorBindingParams {
-    private byte[] fileContent;
-    private String detectionName;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerParameters.java`
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class TokenizerParameters extends EventProcessorBindingParams {
+public class PartOfSpeechParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerController.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.service.extensions.base.client.StreamPipesClientResolver;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-import java.io.IOException;
-```
+public class PartOfSpeechParameters extends EventProcessorBindingParams {
 
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/TokenizerController.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-public class TokenizerController extends StandaloneEventProcessingDeclarer<TokenizerParameters> {
-
-  private static final String DETECTION_FIELD_KEY = "detectionField";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/Tokenizer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.io.ByteArrayInputStream;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/tokenizer/Tokenizer.java`
-#### Snippet
-```java
-import java.io.InputStream;
-
-public class Tokenizer implements EventProcessor<TokenizerParameters> {
-
-  private static Logger LOG;
+    private byte[] fileContent;
 ```
 
 ### MarkedForRemoval
@@ -2108,78 +2155,6 @@ public class LanguageDetectionController extends StandaloneEventProcessingDeclar
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class PartOfSpeechParameters extends EventProcessorBindingParams {
-
-    private byte[] fileContent;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class PartOfSpeechParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetection.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.io.ByteArrayInputStream;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/language/LanguageDetection.java`
-#### Snippet
-```java
-import java.io.InputStream;
-
-public class LanguageDetection implements EventProcessor<LanguageDetectionParameters> {
-
-  private static Logger LOG;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechController.java`
-#### Snippet
-```java
-import org.apache.streampipes.service.extensions.base.client.StreamPipesClientResolver;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-import java.io.IOException;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechController.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-public class PartOfSpeechController extends StandaloneEventProcessingDeclarer<PartOfSpeechParameters> {
-
-  private static final String DETECTION_FIELD_KEY = "detectionField";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/sentencedetection/SentenceDetectionParameters.java`
 #### Snippet
 ```java
@@ -2200,6 +2175,30 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public class SentenceDetectionParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechController.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class PartOfSpeechController extends StandaloneEventProcessingDeclarer<PartOfSpeechParameters> {
+
+  private static final String DETECTION_FIELD_KEY = "detectionField";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeechController.java`
+#### Snippet
+```java
+import org.apache.streampipes.service.extensions.base.client.StreamPipesClientResolver;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import java.io.IOException;
 ```
 
 ### MarkedForRemoval
@@ -2248,6 +2247,30 @@ import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
 import java.io.IOException;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class Chunker implements EventProcessor<ChunkerParameters> {
+
+  private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.io.ByteArrayInputStream;
 ```
 
 ### MarkedForRemoval
@@ -2323,30 +2346,6 @@ public class SentenceDetection implements EventProcessor<SentenceDetectionParame
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.io.ByteArrayInputStream;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class Chunker implements EventProcessor<ChunkerParameters> {
-
-  private static Logger LOG;
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java/org/apache/streampipes/processors/statistics/flink/processor/stat/window/StatisticsSummaryParametersWindow.java`
 #### Snippet
@@ -2396,6 +2395,30 @@ import java.util.List;
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/rate/EventRateParameter.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class EventRateParameter extends EventProcessorBindingParams {
+
+	private Integer avgRate;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/rate/EventRateParameter.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class EventRateParameter extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/AbstractAggregationProgram.java`
 #### Snippet
 ```java
@@ -2420,26 +2443,26 @@ public abstract class AbstractAggregationProgram<B extends EventProcessorBinding
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/rate/EventRateParameter.java`
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/eventcount/EventCountParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class EventRateParameter extends EventProcessorBindingParams {
+public class EventCountParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/rate/EventRateParameter.java`
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/eventcount/EventCountParameters.java`
 #### Snippet
 ```java
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class EventRateParameter extends EventProcessorBindingParams {
+public class EventCountParameters extends EventProcessorBindingParams {
 
-	private Integer avgRate;
+  private Integer timeWindowSize;
 ```
 
 ### MarkedForRemoval
@@ -2468,26 +2491,26 @@ public class CountParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/eventcount/EventCountParameters.java`
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/aggregation/AggregationParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class EventCountParameters extends EventProcessorBindingParams {
+import java.util.List;
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/eventcount/EventCountParameters.java`
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/aggregation/AggregationParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import java.util.List;
 
-public class EventCountParameters extends EventProcessorBindingParams {
+public class AggregationParameters extends EventProcessorBindingParams {
 
-  private Integer timeWindowSize;
+	// timeWindow (true) or countWindow (false)
 ```
 
 ### MarkedForRemoval
@@ -2519,18 +2542,6 @@ public abstract class AbstractTextMiningProgram<B extends EventProcessorBindingP
 in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/processor/language/LanguageDetectionParameters.java`
 #### Snippet
 ```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class LanguageDetectionParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/processor/language/LanguageDetectionParameters.java`
-#### Snippet
-```java
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public class LanguageDetectionParameters extends EventProcessorBindingParams {
@@ -2540,26 +2551,26 @@ public class LanguageDetectionParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/aggregation/AggregationParameters.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class AggregationParameters extends EventProcessorBindingParams {
-
-	// timeWindow (true) or countWindow (false)
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/processor/aggregation/AggregationParameters.java`
+in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/processor/language/LanguageDetectionParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-import java.util.List;
+public class LanguageDetectionParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/processor/wordcount/WordCountParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class WordCountParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -2576,30 +2587,6 @@ public class WordCountParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/processor/wordcount/WordCountParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class WordCountParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class TaskDurationParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationParameters.java`
 #### Snippet
 ```java
@@ -2611,15 +2598,63 @@ public class TaskDurationParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/count/CountArray.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationParameters.java`
 #### Snippet
 ```java
-import java.util.List;
 
-public class CountArray implements EventProcessor<CountArrayParameters> {
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-    private static Logger LOG;
+public class TaskDurationParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDuration.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class TaskDuration implements EventProcessor<TaskDurationParameters> {
+
+  private String taskFieldSelector;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDuration.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class TaskDuration implements EventProcessor<TaskDurationParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class TaskDurationController extends StandaloneEventProcessingDeclarer<TaskDurationParameters> {
+
+  private static final String TASK_FIELD_KEY = "task-field";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class TaskDurationController extends StandaloneEventProcessingDeclarer<TaskDurationParameters> {
 ```
 
 ### MarkedForRemoval
@@ -2632,6 +2667,18 @@ import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
 import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/count/CountArray.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class CountArray implements EventProcessor<CountArrayParameters> {
+
+    private static Logger LOG;
 ```
 
 ### MarkedForRemoval
@@ -2659,27 +2706,27 @@ public class CountArrayParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDuration.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArrayController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public class TaskDuration implements EventProcessor<TaskDurationParameters> {
+import java.util.ArrayList;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDuration.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArrayController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
+import java.util.List;
 
-public class TaskDuration implements EventProcessor<TaskDurationParameters> {
+public class SplitArrayController extends StandaloneEventProcessingDeclarer<SplitArrayParameters>
+        implements ResolvesContainerProvidedOutputStrategy<DataProcessorInvocation, ProcessingElementParameterExtractor> {
 
-  private String taskFieldSelector;
 ```
 
 ### MarkedForRemoval
@@ -2704,30 +2751,6 @@ import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
 public class CountArrayController extends StandaloneEventProcessingDeclarer<CountArrayParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBufferParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-import java.util.List;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBufferParameters.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class StateBufferParameters extends EventProcessorBindingParams {
-    private String timeProperty;
-    private String stateProperty;
 ```
 
 ### MarkedForRemoval
@@ -2759,18 +2782,6 @@ import java.util.List;
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArray.java`
 #### Snippet
 ```java
-import java.util.Map;
-
-public class SplitArray implements EventProcessor<SplitArrayParameters> {
-
-  private static Logger LOG;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArray.java`
-#### Snippet
-```java
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
@@ -2779,27 +2790,15 @@ import java.util.List;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArrayController.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArray.java`
 #### Snippet
 ```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import java.util.Map;
 
-import java.util.ArrayList;
-```
+public class SplitArray implements EventProcessor<SplitArrayParameters> {
 
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/split/SplitArrayController.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class SplitArrayController extends StandaloneEventProcessingDeclarer<SplitArrayParameters>
-        implements ResolvesContainerProvidedOutputStrategy<DataProcessorInvocation, ProcessingElementParameterExtractor> {
-
+  private static Logger LOG;
 ```
 
 ### MarkedForRemoval
@@ -2812,54 +2811,6 @@ import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
 import java.util.List;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBufferController.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class StateBufferController extends StandaloneEventProcessingDeclarer<StateBufferParameters> {
-
-  public static final String TIMESTAMP_FIELD_ID = "timestampId";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class TaskDurationController extends StandaloneEventProcessingDeclarer<TaskDurationParameters> {
-
-  private static final String TASK_FIELD_KEY = "task-field";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/task/TaskDurationController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class TaskDurationController extends StandaloneEventProcessingDeclarer<TaskDurationParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBuffer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.util.*;
 ```
 
 ### MarkedForRemoval
@@ -2876,38 +2827,74 @@ public class StateBuffer implements EventProcessor<StateBufferParameters> {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerController.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBufferController.java`
 #### Snippet
 ```java
-import static org.apache.streampipes.processors.transformation.jvm.processor.state.StateUtils.*;
+import java.util.List;
 
-public class StateBufferLabelerController extends StandaloneEventProcessingDeclarer<StateBufferLabelerParameters> implements ResolvesContainerProvidedOutputStrategy<DataProcessorInvocation, ProcessingElementParameterExtractor> {
+public class StateBufferController extends StandaloneEventProcessingDeclarer<StateBufferParameters> {
 
-  public static final String STATE_FILTER_ID = "stateFilterId";
+  public static final String TIMESTAMP_FIELD_ID = "timestampId";
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerController.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBufferParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.vocabulary.SPSensor;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 import java.util.List;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabelerController.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBuffer.java`
 #### Snippet
 ```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
+import java.util.*;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/buffer/StateBufferParameters.java`
+#### Snippet
+```java
 import java.util.List;
+
+public class StateBufferParameters extends EventProcessorBindingParams {
+    private String timeProperty;
+    private String stateProperty;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabeler.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.util.ArrayList;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabeler.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class NumberLabeler implements EventProcessor<NumberLabelerParameters> {
+
+  private static Logger LOG;
 ```
 
 ### MarkedForRemoval
@@ -2923,15 +2910,15 @@ public class NumberLabelerController extends StandaloneEventProcessingDeclarer<N
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabeler.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabelerController.java`
 #### Snippet
 ```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
 import java.util.List;
-
-public class NumberLabeler implements EventProcessor<NumberLabelerParameters> {
-
-  private static Logger LOG;
 ```
 
 ### MarkedForRemoval
@@ -2948,18 +2935,6 @@ public class StateBufferLabeler implements EventProcessor<StateBufferLabelerPara
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabeler.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.util.ArrayList;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabeler.java`
 #### Snippet
 ```java
@@ -2975,18 +2950,6 @@ import java.util.ArrayList;
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/change/ChangedValueDetection.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class ChangedValueDetection implements EventProcessor<ChangedValueDetectionParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/change/ChangedValueDetection.java`
-#### Snippet
-```java
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
 public class ChangedValueDetection implements EventProcessor<ChangedValueDetectionParameters> {
@@ -2995,15 +2958,15 @@ public class ChangedValueDetection implements EventProcessor<ChangedValueDetecti
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/change/ChangedValueDetectionParameters.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/change/ChangedValueDetection.java`
 #### Snippet
 ```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class ChangedValueDetectionParameters extends EventProcessorBindingParams {
+public class ChangedValueDetection implements EventProcessor<ChangedValueDetectionParameters> {
 ```
 
 ### MarkedForRemoval
@@ -3020,14 +2983,38 @@ public class ChangedValueDetectionParameters extends EventProcessorBindingParams
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDurationParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/change/ChangedValueDetectionParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class CalculateDurationParameters extends EventProcessorBindingParams {
+public class ChangedValueDetectionParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.SPSensor;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerController.java`
+#### Snippet
+```java
+import static org.apache.streampipes.processors.transformation.jvm.processor.state.StateUtils.*;
+
+public class StateBufferLabelerController extends StandaloneEventProcessingDeclarer<StateBufferLabelerParameters> implements ResolvesContainerProvidedOutputStrategy<DataProcessorInvocation, ProcessingElementParameterExtractor> {
+
+  public static final String STATE_FILTER_ID = "stateFilterId";
 ```
 
 ### MarkedForRemoval
@@ -3043,27 +3030,15 @@ public class CalculateDurationParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDuration.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDurationParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-public class CalculateDuration implements EventProcessor<CalculateDurationParameters> {
-```
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDuration.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class CalculateDuration implements EventProcessor<CalculateDurationParameters> {
-
-  private static Logger LOG;
+public class CalculateDurationParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -3095,18 +3070,6 @@ public class ChangedValueDetectionController extends StandaloneEventProcessingDe
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDurationController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class CalculateDurationController extends StandaloneEventProcessingDeclarer<CalculateDurationParameters> {
-
-  public static final String START_TS_FIELD_ID = "start-ts";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDurationController.java`
-#### Snippet
-```java
 import org.apache.streampipes.vocabulary.SO;
 import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
@@ -3115,8 +3078,44 @@ public class CalculateDurationController extends StandaloneEventProcessingDeclar
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDurationController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class CalculateDurationController extends StandaloneEventProcessingDeclarer<CalculateDurationParameters> {
+
+  public static final String START_TS_FIELD_ID = "start-ts";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDuration.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class CalculateDuration implements EventProcessor<CalculateDurationParameters> {
+
+  private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/value/duration/CalculateDuration.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class CalculateDuration implements EventProcessor<CalculateDurationParameters> {
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichmentParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabelerParameters.java`
 #### Snippet
 ```java
 
@@ -3124,6 +3123,18 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabelerParameters.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class NumberLabelerParameters extends EventProcessorBindingParams {
+
+    private String sensorListValueProperty;
 ```
 
 ### MarkedForRemoval
@@ -3136,6 +3147,18 @@ import java.util.List;
 public class CsvMetadataEnrichmentParameters extends EventProcessorBindingParams {
 
   private String mappingFieldSelector;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichmentParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+import java.util.List;
 ```
 
 ### MarkedForRemoval
@@ -3163,27 +3186,51 @@ public class SignalEdgeFilterParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerParameters.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToState.java`
 #### Snippet
 ```java
+import java.util.Map;
 
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+public class BooleanToState implements EventProcessor<BooleanToStateParameters> {
 
-import java.util.List;
+  private static Logger LOG;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerParameters.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToState.java`
 #### Snippet
 ```java
-import java.util.List;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-public class StateBufferLabelerParameters extends EventProcessorBindingParams {
+import java.util.ArrayList;
+```
 
-    private String sensorListValueProperty;
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/edge/SignalEdgeFilterController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class SignalEdgeFilterController extends StandaloneEventProcessingDeclarer<SignalEdgeFilterParameters> {
+
+  public static final String BOOLEAN_SIGNAL_FIELD = "boolean_signal_field";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/edge/SignalEdgeFilterController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class SignalEdgeFilterController extends StandaloneEventProcessingDeclarer<SignalEdgeFilterParameters> {
 ```
 
 ### MarkedForRemoval
@@ -3211,18 +3258,6 @@ public class SignalEdgeFilter implements EventProcessor<SignalEdgeFilterParamete
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/edge/SignalEdgeFilterController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class SignalEdgeFilterController extends StandaloneEventProcessingDeclarer<SignalEdgeFilterParameters> {
-
-  public static final String BOOLEAN_SIGNAL_FIELD = "boolean_signal_field";
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimerParameters.java`
 #### Snippet
@@ -3235,18 +3270,6 @@ public class BooleanTimerParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/edge/SignalEdgeFilterController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class SignalEdgeFilterController extends StandaloneEventProcessingDeclarer<SignalEdgeFilterParameters> {
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimerParameters.java`
 #### Snippet
@@ -3260,19 +3283,19 @@ public class BooleanTimerParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabelerParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerParameters.java`
 #### Snippet
 ```java
 import java.util.List;
 
-public class NumberLabelerParameters extends EventProcessorBindingParams {
+public class StateBufferLabelerParameters extends EventProcessorBindingParams {
 
     private String sensorListValueProperty;
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/number/NumberLabelerParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/buffer/StateBufferLabelerParameters.java`
 #### Snippet
 ```java
 
@@ -3280,6 +3303,78 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimer.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class BooleanTimer implements EventProcessor<BooleanTimerParameters> {
+
+  private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimer.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class BooleanTimer implements EventProcessor<BooleanTimerParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichment.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.io.IOException;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichment.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class CsvMetadataEnrichment implements EventProcessor<CsvMetadataEnrichmentParameters> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(CsvMetadataEnrichment.class);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class BooleanCounterParameters extends EventProcessorBindingParams {
+    private String invertFieldName;
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class BooleanCounterParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -3307,90 +3402,6 @@ public class BooleanToStateController extends StandaloneEventProcessingDeclarer<
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToState.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.util.ArrayList;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToState.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class BooleanToState implements EventProcessor<BooleanToStateParameters> {
-
-  private static Logger LOG;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class BooleanCounterParameters extends EventProcessorBindingParams {
-    private String invertFieldName;
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class BooleanCounterParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimerController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class BooleanTimerController extends StandaloneEventProcessingDeclarer<BooleanTimerParameters> {
-
-  public static final String FIELD_ID = "field";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichment.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class CsvMetadataEnrichment implements EventProcessor<CsvMetadataEnrichmentParameters> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(CsvMetadataEnrichment.class);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichment.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.io.IOException;
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimerController.java`
 #### Snippet
@@ -3403,63 +3414,15 @@ public class BooleanTimerController extends StandaloneEventProcessingDeclarer<Bo
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class BooleanTimer implements EventProcessor<BooleanTimerParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class BooleanTimer implements EventProcessor<BooleanTimerParameters> {
-
-  private static Logger LOG;
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class BooleanCounterController extends StandaloneEventProcessingDeclarer<BooleanCounterParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterController.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timer/BooleanTimerController.java`
 #### Snippet
 ```java
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-public class BooleanCounterController extends StandaloneEventProcessingDeclarer<BooleanCounterParameters> {
+public class BooleanTimerController extends StandaloneEventProcessingDeclarer<BooleanTimerParameters> {
 
   public static final String FIELD_ID = "field";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounter.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class BooleanCounter implements EventProcessor<BooleanCounterParameters> {
 ```
 
 ### MarkedForRemoval
@@ -3475,6 +3438,66 @@ public class BooleanCounter implements EventProcessor<BooleanCounterParameters> 
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounter.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class BooleanCounter implements EventProcessor<BooleanCounterParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class BooleanCounterController extends StandaloneEventProcessingDeclarer<BooleanCounterParameters> {
+
+  public static final String FIELD_ID = "field";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/counter/BooleanCounterController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class BooleanCounterController extends StandaloneEventProcessingDeclarer<BooleanCounterParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToStateParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToStateParameters.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class BooleanToStateParameters extends EventProcessorBindingParams {
+    private List<String> stateFields;
+    private String defaultState;
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/inverter/BooleanInverterParameters.java`
 #### Snippet
@@ -3503,18 +3526,6 @@ public class BooleanInverterParameters extends EventProcessorBindingParams {
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/inverter/BooleanInverter.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class BooleanInverter implements EventProcessor<BooleanInverterParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/inverter/BooleanInverter.java`
-#### Snippet
-```java
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
 public class BooleanInverter implements EventProcessor<BooleanInverterParameters> {
@@ -3524,26 +3535,14 @@ public class BooleanInverter implements EventProcessor<BooleanInverterParameters
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeeping.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/inverter/BooleanInverter.java`
 #### Snippet
 ```java
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-import java.util.LinkedList;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeeping.java`
-#### Snippet
-```java
-import java.util.LinkedList;
-
-public class BooleanTimekeeping implements EventProcessor<BooleanTimekeepingParameters> {
-
-    private static Logger LOG;
+public class BooleanInverter implements EventProcessor<BooleanInverterParameters> {
 ```
 
 ### MarkedForRemoval
@@ -3595,54 +3594,6 @@ public class BooleanTimekeepingParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimerParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class StringTimerParameters extends EventProcessorBindingParams {
-    private String fieldName;
-    private double outputDivisor;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimerParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class StringTimerParameters extends EventProcessorBindingParams {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToStateController.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class StringToStateController extends StandaloneEventProcessingDeclarer<StringToStateParameters> {
-
-  public static final String STRING_STATE_FIELD = "string_state_field";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToStateController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.SPSensor;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-import java.util.List;
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeepingController.java`
 #### Snippet
@@ -3691,6 +3642,54 @@ public class StringToState implements EventProcessor<StringToStateParameters> {
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeeping.java`
+#### Snippet
+```java
+import java.util.LinkedList;
+
+public class BooleanTimekeeping implements EventProcessor<BooleanTimekeepingParameters> {
+
+    private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeeping.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.util.LinkedList;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimerParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class StringTimerParameters extends EventProcessorBindingParams {
+    private String fieldName;
+    private double outputDivisor;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimerParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class StringTimerParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichmentController.java`
 #### Snippet
@@ -3715,44 +3714,32 @@ public class CsvMetadataEnrichmentController
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/counter/StringCounterParameters.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToStateController.java`
 #### Snippet
 ```java
+import java.util.List;
 
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+public class StringToStateController extends StandaloneEventProcessingDeclarer<StringToStateParameters> {
 
-public class StringCounterParameters extends EventProcessorBindingParams {
+  public static final String STRING_STATE_FIELD = "string_state_field";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToStateController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.SPSensor;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import java.util.List;
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/counter/StringCounterParameters.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-public class StringCounterParameters extends EventProcessorBindingParams {
-    private String selectedFieldName;
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToStateParameters.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class BooleanToStateParameters extends EventProcessorBindingParams {
-    private List<String> stateFields;
-    private String defaultState;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToStateParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToStateParameters.java`
 #### Snippet
 ```java
 
@@ -3760,30 +3747,6 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 import java.util.List;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class StringTimer implements EventProcessor<StringTimerParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-public class StringTimer implements EventProcessor<StringTimerParameters> {
-
-  private static Logger LOG;
 ```
 
 ### MarkedForRemoval
@@ -3800,38 +3763,26 @@ public class StringToStateParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToStateParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/counter/StringCounterParameters.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+public class StringCounterParameters extends EventProcessorBindingParams {
+    private String selectedFieldName;
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/counter/StringCounterParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-import java.util.List;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorParameters.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TimestampExtractorParameters extends EventProcessorBindingParams {
-
-    private String timestampField;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-import java.util.List;
+public class StringCounterParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
@@ -3860,14 +3811,26 @@ public class StringCounterController extends StandaloneEventProcessingDeclarer<S
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/counter/StringCounter.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimer.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+public class StringTimer implements EventProcessor<StringTimerParameters> {
+
+  private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/timer/StringTimer.java`
 #### Snippet
 ```java
 import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-import java.util.HashMap;
+public class StringTimer implements EventProcessor<StringTimerParameters> {
 ```
 
 ### MarkedForRemoval
@@ -3883,27 +3846,15 @@ public class StringCounter implements EventProcessor<StringCounterParameters> {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBooleanParameters.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/counter/StringCounter.java`
 #### Snippet
 ```java
-import java.util.List;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-public class TransformToBooleanParameters extends EventProcessorBindingParams {
-    private List<String> transformFields;
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBooleanParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-import java.util.List;
+import java.util.HashMap;
 ```
 
 ### MarkedForRemoval
@@ -3931,13 +3882,73 @@ public class StringTimerController extends StandaloneEventProcessingDeclarer<Str
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBooleanController.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorParameters.java`
 #### Snippet
 ```java
-import org.apache.streampipes.sdk.utils.Datatypes;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+import java.util.List;
+
+public class TimestampExtractorParameters extends EventProcessorBindingParams {
+
+    private String timestampField;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBooleanParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBooleanParameters.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class TransformToBooleanParameters extends EventProcessorBindingParams {
+    private List<String> transformFields;
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBoolean.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class TransformToBoolean implements EventProcessor<TransformToBooleanParameters> {
+
+    private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBoolean.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
 import java.util.List;
 ```
@@ -3955,35 +3966,11 @@ public class TransformToBooleanController
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBoolean.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.util.List;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBoolean.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TransformToBoolean implements EventProcessor<TransformToBooleanParameters> {
-
-    private static Logger LOG;
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorController.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/transformtoboolean/TransformToBooleanController.java`
 #### Snippet
 ```java
-import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.sdk.utils.Datatypes;
 import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
@@ -4003,27 +3990,15 @@ public class TimestampExtractorController extends StandaloneEventProcessingDecla
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumParameters.java`
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorController.java`
 #### Snippet
 ```java
+import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
 
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-@Deprecated(since = "0.70.0", forRemoval = true)
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumParameters.java`
-#### Snippet
-```java
-
-@Deprecated(since = "0.70.0", forRemoval = true)
-public class CusumParameters  extends EventProcessorBindingParams {
-
-    private String selectedNumberMapping;
+import java.util.List;
 ```
 
 ### MarkedForRemoval
@@ -4051,6 +4026,126 @@ in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+@Deprecated(since = "0.70.0", forRemoval = true)
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumParameters.java`
+#### Snippet
+```java
+
+@Deprecated(since = "0.70.0", forRemoval = true)
+public class CusumParameters  extends EventProcessorBindingParams {
+
+    private String selectedNumberMapping;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractor.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class TimestampExtractor implements EventProcessor<TimestampExtractorParameters> {
+
+    private static Logger LOG;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractor.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.util.Calendar;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+
+    @Override
+    public void onInvocation(CusumParameters parameters, SpOutputCollector spOutputCollector, EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
+        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
+        k = parameters.getParamK();
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    @Override
+    public void onInvocation(CusumParameters parameters, SpOutputCollector spOutputCollector, EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
+        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
+        k = parameters.getParamK();
+        h = parameters.getParamH();
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    public void onInvocation(CusumParameters parameters, SpOutputCollector spOutputCollector, EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
+        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
+        k = parameters.getParamK();
+        h = parameters.getParamH();
+        cusumLow = 0.0;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
+        k = parameters.getParamK();
+        h = parameters.getParamH();
+        cusumLow = 0.0;
+        cusumHigh = 0.0;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        cusumLow = 0.0;
+        cusumHigh = 0.0;
+        welfordAggregate = new WelfordAggregate();
+    }
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        cusumHigh = 0.0;
+        cusumLow = 0.0;
+        welfordAggregate = new WelfordAggregate();
+    }
+
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
 #### Snippet
@@ -4063,6 +4158,18 @@ public class CusumController extends StandaloneEventProcessingDeclarer<CusumPara
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+
+    private Double getZScoreNormalizedValue(Double value) {
+        Double mean = welfordAggregate.getMean();
+        Double std = welfordAggregate.getSampleStd();
+        return (value - mean) / std;
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
 #### Snippet
@@ -4072,6 +4179,210 @@ in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/
 public class CusumController extends StandaloneEventProcessingDeclarer<CusumParameters> {
 
     private static final String NUMBER_MAPPING = "number-mapping";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    private Double getZScoreNormalizedValue(Double value) {
+        Double mean = welfordAggregate.getMean();
+        Double std = welfordAggregate.getSampleStd();
+        return (value - mean) / std;
+    }
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.SO;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import java.util.Arrays;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    public void onEvent(Event event, SpOutputCollector collector) throws SpRuntimeException {
+        Double number = event.getFieldBySelector(selectedNumberMapping).getAsPrimitive().getAsDouble();
+        welfordAggregate.update(number);  // update mean and standard deviation
+        Double normalized = getZScoreNormalizedValue(number);
+        updateStatistics(normalized);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                        OutputStrategies.append(
+                                Arrays.asList(
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+@Deprecated(since="0.70.0", forRemoval = true)
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                        OutputStrategies.append(
+                                Arrays.asList(
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+
+    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
+        event.addField(CusumEventFields.VAL_LOW, cusumLow);
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                                Arrays.asList(
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+
+    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
+        event.addField(CusumEventFields.VAL_LOW, cusumLow);
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                                Arrays.asList(
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
+        event.addField(CusumEventFields.VAL_LOW, cusumLow);
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
+                                )
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
+                                )
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
+        event.addField(CusumEventFields.VAL_LOW, cusumLow);
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
+                                )
+                        ))
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+#### Snippet
+```java
+                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
+                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
+                                )
+                        ))
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        event.addField(CusumEventFields.VAL_LOW, cusumLow);
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
+        return event;
 ```
 
 ### MarkedForRemoval
@@ -4099,6 +4410,78 @@ in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        event.addField(CusumEventFields.VAL_LOW, cusumLow);
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
+        return event;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
+        return event;
+    }
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
+        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
+        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
+        return event;
+    }
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+
+@Deprecated(since="0.70.0", forRemoval = true)
+public class Cusum implements EventProcessor<CusumParameters> {
+
+    private String selectedNumberMapping;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+
+@Deprecated(since="0.70.0", forRemoval = true)
+public class Cusum implements EventProcessor<CusumParameters> {
+
+    private String selectedNumberMapping;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
+#### Snippet
+```java
+    private Double cusumLow;
+    private Double cusumHigh;
+    private WelfordAggregate welfordAggregate;
+
+    @Override
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
 #### Snippet
@@ -4135,135 +4518,15 @@ in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReaderParameters.java`
 #### Snippet
 ```java
-                        OutputStrategies.append(
-                                Arrays.asList(
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-```
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                        OutputStrategies.append(
-                                Arrays.asList(
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-```
+public class QrCodeReaderParameters extends EventProcessorBindingParams {
 
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                                Arrays.asList(
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                                Arrays.asList(
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
-                                )
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_LOW, SO.Number),
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
-                                )
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
-                                )
-                        ))
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-                                        EpProperties.numberEp(Labels.empty(), CusumEventFields.VAL_HIGH, SO.Number),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_LOW, SO.Boolean),
-                                        EpProperties.booleanEp(Labels.empty(), CusumEventFields.DECISION_HIGH, SO.Boolean)
-                                )
-                        ))
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/CusumController.java`
-#### Snippet
-```java
-import org.apache.streampipes.vocabulary.SO;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-import java.util.Arrays;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractor.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.util.Calendar;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractor.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TimestampExtractor implements EventProcessor<TimestampExtractorParameters> {
-
-    private static Logger LOG;
+  private String imagePropertyName;
 ```
 
 ### MarkedForRemoval
@@ -4280,302 +4543,26 @@ public class QrCodeReaderParameters extends EventProcessorBindingParams {
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReaderParameters.java`
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/PlainImageTransformer.java`
 #### Snippet
 ```java
+import javax.imageio.ImageIO;
+
+public class PlainImageTransformer<T extends EventProcessorBindingParams> {
+
+  protected Event in;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/PlainImageTransformer.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.runtime.Event;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class QrCodeReaderParameters extends EventProcessorBindingParams {
-
-  private String imagePropertyName;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    public void onEvent(Event event, SpOutputCollector collector) throws SpRuntimeException {
-        Double number = event.getFieldBySelector(selectedNumberMapping).getAsPrimitive().getAsDouble();
-        welfordAggregate.update(number);  // update mean and standard deviation
-        Double normalized = getZScoreNormalizedValue(number);
-        updateStatistics(normalized);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    private Double cusumLow;
-    private Double cusumHigh;
-    private WelfordAggregate welfordAggregate;
-
-    @Override
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        cusumHigh = 0.0;
-        cusumLow = 0.0;
-        welfordAggregate = new WelfordAggregate();
-    }
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-
-    private Double getZScoreNormalizedValue(Double value) {
-        Double mean = welfordAggregate.getMean();
-        Double std = welfordAggregate.getSampleStd();
-        return (value - mean) / std;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    private Double getZScoreNormalizedValue(Double value) {
-        Double mean = welfordAggregate.getMean();
-        Double std = welfordAggregate.getSampleStd();
-        return (value - mean) / std;
-    }
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-
-    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
-        event.addField(CusumEventFields.VAL_LOW, cusumLow);
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-
-    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
-        event.addField(CusumEventFields.VAL_LOW, cusumLow);
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
-        event.addField(CusumEventFields.VAL_LOW, cusumLow);
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    private Event updateEvent(Event event, Double cusumLow, Double cusumHigh, Boolean decisionLow, Boolean decisionHigh) {
-        event.addField(CusumEventFields.VAL_LOW, cusumLow);
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        event.addField(CusumEventFields.VAL_LOW, cusumLow);
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
-        return event;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        event.addField(CusumEventFields.VAL_LOW, cusumLow);
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
-        return event;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
-        return event;
-    }
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        event.addField(CusumEventFields.VAL_HIGH, cusumHigh);
-        event.addField(CusumEventFields.DECISION_LOW, decisionLow);
-        event.addField(CusumEventFields.DECISION_HIGH, decisionHigh);
-        return event;
-    }
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-
-@Deprecated(since="0.70.0", forRemoval = true)
-public class Cusum implements EventProcessor<CusumParameters> {
-
-    private String selectedNumberMapping;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-
-@Deprecated(since="0.70.0", forRemoval = true)
-public class Cusum implements EventProcessor<CusumParameters> {
-
-    private String selectedNumberMapping;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-
-    @Override
-    public void onInvocation(CusumParameters parameters, SpOutputCollector spOutputCollector, EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
-        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
-        k = parameters.getParamK();
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    @Override
-    public void onInvocation(CusumParameters parameters, SpOutputCollector spOutputCollector, EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
-        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
-        k = parameters.getParamK();
-        h = parameters.getParamH();
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-    public void onInvocation(CusumParameters parameters, SpOutputCollector spOutputCollector, EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
-        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
-        k = parameters.getParamK();
-        h = parameters.getParamH();
-        cusumLow = 0.0;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumParameters' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        this.selectedNumberMapping = parameters.getSelectedNumberMapping();
-        k = parameters.getParamK();
-        h = parameters.getParamH();
-        cusumLow = 0.0;
-        cusumHigh = 0.0;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.WelfordAggregate' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-        cusumLow = 0.0;
-        cusumHigh = 0.0;
-        welfordAggregate = new WelfordAggregate();
-    }
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/cusum/Cusum.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-@Deprecated(since="0.70.0", forRemoval = true)
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/welford/WelfordChangeDetection.java`
-#### Snippet
-```java
-import org.apache.streampipes.model.runtime.Event;
-import org.apache.streampipes.model.schema.PropertyScope;
-import org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields;
-import org.apache.streampipes.sdk.builder.ProcessingElementBuilder;
-import org.apache.streampipes.sdk.builder.StreamRequirementsBuilder;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReaderController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class QrCodeReaderController extends StandaloneEventProcessingDeclarer<QrCodeReaderParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReaderController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class QrCodeReaderController extends StandaloneEventProcessingDeclarer<QrCodeReaderParameters> {
-
-  private static final String PLACEHOLDER_VALUE = "placeholder-value";
+import java.awt.image.BufferedImage;
 ```
 
 ### MarkedForRemoval
@@ -4603,6 +4590,54 @@ import static org.apache.streampipes.processors.imageprocessing.jvm.processor.co
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReaderController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class QrCodeReaderController extends StandaloneEventProcessingDeclarer<QrCodeReaderParameters> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReaderController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class QrCodeReaderController extends StandaloneEventProcessingDeclarer<QrCodeReaderParameters> {
+
+  private static final String PLACEHOLDER_VALUE = "placeholder-value";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imagecropper/ImageCropper.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+public class ImageCropper implements EventProcessor<ImageCropperParameters> {
+
+  private ImageCropperParameters params;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imagecropper/ImageCropper.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
+
+import java.awt.image.BufferedImage;
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnrichmentParameters.java`
 #### Snippet
@@ -4627,51 +4662,15 @@ public class ImageEnrichmentParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/PlainImageTransformer.java`
+'org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-change-detection-jvm/src/main/java/org/apache/streampipes/processors/changedetection/jvm/welford/WelfordChangeDetection.java`
 #### Snippet
 ```java
-
 import org.apache.streampipes.model.runtime.Event;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-import java.awt.image.BufferedImage;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/PlainImageTransformer.java`
-#### Snippet
-```java
-import javax.imageio.ImageIO;
-
-public class PlainImageTransformer<T extends EventProcessorBindingParams> {
-
-  protected Event in;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imagecropper/ImageCropper.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.awt.image.BufferedImage;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imagecropper/ImageCropper.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-public class ImageCropper implements EventProcessor<ImageCropperParameters> {
-
-  private ImageCropperParameters params;
+import org.apache.streampipes.model.schema.PropertyScope;
+import org.apache.streampipes.processors.changedetection.jvm.cusum.CusumEventFields;
+import org.apache.streampipes.sdk.builder.ProcessingElementBuilder;
+import org.apache.streampipes.sdk.builder.StreamRequirementsBuilder;
 ```
 
 ### MarkedForRemoval
@@ -4699,78 +4698,6 @@ public class GenericImageClassificationParameters extends EventProcessorBindingP
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnrichmentController.java`
-#### Snippet
-```java
-import static org.apache.streampipes.processors.imageprocessing.jvm.processor.commons.RequiredBoxStream.IMAGE_PROPERTY;
-
-public class ImageEnrichmentController extends StandaloneEventProcessingDeclarer<ImageEnrichmentParameters> {
-
-  @Override
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnrichmentController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-import static org.apache.streampipes.processors.imageprocessing.jvm.processor.commons.RequiredBoxStream.IMAGE_PROPERTY;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/genericclassification/GenericImageClassificationController.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Assets;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class GenericImageClassificationController extends StandaloneEventProcessingDeclarer<GenericImageClassificationParameters> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/genericclassification/GenericImageClassificationController.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
-
-public class GenericImageClassificationController extends StandaloneEventProcessingDeclarer<GenericImageClassificationParameters> {
-
-  private static final String IMAGE = "image-mapping";
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnricher.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.routing.SpOutputCollector;
-import org.apache.streampipes.wrapper.runtime.EventProcessor;
-
-import java.awt.*;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnricher.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-public class ImageEnricher implements EventProcessor<ImageEnrichmentParameters> {
-
-  private ImageEnrichmentParameters params;
-```
-
-### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
 in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/qrreader/QrCodeReader.java`
 #### Snippet
@@ -4792,6 +4719,54 @@ import org.apache.streampipes.wrapper.routing.SpOutputCollector;
 import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
 import java.awt.image.BufferedImage;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnrichmentController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+import static org.apache.streampipes.processors.imageprocessing.jvm.processor.commons.RequiredBoxStream.IMAGE_PROPERTY;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnrichmentController.java`
+#### Snippet
+```java
+import static org.apache.streampipes.processors.imageprocessing.jvm.processor.commons.RequiredBoxStream.IMAGE_PROPERTY;
+
+public class ImageEnrichmentController extends StandaloneEventProcessingDeclarer<ImageEnrichmentParameters> {
+
+  @Override
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/genericclassification/GenericImageClassificationController.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class GenericImageClassificationController extends StandaloneEventProcessingDeclarer<GenericImageClassificationParameters> {
+
+  private static final String IMAGE = "image-mapping";
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/genericclassification/GenericImageClassificationController.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Assets;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer;
+
+public class GenericImageClassificationController extends StandaloneEventProcessingDeclarer<GenericImageClassificationParameters> {
 ```
 
 ### MarkedForRemoval
@@ -4819,27 +4794,27 @@ public class GenericImageClassification implements EventProcessor<GenericImageCl
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasherParameters.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnricher.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import java.util.Optional;
 
-public class FieldHasherParameters extends EventProcessorBindingParams {
-	
-	private String propertyName;
+public class ImageEnricher implements EventProcessor<ImageEnrichmentParameters> {
+
+  private ImageEnrichmentParameters params;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasherParameters.java`
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnricher.java`
 #### Snippet
 ```java
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.processors.transformation.flink.processor.hasher.algorithm.HashAlgorithmType;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
+import org.apache.streampipes.wrapper.routing.SpOutputCollector;
+import org.apache.streampipes.wrapper.runtime.EventProcessor;
 
-public class FieldHasherParameters extends EventProcessorBindingParams {
+import java.awt.*;
 ```
 
 ### MarkedForRemoval
@@ -4868,26 +4843,26 @@ public abstract class AbstractFlinkTransformationProgram<B extends EventProcesso
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/mapper/FieldMapperParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasherParameters.java`
 #### Snippet
 ```java
-import java.util.List;
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.processors.transformation.flink.processor.hasher.algorithm.HashAlgorithmType;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-public class FieldMapperParameters extends EventProcessorBindingParams {
-
-  private List<String> replacePropertyNames;
+public class FieldHasherParameters extends EventProcessorBindingParams {
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/mapper/FieldMapperParameters.java`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasherParameters.java`
 #### Snippet
 ```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-import java.util.List;
+public class FieldHasherParameters extends EventProcessorBindingParams {
+	
+	private String propertyName;
 ```
 
 ### MarkedForRemoval
@@ -4912,6 +4887,30 @@ import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public class FieldRenamerParameters extends EventProcessorBindingParams {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/mapper/FieldMapperParameters.java`
+#### Snippet
+```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+import java.util.List;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/mapper/FieldMapperParameters.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class FieldMapperParameters extends EventProcessorBindingParams {
+
+  private List<String> replacePropertyNames;
 ```
 
 ### MarkedForRemoval
@@ -5015,6 +5014,18 @@ public abstract class AbstractPatternDetectionProgram<B extends EventProcessorBi
 in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/peak/PeakDetectionParameters.java`
 #### Snippet
 ```java
+
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+
+import java.io.Serializable;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/peak/PeakDetectionParameters.java`
+#### Snippet
+```java
  * Created by riemer on 20.04.2017.
  */
 public class PeakDetectionParameters extends EventProcessorBindingParams implements Serializable {
@@ -5024,14 +5035,14 @@ public class PeakDetectionParameters extends EventProcessorBindingParams impleme
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/peak/PeakDetectionParameters.java`
+in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/and/AndParameters.java`
 #### Snippet
 ```java
 
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
-import java.io.Serializable;
+import java.util.List;
 ```
 
 ### MarkedForRemoval
@@ -5044,30 +5055,6 @@ import java.util.List;
 public class AndParameters extends EventProcessorBindingParams {
 
   private TimeUnit timeUnit;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/and/AndParameters.java`
-#### Snippet
-```java
-
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-
-import java.util.List;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/absence/AbsenceParameters.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class AbsenceParameters extends EventProcessorBindingParams {
-
-	private static final long serialVersionUID = 4319341875274736697L;
 ```
 
 ### MarkedForRemoval
@@ -5099,6 +5086,18 @@ public class SequenceParameters extends EventProcessorBindingParams {
 in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/absence/AbsenceParameters.java`
 #### Snippet
 ```java
+import java.util.List;
+
+public class AbsenceParameters extends EventProcessorBindingParams {
+
+	private static final long serialVersionUID = 4319341875274736697L;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/processor/absence/AbsenceParameters.java`
+#### Snippet
+```java
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
 import org.apache.streampipes.processors.pattern.detection.flink.processor.and.TimeUnit;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
@@ -5111,11 +5110,11 @@ import java.util.ArrayList;
 in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/FlinkDataProcessorDeclarer.java`
 #### Snippet
 ```java
+
+import org.apache.streampipes.wrapper.declarer.EventProcessorDeclarer;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public abstract class FlinkDataProcessorDeclarer<B extends EventProcessorBindingParams>
-        extends EventProcessorDeclarer<B, FlinkDataProcessorRuntime<B>> {
-
 ```
 
 ### MarkedForRemoval
@@ -5123,11 +5122,11 @@ public abstract class FlinkDataProcessorDeclarer<B extends EventProcessorBinding
 in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/FlinkDataProcessorDeclarer.java`
 #### Snippet
 ```java
-
-import org.apache.streampipes.wrapper.declarer.EventProcessorDeclarer;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 
 public abstract class FlinkDataProcessorDeclarer<B extends EventProcessorBindingParams>
+        extends EventProcessorDeclarer<B, FlinkDataProcessorRuntime<B>> {
+
 ```
 
 ### MarkedForRemoval
@@ -5315,18 +5314,6 @@ import org.apache.streampipes.wrapper.siddhi.utils.SiddhiUtils;
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/EventTypeGenerator.java`
 #### Snippet
 ```java
-import java.util.concurrent.atomic.AtomicReference;
-
-public class EventTypeGenerator<B extends EventProcessorBindingParams> {
-
-  private B params;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/EventTypeGenerator.java`
-#### Snippet
-```java
   public List<EventPropertyDef> generateOutEventTypes() {
     List<EventPropertyDef> sortedEventKeys = new ArrayList<>();
     params.getOutEventType().forEach((key, value) -> {
@@ -5339,46 +5326,22 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/EventTypeGenerator.java`
 #### Snippet
 ```java
+import java.util.concurrent.atomic.AtomicReference;
+
+public class EventTypeGenerator<B extends EventProcessorBindingParams> {
+
+  private B params;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/EventTypeGenerator.java`
+#### Snippet
+```java
 package org.apache.streampipes.wrapper.siddhi.engine.generator;
 
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
 import org.apache.streampipes.wrapper.siddhi.constants.SiddhiConstants;
-import org.apache.streampipes.wrapper.siddhi.model.EventPropertyDef;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiAppGenerator.java`
-#### Snippet
-```java
-import java.util.StringJoiner;
-
-public class SiddhiAppGenerator<B extends EventProcessorBindingParams> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(SiddhiAppGenerator.class);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiAppGenerator.java`
-#### Snippet
-```java
-package org.apache.streampipes.wrapper.siddhi.engine.generator;
-
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.siddhi.SiddhiAppConfig;
-import org.apache.streampipes.wrapper.siddhi.model.SiddhiProcessorParams;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiInvocationConfigGenerator.java`
-#### Snippet
-```java
-package org.apache.streampipes.wrapper.siddhi.engine.generator;
-
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.siddhi.SiddhiAppConfig;
 import org.apache.streampipes.wrapper.siddhi.model.EventPropertyDef;
 ```
 
@@ -5399,23 +5362,23 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiInvocationConfigGenerator.java`
 #### Snippet
 ```java
+package org.apache.streampipes.wrapper.siddhi.engine.generator;
+
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.siddhi.SiddhiAppConfig;
+import org.apache.streampipes.wrapper.siddhi.model.EventPropertyDef;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiInvocationConfigGenerator.java`
+#### Snippet
+```java
 import java.util.function.BiFunction;
 
 public class SiddhiInvocationConfigGenerator<B extends EventProcessorBindingParams> {
 
   private final String siddhiAppString;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/utils/SiddhiUtils.java`
-#### Snippet
-```java
-  }
-
-  public static String getPreparedOutputTopicName(EventProcessorBindingParams params) {
-    return prepareName(getOutputTopicName(params));
-  }
 ```
 
 ### MarkedForRemoval
@@ -5443,6 +5406,78 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
 ```
 
 ### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/utils/SiddhiUtils.java`
+#### Snippet
+```java
+  }
+
+  public static String getPreparedOutputTopicName(EventProcessorBindingParams params) {
+    return prepareName(getOutputTopicName(params));
+  }
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiAppGenerator.java`
+#### Snippet
+```java
+import java.util.StringJoiner;
+
+public class SiddhiAppGenerator<B extends EventProcessorBindingParams> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SiddhiAppGenerator.class);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiAppGenerator.java`
+#### Snippet
+```java
+package org.apache.streampipes.wrapper.siddhi.engine.generator;
+
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.siddhi.SiddhiAppConfig;
+import org.apache.streampipes.wrapper.siddhi.model.SiddhiProcessorParams;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
+#### Snippet
+```java
+  @Override
+  public ConfiguredEventProcessor<ProcessorParams> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
+    Supplier<EventProcessor<ProcessorParams>> supplier = () -> this;
+    return new ConfiguredEventProcessor<>(new ProcessorParams(graph), supplier);
+  }
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
+#### Snippet
+```java
+import java.util.function.Supplier;
+
+public abstract class StreamPipesDataProcessor extends StandaloneEventProcessingDeclarer<ProcessorParams> implements EventProcessor<ProcessorParams> {
+
+  @Override
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
+#### Snippet
+```java
+import java.util.function.Supplier;
+
+public abstract class StreamPipesDataProcessor extends StandaloneEventProcessingDeclarer<ProcessorParams> implements EventProcessor<ProcessorParams> {
+
+  @Override
+```
+
+### MarkedForRemoval
 'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
 in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
 #### Snippet
@@ -5467,39 +5502,27 @@ import java.util.function.Supplier;
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.standalone.declarer.StandaloneEventProcessingDeclarer' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/ConfiguredExternalEventProcessor.java`
 #### Snippet
 ```java
 import java.util.function.Supplier;
 
-public abstract class StreamPipesDataProcessor extends StandaloneEventProcessingDeclarer<ProcessorParams> implements EventProcessor<ProcessorParams> {
-
-  @Override
+public class ConfiguredExternalEventProcessor<B extends EventProcessorBindingParams>
+        extends AbstractConfiguredPipelineElement<DataProcessorInvocation, B,
+        ExternalEventProcessor<B>> {
 ```
 
 ### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/ConfiguredExternalEventProcessor.java`
 #### Snippet
 ```java
-import java.util.function.Supplier;
 
-public abstract class StreamPipesDataProcessor extends StandaloneEventProcessingDeclarer<ProcessorParams> implements EventProcessor<ProcessorParams> {
+import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.runtime.ExternalEventProcessor;
 
-  @Override
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesDataProcessor.java`
-#### Snippet
-```java
-  @Override
-  public ConfiguredEventProcessor<ProcessorParams> onInvocation(DataProcessorInvocation graph, ProcessingElementParameterExtractor extractor) {
-    Supplier<EventProcessor<ProcessorParams>> supplier = () -> this;
-    return new ConfiguredEventProcessor<>(new ProcessorParams(graph), supplier);
-  }
 ```
 
 ### MarkedForRemoval
@@ -5588,26 +5611,38 @@ public class ConfiguredEventProcessor<B extends EventProcessorBindingParams>
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/ConfiguredExternalEventProcessor.java`
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneExternalEventProcessorRuntime.java`
 #### Snippet
 ```java
 import java.util.function.Supplier;
 
-public class ConfiguredExternalEventProcessor<B extends EventProcessorBindingParams>
-        extends AbstractConfiguredPipelineElement<DataProcessorInvocation, B,
-        ExternalEventProcessor<B>> {
+public class StandaloneExternalEventProcessorRuntime<B extends EventProcessorBindingParams> extends
+        StandalonePipelineElementRuntime<B, DataProcessorInvocation,
+                EventProcessorRuntimeParams<B>, EventProcessorRuntimeContext, ExternalEventProcessor<B>> {
 ```
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/ConfiguredExternalEventProcessor.java`
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneExternalEventProcessorRuntime.java`
 #### Snippet
 ```java
-
 import org.apache.streampipes.model.graph.DataProcessorInvocation;
+import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
 import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
 import org.apache.streampipes.wrapper.runtime.ExternalEventProcessor;
+```
 
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesExternalDataProcessor.java`
+#### Snippet
+```java
+    }
+
+    private String getOutputTopic(EventProcessorBindingParams parameters) {
+        return parameters
+                .getGraph()
 ```
 
 ### MarkedForRemoval
@@ -5627,11 +5662,11 @@ in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/
 in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesExternalDataProcessor.java`
 #### Snippet
 ```java
-    }
-
-    private String getInputTopic(EventProcessorBindingParams parameters) {
-        return parameters
-                .getGraph()
+import org.apache.streampipes.model.grounding.KafkaTransportProtocol;
+import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.runtime.ExternalEventProcessor;
+import org.apache.streampipes.wrapper.standalone.declarer.StandaloneExternalEventProcessingDeclarer;
 ```
 
 ### MarkedForRemoval
@@ -5653,33 +5688,9 @@ in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/
 ```java
     }
 
-    private String getOutputTopic(EventProcessorBindingParams parameters) {
+    private String getInputTopic(EventProcessorBindingParams parameters) {
         return parameters
                 .getGraph()
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/StreamPipesExternalDataProcessor.java`
-#### Snippet
-```java
-import org.apache.streampipes.model.grounding.KafkaTransportProtocol;
-import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.runtime.ExternalEventProcessor;
-import org.apache.streampipes.wrapper.standalone.declarer.StandaloneExternalEventProcessingDeclarer;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneEventProcessorDeclarerSingleton.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
-import org.apache.streampipes.wrapper.declarer.EventProcessorDeclarer;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
-import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
 ```
 
 ### MarkedForRemoval
@@ -5696,55 +5707,7 @@ public abstract class StandaloneEventProcessorDeclarerSingleton<B extends EventP
 
 ### MarkedForRemoval
 'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneExternalEventProcessorRuntime.java`
-#### Snippet
-```java
-import org.apache.streampipes.model.graph.DataProcessorInvocation;
-import org.apache.streampipes.wrapper.context.EventProcessorRuntimeContext;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
-import org.apache.streampipes.wrapper.runtime.ExternalEventProcessor;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneExternalEventProcessorRuntime.java`
-#### Snippet
-```java
-import java.util.function.Supplier;
-
-public class StandaloneExternalEventProcessorRuntime<B extends EventProcessorBindingParams> extends
-        StandalonePipelineElementRuntime<B, DataProcessorInvocation,
-                EventProcessorRuntimeParams<B>, EventProcessorRuntimeContext, ExternalEventProcessor<B>> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneExternalEventProcessingDeclarer.java`
-#### Snippet
-```java
-
-public abstract class StandaloneExternalEventProcessingDeclarer<B extends
-        EventProcessorBindingParams> extends EventProcessorDeclarer<B,
-        StandaloneExternalEventProcessorRuntime<B>> {
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneExternalEventProcessingDeclarer.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
-import org.apache.streampipes.wrapper.declarer.EventProcessorDeclarer;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
-import org.apache.streampipes.wrapper.standalone.ConfiguredExternalEventProcessor;
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneEventProcessingDeclarer.java`
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneEventProcessorDeclarerSingleton.java`
 #### Snippet
 ```java
 import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
@@ -5764,6 +5727,66 @@ public abstract class StandaloneEventProcessingDeclarer<B extends
         EventProcessorBindingParams> extends EventProcessorDeclarer<B, StandaloneEventProcessorRuntime<B>> {
 
   public abstract ConfiguredEventProcessor<B> onInvocation(DataProcessorInvocation graph,
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneEventProcessingDeclarer.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
+import org.apache.streampipes.wrapper.declarer.EventProcessorDeclarer;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
+import org.apache.streampipes.wrapper.standalone.ConfiguredEventProcessor;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneExternalEventProcessingDeclarer.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.extractor.ProcessingElementParameterExtractor;
+import org.apache.streampipes.wrapper.declarer.EventProcessorDeclarer;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
+import org.apache.streampipes.wrapper.standalone.ConfiguredExternalEventProcessor;
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneExternalEventProcessingDeclarer.java`
+#### Snippet
+```java
+
+public abstract class StandaloneExternalEventProcessingDeclarer<B extends
+        EventProcessorBindingParams> extends EventProcessorDeclarer<B,
+        StandaloneExternalEventProcessorRuntime<B>> {
+
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
+#### Snippet
+```java
+import java.util.function.Supplier;
+
+public class StandaloneEventProcessorRuntime<B extends EventProcessorBindingParams> extends
+    StandalonePipelineElementRuntime<B, DataProcessorInvocation,
+        EventProcessorRuntimeParams<B>, EventProcessorRuntimeContext, EventProcessor<B>> {
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
+#### Snippet
+```java
+public class StandaloneEventProcessorRuntime<B extends EventProcessorBindingParams> extends
+    StandalonePipelineElementRuntime<B, DataProcessorInvocation,
+        EventProcessorRuntimeParams<B>, EventProcessorRuntimeContext, EventProcessor<B>> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(StandaloneEventProcessorRuntime.class);
 ```
 
 ### MarkedForRemoval
@@ -5795,47 +5818,11 @@ import org.slf4j.Logger;
 in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
 #### Snippet
 ```java
-  @Override
-  public void bindEngine() throws SpRuntimeException {
-    engine.onInvocation(params.getBindingParams(), getOutputCollector(), params.getRuntimeContext());
-  }
-
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
-#### Snippet
-```java
     try {
       monitoringManager.increaseInCounter(resourceId, sourceInfo, System.currentTimeMillis());
       engine.onEvent(params.makeEvent(rawEvent, sourceInfo), outputCollector);
     } catch (RuntimeException e) {
       LOG.error("RuntimeException while processing event in {}", engine.getClass().getCanonicalName(), e);
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
-#### Snippet
-```java
-import java.util.function.Supplier;
-
-public class StandaloneEventProcessorRuntime<B extends EventProcessorBindingParams> extends
-    StandalonePipelineElementRuntime<B, DataProcessorInvocation,
-        EventProcessorRuntimeParams<B>, EventProcessorRuntimeContext, EventProcessor<B>> {
-```
-
-### MarkedForRemoval
-'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
-#### Snippet
-```java
-public class StandaloneEventProcessorRuntime<B extends EventProcessorBindingParams> extends
-    StandalonePipelineElementRuntime<B, DataProcessorInvocation,
-        EventProcessorRuntimeParams<B>, EventProcessorRuntimeContext, EventProcessor<B>> {
-
-  private static final Logger LOG = LoggerFactory.getLogger(StandaloneEventProcessorRuntime.class);
 ```
 
 ### MarkedForRemoval
@@ -5848,6 +5835,18 @@ in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/
   public StandaloneEventProcessorRuntime(Supplier<EventProcessor<B>> supplier,
                                          EventProcessorRuntimeParams<B> params) {
     super(supplier, params);
+```
+
+### MarkedForRemoval
+'org.apache.streampipes.wrapper.runtime.EventProcessor' is deprecated and marked for removal
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/runtime/StandaloneEventProcessorRuntime.java`
+#### Snippet
+```java
+  @Override
+  public void bindEngine() throws SpRuntimeException {
+    engine.onInvocation(params.getBindingParams(), getOutputCollector(), params.getRuntimeContext());
+  }
+
 ```
 
 ### MarkedForRemoval
@@ -5879,11 +5878,11 @@ public abstract class KafkaStreamsDataProcessorDeclarer<B extends
 in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapper/kafka/KafkaStreamsDataProcessorRuntime.java`
 #### Snippet
 ```java
+import org.apache.streampipes.wrapper.kafka.converter.JsonToMapFormat;
+import org.apache.streampipes.wrapper.kafka.converter.MapToJsonFormat;
+import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
+import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
 
-public abstract class KafkaStreamsDataProcessorRuntime<B extends
-        EventProcessorBindingParams>
-        extends KafkaStreamsRuntime<EventProcessorRuntimeParams<B>, B,
-        DataProcessorInvocation, EventProcessorRuntimeContext> {
 ```
 
 ### MarkedForRemoval
@@ -5891,11 +5890,11 @@ public abstract class KafkaStreamsDataProcessorRuntime<B extends
 in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapper/kafka/KafkaStreamsDataProcessorRuntime.java`
 #### Snippet
 ```java
-import org.apache.streampipes.wrapper.kafka.converter.JsonToMapFormat;
-import org.apache.streampipes.wrapper.kafka.converter.MapToJsonFormat;
-import org.apache.streampipes.wrapper.params.binding.EventProcessorBindingParams;
-import org.apache.streampipes.wrapper.params.runtime.EventProcessorRuntimeParams;
 
+public abstract class KafkaStreamsDataProcessorRuntime<B extends
+        EventProcessorBindingParams>
+        extends KafkaStreamsRuntime<EventProcessorRuntimeParams<B>, B,
+        DataProcessorInvocation, EventProcessorRuntimeContext> {
 ```
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
@@ -5997,18 +5996,6 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
-in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/influxdb/InfluxDb.java`
-#### Snippet
-```java
-  @Override
-  public void onInvocation(InfluxDbParameters parameters, EventSinkRuntimeContext runtimeContext) throws SpRuntimeException {
-    LOG = parameters.getGraph().getLogger(InfluxDb.class);
-
-    this.influxDbClient = new InfluxDbClient(
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `jedisPool` from instance context
 in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/redis/Redis.java`
 #### Snippet
@@ -6030,6 +6017,18 @@ in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apa
         jedisPool = null;
     }
 
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
+in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/influxdb/InfluxDb.java`
+#### Snippet
+```java
+  @Override
+  public void onInvocation(InfluxDbParameters parameters, EventSinkRuntimeContext runtimeContext) throws SpRuntimeException {
+    LOG = parameters.getGraph().getLogger(InfluxDb.class);
+
+    this.influxDbClient = new InfluxDbClient(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -6106,6 +6105,18 @@ in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `LOG` from instance context
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
+#### Snippet
+```java
+                           SpOutputCollector spOutputCollector,
+                           EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
+    LOG = chunkerParameters.getGraph().getLogger(Chunker.class);
+    this.tags = chunkerParameters.getTags();
+    this.tokens = chunkerParameters.getTokens();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
 in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeech.java`
 #### Snippet
 ```java
@@ -6126,18 +6137,6 @@ in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/
     LOG = sentenceDetectionParameters.getGraph().getLogger(SentenceDetection.class);
     this.detection = sentenceDetectionParameters.getDetectionName();
 
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
-#### Snippet
-```java
-                           SpOutputCollector spOutputCollector,
-                           EventProcessorRuntimeContext runtimeContext) throws SpRuntimeException {
-    LOG = chunkerParameters.getGraph().getLogger(Chunker.class);
-    this.tags = chunkerParameters.getTags();
-    this.tokens = chunkerParameters.getTokens();
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -6226,18 +6225,6 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `LOG` from instance context
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/edge/SignalEdgeFilter.java`
-#### Snippet
-```java
-                           SpOutputCollector spOutputCollector,
-                           EventProcessorRuntimeContext runtimeContext) {
-    LOG = booleanInverterParameters.getGraph().getLogger(SignalEdgeFilter.class);
-    this.booleanSignalField = booleanInverterParameters.getBooleanSignalField();
-    this.flank = booleanInverterParameters.getFlank();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/state/BooleanToState.java`
 #### Snippet
 ```java
@@ -6246,6 +6233,18 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
     LOG = booleanInverterParameters.getGraph().getLogger(BooleanToState.class);
     this.stateFields = booleanInverterParameters.getStateFields();
     this.defaultState = booleanInverterParameters.getDefaultState();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/edge/SignalEdgeFilter.java`
+#### Snippet
+```java
+                           SpOutputCollector spOutputCollector,
+                           EventProcessorRuntimeContext runtimeContext) {
+    LOG = booleanInverterParameters.getGraph().getLogger(SignalEdgeFilter.class);
+    this.booleanSignalField = booleanInverterParameters.getBooleanSignalField();
+    this.flank = booleanInverterParameters.getFlank();
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -6286,18 +6285,6 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `LOG` from instance context
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeeping.java`
-#### Snippet
-```java
-                             SpOutputCollector spOutputCollector,
-                             EventProcessorRuntimeContext runtimeContext) {
-        LOG = booleanInverterParameters.getGraph().getLogger(BooleanTimekeeping.class);
-        this.leftFieldName = booleanInverterParameters.getLeftFieldName();
-        this.rightFieldName = booleanInverterParameters.getRightFieldName();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `LOG` from instance context
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/stringoperator/state/StringToState.java`
 #### Snippet
 ```java
@@ -6306,6 +6293,18 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
     LOG = booleanInverterParameters.getGraph().getLogger(StringToState.class);
     this.stateFields = booleanInverterParameters.getStateFields();
   }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `LOG` from instance context
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/booloperator/timekeeping/BooleanTimekeeping.java`
+#### Snippet
+```java
+                             SpOutputCollector spOutputCollector,
+                             EventProcessorRuntimeContext runtimeContext) {
+        LOG = booleanInverterParameters.getGraph().getLogger(BooleanTimekeeping.class);
+        this.leftFieldName = booleanInverterParameters.getLeftFieldName();
+        this.rightFieldName = booleanInverterParameters.getRightFieldName();
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -6420,18 +6419,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/template/Pipeli
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/generic/GenericDataStreamAdapter.java`
-#### Snippet
-```java
-    public GenericAdapterStreamDescription declareModel() {
-        GenericAdapterStreamDescription adapterDescription = new GenericAdapterStreamDescription();
-//        adapterDescription.setAdapterId(GenericAdapterStreamDescription.ID);
-//        adapterDescription.setUri(GenericAdapterStreamDescription.ID);
-        adapterDescription.setAppId(GenericAdapterStreamDescription.ID);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/generic/GenericDataSetAdapter.java`
 #### Snippet
 ```java
@@ -6440,6 +6427,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/mod
 //        adapterDescription.setAdapterId(GenericAdapterSetDescription.ID);
 //        adapterDescription.setUri(GenericAdapterSetDescription.ID);
         adapterDescription.setAppId(GenericAdapterSetDescription.ID);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/generic/GenericDataStreamAdapter.java`
+#### Snippet
+```java
+    public GenericAdapterStreamDescription declareModel() {
+        GenericAdapterStreamDescription adapterDescription = new GenericAdapterStreamDescription();
+//        adapterDescription.setAdapterId(GenericAdapterStreamDescription.ID);
+//        adapterDescription.setUri(GenericAdapterStreamDescription.ID);
+        adapterDescription.setAppId(GenericAdapterStreamDescription.ID);
 ```
 
 ### CommentedOutCode
@@ -6467,18 +6466,6 @@ in `streampipes-logging/src/main/java/org/apache/streampipes/logging/impl/EventS
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/StreamEventTransformer.java`
-#### Snippet
-```java
-
-
-    /*
-    public StreamEventTransformer(List<EventRateTransformationRule> eventRateTransformationRules) {
-        this.eventRateTransformationRules = eventRateTransformationRules;
-```
-
-### CommentedOutCode
 Commented out code (4 lines)
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/MoveTransformationRule.java`
 #### Snippet
@@ -6488,6 +6475,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
 //        List<String> tmp = new ArrayList<>();
 //        for (int i = 0; i < newKey.size() - 1; i++) {
 //            tmp.add(newKey.get(i));
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/StreamEventTransformer.java`
+#### Snippet
+```java
+
+
+    /*
+    public StreamEventTransformer(List<EventRateTransformationRule> eventRateTransformationRules) {
+        this.eventRateTransformationRules = eventRateTransformationRules;
 ```
 
 ### CommentedOutCode
@@ -6552,18 +6551,6 @@ in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apach
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/redis/RedisController.java`
-#### Snippet
-```java
-        Integer ttl = extractor.singleValueParameter(EVENT_TTL_KEY, Integer.class);
-        // TODO: Use this after optional parameters implementation
-        //        String redisPassword = extractor.secretValue(REDIS_PASSWORD_KEY);
-        //        String redisClient = extractor.singleValueParameter(REDIS_CLIENT_KEY, String.class);
-        Integer redisIndex = extractor.singleValueParameter(REDIS_INDEX_KEY, Integer.class);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/couchdb/CouchDbController.java`
 #### Snippet
 ```java
@@ -6572,6 +6559,18 @@ in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apa
     //String user = extractor.singleValueParameter(DATABASE_USER_KEY, String.class);
     //String password = extractor.singleValueParameter(DATABASE_PASSORD_KEY, String.class);
 
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/redis/RedisController.java`
+#### Snippet
+```java
+        Integer ttl = extractor.singleValueParameter(EVENT_TTL_KEY, Integer.class);
+        // TODO: Use this after optional parameters implementation
+        //        String redisPassword = extractor.secretValue(REDIS_PASSWORD_KEY);
+        //        String redisClient = extractor.singleValueParameter(REDIS_CLIENT_KEY, String.class);
+        Integer redisIndex = extractor.singleValueParameter(REDIS_INDEX_KEY, Integer.class);
 ```
 
 ### CommentedOutCode
@@ -7154,15 +7153,15 @@ in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/generati
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `event.keySet()` may be replaced with 'Map.forEach()' iteration
+Iteration over `event.keySet()` may be replaced with 'entrySet()' iteration
 in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
 #### Snippet
 ```java
-    String selectorPrefix = sourceInfo.getSelectorPrefix();
-
-    event.keySet().forEach(key -> {
-      String currentSelector = makeSelector(key, selectorPrefix);
-      fields.put(currentSelector, makeField(key, event.get(key), currentSelector, schemaInfo));
+          fieldSelectors, String currentPrefix) {
+    Map<String, Object> outMap = new HashMap<>();
+    for (String key : event.keySet()) {
+      if (contains(makeSelector(key, currentPrefix), fieldSelectors)) {
+        Object object = event.get(key);
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -7178,15 +7177,15 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFa
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `event.keySet()` may be replaced with 'entrySet()' iteration
+Iteration over `event.keySet()` may be replaced with 'Map.forEach()' iteration
 in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
 #### Snippet
 ```java
-          fieldSelectors, String currentPrefix) {
-    Map<String, Object> outMap = new HashMap<>();
-    for (String key : event.keySet()) {
-      if (contains(makeSelector(key, currentPrefix), fieldSelectors)) {
-        Object object = event.get(key);
+    String selectorPrefix = sourceInfo.getSelectorPrefix();
+
+    event.keySet().forEach(key -> {
+      String currentSelector = makeSelector(key, selectorPrefix);
+      fields.put(currentSelector, makeField(key, event.get(key), currentSelector, schemaInfo));
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -7329,9 +7328,9 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```java
 	}
 	
-	private static final String epa()
+	private static final String ec()
 	{
-		return DataProcessorDescription.class.getCanonicalName();
+		return DataSinkDescription.class.getCanonicalName();
 ```
 
 ### FinalPrivateMethod
@@ -7341,9 +7340,9 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```java
 	}
 	
-	private static final String ec()
+	private static final String epa()
 	{
-		return DataSinkDescription.class.getCanonicalName();
+		return DataProcessorDescription.class.getCanonicalName();
 ```
 
 ### FinalPrivateMethod
@@ -7420,6 +7419,18 @@ in `streampipes-rest/src/main/java/org/apache/streampipes/rest/security/SpPermis
 ```
 
 ### SizeReplaceableByIsEmpty
+`matchedProperties.size() > 0` can be replaced with '!matchedProperties.isEmpty()'
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
+#### Snippet
+```java
+            (selector), input.getEventSchema().getEventProperties());
+
+    if (matchedProperties.size() > 0) {
+      return matchedProperties.get(0);
+    } else {
+```
+
+### SizeReplaceableByIsEmpty
 `sp.getNodes().size() > 0` can be replaced with '!sp.getNodes().isEmpty()'
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
@@ -7441,18 +7452,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
     if (allNodes.size() > 0) {
       return allNodes
               .stream()
-```
-
-### SizeReplaceableByIsEmpty
-`matchedProperties.size() > 0` can be replaced with '!matchedProperties.isEmpty()'
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
-            (selector), input.getEventSchema().getEventProperties());
-
-    if (matchedProperties.size() > 0) {
-      return matchedProperties.get(0);
-    } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -7529,7 +7528,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### SizeReplaceableByIsEmpty
 `result.keySet().size() == 0` can be replaced with 'result.keySet().isEmpty()'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
 #### Snippet
 ```java
         case END_ARRAY:
@@ -7541,7 +7540,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### SizeReplaceableByIsEmpty
 `result.keySet().size() == 0` can be replaced with 'result.keySet().isEmpty()'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
 #### Snippet
 ```java
         case END_ARRAY:
@@ -7624,18 +7623,6 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 ```
 
 ### SizeReplaceableByIsEmpty
-`fieldKeys.size() == 0` can be replaced with 'fieldKeys.isEmpty()'
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbClient.java`
-#### Snippet
-```java
-        List<List<Object>> tagKeys = query("SHOW TAG KEYS FROM " + measurement);
-//        if (fieldKeys.size() == 0 || tagKeys.size() == 0) {
-        if (fieldKeys.size() == 0) {
-            throw new AdapterException("Error while checking the Schema (does the measurement exist?)");
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `queryResult.size() > 0` can be replaced with '!queryResult.isEmpty()'
 in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbStreamAdapter.java`
 #### Snippet
@@ -7669,6 +7656,18 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
             if (event.keySet().size() > 0) {
                 adapterPipeline.process(event);
             }
+```
+
+### SizeReplaceableByIsEmpty
+`fieldKeys.size() == 0` can be replaced with 'fieldKeys.isEmpty()'
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbClient.java`
+#### Snippet
+```java
+        List<List<Object>> tagKeys = query("SHOW TAG KEYS FROM " + measurement);
+//        if (fieldKeys.size() == 0 || tagKeys.size() == 0) {
+        if (fieldKeys.size() == 0) {
+            throw new AdapterException("Error while checking the Schema (does the measurement exist?)");
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -7840,6 +7839,18 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### SizeReplaceableByIsEmpty
+`rel.length() == 0` can be replaced with 'rel.isEmpty()'
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/CommonTagActions.java`
+#### Snippet
+```java
+          final int val = Integer.parseInt(m.group(2));
+          final int size;
+          if (rel.length() == 0) {
+            // absolute
+            size = val;
+```
+
+### SizeReplaceableByIsEmpty
 `s.length() == 0` can be replaced with 's.isEmpty()'
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
 #### Snippet
@@ -7852,15 +7863,15 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### SizeReplaceableByIsEmpty
-`rel.length() == 0` can be replaced with 'rel.isEmpty()'
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/CommonTagActions.java`
+`s.length() == 0` can be replaced with 's.isEmpty()'
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/document/Image.java`
 #### Snippet
 ```java
-          final int val = Integer.parseInt(m.group(2));
-          final int size;
-          if (rel.length() == 0) {
-            // absolute
-            size = val;
+    }
+    s = s.trim();
+    if (s.length() == 0) {
+      return null;
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -7885,18 +7896,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
     if (longestPart.length() == 0) {
       return null;
     } else {
-```
-
-### SizeReplaceableByIsEmpty
-`s.length() == 0` can be replaced with 's.isEmpty()'
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/document/Image.java`
-#### Snippet
-```java
-    }
-    s = s.trim();
-    if (s.length() == 0) {
-      return null;
-    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -7955,8 +7954,8 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
     selectString.append(SiddhiConstants.SELECT).append(" ");
 
     if (outputEventKeys.size() > 0) {
-      for (int i=0; i<outputEventKeys.size() - 1; i++) {
-        selectString
+      for (int i = 0; i < outputEventKeys.size() - 1; i++) {
+        selectString.append(eventName).append(".s0").append(outputEventKeys.get(i)).append(",");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -7967,8 +7966,8 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
     selectString.append(SiddhiConstants.SELECT).append(" ");
 
     if (outputEventKeys.size() > 0) {
-      for (int i = 0; i < outputEventKeys.size() - 1; i++) {
-        selectString.append(eventName).append(".s0").append(outputEventKeys.get(i)).append(",");
+      for (int i=0; i<outputEventKeys.size() - 1; i++) {
+        selectString
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -8044,6 +8043,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### SizeReplaceableByIsEmpty
+`supportedFormats.size() > 0` can be replaced with '!supportedFormats.isEmpty()'
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/FormatSelector.java`
+#### Snippet
+```java
+                    .filter(pf -> supportsFormat(pf.getMessageFormat())).collect(Collectors.toList());
+
+            if (supportedFormats.size() > 0) {
+                return new TransportFormat(supportedFormats.get(0).getMessageFormat());
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
 `runningPipelines.size() > 0` can be replaced with '!runningPipelines.isEmpty()'
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
 #### Snippet
@@ -8080,15 +8091,15 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### SizeReplaceableByIsEmpty
-`supportedFormats.size() > 0` can be replaced with '!supportedFormats.isEmpty()'
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/FormatSelector.java`
+`requirement.size() > 0` can be replaced with '!requirement.isEmpty()'
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/DomainPropertyMatch.java`
 #### Snippet
 ```java
-                    .filter(pf -> supportsFormat(pf.getMessageFormat())).collect(Collectors.toList());
-
-            if (supportedFormats.size() > 0) {
-                return new TransportFormat(supportedFormats.get(0).getMessageFormat());
-            } else {
+	@Override
+	public boolean match(List<URI> offer, List<URI> requirement, List<MatchingResultMessage> errorLog) {
+		if (offer == null && ((requirement != null) && requirement.size() > 0)) {
+			return false;
+		}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -8104,15 +8115,15 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### SizeReplaceableByIsEmpty
-`requirement.size() > 0` can be replaced with '!requirement.isEmpty()'
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/DomainPropertyMatch.java`
+`mappingPropertyUnary.getMapsFromOptions().size() > 0` can be replaced with '!mappingPropertyUnary.getMapsFromOptions().isEmpty()'
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/pipeline/CheckCompletedVisitor.java`
 #### Snippet
 ```java
-	@Override
-	public boolean match(List<URI> offer, List<URI> requirement, List<MatchingResultMessage> errorLog) {
-		if (offer == null && ((requirement != null) && requirement.size() > 0)) {
-			return false;
-		}
+    if (existsSelection(mappingPropertyUnary)) {
+      if (!(mappingPropertyUnary.getMapsFromOptions().contains(mappingPropertyUnary.getSelectedProperty()))) {
+        if (mappingPropertyUnary.getMapsFromOptions().size() > 0) {
+          String firstSelector = mappingPropertyUnary.getMapsFromOptions().get(0);
+          mappingPropertyUnary.setSelectedProperty(firstSelector);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -8125,18 +8136,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
     return !(mappingProperty.getSelectedProperties() == null || mappingProperty.getSelectedProperties().size() == 0);
   }
 }
-```
-
-### SizeReplaceableByIsEmpty
-`mappingPropertyUnary.getMapsFromOptions().size() > 0` can be replaced with '!mappingPropertyUnary.getMapsFromOptions().isEmpty()'
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/pipeline/CheckCompletedVisitor.java`
-#### Snippet
-```java
-    if (existsSelection(mappingPropertyUnary)) {
-      if (!(mappingPropertyUnary.getMapsFromOptions().contains(mappingPropertyUnary.getSelectedProperty()))) {
-        if (mappingPropertyUnary.getMapsFromOptions().size() > 0) {
-          String firstSelector = mappingPropertyUnary.getMapsFromOptions().get(0);
-          mappingPropertyUnary.setSelectedProperty(firstSelector);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -8188,6 +8187,18 @@ in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/datae
 ```
 
 ### SizeReplaceableByIsEmpty
+`failedServices.size() == 0` can be replaced with 'failedServices.isEmpty()'
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/execution/http/PipelineExecutor.java`
+#### Snippet
+```java
+
+    PipelineOperationStatus status;
+    if (failedServices.size() == 0) {
+
+      status = new GraphSubmitter(pipeline.getPipelineId(),
+```
+
+### SizeReplaceableByIsEmpty
 `connectMasterEndpoints.size() > 0` can be replaced with '!connectMasterEndpoints.isEmpty()'
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/execution/http/PipelineExecutor.java`
 #### Snippet
@@ -8200,15 +8211,15 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### SizeReplaceableByIsEmpty
-`failedServices.size() == 0` can be replaced with 'failedServices.isEmpty()'
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/execution/http/PipelineExecutor.java`
+`baseUrls.size() > 0` can be replaced with '!baseUrls.isEmpty()'
+in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/service/extensions/base/client/StreamPipesClientRuntimeConnectionResolver.java`
 #### Snippet
 ```java
-
-    PipelineOperationStatus status;
-    if (failedServices.size() == 0) {
-
-      status = new GraphSubmitter(pipeline.getPipelineId(),
+  public String getBaseUrl() throws SpRuntimeException {
+    List<String> baseUrls = findClientServices();
+    if (baseUrls.size() > 0) {
+      if (Envs.SP_DEBUG.exists()) {
+        try {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -8233,18 +8244,6 @@ in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/datae
     if (nullFields.size() > 0) {
       LOG.warn("Ignored {} fields which had a value 'null': {}", nullFields.size(), String.join(", ", nullFields));
     }
-```
-
-### SizeReplaceableByIsEmpty
-`baseUrls.size() > 0` can be replaced with '!baseUrls.isEmpty()'
-in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/service/extensions/base/client/StreamPipesClientRuntimeConnectionResolver.java`
-#### Snippet
-```java
-  public String getBaseUrl() throws SpRuntimeException {
-    List<String> baseUrls = findClientServices();
-    if (baseUrls.size() > 0) {
-      if (Envs.SP_DEBUG.exists()) {
-        try {
 ```
 
 ## RuleId[ruleID=TrivialStringConcatenation]
@@ -8304,9 +8303,9 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```java
 	}
 	
-	private static final String epa()
+	private static final String ec()
 	{
-		return DataProcessorDescription.class.getCanonicalName();
+		return DataSinkDescription.class.getCanonicalName();
 ```
 
 ### FinalStaticMethod
@@ -8316,9 +8315,9 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```java
 	}
 	
-	private static final String ec()
+	private static final String epa()
 	{
-		return DataSinkDescription.class.getCanonicalName();
+		return DataProcessorDescription.class.getCanonicalName();
 ```
 
 ### FinalStaticMethod
@@ -8530,18 +8529,6 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/u
 
 ### RedundantMethodOverride
 Method `collectValidators()` only delegates to its super method
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/DataProcessorVerifier.java`
-#### Snippet
-```java
-
-  @Override
-  protected void collectValidators() {
-    super.collectValidators();
-  }
-```
-
-### RedundantMethodOverride
-Method `collectValidators()` only delegates to its super method
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/DataSinkVerifier.java`
 #### Snippet
 ```java
@@ -8550,6 +8537,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 	protected void collectValidators() {
 		super.collectValidators();
 	}
+```
+
+### RedundantMethodOverride
+Method `collectValidators()` only delegates to its super method
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/DataProcessorVerifier.java`
+#### Snippet
+```java
+
+  @Override
+  protected void collectValidators() {
+    super.collectValidators();
+  }
 ```
 
 ### RedundantMethodOverride
@@ -9401,7 +9400,7 @@ Result of assignment expression used
 in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFileExtractor.java`
 #### Snippet
 ```java
-      FileOutputStream fos = new FileOutputStream(newFile);
+      ByteArrayOutputStream fos = new ByteArrayOutputStream();
       int len;
       while ((len = zis.read(buffer)) > 0) {
         fos.write(buffer, 0, len);
@@ -9413,7 +9412,7 @@ Result of assignment expression used
 in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFileExtractor.java`
 #### Snippet
 ```java
-      ByteArrayOutputStream fos = new ByteArrayOutputStream();
+      FileOutputStream fos = new FileOutputStream(newFile);
       int len;
       while ((len = zis.read(buffer)) > 0) {
         fos.write(buffer, 0, len);
@@ -9675,32 +9674,7 @@ public class SchemaInfo implements Serializable {
   private EventSchema eventSchema;
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-26-02-46-32.714.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=DuplicateThrows]
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `streampipes-rest-core-base/src/main/java/org/apache/streampipes/rest/core/base/impl/AbstractRestResource.java`
-#### Snippet
-```java
-
-  protected String parseURIContent(String payload) throws URISyntaxException,
-          ClientProtocolException, IOException {
-    return parseURIContent(payload, null);
-  }
-```
-
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
 in `streampipes-rest-core-base/src/main/java/org/apache/streampipes/rest/core/base/impl/AbstractRestResource.java`
@@ -9711,6 +9685,18 @@ in `streampipes-rest-core-base/src/main/java/org/apache/streampipes/rest/core/ba
           ClientProtocolException, IOException {
     URI uri = new URI(payload);
     return HttpJsonParser.getContentFromUrl(uri, mediaType);
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `streampipes-rest-core-base/src/main/java/org/apache/streampipes/rest/core/base/impl/AbstractRestResource.java`
+#### Snippet
+```java
+
+  protected String parseURIContent(String payload) throws URISyntaxException,
+          ClientProtocolException, IOException {
+    return parseURIContent(payload, null);
+  }
 ```
 
 ### DuplicateThrows
@@ -9800,18 +9786,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/geojson/GeoJsonFormat.java`
-#### Snippet
-```java
-    public Map<String, Object> parse(byte[] object) throws ParseException {
-        JsonDataFormatDefinition jsonDefinition = new JsonDataFormatDefinition();
-        Map<String, Object> result = null;
-
-        try {
-```
-
-### UnusedAssignment
 Variable `exampleEvent` initializer `null` is redundant
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/object/JsonObjectParser.java`
 #### Snippet
@@ -9819,6 +9793,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 
         Map<String, Object> exampleEvent = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/geojson/GeoJsonFormat.java`
+#### Snippet
+```java
+    public Map<String, Object> parse(byte[] object) throws ParseException {
+        JsonDataFormatDefinition jsonDefinition = new JsonDataFormatDefinition();
+        Map<String, Object> result = null;
 
         try {
 ```
@@ -9945,6 +9931,18 @@ in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/
 
 ### UnusedAssignment
 Variable `model` initializer `null` is redundant
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
+#### Snippet
+```java
+
+    InputStream modelIn = new ByteArrayInputStream(chunkerParameters.getFileContent());
+    ChunkerModel model = null;
+    try {
+      model = new ChunkerModel(modelIn);
+```
+
+### UnusedAssignment
+Variable `model` initializer `null` is redundant
 in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeech.java`
 #### Snippet
 ```java
@@ -9965,18 +9963,6 @@ in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/
     SentenceModel model = null;
     try {
       model = new SentenceModel(modelIn);
-```
-
-### UnusedAssignment
-Variable `model` initializer `null` is redundant
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
-#### Snippet
-```java
-
-    InputStream modelIn = new ByteArrayInputStream(chunkerParameters.getFileContent());
-    ChunkerModel model = null;
-    try {
-      model = new ChunkerModel(modelIn);
 ```
 
 ### UnusedAssignment
@@ -10332,18 +10318,6 @@ in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/
 
 ### SimplifyStreamApiCallChains
 Can be replaced with 'collection.toArray()'
-in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeech.java`
-#### Snippet
-```java
-    ListField text = inputEvent.getFieldBySelector(detection).getAsList();
-
-    String[] tags = posTagger.tag(text.castItems(String.class).stream().toArray(String[]::new));
-    double[] confidence = posTagger.probs();
-
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'collection.toArray()'
 in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/chunker/Chunker.java`
 #### Snippet
 ```java
@@ -10364,6 +10338,18 @@ in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/
     String[] tokensArray = tokens.castItems(String.class).stream().toArray(String[]::new);
 
     Span[] spans = chunker.chunkAsSpans(tokensArray, tagsArray);
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'collection.toArray()'
+in `streampipes-extensions/streampipes-processors-text-mining-jvm/src/main/java/org/apache/streampipes/processors/textmining/jvm/processor/partofspeech/PartOfSpeech.java`
+#### Snippet
+```java
+    ListField text = inputEvent.getFieldBySelector(detection).getAsList();
+
+    String[] tags = posTagger.tag(text.castItems(String.class).stream().toArray(String[]::new));
+    double[] confidence = posTagger.probs();
+
 ```
 
 ### SimplifyStreamApiCallChains
@@ -10515,18 +10501,6 @@ in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/
 
 ### OptionalContainsCollection
 'Optional' contains array `byte[]`
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnricher.java`
-#### Snippet
-```java
-      }
-
-      Optional<byte[]> finalImage = imageTransformer.makeImage(image);
-
-      if (finalImage.isPresent()) {
-```
-
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
 in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/ImageTransformer.java`
 #### Snippet
 ```java
@@ -10535,6 +10509,18 @@ in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/
   public Optional<byte[]> makeImage(BufferedImage image) {
 
     try {
+```
+
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/imageenrichment/ImageEnricher.java`
+#### Snippet
+```java
+      }
+
+      Optional<byte[]> finalImage = imageTransformer.makeImage(image);
+
+      if (finalImage.isPresent()) {
 ```
 
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
@@ -10836,11 +10822,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/websocket/SocketServer.java`
 #### Snippet
 ```java
-    @Override
-    public void onStart() {
-        System.out.println("Server started!");
-        setConnectionLostTimeout(0);
-        setConnectionLostTimeout(100);
+        conn.send("Welcome!"); //This method sends a message to the new client
+        broadcast("New connection: " + handshake.getResourceDescriptor()); //This method sends a message to all clients connected
+        System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected.");
+    }
+
 ```
 
 ### SystemOutErr
@@ -10848,11 +10834,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/websocket/SocketServer.java`
 #### Snippet
 ```java
-        conn.send("Welcome!"); //This method sends a message to the new client
-        broadcast("New connection: " + handshake.getResourceDescriptor()); //This method sends a message to all clients connected
-        System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected.");
-    }
-
+    @Override
+    public void onStart() {
+        System.out.println("Server started!");
+        setConnectionLostTimeout(0);
+        setConnectionLostTimeout(100);
 ```
 
 ### SystemOutErr
@@ -10877,30 +10863,6 @@ in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apa
     System.out.println(databaseExists(databaseName));
     if(!databaseExists(databaseName)) {
       logger.info("Database '" + databaseName + "' not found. Gets created ...");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbSetAdapter.java`
-#### Snippet
-```java
-        public void run() {
-            if (!influxDbClient.isConnected()) {
-                System.out.println("Cannot start PollingThread, when the client is not connected");
-                return;
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbSetAdapter.java`
-#### Snippet
-```java
-                        influxDbSetAdapter.send(influxDbClient.extractEvent(event));
-                    } catch (SpRuntimeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
 ```
 
 ### SystemOutErr
@@ -10937,6 +10899,30 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbSetAdapter.java`
+#### Snippet
+```java
+        public void run() {
+            if (!influxDbClient.isConnected()) {
+                System.out.println("Cannot start PollingThread, when the client is not connected");
+                return;
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbSetAdapter.java`
+#### Snippet
+```java
+                        influxDbSetAdapter.send(influxDbClient.extractEvent(event));
+                    } catch (SpRuntimeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
 ```
 
 ### SystemOutErr
@@ -11258,11 +11244,11 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/plc4x/s7/Plc4xS7Adapter.java`
 #### Snippet
 ```java
-
-            for (Map<String, String> node : this.nodes) {
-                Datatypes datatype = getStreamPipesDataType(node.get(PLC_NODE_TYPE).toUpperCase().replaceAll(" ", "_"));
-
-                allProperties.add(
+        PlcReadRequest.Builder builder = plcConnection.readRequestBuilder();
+        for (Map<String, String> node : this.nodes) {
+            builder.addItem(node.get(PLC_NODE_NAME), node.get(PLC_NODE_NAME) + ":" + node.get(PLC_NODE_TYPE).toUpperCase().replaceAll(" ", "_"));
+        }
+        return builder.build();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11270,11 +11256,11 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/plc4x/s7/Plc4xS7Adapter.java`
 #### Snippet
 ```java
-        PlcReadRequest.Builder builder = plcConnection.readRequestBuilder();
-        for (Map<String, String> node : this.nodes) {
-            builder.addItem(node.get(PLC_NODE_NAME), node.get(PLC_NODE_NAME) + ":" + node.get(PLC_NODE_TYPE).toUpperCase().replaceAll(" ", "_"));
-        }
-        return builder.build();
+
+            for (Map<String, String> node : this.nodes) {
+                Datatypes datatype = getStreamPipesDataType(node.get(PLC_NODE_TYPE).toUpperCase().replaceAll(" ", "_"));
+
+                allProperties.add(
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11374,18 +11360,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
-#### Snippet
-```java
-        continue;
-      }
-      final int numWords = p.split("[\b ]+").length;
-      if (numWords >= minWords) {
-        potentialTitles.add(p);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
 #### Snippet
@@ -11422,15 +11396,15 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/extractor/AssetModelItemExtractor.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
 #### Snippet
 ```java
-  public AssetModelItemExtractor(String declareModelContent) {
-    this.declareModelContent = declareModelContent
-            .replaceAll("\n", "");
-
-  }
+        continue;
+      }
+      final int numWords = p.split("[\b ]+").length;
+      if (numWords >= minWords) {
+        potentialTitles.add(p);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11455,6 +11429,18 @@ in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/extractor/
             .replaceAll("\"", "");
   }
 }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/extractor/AssetModelItemExtractor.java`
+#### Snippet
+```java
+  public AssetModelItemExtractor(String declareModelContent) {
+    this.declareModelContent = declareModelContent
+            .replaceAll("\n", "");
+
+  }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11650,6 +11636,30 @@ in `streampipes-wrapper-distributed/src/main/java/org/apache/streampipes/wrapper
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapper/kafka/KafkaStreamsRuntime.java`
+#### Snippet
+```java
+
+  private String gneerateApplicationId(String elementId) {
+    return elementId.replaceAll("/", "-").replaceAll(":", "-");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapper/kafka/KafkaStreamsRuntime.java`
+#### Snippet
+```java
+
+  private String gneerateApplicationId(String elementId) {
+    return elementId.replaceAll("/", "-").replaceAll(":", "-");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/influx/InfluxStore.java`
 #### Snippet
@@ -11659,30 +11669,6 @@ in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/datae
     if (!dbName.matches("^[a-zA-Z_]\\w*$")) {
       throw new SpRuntimeException(
           "Database name '" + dbName + "' not allowed. Allowed names: ^[a-zA-Z_][a-zA-Z0-9_]*$");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapper/kafka/KafkaStreamsRuntime.java`
-#### Snippet
-```java
-
-  private String gneerateApplicationId(String elementId) {
-    return elementId.replaceAll("/", "-").replaceAll(":", "-");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapper/kafka/KafkaStreamsRuntime.java`
-#### Snippet
-```java
-
-  private String gneerateApplicationId(String elementId) {
-    return elementId.replaceAll("/", "-").replaceAll(":", "-");
-  }
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11743,18 +11729,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/base/UnnamedStr
 ```java
   }
 
-  public UnnamedStreamPipesEntity(UnnamedStreamPipesEntity other) {
-    this();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `UnnamedStreamPipesEntity()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/base/UnnamedStreamPipesEntity.java`
-#### Snippet
-```java
-  }
-
   public UnnamedStreamPipesEntity(String elementId) {
     super();
     this.elementId = elementId;
@@ -11773,15 +11747,27 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/base/UnnamedStr
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `UnnamedStreamPipesEntity()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/base/UnnamedStreamPipesEntity.java`
+#### Snippet
+```java
+  }
+
+  public UnnamedStreamPipesEntity(UnnamedStreamPipesEntity other) {
+    this();
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `ConsumableStreamPipesEntity()` of an abstract class should not be declared 'public'
 in `streampipes-model/src/main/java/org/apache/streampipes/model/base/ConsumableStreamPipesEntity.java`
 #### Snippet
 ```java
-  private EventGrounding supportedGrounding;
+  }
 
-  public ConsumableStreamPipesEntity() {
-    super();
-    this.spDataStreams = new ArrayList<>();
+  public ConsumableStreamPipesEntity(ConsumableStreamPipesEntity other) {
+    super(other);
+    if (other.getSpDataStreams() != null) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11801,11 +11787,11 @@ Constructor `ConsumableStreamPipesEntity()` of an abstract class should not be d
 in `streampipes-model/src/main/java/org/apache/streampipes/model/base/ConsumableStreamPipesEntity.java`
 #### Snippet
 ```java
-  }
+  private EventGrounding supportedGrounding;
 
-  public ConsumableStreamPipesEntity(ConsumableStreamPipesEntity other) {
-    super(other);
-    if (other.getSpDataStreams() != null) {
+  public ConsumableStreamPipesEntity() {
+    super();
+    this.spDataStreams = new ArrayList<>();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11849,6 +11835,30 @@ Constructor `NamedStreamPipesEntity()` of an abstract class should not be declar
 in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStreamPipesEntity.java`
 #### Snippet
 ```java
+  }
+
+  public NamedStreamPipesEntity(String elementId, String name, String description) {
+    super();
+    this.elementId = elementId;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `NamedStreamPipesEntity()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStreamPipesEntity.java`
+#### Snippet
+```java
+  }
+
+  public NamedStreamPipesEntity(String elementId, String name, String description, String iconUrl) {
+    this(elementId, name, description);
+    this.iconUrl = iconUrl;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `NamedStreamPipesEntity()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStreamPipesEntity.java`
+#### Snippet
+```java
 
 
   public NamedStreamPipesEntity() {
@@ -11875,45 +11885,21 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStrea
 ```java
   }
 
-  public NamedStreamPipesEntity(String elementId, String name, String description, String iconUrl) {
-    this(elementId, name, description);
-    this.iconUrl = iconUrl;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `NamedStreamPipesEntity()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStreamPipesEntity.java`
-#### Snippet
-```java
-  }
-
   public NamedStreamPipesEntity(String elementId) {
     this();
     this.elementId = elementId;
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `NamedStreamPipesEntity()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStreamPipesEntity.java`
+Constructor `OutputStrategy()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/output/OutputStrategy.java`
 #### Snippet
 ```java
   }
 
-  public NamedStreamPipesEntity(String elementId, String name, String description) {
-    super();
-    this.elementId = elementId;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractParameterExtractor()` of an abstract class should not be declared 'public'
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
-  private TypeParser typeParser;
-
-  public AbstractParameterExtractor(T sepaElement) {
-    this.sepaElement = sepaElement;
-    this.typeParser = TypeParser.newBuilder().build();
+  public OutputStrategy(OutputStrategy other) {
+    super(other);
+    this.name = other.getName();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11941,15 +11927,15 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/output/OutputSt
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `OutputStrategy()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/output/OutputStrategy.java`
+Constructor `ValueSpecification()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/schema/ValueSpecification.java`
 #### Snippet
 ```java
-  }
-
-  public OutputStrategy(OutputStrategy other) {
-    super(other);
-    this.name = other.getName();
+	private static final long serialVersionUID = 1L;
+	
+	public ValueSpecification() {
+		super();
+	}
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -11965,15 +11951,15 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/schema/ValueSpe
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ValueSpecification()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/schema/ValueSpecification.java`
+Constructor `AbstractParameterExtractor()` of an abstract class should not be declared 'public'
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
 ```java
-	private static final long serialVersionUID = 1L;
-	
-	public ValueSpecification() {
-		super();
-	}
+  private TypeParser typeParser;
+
+  public AbstractParameterExtractor(T sepaElement) {
+    this.sepaElement = sepaElement;
+    this.typeParser = TypeParser.newBuilder().build();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12005,9 +11991,9 @@ Constructor `ValueTransformationRuleDescription()` of an abstract class should n
 in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/rules/value/ValueTransformationRuleDescription.java`
 #### Snippet
 ```java
-    }
+public abstract class ValueTransformationRuleDescription extends TransformationRuleDescription {
 
-    public ValueTransformationRuleDescription(TransformationRuleDescription other) {
+    public ValueTransformationRuleDescription() {
         super();
     }
 ```
@@ -12017,9 +12003,9 @@ Constructor `ValueTransformationRuleDescription()` of an abstract class should n
 in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/rules/value/ValueTransformationRuleDescription.java`
 #### Snippet
 ```java
-public abstract class ValueTransformationRuleDescription extends TransformationRuleDescription {
+    }
 
-    public ValueTransformationRuleDescription() {
+    public ValueTransformationRuleDescription(TransformationRuleDescription other) {
         super();
     }
 ```
@@ -12073,15 +12059,51 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/rules/s
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `AdapterSetDescription()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterSetDescription.java`
+#### Snippet
+```java
+    }
+
+    public AdapterSetDescription(AdapterSetDescription other) {
+        super(other);
+        if (other.getDataSet() != null) this.setDataSet(new SpDataSet(other.getDataSet()));
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AdapterSetDescription()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterSetDescription.java`
+#### Snippet
+```java
+    }
+
+    public AdapterSetDescription(String uri, String name, String description) {
+        super(uri, name, description);
+        this.dataSet = new SpDataSet();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AdapterSetDescription()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterSetDescription.java`
+#### Snippet
+```java
+public abstract class AdapterSetDescription extends AdapterDescription {
+
+    public AdapterSetDescription() {
+        this.dataSet = new SpDataSet();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `AdapterStreamDescription()` of an abstract class should not be declared 'public'
 in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterStreamDescription.java`
 #### Snippet
 ```java
-    private boolean running;
+    }
 
-    public AdapterStreamDescription() {
-        super();
-        this.dataStream = new SpDataStream();
+    public AdapterStreamDescription(AdapterStreamDescription other) {
+        super(other);
+        this.running = other.isRunning();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12101,47 +12123,11 @@ Constructor `AdapterStreamDescription()` of an abstract class should not be decl
 in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterStreamDescription.java`
 #### Snippet
 ```java
-    }
+    private boolean running;
 
-    public AdapterStreamDescription(AdapterStreamDescription other) {
-        super(other);
-        this.running = other.isRunning();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AdapterSetDescription()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterSetDescription.java`
-#### Snippet
-```java
-    }
-
-    public AdapterSetDescription(AdapterSetDescription other) {
-        super(other);
-        if (other.getDataSet() != null) this.setDataSet(new SpDataSet(other.getDataSet()));
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AdapterSetDescription()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterSetDescription.java`
-#### Snippet
-```java
-public abstract class AdapterSetDescription extends AdapterDescription {
-
-    public AdapterSetDescription() {
-        this.dataSet = new SpDataSet();
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AdapterSetDescription()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterSetDescription.java`
-#### Snippet
-```java
-    }
-
-    public AdapterSetDescription(String uri, String name, String description) {
-        super(uri, name, description);
-        this.dataSet = new SpDataSet();
+    public AdapterStreamDescription() {
+        super();
+        this.dataStream = new SpDataStream();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12151,9 +12137,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/schema/EventPro
 ```java
   }
 
-  public EventProperty(List<URI> subClassOf) {
+  public EventProperty(String propertyName, List<URI> subClassOf, List<EventPropertyQualityDefinition> eventPropertyQualities) {
     this();
-    this.domainProperties = subClassOf;
+    this.runtimeName = propertyName;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12175,9 +12161,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/schema/EventPro
 ```java
   }
 
-  public EventProperty() {
-    super(prefix + UUID.randomUUID().toString());
-    this.requiresEventPropertyQualities = new ArrayList<>();
+  public EventProperty(List<URI> subClassOf) {
+    this();
+    this.domainProperties = subClassOf;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12211,21 +12197,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/schema/EventPro
 ```java
   }
 
-  public EventProperty(String propertyName, List<URI> subClassOf, List<EventPropertyQualityDefinition> eventPropertyQualities) {
-    this();
-    this.runtimeName = propertyName;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AdapterDescription()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterDescription.java`
-#### Snippet
-```java
-  private String correspondingDataStreamElementId;
-
-  public AdapterDescription() {
-    super();
-    this.rules = new ArrayList<>();
+  public EventProperty() {
+    super(prefix + UUID.randomUUID().toString());
+    this.requiresEventPropertyQualities = new ArrayList<>();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12253,15 +12227,75 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `MeasurementProperty()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/quality/MeasurementProperty.java`
+Constructor `AdapterDescription()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter/AdapterDescription.java`
 #### Snippet
 ```java
-	private static final long serialVersionUID = 8527800469513813552L;
+  private String correspondingDataStreamElementId;
 
-	public MeasurementProperty() {
-		super();
+  public AdapterDescription() {
+    super();
+    this.rules = new ArrayList<>();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Message()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
+#### Snippet
+```java
+	
+	
+	public Message(boolean success, Notification...notifications)
+	{
+		this.success = success;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Message()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
+#### Snippet
+```java
+	private List<Notification> notifications;
+	
+	public Message(){
+
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Message()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
+#### Snippet
+```java
+  }
+
+	public Message(boolean success){
+		this.success = success;
+		this.notifications = null;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Message()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
+#### Snippet
+```java
 	}
+	
+	public Message(boolean success, List<Notification> notifications) {
+		super();
+		this.success = success;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Message()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
+#### Snippet
+```java
+	}
+	
+	public Message(boolean success, List<Notification> notifications, String elementName) {
+		this(success, notifications);
+		this.elementName = elementName;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12273,6 +12307,18 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/quality/Measure
 	
 	public MeasurementProperty(MeasurementProperty other) {
 		super(other);
+	}
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MeasurementProperty()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/quality/MeasurementProperty.java`
+#### Snippet
+```java
+	private static final long serialVersionUID = 8527800469513813552L;
+
+	public MeasurementProperty() {
+		super();
 	}
 ```
 
@@ -12301,66 +12347,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/quality/EventPr
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Message()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
-#### Snippet
-```java
-	}
-	
-	public Message(boolean success, List<Notification> notifications) {
-		super();
-		this.success = success;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Message()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
-#### Snippet
-```java
-	private List<Notification> notifications;
-	
-	public Message(){
-
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Message()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
-#### Snippet
-```java
-	}
-	
-	public Message(boolean success, List<Notification> notifications, String elementName) {
-		this(success, notifications);
-		this.elementName = elementName;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Message()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
-#### Snippet
-```java
-	
-	
-	public Message(boolean success, Notification...notifications)
-	{
-		this.success = success;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Message()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Message.java`
-#### Snippet
-```java
-  }
-
-	public Message(boolean success){
-		this.success = success;
-		this.notifications = null;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractField()` of an abstract class should not be declared 'public'
 in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/AbstractField.java`
 #### Snippet
@@ -12379,9 +12365,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/A
 ```java
   }
 
-  public AbstractField(String fieldNameIn) {
-    this();
-    this.fieldNameIn = fieldNameIn;
+  public AbstractField() {
+
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12391,9 +12377,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/A
 ```java
   }
 
-  public AbstractField() {
-
-  }
+  public AbstractField(String fieldNameIn) {
+    this();
+    this.fieldNameIn = fieldNameIn;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12425,11 +12411,11 @@ Constructor `TransportProtocol()` of an abstract class should not be declared 'p
 in `streampipes-model/src/main/java/org/apache/streampipes/model/grounding/TransportProtocol.java`
 #### Snippet
 ```java
-	}
+	private TopicDefinition topicDefinition;
 	
-	public TransportProtocol(String hostname, TopicDefinition topicDefinition)
-	{
+	public TransportProtocol() {
 		super();
+	}
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12449,11 +12435,11 @@ Constructor `TransportProtocol()` of an abstract class should not be declared 'p
 in `streampipes-model/src/main/java/org/apache/streampipes/model/grounding/TransportProtocol.java`
 #### Snippet
 ```java
-	private TopicDefinition topicDefinition;
-	
-	public TransportProtocol() {
-		super();
 	}
+	
+	public TransportProtocol(String hostname, TopicDefinition topicDefinition)
+	{
+		super();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12461,11 +12447,11 @@ Constructor `TopicDefinition()` of an abstract class should not be declared 'pub
 in `streampipes-model/src/main/java/org/apache/streampipes/model/grounding/TopicDefinition.java`
 #### Snippet
 ```java
-  }
+  private String actualTopicName;
 
-  public TopicDefinition(String actualTopicName) {
+  public TopicDefinition() {
     super();
-    this.actualTopicName = actualTopicName;
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12485,10 +12471,22 @@ Constructor `TopicDefinition()` of an abstract class should not be declared 'pub
 in `streampipes-model/src/main/java/org/apache/streampipes/model/grounding/TopicDefinition.java`
 #### Snippet
 ```java
-  private String actualTopicName;
+  }
 
-  public TopicDefinition() {
+  public TopicDefinition(String actualTopicName) {
     super();
+    this.actualTopicName = actualTopicName;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MessagesInfo()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/monitoring/MessagesInfo.java`
+#### Snippet
+```java
+  }
+
+  public MessagesInfo(String topicName) {
+    this.topicName = topicName;
   }
 ```
 
@@ -12502,18 +12500,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/monitoring/Mess
   public MessagesInfo() {
   }
 
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MessagesInfo()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/monitoring/MessagesInfo.java`
-#### Snippet
-```java
-  }
-
-  public MessagesInfo(String topicName) {
-    this.topicName = topicName;
-  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12581,18 +12567,6 @@ Constructor `StaticProperty()` of an abstract class should not be declared 'publ
 in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/StaticProperty.java`
 #### Snippet
 ```java
-
-
-  public StaticProperty() {
-    super();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `StaticProperty()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/StaticProperty.java`
-#### Snippet
-```java
   }
 
   public StaticProperty(StaticProperty other) {
@@ -12613,15 +12587,15 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SelectionStaticProperty()` of an abstract class should not be declared 'public'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/SelectionStaticProperty.java`
+Constructor `StaticProperty()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/StaticProperty.java`
 #### Snippet
 ```java
-  }
 
-  public SelectionStaticProperty(StaticPropertyType staticPropertyType, String internalName, String label, String
-          description, boolean horizontalRendering) {
-    super(staticPropertyType, internalName, label, description);
+
+  public StaticProperty() {
+    super();
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12632,7 +12606,7 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/
   }
 
   public SelectionStaticProperty(StaticPropertyType staticPropertyType, String internalName, String label, String
-          description) {
+          description, boolean horizontalRendering) {
     super(staticPropertyType, internalName, label, description);
 ```
 
@@ -12658,6 +12632,18 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/
   public SelectionStaticProperty(StaticPropertyType staticPropertyType) {
     super(staticPropertyType);
     this.options = new ArrayList<>();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SelectionStaticProperty()` of an abstract class should not be declared 'public'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/staticproperty/SelectionStaticProperty.java`
+#### Snippet
+```java
+  }
+
+  public SelectionStaticProperty(StaticPropertyType staticPropertyType, String internalName, String label, String
+          description) {
+    super(staticPropertyType, internalName, label, description);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12737,22 +12723,10 @@ Constructor `Adapter()` of an abstract class should not be declared 'public'
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/Adapter.java`
 #### Snippet
 ```java
-    protected T adapterDescription;
-
-    public Adapter(T adapterDescription, boolean debug) {
-        this.adapterDescription = adapterDescription;
-        this.debug = debug;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Adapter()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/Adapter.java`
-#### Snippet
-```java
     }
 
-    public Adapter(boolean debug) {
-        this.debug = debug;
+    public Adapter() {
+        this(false);
     }
 ```
 
@@ -12773,22 +12747,22 @@ Constructor `Adapter()` of an abstract class should not be declared 'public'
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/Adapter.java`
 #### Snippet
 ```java
-    }
+    protected T adapterDescription;
 
-    public Adapter() {
-        this(false);
-    }
+    public Adapter(T adapterDescription, boolean debug) {
+        this.adapterDescription = adapterDescription;
+        this.debug = debug;
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Protocol()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/generic/Protocol.java`
+Constructor `Adapter()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/Adapter.java`
 #### Snippet
 ```java
-    protected EventSchema eventSchema;
+    }
 
-    public Protocol() {
-
+    public Adapter(boolean debug) {
+        this.debug = debug;
     }
 ```
 
@@ -12805,38 +12779,26 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/mod
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SpecificDataSetAdapter()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataSetAdapter.java`
+Constructor `Protocol()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/generic/Protocol.java`
 #### Snippet
 ```java
-    }
+    protected EventSchema eventSchema;
 
-    public SpecificDataSetAdapter(SpecificAdapterSetDescription adapterDescription) {
-        super(adapterDescription);
+    public Protocol() {
+
     }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SpecificDataSetAdapter()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataSetAdapter.java`
+Constructor `SpecificDataStreamAdapter()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataStreamAdapter.java`
 #### Snippet
 ```java
     }
 
-    public SpecificDataSetAdapter(SpecificAdapterSetDescription adapterDescription, boolean debug) {
+    public SpecificDataStreamAdapter(SpecificAdapterStreamDescription adapterDescription, boolean debug) {
         super(adapterDescription, debug);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SpecificDataSetAdapter()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataSetAdapter.java`
-#### Snippet
-```java
-public abstract class SpecificDataSetAdapter extends SpecificAdapter<SpecificAdapterSetDescription> {
-
-    public SpecificDataSetAdapter() {
-        super();
     }
 ```
 
@@ -12865,26 +12827,14 @@ public abstract class SpecificDataStreamAdapter extends SpecificAdapter<Specific
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SpecificDataStreamAdapter()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataStreamAdapter.java`
-#### Snippet
-```java
-    }
-
-    public SpecificDataStreamAdapter(SpecificAdapterStreamDescription adapterDescription, boolean debug) {
-        super(adapterDescription, debug);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `GenericAdapter()` of an abstract class should not be declared 'public'
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/generic/GenericAdapter.java`
 #### Snippet
 ```java
     }
 
-    public GenericAdapter() {
-        super();
+    public GenericAdapter(T adapterDescription, boolean debug) {
+        super(adapterDescription, debug);
     }
 ```
 
@@ -12907,8 +12857,20 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/mod
 ```java
     }
 
-    public GenericAdapter(T adapterDescription, boolean debug) {
-        super(adapterDescription, debug);
+    public GenericAdapter() {
+        super();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SpecificAdapter()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificAdapter.java`
+#### Snippet
+```java
+public abstract class SpecificAdapter <T extends AdapterDescription> extends Adapter<T> {
+
+    public SpecificAdapter() {
+        super();
     }
 ```
 
@@ -12937,14 +12899,38 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/mod
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SpecificAdapter()` of an abstract class should not be declared 'public'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificAdapter.java`
+Constructor `SpecificDataSetAdapter()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataSetAdapter.java`
 #### Snippet
 ```java
-public abstract class SpecificAdapter <T extends AdapterDescription> extends Adapter<T> {
+public abstract class SpecificDataSetAdapter extends SpecificAdapter<SpecificAdapterSetDescription> {
 
-    public SpecificAdapter() {
+    public SpecificDataSetAdapter() {
         super();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SpecificDataSetAdapter()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataSetAdapter.java`
+#### Snippet
+```java
+    }
+
+    public SpecificDataSetAdapter(SpecificAdapterSetDescription adapterDescription) {
+        super(adapterDescription);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SpecificDataSetAdapter()` of an abstract class should not be declared 'public'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/specific/SpecificDataSetAdapter.java`
+#### Snippet
+```java
+    }
+
+    public SpecificDataSetAdapter(SpecificAdapterSetDescription adapterDescription, boolean debug) {
+        super(adapterDescription, debug);
     }
 ```
 
@@ -13013,10 +12999,10 @@ Constructor `PullAdapter()` of an abstract class should not be declared 'public'
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
 #### Snippet
 ```java
-    }
 
-    public PullAdapter(SpecificAdapterStreamDescription adapterDescription) {
-        super(adapterDescription);
+
+    public PullAdapter() {
+        super();
     }
 ```
 
@@ -13025,10 +13011,10 @@ Constructor `PullAdapter()` of an abstract class should not be declared 'public'
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
 #### Snippet
 ```java
+    }
 
-
-    public PullAdapter() {
-        super();
+    public PullAdapter(SpecificAdapterStreamDescription adapterDescription) {
+        super(adapterDescription);
     }
 ```
 
@@ -13085,11 +13071,11 @@ Constructor `WikipediaAdapter()` of an abstract class should not be declared 'pu
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/wikipedia/WikipediaAdapter.java`
 #### Snippet
 ```java
-  }
+  private WikipediaSseConsumer consumer;
 
-  public WikipediaAdapter() {
-    super();
-  }
+  public WikipediaAdapter(SpecificAdapterStreamDescription adapterStreamDescription, String type) {
+    super(adapterStreamDescription);
+    this.type = type;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13097,11 +13083,11 @@ Constructor `WikipediaAdapter()` of an abstract class should not be declared 'pu
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/wikipedia/WikipediaAdapter.java`
 #### Snippet
 ```java
-  private WikipediaSseConsumer consumer;
+  }
 
-  public WikipediaAdapter(SpecificAdapterStreamDescription adapterStreamDescription, String type) {
-    super(adapterStreamDescription);
-    this.type = type;
+  public WikipediaAdapter() {
+    super();
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13225,18 +13211,6 @@ in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractEnricherProgram()` of an abstract class should not be declared 'public'
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/AbstractEnricherProgram.java`
-#### Snippet
-```java
-public abstract class AbstractEnricherProgram<B extends EventProcessorBindingParams> extends FlinkDataProcessorRuntime<B> {
-
-  public AbstractEnricherProgram(B params,
-                                 ConfigExtractor configExtractor,
-                                 StreamPipesClient streamPipesClient) {
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `ElasticsearchSinkBase()` of an abstract class should not be declared 'public'
 in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/apache/streampipes/sinks/databases/flink/elasticsearch/elastic/ElasticsearchSinkBase.java`
 #### Snippet
@@ -13246,6 +13220,18 @@ in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/a
 	public ElasticsearchSinkBase(
 					ElasticsearchApiCallBridge callBridge,
 					Map<String, String> userConfig,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractEnricherProgram()` of an abstract class should not be declared 'public'
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/AbstractEnricherProgram.java`
+#### Snippet
+```java
+public abstract class AbstractEnricherProgram<B extends EventProcessorBindingParams> extends FlinkDataProcessorRuntime<B> {
+
+  public AbstractEnricherProgram(B params,
+                                 ConfigExtractor configExtractor,
+                                 StreamPipesClient streamPipesClient) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13385,18 +13371,6 @@ Constructor `OntologyElement()` of an abstract class should not be declared 'pub
 in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/ontology/OntologyElement.java`
 #### Snippet
 ```java
-	private String rdfsDescription;
-	
-	public OntologyElement(ElementHeader elementHeader, String rdfsLabel, String rdfsDescription)
-	{
-		this.elementHeader = elementHeader;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `OntologyElement()` of an abstract class should not be declared 'public'
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/ontology/OntologyElement.java`
-#### Snippet
-```java
 	}
 
 	public OntologyElement(ElementHeader header) {
@@ -13414,6 +13388,18 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/o
 	public OntologyElement()
 	{
 		
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `OntologyElement()` of an abstract class should not be declared 'public'
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/ontology/OntologyElement.java`
+#### Snippet
+```java
+	private String rdfsDescription;
+	
+	public OntologyElement(ElementHeader elementHeader, String rdfsLabel, String rdfsDescription)
+	{
+		this.elementHeader = elementHeader;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13549,6 +13535,30 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `SiddhiEventEngine()` of an abstract class should not be declared 'public'
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/SiddhiEventEngine.java`
+#### Snippet
+```java
+  private SiddhiEngine siddhiEngine;
+
+  public SiddhiEventEngine() {
+    this.siddhiEngine = new SiddhiEngine();
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SiddhiEventEngine()` of an abstract class should not be declared 'public'
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/SiddhiEventEngine.java`
+#### Snippet
+```java
+  }
+
+  public SiddhiEventEngine(SiddhiDebugCallback debugCallback) {
+    this.siddhiEngine = new SiddhiEngine(debugCallback);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `StreamPipesSiddhiProcessor()` of an abstract class should not be declared 'public'
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/StreamPipesSiddhiProcessor.java`
 #### Snippet
@@ -13573,30 +13583,6 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SiddhiEventEngine()` of an abstract class should not be declared 'public'
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/SiddhiEventEngine.java`
-#### Snippet
-```java
-  }
-
-  public SiddhiEventEngine(SiddhiDebugCallback debugCallback) {
-    this.siddhiEngine = new SiddhiEngine(debugCallback);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SiddhiEventEngine()` of an abstract class should not be declared 'public'
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/SiddhiEventEngine.java`
-#### Snippet
-```java
-  private SiddhiEngine siddhiEngine;
-
-  public SiddhiEventEngine() {
-    this.siddhiEngine = new SiddhiEngine();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `SiddhiOutputConfig()` of an abstract class should not be declared 'public'
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/output/SiddhiOutputConfig.java`
 #### Snippet
@@ -13613,11 +13599,11 @@ Constructor `PatternExpression()` of an abstract class should not be declared 'p
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/query/expression/pattern/PatternExpression.java`
 #### Snippet
 ```java
-  }
+  private WithinExpression withinExpression;
 
-  public PatternExpression(String pattern,
-                           List<StreamExpression> streamExpressions,
-                           WithinExpression withinExpression) {
+  public PatternExpression(String pattern, List<StreamExpression> streamExpressions) {
+    this.pattern = pattern;
+    this.streamExpressions = streamExpressions;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13625,11 +13611,11 @@ Constructor `PatternExpression()` of an abstract class should not be declared 'p
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/query/expression/pattern/PatternExpression.java`
 #### Snippet
 ```java
-  private WithinExpression withinExpression;
+  }
 
-  public PatternExpression(String pattern, List<StreamExpression> streamExpressions) {
-    this.pattern = pattern;
-    this.streamExpressions = streamExpressions;
+  public PatternExpression(String pattern,
+                           List<StreamExpression> streamExpressions,
+                           WithinExpression withinExpression) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13789,15 +13775,15 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ElementVerifier()` of an abstract class should not be declared 'public'
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/ElementVerifier.java`
+Constructor `AbstractVerifier()` of an abstract class should not be declared 'public'
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/structure/AbstractVerifier.java`
 #### Snippet
 ```java
-  }
-
-  public ElementVerifier(T elementDescription) {
-    this.elementDescription = elementDescription;
-    this.shouldTransform = false;
+	protected List<VerificationResult> validationResults;
+	
+	public AbstractVerifier()
+	{
+		this.validationResults = new ArrayList<>();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13813,15 +13799,15 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractVerifier()` of an abstract class should not be declared 'public'
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/structure/AbstractVerifier.java`
+Constructor `ElementVerifier()` of an abstract class should not be declared 'public'
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/verification/ElementVerifier.java`
 #### Snippet
 ```java
-	protected List<VerificationResult> validationResults;
-	
-	public AbstractVerifier()
-	{
-		this.validationResults = new ArrayList<>();
+  }
+
+  public ElementVerifier(T elementDescription) {
+    this.elementDescription = elementDescription;
+    this.shouldTransform = false;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13849,15 +13835,15 @@ public abstract class AbstractPipelineElementResourceManager<T extends CRUDStora
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `RegistrationHandler()` of an abstract class should not be declared 'public'
-in `streampipes-container-extensions/src/main/java/org/apache/streampipes/container/extensions/function/RegistrationHandler.java`
+Constructor `DistributedRuntime()` of an abstract class should not be declared 'public'
+in `streampipes-wrapper-distributed/src/main/java/org/apache/streampipes/wrapper/distributed/runtime/DistributedRuntime.java`
 #### Snippet
 ```java
-  protected final List<FunctionDefinition> functions;
-
-  public RegistrationHandler(List<FunctionDefinition> functions) {
-    this.functions = functions;
   }
+
+  public DistributedRuntime(B bindingParams,
+                            ConfigExtractor configExtractor,
+                            StreamPipesClient streamPipesClient) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13873,15 +13859,15 @@ in `streampipes-wrapper-distributed/src/main/java/org/apache/streampipes/wrapper
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `DistributedRuntime()` of an abstract class should not be declared 'public'
-in `streampipes-wrapper-distributed/src/main/java/org/apache/streampipes/wrapper/distributed/runtime/DistributedRuntime.java`
+Constructor `RegistrationHandler()` of an abstract class should not be declared 'public'
+in `streampipes-container-extensions/src/main/java/org/apache/streampipes/container/extensions/function/RegistrationHandler.java`
 #### Snippet
 ```java
-  }
+  protected final List<FunctionDefinition> functions;
 
-  public DistributedRuntime(B bindingParams,
-                            ConfigExtractor configExtractor,
-                            StreamPipesClient streamPipesClient) {
+  public RegistrationHandler(List<FunctionDefinition> functions) {
+    this.functions = functions;
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13947,18 +13933,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/mod
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
-#### Snippet
-```java
-            }
-          } else {
-            start--;
-          }
-          logger.debug("start object");
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `event`
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/model/pipeline/AdapterEventPreviewPipeline.java`
 #### Snippet
@@ -13973,6 +13947,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/mod
 ### AssignmentToMethodParameter
 Assignment to method parameter `start`
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
+#### Snippet
+```java
+            }
+          } else {
+            start--;
+          }
+          logger.debug("start object");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `start`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
 #### Snippet
 ```java
             }
@@ -14032,18 +14018,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `event`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/StreamEventTransformer.java`
-#### Snippet
-```java
-
-        for (EventRateTransformationRule rateRule : eventRateTransformationRules) {
-            event = rateRule.transform(event);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `event`
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/SchemaEventTransformer.java`
 #### Snippet
 ```java
@@ -14086,6 +14060,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
 
         for (DeleteTransformationRule deleteRule : deleteTransformationRules) {
             event = deleteRule.transform(event);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `event`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/StreamEventTransformer.java`
+#### Snippet
+```java
+
+        for (EventRateTransformationRule rateRule : eventRateTransformationRules) {
+            event = rateRule.transform(event);
         }
 
 ```
@@ -14203,6 +14189,18 @@ Assignment to method parameter `content`
 in `streampipes-extensions/streampipes-sinks-notifications-jvm/src/main/java/org/apache/streampipes/sinks/notifications/jvm/telegram/TelegramPublisher.java`
 #### Snippet
 ```java
+    private String replacePlaceholders(Event event, String content) {
+        for (Map.Entry<String, Object> entry : event.getRaw().entrySet()) {
+            content = content.replaceAll(
+                    HASH_TAG + entry.getKey() + HASH_TAG,
+                    String.valueOf(entry.getValue())
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `content`
+in `streampipes-extensions/streampipes-sinks-notifications-jvm/src/main/java/org/apache/streampipes/sinks/notifications/jvm/telegram/TelegramPublisher.java`
+#### Snippet
+```java
 
     private String trimHTML(String content) {
         content = content.replaceAll("(</h[^>]+><h[^>]+>)|(</h[^>]+><[^>]+>)|(</p><p>)", "\n");
@@ -14220,18 +14218,6 @@ in `streampipes-extensions/streampipes-sinks-notifications-jvm/src/main/java/org
         content = content.replaceAll("(<h[^>]+>)|(</p>)|(<p>)|(<span[^>]+>)|(</span>)", "");
 
         return content;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `content`
-in `streampipes-extensions/streampipes-sinks-notifications-jvm/src/main/java/org/apache/streampipes/sinks/notifications/jvm/telegram/TelegramPublisher.java`
-#### Snippet
-```java
-    private String replacePlaceholders(Event event, String content) {
-        for (Map.Entry<String, Object> entry : event.getRaw().entrySet()) {
-            content = content.replaceAll(
-                    HASH_TAG + entry.getKey() + HASH_TAG,
-                    String.valueOf(entry.getValue())
 ```
 
 ### AssignmentToMethodParameter
@@ -14271,6 +14257,18 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `s`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/document/Image.java`
+#### Snippet
+```java
+      return null;
+    }
+    s = s.trim();
+    if (s.length() == 0) {
+      return null;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `title`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
 #### Snippet
@@ -14304,18 +14302,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
       title = title.trim().toLowerCase();
 
       if (title.length() == 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/document/Image.java`
-#### Snippet
-```java
-      return null;
-    }
-    s = s.trim();
-    if (s.length() == 0) {
-      return null;
 ```
 
 ### AssignmentToMethodParameter
@@ -14355,30 +14341,6 @@ in `streampipes-messaging-kafka/src/main/java/org/apache/streampipes/messaging/k
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `format`
-in `streampipes-platform-services/src/main/java/org/apache/streampipes/ps/DataLakeResourceV4.java`
-#### Snippet
-```java
-            ProvidedQueryParams sanitizedParams = populate(measurementID, queryParams);
-            if (format == null) {
-                format = "csv";
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `wildcardTopicName`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/topic/WildcardTopicGenerator.java`
-#### Snippet
-```java
-        wm.setSelectedMapping(wm.getMappingId());
-      }
-      wildcardTopicName = wildcardTopicName.replace("$" + wm.getMappingId(), wm.getSelectedMapping());
-    }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `fileInputStream`
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/file/FileManager.java`
 #### Snippet
@@ -14403,6 +14365,30 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `format`
+in `streampipes-platform-services/src/main/java/org/apache/streampipes/ps/DataLakeResourceV4.java`
+#### Snippet
+```java
+            ProvidedQueryParams sanitizedParams = populate(measurementID, queryParams);
+            if (format == null) {
+                format = "csv";
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `wildcardTopicName`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/topic/WildcardTopicGenerator.java`
+#### Snippet
+```java
+        wm.setSelectedMapping(wm.getMappingId());
+      }
+      wildcardTopicName = wildcardTopicName.replace("$" + wm.getMappingId(), wm.getSelectedMapping());
+    }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `url`
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/endpoint/EndpointItemParser.java`
 #### Snippet
@@ -14415,18 +14401,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `retryCount`
-in `streampipes-container-extensions/src/main/java/org/apache/streampipes/container/extensions/function/RegistrationHandler.java`
-#### Snippet
-```java
-          LOG.error("Error while initiating sleep", ex);
-        }
-        retryCount++;
-        initRequest(retryCount);
-      }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `topic`
 in `streampipes-wrapper-distributed/src/main/java/org/apache/streampipes/wrapper/distributed/runtime/DistributedRuntime.java`
 #### Snippet
@@ -14436,6 +14410,18 @@ in `streampipes-wrapper-distributed/src/main/java/org/apache/streampipes/wrapper
     topic = topic.replaceAll("\\.", "\\\\.");
     return topic.replaceAll("\\*", ".*");
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `retryCount`
+in `streampipes-container-extensions/src/main/java/org/apache/streampipes/container/extensions/function/RegistrationHandler.java`
+#### Snippet
+```java
+          LOG.error("Error while initiating sleep", ex);
+        }
+        retryCount++;
+        initRequest(retryCount);
+      }
 ```
 
 ### AssignmentToMethodParameter
@@ -14540,8 +14526,8 @@ Return of `null`
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
 ```java
-      }
     }
+    // TODO exceptions
     return null;
   }
 
@@ -14552,8 +14538,8 @@ Return of `null`
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
 ```java
+      }
     }
-    // TODO exceptions
     return null;
   }
 
@@ -14609,13 +14595,13 @@ in `streampipes-commons/src/main/java/org/apache/streampipes/commons/Utils.java`
 
 ### ReturnNull
 Return of `null`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/sdk/ParameterExtractor.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/AdapterPipelineGenerator.java`
 #### Snippet
 ```java
-            if (p.getInternalName().equals(name)) return p;
-        }
-        return null;
     }
+
+    return null;
+  }
 
 ```
 
@@ -14633,13 +14619,13 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### ReturnNull
 Return of `null`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/AdapterPipelineGenerator.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/sdk/ParameterExtractor.java`
 #### Snippet
 ```java
+            if (p.getInternalName().equals(name)) return p;
+        }
+        return null;
     }
-
-    return null;
-  }
 
 ```
 
@@ -14653,18 +14639,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
-#### Snippet
-```java
-          // Check if just the end of array is entered
-          if (result.keySet().size() == 0 && mapKey.equals("")) {
-            return null;
-          }
-          result.put(mapKey, arr);
 ```
 
 ### ReturnNull
@@ -14705,6 +14679,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### ReturnNull
 Return of `null`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
+#### Snippet
+```java
+          // Check if just the end of array is entered
+          if (result.keySet().size() == 0 && mapKey.equals("")) {
+            return null;
+          }
+          result.put(mapKey, arr);
+```
+
+### ReturnNull
+Return of `null`
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/elements/SendToBrokerAdapterSink.java`
 #### Snippet
 ```java
@@ -14712,6 +14698,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
     }
     return null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/EventRateTransformationRule.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -14725,18 +14723,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
             return null;
         }
         saveEvent(hash);
-```
-
-### ReturnNull
-Return of `null`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/EventRateTransformationRule.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -14864,18 +14850,6 @@ Return of `null`
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/model/StatementUtils.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/model/StatementUtils.java`
-#### Snippet
-```java
                 return result;
             } else {
                 return null;
@@ -14921,26 +14895,14 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
 
 ### ReturnNull
 Return of `null`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/state/labeler/model/StatementUtils.java`
 #### Snippet
 ```java
-    String[] parts = title.split(pattern);
-    if (parts.length == 1) {
-      return null;
+            }
+        }
+        return null;
     }
-    int longestNumWords = 0;
-```
 
-### ReturnNull
-Return of `null`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
-#### Snippet
-```java
-    }
-    if (longestPart.length() == 0) {
-      return null;
-    } else {
-      return longestPart.trim();
 ```
 
 ### ReturnNull
@@ -14969,6 +14931,30 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 
 ### ReturnNull
 Return of `null`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
+#### Snippet
+```java
+    String[] parts = title.split(pattern);
+    if (parts.length == 1) {
+      return null;
+    }
+    int longestNumWords = 0;
+```
+
+### ReturnNull
+Return of `null`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/DocumentTitleMatchClassifier.java`
+#### Snippet
+```java
+    }
+    if (longestPart.length() == 0) {
+      return null;
+    } else {
+      return longestPart.trim();
+```
+
+### ReturnNull
+Return of `null`
 in `streampipes-security-jwt/src/main/java/org/apache/streampipes/security/jwt/PublicKeyResolver.java`
 #### Snippet
 ```java
@@ -14993,12 +14979,12 @@ in `streampipes-security-jwt/src/main/java/org/apache/streampipes/security/jwt/P
 
 ### ReturnNull
 Return of `null`
-in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/AutoAggregationHandler.java`
+in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/ProvidedQueryParams.java`
 #### Snippet
 ```java
-        e.printStackTrace();
-      }
-    return null;
+
+  public String getAsString(String key) {
+    return has(key) ? providedParams.get(key): null;
   }
 
 ```
@@ -15029,12 +15015,12 @@ in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/
 
 ### ReturnNull
 Return of `null`
-in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/ProvidedQueryParams.java`
+in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/AutoAggregationHandler.java`
 #### Snippet
 ```java
-
-  public String getAsString(String key) {
-    return has(key) ? providedParams.get(key): null;
+        e.printStackTrace();
+      }
+    return null;
   }
 
 ```
@@ -15245,42 +15231,6 @@ in `streampipes-measurement-units/src/main/java/org/apache/streampipes/units/Uni
 
 ### ReturnNull
 Return of `null`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
-#### Snippet
-```java
-      return new URI(resource);
-    } catch (URISyntaxException exception) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
-#### Snippet
-```java
-      return UnitFactory.getInstance().getUnit(mappedURI);
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
-#### Snippet
-```java
-        return "http://www.openphacts.org/units/" + shortened.substring(4);
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `streampipes-performance-tests/src/main/java/org/apache/streampipes/performance/dataprovider/JsonDataProvider.java`
 #### Snippet
 ```java
@@ -15305,13 +15255,37 @@ in `streampipes-performance-tests/src/main/java/org/apache/streampipes/performan
 
 ### ReturnNull
 Return of `null`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
 #### Snippet
 ```java
+      return UnitFactory.getInstance().getUnit(mappedURI);
+    } else {
+      return null;
     }
-    //TODO
-    return null;
   }
+```
+
+### ReturnNull
+Return of `null`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
+#### Snippet
+```java
+      return new URI(resource);
+    } catch (URISyntaxException exception) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
+#### Snippet
+```java
+        return "http://www.openphacts.org/units/" + shortened.substring(4);
+      }
+      return null;
+    }
 
 ```
 
@@ -15325,6 +15299,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
+#### Snippet
+```java
+    }
+    //TODO
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -15353,18 +15339,6 @@ in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapp
 
 ### ReturnNull
 Return of `null`
-in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/service/extensions/base/WebSecurityConfig.java`
-#### Snippet
-```java
-  @Override
-  public UserDetailsService userDetailsService() {
-    return username -> null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/service/extensions/base/StreamPipesExtensionsServiceBase.java`
 #### Snippet
 ```java
@@ -15372,6 +15346,18 @@ in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/ser
     public SpServiceDefinition provideServiceDefinition() {
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/service/extensions/base/WebSecurityConfig.java`
+#### Snippet
+```java
+  @Override
+  public UserDetailsService userDetailsService() {
+    return username -> null;
+  }
 
 ```
 
@@ -15641,18 +15627,6 @@ in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/cou
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `pageContent` is redundant
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/endpoint/HttpJsonParser.java`
-#### Snippet
-```java
-    HttpResponse response = client.execute(request);
-
-    String pageContent = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
-
-    return pageContent;
-```
-
-### UnnecessaryLocalVariable
 Local variable `concatList` is redundant
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/endpoint/EndpointFetcher.java`
 #### Snippet
@@ -15662,6 +15636,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
     List<ExtensionsServiceEndpoint> concatList =
             Stream.of(databasedExtensionsServiceEndpoints, servicerdExtensionsServiceEndpoints)
                     .flatMap(Collection::stream)
+```
+
+### UnnecessaryLocalVariable
+Local variable `pageContent` is redundant
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/endpoint/HttpJsonParser.java`
+#### Snippet
+```java
+    HttpResponse response = client.execute(request);
+
+    String pageContent = IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+
+    return pageContent;
 ```
 
 ### UnnecessaryLocalVariable
@@ -15701,18 +15687,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `responseString` is redundant
-in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/WorkerRestClient.java`
-#### Snippet
-```java
-
-        try {
-            byte[] responseString = Request.Get(url)
-                    .connectTimeout(1000)
-                    .socketTimeout(100000)
-```
-
-### UnnecessaryLocalVariable
 Local variable `result` is redundant
 in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/WorkerRestClient.java`
 #### Snippet
@@ -15722,6 +15696,18 @@ in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/co
             List<AdapterDescription> result = JacksonSerializer.getObjectMapper().readValue(responseString, List.class);
 
             return result;
+```
+
+### UnnecessaryLocalVariable
+Local variable `responseString` is redundant
+in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/WorkerRestClient.java`
+#### Snippet
+```java
+
+        try {
+            byte[] responseString = Request.Get(url)
+                    .connectTimeout(1000)
+                    .socketTimeout(100000)
 ```
 
 ## RuleId[ruleID=BusyWait]
@@ -15775,18 +15761,6 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/simulator/machine/MachineDataSimulator.java`
-#### Snippet
-```java
-
-            try {
-                Thread.sleep(waitTimeMs);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/influxdb/InfluxDbStreamAdapter.java`
 #### Snippet
 ```java
@@ -15795,6 +15769,18 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
                     Thread.sleep(pollingInterval);
                 } catch (InterruptedException e) {
                     break;
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/simulator/machine/MachineDataSimulator.java`
+#### Snippet
+```java
+
+            try {
+                Thread.sleep(waitTimeMs);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
 ```
 
 ### BusyWait
@@ -16078,6 +16064,54 @@ in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.io.Resources' is marked unstable with @Beta
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
+#### Snippet
+```java
+
+  public static String readResourceFileToString(String filename) throws IOException {
+    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
+  }
+}
+```
+
+### UnstableApiUsage
+'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
+#### Snippet
+```java
+
+  public static String readResourceFileToString(String filename) throws IOException {
+    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
+  }
+}
+```
+
+### UnstableApiUsage
+'com.google.common.io.Resources' is marked unstable with @Beta
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
+#### Snippet
+```java
+
+  public static String readResourceFileToString(String filename) throws IOException {
+    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
+  }
+}
+```
+
+### UnstableApiUsage
+'getResource(java.lang.String)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
+#### Snippet
+```java
+
+  public static String readResourceFileToString(String filename) throws IOException {
+    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
+  }
+}
+```
+
+### UnstableApiUsage
+'com.google.common.io.Resources' is marked unstable with @Beta
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Labels.java`
 #### Snippet
 ```java
@@ -16126,50 +16160,50 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Labels.java
 
 ### UnstableApiUsage
 'com.google.common.io.Resources' is marked unstable with @Beta
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
 #### Snippet
 ```java
-
-  public static String readResourceFileToString(String filename) throws IOException {
-    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
-  }
-}
-```
-
-### UnstableApiUsage
-'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
-#### Snippet
-```java
-
-  public static String readResourceFileToString(String filename) throws IOException {
-    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
-  }
-}
-```
-
-### UnstableApiUsage
-'com.google.common.io.Resources' is marked unstable with @Beta
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
-#### Snippet
-```java
-
-  public static String readResourceFileToString(String filename) throws IOException {
-    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
-  }
-}
+  public Response getDocumentationAsset(@PathParam("id") String elementId) throws IOException {
+    try {
+      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
+      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
+    } catch (IllegalArgumentException e) {
 ```
 
 ### UnstableApiUsage
 'getResource(java.lang.String)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/utils/MailUtils.java`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
 #### Snippet
 ```java
+  public Response getDocumentationAsset(@PathParam("id") String elementId) throws IOException {
+    try {
+      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
+      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
+    } catch (IllegalArgumentException e) {
+```
 
-  public static String readResourceFileToString(String filename) throws IOException {
-    return Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
-  }
-}
+### UnstableApiUsage
+'com.google.common.io.Resources' is marked unstable with @Beta
+in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
+#### Snippet
+```java
+    try {
+      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
+      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
+    } catch (IllegalArgumentException e) {
+      LOG.warn("No documentation resource found for pipeline element {}", elementId);
+```
+
+### UnstableApiUsage
+'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
+in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
+#### Snippet
+```java
+    try {
+      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
+      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
+    } catch (IllegalArgumentException e) {
+      LOG.warn("No documentation resource found for pipeline element {}", elementId);
 ```
 
 ### UnstableApiUsage
@@ -16218,54 +16252,6 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/api/Abs
       return ok(Resources.toByteArray(iconUrl));
     } catch (IllegalArgumentException e) {
       LOG.warn("No icon resource found for pipeline element {}", appId);
-```
-
-### UnstableApiUsage
-'com.google.common.io.Resources' is marked unstable with @Beta
-in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
-#### Snippet
-```java
-  public Response getDocumentationAsset(@PathParam("id") String elementId) throws IOException {
-    try {
-      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
-      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
-    } catch (IllegalArgumentException e) {
-```
-
-### UnstableApiUsage
-'getResource(java.lang.String)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
-#### Snippet
-```java
-  public Response getDocumentationAsset(@PathParam("id") String elementId) throws IOException {
-    try {
-      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
-      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
-    } catch (IllegalArgumentException e) {
-```
-
-### UnstableApiUsage
-'com.google.common.io.Resources' is marked unstable with @Beta
-in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
-#### Snippet
-```java
-    try {
-      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
-      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
-    } catch (IllegalArgumentException e) {
-      LOG.warn("No documentation resource found for pipeline element {}", elementId);
-```
-
-### UnstableApiUsage
-'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
-#### Snippet
-```java
-    try {
-      URL documentationUrl = Resources.getResource(makeDocumentationPath(elementId));
-      return ok(Resources.toString(documentationUrl, Charsets.UTF_8));
-    } catch (IllegalArgumentException e) {
-      LOG.warn("No documentation resource found for pipeline element {}", elementId);
 ```
 
 ### UnstableApiUsage
@@ -16537,42 +16523,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/Event.java`
-#### Snippet
-```java
-
-  public void addField(String runtimeName, Object value) {
-    if (AbstractField.class.isInstance(value)) {
-      ((AbstractField<?>) value).rename(runtimeName);
-      addField((AbstractField) value);
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
-#### Snippet
-```java
-      if (contains(key, fieldSelectors)) {
-        AbstractField field = fields.get(key);
-        if (PrimitiveField.class.isInstance(field) || ListField.class.isInstance(field)) {
-          outMap.put(key, field);
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
-#### Snippet
-```java
-      if (contains(key, fieldSelectors)) {
-        AbstractField field = fields.get(key);
-        if (PrimitiveField.class.isInstance(field) || ListField.class.isInstance(field)) {
-          outMap.put(key, field);
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
 #### Snippet
 ```java
@@ -16581,6 +16531,42 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFa
         if (Map.class.isInstance(object)) {
           Map<String, Object> map = (Map<String, Object>) object;
           map.put(key, makeRuntimeMapSubset(map, fieldSelectors, makeSelector(key, currentPrefix)));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
+#### Snippet
+```java
+      if (contains(key, fieldSelectors)) {
+        AbstractField field = fields.get(key);
+        if (PrimitiveField.class.isInstance(field) || ListField.class.isInstance(field)) {
+          outMap.put(key, field);
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
+#### Snippet
+```java
+      if (contains(key, fieldSelectors)) {
+        AbstractField field = fields.get(key);
+        if (PrimitiveField.class.isInstance(field) || ListField.class.isInstance(field)) {
+          outMap.put(key, field);
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/Event.java`
+#### Snippet
+```java
+
+  public void addField(String runtimeName, Object value) {
+    if (AbstractField.class.isInstance(value)) {
+      ((AbstractField<?>) value).rename(runtimeName);
+      addField((AbstractField) value);
 ```
 
 ## RuleId[ruleID=UnnecessaryStringEscape]
@@ -16814,66 +16800,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/DensityRulesClassifier.java`
-#### Snippet
-```java
-    TextBlock nextBlock = it.hasNext() ? it.next() : TextBlock.EMPTY_START;
-
-    hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
-
-    if (nextBlock != TextBlock.EMPTY_START) {
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/DensityRulesClassifier.java`
-#### Snippet
-```java
-        currentBlock = nextBlock;
-        nextBlock = it.next();
-        hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
-      }
-      prevBlock = currentBlock;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/DensityRulesClassifier.java`
-#### Snippet
-```java
-      currentBlock = nextBlock;
-      nextBlock = TextBlock.EMPTY_START;
-      hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
-    }
-
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `ta.end(this, localName, qName) | flush`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-    TagAction ta = tagActions.get(localName);
-    if (ta != null) {
-      flush = ta.end(this, localName, qName) | flush;
-    } else {
-      flush = true;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `ta.start(this, localName, qName, atts) | flush`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-        tagLevel++;
-      }
-      flush = ta.start(this, localName, qName, atts) | flush;
-    } else {
-      tagLevel++;
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `t1.start(instance, localName, qName, atts) | t2.start(instance, localName, qName, atts)`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/CommonTagActions.java`
 #### Snippet
@@ -16900,6 +16826,42 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/DensityRulesClassifier.java`
+#### Snippet
+```java
+    TextBlock nextBlock = it.hasNext() ? it.next() : TextBlock.EMPTY_START;
+
+    hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
+
+    if (nextBlock != TextBlock.EMPTY_START) {
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/DensityRulesClassifier.java`
+#### Snippet
+```java
+        currentBlock = nextBlock;
+        nextBlock = it.next();
+        hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
+      }
+      prevBlock = currentBlock;
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/DensityRulesClassifier.java`
+#### Snippet
+```java
+      currentBlock = nextBlock;
+      nextBlock = TextBlock.EMPTY_START;
+      hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
+    }
+
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `classify(prevBlock, currentBlock, nextBlock) | hasChanges`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/NumWordsRulesClassifier.java`
 #### Snippet
 ```java
@@ -16935,6 +16897,30 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `ta.start(this, localName, qName, atts) | flush`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+        tagLevel++;
+      }
+      flush = ta.start(this, localName, qName, atts) | flush;
+    } else {
+      tagLevel++;
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `ta.end(this, localName, qName) | flush`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+    TagAction ta = tagActions.get(localName);
+    if (ta != null) {
+      flush = ta.end(this, localName, qName) | flush;
+    } else {
+      flush = true;
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `tb.setIsContent(true) | changes`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/heuristics/ExpandTitleToContentFilter.java`
 #### Snippet
@@ -16944,20 +16930,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
         changes = tb.setIsContent(true) | changes;
       }
     }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `SimpleBlockFusionProcessor.INSTANCE.process(doc) | BlockProximityFusion.MAX_DISTANCE_1.proce...`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/extractors/DefaultExtractor.java`
-#### Snippet
-```java
-    return
-
-    SimpleBlockFusionProcessor.INSTANCE.process(doc)
-        | BlockProximityFusion.MAX_DISTANCE_1.process(doc)
-        | DensityRulesClassifier.INSTANCE.process(doc);
-  }
-}
 ```
 
 ### NonShortCircuitBoolean
@@ -16985,6 +16957,20 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
         | MarkEverythingContentFilter.INSTANCE.process(doc) | filter.process(doc);
   }
 
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `SimpleBlockFusionProcessor.INSTANCE.process(doc) | BlockProximityFusion.MAX_DISTANCE_1.proce...`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/extractors/DefaultExtractor.java`
+#### Snippet
+```java
+    return
+
+    SimpleBlockFusionProcessor.INSTANCE.process(doc)
+        | BlockProximityFusion.MAX_DISTANCE_1.process(doc)
+        | DensityRulesClassifier.INSTANCE.process(doc);
+  }
+}
 ```
 
 ### NonShortCircuitBoolean
@@ -17146,18 +17132,6 @@ public abstract class StandaloneEventProcessorDeclarerSingleton<B extends EventP
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `StandaloneExternalEventSinkDeclarer` has no concrete subclass
-in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneExternalEventSinkDeclarer.java`
-#### Snippet
-```java
-import org.apache.streampipes.wrapper.standalone.runtime.StandaloneExternalEventSinkRuntime;
-
-public abstract class StandaloneExternalEventSinkDeclarer<B extends
-        EventSinkBindingParams> extends EventSinkDeclarer<B,
-                StandaloneExternalEventSinkRuntime<B>> {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `StandaloneEventSinkDeclarerSingleton` has no concrete subclass
 in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneEventSinkDeclarerSingleton.java`
 #### Snippet
@@ -17167,6 +17141,18 @@ import org.apache.streampipes.wrapper.standalone.runtime.StandaloneEventSinkRunt
 public abstract class StandaloneEventSinkDeclarerSingleton<B extends
         EventSinkBindingParams> extends EventSinkDeclarer<B, StandaloneEventSinkRuntime<B>> {
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `StandaloneExternalEventSinkDeclarer` has no concrete subclass
+in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/standalone/declarer/StandaloneExternalEventSinkDeclarer.java`
+#### Snippet
+```java
+import org.apache.streampipes.wrapper.standalone.runtime.StandaloneExternalEventSinkRuntime;
+
+public abstract class StandaloneExternalEventSinkDeclarer<B extends
+        EventSinkBindingParams> extends EventSinkDeclarer<B,
+                StandaloneExternalEventSinkRuntime<B>> {
 ```
 
 ### AbstractClassNeverImplemented
@@ -17285,30 +17271,6 @@ in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/TestMail
 ```java
 
   @Override
-  protected void addPlaceholders(Map<String, String> placeholders) {
-    placeholders.put(DefaultPlaceholders.TEXT.key(), makeText());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/TestMailTemplate.java`
-#### Snippet
-```java
-
-  @Override
-  protected void addPlaceholders(Map<String, String> placeholders) {
-    placeholders.put(DefaultPlaceholders.TEXT.key(), makeText());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/TestMailTemplate.java`
-#### Snippet
-```java
-
-  @Override
   protected void addTemplateParts(Map<String, MailTemplatePart> templateParts) {
     templateParts.put(DefaultPlaceholders.INNER.key(), MailTemplatePart.MAIL_TEMPLATE_INNER_PLAIN);
   }
@@ -17328,25 +17290,25 @@ in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/TestMail
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/InitialPasswordMailTemplate.java`
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/TestMailTemplate.java`
 #### Snippet
 ```java
 
   @Override
-  protected void addTemplateParts(Map<String, MailTemplatePart> templateParts) {
-    templateParts.put(DefaultPlaceholders.INNER.key(), MailTemplatePart.MAIL_TEMPLATE_INNER_BUTTON);
+  protected void addPlaceholders(Map<String, String> placeholders) {
+    placeholders.put(DefaultPlaceholders.TEXT.key(), makeText());
   }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super MailTemplatePart`
-in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/InitialPasswordMailTemplate.java`
+Can generalize to `? super String`
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/TestMailTemplate.java`
 #### Snippet
 ```java
 
   @Override
-  protected void addTemplateParts(Map<String, MailTemplatePart> templateParts) {
-    templateParts.put(DefaultPlaceholders.INNER.key(), MailTemplatePart.MAIL_TEMPLATE_INNER_BUTTON);
+  protected void addPlaceholders(Map<String, String> placeholders) {
+    placeholders.put(DefaultPlaceholders.TEXT.key(), makeText());
   }
 ```
 
@@ -17372,6 +17334,30 @@ in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/InitialP
   protected void addPlaceholders(Map<String, String> placeholders) {
     placeholders.put(DefaultPlaceholders.LINK.key(), makeLink());
     placeholders.put(DefaultPlaceholders.MANUAL.key(), "<p>Your newly created password is <b>" + this.initialPassword + "</b></p><p>Click the button below to login.</p>");
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/InitialPasswordMailTemplate.java`
+#### Snippet
+```java
+
+  @Override
+  protected void addTemplateParts(Map<String, MailTemplatePart> templateParts) {
+    templateParts.put(DefaultPlaceholders.INNER.key(), MailTemplatePart.MAIL_TEMPLATE_INNER_BUTTON);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super MailTemplatePart`
+in `streampipes-mail/src/main/java/org/apache/streampipes/mail/template/InitialPasswordMailTemplate.java`
+#### Snippet
+```java
+
+  @Override
+  protected void addTemplateParts(Map<String, MailTemplatePart> templateParts) {
+    templateParts.put(DefaultPlaceholders.INNER.key(), MailTemplatePart.MAIL_TEMPLATE_INNER_BUTTON);
+  }
 ```
 
 ### BoundedWildcard
@@ -17561,9 +17547,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/SchemaUtil
 ```java
   }
 
-  public static List<String> toPropertyList(List<EventProperty> eps)
+  public static Map<String, Object> toUntypedRuntimeMap(List<EventProperty> eps)
   {
-    List<String> properties = new ArrayList<>();
+    Map<String, Object> propertyMap = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -17573,9 +17559,9 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/SchemaUtil
 ```java
   }
 
-  public static Map<String, Object> toUntypedRuntimeMap(List<EventProperty> eps)
+  public static List<String> toPropertyList(List<EventProperty> eps)
   {
-    Map<String, Object> propertyMap = new HashMap<>();
+    List<String> properties = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -17585,33 +17571,9 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
 ```java
   }
 
-  public <V> List<V> selectedMultiValues(String internalName, Class<V> targetClass) {
-    return getStaticPropertyByName(internalName, AnyStaticProperty.class)
-            .getOptions()
-```
-
-### BoundedWildcard
-Can generalize to `? extends StaticProperty`
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
-  }
-
-  private StaticProperty getStaticPropertyByName(List<StaticProperty> staticProperties,
-                                                 String name) {
-    for (StaticProperty p : staticProperties) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
-
-  public <V> List<V> selectedTreeNodesInternalNames(String internalName,
-                                                    Class<V> targetClass,
-                                                    boolean onlyDataNodes) {
-    List<TreeInputNode> allNodes = new ArrayList<>();
+  public <V> List<V> singleValueParameterFromCollection(String internalName, Class<V> targetClass) {
+    CollectionStaticProperty collection = getStaticPropertyByName(internalName, CollectionStaticProperty.class);
+    return collection
 ```
 
 ### BoundedWildcard
@@ -17624,6 +17586,18 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
   private void buildFlatTree(TreeInputNode parent, List<TreeInputNode> collector) {
     collector.add(parent);
     if (parent.hasChildren()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends StaticProperty`
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
+#### Snippet
+```java
+  }
+
+  private StaticProperty getStaticPropertyByName(List<StaticProperty> staticProperties,
+                                                 String name) {
+    for (StaticProperty p : staticProperties) {
 ```
 
 ### BoundedWildcard
@@ -17643,58 +17617,46 @@ Can generalize to `? extends V`
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
 ```java
-  }
 
-  public <V> List<V> singleValueParameterFromCollection(String internalName, Class<V> targetClass) {
-    CollectionStaticProperty collection = getStaticPropertyByName(internalName, CollectionStaticProperty.class);
-    return collection
+  public <V> List<V> selectedTreeNodesInternalNames(String internalName,
+                                                    Class<V> targetClass,
+                                                    boolean onlyDataNodes) {
+    List<TreeInputNode> allNodes = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SpDataStream`
+Can generalize to `? extends V`
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
+#### Snippet
+```java
+  }
+
+  public <V> List<V> selectedMultiValues(String internalName, Class<V> targetClass) {
+    return getStaticPropertyByName(internalName, AnyStaticProperty.class)
+            .getOptions()
+```
+
+### BoundedWildcard
+Can generalize to `? extends EventPropertyQualityDefinition`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+
+  public List<EventPropertyQualityDefinition> provEpQualities(
+          List<EventPropertyQualityDefinition> eventPropertyQualities) {
+    return eventPropertyQualities.stream().map(o -> new Cloner().qualitydef(o)).collect(Collectors.toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends TransportProtocol`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
 ```java
   }
 
-  public List<SpDataStream> streams(List<SpDataStream> spDataStreams) {
-    return spDataStreams.stream().map(this::mapSequence).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SupportedProperty`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-
-  public List<SupportedProperty> supportedProperties(
-          List<SupportedProperty> supportedProperties) {
-    return supportedProperties.stream().map(s -> new SupportedProperty(s)).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventPropertyQualityRequirement`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-
-  public List<EventPropertyQualityRequirement> reqEpQualitities(
-          List<EventPropertyQualityRequirement> requiresEventPropertyQualities) {
-    return requiresEventPropertyQualities.stream().map(o -> new Cloner().qualityreq(o)).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventProperty`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  }
-
-  public List<EventProperty> properties(List<EventProperty> eventProperties) {
-    return eventProperties.stream().map(o -> new Cloner().property(o)).collect(Collectors.toList());
+  public List<TransportProtocol> protocols(List<TransportProtocol> protocols) {
+    return protocols.stream().map(this::protocol).collect(Collectors.toList());
   }
 ```
 
@@ -17711,18 +17673,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MeasurementObject`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  }
-
-  public List<MeasurementObject> mo(List<MeasurementObject> measurementObject) {
-    return measurementObject.stream().map(m -> new MeasurementObject(m)).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends BoundPipelineElement`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
@@ -17735,6 +17685,30 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends StaticProperty`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+
+  public List<StaticProperty> staticProperties(
+          List<StaticProperty> staticProperties) {
+    if (staticProperties != null) {
+      return staticProperties.stream().map(o -> staticProperty(o)).collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends SpDataStream`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  }
+
+  public List<SpDataStream> seq(List<SpDataStream> spDataStreams) {
+    return spDataStreams.stream().map(this::mapSequence).collect(Collectors.toList());
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends ApplicationLink`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
@@ -17743,42 +17717,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.jav
 
   public List<ApplicationLink> al(List<ApplicationLink> applicationLinks) {
     return applicationLinks.stream().map(m -> new ApplicationLink(m)).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends WildcardTopicMapping`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  }
-
-  public List<WildcardTopicMapping> wildcardTopics(List<WildcardTopicMapping> topicMappings) {
-    if (topicMappings == null) {
-      return new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends NamedStreamPipesEntity`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  }
-
-  public List<NamedStreamPipesEntity> cloneDescriptions(List<NamedStreamPipesEntity> pipelineElementDescriptions) {
-    return pipelineElementDescriptions
-            .stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventPropertyQualityDefinition`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-
-  public List<EventPropertyQualityDefinition> provEpQualities(
-          List<EventPropertyQualityDefinition> eventPropertyQualities) {
-    return eventPropertyQualities.stream().map(o -> new Cloner().qualitydef(o)).collect(Collectors.toList());
   }
 ```
 
@@ -17819,6 +17757,54 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SpDataStream`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  }
+
+  public List<SpDataStream> streams(List<SpDataStream> spDataStreams) {
+    return spDataStreams.stream().map(this::mapSequence).collect(Collectors.toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends EventPropertyQualityRequirement`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+
+  public List<EventPropertyQualityRequirement> reqEpQualitities(
+          List<EventPropertyQualityRequirement> requiresEventPropertyQualities) {
+    return requiresEventPropertyQualities.stream().map(o -> new Cloner().qualityreq(o)).collect(Collectors.toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends WildcardTopicMapping`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  }
+
+  public List<WildcardTopicMapping> wildcardTopics(List<WildcardTopicMapping> topicMappings) {
+    if (topicMappings == null) {
+      return new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends NamedStreamPipesEntity`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  }
+
+  public List<NamedStreamPipesEntity> cloneDescriptions(List<NamedStreamPipesEntity> pipelineElementDescriptions) {
+    return pipelineElementDescriptions
+            .stream()
+```
+
+### BoundedWildcard
 Can generalize to `? extends MeasurementCapability`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
@@ -17831,15 +17817,39 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StaticProperty`
+Can generalize to `? extends EventProperty`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  }
+
+  public List<EventProperty> properties(List<EventProperty> eventProperties) {
+    return eventProperties.stream().map(o -> new Cloner().property(o)).collect(Collectors.toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MeasurementObject`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  }
+
+  public List<MeasurementObject> mo(List<MeasurementObject> measurementObject) {
+    return measurementObject.stream().map(m -> new MeasurementObject(m)).collect(Collectors.toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SupportedProperty`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
 ```java
 
-  public List<StaticProperty> staticProperties(
-          List<StaticProperty> staticProperties) {
-    if (staticProperties != null) {
-      return staticProperties.stream().map(o -> staticProperty(o)).collect(Collectors.toList());
+  public List<SupportedProperty> supportedProperties(
+          List<SupportedProperty> supportedProperties) {
+    return supportedProperties.stream().map(s -> new SupportedProperty(s)).collect(Collectors.toList());
+  }
 ```
 
 ### BoundedWildcard
@@ -17855,30 +17865,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SpDataStream`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  }
-
-  public List<SpDataStream> seq(List<SpDataStream> spDataStreams) {
-    return spDataStreams.stream().map(this::mapSequence).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends TransportProtocol`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  }
-
-  public List<TransportProtocol> protocols(List<TransportProtocol> protocols) {
-    return protocols.stream().map(this::protocol).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? super FV`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/AbstractField.java`
 #### Snippet
@@ -17888,30 +17874,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/A
   public <T> T parse(FieldParser<FV, T> fieldParser) {
     return fieldParser.parseField(value);
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/ListField.java`
-#### Snippet
-```java
-  }
-
-  public <T> List<T> castItems(Class<T> clazz) {
-    return value.stream()
-            .map(v -> v.getAsPrimitive().getRawValue())
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/ListField.java`
-#### Snippet
-```java
-  }
-
-  public <T> List<T> parseAsSimpleType(Class<T> type) {
-    return value.stream()
-            .map(v -> v.getAsPrimitive().getRawValue())
 ```
 
 ### BoundedWildcard
@@ -17939,27 +17901,39 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/L
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/Event.java`
+Can generalize to `? extends T`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/ListField.java`
 #### Snippet
 ```java
   }
 
-  private void updateFieldMap(Map<String, AbstractField> currentFieldMap,
-                              String selector, Integer position,
-                              AbstractField field) {
+  public <T> List<T> parseAsSimpleType(Class<T> type) {
+    return value.stream()
+            .map(v -> v.getAsPrimitive().getRawValue())
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/field/ListField.java`
+#### Snippet
+```java
+  }
+
+  public <T> List<T> castItems(Class<T> clazz) {
+    return value.stream()
+            .map(v -> v.getAsPrimitive().getRawValue())
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends AbstractField`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/Event.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
 #### Snippet
 ```java
+  }
 
-  private Map<String, AbstractField> getNestedItem(String fieldSelector, Map<String,
-      AbstractField> currentFieldMap) {
-    String key = currentFieldMap.keySet().stream().filter(fieldSelector::startsWith)
-        .findFirst().orElseThrow(() -> new IllegalArgumentException("Key not found"));
+  private static Map<String, AbstractField> makeFieldMap(Map<String, AbstractField> fields,
+                                                         List<String> fieldSelectors) {
+    Map<String, AbstractField> outMap = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -17976,26 +17950,26 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFa
 
 ### BoundedWildcard
 Can generalize to `? extends AbstractField`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/EventFactory.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/Event.java`
+#### Snippet
+```java
+
+  private Map<String, AbstractField> getNestedItem(String fieldSelector, Map<String,
+      AbstractField> currentFieldMap) {
+    String key = currentFieldMap.keySet().stream().filter(fieldSelector::startsWith)
+        .findFirst().orElseThrow(() -> new IllegalArgumentException("Key not found"));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/runtime/Event.java`
 #### Snippet
 ```java
   }
 
-  private static Map<String, AbstractField> makeFieldMap(Map<String, AbstractField> fields,
-                                                         List<String> fieldSelectors) {
-    Map<String, AbstractField> outMap = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super SO`
-in `streampipes-client/src/main/java/org/apache/streampipes/client/http/PutRequest.java`
-#### Snippet
-```java
-
-  @Override
-  protected Request makeRequest(Serializer<SO, Void, Void> serializer) {
-    Request request = Request
-        .Put(makeUrl())
+  private void updateFieldMap(Map<String, AbstractField> currentFieldMap,
+                              String selector, Integer position,
+                              AbstractField field) {
 ```
 
 ### BoundedWildcard
@@ -18011,15 +17985,15 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/http/GetReque
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DSO`
-in `streampipes-client/src/main/java/org/apache/streampipes/client/serializer/ObjectSerializer.java`
+Can generalize to `? super SO`
+in `streampipes-client/src/main/java/org/apache/streampipes/client/http/PutRequest.java`
 #### Snippet
 ```java
 
   @Override
-  public DSO deserialize(String response, Class<DSO> targetClass) {
-    try {
-      return objectMapper.readValue(response, targetClass);
+  protected Request makeRequest(Serializer<SO, Void, Void> serializer) {
+    Request request = Request
+        .Put(makeUrl())
 ```
 
 ### BoundedWildcard
@@ -18032,6 +18006,18 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/http/PostRequ
   protected void addBody(Request request, Serializer<SO, DSO, DT> serializer) {
     request.bodyString(serializer.serialize(body), ContentType.APPLICATION_JSON);
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends DSO`
+in `streampipes-client/src/main/java/org/apache/streampipes/client/serializer/ObjectSerializer.java`
+#### Snippet
+```java
+
+  @Override
+  public DSO deserialize(String response, Class<DSO> targetClass) {
+    try {
+      return objectMapper.readValue(response, targetClass);
 ```
 
 ### BoundedWildcard
@@ -18071,42 +18057,6 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/http/DeleteRe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/sdk/ParameterExtractor.java`
-#### Snippet
-```java
-    }
-
-    public <V> List<V> collectionSingleValue(String internalName, Class<V> targetClass) {
-        return ((CollectionStaticProperty) getStaticPropertyByName(internalName))
-                .getMembers()
-```
-
-### BoundedWildcard
-Can generalize to `? extends StaticProperty`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/sdk/ParameterExtractor.java`
-#### Snippet
-```java
-    private TypeParser typeParser;
-
-    public ParameterExtractor(List<StaticProperty> list) {
-        this.list = list;
-        this.typeParser = TypeParser.newBuilder().build();
-```
-
-### BoundedWildcard
-Can generalize to `? extends TransformationRuleDescription`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/AdapterPipelineGenerator.java`
-#### Snippet
-```java
-  }
-
-  private List<TransformationRuleDescription> getSchemaRules(List<TransformationRuleDescription> rules) {
-    return rules
-      .stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends TransformationRuleDescription`
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/AdapterPipelineGenerator.java`
 #### Snippet
@@ -18128,6 +18078,42 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/Ada
   private List<TransformationRuleDescription> getValueRules(List<TransformationRuleDescription> rules) {
     return rules
       .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends TransformationRuleDescription`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/AdapterPipelineGenerator.java`
+#### Snippet
+```java
+  }
+
+  private List<TransformationRuleDescription> getSchemaRules(List<TransformationRuleDescription> rules) {
+    return rules
+      .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends StaticProperty`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/sdk/ParameterExtractor.java`
+#### Snippet
+```java
+    private TypeParser typeParser;
+
+    public ParameterExtractor(List<StaticProperty> list) {
+        this.list = list;
+        this.typeParser = TypeParser.newBuilder().build();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/sdk/ParameterExtractor.java`
+#### Snippet
+```java
+    }
+
+    public <V> List<V> collectionSingleValue(String internalName, Class<V> targetClass) {
+        return ((CollectionStaticProperty) getStaticPropertyByName(internalName))
+                .getMembers()
 ```
 
 ### BoundedWildcard
@@ -18168,18 +18154,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
 
 ### BoundedWildcard
 Can generalize to `? extends TransformationRule`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/StreamEventTransformer.java`
-#### Snippet
-```java
-
-
-    public StreamEventTransformer(List<TransformationRule> rules) {
-        this();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends TransformationRule`
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/SchemaEventTransformer.java`
 #### Snippet
 ```java
@@ -18188,6 +18162,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
     public SchemaEventTransformer(List<TransformationRule> rules) {
         this.renameTransformationRules = new ArrayList<>();
         this.createNestedTransformationRules = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TransformationRule`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/stream/StreamEventTransformer.java`
+#### Snippet
+```java
+
+
+    public StreamEventTransformer(List<TransformationRule> rules) {
+        this();
+
 ```
 
 ### BoundedWildcard
@@ -18227,27 +18213,15 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/api/Abs
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Description`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/html/HTMLGenerator.java`
-#### Snippet
-```java
-  private List<Description> descriptions;
-
-  public HTMLGenerator(List<Description> descriptions) {
-    this.descriptions = descriptions;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends IAdapter`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/util/ServiceDefinitionUtil.java`
+Can generalize to `? extends ConfigItem`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/model/SpServiceDefinitionBuilder.java`
 #### Snippet
 ```java
   }
 
-  public static List<SpServiceTag> extractAppIdsFromAdapters(Collection<IAdapter> adapters) {
-    return adapters
-            .stream()
+  public SpServiceDefinitionBuilder addConfigs(List<ConfigItem> configItems) {
+    configItems.stream().forEach(configItem -> this.serviceDefinition.addConfig(configItem));
+    return this;
 ```
 
 ### BoundedWildcard
@@ -18259,6 +18233,18 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/util/Se
 
   public static List<SpServiceTag> extractAppIdsFromProtocols(Collection<IProtocol> protocols) {
     return protocols
+            .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends IAdapter`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/util/ServiceDefinitionUtil.java`
+#### Snippet
+```java
+  }
+
+  public static List<SpServiceTag> extractAppIdsFromAdapters(Collection<IAdapter> adapters) {
+    return adapters
             .stream()
 ```
 
@@ -18275,38 +18261,14 @@ public class ServiceDefinitionUtil {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConfigItem`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/model/SpServiceDefinitionBuilder.java`
+Can generalize to `? extends Description`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/html/HTMLGenerator.java`
 #### Snippet
 ```java
-  }
+  private List<Description> descriptions;
 
-  public SpServiceDefinitionBuilder addConfigs(List<ConfigItem> configItems) {
-    configItems.stream().forEach(configItem -> this.serviceDefinition.addConfig(configItem));
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigItem`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/init/DeclarersSingleton.java`
-#### Snippet
-```java
-  private void registerConfigs(String serviceGroup,
-                               String serviceName,
-                               Map<String, ConfigItem> configs) {
-    LOG.info("Registering {} configs in key/value store", configs.size());
-    SpConfig spConfig = SpServiceDiscovery.getSpConfig(serviceGroup);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Declarer`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/init/DeclarersSingleton.java`
-#### Snippet
-```java
-  }
-
-  public void addDeclarers(List<Declarer<?>> allDeclarers) {
-    allDeclarers.forEach(this::add);
+  public HTMLGenerator(List<Description> descriptions) {
+    this.descriptions = descriptions;
   }
 ```
 
@@ -18323,6 +18285,18 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/init/De
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ConfigItem`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/init/DeclarersSingleton.java`
+#### Snippet
+```java
+  private void registerConfigs(String serviceGroup,
+                               String serviceName,
+                               Map<String, ConfigItem> configs) {
+    LOG.info("Registering {} configs in key/value store", configs.size());
+    SpConfig spConfig = SpServiceDiscovery.getSpConfig(serviceGroup);
+```
+
+### BoundedWildcard
 Can generalize to `? extends SpProtocolDefinitionFactory`
 in `streampipes-container/src/main/java/org/apache/streampipes/container/init/DeclarersSingleton.java`
 #### Snippet
@@ -18335,14 +18309,14 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/init/De
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SpDataFormatFactory`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/model/SpServiceDefinition.java`
+Can generalize to `? extends Declarer`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/init/DeclarersSingleton.java`
 #### Snippet
 ```java
   }
 
-  public void addDataFormatFactories(List<SpDataFormatFactory> factories) {
-    this.dataFormatFactories.addAll(factories);
+  public void addDeclarers(List<Declarer<?>> allDeclarers) {
+    allDeclarers.forEach(this::add);
   }
 ```
 
@@ -18355,18 +18329,6 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/model/S
 
   public void addProtocolDefinitionFactories(List<SpProtocolDefinitionFactory<?>> factories) {
     this.protocolDefinitionFactories.addAll(factories);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends IProtocol`
-in `streampipes-container/src/main/java/org/apache/streampipes/container/model/SpServiceDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void addAdapterProtocols(Map<String, IProtocol> protocols) {
-    protocols.values().forEach(this::addAdapterProtocol);
   }
 ```
 
@@ -18391,6 +18353,30 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/model/S
 
   public void addSpecificAdapters(Map<String, IAdapter> adapters) {
     adapters.values().forEach(this::addSpecificAdapter);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SpDataFormatFactory`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/model/SpServiceDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void addDataFormatFactories(List<SpDataFormatFactory> factories) {
+    this.dataFormatFactories.addAll(factories);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends IProtocol`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/model/SpServiceDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void addAdapterProtocols(Map<String, IProtocol> protocols) {
+    protocols.values().forEach(this::addAdapterProtocol);
   }
 ```
 
@@ -18515,15 +18501,15 @@ in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/o
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SequenceParameters`
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/Sequence.java`
+Can generalize to `? extends NumericalFilterParameters`
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/filter/NumericalFilter.java`
 #### Snippet
 ```java
-public class Sequence extends SiddhiEventEngine<SequenceParameters> {
 
-  private String fromStatement(SiddhiProcessorParams<SequenceParameters> siddhiParams) {
-
-//    from every (e1=MaterialSupplyStream) -> e2=MaterialConsumptionStream within 10 min
+  @Override
+  public SiddhiAppConfig makeStatements(SiddhiProcessorParams<NumericalFilterParameters> siddhiParams,
+                                        String finalInsertIntoStreamName) {
+    NumericalFilterParameters filterParameters = siddhiParams.getParams();
 ```
 
 ### BoundedWildcard
@@ -18539,15 +18525,15 @@ in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/o
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends NumericalFilterParameters`
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/filter/NumericalFilter.java`
+Can generalize to `? extends SequenceParameters`
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/sequence/Sequence.java`
 #### Snippet
 ```java
+public class Sequence extends SiddhiEventEngine<SequenceParameters> {
 
-  @Override
-  public SiddhiAppConfig makeStatements(SiddhiProcessorParams<NumericalFilterParameters> siddhiParams,
-                                        String finalInsertIntoStreamName) {
-    NumericalFilterParameters filterParameters = siddhiParams.getParams();
+  private String fromStatement(SiddhiProcessorParams<SequenceParameters> siddhiParams) {
+
+//    from every (e1=MaterialSupplyStream) -> e2=MaterialConsumptionStream within 10 min
 ```
 
 ### BoundedWildcard
@@ -18560,30 +18546,6 @@ public class Frequency extends SiddhiEventEngine<FrequencyParameters> {
   private String fromStatement(SiddhiProcessorParams<FrequencyParameters> siddhiParams) {
     return "from every not "
             + siddhiParams.getInputStreamNames().get(0)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProcessorParams`
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/topk/TopK.java`
-#### Snippet
-```java
-
-  @Override
-  public SiddhiAppConfig makeStatements(SiddhiProcessorParams<ProcessorParams> siddhiParams,
-                                        String finalInsertIntoStreamName) {
-    ProcessingElementParameterExtractor extractor = siddhiParams.getParams().extractor();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProcessorParams`
-in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/listcollector/ListCollector.java`
-#### Snippet
-```java
-
-  @Override
-  public SiddhiAppConfig makeStatements(SiddhiProcessorParams<ProcessorParams> siddhiParams,
-                                        String finalInsertIntoStreamName) {
-    Integer batchWindowSize = siddhiParams.getParams().extractor().singleValueParameter(WINDOW_SIZE, Integer.class);
 ```
 
 ### BoundedWildcard
@@ -18612,6 +18574,18 @@ in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/o
 
 ### BoundedWildcard
 Can generalize to `? extends ProcessorParams`
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/topk/TopK.java`
+#### Snippet
+```java
+
+  @Override
+  public SiddhiAppConfig makeStatements(SiddhiProcessorParams<ProcessorParams> siddhiParams,
+                                        String finalInsertIntoStreamName) {
+    ProcessingElementParameterExtractor extractor = siddhiParams.getParams().extractor();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProcessorParams`
 in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/listfilter/ListFilter.java`
 #### Snippet
 ```java
@@ -18632,6 +18606,18 @@ public class FrequencyChange extends SiddhiEventEngine<FrequencyChangeParameters
   private String fromStatement(SiddhiProcessorParams<FrequencyChangeParameters> siddhiParams) {
     return "from every not "
             + siddhiParams.getInputStreamNames().get(0)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProcessorParams`
+in `streampipes-extensions/streampipes-processors-filters-siddhi/src/main/java/org/apache/streampipes/processors/siddhi/listcollector/ListCollector.java`
+#### Snippet
+```java
+
+  @Override
+  public SiddhiAppConfig makeStatements(SiddhiProcessorParams<ProcessorParams> siddhiParams,
+                                        String finalInsertIntoStreamName) {
+    Integer batchWindowSize = siddhiParams.getParams().extractor().singleValueParameter(WINDOW_SIZE, Integer.class);
 ```
 
 ### BoundedWildcard
@@ -18899,30 +18885,6 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EventPropertyDef`
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiAppGenerator.java`
-#### Snippet
-```java
-
-  private void registerEventType(String eventTypeName,
-                                 List<EventPropertyDef> eventSchema) {
-    String defineStreamPrefix = "define stream " + SiddhiUtils.prepareName(eventTypeName);
-    StringJoiner joiner = new StringJoiner(",");
-```
-
-### BoundedWildcard
-Can generalize to `? extends StreamExpression`
-in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/query/expression/pattern/PatternExpression.java`
-#### Snippet
-```java
-  private WithinExpression withinExpression;
-
-  public PatternExpression(String pattern, List<StreamExpression> streamExpressions) {
-    this.pattern = pattern;
-    this.streamExpressions = streamExpressions;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Attribute`
 in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/utils/SiddhiUtils.java`
 #### Snippet
@@ -18947,15 +18909,27 @@ public class SiddhiUtils {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KafkaConfigAppender`
-in `streampipes-messaging-kafka/src/main/java/org/apache/streampipes/messaging/kafka/config/AbstractConfigFactory.java`
+Can generalize to `? extends EventPropertyDef`
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/engine/generator/SiddhiAppGenerator.java`
 #### Snippet
 ```java
-  }
 
-  public Properties buildProperties(List<KafkaConfigAppender> appenders) {
-    Properties props = makeDefaultProperties();
-    appenders.forEach(appender -> appender.appendConfig(props));
+  private void registerEventType(String eventTypeName,
+                                 List<EventPropertyDef> eventSchema) {
+    String defineStreamPrefix = "define stream " + SiddhiUtils.prepareName(eventTypeName);
+    StringJoiner joiner = new StringJoiner(",");
+```
+
+### BoundedWildcard
+Can generalize to `? extends StreamExpression`
+in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/siddhi/query/expression/pattern/PatternExpression.java`
+#### Snippet
+```java
+  private WithinExpression withinExpression;
+
+  public PatternExpression(String pattern, List<StreamExpression> streamExpressions) {
+    this.pattern = pattern;
+    this.streamExpressions = streamExpressions;
 ```
 
 ### BoundedWildcard
@@ -18971,15 +18945,15 @@ in `streampipes-messaging-kafka/src/main/java/org/apache/streampipes/messaging/k
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CouchDbClient`
-in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/dao/DbCommand.java`
+Can generalize to `? extends KafkaConfigAppender`
+in `streampipes-messaging-kafka/src/main/java/org/apache/streampipes/messaging/kafka/config/AbstractConfigFactory.java`
 #### Snippet
 ```java
-  protected Class<S> clazz;
+  }
 
-  public DbCommand(Supplier<CouchDbClient> couchDbClientSupplier, Class<S> clazz) {
-   this.couchDbClientSupplier = couchDbClientSupplier;
-    this.clazz = clazz;
+  public Properties buildProperties(List<KafkaConfigAppender> appenders) {
+    Properties props = makeDefaultProperties();
+    appenders.forEach(appender -> appender.appendConfig(props));
 ```
 
 ### BoundedWildcard
@@ -18992,6 +18966,18 @@ in `streampipes-wrapper-siddhi/src/main/java/org/apache/streampipes/wrapper/sidd
                                 List<Expression> filterExpressions) {
     this.streamExpression = streamExpression;
     this.filterExpressions = filterExpressions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CouchDbClient`
+in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/dao/DbCommand.java`
+#### Snippet
+```java
+  protected Class<S> clazz;
+
+  public DbCommand(Supplier<CouchDbClient> couchDbClientSupplier, Class<S> clazz) {
+   this.couchDbClientSupplier = couchDbClientSupplier;
+    this.clazz = clazz;
 ```
 
 ### BoundedWildcard
@@ -19008,18 +18994,6 @@ in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/cou
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/GenericStorageImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> T create(T payload, Class<T> targetClass) throws IOException {
-    Map<String, Object> result = this.create(this.mapper.writeValueAsString(payload));
-    return this.mapper.convertValue(result, targetClass);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/utils/Filter.java`
 #### Snippet
 ```java
@@ -19028,6 +19002,18 @@ public class Filter {
   public static <T extends NamedStreamPipesEntity> List<T> byUri(List<T> allElements, List<String> userElements) {
     return allElements
             .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/GenericStorageImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> T create(T payload, Class<T> targetClass) throws IOException {
+    Map<String, Object> result = this.create(this.mapper.writeValueAsString(payload));
+    return this.mapper.convertValue(result, targetClass);
 ```
 
 ### BoundedWildcard
@@ -19067,6 +19053,30 @@ in `streampipes-wrapper-standalone/src/main/java/org/apache/streampipes/wrapper/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends FileMetadata`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/file/FileManager.java`
+#### Snippet
+```java
+  }
+
+  private static List<FileMetadata> filterFiletypes(List<FileMetadata> allFiles, String filetypes) {
+    return allFiles
+            .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvocableStreamPipesEntity`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
+#### Snippet
+```java
+   * @return an invocation graph with a given DOM Id
+   */
+  public static InvocableStreamPipesEntity findByDomId(String id, List<InvocableStreamPipesEntity> graphs) {
+    for (InvocableStreamPipesEntity graph : graphs) {
+      if (graph.getDOM().equals(id)) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends DataProcessorInvocation`
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
 #### Snippet
@@ -19088,18 +19098,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
   public static NamedStreamPipesEntity findSEPAElement(String id, List<DataProcessorInvocation> sepas, List<SpDataStream>
           streams) {
     List<NamedStreamPipesEntity> allElements = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvocableStreamPipesEntity`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
-#### Snippet
-```java
-   * @return an invocation graph with a given DOM Id
-   */
-  public static InvocableStreamPipesEntity findByDomId(String id, List<InvocableStreamPipesEntity> graphs) {
-    for (InvocableStreamPipesEntity graph : graphs) {
-      if (graph.getDOM().equals(id)) {
 ```
 
 ### BoundedWildcard
@@ -19127,18 +19125,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileMetadata`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/file/FileManager.java`
-#### Snippet
-```java
-  }
-
-  private static List<FileMetadata> filterFiletypes(List<FileMetadata> allFiles, String filetypes) {
-    return allFiles
-            .stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends ExtensionsServiceEndpoint`
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/endpoint/EndpointItemFetcher.java`
 #### Snippet
@@ -19148,66 +19134,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
     public EndpointItemFetcher(List<ExtensionsServiceEndpoint> extensionsServiceEndpoints) {
         this.extensionsServiceEndpoints = extensionsServiceEndpoints;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
-#### Snippet
-```java
-  }
-
-  private void addSuccessfulRestoreNotification(List<String> pipelineNotifications,
-                                                InvocableStreamPipesEntity graph) {
-    pipelineNotifications.add(getCurrentDatetime()
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
-#### Snippet
-```java
-  }
-
-  private void addEndpoint(Map<String, List<InvocableStreamPipesEntity>> endpointMap,
-                           InvocableStreamPipesEntity graph) {
-    String selectedEndpoint = graph.getSelectedEndpointUrl();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
-#### Snippet
-```java
-  }
-
-  private void addFailedAttemptNotification(List<String> pipelineNotifications,
-                                            InvocableStreamPipesEntity graph) {
-    pipelineNotifications.add(getCurrentDatetime()
-```
-
-### BoundedWildcard
-Can generalize to `? super Connection`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/ConnectionStorageHandler.java`
-#### Snippet
-```java
-
-  private void findConnections(NamedStreamPipesEntity target,
-                               List<Connection> connections) {
-    if (target instanceof DataSinkInvocation || target instanceof DataProcessorInvocation) {
-      InvocableStreamPipesEntity pipelineElement = (InvocableStreamPipesEntity) target;
-```
-
-### BoundedWildcard
-Can generalize to `? extends NamedStreamPipesEntity`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/preview/PipelinePreview.java`
-#### Snippet
-```java
-  }
-
-  private List<String> collectDomIds(List<NamedStreamPipesEntity> graphs) {
-    return graphs
-            .stream()
 ```
 
 ### BoundedWildcard
@@ -19235,15 +19161,63 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MatchingResultMessage`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/PipelineModificationGenerator.java`
+Can generalize to `? extends NamedStreamPipesEntity`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/preview/PipelinePreview.java`
 #### Snippet
 ```java
   }
 
-  private List<Notification> toNotifications(List<MatchingResultMessage> matchingResultMessages) {
-    return matchingResultMessages
+  private List<String> collectDomIds(List<NamedStreamPipesEntity> graphs) {
+    return graphs
             .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
+#### Snippet
+```java
+  }
+
+  private void addEndpoint(Map<String, List<InvocableStreamPipesEntity>> endpointMap,
+                           InvocableStreamPipesEntity graph) {
+    String selectedEndpoint = graph.getSelectedEndpointUrl();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
+#### Snippet
+```java
+  }
+
+  private void addSuccessfulRestoreNotification(List<String> pipelineNotifications,
+                                                InvocableStreamPipesEntity graph) {
+    pipelineNotifications.add(getCurrentDatetime()
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/health/PipelineHealthCheck.java`
+#### Snippet
+```java
+  }
+
+  private void addFailedAttemptNotification(List<String> pipelineNotifications,
+                                            InvocableStreamPipesEntity graph) {
+    pipelineNotifications.add(getCurrentDatetime()
+```
+
+### BoundedWildcard
+Can generalize to `? super Connection`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/ConnectionStorageHandler.java`
+#### Snippet
+```java
+
+  private void findConnections(NamedStreamPipesEntity target,
+                               List<Connection> connections) {
+    if (target instanceof DataSinkInvocation || target instanceof DataProcessorInvocation) {
+      InvocableStreamPipesEntity pipelineElement = (InvocableStreamPipesEntity) target;
 ```
 
 ### BoundedWildcard
@@ -19256,6 +19230,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
   private <T> List<T> toList(Map<String,T> map) {
     return new ArrayList<>(map.values());
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MatchingResultMessage`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/PipelineModificationGenerator.java`
+#### Snippet
+```java
+  }
+
+  private List<Notification> toNotifications(List<MatchingResultMessage> matchingResultMessages) {
+    return matchingResultMessages
+            .stream()
 ```
 
 ### BoundedWildcard
@@ -19280,6 +19266,30 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
                     List<PipelineElementValidationInfo> validationInfos) throws SpValidationException {
 
     CheckCompletedVisitor visitor = new CheckCompletedVisitor();
+```
+
+### BoundedWildcard
+Can generalize to `? extends EventStreamQualityDefinition`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/StreamMatch.java`
+#### Snippet
+```java
+
+	private boolean checkStreamQualityMatch(
+			List<EventStreamQualityDefinition> offer,
+			List<EventStreamQualityRequirement> requirement, List<MatchingResultMessage> errorLog) {
+		boolean match = MatchingUtils.nullCheck(offer, requirement) || requirement
+```
+
+### BoundedWildcard
+Can generalize to `? extends EventStreamQualityRequirement`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/StreamMatch.java`
+#### Snippet
+```java
+	private boolean checkStreamQualityMatch(
+			List<EventStreamQualityDefinition> offer,
+			List<EventStreamQualityRequirement> requirement, List<MatchingResultMessage> errorLog) {
+		boolean match = MatchingUtils.nullCheck(offer, requirement) || requirement
+				.stream()
 ```
 
 ### BoundedWildcard
@@ -19343,30 +19353,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EventStreamQualityDefinition`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/StreamMatch.java`
-#### Snippet
-```java
-
-	private boolean checkStreamQualityMatch(
-			List<EventStreamQualityDefinition> offer,
-			List<EventStreamQualityRequirement> requirement, List<MatchingResultMessage> errorLog) {
-		boolean match = MatchingUtils.nullCheck(offer, requirement) || requirement
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventStreamQualityRequirement`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/StreamMatch.java`
-#### Snippet
-```java
-	private boolean checkStreamQualityMatch(
-			List<EventStreamQualityDefinition> offer,
-			List<EventStreamQualityRequirement> requirement, List<MatchingResultMessage> errorLog) {
-		boolean match = MatchingUtils.nullCheck(offer, requirement) || requirement
-				.stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends SpDataStream`
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/pipeline/UpdateOutputStrategiesStep.java`
 #### Snippet
@@ -19376,18 +19362,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
   private PropertySelectorGenerator getGenerator(List<SpDataStream> inputStreams,
                                                  CustomOutputStrategy strategy) {
     if (inputStreams.size() == 1 || (inputStreams.size() > 1 && !strategy.isOutputRight())) {
-```
-
-### BoundedWildcard
-Can generalize to `? super PipelineElementValidationInfo`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/pipeline/UpdateOutputStrategiesStep.java`
-#### Snippet
-```java
-  private void handleCustomOutputStrategy(List<SpDataStream> inputStreams,
-                                          CustomOutputStrategy strategy,
-                                          List<PipelineElementValidationInfo> validationInfos) {
-    PropertySelectorGenerator generator = getGenerator(inputStreams, strategy);
-    strategy.setAvailablePropertyKeys(generator.generateSelectors());
 ```
 
 ### BoundedWildcard
@@ -19403,6 +19377,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### BoundedWildcard
+Can generalize to `? super PipelineElementValidationInfo`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/v2/pipeline/UpdateOutputStrategiesStep.java`
+#### Snippet
+```java
+  private void handleCustomOutputStrategy(List<SpDataStream> inputStreams,
+                                          CustomOutputStrategy strategy,
+                                          List<PipelineElementValidationInfo> validationInfos) {
+    PropertySelectorGenerator generator = getGenerator(inputStreams, strategy);
+    strategy.setAvailablePropertyKeys(generator.generateSelectors());
+```
+
+### BoundedWildcard
 Can generalize to `? extends SpDataStream`
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/selector/PropertyRequirementSelector.java`
 #### Snippet
@@ -19412,6 +19398,42 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
   public SpDataStream getAffectedStream(List<SpDataStream> streams) {
     Integer affectedStreamIndex = getAffectedStreamIndex();
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends StaticProperty`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/output/TransformOutputSchemaGenerator.java`
+#### Snippet
+```java
+  }
+
+  private Optional<MappingPropertyUnary> findMappingProperty(String mappingPropertyInternalName, List<StaticProperty>
+          staticProperties) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Option`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/output/TransformOutputSchemaGenerator.java`
+#### Snippet
+```java
+  }
+
+  private Option findSelected(List<Option> options) {
+    return options
+            .stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends BoundPipelineElement`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/template/PipelineGenerator.java`
+#### Snippet
+```java
+
+  private void collectInvocations(String currentDomId,
+                                  List<BoundPipelineElement> boundPipelineElements) {
+    for (BoundPipelineElement pipelineElement : boundPipelineElements) {
+      InvocableStreamPipesEntity entity = clonePe(pipelineElement.getPipelineElementTemplate());
 ```
 
 ### BoundedWildcard
@@ -19440,25 +19462,13 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ### BoundedWildcard
 Can generalize to `? extends StaticProperty`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/output/TransformOutputSchemaGenerator.java`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/template/PipelineTemplateInvocationGenerator.java`
 #### Snippet
 ```java
   }
 
-  private Optional<MappingPropertyUnary> findMappingProperty(String mappingPropertyInternalName, List<StaticProperty>
-          staticProperties) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Option`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/output/TransformOutputSchemaGenerator.java`
-#### Snippet
-```java
-  }
-
-  private Option findSelected(List<Option> options) {
-    return options
+  private List<StaticProperty> filter(List<StaticProperty> staticProperties) {
+    return staticProperties
             .stream()
 ```
 
@@ -19472,30 +19482,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
   private List<String> generateSelectors(List<EventProperty> eventProperties, String prefix) {
     List<String> propertySelectors = new ArrayList<>();
     for (EventProperty ep : eventProperties) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StaticProperty`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/template/PipelineTemplateInvocationGenerator.java`
-#### Snippet
-```java
-  }
-
-  private List<StaticProperty> filter(List<StaticProperty> staticProperties) {
-    return staticProperties
-            .stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends BoundPipelineElement`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/template/PipelineGenerator.java`
-#### Snippet
-```java
-
-  private void collectInvocations(String currentDomId,
-                                  List<BoundPipelineElement> boundPipelineElements) {
-    for (BoundPipelineElement pipelineElement : boundPipelineElements) {
-      InvocableStreamPipesEntity entity = clonePe(pipelineElement.getPipelineElementTemplate());
 ```
 
 ### BoundedWildcard
@@ -19524,14 +19510,14 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/monitoring/pipeline/ExtensionsLogProvider.java`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/execution/http/PipelineStorageService.java`
 #### Snippet
 ```java
   }
 
-  private <T> Map<String, T> getInfosForPipeline(Map<String, T> allElements,
-                                                       Pipeline pipeline) {
-    List<String> pipelineElementIds = collectPipelineElementIds(pipeline);
+  private <T> List<T> filter(List<InvocableStreamPipesEntity> graphs, Class<T> clazz) {
+    return graphs
+            .stream()
 ```
 
 ### BoundedWildcard
@@ -19548,14 +19534,14 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/execution/http/PipelineStorageService.java`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/monitoring/pipeline/ExtensionsLogProvider.java`
 #### Snippet
 ```java
   }
 
-  private <T> List<T> filter(List<InvocableStreamPipesEntity> graphs, Class<T> clazz) {
-    return graphs
-            .stream()
+  private <T> Map<String, T> getInfosForPipeline(Map<String, T> allElements,
+                                                       Pipeline pipeline) {
+    List<String> pipelineElementIds = collectPipelineElementIds(pipeline);
 ```
 
 ### BoundedWildcard
@@ -19583,18 +19569,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InvocableStreamPipesEntity`
-in `streampipes-resource-management/src/main/java/org/apache/streampipes/resource/management/secret/SecretService.java`
-#### Snippet
-```java
-  }
-
-  public void apply(List<InvocableStreamPipesEntity> graphs) {
-    graphs.forEach(this::apply);
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends StaticProperty`
 in `streampipes-resource-management/src/main/java/org/apache/streampipes/resource/management/secret/SecretService.java`
 #### Snippet
@@ -19603,6 +19577,18 @@ in `streampipes-resource-management/src/main/java/org/apache/streampipes/resourc
 
   public void applyConfig(List<StaticProperty> staticProperties) {
     staticProperties.forEach(sp -> sp.accept(visitor));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvocableStreamPipesEntity`
+in `streampipes-resource-management/src/main/java/org/apache/streampipes/resource/management/secret/SecretService.java`
+#### Snippet
+```java
+  }
+
+  public void apply(List<InvocableStreamPipesEntity> graphs) {
+    graphs.forEach(this::apply);
   }
 ```
 
@@ -19636,10 +19622,10 @@ in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/co
 #### Snippet
 ```java
 
-  public Map<String, List<AdapterDescription>> getAllWorkersWithAdapters(
-      Map<String, AdapterDescription> allRunningInstancesAdapterDescription) {
 
-    Map<String, List<AdapterDescription>> groupByWorker = new HashMap<>();
+  public void recoverAdapters(Map<String, AdapterDescription> adaptersToRecover) {
+    for (AdapterDescription adapterDescription : adaptersToRecover.values()) {
+      // Invoke all adapters that were running when the adapter container was stopped
 ```
 
 ### BoundedWildcard
@@ -19648,22 +19634,22 @@ in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/co
 #### Snippet
 ```java
 
+  public Map<String, List<AdapterDescription>> getAllWorkersWithAdapters(
+      Map<String, AdapterDescription> allRunningInstancesAdapterDescription) {
 
-  public void recoverAdapters(Map<String, AdapterDescription> adaptersToRecover) {
-    for (AdapterDescription adapterDescription : adaptersToRecover.values()) {
-      // Invoke all adapters that were running when the adapter container was stopped
+    Map<String, List<AdapterDescription>> groupByWorker = new HashMap<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `streampipes-service-discovery-consul/src/main/java/org/apache/streampipes/svcdiscovery/consul/ConsulSpConfig.java`
+Can generalize to `? extends EventProperty`
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/selector/PropertySelector.java`
 #### Snippet
 ```java
+  }
 
-    @Override
-    public <T> T getObject(String key, Class<T> clazz, T defaultValue) {
-        Optional<String> os = kvClient.getValueAsString(addSn(key));
-        if (os.isPresent()) {
+  private List<EventProperty> extractProperties(List<EventProperty> inputProperties, List<String>
+          propertySelectors, String currentPropertyPointer, List<EventProperty> appendProperties) {
+    List<EventProperty> outputProperties = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -19691,15 +19677,15 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EventProperty`
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/selector/PropertySelector.java`
+Can generalize to `? extends T`
+in `streampipes-service-discovery-consul/src/main/java/org/apache/streampipes/svcdiscovery/consul/ConsulSpConfig.java`
 #### Snippet
 ```java
-  }
 
-  private List<EventProperty> extractProperties(List<EventProperty> inputProperties, List<String>
-          propertySelectors, String currentPropertyPointer, List<EventProperty> appendProperties) {
-    List<EventProperty> outputProperties = new ArrayList<>();
+    @Override
+    public <T> T getObject(String key, Class<T> clazz, T defaultValue) {
+        Optional<String> os = kvClient.getValueAsString(addSn(key));
+        if (os.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -19752,18 +19738,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/Notification.ja
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private @SerializedName("_rev")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/file/FileMetadata.java`
-#### Snippet
-```java
-  String fileId;
-
-  private @SerializedName("_rev")
-  String rev;
-
-```
-
-### MissortedModifiers
 Missorted modifiers `private @SerializedName("_id")`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/file/FileMetadata.java`
 #### Snippet
@@ -19776,15 +19750,15 @@ public class FileMetadata {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/assets/SpAssetModel.java`
+Missorted modifiers `private @SerializedName("_rev")`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/file/FileMetadata.java`
 #### Snippet
 ```java
+  String fileId;
 
-  @JsonProperty("_id")
-  private @SerializedName("_id") String id;
+  private @SerializedName("_rev")
+  String rev;
 
-  private boolean removable;
 ```
 
 ### MissortedModifiers
@@ -19801,26 +19775,14 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/base/NamedStrea
 
 ### MissortedModifiers
 Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/assets/AssetLinkType.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/assets/SpAssetModel.java`
 #### Snippet
 ```java
 
   @JsonProperty("_id")
   private @SerializedName("_id") String id;
 
-  private String linkType;
-```
-
-### MissortedModifiers
-Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/canvas/PipelineCanvasMetadata.java`
-#### Snippet
-```java
-
-  @JsonProperty("_id")
-  private @SerializedName("_id") String id;
-
-  @JsonProperty("_rev")
+  private boolean removable;
 ```
 
 ### MissortedModifiers
@@ -19836,6 +19798,30 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/canvas/Pipeline
 ```
 
 ### MissortedModifiers
+Missorted modifiers `private @SerializedName("_id")`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/canvas/PipelineCanvasMetadata.java`
+#### Snippet
+```java
+
+  @JsonProperty("_id")
+  private @SerializedName("_id") String id;
+
+  @JsonProperty("_rev")
+```
+
+### MissortedModifiers
+Missorted modifiers `private @SerializedName("_id")`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/assets/AssetLinkType.java`
+#### Snippet
+```java
+
+  @JsonProperty("_id")
+  private @SerializedName("_id") String id;
+
+  private String linkType;
+```
+
+### MissortedModifiers
 Missorted modifiers `private @SerializedName("_rev")`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/datalake/DataLakeMeasure.java`
 #### Snippet
@@ -19848,20 +19834,8 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/datalake/DataLa
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private @SerializedName("_rev")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Category.java`
-#### Snippet
-```java
-
-    @JsonProperty("_rev")
-    private @SerializedName("_rev") String rev;
-
-    public Category() { }
-```
-
-### MissortedModifiers
 Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Category.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Label.java`
 #### Snippet
 ```java
 
@@ -19885,7 +19859,7 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Label.
 
 ### MissortedModifiers
 Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Label.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Category.java`
 #### Snippet
 ```java
 
@@ -19897,14 +19871,14 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Label.
 
 ### MissortedModifiers
 Missorted modifiers `private @SerializedName("_rev")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/PipelineCategory.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/labeling/Category.java`
 #### Snippet
 ```java
 
-	@JsonProperty("_rev")
-	private @SerializedName("_rev") String rev;
-	
-	public PipelineCategory() {
+    @JsonProperty("_rev")
+    private @SerializedName("_rev") String rev;
+
+    public Category() { }
 ```
 
 ### MissortedModifiers
@@ -19921,26 +19895,14 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/Pipeli
 
 ### MissortedModifiers
 Missorted modifiers `private @SerializedName("_rev")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/dashboard/DashboardEntity.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/PipelineCategory.java`
 #### Snippet
 ```java
 
-  @JsonProperty("_rev")
-  private @SerializedName("_rev") String rev;
-
-  public DashboardEntity() {
-```
-
-### MissortedModifiers
-Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/dashboard/DashboardEntity.java`
-#### Snippet
-```java
-
-  @JsonProperty("_id")
-  private @SerializedName("_id") String id;
-
-  @JsonProperty("_rev")
+	@JsonProperty("_rev")
+	private @SerializedName("_rev") String rev;
+	
+	public PipelineCategory() {
 ```
 
 ### MissortedModifiers
@@ -19968,6 +19930,18 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/template/Pipeli
 ```
 
 ### MissortedModifiers
+Missorted modifiers `private @SerializedName("_rev")`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/Pipeline.java`
+#### Snippet
+```java
+
+  @JsonProperty("_rev")
+  private @SerializedName("_rev")
+  String rev;
+
+```
+
+### MissortedModifiers
 Missorted modifiers `private @SerializedName("_id")`
 in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/Pipeline.java`
 #### Snippet
@@ -19981,14 +19955,26 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/Pipeli
 
 ### MissortedModifiers
 Missorted modifiers `private @SerializedName("_rev")`
-in `streampipes-model/src/main/java/org/apache/streampipes/model/pipeline/Pipeline.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/dashboard/DashboardEntity.java`
 #### Snippet
 ```java
 
   @JsonProperty("_rev")
-  private @SerializedName("_rev")
-  String rev;
+  private @SerializedName("_rev") String rev;
 
+  public DashboardEntity() {
+```
+
+### MissortedModifiers
+Missorted modifiers `private @SerializedName("_id")`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/dashboard/DashboardEntity.java`
+#### Snippet
+```java
+
+  @JsonProperty("_id")
+  private @SerializedName("_id") String id;
+
+  @JsonProperty("_rev")
 ```
 
 ### MissortedModifiers
@@ -20044,6 +20030,18 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/config/ConfigKeys.java`
 #### Snippet
 ```java
+public class ConfigKeys {
+    final static String KAFKA_HOST = "SP_KAFKA_HOST";
+    final static String KAFKA_PORT = "SP_KAFKA_PORT";
+
+    final static String CONNECT_CONTAINER_WORKER_HOST = "SP_CONNECT_CONTAINER_WORKER_HOST";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/config/ConfigKeys.java`
+#### Snippet
+```java
     final static String CONNECT_CONTAINER_WORKER_PORT = "SP_CONNECT_CONTAINER_WORKER_PORT";
 
     final static String BACKEND_HOST = "SP_BACKEND_HOST";
@@ -20057,10 +20055,10 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
 #### Snippet
 ```java
 
-    final static String CONNECT_CONTAINER_WORKER_HOST = "SP_CONNECT_CONTAINER_WORKER_HOST";
-    final static String CONNECT_CONTAINER_WORKER_PORT = "SP_CONNECT_CONTAINER_WORKER_PORT";
+public class ConfigKeys {
+    final static String KAFKA_HOST = "SP_KAFKA_HOST";
+    final static String KAFKA_PORT = "SP_KAFKA_PORT";
 
-    final static String BACKEND_HOST = "SP_BACKEND_HOST";
 ```
 
 ### MissortedModifiers
@@ -20093,22 +20091,10 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
 #### Snippet
 ```java
 
-public class ConfigKeys {
-    final static String KAFKA_HOST = "SP_KAFKA_HOST";
-    final static String KAFKA_PORT = "SP_KAFKA_PORT";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/config/ConfigKeys.java`
-#### Snippet
-```java
-public class ConfigKeys {
-    final static String KAFKA_HOST = "SP_KAFKA_HOST";
-    final static String KAFKA_PORT = "SP_KAFKA_PORT";
-
     final static String CONNECT_CONTAINER_WORKER_HOST = "SP_CONNECT_CONTAINER_WORKER_HOST";
+    final static String CONNECT_CONTAINER_WORKER_PORT = "SP_CONNECT_CONTAINER_WORKER_PORT";
+
+    final static String BACKEND_HOST = "SP_BACKEND_HOST";
 ```
 
 ### MissortedModifiers
@@ -20116,10 +20102,22 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-    public final static String LABEL_ILLUMINANCE = "Illuminance";
-    public final static String LABEL_UV_INTENSITY = "UV Intensity";
-    public final static String LABEL_PM10 = "Particulate Matter 10";
-    public final static String LABEL_PM2_5 = "Particulate Matter 2.5";
+    public final static String KEY_TEMPERATURE = "temperature";
+    public final static String KEY_HUMIDITY = "humidity";
+    public final static String KEY_PRESSURE = "pressure";
+    public final static String KEY_ILLUMINANCE = "illuminance";
+    public final static String KEY_UV_INTENSITY = "uv_intensity";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String KEY_MODEL = "model";
+    public final static String KEY_LATITUDE = "latitude";
+    public final static String KEY_LONGITUDE = "longitude";
+
 
 ```
 
@@ -20128,11 +20126,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-    };
+    public final static String KEY_ILLUMINANCE = "illuminance";
+    public final static String KEY_UV_INTENSITY = "uv_intensity";
+    public final static String KEY_PM10 = "pm10";
+    public final static String KEY_PM2_5 = "pm2_5";
 
-    public final static String[] ALL_SENSOR_LABELS = {
-            LABEL_TEMPERATURE,
-            LABEL_HUMIDITY,
 ```
 
 ### MissortedModifiers
@@ -20140,35 +20138,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-
-
-    public final static String GERMAN_TEMPERATURE = "Temperatur";
-    public final static String GERMAN_HUMIDITY = "rel. Luftfeuchte";
-    public final static String GERMAN_PRESSURE = "Luftdruck";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-
-    public final static String GERMAN_TEMPERATURE = "Temperatur";
-    public final static String GERMAN_HUMIDITY = "rel. Luftfeuchte";
-    public final static String GERMAN_PRESSURE = "Luftdruck";
-    public final static String GERMAN_ILLUMINANCE = "Beleuchtungsstärke";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String GERMAN_UV_INTENSITY = "UV-Intensität";
-    public final static String GERMAN_PM10 = "PM10";
-    public final static String GERMAN_PM2_5 = "PM2.5";
-
-    public final static String[] ALL_SENSOR_KEYS = {
+    public final static String KEY_HUMIDITY = "humidity";
+    public final static String KEY_PRESSURE = "pressure";
+    public final static String KEY_ILLUMINANCE = "illuminance";
+    public final static String KEY_UV_INTENSITY = "uv_intensity";
+    public final static String KEY_PM10 = "pm10";
 ```
 
 ### MissortedModifiers
@@ -20188,11 +20162,23 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-    public final static String KEY_NOT_FOUND = "KEY_NOT_FOUND";
+    public final static String KEY_NAME = "name";
+    public final static String KEY_MODEL = "model";
+    public final static String KEY_LATITUDE = "latitude";
+    public final static String KEY_LONGITUDE = "longitude";
 
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
     public final static String KEY_ID = "id";
     public final static String KEY_TIMESTAMP = "timestamp";
     public final static String KEY_NAME = "name";
+    public final static String KEY_MODEL = "model";
+    public final static String KEY_LATITUDE = "latitude";
 ```
 
 ### MissortedModifiers
@@ -20201,10 +20187,22 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
 #### Snippet
 ```java
 
-    public final static String KEY_TEMPERATURE = "temperature";
-    public final static String KEY_HUMIDITY = "humidity";
-    public final static String KEY_PRESSURE = "pressure";
-    public final static String KEY_ILLUMINANCE = "illuminance";
+    public final static String KEY_ID = "id";
+    public final static String KEY_TIMESTAMP = "timestamp";
+    public final static String KEY_NAME = "name";
+    public final static String KEY_MODEL = "model";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+
+    public final static String LABEL_TEMPERATURE = "Temperature";
+    public final static String LABEL_HUMIDITY = "Humidity";
+    public final static String LABEL_PRESSURE = "Pressure";
 ```
 
 ### MissortedModifiers
@@ -20224,11 +20222,167 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
+    public final static String KEY_UV_INTENSITY = "uv_intensity";
+    public final static String KEY_PM10 = "pm10";
+    public final static String KEY_PM2_5 = "pm2_5";
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String LABEL_HUMIDITY = "Humidity";
+    public final static String LABEL_PRESSURE = "Pressure";
+    public final static String LABEL_ILLUMINANCE = "Illuminance";
+    public final static String LABEL_UV_INTENSITY = "UV Intensity";
+    public final static String LABEL_PM10 = "Particulate Matter 10";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String LABEL_ID = "Id";
+    public final static String LABEL_NAME = "Name";
+    public final static String LABEL_MODEL = "Model";
+    public final static String LABEL_LATITUDE = "latitude";
+    public final static String LABEL_LONGITUDE = "longitude";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
 
 public class SensorNames {
     public final static String KEY_NOT_FOUND = "KEY_NOT_FOUND";
 
     public final static String KEY_ID = "id";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+
+    public final static String KEY_TEMPERATURE = "temperature";
+    public final static String KEY_HUMIDITY = "humidity";
+    public final static String KEY_PRESSURE = "pressure";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String LABEL_TEMPERATURE = "Temperature";
+    public final static String LABEL_HUMIDITY = "Humidity";
+    public final static String LABEL_PRESSURE = "Pressure";
+    public final static String LABEL_ILLUMINANCE = "Illuminance";
+    public final static String LABEL_UV_INTENSITY = "UV Intensity";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+
+    public final static String LABEL_ID = "Id";
+    public final static String LABEL_NAME = "Name";
+    public final static String LABEL_MODEL = "Model";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String GERMAN_UV_INTENSITY = "UV-Intensität";
+    public final static String GERMAN_PM10 = "PM10";
+    public final static String GERMAN_PM2_5 = "PM2.5";
+
+    public final static String[] ALL_SENSOR_KEYS = {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String KEY_NOT_FOUND = "KEY_NOT_FOUND";
+
+    public final static String KEY_ID = "id";
+    public final static String KEY_TIMESTAMP = "timestamp";
+    public final static String KEY_NAME = "name";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String LABEL_PRESSURE = "Pressure";
+    public final static String LABEL_ILLUMINANCE = "Illuminance";
+    public final static String LABEL_UV_INTENSITY = "UV Intensity";
+    public final static String LABEL_PM10 = "Particulate Matter 10";
+    public final static String LABEL_PM2_5 = "Particulate Matter 2.5";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    };
+
+    public final static String[] ALL_SENSOR_LABELS = {
+            LABEL_TEMPERATURE,
+            LABEL_HUMIDITY,
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String LABEL_MODEL = "Model";
+    public final static String LABEL_LATITUDE = "latitude";
+    public final static String LABEL_LONGITUDE = "longitude";
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+    public final static String LABEL_TEMPERATURE = "Temperature";
+    public final static String LABEL_HUMIDITY = "Humidity";
+    public final static String LABEL_PRESSURE = "Pressure";
+    public final static String LABEL_ILLUMINANCE = "Illuminance";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String KEY_PRESSURE = "pressure";
+    public final static String KEY_ILLUMINANCE = "illuminance";
+    public final static String KEY_UV_INTENSITY = "uv_intensity";
+    public final static String KEY_PM10 = "pm10";
+    public final static String KEY_PM2_5 = "pm2_5";
 ```
 
 ### MissortedModifiers
@@ -20248,119 +20402,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-    public final static String KEY_TEMPERATURE = "temperature";
-    public final static String KEY_HUMIDITY = "humidity";
-    public final static String KEY_PRESSURE = "pressure";
-    public final static String KEY_ILLUMINANCE = "illuminance";
-    public final static String KEY_UV_INTENSITY = "uv_intensity";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String GERMAN_PRESSURE = "Luftdruck";
-    public final static String GERMAN_ILLUMINANCE = "Beleuchtungsstärke";
-    public final static String GERMAN_UV_INTENSITY = "UV-Intensität";
-    public final static String GERMAN_PM10 = "PM10";
-    public final static String GERMAN_PM2_5 = "PM2.5";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String KEY_MODEL = "model";
-    public final static String KEY_LATITUDE = "latitude";
-    public final static String KEY_LONGITUDE = "longitude";
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String LABEL_ID = "Id";
-    public final static String LABEL_NAME = "Name";
-    public final static String LABEL_MODEL = "Model";
-    public final static String LABEL_LATITUDE = "latitude";
-    public final static String LABEL_LONGITUDE = "longitude";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-
-
-    public final static String KEY_TEMPERATURE = "temperature";
-    public final static String KEY_HUMIDITY = "humidity";
-    public final static String KEY_PRESSURE = "pressure";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String LABEL_MODEL = "Model";
-    public final static String LABEL_LATITUDE = "latitude";
-    public final static String LABEL_LONGITUDE = "longitude";
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-
-
-    public final static String LABEL_ID = "Id";
-    public final static String LABEL_NAME = "Name";
-    public final static String LABEL_MODEL = "Model";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String LABEL_UV_INTENSITY = "UV Intensity";
-    public final static String LABEL_PM10 = "Particulate Matter 10";
-    public final static String LABEL_PM2_5 = "Particulate Matter 2.5";
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String KEY_NAME = "name";
-    public final static String KEY_MODEL = "model";
-    public final static String KEY_LATITUDE = "latitude";
-    public final static String KEY_LONGITUDE = "longitude";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String LABEL_PRESSURE = "Pressure";
     public final static String LABEL_ILLUMINANCE = "Illuminance";
     public final static String LABEL_UV_INTENSITY = "UV Intensity";
     public final static String LABEL_PM10 = "Particulate Matter 10";
     public final static String LABEL_PM2_5 = "Particulate Matter 2.5";
+
 ```
 
 ### MissortedModifiers
@@ -20368,11 +20414,23 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
+
+    public final static String KEY_TEMPERATURE = "temperature";
+    public final static String KEY_HUMIDITY = "humidity";
     public final static String KEY_PRESSURE = "pressure";
     public final static String KEY_ILLUMINANCE = "illuminance";
-    public final static String KEY_UV_INTENSITY = "uv_intensity";
-    public final static String KEY_PM10 = "pm10";
-    public final static String KEY_PM2_5 = "pm2_5";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+
+    public final static String GERMAN_TEMPERATURE = "Temperatur";
+    public final static String GERMAN_HUMIDITY = "rel. Luftfeuchte";
+    public final static String GERMAN_PRESSURE = "Luftdruck";
 ```
 
 ### MissortedModifiers
@@ -20392,95 +20450,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-    public final static String KEY_UV_INTENSITY = "uv_intensity";
-    public final static String KEY_PM10 = "pm10";
-    public final static String KEY_PM2_5 = "pm2_5";
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-
-    public final static String LABEL_TEMPERATURE = "Temperature";
-    public final static String LABEL_HUMIDITY = "Humidity";
-    public final static String LABEL_PRESSURE = "Pressure";
-    public final static String LABEL_ILLUMINANCE = "Illuminance";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-
-    public final static String KEY_ID = "id";
-    public final static String KEY_TIMESTAMP = "timestamp";
-    public final static String KEY_NAME = "name";
-    public final static String KEY_MODEL = "model";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String KEY_ILLUMINANCE = "illuminance";
-    public final static String KEY_UV_INTENSITY = "uv_intensity";
-    public final static String KEY_PM10 = "pm10";
-    public final static String KEY_PM2_5 = "pm2_5";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String KEY_ID = "id";
-    public final static String KEY_TIMESTAMP = "timestamp";
-    public final static String KEY_NAME = "name";
-    public final static String KEY_MODEL = "model";
-    public final static String KEY_LATITUDE = "latitude";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String KEY_HUMIDITY = "humidity";
-    public final static String KEY_PRESSURE = "pressure";
-    public final static String KEY_ILLUMINANCE = "illuminance";
-    public final static String KEY_UV_INTENSITY = "uv_intensity";
-    public final static String KEY_PM10 = "pm10";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String LABEL_TEMPERATURE = "Temperature";
-    public final static String LABEL_HUMIDITY = "Humidity";
-    public final static String LABEL_PRESSURE = "Pressure";
-    public final static String LABEL_ILLUMINANCE = "Illuminance";
-    public final static String LABEL_UV_INTENSITY = "UV Intensity";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-
-    public final static String LABEL_ID = "Id";
     public final static String LABEL_NAME = "Name";
     public final static String LABEL_MODEL = "Model";
     public final static String LABEL_LATITUDE = "latitude";
+    public final static String LABEL_LONGITUDE = "longitude";
+
 ```
 
 ### MissortedModifiers
@@ -20488,11 +20462,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
+    public final static String LABEL_UV_INTENSITY = "UV Intensity";
+    public final static String LABEL_PM10 = "Particulate Matter 10";
+    public final static String LABEL_PM2_5 = "Particulate Matter 2.5";
 
 
-    public final static String LABEL_TEMPERATURE = "Temperature";
-    public final static String LABEL_HUMIDITY = "Humidity";
-    public final static String LABEL_PRESSURE = "Pressure";
 ```
 
 ### MissortedModifiers
@@ -20512,35 +20486,47 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
 #### Snippet
 ```java
-    public final static String LABEL_HUMIDITY = "Humidity";
-    public final static String LABEL_PRESSURE = "Pressure";
-    public final static String LABEL_ILLUMINANCE = "Illuminance";
-    public final static String LABEL_UV_INTENSITY = "UV Intensity";
-    public final static String LABEL_PM10 = "Particulate Matter 10";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
-    public final static String LABEL_NAME = "Name";
-    public final static String LABEL_MODEL = "Model";
-    public final static String LABEL_LATITUDE = "latitude";
-    public final static String LABEL_LONGITUDE = "longitude";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
-#### Snippet
-```java
     public final static String KEY_TIMESTAMP = "timestamp";
     public final static String KEY_NAME = "name";
     public final static String KEY_MODEL = "model";
     public final static String KEY_LATITUDE = "latitude";
     public final static String KEY_LONGITUDE = "longitude";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+    public final static String LABEL_ID = "Id";
+    public final static String LABEL_NAME = "Name";
+    public final static String LABEL_MODEL = "Model";
+    public final static String LABEL_LATITUDE = "latitude";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+    public final static String GERMAN_PRESSURE = "Luftdruck";
+    public final static String GERMAN_ILLUMINANCE = "Beleuchtungsstärke";
+    public final static String GERMAN_UV_INTENSITY = "UV-Intensität";
+    public final static String GERMAN_PM10 = "PM10";
+    public final static String GERMAN_PM2_5 = "PM2.5";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/SensorNames.java`
+#### Snippet
+```java
+
+    public final static String GERMAN_TEMPERATURE = "Temperatur";
+    public final static String GERMAN_HUMIDITY = "rel. Luftfeuchte";
+    public final static String GERMAN_PRESSURE = "Luftdruck";
+    public final static String GERMAN_ILLUMINANCE = "Beleuchtungsstärke";
 ```
 
 ### MissortedModifiers
@@ -20553,6 +20539,66 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
   private final static String WaitTimeMs = "wait-time-ms";
 
   private RandomDataSimulator randomDataSimulator;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+#### Snippet
+```java
+  final static double LONGITUDE_MIN = -180.00;
+  final static double LONGITUDE_MAX = 180.00;
+  final static double LATITUDE_MIN = -90;
+  final static double LATITUDE_MAX = 90;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+#### Snippet
+```java
+
+  final static double LONGITUDE_MIN = -180.00;
+  final static double LONGITUDE_MAX = 180.00;
+  final static double LATITUDE_MIN = -90;
+  final static double LATITUDE_MAX = 90;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+#### Snippet
+```java
+public class SpGeometryBuilder {
+
+  final static double LONGITUDE_MIN = -180.00;
+  final static double LONGITUDE_MAX = 180.00;
+  final static double LATITUDE_MIN = -90;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+#### Snippet
+```java
+  final static double LONGITUDE_MAX = 180.00;
+  final static double LATITUDE_MIN = -90;
+  final static double LATITUDE_MAX = 90;
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/config/ConfigKeys.java`
+#### Snippet
+```java
+
+public class ConfigKeys {
+    public final static String GOOGLE_API_KEY = "SP_GOOGLE_API_KEY";
+}
+
 ```
 
 ### MissortedModifiers
@@ -20593,18 +20639,6 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/config/ConfigKeys.java`
-#### Snippet
-```java
-
-public class ConfigKeys {
-    public final static String GOOGLE_API_KEY = "SP_GOOGLE_API_KEY";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
 #### Snippet
 ```java
@@ -20621,33 +20655,9 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 #### Snippet
 ```java
 
-
   public final static String LAT_KEY = "latitude-key";
   public final static String LNG_KEY = "longitude-key";
   public final static String EPSG_KEY = "epsg-key";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
-#### Snippet
-```java
-
-  public final static String LAT_KEY = "latitude-key";
-  public final static String LNG_KEY = "longitude-key";
-  public final static String EPSG_KEY = "epsg-key";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
-#### Snippet
-```java
-  public final static String EPSG_KEY = "epsg-key";
-
-  public final static String WKT_RUNTIME = "geomWKT";
-  public final static String EPA_NAME = "Create Point from Latitude and Longitude";
 
 ```
 
@@ -20665,62 +20675,26 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
-#### Snippet
-```java
-  public final static String M_KEY = "m-key";
-  public final static String DESCRIPTION_KEY = "description-key";
-  public final static String SUBPOINTS_KEY = "subpoints-key";
-
-  public final static String WKT_KEY = "trajectory-key";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
 #### Snippet
 ```java
   public final static String EPSG_KEY = "epsg-key";
-  public final static String M_KEY = "m-key";
-  public final static String DESCRIPTION_KEY = "description-key";
-  public final static String SUBPOINTS_KEY = "subpoints-key";
+
+  public final static String WKT_RUNTIME = "geomWKT";
+  public final static String EPA_NAME = "Create Point from Latitude and Longitude";
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/latLngToGeo/LatLngToGeoController.java`
 #### Snippet
 ```java
-  public final static String SUBPOINTS_KEY = "subpoints-key";
 
-  public final static String WKT_KEY = "trajectory-key";
-  public final static String WKT_RUNTIME = "trajectoryWKT";
 
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
-#### Snippet
-```java
-  public final static String POINT_KEY = "point-key";
+  public final static String LAT_KEY = "latitude-key";
+  public final static String LNG_KEY = "longitude-key";
   public final static String EPSG_KEY = "epsg-key";
-  public final static String M_KEY = "m-key";
-  public final static String DESCRIPTION_KEY = "description-key";
-  public final static String SUBPOINTS_KEY = "subpoints-key";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
-#### Snippet
-```java
-
-  public final static String POINT_KEY = "point-key";
-  public final static String EPSG_KEY = "epsg-key";
-  public final static String M_KEY = "m-key";
-  public final static String DESCRIPTION_KEY = "description-key";
 ```
 
 ### MissortedModifiers
@@ -20740,10 +20714,70 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
 #### Snippet
 ```java
+  public final static String SUBPOINTS_KEY = "subpoints-key";
+
+  public final static String WKT_KEY = "trajectory-key";
+  public final static String WKT_RUNTIME = "trajectoryWKT";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
+
+  public final static String POINT_KEY = "point-key";
+  public final static String EPSG_KEY = "epsg-key";
+  public final static String M_KEY = "m-key";
+  public final static String DESCRIPTION_KEY = "description-key";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
+  public final static String M_KEY = "m-key";
+  public final static String DESCRIPTION_KEY = "description-key";
+  public final static String SUBPOINTS_KEY = "subpoints-key";
+
+  public final static String WKT_KEY = "trajectory-key";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
+  public final static String POINT_KEY = "point-key";
+  public final static String EPSG_KEY = "epsg-key";
+  public final static String M_KEY = "m-key";
+  public final static String DESCRIPTION_KEY = "description-key";
+  public final static String SUBPOINTS_KEY = "subpoints-key";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
   public final static String WKT_RUNTIME = "trajectoryWKT";
 
   public final static String DESCRIPTION_RUNTIME = "trajectoryDescription";
 
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/processor/trajectory/CreateTrajectoryFromPointsController.java`
+#### Snippet
+```java
+  public final static String EPSG_KEY = "epsg-key";
+  public final static String M_KEY = "m-key";
+  public final static String DESCRIPTION_KEY = "description-key";
+  public final static String SUBPOINTS_KEY = "subpoints-key";
 
 ```
 
@@ -20761,50 +20795,14 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
-public class SpGeometryBuilder {
-
-  final static double LONGITUDE_MIN = -180.00;
-  final static double LONGITUDE_MAX = 180.00;
-  final static double LATITUDE_MIN = -90;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
-#### Snippet
-```java
-  final static double LONGITUDE_MAX = 180.00;
-  final static double LATITUDE_MIN = -90;
-  final static double LATITUDE_MAX = 90;
-
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
-#### Snippet
-```java
-  final static double LONGITUDE_MIN = -180.00;
-  final static double LONGITUDE_MAX = 180.00;
-  final static double LATITUDE_MIN = -90;
-  final static double LATITUDE_MAX = 90;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
-#### Snippet
-```java
-
-  final static double LONGITUDE_MIN = -180.00;
-  final static double LONGITUDE_MAX = 180.00;
-  final static double LATITUDE_MIN = -90;
-  final static double LATITUDE_MAX = 90;
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
 ```
 
 ### MissortedModifiers
@@ -20824,35 +20822,23 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/config/ConfigKeys.java`
-#### Snippet
-```java
 
 public class ConfigKeys {
     public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String DEBUG = "SP_FLINK_DEBUG";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-geo-flink/src/main/java/org/apache/streampipes/processor/geo/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
+
 ```
 
 ### MissortedModifiers
@@ -20860,11 +20846,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/apache/streampipes/sinks/databases/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String ELASTIC_HOST = "SP_ELASTICSEARCH_HOST";
     public final static String ELASTIC_PORT_REST = "SP_ELASTICSEARCH_PORT_REST";
     public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
-
 ```
 
 ### MissortedModifiers
@@ -20896,18 +20882,6 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/apache/streampipes/sinks/databases/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
-
-public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String ELASTIC_HOST = "SP_ELASTICSEARCH_HOST";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/apache/streampipes/sinks/databases/flink/config/ConfigKeys.java`
-#### Snippet
-```java
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String ELASTIC_HOST = "SP_ELASTICSEARCH_HOST";
     public final static String ELASTIC_PORT_REST = "SP_ELASTICSEARCH_PORT_REST";
@@ -20920,11 +20894,23 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/apache/streampipes/sinks/databases/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
+
+public class ConfigKeys {
     public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String ELASTIC_HOST = "SP_ELASTICSEARCH_HOST";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-sinks-databases-flink/src/main/java/org/apache/streampipes/sinks/databases/flink/config/ConfigKeys.java`
+#### Snippet
+```java
     public final static String ELASTIC_PORT_REST = "SP_ELASTICSEARCH_PORT_REST";
     public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
+
 ```
 
 ### MissortedModifiers
@@ -20956,11 +20942,23 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/throughputmon/ThroughputMonitorProcessor.java`
 #### Snippet
 ```java
-public class ThroughputMonitorProcessor extends StreamPipesDataProcessor {
 
+  private final static String TIMESTAMP_FIELD = "timestamp";
+  private final static String START_TIME_FIELD = "starttime";
+  private final static String END_TIME_FIELD = "endtime";
+  private final static String DURATION_FIELD = "duration";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/throughputmon/ThroughputMonitorProcessor.java`
+#### Snippet
+```java
   private final static String BATCH_WINDOW_KEY = "batch-window-key";
 
   private final static String TIMESTAMP_FIELD = "timestamp";
+  private final static String START_TIME_FIELD = "starttime";
+  private final static String END_TIME_FIELD = "endtime";
 ```
 
 ### MissortedModifiers
@@ -20980,35 +20978,23 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/throughputmon/ThroughputMonitorProcessor.java`
 #### Snippet
 ```java
+public class ThroughputMonitorProcessor extends StreamPipesDataProcessor {
+
+  private final static String BATCH_WINDOW_KEY = "batch-window-key";
+
+  private final static String TIMESTAMP_FIELD = "timestamp";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/throughputmon/ThroughputMonitorProcessor.java`
+#### Snippet
+```java
   private final static String TIMESTAMP_FIELD = "timestamp";
   private final static String START_TIME_FIELD = "starttime";
   private final static String END_TIME_FIELD = "endtime";
   private final static String DURATION_FIELD = "duration";
   private final static String EVENT_COUNT_FIELD = "eventcount";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/throughputmon/ThroughputMonitorProcessor.java`
-#### Snippet
-```java
-
-  private final static String TIMESTAMP_FIELD = "timestamp";
-  private final static String START_TIME_FIELD = "starttime";
-  private final static String END_TIME_FIELD = "endtime";
-  private final static String DURATION_FIELD = "duration";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/throughputmon/ThroughputMonitorProcessor.java`
-#### Snippet
-```java
-  private final static String BATCH_WINDOW_KEY = "batch-window-key";
-
-  private final static String TIMESTAMP_FIELD = "timestamp";
-  private final static String START_TIME_FIELD = "starttime";
-  private final static String END_TIME_FIELD = "endtime";
 ```
 
 ### MissortedModifiers
@@ -21052,11 +21038,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasureController.java`
 #### Snippet
 ```java
+  private static final String SIZE_UNIT = "sizeUnit";
+  final static String BYTE_SIZE = "BYTE";
+  final static String KILOBYTE_SIZE = "KILOBYTE";
   final static String MEGABYTE_SIZE = "MEGABYTE";
 
-  final static String EVENT_SIZE = "eventSize";
-
-  @Override
 ```
 
 ### MissortedModifiers
@@ -21064,11 +21050,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/sizemeasure/SizeMeasureController.java`
 #### Snippet
 ```java
-  private static final String SIZE_UNIT = "sizeUnit";
-  final static String BYTE_SIZE = "BYTE";
-  final static String KILOBYTE_SIZE = "KILOBYTE";
   final static String MEGABYTE_SIZE = "MEGABYTE";
 
+  final static String EVENT_SIZE = "eventSize";
+
+  @Override
 ```
 
 ### MissortedModifiers
@@ -21112,18 +21098,6 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/org/apache/streampipes/pe/jvm/config/ConfigKeys.java`
 #### Snippet
 ```java
-
-public class ConfigKeys {
-  final static String HOST = "SP_HOST";
-  final static String PORT = "SP_PORT";
-  final static String SERVICE_NAME_KEY = "SP_SERVICE_NAME";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/org/apache/streampipes/pe/jvm/config/ConfigKeys.java`
-#### Snippet
-```java
 public class ConfigKeys {
   final static String HOST = "SP_HOST";
   final static String PORT = "SP_PORT";
@@ -21133,14 +21107,62 @@ public class ConfigKeys {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/org/apache/streampipes/pe/jvm/config/AllPipelineElementsConfig.java`
+in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/org/apache/streampipes/pe/jvm/config/ConfigKeys.java`
 #### Snippet
 ```java
-  public final static String serverUrl;
 
-  private final static String service_id = "pe/org.apache.streampipes.processors.all.jvm";
-  private final static String service_name = "Processors JVM (Bundle)";
-  private final static String service_container_name = "pipeline-elements-all-jvm";
+public class ConfigKeys {
+  final static String HOST = "SP_HOST";
+  final static String PORT = "SP_PORT";
+  final static String SERVICE_NAME_KEY = "SP_SERVICE_NAME";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 ```
 
 ### MissortedModifiers
@@ -21160,11 +21182,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/org/apache/streampipes/pe/jvm/config/AllPipelineElementsConfig.java`
 #### Snippet
 ```java
+  public final static String serverUrl;
 
   private final static String service_id = "pe/org.apache.streampipes.processors.all.jvm";
   private final static String service_name = "Processors JVM (Bundle)";
   private final static String service_container_name = "pipeline-elements-all-jvm";
-
 ```
 
 ### MissortedModifiers
@@ -21181,61 +21203,13 @@ in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/o
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
+in `streampipes-extensions/streampipes-pipeline-elements-all-jvm/src/main/java/org/apache/streampipes/pe/jvm/config/AllPipelineElementsConfig.java`
 #### Snippet
 ```java
 
-public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-enricher-flink/src/main/java/org/apache/streampipes/processors/enricher/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-sources-vehicle-simulator/src/main/java/org/apache/streampipes/sources/vehicle/simulator/config/ConfigKeys.java`
-#### Snippet
-```java
-public class ConfigKeys {
-    public final static String KAFKA_HOST = "SP_KAFKA_HOST";
-    public final static String KAFKA_PORT = "SP_KAFKA_PORT";
-}
+  private final static String service_id = "pe/org.apache.streampipes.processors.all.jvm";
+  private final static String service_name = "Processors JVM (Bundle)";
+  private final static String service_container_name = "pipeline-elements-all-jvm";
 
 ```
 
@@ -21253,14 +21227,14 @@ public class ConfigKeys {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java/org/apache/streampipes/processors/statistics/flink/config/ConfigKeys.java`
+in `streampipes-extensions/streampipes-sources-vehicle-simulator/src/main/java/org/apache/streampipes/sources/vehicle/simulator/config/ConfigKeys.java`
 #### Snippet
 ```java
-
 public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String KAFKA_HOST = "SP_KAFKA_HOST";
+    public final static String KAFKA_PORT = "SP_KAFKA_PORT";
+}
+
 ```
 
 ### MissortedModifiers
@@ -21280,6 +21254,30 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java/org/apache/streampipes/processors/statistics/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java/org/apache/streampipes/processors/statistics/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java/org/apache/streampipes/processors/statistics/flink/config/ConfigKeys.java`
+#### Snippet
+```java
     public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String DEBUG = "SP_FLINK_DEBUG";
@@ -21289,14 +21287,14 @@ in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-statistics-flink/src/main/java/org/apache/streampipes/processors/statistics/flink/config/ConfigKeys.java`
+in `streampipes-extensions/streampipes-sources-watertank-simulator/src/main/java/org/apache/streampipes/sources/watertank/simulator/config/ConfigKeys.java`
 #### Snippet
 ```java
 public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+    public final static String KAFKA_HOST = "SP_KAFKA_HOST";
+    public final static String KAFKA_PORT = "SP_KAFKA_PORT";
+}
+
 ```
 
 ### MissortedModifiers
@@ -21313,18 +21311,6 @@ public class ConfigKeys {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-sources-watertank-simulator/src/main/java/org/apache/streampipes/sources/watertank/simulator/config/ConfigKeys.java`
-#### Snippet
-```java
-public class ConfigKeys {
-    public final static String KAFKA_HOST = "SP_KAFKA_HOST";
-    public final static String KAFKA_PORT = "SP_KAFKA_PORT";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
@@ -21333,18 +21319,6 @@ in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/jav
     public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 }
 
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 ```
 
 ### MissortedModifiers
@@ -21357,6 +21331,18 @@ in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/jav
     public final static String DEBUG = "SP_FLINK_DEBUG";
     public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-aggregation-flink/src/main/java/org/apache/streampipes/processors/aggregation/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 ```
 
 ### MissortedModifiers
@@ -21376,11 +21362,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
+
+public class ConfigKeys {
     public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
 ```
 
 ### MissortedModifiers
@@ -21412,23 +21398,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-text-mining-flink/src/main/java/org/apache/streampipes/processors/textmining/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
-
-public class ConfigKeys {
     public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String DEBUG = "SP_FLINK_DEBUG";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/count/CountArrayController.java`
-#### Snippet
-```java
-
-  public final static String COUNT_NAME = "countValue";
-  public final static String ARRAY_FIELD = "array-field";
-
-  @Override
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
 ```
 
 ### MissortedModifiers
@@ -21445,14 +21419,14 @@ public class CountArrayController extends StandaloneEventProcessingDeclarer<Coun
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorController.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/array/count/CountArrayController.java`
 #### Snippet
 ```java
 
-  public final static String TIMESTAMP_FIELD = "timestampField";
-  public final static String SELECTED_OUTPUT_FIELDS = "selectedOutputFields";
+  public final static String COUNT_NAME = "countValue";
+  public final static String ARRAY_FIELD = "array-field";
 
-
+  @Override
 ```
 
 ### MissortedModifiers
@@ -21464,6 +21438,18 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
 
   public final static String TIMESTAMP_FIELD = "timestampField";
   public final static String SELECTED_OUTPUT_FIELDS = "selectedOutputFields";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/timestampextractor/TimestampExtractorController.java`
+#### Snippet
+```java
+
+  public final static String TIMESTAMP_FIELD = "timestampField";
+  public final static String SELECTED_OUTPUT_FIELDS = "selectedOutputFields";
+
 
 ```
 
@@ -21508,11 +21494,11 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String DEBUG = "SP_FLINK_DEBUG";
     public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
-}
-
 ```
 
 ### MissortedModifiers
@@ -21532,11 +21518,35 @@ Missorted modifiers `final static`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/config/ConfigKeys.java`
 #### Snippet
 ```java
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
+    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/config/ConfigKeys.java`
+#### Snippet
+```java
 public class ConfigKeys {
     public final static String FLINK_HOST = "SP_FLINK_HOST";
     public final static String FLINK_PORT = "SP_FLINK_PORT";
     public final static String DEBUG = "SP_FLINK_DEBUG";
     public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/config/ConfigKeys.java`
+#### Snippet
+```java
+
+public class ConfigKeys {
+    public final static String FLINK_HOST = "SP_FLINK_HOST";
+    public final static String FLINK_PORT = "SP_FLINK_PORT";
+    public final static String DEBUG = "SP_FLINK_DEBUG";
 ```
 
 ### MissortedModifiers
@@ -21561,30 +21571,6 @@ in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/ma
     public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 }
 
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-
-public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-extensions/streampipes-processors-pattern-detection-flink/src/main/java/org/apache/streampipes/processors/pattern/detection/flink/config/ConfigKeys.java`
-#### Snippet
-```java
-public class ConfigKeys {
-    public final static String FLINK_HOST = "SP_FLINK_HOST";
-    public final static String FLINK_PORT = "SP_FLINK_PORT";
-    public final static String DEBUG = "SP_FLINK_DEBUG";
-    public final static String FLINK_JAR_FILE_LOC = "SP_FLINK_JAR_FILE_LOC";
 ```
 
 ### MissortedModifiers
@@ -21613,6 +21599,30 @@ public class RunningVisualization {
 
 ### MissortedModifiers
 Missorted modifiers `protected @SerializedName("_rev")`
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/AbstractMailToken.java`
+#### Snippet
+```java
+
+  protected @SerializedName("_id") String token;
+  protected @SerializedName("_rev") String rev;
+
+  private String username;
+```
+
+### MissortedModifiers
+Missorted modifiers `protected @SerializedName("_id")`
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/AbstractMailToken.java`
+#### Snippet
+```java
+public abstract class AbstractMailToken {
+
+  protected @SerializedName("_id") String token;
+  protected @SerializedName("_rev") String rev;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `protected @SerializedName("_rev")`
 in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/Principal.java`
 #### Snippet
 ```java
@@ -21637,24 +21647,24 @@ public abstract class Principal {
 
 ### MissortedModifiers
 Missorted modifiers `protected @SerializedName("_rev")`
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/AbstractMailToken.java`
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/Permission.java`
 #### Snippet
 ```java
 
-  protected @SerializedName("_id") String token;
+  protected @SerializedName("_id") String permissionId;
   protected @SerializedName("_rev") String rev;
 
-  private String username;
+  @JsonIgnore
 ```
 
 ### MissortedModifiers
 Missorted modifiers `protected @SerializedName("_id")`
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/AbstractMailToken.java`
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/Permission.java`
 #### Snippet
 ```java
-public abstract class AbstractMailToken {
+public class Permission {
 
-  protected @SerializedName("_id") String token;
+  protected @SerializedName("_id") String permissionId;
   protected @SerializedName("_rev") String rev;
 
 ```
@@ -21684,26 +21694,14 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/u
 ```
 
 ### MissortedModifiers
-Missorted modifiers `protected @SerializedName("_rev")`
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/Permission.java`
+Missorted modifiers `private @SerializedName("_id")`
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/endpoint/ExtensionsServiceEndpoint.java`
 #### Snippet
 ```java
+public class ExtensionsServiceEndpoint {
 
-  protected @SerializedName("_id") String permissionId;
-  protected @SerializedName("_rev") String rev;
-
-  @JsonIgnore
-```
-
-### MissortedModifiers
-Missorted modifiers `protected @SerializedName("_id")`
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/user/Permission.java`
-#### Snippet
-```java
-public class Permission {
-
-  protected @SerializedName("_id") String permissionId;
-  protected @SerializedName("_rev") String rev;
+    private @SerializedName("_id") String id;
+    private @SerializedName("_rev") String rev;
 
 ```
 
@@ -21721,13 +21719,13 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/e
 
 ### MissortedModifiers
 Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/endpoint/ExtensionsServiceEndpoint.java`
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/assetdashboard/AssetDashboardConfig.java`
 #### Snippet
 ```java
-public class ExtensionsServiceEndpoint {
+public class AssetDashboardConfig {
 
-    private @SerializedName("_id") String id;
-    private @SerializedName("_rev") String rev;
+  private @SerializedName("_id") String dashboardId;
+  private @SerializedName("_rev") String rev;
 
 ```
 
@@ -21741,30 +21739,6 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/a
   private @SerializedName("_rev") String rev;
 
   private String dashboardName;
-```
-
-### MissortedModifiers
-Missorted modifiers `private @SerializedName("_id")`
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/assetdashboard/AssetDashboardConfig.java`
-#### Snippet
-```java
-public class AssetDashboardConfig {
-
-  private @SerializedName("_id") String dashboardId;
-  private @SerializedName("_rev") String rev;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/utils/CouchDbConfig.java`
-#### Snippet
-```java
-
-    private SpConfig config;
-    private final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
-    private final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
-    private final static String PROTOCOL = "PROTOCOL";
 ```
 
 ### MissortedModifiers
@@ -21784,6 +21758,18 @@ Missorted modifiers `final static`
 in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/utils/CouchDbConfig.java`
 #### Snippet
 ```java
+
+    private SpConfig config;
+    private final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
+    private final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
+    private final static String PROTOCOL = "PROTOCOL";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/utils/CouchDbConfig.java`
+#### Snippet
+```java
     private SpConfig config;
     private final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
     private final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
@@ -21796,30 +21782,6 @@ Missorted modifiers `final static`
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
 #### Snippet
 ```java
-  public final static String namespace = "http://qudt.org/schema/qudt#";
-
-  public final static URI SYMBOL = getURI("symbol");
-  public final static URI ABBREVIATION = getURI("abbreviation");
-  public final static URI CONVERSION_OFFSET = getURI("conversionOffset");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
-#### Snippet
-```java
-
-  public final static URI SI_UNIT = getURI("SIUnit");
-  public final static URI SI_BASE_UNIT = getURI("SIBaseUnit");
-  public final static URI SI_DERIVED_UNIT = getURI("SIDerivedUnit");
-  public final static URI DERIVED_UNIT = getURI("DerivedUnit");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
-#### Snippet
-```java
   public final static URI ABBREVIATION = getURI("abbreviation");
   public final static URI CONVERSION_OFFSET = getURI("conversionOffset");
   public final static URI CONVERSION_MULTIPLIER = getURI("conversionMultiplier");
@@ -21832,35 +21794,11 @@ Missorted modifiers `final static`
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
 #### Snippet
 ```java
-  public final static URI CONVERSION_MULTIPLIER = getURI("conversionMultiplier");
-
-  public final static URI SI_UNIT = getURI("SIUnit");
-  public final static URI SI_BASE_UNIT = getURI("SIBaseUnit");
-  public final static URI SI_DERIVED_UNIT = getURI("SIDerivedUnit");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
-#### Snippet
-```java
 
   public final static URI SYMBOL = getURI("symbol");
   public final static URI ABBREVIATION = getURI("abbreviation");
   public final static URI CONVERSION_OFFSET = getURI("conversionOffset");
   public final static URI CONVERSION_MULTIPLIER = getURI("conversionMultiplier");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
-#### Snippet
-```java
-  private static ValueFactory factory = new ValueFactoryImpl();
-
-  public final static String namespace = "http://qudt.org/schema/qudt#";
-
-  public final static URI SYMBOL = getURI("symbol");
 ```
 
 ### MissortedModifiers
@@ -21880,11 +21818,23 @@ Missorted modifiers `final static`
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
 #### Snippet
 ```java
-  public final static URI SYMBOL = getURI("symbol");
-  public final static URI ABBREVIATION = getURI("abbreviation");
-  public final static URI CONVERSION_OFFSET = getURI("conversionOffset");
+
+  public final static URI SI_UNIT = getURI("SIUnit");
+  public final static URI SI_BASE_UNIT = getURI("SIBaseUnit");
+  public final static URI SI_DERIVED_UNIT = getURI("SIDerivedUnit");
+  public final static URI DERIVED_UNIT = getURI("DerivedUnit");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
+#### Snippet
+```java
   public final static URI CONVERSION_MULTIPLIER = getURI("conversionMultiplier");
 
+  public final static URI SI_UNIT = getURI("SIUnit");
+  public final static URI SI_BASE_UNIT = getURI("SIBaseUnit");
+  public final static URI SI_DERIVED_UNIT = getURI("SIDerivedUnit");
 ```
 
 ### MissortedModifiers
@@ -21904,11 +21854,47 @@ Missorted modifiers `final static`
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
 #### Snippet
 ```java
+  public final static String namespace = "http://qudt.org/schema/qudt#";
+
+  public final static URI SYMBOL = getURI("symbol");
+  public final static URI ABBREVIATION = getURI("abbreviation");
+  public final static URI CONVERSION_OFFSET = getURI("conversionOffset");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
+#### Snippet
+```java
   public final static URI SI_DERIVED_UNIT = getURI("SIDerivedUnit");
   public final static URI DERIVED_UNIT = getURI("DerivedUnit");
   public final static URI NOT_USED_WITH_SI_UNIT = getURI("NotUsedWithSIUnit");
   public final static URI USED_WITH_SI_UNIT = getURI("UsedWithSIUnit");
 
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
+#### Snippet
+```java
+  public final static URI SYMBOL = getURI("symbol");
+  public final static URI ABBREVIATION = getURI("abbreviation");
+  public final static URI CONVERSION_OFFSET = getURI("conversionOffset");
+  public final static URI CONVERSION_MULTIPLIER = getURI("conversionMultiplier");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
+#### Snippet
+```java
+  private static ValueFactory factory = new ValueFactoryImpl();
+
+  public final static String namespace = "http://qudt.org/schema/qudt#";
+
+  public final static URI SYMBOL = getURI("symbol");
 ```
 
 ### MissortedModifiers
@@ -21949,42 +21935,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/CouchDbEnvKeys.java`
-#### Snippet
-```java
-    public final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
-    public final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
-    public final static String COUCHDB_PROTOCOL = "SP_COUCHDB_PROTOCOL";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/CouchDbEnvKeys.java`
-#### Snippet
-```java
-
-public class CouchDbEnvKeys {
-    public final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
-    public final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
-    public final static String COUCHDB_PROTOCOL = "SP_COUCHDB_PROTOCOL";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/CouchDbEnvKeys.java`
-#### Snippet
-```java
-public class CouchDbEnvKeys {
-    public final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
-    public final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
-    public final static String COUCHDB_PROTOCOL = "SP_COUCHDB_PROTOCOL";
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerConfigurations.java`
 #### Snippet
 ```java
@@ -21997,62 +21947,38 @@ public class DataExplorerConfigurations {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/CouchDbEnvKeys.java`
 #### Snippet
 ```java
-    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
-    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
-    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
-    public final static String DATA_LAKE_PASSWORD = "SP_DATA_LAKE_PASSWORD";
-    public final static String DATA_LAKE_DATABASE_NAME = "SP_DATA_LAKE_DATABASE_NAME";
+
+public class CouchDbEnvKeys {
+    public final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
+    public final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
+    public final static String COUCHDB_PROTOCOL = "SP_COUCHDB_PROTOCOL";
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/CouchDbEnvKeys.java`
 #### Snippet
 ```java
-    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
-    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
-    public final static String DATA_LAKE_PASSWORD = "SP_DATA_LAKE_PASSWORD";
-    public final static String DATA_LAKE_DATABASE_NAME = "SP_DATA_LAKE_DATABASE_NAME";
+    public final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
+    public final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
+    public final static String COUCHDB_PROTOCOL = "SP_COUCHDB_PROTOCOL";
+}
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/CouchDbEnvKeys.java`
 #### Snippet
 ```java
-public class DataExplorerEnvKeys {
-    public final static String DATA_LAKE_HOST = "SP_DATA_LAKE_HOST";
-    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
-    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
-    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
-#### Snippet
-```java
-    public final static String DATA_LAKE_HOST = "SP_DATA_LAKE_HOST";
-    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
-    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
-    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
-    public final static String DATA_LAKE_PASSWORD = "SP_DATA_LAKE_PASSWORD";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
-#### Snippet
-```java
-
-public class DataExplorerEnvKeys {
-    public final static String DATA_LAKE_HOST = "SP_DATA_LAKE_HOST";
-    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
-    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
+public class CouchDbEnvKeys {
+    public final static String COUCHDB_HOST = "SP_COUCHDB_HOST";
+    public final static String COUCHDB_PORT = "SP_COUCHDB_PORT";
+    public final static String COUCHDB_PROTOCOL = "SP_COUCHDB_PROTOCOL";
+}
 ```
 
 ### MissortedModifiers
@@ -22065,6 +21991,66 @@ in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/datae
     public final static String DATA_LAKE_DATABASE_NAME = "SP_DATA_LAKE_DATABASE_NAME";
 
 }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+#### Snippet
+```java
+    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
+    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
+    public final static String DATA_LAKE_PASSWORD = "SP_DATA_LAKE_PASSWORD";
+    public final static String DATA_LAKE_DATABASE_NAME = "SP_DATA_LAKE_DATABASE_NAME";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+#### Snippet
+```java
+    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
+    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
+    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
+    public final static String DATA_LAKE_PASSWORD = "SP_DATA_LAKE_PASSWORD";
+    public final static String DATA_LAKE_DATABASE_NAME = "SP_DATA_LAKE_DATABASE_NAME";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+#### Snippet
+```java
+    public final static String DATA_LAKE_HOST = "SP_DATA_LAKE_HOST";
+    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
+    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
+    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
+    public final static String DATA_LAKE_PASSWORD = "SP_DATA_LAKE_PASSWORD";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+#### Snippet
+```java
+public class DataExplorerEnvKeys {
+    public final static String DATA_LAKE_HOST = "SP_DATA_LAKE_HOST";
+    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
+    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
+    public final static String DATA_LAKE_USERNAME = "SP_DATA_LAKE_USERNAME";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerEnvKeys.java`
+#### Snippet
+```java
+
+public class DataExplorerEnvKeys {
+    public final static String DATA_LAKE_HOST = "SP_DATA_LAKE_HOST";
+    public final static String DATA_LAKE_PROTOCOL = "SP_DATA_LAKE_PROTOCOL";
+    public final static String DATA_LAKE_PORT = "SP_DATA_LAKE_PORT";
 ```
 
 ## RuleId[ruleID=AnonymousHasLambdaAlternative]
@@ -22195,42 +22181,6 @@ in `streampipes-messaging-mqtt/src/main/java/org/apache/streampipes/messaging/mq
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
 ### IfStatementWithIdenticalBranches
 Common part can be extracted from 'if'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/value/TimestampTranformationRule.java`
-#### Snippet
-```java
-    private Map<String, Object> transform(Map<String, Object> event, List<String> eventKey) {
-
-        if (eventKey.size() == 1) {
-
-            switch (mode) {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted from 'if'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/DeleteTransformationRule.java`
-#### Snippet
-```java
-
-    private Map<String, Object> transform(Map<String, Object> event, List<String> keys) {
-        if (keys.size() == 1) {
-            event.remove(keys.get(0));
-            return event;
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted from 'if'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/CreateNestedTransformationRule.java`
-#### Snippet
-```java
-    private Map<String, Object> transform(Map<String, Object> event, List<String> keys) {
-
-        if (keys.size() == 1) {
-            event.put(keys.get(0), new HashMap<>());
-            return event;
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted from 'if'
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/value/CorrectionValueTransformationRule.java`
 #### Snippet
 ```java
@@ -22255,6 +22205,30 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
 
 ### IfStatementWithIdenticalBranches
 Common part can be extracted from 'if'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/value/TimestampTranformationRule.java`
+#### Snippet
+```java
+    private Map<String, Object> transform(Map<String, Object> event, List<String> eventKey) {
+
+        if (eventKey.size() == 1) {
+
+            switch (mode) {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted from 'if'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/CreateNestedTransformationRule.java`
+#### Snippet
+```java
+    private Map<String, Object> transform(Map<String, Object> event, List<String> keys) {
+
+        if (keys.size() == 1) {
+            event.put(keys.get(0), new HashMap<>());
+            return event;
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted from 'if'
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/MoveTransformationRule.java`
 #### Snippet
 ```java
@@ -22263,6 +22237,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
         if (keys.size() == 1) {
 
             event.remove(keys.get(0));
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted from 'if'
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/schema/DeleteTransformationRule.java`
+#### Snippet
+```java
+
+    private Map<String, Object> transform(Map<String, Object> event, List<String> keys) {
+        if (keys.size() == 1) {
+            event.remove(keys.get(0));
+            return event;
 ```
 
 ### IfStatementWithIdenticalBranches
@@ -22321,6 +22307,30 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/template/Pipeli
 #### Snippet
 ```java
 
+  public String getPipelineTemplateDescription() {
+    return super.getDescription();
+  }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `streampipes-model/src/main/java/org/apache/streampipes/model/template/PipelineTemplateDescription.java`
+#### Snippet
+```java
+
+  public String getPipelineTemplateId() {
+    return super.getElementId();
+  }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `streampipes-model/src/main/java/org/apache/streampipes/model/template/PipelineTemplateDescription.java`
+#### Snippet
+```java
+
   public void setPipelineTemplateId(String pipelineTemplateId) {
     super.setElementId(pipelineTemplateId);
     super.setAppId(pipelineTemplateId);
@@ -22345,8 +22355,8 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/template/Pipeli
 #### Snippet
 ```java
 
-  public String getPipelineTemplateName() {
-    return super.getName();
+  public void setPipelineTemplateName(String pipelineTemplateName) {
+    super.setName(pipelineTemplateName);
   }
 
 ```
@@ -22369,32 +22379,8 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/template/Pipeli
 #### Snippet
 ```java
 
-  public void setPipelineTemplateName(String pipelineTemplateName) {
-    super.setName(pipelineTemplateName);
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `streampipes-model/src/main/java/org/apache/streampipes/model/template/PipelineTemplateDescription.java`
-#### Snippet
-```java
-
-  public String getPipelineTemplateDescription() {
-    return super.getDescription();
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `streampipes-model/src/main/java/org/apache/streampipes/model/template/PipelineTemplateDescription.java`
-#### Snippet
-```java
-
-  public String getPipelineTemplateId() {
-    return super.getElementId();
+  public String getPipelineTemplateName() {
+    return super.getName();
   }
 
 ```
@@ -22514,6 +22500,18 @@ Statement lambda can be replaced with expression lambda
 in `streampipes-backend/src/main/java/org/apache/streampipes/backend/StreamPipesBackendApplication.java`
 #### Snippet
 ```java
+
+  private void schedulePipelineStart(Pipeline pipeline, boolean restartOnReboot) {
+    executorService.schedule(() -> {
+      startPipeline(pipeline, restartOnReboot);
+    }, WAIT_TIME_AFTER_FAILURE_IN_SECONDS, TimeUnit.SECONDS);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `streampipes-backend/src/main/java/org/apache/streampipes/backend/StreamPipesBackendApplication.java`
+#### Snippet
+```java
     LOG.info("Found {} pipelines that we are attempting to restart...", pipelinesToRestart.size());
 
     pipelinesToRestart.forEach(pipeline -> {
@@ -22523,14 +22521,14 @@ in `streampipes-backend/src/main/java/org/apache/streampipes/backend/StreamPipes
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `streampipes-backend/src/main/java/org/apache/streampipes/backend/StreamPipesBackendApplication.java`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/api/DataProcessorPipelineElementResource.java`
 #### Snippet
 ```java
-
-  private void schedulePipelineStart(Pipeline pipeline, boolean restartOnReboot) {
-    executorService.schedule(() -> {
-      startPipeline(pipeline, restartOnReboot);
-    }, WAIT_TIME_AFTER_FAILURE_IN_SECONDS, TimeUnit.SECONDS);
+    @Override
+    protected DataProcessorInvocation createGroundingDebugInformation(DataProcessorInvocation graph) {
+        graph.getInputStreams().forEach(is -> {
+           GroundingDebugUtils.modifyGrounding(is.getEventGrounding());
+        });
 ```
 
 ### CodeBlock2Expr
@@ -22547,14 +22545,26 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/api/Dat
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `streampipes-container/src/main/java/org/apache/streampipes/container/api/DataProcessorPipelineElementResource.java`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
 #### Snippet
 ```java
-    @Override
-    protected DataProcessorInvocation createGroundingDebugInformation(DataProcessorInvocation graph) {
-        graph.getInputStreams().forEach(is -> {
-           GroundingDebugUtils.modifyGrounding(is.getEventGrounding());
-        });
+        before();
+
+        final Runnable errorThread = () -> {
+            executeAdpaterLogic();
+        };
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
+#### Snippet
+```java
+
+    private void executeAdpaterLogic() {
+        final Runnable task = () -> {
+
+            pullData();
 ```
 
 ### CodeBlock2Expr
@@ -22615,30 +22625,6 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/locales
       ((StaticPropertyAlternatives) sp).getAlternatives().forEach(a -> {
         generateLabels(props, a);
       });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
-#### Snippet
-```java
-
-    private void executeAdpaterLogic() {
-        final Runnable task = () -> {
-
-            pullData();
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
-#### Snippet
-```java
-        before();
-
-        final Runnable errorThread = () -> {
-            executeAdpaterLogic();
-        };
 ```
 
 ### CodeBlock2Expr
@@ -23152,11 +23138,11 @@ Field initialization to `null` is redundant
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/netio/NetioUtils.java`
 #### Snippet
 ```java
+
+    public static URI VOLT = null;
+    public static URI WATT = null;
     public static URI AMPERE = null;
     public static URI WATTHOUR = null;
-    public static URI HERTZ = null;
-
-    static {
 ```
 
 ### RedundantFieldInitialization
@@ -23188,11 +23174,11 @@ Field initialization to `null` is redundant
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/netio/NetioUtils.java`
 #### Snippet
 ```java
-
     public static URI VOLT = null;
     public static URI WATT = null;
     public static URI AMPERE = null;
     public static URI WATTHOUR = null;
+    public static URI HERTZ = null;
 ```
 
 ### RedundantFieldInitialization
@@ -23200,11 +23186,11 @@ Field initialization to `null` is redundant
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/netio/NetioUtils.java`
 #### Snippet
 ```java
-    public static URI VOLT = null;
-    public static URI WATT = null;
     public static URI AMPERE = null;
     public static URI WATTHOUR = null;
     public static URI HERTZ = null;
+
+    static {
 ```
 
 ### RedundantFieldInitialization
@@ -23352,6 +23338,18 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/ImageExtractor.java`
+#### Snippet
+```java
+    private final BitSet contentBitSet = new BitSet();
+
+    private boolean inHighlight = false;
+
+    Implementation() {
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/ImageExtractor.java`
 #### Snippet
@@ -23364,15 +23362,123 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/ImageExtractor.java`
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
 #### Snippet
 ```java
-    private final BitSet contentBitSet = new BitSet();
 
-    private boolean inHighlight = false;
+  int inBody = 0;
+  int inAnchor = 0;
+  int inIgnorableElement = 0;
 
-    Implementation() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  int inBody = 0;
+  int inAnchor = 0;
+  int inIgnorableElement = 0;
+
+  int tagLevel = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+
+  private final Map<String, TagAction> tagActions;
+  private String title = null;
+
+  static final String ANCHOR_TEXT_START = "$\ue00a<";
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  int inIgnorableElement = 0;
+
+  int tagLevel = 0;
+  int blockTagLevel = -1;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  private String lastStartTag = null;
+  @SuppressWarnings("unused")
+  private String lastEndTag = null;
+  @SuppressWarnings("unused")
+  private Event lastEvent = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  StringBuilder textBuffer = new StringBuilder();
+
+  int inBody = 0;
+  int inAnchor = 0;
+  int inIgnorableElement = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  private final List<TextBlock> textBlocks = new ArrayList<TextBlock>();
+
+  private String lastStartTag = null;
+  @SuppressWarnings("unused")
+  private String lastEndTag = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+
+  boolean sbLastWasWhitespace = false;
+  private int textElementIdx = 0;
+
+  private final List<TextBlock> textBlocks = new ArrayList<TextBlock>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  private String lastEndTag = null;
+  @SuppressWarnings("unused")
+  private Event lastEvent = null;
+
+  private int offsetBlocks = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
+#### Snippet
+```java
+  private Event lastEvent = null;
+
+  private int offsetBlocks = 0;
+  private BitSet currentContainedTextElements = new BitSet();
+
 ```
 
 ### RedundantFieldInitialization
@@ -23400,30 +23506,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  int inIgnorableElement = 0;
-
-  int tagLevel = 0;
-  int blockTagLevel = -1;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  StringBuilder textBuffer = new StringBuilder();
-
-  int inBody = 0;
-  int inAnchor = 0;
-  int inIgnorableElement = 0;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
 #### Snippet
@@ -23433,102 +23515,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
   boolean sbLastWasWhitespace = false;
   private int textElementIdx = 0;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-
-  int inBody = 0;
-  int inAnchor = 0;
-  int inIgnorableElement = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-
-  private final Map<String, TagAction> tagActions;
-  private String title = null;
-
-  static final String ANCHOR_TEXT_START = "$\ue00a<";
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  private final List<TextBlock> textBlocks = new ArrayList<TextBlock>();
-
-  private String lastStartTag = null;
-  @SuppressWarnings("unused")
-  private String lastEndTag = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-
-  boolean sbLastWasWhitespace = false;
-  private int textElementIdx = 0;
-
-  private final List<TextBlock> textBlocks = new ArrayList<TextBlock>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  private Event lastEvent = null;
-
-  private int offsetBlocks = 0;
-  private BitSet currentContainedTextElements = new BitSet();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  private String lastEndTag = null;
-  @SuppressWarnings("unused")
-  private Event lastEvent = null;
-
-  private int offsetBlocks = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  private String lastStartTag = null;
-  @SuppressWarnings("unused")
-  private String lastEndTag = null;
-  @SuppressWarnings("unused")
-  private Event lastEvent = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
-#### Snippet
-```java
-  int inBody = 0;
-  int inAnchor = 0;
-  int inIgnorableElement = 0;
-
-  int tagLevel = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -23556,6 +23542,18 @@ public final class TextDocumentStatistics {
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/HTMLHighlighter.java`
+#### Snippet
+```java
+    StringBuilder html = new StringBuilder();
+
+    private int inIgnorableElement = 0;
+    private int characterElementIdx = 0;
+    private final BitSet contentBitSet = new BitSet();
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/HTMLHighlighter.java`
 #### Snippet
@@ -23565,6 +23563,18 @@ public final class HTMLHighlighter implements Serializable {
   private Map<String, Set<String>> tagWhitelist = null;
 
   /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/HTMLHighlighter.java`
+#### Snippet
+```java
+
+    private int inIgnorableElement = 0;
+    private int characterElementIdx = 0;
+    private final BitSet contentBitSet = new BitSet();
+    private final HTMLHighlighter hl = HTMLHighlighter.this;
 ```
 
 ### RedundantFieldInitialization
@@ -23581,26 +23591,14 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/HTMLHighlighter.java`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/document/TextBlock.java`
 #### Snippet
 ```java
+  BitSet containedTextElements;
 
-    private int inIgnorableElement = 0;
-    private int characterElementIdx = 0;
-    private final BitSet contentBitSet = new BitSet();
-    private final HTMLHighlighter hl = HTMLHighlighter.this;
-```
+  private int numFullTextWords = 0;
+  private int tagLevel;
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/HTMLHighlighter.java`
-#### Snippet
-```java
-    StringBuilder html = new StringBuilder();
-
-    private int inIgnorableElement = 0;
-    private int characterElementIdx = 0;
-    private final BitSet contentBitSet = new BitSet();
 ```
 
 ### RedundantFieldInitialization
@@ -23613,18 +23611,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
   Set<String> labels = null;
 
   int offsetBlocksStart;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/document/TextBlock.java`
-#### Snippet
-```java
-  BitSet containedTextElements;
-
-  private int numFullTextWords = 0;
-  private int tagLevel;
-
 ```
 
 ### RedundantFieldInitialization
@@ -23644,6 +23630,18 @@ Field initialization to `0` is redundant
 in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/version/SystemInfo.java`
 #### Snippet
 ```java
+
+  private long totalMemory = 0;
+  private long freeMemory = 0;
+  private long totalMemoryKB = 0;
+  private long freeMemoryKB = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/version/SystemInfo.java`
+#### Snippet
+```java
   private long freeMemory = 0;
   private long totalMemoryKB = 0;
   private long freeMemoryKB = 0;
@@ -23656,11 +23654,11 @@ Field initialization to `0` is redundant
 in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/version/SystemInfo.java`
 #### Snippet
 ```java
-
   private long totalMemory = 0;
   private long freeMemory = 0;
   private long totalMemoryKB = 0;
   private long freeMemoryKB = 0;
+
 ```
 
 ### RedundantFieldInitialization
@@ -23673,18 +23671,6 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/v
   private long totalMemory = 0;
   private long freeMemory = 0;
   private long totalMemoryKB = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/version/SystemInfo.java`
-#### Snippet
-```java
-  private long totalMemory = 0;
-  private long freeMemory = 0;
-  private long totalMemoryKB = 0;
-  private long freeMemoryKB = 0;
-
 ```
 
 ### RedundantFieldInitialization
@@ -23725,18 +23711,6 @@ in `streampipes-model-client/src/main/java/org/apache/streampipes/model/client/a
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/params/SelectColumn.java`
-#### Snippet
-```java
-
-  private boolean simpleField = true;
-  private boolean rename = false;
-
-  public static SelectColumn fromApiQueryString(String queryString) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/params/SelectFromStatementParams.java`
 #### Snippet
 ```java
@@ -23745,6 +23719,18 @@ in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/
     private boolean selectWildcard = false;
 
     public static SelectFromStatementParams from(String measurementID,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/params/SelectColumn.java`
+#### Snippet
+```java
+
+  private boolean simpleField = true;
+  private boolean rename = false;
+
+  public static SelectColumn fromApiQueryString(String queryString) {
 ```
 
 ### RedundantFieldInitialization
@@ -23800,11 +23786,11 @@ Field initialization to `null` is redundant
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
 #### Snippet
 ```java
-    }
-  };
-  private Map<String, String> qudt2uo = null;
+public class UnitOntologyFactory {
 
-  private UnitOntologyFactory() {
+  private static UnitOntologyFactory factory = null;
+
+  private static final Logger LOG = LoggerFactory.getLogger(UnitOntologyFactory.class);
 ```
 
 ### RedundantFieldInitialization
@@ -23812,11 +23798,11 @@ Field initialization to `null` is redundant
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/uo/UnitOntologyFactory.java`
 #### Snippet
 ```java
-public class UnitOntologyFactory {
+    }
+  };
+  private Map<String, String> qudt2uo = null;
 
-  private static UnitOntologyFactory factory = null;
-
-  private static final Logger LOG = LoggerFactory.getLogger(UnitOntologyFactory.class);
+  private UnitOntologyFactory() {
 ```
 
 ### RedundantFieldInitialization
@@ -24050,18 +24036,6 @@ public class WordCountProgram extends AbstractTextMiningProgram<WordCountParamet
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasherProgram.java`
-#### Snippet
-```java
-
-public class FieldHasherProgram extends AbstractFlinkTransformationProgram<FieldHasherParameters>
-	implements Serializable{
-
-	public FieldHasherProgram(FieldHasherParameters params,
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasher.java`
 #### Snippet
 ```java
@@ -24070,6 +24044,18 @@ import java.io.Serializable;
 public class FieldHasher implements Serializable, FlatMapFunction<Event, Event> {
 
   private HashAlgorithm hashAlgorithm;
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/hasher/FieldHasherProgram.java`
+#### Snippet
+```java
+
+public class FieldHasherProgram extends AbstractFlinkTransformationProgram<FieldHasherParameters>
+	implements Serializable{
+
+	public FieldHasherProgram(FieldHasherParameters params,
 ```
 
 ### RedundantImplements
@@ -24210,18 +24196,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `streampipes-model/src/main/java/org/apache/streampipes/model/message/ErrorMessage.java`
-#### Snippet
-```java
-	
-	public ErrorMessage(List<Notification> notifications) {
-		super(false, notifications.toArray(new Notification[0]));
-	}
-	
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `streampipes-model/src/main/java/org/apache/streampipes/model/message/SuccessMessage.java`
 #### Snippet
 ```java
@@ -24234,14 +24208,14 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/message/Success
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `streampipes-client/src/main/java/org/apache/streampipes/client/http/HttpRequest.java`
+in `streampipes-model/src/main/java/org/apache/streampipes/model/message/ErrorMessage.java`
 #### Snippet
 ```java
-    List<Header> headers = new ArrayList<>(Arrays.asList(standardJsonHeaders()));
-    headers.add(Headers.contentTypeJson());
-    return headers.toArray(new Header[0]);
-  }
-
+	
+	public ErrorMessage(List<Notification> notifications) {
+		super(false, notifications.toArray(new Notification[0]));
+	}
+	
 ```
 
 ### ZeroLengthArrayInitialization
@@ -24263,6 +24237,18 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/http/HttpRequ
 ```java
     List<Header> headers = new ArrayList<>(connectionConfig.getCredentials().makeHeaders());
     headers.add(Headers.acceptJson());
+    return headers.toArray(new Header[0]);
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `streampipes-client/src/main/java/org/apache/streampipes/client/http/HttpRequest.java`
+#### Snippet
+```java
+    List<Header> headers = new ArrayList<>(Arrays.asList(standardJsonHeaders()));
+    headers.add(Headers.contentTypeJson());
     return headers.toArray(new Header[0]);
   }
 
@@ -24294,7 +24280,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
 #### Snippet
 ```java
       Map<String, Object> objectMap = parseObject(jsonParser, true, 1);
@@ -24306,7 +24292,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
 #### Snippet
 ```java
       Map<String, Object> objectMap = parseObject(jsonParser, true, 1);
@@ -24366,18 +24352,6 @@ in `streampipes-service-extensions-base/src/main/java/org/apache/streampipes/ser
 
 ## RuleId[ruleID=NonExceptionNameEndsWithException]
 ### NonExceptionNameEndsWithException
-Non-exception class name `NoValidSecTypeException` ends with 'Exception'
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/exceptions/NoValidSecTypeException.java`
-#### Snippet
-```java
-package org.apache.streampipes.commons.exceptions;
-
-public class NoValidSecTypeException {
-
-}
-```
-
-### NonExceptionNameEndsWithException
 Non-exception class name `NoValidSepTypeException` ends with 'Exception'
 in `streampipes-commons/src/main/java/org/apache/streampipes/commons/exceptions/NoValidSepTypeException.java`
 #### Snippet
@@ -24385,6 +24359,18 @@ in `streampipes-commons/src/main/java/org/apache/streampipes/commons/exceptions/
 package org.apache.streampipes.commons.exceptions;
 
 public class NoValidSepTypeException {
+
+}
+```
+
+### NonExceptionNameEndsWithException
+Non-exception class name `NoValidSecTypeException` ends with 'Exception'
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/exceptions/NoValidSecTypeException.java`
+#### Snippet
+```java
+package org.apache.streampipes.commons.exceptions;
+
+public class NoValidSecTypeException {
 
 }
 ```
@@ -24559,6 +24545,18 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### ConstantValue
+Condition `hasChanges` is always `false` when reached
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/NumWordsRulesClassifier.java`
+#### Snippet
+```java
+    TextBlock nextBlock = it.hasNext() ? it.next() : TextBlock.EMPTY_START;
+
+    hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
+
+    if (nextBlock != TextBlock.EMPTY_START) {
+```
+
+### ConstantValue
 Condition `inBody == 0` is always `true` when reached
 in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/sax/BoilerpipeHTMLContentHandler.java`
 #### Snippet
@@ -24592,18 +24590,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
       if (startWhitespace || endWhitespace) {
         if (!sbLastWasWhitespace) {
           textBuffer.append(' ');
-```
-
-### ConstantValue
-Condition `hasChanges` is always `false` when reached
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/com/kohlschutter/boilerpipe/filters/english/NumWordsRulesClassifier.java`
-#### Snippet
-```java
-    TextBlock nextBlock = it.hasNext() ? it.next() : TextBlock.EMPTY_START;
-
-    hasChanges = classify(prevBlock, currentBlock, nextBlock) | hasChanges;
-
-    if (nextBlock != TextBlock.EMPTY_START) {
 ```
 
 ### ConstantValue
@@ -24720,10 +24706,46 @@ in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/dashboard/Ab
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
 ```java
+            .filter(Option::isSelected)
+            .findFirst()
+            .get()
+            .getInternalName(), targetClass);
+  }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
+#### Snippet
+```java
+            .findFirst()
+            .map(SupportedProperty::getValue)
+            .get(), targetClass);
+
+  }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
+#### Snippet
+```java
             .filter(StaticPropertyAlternative::getSelected)
             .findFirst()
             .get()
             .getStaticProperty();
+  }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
+#### Snippet
+```java
+            .filter(Option::isSelected)
+            .findFirst()
+            .get()
+            .getName(), targetClass);
   }
 ```
 
@@ -24744,47 +24766,11 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
 #### Snippet
 ```java
-            .filter(Option::isSelected)
-            .findFirst()
-            .get()
-            .getInternalName(), targetClass);
-  }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
             .map(ep -> (EventPropertyPrimitive) ep)
             .findFirst()
             .get()
             .getMeasurementUnit()
             .toString();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
-            .filter(Option::isSelected)
-            .findFirst()
-            .get()
-            .getName(), targetClass);
-  }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractParameterExtractor.java`
-#### Snippet
-```java
-            .findFirst()
-            .map(SupportedProperty::getValue)
-            .get(), targetClass);
-
-  }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -24909,18 +24895,6 @@ in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/MonitoringDataStorageImpl.java`
-#### Snippet
-```java
-						.sorted(Comparator.comparing(JobReport::getGenerationDate))
-						.findFirst()
-						.get();
-	}
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/DataProcessorStorageImpl.java`
 #### Snippet
 ```java
@@ -24933,19 +24907,19 @@ in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/cou
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/DataSinkStorageImpl.java`
+in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/MonitoringDataStorageImpl.java`
 #### Snippet
 ```java
+						.sorted(Comparator.comparing(JobReport::getGenerationDate))
+						.findFirst()
+						.get();
+	}
 
-  private String getCurrentRev(String elementId) {
-    return find(elementId).get().getRev();
-  }
-}
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/DataStreamStorageImpl.java`
+in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/DataSinkStorageImpl.java`
 #### Snippet
 ```java
 
@@ -24965,6 +24939,18 @@ in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/cou
         return cmd.execute().get();
     }
 
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `streampipes-storage-couchdb/src/main/java/org/apache/streampipes/storage/couchdb/impl/DataStreamStorageImpl.java`
+#### Snippet
+```java
+
+  private String getCurrentRev(String elementId) {
+    return find(elementId).get().getRev();
+  }
+}
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -24996,11 +24982,11 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/template/PipelineTemplateInvocationHandler.java`
 #### Snippet
 ```java
+            .getStaticProperties()
+            .stream()
+            .filter(sp -> sp.getInternalName().equals(internalName)).findFirst().get();
 
-  private PipelineTemplateDescription getTemplateById(String pipelineTemplateId) {
-    return new PipelineTemplateGenerator().getAllPipelineTemplates().stream().filter(template -> template.getAppId().equals(pipelineTemplateId)).findFirst().get();
-  }
-}
+    staticProperty.setInternalName(staticProperty.getInternalName().replace(dom, ""));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -25008,11 +24994,11 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/template/PipelineTemplateInvocationHandler.java`
 #### Snippet
 ```java
-            .getStaticProperties()
-            .stream()
-            .filter(sp -> sp.getInternalName().equals(internalName)).findFirst().get();
 
-    staticProperty.setInternalName(staticProperty.getInternalName().replace(dom, ""));
+  private PipelineTemplateDescription getTemplateById(String pipelineTemplateId) {
+    return new PipelineTemplateGenerator().getAllPipelineTemplates().stream().filter(template -> template.getAppId().equals(pipelineTemplateId)).findFirst().get();
+  }
+}
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -25152,18 +25138,6 @@ in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/
 ```
 
 ### FieldMayBeStatic
-Field `RESULT_FIELD` may be 'static'
-in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/movingaverage/MovingAverageProcessor.java`
-#### Snippet
-```java
-public class MovingAverageProcessor extends StreamPipesDataProcessor {
-
-    private final String RESULT_FIELD = "filterResult";
-    private final String NUMBER_VALUE = "number";
-    private final String N_VALUE = "n";
-```
-
-### FieldMayBeStatic
 Field `NUMBER_VALUE` may be 'static'
 in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/movingaverage/MovingAverageProcessor.java`
 #### Snippet
@@ -25177,74 +25151,14 @@ in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/
 
 ### FieldMayBeStatic
 Field `RESULT_FIELD` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
+in `streampipes-extensions/streampipes-processors-filters-jvm/src/main/java/org/apache/streampipes/processors/filters/jvm/processor/movingaverage/MovingAverageProcessor.java`
 #### Snippet
 ```java
-public class StaticMathOpProcessor extends StreamPipesDataProcessor {
+public class MovingAverageProcessor extends StreamPipesDataProcessor {
 
-  private final String RESULT_FIELD = "calculationResultStatic";
-  private final String LEFT_OPERAND = "leftOperand";
-  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
-```
-
-### FieldMayBeStatic
-Field `OPERATION` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
-#### Snippet
-```java
-  private final String LEFT_OPERAND = "leftOperand";
-  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
-  private final String OPERATION = "operation";
-
-  Operation arithmeticOperation;
-```
-
-### FieldMayBeStatic
-Field `RIGHT_OPERAND_VALUE` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
-#### Snippet
-```java
-  private final String RESULT_FIELD = "calculationResultStatic";
-  private final String LEFT_OPERAND = "leftOperand";
-  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
-  private final String OPERATION = "operation";
-
-```
-
-### FieldMayBeStatic
-Field `LEFT_OPERAND` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
-#### Snippet
-```java
-
-  private final String RESULT_FIELD = "calculationResultStatic";
-  private final String LEFT_OPERAND = "leftOperand";
-  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
-  private final String OPERATION = "operation";
-```
-
-### FieldMayBeStatic
-Field `RIGHT_OPERAND` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/MathOpProcessor.java`
-#### Snippet
-```java
-  private final String RESULT_FIELD = "calculationResult";
-  private final String LEFT_OPERAND = "leftOperand";
-  private final String RIGHT_OPERAND = "rightOperand";
-  private final String OPERATION = "operation";
-
-```
-
-### FieldMayBeStatic
-Field `LEFT_OPERAND` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/MathOpProcessor.java`
-#### Snippet
-```java
-
-  private final String RESULT_FIELD = "calculationResult";
-  private final String LEFT_OPERAND = "leftOperand";
-  private final String RIGHT_OPERAND = "rightOperand";
-  private final String OPERATION = "operation";
+    private final String RESULT_FIELD = "filterResult";
+    private final String NUMBER_VALUE = "number";
+    private final String N_VALUE = "n";
 ```
 
 ### FieldMayBeStatic
@@ -25260,6 +25174,18 @@ public class MathOpProcessor extends StreamPipesDataProcessor {
 ```
 
 ### FieldMayBeStatic
+Field `LEFT_OPERAND` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/MathOpProcessor.java`
+#### Snippet
+```java
+
+  private final String RESULT_FIELD = "calculationResult";
+  private final String LEFT_OPERAND = "leftOperand";
+  private final String RIGHT_OPERAND = "rightOperand";
+  private final String OPERATION = "operation";
+```
+
+### FieldMayBeStatic
 Field `OPERATION` may be 'static'
 in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/MathOpProcessor.java`
 #### Snippet
@@ -25269,6 +25195,78 @@ in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org
   private final String OPERATION = "operation";
 
   Operation arithmeticOperation = null;
+```
+
+### FieldMayBeStatic
+Field `RIGHT_OPERAND` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/MathOpProcessor.java`
+#### Snippet
+```java
+  private final String RESULT_FIELD = "calculationResult";
+  private final String LEFT_OPERAND = "leftOperand";
+  private final String RIGHT_OPERAND = "rightOperand";
+  private final String OPERATION = "operation";
+
+```
+
+### FieldMayBeStatic
+Field `RESULT_FIELD` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
+#### Snippet
+```java
+public class StaticMathOpProcessor extends StreamPipesDataProcessor {
+
+  private final String RESULT_FIELD = "calculationResultStatic";
+  private final String LEFT_OPERAND = "leftOperand";
+  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
+```
+
+### FieldMayBeStatic
+Field `LEFT_OPERAND` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
+#### Snippet
+```java
+
+  private final String RESULT_FIELD = "calculationResultStatic";
+  private final String LEFT_OPERAND = "leftOperand";
+  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
+  private final String OPERATION = "operation";
+```
+
+### FieldMayBeStatic
+Field `RIGHT_OPERAND_VALUE` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
+#### Snippet
+```java
+  private final String RESULT_FIELD = "calculationResultStatic";
+  private final String LEFT_OPERAND = "leftOperand";
+  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
+  private final String OPERATION = "operation";
+
+```
+
+### FieldMayBeStatic
+Field `OPERATION` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/math/staticmathop/StaticMathOpProcessor.java`
+#### Snippet
+```java
+  private final String LEFT_OPERAND = "leftOperand";
+  private final String RIGHT_OPERAND_VALUE = "rightOperandValue";
+  private final String OPERATION = "operation";
+
+  Operation arithmeticOperation;
+```
+
+### FieldMayBeStatic
+Field `OPERAND` may be 'static'
+in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/trigonometry/TrigonometryProcessor.java`
+#### Snippet
+```java
+public class TrigonometryProcessor extends StreamPipesDataProcessor {
+
+  private final String OPERAND = "operand";
+  private final String OPERATION = "operation";
+  private final String RESULT_FIELD = "trigonometryResult";
 ```
 
 ### FieldMayBeStatic
@@ -25293,18 +25291,6 @@ in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org
   private final String RESULT_FIELD = "trigonometryResult";
 
   private Operation operation;
-```
-
-### FieldMayBeStatic
-Field `OPERAND` may be 'static'
-in `streampipes-extensions/streampipes-processors-enricher-jvm/src/main/java/org/apache/streampipes/processors/enricher/jvm/processor/trigonometry/TrigonometryProcessor.java`
-#### Snippet
-```java
-public class TrigonometryProcessor extends StreamPipesDataProcessor {
-
-  private final String OPERAND = "operand";
-  private final String OPERATION = "operation";
-  private final String RESULT_FIELD = "trigonometryResult";
 ```
 
 ### FieldMayBeStatic
@@ -25429,30 +25415,6 @@ public class Assets {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StaticProperties` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/StaticProperties.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class StaticProperties {
-
-  public static MappingPropertyUnary mappingPropertyUnary(Label label, RequirementsSelector requirementsSelector, PropertyScope propertyScope) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TransformOperations` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/TransformOperations.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.utils.Datatypes;
-
-public class TransformOperations {
-
-  public static TransformOperation staticDatatypeTransformation(String mappingPropertyInternalName, Datatypes targetDatatype) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Options` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Options.java`
 #### Snippet
@@ -25477,15 +25439,15 @@ public class SupportedProtocols {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Formats` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
+Class `StaticProperties` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/StaticProperties.java`
 #### Snippet
 ```java
-import org.apache.streampipes.vocabulary.MessageFormat;
+import java.util.List;
 
-public class Formats {
+public class StaticProperties {
 
-  /**
+  public static MappingPropertyUnary mappingPropertyUnary(Label label, RequirementsSelector requirementsSelector, PropertyScope propertyScope) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25498,6 +25460,30 @@ import org.apache.streampipes.model.staticproperty.StaticPropertyGroup;
 public class Alternatives {
 
   public static StaticPropertyAlternative from(Label label, StaticProperty staticProperty) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TransformOperations` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/TransformOperations.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.utils.Datatypes;
+
+public class TransformOperations {
+
+  public static TransformOperation staticDatatypeTransformation(String mappingPropertyInternalName, Datatypes targetDatatype) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Formats` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
+#### Snippet
+```java
+import org.apache.streampipes.vocabulary.MessageFormat;
+
+public class Formats {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25549,18 +25535,6 @@ public class SupportedFormats {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EpRequirements` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpRequirements.java`
-#### Snippet
-```java
-import java.util.Arrays;
-
-public class EpRequirements {
-
-  public static EventPropertyList listRequirement() {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ValueSpecifications` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/ValueSpecifications.java`
 #### Snippet
@@ -25573,15 +25547,15 @@ public class ValueSpecifications {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Labels` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Labels.java`
+Class `EpRequirements` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpRequirements.java`
 #### Snippet
 ```java
-import java.util.Properties;
+import java.util.Arrays;
 
-public class Labels {
+public class EpRequirements {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Labels.class);
+  public static EventPropertyList listRequirement() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25594,6 +25568,18 @@ import java.io.IOException;
 public class MailUtils {
 
   public static String extractBaseUrl() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Labels` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Labels.java`
+#### Snippet
+```java
+import java.util.Properties;
+
+public class Labels {
+
+  private static final Logger LOG = LoggerFactory.getLogger(Labels.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25645,18 +25631,6 @@ public class Namespaces {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EpProperties` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class EpProperties {
-
-  public static EventPropertyNested nestedEp(Label label, String runtimeName, EventProperty...
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EventUtils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/EventUtils.java`
 #### Snippet
@@ -25681,18 +25655,6 @@ public class ElementIdGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PropertyUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/PropertyUtils.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class PropertyUtils {
-
-  public static Map<String, Object> getRuntimeFormat(EventProperty eventProperty) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SchemaUtils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/SchemaUtils.java`
 #### Snippet
@@ -25705,6 +25667,18 @@ public class SchemaUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `PropertyUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/PropertyUtils.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class PropertyUtils {
+
+  public static Map<String, Object> getRuntimeFormat(EventProperty eventProperty) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ModelUtils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/ModelUtils.java`
 #### Snippet
@@ -25714,6 +25688,18 @@ import java.util.Map;
 public class ModelUtils {
 
 	public static Class<?> getPrimitiveClass(String propertyType)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EpProperties` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class EpProperties {
+
+  public static EventPropertyNested nestedEp(Label label, String runtimeName, EventProperty...
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25825,30 +25811,6 @@ public class UnauthenticatedInterfaces {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/Utils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class Utils {
-
-  public static List<URI> createURI(String... uris) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MD5` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/MD5.java`
-#### Snippet
-```java
- * @author yangdh
- */
-public final class MD5 {
-    /**
-     * Encodes a string
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `UUIDGenerator` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-commons/src/main/java/org/apache/streampipes/commons/random/UUIDGenerator.java`
 #### Snippet
@@ -25861,27 +25823,15 @@ public class UUIDGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CustomEnvs` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/CustomEnvs.java`
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/Utils.java`
 #### Snippet
 ```java
-package org.apache.streampipes.commons.constants;
+import java.util.List;
 
-public class CustomEnvs {
+public class Utils {
 
-  public static boolean exists(String envVariable) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GenericDocTypes` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/GenericDocTypes.java`
-#### Snippet
-```java
-package org.apache.streampipes.commons.constants;
-
-public class GenericDocTypes {
-
-  public static final String DOC_ASSET_MANGEMENT = "asset-management";
+  public static List<URI> createURI(String... uris) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25897,15 +25847,51 @@ public class TokenGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GlobalStreamPipesConstants` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/GlobalStreamPipesConstants.java`
+Class `MD5` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/MD5.java`
+#### Snippet
+```java
+ * @author yangdh
+ */
+public final class MD5 {
+    /**
+     * Encodes a string
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GenericDocTypes` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/GenericDocTypes.java`
 #### Snippet
 ```java
 package org.apache.streampipes.commons.constants;
 
-public class GlobalStreamPipesConstants {
+public class GenericDocTypes {
 
-  public static final String STD_ICON_NAME = "icon.png";
+  public static final String DOC_ASSET_MANGEMENT = "asset-management";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CustomEnvs` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/CustomEnvs.java`
+#### Snippet
+```java
+package org.apache.streampipes.commons.constants;
+
+public class CustomEnvs {
+
+  public static boolean exists(String envVariable) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `InstanceIdExtractor` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/InstanceIdExtractor.java`
+#### Snippet
+```java
+import org.apache.commons.lang3.StringUtils;
+
+public class InstanceIdExtractor {
+
+  public static String extractId(String elementId) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25933,15 +25919,15 @@ public class DefaultEnvValues {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `InstanceIdExtractor` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/InstanceIdExtractor.java`
+Class `GlobalStreamPipesConstants` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/constants/GlobalStreamPipesConstants.java`
 #### Snippet
 ```java
-import org.apache.commons.lang3.StringUtils;
+package org.apache.streampipes.commons.constants;
 
-public class InstanceIdExtractor {
+public class GlobalStreamPipesConstants {
 
-  public static String extractId(String elementId) {
+  public static final String STD_ICON_NAME = "icon.png";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -25957,18 +25943,6 @@ public class Networking {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TransportFormatGenerator` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/util/TransportFormatGenerator.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TransportFormatGenerator {
-
-  public static TransportFormat getTransportFormat() {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AdapterRegistry` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/AdapterRegistry.java`
 #### Snippet
@@ -25981,15 +25955,15 @@ public class AdapterRegistry {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SchemaGuesser` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/guess/SchemaGuesser.java`
+Class `TransportFormatGenerator` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/util/TransportFormatGenerator.java`
 #### Snippet
 ```java
-import org.apache.streampipes.model.schema.EventSchema;
+import java.util.List;
 
-public class SchemaGuesser {
+public class TransportFormatGenerator {
 
-    public static GuessSchema guessSchema(EventSchema eventSchema) {
+  public static TransportFormat getTransportFormat() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26002,6 +25976,18 @@ import java.util.UUID;
 public class GroundingService {
 
     private static final String TOPIC_PREFIX = "org.apache.streampipes.connect.";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SchemaGuesser` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/guess/SchemaGuesser.java`
+#### Snippet
+```java
+import org.apache.streampipes.model.schema.EventSchema;
+
+public class SchemaGuesser {
+
+    public static GuessSchema guessSchema(EventSchema eventSchema) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26053,18 +26039,6 @@ public class LoggerFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AssetsUtil` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-container/src/main/java/org/apache/streampipes/container/util/AssetsUtil.java`
-#### Snippet
-```java
-import org.apache.streampipes.commons.constants.GlobalStreamPipesConstants;
-
-public class AssetsUtil {
-
-    public static String makeIconPath(String elementId) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GroundingDebugUtils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-container/src/main/java/org/apache/streampipes/container/util/GroundingDebugUtils.java`
 #### Snippet
@@ -26074,6 +26048,18 @@ import org.apache.streampipes.model.grounding.TransportProtocol;
 public class GroundingDebugUtils {
 
   public static void modifyGrounding(EventGrounding grounding) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AssetsUtil` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-container/src/main/java/org/apache/streampipes/container/util/AssetsUtil.java`
+#### Snippet
+```java
+import org.apache.streampipes.commons.constants.GlobalStreamPipesConstants;
+
+public class AssetsUtil {
+
+    public static String makeIconPath(String elementId) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26209,18 +26195,6 @@ public class MqttUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ConfigKeys` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/config/ConfigKeys.java`
-#### Snippet
-```java
-package org.apache.streampipes.processors.geo.jvm.config;
-
-public class ConfigKeys {
-    public final static String GOOGLE_API_KEY = "SP_GOOGLE_API_KEY";
-}
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SpGeometryBuilder` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
 #### Snippet
@@ -26230,6 +26204,18 @@ import org.locationtech.jts.io.WKTReader;
 public class SpGeometryBuilder {
 
   final static double LONGITUDE_MIN = -180.00;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ConfigKeys` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/config/ConfigKeys.java`
+#### Snippet
+```java
+package org.apache.streampipes.processors.geo.jvm.config;
+
+public class ConfigKeys {
+    public final static String GOOGLE_API_KEY = "SP_GOOGLE_API_KEY";
+}
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26257,18 +26243,6 @@ public class StatementUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SQLStatementUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/jdbcclient/utils/SQLStatementUtils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class SQLStatementUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `DbDataTypeFactory` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/jdbcclient/model/DbDataTypeFactory.java`
 #### Snippet
@@ -26278,6 +26252,18 @@ import org.apache.streampipes.vocabulary.XSD;
 public class DbDataTypeFactory {
 
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SQLStatementUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/jdbcclient/utils/SQLStatementUtils.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class SQLStatementUtils {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26353,18 +26339,6 @@ public class SpOpcUaConfigBuilder {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OpcUaUtil` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/opcua/utils/OpcUaUtil.java`
-#### Snippet
-```java
- * Collection of several utility functions in context of OPC UA
- */
-public class OpcUaUtil {
-
-  /***
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MachineDataSimulatorUtils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/simulator/machine/MachineDataSimulatorUtils.java`
 #### Snippet
@@ -26374,6 +26348,18 @@ import static org.apache.streampipes.sdk.helpers.EpProperties.*;
 public class MachineDataSimulatorUtils {
 
   // Vocabulary
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OpcUaUtil` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/opcua/utils/OpcUaUtil.java`
+#### Snippet
+```java
+ * Collection of several utility functions in context of OPC UA
+ */
+public class OpcUaUtil {
+
+  /***
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26437,18 +26423,6 @@ public class ConfigKeys {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MqttConnectUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/config/mqtt/MqttConnectUtils.java`
-#### Snippet
-```java
-import org.apache.streampipes.sdk.helpers.Labels;
-
-public class MqttConnectUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PlaceholderExtractor` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/PlaceholderExtractor.java`
 #### Snippet
@@ -26470,6 +26444,18 @@ import org.apache.streampipes.sdk.extractor.StaticPropertyExtractor;
 public class NatsConfigUtils {
 
   public static final String SUBJECT_KEY = "subject";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MqttConnectUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/config/mqtt/MqttConnectUtils.java`
+#### Snippet
+```java
+import org.apache.streampipes.sdk.helpers.Labels;
+
+public class MqttConnectUtils {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26498,7 +26484,7 @@ public class ConfigKeys {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `KafkaConnectUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/config/kafka/kafka/KafkaConnectUtils.java`
+in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/config/kafka/KafkaConnectUtils.java`
 #### Snippet
 ```java
 import org.apache.streampipes.sdk.helpers.Labels;
@@ -26510,7 +26496,7 @@ public class KafkaConnectUtils {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `KafkaConnectUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/config/kafka/KafkaConnectUtils.java`
+in `streampipes-extensions/streampipes-pipeline-elements-shared/src/main/java/org/apache/streampipes/pe/shared/config/kafka/kafka/KafkaConnectUtils.java`
 #### Snippet
 ```java
 import org.apache.streampipes.sdk.helpers.Labels;
@@ -26737,6 +26723,18 @@ public class TimeUnitConverter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `EventGroundingGenerator` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/grounding/EventGroundingGenerator.java`
+#### Snippet
+```java
+import java.util.Arrays;
+
+public class EventGroundingGenerator {
+
+  public static EventGrounding makeDummyGrounding() {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `DummyPipelineGenerator` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/pipeline/DummyPipelineGenerator.java`
 #### Snippet
@@ -26761,18 +26759,6 @@ public class PipelineElementTemplateHelpers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DummyProcessorGenerator` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/pipelineelement/DummyProcessorGenerator.java`
-#### Snippet
-```java
-import org.apache.streampipes.model.util.ElementIdGenerator;
-
-public class DummyProcessorGenerator {
-
-    public static DataProcessorInvocation makeDummyProcessor() {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProtocolGenerator` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/grounding/protocol/ProtocolGenerator.java`
 #### Snippet
@@ -26782,18 +26768,6 @@ import org.apache.streampipes.model.grounding.TransportProtocol;
 public class ProtocolGenerator {
 
   public static TransportProtocol makeDummyProtocol() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DummyStreamGenerator` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/pipelineelement/DummyStreamGenerator.java`
-#### Snippet
-```java
-import org.apache.streampipes.model.SpDataStream;
-
-public class DummyStreamGenerator {
-  public static SpDataStream makeDummyStream() {
-    return new SpDataStream();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26809,27 +26783,27 @@ public class DummySinkGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EventGroundingGenerator` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/grounding/EventGroundingGenerator.java`
+Class `DummyStreamGenerator` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/pipelineelement/DummyStreamGenerator.java`
 #### Snippet
 ```java
-import java.util.Arrays;
+import org.apache.streampipes.model.SpDataStream;
 
-public class EventGroundingGenerator {
-
-  public static EventGrounding makeDummyGrounding() {
+public class DummyStreamGenerator {
+  public static SpDataStream makeDummyStream() {
+    return new SpDataStream();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RDF` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/RDF.java`
+Class `DummyProcessorGenerator` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/pipelineelement/DummyProcessorGenerator.java`
 #### Snippet
 ```java
-package org.apache.streampipes.vocabulary;
+import org.apache.streampipes.model.util.ElementIdGenerator;
 
-public class RDF {
+public class DummyProcessorGenerator {
 
-  public static final String NS =  "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+    public static DataProcessorInvocation makeDummyProcessor() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26845,75 +26819,15 @@ public class Geonames {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MessageFormat` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/MessageFormat.java`
+Class `RDF` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/RDF.java`
 #### Snippet
 ```java
 package org.apache.streampipes.vocabulary;
 
-public class MessageFormat {
+public class RDF {
 
-  private static final String SEPA_NAMESPACE = "http://sepa.event-processing.org/sepa#";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FOAF` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/FOAF.java`
-#### Snippet
-```java
-
-
-public class FOAF {
-
-    public static String Mbox_sha1sum = "http://xmlns.com/foaf/0.1/mbox_sha1sum";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GR` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/GR.java`
-#### Snippet
-```java
-
-
-public class GR {
-
-    public static String AvailabilityStarts = "http://purl.org/goodrelations/v1#availabilityStarts";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SSN` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/SSN.java`
-#### Snippet
-```java
-package org.apache.streampipes.vocabulary;
-
-public class SSN {
-
-  public static final String NS = "http://purl.oclc.org/NET/ssnx/ssn#";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RDFS` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/RDFS.java`
-#### Snippet
-```java
-package org.apache.streampipes.vocabulary;
-
-public class RDFS {
-
-  public static final String NS = "http://www.w3.org/2000/01/rdf-schema#";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `InvocationGraphGenerator` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/InvocationGraphGenerator.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class InvocationGraphGenerator {
-
-  public static DataProcessorInvocation makeEmptyInvocation(DataProcessorDescription description) {
+  public static final String NS =  "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26929,6 +26843,42 @@ public class Geo {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `MessageFormat` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/MessageFormat.java`
+#### Snippet
+```java
+package org.apache.streampipes.vocabulary;
+
+public class MessageFormat {
+
+  private static final String SEPA_NAMESPACE = "http://sepa.event-processing.org/sepa#";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SSN` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/SSN.java`
+#### Snippet
+```java
+package org.apache.streampipes.vocabulary;
+
+public class SSN {
+
+  public static final String NS = "http://purl.oclc.org/NET/ssnx/ssn#";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GR` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/GR.java`
+#### Snippet
+```java
+
+
+public class GR {
+
+    public static String AvailabilityStarts = "http://purl.org/goodrelations/v1#availabilityStarts";
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `EventStreamGenerator` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/EventStreamGenerator.java`
 #### Snippet
@@ -26938,6 +26888,42 @@ import java.util.stream.Collectors;
 public class EventStreamGenerator {
 
   public static SpDataStream makeEmptyStream() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `InvocationGraphGenerator` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-test-utils/src/main/java/org/apache/streampipes/test/generator/InvocationGraphGenerator.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class InvocationGraphGenerator {
+
+  public static DataProcessorInvocation makeEmptyInvocation(DataProcessorDescription description) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RDFS` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/RDFS.java`
+#### Snippet
+```java
+package org.apache.streampipes.vocabulary;
+
+public class RDFS {
+
+  public static final String NS = "http://www.w3.org/2000/01/rdf-schema#";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FOAF` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/FOAF.java`
+#### Snippet
+```java
+
+
+public class FOAF {
+
+    public static String Mbox_sha1sum = "http://xmlns.com/foaf/0.1/mbox_sha1sum";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -26965,18 +26951,6 @@ public class SPSensor {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StreamPipes` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/StreamPipes.java`
-#### Snippet
-```java
-package org.apache.streampipes.vocabulary;
-
-public class StreamPipes {
-
-  public static final String NS = "https://streampipes.org/vocabulary/v1/";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `XSD` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/XSD.java`
 #### Snippet
@@ -26989,15 +26963,27 @@ public class XSD {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SerializationUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-export/src/main/java/org/apache/streampipes/export/utils/SerializationUtils.java`
+Class `StreamPipes` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-vocabulary/src/main/java/org/apache/streampipes/vocabulary/StreamPipes.java`
 #### Snippet
 ```java
-import org.apache.streampipes.serializers.json.JacksonSerializer;
+package org.apache.streampipes.vocabulary;
 
-public class SerializationUtils {
+public class StreamPipes {
 
-  public static ObjectMapper getSpObjectMapper() {
+  public static final String NS = "https://streampipes.org/vocabulary/v1/";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImportManager` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-export/src/main/java/org/apache/streampipes/export/ImportManager.java`
+#### Snippet
+```java
+import java.io.InputStream;
+
+public class ImportManager {
+
+  public static AssetExportConfiguration getImportPreview(InputStream packageZipStream) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27013,15 +26999,15 @@ public class EventGroundingProcessor {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ImportManager` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-export/src/main/java/org/apache/streampipes/export/ImportManager.java`
+Class `SerializationUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-export/src/main/java/org/apache/streampipes/export/utils/SerializationUtils.java`
 #### Snippet
 ```java
-import java.io.InputStream;
+import org.apache.streampipes.serializers.json.JacksonSerializer;
 
-public class ImportManager {
+public class SerializationUtils {
 
-  public static AssetExportConfiguration getImportPreview(InputStream packageZipStream) throws IOException {
+  public static ObjectMapper getSpObjectMapper() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27085,18 +27071,6 @@ public class SO {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DirectoryManager` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/util/DirectoryManager.java`
-#### Snippet
-```java
-import java.nio.file.Path;
-
-public class DirectoryManager {
-
-  public static void createIfNotExists(Path directory) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/util/Utils.java`
 #### Snippet
@@ -27106,6 +27080,18 @@ import java.nio.file.Paths;
 public class Utils {
 
   public static String makePath(String sourceRoot, String appId) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DirectoryManager` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/util/DirectoryManager.java`
+#### Snippet
+```java
+import java.nio.file.Path;
+
+public class DirectoryManager {
+
+  public static void createIfNotExists(Path directory) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27157,18 +27143,6 @@ public class MatchingResultFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JwtTokenValidator` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-security-jwt/src/main/java/org/apache/streampipes/security/jwt/JwtTokenValidator.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class JwtTokenValidator {
-
-  private static final Logger LOG = LoggerFactory.getLogger(JwtTokenValidator.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `KeyUtils` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-security-jwt/src/main/java/org/apache/streampipes/security/jwt/KeyUtils.java`
 #### Snippet
@@ -27178,6 +27152,18 @@ import org.apache.commons.codec.binary.Base64;
 public class KeyUtils {
 
   public static byte[] extractPrivate(String key) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JwtTokenValidator` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-security-jwt/src/main/java/org/apache/streampipes/security/jwt/JwtTokenValidator.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class JwtTokenValidator {
+
+  private static final Logger LOG = LoggerFactory.getLogger(JwtTokenValidator.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27217,18 +27203,6 @@ public class JwtTokenGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DataLakeQueryConstants` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/sdk/DataLakeQueryConstants.java`
-#### Snippet
-```java
-package org.apache.streampipes.dataexplorer.sdk;
-
-public class DataLakeQueryConstants {
-
-  public static final String GE = ">=";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `TimeParser` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/utils/TimeParser.java`
 #### Snippet
@@ -27241,15 +27215,15 @@ public class TimeParser {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `QueryTemplatesV4` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/template/QueryTemplatesV4.java`
+Class `DataLakeQueryConstants` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/sdk/DataLakeQueryConstants.java`
 #### Snippet
 ```java
-import java.util.StringJoiner;
+package org.apache.streampipes.dataexplorer.sdk;
 
-public class QueryTemplatesV4 {
+public class DataLakeQueryConstants {
 
-    public static String selectFrom(String index, String columns) {
+  public static final String GE = ">=";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27262,6 +27236,18 @@ in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/
 public class DataLakeManagementUtils {
 
   public static final String BRACKET_OPEN = "\\[";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `QueryTemplatesV4` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/v4/template/QueryTemplatesV4.java`
+#### Snippet
+```java
+import java.util.StringJoiner;
+
+public class QueryTemplatesV4 {
+
+    public static String selectFrom(String index, String columns) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27421,18 +27407,6 @@ public class GsonSerializer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JacksonSerializer` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-serializers-json/src/main/java/org/apache/streampipes/serializers/json/JacksonSerializer.java`
-#### Snippet
-```java
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-public class JacksonSerializer {
-
-  public static ObjectMapper getObjectMapper() {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SecretEncryptionManager` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-user-management/src/main/java/org/apache/streampipes/user/management/encryption/SecretEncryptionManager.java`
 #### Snippet
@@ -27442,6 +27416,18 @@ in `streampipes-user-management/src/main/java/org/apache/streampipes/user/manage
 public class SecretEncryptionManager {
 
   public static String encrypt(String property) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JacksonSerializer` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-serializers-json/src/main/java/org/apache/streampipes/serializers/json/JacksonSerializer.java`
+#### Snippet
+```java
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+public class JacksonSerializer {
+
+  public static ObjectMapper getObjectMapper() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27457,18 +27443,6 @@ public class PasswordUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OntoReader` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/OntoReader.java`
-#### Snippet
-```java
-import java.io.InputStream;
-
-public class OntoReader {
-
-	protected static void read(Model repos, String ontology)
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `QUDT` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/QUDT.java`
 #### Snippet
@@ -27481,15 +27455,15 @@ public class QUDT {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PipelinePerformanceTest` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-performance-tests/src/main/java/org/apache/streampipes/performance/PipelinePerformanceTest.java`
+Class `OntoReader` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-measurement-units/src/main/java/com/github/jqudt/onto/OntoReader.java`
 #### Snippet
 ```java
-import org.apache.streampipes.performance.util.ParameterTool;
+import java.io.InputStream;
 
-public class PipelinePerformanceTest {
+public class OntoReader {
 
-  /**
+	protected static void read(Model repos, String ontology)
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27502,6 +27476,18 @@ package org.apache.streampipes.performance;
 public class PerformanceTest {
 
   public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PipelinePerformanceTest` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-performance-tests/src/main/java/org/apache/streampipes/performance/PipelinePerformanceTest.java`
+#### Snippet
+```java
+import org.apache.streampipes.performance.util.ParameterTool;
+
+public class PipelinePerformanceTest {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27589,15 +27575,15 @@ public class FileConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PipelineGraphHelpers` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/data/PipelineGraphHelpers.java`
+Class `TemporaryGraphStorage` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TemporaryGraphStorage.java`
 #### Snippet
 ```java
-import java.util.stream.Collectors;
+import java.util.Map;
 
-public class PipelineGraphHelpers {
+public class TemporaryGraphStorage {
 
-    public static List<SpDataStream> findStreams(PipelineGraph pipelineGraph) {
+  public static Map<String, List<InvocableStreamPipesEntity>> graphStorage = new HashMap<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27613,15 +27599,27 @@ public class TopicGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TemporaryGraphStorage` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TemporaryGraphStorage.java`
+Class `PipelineGraphHelpers` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/data/PipelineGraphHelpers.java`
 #### Snippet
 ```java
-import java.util.Map;
+import java.util.stream.Collectors;
 
-public class TemporaryGraphStorage {
+public class PipelineGraphHelpers {
 
-  public static Map<String, List<InvocableStreamPipesEntity>> graphStorage = new HashMap<>();
+    public static List<SpDataStream> findStreams(PipelineGraph pipelineGraph) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PipelineVerificationUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/PipelineVerificationUtils.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class PipelineVerificationUtils {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27649,30 +27647,6 @@ public class InstallationConfiguration {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PipelineVerificationUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/PipelineVerificationUtils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class PipelineVerificationUtils {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TreeUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class TreeUtils {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AssetConstants` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/assets/AssetConstants.java`
 #### Snippet
@@ -27694,6 +27668,18 @@ import java.util.stream.Collectors;
 public class FileManager {
 
   public static List<FileMetadata> getAllFiles() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TreeUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/util/TreeUtils.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class TreeUtils {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27757,18 +27743,6 @@ public class PipelineCanvasMetadataCacheManager {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PropertySelectorUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/selector/PropertySelectorUtils.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class PropertySelectorUtils {
-
-  public static List<EventProperty> getProperties(EventSchema eventSchema) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `RequirementsSelectorGeneratorFactory` has only 'static' members, and lacks a 'private' constructor
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/matching/mapping/RequirementsSelectorGeneratorFactory.java`
 #### Snippet
@@ -27778,6 +27752,18 @@ import java.util.List;
 public class RequirementsSelectorGeneratorFactory {
 
   public static AbstractRequirementsSelectorGenerator getRequirementsSelector(MappingProperty mappingProperty,
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PropertySelectorUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/selector/PropertySelectorUtils.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class PropertySelectorUtils {
+
+  public static List<EventProperty> getProperties(EventSchema eventSchema) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27853,15 +27839,15 @@ public class InfluxNameSanitizer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ImageStoreUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/image/ImageStoreUtils.java`
+Class `DataExplorerUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/DataExplorerUtils.java`
 #### Snippet
 ```java
 import java.util.stream.Collectors;
 
-public class ImageStoreUtils {
-
-    public static List<EventProperty> getImageProperties(DataLakeMeasure measure) {
+public class DataExplorerUtils {
+    /**
+     * Sanitizes the event schema and stores the DataLakeMeasurement to the couchDB
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27877,15 +27863,27 @@ public class InfluxDbReservedKeywords {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DataExplorerUtils` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/DataExplorerUtils.java`
+Class `ImageStoreUtils` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/image/ImageStoreUtils.java`
 #### Snippet
 ```java
 import java.util.stream.Collectors;
 
-public class DataExplorerUtils {
-    /**
-     * Sanitizes the event schema and stores the DataLakeMeasurement to the couchDB
+public class ImageStoreUtils {
+
+    public static List<EventProperty> getImageProperties(DataLakeMeasure measure) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DataExplorerConfigurations` has only 'static' members, and lacks a 'private' constructor
+in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerConfigurations.java`
+#### Snippet
+```java
+
+
+public class DataExplorerConfigurations {
+    public final static String DATA_LAKE_DATABASE_NAME = "sp";
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -27910,18 +27908,6 @@ import java.util.List;
 public class CouchDbConfigurations {
 
     public static List<ConfigItem> getDefaults() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DataExplorerConfigurations` has only 'static' members, and lacks a 'private' constructor
-in `streampipes-data-explorer-commons/src/main/java/org/apache/streampipes/dataexplorer/commons/configs/DataExplorerConfigurations.java`
-#### Snippet
-```java
-
-
-public class DataExplorerConfigurations {
-    public final static String DATA_LAKE_DATABASE_NAME = "sp";
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -28130,6 +28116,18 @@ in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFile
 ```
 
 ### DataFlowIssue
+Method invocation `entrySet` may produce `NullPointerException`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/xml/XmlParser.java`
+#### Snippet
+```java
+    }
+
+    for (Map.Entry<String, Object> entry : exampleEvent.entrySet()) {
+      EventProperty p = JsonEventProperty.getEventProperty(entry.getKey(), entry.getValue());
+      resultSchema.addEventProperty(p);
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/csv/CsvParser.java`
 #### Snippet
@@ -28143,14 +28141,14 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### DataFlowIssue
 Method invocation `entrySet` may produce `NullPointerException`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/xml/XmlParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
 #### Snippet
 ```java
     }
 
     for (Map.Entry<String, Object> entry : exampleEvent.entrySet()) {
+//            System.out.println(entry.getKey() + "/" + entry.getValue());
       EventProperty p = JsonEventProperty.getEventProperty(entry.getKey(), entry.getValue());
-      resultSchema.addEventProperty(p);
 ```
 
 ### DataFlowIssue
@@ -28175,18 +28173,6 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
         for (Map.Entry<String, Object> entry : geoFeature.getProperties().entrySet()) {
             EventProperty p = JsonEventProperty.getEventProperty(entry.getKey(), entry.getValue());
             resultSchema.addEventProperty(p);
-```
-
-### DataFlowIssue
-Method invocation `entrySet` may produce `NullPointerException`
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
-#### Snippet
-```java
-    }
-
-    for (Map.Entry<String, Object> entry : exampleEvent.entrySet()) {
-//            System.out.println(entry.getKey() + "/" + entry.getValue());
-      EventProperty p = JsonEventProperty.getEventProperty(entry.getKey(), entry.getValue());
 ```
 
 ### DataFlowIssue
@@ -28335,18 +28321,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 
 ### DataFlowIssue
 Argument `inputStream` might be null
-in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/generator/AssetGenerator.java`
-#### Snippet
-```java
-      String content =
-              new DocumentationParser(assetModel)
-                      .parseAndStoreDocumentation(IOUtils.toString(inputStream));
-      FileUtils.writeStringToFile(new File(resourcePath + File.separator + DOCUMENTATION_FILE),
-              content);
-```
-
-### DataFlowIssue
-Argument `inputStream` might be null
 in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/ExtractDocumentationMojo.java`
 #### Snippet
 ```java
@@ -28355,6 +28329,18 @@ in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/ExtractDoc
           Files.copy(inputStream, imgPath.resolve("icon.png"));
         }
 
+```
+
+### DataFlowIssue
+Argument `inputStream` might be null
+in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/generator/AssetGenerator.java`
+#### Snippet
+```java
+      String content =
+              new DocumentationParser(assetModel)
+                      .parseAndStoreDocumentation(IOUtils.toString(inputStream));
+      FileUtils.writeStringToFile(new File(resourcePath + File.separator + DOCUMENTATION_FILE),
+              content);
 ```
 
 ### DataFlowIssue
@@ -28420,6 +28406,18 @@ in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apa
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'iconUrl' is still used
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractPipelineElementBuilder.java`
+#### Snippet
+```java
+   * @deprecated: Use {@link #withAssets(String...)} instead
+   */
+  public BU iconUrl(String iconUrl) {
+    elementDescription.setIconUrl(iconUrl);
+    return me();
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'withTitle' is still used
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Labels.java`
 #### Snippet
@@ -28444,15 +28442,15 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'iconUrl' is still used
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractPipelineElementBuilder.java`
+Deprecated member 'eventName' is still used
+in `streampipes-model/src/main/java/org/apache/streampipes/model/output/KeepOutputStrategy.java`
 #### Snippet
 ```java
-   * @deprecated: Use {@link #withAssets(String...)} instead
-   */
-  public BU iconUrl(String iconUrl) {
-    elementDescription.setIconUrl(iconUrl);
-    return me();
+
+  @Deprecated
+  String eventName;
+
+  private boolean keepBoth;
 ```
 
 ### DeprecatedIsStillUsed
@@ -28465,18 +28463,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
   public <V> V selectedSingleValueFromRemote(String internalName, Class<V> targetClass) {
     return selectedSingleValue(internalName, targetClass);
   }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'eventName' is still used
-in `streampipes-model/src/main/java/org/apache/streampipes/model/output/KeepOutputStrategy.java`
-#### Snippet
-```java
-
-  @Deprecated
-  String eventName;
-
-  private boolean keepBoth;
 ```
 
 ### DeprecatedIsStillUsed
@@ -28513,18 +28499,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/connect/adapter
   public void setCorrespondingServiceGroup(String correspondingServiceGroup) {
     this.correspondingServiceGroup = correspondingServiceGroup;
   }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DataSourceDescription' is still used
-in `streampipes-model/src/main/java/org/apache/streampipes/model/graph/DataSourceDescription.java`
-#### Snippet
-```java
-@TsModel
-@Deprecated
-public class DataSourceDescription extends NamedStreamPipesEntity {
-
-  private static final long serialVersionUID = 5607030219013954697L;
 ```
 
 ### DeprecatedIsStillUsed
@@ -28611,6 +28585,18 @@ public class PropertyDuplicateRemover {
   private List<EventProperty> existingProperties;
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'DataSourceDescription' is still used
+in `streampipes-model/src/main/java/org/apache/streampipes/model/graph/DataSourceDescription.java`
+#### Snippet
+```java
+@TsModel
+@Deprecated
+public class DataSourceDescription extends NamedStreamPipesEntity {
+
+  private static final long serialVersionUID = 5607030219013954697L;
+```
+
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
@@ -28622,18 +28608,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/StaticProperties.ja
               .forEach(property -> setHorizontalRendering(property));
     } else if (sp instanceof SelectionStaticProperty) {
       ((SelectionStaticProperty) sp).setHorizontalRendering(true);
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-
-  public List<ApplicationLink> al(List<ApplicationLink> applicationLinks) {
-    return applicationLinks.stream().map(m -> new ApplicationLink(m)).collect(Collectors.toList());
-  }
-
 ```
 
 ### Convert2MethodRef
@@ -28653,11 +28627,71 @@ Lambda can be replaced with method reference
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
 ```java
+          List<StaticProperty> staticProperties) {
+    if (staticProperties != null) {
+      return staticProperties.stream().map(o -> staticProperty(o)).collect(Collectors.toList());
+    } else {
+      return new ArrayList<>();
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
     return pipelineElementDescriptions
             .stream()
             .map(pe -> cloneDescription(pe))
             .collect(Collectors.toList());
   }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  public List<MeasurementCapability> mc(
+          List<MeasurementCapability> measurementCapability) {
+    return measurementCapability.stream().map(m -> new MeasurementCapability(m)).collect(Collectors.toList());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+
+  public List<ApplicationLink> al(List<ApplicationLink> applicationLinks) {
+    return applicationLinks.stream().map(m -> new ApplicationLink(m)).collect(Collectors.toList());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+
+  public List<MeasurementObject> mo(List<MeasurementObject> measurementObject) {
+    return measurementObject.stream().map(m -> new MeasurementObject(m)).collect(Collectors.toList());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
+#### Snippet
+```java
+  public List<SupportedProperty> supportedProperties(
+          List<SupportedProperty> supportedProperties) {
+    return supportedProperties.stream().map(s -> new SupportedProperty(s)).collect(Collectors.toList());
+  }
+
 ```
 
 ### Convert2MethodRef
@@ -28689,57 +28723,9 @@ Lambda can be replaced with method reference
 in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
 #### Snippet
 ```java
-  public List<MeasurementCapability> mc(
-          List<MeasurementCapability> measurementCapability) {
-    return measurementCapability.stream().map(m -> new MeasurementCapability(m)).collect(Collectors.toList());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-          List<StaticProperty> staticProperties) {
-    if (staticProperties != null) {
-      return staticProperties.stream().map(o -> staticProperty(o)).collect(Collectors.toList());
-    } else {
-      return new ArrayList<>();
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
 
   public List<Option> options(List<Option> options) {
     return options.stream().map(o -> new Option(o)).collect(Collectors.toList());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-  public List<SupportedProperty> supportedProperties(
-          List<SupportedProperty> supportedProperties) {
-    return supportedProperties.stream().map(s -> new SupportedProperty(s)).collect(Collectors.toList());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `streampipes-model/src/main/java/org/apache/streampipes/model/util/Cloner.java`
-#### Snippet
-```java
-
-  public List<MeasurementObject> mo(List<MeasurementObject> measurementObject) {
-    return measurementObject.stream().map(m -> new MeasurementObject(m)).collect(Collectors.toList());
   }
 
 ```
@@ -28785,11 +28771,11 @@ Lambda can be replaced with method reference
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
 #### Snippet
 ```java
-        final Runnable task = () -> {
 
-            pullData();
-
+        final Runnable errorThread = () -> {
+            executeAdpaterLogic();
         };
+
 ```
 
 ### Convert2MethodRef
@@ -28797,11 +28783,11 @@ Lambda can be replaced with method reference
 in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/PullAdapter.java`
 #### Snippet
 ```java
+        final Runnable task = () -> {
 
-        final Runnable errorThread = () -> {
-            executeAdpaterLogic();
+            pullData();
+
         };
-
 ```
 
 ### Convert2MethodRef
@@ -29012,18 +28998,6 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'miniCluster' in a Serializable class
-in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/FlinkSpMiniCluster.java`
-#### Snippet
-```java
-  INSTANCE;
-
-  private MiniCluster miniCluster;
-  private boolean miniClusterRunning;
-
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'gson' in a Serializable class
 in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/status/PipelineElementStatusSender.java`
 #### Snippet
@@ -29033,6 +29007,18 @@ in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink
   private Gson gson;
 
   public PipelineElementStatusSender(SpKafkaProducer kafkaProducer, String errorTopic,
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'miniCluster' in a Serializable class
+in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/FlinkSpMiniCluster.java`
+#### Snippet
+```java
+  INSTANCE;
+
+  private MiniCluster miniCluster;
+  private boolean miniClusterRunning;
+
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -29259,6 +29245,18 @@ Unnecessary `toString()` call
 in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/nats/NatsPublisher.java`
 #### Snippet
 ```java
+            this.natsConnection = Nats.connect(options);
+        } catch (Exception e) {
+            LOG.error("Error when connecting to the Nats broker on " + natsConfig.getNatsUrls() + " . " + e.toString());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/nats/NatsPublisher.java`
+#### Snippet
+```java
             natsConnection.close();
         } catch (TimeoutException | InterruptedException e) {
             LOG.error("Error when disconnecting with Nats broker. " + e.toString());
@@ -29274,18 +29272,6 @@ in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apach
             natsConnection.publish(subject, dataFormatDefinition.fromMap(event));
         } catch (SpRuntimeException e) {
             LOG.error("Could not publish events to Nats broker. " + e.toString());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/nats/NatsPublisher.java`
-#### Snippet
-```java
-            this.natsConnection = Nats.connect(options);
-        } catch (Exception e) {
-            LOG.error("Error when connecting to the Nats broker on " + natsConfig.getNatsUrls() + " . " + e.toString());
         }
     }
 ```
@@ -29450,7 +29436,7 @@ in `streampipes-resource-management/src/main/java/org/apache/streampipes/resourc
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `EventProcessor` may be 'static'
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/ti/TISensorTag.java`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/flic/FlicMQTTAdapter.java`
 #### Snippet
 ```java
     }
@@ -29462,7 +29448,7 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
 
 ### InnerClassMayBeStatic
 Inner class `EventProcessor` may be 'static'
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/flic/FlicMQTTAdapter.java`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/ti/TISensorTag.java`
 #### Snippet
 ```java
     }
@@ -29536,7 +29522,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
 #### Snippet
 ```java
         case END_ARRAY:
@@ -29560,7 +29546,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraykey/JsonParser.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
 #### Snippet
 ```java
         case END_ARRAY:
@@ -29584,7 +29570,7 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocoding.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocoder.java`
 #### Snippet
 ```java
     String googleMapsApiKey = runtimeContext.getConfigStore().getConfig().getString(ConfigKeys.GOOGLE_API_KEY);
@@ -29596,7 +29582,7 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocoder.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/geocoder/GoogleMapsGeocoding.java`
 #### Snippet
 ```java
     String googleMapsApiKey = runtimeContext.getConfigStore().getConfig().getString(ConfigKeys.GOOGLE_API_KEY);
@@ -29668,18 +29654,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ## RuleId[ruleID=UnnecessaryBoxing]
 ### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/value/TimestampTranformationRule.java`
-#### Snippet
-```java
-            switch (mode) {
-                case TIME_UNIT:
-                    long timeLong = Long.valueOf(String.valueOf(event.get(eventKey.get(0))));
-                    event.put(eventKey.get(0), this.performTimeUnitTransformation(timeLong));
-                    break;
-```
-
-### UnnecessaryBoxing
 Redundant boxing, `Double.parseDouble()` call can be used instead
 in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/value/UnitTransformationRule.java`
 #### Snippet
@@ -29689,6 +29663,18 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/pre
                 double value = Double.valueOf(String.valueOf(event.get(eventKey.get(0))));
 
                 Quantity obs = new Quantity(value, unitTypeFrom);
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/transform/value/TimestampTranformationRule.java`
+#### Snippet
+```java
+            switch (mode) {
+                case TIME_UNIT:
+                    long timeLong = Long.valueOf(String.valueOf(event.get(eventKey.get(0))));
+                    event.put(eventKey.get(0), this.performTimeUnitTransformation(timeLong));
+                    break;
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -29722,11 +29708,23 @@ Missing '@Deprecated' annotation
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
 #### Snippet
 ```java
-   * event properties.
+   * @deprecated Use {@link #requiredStream(CollectedStreamRequirements)} instead
    */
-  public BU unaryMappingPropertyWithoutRequirement(String internalName, String label, String
-          description) {
-    this.staticProperties.add(new MappingPropertyUnary(internalName, label, description));
+  public BU setStream1() {
+    stream1 = true;
+    return me();
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
+#### Snippet
+```java
+   * @deprecated Use {@link #requiredStream(CollectedStreamRequirements)} instead
+   */
+  public BU setStream2() {
+    stream2 = true;
+    return me();
 ```
 
 ### MissingDeprecatedAnnotation
@@ -29738,18 +29736,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractPro
    */
   public BU unaryMappingPropertyWithoutRequirement(Label label) {
     this.staticProperties.add(new MappingPropertyUnary(label.getInternalId(), label.getLabel(), label.getDescription()));
-    return me();
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
-#### Snippet
-```java
-   * @deprecated Use {@link #requiredStream(CollectedStreamRequirements)} instead
-   */
-  public BU setStream1() {
-    stream1 = true;
     return me();
 ```
 
@@ -29770,11 +29756,11 @@ Missing '@Deprecated' annotation
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
 #### Snippet
 ```java
-   * @deprecated Use {@link #requiredStream(CollectedStreamRequirements)} instead
+   * event properties.
    */
-  public BU setStream2() {
-    stream2 = true;
-    return me();
+  public BU unaryMappingPropertyWithoutRequirement(String internalName, String label, String
+          description) {
+    this.staticProperties.add(new MappingPropertyUnary(internalName, label, description));
 ```
 
 ### MissingDeprecatedAnnotation
@@ -29796,20 +29782,8 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 ```java
    * @return this
    */
-  public BU requiredSingleValueSelection(String internalId, String label, String description,
-                                         Option... options) {
-    return requiredSingleValueSelection(internalId, label, description, Arrays.asList(options));
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @return
-   */
-  public BU requiredTextParameter(String internalId, String label, String description) {
-    this.staticProperties.add(prepareFreeTextStaticProperty(internalId,
+  public BU requiredFloatParameter(String internalId, String label, String description, Float min, Float max, Float step) {
+    FreeTextStaticProperty fsp = prepareFreeTextStaticProperty(internalId,
             label,
 ```
 
@@ -29820,7 +29794,31 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 ```java
    * @return
    */
-  public BU requiredIntegerParameter(String internalId, String label, String description, String
+  public BU requiredMultiValueSelection(String internalId, String label, String description,
+                                        Option... options) {
+    return requiredMultiValueSelection(internalId, label, description, Arrays.asList(options));
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @return
+   */
+  public BU requiredSingleValueSelection(String internalId, String label, String description,
+                                         List<Option> options) {
+    OneOfStaticProperty osp = new OneOfStaticProperty(internalId, label, description);
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @return this
+   */
+  public BU requiredTextParameter(String internalId, String label, String description, String
           linkedMappingPropertyInternalName) {
     FreeTextStaticProperty fsp = prepareFreeTextStaticProperty(internalId,
 ```
@@ -29844,6 +29842,42 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 ```java
    * @return
    */
+  public BU requiredIntegerParameter(String internalId, String label, String description, String
+          linkedMappingPropertyInternalName) {
+    FreeTextStaticProperty fsp = prepareFreeTextStaticProperty(internalId,
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @return
+   */
+  public BU requiredTextParameter(String internalId, String label, String description) {
+    this.staticProperties.add(prepareFreeTextStaticProperty(internalId,
+            label,
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @return
+   */
+  public BU requiredFloatParameter(String internalId, String label, String description) {
+    this.staticProperties.add(prepareFreeTextStaticProperty(internalId,
+            label,
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @return
+   */
   public BU requiredIntegerParameter(String internalId, String label, String description,
                                      Integer defaultValue) {
     FreeTextStaticProperty fsp = prepareFreeTextStaticProperty(internalId,
@@ -29854,47 +29888,11 @@ Missing '@Deprecated' annotation
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-   * @return
-   */
-  public BU requiredMultiValueSelection(String internalId, String label, String description,
-                                        List<Option> options) {
-    AnyStaticProperty asp = new AnyStaticProperty(internalId, label, description);
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @return
-   */
-  public BU requiredMultiValueSelection(String internalId, String label, String description,
-                                        Option... options) {
-    return requiredMultiValueSelection(internalId, label, description, Arrays.asList(options));
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @return
-   */
-  public BU requiredIntegerParameter(String internalId, String label, String description) {
-    this.staticProperties.add(prepareFreeTextStaticProperty(internalId,
-            label,
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
    * @return this
    */
-  public BU requiredFloatParameter(String internalId, String label, String description, Float min, Float max, Float step) {
-    FreeTextStaticProperty fsp = prepareFreeTextStaticProperty(internalId,
-            label,
+  public BU requiredSingleValueSelection(String internalId, String label, String description,
+                                         Option... options) {
+    return requiredSingleValueSelection(internalId, label, description, Arrays.asList(options));
 ```
 
 ### MissingDeprecatedAnnotation
@@ -29916,19 +29914,7 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 ```java
    * @return
    */
-  public BU requiredSingleValueSelection(String internalId, String label, String description,
-                                         List<Option> options) {
-    OneOfStaticProperty osp = new OneOfStaticProperty(internalId, label, description);
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @return
-   */
-  public BU requiredFloatParameter(String internalId, String label, String description) {
+  public BU requiredIntegerParameter(String internalId, String label, String description) {
     this.staticProperties.add(prepareFreeTextStaticProperty(internalId,
             label,
 ```
@@ -29938,11 +29924,11 @@ Missing '@Deprecated' annotation
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-   * @return this
+   * @return
    */
-  public BU requiredTextParameter(String internalId, String label, String description, String
-          linkedMappingPropertyInternalName) {
-    FreeTextStaticProperty fsp = prepareFreeTextStaticProperty(internalId,
+  public BU requiredMultiValueSelection(String internalId, String label, String description,
+                                        List<Option> options) {
+    AnyStaticProperty asp = new AnyStaticProperty(internalId, label, description);
 ```
 
 ### MissingDeprecatedAnnotation
@@ -29952,7 +29938,7 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
 ```java
    * Use the StreamPipes Client File API instead (e.g., StreamPipesClientResolver.makeStreamPipesClientInstance()).
    **/
-  public byte[] fileContentsAsByteArray(String internalName) throws IOException {
+  public InputStream fileContentsAsStream(String internalName) throws IOException {
     throw new IllegalArgumentException("Deprecated as API requests need to be authenticated - use the StreamPipes Client file API instead.");
   }
 ```
@@ -29964,7 +29950,7 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/extractor/AbstractP
 ```java
    * Use the StreamPipes Client File API instead (e.g., StreamPipesClientResolver.makeStreamPipesClientInstance()).
    **/
-  public InputStream fileContentsAsStream(String internalName) throws IOException {
+  public byte[] fileContentsAsByteArray(String internalName) throws IOException {
     throw new IllegalArgumentException("Deprecated as API requests need to be authenticated - use the StreamPipes Client file API instead.");
   }
 ```
@@ -30001,18 +29987,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/DataStreamB
 ```java
 
     /**
-     * Assigns a new {@link org.apache.streampipes.model.grounding.TransportProtocol} to the stream definition.
-     * @param protocol The transport protocol of the stream at runtime (e.g., Kafka or MQTT). Use
-     * {@link org.apache.streampipes.sdk.helpers.Protocols} to use some pre-defined protocols (or create a new protocol as
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/DataStreamBuilder.java`
-#### Snippet
-```java
-
-    /**
      * Assigns a new {@link org.apache.streampipes.model.grounding.TransportFormat} to the stream definition.
      * @param format The transport format of the stream at runtime (e.g., JSON or Thrift). Use
      * {@link org.apache.streampipes.sdk.helpers.Formats} to use some pre-defined formats (or create a new format as
@@ -30028,6 +30002,30 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/DataStreamB
      *                 {@link org.apache.streampipes.sdk.builder.PrimitivePropertyBuilder} for defining more complex
      *                 definitions.
      * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/DataStreamBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Assigns a new {@link org.apache.streampipes.model.grounding.TransportProtocol} to the stream definition.
+     * @param protocol The transport protocol of the stream at runtime (e.g., Kafka or MQTT). Use
+     * {@link org.apache.streampipes.sdk.helpers.Protocols} to use some pre-defined protocols (or create a new protocol as
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.builder` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/ProcessingElementBuilder.java`
+#### Snippet
+```java
+   * given
+   * for an element,
+   * {@link org.apache.streampipes.sdk.builder.AbstractProcessingElementBuilder#withLocales(Locales...)}
+   * must be called.
+   *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30055,27 +30053,27 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/ProcessingE
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.builder` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/ProcessingElementBuilder.java`
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/PrimitivePropertyBuilder.java`
 #### Snippet
 ```java
-   * given
-   * for an element,
-   * {@link org.apache.streampipes.sdk.builder.AbstractProcessingElementBuilder#withLocales(Locales...)}
-   * must be called.
-   *
+    /**
+     * Assigns a property scope to the event property.
+     * @param propertyScope The {@link org.apache.streampipes.model.schema.PropertyScope}.
+     * @return this
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/StreamRequirementsBuilder.java`
+Qualifier `org.apache.streampipes.sdk.utils` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/PrimitivePropertyBuilder.java`
 #### Snippet
 ```java
-  /**
-   * Finishes the stream requirements definition.
-   * @return an object of type {@link org.apache.streampipes.sdk.helpers.CollectedStreamRequirements} that contains all defined
-   * property requirements and static properties.
-   */
+     * A builder class helping to define advanced primitive properties. For simple property definitions, you can also
+     * use {@link org.apache.streampipes.sdk.helpers.EpProperties}.
+     * @param datatype The primitive {@link org.apache.streampipes.sdk.utils.Datatypes} definition of the new property.
+     * @param runtimeName The name of the property at runtime (e.g., the field name of the JSON primitive.
+     * @return this
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30111,6 +30109,18 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/StreamRequi
    * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that defines the mapping property.
    * @param propertyScope The {@link org.apache.streampipes.model.schema.PropertyScope} of the requirement.
    * @return this
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/StreamRequirementsBuilder.java`
+#### Snippet
+```java
+  /**
+   * Finishes the stream requirements definition.
+   * @return an object of type {@link org.apache.streampipes.sdk.helpers.CollectedStreamRequirements} that contains all defined
+   * property requirements and static properties.
    */
 ```
 
@@ -30151,27 +30161,15 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/StreamRequi
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/PrimitivePropertyBuilder.java`
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedProtocols.java`
 #### Snippet
 ```java
-    /**
-     * Assigns a property scope to the event property.
-     * @param propertyScope The {@link org.apache.streampipes.model.schema.PropertyScope}.
-     * @return this
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.utils` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/PrimitivePropertyBuilder.java`
-#### Snippet
-```java
-     * A builder class helping to define advanced primitive properties. For simple property definitions, you can also
-     * use {@link org.apache.streampipes.sdk.helpers.EpProperties}.
-     * @param datatype The primitive {@link org.apache.streampipes.sdk.utils.Datatypes} definition of the new property.
-     * @param runtimeName The name of the property at runtime (e.g., the field name of the JSON primitive.
-     * @return this
+   * Defines that a pipeline element (data processor or data sink) supports processing messages arriving from a
+   * JMS broker.
+   * @return The {@link org.apache.streampipes.model.grounding.JmsTransportProtocol}.
+   */
+  public static JmsTransportProtocol jms() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30192,18 +30190,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedPr
 #### Snippet
 ```java
    * Defines that a pipeline element (data processor or data sink) supports processing messages arriving from a
-   * JMS broker.
-   * @return The {@link org.apache.streampipes.model.grounding.JmsTransportProtocol}.
-   */
-  public static JmsTransportProtocol jms() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedProtocols.java`
-#### Snippet
-```java
-   * Defines that a pipeline element (data processor or data sink) supports processing messages arriving from a
    * Mqtt broker.
    * @return The {@link org.apache.streampipes.model.grounding.MqttTransportProtocol}.
    */
@@ -30212,98 +30198,14 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedPr
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
-#### Snippet
-```java
-  /**
-   * Defines the transport format JSON used by a data stream at runtime.
-   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type JSON.
-   */
-  public static TransportFormat jsonFormat() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
-#### Snippet
-```java
-  /**
-   * Defines the transport format Fast-Serializer used by a data stream at runtime.
-   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type FST.
-   */
-  public static TransportFormat fstFormat() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
-#### Snippet
-```java
-  /**
-   * Defines the transport format Apache Thrift used by a data stream at runtime.
-   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type Thrift.
-   */
-  public static TransportFormat thriftFormat() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
-#### Snippet
-```java
-  /**
-   * Defines the transport format CBOR used by a data stream at runtime.
-   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type CBOR.
-   */
-  public static TransportFormat cborFormat() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
-#### Snippet
-```java
-  /**
-   * Defines the transport format SMILE used by a data stream at runtime.
-   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type SMILE.
-   */
-  public static TransportFormat smileFormat() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
 #### Snippet
 ```java
-
-  /**
-   * Adds a new {@link org.apache.streampipes.model.staticproperty.MappingPropertyUnary} to the pipeline element definition
-   * which is not linked to a specific input property.
+   * Kafka or JMS).
    *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
-#### Snippet
-```java
-
-  /**
-   * Adds a new {@link org.apache.streampipes.model.staticproperty.MappingPropertyUnary} to the pipeline element definition
-   * which is not linked to a specific input property.
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
-#### Snippet
-```java
-   * @param label         A human-readable label that is displayed to users in the StreamPipes UI.
-   * @param propertyScope Only input event properties that match the
-   *                      {@link org.apache.streampipes.model.schema.PropertyScope} are displayed.
-   * @return this
-   * Use this method if you want to present users a single-value selection of all available input
+   * @param protocols A list of supported {@link org.apache.streampipes.model.grounding.TransportProtocol}s. Use
+   *                  {@link org.apache.streampipes.sdk.helpers.SupportedProtocols} to assign protocols from some pre-defined
+   *                  ones or create your own by following the developer guide.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30337,21 +30239,45 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractPro
 ```java
    * Kafka or JMS).
    *
-   * @param protocols A list of supported {@link org.apache.streampipes.model.grounding.TransportProtocol}s. Use
-   *                  {@link org.apache.streampipes.sdk.helpers.SupportedProtocols} to assign protocols from some pre-defined
-   *                  ones or create your own by following the developer guide.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
-#### Snippet
-```java
-   * Kafka or JMS).
-   *
    * @param protocol An arbitrary number of supported {@link org.apache.streampipes.model.grounding.TransportProtocol}s. Use
    *                 {@link org.apache.streampipes.sdk.helpers.SupportedProtocols} to assign protocols from some pre-defined
    *                 ones or create your own by following the developer guide.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
+#### Snippet
+```java
+
+  /**
+   * Adds a new {@link org.apache.streampipes.model.staticproperty.MappingPropertyUnary} to the pipeline element definition
+   * which is not linked to a specific input property.
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
+#### Snippet
+```java
+   * @param label         A human-readable label that is displayed to users in the StreamPipes UI.
+   * @param propertyScope Only input event properties that match the
+   *                      {@link org.apache.streampipes.model.schema.PropertyScope} are displayed.
+   * @return this
+   * Use this method if you want to present users a single-value selection of all available input
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractProcessingElementBuilder.java`
+#### Snippet
+```java
+
+  /**
+   * Adds a new {@link org.apache.streampipes.model.staticproperty.MappingPropertyUnary} to the pipeline element definition
+   * which is not linked to a specific input property.
+   *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30392,26 +30318,62 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractPro
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Protocols.java`
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
 #### Snippet
 ```java
-   * @param mqttPort The port of any MQTT broker
-   * @param topic The topic identifier
-   * @return The {@link org.apache.streampipes.model.grounding.MqttTransportProtocol} containing URL and topic where data
-   * arrives.
+  /**
+   * Defines the transport format CBOR used by a data stream at runtime.
+   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type CBOR.
    */
+  public static TransportFormat cborFormat() {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Protocols.java`
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
 #### Snippet
 ```java
-   * @param jmsPort The port of any JMS broker
-   * @param topic The topic identifier
-   * @return The {@link org.apache.streampipes.model.grounding.JmsTransportProtocol} containing URL and topic where data
-   * arrives.
+  /**
+   * Defines the transport format Apache Thrift used by a data stream at runtime.
+   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type Thrift.
    */
+  public static TransportFormat thriftFormat() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
+#### Snippet
+```java
+  /**
+   * Defines the transport format JSON used by a data stream at runtime.
+   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type JSON.
+   */
+  public static TransportFormat jsonFormat() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
+#### Snippet
+```java
+  /**
+   * Defines the transport format Fast-Serializer used by a data stream at runtime.
+   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type FST.
+   */
+  public static TransportFormat fstFormat() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Formats.java`
+#### Snippet
+```java
+  /**
+   * Defines the transport format SMILE used by a data stream at runtime.
+   * @return The {@link org.apache.streampipes.model.grounding.TransportFormat} of type SMILE.
+   */
+  public static TransportFormat smileFormat() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30434,6 +30396,30 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Protocols.j
    * @param kafkaPort The port of any Kafka broker
    * @param wildcardTopicDefinition The wildcard topic definition.
    * @return  The {@link org.apache.streampipes.model.grounding.KafkaTransportProtocol} containing URL and topic where data
+   * arrives.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Protocols.java`
+#### Snippet
+```java
+   * @param mqttPort The port of any MQTT broker
+   * @param topic The topic identifier
+   * @return The {@link org.apache.streampipes.model.grounding.MqttTransportProtocol} containing URL and topic where data
+   * arrives.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/Protocols.java`
+#### Snippet
+```java
+   * @param jmsPort The port of any JMS broker
+   * @param topic The topic identifier
+   * @return The {@link org.apache.streampipes.model.grounding.JmsTransportProtocol} containing URL and topic where data
    * arrives.
    */
 ```
@@ -30467,11 +30453,23 @@ Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be rem
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedFormats.java`
 #### Snippet
 ```java
-   * Defines that a pipeline element (data processor or data sink) supports processing messaging
-   * arriving in Cbor format
+  /**
+   * Defines that a pipeline element (data processor or data sink) supports processing messaging arriving in JSON format
    * @return The resulting {@link org.apache.streampipes.model.grounding.TransportFormat}.
    */
-  public static TransportFormat cborFormat() {
+  public static TransportFormat jsonFormat() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedFormats.java`
+#### Snippet
+```java
+   * Defines that a pipeline element (data processor or data sink) supports processing messaging
+   * arriving in fast-serialization format
+   * @return The resulting {@link org.apache.streampipes.model.grounding.TransportFormat}.
+   */
+  public static TransportFormat fstFormat() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30492,22 +30490,10 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedFo
 #### Snippet
 ```java
    * Defines that a pipeline element (data processor or data sink) supports processing messaging
-   * arriving in fast-serialization format
+   * arriving in Cbor format
    * @return The resulting {@link org.apache.streampipes.model.grounding.TransportFormat}.
    */
-  public static TransportFormat fstFormat() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.grounding` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/SupportedFormats.java`
-#### Snippet
-```java
-  /**
-   * Defines that a pipeline element (data processor or data sink) supports processing messaging arriving in JSON format
-   * @return The resulting {@link org.apache.streampipes.model.grounding.TransportFormat}.
-   */
-  public static TransportFormat jsonFormat() {
+  public static TransportFormat cborFormat() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30529,33 +30515,21 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrat
 ```java
 
     /**
-     * Creates a {@link org.apache.streampipes.model.output.CustomOutputStrategy}.
-     * @param outputBoth If two input streams are expected by a pipeline element, you can use outputBoth to indicate
-     *                   whether the properties of both input streams should be available to the pipeline developer for
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.output` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrategies.java`
-#### Snippet
-```java
-
-    /**
-     * Creates a {@link org.apache.streampipes.model.output.CustomOutputStrategy}. Custom output strategies let pipeline
-     * developers decide which events are produced by the corresponding pipeline element.
-     * @return CustomOutputStrategy
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.output` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrategies.java`
-#### Snippet
-```java
-
-    /**
      * Creates a {@link org.apache.streampipes.model.output.KeepOutputStrategy}. Keep output strategies do not change the
      * schema of an input event, i.e., the output schema matches the input schema.
      * @return KeepOutputStrategy
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.output` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrategies.java`
+#### Snippet
+```java
+
+    /**
+     * Creates a {@link org.apache.streampipes.model.output.AppendOutputStrategy}. Append output strategies add additional
+     * properties to an input event stream.
+     * @param appendProperties An arbitrary number of event properties that are appended to any input stream.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30577,6 +30551,18 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrat
 ```java
 
     /**
+     * Creates a {@link org.apache.streampipes.model.output.CustomOutputStrategy}.
+     * @param outputBoth If two input streams are expected by a pipeline element, you can use outputBoth to indicate
+     *                   whether the properties of both input streams should be available to the pipeline developer for
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.output` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrategies.java`
+#### Snippet
+```java
+
+    /**
      * Creates a {@link org.apache.streampipes.model.output.FixedOutputStrategy}. Fixed output strategies always output the
      * schema defined by the pipeline element itself.
      * @param fixedProperties An arbitrary number of event properties that form the output event schema
@@ -30589,249 +30575,33 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/OutputStrat
 ```java
 
     /**
-     * Creates a {@link org.apache.streampipes.model.output.AppendOutputStrategy}. Append output strategies add additional
-     * properties to an input event stream.
-     * @param appendProperties An arbitrary number of event properties that are appended to any input stream.
+     * Creates a {@link org.apache.streampipes.model.output.CustomOutputStrategy}. Custom output strategies let pipeline
+     * developers decide which events are produced by the corresponding pipeline element.
+     * @return CustomOutputStrategy
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/admin/ConsulConfig.java`
 #### Snippet
 ```java
-  /**
-   * @deprecated Use {@link #requiredSingleValueSelection(Label, Option...)} instead.
-   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
-   * @return this
+          try {
+            Integer.valueOf(value);
+          } catch (java.lang.NumberFormatException e) {
+            LOG.error(value + " is not from the type: xs:integer");
+            return Response.status(Response.Status.BAD_REQUEST)
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/admin/ConsulConfig.java`
 #### Snippet
 ```java
-   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
-   * authoring time. In addition, an allowed value range of the expected input can be assigned.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param min The minimum value of the allowed value range.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Assigns a new number-based configuration parameter (a float) which is required by the pipeline
-   * element.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @return
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * authoring time. The
-   * value range of the parameter is restricted to the value specification of a selected input event property.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
-   * @return this
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
-   * authoring time. In addition, an allowed value range of the expected input can be assigned.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param min The minimum value of the allowed value range.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * authoring time. The
-   * value range of the parameter is restricted to the value specification of a selected input event property.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
-   * @return this
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
-   * authoring time. In addition, an allowed value range of the expected input can be assigned.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param defaultValue The default float value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time. The
-   * value range of the parameter is restricted to the value specification of a selected input event property.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
-   * @return this
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Assigns a new code block parameter which is required
-   * by the processing element.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param codeLanguage The {@link org.apache.streampipes.sdk.helpers.CodeLanguage} code language the code block is built for.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param codeLanguage The {@link org.apache.streampipes.sdk.helpers.CodeLanguage} code language the code block is built for.
-   * @return this
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *    user-friendly manner.
-   * @param requiredFiletypes A list of required filetypes (a string marking the file extension) the element supports.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * options, but multiple selections are allowed. The parameter will be rendered as a Checkbox group in the StreamPipes
-   * UI.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
-   * @return this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a number-based configuration parameter of type integer provided by pipeline developers at pipeline
-   * authoring time and initializes the parameter with a default value.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param defaultValue The default integer value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a collection of configuration parameters of the specified staticProperties.
-   * The developer can fill the staticProperties multiply times.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *    *              user-friendly manner.
-   * @param staticProperties A list of {@link org.apache.streampipes.model.staticproperty} elements.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * options, but multiple selections are allowed. The parameter will be rendered as a Checkbox group in the StreamPipes
-   * UI.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
-   * @return this
+          try {
+            Double.valueOf(value);
+          } catch (java.lang.NumberFormatException e) {
+            LOG.error(value + " is not from the type: xs:double");
+            return Response.status(Response.Status.BAD_REQUEST)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -30863,114 +30633,6 @@ Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-   * Defines a configuration parameter that lets preprocessing developers select from a list of pre-defined configuration
-   * options. The parameter will be rendered as a RadioGroup in the StreamPipes UI.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-   * @param horizontalRendering when set to true
-   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a configuration parameter that lets preprocessing developers select from a list of pre-defined configuration
-   * options. The parameter will be rendered as a RadioGroup in the StreamPipes UI.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
-   * @return this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
-   * authoring time and initializes the parameter with a default value.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param defaultValue The default integer value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-  /**
-   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param multiLine Defines whether the input dialog allows multiple lines.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * input field generated in the StreamPipes UI allows to enter HTML content (and an HTML Wysiwyg editor will be
-   * rendered).
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @return this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a configuration parameter that lets preprocessing developers select from a list of pre-defined configuration
-   * options. The parameter will be rendered as a RadioGroup in the StreamPipes UI.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
-   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
-   * @return this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
    * Assigns a new code block parameter which is required
    * by the processing element.
    * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
@@ -30986,92 +30648,8 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
    * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
    *              user-friendly manner.
    * @param codeLanguage The {@link org.apache.streampipes.sdk.helpers.CodeLanguage} code language the code block is built for.
-   * @param defaultSkeleton The code skeleton that is used as a default value.
    * @return this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Assigns a new text-based configuration parameter (a string) which is required by the pipeline
-   * element.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @return
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-  /**
-   * Assigns a new required slide toggle for a true/false selection
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param defaultValue The toggle's default value
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-  /**
-   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param multiLine Defines whether the input dialog allows multiple lines.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time. The
-   * value range of the parameter is restricted to the value specification of a selected input event property.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param defaultValue The default value is displayed to the user in the input field
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Assigns a new code block parameter (without a specific language) which is required
-   * by the processing element.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @return this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-   * Assigns a new code block parameter (without a specific language) which is required
-   * by the processing element.
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *              user-friendly manner.
-   * @param defaultSkeleton The code skeleton that is used as a default value.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
-   *    user-friendly manner.
-   * @return this
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31103,7 +30681,7 @@ Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-   * Assigns a new number-based configuration parameter (an integer) which is required by the pipeline
+   * Assigns a new number-based configuration parameter (a float) which is required by the pipeline
    * element.
    * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
    *              user-friendly manner.
@@ -31115,11 +30693,11 @@ Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-   * Assigns a new secret text-based configuration parameter (e.g., a password) which is required
-   * by the processing element.
+   * Defines a number-based configuration parameter of type integer provided by pipeline developers at pipeline
+   * authoring time and initializes the parameter with a default value.
    * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
    *              user-friendly manner.
-   * @return
+   * @param defaultValue The default integer value.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31139,6 +30717,102 @@ Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
+  /**
+   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param multiLine Defines whether the input dialog allows multiple lines.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
+   * authoring time. In addition, an allowed value range of the expected input can be assigned.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param defaultValue The default float value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *    user-friendly manner.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a configuration parameter that lets preprocessing developers select from a list of pre-defined configuration
+   * options. The parameter will be rendered as a RadioGroup in the StreamPipes UI.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+   * @param horizontalRendering when set to true
+   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
+   * authoring time and initializes the parameter with a default value.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param defaultValue The default integer value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * input field generated in the StreamPipes UI allows to enter HTML content (and an HTML Wysiwyg editor will be
+   * rendered).
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Assigns a new code block parameter (without a specific language) which is required
+   * by the processing element.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param defaultSkeleton The code skeleton that is used as a default value.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
    * Assigns a new color picker parameter which is required by the pipeline
    * element.
    * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
@@ -31147,27 +30821,339 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractCon
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/admin/ConsulConfig.java`
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-          try {
-            Integer.valueOf(value);
-          } catch (java.lang.NumberFormatException e) {
-            LOG.error(value + " is not from the type: xs:integer");
-            return Response.status(Response.Status.BAD_REQUEST)
+   * options, but multiple selections are allowed. The parameter will be rendered as a Checkbox group in the StreamPipes
+   * UI.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/admin/ConsulConfig.java`
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
 #### Snippet
 ```java
-          try {
-            Double.valueOf(value);
-          } catch (java.lang.NumberFormatException e) {
-            LOG.error(value + " is not from the type: xs:double");
-            return Response.status(Response.Status.BAD_REQUEST)
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Assigns a new code block parameter which is required
+   * by the processing element.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param codeLanguage The {@link org.apache.streampipes.sdk.helpers.CodeLanguage} code language the code block is built for.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param codeLanguage The {@link org.apache.streampipes.sdk.helpers.CodeLanguage} code language the code block is built for.
+   * @param defaultSkeleton The code skeleton that is used as a default value.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Assigns a new number-based configuration parameter (an integer) which is required by the pipeline
+   * element.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @return
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a configuration parameter that lets preprocessing developers select from a list of pre-defined configuration
+   * options. The parameter will be rendered as a RadioGroup in the StreamPipes UI.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time. The
+   * value range of the parameter is restricted to the value specification of a selected input event property.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param defaultValue The default value is displayed to the user in the input field
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a collection of configuration parameters of the specified staticProperties.
+   * The developer can fill the staticProperties multiply times.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *    *              user-friendly manner.
+   * @param staticProperties A list of {@link org.apache.streampipes.model.staticproperty} elements.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *    user-friendly manner.
+   * @param requiredFiletypes A list of required filetypes (a string marking the file extension) the element supports.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+  /**
+   * Assigns a new required slide toggle for a true/false selection
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param defaultValue The toggle's default value
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+  /**
+   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param multiLine Defines whether the input dialog allows multiple lines.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Assigns a new text-based configuration parameter (a string) which is required by the pipeline
+   * element.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @return
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * authoring time. The
+   * value range of the parameter is restricted to the value specification of a selected input event property.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
+   * @return this
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a text-based configuration parameter provided by pipeline developers at pipeline authoring time. The
+   * value range of the parameter is restricted to the value specification of a selected input event property.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
+   * @return this
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * authoring time. The
+   * value range of the parameter is restricted to the value specification of a selected input event property.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param linkedMappingPropertyInternalName The inernalId of the {@link org.apache.streampipes.model.staticproperty.MappingProperty}
+   * @return this
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a configuration parameter that lets preprocessing developers select from a list of pre-defined configuration
+   * options. The parameter will be rendered as a RadioGroup in the StreamPipes UI.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
+   * authoring time. In addition, an allowed value range of the expected input can be assigned.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param min The minimum value of the allowed value range.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Assigns a new secret text-based configuration parameter (e.g., a password) which is required
+   * by the processing element.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @return
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * options, but multiple selections are allowed. The parameter will be rendered as a Checkbox group in the StreamPipes
+   * UI.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param options A list of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Defines a number-based configuration parameter of type float provided by preprocessing developers at preprocessing
+   * authoring time. In addition, an allowed value range of the expected input can be assigned.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @param min The minimum value of the allowed value range.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.staticproperty` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+  /**
+   * @deprecated Use {@link #requiredSingleValueSelection(Label, Option...)} instead.
+   * @param options An arbitrary number of {@link org.apache.streampipes.model.staticproperty.Option} elements. Use
+   * {@link org.apache.streampipes.sdk.helpers.Options} to create option elements from string values.
+   * @return this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/builder/AbstractConfigurablePipelineElementBuilder.java`
+#### Snippet
+```java
+   * Assigns a new code block parameter (without a specific language) which is required
+   * by the processing element.
+   * @param label The {@link org.apache.streampipes.sdk.helpers.Label} that describes why this parameter is needed in a
+   *              user-friendly manner.
+   * @return this
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31192,6 +31178,30 @@ in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/dashboard/Vi
     VisualizablePipeline visualizablePipeline = new org.apache.streampipes.model.dashboard.VisualizablePipeline();
     visualizablePipeline.setPipelineId(pipeline.getPipelineId());
     visualizablePipeline.setPipelineName(pipeline.getName());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
+   * @param propertyScope  The scope for the property, whether it is a HEADER, MEASUREMENT, od DIMENSION property
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyPrimitive stringEp(Label label, String runtimeName, String domainProperty, PropertyScope propertyScope) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *                       provided by a vocabulary. Use one of the vocabularies provided in
+   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyList listBooleanEp(Label label, String runtimeName, String domainProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31227,43 +31237,7 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpPropertie
    *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
    * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
    */
-  public static EventPropertyList listLongEp(Label label, String runtimeName, String domainProperty) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   *
-   * @param runtimeName The field identifier of the event property at runtime.
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
-   */
-  public static EventPropertyPrimitive timestampProperty(String runtimeName) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   * @param label          A human-readable identifier of the property presented to users in the StreamPipes UI. If you do not
-   *                       want to have a label besides the runtime name, use
-   *                       {@link org.apache.streampipes.sdk.helpers.Labels}
-   * @param runtimeName    The field identifier of the event property at runtime.
-   * @param domainProperty The semantics of the list property as a String. The string should correspond to a URI
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   *                       provided by a vocabulary. Use one of the vocabularies provided in
-   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
-   */
-  public static EventPropertyPrimitive longEp(Label label, String runtimeName, String domainProperty) {
+  public static EventPropertyList listDoubleEp(Label label, String runtimeName, String domainProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31276,42 +31250,6 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpPropertie
    * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
    */
   public static EventPropertyPrimitive imageProperty(String runtimeName) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   *                       provided by a vocabulary. Use one of the vocabularies provided in
-   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
-   */
-  public static EventPropertyList listDoubleEp(Label label, String runtimeName, String domainProperty) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   * @param runtimeName   The field identifier of the event property at runtime.
-   * @param eventProperty The complex type of data in the list
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyList}
-   */
-  public static EventPropertyList listEp(Label label, String runtimeName, EventProperty eventProperty, String domainProperty) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   * @param runtimeName   The field identifier of the event property at runtime.
-   * @param eventProperty The complex type of data in the list
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyList}
-   */
-  public static EventPropertyList listEp(Label label, String runtimeName, EventProperty eventProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31343,11 +31281,11 @@ Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be remove
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
 #### Snippet
 ```java
-   *                       provided by a vocabulary. Use one of the vocabularies provided in
-   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   * @param runtimeName   The field identifier of the event property at runtime.
+   * @param eventProperty The complex type of data in the list
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyList}
    */
-  public static EventPropertyList listIntegerEp(Label label, String runtimeName, String domainProperty) {
+  public static EventPropertyList listEp(Label label, String runtimeName, EventProperty eventProperty, String domainProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31359,7 +31297,67 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpPropertie
    *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
    * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
    */
-  public static EventPropertyPrimitive stringEp(Label label, String runtimeName, String domainProperty) {
+  public static EventPropertyList listLongEp(Label label, String runtimeName, String domainProperty) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.sdk.helpers` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   * @param label          A human-readable identifier of the property presented to users in the StreamPipes UI. If you do not
+   *                       want to have a label besides the runtime name, use
+   *                       {@link org.apache.streampipes.sdk.helpers.Labels}
+   * @param runtimeName    The field identifier of the event property at runtime.
+   * @param domainProperty The semantics of the list property as a String. The string should correspond to a URI
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *                       provided by a vocabulary. Use one of the vocabularies provided in
+   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyPrimitive longEp(Label label, String runtimeName, String domainProperty) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   * @param runtimeName   The field identifier of the event property at runtime.
+   * @param eventProperty The complex type of data in the list
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyList}
+   */
+  public static EventPropertyList listEp(Label label, String runtimeName, EventProperty eventProperty) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *
+   * @param runtimeName The field identifier of the event property at runtime.
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyPrimitive timestampProperty(String runtimeName) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *                       provided by a vocabulary. Use one of the vocabularies provided in
+   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyPrimitive booleanEp(Label label, String runtimeName, String domainProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31391,47 +31389,11 @@ Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be remove
 in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
 #### Snippet
 ```java
-   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
-   * @param propertyScope  The scope for the property, whether it is a HEADER, MEASUREMENT, od DIMENSION property
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
-   */
-  public static EventPropertyPrimitive stringEp(Label label, String runtimeName, String domainProperty, PropertyScope propertyScope) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   *                       provided by a vocabulary. Use one of the vocabularies provided in
-   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
-   */
-  public static EventPropertyList listBooleanEp(Label label, String runtimeName, String domainProperty) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
    *                       provided by a vocabulary. Use one of the vocabularies provided in
    *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
    * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
    */
   public static EventPropertyPrimitive integerEp(Label label, String runtimeName, String domainProperty) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
-in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
-#### Snippet
-```java
-   *                       provided by a vocabulary. Use one of the vocabularies provided in
-   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
-   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
-   */
-  public static EventPropertyList listStringEp(Label label, String runtimeName, String domainProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31455,29 +31417,101 @@ in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpPropertie
    *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
    * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
    */
-  public static EventPropertyPrimitive booleanEp(Label label, String runtimeName, String domainProperty) {
+  public static EventPropertyList listIntegerEp(Label label, String runtimeName, String domainProperty) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.client.api` is unnecessary and can be removed
-in `streampipes-client/src/main/java/org/apache/streampipes/client/StreamPipesClient.java`
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *                       provided by a vocabulary. Use one of the vocabularies provided in
+   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyPrimitive stringEp(Label label, String runtimeName, String domainProperty) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.schema` is unnecessary and can be removed
+in `streampipes-sdk/src/main/java/org/apache/streampipes/sdk/helpers/EpProperties.java`
+#### Snippet
+```java
+   *                       provided by a vocabulary. Use one of the vocabularies provided in
+   *                       {@link org.apache.streampipes.vocabulary} or create your own domain-specific vocabulary.
+   * @return {@link org.apache.streampipes.model.schema.EventPropertyPrimitive}
+   */
+  public static EventPropertyList listStringEp(Label label, String runtimeName, String domainProperty) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
+in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
+#### Snippet
+```java
+   * Stops a pipeline by given id
+   * @param pipelineId The id of the pipeline
+   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after detach
+   */
+  public PipelineOperationStatus stop(String pipelineId) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
+in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
+#### Snippet
+```java
+   * Starts a pipeline by given id
+   * @param pipeline The pipeline
+   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after invocation
+   */
+  public PipelineOperationStatus start(Pipeline pipeline) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
+in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
+#### Snippet
+```java
+   * Starts a pipeline by given id
+   * @param pipelineId The id of the pipeline
+   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after invocation
+   */
+  public PipelineOperationStatus start(String pipelineId) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
+in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
 #### Snippet
 ```java
   /**
-   * Get API to work with data sinks
-   * @return {@link org.apache.streampipes.client.api.DataSinkApi}
+   * Receives all pipelines owned by the current user
+   * @return (list) {@link org.apache.streampipes.model.pipeline.Pipeline} a list of all pipelines
    */
   @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
+in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
+#### Snippet
+```java
+   * Stops a pipeline by given id
+   * @param pipeline The pipeline
+   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after detach
+   */
+  public PipelineOperationStatus stop(Pipeline pipeline) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.streampipes.client.api` is unnecessary and can be removed
 in `streampipes-client/src/main/java/org/apache/streampipes/client/StreamPipesClient.java`
 #### Snippet
 ```java
   /**
-   * Get API to work with data processors
-   * @return {@link org.apache.streampipes.client.api.DataProcessorApi}
+   * Get API to work with pipelines
+   * @return {@link org.apache.streampipes.client.api.PipelineApi}
    */
   @Override
 ```
@@ -31500,6 +31534,18 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/StreamPipesCl
 #### Snippet
 ```java
   /**
+   * Get API to work with data sinks
+   * @return {@link org.apache.streampipes.client.api.DataSinkApi}
+   */
+  @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.streampipes.client.api` is unnecessary and can be removed
+in `streampipes-client/src/main/java/org/apache/streampipes/client/StreamPipesClient.java`
+#### Snippet
+```java
+  /**
    * Get API to work with data streams
    * @return {@link org.apache.streampipes.client.api.DataStreamApi}
    */
@@ -31512,70 +31558,10 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/StreamPipesCl
 #### Snippet
 ```java
   /**
-   * Get API to work with pipelines
-   * @return {@link org.apache.streampipes.client.api.PipelineApi}
+   * Get API to work with data processors
+   * @return {@link org.apache.streampipes.client.api.DataProcessorApi}
    */
   @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
-in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
-#### Snippet
-```java
-   * Starts a pipeline by given id
-   * @param pipelineId The id of the pipeline
-   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after invocation
-   */
-  public PipelineOperationStatus start(String pipelineId) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
-in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
-#### Snippet
-```java
-   * Stops a pipeline by given id
-   * @param pipelineId The id of the pipeline
-   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after detach
-   */
-  public PipelineOperationStatus stop(String pipelineId) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
-in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
-#### Snippet
-```java
-   * Stops a pipeline by given id
-   * @param pipeline The pipeline
-   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after detach
-   */
-  public PipelineOperationStatus stop(Pipeline pipeline) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
-in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
-#### Snippet
-```java
-  /**
-   * Receives all pipelines owned by the current user
-   * @return (list) {@link org.apache.streampipes.model.pipeline.Pipeline} a list of all pipelines
-   */
-  @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.streampipes.model.pipeline` is unnecessary and can be removed
-in `streampipes-client/src/main/java/org/apache/streampipes/client/api/PipelineApi.java`
-#### Snippet
-```java
-   * Starts a pipeline by given id
-   * @param pipeline The pipeline
-   * @return {@link org.apache.streampipes.model.pipeline.PipelineOperationStatus} the status message after invocation
-   */
-  public PipelineOperationStatus start(Pipeline pipeline) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31588,30 +31574,6 @@ in `streampipes-client/src/main/java/org/apache/streampipes/client/api/DataStrea
    * @return {@link org.apache.streampipes.model.SpDataStream} A list of all data streams owned by the user.
    */
   @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.json.stream` is unnecessary, and can be replaced with an import
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
-#### Snippet
-```java
-
-
-  public Map<String, Object> parseObject(javax.json.stream.JsonParser jsonParser, boolean root, int start) {
-    // this variable is needed to skip the first object start
-    String mapKey = "";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.json.stream` is unnecessary, and can be replaced with an import
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
-#### Snippet
-```java
-
-    while (jsonParser.hasNext()) {
-      javax.json.stream.JsonParser.Event event = jsonParser.next();
-      switch (event) {
-        case KEY_NAME:
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31651,27 +31613,51 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.locationtech.jts.geom` is unnecessary and can be removed
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpTrajectoryBuilder.java`
+Qualifier `javax.json.stream` is unnecessary, and can be replaced with an import
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
 #### Snippet
 ```java
-    /**
-     * Adds a Point to the trajectory object and also handle removes old point if {link #numberSubPoints} threshold is exceeded.
-     * @param point {@link org.locationtech.jts.geom.Point}
-     * @param m stores an extra integer to the sub-point of a trajectory {@link org.locationtech.jts.geom.CoordinateXYM#M}
-     */
+
+
+  public Map<String, Object> parseObject(javax.json.stream.JsonParser jsonParser, boolean root, int start) {
+    // this variable is needed to skip the first object start
+    String mapKey = "";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.json.stream` is unnecessary, and can be replaced with an import
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
+#### Snippet
+```java
+
+    while (jsonParser.hasNext()) {
+      javax.json.stream.JsonParser.Event event = jsonParser.next();
+      switch (event) {
+        case KEY_NAME:
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.locationtech.jts.geom` is unnecessary and can be removed
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpTrajectoryBuilder.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
 #### Snippet
 ```java
-     * Adds a Point to the trajectory object and also handle removes old point if {link #numberSubPoints} threshold is exceeded.
-     * @param point {@link org.locationtech.jts.geom.Point}
-     * @param m stores an extra integer to the sub-point of a trajectory {@link org.locationtech.jts.geom.CoordinateXYM#M}
-     */
-    public void addPointToTrajectory(Point point, Integer m) {
+   * @param wktString Well-known text representation of the input geometry
+   * @param epsg      EPSG Code representing SRID
+   * @return {@link org.locationtech.jts.geom.Geometry}. An empty point geometry is created if {@link org.locationtech.jts.io.ParseException} due invalid WKT-String
+   */
+  public static Geometry createSPGeom(String wktString, Integer epsg) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.locationtech.jts.io` is unnecessary and can be removed
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+#### Snippet
+```java
+   * @param wktString Well-known text representation of the input geometry
+   * @param epsg      EPSG Code representing SRID
+   * @return {@link org.locationtech.jts.geom.Geometry}. An empty point geometry is created if {@link org.locationtech.jts.io.ParseException} due invalid WKT-String
+   */
+  public static Geometry createSPGeom(String wktString, Integer epsg) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31748,26 +31734,26 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.locationtech.jts.geom` is unnecessary and can be removed
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpTrajectoryBuilder.java`
 #### Snippet
 ```java
-   * @param wktString Well-known text representation of the input geometry
-   * @param epsg      EPSG Code representing SRID
-   * @return {@link org.locationtech.jts.geom.Geometry}. An empty point geometry is created if {@link org.locationtech.jts.io.ParseException} due invalid WKT-String
-   */
-  public static Geometry createSPGeom(String wktString, Integer epsg) {
+    /**
+     * Adds a Point to the trajectory object and also handle removes old point if {link #numberSubPoints} threshold is exceeded.
+     * @param point {@link org.locationtech.jts.geom.Point}
+     * @param m stores an extra integer to the sub-point of a trajectory {@link org.locationtech.jts.geom.CoordinateXYM#M}
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.locationtech.jts.io` is unnecessary and can be removed
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpGeometryBuilder.java`
+Qualifier `org.locationtech.jts.geom` is unnecessary and can be removed
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/jts/helper/SpTrajectoryBuilder.java`
 #### Snippet
 ```java
-   * @param wktString Well-known text representation of the input geometry
-   * @param epsg      EPSG Code representing SRID
-   * @return {@link org.locationtech.jts.geom.Geometry}. An empty point geometry is created if {@link org.locationtech.jts.io.ParseException} due invalid WKT-String
-   */
-  public static Geometry createSPGeom(String wktString, Integer epsg) {
+     * Adds a Point to the trajectory object and also handle removes old point if {link #numberSubPoints} threshold is exceeded.
+     * @param point {@link org.locationtech.jts.geom.Point}
+     * @param m stores an extra integer to the sub-point of a trajectory {@link org.locationtech.jts.geom.CoordinateXYM#M}
+     */
+    public void addPointToTrajectory(Point point, Integer m) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -31907,6 +31893,18 @@ Qualifier `org.influxdb.dto` is unnecessary, and can be replaced with an import
 in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/query/DataExplorerQuery.java`
 #### Snippet
 ```java
+  protected abstract void getQuery(DataExplorerQueryBuilder queryBuilder);
+
+  protected abstract OUT postQuery(org.influxdb.dto.QueryResult result) throws RuntimeException;
+}
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.influxdb.dto` is unnecessary, and can be replaced with an import
+in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/query/DataExplorerQuery.java`
+#### Snippet
+```java
   }
 
   protected SpQueryResult convertMultiResult(org.influxdb.dto.QueryResult result) {
@@ -31936,18 +31934,6 @@ in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/
     org.influxdb.dto.QueryResult result;
     if (queryBuilder.hasTimeUnit()) {
       result = influxDB.query(query, queryBuilder.getTimeUnit());;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.influxdb.dto` is unnecessary, and can be replaced with an import
-in `streampipes-data-explorer/src/main/java/org/apache/streampipes/dataexplorer/query/DataExplorerQuery.java`
-#### Snippet
-```java
-  protected abstract void getQuery(DataExplorerQueryBuilder queryBuilder);
-
-  protected abstract OUT postQuery(org.influxdb.dto.QueryResult result) throws RuntimeException;
-}
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -32061,14 +32047,14 @@ in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/AssetDashboa
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/PipelineResource.java`
+in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/admin/PipelineElementImport.java`
 #### Snippet
 ```java
-      return badRequest(e.getErrorLog());
-    } catch (Exception e) {
+      return ok(Operations.verifyAndUpdateElement(payload));
+    } catch (URISyntaxException | IOException | SepaParseException | NoServiceEndpointsAvailableException e) {
       e.printStackTrace();
-      return serverError(new Notification(NotificationType.UNKNOWN_ERROR,
-          e.getMessage()));
+      return constructErrorMessage(new Notification(NotificationType.PARSE_ERROR, e.getMessage()));
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32088,6 +32074,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/PipelineResource.java`
 #### Snippet
 ```java
+          e.getMessage())));
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new WebApplicationException(
+          serverError(constructErrorMessage(new Notification(NotificationType.UNKNOWN_ERROR,
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/PipelineResource.java`
+#### Snippet
+```java
     } catch
     (Exception e) {
       e.printStackTrace();
@@ -32100,23 +32098,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/PipelineResource.java`
 #### Snippet
 ```java
-          e.getMessage())));
+      return badRequest(e.getErrorLog());
     } catch (Exception e) {
       e.printStackTrace();
-      throw new WebApplicationException(
-          serverError(constructErrorMessage(new Notification(NotificationType.UNKNOWN_ERROR,
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-rest/src/main/java/org/apache/streampipes/rest/impl/admin/PipelineElementImport.java`
-#### Snippet
-```java
-      return ok(Operations.verifyAndUpdateElement(payload));
-    } catch (URISyntaxException | IOException | SepaParseException | NoServiceEndpointsAvailableException e) {
-      e.printStackTrace();
-      return constructErrorMessage(new Notification(NotificationType.PARSE_ERROR, e.getMessage()));
-    }
+      return serverError(new Notification(NotificationType.UNKNOWN_ERROR,
+          e.getMessage()));
 ```
 
 ### ThrowablePrintStackTrace
@@ -32196,6 +32182,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFileGenerator.java`
 #### Snippet
 ```java
+      makeZip(fos);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFileGenerator.java`
+#### Snippet
+```java
       zos.closeEntry();
     } catch (IOException ex) {
       ex.printStackTrace();
@@ -32213,30 +32211,6 @@ in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFile
         e.printStackTrace();
       }
     }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-commons/src/main/java/org/apache/streampipes/commons/zip/ZipFileGenerator.java`
-#### Snippet
-```java
-      makeZip(fos);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
-#### Snippet
-```java
-      exampleEvent = jsonDefinition.toMap(oneEvent.get(0));
-    } catch (SpRuntimeException e) {
-      e.printStackTrace();
-    }
-
 ```
 
 ### ThrowablePrintStackTrace
@@ -32265,26 +32239,14 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/elements/SendToBrokerAdapterSink.java`
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/format/json/arraynokey/JsonArrayParser.java`
 #### Snippet
 ```java
-      producer.connect(transportProtocol);
+      exampleEvent = jsonDefinition.toMap(oneEvent.get(0));
     } catch (SpRuntimeException e) {
       e.printStackTrace();
     }
-  }
-```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/elements/SendToBrokerAdapterSink.java`
-#### Snippet
-```java
-      producer.connect(protocol);
-    } catch (SpRuntimeException e) {
-      e.printStackTrace();
-    }
-  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32309,6 +32271,30 @@ in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/for
             e.printStackTrace();
         }
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/elements/SendToBrokerAdapterSink.java`
+#### Snippet
+```java
+      producer.connect(transportProtocol);
+    } catch (SpRuntimeException e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-connect/src/main/java/org/apache/streampipes/connect/adapter/preprocessing/elements/SendToBrokerAdapterSink.java`
+#### Snippet
+```java
+      producer.connect(protocol);
+    } catch (SpRuntimeException e) {
+      e.printStackTrace();
+    }
+  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32349,6 +32335,18 @@ in `streampipes-wrapper/src/main/java/org/apache/streampipes/wrapper/declarer/Pi
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-container/src/main/java/org/apache/streampipes/container/html/page/WelcomePageGenerator.java`
+#### Snippet
+```java
+        desc.setDescription(lg.getElementDescription());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-container/src/main/java/org/apache/streampipes/container/api/DataStreamPipelineElementResource.java`
 #### Snippet
 ```java
@@ -32373,18 +32371,6 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/api/Dat
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-container/src/main/java/org/apache/streampipes/container/html/page/WelcomePageGenerator.java`
-#### Snippet
-```java
-        desc.setDescription(lg.getElementDescription());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-container/src/main/java/org/apache/streampipes/container/api/InvocablePipelineElementResource.java`
 #### Snippet
 ```java
@@ -32392,6 +32378,18 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/api/Inv
     } catch (InstantiationException | IllegalAccessException e) {
       e.printStackTrace();
       return ok(new Response(elementId, false, e.getMessage()));
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
+#### Snippet
+```java
+      return ok(new AssetZipGenerator(appId, includedAssets).makeZip());
+    } catch (IOException e) {
+      e.printStackTrace();
+      return serverError();
     }
 ```
 
@@ -32409,14 +32407,14 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/api/Abs
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-container/src/main/java/org/apache/streampipes/container/api/AbstractPipelineElementResource.java`
+in `streampipes-container/src/main/java/org/apache/streampipes/container/assets/AssetZipGenerator.java`
 #### Snippet
 ```java
-      return ok(new AssetZipGenerator(appId, includedAssets).makeZip());
-    } catch (IOException e) {
-      e.printStackTrace();
-      return serverError();
-    }
+        }
+      } catch(Exception e) {
+        e.printStackTrace();
+      } finally {
+        in.close();
 ```
 
 ### ThrowablePrintStackTrace
@@ -32429,18 +32427,6 @@ in `streampipes-container/src/main/java/org/apache/streampipes/container/html/HT
       e.printStackTrace();
     }
     return html.toHtml();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-container/src/main/java/org/apache/streampipes/container/assets/AssetZipGenerator.java`
-#### Snippet
-```java
-        }
-      } catch(Exception e) {
-        e.printStackTrace();
-      } finally {
-        in.close();
 ```
 
 ### ThrowablePrintStackTrace
@@ -32481,14 +32467,14 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/slack/SlackConsumer.java`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/netio/NetioRestAdapter.java`
 #### Snippet
 ```java
-      this.session.connect();
-    } catch (IOException e) {
-      e.printStackTrace();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    this.session.addMessagePostedListener(messagePostedListener);
 ```
 
 ### ThrowablePrintStackTrace
@@ -32505,14 +32491,14 @@ in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/netio/NetioRestAdapter.java`
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/slack/SlackConsumer.java`
 #### Snippet
 ```java
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+      this.session.connect();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    this.session.addMessagePostedListener(messagePostedListener);
 ```
 
 ### ThrowablePrintStackTrace
@@ -32577,6 +32563,18 @@ in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apach
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/OpenSenseMapAdapter.java`
+#### Snippet
+```java
+            senseBoxResult = getDataFromEndpoint(url, SenseBox[].class);
+        } catch (AdapterException e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/kafka/KafkaPublisher.java`
 #### Snippet
 ```java
@@ -32597,6 +32595,18 @@ in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apach
         ex.printStackTrace();
     }
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/rabbitmq/RabbitMqPublisher.java`
+#### Snippet
+```java
+      queueMap.put(topic, channel);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32649,26 +32659,14 @@ in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apach
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-sinks-brokers-jvm/src/main/java/org/apache/streampipes/sinks/brokers/jvm/rabbitmq/RabbitMqPublisher.java`
+in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocoder.java`
 #### Snippet
 ```java
-      queueMap.put(topic, channel);
-    } catch (IOException e) {
+      this.longitude = results[0].geometry.location.lng;
+    } catch (ApiException | IOException | InterruptedException e) {
       e.printStackTrace();
+      throw new SpRuntimeException("Could not fetch geocoding result");
     }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters/src/main/java/org/apache/streampipes/connect/adapters/sensemap/OpenSenseMapAdapter.java`
-#### Snippet
-```java
-            senseBoxResult = getDataFromEndpoint(url, SenseBox[].class);
-        } catch (AdapterException e) {
-            e.printStackTrace();
-        }
-
 ```
 
 ### ThrowablePrintStackTrace
@@ -32678,18 +32676,6 @@ in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apac
 ```java
 
     } catch (ApiException | InterruptedException | IOException e) {
-      e.printStackTrace();
-      throw new SpRuntimeException("Could not fetch geocoding result");
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-processors-geo-jvm/src/main/java/org/apache/streampipes/processors/geo/jvm/processor/staticgeocoder/StaticGoogleMapsGeocoder.java`
-#### Snippet
-```java
-      this.longitude = results[0].geometry.location.lng;
-    } catch (ApiException | IOException | InterruptedException e) {
       e.printStackTrace();
       throw new SpRuntimeException("Could not fetch geocoding result");
     }
@@ -32712,18 +32698,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/iotdb/IotDb.java`
 #### Snippet
 ```java
-      statement.execute(sb1.toString());
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/iotdb/IotDb.java`
-#### Snippet
-```java
         // Probably because it already exists
         //TODO: Add better exception handling
         e.printStackTrace();
@@ -32733,14 +32707,14 @@ in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apa
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/ros/RosBridgeAdapter.java`
+in `streampipes-extensions/streampipes-sinks-databases-jvm/src/main/java/org/apache/streampipes/sinks/databases/jvm/iotdb/IotDb.java`
 #### Snippet
 ```java
-                    adapterPipeline.process(result);
-                } catch (JsonProcessingException e) {
-                    e.printStackTrace();
-                }
-            }
+      statement.execute(sb1.toString());
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32753,6 +32727,18 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
                 e.printStackTrace();
             }
         }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/ros/RosBridgeAdapter.java`
+#### Snippet
+```java
+                    adapterPipeline.process(result);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32805,26 +32791,14 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/BrokerEventProcessor.java`
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/plc4x/s7/Plc4xS7Adapter.java`
 #### Snippet
 ```java
-      parser.parse(IOUtils.toInputStream(new String(payload), "UTF-8"), stk);
-    } catch (ParseException e) {
-      e.printStackTrace();
-      //logger.error("Adapter " + ID + " could not read value!",e);
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/set/HttpProtocol.java`
-#### Snippet
-```java
-            Thread.sleep(7000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public void onReadResult(PlcReadResponse response, Throwable throwable) {
+        if (throwable != null) {
+            throwable.printStackTrace();
+            this.LOG.error(throwable.getMessage());
+        } else {
 ```
 
 ### ThrowablePrintStackTrace
@@ -32853,26 +32827,14 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/adapters/plc4x/s7/Plc4xS7Adapter.java`
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/set/HttpProtocol.java`
 #### Snippet
 ```java
-    public void onReadResult(PlcReadResponse response, Throwable throwable) {
-        if (throwable != null) {
-            throwable.printStackTrace();
-            this.LOG.error(throwable.getMessage());
-        } else {
-```
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/NatsProtocol.java`
-#### Snippet
-```java
-        totalTimeout += TIMEOUT;
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -32889,6 +32851,30 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/BrokerEventProcessor.java`
+#### Snippet
+```java
+      parser.parse(IOUtils.toInputStream(new String(payload), "UTF-8"), stk);
+    } catch (ParseException e) {
+      e.printStackTrace();
+      //logger.error("Adapter " + ID + " could not read value!",e);
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/NatsProtocol.java`
+#### Snippet
+```java
+        totalTimeout += TIMEOUT;
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/rocketmq/RocketMQConsumer.java`
 #### Snippet
 ```java
@@ -32896,42 +32882,6 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
     } catch (ClientException e) {
       e.printStackTrace();
       return;
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/KafkaProtocol.java`
-#### Snippet
-```java
-            kafkaConsumer.disconnect();
-        } catch (SpRuntimeException e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/KafkaProtocol.java`
-#### Snippet
-```java
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/rocketmq/RocketMQProtocol.java`
-#### Snippet
-```java
-            rocketMQConsumer.stop();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 ```
 
@@ -32966,6 +32916,42 @@ in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/a
 ```java
             consumer.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/rocketmq/RocketMQProtocol.java`
+#### Snippet
+```java
+            rocketMQConsumer.stop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/KafkaProtocol.java`
+#### Snippet
+```java
+            kafkaConsumer.disconnect();
+        } catch (SpRuntimeException e) {
+            e.printStackTrace();
+        }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-connect-adapters-iiot/src/main/java/org/apache/streampipes/connect/iiot/protocol/stream/KafkaProtocol.java`
+#### Snippet
+```java
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -33084,18 +33070,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichmentController.java`
 #### Snippet
 ```java
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-      return new ArrayList<>();
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichmentController.java`
-#### Snippet
-```java
       properties.addAll(getAppendProperties(fileContents, columnsToInclude));
     } catch (IOException e) {
       e.printStackTrace();
@@ -33105,11 +33079,11 @@ in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/ja
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/measurementconverter/MeasurementUnitConverterProcessor.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/csvmetadata/CsvMetadataEnrichmentController.java`
 #### Snippet
 ```java
       }
-    } catch (SpRuntimeException e) {
+    } catch (IOException e) {
       e.printStackTrace();
       return new ArrayList<>();
     }
@@ -33129,13 +33103,13 @@ in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/ImageTransformer.java`
+in `streampipes-extensions/streampipes-processors-transformation-jvm/src/main/java/org/apache/streampipes/processors/transformation/jvm/processor/measurementconverter/MeasurementUnitConverterProcessor.java`
 #### Snippet
 ```java
-      return Optional.of(finalImage);
-    } catch (IOException e) {
+      }
+    } catch (SpRuntimeException e) {
       e.printStackTrace();
-      return Optional.empty();
+      return new ArrayList<>();
     }
 ```
 
@@ -33153,13 +33127,13 @@ in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/converter/FieldConverterController.java`
+in `streampipes-extensions/streampipes-processors-image-processing-jvm/src/main/java/org/apache/streampipes/processors/imageprocessing/jvm/processor/commons/ImageTransformer.java`
 #### Snippet
 ```java
-
-    } catch (SpRuntimeException e) {
+      return Optional.of(finalImage);
+    } catch (IOException e) {
       e.printStackTrace();
-      return Options.from(stringValue());
+      return Optional.empty();
     }
 ```
 
@@ -33172,6 +33146,18 @@ in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/
     } catch (SpRuntimeException e) {
       e.printStackTrace();
       return new ArrayList<>();
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-extensions/streampipes-processors-transformation-flink/src/main/java/org/apache/streampipes/processors/transformation/flink/processor/converter/FieldConverterController.java`
+#### Snippet
+```java
+
+    } catch (SpRuntimeException e) {
+      e.printStackTrace();
+      return Options.from(stringValue());
     }
 ```
 
@@ -33225,18 +33211,6 @@ in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/CreateAsse
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/generator/AssetGenerator.java`
-#### Snippet
-```java
-              content);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/ExtractDocumentationMojo.java`
 #### Snippet
 ```java
@@ -33253,6 +33227,18 @@ in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/ExtractDoc
 #### Snippet
 ```java
 
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-maven-plugin/src/main/java/org/apache/streampipes/smp/generator/AssetGenerator.java`
+#### Snippet
+```java
+              content);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -33336,6 +33322,18 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-messaging-jms/src/main/java/org/apache/streampipes/messaging/jms/ActiveMQPublisher.java`
 #### Snippet
 ```java
+      connect(protocol);
+    } catch (SpRuntimeException e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-messaging-jms/src/main/java/org/apache/streampipes/messaging/jms/ActiveMQPublisher.java`
+#### Snippet
+```java
       producer.send(message);
     } catch (JMSException e) {
       e.printStackTrace();
@@ -33357,11 +33355,11 @@ in `streampipes-messaging-jms/src/main/java/org/apache/streampipes/messaging/jms
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-messaging-jms/src/main/java/org/apache/streampipes/messaging/jms/ActiveMQPublisher.java`
+in `streampipes-messaging-jms/src/main/java/org/apache/streampipes/messaging/jms/ActiveMQConsumer.java`
 #### Snippet
 ```java
-      connect(protocol);
-    } catch (SpRuntimeException e) {
+      });
+    } catch (JMSException e) {
       e.printStackTrace();
     }
   }
@@ -33393,18 +33391,6 @@ in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-messaging-jms/src/main/java/org/apache/streampipes/messaging/jms/ActiveMQConsumer.java`
-#### Snippet
-```java
-      });
-    } catch (JMSException e) {
-      e.printStackTrace();
-    }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-messaging-mqtt/src/main/java/org/apache/streampipes/messaging/mqtt/MqttPublisher.java`
 #### Snippet
 ```java
@@ -33420,8 +33406,8 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-messaging-nats/src/main/java/org/apache/streampipes/messaging/nats/NatsPublisher.java`
 #### Snippet
 ```java
-      makeBrokerConnection(protocolSettings);
-    } catch (IOException | InterruptedException e) {
+      super.disconnect();
+    } catch (InterruptedException | TimeoutException e) {
       e.printStackTrace();
     }
   }
@@ -33432,8 +33418,8 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-messaging-nats/src/main/java/org/apache/streampipes/messaging/nats/NatsPublisher.java`
 #### Snippet
 ```java
-      super.disconnect();
-    } catch (InterruptedException | TimeoutException e) {
+      makeBrokerConnection(protocolSettings);
+    } catch (IOException | InterruptedException e) {
       e.printStackTrace();
     }
   }
@@ -33480,11 +33466,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/FlinkRuntime.java`
 #### Snippet
 ```java
-
+      }
     } catch (Exception e) {
       e.printStackTrace();
-      throw new SpRuntimeException(e.getMessage());
     }
+  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33504,11 +33490,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-wrapper-flink/src/main/java/org/apache/streampipes/wrapper/flink/FlinkRuntime.java`
 #### Snippet
 ```java
-      }
+
     } catch (Exception e) {
       e.printStackTrace();
+      throw new SpRuntimeException(e.getMessage());
     }
-  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33657,18 +33643,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/setup/tasks/CreateAssetLinkTypeTask.java`
-#### Snippet
-```java
-        genericStorage.create(link, AssetLinkType.class);
-      } catch (IOException e) {
-        e.printStackTrace();
-        throw new SpRuntimeException("Could not create asset link document");
-      }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/assets/DocumentationParser.java`
 #### Snippet
 ```java
@@ -33677,6 +33651,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
       e.printStackTrace();
     }
   }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/setup/tasks/CreateAssetLinkTypeTask.java`
+#### Snippet
+```java
+        genericStorage.create(link, AssetLinkType.class);
+      } catch (IOException e) {
+        e.printStackTrace();
+        throw new SpRuntimeException("Could not create asset link document");
+      }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33693,18 +33679,6 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/runtime/PipelineElementRuntimeInfoFetcher.java`
-#### Snippet
-```java
-        timeout = timeout + 300;
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/endpoint/EndpointItemParser.java`
 #### Snippet
 ```java
@@ -33713,6 +33687,18 @@ in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager
       e.printStackTrace();
       return Notifications.error(NotificationType.PARSE_ERROR, e.getMessage());
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-pipeline-management/src/main/java/org/apache/streampipes/manager/runtime/PipelineElementRuntimeInfoFetcher.java`
+#### Snippet
+```java
+        timeout = timeout + 300;
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33849,14 +33835,14 @@ in `streampipes-wrapper-kafka-streams/src/main/java/org/apache/streampipes/wrapp
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect-container-worker/src/main/java/org/apache/streampipes/connect/container/worker/init/ConnectWorkerRegistrationService.java`
+in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/health/AdapterHealthCheck.java`
 #### Snippet
 ```java
-          Thread.sleep(5000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
         }
+      } catch (AdapterException e) {
+        e.printStackTrace();
       }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33873,14 +33859,38 @@ in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/co
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/health/AdapterHealthCheck.java`
+in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/SourcesManagement.java`
 #### Snippet
 ```java
-        }
-      } catch (AdapterException e) {
-        e.printStackTrace();
-      }
+      WorkerRestClient.stopSetAdapter(baseUrl, ad);
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
     }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/SourcesManagement.java`
+#### Snippet
+```java
+      WorkerRestClient.invokeSetAdapter(baseUrl, ad);
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `streampipes-connect-container-worker/src/main/java/org/apache/streampipes/connect/container/worker/init/ConnectWorkerRegistrationService.java`
+#### Snippet
+```java
+          Thread.sleep(5000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33905,30 +33915,6 @@ in `streampipes-connect-container-worker/src/main/java/org/apache/streampipes/co
                 e.printStackTrace();
                 return fail();
             }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/SourcesManagement.java`
-#### Snippet
-```java
-      WorkerRestClient.invokeSetAdapter(baseUrl, ad);
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `streampipes-connect-container-master/src/main/java/org/apache/streampipes/connect/container/master/management/SourcesManagement.java`
-#### Snippet
-```java
-      WorkerRestClient.stopSetAdapter(baseUrl, ad);
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
-  }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33984,11 +33970,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-service-discovery-consul/src/main/java/org/apache/streampipes/svcdiscovery/consul/ConsulHealthServiceManager.java`
 #### Snippet
 ```java
-      svHealth.awaitInitialized(5, TimeUnit.SECONDS);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    serviceHealthCaches.put(serviceGroup, svHealth);
+          return findService(serviceGroup, retryCount);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+          return Collections.emptyList();
+        }
 ```
 
 ### ThrowablePrintStackTrace
@@ -33996,11 +33982,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `streampipes-service-discovery-consul/src/main/java/org/apache/streampipes/svcdiscovery/consul/ConsulHealthServiceManager.java`
 #### Snippet
 ```java
-          return findService(serviceGroup, retryCount);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-          return Collections.emptyList();
-        }
+      svHealth.awaitInitialized(5, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    serviceHealthCaches.put(serviceGroup, svHealth);
 ```
 
 ### ThrowablePrintStackTrace
@@ -34213,18 +34199,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/ApplicationLink
 ```
 
 ### CopyConstructorMissesField
-Copy constructor does not copy fields 'correspondingPipeline' and 'selectedEndpointUrl'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/SpDataSet.java`
-#### Snippet
-```java
-  }
-
-  public SpDataSet(SpDataSet other) {
-    super(other);
-    this.datasetInvocationId = other.getDatasetInvocationId();
-```
-
-### CopyConstructorMissesField
 Copy constructor does not copy field 'category'
 in `streampipes-model/src/main/java/org/apache/streampipes/model/SpDataStream.java`
 #### Snippet
@@ -34234,6 +34208,18 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/SpDataStream.ja
   public SpDataStream(SpDataStream other) {
     super(other);
     this.index = other.getIndex();
+```
+
+### CopyConstructorMissesField
+Copy constructor does not copy fields 'correspondingPipeline' and 'selectedEndpointUrl'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/SpDataSet.java`
+#### Snippet
+```java
+  }
+
+  public SpDataSet(SpDataSet other) {
+    super(other);
+    this.datasetInvocationId = other.getDatasetInvocationId();
 ```
 
 ### CopyConstructorMissesField
@@ -34285,18 +34271,6 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/template/Pipeli
 ```
 
 ### CopyConstructorMissesField
-Copy constructor does not copy field 'correspondingSourceId'
-in `streampipes-model/src/main/java/org/apache/streampipes/model/graph/DataSourceDescription.java`
-#### Snippet
-```java
-  }
-
-  public DataSourceDescription(DataSourceDescription other) {
-    super(other);
-    this.spDataStreams = new Cloner().seq(other.getSpDataStreams());
-```
-
-### CopyConstructorMissesField
 Copy constructor does not copy field 'elementIdentifier'
 in `streampipes-model/src/main/java/org/apache/streampipes/model/monitoring/ElementStatusInfoSettings.java`
 #### Snippet
@@ -34306,6 +34280,18 @@ in `streampipes-model/src/main/java/org/apache/streampipes/model/monitoring/Elem
   public ElementStatusInfoSettings(ElementStatusInfoSettings other) {
     super(other);
     this.kafkaHost = other.getKafkaHost();
+```
+
+### CopyConstructorMissesField
+Copy constructor does not copy field 'correspondingSourceId'
+in `streampipes-model/src/main/java/org/apache/streampipes/model/graph/DataSourceDescription.java`
+#### Snippet
+```java
+  }
+
+  public DataSourceDescription(DataSourceDescription other) {
+    super(other);
+    this.spDataStreams = new Cloner().seq(other.getSpDataStreams());
 ```
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
