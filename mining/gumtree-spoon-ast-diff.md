@@ -86,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -98,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -234,6 +234,18 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends NodePainter`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unused")
+	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
+
+		JsonObject o = new JsonObject();
+```
+
+### BoundedWildcard
 Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -255,30 +267,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
 		List<Operation> newOps = new ArrayList<>();
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends NodePainter`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-
-	@SuppressWarnings("unused")
-	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
-
-		JsonObject o = new JsonObject();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -315,6 +303,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private String toDebugString(List<Operation> ops) {
 		String result = "";
 		for (Operation operation : ops) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -460,18 +460,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-	 * By default, comments are ignored
-	 */
-	private boolean includeComments = false;
-
-	public AstComparator() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
 ```java
@@ -480,6 +468,18 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+	 * By default, comments are ignored
+	 */
+	private boolean includeComments = false;
+
+	public AstComparator() {
 ```
 
 ### RedundantFieldInitialization
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-26-18-43-45.644.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-26-21-33-21.135.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -572,18 +572,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-
-		if (factory.Type().getAll().size() == 0) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 #### Snippet
 ```java
@@ -591,6 +579,18 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	public CtElement getDstNode() {
 		return null;
 	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+
+		if (factory.Type().getAll().size() == 0) {
+			return null;
+		}
 
 ```
 
