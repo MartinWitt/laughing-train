@@ -53,7 +53,7 @@ public class BadSmellRepositoryImpl implements BadSmellRepository, ReactivePanac
 
     @Override
     public Uni<Long> deleteByIdentifier(String identifier) {
-        return delete("identifier", identifier).invoke(() -> System.out.println("Deleted " + identifier));
+        return delete("identifier", identifier);
     }
 
     @Override
