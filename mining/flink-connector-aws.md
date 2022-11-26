@@ -1,17 +1,18 @@
 # flink-connector-aws 
  
 # Bad smells
-I found 10 bad smells with 0 repairable:
+I found 12 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=BoundedWildcard] | 3 | false |
-| RuleId[ruleID=UtilityClassWithoutPrivateConstructor] | 2 | false |
-| RuleId[ruleID=IgnoreResultOfCall] | 2 | false |
-| RuleId[ruleID=ReturnNull] | 1 | false |
-| RuleId[ruleID=DataFlowIssue] | 1 | false |
-| RuleId[ruleID=UseOfPropertiesAsHashtable] | 1 | false |
+| BoundedWildcard | 4 | false |
+| UtilityClassWithoutPrivateConstructor | 2 | true |
+| IgnoreResultOfCall | 2 | false |
+| ReturnNull | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
+| DataFlowIssue | 1 | false |
+| UseOfPropertiesAsHashtable | 1 | false |
 ## RuleId[ruleID=ReturnNull]
-### RuleId[ruleID=ReturnNull]
+### ReturnNull
 Return of `null`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/converter/ArrayAttributeConverterProvider.java`
 #### Snippet
@@ -23,8 +24,21 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-26-01-03-47.880.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
 Class `DynamoDbSerializationUtil` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
 #### Snippet
@@ -36,7 +50,7 @@ public class DynamoDbSerializationUtil {
     public static void serializeWriteRequest(
 ```
 
-### RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
 Class `DynamoDbConfigConstants` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbConfigConstants.java`
 #### Snippet
@@ -49,7 +63,7 @@ public class DynamoDbConfigConstants {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Variable is already assigned to this value
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/RowDataToAttributeValueConverter.java`
 #### Snippet
@@ -62,7 +76,7 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super T`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/converter/ArrayAttributeConverter.java`
 #### Snippet
@@ -74,19 +88,7 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
         this.enhancedType = enhancedType;
 ```
 
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super List`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
-#### Snippet
-```java
-            Throwable err,
-            List<DynamoDbWriteRequest> requestEntries,
-            Consumer<List<DynamoDbWriteRequest>> requestResult) {
-        LOG.warn(
-                "DynamoDB Sink failed to persist and will retry {} entries.",
-```
-
-### RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
 Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
@@ -98,21 +100,45 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
 
 ```
 
-## RuleId[ruleID=UseOfPropertiesAsHashtable]
-### RuleId[ruleID=UseOfPropertiesAsHashtable]
-Call to `Hashtable.put()` on properties object
+### BoundedWildcard
+Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
+#### Snippet
+```java
+            Throwable err,
+            List<DynamoDbWriteRequest> requestEntries,
+            Consumer<List<DynamoDbWriteRequest>> requestResult) {
+        LOG.warn(
+                "DynamoDB Sink failed to persist and will retry {} entries.",
+```
+
+### BoundedWildcard
+Can generalize to `? extends DynamoDbAsyncClient`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
+#### Snippet
+```java
+            String tableName,
+            List<String> overwriteByPartitionKeys,
+            SdkClientProvider<DynamoDbAsyncClient> clientProvider,
+            Collection<BufferedRequestState<DynamoDbWriteRequest>> states) {
+        super(
+```
+
+## RuleId[ruleID=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/client/DynamoDbAsyncClientProvider.java`
 #### Snippet
 ```java
 
         // Specify HTTP1_1 protocol since DynamoDB endpoint doesn't support HTTP2
-        overridenProperties.put(AWSConfigConstants.HTTP_PROTOCOL_VERSION, "HTTP1_1");
+        overridenProperties.putIfAbsent(AWSConfigConstants.HTTP_PROTOCOL_VERSION, "HTTP1_1");
         return overridenProperties;
     }
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `DataInputStream.read()` is ignored
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
 #### Snippet
@@ -124,7 +150,7 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/u
             case STRING_SET:
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `DataInputStream.read()` is ignored
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
 #### Snippet
