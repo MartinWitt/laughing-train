@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id "io.quarkus" version "2.14.1.Final"
+	id "io.quarkus" version "2.14.2.Final"
 	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
 }
 
@@ -15,7 +15,7 @@ dependencies {
 	testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":commons")
 	implementation project(":code-transformation")
-	implementation 'io.quarkus:quarkus-mongodb-panache:2.14.1.Final'
+	implementation 'io.quarkus:quarkus-mongodb-panache:2.14.2.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")

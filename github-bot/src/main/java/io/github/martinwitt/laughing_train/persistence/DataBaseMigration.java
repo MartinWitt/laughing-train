@@ -61,7 +61,7 @@ public class DataBaseMigration {
                 TimeUnit.MINUTES.toMillis(2),
                 TimeUnit.MINUTES.toMillis(10),
                 id -> vertx.executeBlocking(v -> migrateDataBase()));
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(5), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
+        vertx.setPeriodic(TimeUnit.SECONDS.toMillis(30), id -> vertx.executeBlocking(v -> removeDuplicatedBadSmells()));
     }
 
     private void migrateDataBase() {
