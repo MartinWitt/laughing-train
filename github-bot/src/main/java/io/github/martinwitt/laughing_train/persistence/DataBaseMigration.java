@@ -1,8 +1,10 @@
 package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
+import com.mongodb.client.model.Filters;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.persistence.impl.BadSmellRepositoryImpl;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -37,6 +40,9 @@ public class DataBaseMigration {
 
     @Inject
     BadSmellRepository badSmellRepository;
+    // we use this for faster mongodb access
+    @Inject
+    BadSmellRepositoryImpl badSmellRepositoryImpl;
 
     @Inject
     Vertx vertx;
@@ -62,6 +68,8 @@ public class DataBaseMigration {
         removeBadSmellsWithMissingProject();
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
+        removeBadSmellsWithWrongIdentifier();
+        removeDuplicatedProjects();
         logger.atInfo().log("Finished migrating database");
     }
 
@@ -181,5 +189,33 @@ public class DataBaseMigration {
                 .with(Collectors.counting())
                 .subscribe()
                 .with(v -> logger.atInfo().log("Removed %s projects without hashes", v));
+    }
+
+    private void removeBadSmellsWithWrongIdentifier() {
+        Pattern pattern = Pattern.compile("--\\d*$");
+        badSmellRepositoryImpl
+                .mongoCollection()
+                .find(Filters.regex("identifier", pattern))
+                .map(v -> badSmellRepositoryImpl.delete(v))
+                .collect()
+                .with(Collectors.counting())
+                .subscribe()
+                .with(v -> logger.atInfo().log("Removed %s bad smells with wrong identifier", v));
+    }
+
+    private void removeDuplicatedProjects() {
+        projectRepository
+                .getAll()
+                .toMulti()
+                .collect()
+                .with(Collectors.flatMapping(v -> v.stream(), Collectors.toList()))
+                .map(v -> v.stream().collect(Collectors.groupingBy(Project::getProjectUrl)))
+                .invoke(v -> v.entrySet().removeIf(list -> list.getValue().size() == 1))
+                .map(list -> list.keySet().stream()
+                        .map(project -> projectRepository.deleteByProjectUrl(project))
+                        .toList())
+                .subscribe()
+                .with(v -> logger.atInfo().log("Removed %s duplicated projects", v));
+        ;
     }
 }

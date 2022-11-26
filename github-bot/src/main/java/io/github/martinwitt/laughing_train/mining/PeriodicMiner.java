@@ -149,10 +149,12 @@ public class PeriodicMiner {
                     .findByProjectName(name)
                     .invoke(list -> {
                         if (hasSingleResult(list)) {
+                            logger.atInfo().log("Updating commit hash for %s", name);
                             Project queryResult = list.get(0);
                             queryResult.addCommitHash(commitHash);
                             projectRepository.save(queryResult);
                         } else {
+                            logger.atInfo().log("Adding new project %s", name);
                             String url = project.project().url();
                             var newProject = new Project(name, url);
                             newProject.addCommitHash(commitHash);
