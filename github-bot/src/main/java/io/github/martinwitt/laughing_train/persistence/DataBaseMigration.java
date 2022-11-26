@@ -200,10 +200,7 @@ public class DataBaseMigration {
         Pattern pattern = Pattern.compile("--\\d+$");
         badSmellRepositoryImpl
                 .mongoCollection()
-                .find(Filters.regex("identifier", pattern))
-                .map(v -> badSmellRepositoryImpl.deleteByIdentifier(v.getIdentifier()))
-                .collect()
-                .with(Collectors.counting())
+                .deleteMany(Filters.regex("identifier", pattern))
                 .subscribe()
                 .with(v -> logger.atInfo().log("Removed %s bad smells with wrong identifier", v));
     }
