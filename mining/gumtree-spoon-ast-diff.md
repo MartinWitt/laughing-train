@@ -184,18 +184,6 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`rootOperations.size() == 0` can be replaced with 'rootOperations.isEmpty()'
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	@Override
-	public String toString() {
-		if (rootOperations.size() == 0) {
-			return "no AST change";
-		}
-```
-
-### SizeReplaceableByIsEmpty
 `factory.Type().getAll().size() == 0` can be replaced with 'factory.Type().getAll().isEmpty()'
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
@@ -204,6 +192,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 
 		if (factory.Type().getAll().size() == 0) {
 			return null;
+		}
+```
+
+### SizeReplaceableByIsEmpty
+`rootOperations.size() == 0` can be replaced with 'rootOperations.isEmpty()'
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	@Override
+	public String toString() {
+		if (rootOperations.size() == 0) {
+			return "no AST change";
 		}
 ```
 
@@ -286,6 +286,30 @@ Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
 	}
 
 	private String toDebugString(List<Operation> ops) {
@@ -300,33 +324,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
 	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
 		return operations.stream() //
 				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -370,18 +370,6 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	@Override
-	public void debugInformation() {
-		System.err.println(toDebugString());
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
@@ -403,6 +391,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		System.out.println(result.toString());
 	}
 }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	@Override
+	public void debugInformation() {
+		System.err.println(toDebugString());
+	}
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -460,6 +460,18 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+	 * By default, comments are ignored
+	 */
+	private boolean includeComments = false;
+
+	public AstComparator() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
 ```java
@@ -480,18 +492,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private GumtreeProperties properties = null;
 
 	private Matcher matcher = new CompositeMatchers.ClassicGumtree();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-	 * By default, comments are ignored
-	 */
-	private boolean includeComments = false;
-
-	public AstComparator() {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-26-06-46-08.019.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-26-18-43-45.644.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -572,6 +572,18 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+
+		if (factory.Type().getAll().size() == 0) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 #### Snippet
 ```java
@@ -591,18 +603,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 		}
 		return null;
 	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-
-		if (factory.Type().getAll().size() == 0) {
-			return null;
-		}
 
 ```
 
@@ -645,18 +645,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `label` initializer `null` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-		}
-
-		String label = null;
-		String nodeTypeName = getNodeType(element);
-
-```
-
-### UnusedAssignment
 Variable `nolabel` initializer `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -666,5 +654,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### UnusedAssignment
+Variable `label` initializer `null` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+		}
+
+		String label = null;
+		String nodeTypeName = getNodeType(element);
+
 ```
 
