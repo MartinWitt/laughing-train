@@ -1,0 +1,12 @@
+plugins {
+	id 'java'
+	id "io.quarkus" version "2.14.2.Final"
+	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
+}
+dependencies {
+		implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+		implementation("io.quarkus:quarkus-resteasy-reactive")
+}
+group 'io.github.martinwitt'
+version '0.0.1'
+
