@@ -46,12 +46,11 @@ public class ProjectConfigRepositoryImpl implements ProjectConfigRepository, Pan
         var list = find("projectUrl", projectConfig.getProjectUrl()).list();
         if (list.isEmpty()) {
             persist(projectConfigConverter.convertToDao(projectConfig));
-            return projectConfig;
         } else {
             var dao = projectConfigConverter.convertToDao(projectConfig);
             dao.id = list.get(0).id;
             update(dao);
-            return projectConfig;
         }
+        return projectConfig;
     }
 }

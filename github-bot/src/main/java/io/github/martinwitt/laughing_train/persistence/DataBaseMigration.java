@@ -80,7 +80,7 @@ public class DataBaseMigration {
                 .filter(project -> project.getCommitHashes().isEmpty()
                         || project.getProjectUrl().endsWith(".git"))
                 .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
-                .collect(Collectors.counting());
+                .count();
         logger.atInfo().log("Removed %d projects without commit hashes", value);
     }
 
@@ -101,7 +101,7 @@ public class DataBaseMigration {
                 .filter(projectUrl ->
                         projectConfigRepository.findByProjectUrl(projectUrl).isEmpty())
                 .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v)))
-                .collect(Collectors.counting());
+                .count();
         logger.atInfo().log("Created %d project configs", value);
     }
 

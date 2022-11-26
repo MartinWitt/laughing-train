@@ -92,10 +92,8 @@ public class SearchProjectService {
                 .flatMap(list -> {
                     if (list.isEmpty()) {
                         projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
-                        return Uni.createFrom().item(project);
-                    } else {
-                        return Uni.createFrom().item(project);
                     }
+                    return Uni.createFrom().item(project);
                 });
     }
 
