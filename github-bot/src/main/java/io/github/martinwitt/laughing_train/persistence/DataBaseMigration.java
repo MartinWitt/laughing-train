@@ -5,6 +5,7 @@ import com.mongodb.client.model.Filters;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.impl.BadSmellRepositoryImpl;
+import io.github.martinwitt.laughing_train.persistence.impl.ProjectRepositoryImpl;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
@@ -45,6 +46,9 @@ public class DataBaseMigration {
     BadSmellRepositoryImpl badSmellRepositoryImpl;
 
     @Inject
+    ProjectRepositoryImpl projectRepositoryImpl;
+
+    @Inject
     Vertx vertx;
     /**
      * This method is called by the quarkus framework to migrate the database.
@@ -70,6 +74,7 @@ public class DataBaseMigration {
         removeProjectsWithOutHashes();
         removeBadSmellsWithWrongIdentifier();
         removeDuplicatedProjects();
+        removeBadSmellsWithoutProjectHash();
         logger.atInfo().log("Finished migrating database");
     }
 
@@ -192,11 +197,11 @@ public class DataBaseMigration {
     }
 
     private void removeBadSmellsWithWrongIdentifier() {
-        Pattern pattern = Pattern.compile("--\\d*$");
+        Pattern pattern = Pattern.compile("--\\d+$");
         badSmellRepositoryImpl
                 .mongoCollection()
                 .find(Filters.regex("identifier", pattern))
-                .map(v -> badSmellRepositoryImpl.delete(v))
+                .map(v -> badSmellRepositoryImpl.deleteByIdentifier(v.getIdentifier()))
                 .collect()
                 .with(Collectors.counting())
                 .subscribe()
@@ -216,6 +221,23 @@ public class DataBaseMigration {
                         .toList())
                 .subscribe()
                 .with(v -> logger.atInfo().log("Removed %s duplicated projects", v));
-        ;
+    }
+
+    private void removeBadSmellsWithoutProjectHash() {
+        badSmellRepository
+                .getAll()
+                .emitOn(Infrastructure.getDefaultExecutor())
+                .select()
+                .when(v -> projectRepositoryImpl
+                        .mongoCollection()
+                        .find(Filters.in("commitHashes", v.getCommitHash()))
+                        .collect()
+                        .asList()
+                        .map(List::isEmpty))
+                .map(v -> badSmellRepository.deleteByIdentifier(v.getIdentifier()))
+                .collect()
+                .with(Collectors.counting())
+                .subscribe()
+                .with(v -> logger.atInfo().log("Removed %s bad smells without project hash", v));
     }
 }
