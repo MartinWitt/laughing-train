@@ -13,6 +13,8 @@ import io.quarkus.runtime.StartupEvent;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
 import io.vertx.core.Vertx;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -210,7 +212,7 @@ public class DataBaseMigration {
                 .getAll()
                 .toMulti()
                 .collect()
-                .with(Collectors.flatMapping(v -> v.stream(), Collectors.toList()))
+                .with(Collectors.flatMapping(Collection::stream, Collectors.toList()))
                 .map(v -> v.stream().collect(Collectors.groupingBy(Project::getProjectUrl)))
                 .invoke(v -> v.entrySet().removeIf(list -> list.getValue().size() == 1))
                 .map(list -> list.keySet().stream()
@@ -231,7 +233,7 @@ public class DataBaseMigration {
                         .collect()
                         .asList()
                         .map(List::isEmpty))
-                .map(v -> badSmellRepository.deleteByIdentifier(v.getIdentifier()))
+                .map(v -> badSmellRepository.deleteByIdentifier(v.getIdentifier()).invoke(s -> logger.atInfo().log("Removing bad smell %s", v.getIdentifier())))
                 .collect()
                 .with(Collectors.counting())
                 .subscribe()
