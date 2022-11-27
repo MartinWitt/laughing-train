@@ -246,6 +246,18 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -258,15 +270,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
 
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
+	@Override
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -291,18 +303,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
 			String nodeLabel) {
 		return operations.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-27-10-59-31.604.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-27-12-22-19.120.html`
 #### Snippet
 ```java
               <td>0</td>
