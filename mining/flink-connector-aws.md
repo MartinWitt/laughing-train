@@ -110,6 +110,19 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
         super(
 ```
 
+## RuleId[ruleID=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/client/DynamoDbAsyncClientProvider.java`
+#### Snippet
+```java
+
+        // Specify HTTP1_1 protocol since DynamoDB endpoint doesn't support HTTP2
+        overridenProperties.putIfAbsent(AWSConfigConstants.HTTP_PROTOCOL_VERSION, "HTTP1_1");
+        return overridenProperties;
+    }
+```
+
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `DataInputStream.read()` is ignored
@@ -133,18 +146,5 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/u
                     in.read(bs);
                     byteSet.add(SdkBytes.fromByteArray(bs));
                 }
-```
-
-## RuleId[ruleID=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/client/DynamoDbAsyncClientProvider.java`
-#### Snippet
-```java
-
-        // Specify HTTP1_1 protocol since DynamoDB endpoint doesn't support HTTP2
-        overridenProperties.putIfAbsent(AWSConfigConstants.HTTP_PROTOCOL_VERSION, "HTTP1_1");
-        return overridenProperties;
-    }
 ```
 
