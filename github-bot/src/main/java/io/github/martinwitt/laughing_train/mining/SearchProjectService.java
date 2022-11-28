@@ -100,7 +100,7 @@ public class SearchProjectService {
     private @Nullable GHRepository findRandomRepositoryOnGithub() {
 
         try {
-            GitHub github = GitHub.connectAnonymously();
+            GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
             var repos = github.searchRepositories()
                     .q("language:java")
                     .org(getRandomOrgName())

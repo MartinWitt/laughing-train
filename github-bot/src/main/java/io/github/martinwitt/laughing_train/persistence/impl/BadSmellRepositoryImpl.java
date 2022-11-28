@@ -57,8 +57,6 @@ public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoR
         var list = find("identifier", badSmell.getIdentifier()).list();
         if (list.isEmpty()) {
             persist(badSmellConverter.convertToDao(badSmell));
-        } else {
-            logger.atSevere().log("BadSmell already exists: %s", badSmell);
         }
         return badSmell;
     }
