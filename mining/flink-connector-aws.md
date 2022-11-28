@@ -25,18 +25,6 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `DynamoDbSerializationUtil` has only 'static' members, and lacks a 'private' constructor
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
-#### Snippet
-```java
- */
-@Internal
-public class DynamoDbSerializationUtil {
-
-    public static void serializeWriteRequest(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `DynamoDbConfigConstants` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbConfigConstants.java`
 #### Snippet
@@ -46,6 +34,18 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
 public class DynamoDbConfigConstants {
 
     public static final String BASE_DYNAMODB_USER_AGENT_PREFIX_FORMAT =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DynamoDbSerializationUtil` has only 'static' members, and lacks a 'private' constructor
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/util/DynamoDbSerializationUtil.java`
+#### Snippet
+```java
+ */
+@Internal
+public class DynamoDbSerializationUtil {
+
+    public static void serializeWriteRequest(
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -87,18 +87,6 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DynamoDbAsyncClient`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
-#### Snippet
-```java
-            String tableName,
-            List<String> overwriteByPartitionKeys,
-            SdkClientProvider<DynamoDbAsyncClient> clientProvider,
-            Collection<BufferedRequestState<DynamoDbWriteRequest>> states) {
-        super(
-```
-
-### BoundedWildcard
 Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
@@ -108,6 +96,18 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
             Consumer<List<DynamoDbWriteRequest>> requestResult) {
         LOG.warn(
                 "DynamoDB Sink failed to persist and will retry {} entries.",
+```
+
+### BoundedWildcard
+Can generalize to `? extends DynamoDbAsyncClient`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
+#### Snippet
+```java
+            String tableName,
+            List<String> overwriteByPartitionKeys,
+            SdkClientProvider<DynamoDbAsyncClient> clientProvider,
+            Collection<BufferedRequestState<DynamoDbWriteRequest>> states) {
+        super(
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
