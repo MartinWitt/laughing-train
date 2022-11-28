@@ -135,6 +135,18 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
+    public Collection<Rule> getAllRules();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     */
+    @Nonnull
     public Collection<Rule> getHandledRules();
 
     /**
@@ -148,18 +160,6 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
      */
     @Nonnull
     public Collection<Rule> getRulesByType(@Nonnull IRuleType... types);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     */
-    @Nonnull
-    public Collection<Rule> getAllRules();
 
     /**
 ```
@@ -365,18 +365,6 @@ in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RuleViolation`
-in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
-#### Snippet
-```java
-    /** All rule violations must concern the same rule as the processor. */
-    private static void checkRuleViolationsConcernProcessorRule(
-            Set<RuleViolation> ruleViolations, SoraldAbstractProcessor<?> processor) {
-        String procKey = processor.getRuleKey();
-        ruleViolations.stream()
-```
-
-### BoundedWildcard
 Can generalize to `? super Character`
 in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
 #### Snippet
@@ -389,15 +377,15 @@ in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `sorald-api/src/main/java/sorald/support/IdentityHashSet.java`
+Can generalize to `? extends RuleViolation`
+in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
 #### Snippet
 ```java
-     * @return An identity hash set with all unique elements from the collection.
-     */
-    public static <T> Set<T> newIdentityHashSet(Collection<T> collection) {
-        Set<T> set = Collections.newSetFromMap(new IdentityHashMap<>());
-        set.addAll(collection);
+    /** All rule violations must concern the same rule as the processor. */
+    private static void checkRuleViolationsConcernProcessorRule(
+            Set<RuleViolation> ruleViolations, SoraldAbstractProcessor<?> processor) {
+        String procKey = processor.getRuleKey();
+        ruleViolations.stream()
 ```
 
 ### BoundedWildcard
@@ -425,54 +413,6 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Node`
-in `sorald/src/main/java/sorald/Repair.java`
-#### Snippet
-```java
-    }
-
-    private void reportSegmentCrash(LinkedList<Node> segment, Exception e) {
-        List<String> paths =
-                segment.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `sorald/src/main/java/sorald/Repair.java`
-#### Snippet
-```java
-    }
-
-    Launcher createSegmentLauncher(List<Node> segment) {
-        Launcher launcher = new Launcher();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super LinkedList`
-in `sorald/src/main/java/sorald/Repair.java`
-#### Snippet
-```java
-            SoraldAbstractProcessor<?> processor,
-            Set<RuleViolation> violations,
-            Function<LinkedList<Node>, CtModel> parseSegment) {
-        Node rootNode = SoraldTreeBuilderAlgorithm.buildTree(inputDir.toString());
-        LinkedList<LinkedList<Node>> segments =
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtModel`
-in `sorald/src/main/java/sorald/Repair.java`
-#### Snippet
-```java
-            SoraldAbstractProcessor<?> processor,
-            Set<RuleViolation> violations,
-            Function<LinkedList<Node>, CtModel> parseSegment) {
-        Node rootNode = SoraldTreeBuilderAlgorithm.buildTree(inputDir.toString());
-        LinkedList<LinkedList<Node>> segments =
-```
-
-### BoundedWildcard
 Can generalize to `? extends CtStatement`
 in `sorald/src/main/java/sorald/processor/UnclosedResourcesProcessor.java`
 #### Snippet
@@ -482,6 +422,18 @@ in `sorald/src/main/java/sorald/processor/UnclosedResourcesProcessor.java`
             List<CtStatement> statements, int firstStatementToMove) {
         var statementsToMove = statements.subList(firstStatementToMove, statements.size());
         CtBlock<?> block = getFactory().createBlock();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `sorald-api/src/main/java/sorald/support/IdentityHashSet.java`
+#### Snippet
+```java
+     * @return An identity hash set with all unique elements from the collection.
+     */
+    public static <T> Set<T> newIdentityHashSet(Collection<T> collection) {
+        Set<T> set = Collections.newSetFromMap(new IdentityHashMap<>());
+        set.addAll(collection);
 ```
 
 ### BoundedWildcard
@@ -533,6 +485,66 @@ in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Node`
+in `sorald/src/main/java/sorald/Repair.java`
+#### Snippet
+```java
+    }
+
+    private void reportSegmentCrash(LinkedList<Node> segment, Exception e) {
+        List<String> paths =
+                segment.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super LinkedList`
+in `sorald/src/main/java/sorald/Repair.java`
+#### Snippet
+```java
+            SoraldAbstractProcessor<?> processor,
+            Set<RuleViolation> violations,
+            Function<LinkedList<Node>, CtModel> parseSegment) {
+        Node rootNode = SoraldTreeBuilderAlgorithm.buildTree(inputDir.toString());
+        LinkedList<LinkedList<Node>> segments =
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtModel`
+in `sorald/src/main/java/sorald/Repair.java`
+#### Snippet
+```java
+            SoraldAbstractProcessor<?> processor,
+            Set<RuleViolation> violations,
+            Function<LinkedList<Node>, CtModel> parseSegment) {
+        Node rootNode = SoraldTreeBuilderAlgorithm.buildTree(inputDir.toString());
+        LinkedList<LinkedList<Node>> segments =
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `sorald/src/main/java/sorald/Repair.java`
+#### Snippet
+```java
+    }
+
+    Launcher createSegmentLauncher(List<Node> segment) {
+        Launcher launcher = new Launcher();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
+#### Snippet
+```java
+    private Collection<RuleViolation> analyze(
+            File projectRoot,
+            List<File> files,
+            List<Rule> rules,
+            CLIConfigForStaticAnalyzer cliOptions) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Rule`
 in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 #### Snippet
@@ -581,18 +593,6 @@ in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
-#### Snippet
-```java
-    private Collection<RuleViolation> analyze(
-            File projectRoot,
-            List<File> files,
-            List<Rule> rules,
-            CLIConfigForStaticAnalyzer cliOptions) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends JavaInputFile`
 in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 #### Snippet
@@ -619,6 +619,18 @@ in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
 Overridden methods are not annotated
+in `sorald-api/src/main/java/sorald/api/ProcessorRepository.java`
+#### Snippet
+```java
+     * @return A list of all available processors.
+     */
+    @Nonnull
+    List<Class<? extends SoraldAbstractProcessor<?>>> getAllProcessors();
+}
+```
+
+### NullableProblems
+Overridden methods are not annotated
 in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 #### Snippet
 ```java
@@ -638,6 +650,18 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
     @Nonnull
     public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
 }
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     * @return a collection of all rules.
+     */
+    @Nonnull
+    public Collection<Rule> getAllRules();
 
 ```
 
@@ -675,30 +699,6 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
     public Collection<Rule> getRulesByType(@Nonnull IRuleType... types);
 
     /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     * @return a collection of all rules.
-     */
-    @Nonnull
-    public Collection<Rule> getAllRules();
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `sorald-api/src/main/java/sorald/api/ProcessorRepository.java`
-#### Snippet
-```java
-     * @return A list of all available processors.
-     */
-    @Nonnull
-    List<Class<? extends SoraldAbstractProcessor<?>>> getAllProcessors();
-}
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -741,18 +741,6 @@ in `sorald/src/main/java/sorald/FileUtils.java`
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/segment/FirstFitSegmentationAlgorithm.java`
-#### Snippet
-```java
-    public static Pair<Node, Node> splitFileNode(Node fileNode, int index) {
-        if (!(index > 0 || index < fileNode.getJavaFiles().size())) {
-            System.out.println(
-                    "Invalid index: " + index + " Files: " + fileNode.getJavaFiles().size());
-            return null;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `sorald/src/main/java/sorald/segment/Node.java`
 #### Snippet
 ```java
@@ -773,6 +761,18 @@ in `sorald/src/main/java/sorald/segment/Node.java`
                     System.out.println(
                             "Dir path: "
                                     + node.getRootPath()
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/segment/FirstFitSegmentationAlgorithm.java`
+#### Snippet
+```java
+    public static Pair<Node, Node> splitFileNode(Node fileNode, int index) {
+        if (!(index > 0 || index < fileNode.getJavaFiles().size())) {
+            System.out.println(
+                    "Invalid index: " + index + " Files: " + fileNode.getJavaFiles().size());
+            return null;
 ```
 
 ### SystemOutErr
@@ -888,47 +888,47 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 #### Snippet
 ```java
-
-    private static void printEndProcess(SoraldAbstractProcessor<?> processor) {
-        System.out.println("-----Number of fixes------");
-        System.out.println(processor.getClass().getSimpleName() + ": " + processor.getNbFixes());
-        System.out.println("-----End of report------");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/cli/RepairCommand.java`
-#### Snippet
-```java
-    private static void printEndProcess(SoraldAbstractProcessor<?> processor) {
-        System.out.println("-----Number of fixes------");
-        System.out.println(processor.getClass().getSimpleName() + ": " + processor.getNbFixes());
-        System.out.println("-----End of report------");
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/cli/RepairCommand.java`
-#### Snippet
-```java
-        System.out.println("-----Number of fixes------");
-        System.out.println(processor.getClass().getSimpleName() + ": " + processor.getNbFixes());
-        System.out.println("-----End of report------");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/cli/RepairCommand.java`
-#### Snippet
-```java
         Set<RuleViolation> ruleViolations = resolveRuleViolations(eventHandlers, classpath);
         if (ruleViolations.isEmpty()) {
             System.out.println("No rule violations found, nothing to do ...");
         } else {
             SoraldAbstractProcessor<?> proc =
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/cli/RepairCommand.java`
+#### Snippet
+```java
+
+    private static void printEndProcess(SoraldAbstractProcessor<?> processor) {
+        System.out.println("-----Number of fixes------");
+        System.out.println(processor.getClass().getSimpleName() + ": " + processor.getNbFixes());
+        System.out.println("-----End of report------");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/cli/RepairCommand.java`
+#### Snippet
+```java
+    private static void printEndProcess(SoraldAbstractProcessor<?> processor) {
+        System.out.println("-----Number of fixes------");
+        System.out.println(processor.getClass().getSimpleName() + ": " + processor.getNbFixes());
+        System.out.println("-----End of report------");
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/cli/RepairCommand.java`
+#### Snippet
+```java
+        System.out.println("-----Number of fixes------");
+        System.out.println(processor.getClass().getSimpleName() + ": " + processor.getNbFixes());
+        System.out.println("-----End of report------");
+    }
+
 ```
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -1033,14 +1033,14 @@ in `sorald/src/main/java/sorald/miner/MineSonarWarnings.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/Repair.java`
+in `sorald-api/src/main/java/sorald/event/models/CrashEvent.java`
 #### Snippet
 ```java
-                | InvocationTargetException
-                | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return null;
+        this.description = description;
+        this.exception = exception;
+        exception.printStackTrace();
+    }
+
 ```
 
 ### ThrowablePrintStackTrace
@@ -1057,14 +1057,14 @@ in `sorald/src/main/java/sorald/Repair.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `sorald-api/src/main/java/sorald/event/models/CrashEvent.java`
+in `sorald/src/main/java/sorald/Repair.java`
 #### Snippet
 ```java
-        this.description = description;
-        this.exception = exception;
-        exception.printStackTrace();
-    }
-
+                | InvocationTargetException
+                | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -1110,11 +1110,11 @@ Field initialization to `null` is redundant
 in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
 #### Snippet
 ```java
-public class ProcessorsClassGenerator<T>
         extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
     private CtCompilationUnit cu = null;
     private CtType<?> processorsClass = null;
     private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
+    private final SortedMap<String, String> descriptions = new TreeMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1122,11 +1122,11 @@ Field initialization to `null` is redundant
 in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
 #### Snippet
 ```java
+public class ProcessorsClassGenerator<T>
         extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
     private CtCompilationUnit cu = null;
     private CtType<?> processorsClass = null;
     private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
-    private final SortedMap<String, String> descriptions = new TreeMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1144,7 +1144,7 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-28-08-32-58.795.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-28-08-55-18.441.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1184,11 +1184,11 @@ Return of `null`
 in `sorald/src/main/java/sorald/Repair.java`
 #### Snippet
 ```java
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+                                reportSegmentCrash(segment, e);
+                                e.printStackTrace();
+                                return null;
+                            }
+                        })
 ```
 
 ### ReturnNull
@@ -1208,11 +1208,11 @@ Return of `null`
 in `sorald/src/main/java/sorald/Repair.java`
 #### Snippet
 ```java
-                                reportSegmentCrash(segment, e);
-                                e.printStackTrace();
-                                return null;
-                            }
-                        })
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
