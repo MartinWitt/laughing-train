@@ -1,7 +1,7 @@
 # camel-kameleon 
  
 # Bad smells
-I found 24 bad smells with 3 repairable:
+I found 23 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | OptionalGetWithoutIsPresent | 5 | false |
@@ -13,10 +13,9 @@ I found 24 bad smells with 3 repairable:
 | DataFlowIssue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
+| InnerClassMayBeStatic | 1 | true |
 | SamePackageImport | 1 | false |
 | Convert2MethodRef | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| InnerClassMayBeStatic | 1 | true |
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -131,6 +130,19 @@ in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.ja
                         e.getValue().getSpec().getDefinition().getTitle(),
 ```
 
+## RuleId[ruleID=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `WarmupRequest` may be 'static'
+in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+#### Snippet
+```java
+    }
+
+    public class WarmupRequest {
+        public String type;
+        public String version;
+```
+
 ## RuleId[ruleID=SamePackageImport]
 ### SamePackageImport
 Unnecessary import from the same package `import org.apache.camel.kameleon.model.CamelType;`
@@ -150,18 +162,6 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
-    }
-
-    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
-        this.name = name;
-        this.title = title;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
-#### Snippet
-```java
     protected List<String> labels;
 
     public AbstractComponent() {
@@ -169,43 +169,16 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 
 ```
 
-## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
-#### Snippet
-```java
-        try {
-            JsonArray componentArray = componentResource.components(type, version);
-            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
-            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
-            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-27-18-56-02.131.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `WarmupRequest` may be 'static'
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractComponent()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
     }
 
-    public class WarmupRequest {
-        public String type;
-        public String version;
+    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
+        this.name = name;
+        this.title = title;
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -238,18 +211,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-        Model model = reader.read(new FileReader(pom));
-        List<Plugin> plugins = model.getBuild().getPlugins();
-        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
-        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
-        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
             }
         } else {
             CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
@@ -267,6 +228,31 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
             generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
             String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        Model model = reader.read(new FileReader(pom));
+        List<Plugin> plugins = model.getBuild().getPlugins();
+        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
+        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
+        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
+```
+
+## RuleId[ruleID=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+#### Snippet
+```java
+        try {
+            JsonArray componentArray = componentResource.components(type, version);
+            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
+            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
+            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
 ```
 
 ## RuleId[ruleID=ComparatorResultComparison]
