@@ -124,18 +124,6 @@ in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
 
 ### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-/**
- * This class modifies the internals of the environment variables map with reflection.
- * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
- */
-class EnvironmentVariableUtils {
-```
-
-### MarkedForRemoval
-'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
 #### Snippet
 ```java
@@ -144,6 +132,18 @@ in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
  * uses reflection to change them. This requires that the {@link SecurityManager}
  * allows modifications and can potentially break on different operating systems and
  * Java versions. Be aware that this is a fragile solution and consider finding a
+```
+
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+/**
+ * This class modifies the internals of the environment variables map with reflection.
+ * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
+ */
+class EnvironmentVariableUtils {
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -213,11 +213,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -225,11 +225,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -281,6 +281,30 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
+#### Snippet
+```java
+	 * <p>Supported placeholders:<p>
+	 *
+	 * - {@link org.junitpioneer.jupiter.RetryingTest#DISPLAY_NAME_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.RetryingTest#INDEX_PLACEHOLDER}
+	 *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
+#### Snippet
+```java
+	 *
+	 * - {@link org.junitpioneer.jupiter.RetryingTest#DISPLAY_NAME_PLACEHOLDER}
+	 * - {@link org.junitpioneer.jupiter.RetryingTest#INDEX_PLACEHOLDER}
+	 *
+	 * <p>You may use {@link java.text.MessageFormat} patterns
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -314,30 +338,6 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.stream.Stream}.
 		 *
 		 * @param entries the objects we want to include in a single set
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
-#### Snippet
-```java
-	 * <p>Supported placeholders:<p>
-	 *
-	 * - {@link org.junitpioneer.jupiter.RetryingTest#DISPLAY_NAME_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.RetryingTest#INDEX_PLACEHOLDER}
-	 *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
-#### Snippet
-```java
-	 *
-	 * - {@link org.junitpioneer.jupiter.RetryingTest#DISPLAY_NAME_PLACEHOLDER}
-	 * - {@link org.junitpioneer.jupiter.RetryingTest#INDEX_PLACEHOLDER}
-	 *
-	 * <p>You may use {@link java.text.MessageFormat} patterns
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -479,15 +479,15 @@ class ExpectedToFailExtension implements Extension, InvocationInterceptor {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+Can generalize to `? extends DisableIfTestFails`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
-	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+
+	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
+			List<DisableIfTestFails> annotations) {
+		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
+		if (annotations.isEmpty())
 ```
 
 ### BoundedWildcard
@@ -503,6 +503,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+	 * Works on Linux and OSX
+	 */
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 #### Snippet
@@ -515,15 +527,15 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DisableIfTestFails`
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
 #### Snippet
 ```java
+	private List<Source> sources;
 
-	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
-			List<DisableIfTestFails> annotations) {
-		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
-		if (annotations.isEmpty())
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
 ```
 
 ### BoundedWildcard
@@ -584,18 +596,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void clearEntries(Collection<K> entriesToClear) {
 		entriesToClear.forEach(this::clearEntry);
 	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
-#### Snippet
-```java
-	private List<Source> sources;
-
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
 ```
 
 ### BoundedWildcard
