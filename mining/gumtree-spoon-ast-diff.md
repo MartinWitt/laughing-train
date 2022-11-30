@@ -85,11 +85,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -97,11 +97,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -183,18 +183,6 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`factory.Type().getAll().size() == 0` can be replaced with 'factory.Type().getAll().isEmpty()'
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		compiler.build();
-
-		if (factory.Type().getAll().size() == 0) {
-			return null;
-		}
-```
-
-### SizeReplaceableByIsEmpty
 `rootOperations.size() == 0` can be replaced with 'rootOperations.isEmpty()'
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -203,6 +191,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public String toString() {
 		if (rootOperations.size() == 0) {
 			return "no AST change";
+		}
+```
+
+### SizeReplaceableByIsEmpty
+`factory.Type().getAll().size() == 0` can be replaced with 'factory.Type().getAll().isEmpty()'
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		compiler.build();
+
+		if (factory.Type().getAll().size() == 0) {
+			return null;
 		}
 ```
 
@@ -263,21 +263,21 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
+Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
-	}
 
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### BoundedWildcard
@@ -293,15 +293,15 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Operation`
+Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
+	}
 
-	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -369,6 +369,18 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	@Override
+	public void debugInformation() {
+		System.err.println(toDebugString());
+	}
+
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
@@ -390,18 +402,6 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		System.out.println(result.toString());
 	}
 }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	@Override
-	public void debugInformation() {
-		System.err.println(toDebugString());
-	}
-
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -458,18 +458,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-	 * By default, comments are ignored
-	 */
-	private boolean includeComments = false;
-
-	public AstComparator() {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
@@ -479,6 +467,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private GumtreeProperties properties = null;
 
 	private Matcher matcher = new CompositeMatchers.ClassicGumtree();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+	 * By default, comments are ignored
+	 */
+	private boolean includeComments = false;
+
+	public AstComparator() {
 ```
 
 ### RedundantFieldInitialization
@@ -558,18 +558,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-
-		if (factory.Type().getAll().size() == 0) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 #### Snippet
 ```java
@@ -589,6 +577,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 		}
 		return null;
 	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+
+		if (factory.Type().getAll().size() == 0) {
+			return null;
+		}
 
 ```
 
