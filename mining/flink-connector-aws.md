@@ -75,18 +75,6 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DynamoDbAsyncClient`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
-#### Snippet
-```java
-            String tableName,
-            List<String> overwriteByPartitionKeys,
-            SdkClientProvider<DynamoDbAsyncClient> clientProvider,
-            Collection<BufferedRequestState<DynamoDbWriteRequest>> states) {
-        super(
-```
-
-### BoundedWildcard
 Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
@@ -108,6 +96,18 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
             BatchWriteItemResponse response, Consumer<List<DynamoDbWriteRequest>> requestResult) {
         List<DynamoDbWriteRequest> unprocessed = new ArrayList<>();
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends DynamoDbAsyncClient`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
+#### Snippet
+```java
+            String tableName,
+            List<String> overwriteByPartitionKeys,
+            SdkClientProvider<DynamoDbAsyncClient> clientProvider,
+            Collection<BufferedRequestState<DynamoDbWriteRequest>> states) {
+        super(
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
