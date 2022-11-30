@@ -1,15 +1,29 @@
 # flink-connector-aws 
  
 # Bad smells
-I found 11 bad smells with 2 repairable:
+I found 12 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 4 | false |
 | UtilityClassWithoutPrivateConstructor | 2 | true |
 | IgnoreResultOfCall | 2 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ReturnNull | 1 | false |
 | DataFlowIssue | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-30-22-54-07.829.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -63,30 +77,6 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/t
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/converter/ArrayAttributeConverter.java`
-#### Snippet
-```java
-
-    public ArrayAttributeConverter(
-            AttributeConverter<T> tAttributeConverter, EnhancedType<T[]> enhancedType) {
-        this.tAttributeConverter = tAttributeConverter;
-        this.enhancedType = enhancedType;
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
-#### Snippet
-```java
-            Throwable err,
-            List<DynamoDbWriteRequest> requestEntries,
-            Consumer<List<DynamoDbWriteRequest>> requestResult) {
-        LOG.warn(
-                "DynamoDB Sink failed to persist and will retry {} entries.",
-```
-
-### BoundedWildcard
 Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
@@ -108,6 +98,30 @@ in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/s
             SdkClientProvider<DynamoDbAsyncClient> clientProvider,
             Collection<BufferedRequestState<DynamoDbWriteRequest>> states) {
         super(
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
+#### Snippet
+```java
+            Throwable err,
+            List<DynamoDbWriteRequest> requestEntries,
+            Consumer<List<DynamoDbWriteRequest>> requestResult) {
+        LOG.warn(
+                "DynamoDB Sink failed to persist and will retry {} entries.",
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/converter/ArrayAttributeConverter.java`
+#### Snippet
+```java
+
+    public ArrayAttributeConverter(
+            AttributeConverter<T> tAttributeConverter, EnhancedType<T[]> enhancedType) {
+        this.tAttributeConverter = tAttributeConverter;
+        this.enhancedType = enhancedType;
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
