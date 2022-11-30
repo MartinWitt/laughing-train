@@ -98,28 +98,6 @@ in `extensions/cloud/portability-cloud-google/src/main/java/org/datatransferproj
 
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
 ### EnumSwitchStatementWhichMissesCases
-`switch (jobType) { case MEDIA: exporter = getMediaExporter(extension); break; ...` statement on enum type 'org.datatransferproject.types.common.models.DataVertical' misses cases: 'BLOBS', 'CALENDAR', 'CONTACTS', 'MAIL', ...
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
-#### Snippet
-```java
-    }
-
-    switch (jobType) {
-      case MEDIA:
-        exporter = getMediaExporter(extension);
-        break;
-      case PHOTOS:
-        exporter = getPhotosExporter(extension);
-        break;
-      case VIDEOS:
-        exporter = getVideosExporter(extension);
-        break;
-    }
-    if (exporter == null) {
-      return extension.getExporter(jobType); // preserve original exception
-```
-
-### EnumSwitchStatementWhichMissesCases
 `switch (jobType) { case MEDIA: importer = getMediaImporter(extension); break; ...` statement on enum type 'org.datatransferproject.types.common.models.DataVertical' misses cases: 'BLOBS', 'CALENDAR', 'CONTACTS', 'MAIL', ...
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
 #### Snippet
@@ -139,6 +117,28 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
     }
     if (importer == null) {
       return extension.getImporter(jobType);
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (jobType) { case MEDIA: exporter = getMediaExporter(extension); break; ...` statement on enum type 'org.datatransferproject.types.common.models.DataVertical' misses cases: 'BLOBS', 'CALENDAR', 'CONTACTS', 'MAIL', ...
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
+#### Snippet
+```java
+    }
+
+    switch (jobType) {
+      case MEDIA:
+        exporter = getMediaExporter(extension);
+        break;
+      case PHOTOS:
+        exporter = getPhotosExporter(extension);
+        break;
+      case VIDEOS:
+        exporter = getVideosExporter(extension);
+        break;
+    }
+    if (exporter == null) {
+      return extension.getExporter(jobType); // preserve original exception
 ```
 
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
@@ -296,23 +296,11 @@ in `libraries/security/src/main/java/org/datatransferproject/security/DecrypterI
 in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/datatransferproject/datatransfer/imgur/photos/ImgurPhotosExporter.java`
 #### Snippet
 ```java
-    List<Map<String, Object>> items = requestData(authData, url);
 
+    // Request result doesn't indicate if it's the last page
     boolean hasMore = (items != null && items.size() != 0);
 
     for (Map<String, Object> item : items) {
-```
-
-### SizeReplaceableByIsEmpty
-`photos.size() > 0` can be replaced with '!photos.isEmpty()'
-in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/datatransferproject/datatransfer/imgur/photos/ImgurPhotosExporter.java`
-#### Snippet
-```java
-    }
-
-    if (!containsNonAlbumPhotos && photos.size() > 0) {
-      // Add album for non-album photos
-      albums.add(new PhotoAlbum(DEFAULT_ALBUM_ID, "Non-album photos", "Contains non-album photos"));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -332,11 +320,23 @@ in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/d
 in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/datatransferproject/datatransfer/imgur/photos/ImgurPhotosExporter.java`
 #### Snippet
 ```java
+    List<Map<String, Object>> items = requestData(authData, url);
 
-    // Request result doesn't indicate if it's the last page
     boolean hasMore = (items != null && items.size() != 0);
 
     for (Map<String, Object> item : items) {
+```
+
+### SizeReplaceableByIsEmpty
+`photos.size() > 0` can be replaced with '!photos.isEmpty()'
+in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/datatransferproject/datatransfer/imgur/photos/ImgurPhotosExporter.java`
+#### Snippet
+```java
+    }
+
+    if (!containsNonAlbumPhotos && photos.size() > 0) {
+      // Add album for non-album photos
+      albums.add(new PhotoAlbum(DEFAULT_ALBUM_ID, "Non-album photos", "Contains non-album photos"));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -472,18 +472,6 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### SizeReplaceableByIsEmpty
-`chunksToSend.size() != 0` can be replaced with '!chunksToSend.isEmpty()'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosImporter.java`
-#### Snippet
-```java
-    final int totalFileSize = chunksToSend.stream().map(DataChunk::getSize).reduce(0, Integer::sum);
-    Preconditions.checkState(
-        chunksToSend.size() != 0, "Data was split into zero chunks %s.", photo.getTitle());
-
-    Response chunkResponse = null;
-```
-
-### SizeReplaceableByIsEmpty
 `parameters.get().size() > 0` can be replaced with '!parameters.get().isEmpty()'
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
 #### Snippet
@@ -493,6 +481,18 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
     if (parameters.isPresent() && parameters.get().size() > 0) {
       url = url + generateODataParams(parameters.get());
     }
+```
+
+### SizeReplaceableByIsEmpty
+`chunksToSend.size() != 0` can be replaced with '!chunksToSend.isEmpty()'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosImporter.java`
+#### Snippet
+```java
+    final int totalFileSize = chunksToSend.stream().map(DataChunk::getSize).reduce(0, Integer::sum);
+    Preconditions.checkState(
+        chunksToSend.size() != 0, "Data was split into zero chunks %s.", photo.getTitle());
+
+    Response chunkResponse = null;
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -656,6 +656,18 @@ in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/types/
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `portability-types-transfer/src/main/java/org/datatransferproject/types/transfer/errors/ErrorDetail.java`
+#### Snippet
+```java
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+    @JsonCreator
+    private static ErrorDetail.Builder create() {
+```
+
+### AbstractClassNeverImplemented
 Abstract class `ErrorDetail` has no concrete subclass
 in `portability-types-transfer/src/main/java/org/datatransferproject/types/transfer/errors/ErrorDetail.java`
 #### Snippet
@@ -669,26 +681,14 @@ public abstract class ErrorDetail {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `portability-types-transfer/src/main/java/org/datatransferproject/types/transfer/errors/ErrorDetail.java`
-#### Snippet
-```java
-
-  @AutoValue.Builder
-  public abstract static class Builder {
-    @JsonCreator
-    private static ErrorDetail.Builder create() {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RRule` has no concrete subclass
 in `portability-types-common/src/main/java/org/datatransferproject/types/common/models/calendar/RecurrenceRule.java`
 #### Snippet
 ```java
 
-  @AutoValue
-  public abstract static class RRule {
+    @AutoValue.Builder
+    abstract static class Builder {
 
-    static RRule create(Freq freq, String until, int count, int interval,
+      abstract Builder value(TimeType value);
 ```
 
 ### AbstractClassNeverImplemented
@@ -716,18 +716,6 @@ in `portability-types-common/src/main/java/org/datatransferproject/types/common/
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `portability-types-common/src/main/java/org/datatransferproject/types/common/models/calendar/RecurrenceRule.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder {
-
-      abstract Builder value(TimeType value);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ExDate` has no concrete subclass
 in `portability-types-common/src/main/java/org/datatransferproject/types/common/models/calendar/RecurrenceRule.java`
 #### Snippet
@@ -737,6 +725,18 @@ in `portability-types-common/src/main/java/org/datatransferproject/types/common/
   public abstract static class ExDate {
 
     public static ExDate create(TimeType value, String tzidparam, List<String> exdtval) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RRule` has no concrete subclass
+in `portability-types-common/src/main/java/org/datatransferproject/types/common/models/calendar/RecurrenceRule.java`
+#### Snippet
+```java
+
+  @AutoValue
+  public abstract static class RRule {
+
+    static RRule create(Freq freq, String until, int count, int interval,
 ```
 
 ### AbstractClassNeverImplemented
@@ -1005,15 +1005,39 @@ in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExportInformation`
-in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
+Can generalize to `? extends Resource`
+in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsImport.java`
 #### Snippet
 ```java
-  @Override
-  public ExportResult<PhotosContainerResource> export(
-      UUID jobId, AuthData authData, Optional<ExportInformation> exportInformation) {
-    Auth auth;
-    try {
+  private static ImmutableList<Resource> getPhoneOrMailTypes(
+      String type,
+      Map<String, Resource> map) {
+    return ImmutableList.copyOf(
+        Arrays.stream(type.split(",")).map(t -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends VCard`
+in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsImport.java`
+#### Snippet
+```java
+      String baseUrl,
+      String containerUrl,
+      Map<String, VCard> importedPeople,
+      SolidUtilities utilities) throws Exception {
+    Model peopleModel = ModelFactory.createDefaultModel();
+```
+
+### BoundedWildcard
+Can generalize to `? extends VCard`
+in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsImport.java`
+#### Snippet
+```java
+      IdempotentImportExecutor idempotentExecutor,
+      String baseUrl,
+      List<VCard> people,
+      SolidUtilities utilities)
+      throws Exception {
 ```
 
 ### BoundedWildcard
@@ -1029,15 +1053,27 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/mail/GoogleMailImporter.java`
+Can generalize to `? extends ExportInformation`
+in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
 #### Snippet
 ```java
-      TokensAndUrlAuthData authData,
-      IdempotentImportExecutor idempotentExecutor,
-      Supplier<Map<String, String>> allDestinationLabels,
-      Collection<MailContainerModel> folders) throws Exception {
-    for (MailContainerModel mailContainerModel : folders) {
+  @Override
+  public ExportResult<PhotosContainerResource> export(
+      UUID jobId, AuthData authData, Optional<ExportInformation> exportInformation) {
+    Auth auth;
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExportInformation`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/gplus/GooglePlusExporter.java`
+#### Snippet
+```java
+  @Override
+  public ExportResult<SocialActivityContainerResource> export(
+      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation) throws IOException {
+    Plus plus = getOrCreatePeopleService(authData);
+
 ```
 
 ### BoundedWildcard
@@ -1065,39 +1101,15 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Resource`
-in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsImport.java`
+Can generalize to `? extends Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/mail/GoogleMailImporter.java`
 #### Snippet
 ```java
-  private static ImmutableList<Resource> getPhoneOrMailTypes(
-      String type,
-      Map<String, Resource> map) {
-    return ImmutableList.copyOf(
-        Arrays.stream(type.split(",")).map(t -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends VCard`
-in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsImport.java`
-#### Snippet
-```java
+      TokensAndUrlAuthData authData,
       IdempotentImportExecutor idempotentExecutor,
-      String baseUrl,
-      List<VCard> people,
-      SolidUtilities utilities)
-      throws Exception {
-```
-
-### BoundedWildcard
-Can generalize to `? extends VCard`
-in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsImport.java`
-#### Snippet
-```java
-      String baseUrl,
-      String containerUrl,
-      Map<String, VCard> importedPeople,
-      SolidUtilities utilities) throws Exception {
-    Model peopleModel = ModelFactory.createDefaultModel();
+      Supplier<Map<String, String>> allDestinationLabels,
+      Collection<MailContainerModel> folders) throws Exception {
+    for (MailContainerModel mailContainerModel : folders) {
 ```
 
 ### BoundedWildcard
@@ -1114,14 +1126,62 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### BoundedWildcard
 Can generalize to `? extends ExportInformation`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/gplus/GooglePlusExporter.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/tasks/GoogleTasksExporter.java`
 #### Snippet
 ```java
   @Override
-  public ExportResult<SocialActivityContainerResource> export(
-      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation) throws IOException {
-    Plus plus = getOrCreatePeopleService(authData);
+  public ExportResult<TaskContainerResource> export(
+          UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation) {
+    // Create a new tasks service for the authorized user
+    Tasks tasksService = getOrCreateTasksService(authData);
+```
 
+### BoundedWildcard
+Can generalize to `? extends MusicPlaylistItem`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
+#### Snippet
+```java
+
+  void importPlaylistItems(
+      List<MusicPlaylistItem> playlistItems,
+      IdempotentImportExecutor executor,
+      UUID jobId,
+```
+
+### BoundedWildcard
+Can generalize to `? extends MusicPlaylistItem`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
+#### Snippet
+```java
+      UUID jobId,
+      TokensAndUrlAuthData authData,
+      List<MusicPlaylistItem> playlistItems,
+      IdempotentImportExecutor executor,
+      String playlistId)
+```
+
+### BoundedWildcard
+Can generalize to `? extends MusicGroup`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
+#### Snippet
+```java
+  }
+
+  private String[] getArtistTitles(List<MusicGroup> artists) {
+    if (artists == null || artists.isEmpty()) {
+      return null;
+```
+
+### BoundedWildcard
+Can generalize to `? super UUID`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
+#### Snippet
+```java
+      JsonFactory jsonFactory,
+      GoogleMusicHttpApi musicHttpApi,
+      Map<UUID, GoogleMusicHttpApi> musicHttpApisMap,
+      TemporaryPerJobDataStore dataStore,
+      Monitor monitor,
 ```
 
 ### BoundedWildcard
@@ -1150,66 +1210,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### BoundedWildcard
 Can generalize to `? extends ExportInformation`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/tasks/GoogleTasksExporter.java`
-#### Snippet
-```java
-  @Override
-  public ExportResult<TaskContainerResource> export(
-          UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation) {
-    // Create a new tasks service for the authorized user
-    Tasks tasksService = getOrCreateTasksService(authData);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MusicGroup`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
-#### Snippet
-```java
-  }
-
-  private String[] getArtistTitles(List<MusicGroup> artists) {
-    if (artists == null || artists.isEmpty()) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MusicPlaylistItem`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
-#### Snippet
-```java
-      UUID jobId,
-      TokensAndUrlAuthData authData,
-      List<MusicPlaylistItem> playlistItems,
-      IdempotentImportExecutor executor,
-      String playlistId)
-```
-
-### BoundedWildcard
-Can generalize to `? extends MusicPlaylistItem`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
-#### Snippet
-```java
-
-  void importPlaylistItems(
-      List<MusicPlaylistItem> playlistItems,
-      IdempotentImportExecutor executor,
-      UUID jobId,
-```
-
-### BoundedWildcard
-Can generalize to `? super UUID`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicImporter.java`
-#### Snippet
-```java
-      JsonFactory jsonFactory,
-      GoogleMusicHttpApi musicHttpApi,
-      Map<UUID, GoogleMusicHttpApi> musicHttpApisMap,
-      TemporaryPerJobDataStore dataStore,
-      Monitor monitor,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExportInformation`
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosExporter.java`
 #### Snippet
 ```java
@@ -1234,24 +1234,24 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### BoundedWildcard
 Can generalize to `? extends Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  }
-
-  private String generateParamsString(Optional<Map<String, String>> params) {
-    Map<String, String> updatedParams = new ArrayMap<>();
-    if (params.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
 #### Snippet
 ```java
   }
 
   private String generateParamsString(Optional<Map<String, String>> params) throws IOException {
+    Map<String, String> updatedParams = new ArrayMap<>();
+    if (params.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  }
+
+  private String generateParamsString(Optional<Map<String, String>> params) {
     Map<String, String> updatedParams = new ArrayMap<>();
     if (params.isPresent()) {
 ```
@@ -1281,6 +1281,42 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends PhotoModel`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosImporter.java`
+#### Snippet
+```java
+
+  long importPhotos(
+      Collection<PhotoModel> photos,
+      IdempotentImportExecutor executor,
+      UUID jobId,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PhotoModel`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosImporter.java`
+#### Snippet
+```java
+      UUID jobId,
+      TokensAndUrlAuthData authData,
+      List<PhotoModel> photos,
+      IdempotentImportExecutor executor,
+      String albumId)
+```
+
+### BoundedWildcard
+Can generalize to `? super UUID`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosImporter.java`
+#### Snippet
+```java
+      JobStore jobStore,
+      JsonFactory jsonFactory,
+      Map<UUID, GooglePhotosInterface> photosInterfacesMap,
+      GooglePhotosInterface photosInterface,
+      ConnectionProvider connectionProvider,
+```
+
+### BoundedWildcard
 Can generalize to `? extends StructuredName`
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/contacts/GoogleContactsImporter.java`
 #### Snippet
@@ -1297,18 +1333,6 @@ Can generalize to `? extends Map`
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
 ```java
-  }
-
-  private String generateParamsString(Optional<Map<String, String>> params) {
-    Map<String, String> updatedParams = new ArrayMap<>();
-    if (params.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
-#### Snippet
-```java
 
   <T> T makePostRequest(String url, Optional<Map<String, String>> parameters,
       Optional<Map<String, String>> extraHeaders, HttpContent httpContent, Class<T> clazz)
@@ -1317,39 +1341,15 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PhotoModel`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosImporter.java`
+Can generalize to `? extends Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
 ```java
-      UUID jobId,
-      TokensAndUrlAuthData authData,
-      List<PhotoModel> photos,
-      IdempotentImportExecutor executor,
-      String albumId)
-```
+  }
 
-### BoundedWildcard
-Can generalize to `? extends PhotoModel`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosImporter.java`
-#### Snippet
-```java
-
-  long importPhotos(
-      Collection<PhotoModel> photos,
-      IdempotentImportExecutor executor,
-      UUID jobId,
-```
-
-### BoundedWildcard
-Can generalize to `? super UUID`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosImporter.java`
-#### Snippet
-```java
-      JobStore jobStore,
-      JsonFactory jsonFactory,
-      Map<UUID, GooglePhotosInterface> photosInterfacesMap,
-      GooglePhotosInterface photosInterface,
-      ConnectionProvider connectionProvider,
+  private String generateParamsString(Optional<Map<String, String>> params) {
+    Map<String, String> updatedParams = new ArrayMap<>();
+    if (params.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -1413,18 +1413,6 @@ in `extensions/data-transfer/portability-data-transfer-twitter/src/main/java/org
 ```
 
 ### BoundedWildcard
-Can generalize to `? super UUID`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosImporter.java`
-#### Snippet
-```java
-      Monitor monitor,
-      ConnectionProvider connectionProvider,
-      Map<UUID, PhotosLibraryClient> clientsMap) {
-    this.connectionProvider = connectionProvider;
-    this.monitor = monitor;
-```
-
-### BoundedWildcard
 Can generalize to `? extends VideoModel`
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosImporter.java`
 #### Snippet
@@ -1434,6 +1422,18 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
   long importVideoBatch(UUID jobId, List<VideoModel> batchedVideos, PhotosLibraryClient client,
       IdempotentImportExecutor executor) throws Exception {
     final ArrayListMultimap<String, NewMediaItem> mediaItemsByAlbum = ArrayListMultimap.create();
+```
+
+### BoundedWildcard
+Can generalize to `? super UUID`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosImporter.java`
+#### Snippet
+```java
+      Monitor monitor,
+      ConnectionProvider connectionProvider,
+      Map<UUID, PhotosLibraryClient> clientsMap) {
+    this.connectionProvider = connectionProvider;
+    this.monitor = monitor;
 ```
 
 ### BoundedWildcard
@@ -1449,18 +1449,6 @@ in `extensions/data-transfer/portability-data-transfer-smugmug/src/main/java/org
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExportInformation`
-in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/videos/FacebookVideosExporter.java`
-#### Snippet
-```java
-  @Override
-  public ExportResult<VideosContainerResource> export(
-      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation)
-      throws CopyExceptionWithFailureReason {
-    Preconditions.checkNotNull(authData);
-```
-
-### BoundedWildcard
 Can generalize to `? extends StringPaginationToken`
 in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/videos/FacebookVideosExporter.java`
 #### Snippet
@@ -1470,6 +1458,18 @@ in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/or
       TokensAndUrlAuthData authData, Optional<StringPaginationToken> paginationData)
       throws CopyExceptionWithFailureReason {
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExportInformation`
+in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/videos/FacebookVideosExporter.java`
+#### Snippet
+```java
+  @Override
+  public ExportResult<VideosContainerResource> export(
+      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation)
+      throws CopyExceptionWithFailureReason {
+    Preconditions.checkNotNull(authData);
 ```
 
 ### BoundedWildcard
@@ -1533,27 +1533,15 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IdOnlyContainerResource`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+Can generalize to `? extends Map`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
 #### Snippet
 ```java
-  ExportResult<PhotosContainerResource> exportOneDrivePhotos(
-      TokensAndUrlAuthData authData,
-      Optional<IdOnlyContainerResource> albumData,
-      Optional<PaginationData> paginationData,
-      UUID jobId)
-```
 
-### BoundedWildcard
-Can generalize to `? extends ExportInformation`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
-#### Snippet
-```java
-  @Override
-  public ExportResult<PhotosContainerResource> export(
-      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation)
-      throws IOException {
-    if (!exportInformation.isPresent()) {
+  private <T> T makeGetRequest(
+      String url, Optional<Map<String, String>> parameters, Class<T> tClass) throws IOException {
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+    if (parameters.isPresent() && parameters.get().size() > 0) {
 ```
 
 ### BoundedWildcard
@@ -1581,18 +1569,6 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
-#### Snippet
-```java
-
-  private <T> T makeGetRequest(
-      String url, Optional<Map<String, String>> parameters, Class<T> tClass) throws IOException {
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-    if (parameters.isPresent() && parameters.get().size() > 0) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ExportInformation`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
 #### Snippet
@@ -1617,15 +1593,39 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToGraphEventTransformer.java`
+Can generalize to `? extends IdOnlyContainerResource`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
 #### Snippet
 ```java
-  }
+  ExportResult<PhotosContainerResource> exportOneDrivePhotos(
+      TokensAndUrlAuthData authData,
+      Optional<IdOnlyContainerResource> albumData,
+      Optional<PaginationData> paginationData,
+      UUID jobId)
+```
 
-  private void copyAttendees(CalendarEventModel eventModel, Map<String, Object> graphCalendar) {
-    List<CalendarAttendeeModel> attendees = eventModel.getAttendees();
-    if (attendees == null) {
+### BoundedWildcard
+Can generalize to `? extends ExportInformation`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+#### Snippet
+```java
+  @Override
+  public ExportResult<PhotosContainerResource> export(
+      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation)
+      throws IOException {
+    if (!exportInformation.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExportInformation`
+in `extensions/data-transfer/portability-data-transfer-rememberthemilk/src/main/java/org/datatransferproject/transfer/rememberthemilk/tasks/RememberTheMilkTasksExporter.java`
+#### Snippet
+```java
+  @Override
+  public ExportResult<TaskContainerResource> export(
+          UUID jobId, AuthData authData, Optional<ExportInformation> exportInformation) {
+    // Create new service for the authorized user
+    RememberTheMilkService service = getOrCreateService(authData);
 ```
 
 ### BoundedWildcard
@@ -1657,47 +1657,23 @@ Can generalize to `? super String`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToGraphEventTransformer.java`
 #### Snippet
 ```java
+  }
+
+  private void copyAttendees(CalendarEventModel eventModel, Map<String, Object> graphCalendar) {
+    List<CalendarAttendeeModel> attendees = eventModel.getAttendees();
+    if (attendees == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToGraphEventTransformer.java`
+#### Snippet
+```java
       String key,
       CalendarEventModel.CalendarEventTime dateTime,
       Map<String, Object> graphCalendar) {
     Map<String, String> graphDateTime = new HashMap<>();
     graphDateTime.put(
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExportInformation`
-in `extensions/data-transfer/portability-data-transfer-rememberthemilk/src/main/java/org/datatransferproject/transfer/rememberthemilk/tasks/RememberTheMilkTasksExporter.java`
-#### Snippet
-```java
-  @Override
-  public ExportResult<TaskContainerResource> export(
-          UUID jobId, AuthData authData, Optional<ExportInformation> exportInformation) {
-    // Create new service for the authorized user
-    RememberTheMilkService service = getOrCreateService(authData);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/contacts/ToGraphContactTransformer.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private void addPhone(String key, Telephone telephone, Map<String, Object> map) {
-    List<String> collection = (List<String>) map.computeIfAbsent(key, k -> new ArrayList<>());
-    collection.add(telephone.getText());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/contacts/ToGraphContactTransformer.java`
-#### Snippet
-```java
-  }
-
-  private void copyNames(VCard card, Map<String, Object> contact) {
-    StructuredName structuredName = card.getStructuredName();
-    if (structuredName != null) {
 ```
 
 ### BoundedWildcard
@@ -1719,9 +1695,9 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```java
   }
 
-  private void copyBusinessData(VCard card, Map<String, Object> contact) {
-    for (Title title : card.getTitles()) {
-      if (title.getValue() == null) {
+  private void copyExtendedData(VCard card, Map<String, Object> contact) {
+    safeSet("manager", card.getExtendedProperty("X-Manager"), contact);
+    safeSet("spouseName", card.getExtendedProperty("X-Spouse"), contact);
 ```
 
 ### BoundedWildcard
@@ -1731,33 +1707,33 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```java
   }
 
-  private void copyExtendedData(VCard card, Map<String, Object> contact) {
-    safeSet("manager", card.getExtendedProperty("X-Manager"), contact);
-    safeSet("spouseName", card.getExtendedProperty("X-Spouse"), contact);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/TransformerServiceImpl.java`
-#### Snippet
-```java
-  @Override
-  public <T> TransformResult<T> transform(
-      Class<T> resultType, Object input, Map<String, String> properties) {
-    TransformerContext context = new TransformerContextImpl(properties);
-    T dataType = transform(resultType, input, context);
+  private void copyNames(VCard card, Map<String, Object> contact) {
+    StructuredName structuredName = card.getStructuredName();
+    if (structuredName != null) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/TransformerServiceImpl.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/contacts/ToGraphContactTransformer.java`
 #### Snippet
 ```java
-    private final Map<String, String> properties;
 
-    public TransformerContextImpl(Map<String, String> properties) {
-      this.properties = properties;
-    }
+  @SuppressWarnings("unchecked")
+  private void addPhone(String key, Telephone telephone, Map<String, Object> map) {
+    List<String> collection = (List<String>) map.computeIfAbsent(key, k -> new ArrayList<>());
+    collection.add(telephone.getText());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/contacts/ToGraphContactTransformer.java`
+#### Snippet
+```java
+  }
+
+  private void copyBusinessData(VCard card, Map<String, Object> contact) {
+    for (Title title : card.getTitles()) {
+      if (title.getValue() == null) {
 ```
 
 ### BoundedWildcard
@@ -1785,15 +1761,27 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/Callable
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TransferExtension`
-in `portability-transfer/src/main/java/org/datatransferproject/transfer/WorkerModule.java`
+Can generalize to `? extends T`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/TransformerServiceImpl.java`
 #### Snippet
 ```java
-  @VisibleForTesting
-  static TransferExtension findTransferExtension(
-      ImmutableList<TransferExtension> transferExtensions, String service) {
-    try {
-      return transferExtensions
+  @Override
+  public <T> TransformResult<T> transform(
+      Class<T> resultType, Object input, Map<String, String> properties) {
+    TransformerContext context = new TransformerContextImpl(properties);
+    T dataType = transform(resultType, input, context);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/TransformerServiceImpl.java`
+#### Snippet
+```java
+    private final Map<String, String> properties;
+
+    public TransformerContextImpl(Map<String, String> properties) {
+      this.properties = properties;
+    }
 ```
 
 ### BoundedWildcard
@@ -1809,6 +1797,18 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/WorkerMo
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends TransferExtension`
+in `portability-transfer/src/main/java/org/datatransferproject/transfer/WorkerModule.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static TransferExtension findTransferExtension(
+      ImmutableList<TransferExtension> transferExtensions, String service) {
+    try {
+      return transferExtensions
+```
+
+### BoundedWildcard
 Can generalize to `? extends ContainerResource`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/ContinuationData.java`
 #### Snippet
@@ -1818,42 +1818,6 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
   public void addContainerResources(List<ContainerResource> resources) {
     containerResources.addAll(resources);
   }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/TempPhotosData.java`
-#### Snippet
-```java
-  public TempPhotosData(
-      @JsonProperty("jobId") UUID jobId,
-      @JsonProperty("tempPhotoAlbums") Map<String, PhotoAlbum> tempPhotoAlbums,
-      @JsonProperty("newAlbumIds") Map<String, String> newAlbumIds,
-      @JsonProperty("containedPhotoIds") Collection<String> containedPhotoIds) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/TempPhotosData.java`
-#### Snippet
-```java
-      @JsonProperty("jobId") UUID jobId,
-      @JsonProperty("tempPhotoAlbums") Map<String, PhotoAlbum> tempPhotoAlbums,
-      @JsonProperty("newAlbumIds") Map<String, String> newAlbumIds,
-      @JsonProperty("containedPhotoIds") Collection<String> containedPhotoIds) {
-    this.jobId = jobId;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/TempPhotosData.java`
-#### Snippet
-```java
-      @JsonProperty("tempPhotoAlbums") Map<String, PhotoAlbum> tempPhotoAlbums,
-      @JsonProperty("newAlbumIds") Map<String, String> newAlbumIds,
-      @JsonProperty("containedPhotoIds") Collection<String> containedPhotoIds) {
-    this.jobId = jobId;
-    this.tempPhotoAlbums = tempPhotoAlbums;
 ```
 
 ### BoundedWildcard
@@ -1953,39 +1917,39 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExportInformation`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+Can generalize to `? super String`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/TempPhotosData.java`
 #### Snippet
 ```java
-
-  private ExportResult<PhotosContainerResource> exportPhotos(UUID jobId, AD authData,
-      Optional<ExportInformation> exportInfo)
-      throws Exception {
-    return photosExporter.export(jobId, authData, exportInfo.map((ei) -> {
+  public TempPhotosData(
+      @JsonProperty("jobId") UUID jobId,
+      @JsonProperty("tempPhotoAlbums") Map<String, PhotoAlbum> tempPhotoAlbums,
+      @JsonProperty("newAlbumIds") Map<String, String> newAlbumIds,
+      @JsonProperty("containedPhotoIds") Collection<String> containedPhotoIds) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AD`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+Can generalize to `? super String`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/TempPhotosData.java`
 #### Snippet
 ```java
-  private final Exporter<AD, VideosContainerResource> videosExporter;
-
-  public MediaExporterDecorator(Exporter<AD, PhotosContainerResource> photosExporter,
-      Exporter<AD, VideosContainerResource> videosExporter) {
-    this.photosExporter = photosExporter;
+      @JsonProperty("jobId") UUID jobId,
+      @JsonProperty("tempPhotoAlbums") Map<String, PhotoAlbum> tempPhotoAlbums,
+      @JsonProperty("newAlbumIds") Map<String, String> newAlbumIds,
+      @JsonProperty("containedPhotoIds") Collection<String> containedPhotoIds) {
+    this.jobId = jobId;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super AD`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+Can generalize to `? super String`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/TempPhotosData.java`
 #### Snippet
 ```java
-
-  public MediaExporterDecorator(Exporter<AD, PhotosContainerResource> photosExporter,
-      Exporter<AD, VideosContainerResource> videosExporter) {
-    this.photosExporter = photosExporter;
-    this.videosExporter = videosExporter;
+      @JsonProperty("tempPhotoAlbums") Map<String, PhotoAlbum> tempPhotoAlbums,
+      @JsonProperty("newAlbumIds") Map<String, String> newAlbumIds,
+      @JsonProperty("containedPhotoIds") Collection<String> containedPhotoIds) {
+    this.jobId = jobId;
+    this.tempPhotoAlbums = tempPhotoAlbums;
 ```
 
 ### BoundedWildcard
@@ -2013,6 +1977,18 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ExportInformation`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+#### Snippet
+```java
+
+  private ExportResult<VideosContainerResource> exportVideos(UUID jobId, AD authData,
+      Optional<ExportInformation> exportInfo) throws Exception {
+    return videosExporter.export(jobId, authData, exportInfo.map((ei) -> {
+      ContainerResource cr = ei.getContainerResource();
+```
+
+### BoundedWildcard
 Can generalize to `? extends PhotosContainerResource`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
 #### Snippet
@@ -2037,15 +2013,51 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 ```
 
 ### BoundedWildcard
+Can generalize to `? super AD`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+#### Snippet
+```java
+  private final Exporter<AD, VideosContainerResource> videosExporter;
+
+  public MediaExporterDecorator(Exporter<AD, PhotosContainerResource> photosExporter,
+      Exporter<AD, VideosContainerResource> videosExporter) {
+    this.photosExporter = photosExporter;
+```
+
+### BoundedWildcard
+Can generalize to `? super AD`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+#### Snippet
+```java
+
+  public MediaExporterDecorator(Exporter<AD, PhotosContainerResource> photosExporter,
+      Exporter<AD, VideosContainerResource> videosExporter) {
+    this.photosExporter = photosExporter;
+    this.videosExporter = videosExporter;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExportInformation`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
 #### Snippet
 ```java
 
-  private ExportResult<VideosContainerResource> exportVideos(UUID jobId, AD authData,
-      Optional<ExportInformation> exportInfo) throws Exception {
-    return videosExporter.export(jobId, authData, exportInfo.map((ei) -> {
-      ContainerResource cr = ei.getContainerResource();
+  private ExportResult<PhotosContainerResource> exportPhotos(UUID jobId, AD authData,
+      Optional<ExportInformation> exportInfo)
+      throws Exception {
+    return photosExporter.export(jobId, authData, exportInfo.map((ei) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExportInformation`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/AnyToAnyExporter.java`
+#### Snippet
+```java
+
+  @Override
+  public ExportResult<To> export(UUID jobId, AD authData, Optional<ExportInformation> exportInfo)
+      throws Exception {
+    Optional<ExportInformation> infoWithConvertedResource =
 ```
 
 ### BoundedWildcard
@@ -2109,18 +2121,6 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExportInformation`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/AnyToAnyExporter.java`
-#### Snippet
-```java
-
-  @Override
-  public ExportResult<To> export(UUID jobId, AD authData, Optional<ExportInformation> exportInfo)
-      throws Exception {
-    Optional<ExportInformation> infoWithConvertedResource =
-```
-
-### BoundedWildcard
 Can generalize to `? extends MusicRecording`
 in `portability-types-common/src/main/java/org/datatransferproject/types/common/models/playlists/MusicPlaylist.java`
 #### Snippet
@@ -2162,11 +2162,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `extensions/data-transfer/portability-data-transfer-mastodon/src/main/java/org/datatransferproject/transfer/mastodon/model/Status.java`
 #### Snippet
 ```java
-  @Nullable private String url;
   private Account account;
   @Nullable private String inReplyToId;
   @Nullable private String inReplyToAccountId;
   private String content;
+  private String createdAtTime;
 ```
 
 ### NullableProblems
@@ -2186,11 +2186,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `extensions/data-transfer/portability-data-transfer-mastodon/src/main/java/org/datatransferproject/transfer/mastodon/model/Status.java`
 #### Snippet
 ```java
+  @Nullable private String url;
   private Account account;
   @Nullable private String inReplyToId;
   @Nullable private String inReplyToAccountId;
   private String content;
-  private String createdAtTime;
 ```
 
 ### NullableProblems
@@ -2456,11 +2456,11 @@ in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/or
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
 #### Snippet
 ```java
-      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation)
-      throws IOException {
+  public ExportResult<MediaContainerResource> export(UUID jobId, TokensAndUrlAuthData authData,
+      Optional<ExportInformation> exportInformation) throws IOException {
     if (!exportInformation.isPresent()) {
       return exportOneDrivePhotos(authData, Optional.empty(), Optional.empty(), jobId);
     }
@@ -2468,11 +2468,11 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
 #### Snippet
 ```java
-  public ExportResult<MediaContainerResource> export(UUID jobId, TokensAndUrlAuthData authData,
-      Optional<ExportInformation> exportInformation) throws IOException {
+      UUID jobId, TokensAndUrlAuthData authData, Optional<ExportInformation> exportInformation)
+      throws IOException {
     if (!exportInformation.isPresent()) {
       return exportOneDrivePhotos(authData, Optional.empty(), Optional.empty(), jobId);
     }
@@ -3083,11 +3083,35 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/Callable
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `appCredentials` is accessed in both synchronized and unsynchronized contexts
-in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth1ServiceExtension.java`
+Field `httpTransport` is accessed in both synchronized and unsynchronized contexts
+in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
 #### Snippet
 ```java
-  private volatile Map<DataVertical, OAuth1DataGenerator> importAuthDataGenerators;
+
+  private AppCredentials appCredentials;
+  private HttpTransport httpTransport;
+
+  private boolean initialized = false;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `initialized` is accessed in both synchronized and unsynchronized contexts
+in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
+#### Snippet
+```java
+  private HttpTransport httpTransport;
+
+  private boolean initialized = false;
+
+  public OAuth2ServiceExtension(OAuth2Config oAuth2Config) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `appCredentials` is accessed in both synchronized and unsynchronized contexts
+in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
+#### Snippet
+```java
+  private volatile Map<DataVertical, OAuth2DataGenerator> importAuthDataGenerators;
 
   private AppCredentials appCredentials;
   private HttpTransport httpTransport;
@@ -3132,38 +3156,14 @@ in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth1ServiceExten
 
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `appCredentials` is accessed in both synchronized and unsynchronized contexts
-in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
+in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth1ServiceExtension.java`
 #### Snippet
 ```java
-  private volatile Map<DataVertical, OAuth2DataGenerator> importAuthDataGenerators;
+  private volatile Map<DataVertical, OAuth1DataGenerator> importAuthDataGenerators;
 
   private AppCredentials appCredentials;
   private HttpTransport httpTransport;
 
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `initialized` is accessed in both synchronized and unsynchronized contexts
-in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
-#### Snippet
-```java
-  private HttpTransport httpTransport;
-
-  private boolean initialized = false;
-
-  public OAuth2ServiceExtension(OAuth2Config oAuth2Config) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `httpTransport` is accessed in both synchronized and unsynchronized contexts
-in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
-#### Snippet
-```java
-
-  private AppCredentials appCredentials;
-  private HttpTransport httpTransport;
-
-  private boolean initialized = false;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3179,15 +3179,15 @@ public final class LocalJobStore extends JobStoreWithValidator {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `encodedPrivateKey` is accessed in both synchronized and unsynchronized contexts
+Field `exportService` is accessed in both synchronized and unsynchronized contexts
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
 #### Snippet
 ```java
-// We make the class and various methods public so they can be accessed from Monitors
-public final class JobMetadata {
-  private static byte[] encodedPrivateKey = null;
   private static UUID jobId = null;
   private static DataVertical dataType = null;
+  private static String exportService = null;
+  private static String importService = null;
+  private static Stopwatch stopWatch = null;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3200,6 +3200,18 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetad
   private static DataVertical dataType = null;
   private static String exportService = null;
   private static String importService = null;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `encodedPrivateKey` is accessed in both synchronized and unsynchronized contexts
+in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
+#### Snippet
+```java
+// We make the class and various methods public so they can be accessed from Monitors
+public final class JobMetadata {
+  private static byte[] encodedPrivateKey = null;
+  private static UUID jobId = null;
+  private static DataVertical dataType = null;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3224,18 +3236,6 @@ public final class JobMetadata {
   private static UUID jobId = null;
   private static DataVertical dataType = null;
   private static String exportService = null;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `exportService` is accessed in both synchronized and unsynchronized contexts
-in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
-#### Snippet
-```java
-  private static UUID jobId = null;
-  private static DataVertical dataType = null;
-  private static String exportService = null;
-  private static String importService = null;
-  private static Stopwatch stopWatch = null;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3278,18 +3278,6 @@ in `portability-types-common/src/main/java/org/datatransferproject/types/common/
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth1ServiceExtension.java`
-#### Snippet
-```java
-  private HttpTransport httpTransport;
-
-  private boolean initialized = false;
-  private Monitor monitor;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExtension.java`
 #### Snippet
 ```java
@@ -3298,6 +3286,18 @@ in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth2ServiceExten
   private boolean initialized = false;
 
   public OAuth2ServiceExtension(OAuth2Config oAuth2Config) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `libraries/auth/src/main/java/org/datatransferproject/auth/OAuth1ServiceExtension.java`
+#### Snippet
+```java
+  private HttpTransport httpTransport;
+
+  private boolean initialized = false;
+  private Monitor monitor;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3422,18 +3422,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `extensions/data-transfer/portability-data-transfer-smugmug/src/main/java/org/datatransferproject/transfer/smugmug/SmugMugTransferExtension.java`
-#### Snippet
-```java
-  private SmugMugPhotosImporter importer;
-  private SmugMugPhotosExporter exporter;
-  private boolean initialized = false;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `extensions/data-transfer/portability-data-transfer-daybook/src/main/java/org/datatransferproject/transfer/daybook/DaybookTransferExtension.java`
 #### Snippet
 ```java
@@ -3442,6 +3430,18 @@ in `extensions/data-transfer/portability-data-transfer-daybook/src/main/java/org
   private boolean initialized = false;
   private ImmutableMap<DataVertical, Importer<?, ?>> importerMap;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/data-transfer/portability-data-transfer-smugmug/src/main/java/org/datatransferproject/transfer/smugmug/SmugMugTransferExtension.java`
+#### Snippet
+```java
+  private SmugMugPhotosImporter importer;
+  private SmugMugPhotosExporter exporter;
+  private boolean initialized = false;
+
+  @Override
 ```
 
 ### RedundantFieldInitialization
@@ -3458,18 +3458,6 @@ in `extensions/data-transfer/portability-data-transfer-spotify/src/main/java/org
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `extensions/data-transfer/portability-data-transfer-twitter/src/main/java/org/datatransferproject/transfer/twitter/TwitterTransferExtension.java`
-#### Snippet
-```java
-  private TwitterPhotosImporter importer;
-  private TwitterPhotosExporter exporter;
-  private boolean initialized = false;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/FacebookTransferExtension.java`
 #### Snippet
 ```java
@@ -3478,6 +3466,18 @@ public class FacebookTransferExtension implements TransferExtension {
   private boolean initialized = false;
 
   private static final ImmutableList<DataVertical> SUPPORTED_SERVICES =
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/data-transfer/portability-data-transfer-twitter/src/main/java/org/datatransferproject/transfer/twitter/TwitterTransferExtension.java`
+#### Snippet
+```java
+  private TwitterPhotosImporter importer;
+  private TwitterPhotosExporter exporter;
+  private boolean initialized = false;
+
+  @Override
 ```
 
 ### RedundantFieldInitialization
@@ -3533,6 +3533,30 @@ Field initialization to `null` is redundant
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
 #### Snippet
 ```java
+  private static UUID jobId = null;
+  private static DataVertical dataType = null;
+  private static String exportService = null;
+  private static String importService = null;
+  private static Stopwatch stopWatch = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
+#### Snippet
+```java
+  private static byte[] encodedPrivateKey = null;
+  private static UUID jobId = null;
+  private static DataVertical dataType = null;
+  private static String exportService = null;
+  private static String importService = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
+#### Snippet
+```java
 // We make the class and various methods public so they can be accessed from Monitors
 public final class JobMetadata {
   private static byte[] encodedPrivateKey = null;
@@ -3545,35 +3569,11 @@ Field initialization to `null` is redundant
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
 #### Snippet
 ```java
-  private static byte[] encodedPrivateKey = null;
-  private static UUID jobId = null;
-  private static DataVertical dataType = null;
-  private static String exportService = null;
-  private static String importService = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
-#### Snippet
-```java
   private static String exportService = null;
   private static String importService = null;
   private static Stopwatch stopWatch = null;
 
   public static boolean isInitialized() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `portability-transfer/src/main/java/org/datatransferproject/transfer/JobMetadata.java`
-#### Snippet
-```java
-  private static UUID jobId = null;
-  private static DataVertical dataType = null;
-  private static String exportService = null;
-  private static String importService = null;
-  private static Stopwatch stopWatch = null;
 ```
 
 ### RedundantFieldInitialization
@@ -3753,24 +3753,24 @@ in `extensions/auth/portability-auth-rememberthemilk/src/main/java/org/datatrans
 
 ### FuseStreamOperations
 Stream may be extended replacing 'sort'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-
-    List<String> orderedKeys =
-        updatedParams.keySet().stream().collect(toCollection(ArrayList::new));
-    Collections.sort(orderedKeys);
-
-```
-
-### FuseStreamOperations
-Stream may be extended replacing 'sort'
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
 #### Snippet
 ```java
     updatedParams.put(ACCESS_TOKEN_KEY, Preconditions.checkNotNull(credential.getAccessToken()));
 
     List<String> orderedKeys = updatedParams.keySet().stream().collect(Collectors.toList());
+    Collections.sort(orderedKeys);
+
+```
+
+### FuseStreamOperations
+Stream may be extended replacing 'sort'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+
+    List<String> orderedKeys =
+        updatedParams.keySet().stream().collect(toCollection(ArrayList::new));
     Collections.sort(orderedKeys);
 
 ```
@@ -3838,6 +3838,18 @@ in `extensions/transport/portability-transport-jettyrest/src/main/java/org/datat
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/videos/RestFbFacebookVideos.java`
+#### Snippet
+```java
+    try {
+      return client.fetchConnection(
+          "me/videos/uploaded", Video.class, parameters.toArray(new Parameter[0]));
+    } catch (FacebookOAuthException e) {
+      throw FacebookTransferUtils.handleFacebookOAuthException(e);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/videos/FacebookVideosImporter.java`
 #### Snippet
 ```java
@@ -3870,18 +3882,6 @@ in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/or
     return client.fetchConnection("me/albums", Album.class, parameters.toArray(new Parameter[0]));
   }
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/org/datatransferproject/transfer/facebook/videos/RestFbFacebookVideos.java`
-#### Snippet
-```java
-    try {
-      return client.fetchConnection(
-          "me/videos/uploaded", Video.class, parameters.toArray(new Parameter[0]));
-    } catch (FacebookOAuthException e) {
-      throw FacebookTransferUtils.handleFacebookOAuthException(e);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4349,37 +4349,13 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
 #### Snippet
 ```java
-    params.put(PAGE_SIZE_KEY, String.valueOf(PLAYLIST_ITEM_PAGE_SIZE));
-    params.put(PLAYLIST_ID_KEY, playlistId);
-    if (pageToken.isPresent()) {
-      params.put(TOKEN_KEY, pageToken.get());
-    }
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  private String generateParamsString(Optional<Map<String, String>> params) {
+  private String generateParamsString(Optional<Map<String, String>> params) throws IOException {
     Map<String, String> updatedParams = new ArrayMap<>();
     if (params.isPresent()) {
       updatedParams.putAll(params.get());
-    }
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-    Map<String, String> params = new LinkedHashMap<>();
-    params.put(PAGE_SIZE_KEY, String.valueOf(PLAYLIST_PAGE_SIZE));
-    if (pageToken.isPresent()) {
-      params.put(TOKEN_KEY, pageToken.get());
     }
 ```
 
@@ -4397,10 +4373,34 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
 #### Snippet
 ```java
-  private String generateParamsString(Optional<Map<String, String>> params) throws IOException {
+    params.put(PAGE_SIZE_KEY, String.valueOf(PLAYLIST_ITEM_PAGE_SIZE));
+    params.put(PLAYLIST_ID_KEY, playlistId);
+    if (pageToken.isPresent()) {
+      params.put(TOKEN_KEY, pageToken.get());
+    }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+    Map<String, String> params = new LinkedHashMap<>();
+    params.put(PAGE_SIZE_KEY, String.valueOf(PLAYLIST_PAGE_SIZE));
+    if (pageToken.isPresent()) {
+      params.put(TOKEN_KEY, pageToken.get());
+    }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  private String generateParamsString(Optional<Map<String, String>> params) {
     Map<String, String> updatedParams = new ArrayMap<>();
     if (params.isPresent()) {
       updatedParams.putAll(params.get());
@@ -4412,10 +4412,10 @@ Can be replaced with single expression in functional style
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
 ```java
-  private String generateParamsString(Optional<Map<String, String>> params) {
-    Map<String, String> updatedParams = new ArrayMap<>();
-    if (params.isPresent()) {
-      updatedParams.putAll(params.get());
+    Map<String, String> params = new LinkedHashMap<>();
+    params.put(PAGE_SIZE_KEY, String.valueOf(ALBUM_PAGE_SIZE));
+    if (pageToken.isPresent()) {
+      params.put(TOKEN_KEY, pageToken.get());
     }
 ```
 
@@ -4436,10 +4436,10 @@ Can be replaced with single expression in functional style
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
 ```java
-    Map<String, String> params = new LinkedHashMap<>();
-    params.put(PAGE_SIZE_KEY, String.valueOf(ALBUM_PAGE_SIZE));
-    if (pageToken.isPresent()) {
-      params.put(TOKEN_KEY, pageToken.get());
+  private String generateParamsString(Optional<Map<String, String>> params) {
+    Map<String, String> updatedParams = new ArrayMap<>();
+    if (params.isPresent()) {
+      updatedParams.putAll(params.get());
     }
 ```
 
@@ -4542,18 +4542,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### RedundantLengthCheck
 Redundant array length check
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
-#### Snippet
-```java
-    List<PhotoModel> photos = new ArrayList<>();
-
-    if (driveItems != null && driveItems.length > 0) {
-      for (MicrosoftDriveItem driveItem : driveItems) {
-        PhotoAlbum album = tryConvertDriveItemToPhotoAlbum(driveItem, jobId);
-```
-
-### RedundantLengthCheck
-Redundant array length check
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
 #### Snippet
 ```java
@@ -4562,6 +4550,18 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
     if (driveItems != null && driveItems.length > 0) {
       for (MicrosoftDriveItem driveItem : driveItems) {
         MediaAlbum album = tryConvertDriveItemToMediaAlbum(driveItem, jobId);
+```
+
+### RedundantLengthCheck
+Redundant array length check
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+#### Snippet
+```java
+    List<PhotoModel> photos = new ArrayList<>();
+
+    if (driveItems != null && driveItems.length > 0) {
+      for (MicrosoftDriveItem driveItem : driveItems) {
+        PhotoAlbum album = tryConvertDriveItemToPhotoAlbum(driveItem, jobId);
 ```
 
 ## RuleId[ruleID=Java8MapForEach]
@@ -4719,8 +4719,8 @@ in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/d
     boolean hasMore = (items != null && items.size() != 0);
 
     for (Map<String, Object> item : items) {
-      String photoId = (String) item.get("id");
-
+      albumBuilder.add(
+          new PhotoAlbum(
 ```
 
 ### DataFlowIssue
@@ -4743,8 +4743,8 @@ in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/d
     boolean hasMore = (items != null && items.size() != 0);
 
     for (Map<String, Object> item : items) {
-      albumBuilder.add(
-          new PhotoAlbum(
+      String photoId = (String) item.get("id");
+
 ```
 
 ### DataFlowIssue
@@ -4757,6 +4757,18 @@ in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/d
     String albumName = KoofrTransmogrificationConfig.getAlbumName(album.getName());
 
     monitor.debug(() -> String.format("Create Koofr folder %s", albumName));
+```
+
+### DataFlowIssue
+Method invocation `bytes` may produce `NullPointerException`
+in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/datatransferproject/transfer/koofr/common/KoofrClient.java`
+#### Snippet
+```java
+      }
+
+      Map<String, Object> responseData = objectMapper.readValue(body.bytes(), Map.class);
+
+      return (String) responseData.get("link");
 ```
 
 ### DataFlowIssue
@@ -4781,18 +4793,6 @@ in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/d
       Map<String, Object> responseData = objectMapper.readValue(body.bytes(), Map.class);
       String newName = (String) responseData.get("name");
       Preconditions.checkState(
-```
-
-### DataFlowIssue
-Method invocation `bytes` may produce `NullPointerException`
-in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/datatransferproject/transfer/koofr/common/KoofrClient.java`
-#### Snippet
-```java
-      }
-
-      Map<String, Object> responseData = objectMapper.readValue(body.bytes(), Map.class);
-
-      return (String) responseData.get("link");
 ```
 
 ### DataFlowIssue
@@ -4896,11 +4896,11 @@ Method invocation `string` may produce `NullPointerException`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaImporter.java`
 #### Snippet
 ```java
-    } else if (chunkCode < 200 || chunkCode > 299) {
-      throw new IOException("Got error code: " + chunkCode + " message: " + chunkResponse.message()
-          + " body: " + chunkResponse.body().string());
-    } else if (chunkCode == 200 || chunkCode == 201 || chunkCode == 202) {
-      monitor.info(()
+              + "bearer token: %s\n"
+              + " item: %s\n", // For debugging 404s on upload
+          code, response.message(), response.body().string(), reqResp.getLeft().url(),
+          credential.getAccessToken(), item));
+    } else if (code != 200) {
 ```
 
 ### DataFlowIssue
@@ -4920,23 +4920,35 @@ Method invocation `string` may produce `NullPointerException`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaImporter.java`
 #### Snippet
 ```java
-              + "bearer token: %s\n"
-              + " item: %s\n", // For debugging 404s on upload
-          code, response.message(), response.body().string(), reqResp.getLeft().url(),
-          credential.getAccessToken(), item));
-    } else if (code != 200) {
+    } else if (chunkCode < 200 || chunkCode > 299) {
+      throw new IOException("Got error code: " + chunkCode + " message: " + chunkResponse.message()
+          + " body: " + chunkResponse.body().string());
+    } else if (chunkCode == 200 || chunkCode == 201 || chunkCode == 202) {
+      monitor.info(()
 ```
 
 ### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
+Method invocation `code` may produce `NullPointerException`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosImporter.java`
 #### Snippet
 ```java
-              + chunkResponse.message()
-              + " body: "
-              + chunkResponse.body().string());
-    } else if (chunkCode == 200 || chunkCode == 201 || chunkCode == 202) {
-      monitor.info(
+      chunkResponse = uploadChunk(chunk, photoUploadUrl, totalFileSize, photo.getMediaType());
+    }
+    if (chunkResponse.code() != 200 && chunkResponse.code() != 201) {
+      // Once we upload the last chunk, we should have either 200 or 201.
+      // This should change to a precondition check after we debug some more.
+```
+
+### DataFlowIssue
+Method invocation `bytes` may produce `NullPointerException`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosImporter.java`
+#### Snippet
+```java
+    // get complete file response
+    ResponseBody chunkResponseBody = chunkResponse.body();
+    Map<String, Object> chunkResponseData = objectMapper.readValue(chunkResponseBody.bytes(), Map.class);
+    return (String) chunkResponseData.get("id");
+  }
 ```
 
 ### DataFlowIssue
@@ -4964,27 +4976,15 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### DataFlowIssue
-Method invocation `code` may produce `NullPointerException`
+Method invocation `string` may produce `NullPointerException`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosImporter.java`
 #### Snippet
 ```java
-      chunkResponse = uploadChunk(chunk, photoUploadUrl, totalFileSize, photo.getMediaType());
-    }
-    if (chunkResponse.code() != 200 && chunkResponse.code() != 201) {
-      // Once we upload the last chunk, we should have either 200 or 201.
-      // This should change to a precondition check after we debug some more.
-```
-
-### DataFlowIssue
-Method invocation `bytes` may produce `NullPointerException`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosImporter.java`
-#### Snippet
-```java
-    // get complete file response
-    ResponseBody chunkResponseBody = chunkResponse.body();
-    Map<String, Object> chunkResponseData = objectMapper.readValue(chunkResponseBody.bytes(), Map.class);
-    return (String) chunkResponseData.get("id");
-  }
+              + chunkResponse.message()
+              + " body: "
+              + chunkResponse.body().string());
+    } else if (chunkCode == 200 || chunkCode == 201 || chunkCode == 202) {
+      monitor.info(
 ```
 
 ### DataFlowIssue
@@ -5087,24 +5087,24 @@ in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/d
 
 ### SimplifyStreamApiCallChains
 Can be replaced with 'java.util.ArrayList' constructor
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-
-    List<String> orderedKeys =
-        updatedParams.keySet().stream().collect(toCollection(ArrayList::new));
-    Collections.sort(orderedKeys);
-
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'java.util.ArrayList' constructor
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
 #### Snippet
 ```java
     updatedParams.put(ACCESS_TOKEN_KEY, Preconditions.checkNotNull(credential.getAccessToken()));
 
     List<String> orderedKeys = updatedParams.keySet().stream().collect(Collectors.toList());
+    Collections.sort(orderedKeys);
+
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'java.util.ArrayList' constructor
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+
+    List<String> orderedKeys =
+        updatedParams.keySet().stream().collect(toCollection(ArrayList::new));
     Collections.sort(orderedKeys);
 
 ```
@@ -5172,18 +5172,6 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/WorkerMo
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'sessionSecretKey' is still used
-in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/types/JobAuthorization.java`
-#### Snippet
-```java
-  @Nullable
-  @JsonProperty("sessionSecretKey")
-  public abstract String sessionSecretKey();
-
-  /** The PublicKey of the 'transfer worker' instance assigned to this job, encoded for storage. */
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setSessionSecretKey' is still used
 in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/types/JobAuthorization.java`
 #### Snippet
@@ -5193,6 +5181,18 @@ in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/types/
     public abstract Builder setSessionSecretKey(String sessionSecretKey);
 
     /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'sessionSecretKey' is still used
+in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/types/JobAuthorization.java`
+#### Snippet
+```java
+  @Nullable
+  @JsonProperty("sessionSecretKey")
+  public abstract String sessionSecretKey();
+
+  /** The PublicKey of the 'transfer worker' instance assigned to this job, encoded for storage. */
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -5206,54 +5206,6 @@ in `extensions/copier/portability-stack-copier/src/main/java/org/datatransferpro
     Optional<Stack<ExportInformation>> maybeLoadedStack = jobStore.loadJobStack(jobId);
 
     if (maybeLoadedStack.isPresent()) {
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-
-  private <T> T makeGetRequest(
-      String baseUrl, Optional<Map<String, String>> parameters, Class<T> clazz)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  private <T> T makePostRequest(
-      String baseUrl,
-      Optional<Map<String, String>> parameters,
-      HttpContent httpContent,
-      Class<T> clazz)
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  }
-
-  private String generateParamsString(Optional<Map<String, String>> params) {
-    Map<String, String> updatedParams = new ArrayMap<>();
-    if (params.isPresent()) {
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  private <T> T makePutRequest(
-      String baseUrl,
-      Optional<Map<String, String>> parameters,
-      HttpContent httpContent,
-      Class<T> clazz)
 ```
 
 ### OptionalContainsCollection
@@ -5282,7 +5234,31 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### OptionalContainsCollection
 'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  private <T> T makePutRequest(
+      String baseUrl,
+      Optional<Map<String, String>> parameters,
+      HttpContent httpContent,
+      Class<T> clazz)
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+
+  private <T> T makeGetRequest(
+      String baseUrl, Optional<Map<String, String>> parameters, Class<T> clazz)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
 #### Snippet
 ```java
   }
@@ -5294,14 +5270,14 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### OptionalContainsCollection
 'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
 #### Snippet
 ```java
-  }
-
-  private <T> T makeGetRequest(String url, Optional<Map<String, String>> parameters, Class<T> clazz)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+  private <T> T makePostRequest(
+      String baseUrl,
+      Optional<Map<String, String>> parameters,
+      HttpContent httpContent,
+      Class<T> clazz)
 ```
 
 ### OptionalContainsCollection
@@ -5330,6 +5306,30 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### OptionalContainsCollection
 'Optional' contains collection `Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+#### Snippet
+```java
+  }
+
+  private <T> T makeGetRequest(String url, Optional<Map<String, String>> parameters, Class<T> clazz)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Map`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+#### Snippet
+```java
+  }
+
+  private String generateParamsString(Optional<Map<String, String>> params) {
+    Map<String, String> updatedParams = new ArrayMap<>();
+    if (params.isPresent()) {
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Map`
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaInterface.java`
 #### Snippet
 ```java
@@ -5350,6 +5350,18 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
       String url, Optional<Map<String, String>> parameters, Class<T> tClass) throws IOException {
     HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
     if (parameters.isPresent() && parameters.get().size() > 0) {
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `Map`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/common/TransformerHelper.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  public static Optional<Map<String, String>> getMap(String key, Map<String, ?> map) {
+    return Optional.ofNullable((Map<String, String>) map.get(key));
+  }
 ```
 
 ### OptionalContainsCollection
@@ -5377,18 +5389,6 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `Map`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/common/TransformerHelper.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public static Optional<Map<String, String>> getMap(String key, Map<String, ?> map) {
-    return Optional.ofNullable((Map<String, String>) map.get(key));
-  }
-```
-
-### OptionalContainsCollection
 'Optional' contains collection `Stack`
 in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/storage/JobStore.java`
 #### Snippet
@@ -5405,11 +5405,11 @@ in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/storag
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/ImportResult.java`
 #### Snippet
 ```java
-  }
 
-  private static Optional<Map<String, Integer>> mergeCounts(ImportResult ir1, ImportResult ir2) {
-    if (ir1.counts.isPresent() && ir2.counts.isPresent()) {
-      Map<String, Integer> map = new HashMap<>(ir1.counts.get());
+  /** Returns the number of imported items or an empty optional if no mapping is present. */
+  public Optional<Map<String, Integer>> getCounts() {
+    return counts;
+  }
 ```
 
 ### OptionalContainsCollection
@@ -5429,11 +5429,11 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/ImportResult.java`
 #### Snippet
 ```java
-      ResultType type,
-      Optional<Throwable> throwable,
-      Optional<Map<String, Integer>> counts,
-      Optional<Long> bytes) {
-    this.type = type;
+  }
+
+  private static Optional<Map<String, Integer>> mergeCounts(ImportResult ir1, ImportResult ir2) {
+    if (ir1.counts.isPresent() && ir2.counts.isPresent()) {
+      Map<String, Integer> map = new HashMap<>(ir1.counts.get());
 ```
 
 ### OptionalContainsCollection
@@ -5441,11 +5441,11 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/ImportResult.java`
 #### Snippet
 ```java
-
-  /** Returns the number of imported items or an empty optional if no mapping is present. */
-  public Optional<Map<String, Integer>> getCounts() {
-    return counts;
-  }
+      ResultType type,
+      Optional<Throwable> throwable,
+      Optional<Map<String, Integer>> counts,
+      Optional<Long> bytes) {
+    this.type = type;
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -5561,18 +5561,6 @@ public class InsertResponse implements Serializable {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'status' in a Serializable class
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/mediaModels/NewMediaItemResult.java`
-#### Snippet
-```java
-
-  @JsonProperty("status")
-  private Status status;
-
-  @JsonProperty("mediaItem")
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'mediaItem' in a Serializable class
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/mediaModels/NewMediaItemResult.java`
 #### Snippet
@@ -5582,6 +5570,18 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
   private GoogleMediaItem mediaItem;
 
   public Status getStatus() {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'status' in a Serializable class
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/mediaModels/NewMediaItemResult.java`
+#### Snippet
+```java
+
+  @JsonProperty("status")
+  private Status status;
+
+  @JsonProperty("mediaItem")
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -5794,30 +5794,6 @@ in `extensions/transport/portability-transport-jettyrest/src/main/java/org/datat
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicExporter.java`
-#### Snippet
-```java
-      TokensAndUrlAuthData authData,
-      IdOnlyContainerResource playlistData,
-      Optional<PaginationData> paginationData)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    String playlistId = playlistData.getId();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicExporter.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  ExportResult<MusicContainerResource> exportPlaylists(
-      TokensAndUrlAuthData authData, Optional<PaginationData> paginationData, UUID jobId)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    Optional<String> paginationToken = Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/tasks/GoogleTasksExporter.java`
 #### Snippet
 ```java
@@ -5842,6 +5818,30 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'paginationData'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicExporter.java`
+#### Snippet
+```java
+      TokensAndUrlAuthData authData,
+      IdOnlyContainerResource playlistData,
+      Optional<PaginationData> paginationData)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    String playlistId = playlistData.getId();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationData'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicExporter.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  ExportResult<MusicContainerResource> exportPlaylists(
+      TokensAndUrlAuthData authData, Optional<PaginationData> paginationData, UUID jobId)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    Optional<String> paginationToken = Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationData'
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosExporter.java`
 #### Snippet
 ```java
@@ -5850,90 +5850,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
           TokensAndUrlAuthData authData, Optional<StringPaginationToken> paginationData)
           throws IOException {
 
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'parameters'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-
-  private <T> T makeGetRequest(
-      String baseUrl, Optional<Map<String, String>> parameters, Class<T> clazz)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pageToken'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  }
-
-  PlaylistItemListResponse listPlaylistItems(String playlistId, Optional<String> pageToken)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    Map<String, String> params = new LinkedHashMap<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'parameters'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  private <T> T makePostRequest(
-      String baseUrl,
-      Optional<Map<String, String>> parameters,
-      HttpContent httpContent,
-      Class<T> clazz)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'params'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  }
-
-  private String generateParamsString(Optional<Map<String, String>> params) {
-    Map<String, String> updatedParams = new ArrayMap<>();
-    if (params.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'parameters'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  private <T> T makePutRequest(
-      String baseUrl,
-      Optional<Map<String, String>> parameters,
-      HttpContent httpContent,
-      Class<T> clazz)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pageToken'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-  }
-
-  PlaylistListResponse listPlaylists(Optional<String> pageToken)
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    Map<String, String> params = new LinkedHashMap<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pageToken'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
-#### Snippet
-```java
-  }
-
-  MediaItemSearchResponse listVideoItems(Optional<String> pageToken) throws IOException {
-    Map<String, Object> params = new LinkedHashMap<>();
-    params.put(PAGE_SIZE_KEY, String.valueOf(MEDIA_PAGE_SIZE));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5961,15 +5877,87 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosExporter.java`
+`Optional` used as type for parameter 'pageToken'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/videos/GoogleVideosInterface.java`
 #### Snippet
 ```java
-  @VisibleForTesting
-  ExportResult<PhotosContainerResource> exportAlbums(
-      TokensAndUrlAuthData authData, Optional<PaginationData> paginationData, UUID jobId)
+  }
+
+  MediaItemSearchResponse listVideoItems(Optional<String> pageToken) throws IOException {
+    Map<String, Object> params = new LinkedHashMap<>();
+    params.put(PAGE_SIZE_KEY, String.valueOf(MEDIA_PAGE_SIZE));
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'pageToken'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  }
+
+  PlaylistItemListResponse listPlaylistItems(String playlistId, Optional<String> pageToken)
       throws IOException, InvalidTokenException, PermissionDeniedException {
-    Optional<String> paginationToken = Optional.empty();
+    Map<String, String> params = new LinkedHashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'parameters'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  private <T> T makePutRequest(
+      String baseUrl,
+      Optional<Map<String, String>> parameters,
+      HttpContent httpContent,
+      Class<T> clazz)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'parameters'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+
+  private <T> T makeGetRequest(
+      String baseUrl, Optional<Map<String, String>> parameters, Class<T> clazz)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'pageToken'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  }
+
+  PlaylistListResponse listPlaylists(Optional<String> pageToken)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    Map<String, String> params = new LinkedHashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'params'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  }
+
+  private String generateParamsString(Optional<Map<String, String>> params) {
+    Map<String, String> updatedParams = new ArrayMap<>();
+    if (params.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'parameters'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+  private <T> T makePostRequest(
+      String baseUrl,
+      Optional<Map<String, String>> parameters,
+      HttpContent httpContent,
+      Class<T> clazz)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -5981,6 +5969,18 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
   private List<PhotoModel> convertPhotosList(
       Optional<String> albumId, GoogleMediaItem[] mediaItems, UUID jobId) throws IOException {
     List<PhotoModel> photos = new ArrayList<>(mediaItems.length);
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'albumId'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosExporter.java`
+#### Snippet
+```java
+  }
+
+  private PhotoModel convertToPhotoModel(Optional<String> albumId, GoogleMediaItem mediaItem) {
+    Preconditions.checkArgument(mediaItem.getMediaMetadata().getPhoto() != null);
 
 ```
 
@@ -6021,39 +6021,15 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'albumId'
+`Optional` used as type for parameter 'paginationData'
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosExporter.java`
 #### Snippet
 ```java
-  }
-
-  private PhotoModel convertToPhotoModel(Optional<String> albumId, GoogleMediaItem mediaItem) {
-    Preconditions.checkArgument(mediaItem.getMediaMetadata().getPhoto() != null);
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'params'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
-#### Snippet
-```java
-  }
-
-  private String generateParamsString(Optional<Map<String, String>> params) {
-    Map<String, String> updatedParams = new ArrayMap<>();
-    if (params.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'parameters'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
-#### Snippet
-```java
-  }
-
-  private <T> T makeGetRequest(String url, Optional<Map<String, String>> parameters, Class<T> clazz)
+  @VisibleForTesting
+  ExportResult<PhotosContainerResource> exportAlbums(
+      TokensAndUrlAuthData authData, Optional<PaginationData> paginationData, UUID jobId)
       throws IOException, InvalidTokenException, PermissionDeniedException {
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+    Optional<String> paginationToken = Optional.empty();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6081,6 +6057,18 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'pageToken'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+#### Snippet
+```java
+  }
+
+  AlbumListResponse listAlbums(Optional<String> pageToken)
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    Map<String, String> params = new LinkedHashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'albumId'
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
@@ -6105,27 +6093,27 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pageToken'
+`Optional`> used as type for parameter 'parameters'
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
 ```java
   }
 
-  AlbumListResponse listAlbums(Optional<String> pageToken)
+  private <T> T makeGetRequest(String url, Optional<Map<String, String>> parameters, Class<T> clazz)
       throws IOException, InvalidTokenException, PermissionDeniedException {
-    Map<String, String> params = new LinkedHashMap<>();
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pageData'
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/calendar/GoogleCalendarExporter.java`
+`Optional`> used as type for parameter 'params'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
 #### Snippet
 ```java
+  }
 
-  private ExportResult<CalendarContainerResource> exportCalendars(
-      TokensAndUrlAuthData authData, Optional<PaginationData> pageData) {
-    Calendar.CalendarList.List listRequest;
-    CalendarList listResult;
+  private String generateParamsString(Optional<Map<String, String>> params) {
+    Map<String, String> updatedParams = new ArrayMap<>();
+    if (params.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6138,6 +6126,18 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
       TokensAndUrlAuthData authData, String id, Optional<PaginationData> pageData) {
     Calendar.Events.List listRequest;
     Events listResult;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'pageData'
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/calendar/GoogleCalendarExporter.java`
+#### Snippet
+```java
+
+  private ExportResult<CalendarContainerResource> exportCalendars(
+      TokensAndUrlAuthData authData, Optional<PaginationData> pageData) {
+    Calendar.CalendarList.List listRequest;
+    CalendarList listResult;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6218,10 +6218,10 @@ in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/or
 #### Snippet
 ```java
 
-  private ExportResult<PhotosContainerResource> exportAlbums(
-      TokensAndUrlAuthData authData, Optional<StringPaginationToken> paginationData)
-      throws CopyExceptionWithFailureReason {
-    Optional<String> paginationToken = stripTokenPrefix(paginationData, ALBUM_TOKEN_PREFIX);
+  private Optional<String> stripTokenPrefix(
+      Optional<StringPaginationToken> paginationData, String prefix) {
+    Optional<String> paginationToken = Optional.empty();
+    if (paginationData.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6242,10 +6242,10 @@ in `extensions/data-transfer/portability-data-transfer-facebook/src/main/java/or
 #### Snippet
 ```java
 
-  private Optional<String> stripTokenPrefix(
-      Optional<StringPaginationToken> paginationData, String prefix) {
-    Optional<String> paginationToken = Optional.empty();
-    if (paginationData.isPresent()) {
+  private ExportResult<PhotosContainerResource> exportAlbums(
+      TokensAndUrlAuthData authData, Optional<StringPaginationToken> paginationData)
+      throws CopyExceptionWithFailureReason {
+    Optional<String> paginationToken = stripTokenPrefix(paginationData, ALBUM_TOKEN_PREFIX);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6282,6 +6282,126 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
       Optional<String> folderId, Optional<String> paginationUrl) throws IOException {
     String requestUrl;
     Map<String, String> params = new LinkedHashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'parameters'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
+#### Snippet
+```java
+
+  private <T> T makeGetRequest(
+      String url, Optional<Map<String, String>> parameters, Class<T> tClass) throws IOException {
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+    if (parameters.isPresent() && parameters.get().size() > 0) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'folderId'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
+#### Snippet
+```java
+
+  MicrosoftDriveItemsResponse getDriveItems(
+      Optional<String> folderId, Optional<String> paginationUrl) throws IOException {
+    String requestUrl;
+    Map<String, String> params = new LinkedHashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationUrl'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
+#### Snippet
+```java
+
+  MicrosoftDriveItemsResponse getDriveItems(
+      Optional<String> folderId, Optional<String> paginationUrl) throws IOException {
+    String requestUrl;
+    Map<String, String> params = new LinkedHashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'albumId'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+
+  private VideoModel tryConvertDriveItemToVideoModel(
+      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
+    if (!driveItem.isVideo()) {
+      return null;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationData'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+  }
+
+  private Optional<String> getDrivePaginationToken(Optional<PaginationData> paginationData) {
+    return getPaginationToken(paginationData, DRIVE_TOKEN_PREFIX);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationData'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+
+  private Optional<String> getPaginationToken(
+      Optional<PaginationData> paginationData, String tokenPrefix) {
+    Optional<String> paginationToken = Optional.empty();
+    if (paginationData.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'albumData'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  ExportResult<MediaContainerResource> exportOneDrivePhotos(TokensAndUrlAuthData authData,
+      Optional<IdOnlyContainerResource> albumData, Optional<PaginationData> paginationData,
+      UUID jobId) throws IOException {
+    Optional<String> albumId = Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationData'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  ExportResult<MediaContainerResource> exportOneDrivePhotos(TokensAndUrlAuthData authData,
+      Optional<IdOnlyContainerResource> albumData, Optional<PaginationData> paginationData,
+      UUID jobId) throws IOException {
+    Optional<String> albumId = Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'albumId'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+
+  private PhotoModel tryConvertDriveItemToPhotoModel(
+      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
+    if (!driveItem.isImage()) {
+      return null;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paginationData'
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+#### Snippet
+```java
+  }
+
+  private Optional<String> getDrivePaginationToken(Optional<PaginationData> paginationData) {
+    return getPaginationToken(paginationData, DRIVE_TOKEN_PREFIX);
+  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6313,11 +6433,11 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
 #### Snippet
 ```java
-  }
 
-  private Optional<String> getDrivePaginationToken(Optional<PaginationData> paginationData) {
-    return getPaginationToken(paginationData, DRIVE_TOKEN_PREFIX);
-  }
+  private Optional<String> getPaginationToken(
+      Optional<PaginationData> paginationData, String tokenPrefix) {
+    Optional<String> paginationToken = Optional.empty();
+    if (paginationData.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6333,126 +6453,6 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
-#### Snippet
-```java
-
-  private Optional<String> getPaginationToken(
-      Optional<PaginationData> paginationData, String tokenPrefix) {
-    Optional<String> paginationToken = Optional.empty();
-    if (paginationData.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'parameters'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
-#### Snippet
-```java
-
-  private <T> T makeGetRequest(
-      String url, Optional<Map<String, String>> parameters, Class<T> tClass) throws IOException {
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-    if (parameters.isPresent() && parameters.get().size() > 0) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'folderId'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
-#### Snippet
-```java
-
-  MicrosoftDriveItemsResponse getDriveItems(
-      Optional<String> folderId, Optional<String> paginationUrl) throws IOException {
-    String requestUrl;
-    Map<String, String> params = new LinkedHashMap<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationUrl'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosInterface.java`
-#### Snippet
-```java
-
-  MicrosoftDriveItemsResponse getDriveItems(
-      Optional<String> folderId, Optional<String> paginationUrl) throws IOException {
-    String requestUrl;
-    Map<String, String> params = new LinkedHashMap<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-
-  private Optional<String> getPaginationToken(
-      Optional<PaginationData> paginationData, String tokenPrefix) {
-    Optional<String> paginationToken = Optional.empty();
-    if (paginationData.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'albumId'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-
-  private VideoModel tryConvertDriveItemToVideoModel(
-      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
-    if (!driveItem.isVideo()) {
-      return null;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'albumId'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-
-  private PhotoModel tryConvertDriveItemToPhotoModel(
-      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
-    if (!driveItem.isImage()) {
-      return null;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-  }
-
-  private Optional<String> getDrivePaginationToken(Optional<PaginationData> paginationData) {
-    return getPaginationToken(paginationData, DRIVE_TOKEN_PREFIX);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'albumData'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  ExportResult<MediaContainerResource> exportOneDrivePhotos(TokensAndUrlAuthData authData,
-      Optional<IdOnlyContainerResource> albumData, Optional<PaginationData> paginationData,
-      UUID jobId) throws IOException {
-    Optional<String> albumId = Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paginationData'
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  ExportResult<MediaContainerResource> exportOneDrivePhotos(TokensAndUrlAuthData authData,
-      Optional<IdOnlyContainerResource> albumData, Optional<PaginationData> paginationData,
-      UUID jobId) throws IOException {
-    Optional<String> albumId = Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'exportInformation'
 in `portability-api/src/main/java/org/datatransferproject/api/action/transfer/CreateTransferJobAction.java`
 #### Snippet
@@ -6462,6 +6462,18 @@ in `portability-api/src/main/java/org/datatransferproject/api/action/transfer/Cr
       Optional<ExportInformation> exportInformation,
       String encryptionScheme) throws IOException {
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'exportInfo'
+in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/InMemoryDataCopier.java`
+#### Snippet
+```java
+          AuthData exportAuthData,
+          AuthData importAuthData,
+          UUID jobId, Optional<ExportInformation> exportInfo)
+      throws IOException, CopyException;
+}
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6490,18 +6502,6 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/Callable
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'exportInfo'
-in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/InMemoryDataCopier.java`
-#### Snippet
-```java
-          AuthData exportAuthData,
-          AuthData importAuthData,
-          UUID jobId, Optional<ExportInformation> exportInfo)
-      throws IOException, CopyException;
-}
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'exportInfo'
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/PortabilityInMemoryDataCopier.java`
 #### Snippet
 ```java
@@ -6517,8 +6517,8 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/P
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/PortabilityAbstractInMemoryDataCopier.java`
 #### Snippet
 ```java
-      UUID jobId,
       AuthData exportAuthData,
+      AuthData importAuthData,
       Optional<ExportInformation> exportInformation,
       String jobIdPrefix,
       int copyIteration)
@@ -6529,8 +6529,8 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/P
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/PortabilityAbstractInMemoryDataCopier.java`
 #### Snippet
 ```java
+      UUID jobId,
       AuthData exportAuthData,
-      AuthData importAuthData,
       Optional<ExportInformation> exportInformation,
       String jobIdPrefix,
       int copyIteration)
@@ -6561,6 +6561,30 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'exportInfo'
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+#### Snippet
+```java
+
+  private ExportResult<VideosContainerResource> exportVideos(UUID jobId, AD authData,
+      Optional<ExportInformation> exportInfo) throws Exception {
+    return videosExporter.export(jobId, authData, exportInfo.map((ei) -> {
+      ContainerResource cr = ei.getContainerResource();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'exportInfo'
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
+#### Snippet
+```java
+
+  private ExportResult<PhotosContainerResource> exportPhotos(UUID jobId, AD authData,
+      Optional<ExportInformation> exportInfo)
+      throws Exception {
+    return photosExporter.export(jobId, authData, exportInfo.map((ei) -> {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'throwable'
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/ImportResult.java`
 #### Snippet
@@ -6570,6 +6594,18 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
   private Optional<Throwable> throwable = Optional.empty();
   private Optional<Map<String, Integer>> counts = Optional.empty();
   private Optional<Long> bytes = Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'bytes'
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/ImportResult.java`
+#### Snippet
+```java
+  private Optional<Throwable> throwable = Optional.empty();
+  private Optional<Map<String, Integer>> counts = Optional.empty();
+  private Optional<Long> bytes = Optional.empty();
+
+  /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6618,42 +6654,6 @@ in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/
       Optional<Long> bytes) {
     this.type = type;
     this.throwable = throwable;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'bytes'
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/ImportResult.java`
-#### Snippet
-```java
-  private Optional<Throwable> throwable = Optional.empty();
-  private Optional<Map<String, Integer>> counts = Optional.empty();
-  private Optional<Long> bytes = Optional.empty();
-
-  /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'exportInfo'
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
-#### Snippet
-```java
-
-  private ExportResult<PhotosContainerResource> exportPhotos(UUID jobId, AD authData,
-      Optional<ExportInformation> exportInfo)
-      throws Exception {
-    return photosExporter.export(jobId, authData, exportInfo.map((ei) -> {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'exportInfo'
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/converter/MediaExporterDecorator.java`
-#### Snippet
-```java
-
-  private ExportResult<VideosContainerResource> exportVideos(UUID jobId, AD authData,
-      Optional<ExportInformation> exportInfo) throws Exception {
-    return videosExporter.export(jobId, authData, exportInfo.map((ei) -> {
-      ContainerResource cr = ei.getContainerResource();
 ```
 
 ## RuleId[ruleID=CharsetObjectCanBeUsed]
@@ -6988,30 +6988,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/offline/MicrosoftOfflineDataExporter.java`
-#### Snippet
-```java
-      } catch (IOException e) {
-        // skip the offline data
-        e.printStackTrace(); // FIXME log error
-        return "";
-      }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/offline/MicrosoftOfflineDataExporter.java`
-#### Snippet
-```java
-      return new ExportResult<>(ExportResult.ResultType.END, offlineData);
-    } catch (IOException e) {
-      e.printStackTrace(); // FIXME log error
-      return new ExportResult<>(e);
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/common/RequestHelper.java`
 #### Snippet
 ```java
@@ -7024,13 +7000,13 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/contacts/MicrosoftContactsImporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/contacts/MicrosoftContactsExporter.java`
 #### Snippet
 ```java
+      return new ExportResult<>(ExportResult.ResultType.CONTINUE, wrapper, continuationData);
     } catch (IOException e) {
-      // TODO log
-      e.printStackTrace();
-      return new ImportResult(e);
+      e.printStackTrace(); // FIXME log error
+      return new ExportResult<>(e);
     }
 ```
 
@@ -7048,10 +7024,34 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/contacts/MicrosoftContactsExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/contacts/MicrosoftContactsImporter.java`
 #### Snippet
 ```java
-      return new ExportResult<>(ExportResult.ResultType.CONTINUE, wrapper, continuationData);
+    } catch (IOException e) {
+      // TODO log
+      e.printStackTrace();
+      return new ImportResult(e);
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/offline/MicrosoftOfflineDataExporter.java`
+#### Snippet
+```java
+      } catch (IOException e) {
+        // skip the offline data
+        e.printStackTrace(); // FIXME log error
+        return "";
+      }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/offline/MicrosoftOfflineDataExporter.java`
+#### Snippet
+```java
+      return new ExportResult<>(ExportResult.ResultType.END, offlineData);
     } catch (IOException e) {
       e.printStackTrace(); // FIXME log error
       return new ExportResult<>(e);
@@ -7145,18 +7145,6 @@ import org.datatransferproject.types.common.PaginationData;
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `CopyExceptionWithFailureReason()` of an abstract class should not be declared 'public'
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/CopyExceptionWithFailureReason.java`
-#### Snippet
-```java
-public abstract class CopyExceptionWithFailureReason extends CopyException {
-
-  public CopyExceptionWithFailureReason(String message, Throwable cause) {
-    super(message, cause);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `PortabilityAbstractInMemoryDataCopier()` of an abstract class should not be declared 'public'
 in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/PortabilityAbstractInMemoryDataCopier.java`
 #### Snippet
@@ -7166,6 +7154,18 @@ in `portability-transfer/src/main/java/org/datatransferproject/transfer/copier/P
   public PortabilityAbstractInMemoryDataCopier(
       Provider<Exporter> exporterProvider,
       Provider<Importer> importerProvider,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `CopyExceptionWithFailureReason()` of an abstract class should not be declared 'public'
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/types/CopyExceptionWithFailureReason.java`
+#### Snippet
+```java
+public abstract class CopyExceptionWithFailureReason extends CopyException {
+
+  public CopyExceptionWithFailureReason(String message, Throwable cause) {
+    super(message, cause);
+  }
 ```
 
 ## RuleId[ruleID=CaughtExceptionImmediatelyRethrown]
@@ -7426,6 +7426,30 @@ in `extensions/cloud/portability-cloud-microsoft/src/main/java/org/datatransferp
 
 ### ReturnNull
 Return of `null`
+in `extensions/cloud/portability-cloud-microsoft/src/main/java/org/datatransferproject/cloud/microsoft/cosmos/AzureTableStore.java`
+#### Snippet
+```java
+      Iterator<DataWrapper> iter = table.execute(query).iterator();
+      if (!iter.hasNext()) {
+        return null;
+      }
+      return UUID.fromString(iter.next().getRowKey());
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/cloud/portability-cloud-google/src/main/java/org/datatransferproject/cloud/google/GoogleJobStore.java`
+#### Snippet
+```java
+    Entity entity = datastore.get(getJobKey(jobId));
+    if (entity == null) {
+      return null;
+    }
+    try {
+```
+
+### ReturnNull
+Return of `null`
 in `extensions/cloud/portability-cloud-google/src/main/java/org/datatransferproject/cloud/google/GoogleJobStore.java`
 #### Snippet
 ```java
@@ -7434,18 +7458,6 @@ in `extensions/cloud/portability-cloud-google/src/main/java/org/datatransferproj
       return null;
     }
     String serializedEntity = entity.getString(type.getName());
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/cloud/portability-cloud-google/src/main/java/org/datatransferproject/cloud/google/GoogleJobStore.java`
-#### Snippet
-```java
-    QueryResults<Key> results = datastore.run(query);
-    if (!results.hasNext()) {
-      return null;
-    }
-    Key key = results.next();
 ```
 
 ### ReturnNull
@@ -7465,23 +7477,11 @@ Return of `null`
 in `extensions/cloud/portability-cloud-google/src/main/java/org/datatransferproject/cloud/google/GoogleJobStore.java`
 #### Snippet
 ```java
-    Entity entity = datastore.get(getJobKey(jobId));
-    if (entity == null) {
+    QueryResults<Key> results = datastore.run(query);
+    if (!results.hasNext()) {
       return null;
     }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/datatransferproject/datatransfer/imgur/photos/ImgurPhotosExporter.java`
-#### Snippet
-```java
-      ResponseBody body = response.body();
-      if (body == null) {
-        return null;
-      }
-      String contentBody = new String(body.bytes());
+    Key key = results.next();
 ```
 
 ### ReturnNull
@@ -7498,14 +7498,14 @@ in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/d
 
 ### ReturnNull
 Return of `null`
-in `extensions/cloud/portability-cloud-microsoft/src/main/java/org/datatransferproject/cloud/microsoft/cosmos/AzureTableStore.java`
+in `extensions/data-transfer/portability-data-transfer-imgur/src/main/java/org/datatransferproject/datatransfer/imgur/photos/ImgurPhotosExporter.java`
 #### Snippet
 ```java
-      Iterator<DataWrapper> iter = table.execute(query).iterator();
-      if (!iter.hasNext()) {
+      ResponseBody body = response.body();
+      if (body == null) {
         return null;
       }
-      return UUID.fromString(iter.next().getRowKey());
+      String contentBody = new String(body.bytes());
 ```
 
 ### ReturnNull
@@ -7558,30 +7558,6 @@ in `extensions/data-transfer/portability-data-transfer-deezer/src/main/java/org/
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/SolidUtilities.java`
-#### Snippet
-```java
-            || s.getURI().equalsIgnoreCase(url + "#this")).toList();
-    if (matchingSubjects.isEmpty()) {
-      return null;
-    }
-    checkState(matchingSubjects.size() == 1,
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsExport.java`
-#### Snippet
-```java
-      return parseAddressBook(resource, utilities);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/datatransferproject/transfer/koofr/photos/KoofrPhotosImporter.java`
 #### Snippet
 ```java
@@ -7630,14 +7606,26 @@ in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/d
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicExporter.java`
+in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/SolidUtilities.java`
 #### Snippet
 ```java
-  private List<MusicGroup> createMusicGroups(String[] artistTitles) {
-    if (artistTitles == null) {
+            || s.getURI().equalsIgnoreCase(url + "#this")).toList();
+    if (matchingSubjects.isEmpty()) {
       return null;
     }
-    List<MusicGroup> musicGroups = new ArrayList<>();
+    checkState(matchingSubjects.size() == 1,
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/data-transfer/portability-data-transfer-solid/src/main/java/org/datatransferproject/transfer/solid/contacts/SolidContactsExport.java`
+#### Snippet
+```java
+      return parseAddressBook(resource, utilities);
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -7650,6 +7638,18 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
       return null;
     }
     String[] artistsTitles = new String[artists.size()];
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicExporter.java`
+#### Snippet
+```java
+  private List<MusicGroup> createMusicGroups(String[] artistTitles) {
+    if (artistTitles == null) {
+      return null;
+    }
+    List<MusicGroup> musicGroups = new ArrayList<>();
 ```
 
 ### ReturnNull
@@ -7726,37 +7726,61 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarAttendeeModelTransformer.java`
 #### Snippet
 ```java
+  public CalendarAttendeeModel apply(Map<String, Object> attendee, TransformerContext context) {
+    if (attendee == null) {
+      return null;
     }
-
-    return null;
-  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
 #### Snippet
 ```java
+      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
+    if (!driveItem.isVideo()) {
+      return null;
     }
-
-    return null;
-  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
 #### Snippet
 ```java
+    String url = driveItemsResponse.getNextPageLink();
+    if (Strings.isNullOrEmpty(url)) {
+      return null;
+    }
+    return new StringPaginationToken(DRIVE_TOKEN_PREFIX + url);
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
+    if (!driveItem.isImage()) {
+      return null;
     }
 
-    return null;
-  }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+#### Snippet
+```java
+  private MediaAlbum tryConvertDriveItemToMediaAlbum(MicrosoftDriveItem driveItem, UUID jobId) {
+    if (!driveItem.isFolder()) {
+      return null;
+    }
 
 ```
 
@@ -7786,11 +7810,35 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarAttendeeModelTransformer.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarEventModelTransformer.java`
 #### Snippet
 ```java
-  public CalendarAttendeeModel apply(Map<String, Object> attendee, TransformerContext context) {
-    if (attendee == null) {
+    if (!"singleInstance"
+        .equals(event.get("type"))) { // support single instances for now;recurring events later
+      return null;
+    }
+    String calendarId = context.getProperty(CALENDAR_ID);
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarEventModelTransformer.java`
+#### Snippet
+```java
+    if (startTime == null) {
+      context.problem("Could not parse start time. Skipping event.");
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarEventModelTransformer.java`
+#### Snippet
+```java
+    if (endTime == null) {
+      context.problem("Could not parse end time. Skipping event.");
       return null;
     }
 
@@ -7834,86 +7882,38 @@ in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/o
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarEventModelTransformer.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
 #### Snippet
 ```java
-    if (!"singleInstance"
-        .equals(event.get("type"))) { // support single instances for now;recurring events later
-      return null;
     }
-    String calendarId = context.getProperty(CALENDAR_ID);
-```
 
-### ReturnNull
-Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarEventModelTransformer.java`
-#### Snippet
-```java
-    if (startTime == null) {
-      context.problem("Could not parse start time. Skipping event.");
-      return null;
-    }
+    return null;
+  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/transformer/calendar/ToCalendarEventModelTransformer.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
 #### Snippet
 ```java
-    if (endTime == null) {
-      context.problem("Could not parse end time. Skipping event.");
-      return null;
     }
+
+    return null;
+  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
+in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/photos/MicrosoftPhotosExporter.java`
 #### Snippet
 ```java
-  private MediaAlbum tryConvertDriveItemToMediaAlbum(MicrosoftDriveItem driveItem, UUID jobId) {
-    if (!driveItem.isFolder()) {
-      return null;
     }
 
-```
+    return null;
+  }
 
-### ReturnNull
-Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
-    if (!driveItem.isVideo()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-      Optional<String> albumId, MicrosoftDriveItem driveItem, UUID jobId) {
-    if (!driveItem.isImage()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/data-transfer/portability-data-transfer-microsoft/src/main/java/org/datatransferproject/transfer/microsoft/media/MicrosoftMediaExporter.java`
-#### Snippet
-```java
-    String url = driveItemsResponse.getNextPageLink();
-    if (Strings.isNullOrEmpty(url)) {
-      return null;
-    }
-    return new StringPaginationToken(DRIVE_TOKEN_PREFIX + url);
 ```
 
 ### ReturnNull
@@ -7969,8 +7969,8 @@ Return of `null`
 in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/storage/JobStore.java`
 #### Snippet
 ```java
-  /** Provides the total number of bytes transferred. */
-  default Long getBytes(UUID jobId) {
+   */
+  default Map<String, Integer> getCounts(UUID jobId) {
     return null;
   }
 
@@ -7981,23 +7981,11 @@ Return of `null`
 in `portability-spi-cloud/src/main/java/org/datatransferproject/spi/cloud/storage/JobStore.java`
 #### Snippet
 ```java
-   */
-  default Map<String, Integer> getCounts(UUID jobId) {
+  /** Provides the total number of bytes transferred. */
+  default Long getBytes(UUID jobId) {
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
-#### Snippet
-```java
-    Exporter<?, ?> video = getExporterOrNull(extension, VIDEOS);
-    if (photo == null || video == null) {
-      return null;
-    }
-    return new MediaExporterDecorator(photo, video);
 ```
 
 ### ReturnNull
@@ -8017,11 +8005,11 @@ Return of `null`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
 #### Snippet
 ```java
-    Importer media = getImporterOrNull(extension, MEDIA);
+    Exporter media = getExporterOrNull(extension, MEDIA);
     if (media == null) {
       return null;
     }
-    return new AnyToAnyImporter<>(media, MediaContainerResource::photoToMedia);
+    Function<ContainerResource, ContainerResource> converter = (cr) ->
 ```
 
 ### ReturnNull
@@ -8029,7 +8017,19 @@ Return of `null`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
 #### Snippet
 ```java
-      return extension.getExporter(jobType);
+    Exporter<?, ?> video = getExporterOrNull(extension, VIDEOS);
+    if (photo == null || video == null) {
+      return null;
+    }
+    return new MediaExporterDecorator(photo, video);
+```
+
+### ReturnNull
+Return of `null`
+in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
+#### Snippet
+```java
+      return extension.getImporter(jobType);
     } catch (Exception e) {
       return null;
     }
@@ -8053,11 +8053,11 @@ Return of `null`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
 #### Snippet
 ```java
-    Exporter media = getExporterOrNull(extension, MEDIA);
-    if (media == null) {
+      return extension.getExporter(jobType);
+    } catch (Exception e) {
       return null;
     }
-    Function<ContainerResource, ContainerResource> converter = (cr) ->
+  }
 ```
 
 ### ReturnNull
@@ -8077,11 +8077,11 @@ Return of `null`
 in `portability-spi-transfer/src/main/java/org/datatransferproject/spi/transfer/provider/TransferCompatibilityProvider.java`
 #### Snippet
 ```java
-      return extension.getImporter(jobType);
-    } catch (Exception e) {
+    Importer media = getImporterOrNull(extension, MEDIA);
+    if (media == null) {
       return null;
     }
-  }
+    return new AnyToAnyImporter<>(media, MediaContainerResource::photoToMedia);
 ```
 
 ### ReturnNull
@@ -8122,14 +8122,14 @@ in `extensions/auth/portability-auth-harness-microsoft/src/main/java/org/datatra
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `videoId` is redundant
+Local variable `albumId` is redundant
 in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/datatransferproject/transfer/koofr/common/KoofrMediaExport.java`
 #### Snippet
 ```java
 
-  protected void processVideo(FilesFile file, String path, String albumId) {
-    String videoId = path;
-    String name = getFileName(file);
+  protected void processAlbum(FilesFile file, String path) {
+    String albumId = path;
+    String albumName = getFileName(file);
     String description = getFileDescription(file);
 ```
 
@@ -8146,14 +8146,14 @@ in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/d
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `albumId` is redundant
+Local variable `videoId` is redundant
 in `extensions/data-transfer/portability-data-transfer-koofr/src/main/java/org/datatransferproject/transfer/koofr/common/KoofrMediaExport.java`
 #### Snippet
 ```java
 
-  protected void processAlbum(FilesFile file, String path) {
-    String albumId = path;
-    String albumName = getFileName(file);
+  protected void processVideo(FilesFile file, String path, String albumId) {
+    String videoId = path;
+    String name = getFileName(file);
     String description = getFileDescription(file);
 ```
 
@@ -8208,15 +8208,15 @@ in `portability-types-transfer/src/main/java/org/datatransferproject/types/trans
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `extensions/data-transfer/portability-data-transfer-deezer/src/main/java/org/datatransferproject/transfer/deezer/DeezerApi.java`
 #### Snippet
 ```java
-  private final String accessToken;
-  private final HttpTransport httpTransport;
-  private final RateLimiter perUserRateLimiter;
-
-  public DeezerApi(
+        requestFactory.buildGetRequest(
+            new GenericUrl(url + "?output=json&access_token=" + accessToken));
+    perUserRateLimiter.acquire();
+    HttpResponse response = getRequest.execute();
+    int statusCode = response.getStatusCode();
 ```
 
 ### UnstableApiUsage
@@ -8232,15 +8232,15 @@ in `extensions/data-transfer/portability-data-transfer-deezer/src/main/java/org/
 ```
 
 ### UnstableApiUsage
-'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `extensions/data-transfer/portability-data-transfer-deezer/src/main/java/org/datatransferproject/transfer/deezer/DeezerApi.java`
 #### Snippet
 ```java
-        requestFactory.buildGetRequest(
-            new GenericUrl(url + "?output=json&access_token=" + accessToken));
-    perUserRateLimiter.acquire();
-    HttpResponse response = getRequest.execute();
-    int statusCode = response.getStatusCode();
+  private final String accessToken;
+  private final HttpTransport httpTransport;
+  private final RateLimiter perUserRateLimiter;
+
+  public DeezerApi(
 ```
 
 ### UnstableApiUsage
@@ -8280,6 +8280,30 @@ in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/
 ```
 
 ### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
+#### Snippet
+```java
+  private final PhotosInterface photosInterface;
+  private final Flickr flickr;
+  private final RateLimiter perUserRateLimiter;
+
+  public FlickrPhotosExporter(AppCredentials appCredentials, TransferServiceConfig serviceConfig) {
+```
+
+### UnstableApiUsage
+'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
+#### Snippet
+```java
+
+    try {
+      perUserRateLimiter.acquire();
+      photoSetList =
+          photosetsInterface.getList(
+```
+
+### UnstableApiUsage
 'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
 #### Snippet
@@ -8305,26 +8329,38 @@ in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/
 
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
 #### Snippet
 ```java
-  private final PhotosInterface photosInterface;
-  private final Flickr flickr;
-  private final RateLimiter perUserRateLimiter;
+    this.monitor = monitor;
+    this.credentialFactory = credentialFactory;
+    this.writeRateLimiter = RateLimiter.create(writesPerSecond);
+  }
 
-  public FlickrPhotosExporter(AppCredentials appCredentials, TransferServiceConfig serviceConfig) {
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
+#### Snippet
+```java
+    this.monitor = monitor;
+    this.credentialFactory = credentialFactory;
+    this.writeRateLimiter = RateLimiter.create(writesPerSecond);
+  }
+
 ```
 
 ### UnstableApiUsage
 'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `extensions/data-transfer/portability-data-transfer-flickr/src/main/java/org/datatransferproject/datatransfer/flickr/photos/FlickrPhotosExporter.java`
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
 #### Snippet
 ```java
+      throws IOException, InvalidTokenException, PermissionDeniedException {
+    // Wait for write permit before making request
+    writeRateLimiter.acquire();
 
-    try {
-      perUserRateLimiter.acquire();
-      photoSetList =
-          photosetsInterface.getList(
+    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
 ```
 
 ### UnstableApiUsage
@@ -8340,30 +8376,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-    this.monitor = monitor;
-    this.credentialFactory = credentialFactory;
-    this.writeRateLimiter = RateLimiter.create(writesPerSecond);
-  }
-
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-    this.monitor = monitor;
-    this.credentialFactory = credentialFactory;
-    this.writeRateLimiter = RateLimiter.create(writesPerSecond);
-  }
-
-```
-
-### UnstableApiUsage
 'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
 #### Snippet
@@ -8373,42 +8385,6 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
     writeRateLimiter.acquire();
 
     HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-```
-
-### UnstableApiUsage
-'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/music/GoogleMusicHttpApi.java`
-#### Snippet
-```java
-      throws IOException, InvalidTokenException, PermissionDeniedException {
-    // Wait for write permit before making request
-    writeRateLimiter.acquire();
-
-    HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
-#### Snippet
-```java
-    this.monitor = monitor;
-    this.credentialFactory = credentialFactory;
-    writeRateLimiter = RateLimiter.create(writesPerSecond);
-  }
-
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
-#### Snippet
-```java
-    this.monitor = monitor;
-    this.credentialFactory = credentialFactory;
-    writeRateLimiter = RateLimiter.create(writesPerSecond);
-  }
-
 ```
 
 ### UnstableApiUsage
@@ -8421,6 +8397,30 @@ in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/
     writeRateLimiter.acquire();
 
     HttpRequestFactory requestFactory = httpTransport.createRequestFactory();
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+#### Snippet
+```java
+    this.monitor = monitor;
+    this.credentialFactory = credentialFactory;
+    writeRateLimiter = RateLimiter.create(writesPerSecond);
+  }
+
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `extensions/data-transfer/portability-data-transfer-google/src/main/java/org/datatransferproject/datatransfer/google/photos/GooglePhotosInterface.java`
+#### Snippet
+```java
+    this.monitor = monitor;
+    this.credentialFactory = credentialFactory;
+    writeRateLimiter = RateLimiter.create(writesPerSecond);
+  }
+
 ```
 
 ### UnstableApiUsage
@@ -8464,18 +8464,6 @@ in `portability-types-transfer/src/main/java/org/datatransferproject/types/trans
 in `portability-types-transfer/src/main/java/org/datatransferproject/types/transfer/serviceconfig/TransferServiceConfig.java`
 #### Snippet
 ```java
-  private static final ObjectMapper YAML_OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
-
-  private final RateLimiter rateLimiter;
-
-  public static TransferServiceConfig create(InputStream s) throws IOException {
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `portability-types-transfer/src/main/java/org/datatransferproject/types/transfer/serviceconfig/TransferServiceConfig.java`
-#### Snippet
-```java
 
   /**
    * A {@link RateLimiter} that enforces the per-user rate limit that is specified in
@@ -8493,6 +8481,18 @@ in `portability-types-transfer/src/main/java/org/datatransferproject/types/trans
   public RateLimiter getPerUserRateLimiter() {
     return rateLimiter;
   }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `portability-types-transfer/src/main/java/org/datatransferproject/types/transfer/serviceconfig/TransferServiceConfig.java`
+#### Snippet
+```java
+  private static final ObjectMapper YAML_OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
+
+  private final RateLimiter rateLimiter;
+
+  public static TransferServiceConfig create(InputStream s) throws IOException {
 ```
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
