@@ -280,11 +280,11 @@ Field initialization to `null` is redundant
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-
-    private final AtomicBoolean running = new AtomicBoolean(false);
     private CosmosAsyncClient client = null;
     private CosmosDBSourceConfig config;
     private LinkedTransferQueue<JsonNode> queue = null;
+    private ChangeFeedProcessor changeFeedProcessor;
+    private JsonToStruct jsonToStruct = new JsonToStruct();
 ```
 
 ### RedundantFieldInitialization
@@ -292,11 +292,11 @@ Field initialization to `null` is redundant
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
+
+    private final AtomicBoolean running = new AtomicBoolean(false);
     private CosmosAsyncClient client = null;
     private CosmosDBSourceConfig config;
     private LinkedTransferQueue<JsonNode> queue = null;
-    private ChangeFeedProcessor changeFeedProcessor;
-    private JsonToStruct jsonToStruct = new JsonToStruct();
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -315,7 +315,7 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-29-19-34-29.400.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-30-18-42-43.979.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -574,18 +574,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConfig.java`
-#### Snippet
-```java
-            JSON_PATH_CONFIG_DOC,
-            groupName,
-            groupOrder++,
-            ConfigDef.Width.MEDIUM,
-            JSON_PATH_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
 #### Snippet
 ```java
@@ -598,6 +586,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrate
 
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConfig.java`
+#### Snippet
+```java
+            JSON_PATH_CONFIG_DOC,
+            groupName,
+            groupOrder++,
+            ConfigDef.Width.MEDIUM,
+            JSON_PATH_CONFIG_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
 #### Snippet
 ```java
@@ -606,54 +606,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
                 groupOrder++,
                 Width.MEDIUM,
                 TEMPLATE_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
-#### Snippet
-```java
-                DELIMITER_CONFIG_DOC,
-                groupName,
-                groupOrder++,
-                ConfigDef.Width.MEDIUM,
-                DELIMITER_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `taskGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
-#### Snippet
-```java
-                COSMOS_SOURCE_TASK_POLL_INTERVAL_DOC,
-                taskGroupName,
-                taskGroupOrder++,
-                Width.SHORT,
-                COSMOS_SOURCE_TASK_POLL_INTERVAL_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `messageGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
-#### Snippet
-```java
-                COSMOS_MESSAGE_KEY_FIELD_DOC,
-                messageGroupName,
-                messageGroupOrder++,
-                Width.SHORT,
-                COSMOS_MESSAGE_KEY_FIELD_DISPLAY,
-```
-
-### UnusedAssignment
-The value changed at `connectionGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONN_KEY_DOC,
-                        connectionGroupName,
-                        connectionGroupOrder++,
-                        Width.LONG,
-                        COSMOS_CONN_KEY_DISPLAY
 ```
 
 ### UnusedAssignment
@@ -678,6 +630,54 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
     private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
 
     public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
+```
+
+### UnusedAssignment
+The value changed at `connectionGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONN_KEY_DOC,
+                        connectionGroupName,
+                        connectionGroupOrder++,
+                        Width.LONG,
+                        COSMOS_CONN_KEY_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
+#### Snippet
+```java
+                DELIMITER_CONFIG_DOC,
+                groupName,
+                groupOrder++,
+                ConfigDef.Width.MEDIUM,
+                DELIMITER_CONFIG_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `messageGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
+#### Snippet
+```java
+                COSMOS_MESSAGE_KEY_FIELD_DOC,
+                messageGroupName,
+                messageGroupOrder++,
+                Width.SHORT,
+                COSMOS_MESSAGE_KEY_FIELD_DISPLAY,
+```
+
+### UnusedAssignment
+The value changed at `taskGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
+#### Snippet
+```java
+                COSMOS_SOURCE_TASK_POLL_INTERVAL_DOC,
+                taskGroupName,
+                taskGroupOrder++,
+                Width.SHORT,
+                COSMOS_SOURCE_TASK_POLL_INTERVAL_DISPLAY
 ```
 
 ## RuleId[ruleID=ConstantValue]
