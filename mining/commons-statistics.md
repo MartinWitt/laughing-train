@@ -9,16 +9,16 @@ I found 8 bad smells with 1 repairable:
 | SuspiciousNameCombination | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| ManualMinMaxCalculation | 1 | false |
 | ConstantMathCall | 1 | false |
+| ManualMinMaxCalculation | 1 | false |
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
 ### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
 in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/ParetoDistribution.java`
 #### Snippet
 ```java
-        // Note: For small shape the input RNG is also wrapped to use nextLong as the source of
         // randomness; this ensures the nextDouble method uses the interface output of [0, 1).
+        // Commons RNG v1.6 uses nextLong and will not be affected by changes to nextDouble.
         final UniformRandomProvider wrappedRng = shape >= 1 ? new InvertedRNG(rng) : rng::nextLong;
         return InverseTransformParetoSampler.of(wrappedRng, scale, shape)::sample;
     }
@@ -40,7 +40,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-30-11-22-23.825.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-01-23-25-26.504.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -61,19 +61,6 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         final double shape = mu;
         final double scale = omega / mu;
         final SharedStateContinuousSampler sampler =
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
-#### Snippet
-```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
 ```
 
 ## RuleId[ruleID=ConstantMathCall]
@@ -112,5 +99,18 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
             median = m = inverseCumulativeProbability(0.5);
         }
         return m;
+```
+
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
+#### Snippet
+```java
+            return lower;
+        }
+        return x < upper ? x : upper;
+    }
+
 ```
 
