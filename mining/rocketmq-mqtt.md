@@ -38,8 +38,8 @@ I found 213 bad smells with 39 repairable:
 | Convert2Lambda | 2 | false |
 | RedundantImplements | 2 | false |
 | Finalize | 1 | false |
-| AssignmentUsedAsCondition | 1 | false |
 | ManualArrayToCollectionCopy | 1 | false |
+| AssignmentUsedAsCondition | 1 | false |
 | CStyleArrayDeclaration | 1 | false |
 | CatchMayIgnoreException | 1 | false |
 | UnnecessaryReturn | 1 | true |
@@ -67,51 +67,15 @@ in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFil
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `RpcCode` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/RpcCode.java`
-#### Snippet
-```java
-package org.apache.rocketmq.mqtt.common.model;
-
-public class RpcCode {
-    public static final int SUCCESS = 1;
-    public static final int FAIL = -1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Startup` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/starter/Startup.java`
+Class `Remark` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Remark.java`
 #### Snippet
 ```java
 
 
-public class Startup {
+public class Remark {
 
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MqttConsumer` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
-#### Snippet
-```java
-import java.util.Date;
-
-public class MqttConsumer {
-    public static void main(String[] args) throws MqttException, NoSuchAlgorithmException, InvalidKeyException {
-        String brokerUrl = System.getenv("brokerUrl");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SpringUtils` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/SpringUtils.java`
-#### Snippet
-```java
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-public class SpringUtils {
-    private static ClassPathXmlApplicationContext applicationContext;
-
+    public static final String SUCCESS = "success";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -127,75 +91,15 @@ public class Constants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RocketMQConsumer` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQConsumer.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class RocketMQConsumer {
-
-    public static void main(String[] args) throws MQClientException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NamespaceUtil` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/NamespaceUtil.java`
-#### Snippet
-```java
-import org.apache.commons.lang3.StringUtils;
-
-public class NamespaceUtil {
-    public static final String NAMESPACE_SPLITER = "%";
-    private static final int RESOURCE_LENGTH = 2;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MetricsBuilderFactory` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MetricsBuilderFactory.java`
-#### Snippet
-```java
-import io.prometheus.client.SimpleCollector.Builder;
-
-public class MetricsBuilderFactory {
-
-    private static Builder newGaugeBuilder(MqttMetricsInfo mqttMetricsInfo) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StatUtil` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java`
-#### Snippet
-```java
-import static java.math.BigDecimal.ROUND_HALF_UP;
-
-public class StatUtil {
-    private static Logger sysLogger = LoggerFactory.getLogger(StatUtil.class);
-    private static Logger logger = LoggerFactory.getLogger("StatLogger");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RpcHeader` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/RpcHeader.java`
+Class `RpcCode` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/RpcCode.java`
 #### Snippet
 ```java
 package org.apache.rocketmq.mqtt.common.model;
 
-public class RpcHeader {
-    public static final String MQTT_CHANNEL_ID = "channelId";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TopicUtils` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.java`
-#### Snippet
-```java
-
-
-public class TopicUtils {
-
-    /**
+public class RpcCode {
+    public static final int SUCCESS = 1;
+    public static final int FAIL = -1;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -211,27 +115,39 @@ public class MqttMetricsCollector {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MessageUtil` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+Class `Startup` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/starter/Startup.java`
 #### Snippet
 ```java
 
 
-public class MessageUtil {
-    public static final ByteBufAllocator ALLOCATOR = new UnpooledByteBufAllocator(false);
+public class Startup {
 
+    public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MqFactory` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/mq/MqFactory.java`
+Class `MetricsBuilderFactory` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MetricsBuilderFactory.java`
 #### Snippet
 ```java
+import io.prometheus.client.SimpleCollector.Builder;
 
+public class MetricsBuilderFactory {
 
-public class MqFactory {
-    public static synchronized DefaultMQProducer buildDefaultMQProducer(String group, Properties properties) {
-        MqProducer mqProducer = new MqProducer(properties);
+    private static Builder newGaugeBuilder(MqttMetricsInfo mqttMetricsInfo) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SpringUtils` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/SpringUtils.java`
+#### Snippet
+```java
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class SpringUtils {
+    private static ClassPathXmlApplicationContext applicationContext;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -244,18 +160,6 @@ import java.util.concurrent.ConcurrentMap;
 public class ChannelInfo {
     private static final String CHANNEL_ID_KEY = "0";
     private static final String CHANNEL_CLIENT_ID_KEY = "1";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Remark` has only 'static' members, and lacks a 'private' constructor
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Remark.java`
-#### Snippet
-```java
-
-
-public class Remark {
-
-    public static final String SUCCESS = "success";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -283,6 +187,78 @@ public class MqttProducer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `StatUtil` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java`
+#### Snippet
+```java
+import static java.math.BigDecimal.ROUND_HALF_UP;
+
+public class StatUtil {
+    private static Logger sysLogger = LoggerFactory.getLogger(StatUtil.class);
+    private static Logger logger = LoggerFactory.getLogger("StatLogger");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MqttConsumer` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
+#### Snippet
+```java
+import java.util.Date;
+
+public class MqttConsumer {
+    public static void main(String[] args) throws MqttException, NoSuchAlgorithmException, InvalidKeyException {
+        String brokerUrl = System.getenv("brokerUrl");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NamespaceUtil` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/NamespaceUtil.java`
+#### Snippet
+```java
+import org.apache.commons.lang3.StringUtils;
+
+public class NamespaceUtil {
+    public static final String NAMESPACE_SPLITER = "%";
+    private static final int RESOURCE_LENGTH = 2;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MqFactory` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/mq/MqFactory.java`
+#### Snippet
+```java
+
+
+public class MqFactory {
+    public static synchronized DefaultMQProducer buildDefaultMQProducer(String group, Properties properties) {
+        MqProducer mqProducer = new MqProducer(properties);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RocketMQConsumer` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQConsumer.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class RocketMQConsumer {
+
+    public static void main(String[] args) throws MQClientException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MessageUtil` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+#### Snippet
+```java
+
+
+public class MessageUtil {
+    public static final ByteBufAllocator ALLOCATOR = new UnpooledByteBufAllocator(false);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `RocketMQProducer` has only 'static' members, and lacks a 'private' constructor
 in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQProducer.java`
 #### Snippet
@@ -294,17 +270,28 @@ public class RocketMQProducer {
     private static String firstTopic = System.getenv("firstTopic");
 ```
 
-## RuleId[ruleID=AssignmentUsedAsCondition]
-### AssignmentUsedAsCondition
-Assignment `result = doNotify(node, messageEvents)` used as condition
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/notify/NotifyManager.java`
+### UtilityClassWithoutPrivateConstructor
+Class `RpcHeader` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/RpcHeader.java`
 #### Snippet
 ```java
-                    continue;
-                }
-                if (result = doNotify(node, messageEvents)) {
-                    nodeFailCount.set(0);
-                    continue;
+package org.apache.rocketmq.mqtt.common.model;
+
+public class RpcHeader {
+    public static final String MQTT_CHANNEL_ID = "channelId";
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TopicUtils` has only 'static' members, and lacks a 'private' constructor
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.java`
+#### Snippet
+```java
+
+
+public class TopicUtils {
+
+    /**
 ```
 
 ## RuleId[ruleID=ManualArrayToCollectionCopy]
@@ -320,7 +307,32 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/meta/MetaPersistManagerSam
             }
 ```
 
+## RuleId[ruleID=AssignmentUsedAsCondition]
+### AssignmentUsedAsCondition
+Assignment `result = doNotify(node, messageEvents)` used as condition
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/notify/NotifyManager.java`
+#### Snippet
+```java
+                    continue;
+                }
+                if (result = doNotify(node, messageEvents)) {
+                    nodeFailCount.set(0);
+                    continue;
+```
+
 ## RuleId[ruleID=StaticCallOnSubclass]
+### StaticCallOnSubclass
+Static method `parseArray()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/notify/NotifyRetryManager.java`
+#### Snippet
+```java
+            throws  InterruptedException, RemotingException, MQClientException, MQBrokerException {
+        String payload = new String(messageExt.getBody(), StandardCharsets.UTF_8);
+        Set<MessageEvent> events = new HashSet<>(JSONObject.parseArray(payload, MessageEvent.class));
+        String node = messageExt.getUserProperty(Constants.PROPERTY_MQTT_MSG_EVENT_RETRY_NODE);
+        String retryTime = messageExt.getUserProperty(Constants.PROPERTY_MQTT_MSG_EVENT_RETRY_TIME);
+```
+
 ### StaticCallOnSubclass
 Static method `parseArray()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/rpc/RpcPacketDispatcher.java`
@@ -331,18 +343,6 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/rpc/RpcPacketDisp
         List<MessageEvent> events = JSONObject.parseArray(payload, MessageEvent.class);
         messageNotifyAction.notify(events);
     }
-```
-
-### StaticCallOnSubclass
-Static method `toJSONString()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
-#### Snippet
-```java
-            mqMessage.putUserProperty(Message.propertyStoreTime, String.valueOf(message.getStoreTimestamp()));
-            mqMessage.putUserProperty(Message.propertyUserProperties,
-                JSONObject.toJSONString(message.getUserProperties()));
-            mqMessages.add(mqMessage);
-        }
 ```
 
 ### StaticCallOnSubclass
@@ -359,26 +359,26 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.j
 
 ### StaticCallOnSubclass
 Static method `toJSONString()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
 #### Snippet
 ```java
-                    pullMessage(session, subscription, queue);
-                } else {
-                    logger.error("response:{},{}", session.getClientId(), JSONObject.toJSONString(pullResult));
-                }
-            } finally {
+            mqMessage.putUserProperty(Message.propertyStoreTime, String.valueOf(message.getStoreTimestamp()));
+            mqMessage.putUserProperty(Message.propertyUserProperties,
+                JSONObject.toJSONString(message.getUserProperties()));
+            mqMessages.add(mqMessage);
+        }
 ```
 
 ### StaticCallOnSubclass
-Static method `parseArray()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/notify/NotifyRetryManager.java`
+Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/store/LmqQueueStoreManager.java`
 #### Snippet
 ```java
-            throws  InterruptedException, RemotingException, MQClientException, MQBrokerException {
-        String payload = new String(messageExt.getBody(), StandardCharsets.UTF_8);
-        Set<MessageEvent> events = new HashSet<>(JSONObject.parseArray(payload, MessageEvent.class));
-        String node = messageExt.getUserProperty(Constants.PROPERTY_MQTT_MSG_EVENT_RETRY_NODE);
-        String retryTime = messageExt.getUserProperty(Constants.PROPERTY_MQTT_MSG_EVENT_RETRY_TIME);
+        if (StringUtils.isNotBlank(mqMessage.getUserProperty(Constants.PROPERTY_MQTT_EXT_DATA))) {
+            message.getUserProperties().putAll(
+                    JSONObject.parseObject(mqMessage.getUserProperty(Constants.PROPERTY_MQTT_EXT_DATA),
+                            new TypeReference<Map<String, String>>() {
+                            }));
 ```
 
 ### StaticCallOnSubclass
@@ -394,30 +394,18 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/store/LmqQueueStoreManager
 ```
 
 ### StaticCallOnSubclass
-Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/store/LmqQueueStoreManager.java`
+Static method `toJSONString()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
 #### Snippet
 ```java
-        if (StringUtils.isNotBlank(mqMessage.getUserProperty(Constants.PROPERTY_MQTT_EXT_DATA))) {
-            message.getUserProperties().putAll(
-                    JSONObject.parseObject(mqMessage.getUserProperty(Constants.PROPERTY_MQTT_EXT_DATA),
-                            new TypeReference<Map<String, String>>() {
-                            }));
+                    pullMessage(session, subscription, queue);
+                } else {
+                    logger.error("response:{},{}", session.getClientId(), JSONObject.toJSONString(pullResult));
+                }
+            } finally {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Argument `pubTopic` might be null
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/PublishProcessor.java`
-#### Snippet
-```java
-        String originTopic = variableHeader.topicName();
-        String pubTopic = TopicUtils.normalizeTopic(originTopic);
-        MqttTopic mqttTopic = TopicUtils.decode(pubTopic);
-        firstTopicManager.checkFirstTopicIfCreated(mqttTopic.getFirstTopic());
-        Set<String> queueNames = wildcardManager.matchQueueSetByMsgTopic(pubTopic, context.getNamespace());
-```
-
 ### DataFlowIssue
 Argument `topicFilter` might be null
 in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/UnSubscribeProcessor.java`
@@ -431,27 +419,15 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/UnSubsc
 ```
 
 ### DataFlowIssue
-Method invocation `getChannelId` may produce `NullPointerException`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+Argument `pubTopic` might be null
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/PublishProcessor.java`
 #### Snippet
 ```java
-                    if (MqttMessageType.PUBLISH.equals(retryMessage.mqttMessageType)) {
-                        if (session == null || session.isDestroyed()) {
-                            cleanRetryMessage(mqttMsgId, session.getChannelId());
-                            continue;
-                        }
-```
-
-### DataFlowIssue
-Method invocation `getClientId` may produce `NullPointerException`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
-#### Snippet
-```java
-                        if (session == null || session.isDestroyed() || retryMessage.mountRelTimeout()) {
-                            retryCache.invalidate(entry.getKey());
-                            logger.error("failed to retry pub rel more times,{},{}", session.getClientId(), mqttMsgId);
-                            pushAction.rollNextByAck(session, mqttMsgId);
-                            continue;
+        String originTopic = variableHeader.topicName();
+        String pubTopic = TopicUtils.normalizeTopic(originTopic);
+        MqttTopic mqttTopic = TopicUtils.decode(pubTopic);
+        firstTopicManager.checkFirstTopicIfCreated(mqttTopic.getFirstTopic());
+        Set<String> queueNames = wildcardManager.matchQueueSetByMsgTopic(pubTopic, context.getNamespace());
 ```
 
 ### DataFlowIssue
@@ -476,6 +452,30 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/meta/WildcardManager.java`
             if (!wildcards.contains(path)) {
                 finalTrie.deleteNode(path, nodeKey);
             }
+```
+
+### DataFlowIssue
+Method invocation `getChannelId` may produce `NullPointerException`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+#### Snippet
+```java
+                    if (MqttMessageType.PUBLISH.equals(retryMessage.mqttMessageType)) {
+                        if (session == null || session.isDestroyed()) {
+                            cleanRetryMessage(mqttMsgId, session.getChannelId());
+                            continue;
+                        }
+```
+
+### DataFlowIssue
+Method invocation `getClientId` may produce `NullPointerException`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+#### Snippet
+```java
+                        if (session == null || session.isDestroyed() || retryMessage.mountRelTimeout()) {
+                            retryCache.invalidate(entry.getKey());
+                            logger.error("failed to retry pub rel more times,{},{}", session.getClientId(), mqttMsgId);
+                            pushAction.rollNextByAck(session, mqttMsgId);
+                            continue;
 ```
 
 ## RuleId[ruleID=TypeParameterHidesVisibleType]
@@ -505,18 +505,6 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
-#### Snippet
-```java
-        boolean isPathEnd = (level == maxLevel || isNumberSign) && !currentNode.valueSet.isEmpty() && builder.length() > 0;
-        if (isPathEnd) {
-            result.add(TopicUtils.normalizeTopic(builder.toString().substring(0, builder.length() - 1)));
-        }
-        // match the '#'
-```
-
-### StringOperationCanBeSimplified
 `toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/ws/WebSocketServerHandler.java`
 #### Snippet
@@ -526,6 +514,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/ws/WebSocketServe
         if (upgrade == null || (!"websocket".equals(upgrade.toLowerCase()))) {
             return;
         }
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
+#### Snippet
+```java
+        boolean isPathEnd = (level == maxLevel || isNumberSign) && !currentNode.valueSet.isEmpty() && builder.length() > 0;
+        if (isPathEnd) {
+            result.add(TopicUtils.normalizeTopic(builder.toString().substring(0, builder.length() - 1)));
+        }
+        // match the '#'
 ```
 
 ## RuleId[ruleID=WhileCanBeForeach]
@@ -569,30 +569,6 @@ in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.jav
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
-#### Snippet
-```java
-        }).build();
-
-        scheduler.scheduleWithFixedDelay(() -> doRetryCache(), scheduleDelaySecs, connectConf.getRetryIntervalSeconds(), TimeUnit.SECONDS);
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
-#### Snippet
-```java
-        persistOffsetScheduler = new ScheduledThreadPoolExecutor(1, new ThreadFactoryImpl("persistOffset_scheduler_"));
-        persistOffsetScheduler.scheduleWithFixedDelay(() -> persistAllOffset(true), 5000, 5000, TimeUnit.MILLISECONDS);
-        pullService.scheduleWithFixedDelay(() -> pullLoop(), pullIntervalMillis, pullIntervalMillis, TimeUnit.MILLISECONDS);
-    }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/meta/WildcardManager.java`
 #### Snippet
 ```java
@@ -615,10 +591,46 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/meta/WildcardManager.java`
 
 ```
 
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+#### Snippet
+```java
+        }).build();
+
+        scheduler.scheduleWithFixedDelay(() -> doRetryCache(), scheduleDelaySecs, connectConf.getRetryIntervalSeconds(), TimeUnit.SECONDS);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
+#### Snippet
+```java
+        persistOffsetScheduler = new ScheduledThreadPoolExecutor(1, new ThreadFactoryImpl("persistOffset_scheduler_"));
+        persistOffsetScheduler.scheduleWithFixedDelay(() -> persistAllOffset(true), 5000, 5000, TimeUnit.MILLISECONDS);
+        pullService.scheduleWithFixedDelay(() -> pullLoop(), pullIntervalMillis, pullIntervalMillis, TimeUnit.MILLISECONDS);
+    }
+
+```
+
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `Integer.toString()` call
 in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/mq/MqPullConsumer.java`
+#### Snippet
+```java
+
+    public String buildInstanceName() {
+        return Integer.toString(UtilAll.getPid())
+                + "#" + System.nanoTime();
+    }
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/mq/MqProducer.java`
 #### Snippet
 ```java
 
@@ -652,31 +664,7 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.
         sb.append(channelId);
 ```
 
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/mq/MqProducer.java`
-#### Snippet
-```java
-
-    public String buildInstanceName() {
-        return Integer.toString(UtilAll.getPid())
-                + "#" + System.nanoTime();
-    }
-```
-
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `offsetMapParam.keySet()` may be replaced with 'entrySet()' iteration
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
-#### Snippet
-```java
-    public void addOffset(Map<String, Map<Queue, QueueOffset>> offsetMapParam) {
-        if (offsetMapParam != null && !offsetMapParam.isEmpty()) {
-            for (String queueName : offsetMapParam.keySet()) {
-                if (!subscriptions.containsKey(queueName)) {
-                    continue;
-```
-
 ### KeySetIterationMayUseEntrySet
 Iteration over `offsetMap.keySet()` may be replaced with 'entrySet()' iteration
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
@@ -687,6 +675,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
         for (String queueName : offsetMap.keySet()) {
             Subscription subscription = subscriptions.get(queueName);
             if (subscription == null) {
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `offsetMapParam.keySet()` may be replaced with 'entrySet()' iteration
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
+#### Snippet
+```java
+    public void addOffset(Map<String, Map<Queue, QueueOffset>> offsetMapParam) {
+        if (offsetMapParam != null && !offsetMapParam.isEmpty()) {
+            for (String queueName : offsetMapParam.keySet()) {
+                if (!subscriptions.containsKey(queueName)) {
+                    continue;
 ```
 
 ## RuleId[ruleID=CatchMayIgnoreException]
@@ -755,30 +755,6 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/ws/WebSocketServe
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `RetryMessage` may be 'static'
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
-#### Snippet
-```java
-    }
-
-    public class RetryMessage {
-        private Session session;
-        private Message message;
-```
-
-### InnerClassMayBeStatic
-Inner class `MsgIdEntry` may be 'static'
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/MqttMsgId.java`
-#### Snippet
-```java
-    }
-
-    class MsgIdEntry {
-        private int nextMsgId = MIN_MSG_ID - 1;
-        private Map<Integer, Integer> inUseMsgIds = new ConcurrentHashMap<>();
-```
-
-### InnerClassMayBeStatic
 Inner class `CacheEntry` may be 'static'
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/QueueCache.java`
 #### Snippet
@@ -803,6 +779,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/QueueCache.ja
 ```
 
 ### InnerClassMayBeStatic
+Inner class `PendingDown` may be 'static'
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+#### Snippet
+```java
+    }
+
+    public class PendingDown {
+        private Subscription subscription;
+        private Queue queue;
+```
+
+### InnerClassMayBeStatic
 Inner class `TrieNode` may be 'static'
 in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
 #### Snippet
@@ -815,54 +803,30 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `PendingDown` may be 'static'
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+Inner class `MsgIdEntry` may be 'static'
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/MqttMsgId.java`
 #### Snippet
 ```java
     }
 
-    public class PendingDown {
-        private Subscription subscription;
-        private Queue queue;
+    class MsgIdEntry {
+        private int nextMsgId = MIN_MSG_ID - 1;
+        private Map<Integer, Integer> inUseMsgIds = new ConcurrentHashMap<>();
+```
+
+### InnerClassMayBeStatic
+Inner class `RetryMessage` may be 'static'
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+#### Snippet
+```java
+    }
+
+    public class RetryMessage {
+        private Session session;
+        private Message message;
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Subscription`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
-#### Snippet
-```java
-    }
-
-    public void removeSubscription(Session session, Set<Subscription> subscriptions) {
-        String channelId = session.getChannelId();
-        if (channelId == null || subscriptions == null || subscriptions.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Subscription`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
-#### Snippet
-```java
-    }
-
-    public void addSubscription(Session session, Set<Subscription> subscriptions) {
-        String channelId = session.getChannelId();
-        if (channelId == null || subscriptions == null || subscriptions.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageEvent`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/notify/MessageNotifyAction.java`
-#### Snippet
-```java
-    private QueueFresh queueFresh;
-
-    public void notify(List<MessageEvent> events) {
-        if (events == null || events.isEmpty()) {
-            return;
-```
-
 ### BoundedWildcard
 Can generalize to `? extends PullResult`
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/QueueCache.java`
@@ -924,6 +888,18 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends MessageEvent`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/notify/MessageNotifyAction.java`
+#### Snippet
+```java
+    private QueueFresh queueFresh;
+
+    public void notify(List<MessageEvent> events) {
+        if (events == null || events.isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Message`
 in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
 #### Snippet
@@ -933,6 +909,54 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.j
     public static byte[] encode(List<Message> messageList) {
         if (messageList == null || messageList.isEmpty()) {
             return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Predicate`
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
+#### Snippet
+```java
+        }
+
+        public HTTPMetricHandler(CollectorRegistry registry, Supplier<Predicate<String>> sampleNameFilterSupplier) {
+            this.registry = registry;
+            this.sampleNameFilterSupplier = sampleNameFilterSupplier;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Subscription`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
+#### Snippet
+```java
+    }
+
+    public void addSubscription(Session session, Set<Subscription> subscriptions) {
+        String channelId = session.getChannelId();
+        if (channelId == null || subscriptions == null || subscriptions.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Subscription`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
+#### Snippet
+```java
+    }
+
+    public void removeSubscription(Session session, Set<Subscription> subscriptions) {
+        String channelId = session.getChannelId();
+        if (channelId == null || subscriptions == null || subscriptions.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Queue`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
+#### Snippet
+```java
+    }
+
+    public void freshQueue(Subscription subscription, Set<Queue> queues) {
+        if (subscription == null) {
+            throw new RuntimeException("subscription is null");
 ```
 
 ### BoundedWildcard
@@ -960,30 +984,6 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Queue`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
-#### Snippet
-```java
-    }
-
-    public void freshQueue(Subscription subscription, Set<Queue> queues) {
-        if (subscription == null) {
-            throw new RuntimeException("subscription is null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
-#### Snippet
-```java
-    }
-
-    public void addOffset(Map<String, Map<Queue, QueueOffset>> offsetMapParam) {
-        if (offsetMapParam != null && !offsetMapParam.isEmpty()) {
-            for (String queueName : offsetMapParam.keySet()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Subscription`
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
 #### Snippet
@@ -996,15 +996,15 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Predicate`
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
+Can generalize to `? extends Map`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
 #### Snippet
 ```java
-        }
+    }
 
-        public HTTPMetricHandler(CollectorRegistry registry, Supplier<Predicate<String>> sampleNameFilterSupplier) {
-            this.registry = registry;
-            this.sampleNameFilterSupplier = sampleNameFilterSupplier;
+    public void addOffset(Map<String, Map<Queue, QueueOffset>> offsetMapParam) {
+        if (offsetMapParam != null && !offsetMapParam.isEmpty()) {
+            for (String queueName : offsetMapParam.keySet()) {
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -1085,6 +1085,42 @@ in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFil
 
 ## RuleId[ruleID=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
+Synchronization on a non-final field `upstreamHookList`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Hook Was Assembled");
+        }
+        synchronized (upstreamHookList) {
+            upstreamHookList[index] = upstreamHook;
+        }
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `upstreamHookList`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
+#### Snippet
+```java
+    private void assembleNextHook() {
+        if (isAssembled.compareAndSet(false, true)) {
+            synchronized (upstreamHookList) {
+                for (int i = 0; i < upstreamHookList.length - 1; i++) {
+                    UpstreamHook upstreamHook = upstreamHookList[i];
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `topicCache`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
+#### Snippet
+```java
+            }
+
+            synchronized (topicCache) {
+                topicCache.putIfAbsent(topicFilter, new HashSet<>());
+                topicCache.get(topicFilter).add(channelId);
+```
+
+### SynchronizeOnNonFinalField
 Synchronization on a non-final field `topicCache`
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
 #### Snippet
@@ -1108,55 +1144,7 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.
                 if (precises != null && !precises.isEmpty()) {
 ```
 
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `topicCache`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/match/MatchAction.java`
-#### Snippet
-```java
-            }
-
-            synchronized (topicCache) {
-                topicCache.putIfAbsent(topicFilter, new HashSet<>());
-                topicCache.get(topicFilter).add(channelId);
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `upstreamHookList`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
-#### Snippet
-```java
-    private void assembleNextHook() {
-        if (isAssembled.compareAndSet(false, true)) {
-            synchronized (upstreamHookList) {
-                for (int i = 0; i < upstreamHookList.length - 1; i++) {
-                    UpstreamHook upstreamHook = upstreamHookList[i];
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `upstreamHookList`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("Hook Was Assembled");
-        }
-        synchronized (upstreamHookList) {
-            upstreamHookList[index] = upstreamHook;
-        }
-```
-
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
-#### Snippet
-```java
-        assembleNextHook();
-        CompletableFuture<HookResult> hookResult = new CompletableFuture<>();
-        if (upstreamHookList.length <= 0) {
-            hookResult.complete(new HookResult(HookResult.SUCCESS, -1, null, null));
-            return hookResult;
-```
-
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
 in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java`
@@ -1167,6 +1155,18 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java
         if (keys == null || keys.length <= 0) {
             return null;
         }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
+#### Snippet
+```java
+        assembleNextHook();
+        CompletableFuture<HookResult> hookResult = new CompletableFuture<>();
+        if (upstreamHookList.length <= 0) {
+            hookResult.complete(new HookResult(HookResult.SUCCESS, -1, null, null));
+            return hookResult;
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -1221,74 +1221,14 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/starter/Startup.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("connect fail");
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
-#### Snippet
-```java
-                    String payload = new String(mqttMessage.getPayload());
-                    String[] ss = payload.split("_");
-                    System.out.println(now() + "receive:" + topic + "," + payload
-                            + " ---- rt:" + (System.currentTimeMillis() - Long.parseLong(ss[1])));
-                } catch (Exception e) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.java`
 #### Snippet
 ```java
             @Override
             public void connectComplete(boolean reconnect, String serverURI) {
-                System.out.println(recvClientId + " connect success to " + serverURI);
-                try {
-                    final String topicFilter[] = {firstTopic + "/r1", firstTopic + "/r/+", firstTopic + "/r2"};
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQConsumer.java`
-#### Snippet
-```java
-        consumer.start();
-
-        System.out.printf("Consumer Started.%n");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQConsumer.java`
-#### Snippet
-```java
-                                                            ConsumeConcurrentlyContext context) {
-                MessageExt messageExt = msgs.get(0);
-                System.out.println(now() + "Receive: " + new String(messageExt.getBody()));
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                System.out.println(sendClientId + " connect success to " + serverURI);
             }
-```
 
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFileOutputStream.java`
-#### Snippet
-```java
-                        reset();
-                    } catch (Throwable t) {
-                        t.printStackTrace(System.err);
-                    }
-                }
 ```
 
 ### SystemOutErr
@@ -1329,13 +1269,73 @@ in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.jav
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.java`
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
 #### Snippet
 ```java
             @Override
             public void connectComplete(boolean reconnect, String serverURI) {
-                System.out.println(sendClientId + " connect success to " + serverURI);
+                System.out.println(recvClientId + " connect success to " + serverURI);
+                try {
+                    final String topicFilter[] = {firstTopic + "/r1", firstTopic + "/r/+", firstTopic + "/r2"};
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("connect fail");
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
+#### Snippet
+```java
+                    String payload = new String(mqttMessage.getPayload());
+                    String[] ss = payload.split("_");
+                    System.out.println(now() + "receive:" + topic + "," + payload
+                            + " ---- rt:" + (System.currentTimeMillis() - Long.parseLong(ss[1])));
+                } catch (Exception e) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQConsumer.java`
+#### Snippet
+```java
+        consumer.start();
+
+        System.out.printf("Consumer Started.%n");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQConsumer.java`
+#### Snippet
+```java
+                                                            ConsumeConcurrentlyContext context) {
+                MessageExt messageExt = msgs.get(0);
+                System.out.println(now() + "Receive: " + new String(messageExt.getBody()));
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQProducer.java`
+#### Snippet
+```java
+        setLmq(msg, lmqSet);
+        SendResult sendResult = producer.send(msg);
+        System.out.println(now() + "sendWcMessage: " + new String(msg.getBody()));
+    }
 
 ```
 
@@ -1352,15 +1352,15 @@ in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQProducer
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/RocketMQProducer.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFileOutputStream.java`
 #### Snippet
 ```java
-        setLmq(msg, lmqSet);
-        SendResult sendResult = producer.send(msg);
-        System.out.println(now() + "sendWcMessage: " + new String(msg.getBody()));
-    }
-
+                        reset();
+                    } catch (Throwable t) {
+                        t.printStackTrace(System.err);
+                    }
+                }
 ```
 
 ## RuleId[ruleID=ThrowFromFinallyBlock]
@@ -1415,18 +1415,6 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/store/LmqQueueStoreManager
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.alibaba.fastjson` is unnecessary and can be removed
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
-#### Snippet
-```java
-            if (ext != null) {
-                message.getUserProperties().putAll(
-                    com.alibaba.fastjson.JSONObject.parseObject(ext, new TypeReference<Map<String, String>>() { }));
-            }
-            messageList.add(message);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/ws/WebSocketServerHandler.java`
 #### Snippet
@@ -1438,7 +1426,67 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/ws/WebSocketServe
 
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `com.alibaba.fastjson` is unnecessary and can be removed
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+#### Snippet
+```java
+            if (ext != null) {
+                message.getUserProperties().putAll(
+                    com.alibaba.fastjson.JSONObject.parseObject(ext, new TypeReference<Map<String, String>>() { }));
+            }
+            messageList.add(message);
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.java`
+#### Snippet
+```java
+            mqttClient.connect(mqttConnectOptions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        long interval = 1000;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.java`
+#### Snippet
+```java
+            @Override
+            public void connectionLost(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
+#### Snippet
+```java
+            @Override
+            public void connectionLost(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
+#### Snippet
+```java
+                    mqttClient.subscribe(topicFilter, qos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+```
+
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
@@ -1456,59 +1504,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
 #### Snippet
 ```java
-            @Override
-            public void connectionLost(Throwable throwable) {
-                throwable.printStackTrace();
-            }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
-#### Snippet
-```java
                             + " ---- rt:" + (System.currentTimeMillis() - Long.parseLong(ss[1])));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttConsumer.java`
-#### Snippet
-```java
-                    mqttClient.subscribe(topicFilter, qos);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.java`
-#### Snippet
-```java
-            @Override
-            public void connectionLost(Throwable throwable) {
-                throwable.printStackTrace();
-            }
-
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `mqtt-example/src/main/java/org/apache/rocketmq/mqtt/example/MqttProducer.java`
-#### Snippet
-```java
-            mqttClient.connect(mqttConnectOptions);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        long interval = 1000;
 ```
 
 ### ThrowablePrintStackTrace
@@ -1576,15 +1576,15 @@ in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPS
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `upstreamHookList` is accessed in both synchronized and unsynchronized contexts
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
+Field `httpServer` is accessed in both synchronized and unsynchronized contexts
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MqttMetricsCollector.java`
 #### Snippet
 ```java
-public class UpstreamHookManagerImpl implements UpstreamHookManager {
+    private static String hostName;
+    private static String hostIp;
+    private static MqttHTTPServer httpServer;
 
-    private UpstreamHook[] upstreamHookList = new UpstreamHook[UpstreamHookEnum.values().length];
-    private AtomicBoolean isAssembled = new AtomicBoolean(false);
-
+    public static synchronized void initialize(String nameSpace, String hostName, String hostIp, int exporterPort) throws IOException {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1612,26 +1612,14 @@ public class Trie<K, V> {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `httpServer` is accessed in both synchronized and unsynchronized contexts
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MqttMetricsCollector.java`
+Field `upstreamHookList` is accessed in both synchronized and unsynchronized contexts
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/hook/UpstreamHookManagerImpl.java`
 #### Snippet
 ```java
-    private static String hostName;
-    private static String hostIp;
-    private static MqttHTTPServer httpServer;
+public class UpstreamHookManagerImpl implements UpstreamHookManager {
 
-    public static synchronized void initialize(String nameSpace, String hostName, String hostIp, int exporterPort) throws IOException {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `memory` is accessed in both synchronized and unsynchronized contexts
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFileOutputStream.java`
-#### Snippet
-```java
-
-    private OutputStream out;
-    private MemoryOutput memory;
-    private File file;
+    private UpstreamHook[] upstreamHookList = new UpstreamHook[UpstreamHookEnum.values().length];
+    private AtomicBoolean isAssembled = new AtomicBoolean(false);
 
 ```
 
@@ -1645,6 +1633,18 @@ in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFil
     private File file;
 
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `memory` is accessed in both synchronized and unsynchronized contexts
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/BackedFileOutputStream.java`
+#### Snippet
+```java
+
+    private OutputStream out;
+    private MemoryOutput memory;
+    private File file;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1672,18 +1672,6 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopIm
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `logger` is accessed in both synchronized and unsynchronized contexts
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
-#### Snippet
-```java
-
-public class Session {
-    private static Logger logger = LoggerFactory.getLogger(Session.class);
-    private final long startTime = System.currentTimeMillis();
-    private Channel channel;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `sendingMessages` is accessed in both synchronized and unsynchronized contexts
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
 #### Snippet
@@ -1705,6 +1693,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
     private ConcurrentMap<String, Map<Queue, QueueOffset>> offsetMap = new ConcurrentHashMap<>(16);
     private Map<String, Subscription> subscriptions = new ConcurrentHashMap<>();
     private ConcurrentMap<Subscription, Map<Queue, LinkedHashSet<Message>>> sendingMessages = new ConcurrentHashMap<>(16);
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `logger` is accessed in both synchronized and unsynchronized contexts
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
+#### Snippet
+```java
+
+public class Session {
+    private static Logger logger = LoggerFactory.getLogger(Session.class);
+    private final long startTime = System.currentTimeMillis();
+    private Channel channel;
 ```
 
 ## RuleId[ruleID=Convert2Lambda]
@@ -1771,18 +1771,6 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/mq/MqConsumer.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
-#### Snippet
-```java
-        private int mqttMsgId;
-        private MqttMessageType mqttMessageType;
-        private int localRetryTime = 0;
-        private static final int MAX_LOCAL_RETRY = 1;
-        private long timestamp = System.currentTimeMillis();
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MqttMetricsCollector.java`
 #### Snippet
@@ -1792,18 +1780,6 @@ in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/Mqtt
     private static volatile boolean initialized = false;
     private static String namespace;
     private static String hostName;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/config/ConnectConf.java`
-#### Snippet
-```java
-    private int retryIntervalSeconds = 3;
-    private int exporterPort = 9090;
-    private boolean enablePrometheus = false;
-    private boolean exportJvmInfo = true;
-
 ```
 
 ### RedundantFieldInitialization
@@ -1832,62 +1808,14 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/config/ConnectConf.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/config/ConnectConf.java`
 #### Snippet
 ```java
-    private final long startTime = System.currentTimeMillis();
-    private Channel channel;
-    private volatile boolean destroyed = false;
-    private volatile int loadStatus = -1;
-    private volatile int pullSize;
-```
+    private int retryIntervalSeconds = 3;
+    private int exporterPort = 9090;
+    private boolean enablePrometheus = false;
+    private boolean exportJvmInfo = true;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
-#### Snippet
-```java
-        private int port = 0;
-        private String hostname = null;
-        private InetAddress inetAddress = null;
-        private InetSocketAddress inetSocketAddress = null;
-        private HttpServer httpServer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
-#### Snippet
-```java
-        private String hostname = null;
-        private InetAddress inetAddress = null;
-        private InetSocketAddress inetSocketAddress = null;
-        private HttpServer httpServer = null;
-        private CollectorRegistry registry = CollectorRegistry.defaultRegistry;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
-#### Snippet
-```java
-        private InetAddress inetAddress = null;
-        private InetSocketAddress inetSocketAddress = null;
-        private HttpServer httpServer = null;
-        private CollectorRegistry registry = CollectorRegistry.defaultRegistry;
-        private boolean daemon = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
-#### Snippet
-```java
-    public static class Builder {
-
-        private int port = 0;
-        private String hostname = null;
-        private InetAddress inetAddress = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1907,11 +1835,83 @@ Field initialization to `null` is redundant
 in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
 #### Snippet
 ```java
+        private String hostname = null;
+        private InetAddress inetAddress = null;
+        private InetSocketAddress inetSocketAddress = null;
+        private HttpServer httpServer = null;
+        private CollectorRegistry registry = CollectorRegistry.defaultRegistry;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
+#### Snippet
+```java
+        private InetAddress inetAddress = null;
+        private InetSocketAddress inetSocketAddress = null;
+        private HttpServer httpServer = null;
+        private CollectorRegistry registry = CollectorRegistry.defaultRegistry;
+        private boolean daemon = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
+#### Snippet
+```java
+        private int port = 0;
+        private String hostname = null;
+        private InetAddress inetAddress = null;
+        private InetSocketAddress inetSocketAddress = null;
+        private HttpServer httpServer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
+#### Snippet
+```java
+    public static class Builder {
+
+        private int port = 0;
+        private String hostname = null;
+        private InetAddress inetAddress = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/http/MqttHTTPServer.java`
+#### Snippet
+```java
 
         private int port = 0;
         private String hostname = null;
         private InetAddress inetAddress = null;
         private InetSocketAddress inetSocketAddress = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+#### Snippet
+```java
+        private int mqttMsgId;
+        private MqttMessageType mqttMessageType;
+        private int localRetryTime = 0;
+        private static final int MAX_LOCAL_RETRY = 1;
+        private long timestamp = System.currentTimeMillis();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
+#### Snippet
+```java
+    private final long startTime = System.currentTimeMillis();
+    private Channel channel;
+    private volatile boolean destroyed = false;
+    private volatile int loadStatus = -1;
+    private volatile int pullSize;
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1953,18 +1953,6 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopIm
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `msgIdEntry`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/MqttMsgId.java`
-#### Snippet
-```java
-    public int nextId(String clientId) {
-        MsgIdEntry msgIdEntry = hashMsgID(clientId);
-        synchronized (msgIdEntry) {
-            int startingMessageId = msgIdEntry.nextMsgId;
-            do {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `cacheEntry`
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/QueueCache.java`
 #### Snippet
@@ -1993,6 +1981,18 @@ Synchronization on local variable `idCache`
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
 #### Snippet
 ```java
+            return;
+        }
+        synchronized (idCache) {
+            idCache.remove(mqttMsgId);
+            if (idCache.isEmpty()) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `idCache`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+#### Snippet
+```java
             return false;
         }
         synchronized (idCache) {
@@ -2001,30 +2001,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.j
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `idCache`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+Synchronization on local variable `msgIdEntry`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/MqttMsgId.java`
 #### Snippet
 ```java
-            return;
-        }
-        synchronized (idCache) {
-            idCache.remove(mqttMsgId);
-            if (idCache.isEmpty()) {
+    public int nextId(String clientId) {
+        MsgIdEntry msgIdEntry = hashMsgID(clientId);
+        synchronized (msgIdEntry) {
+            int startingMessageId = msgIdEntry.nextMsgId;
+            do {
 ```
 
 ## RuleId[ruleID=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `UpstreamProcessor`
-in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/DisconnectProcessor.java`
-#### Snippet
-```java
-
-@Component
-public class DisconnectProcessor extends BaseProcessor implements UpstreamProcessor {
-
-    @Override
-```
-
 ### RedundantImplements
 Redundant interface declaration `UpstreamProcessor`
 in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/ConnectProcessor.java`
@@ -2037,55 +2025,19 @@ public class ConnectProcessor extends BaseProcessor implements UpstreamProcessor
     @Override
 ```
 
+### RedundantImplements
+Redundant interface declaration `UpstreamProcessor`
+in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/upstream/processor/DisconnectProcessor.java`
+#### Snippet
+```java
+
+@Component
+public class DisconnectProcessor extends BaseProcessor implements UpstreamProcessor {
+
+    @Override
+```
+
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/SpringUtils.java`
-#### Snippet
-```java
-    public static <T> T getBean(Class<T> type) {
-        if (applicationContext == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/SpringUtils.java`
-#### Snippet
-```java
-            return applicationContext.getBean(type);
-        } catch (BeansException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/NamespaceUtil.java`
-#### Snippet
-```java
-
-    private static String splitNamespaceStr(String namespaceStr) {
-        return namespaceStr != null && namespaceStr.contains(NAMESPACE_SPLITER) ? namespaceStr.split(NAMESPACE_SPLITER)[0] : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MetricsBuilderFactory.java`
-#### Snippet
-```java
-
-        }
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Message.java`
@@ -2124,14 +2076,50 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Message.java
 
 ### ReturnNull
 Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java`
+in `mqtt-exporter/src/main/java/org/apache/rocketmq/mqtt/exporter/collector/MetricsBuilderFactory.java`
 #### Snippet
 ```java
-    public static String buildKey(String... keys) {
-        if (keys == null || keys.length <= 0) {
+
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/SpringUtils.java`
+#### Snippet
+```java
+    public static <T> T getBean(Class<T> type) {
+        if (applicationContext == null) {
             return null;
         }
-        StringBuilder sb = new StringBuilder();
+
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/SpringUtils.java`
+#### Snippet
+```java
+            return applicationContext.getBean(type);
+        } catch (BeansException e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/channel/ChannelInfo.java`
+#### Snippet
+```java
+            return (CompletableFuture<Void>)future;
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -2148,26 +2136,86 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java
 
 ### ReturnNull
 Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.java`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/StatUtil.java`
 #### Snippet
 ```java
-    public static String normalizeTopic(String topic) {
-        if (StringUtils.isBlank(topic)) {
+    public static String buildKey(String... keys) {
+        if (keys == null || keys.length <= 0) {
             return null;
         }
-        if (!topic.contains(Constants.MQTT_TOPIC_DELIMITER)) {
+        StringBuilder sb = new StringBuilder();
 ```
 
 ### ReturnNull
 Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.java`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/NamespaceUtil.java`
 #### Snippet
 ```java
-    public static String normalizeSecondTopic(String secondTopic) {
-        if (StringUtils.isBlank(secondTopic)) {
+
+    private static String splitNamespaceStr(String namespaceStr) {
+        return namespaceStr != null && namespaceStr.contains(NAMESPACE_SPLITER) ? namespaceStr.split(NAMESPACE_SPLITER)[0] : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+#### Snippet
+```java
+                return map.get(mqttMsgId);
+            }
             return null;
         }
-        if (!secondTopic.startsWith(Constants.MQTT_TOPIC_DELIMITER)) {
+
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+#### Snippet
+```java
+        public Map<Integer, PendingDown> all(String channelId) {
+            if (StringUtils.isBlank(channelId)) {
+                return null;
+            }
+            return cache.get(channelId);
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
+#### Snippet
+```java
+                return map.remove(mqttMsgId);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+#### Snippet
+```java
+        List<org.apache.rocketmq.common.message.Message> mqMessages = MessageDecoder.decodeMessages(byteBuffer);
+        if (mqMessages == null) {
+            return null;
+        }
+        List<Message> messageList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+#### Snippet
+```java
+    public static byte[] encode(List<Message> messageList) {
+        if (messageList == null || messageList.isEmpty()) {
+            return null;
+        }
+        List<org.apache.rocketmq.common.message.Message> mqMessages = new ArrayList<>();
 ```
 
 ### ReturnNull
@@ -2196,74 +2244,26 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.ja
 
 ### ReturnNull
 Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.java`
 #### Snippet
 ```java
-    public static byte[] encode(List<Message> messageList) {
-        if (messageList == null || messageList.isEmpty()) {
+    public static String normalizeTopic(String topic) {
+        if (StringUtils.isBlank(topic)) {
             return null;
         }
-        List<org.apache.rocketmq.common.message.Message> mqMessages = new ArrayList<>();
+        if (!topic.contains(Constants.MQTT_TOPIC_DELIMITER)) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/TopicUtils.java`
 #### Snippet
 ```java
-        List<org.apache.rocketmq.common.message.Message> mqMessages = MessageDecoder.decodeMessages(byteBuffer);
-        if (mqMessages == null) {
+    public static String normalizeSecondTopic(String secondTopic) {
+        if (StringUtils.isBlank(secondTopic)) {
             return null;
         }
-        List<Message> messageList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/channel/ChannelInfo.java`
-#### Snippet
-```java
-            return (CompletableFuture<Void>)future;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
-#### Snippet
-```java
-        public Map<Integer, PendingDown> all(String channelId) {
-            if (StringUtils.isBlank(channelId)) {
-                return null;
-            }
-            return cache.get(channelId);
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
-#### Snippet
-```java
-                return map.get(mqttMsgId);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/InFlyCache.java`
-#### Snippet
-```java
-                return map.remove(mqttMsgId);
-            }
-            return null;
-        }
-
+        if (!secondTopic.startsWith(Constants.MQTT_TOPIC_DELIMITER)) {
 ```
 
 ### ReturnNull
@@ -2377,7 +2377,7 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-30-21-58-55.738.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-01-09-04-33.409.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2389,26 +2389,14 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-11-30-21-58-55.738.
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `mqttSubAckMessage` is redundant
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/mqtt/handler/MqttSubscribeHandler.java`
+Local variable `mqttUnsubAckMessage` is redundant
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/mqtt/handler/MqttUnSubscribeHandler.java`
 #### Snippet
 ```java
-        MqttFixedHeader fixedHeader = new MqttFixedHeader(SUBACK, false, AT_MOST_ONCE, false, 0);
-        MqttMessageIdVariableHeader variableHeader = from(mqttSubscribeMessage.variableHeader().messageId());
-        MqttSubAckMessage mqttSubAckMessage = new MqttSubAckMessage(fixedHeader, variableHeader,
-            new MqttSubAckPayload(qoss));
-        return mqttSubAckMessage;
-```
-
-### UnnecessaryLocalVariable
-Local variable `retryMessage` is redundant
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
-#### Snippet
-```java
-
-    public RetryMessage unMountPublish(int mqttMsgId, String channelId) {
-        RetryMessage retryMessage = cleanRetryMessage(mqttMsgId, channelId);
-        return retryMessage;
+        MqttMessageIdVariableHeader variableHeader = MqttMessageIdVariableHeader
+                .from(mqttUnsubscribeMessage.variableHeader().messageId());
+        MqttUnsubAckMessage mqttUnsubAckMessage = new MqttUnsubAckMessage(fixedHeader, variableHeader);
+        return mqttUnsubAckMessage;
     }
 ```
 
@@ -2422,6 +2410,30 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/mqtt/handler/Mqtt
         MqttConnAckMessage mqttConnAckMessage =
                 new MqttConnAckMessage(mqttFixedHeader, mqttConnAckVariableHeader);
         return mqttConnAckMessage;
+```
+
+### UnnecessaryLocalVariable
+Local variable `mqttSubAckMessage` is redundant
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/mqtt/handler/MqttSubscribeHandler.java`
+#### Snippet
+```java
+        MqttFixedHeader fixedHeader = new MqttFixedHeader(SUBACK, false, AT_MOST_ONCE, false, 0);
+        MqttMessageIdVariableHeader variableHeader = from(mqttSubscribeMessage.variableHeader().messageId());
+        MqttSubAckMessage mqttSubAckMessage = new MqttSubAckMessage(fixedHeader, variableHeader,
+            new MqttSubAckPayload(qoss));
+        return mqttSubAckMessage;
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
+#### Snippet
+```java
+            String[] keyArray = key.split(Constants.MQTT_TOPIC_DELIMITER);
+            StringBuilder builder = new StringBuilder(key.length());
+            Set<String> result = findValuePath(rootNode, keyArray, 0, keyArray.length, builder, false);
+            return result;
+        } catch (Throwable e) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -2449,30 +2461,6 @@ in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/model/Trie.java`
-#### Snippet
-```java
-            String[] keyArray = key.split(Constants.MQTT_TOPIC_DELIMITER);
-            StringBuilder builder = new StringBuilder(key.length());
-            Set<String> result = findValuePath(rootNode, keyArray, 0, keyArray.length, builder, false);
-            return result;
-        } catch (Throwable e) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `mqttUnsubAckMessage` is redundant
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/protocol/mqtt/handler/MqttUnSubscribeHandler.java`
-#### Snippet
-```java
-        MqttMessageIdVariableHeader variableHeader = MqttMessageIdVariableHeader
-                .from(mqttUnsubscribeMessage.variableHeader().messageId());
-        MqttUnsubAckMessage mqttUnsubAckMessage = new MqttUnsubAckMessage(fixedHeader, variableHeader);
-        return mqttUnsubAckMessage;
-    }
-```
-
-### UnnecessaryLocalVariable
 Local variable `mqttPublishMessage` is redundant
 in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
 #### Snippet
@@ -2496,19 +2484,19 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/store/LmqQueueStoreManager
                             brokerAddr,
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
+### UnnecessaryLocalVariable
+Local variable `retryMessage` is redundant
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
 #### Snippet
 ```java
-                        Arrays.asList(Subscription.newP2pSubscription(clientId), Subscription.newRetrySubscription(clientId))),
-                ChannelInfo.getFuture(channel, ChannelInfo.FUTURE_CONNECT));
-        synchronized (this) {
-            sessionMap.put(channelId, session);
-            if (!clientMap.containsKey(clientId)) {
+
+    public RetryMessage unMountPublish(int mqttMsgId, String channelId) {
+        RetryMessage retryMessage = cleanRetryMessage(mqttMsgId, channelId);
+        return retryMessage;
+    }
 ```
 
+## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
@@ -2519,6 +2507,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopIm
             synchronized (this) {
                 session = sessionMap.remove(channelId);
                 if (clientId == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/loop/SessionLoopImpl.java`
+#### Snippet
+```java
+                        Arrays.asList(Subscription.newP2pSubscription(clientId), Subscription.newRetrySubscription(clientId))),
+                ChannelInfo.getFuture(channel, ChannelInfo.FUTURE_CONNECT));
+        synchronized (this) {
+            sessionMap.put(channelId, session);
+            if (!clientMap.containsKey(clientId)) {
 ```
 
 ### SynchronizeOnThis
@@ -2543,6 +2543,18 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
             synchronized (this) {
                 if (!messages.isEmpty()) {
                     for (Message message : messages) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
+#### Snippet
+```java
+            return true;
+        }
+        synchronized (this) {
+            return messages.size() <= 0;
+        }
 ```
 
 ### SynchronizeOnThis
@@ -2581,18 +2593,6 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
                     add = true;
 ```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/Session.java`
-#### Snippet
-```java
-            return true;
-        }
-        synchronized (this) {
-            return messages.size() <= 0;
-        }
-```
-
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 Variable `httpServer` initializer `null` is redundant
@@ -2621,18 +2621,6 @@ in `mqtt-ds/src/main/java/org/apache/rocketmq/mqtt/ds/meta/MetaPersistManagerSam
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Condition `map == null` is always `false`
-in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
-#### Snippet
-```java
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            Map<String, RetryMessage> map = retryCache.asMap();
-            if (map == null) {
-                return;
-            }
-```
-
-### ConstantValue
 Condition `mqMessages == null` is always `false`
 in `mqtt-common/src/main/java/org/apache/rocketmq/mqtt/common/util/MessageUtil.java`
 #### Snippet
@@ -2654,5 +2642,17 @@ in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/channel/DefaultChannelMana
             sessionLoop.unloadSession(clientId, channelId);
         } else {
             //session maybe null
+```
+
+### ConstantValue
+Condition `map == null` is always `false`
+in `mqtt-cs/src/main/java/org/apache/rocketmq/mqtt/cs/session/infly/RetryDriver.java`
+#### Snippet
+```java
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Map<String, RetryMessage> map = retryCache.asMap();
+            if (map == null) {
+                return;
+            }
 ```
 
