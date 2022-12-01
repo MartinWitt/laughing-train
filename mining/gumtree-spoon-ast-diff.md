@@ -246,6 +246,18 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -258,15 +270,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
 
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
+	@Override
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -291,18 +303,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private String toDebugString(List<Operation> ops) {
 		String result = "";
 		for (Operation operation : ops) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ### BoundedWildcard
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-01-16-28-25.002.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-01-20-03-29.205.html`
 #### Snippet
 ```java
               <td>0</td>
