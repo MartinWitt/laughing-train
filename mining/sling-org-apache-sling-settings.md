@@ -149,33 +149,9 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```java
     }
 
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
-    @Override
-    public String getSlingId() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
     /** @see org.apache.sling.settings.SlingSettingsService#getRunModes() */
     @Override
     public Set<String> getRunModes() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
-    @Override
-    public String getSlingHomePath() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -197,6 +173,30 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```java
     }
 
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
+    @Override
+    public String getSlingDescription() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
+    @Override
+    public String getSlingHomePath() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
     /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
     @Override
     public URL getSlingHome() {
@@ -209,9 +209,9 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```java
     }
 
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
     @Override
-    public String getSlingDescription() {
+    public String getSlingId() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -233,19 +233,43 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getName()
+     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
      */
     @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.felix.shell` is unnecessary and can be removed
+Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getShortDescription()
+     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
      */
     @Override
 ```
@@ -269,69 +293,21 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
+     * @see org.apache.felix.shell.Command#getShortDescription()
      */
     @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
+Qualifier `org.apache.felix.shell` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
+     * @see org.apache.felix.shell.Command#getName()
      */
     @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
-     */
-    public void printConfiguration(PrintWriter printWriter, String mode) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
-     */
-    public void printConfiguration(PrintWriter printWriter, String mode) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -344,6 +320,30 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
      * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
      */
     public void printConfiguration(PrintWriter pw) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
+     */
+    public void printConfiguration(PrintWriter printWriter, String mode) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
+     */
+    public void printConfiguration(PrintWriter printWriter, String mode) {
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
