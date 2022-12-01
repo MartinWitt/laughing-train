@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-01-10-31-01.781.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-01-15-01-49.711.html`
 #### Snippet
 ```java
               <td>0</td>
