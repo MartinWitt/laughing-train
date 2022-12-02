@@ -246,39 +246,15 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	 * @return
-	 */
-	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
-		List<Operation> newOps = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
-	}
 
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ### BoundedWildcard
@@ -291,6 +267,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		return rootOperations.stream() //
 				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -319,14 +307,26 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
+	 * @return
+	 */
+	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
+		List<Operation> newOps = new ArrayList<>();
 
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
+
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -460,18 +460,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -492,6 +480,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private GumtreeProperties properties = null;
 
 	private Matcher matcher = new CompositeMatchers.ClassicGumtree();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-02-20-15-32.200.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-02-20-48-44.529.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -572,18 +572,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** returns the new version of the node (only for update) */
-	public CtElement getDstNode() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -601,6 +589,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 			first = first.getParent();
 		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** returns the new version of the node (only for update) */
+	public CtElement getDstNode() {
 		return null;
 	}
 
