@@ -81,6 +81,19 @@ import org.apache.camel.kameleon.model.CamelComponent;
 import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
+## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
+#### Snippet
+```java
+        KameletsCatalog catalog = new KameletsCatalog();
+        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
+                .map(e -> new KameletComponent(
+                        e.getValue().getMetadata().getName(),
+                        e.getValue().getSpec().getDefinition().getTitle(),
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -116,19 +129,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             e.printStackTrace();
         }
     }
-```
-
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
-#### Snippet
-```java
-        KameletsCatalog catalog = new KameletsCatalog();
-        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
-                .map(e -> new KameletComponent(
-                        e.getValue().getMetadata().getName(),
-                        e.getValue().getSpec().getDefinition().getTitle(),
 ```
 
 ## RuleId[ruleID=SamePackageImport]
@@ -185,7 +185,7 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-02-09-59-27.317.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-02-12-54-48.784.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -238,18 +238,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-        Model model = reader.read(new FileReader(pom));
-        List<Plugin> plugins = model.getBuild().getPlugins();
-        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
-        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
-        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
             }
         } else {
             CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
@@ -267,6 +255,18 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
             generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
             String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+        Model model = reader.read(new FileReader(pom));
+        List<Plugin> plugins = model.getBuild().getPlugins();
+        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
+        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
+        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
 ```
 
 ## RuleId[ruleID=ComparatorResultComparison]
