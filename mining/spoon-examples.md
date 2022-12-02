@@ -97,18 +97,6 @@ public class Util {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Logger` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Logger.java`
-#### Snippet
-```java
- * on 21/06/17
- */
-public class Logger {
-
-	public static Map<String, Object> observations = new HashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 #### Snippet
@@ -118,6 +106,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 public class IOUtils {
 	/**
 	 * The default buffer size to use.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Logger` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Logger.java`
+#### Snippet
+```java
+ * on 21/06/17
+ */
+public class Logger {
+
+	public static Map<String, Object> observations = new HashMap<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -435,18 +435,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
 
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `String.toLowerCase()` is ignored
-in `src/main/java/fr/inria/gforge/spoon/transformation/retry/TestClass.java`
-#### Snippet
-```java
-		result.add(System.currentTimeMillis());
-		String nullObject = null;
-		nullObject.toLowerCase();
-	}
-}
-```
-
-### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
 #### Snippet
@@ -456,6 +444,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
 				file.createNewFile();
 
 				// the path must be given relatively to to the working directory
+```
+
+### IgnoreResultOfCall
+Result of `String.toLowerCase()` is ignored
+in `src/main/java/fr/inria/gforge/spoon/transformation/retry/TestClass.java`
+#### Snippet
+```java
+		result.add(System.currentTimeMillis());
+		String nullObject = null;
+		nullObject.toLowerCase();
+	}
+}
 ```
 
 ### IgnoreResultOfCall
@@ -581,18 +581,6 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
-#### Snippet
-```java
-	  assertEquals(1, y.m());
-	  
-	  System.out.println("yes y.m()="+y.m());
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
 #### Snippet
 ```java
@@ -605,14 +593,14 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 #### Snippet
 ```java
-	public void addAssertion(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
-		ctLocalVariables.forEach(ctLocalVariable -> this.addAssertion(testMethod, ctLocalVariable));
-		System.out.println(testMethod);
-	}
-
+	  assertEquals(1, y.m());
+	  
+	  System.out.println("yes y.m()="+y.m());
+  }
+}
 ```
 
 ### SystemOutErr
@@ -661,6 +649,18 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
 			if (!localVariablesPerTestMethod.isEmpty()) {
 				// Collect
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
+#### Snippet
+```java
+	public void addAssertion(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
+		ctLocalVariables.forEach(ctLocalVariable -> this.addAssertion(testMethod, ctLocalVariable));
+		System.out.println(testMethod);
+	}
+
 ```
 
 ### SystemOutErr
@@ -958,18 +958,6 @@ import java.lang.annotation.Annotation;
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
-#### Snippet
-```java
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = input.read(buffer))) {
-			output.write(buffer, 0, n);
-			count += n;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
 #### Snippet
 ```java
@@ -980,19 +968,19 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.jav
             }
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/retry/template/RetryTemplate.java`
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 #### Snippet
 ```java
-				lastTh = ex;
-				if (_verbose_) {
-					ex.printStackTrace();
-				}
-				try {
+		long count = 0;
+		int n = 0;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+			count += n;
 ```
 
+## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
@@ -1019,26 +1007,14 @@ in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/retry/template/RetryTemplate.java`
 #### Snippet
 ```java
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
-#### Snippet
-```java
-            new Exception("failed to connect to the database with "
-                    + "jdbc:postgresql:" + _database_ + "," + _username_ + ","
-                    + _password_).printStackTrace();
-        }
-    }
+				lastTh = ex;
+				if (_verbose_) {
+					ex.printStackTrace();
+				}
+				try {
 ```
 
 ### ThrowablePrintStackTrace
@@ -1063,6 +1039,30 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
                 ex13.printStackTrace();
             }
         }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+#### Snippet
+```java
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+#### Snippet
+```java
+            new Exception("failed to connect to the database with "
+                    + "jdbc:postgresql:" + _database_ + "," + _username_ + ","
+                    + _password_).printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1113,19 +1113,6 @@ class TestListener extends RunListener {
     private final List<Description> testRun = new ArrayList<>();
     private final List<Failure> testFails = new ArrayList<>();
 
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-02-07-56-06.524.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -1187,6 +1174,19 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         return null;
     }
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-02-10-24-58.039.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
