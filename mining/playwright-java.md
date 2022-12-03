@@ -162,11 +162,11 @@ Unnecessary semicolon `;`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-      Predicate<Response> responsePredicate = predicate;
-      if (responsePredicate == null) {
-        responsePredicate = response -> urlMatcher.test(response.url());;
+      Predicate<Request> requestPredicate = predicate;
+      if (requestPredicate == null) {
+        requestPredicate = request -> urlMatcher.test(request.url());;
       }
-      return waitForResponseImpl(responsePredicate, options, code);
+      return waitForRequestImpl(requestPredicate, options, code);
 ```
 
 ### UnnecessarySemicolon
@@ -174,11 +174,11 @@ Unnecessary semicolon `;`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-      Predicate<Request> requestPredicate = predicate;
-      if (requestPredicate == null) {
-        requestPredicate = request -> urlMatcher.test(request.url());;
+      Predicate<Response> responsePredicate = predicate;
+      if (responsePredicate == null) {
+        responsePredicate = response -> urlMatcher.test(response.url());;
       }
-      return waitForRequestImpl(requestPredicate, options, code);
+      return waitForResponseImpl(responsePredicate, options, code);
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -195,18 +195,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/TracingImpl.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `playwright/src/main/java/com/microsoft/playwright/impl/RouteImpl.java`
-#### Snippet
-```java
-    } else if (options.body != null) {
-      body = options.body;
-      isBase64 = false;
-      length = body.getBytes().length;
-    } else if (options.bodyBytes != null) {
-```
-
-### DataFlowIssue
 Method invocation `toURI` may produce `NullPointerException`
 in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJar.java`
 #### Snippet
@@ -219,15 +207,15 @@ in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJ
 ```
 
 ### DataFlowIssue
-Method invocation `test` may produce `NullPointerException`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+Variable is already assigned to this value
+in `playwright/src/main/java/com/microsoft/playwright/impl/RouteImpl.java`
 #### Snippet
 ```java
-      Predicate<Response> responsePredicate = predicate;
-      if (responsePredicate == null) {
-        responsePredicate = response -> urlMatcher.test(response.url());;
-      }
-      return waitForResponseImpl(responsePredicate, options, code);
+    } else if (options.body != null) {
+      body = options.body;
+      isBase64 = false;
+      length = body.getBytes().length;
+    } else if (options.bodyBytes != null) {
 ```
 
 ### DataFlowIssue
@@ -240,6 +228,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
         requestPredicate = request -> urlMatcher.test(request.url());;
       }
       return waitForRequestImpl(requestPredicate, options, code);
+```
+
+### DataFlowIssue
+Method invocation `test` may produce `NullPointerException`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+      Predicate<Response> responsePredicate = predicate;
+      if (responsePredicate == null) {
+        responsePredicate = response -> urlMatcher.test(response.url());;
+      }
+      return waitForResponseImpl(responsePredicate, options, code);
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -349,8 +349,8 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
 #### Snippet
 ```java
   @Override
-  public void close() {
-    withLogging("Browser.close", () -> closeImpl());
+  public byte[] stopTracing() {
+    return withLogging("Browser.stopTracing", () -> stopTracingImpl());
   }
 
 ```
@@ -361,8 +361,8 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
 #### Snippet
 ```java
   @Override
-  public byte[] stopTracing() {
-    return withLogging("Browser.stopTracing", () -> stopTracingImpl());
+  public void close() {
+    withLogging("Browser.close", () -> closeImpl());
   }
 
 ```
@@ -385,8 +385,8 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.jav
 #### Snippet
 ```java
   @Override
-  public String textContent() {
-    return withLogging("ElementHandle.textContent", () -> textContentImpl());
+  public Frame contentFrame() {
+    return withLogging("ElementHandle.contentFrame", () -> contentFrameImpl());
   }
 
 ```
@@ -397,10 +397,22 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.jav
 #### Snippet
 ```java
   @Override
-  public Frame contentFrame() {
-    return withLogging("ElementHandle.contentFrame", () -> contentFrameImpl());
+  public String textContent() {
+    return withLogging("ElementHandle.textContent", () -> textContentImpl());
   }
 
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `playwright/src/main/java/com/microsoft/playwright/impl/StackTraceCollector.java`
+#### Snippet
+```java
+      return null;
+    }
+    List<Path> srcDirs = Arrays.stream(srcRoots.split(File.pathSeparator)).map(p -> Paths.get(p)).collect(Collectors.toList());
+    for (Path srcDir: srcDirs) {
+      if (!Files.exists(srcDir.toAbsolutePath())) {
 ```
 
 ### Convert2MethodRef
@@ -409,10 +421,10 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
   @Override
-  public String title() {
-    return withLogging("Frame.title", () -> titleImpl());
-  }
+  public ElementHandle frameElement() {
+    return withLogging("Frame.frameElement", () -> frameElementImpl());
 
+  }
 ```
 
 ### Convert2MethodRef
@@ -433,22 +445,10 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
   @Override
-  public ElementHandle frameElement() {
-    return withLogging("Frame.frameElement", () -> frameElementImpl());
-
+  public String title() {
+    return withLogging("Frame.title", () -> titleImpl());
   }
-```
 
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `playwright/src/main/java/com/microsoft/playwright/impl/StackTraceCollector.java`
-#### Snippet
-```java
-      return null;
-    }
-    List<Path> srcDirs = Arrays.stream(srcRoots.split(File.pathSeparator)).map(p -> Paths.get(p)).collect(Collectors.toList());
-    for (Path srcDir: srcDirs) {
-      if (!Files.exists(srcDir.toAbsolutePath())) {
 ```
 
 ### Convert2MethodRef
@@ -457,8 +457,8 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/DownloadImpl.java`
 #### Snippet
 ```java
   @Override
-  public void delete() {
-    page.withLogging("Download.delete", () -> artifact.delete());
+  public InputStream createReadStream() {
+    return page.withLogging("Download.createReadStream", () -> artifact.createReadStream());
   }
 
 ```
@@ -481,18 +481,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/DownloadImpl.java`
 #### Snippet
 ```java
   @Override
-  public String failure() {
-    return page.withLogging("Download.failure", () -> artifact.failure());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `playwright/src/main/java/com/microsoft/playwright/impl/DownloadImpl.java`
-#### Snippet
-```java
-  @Override
   public Path path() {
     return page.withLogging("Download.path", () -> artifact.pathAfterFinished());
   }
@@ -505,8 +493,20 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/DownloadImpl.java`
 #### Snippet
 ```java
   @Override
-  public InputStream createReadStream() {
-    return page.withLogging("Download.createReadStream", () -> artifact.createReadStream());
+  public void delete() {
+    page.withLogging("Download.delete", () -> artifact.delete());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `playwright/src/main/java/com/microsoft/playwright/impl/DownloadImpl.java`
+#### Snippet
+```java
+  @Override
+  public String failure() {
+    return page.withLogging("Download.failure", () -> artifact.failure());
   }
 
 ```
@@ -519,18 +519,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
   @Override
   public byte[] screenshot(ScreenshotOptions options) {
     return withElement((h, o) -> h.screenshot(o), convertType(options, ElementHandle.ScreenshotOptions.class));
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
-#### Snippet
-```java
-  @Override
-  public void close() {
-    withLogging("BrowserContext.close", () -> closeImpl());
   }
 
 ```
@@ -555,6 +543,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.ja
     HARRouter harRouter = new HARRouter(connection.localUtils, har, options.notFound);
     onClose(context -> harRouter.dispose());
     route(matcher, route -> harRouter.handle(route), null);
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
+#### Snippet
+```java
+  @Override
+  public void close() {
+    withLogging("BrowserContext.close", () -> closeImpl());
   }
 
 ```
@@ -588,9 +588,9 @@ Lambda can be replaced with method reference
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-    HARRouter harRouter = new HARRouter(connection.localUtils, har, options.notFound);
-    onClose(context -> harRouter.dispose());
-    route(matcher, route -> harRouter.handle(route), null);
+  @Override
+  public String content() {
+    return withLogging("Page.content", () -> mainFrame.contentImpl());
   }
 
 ```
@@ -600,9 +600,9 @@ Lambda can be replaced with method reference
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  @Override
-  public String content() {
-    return withLogging("Page.content", () -> mainFrame.contentImpl());
+    HARRouter harRouter = new HARRouter(connection.localUtils, har, options.notFound);
+    onClose(context -> harRouter.dispose());
+    route(matcher, route -> harRouter.handle(route), null);
   }
 
 ```
@@ -713,11 +713,11 @@ Empty string used in concatenation
 in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
 #### Snippet
 ```java
-      Map<String, String> queryParams = new LinkedHashMap<>();
-      for (Map.Entry<String, ?> e : options.params.entrySet()) {
-        queryParams.put(e.getKey(), "" + e.getValue());
-      }
-      params.add("params", toNameValueArray(queryParams));
+      item.addProperty("name", e.getKey());
+      if (filePayload == null) {
+        item.addProperty("value", "" + e.getValue());
+      } else {
+        item.add("file", toProtocol(filePayload));
 ```
 
 ### TrivialStringConcatenation
@@ -725,11 +725,11 @@ Empty string used in concatenation
 in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
 #### Snippet
 ```java
-      item.addProperty("name", e.getKey());
-      if (filePayload == null) {
-        item.addProperty("value", "" + e.getValue());
-      } else {
-        item.add("file", toProtocol(filePayload));
+      Map<String, String> queryParams = new LinkedHashMap<>();
+      for (Map.Entry<String, ?> e : options.params.entrySet()) {
+        queryParams.put(e.getKey(), "" + e.getValue());
+      }
+      params.add("params", toNameValueArray(queryParams));
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -880,18 +880,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PipeTransport.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ElementHandle`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  }
-
-  private <R, O> R withElement(BiFunction<ElementHandle, O, R> callback, O options) {
-    ElementHandleOptions handleOptions = convertType(options, ElementHandleOptions.class);
-    // TODO: support deadline based timeout
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `playwright/src/main/java/com/microsoft/playwright/impl/Serialization.java`
 #### Snippet
@@ -904,15 +892,27 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/Serialization.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Request`
+Can generalize to `? super ElementHandle`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  }
+
+  private <R, O> R withElement(BiFunction<ElementHandle, O, R> callback, O options) {
+    ElementHandleOptions handleOptions = convertType(options, ElementHandleOptions.class);
+    // TODO: support deadline based timeout
+```
+
+### BoundedWildcard
+Can generalize to `? extends Response`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
   }
 
-  private Request waitForRequestImpl(Predicate<Request> predicate, WaitForRequestOptions options, Runnable code) {
+  private Response waitForResponseImpl(Predicate<Response> predicate, WaitForResponseOptions options, Runnable code) {
     if (options == null) {
-      options = new WaitForRequestOptions();
+      options = new WaitForResponseOptions();
 ```
 
 ### BoundedWildcard
@@ -928,15 +928,15 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Response`
+Can generalize to `? extends Request`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
   }
 
-  private Response waitForResponseImpl(Predicate<Response> predicate, WaitForResponseOptions options, Runnable code) {
+  private Request waitForRequestImpl(Predicate<Request> predicate, WaitForRequestOptions options, Runnable code) {
     if (options == null) {
-      options = new WaitForResponseOptions();
+      options = new WaitForRequestOptions();
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -966,6 +966,66 @@ in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'reducedMotion'
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
+#### Snippet
+```java
+     * {@code "no-preference"}.
+     */
+    public Optional<ReducedMotion> reducedMotion;
+    /**
+     * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code viewport}
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'viewportSize'
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
+#### Snippet
+```java
+     * Emulates consistent viewport for each page. Defaults to an 1280x720 viewport. {@code null} disables the default viewport.
+     */
+    public Optional<ViewportSize> viewportSize;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'forcedColors'
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
+#### Snippet
+```java
+     * Page.emulateMedia()} for more details. Passing {@code null} resets emulation to system defaults. Defaults to {@code "none"}.
+     */
+    public Optional<ForcedColors> forcedColors;
+    public Geolocation geolocation;
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'forcedColors'
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
+#### Snippet
+```java
+     * Page.emulateMedia()} for more details. Passing {@code null} resets emulation to system defaults. Defaults to {@code "none"}.
+     */
+    public Optional<ForcedColors> forcedColors;
+    public Geolocation geolocation;
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'reducedMotion'
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
+#### Snippet
+```java
+     * {@code "no-preference"}.
+     */
+    public Optional<ReducedMotion> reducedMotion;
+    /**
+     * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code viewport}
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'colorScheme'
 in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 #### Snippet
@@ -990,62 +1050,14 @@ in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'reducedMotion'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * {@code "no-preference"}.
-     */
-    public Optional<ReducedMotion> reducedMotion;
-    /**
-     * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code viewport}
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'viewportSize'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
+in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
 #### Snippet
 ```java
      * Emulates consistent viewport for each page. Defaults to an 1280x720 viewport. {@code null} disables the default viewport.
      */
     public Optional<ViewportSize> viewportSize;
 
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'reducedMotion'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * {@code "no-preference"}.
-     */
-    public Optional<ReducedMotion> reducedMotion;
-    /**
-     * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code viewport}
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'forcedColors'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * Page.emulateMedia()} for more details. Passing {@code null} resets emulation to system defaults. Defaults to {@code "none"}.
-     */
-    public Optional<ForcedColors> forcedColors;
-    public Geolocation geolocation;
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'forcedColors'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * Page.emulateMedia()} for more details. Passing {@code null} resets emulation to system defaults. Defaults to {@code "none"}.
-     */
-    public Optional<ForcedColors> forcedColors;
-    public Geolocation geolocation;
     /**
 ```
 
@@ -1082,18 +1094,6 @@ in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
      */
     public Optional<ForcedColors> forcedColors;
     public Geolocation geolocation;
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'viewportSize'
-in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
-#### Snippet
-```java
-     * Emulates consistent viewport for each page. Defaults to an 1280x720 viewport. {@code null} disables the default viewport.
-     */
-    public Optional<ViewportSize> viewportSize;
-
     /**
 ```
 
@@ -1110,15 +1110,15 @@ in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'reducedMotion'
+`Optional` used as type for field 'media'
 in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
-     * disables reduced motion emulation.
+     * disables CSS media emulation.
      */
-    public Optional<ReducedMotion> reducedMotion;
-
+    public Optional<Media> media;
     /**
+     * Emulates {@code "prefers-reduced-motion"} media feature, supported values are {@code "reduce"}, {@code "no-preference"}. Passing {@code null}
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1134,15 +1134,15 @@ in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'media'
+`Optional` used as type for field 'reducedMotion'
 in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
-     * disables CSS media emulation.
+     * disables reduced motion emulation.
      */
-    public Optional<Media> media;
+    public Optional<ReducedMotion> reducedMotion;
+
     /**
-     * Emulates {@code "prefers-reduced-motion"} media feature, supported values are {@code "reduce"}, {@code "no-preference"}. Passing {@code null}
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -1195,6 +1195,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LoggingSupport.java`
 ```
 
 ### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJar.java`
+#### Snippet
+```java
+    }
+    if (skip != null && !"0".equals(skip) && !"false".equals(skip)) {
+      System.out.println("Skipping browsers download because `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD` env variable is set");
+      return;
+    }
+```
+
+### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `driver/src/main/java/com/microsoft/playwright/impl/driver/DriverLogging.java`
 #### Snippet
@@ -1216,18 +1228,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PipeTransport.java`
           e.printStackTrace(System.err);
         }
         throw new PlaywrightException("Failed to read message from driver, pipe closed.", readerThread.exception);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJar.java`
-#### Snippet
-```java
-    }
-    if (skip != null && !"0".equals(skip) && !"false".equals(skip)) {
-      System.out.println("Skipping browsers download because `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD` env variable is set");
-      return;
-    }
 ```
 
 ## RuleId[ruleID=OptionalAssignedToNull]
@@ -1281,39 +1281,15 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/AssertionsBase.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJar.java`
 #### Snippet
 ```java
-      }
-      String content = new String(encoded, StandardCharsets.UTF_8);
-      content += "//# sourceURL=" + options.path.toString().replace("\n", "");
-      jsonOptions.addProperty("content", content);
     }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-      }
-      String content = new String(encoded, StandardCharsets.UTF_8);
-      content += "/*# sourceURL=" + options.path.toString().replace("\n", "") + "*/";
-      jsonOptions.addProperty("content", content);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorUtils.java`
-#### Snippet
-```java
-    // However, our attribute selectors do not conform to CSS parsing spec,
-    // so we escape them differently.
-    return '"' + value.replaceAll("\"", "\\\\\"") + '"' + (exact ? "" : "i");
-  }
-
+    final String JAR_URL_SEPARATOR = "!/";
+    String[] parts = uri.toString().split("!/");
+    if (parts.length != 3) {
+      return uri;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1353,15 +1329,39 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorUtils.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJar.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorUtils.java`
 #### Snippet
 ```java
+    // However, our attribute selectors do not conform to CSS parsing spec,
+    // so we escape them differently.
+    return '"' + value.replaceAll("\"", "\\\\\"") + '"' + (exact ? "" : "i");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+      }
+      String content = new String(encoded, StandardCharsets.UTF_8);
+      content += "/*# sourceURL=" + options.path.toString().replace("\n", "") + "*/";
+      jsonOptions.addProperty("content", content);
     }
-    final String JAR_URL_SEPARATOR = "!/";
-    String[] parts = uri.toString().split("!/");
-    if (parts.length != 3) {
-      return uri;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+      }
+      String content = new String(encoded, StandardCharsets.UTF_8);
+      content += "//# sourceURL=" + options.path.toString().replace("\n", "");
+      jsonOptions.addProperty("content", content);
+    }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -1833,18 +1833,6 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/MouseImpl.java`
 #### Snippet
 ```java
-  private void moveImpl(double x, double y, MoveOptions options) {
-    if (options == null) {
-      options = new MoveOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/MouseImpl.java`
-#### Snippet
-```java
   private void downImpl(DownOptions options) {
     if (options == null) {
       options = new DownOptions();
@@ -1878,6 +1866,54 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/MouseImpl.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/MouseImpl.java`
+#### Snippet
+```java
+  private void moveImpl(double x, double y, MoveOptions options) {
+    if (options == null) {
+      options = new MoveOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
+#### Snippet
+```java
+  private Browser connectImpl(String wsEndpoint, ConnectOptions options) {
+    if (options == null) {
+      options = new ConnectOptions();
+    }
+    // We don't use gson() here as the headers map should be serialized to a json object.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
+#### Snippet
+```java
+  private BrowserImpl launchImpl(LaunchOptions options) {
+    if (options == null) {
+      options = new LaunchOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
+#### Snippet
+```java
+  private Browser connectOverCDPImpl(String endpointURL, ConnectOverCDPOptions options) {
+    if (options == null) {
+      options = new ConnectOverCDPOptions();
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
 #### Snippet
 ```java
@@ -1902,38 +1938,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
 #### Snippet
 ```java
-  private BrowserImpl launchImpl(LaunchOptions options) {
+  private void startTracingImpl(Page page, StartTracingOptions options) {
     if (options == null) {
-      options = new LaunchOptions();
+      options = new StartTracingOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
-#### Snippet
-```java
-  private Browser connectImpl(String wsEndpoint, ConnectOptions options) {
-    if (options == null) {
-      options = new ConnectOptions();
-    }
-    // We don't use gson() here as the headers map should be serialized to a json object.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
-#### Snippet
-```java
-  private Browser connectOverCDPImpl(String endpointURL, ConnectOverCDPOptions options) {
-    if (options == null) {
-      options = new ConnectOverCDPOptions();
-    }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -1962,18 +1974,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
-#### Snippet
-```java
-  private void startTracingImpl(Page page, StartTracingOptions options) {
-    if (options == null) {
-      options = new StartTracingOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestImpl.java`
 #### Snippet
 ```java
@@ -1986,26 +1986,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestImpl.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/AssertionsBase.java`
 #### Snippet
 ```java
-  private APIResponse fetchImpl(String url, RequestOptionsImpl options) {
+  void expectImpl(String expression, List<ExpectedTextValue> expectedText, Object expected, String message, FrameExpectOptions options) {
     if (options == null) {
-      options = new RequestOptionsImpl();
+      options = new FrameExpectOptions();
     }
-    JsonObject params = new JsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/WorkerImpl.java`
-#### Snippet
-```java
-  private Worker waitForCloseImpl(WaitForCloseOptions options, Runnable code) {
-    if (options == null) {
-      options = new WaitForCloseOptions();
-    }
-    return waitForEventWithTimeout(EventType.CLOSE, code, options.timeout);
+    options.expectedText = expectedText;
 ```
 
 ### AssignmentToMethodParameter
@@ -2034,14 +2022,50 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/AssertionsBase.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/AssertionsBase.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
 #### Snippet
 ```java
-  void expectImpl(String expression, List<ExpectedTextValue> expectedText, Object expected, String message, FrameExpectOptions options) {
+  private APIResponse fetchImpl(String url, RequestOptionsImpl options) {
     if (options == null) {
-      options = new FrameExpectOptions();
+      options = new RequestOptionsImpl();
     }
-    options.expectedText = expectedText;
+    JsonObject params = new JsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/WorkerImpl.java`
+#### Snippet
+```java
+  private Worker waitForCloseImpl(WaitForCloseOptions options, Runnable code) {
+    if (options == null) {
+      options = new WaitForCloseOptions();
+    }
+    return waitForEventWithTimeout(EventType.CLOSE, code, options.timeout);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/WebSocketImpl.java`
+#### Snippet
+```java
+  private WebSocketFrame waitForFrameSentImpl(WaitForFrameSentOptions options, Runnable code) {
+    if (options == null) {
+      options = new WaitForFrameSentOptions();
+    }
+    return waitForEventWithTimeout(EventType.FRAMESENT, code, options.predicate, options.timeout);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/WebSocketImpl.java`
+#### Snippet
+```java
+  private WebSocketFrame waitForFrameReceivedImpl(WaitForFrameReceivedOptions options, Runnable code) {
+    if (options == null) {
+      options = new WaitForFrameReceivedOptions();
+    }
+    return waitForEventWithTimeout(EventType.FRAMERECEIVED, code, options.predicate, options.timeout);
 ```
 
 ### AssignmentToMethodParameter
@@ -2049,9 +2073,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-  private void tapImpl(TapOptions options) {
+  private void selectTextImpl(SelectTextOptions options) {
     if (options == null) {
-      options = new TapOptions();
+      options = new SelectTextOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2061,11 +2085,35 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-  private String inputValueImpl(InputValueOptions options) {
+  private void scrollIntoViewIfNeededImpl(ScrollIntoViewIfNeededOptions options) {
     if (options == null) {
-      options = new InputValueOptions();
+      options = new ScrollIntoViewIfNeededOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  public List<String> selectOption(SelectOption[] values, SelectOptionOptions options) {
+    if (options == null) {
+      options = new SelectOptionOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+    if (hasLargeFile(files)) {
+      if (options == null) {
+        options = new SetInputFilesOptions();
+      }
+      JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
@@ -2085,9 +2133,21 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-  public List<String> selectOption(ElementHandle[] values, SelectOptionOptions options) {
+  private void waitForElementStateImpl(ElementState state, WaitForElementStateOptions options) {
     if (options == null) {
-      options = new SelectOptionOptions();
+      options = new WaitForElementStateOptions();
+    }
+    if (state == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  private void typeImpl(String text, TypeOptions options) {
+    if (options == null) {
+      options = new TypeOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2097,45 +2157,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-  private void fillImpl(String value, FillOptions options) {
+  private void tapImpl(TapOptions options) {
     if (options == null) {
-      options = new FillOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void pressImpl(String key, PressOptions options) {
-    if (options == null) {
-      options = new PressOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void checkImpl(CheckOptions options) {
-    if (options == null) {
-      options = new CheckOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  public List<String> selectOption(SelectOption[] values, SelectOptionOptions options) {
-    if (options == null) {
-      options = new SelectOptionOptions();
+      options = new TapOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2169,81 +2193,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-  private ElementHandle waitForSelectorImpl(String selector, WaitForSelectorOptions options) {
+  private void checkImpl(CheckOptions options) {
     if (options == null) {
-      options = new WaitForSelectorOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void waitForElementStateImpl(ElementState state, WaitForElementStateOptions options) {
-    if (options == null) {
-      options = new WaitForElementStateOptions();
-    }
-    if (state == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void uncheckImpl(UncheckOptions options) {
-    if (options == null) {
-      options = new UncheckOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void selectTextImpl(SelectTextOptions options) {
-    if (options == null) {
-      options = new SelectTextOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void hoverImpl(HoverOptions options) {
-    if (options == null) {
-      options = new HoverOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void scrollIntoViewIfNeededImpl(ScrollIntoViewIfNeededOptions options) {
-    if (options == null) {
-      options = new ScrollIntoViewIfNeededOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  private void typeImpl(String text, TypeOptions options) {
-    if (options == null) {
-      options = new TypeOptions();
+      options = new CheckOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2265,11 +2217,143 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-    if (hasLargeFile(files)) {
-      if (options == null) {
-        options = new SetInputFilesOptions();
+  private ElementHandle waitForSelectorImpl(String selector, WaitForSelectorOptions options) {
+    if (options == null) {
+      options = new WaitForSelectorOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  private void uncheckImpl(UncheckOptions options) {
+    if (options == null) {
+      options = new UncheckOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  public List<String> selectOption(ElementHandle[] values, SelectOptionOptions options) {
+    if (options == null) {
+      options = new SelectOptionOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  private void pressImpl(String key, PressOptions options) {
+    if (options == null) {
+      options = new PressOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  private void fillImpl(String value, FillOptions options) {
+    if (options == null) {
+      options = new FillOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  private String inputValueImpl(InputValueOptions options) {
+    if (options == null) {
+      options = new InputValueOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  private void hoverImpl(HoverOptions options) {
+    if (options == null) {
+      options = new HoverOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+#### Snippet
+```java
+  public void hasCount(int count, HasCountOptions options) {
+    if (options == null) {
+      options = new HasCountOptions();
+    }
+    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+#### Snippet
+```java
+  public void hasJSProperty(String name, Object value, HasJSPropertyOptions options) {
+    if (options == null) {
+      options = new HasJSPropertyOptions();
+    }
+    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+#### Snippet
+```java
+  private void hasAttribute(String name, ExpectedTextValue expectedText, Object expectedValue, HasAttributeOptions options) {
+    if (options == null) {
+      options = new HasAttributeOptions();
+    }
+    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+#### Snippet
+```java
+  private void hasCSS(String name, ExpectedTextValue expectedText, Object expectedValue, HasCSSOptions options) {
+    if (options == null) {
+      options = new HasCSSOptions();
+    }
+    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `playwright/src/main/java/com/microsoft/playwright/impl/Stream.java`
+#### Snippet
+```java
+      byte[] buffer = Base64.getDecoder().decode(encoded);
+      for (int i = 0; i < buffer.length;) {
+        b[off++] = buffer[i++];
       }
-      JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+      return buffer.length;
 ```
 
 ### AssignmentToMethodParameter
@@ -2277,9 +2361,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void clickImpl(String selector, ClickOptions options) {
+  String inputValueImpl(String selector, InputValueOptions options) {
     if (options == null) {
-      options = new ClickOptions();
+      options = new InputValueOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2289,9 +2373,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void focusImpl(String selector, FocusOptions options) {
+  void checkImpl(String selector, CheckOptions options) {
     if (options == null) {
-      options = new FocusOptions();
+      options = new CheckOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2301,9 +2385,21 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void setContentImpl(String html, SetContentOptions options) {
+    logger.log("waiting for url " + matcher);
     if (options == null) {
-      options = new SetContentOptions();
+      options = new WaitForURLOptions();
+    }
+    if (matcher.test(url())) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  List<String> selectOptionImpl(String selector, ElementHandle[] values, SelectOptionOptions options) {
+    if (options == null) {
+      options = new SelectOptionOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2337,83 +2433,23 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  ElementHandle waitForSelectorImpl(String selector, WaitForSelectorOptions options, boolean omitReturnValue) {
+  private void waitForLoadStateImpl(WaitUntilState state, WaitForLoadStateOptions options, Logger logger) {
     if (options == null) {
-      options = new WaitForSelectorOptions();
+      options = new WaitForLoadStateOptions();
     }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+    if (state == null) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `options`
+Assignment to method parameter `state`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void fillImpl(String selector, String value, FillOptions options) {
-    if (options == null) {
-      options = new FillOptions();
     }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    if (hasLargeFile(files)) {
-      if (options == null) {
-        options = new SetInputFilesOptions();
-      }
-      JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  boolean isDisabledImpl(String selector, IsDisabledOptions options) {
-    if (options == null) {
-      options = new IsDisabledOptions();
+    if (state == null) {
+      state = LOAD;
     }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    checkFilePayloadSize(files);
-    if (options == null) {
-      options = new SetInputFilesOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  ElementHandleImpl querySelectorImpl(String selector, QuerySelectorOptions options) {
-    if (options == null) {
-      options = new QuerySelectorOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  String textContentImpl(String selector, TextContentOptions options) {
-    if (options == null) {
-      options = new TextContentOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
@@ -2433,47 +2469,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void typeImpl(String selector, String text, TypeOptions options) {
+  ElementHandle addStyleTagImpl(AddStyleTagOptions options) {
     if (options == null) {
-      options = new TypeOptions();
+      options = new AddStyleTagOptions();
     }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    logger.log("waiting for url " + matcher);
-    if (options == null) {
-      options = new WaitForURLOptions();
-    }
-    if (matcher.test(url())) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  void uncheckImpl(String selector, UncheckOptions options) {
-    if (options == null) {
-      options = new UncheckOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  List<String> selectOptionImpl(String selector, ElementHandle[] values, SelectOptionOptions options) {
-    if (options == null) {
-      options = new SelectOptionOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+    JsonObject jsonOptions = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
@@ -2505,150 +2505,6 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void tapImpl(String selector, TapOptions options) {
-    if (options == null) {
-      options = new TapOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  void dragAndDropImpl(String source, String target, DragAndDropOptions options) {
-    if (options == null) {
-      options = new DragAndDropOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  boolean isEditableImpl(String selector, IsEditableOptions options) {
-    if (options == null) {
-      options = new IsEditableOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  boolean isCheckedImpl(String selector, IsCheckedOptions options) {
-    if (options == null) {
-      options = new IsCheckedOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  void checkImpl(String selector, CheckOptions options) {
-    if (options == null) {
-      options = new CheckOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  String innerTextImpl(String selector, InnerTextOptions options) {
-    if (options == null) {
-      options = new InnerTextOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  private void waitForLoadStateImpl(WaitUntilState state, WaitForLoadStateOptions options, Logger logger) {
-    if (options == null) {
-      options = new WaitForLoadStateOptions();
-    }
-    if (state == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    }
-    if (state == null) {
-      state = LOAD;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  ElementHandle addStyleTagImpl(AddStyleTagOptions options) {
-    if (options == null) {
-      options = new AddStyleTagOptions();
-    }
-    JsonObject jsonOptions = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  String getAttributeImpl(String selector, String name, GetAttributeOptions options) {
-    if (options == null) {
-      options = new GetAttributeOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  ResponseImpl navigateImpl(String url, NavigateOptions options) {
-    if (options == null) {
-      options = new NavigateOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-  boolean isEnabledImpl(String selector, IsEnabledOptions options) {
-    if (options == null) {
-      options = new IsEnabledOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
   void pressImpl(String selector, String key, PressOptions options) {
     if (options == null) {
       options = new PressOptions();
@@ -2673,9 +2529,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void dblclickImpl(String selector, DblclickOptions options) {
+  void dragAndDropImpl(String source, String target, DragAndDropOptions options) {
     if (options == null) {
-      options = new DblclickOptions();
+      options = new DragAndDropOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2685,9 +2541,21 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  void hoverImpl(String selector, HoverOptions options) {
+    if (hasLargeFile(files)) {
+      if (options == null) {
+        options = new SetInputFilesOptions();
+      }
+      JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  boolean isEditableImpl(String selector, IsEditableOptions options) {
     if (options == null) {
-      options = new HoverOptions();
+      options = new IsEditableOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2697,11 +2565,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  ElementHandle addScriptTagImpl(AddScriptTagOptions options) {
+  void clickImpl(String selector, ClickOptions options) {
     if (options == null) {
-      options = new AddScriptTagOptions();
+      options = new ClickOptions();
     }
-    JsonObject jsonOptions = gson().toJsonTree(options).getAsJsonObject();
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
@@ -2709,9 +2577,93 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  String innerHTMLImpl(String selector, InnerHTMLOptions options) {
+  String getAttributeImpl(String selector, String name, GetAttributeOptions options) {
     if (options == null) {
-      options = new InnerHTMLOptions();
+      options = new GetAttributeOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  ElementHandle waitForSelectorImpl(String selector, WaitForSelectorOptions options, boolean omitReturnValue) {
+    if (options == null) {
+      options = new WaitForSelectorOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  boolean isEnabledImpl(String selector, IsEnabledOptions options) {
+    if (options == null) {
+      options = new IsEnabledOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  void uncheckImpl(String selector, UncheckOptions options) {
+    if (options == null) {
+      options = new UncheckOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  boolean isDisabledImpl(String selector, IsDisabledOptions options) {
+    if (options == null) {
+      options = new IsDisabledOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  void focusImpl(String selector, FocusOptions options) {
+    if (options == null) {
+      options = new FocusOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  ElementHandleImpl querySelectorImpl(String selector, QuerySelectorOptions options) {
+    if (options == null) {
+      options = new QuerySelectorOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  JSHandle waitForFunctionImpl(String pageFunction, Object arg, WaitForFunctionOptions options) {
+    if (options == null) {
+      options = new WaitForFunctionOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2733,9 +2685,9 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  String inputValueImpl(String selector, InputValueOptions options) {
+  String innerTextImpl(String selector, InnerTextOptions options) {
     if (options == null) {
-      options = new InputValueOptions();
+      options = new InnerTextOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
@@ -2745,107 +2697,143 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  JSHandle waitForFunctionImpl(String pageFunction, Object arg, WaitForFunctionOptions options) {
+  String innerHTMLImpl(String selector, InnerHTMLOptions options) {
     if (options == null) {
-      options = new WaitForFunctionOptions();
+      options = new InnerHTMLOptions();
     }
     JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/WebSocketImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  private WebSocketFrame waitForFrameReceivedImpl(WaitForFrameReceivedOptions options, Runnable code) {
+  void tapImpl(String selector, TapOptions options) {
     if (options == null) {
-      options = new WaitForFrameReceivedOptions();
+      options = new TapOptions();
     }
-    return waitForEventWithTimeout(EventType.FRAMERECEIVED, code, options.predicate, options.timeout);
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/WebSocketImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  private WebSocketFrame waitForFrameSentImpl(WaitForFrameSentOptions options, Runnable code) {
+    checkFilePayloadSize(files);
     if (options == null) {
-      options = new WaitForFrameSentOptions();
+      options = new SetInputFilesOptions();
     }
-    return waitForEventWithTimeout(EventType.FRAMESENT, code, options.predicate, options.timeout);
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  private void hasAttribute(String name, ExpectedTextValue expectedText, Object expectedValue, HasAttributeOptions options) {
+  boolean isCheckedImpl(String selector, IsCheckedOptions options) {
     if (options == null) {
-      options = new HasAttributeOptions();
+      options = new IsCheckedOptions();
     }
-    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  private void hasCSS(String name, ExpectedTextValue expectedText, Object expectedValue, HasCSSOptions options) {
+  String textContentImpl(String selector, TextContentOptions options) {
     if (options == null) {
-      options = new HasCSSOptions();
+      options = new TextContentOptions();
     }
-    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  public void hasJSProperty(String name, Object value, HasJSPropertyOptions options) {
+  void setContentImpl(String html, SetContentOptions options) {
     if (options == null) {
-      options = new HasJSPropertyOptions();
+      options = new SetContentOptions();
     }
-    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-  public void hasCount(int count, HasCountOptions options) {
+  void dblclickImpl(String selector, DblclickOptions options) {
     if (options == null) {
-      options = new HasCountOptions();
+      options = new DblclickOptions();
     }
-    FrameExpectOptions commonOptions = convertType(options, FrameExpectOptions.class);
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `playwright/src/main/java/com/microsoft/playwright/impl/Stream.java`
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-      byte[] buffer = Base64.getDecoder().decode(encoded);
-      for (int i = 0; i < buffer.length;) {
-        b[off++] = buffer[i++];
-      }
-      return buffer.length;
+  void typeImpl(String selector, String text, TypeOptions options) {
+    if (options == null) {
+      options = new TypeOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `transport`
-in `playwright/src/main/java/com/microsoft/playwright/impl/Connection.java`
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
 #### Snippet
 ```java
-    this.isRemote = isRemote;
-    if (isLogging) {
-      transport = new TransportLogger(transport);
+  ElementHandle addScriptTagImpl(AddScriptTagOptions options) {
+    if (options == null) {
+      options = new AddScriptTagOptions();
     }
-    this.transport = transport;
+    JsonObject jsonOptions = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  void fillImpl(String selector, String value, FillOptions options) {
+    if (options == null) {
+      options = new FillOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  ResponseImpl navigateImpl(String url, NavigateOptions options) {
+    if (options == null) {
+      options = new NavigateOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+  void hoverImpl(String selector, HoverOptions options) {
+    if (options == null) {
+      options = new HoverOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
@@ -2858,6 +2846,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/RouteImpl.java`
       options = new FulfillOptions();
     }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `transport`
+in `playwright/src/main/java/com/microsoft/playwright/impl/Connection.java`
+#### Snippet
+```java
+    this.isRemote = isRemote;
+    if (isLogging) {
+      transport = new TransportLogger(transport);
+    }
+    this.transport = transport;
 ```
 
 ### AssignmentToMethodParameter
@@ -2889,18 +2889,6 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public String getAttribute(String name, GetAttributeOptions options) {
-    if (options == null) {
-      options = new GetAttributeOptions();
-    }
-    return frame.getAttribute(selector, name, convertType(options, Frame.GetAttributeOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
   public boolean isHidden(IsHiddenOptions options) {
     if (options == null) {
       options = new IsHiddenOptions();
@@ -2913,11 +2901,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public boolean isEditable(IsEditableOptions options) {
+  public void hover(HoverOptions options) {
     if (options == null) {
-      options = new IsEditableOptions();
+      options = new HoverOptions();
     }
-    return frame.isEditable(selector, convertType(options, Frame.IsEditableOptions.class).setStrict(true));
+    frame.hover(selector, convertType(options, Frame.HoverOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -2925,11 +2913,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public String innerText(InnerTextOptions options) {
+  public void dragTo(Locator target, DragToOptions options) {
     if (options == null) {
-      options = new InnerTextOptions();
+      options = new DragToOptions();
     }
-    return frame.innerText(selector, convertType(options, Frame.InnerTextOptions.class).setStrict(true));
+    Frame.DragAndDropOptions frameOptions = convertType(options, Frame.DragAndDropOptions.class);
 ```
 
 ### AssignmentToMethodParameter
@@ -2937,11 +2925,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void click(ClickOptions options) {
+  public void setInputFiles(Path files, SetInputFilesOptions options) {
     if (options == null) {
-      options = new ClickOptions();
+      options = new SetInputFilesOptions();
     }
-    frame.click(selector, convertType(options, Frame.ClickOptions.class).setStrict(true));
+    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -2949,95 +2937,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public ElementHandle elementHandle(ElementHandleOptions options) {
+  public boolean isVisible(IsVisibleOptions options) {
     if (options == null) {
-      options = new ElementHandleOptions();
+      options = new IsVisibleOptions();
     }
-    Frame.WaitForSelectorOptions frameOptions = convertType(options, Frame.WaitForSelectorOptions.class);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  private FrameExpectResult expectImpl(String expression, FrameExpectOptions options) {
-    if (options == null) {
-      options = new FrameExpectOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void dispatchEvent(String type, Object eventInit, DispatchEventOptions options) {
-    if (options == null) {
-      options = new DispatchEventOptions();
-    }
-    frame.dispatchEvent(selector, type, eventInit, convertType(options, Frame.DispatchEventOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public List<String> selectOption(String values, SelectOptionOptions options) {
-    if (options == null) {
-      options = new SelectOptionOptions();
-    }
-    return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public List<String> selectOption(String[] values, SelectOptionOptions options) {
-    if (options == null) {
-      options = new SelectOptionOptions();
-    }
-    return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public boolean isChecked(IsCheckedOptions options) {
-    if (options == null) {
-      options = new IsCheckedOptions();
-    }
-    return frame.isChecked(selector, convertType(options, Frame.IsCheckedOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public boolean isEnabled(IsEnabledOptions options) {
-    if (options == null) {
-      options = new IsEnabledOptions();
-    }
-    return frame.isEnabled(selector, convertType(options, Frame.IsEnabledOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void check(CheckOptions options) {
-    if (options == null) {
-      options = new CheckOptions();
-    }
-    frame.check(selector, convertType(options, Frame.CheckOptions.class).setStrict(true));
+    return frame.isVisible(selector, convertType(options, Frame.IsVisibleOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -3057,59 +2961,23 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void setInputFiles(FilePayload[] files, SetInputFilesOptions options) {
-    if (options == null) {
-      options = new SetInputFilesOptions();
-    }
-    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void waitFor(WaitForOptions options) {
-    if (options == null) {
-      options = new WaitForOptions();
-    }
-    waitForImpl(options);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void type(String text, TypeOptions options) {
-    if (options == null) {
-      options = new TypeOptions();
-    }
-    frame.type(selector, text, convertType(options, Frame.TypeOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public boolean isDisabled(IsDisabledOptions options) {
-    if (options == null) {
-      options = new IsDisabledOptions();
-    }
-    return frame.isDisabled(selector, convertType(options, Frame.IsDisabledOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public List<String> selectOption(SelectOption values, SelectOptionOptions options) {
+  public List<String> selectOption(ElementHandle values, SelectOptionOptions options) {
     if (options == null) {
       options = new SelectOptionOptions();
     }
     return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public String innerText(InnerTextOptions options) {
+    if (options == null) {
+      options = new InnerTextOptions();
+    }
+    return frame.innerText(selector, convertType(options, Frame.InnerTextOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -3129,11 +2997,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void dblclick(DblclickOptions options) {
+  public void press(String key, PressOptions options) {
     if (options == null) {
-      options = new DblclickOptions();
+      options = new PressOptions();
     }
-    frame.dblclick(selector, convertType(options, Frame.DblclickOptions.class).setStrict(true));
+    frame.press(selector, key, convertType(options, Frame.PressOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -3141,11 +3009,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public List<String> selectOption(ElementHandle values, SelectOptionOptions options) {
+  public void waitFor(WaitForOptions options) {
     if (options == null) {
-      options = new SelectOptionOptions();
+      options = new WaitForOptions();
     }
-    return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
+    waitForImpl(options);
 ```
 
 ### AssignmentToMethodParameter
@@ -3153,11 +3021,47 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void fill(String value, FillOptions options) {
+  public String inputValue(InputValueOptions options) {
     if (options == null) {
-      options = new FillOptions();
+      options = new InputValueOptions();
     }
-    frame.fill(selector, value, convertType(options, Frame.FillOptions.class).setStrict(true));
+    return frame.inputValue(selector, convertType(options, Frame.InputValueOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void setInputFiles(FilePayload[] files, SetInputFilesOptions options) {
+    if (options == null) {
+      options = new SetInputFilesOptions();
+    }
+    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void setInputFiles(FilePayload files, SetInputFilesOptions options) {
+    if (options == null) {
+      options = new SetInputFilesOptions();
+    }
+    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public ElementHandle elementHandle(ElementHandleOptions options) {
+    if (options == null) {
+      options = new ElementHandleOptions();
+    }
+    Frame.WaitForSelectorOptions frameOptions = convertType(options, Frame.WaitForSelectorOptions.class);
 ```
 
 ### AssignmentToMethodParameter
@@ -3189,11 +3093,23 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void hover(HoverOptions options) {
+  public void setInputFiles(Path[] files, SetInputFilesOptions options) {
     if (options == null) {
-      options = new HoverOptions();
+      options = new SetInputFilesOptions();
     }
-    frame.hover(selector, convertType(options, Frame.HoverOptions.class).setStrict(true));
+    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void dispatchEvent(String type, Object eventInit, DispatchEventOptions options) {
+    if (options == null) {
+      options = new DispatchEventOptions();
+    }
+    frame.dispatchEvent(selector, type, eventInit, convertType(options, Frame.DispatchEventOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -3213,103 +3129,43 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public boolean isVisible(IsVisibleOptions options) {
-    if (options == null) {
-      options = new IsVisibleOptions();
-    }
-    return frame.isVisible(selector, convertType(options, Frame.IsVisibleOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public String inputValue(InputValueOptions options) {
-    if (options == null) {
-      options = new InputValueOptions();
-    }
-    return frame.inputValue(selector, convertType(options, Frame.InputValueOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void press(String key, PressOptions options) {
-    if (options == null) {
-      options = new PressOptions();
-    }
-    frame.press(selector, key, convertType(options, Frame.PressOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void uncheck(UncheckOptions options) {
-    if (options == null) {
-      options = new UncheckOptions();
-    }
-    frame.uncheck(selector, convertType(options, Frame.UncheckOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  private void blurImpl(BlurOptions options) {
-    if (options == null) {
-      options = new BlurOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void tap(TapOptions options) {
-    if (options == null) {
-      options = new TapOptions();
-    }
-    frame.tap(selector, convertType(options, Frame.TapOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void setInputFiles(Path[] files, SetInputFilesOptions options) {
-    if (options == null) {
-      options = new SetInputFilesOptions();
-    }
-    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
-  public void setInputFiles(FilePayload files, SetInputFilesOptions options) {
-    if (options == null) {
-      options = new SetInputFilesOptions();
-    }
-    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
   public List<String> selectOption(SelectOption[] values, SelectOptionOptions options) {
+    if (options == null) {
+      options = new SelectOptionOptions();
+    }
+    return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public List<String> selectOption(String values, SelectOptionOptions options) {
+    if (options == null) {
+      options = new SelectOptionOptions();
+    }
+    return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public boolean isEnabled(IsEnabledOptions options) {
+    if (options == null) {
+      options = new IsEnabledOptions();
+    }
+    return frame.isEnabled(selector, convertType(options, Frame.IsEnabledOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public List<String> selectOption(String[] values, SelectOptionOptions options) {
     if (options == null) {
       options = new SelectOptionOptions();
     }
@@ -3333,18 +3189,6 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void setInputFiles(Path files, SetInputFilesOptions options) {
-    if (options == null) {
-      options = new SetInputFilesOptions();
-    }
-    frame.setInputFiles(selector, files, convertType(options, Frame.SetInputFilesOptions.class).setStrict(true));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
-#### Snippet
-```java
   public void setChecked(boolean checked, SetCheckedOptions options) {
     if (options == null) {
       options = new SetCheckedOptions();
@@ -3357,11 +3201,167 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
-  public void dragTo(Locator target, DragToOptions options) {
+  public void type(String text, TypeOptions options) {
     if (options == null) {
-      options = new DragToOptions();
+      options = new TypeOptions();
     }
-    Frame.DragAndDropOptions frameOptions = convertType(options, Frame.DragAndDropOptions.class);
+    frame.type(selector, text, convertType(options, Frame.TypeOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void dblclick(DblclickOptions options) {
+    if (options == null) {
+      options = new DblclickOptions();
+    }
+    frame.dblclick(selector, convertType(options, Frame.DblclickOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void click(ClickOptions options) {
+    if (options == null) {
+      options = new ClickOptions();
+    }
+    frame.click(selector, convertType(options, Frame.ClickOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  private FrameExpectResult expectImpl(String expression, FrameExpectOptions options) {
+    if (options == null) {
+      options = new FrameExpectOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public String getAttribute(String name, GetAttributeOptions options) {
+    if (options == null) {
+      options = new GetAttributeOptions();
+    }
+    return frame.getAttribute(selector, name, convertType(options, Frame.GetAttributeOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void tap(TapOptions options) {
+    if (options == null) {
+      options = new TapOptions();
+    }
+    frame.tap(selector, convertType(options, Frame.TapOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void fill(String value, FillOptions options) {
+    if (options == null) {
+      options = new FillOptions();
+    }
+    frame.fill(selector, value, convertType(options, Frame.FillOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public boolean isDisabled(IsDisabledOptions options) {
+    if (options == null) {
+      options = new IsDisabledOptions();
+    }
+    return frame.isDisabled(selector, convertType(options, Frame.IsDisabledOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  private void blurImpl(BlurOptions options) {
+    if (options == null) {
+      options = new BlurOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public boolean isChecked(IsCheckedOptions options) {
+    if (options == null) {
+      options = new IsCheckedOptions();
+    }
+    return frame.isChecked(selector, convertType(options, Frame.IsCheckedOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public List<String> selectOption(SelectOption values, SelectOptionOptions options) {
+    if (options == null) {
+      options = new SelectOptionOptions();
+    }
+    return frame.selectOption(selector, values, convertType(options, Frame.SelectOptionOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public boolean isEditable(IsEditableOptions options) {
+    if (options == null) {
+      options = new IsEditableOptions();
+    }
+    return frame.isEditable(selector, convertType(options, Frame.IsEditableOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void check(CheckOptions options) {
+    if (options == null) {
+      options = new CheckOptions();
+    }
+    frame.check(selector, convertType(options, Frame.CheckOptions.class).setStrict(true));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
+#### Snippet
+```java
+  public void uncheck(UncheckOptions options) {
+    if (options == null) {
+      options = new UncheckOptions();
+    }
+    frame.uncheck(selector, convertType(options, Frame.UncheckOptions.class).setStrict(true));
 ```
 
 ### AssignmentToMethodParameter
@@ -3393,6 +3393,18 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
 #### Snippet
 ```java
+  public void routeFromHAR(Path har, RouteFromHAROptions options) {
+    if (options == null) {
+      options = new RouteFromHAROptions();
+    }
+    if (options.update != null && options.update) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
+#### Snippet
+```java
   private void grantPermissionsImpl(List<String> permissions, GrantPermissionsOptions options) {
     if (options == null) {
       options = new GrantPermissionsOptions();
@@ -3414,14 +3426,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.ja
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  public void routeFromHAR(Path har, RouteFromHAROptions options) {
+  private Worker waitForWorkerImpl(WaitForWorkerOptions options, Runnable code) {
     if (options == null) {
-      options = new RouteFromHAROptions();
+      options = new WaitForWorkerOptions();
     }
-    if (options.update != null && options.update) {
+    return waitForEventWithTimeout(EventType.WORKER, code, options.predicate, options.timeout);
 ```
 
 ### AssignmentToMethodParameter
@@ -3429,11 +3441,23 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  private Request waitForRequestFinishedImpl(WaitForRequestFinishedOptions options, Runnable code) {
+  private Response waitForResponseImpl(Predicate<Response> predicate, WaitForResponseOptions options, Runnable code) {
     if (options == null) {
-      options = new WaitForRequestFinishedOptions();
+      options = new WaitForResponseOptions();
     }
-    return waitForEventWithTimeout(EventType.REQUESTFINISHED, code, options.predicate, options.timeout);
+    return waitForEventWithTimeout(EventType.RESPONSE, code, predicate, options.timeout);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+  Response goBackImpl(GoBackOptions options) {
+    if (options == null) {
+      options = new GoBackOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
 ```
 
 ### AssignmentToMethodParameter
@@ -3465,35 +3489,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  private ConsoleMessage waitForConsoleMessageImpl(WaitForConsoleMessageOptions options, Runnable code) {
+  private Page waitForPopupImpl(WaitForPopupOptions options, Runnable code) {
     if (options == null) {
-      options = new WaitForConsoleMessageOptions();
+      options = new WaitForPopupOptions();
     }
-    return waitForEventWithTimeout(EventType.CONSOLE, code, options.predicate, options.timeout);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  private Response reloadImpl(ReloadOptions options) {
-    if (options == null) {
-      options = new ReloadOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  Response goForwardImpl(GoForwardOptions options) {
-    if (options == null) {
-      options = new GoForwardOptions();
-    }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+    return waitForEventWithTimeout(EventType.POPUP, code, options.predicate, options.timeout);
 ```
 
 ### AssignmentToMethodParameter
@@ -3506,30 +3506,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
       options = new WaitForFileChooserOptions();
     }
     return waitForEventWithTimeout(EventType.FILECHOOSER, code, options.predicate, options.timeout);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  private Response waitForResponseImpl(Predicate<Response> predicate, WaitForResponseOptions options, Runnable code) {
-    if (options == null) {
-      options = new WaitForResponseOptions();
-    }
-    return waitForEventWithTimeout(EventType.RESPONSE, code, predicate, options.timeout);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  private byte[] screenshotImpl(ScreenshotOptions options) {
-    if (options == null) {
-      options = new ScreenshotOptions();
-    }
-    if (options.type == null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -3561,6 +3537,54 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
+  private Response reloadImpl(ReloadOptions options) {
+    if (options == null) {
+      options = new ReloadOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+  private WebSocket waitForWebSocketImpl(WaitForWebSocketOptions options, Runnable code) {
+    if (options == null) {
+      options = new WaitForWebSocketOptions();
+    }
+    return waitForEventWithTimeout(EventType.WEBSOCKET, code, options.predicate, options.timeout);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+  Response goForwardImpl(GoForwardOptions options) {
+    if (options == null) {
+      options = new GoForwardOptions();
+    }
+    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+  private ConsoleMessage waitForConsoleMessageImpl(WaitForConsoleMessageOptions options, Runnable code) {
+    if (options == null) {
+      options = new WaitForConsoleMessageOptions();
+    }
+    return waitForEventWithTimeout(EventType.CONSOLE, code, options.predicate, options.timeout);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
   private Request waitForRequestImpl(Predicate<Request> predicate, WaitForRequestOptions options, Runnable code) {
     if (options == null) {
       options = new WaitForRequestOptions();
@@ -3573,11 +3597,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  Response goBackImpl(GoBackOptions options) {
+  private byte[] screenshotImpl(ScreenshotOptions options) {
     if (options == null) {
-      options = new GoBackOptions();
+      options = new ScreenshotOptions();
     }
-    JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+    if (options.type == null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -3597,35 +3621,11 @@ Assignment to method parameter `options`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  private Worker waitForWorkerImpl(WaitForWorkerOptions options, Runnable code) {
+  private Request waitForRequestFinishedImpl(WaitForRequestFinishedOptions options, Runnable code) {
     if (options == null) {
-      options = new WaitForWorkerOptions();
+      options = new WaitForRequestFinishedOptions();
     }
-    return waitForEventWithTimeout(EventType.WORKER, code, options.predicate, options.timeout);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  private Page waitForPopupImpl(WaitForPopupOptions options, Runnable code) {
-    if (options == null) {
-      options = new WaitForPopupOptions();
-    }
-    return waitForEventWithTimeout(EventType.POPUP, code, options.predicate, options.timeout);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  private WebSocket waitForWebSocketImpl(WaitForWebSocketOptions options, Runnable code) {
-    if (options == null) {
-      options = new WaitForWebSocketOptions();
-    }
-    return waitForEventWithTimeout(EventType.WEBSOCKET, code, options.predicate, options.timeout);
+    return waitForEventWithTimeout(EventType.REQUESTFINISHED, code, options.predicate, options.timeout);
 ```
 
 ## RuleId[ruleID=PointlessBitwiseExpression]
@@ -3682,7 +3682,7 @@ public class TimeoutError extends PlaywrightException {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-03-05-35-31.091.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-03-19-37-59.732.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3710,7 +3710,7 @@ Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ResponseImpl.java`
 #### Snippet
 ```java
-        return gson().fromJson(json.get("value"), SecurityDetails.class);
+        return gson().fromJson(json.get("value"), ServerAddr.class);
       }
       return null;
     });
@@ -3722,23 +3722,11 @@ Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ResponseImpl.java`
 #### Snippet
 ```java
-        return gson().fromJson(json.get("value"), ServerAddr.class);
+        return gson().fromJson(json.get("value"), SecurityDetails.class);
       }
       return null;
     });
   }
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/RequestImpl.java`
-#### Snippet
-```java
-    byte[] buffer = postDataBuffer();
-    if (buffer == null) {
-      return null;
-    }
-    return new String(buffer, StandardCharsets.UTF_8);
 ```
 
 ### ReturnNull
@@ -3755,6 +3743,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/RequestImpl.java`
 
 ### ReturnNull
 Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/RequestImpl.java`
+#### Snippet
+```java
+    byte[] buffer = postDataBuffer();
+    if (buffer == null) {
+      return null;
+    }
+    return new String(buffer, StandardCharsets.UTF_8);
+```
+
+### ReturnNull
+Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LoggingSupport.java`
 #### Snippet
 ```java
@@ -3767,14 +3767,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LoggingSupport.java`
 
 ### ReturnNull
 Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
 #### Snippet
 ```java
-      JsonObject json = sendMessage("boundingBox").getAsJsonObject();
-      if (!json.has("value")) {
-        return null;
-      }
-      return gson().fromJson(json.get("value"), BoundingBox.class);
+  static <F, T> T convertType(F f, Class<T> t) {
+    if (f == null) {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -3782,11 +3782,11 @@ Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-      JsonObject json = sendMessage("ownerFrame").getAsJsonObject();
-      if (!json.has("frame")) {
-        return null;
-      }
-      return connection.getExistingObject(json.getAsJsonObject("frame").get("guid").getAsString());
+    JsonObject element = json.getAsJsonObject().getAsJsonObject("element");
+    if (element == null) {
+      return null;
+    }
+    return connection.getExistingObject(element.get("guid").getAsString());
 ```
 
 ### ReturnNull
@@ -3806,11 +3806,11 @@ Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-      JsonArray elements = json.getAsJsonObject().getAsJsonArray("elements");
-      if (elements == null) {
+      JsonObject json = sendMessage("boundingBox").getAsJsonObject();
+      if (!json.has("value")) {
         return null;
       }
-      List<ElementHandle> handles = new ArrayList<>();
+      return gson().fromJson(json.get("value"), BoundingBox.class);
 ```
 
 ### ReturnNull
@@ -3818,11 +3818,35 @@ Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
 #### Snippet
 ```java
-    JsonObject element = json.getAsJsonObject().getAsJsonObject("element");
-    if (element == null) {
-      return null;
-    }
-    return connection.getExistingObject(element.get("guid").getAsString());
+    return withLogging("ElementHandle.textContent", () -> {
+      JsonObject json = sendMessage("textContent").getAsJsonObject();
+      return json.has("value") ? json.get("value").getAsString() : null;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+      JsonObject json = sendMessage("ownerFrame").getAsJsonObject();
+      if (!json.has("frame")) {
+        return null;
+      }
+      return connection.getExistingObject(json.getAsJsonObject("frame").get("guid").getAsString());
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+      JsonArray elements = json.getAsJsonObject().getAsJsonArray("elements");
+      if (elements == null) {
+        return null;
+      }
+      List<ElementHandle> handles = new ArrayList<>();
 ```
 
 ### ReturnNull
@@ -3847,126 +3871,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.jav
         return null;
       }
       return connection.getExistingObject(element.get("guid").getAsString());
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-    return withLogging("ElementHandle.textContent", () -> {
-      JsonObject json = sendMessage("textContent").getAsJsonObject();
-      return json.has("value") ? json.get("value").getAsString() : null;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
-#### Snippet
-```java
-  static <F, T> T convertType(F f, Class<T> t) {
-    if (f == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    JsonObject element = json.getAsJsonObject().getAsJsonObject("element");
-    if (element == null) {
-      return null;
-    }
-    return connection.getExistingObject(element.get("guid").getAsString());
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    JsonArray elements = json.getAsJsonObject().getAsJsonArray("elements");
-    if (elements == null) {
-      return null;
-    }
-    List<ElementHandle> handles = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    withWaitLogging("Frame.waitForLoadState", logger -> {
-      waitForLoadStateImpl(state, options, logger);
-      return null;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    JsonObject element = json.getAsJsonObject().getAsJsonObject("element");
-    if (element == null) {
-      return null;
-    }
-    return connection.getExistingObject(element.get("guid").getAsString());
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    withWaitLogging("Frame.waitForURL", logger -> {
-      waitForURLImpl(logger, matcher, options);
-      return null;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-
-      if (request == null) {
-        return null;
-      }
-      return request.finalRequest().response();
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-      return json.get("value").getAsString();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
-#### Snippet
-```java
-    JsonObject jsonResponse = result.getAsJsonObject().getAsJsonObject("response");
-    if (jsonResponse == null) {
-      return null;
-    }
-    return connection.getExistingObject(jsonResponse.get("guid").getAsString());
 ```
 
 ### ReturnNull
@@ -4007,18 +3911,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/ArtifactImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/RawHeaders.java`
-#### Snippet
-```java
-    List<String> values = getAll(name);
-    if (values == null) {
-      return null;
-    }
-    return String.join("set-cookie".equals(name.toLowerCase()) ? "\n" : ", ", values);
-```
-
-### ReturnNull
-Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
@@ -4043,6 +3935,126 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl
 
 ### ReturnNull
 Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/RawHeaders.java`
+#### Snippet
+```java
+    List<String> values = getAll(name);
+    if (values == null) {
+      return null;
+    }
+    return String.join("set-cookie".equals(name.toLowerCase()) ? "\n" : ", ", values);
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+    withWaitLogging("Frame.waitForLoadState", logger -> {
+      waitForLoadStateImpl(state, options, logger);
+      return null;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+    JsonArray elements = json.getAsJsonObject().getAsJsonArray("elements");
+    if (elements == null) {
+      return null;
+    }
+    List<ElementHandle> handles = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+      return json.get("value").getAsString();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+
+      if (request == null) {
+        return null;
+      }
+      return request.finalRequest().response();
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+    JsonObject element = json.getAsJsonObject().getAsJsonObject("element");
+    if (element == null) {
+      return null;
+    }
+    return connection.getExistingObject(element.get("guid").getAsString());
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+    withWaitLogging("Frame.waitForURL", logger -> {
+      waitForURLImpl(logger, matcher, options);
+      return null;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+    JsonObject jsonResponse = result.getAsJsonObject().getAsJsonObject("response");
+    if (jsonResponse == null) {
+      return null;
+    }
+    return connection.getExistingObject(jsonResponse.get("guid").getAsString());
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/FrameImpl.java`
+#### Snippet
+```java
+    JsonObject element = json.getAsJsonObject().getAsJsonObject("element");
+    if (element == null) {
+      return null;
+    }
+    return connection.getExistingObject(element.get("guid").getAsString());
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/Serialization.java`
+#### Snippet
+```java
+        case "undefined":
+        case "null":
+          return null;
+        case "Infinity":
+          return (T) Double.valueOf(Double.POSITIVE_INFINITY);
+```
+
+### ReturnNull
+Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 #### Snippet
 ```java
@@ -4063,78 +4075,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
       return null;
     }, convertType(options, ElementHandle.SelectTextOptions.class));
   }
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/Serialization.java`
-#### Snippet
-```java
-        case "undefined":
-        case "null":
-          return null;
-        case "Infinity":
-          return (T) Double.valueOf(Double.POSITIVE_INFINITY);
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-    withWaitLogging("Page.waitForURL", logger -> {
-      mainFrame.waitForURLImpl(logger, matcher, convertType(options, Frame.WaitForURLOptions.class));
-      return null;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-      return connection.getExistingObject(json.getAsJsonObject("response").get("guid").getAsString());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-      return connection.getExistingObject(json.getAsJsonObject("response").get("guid").getAsString());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-      return connection.getExistingObject(json.getAsJsonObject("response").get("guid").getAsString());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -4166,11 +4106,71 @@ Return of `null`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+      return connection.getExistingObject(json.getAsJsonObject("response").get("guid").getAsString());
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
   public PageImpl opener() {
     if (opener == null || opener.isClosed()) {
       return null;
     }
     return opener;
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+      return connection.getExistingObject(json.getAsJsonObject("response").get("guid").getAsString());
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+      return connection.getExistingObject(json.getAsJsonObject("response").get("guid").getAsString());
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+    withWaitLogging("Page.waitForURL", logger -> {
+      mainFrame.waitForURLImpl(logger, matcher, convertType(options, Frame.WaitForURLOptions.class));
+      return null;
+    });
+  }
 ```
 
 ### ReturnNull
@@ -4226,18 +4226,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
-#### Snippet
-```java
-  public List<String> selectOption(String[] values, SelectOptionOptions options) {
-    if (values == null) {
-      return selectOption(new SelectOption[0], options);
-    }
-    return selectOption(Arrays.asList(values).stream().map(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
 #### Snippet
 ```java
@@ -4246,6 +4234,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
     return payloads.toArray(new FilePayload[0]);
   }
 
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+  public List<String> selectOption(String[] values, SelectOptionOptions options) {
+    if (values == null) {
+      return selectOption(new SelectOption[0], options);
+    }
+    return selectOption(Arrays.asList(values).stream().map(
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4310,14 +4310,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 
 ## RuleId[ruleID=PointlessBooleanExpression]
 ### PointlessBooleanExpression
-`options.editable == true` can be simplified to 'options.editable'
+`options.visible == true` can be simplified to 'options.visible'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
-  public void isEditable(IsEditableOptions options) {
+  public void isVisible(IsVisibleOptions options) {
     FrameExpectOptions frameOptions = convertType(options, FrameExpectOptions.class);
-    boolean editable = options == null || options.editable == null || options.editable == true;
-    expectTrue(editable ? "to.be.editable" : "to.be.readonly", "Locator expected to be editable", frameOptions);
+    boolean visible = options == null || options.visible == null || options.visible == true;
+    expectTrue(visible ? "to.be.visible" : "to.be.hidden", "Locator expected to be visible", frameOptions);
   }
 ```
 
@@ -4334,14 +4334,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl
 ```
 
 ### PointlessBooleanExpression
-`options.visible == true` can be simplified to 'options.visible'
+`options.editable == true` can be simplified to 'options.editable'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
-  public void isVisible(IsVisibleOptions options) {
+  public void isEditable(IsEditableOptions options) {
     FrameExpectOptions frameOptions = convertType(options, FrameExpectOptions.class);
-    boolean visible = options == null || options.visible == null || options.visible == true;
-    expectTrue(visible ? "to.be.visible" : "to.be.hidden", "Locator expected to be visible", frameOptions);
+    boolean editable = options == null || options.editable == null || options.editable == true;
+    expectTrue(editable ? "to.be.editable" : "to.be.readonly", "Locator expected to be editable", frameOptions);
   }
 ```
 
@@ -4389,9 +4389,9 @@ Value `expectedText` is always 'null'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
-  private void expectTrue(String expression, String message, FrameExpectOptions options) {
+    commonOptions.expectedNumber = count;
     List<ExpectedTextValue> expectedText = null;
-    expectImpl(expression, expectedText, null, message, options);
+    expectImpl("to.have.count", expectedText, count, "Locator expected to have count", commonOptions);
   }
 
 ```
@@ -4413,9 +4413,9 @@ Value `expectedText` is always 'null'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
-    commonOptions.expectedNumber = count;
+  private void expectTrue(String expression, String message, FrameExpectOptions options) {
     List<ExpectedTextValue> expectedText = null;
-    expectImpl("to.have.count", expectedText, count, "Locator expected to have count", commonOptions);
+    expectImpl(expression, expectedText, null, message, options);
   }
 
 ```
