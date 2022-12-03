@@ -400,30 +400,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchDialog.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
-#### Snippet
-```java
-    private final Project project;
-    private final ServerContext serverContext;
-    //private final SelectRevisionForm mySelectRevisionForm;
-    //private final JTable myChangesetsTable;
-    //private final ChangesetsTableModel myChangesetsTableModel;
-```
-
-### CommentedOutCode
-Commented out code (10 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
-#### Snippet
-```java
-
-    private boolean canFinish() {
-//        ChangesType changesType = (ChangesType) changesTypeCombo.getSelectedItem();
-//        if (changesType == ChangesType.SELECTED) {
-//            if (myChangesetsTable.getSelectedRowCount() == 0) {
-```
-
-### CommentedOutCode
 Commented out code (9 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
@@ -448,6 +424,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 ```
 
 ### CommentedOutCode
+Commented out code (24 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+    }
+
+//  @Nullable
+//  public VersionSpecBase getFromVersion() {
+//    ChangesType changesType = (ChangesType)changesTypeCombo.getSelectedItem();
+```
+
+### CommentedOutCode
 Commented out code (15 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
@@ -460,15 +448,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 ```
 
 ### CommentedOutCode
-Commented out code (24 lines)
+Commented out code (3 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
 ```java
-    }
+    private final Project project;
+    private final ServerContext serverContext;
+    //private final SelectRevisionForm mySelectRevisionForm;
+    //private final JTable myChangesetsTable;
+    //private final ChangesetsTableModel myChangesetsTableModel;
+```
 
-//  @Nullable
-//  public VersionSpecBase getFromVersion() {
-//    ChangesType changesType = (ChangesType)changesTypeCombo.getSelectedItem();
+### CommentedOutCode
+Commented out code (10 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+
+    private boolean canFinish() {
+//        ChangesType changesType = (ChangesType) changesTypeCombo.getSelectedItem();
+//        if (changesType == ChangesType.SELECTED) {
+//            if (myChangesetsTable.getSelectedRowCount() == 0) {
 ```
 
 ### CommentedOutCode
@@ -620,11 +620,11 @@ Commented out code (5 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSProjectConfigurable.java`
 #### Snippet
 ```java
-        form.reset();
-        // TODO: move this all to the component reset() method once needed
-//    myComponent.setUserProxy(TFSConfigurationManager.getInstance().useIdeaHttpProxy());
+        return form.isModified();
+        // TODO: move this all to the component isModified() method once needed
+//    if (TFSConfigurationManager.getInstance().useIdeaHttpProxy() != myComponent.useProxy()) return true;
 //    TfsCheckinPoliciesCompatibility c = TFSConfigurationManager.getInstance().getCheckinPoliciesCompatibility();
-//    myComponent.setSupportTfsCheckinPolicies(c.teamExplorer);
+//    if (c.teamExplorer != myComponent.supportTfsCheckinPolicies()) return true;
 ```
 
 ### CommentedOutCode
@@ -632,11 +632,11 @@ Commented out code (5 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSProjectConfigurable.java`
 #### Snippet
 ```java
-        return form.isModified();
-        // TODO: move this all to the component isModified() method once needed
-//    if (TFSConfigurationManager.getInstance().useIdeaHttpProxy() != myComponent.useProxy()) return true;
+        form.reset();
+        // TODO: move this all to the component reset() method once needed
+//    myComponent.setUserProxy(TFSConfigurationManager.getInstance().useIdeaHttpProxy());
 //    TfsCheckinPoliciesCompatibility c = TFSConfigurationManager.getInstance().getCheckinPoliciesCompatibility();
-//    if (c.teamExplorer != myComponent.supportTfsCheckinPolicies()) return true;
+//    myComponent.setSupportTfsCheckinPolicies(c.teamExplorer);
 ```
 
 ### CommentedOutCode
@@ -676,18 +676,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/CreateBranchForm.java`
 ```
 
 ### CommentedOutCode
-Commented out code (26 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurableForm.java`
-#### Snippet
-```java
-
-        // TODO: comment back in when ready to use
-//    myManageButton.addActionListener(new ActionListener() {
-//      public void actionPerformed(final ActionEvent e) {
-//        ManageWorkspacesDialog d = new ManageWorkspacesDialog(myProject);
-```
-
-### CommentedOutCode
 Commented out code (8 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurableForm.java`
 #### Snippet
@@ -709,6 +697,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurabl
 //    public boolean useProxy() {
 //        return myUseIdeaHttpProxyCheckBox.isSelected();
 //    }
+```
+
+### CommentedOutCode
+Commented out code (26 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurableForm.java`
+#### Snippet
+```java
+
+        // TODO: comment back in when ready to use
+//    myManageButton.addActionListener(new ActionListener() {
+//      public void actionPerformed(final ActionEvent e) {
+//        ManageWorkspacesDialog d = new ManageWorkspacesDialog(myProject);
 ```
 
 ## RuleId[ruleID=ObsoleteCollection]
@@ -781,18 +781,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ContentTriplet.java
 #### Snippet
 ```java
     @NotNull
-    public String serverContent;
-    @NotNull
-    public String localContent;
-}
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ContentTriplet.java`
-#### Snippet
-```java
-    @NotNull
     public String baseContent;
     @NotNull
     public String serverContent;
@@ -809,6 +797,18 @@ public class ContentTriplet {
     @NotNull
     public String baseContent;
     @NotNull
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ContentTriplet.java`
+#### Snippet
+```java
+    @NotNull
+    public String serverContent;
+    @NotNull
+    public String localContent;
+}
 ```
 
 ### NotNullFieldNotInitialized
@@ -836,7 +836,32 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTable
                 return TfPluginBundle.message(TfPluginBundle.KEY_SETTINGS_PASSWORD_MGT_USER_NAME);
 ```
 
+## RuleId[ruleID=FinalPrivateMethod]
+### FinalPrivateMethod
+'private' method declared `final`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
+#### Snippet
+```java
+     * @return Stripped {@link StringBuilder} (may be empty)
+     */
+    private final static StringBuilder cleanupComponent(final StringBuilder s) {
+        while (s.length() > 0
+                && (s.charAt(s.length() - 1) == '.' || Character.isWhitespace(s.charAt(s.length() - 1)))) {
+```
+
 ## RuleId[ruleID=KotlinAnnotator]
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun addFilesAsync(collection: TfsCollection, files: List<TfsLocalPath>): CompletionStage<List<TfsLocalPath>> =
+        queueFutureAsync { lt ->
+            collection.addFiles.start(files).pipeTo(lt, this)
+```
+
 ### KotlinAnnotator
 Unresolved reference: TfsLocalPath
 in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
@@ -844,21 +869,261 @@ in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientC
 ```java
         }
 
-    fun getBasicWorkspaceInfoAsync(workspacePath: TfsLocalPath): CompletionStage<TfsWorkspaceInfo?> =
+    fun addFilesAsync(collection: TfsCollection, files: List<TfsLocalPath>): CompletionStage<List<TfsLocalPath>> =
         queueFutureAsync { lt ->
-            model.getBasicWorkspaceInfo.start(workspacePath).pipeTo(lt, this)
+            collection.addFiles.start(files).pipeTo(lt, this)
 ```
 
 ### KotlinAnnotator
-Unresolved reference: TfsWorkspaceInfo
+Unresolved reference: TfsLocalPath
 in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
 #### Snippet
 ```java
         }
 
-    fun getBasicWorkspaceInfoAsync(workspacePath: TfsLocalPath): CompletionStage<TfsWorkspaceInfo?> =
+    fun addFilesAsync(collection: TfsCollection, files: List<TfsLocalPath>): CompletionStage<List<TfsLocalPath>> =
         queueFutureAsync { lt ->
-            model.getBasicWorkspaceInfo.start(workspacePath).pipeTo(lt, this)
+            collection.addFiles.start(files).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+
+    fun getExtendedItemsInfoAsync(
+        collection: TfsCollection,
+        paths: List<TfsLocalPath>
+    ): CompletionStage<List<TfsExtendedItemInfo>> =
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun getExtendedItemsInfoAsync(
+        collection: TfsCollection,
+        paths: List<TfsLocalPath>
+    ): CompletionStage<List<TfsExtendedItemInfo>> =
+        queueFutureAsync { lt ->
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsExtendedItemInfo
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        collection: TfsCollection,
+        paths: List<TfsLocalPath>
+    ): CompletionStage<List<TfsExtendedItemInfo>> =
+        queueFutureAsync { lt ->
+            collection.getExtendedLocalItemsInfo.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+
+    fun getPendingChangesAsync(
+        collection: TfsCollection,
+        paths: List<TfsPath>): CompletionStage<List<TfsPendingChange>> =
+        queueFutureAsync { lt ->
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun getPendingChangesAsync(
+        collection: TfsCollection,
+        paths: List<TfsPath>): CompletionStage<List<TfsPendingChange>> =
+        queueFutureAsync { lt ->
+            collection.getPendingChanges.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPendingChange
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun getPendingChangesAsync(
+        collection: TfsCollection,
+        paths: List<TfsPath>): CompletionStage<List<TfsPendingChange>> =
+        queueFutureAsync { lt ->
+            collection.getPendingChanges.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsModel
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    )
+
+    lateinit var model: TfsModel
+
+    val port
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+
+    fun getLocalItemsInfoAsync(
+        collection: TfsCollection,
+        paths: List<TfsLocalPath>
+    ): CompletionStage<List<TfsItemInfo>> =
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun getLocalItemsInfoAsync(
+        collection: TfsCollection,
+        paths: List<TfsLocalPath>
+    ): CompletionStage<List<TfsItemInfo>> =
+        queueFutureAsync { lt ->
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsItemInfo
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        collection: TfsCollection,
+        paths: List<TfsLocalPath>
+    ): CompletionStage<List<TfsItemInfo>> =
+        queueFutureAsync { lt ->
+            collection.getLocalItemsInfo.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun undoLocalChangesAsync(collection: TfsCollection, paths: List<TfsPath>): CompletionStage<List<TfsLocalPath>> =
+        queueFutureAsync { lt ->
+            collection.undoLocalChanges.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun undoLocalChangesAsync(collection: TfsCollection, paths: List<TfsPath>): CompletionStage<List<TfsLocalPath>> =
+        queueFutureAsync { lt ->
+            collection.undoLocalChanges.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun undoLocalChangesAsync(collection: TfsCollection, paths: List<TfsPath>): CompletionStage<List<TfsLocalPath>> =
+        queueFutureAsync { lt ->
+            collection.undoLocalChanges.start(paths).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun invalidatePathsAsync(collection: TfsCollection, paths: List<TfsLocalPath>): CompletionStage<Void> =
+        queueFutureAsync { lt ->
+            collection.invalidatePaths.start(paths).pipeToVoid(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun invalidatePathsAsync(collection: TfsCollection, paths: List<TfsLocalPath>): CompletionStage<Void> =
+        queueFutureAsync { lt ->
+            collection.invalidatePaths.start(paths).pipeToVoid(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+
+    fun checkoutFilesForEditAsync(
+        collection: TfsCollection,
+        filePaths: List<TfsLocalPath>,
+        recursive: Boolean
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun checkoutFilesForEditAsync(
+        collection: TfsCollection,
+        filePaths: List<TfsLocalPath>,
+        recursive: Boolean
+    ): CompletionStage<TfvcCheckoutResult> =
+```
+
+### KotlinAnnotator
+Unresolved reference: TfvcCheckoutResult
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        filePaths: List<TfsLocalPath>,
+        recursive: Boolean
+    ): CompletionStage<TfvcCheckoutResult> =
+        queueFutureAsync { lt ->
+            collection.checkoutFilesForEdit.start(TfvcCheckoutParameters(filePaths, recursive)).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfvcCheckoutParameters
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    ): CompletionStage<TfvcCheckoutResult> =
+        queueFutureAsync { lt ->
+            collection.checkoutFilesForEdit.start(TfvcCheckoutParameters(filePaths, recursive)).pipeTo(lt, this)
+        }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun waitForReadyAsync(collection: TfsCollection): CompletionStage<Void> =
+        queueFutureAsync {
+            collection.isReady.whenTrue(lifetime) { complete(null) }
 ```
 
 ### KotlinAnnotator
@@ -907,6 +1172,102 @@ in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientC
             model.getDetailedWorkspaceInfo.start(TfsDetailedWorkspaceRequest(credentials, workspacePath))
                 .pipeTo(lt, this)
         }
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun getBasicWorkspaceInfoAsync(workspacePath: TfsLocalPath): CompletionStage<TfsWorkspaceInfo?> =
+        queueFutureAsync { lt ->
+            model.getBasicWorkspaceInfo.start(workspacePath).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsWorkspaceInfo
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun getBasicWorkspaceInfoAsync(workspacePath: TfsLocalPath): CompletionStage<TfsWorkspaceInfo?> =
+        queueFutureAsync { lt ->
+            model.getBasicWorkspaceInfo.start(workspacePath).pipeTo(lt, this)
+```
+
+### KotlinAnnotator
+Unresolved reference: model
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+import com.jetbrains.rd.util.reactive.adviseOnce
+import com.jetbrains.rd.util.reactive.whenTrue
+import com.microsoft.tfs.model.connector.*
+import java.util.concurrent.CancellationException
+import java.util.concurrent.CompletableFuture
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollectionDefinition
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun getOrCreateCollectionAsync(definition: TfsCollectionDefinition): CompletionStage<TfsCollection> =
+        queueFutureAsync {
+            complete(model.collections[definition] ?: TfsCollection().apply { model.collections[definition] = this })
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        }
+
+    fun getOrCreateCollectionAsync(definition: TfsCollectionDefinition): CompletionStage<TfsCollection> =
+        queueFutureAsync {
+            complete(model.collections[definition] ?: TfsCollection().apply { model.collections[definition] = this })
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCollection
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun getOrCreateCollectionAsync(definition: TfsCollectionDefinition): CompletionStage<TfsCollection> =
+        queueFutureAsync {
+            complete(model.collections[definition] ?: TfsCollection().apply { model.collections[definition] = this })
+        }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsModel
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    fun startAsync(): CompletionStage<Void> =
+        queueFutureAsync { lt ->
+            model = TfsModel.create(lifetime, protocol).apply {
+                connected.whenTrue(lt) {
+                    complete(null)
+```
+
+### KotlinAnnotator
+Unresolved reference: connected
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+        queueFutureAsync { lt ->
+            model = TfsModel.create(lifetime, protocol).apply {
+                connected.whenTrue(lt) {
+                    complete(null)
+                }
 ```
 
 ### KotlinAnnotator
@@ -991,354 +1352,6 @@ in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientC
             collection.renameFile.start(TfvcRenameRequest(oldPath, newPath)).pipeTo(lt, this)
         }
 
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun undoLocalChangesAsync(collection: TfsCollection, paths: List<TfsPath>): CompletionStage<List<TfsLocalPath>> =
-        queueFutureAsync { lt ->
-            collection.undoLocalChanges.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun undoLocalChangesAsync(collection: TfsCollection, paths: List<TfsPath>): CompletionStage<List<TfsLocalPath>> =
-        queueFutureAsync { lt ->
-            collection.undoLocalChanges.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun undoLocalChangesAsync(collection: TfsCollection, paths: List<TfsPath>): CompletionStage<List<TfsLocalPath>> =
-        queueFutureAsync { lt ->
-            collection.undoLocalChanges.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsModel
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    )
-
-    lateinit var model: TfsModel
-
-    val port
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-
-    fun getPendingChangesAsync(
-        collection: TfsCollection,
-        paths: List<TfsPath>): CompletionStage<List<TfsPendingChange>> =
-        queueFutureAsync { lt ->
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun getPendingChangesAsync(
-        collection: TfsCollection,
-        paths: List<TfsPath>): CompletionStage<List<TfsPendingChange>> =
-        queueFutureAsync { lt ->
-            collection.getPendingChanges.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPendingChange
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun getPendingChangesAsync(
-        collection: TfsCollection,
-        paths: List<TfsPath>): CompletionStage<List<TfsPendingChange>> =
-        queueFutureAsync { lt ->
-            collection.getPendingChanges.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-
-    fun getExtendedItemsInfoAsync(
-        collection: TfsCollection,
-        paths: List<TfsLocalPath>
-    ): CompletionStage<List<TfsExtendedItemInfo>> =
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun getExtendedItemsInfoAsync(
-        collection: TfsCollection,
-        paths: List<TfsLocalPath>
-    ): CompletionStage<List<TfsExtendedItemInfo>> =
-        queueFutureAsync { lt ->
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsExtendedItemInfo
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        collection: TfsCollection,
-        paths: List<TfsLocalPath>
-    ): CompletionStage<List<TfsExtendedItemInfo>> =
-        queueFutureAsync { lt ->
-            collection.getExtendedLocalItemsInfo.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun invalidatePathsAsync(collection: TfsCollection, paths: List<TfsLocalPath>): CompletionStage<Void> =
-        queueFutureAsync { lt ->
-            collection.invalidatePaths.start(paths).pipeToVoid(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun invalidatePathsAsync(collection: TfsCollection, paths: List<TfsLocalPath>): CompletionStage<Void> =
-        queueFutureAsync { lt ->
-            collection.invalidatePaths.start(paths).pipeToVoid(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun waitForReadyAsync(collection: TfsCollection): CompletionStage<Void> =
-        queueFutureAsync {
-            collection.isReady.whenTrue(lifetime) { complete(null) }
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-
-    fun getLocalItemsInfoAsync(
-        collection: TfsCollection,
-        paths: List<TfsLocalPath>
-    ): CompletionStage<List<TfsItemInfo>> =
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun getLocalItemsInfoAsync(
-        collection: TfsCollection,
-        paths: List<TfsLocalPath>
-    ): CompletionStage<List<TfsItemInfo>> =
-        queueFutureAsync { lt ->
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsItemInfo
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        collection: TfsCollection,
-        paths: List<TfsLocalPath>
-    ): CompletionStage<List<TfsItemInfo>> =
-        queueFutureAsync { lt ->
-            collection.getLocalItemsInfo.start(paths).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollectionDefinition
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun getOrCreateCollectionAsync(definition: TfsCollectionDefinition): CompletionStage<TfsCollection> =
-        queueFutureAsync {
-            complete(model.collections[definition] ?: TfsCollection().apply { model.collections[definition] = this })
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun getOrCreateCollectionAsync(definition: TfsCollectionDefinition): CompletionStage<TfsCollection> =
-        queueFutureAsync {
-            complete(model.collections[definition] ?: TfsCollection().apply { model.collections[definition] = this })
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun getOrCreateCollectionAsync(definition: TfsCollectionDefinition): CompletionStage<TfsCollection> =
-        queueFutureAsync {
-            complete(model.collections[definition] ?: TfsCollection().apply { model.collections[definition] = this })
-        }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsModel
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun startAsync(): CompletionStage<Void> =
-        queueFutureAsync { lt ->
-            model = TfsModel.create(lifetime, protocol).apply {
-                connected.whenTrue(lt) {
-                    complete(null)
-```
-
-### KotlinAnnotator
-Unresolved reference: connected
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        queueFutureAsync { lt ->
-            model = TfsModel.create(lifetime, protocol).apply {
-                connected.whenTrue(lt) {
-                    complete(null)
-                }
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-
-    fun checkoutFilesForEditAsync(
-        collection: TfsCollection,
-        filePaths: List<TfsLocalPath>,
-        recursive: Boolean
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    fun checkoutFilesForEditAsync(
-        collection: TfsCollection,
-        filePaths: List<TfsLocalPath>,
-        recursive: Boolean
-    ): CompletionStage<TfvcCheckoutResult> =
-```
-
-### KotlinAnnotator
-Unresolved reference: TfvcCheckoutResult
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        filePaths: List<TfsLocalPath>,
-        recursive: Boolean
-    ): CompletionStage<TfvcCheckoutResult> =
-        queueFutureAsync { lt ->
-            collection.checkoutFilesForEdit.start(TfvcCheckoutParameters(filePaths, recursive)).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfvcCheckoutParameters
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    ): CompletionStage<TfvcCheckoutResult> =
-        queueFutureAsync { lt ->
-            collection.checkoutFilesForEdit.start(TfvcCheckoutParameters(filePaths, recursive)).pipeTo(lt, this)
-        }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCollection
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun addFilesAsync(collection: TfsCollection, files: List<TfsLocalPath>): CompletionStage<List<TfsLocalPath>> =
-        queueFutureAsync { lt ->
-            collection.addFiles.start(files).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun addFilesAsync(collection: TfsCollection, files: List<TfsLocalPath>): CompletionStage<List<TfsLocalPath>> =
-        queueFutureAsync { lt ->
-            collection.addFiles.start(files).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-        }
-
-    fun addFilesAsync(collection: TfsCollection, files: List<TfsLocalPath>): CompletionStage<List<TfsLocalPath>> =
-        queueFutureAsync { lt ->
-            collection.addFiles.start(files).pipeTo(lt, this)
-```
-
-### KotlinAnnotator
-Unresolved reference: model
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-import com.jetbrains.rd.util.reactive.adviseOnce
-import com.jetbrains.rd.util.reactive.whenTrue
-import com.microsoft.tfs.model.connector.*
-import java.util.concurrent.CancellationException
-import java.util.concurrent.CompletableFuture
 ```
 
 ### KotlinAnnotator
@@ -1519,90 +1532,6 @@ import java.nio.file.Paths
 class ExternallyControlledPathWatcherFactory(private val lifetime: Lifetime) : PathWatcherFactory {
     val pathsInvalidated = Signal<List<Path>>()
     override fun newPathWatcher(path: String, watcher: WorkspaceWatcher): PathWatcher =
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsModel
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-}
-
-private fun initializeModel(lifetime: Lifetime, model: TfsModel) {
-    val logger = Logging.getLogger("Workspace")
-
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-
-    model.collections.view(lifetime, ::initializeCollection)
-    model.getBasicWorkspaceInfo.set { workspacePath ->
-        logger.info { "Searching basic workspace info for path \"$workspacePath\"." }
-        val result = TfsClient.getBasicWorkspaceInfo(workspacePath)
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-        result
-    }
-    model.getDetailedWorkspaceInfo.set { request ->
-        logger.info { "Searching detailed workspace info for path \"${request.workspacePath}\"." }
-        val result = TfsClient.getDetailedWorkspaceInfo(request.workspacePath, request.credentials)
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-import com.jetbrains.rd.util.lifetime.isAlive
-import com.jetbrains.rd.util.threading.SingleThreadScheduler
-import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
-import com.microsoft.tfs.model.host.*
-import org.apache.log4j.Level
-```
-
-### KotlinAnnotator
-Unresolved reference: model
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-import com.jetbrains.rd.util.threading.SingleThreadScheduler
-import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
-import com.microsoft.tfs.model.host.*
-import org.apache.log4j.Level
-import java.nio.file.Paths
-```
-
-### KotlinAnnotator
-Unresolved reference: apache
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
-import com.microsoft.tfs.model.host.*
-import org.apache.log4j.Level
-import java.nio.file.Paths
-import java.util.*
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsModel
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
-#### Snippet
-```java
-    val protocol = Protocol(Serializers(), Identities(IdKind.Client), scheduler, socket, appLifetime)
-    scheduler.queue {
-        val model = TfsModel.create(appLifetime, protocol)
-        model.shutdown.advise(appLifetime) {
-            logger.info { "Shutting down per request" }
 ```
 
 ### KotlinAnnotator
@@ -1858,6 +1787,42 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
 ```
 
 ### KotlinAnnotator
+Unresolved reference: TfsModel
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+}
+
+private fun initializeModel(lifetime: Lifetime, model: TfsModel) {
+    val logger = Logging.getLogger("Workspace")
+
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+
+    model.collections.view(lifetime, ::initializeCollection)
+    model.getBasicWorkspaceInfo.set { workspacePath ->
+        logger.info { "Searching basic workspace info for path \"$workspacePath\"." }
+        val result = TfsClient.getBasicWorkspaceInfo(workspacePath)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+        result
+    }
+    model.getDetailedWorkspaceInfo.set { request ->
+        logger.info { "Searching detailed workspace info for path \"${request.workspacePath}\"." }
+        val result = TfsClient.getDetailedWorkspaceInfo(request.workspacePath, request.credentials)
+```
+
+### KotlinAnnotator
 Unresolved reference: Level
 in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
 #### Snippet
@@ -1879,6 +1844,102 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
     val logLevel = if (args.size > 2) Level.toLevel(args[2]) else Level.INFO
     Logging.initialize(logDirectory, logLevel)
 }
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsModel
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+    val protocol = Protocol(Serializers(), Identities(IdKind.Client), scheduler, socket, appLifetime)
+    scheduler.queue {
+        val model = TfsModel.create(appLifetime, protocol)
+        model.shutdown.advise(appLifetime) {
+            logger.info { "Shutting down per request" }
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+import com.jetbrains.rd.util.lifetime.isAlive
+import com.jetbrains.rd.util.threading.SingleThreadScheduler
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
+import com.microsoft.tfs.model.host.*
+import org.apache.log4j.Level
+```
+
+### KotlinAnnotator
+Unresolved reference: model
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+import com.jetbrains.rd.util.threading.SingleThreadScheduler
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
+import com.microsoft.tfs.model.host.*
+import org.apache.log4j.Level
+import java.nio.file.Paths
+```
+
+### KotlinAnnotator
+Unresolved reference: apache
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Main.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
+import com.microsoft.tfs.model.host.*
+import org.apache.log4j.Level
+import java.nio.file.Paths
+import java.util.*
+```
+
+### KotlinAnnotator
+Unresolved reference: VersionControlEventEngine
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
+
+fun VersionControlEventEngine.withUndonePendingChangeListener(
+    listener: UndonePendingChangeListener,
+    action: () -> Unit) {
+```
+
+### KotlinAnnotator
+Unresolved reference: UndonePendingChangeListener
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
+
+fun VersionControlEventEngine.withUndonePendingChangeListener(
+    listener: UndonePendingChangeListener,
+    action: () -> Unit) {
+    addUndonePendingChangeListener(listener)
+```
+
+### KotlinAnnotator
+Unresolved reference: VersionControlEventEngine
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
+}
+
+fun VersionControlEventEngine.withNewPendingChangeListener(
+    listener: NewPendingChangeListener,
+    action: () -> Unit) {
+```
+
+### KotlinAnnotator
+Unresolved reference: NewPendingChangeListener
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
+
+fun VersionControlEventEngine.withNewPendingChangeListener(
+    listener: NewPendingChangeListener,
+    action: () -> Unit) {
+    addNewPendingChangeListener(listener)
 ```
 
 ### KotlinAnnotator
@@ -1934,30 +1995,6 @@ Unresolved reference: VersionControlEventEngine
 in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
 #### Snippet
 ```java
-}
-
-fun VersionControlEventEngine.withNewPendingChangeListener(
-    listener: NewPendingChangeListener,
-    action: () -> Unit) {
-```
-
-### KotlinAnnotator
-Unresolved reference: NewPendingChangeListener
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
-#### Snippet
-```java
-
-fun VersionControlEventEngine.withNewPendingChangeListener(
-    listener: NewPendingChangeListener,
-    action: () -> Unit) {
-    addNewPendingChangeListener(listener)
-```
-
-### KotlinAnnotator
-Unresolved reference: VersionControlEventEngine
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
-#### Snippet
-```java
 
 
 fun VersionControlEventEngine.withNonFatalErrorListener(
@@ -1978,27 +2015,1623 @@ fun VersionControlEventEngine.withNonFatalErrorListener(
 ```
 
 ### KotlinAnnotator
-Unresolved reference: VersionControlEventEngine
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+'setClean' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
 #### Snippet
 ```java
-import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
+    }
 
-fun VersionControlEventEngine.withUndonePendingChangeListener(
-    listener: UndonePendingChangeListener,
-    action: () -> Unit) {
+    override fun setClean() {
+        synchronized(lock) {
+            isFullyInvalidated = false
+```
+
+### KotlinAnnotator
+'hasChanged' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    override fun getPath(): String = pathToWatch.toString()
+
+    override fun hasChanged(): Boolean = synchronized(lock) {
+        changedPaths.size > 0
+    }
+```
+
+### KotlinAnnotator
+'getPath' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    private var currentSessionLifetime = LifetimeDefinition.Terminated
+
+    override fun getPath(): String = pathToWatch.toString()
+
+    override fun hasChanged(): Boolean = synchronized(lock) {
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+import com.jetbrains.rd.util.trace
+import com.microsoft.tfs.Logging
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcher
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcherReport
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.WorkspaceWatcher
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.Logging
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcher
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcherReport
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.WorkspaceWatcher
+import java.nio.file.Path
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcher
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcherReport
+import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.WorkspaceWatcher
+import java.nio.file.Path
+
+```
+
+### KotlinAnnotator
+'isWatching' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    }
+
+    override fun isWatching(): Boolean = currentSessionLifetime.isAlive
+
+    override fun poll(): PathWatcherReport {
+```
+
+### KotlinAnnotator
+'startWatching' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    }
+
+    override fun startWatching() {
+        currentSessionLifetime = sessionLifetimes.next()
+        pathsInvalidated.advise(currentSessionLifetime, ::invalidatePaths)
+```
+
+### KotlinAnnotator
+'stopWatching' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    }
+
+    override fun stopWatching() {
+        currentSessionLifetime.terminate()
+    }
+```
+
+### KotlinAnnotator
+'poll' overrides nothing
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    override fun isWatching(): Boolean = currentSessionLifetime.isAlive
+
+    override fun poll(): PathWatcherReport {
+        val fullyInvalidated: Boolean
+        val changes: List<Path>
+```
+
+### KotlinAnnotator
+Unresolved reference: PathWatcherReport
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    override fun isWatching(): Boolean = currentSessionLifetime.isAlive
+
+    override fun poll(): PathWatcherReport {
+        val fullyInvalidated: Boolean
+        val changes: List<Path>
+```
+
+### KotlinAnnotator
+Unresolved reference: PathWatcherReport
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+        }
+
+        return PathWatcherReport(false).apply {
+            if (fullyInvalidated) {
+                fullyInvalidate()
+```
+
+### KotlinAnnotator
+Unresolved reference: fullyInvalidate
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+        return PathWatcherReport(false).apply {
+            if (fullyInvalidated) {
+                fullyInvalidate()
+            } else {
+                for (changedPath in changes) {
+```
+
+### KotlinAnnotator
+Unresolved reference: addChangedPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+            } else {
+                for (changedPath in changes) {
+                    addChangedPath(changedPath.toString())
+                }
+            }
+```
+
+### KotlinAnnotator
+Unresolved reference: fullyInvalidated
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+
+            logger.trace {
+                "Returning PathWatcherReport (fullyInvalidated = ${this.fullyInvalidated}, nothingChanged = $isNothingChanged) with paths:\n" +
+                        changedPaths.joinToString("\n")
+            }
+```
+
+### KotlinAnnotator
+Unresolved reference: isNothingChanged
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+
+            logger.trace {
+                "Returning PathWatcherReport (fullyInvalidated = ${this.fullyInvalidated}, nothingChanged = $isNothingChanged) with paths:\n" +
+                        changedPaths.joinToString("\n")
+            }
+```
+
+### KotlinAnnotator
+Unresolved reference: WorkspaceWatcher
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    parentLifetime: Lifetime,
+    private val pathsInvalidated: Signal<List<Path>>,
+    private val workspaceWatcher: WorkspaceWatcher,
+    private val pathToWatch: Path
+) : PathWatcher {
+```
+
+### KotlinAnnotator
+Unresolved reference: PathWatcher
+in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+#### Snippet
+```java
+    private val workspaceWatcher: WorkspaceWatcher,
+    private val pathToWatch: Path
+) : PathWatcher {
+
+    companion object {
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = lockLevel.toUIString()
+
+fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
+    TfsLocalItemInfo(
+        targetServerItem,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalItemInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = lockLevel.toUIString()
+
+fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
+    TfsLocalItemInfo(
+        targetServerItem,
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = if (itemType == ItemType.FILE) encodingName else null
+
+private val ExtendedItem.lockStatus
+    get() = lockLevel.toUIString()
+
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ItemSpec(toCanonicalPathString(), recursionType)
+
+private val ExtendedItem.changeTypeName
+    get() =
+        if (pendingChange == ChangeType.NONE) "none"
+```
+
+### KotlinAnnotator
+Unresolved reference: PendingSet
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
+
+private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
+    pc.serverItem,
+    pc.localItem,
+```
+
+### KotlinAnnotator
+Unresolved reference: PendingChange
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
+
+private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
+    pc.serverItem,
+    pc.localItem,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPendingChange
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
+
+private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
+    pc.serverItem,
+    pc.localItem,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+)
+
+private fun toChangeTypes(changeType: ChangeType): List<TfsServerStatusType> =
+    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+)
+
+private fun toChangeTypes(changeType: ChangeType): List<TfsServerStatusType> =
+    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
+
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+
+private fun toChangeTypes(changeType: ChangeType): List<TfsServerStatusType> =
+    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
+
+private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
+```
+
+### KotlinAnnotator
+Not enough information to infer type variable K
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+private val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+
+private val pendingChangeTypeMap = mapOf(
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+
+private val pendingChangeTypeMap = mapOf(
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+
+private val pendingChangeTypeMap = mapOf(
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+private val pendingChangeTypeMap = mapOf(
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+private val pendingChangeTypeMap = mapOf(
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.ADD to TfsServerStatusType.ADD,
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.EDIT to TfsServerStatusType.EDIT,
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.RENAME to TfsServerStatusType.RENAME,
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.DELETE to TfsServerStatusType.DELETE,
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.MERGE to TfsServerStatusType.MERGE,
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+    ChangeType.PROPERTY to TfsServerStatusType.EDIT
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.LOCK to TfsServerStatusType.LOCK,
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+    ChangeType.PROPERTY to TfsServerStatusType.EDIT
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+    ChangeType.PROPERTY to TfsServerStatusType.EDIT
+)
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+    ChangeType.PROPERTY to TfsServerStatusType.EDIT
+)
+```
+
+### KotlinAnnotator
+Unresolved reference: ChangeType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+    ChangeType.PROPERTY to TfsServerStatusType.EDIT
+)
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerStatusType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
+    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
+    ChangeType.PROPERTY to TfsServerStatusType.EDIT
+)
+
+```
+
+### KotlinAnnotator
+Unresolved reference: PendingSet
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+)
+
+fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
+    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
+            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPendingChange
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+)
+
+fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
+    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
+            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+```
+
+### KotlinAnnotator
+Unresolved reference: it
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+
+fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
+    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
+            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+
+```
+
+### KotlinAnnotator
+Unresolved reference: it
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
+    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
+            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+
+fun TfsPath.toCanonicalPathString(): String = when (this) {
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    )
+
+fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
+    TfsExtendedItemInfo(
+        lockStatus,
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsExtendedItemInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    )
+
+fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
+    TfsExtendedItemInfo(
+        lockStatus,
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = checkinDate?.time?.let(isoDateFormat::format)
+
+private val ExtendedItem.encodingName
+    get() =
+        if (encoding == FileEncoding(VersionControlConstants.ENCODING_UNCHANGED)) null
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+        else encoding?.name
+
+private val ExtendedItem.fileEncodingName
+    get() = if (itemType == ItemType.FILE) encodingName else null
+
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+package com.microsoft.tfs
+
+import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants
+import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+
+import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants
+import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
+import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants
+import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
+import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
+import com.microsoft.tfs.core.util.FileEncoding
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
+import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
+import com.microsoft.tfs.core.util.FileEncoding
+import com.microsoft.tfs.model.host.*
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
+import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
+import com.microsoft.tfs.core.util.FileEncoding
+import com.microsoft.tfs.model.host.*
+import java.text.SimpleDateFormat
+```
+
+### KotlinAnnotator
+Unresolved reference: model
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
+import com.microsoft.tfs.core.util.FileEncoding
+import com.microsoft.tfs.model.host.*
+import java.text.SimpleDateFormat
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+}
+
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
+
+```
+
+### KotlinAnnotator
+Unresolved reference: RecursionType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+}
+
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
+
+```
+
+### KotlinAnnotator
+Unresolved reference: ItemSpec
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+}
+
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
+
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+        else pendingChange.toUIString(false, this)
+
+private val ExtendedItem.itemTypeName
+    get() = itemType.toUIString()
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+
+fun TfsPath.toCanonicalPathString(): String = when (this) {
+    is TfsLocalPath -> LocalPath.canonicalize(path)
+    is TfsServerPath -> path
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+
+fun TfsPath.toCanonicalPathString(): String = when (this) {
+    is TfsLocalPath -> LocalPath.canonicalize(path)
+    is TfsServerPath -> path
+    else -> throw Exception("Unknown path type: $this")
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+fun TfsPath.toCanonicalPathString(): String = when (this) {
+    is TfsLocalPath -> LocalPath.canonicalize(path)
+    is TfsServerPath -> path
+    else -> throw Exception("Unknown path type: $this")
+}
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = itemType.toUIString()
+
+private val ExtendedItem.checkinDateString
+    get() = checkinDate?.time?.let(isoDateFormat::format)
+
+```
+
+### KotlinAnnotator
+Unresolved reference: VersionControlClient
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.model.host.TfsServerPath
+
+fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
+    is TfsLocalPath -> tryGetWorkspace(path.path)
+    is TfsServerPath -> {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.model.host.TfsServerPath
+
+fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
+    is TfsLocalPath -> tryGetWorkspace(path.path)
+    is TfsServerPath -> {
+```
+
+### KotlinAnnotator
+Unresolved reference: Workspace
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.model.host.TfsServerPath
+
+fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
+    is TfsLocalPath -> tryGetWorkspace(path.path)
+    is TfsServerPath -> {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+
+fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
+    is TfsLocalPath -> tryGetWorkspace(path.path)
+    is TfsServerPath -> {
+        try {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsServerPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
+    is TfsLocalPath -> tryGetWorkspace(path.path)
+    is TfsServerPath -> {
+        try {
+            getWorkspace(path.workspace, ".")
+```
+
+### KotlinAnnotator
+Unresolved reference: WorkspaceNotFoundException
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+        try {
+            getWorkspace(path.workspace, ".")
+        } catch (ex: WorkspaceNotFoundException) {
+            null
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+package com.microsoft.tfs.sdk
+
+import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient
+import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+
+import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient
+import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
+import com.microsoft.tfs.model.host.TfsLocalPath
+```
+
+### KotlinAnnotator
+Unresolved reference: core
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient
+import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
+import com.microsoft.tfs.model.host.TfsLocalPath
+import com.microsoft.tfs.model.host.TfsPath
+```
+
+### KotlinAnnotator
+Unresolved reference: model
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
+import com.microsoft.tfs.model.host.TfsLocalPath
+import com.microsoft.tfs.model.host.TfsPath
+import com.microsoft.tfs.model.host.TfsServerPath
+```
+
+### KotlinAnnotator
+Unresolved reference: model
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
+import com.microsoft.tfs.model.host.TfsLocalPath
+import com.microsoft.tfs.model.host.TfsPath
+import com.microsoft.tfs.model.host.TfsServerPath
+
+```
+
+### KotlinAnnotator
+Unresolved reference: model
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.model.host.TfsLocalPath
+import com.microsoft.tfs.model.host.TfsPath
+import com.microsoft.tfs.model.host.TfsServerPath
+
+fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    }
+
+    fun status(paths: List<TfsPath>): List<PendingSet> {
+        val results = mutableListOf<PendingSet>()
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+```
+
+### KotlinAnnotator
+Unresolved reference: PendingSet
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    }
+
+    fun status(paths: List<TfsPath>): List<PendingSet> {
+        val results = mutableListOf<PendingSet>()
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+```
+
+### KotlinAnnotator
+Unresolved reference: PendingSet
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+    fun status(paths: List<TfsPath>): List<PendingSet> {
+        val results = mutableListOf<PendingSet>()
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            val workspaceName = workspace.name
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    fun status(paths: List<TfsPath>): List<PendingSet> {
+        val results = mutableListOf<PendingSet>()
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            val workspaceName = workspace.name
+            val workspaceOwner = workspace.ownerName
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    fun status(paths: List<TfsPath>): List<PendingSet> {
+        val results = mutableListOf<PendingSet>()
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            val workspaceName = workspace.name
+            val workspaceOwner = workspace.ownerName
+```
+
+### KotlinAnnotator
+Unresolved reference: ItemSpec
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val workspaceOwner = workspace.ownerName
+
+            val itemSpecs = ItemSpec.fromStrings(
+                workspacePaths.mapToArray { it.toCanonicalPathString() },
+                RecursionType.FULL
+```
+
+### KotlinAnnotator
+Unresolved reference: RecursionType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val itemSpecs = ItemSpec.fromStrings(
+                workspacePaths.mapToArray { it.toCanonicalPathString() },
+                RecursionType.FULL
+            )
+            val pendingSets = client.queryPendingSets(itemSpecs, false, workspaceName, workspaceOwner, true)
+```
+
+### KotlinAnnotator
+Unresolved reference: Workspace
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    }
+
+    val workspaces = Property<List<Workspace>>(listOf())
+    private fun getWorkspaceFor(path: TfsPath): Workspace? {
+        for (workspace in workspaces.value) {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        }
+
+        fun getDetailedWorkspaceInfo(path: TfsLocalPath, credentials: TfsCredentials): TfsDetailedWorkspaceInfo? {
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val mappings = loadMappings(
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsCredentials
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        }
+
+        fun getDetailedWorkspaceInfo(path: TfsLocalPath, credentials: TfsCredentials): TfsDetailedWorkspaceInfo? {
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val mappings = loadMappings(
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsDetailedWorkspaceInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        }
+
+        fun getDetailedWorkspaceInfo(path: TfsLocalPath, credentials: TfsCredentials): TfsDetailedWorkspaceInfo? {
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val mappings = loadMappings(
+```
+
+### KotlinAnnotator
+Unresolved reference: UsernamePasswordCredentials
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val mappings = loadMappings(
+                workspaceInfo,
+                UsernamePasswordCredentials(credentials.login, credentials.password.contents))
+
+            return TfsDetailedWorkspaceInfo(
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsDetailedWorkspaceInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                UsernamePasswordCredentials(credentials.login, credentials.password.contents))
+
+            return TfsDetailedWorkspaceInfo(
+                mappings,
+                workspaceInfo.serverURI?.toString().orEmpty(),
+```
+
+### KotlinAnnotator
+Unresolved reference: serverURI
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            return TfsDetailedWorkspaceInfo(
+                mappings,
+                workspaceInfo.serverURI?.toString().orEmpty(),
+                workspaceInfo.name.orEmpty())
+        }
+```
+
+### KotlinAnnotator
+Unresolved reference: name
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                mappings,
+                workspaceInfo.serverURI?.toString().orEmpty(),
+                workspaceInfo.name.orEmpty())
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+    private fun <TInfo>getLocalItemsInfo(
+        paths: List<TfsLocalPath>,
+        extended: Boolean,
+        converter: (ExtendedItem) -> TInfo
+```
+
+### KotlinAnnotator
+Unresolved reference: ExtendedItem
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        paths: List<TfsLocalPath>,
+        extended: Boolean,
+        converter: (ExtendedItem) -> TInfo
+    ): List<TInfo> {
+        val infos = ArrayList<TInfo>(paths.size)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    ): List<TInfo> {
+        val infos = ArrayList<TInfo>(paths.size)
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            // Pass NONE to get lock info in extended mode.
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    ): List<TInfo> {
+        val infos = ArrayList<TInfo>(paths.size)
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            // Pass NONE to get lock info in extended mode.
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+```
+
+### KotlinAnnotator
+Unresolved reference: GetItemsOptions
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            // Pass NONE to get lock info in extended mode.
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+```
+
+### KotlinAnnotator
+Unresolved reference: GetItemsOptions
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+            // Pass NONE to get lock info in extended mode.
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+```
+
+### KotlinAnnotator
+Not enough information to infer type variable R
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            // Pass NONE to get lock info in extended mode.
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+                .asSequence()
+```
+
+### KotlinAnnotator
+Unresolved reference: RecursionType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            // Pass NONE to get lock info in extended mode.
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+                .asSequence()
+```
+
+### KotlinAnnotator
+Unresolved reference: DeletedState
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+                .asSequence()
+                .flatMap { it.asSequence() }
+```
+
+### KotlinAnnotator
+Unresolved reference: ItemType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
+            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+                .asSequence()
+                .flatMap { it.asSequence() }
+```
+
+### KotlinAnnotator
+Unresolved reference: it
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
+                .asSequence()
+                .flatMap { it.asSequence() }
+
+            for (extendedItem in extendedItems) {
+```
+
+### KotlinAnnotator
+Unresolved reference: VersionControlClient
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    }
+
+    val client: VersionControlClient
+    private val pathWatcherFactory = ExternallyControlledPathWatcherFactory(lifetime)
+    init {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    }
+
+    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
+        val undonePaths = mutableListOf<TfsLocalPath>()
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    }
+
+    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
+        val undonePaths = mutableListOf<TfsLocalPath>()
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
+        val undonePaths = mutableListOf<TfsLocalPath>()
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+        client.eventEngine.withUndonePendingChangeListener(listener) {
 ```
 
 ### KotlinAnnotator
 Unresolved reference: UndonePendingChangeListener
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
+        val undonePaths = mutableListOf<TfsLocalPath>()
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+        client.eventEngine.withUndonePendingChangeListener(listener) {
+            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
+        val undonePaths = mutableListOf<TfsLocalPath>()
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+        client.eventEngine.withUndonePendingChangeListener(listener) {
+            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+```
+
+### KotlinAnnotator
+Unresolved reference: it
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
+        val undonePaths = mutableListOf<TfsLocalPath>()
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+        client.eventEngine.withUndonePendingChangeListener(listener) {
+            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+        client.eventEngine.withUndonePendingChangeListener(listener) {
+            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+                val count = workspace.undo(workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) })
+                logger.info { "Undo result = $count" }
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
+        client.eventEngine.withUndonePendingChangeListener(listener) {
+            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+                val count = workspace.undo(workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) })
+                logger.info { "Undo result = $count" }
+```
+
+### KotlinAnnotator
+Unresolved reference: RecursionType
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        client.eventEngine.withUndonePendingChangeListener(listener) {
+            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
+                val count = workspace.undo(workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) })
+                logger.info { "Undo result = $count" }
+            }
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        }
+
+        fun getBasicWorkspaceInfo(path: TfsLocalPath): TfsWorkspaceInfo? {
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val workspaceName = workspaceInfo.name.orEmpty()
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsWorkspaceInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        }
+
+        fun getBasicWorkspaceInfo(path: TfsLocalPath): TfsWorkspaceInfo? {
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val workspaceName = workspaceInfo.name.orEmpty()
+```
+
+### KotlinAnnotator
+Unresolved reference: name
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        fun getBasicWorkspaceInfo(path: TfsLocalPath): TfsWorkspaceInfo? {
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val workspaceName = workspaceInfo.name.orEmpty()
+            val serverUri = workspaceInfo.serverURI.toString()
+            val mappings =
+```
+
+### KotlinAnnotator
+Unresolved reference: serverURI
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
+            val workspaceName = workspaceInfo.name.orEmpty()
+            val serverUri = workspaceInfo.serverURI.toString()
+            val mappings =
+                try {
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsBasicWorkspaceInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                } catch (e: Throwable) {
+                    logger.error("Cannot determine workspace mappings for workspace \"$path\".", e)
+                    return TfsBasicWorkspaceInfo(serverUri, workspaceName)
+                }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsDetailedWorkspaceInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                }
+
+            return TfsDetailedWorkspaceInfo(mappings, serverUri, workspaceName)
+        }
+
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsLocalPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        private val logger = Logging.getLogger<TfsClient>()
+
+        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
+            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
+            val canonicalPathString = path.toCanonicalPathString()
+```
+
+### KotlinAnnotator
+Unresolved reference: WorkspaceInfo
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        private val logger = Logging.getLogger<TfsClient>()
+
+        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
+            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
+            val canonicalPathString = path.toCanonicalPathString()
+```
+
+### KotlinAnnotator
+Unresolved reference: Workstation
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
 ```java
 
-fun VersionControlEventEngine.withUndonePendingChangeListener(
-    listener: UndonePendingChangeListener,
-    action: () -> Unit) {
-    addUndonePendingChangeListener(listener)
+        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
+            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
+            val canonicalPathString = path.toCanonicalPathString()
+            if (!workstation.isMapped(canonicalPathString)) {
+```
+
+### KotlinAnnotator
+Unresolved reference: DefaultPersistenceStoreProvider
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
+            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
+            val canonicalPathString = path.toCanonicalPathString()
+            if (!workstation.isMapped(canonicalPathString)) {
 ```
 
 ### KotlinAnnotator
@@ -2134,51 +3767,75 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: TfsPath
+Unresolved reference: WorkspaceInfo
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
 ```java
-
-    val workspaces = Property<List<Workspace>>(listOf())
-    private fun getWorkspaceFor(path: TfsPath): Workspace? {
-        for (workspace in workspaces.value) {
-            if (workspace.isPathMapped(path)) {
-```
-
-### KotlinAnnotator
-Unresolved reference: Workspace
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-
-    val workspaces = Property<List<Workspace>>(listOf())
-    private fun getWorkspaceFor(path: TfsPath): Workspace? {
-        for (workspace in workspaces.value) {
-            if (workspace.isPathMapped(path)) {
-```
-
-### KotlinAnnotator
-None of the following functions can be called with the arguments supplied: public operator fun Collection.plus(element: TypeVariable(T)): List defined in kotlin.collections public operator fun Collection.plus(elements: Array): List defined in kotlin.collections public operator fun Collection.plus(elements: Iterable): List defined in kotlin.collections public operator fun Collection.plus(elements: Sequence): List defined in kotlin.collections public operator fun Iterable.plus(element: TypeVariable(T)): List defined in kotlin.collections public operator fun Iterable.plus(elements: Array): List defined in kotlin.collections public operator fun Iterable.plus(elements: Iterable): List defined in kotlin.collections public operator fun Iterable.plus(elements: Sequence): List defined in kotlin.collections
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-
-        return client.tryGetWorkspace(path)?.also {
-            workspaces.value += it
         }
-    }
+
+        private fun loadMappings(workspaceInfo: WorkspaceInfo, credentials: Credentials?): List<TfsWorkspaceMapping> {
+            val serverUri = workspaceInfo.serverURI
+            val workspaceName = workspaceInfo.name.orEmpty()
 ```
 
 ### KotlinAnnotator
-Unresolved reference: it
+Unresolved reference: Credentials
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
 ```java
-
-        return client.tryGetWorkspace(path)?.also {
-            workspaces.value += it
         }
-    }
+
+        private fun loadMappings(workspaceInfo: WorkspaceInfo, credentials: Credentials?): List<TfsWorkspaceMapping> {
+            val serverUri = workspaceInfo.serverURI
+            val workspaceName = workspaceInfo.name.orEmpty()
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsWorkspaceMapping
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+        }
+
+        private fun loadMappings(workspaceInfo: WorkspaceInfo, credentials: Credentials?): List<TfsWorkspaceMapping> {
+            val serverUri = workspaceInfo.serverURI
+            val workspaceName = workspaceInfo.name.orEmpty()
+```
+
+### KotlinAnnotator
+Unresolved reference: TFSTeamProjectCollection
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                return emptyList()
+            } else {
+                val collection = TFSTeamProjectCollection(serverUri, credentials)
+                try {
+                    val workspace = workspaceInfo.getWorkspace(collection)
+```
+
+### KotlinAnnotator
+Cannot infer a type for this parameter. Please specify it explicitly.
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                try {
+                    val workspace = workspaceInfo.getWorkspace(collection)
+                    return workspace.folders?.map { workingFolder ->
+                        TfsWorkspaceMapping(
+                            TfsLocalPath(workingFolder.localItem),
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsWorkspaceMapping
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+                    val workspace = workspaceInfo.getWorkspace(collection)
+                    return workspace.folders?.map { workingFolder ->
+                        TfsWorkspaceMapping(
+                            TfsLocalPath(workingFolder.localItem),
+                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
 ```
 
 ### KotlinAnnotator
@@ -2186,131 +3843,35 @@ Unresolved reference: TfsLocalPath
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
 ```java
-
-    private fun <TInfo>getLocalItemsInfo(
-        paths: List<TfsLocalPath>,
-        extended: Boolean,
-        converter: (ExtendedItem) -> TInfo
+                    return workspace.folders?.map { workingFolder ->
+                        TfsWorkspaceMapping(
+                            TfsLocalPath(workingFolder.localItem),
+                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
+                            workingFolder.type == WorkingFolderType.CLOAK
 ```
 
 ### KotlinAnnotator
-Unresolved reference: ExtendedItem
+Unresolved reference: TfsServerPath
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
 ```java
-        paths: List<TfsLocalPath>,
-        extended: Boolean,
-        converter: (ExtendedItem) -> TInfo
-    ): List<TInfo> {
-        val infos = ArrayList<TInfo>(paths.size)
+                        TfsWorkspaceMapping(
+                            TfsLocalPath(workingFolder.localItem),
+                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
+                            workingFolder.type == WorkingFolderType.CLOAK
+                        )
 ```
 
 ### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
+Unresolved reference: WorkingFolderType
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
 ```java
-    ): List<TInfo> {
-        val infos = ArrayList<TInfo>(paths.size)
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            // Pass NONE to get lock info in extended mode.
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    ): List<TInfo> {
-        val infos = ArrayList<TInfo>(paths.size)
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            // Pass NONE to get lock info in extended mode.
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-```
-
-### KotlinAnnotator
-Unresolved reference: GetItemsOptions
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            // Pass NONE to get lock info in extended mode.
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-```
-
-### KotlinAnnotator
-Unresolved reference: GetItemsOptions
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            // Pass NONE to get lock info in extended mode.
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-```
-
-### KotlinAnnotator
-Not enough information to infer type variable R
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            // Pass NONE to get lock info in extended mode.
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-                .asSequence()
-```
-
-### KotlinAnnotator
-Unresolved reference: RecursionType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            // Pass NONE to get lock info in extended mode.
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-                .asSequence()
-```
-
-### KotlinAnnotator
-Unresolved reference: DeletedState
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-                .asSequence()
-                .flatMap { it.asSequence() }
-```
-
-### KotlinAnnotator
-Unresolved reference: ItemType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val downloadType = if (extended) GetItemsOptions.NONE else GetItemsOptions.LOCAL_ONLY
-            val itemSpecs = workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) }
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-                .asSequence()
-                .flatMap { it.asSequence() }
-```
-
-### KotlinAnnotator
-Unresolved reference: it
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val extendedItems = workspace.getExtendedItems(itemSpecs, DeletedState.ANY, ItemType.ANY, downloadType)
-                .asSequence()
-                .flatMap { it.asSequence() }
-
-            for (extendedItem in extendedItems) {
+                            TfsLocalPath(workingFolder.localItem),
+                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
+                            workingFolder.type == WorkingFolderType.CLOAK
+                        )
+                    }.orEmpty()
 ```
 
 ### KotlinAnnotator
@@ -2467,6 +4028,66 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials
 import com.microsoft.tfs.model.host.*
 import com.microsoft.tfs.sdk.*
 import com.microsoft.tfs.watcher.ExternallyControlledPathWatcherFactory
+```
+
+### KotlinAnnotator
+Unresolved reference: TfsPath
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+    val workspaces = Property<List<Workspace>>(listOf())
+    private fun getWorkspaceFor(path: TfsPath): Workspace? {
+        for (workspace in workspaces.value) {
+            if (workspace.isPathMapped(path)) {
+```
+
+### KotlinAnnotator
+Unresolved reference: Workspace
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+    val workspaces = Property<List<Workspace>>(listOf())
+    private fun getWorkspaceFor(path: TfsPath): Workspace? {
+        for (workspace in workspaces.value) {
+            if (workspace.isPathMapped(path)) {
+```
+
+### KotlinAnnotator
+None of the following functions can be called with the arguments supplied: public operator fun Collection.plus(element: TypeVariable(T)): List defined in kotlin.collections public operator fun Collection.plus(elements: Array): List defined in kotlin.collections public operator fun Collection.plus(elements: Iterable): List defined in kotlin.collections public operator fun Collection.plus(elements: Sequence): List defined in kotlin.collections public operator fun Iterable.plus(element: TypeVariable(T)): List defined in kotlin.collections public operator fun Iterable.plus(elements: Array): List defined in kotlin.collections public operator fun Iterable.plus(elements: Iterable): List defined in kotlin.collections public operator fun Iterable.plus(elements: Sequence): List defined in kotlin.collections
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+        return client.tryGetWorkspace(path)?.also {
+            workspaces.value += it
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: it
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+
+        return client.tryGetWorkspace(path)?.also {
+            workspaces.value += it
+        }
+    }
+```
+
+### KotlinAnnotator
+Unresolved reference: Credentials
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+import java.nio.file.Paths
+
+class TfsClient(lifetime: Lifetime, serverUri: URI, credentials: Credentials) {
+    companion object {
+        private val logger = Logging.getLogger<TfsClient>()
 ```
 
 ### KotlinAnnotator
@@ -2806,126 +4427,6 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: WorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        }
-
-        private fun loadMappings(workspaceInfo: WorkspaceInfo, credentials: Credentials?): List<TfsWorkspaceMapping> {
-            val serverUri = workspaceInfo.serverURI
-            val workspaceName = workspaceInfo.name.orEmpty()
-```
-
-### KotlinAnnotator
-Unresolved reference: Credentials
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        }
-
-        private fun loadMappings(workspaceInfo: WorkspaceInfo, credentials: Credentials?): List<TfsWorkspaceMapping> {
-            val serverUri = workspaceInfo.serverURI
-            val workspaceName = workspaceInfo.name.orEmpty()
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsWorkspaceMapping
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        }
-
-        private fun loadMappings(workspaceInfo: WorkspaceInfo, credentials: Credentials?): List<TfsWorkspaceMapping> {
-            val serverUri = workspaceInfo.serverURI
-            val workspaceName = workspaceInfo.name.orEmpty()
-```
-
-### KotlinAnnotator
-Unresolved reference: TFSTeamProjectCollection
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                return emptyList()
-            } else {
-                val collection = TFSTeamProjectCollection(serverUri, credentials)
-                try {
-                    val workspace = workspaceInfo.getWorkspace(collection)
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                try {
-                    val workspace = workspaceInfo.getWorkspace(collection)
-                    return workspace.folders?.map { workingFolder ->
-                        TfsWorkspaceMapping(
-                            TfsLocalPath(workingFolder.localItem),
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsWorkspaceMapping
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                    val workspace = workspaceInfo.getWorkspace(collection)
-                    return workspace.folders?.map { workingFolder ->
-                        TfsWorkspaceMapping(
-                            TfsLocalPath(workingFolder.localItem),
-                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                    return workspace.folders?.map { workingFolder ->
-                        TfsWorkspaceMapping(
-                            TfsLocalPath(workingFolder.localItem),
-                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
-                            workingFolder.type == WorkingFolderType.CLOAK
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                        TfsWorkspaceMapping(
-                            TfsLocalPath(workingFolder.localItem),
-                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
-                            workingFolder.type == WorkingFolderType.CLOAK
-                        )
-```
-
-### KotlinAnnotator
-Unresolved reference: WorkingFolderType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                            TfsLocalPath(workingFolder.localItem),
-                            TfsServerPath(workspaceName, workingFolder.displayServerItem),
-                            workingFolder.type == WorkingFolderType.CLOAK
-                        )
-                    }.orEmpty()
-```
-
-### KotlinAnnotator
-Unresolved reference: Workspace
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    }
-
-    val workspaces = Property<List<Workspace>>(listOf())
-    private fun getWorkspaceFor(path: TfsPath): Workspace? {
-        for (workspace in workspaces.value) {
-```
-
-### KotlinAnnotator
 Unresolved reference: TfsLocalPath
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
@@ -2995,162 +4496,6 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
             if (event.pendingChange.changeType.contains(ChangeType.ADD)) {
                 addedEvents.add(event)
             }
-```
-
-### KotlinAnnotator
-Unresolved reference: PatternLayout
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-object Logging {
-    val factory = CommonsLoggingLoggerFactory
-    val layout = PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n")
-
-    fun initialize(logDirectory: Path?, level: Level) {
-```
-
-### KotlinAnnotator
-Unresolved reference: Level
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-    val layout = PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n")
-
-    fun initialize(logDirectory: Path?, level: Level) {
-        org.apache.log4j.Logger.getRootLogger().apply {
-            removeAllAppenders()
-```
-
-### KotlinAnnotator
-Unresolved reference: apache
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-
-    fun initialize(logDirectory: Path?, level: Level) {
-        org.apache.log4j.Logger.getRootLogger().apply {
-            removeAllAppenders()
-
-```
-
-### KotlinAnnotator
-Unresolved reference: removeAllAppenders
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-    fun initialize(logDirectory: Path?, level: Level) {
-        org.apache.log4j.Logger.getRootLogger().apply {
-            removeAllAppenders()
-
-            addAppender(ConsoleAppender(layout))
-```
-
-### KotlinAnnotator
-Unresolved reference: addAppender
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-            removeAllAppenders()
-
-            addAppender(ConsoleAppender(layout))
-            logDirectory?.let { directory ->
-                val startDate = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now())
-```
-
-### KotlinAnnotator
-Unresolved reference: ConsoleAppender
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-            removeAllAppenders()
-
-            addAppender(ConsoleAppender(layout))
-            logDirectory?.let { directory ->
-                val startDate = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now())
-```
-
-### KotlinAnnotator
-Unresolved reference: addAppender
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-                val currentProcessId = ManagementFactory.getRuntimeMXBean().name
-                val logFilePath = directory.resolve("$startDate.$currentProcessId.log")
-                addAppender(FileAppender(layout, logFilePath.toString(), true))
-                println("Logs are saved to $logFilePath")
-            }
-```
-
-### KotlinAnnotator
-Unresolved reference: FileAppender
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-                val currentProcessId = ManagementFactory.getRuntimeMXBean().name
-                val logFilePath = directory.resolve("$startDate.$currentProcessId.log")
-                addAppender(FileAppender(layout, logFilePath.toString(), true))
-                println("Logs are saved to $logFilePath")
-            }
-```
-
-### KotlinAnnotator
-Unresolved reference: level
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-            }
-
-            this.level = level
-            println("Log level enabled: $level")
-        }
-```
-
-### KotlinAnnotator
-Unresolved reference: apache
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-import com.jetbrains.rd.util.ILoggerFactory
-import com.jetbrains.rd.util.Statics
-import org.apache.log4j.ConsoleAppender
-import org.apache.log4j.FileAppender
-import org.apache.log4j.Level
-```
-
-### KotlinAnnotator
-Unresolved reference: apache
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-import com.jetbrains.rd.util.Statics
-import org.apache.log4j.ConsoleAppender
-import org.apache.log4j.FileAppender
-import org.apache.log4j.Level
-import org.apache.log4j.PatternLayout
-```
-
-### KotlinAnnotator
-Unresolved reference: apache
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-import org.apache.log4j.ConsoleAppender
-import org.apache.log4j.FileAppender
-import org.apache.log4j.Level
-import org.apache.log4j.PatternLayout
-import java.lang.management.ManagementFactory
-```
-
-### KotlinAnnotator
-Unresolved reference: apache
-in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
-#### Snippet
-```java
-import org.apache.log4j.FileAppender
-import org.apache.log4j.Level
-import org.apache.log4j.PatternLayout
-import java.lang.management.ManagementFactory
-import java.nio.file.Path
 ```
 
 ### KotlinAnnotator
@@ -3259,198 +4604,6 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
         return addedEvents.map { TfsLocalPath(it.pendingChange.localItem) }
     }
 
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        }
-
-        fun getDetailedWorkspaceInfo(path: TfsLocalPath, credentials: TfsCredentials): TfsDetailedWorkspaceInfo? {
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val mappings = loadMappings(
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsCredentials
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        }
-
-        fun getDetailedWorkspaceInfo(path: TfsLocalPath, credentials: TfsCredentials): TfsDetailedWorkspaceInfo? {
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val mappings = loadMappings(
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsDetailedWorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        }
-
-        fun getDetailedWorkspaceInfo(path: TfsLocalPath, credentials: TfsCredentials): TfsDetailedWorkspaceInfo? {
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val mappings = loadMappings(
-```
-
-### KotlinAnnotator
-Unresolved reference: UsernamePasswordCredentials
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val mappings = loadMappings(
-                workspaceInfo,
-                UsernamePasswordCredentials(credentials.login, credentials.password.contents))
-
-            return TfsDetailedWorkspaceInfo(
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsDetailedWorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                UsernamePasswordCredentials(credentials.login, credentials.password.contents))
-
-            return TfsDetailedWorkspaceInfo(
-                mappings,
-                workspaceInfo.serverURI?.toString().orEmpty(),
-```
-
-### KotlinAnnotator
-Unresolved reference: serverURI
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            return TfsDetailedWorkspaceInfo(
-                mappings,
-                workspaceInfo.serverURI?.toString().orEmpty(),
-                workspaceInfo.name.orEmpty())
-        }
-```
-
-### KotlinAnnotator
-Unresolved reference: name
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                mappings,
-                workspaceInfo.serverURI?.toString().orEmpty(),
-                workspaceInfo.name.orEmpty())
-        }
-    }
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    }
-
-    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
-        val undonePaths = mutableListOf<TfsLocalPath>()
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    }
-
-    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
-        val undonePaths = mutableListOf<TfsLocalPath>()
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-
-    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
-        val undonePaths = mutableListOf<TfsLocalPath>()
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-```
-
-### KotlinAnnotator
-Unresolved reference: UndonePendingChangeListener
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
-        val undonePaths = mutableListOf<TfsLocalPath>()
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
-        val undonePaths = mutableListOf<TfsLocalPath>()
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-```
-
-### KotlinAnnotator
-Unresolved reference: it
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    fun undoLocalChanges(paths: List<TfsPath>): List<TfsLocalPath> {
-        val undonePaths = mutableListOf<TfsLocalPath>()
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-                val count = workspace.undo(workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) })
-                logger.info { "Undo result = $count" }
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        val listener = UndonePendingChangeListener { undonePaths.add(TfsLocalPath(it.pendingChange.localItem)) }
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-                val count = workspace.undo(workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) })
-                logger.info { "Undo result = $count" }
-```
-
-### KotlinAnnotator
-Unresolved reference: RecursionType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        client.eventEngine.withUndonePendingChangeListener(listener) {
-            enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-                val count = workspace.undo(workspacePaths.mapToArray { it.toCanonicalPathItemSpec(RecursionType.NONE) })
-                logger.info { "Undo result = $count" }
-            }
 ```
 
 ### KotlinAnnotator
@@ -3838,150 +4991,6 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: VersionControlClient
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    }
-
-    val client: VersionControlClient
-    private val pathWatcherFactory = ExternallyControlledPathWatcherFactory(lifetime)
-    init {
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        private val logger = Logging.getLogger<TfsClient>()
-
-        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
-            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
-            val canonicalPathString = path.toCanonicalPathString()
-```
-
-### KotlinAnnotator
-Unresolved reference: WorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-        private val logger = Logging.getLogger<TfsClient>()
-
-        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
-            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
-            val canonicalPathString = path.toCanonicalPathString()
-```
-
-### KotlinAnnotator
-Unresolved reference: Workstation
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-
-        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
-            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
-            val canonicalPathString = path.toCanonicalPathString()
-            if (!workstation.isMapped(canonicalPathString)) {
-```
-
-### KotlinAnnotator
-Unresolved reference: DefaultPersistenceStoreProvider
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-
-        private fun tryLoadWorkspaceInfo(path: TfsLocalPath): WorkspaceInfo? {
-            val workstation = Workstation.getCurrent(DefaultPersistenceStoreProvider.INSTANCE)
-            val canonicalPathString = path.toCanonicalPathString()
-            if (!workstation.isMapped(canonicalPathString)) {
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    }
-
-    fun status(paths: List<TfsPath>): List<PendingSet> {
-        val results = mutableListOf<PendingSet>()
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-```
-
-### KotlinAnnotator
-Unresolved reference: PendingSet
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    }
-
-    fun status(paths: List<TfsPath>): List<PendingSet> {
-        val results = mutableListOf<PendingSet>()
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-```
-
-### KotlinAnnotator
-Unresolved reference: PendingSet
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-
-    fun status(paths: List<TfsPath>): List<PendingSet> {
-        val results = mutableListOf<PendingSet>()
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            val workspaceName = workspace.name
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    fun status(paths: List<TfsPath>): List<PendingSet> {
-        val results = mutableListOf<PendingSet>()
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            val workspaceName = workspace.name
-            val workspaceOwner = workspace.ownerName
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-    fun status(paths: List<TfsPath>): List<PendingSet> {
-        val results = mutableListOf<PendingSet>()
-        enumeratePathsWithWorkspace(paths) { workspace, workspacePaths ->
-            val workspaceName = workspace.name
-            val workspaceOwner = workspace.ownerName
-```
-
-### KotlinAnnotator
-Unresolved reference: ItemSpec
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val workspaceOwner = workspace.ownerName
-
-            val itemSpecs = ItemSpec.fromStrings(
-                workspacePaths.mapToArray { it.toCanonicalPathString() },
-                RecursionType.FULL
-```
-
-### KotlinAnnotator
-Unresolved reference: RecursionType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val itemSpecs = ItemSpec.fromStrings(
-                workspacePaths.mapToArray { it.toCanonicalPathString() },
-                RecursionType.FULL
-            )
-            val pendingSets = client.queryPendingSets(itemSpecs, false, workspaceName, workspaceOwner, true)
-```
-
-### KotlinAnnotator
 Unresolved reference: TFSTeamProjectCollection
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
@@ -4066,1168 +5075,159 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 ```
 
 ### KotlinAnnotator
-Unresolved reference: Credentials
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+Unresolved reference: Level
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
-import java.nio.file.Paths
+    val layout = PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n")
 
-class TfsClient(lifetime: Lifetime, serverUri: URI, credentials: Credentials) {
-    companion object {
-        private val logger = Logging.getLogger<TfsClient>()
+    fun initialize(logDirectory: Path?, level: Level) {
+        org.apache.log4j.Logger.getRootLogger().apply {
+            removeAllAppenders()
 ```
 
 ### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+Unresolved reference: apache
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
+
+    fun initialize(logDirectory: Path?, level: Level) {
+        org.apache.log4j.Logger.getRootLogger().apply {
+            removeAllAppenders()
+
+```
+
+### KotlinAnnotator
+Unresolved reference: removeAllAppenders
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
+#### Snippet
+```java
+    fun initialize(logDirectory: Path?, level: Level) {
+        org.apache.log4j.Logger.getRootLogger().apply {
+            removeAllAppenders()
+
+            addAppender(ConsoleAppender(layout))
+```
+
+### KotlinAnnotator
+Unresolved reference: addAppender
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
+#### Snippet
+```java
+            removeAllAppenders()
+
+            addAppender(ConsoleAppender(layout))
+            logDirectory?.let { directory ->
+                val startDate = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now())
+```
+
+### KotlinAnnotator
+Unresolved reference: ConsoleAppender
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
+#### Snippet
+```java
+            removeAllAppenders()
+
+            addAppender(ConsoleAppender(layout))
+            logDirectory?.let { directory ->
+                val startDate = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss").format(LocalDateTime.now())
+```
+
+### KotlinAnnotator
+Unresolved reference: addAppender
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
+#### Snippet
+```java
+                val currentProcessId = ManagementFactory.getRuntimeMXBean().name
+                val logFilePath = directory.resolve("$startDate.$currentProcessId.log")
+                addAppender(FileAppender(layout, logFilePath.toString(), true))
+                println("Logs are saved to $logFilePath")
+            }
+```
+
+### KotlinAnnotator
+Unresolved reference: FileAppender
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
+#### Snippet
+```java
+                val currentProcessId = ManagementFactory.getRuntimeMXBean().name
+                val logFilePath = directory.resolve("$startDate.$currentProcessId.log")
+                addAppender(FileAppender(layout, logFilePath.toString(), true))
+                println("Logs are saved to $logFilePath")
+            }
+```
+
+### KotlinAnnotator
+Unresolved reference: level
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
+#### Snippet
+```java
+            }
+
+            this.level = level
+            println("Log level enabled: $level")
         }
-
-        fun getBasicWorkspaceInfo(path: TfsLocalPath): TfsWorkspaceInfo? {
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val workspaceName = workspaceInfo.name.orEmpty()
 ```
 
 ### KotlinAnnotator
-Unresolved reference: TfsWorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+Unresolved reference: apache
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
-        }
-
-        fun getBasicWorkspaceInfo(path: TfsLocalPath): TfsWorkspaceInfo? {
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val workspaceName = workspaceInfo.name.orEmpty()
+import com.jetbrains.rd.util.ILoggerFactory
+import com.jetbrains.rd.util.Statics
+import org.apache.log4j.ConsoleAppender
+import org.apache.log4j.FileAppender
+import org.apache.log4j.Level
 ```
 
 ### KotlinAnnotator
-Unresolved reference: name
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+Unresolved reference: apache
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
-        fun getBasicWorkspaceInfo(path: TfsLocalPath): TfsWorkspaceInfo? {
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val workspaceName = workspaceInfo.name.orEmpty()
-            val serverUri = workspaceInfo.serverURI.toString()
-            val mappings =
+import com.jetbrains.rd.util.Statics
+import org.apache.log4j.ConsoleAppender
+import org.apache.log4j.FileAppender
+import org.apache.log4j.Level
+import org.apache.log4j.PatternLayout
 ```
 
 ### KotlinAnnotator
-Unresolved reference: serverURI
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+Unresolved reference: apache
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
-            val workspaceInfo = tryLoadWorkspaceInfo(path) ?: return null
-            val workspaceName = workspaceInfo.name.orEmpty()
-            val serverUri = workspaceInfo.serverURI.toString()
-            val mappings =
-                try {
+import org.apache.log4j.ConsoleAppender
+import org.apache.log4j.FileAppender
+import org.apache.log4j.Level
+import org.apache.log4j.PatternLayout
+import java.lang.management.ManagementFactory
 ```
 
 ### KotlinAnnotator
-Unresolved reference: TfsBasicWorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+Unresolved reference: apache
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
-                } catch (e: Throwable) {
-                    logger.error("Cannot determine workspace mappings for workspace \"$path\".", e)
-                    return TfsBasicWorkspaceInfo(serverUri, workspaceName)
-                }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsDetailedWorkspaceInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-                }
-
-            return TfsDetailedWorkspaceInfo(mappings, serverUri, workspaceName)
-        }
-
-```
-
-### KotlinAnnotator
-'startWatching' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    }
-
-    override fun startWatching() {
-        currentSessionLifetime = sessionLifetimes.next()
-        pathsInvalidated.advise(currentSessionLifetime, ::invalidatePaths)
-```
-
-### KotlinAnnotator
-'stopWatching' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    }
-
-    override fun stopWatching() {
-        currentSessionLifetime.terminate()
-    }
-```
-
-### KotlinAnnotator
-'getPath' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    private var currentSessionLifetime = LifetimeDefinition.Terminated
-
-    override fun getPath(): String = pathToWatch.toString()
-
-    override fun hasChanged(): Boolean = synchronized(lock) {
-```
-
-### KotlinAnnotator
-Unresolved reference: PathWatcher
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    private val workspaceWatcher: WorkspaceWatcher,
-    private val pathToWatch: Path
-) : PathWatcher {
-
-    companion object {
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-import com.jetbrains.rd.util.trace
-import com.microsoft.tfs.Logging
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcher
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcherReport
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.WorkspaceWatcher
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.Logging
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcher
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcherReport
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.WorkspaceWatcher
+import org.apache.log4j.FileAppender
+import org.apache.log4j.Level
+import org.apache.log4j.PatternLayout
+import java.lang.management.ManagementFactory
 import java.nio.file.Path
 ```
 
 ### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
+Unresolved reference: PatternLayout
+in `client/backend/src/main/kotlin/com/microsoft/tfs/Logging.kt`
 #### Snippet
 ```java
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcher
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.PathWatcherReport
-import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.WorkspaceWatcher
-import java.nio.file.Path
+object Logging {
+    val factory = CommonsLoggingLoggerFactory
+    val layout = PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n")
 
-```
-
-### KotlinAnnotator
-Unresolved reference: WorkspaceWatcher
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    parentLifetime: Lifetime,
-    private val pathsInvalidated: Signal<List<Path>>,
-    private val workspaceWatcher: WorkspaceWatcher,
-    private val pathToWatch: Path
-) : PathWatcher {
-```
-
-### KotlinAnnotator
-'isWatching' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    }
-
-    override fun isWatching(): Boolean = currentSessionLifetime.isAlive
-
-    override fun poll(): PathWatcherReport {
-```
-
-### KotlinAnnotator
-'setClean' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    }
-
-    override fun setClean() {
-        synchronized(lock) {
-            isFullyInvalidated = false
-```
-
-### KotlinAnnotator
-'hasChanged' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    override fun getPath(): String = pathToWatch.toString()
-
-    override fun hasChanged(): Boolean = synchronized(lock) {
-        changedPaths.size > 0
-    }
-```
-
-### KotlinAnnotator
-'poll' overrides nothing
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    override fun isWatching(): Boolean = currentSessionLifetime.isAlive
-
-    override fun poll(): PathWatcherReport {
-        val fullyInvalidated: Boolean
-        val changes: List<Path>
-```
-
-### KotlinAnnotator
-Unresolved reference: PathWatcherReport
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-    override fun isWatching(): Boolean = currentSessionLifetime.isAlive
-
-    override fun poll(): PathWatcherReport {
-        val fullyInvalidated: Boolean
-        val changes: List<Path>
-```
-
-### KotlinAnnotator
-Unresolved reference: PathWatcherReport
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-        }
-
-        return PathWatcherReport(false).apply {
-            if (fullyInvalidated) {
-                fullyInvalidate()
-```
-
-### KotlinAnnotator
-Unresolved reference: fullyInvalidate
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-        return PathWatcherReport(false).apply {
-            if (fullyInvalidated) {
-                fullyInvalidate()
-            } else {
-                for (changedPath in changes) {
-```
-
-### KotlinAnnotator
-Unresolved reference: addChangedPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-            } else {
-                for (changedPath in changes) {
-                    addChangedPath(changedPath.toString())
-                }
-            }
-```
-
-### KotlinAnnotator
-Unresolved reference: fullyInvalidated
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-
-            logger.trace {
-                "Returning PathWatcherReport (fullyInvalidated = ${this.fullyInvalidated}, nothingChanged = $isNothingChanged) with paths:\n" +
-                        changedPaths.joinToString("\n")
-            }
-```
-
-### KotlinAnnotator
-Unresolved reference: isNothingChanged
-in `client/backend/src/main/kotlin/com/microsoft/tfs/watcher/ExternallyControlledPathWatcher.kt`
-#### Snippet
-```java
-
-            logger.trace {
-                "Returning PathWatcherReport (fullyInvalidated = ${this.fullyInvalidated}, nothingChanged = $isNothingChanged) with paths:\n" +
-                        changedPaths.joinToString("\n")
-            }
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    )
-
-fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
-    TfsExtendedItemInfo(
-        lockStatus,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsExtendedItemInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    )
-
-fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
-    TfsExtendedItemInfo(
-        lockStatus,
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-        else pendingChange.toUIString(false, this)
-
-private val ExtendedItem.itemTypeName
-    get() = itemType.toUIString()
-
-```
-
-### KotlinAnnotator
-Unresolved reference: PendingSet
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-)
-
-fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
-    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
-            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPendingChange
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-)
-
-fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
-    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
-            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
-```
-
-### KotlinAnnotator
-Unresolved reference: it
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-
-fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
-    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
-            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
-
-```
-
-### KotlinAnnotator
-Unresolved reference: it
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-fun toPendingChanges(pendingSet: PendingSet): Iterable<TfsPendingChange> =
-    (pendingSet.pendingChanges.asSequence().map { toPendingChange(pendingSet, it) }
-            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
-
-fun TfsPath.toCanonicalPathString(): String = when (this) {
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = if (itemType == ItemType.FILE) encodingName else null
-
-private val ExtendedItem.lockStatus
-    get() = lockLevel.toUIString()
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-}
-
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
-    ItemSpec(toCanonicalPathString(), recursionType)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: RecursionType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-}
-
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
-    ItemSpec(toCanonicalPathString(), recursionType)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: ItemSpec
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-}
-
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
-    ItemSpec(toCanonicalPathString(), recursionType)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
-
-fun TfsPath.toCanonicalPathString(): String = when (this) {
-    is TfsLocalPath -> LocalPath.canonicalize(path)
-    is TfsServerPath -> path
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-
-fun TfsPath.toCanonicalPathString(): String = when (this) {
-    is TfsLocalPath -> LocalPath.canonicalize(path)
-    is TfsServerPath -> path
-    else -> throw Exception("Unknown path type: $this")
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-fun TfsPath.toCanonicalPathString(): String = when (this) {
-    is TfsLocalPath -> LocalPath.canonicalize(path)
-    is TfsServerPath -> path
-    else -> throw Exception("Unknown path type: $this")
-}
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = itemType.toUIString()
-
-private val ExtendedItem.checkinDateString
-    get() = checkinDate?.time?.let(isoDateFormat::format)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-        else encoding?.name
-
-private val ExtendedItem.fileEncodingName
-    get() = if (itemType == ItemType.FILE) encodingName else null
-
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-package com.microsoft.tfs
-
-import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants
-import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-
-import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants
-import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
-import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants
-import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
-import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
-import com.microsoft.tfs.core.util.FileEncoding
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
-import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
-import com.microsoft.tfs.core.util.FileEncoding
-import com.microsoft.tfs.model.host.*
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.*
-import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
-import com.microsoft.tfs.core.util.FileEncoding
-import com.microsoft.tfs.model.host.*
-import java.text.SimpleDateFormat
-```
-
-### KotlinAnnotator
-Unresolved reference: model
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec
-import com.microsoft.tfs.core.util.FileEncoding
-import com.microsoft.tfs.model.host.*
-import java.text.SimpleDateFormat
-
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = checkinDate?.time?.let(isoDateFormat::format)
-
-private val ExtendedItem.encodingName
-    get() =
-        if (encoding == FileEncoding(VersionControlConstants.ENCODING_UNCHANGED)) null
-```
-
-### KotlinAnnotator
-Unresolved reference: PendingSet
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
-
-private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
-    pc.serverItem,
-    pc.localItem,
-```
-
-### KotlinAnnotator
-Unresolved reference: PendingChange
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
-
-private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
-    pc.serverItem,
-    pc.localItem,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPendingChange
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
-
-private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
-    pc.serverItem,
-    pc.localItem,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-)
-
-private fun toChangeTypes(changeType: ChangeType): List<TfsServerStatusType> =
-    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-)
-
-private fun toChangeTypes(changeType: ChangeType): List<TfsServerStatusType> =
-    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
-
-```
-
-### KotlinAnnotator
-Cannot infer a type for this parameter. Please specify it explicitly.
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-
-private fun toChangeTypes(changeType: ChangeType): List<TfsServerStatusType> =
-    pendingChangeTypeMap.entries.mapNotNull { (k, v) -> if (changeType.contains(k)) v else null }
-
-private fun toPendingChange(pendingSet: PendingSet, pc: PendingChange) = TfsPendingChange(
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = lockLevel.toUIString()
-
-fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
-    TfsLocalItemInfo(
-        targetServerItem,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalItemInfo
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = lockLevel.toUIString()
-
-fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
-    TfsLocalItemInfo(
-        targetServerItem,
-```
-
-### KotlinAnnotator
-Unresolved reference: ExtendedItem
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ItemSpec(toCanonicalPathString(), recursionType)
-
-private val ExtendedItem.changeTypeName
-    get() =
-        if (pendingChange == ChangeType.NONE) "none"
-```
-
-### KotlinAnnotator
-Not enough information to infer type variable K
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-private val isoDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-
-private val pendingChangeTypeMap = mapOf(
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-
-private val pendingChangeTypeMap = mapOf(
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-
-private val pendingChangeTypeMap = mapOf(
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-private val pendingChangeTypeMap = mapOf(
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-private val pendingChangeTypeMap = mapOf(
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.ADD to TfsServerStatusType.ADD,
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.EDIT to TfsServerStatusType.EDIT,
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.ENCODING to TfsServerStatusType.UNKNOWN,
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.RENAME to TfsServerStatusType.RENAME,
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.DELETE to TfsServerStatusType.DELETE,
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.UNDELETE to TfsServerStatusType.UNDELETE,
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.BRANCH to TfsServerStatusType.BRANCH,
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.MERGE to TfsServerStatusType.MERGE,
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-    ChangeType.PROPERTY to TfsServerStatusType.EDIT
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.LOCK to TfsServerStatusType.LOCK,
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-    ChangeType.PROPERTY to TfsServerStatusType.EDIT
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-    ChangeType.PROPERTY to TfsServerStatusType.EDIT
-)
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.ROLLBACK to TfsServerStatusType.UNKNOWN,
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-    ChangeType.PROPERTY to TfsServerStatusType.EDIT
-)
-```
-
-### KotlinAnnotator
-Unresolved reference: ChangeType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-    ChangeType.PROPERTY to TfsServerStatusType.EDIT
-)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerStatusType
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ChangeType.SOURCE_RENAME to TfsServerStatusType.RENAME,
-    ChangeType.TARGET_RENAME to TfsServerStatusType.UNKNOWN,
-    ChangeType.PROPERTY to TfsServerStatusType.EDIT
-)
-
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-package com.microsoft.tfs.sdk
-
-import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient
-import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-
-import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient
-import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
-import com.microsoft.tfs.model.host.TfsLocalPath
-```
-
-### KotlinAnnotator
-Unresolved reference: core
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient
-import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
-import com.microsoft.tfs.model.host.TfsLocalPath
-import com.microsoft.tfs.model.host.TfsPath
-```
-
-### KotlinAnnotator
-Unresolved reference: model
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceNotFoundException
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
-import com.microsoft.tfs.model.host.TfsLocalPath
-import com.microsoft.tfs.model.host.TfsPath
-import com.microsoft.tfs.model.host.TfsServerPath
-```
-
-### KotlinAnnotator
-Unresolved reference: model
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace
-import com.microsoft.tfs.model.host.TfsLocalPath
-import com.microsoft.tfs.model.host.TfsPath
-import com.microsoft.tfs.model.host.TfsServerPath
-
-```
-
-### KotlinAnnotator
-Unresolved reference: model
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.model.host.TfsLocalPath
-import com.microsoft.tfs.model.host.TfsPath
-import com.microsoft.tfs.model.host.TfsServerPath
-
-fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
-```
-
-### KotlinAnnotator
-Unresolved reference: VersionControlClient
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.model.host.TfsServerPath
-
-fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
-    is TfsLocalPath -> tryGetWorkspace(path.path)
-    is TfsServerPath -> {
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.model.host.TfsServerPath
-
-fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
-    is TfsLocalPath -> tryGetWorkspace(path.path)
-    is TfsServerPath -> {
-```
-
-### KotlinAnnotator
-Unresolved reference: Workspace
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.model.host.TfsServerPath
-
-fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
-    is TfsLocalPath -> tryGetWorkspace(path.path)
-    is TfsServerPath -> {
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsLocalPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-
-fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
-    is TfsLocalPath -> tryGetWorkspace(path.path)
-    is TfsServerPath -> {
-        try {
-```
-
-### KotlinAnnotator
-Unresolved reference: TfsServerPath
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path) {
-    is TfsLocalPath -> tryGetWorkspace(path.path)
-    is TfsServerPath -> {
-        try {
-            getWorkspace(path.workspace, ".")
-```
-
-### KotlinAnnotator
-Unresolved reference: WorkspaceNotFoundException
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/ClientEx.kt`
-#### Snippet
-```java
-        try {
-            getWorkspace(path.workspace, ".")
-        } catch (ex: WorkspaceNotFoundException) {
-            null
-        }
-```
-
-## RuleId[ruleID=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
-     * @return Stripped {@link StringBuilder} (may be empty)
-     */
-    private final static StringBuilder cleanupComponent(final StringBuilder s) {
-        while (s.length() > 0
-                && (s.charAt(s.length() - 1) == '.' || Character.isWhitespace(s.charAt(s.length() - 1)))) {
+    fun initialize(logDirectory: Path?, level: Level) {
 ```
 
 ## RuleId[ruleID=RegExpSimplifiable]
@@ -5345,6 +5345,18 @@ in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.ja
 in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
 #### Snippet
 ```java
+                    null, //TODO: EnumSet.of(BuildResult.FAILED, BuildResult.PARTIALLY_SUCCEEDED, BuildResult.SUCCEEDED),
+                    null, null, null, 100, null, null, null, BuildQueryOrder.FINISH_TIME_DESCENDING);
+            if (builds.size() > 0) {
+                for (final Build b : builds) {
+                    if (b.getResult() == BuildResult.CANCELED) {
+```
+
+### SizeReplaceableByIsEmpty
+`builds.size() > 0` can be replaced with '!builds.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
+#### Snippet
+```java
         public BuildStatusRecord getBuildForDisplay() {
             // The last build in the list should be the one to return
             if (builds.size() > 0) {
@@ -5362,30 +5374,6 @@ in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.ja
             return builds != null && builds.size() > 0;
         }
 
-```
-
-### SizeReplaceableByIsEmpty
-`builds.size() > 0` can be replaced with '!builds.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
-#### Snippet
-```java
-                    null, //TODO: EnumSet.of(BuildResult.FAILED, BuildResult.PARTIALLY_SUCCEEDED, BuildResult.SUCCEEDED),
-                    null, null, null, 100, null, null, null, BuildQueryOrder.FINISH_TIME_DESCENDING);
-            if (builds.size() > 0) {
-                for (final Build b : builds) {
-                    if (b.getResult() == BuildResult.CANCELED) {
-```
-
-### SizeReplaceableByIsEmpty
-`items.size() > 0` can be replaced with '!items.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
-#### Snippet
-```java
-        final List<Row> items = getItems();
-        // make the new row a copy of the last row
-        if (items != null && items.size() > 0) {
-            return new Row(items.get(items.size() - 1));
-        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5410,6 +5398,18 @@ in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
         return input == null || input.trim().length() == 0;
     }
 
+```
+
+### SizeReplaceableByIsEmpty
+`items.size() > 0` can be replaced with '!items.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
+#### Snippet
+```java
+        final List<Row> items = getItems();
+        // make the new row a copy of the last row
+        if (items != null && items.size() > 0) {
+            return new Row(items.get(items.size() - 1));
+        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5449,18 +5449,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.ja
 ```
 
 ### SizeReplaceableByIsEmpty
-`items.size() > 0` can be replaced with '!items.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-        InfoCommand infoCommand = new InfoCommand(context, workingFolder, Collections.singletonList(itemPath));
-        List<ExtendedItemInfo> items = infoCommand.runSynchronously();
-        if (items != null && items.size() > 0) {
-            return items.get(0);
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `errors.size() > 0` can be replaced with '!errors.isEmpty()'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/PageModelImpl.java`
 #### Snippet
@@ -5470,6 +5458,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/PageModelImpl.java
         return errors.size() > 0;
     }
 
+```
+
+### SizeReplaceableByIsEmpty
+`items.size() > 0` can be replaced with '!items.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+        InfoCommand infoCommand = new InfoCommand(context, workingFolder, Collections.singletonList(itemPath));
+        List<ExtendedItemInfo> items = infoCommand.runSynchronously();
+        if (items != null && items.size() > 0) {
+            return items.get(0);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5569,18 +5569,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/CheckinCommand.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`results.size() > 0` can be replaced with '!results.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-            // check returned results
-            if (results.size() < 1 || !results.get(0).getSuccess()) {
-                errorMessage = results.size() > 0 ? results.get(0).getCustomMessage() : TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_UNEXPECTED_SERVER_ERROR;
-            } else {
-                // Get the repository object for this project
-```
-
-### SizeReplaceableByIsEmpty
 `component.getText().length() == 0` can be replaced with 'component.getText().isEmpty()'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HintTextFieldUI.java`
 #### Snippet
@@ -5605,18 +5593,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### SizeReplaceableByIsEmpty
-`proceed.size() == 0` can be replaced with 'proceed.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-        }, true, indicator.getModalityState());
-
-        if (proceed.size() == 0) {
-            //user chose to cancel import
-            logger.warn("projectSupportsGitRepos: User chose to cancel import into team project: {}",
-```
-
-### SizeReplaceableByIsEmpty
 `remoteParams.size() == 0` can be replaced with 'remoteParams.isEmpty()'
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
@@ -5629,27 +5605,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### SizeReplaceableByIsEmpty
-`pullRequests.size() > 0` can be replaced with '!pullRequests.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestHelper.java`
+`proceed.size() == 0` can be replaced with 'proceed.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
-                List<GitPullRequest> pullRequests = gitClient.getPullRequests(repoId, searchCriteria, null, 0, 1);
+        }, true, indicator.getModalityState());
 
-                if (pullRequests != null && pullRequests.size() > 0) {
-                    final String repositoryRemoteUrl = context.getGitRepository().getRemoteUrl();
-                    final String notifyMsgInHtml = getHtmlMsg(repositoryRemoteUrl, pullRequests.get(0).getPullRequestId());
-```
-
-### SizeReplaceableByIsEmpty
-`resolved.size() > 0` can be replaced with '!resolved.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-
-                // check if error is a rename so the correct file name is displayed in the Update Info tab
-                if (resolved != null && resolved.size() > 0) {
-                    if (conflict instanceof RenameConflict && ResolveConflictsCommand.AutoResolveType.TakeTheirs.equals(type)) {
-                        acceptChanges(((RenameConflict) conflict).getServerPath(), type);
+        if (proceed.size() == 0) {
+            //user chose to cancel import
+            logger.warn("projectSupportsGitRepos: User chose to cancel import into team project: {}",
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5665,6 +5629,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 ```
 
 ### SizeReplaceableByIsEmpty
+`resolved.size() > 0` can be replaced with '!resolved.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+
+                // check if error is a rename so the correct file name is displayed in the Update Info tab
+                if (resolved != null && resolved.size() > 0) {
+                    if (conflict instanceof RenameConflict && ResolveConflictsCommand.AutoResolveType.TakeTheirs.equals(type)) {
+                        acceptChanges(((RenameConflict) conflict).getServerPath(), type);
+```
+
+### SizeReplaceableByIsEmpty
+`pullRequests.size() > 0` can be replaced with '!pullRequests.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestHelper.java`
+#### Snippet
+```java
+                List<GitPullRequest> pullRequests = gitClient.getPullRequests(repoId, searchCriteria, null, 0, 1);
+
+                if (pullRequests != null && pullRequests.size() > 0) {
+                    final String repositoryRemoteUrl = context.getGitRepository().getRemoteUrl();
+                    final String notifyMsgInHtml = getHtmlMsg(repositoryRemoteUrl, pullRequests.get(0).getPullRequestId());
+```
+
+### SizeReplaceableByIsEmpty
 `lines.size() > 0` can be replaced with '!lines.isEmpty()'
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
@@ -5674,6 +5662,30 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
             while (lines.size() > 0 && StringUtils.startsWithIgnoreCase(lines.get(0), WARNING_PREFIX)) {
                 lines.remove(0);
             }
+```
+
+### SizeReplaceableByIsEmpty
+`results.size() > 0` can be replaced with '!results.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+            // check returned results
+            if (results.size() < 1 || !results.get(0).getSuccess()) {
+                errorMessage = results.size() > 0 ? results.get(0).getCustomMessage() : TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_UNEXPECTED_SERVER_ERROR;
+            } else {
+                // Get the repository object for this project
+```
+
+### SizeReplaceableByIsEmpty
+`context.itemInfos.size() > 0` can be replaced with '!context.itemInfos.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
+#### Snippet
+```java
+
+                // Set the default path and additional parameters
+                if (context.itemInfos.size() > 0) {
+                    logger.info("Setting the defaultLocalPath and workingFolder");
+                    context.defaultLocalPath = context.itemInfos.get(0).getLocalItem();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5701,27 +5713,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`context.itemInfos.size() > 0` can be replaced with '!context.itemInfos.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
+`warnings.size() > 0` can be replaced with '!warnings.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/external/models/MergeResults.java`
 #### Snippet
 ```java
 
-                // Set the default path and additional parameters
-                if (context.itemInfos.size() > 0) {
-                    logger.info("Setting the defaultLocalPath and workingFolder");
-                    context.defaultLocalPath = context.itemInfos.get(0).getLocalItem();
-```
-
-### SizeReplaceableByIsEmpty
-`commits.size() == 0` can be replaced with 'commits.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/actions/OpenCommitInBrowserAction.java`
-#### Snippet
-```java
-
-        final List<VcsFullCommitDetails> commits = log.getSelectedDetails();
-        if (commits.size() == 0) {
-            presentation.setEnabledAndVisible(false);
-            return;
+    public boolean warningsExist() {
+        return warnings.size() > 0;
+    }
+}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5761,18 +5761,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/models/MergeResults.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`warnings.size() > 0` can be replaced with '!warnings.isEmpty()'
-in `plugin/src/com/microsoft/alm/plugin/external/models/MergeResults.java`
-#### Snippet
-```java
-
-    public boolean warningsExist() {
-        return warnings.size() > 0;
-    }
-}
-```
-
-### SizeReplaceableByIsEmpty
 `errors.size() > 0` can be replaced with '!errors.isEmpty()'
 in `plugin/src/com/microsoft/alm/plugin/external/models/MergeResults.java`
 #### Snippet
@@ -5782,6 +5770,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/models/MergeResults.java`
         return errors.size() > 0;
     }
 
+```
+
+### SizeReplaceableByIsEmpty
+`commits.size() == 0` can be replaced with 'commits.isEmpty()'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/actions/OpenCommitInBrowserAction.java`
+#### Snippet
+```java
+
+        final List<VcsFullCommitDetails> commits = log.getSelectedDetails();
+        if (commits.size() == 0) {
+            presentation.setEnabledAndVisible(false);
+            return;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5828,35 +5828,11 @@ in `plugin/src/com/microsoft/alm/plugin/context/soap/CatalogServiceImpl.java`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     * (file/folder), false if not.
-     */
-    public final static boolean isValidPathCharacter(final char c) {
-        final char[] invalidCharacters = {
-                '"',
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
      * otherwise.
      */
     public final static boolean isSeparator(final char c) {
         for (int i = 0; i < ServerPath.SEPARATOR_CHARACTERS.length; i++) {
             if (ServerPath.SEPARATOR_CHARACTERS[i] == c) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
-     * @return Stripped {@link StringBuilder} (may be empty)
-     */
-    private final static StringBuilder cleanupComponent(final StringBuilder s) {
-        while (s.length() > 0
-                && (s.charAt(s.length() - 1) == '.' || Character.isWhitespace(s.charAt(s.length() - 1)))) {
 ```
 
 ### FinalStaticMethod
@@ -5885,14 +5861,26 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     *                 <code>null</code>)
+     * (file/folder), false if not.
      */
-    public final static String combine(final String parent, final String relative) {
-        ArgumentHelper.checkNotNull(parent, "parent");
-        ArgumentHelper.checkNotNull(relative, "relative");
+    public final static boolean isValidPathCharacter(final char c) {
+        final char[] invalidCharacters = {
+                '"',
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
+#### Snippet
+```java
+     * @return Stripped {@link StringBuilder} (may be empty)
+     */
+    private final static StringBuilder cleanupComponent(final StringBuilder s) {
+        while (s.length() > 0
+                && (s.charAt(s.length() - 1) == '.' || Character.isWhitespace(s.charAt(s.length() - 1)))) {
 ```
 
 ### FinalStaticMethod
@@ -5905,6 +5893,18 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
     public final static boolean isChild(final String parentPath, final String possibleChild) {
         ArgumentHelper.checkNotNull(parentPath, "parentPath");
         ArgumentHelper.checkNotNull(possibleChild, "possibleChild");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
+#### Snippet
+```java
+     *                 <code>null</code>)
+     */
+    public final static String combine(final String parent, final String relative) {
+        ArgumentHelper.checkNotNull(parent, "parent");
+        ArgumentHelper.checkNotNull(relative, "relative");
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -5994,6 +5994,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ConflictsTableModel
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends AuthenticationInfo`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * @param authInfoMap: keys are old auth infos and the values are the new auth infos
+     */
+    private void refreshAuthInfo(final HashMap<AuthenticationInfo, AuthenticationInfo> authInfoMap) {
+        logger.info("refreshAuthInfo: refreshing auth info");
+        for (final ServerContext context : getAllServerContexts()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServerContext`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * @return
+     */
+    public void updateServerContextsAuthInfo(final List<ServerContext> contexts) {
+        logger.info("updateServerContextsAuthInfo: starting with context count: " + contexts.size() + ", contextMap size: " + contextMap.size());
+        final HashMap<AuthenticationInfo, AuthenticationInfo> authInfoMap = new HashMap<AuthenticationInfo, AuthenticationInfo>(contexts.size());
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExtendedItemInfo`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/LockItemsDialog.java`
 #### Snippet
@@ -6030,18 +6054,6 @@ in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Workspace.Mapping`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
-#### Snippet
-```java
-    }
-
-    public void setMappings(final List<Workspace.Mapping> mappings) {
-        if (mappings != null) {
-            final List<Row> rows = new ArrayList<Row>(mappings.size());
-```
-
-### BoundedWildcard
 Can generalize to `? extends TeamProjectCollectionReference`
 in `plugin/src/com/microsoft/alm/plugin/operations/ServerContextLookupOperation.java`
 #### Snippet
@@ -6075,6 +6087,18 @@ in `plugin/src/com/microsoft/alm/plugin/operations/ServerContextLookupOperation.
     protected void addTeamProjectResults(final List<TeamProjectReference> projects, final ServerContext context, final TeamProjectCollectionReference teamProjectCollectionReference) {
         final List<ServerContext> serverContexts = new ArrayList<ServerContext>(projects.size());
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends Workspace.Mapping`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
+#### Snippet
+```java
+    }
+
+    public void setMappings(final List<Workspace.Mapping> mappings) {
+        if (mappings != null) {
+            final List<Row> rows = new ArrayList<Row>(mappings.size());
 ```
 
 ### BoundedWildcard
@@ -6198,15 +6222,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfIgnoreUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends VirtualFile`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+Can generalize to `? extends HelpPopupCommand`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
 #### Snippet
 ```java
-    }
 
-    public static List<String> getFilePathStrings(@NotNull final Collection<VirtualFile> files) {
-        List<String> paths = new ArrayList<String>(files.size());
-        for (VirtualFile f : files) {
+    private class HelpToolTip extends JPanel {
+        public HelpToolTip(final String wrappingText, final List<HelpPopupCommand> popupCommands, final int preferredWidth) {
+            IdeTooltipManager.setColors(this);
+            this.setLayout(new GridBagLayout());
 ```
 
 ### BoundedWildcard
@@ -6222,15 +6246,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FilePath`
+Can generalize to `? extends Workspace.Mapping`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+    public static String translateLocalItemToServerItem(
+            final String localPath,
+            final List<Workspace.Mapping> mappings) {
+        ArgumentHelper.checkNotEmptyString(localPath, "localPath");
+        ArgumentHelper.checkNotNull(mappings, "mappings");
+```
+
+### BoundedWildcard
+Can generalize to `? extends VirtualFile`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
     }
 
-    public static void markDirtyRecursively(final Project project, final Collection<FilePath> roots) {
-        if (roots.isEmpty()) {
-            return;
+    public static void setReadOnly(final Collection<VirtualFile> files, final boolean status) throws IOException {
+        final Ref<IOException> exception = new Ref<IOException>();
+        try {
 ```
 
 ### BoundedWildcard
@@ -6270,27 +6306,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Workspace.Mapping`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
-#### Snippet
-```java
-    public static String translateLocalItemToServerItem(
-            final String localPath,
-            final List<Workspace.Mapping> mappings) {
-        ArgumentHelper.checkNotEmptyString(localPath, "localPath");
-        ArgumentHelper.checkNotNull(mappings, "mappings");
-```
-
-### BoundedWildcard
-Can generalize to `? extends VirtualFile`
+Can generalize to `? extends FilePath`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
     }
 
-    public static void setReadOnly(final Collection<VirtualFile> files, final boolean status) throws IOException {
-        final Ref<IOException> exception = new Ref<IOException>();
-        try {
+    public static void markDirtyRecursively(final Project project, final Collection<FilePath> roots) {
+        if (roots.isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -6306,15 +6330,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HelpPopupCommand`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
+Can generalize to `? extends VirtualFile`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
+    }
 
-    private class HelpToolTip extends JPanel {
-        public HelpToolTip(final String wrappingText, final List<HelpPopupCommand> popupCommands, final int preferredWidth) {
-            IdeTooltipManager.setColors(this);
-            this.setLayout(new GridBagLayout());
+    public static List<String> getFilePathStrings(@NotNull final Collection<VirtualFile> files) {
+        List<String> paths = new ArrayList<String>(files.size());
+        for (VirtualFile f : files) {
 ```
 
 ### BoundedWildcard
@@ -6327,6 +6351,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
     private void removeInvalidTFVCAddedFiles(List<VirtualFile> addedFiles) {
         Map<VirtualFile, FilePath> addedFilePaths = addedFiles.stream()
                 .collect(Collectors.toMap(vf -> vf, vf -> new LocalFilePath(vf.getPath(), vf.isDirectory())));
+```
+
+### BoundedWildcard
+Can generalize to `? super ItemInfo`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
+#### Snippet
+```java
+            @NotNull ServerContext serverContext,
+            @NotNull List<String> pathsToProcess,
+            @NotNull Consumer<ItemInfo> onItemReceived) {
+        getExtendedItemsInfo(project, serverContext, pathsToProcess, onItemReceived::accept);
+    }
 ```
 
 ### BoundedWildcard
@@ -6366,15 +6402,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ItemInfo`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
+Can generalize to `? extends FilePath`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TFVCUtil.java`
 #### Snippet
 ```java
-            @NotNull ServerContext serverContext,
-            @NotNull List<String> pathsToProcess,
-            @NotNull Consumer<ItemInfo> onItemReceived) {
-        getExtendedItemsInfo(project, serverContext, pathsToProcess, onItemReceived::accept);
-    }
+     */
+    @NotNull
+    public static List<String> filterValidTFVCPaths(@NotNull Project project, @NotNull Collection<FilePath> paths) {
+        List<FilePath> mappingPaths = getMappingsFromWorkspace(project);
+        List<String> filteredPaths = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -6385,18 +6421,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/RootsCollection.java`
         }
 
         public FilePathRootsCollection(final Collection<FilePath> items) {
-            super(items);
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ItemPath`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/RootsCollection.java`
-#### Snippet
-```java
-        }
-
-        public ItemPathRootsCollection(final Collection<ItemPath> items) {
             super(items);
         }
 ```
@@ -6414,15 +6438,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/RootsCollection.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FilePath`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TFVCUtil.java`
+Can generalize to `? extends ItemPath`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/RootsCollection.java`
 #### Snippet
 ```java
-     */
-    @NotNull
-    public static List<String> filterValidTFVCPaths(@NotNull Project project, @NotNull Collection<FilePath> paths) {
-        List<FilePath> mappingPaths = getMappingsFromWorkspace(project);
-        List<String> filteredPaths = new ArrayList<>();
+        }
+
+        public ItemPathRootsCollection(final Collection<ItemPath> items) {
+            super(items);
+        }
 ```
 
 ### BoundedWildcard
@@ -6514,6 +6538,18 @@ Can generalize to `? extends Conflict`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
+
+    @VisibleForTesting
+    protected void acceptChange(final List<Conflict> conflicts, final ProgressIndicator progressIndicator, final Project project, final ResolveConflictsCommand.AutoResolveType type, final ResolveConflictsModel model) {
+        for (final Conflict conflict : conflicts) {
+            try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Conflict`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
     }
 
     public void skip(final @NotNull List<Conflict> conflicts) {
@@ -6522,15 +6558,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Conflict`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+Can generalize to `? extends CompletionStage`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ReactiveTfvcClient.java`
 #### Snippet
 ```java
-
-    @VisibleForTesting
-    protected void acceptChange(final List<Conflict> conflicts, final ProgressIndicator progressIndicator, final Project project, final ResolveConflictsCommand.AutoResolveType type, final ResolveConflictsModel model) {
-        for (final Conflict conflict : conflicts) {
-            try {
+    private static <T> CompletionStage<T> traceTime(
+            @NotNull String title,
+            @NotNull Supplier<CompletionStage<T>> action) {
+        long startTime = System.nanoTime();
+        return action.get().whenComplete((result, ex) -> {
 ```
 
 ### BoundedWildcard
@@ -6558,18 +6594,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CompletionStage`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ReactiveTfvcClient.java`
-#### Snippet
-```java
-    private static <T> CompletionStage<T> traceTime(
-            @NotNull String title,
-            @NotNull Supplier<CompletionStage<T>> action) {
-        long startTime = System.nanoTime();
-        return action.get().whenComplete((result, ex) -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends GitRemoteBranch`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
 #### Snippet
@@ -6586,18 +6610,6 @@ Can generalize to `? extends Workspace.Mapping`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 #### Snippet
 ```java
-     * @return
-     */
-    public static boolean areMappingsDifferent(final List<Workspace.Mapping> mappings1, final List<Workspace.Mapping> mappings2) {
-        if (mappings1 == mappings2) {
-            // They are the same list (or both null)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Workspace.Mapping`
-in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
-#### Snippet
-```java
      * This method converts the mappings into a map of server path to mapping.
      */
     public static Map<String, Workspace.Mapping> getMappingsByServerPath(final List<Workspace.Mapping> mappings) {
@@ -6606,27 +6618,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AuthenticationInfo`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * @param authInfoMap: keys are old auth infos and the values are the new auth infos
-     */
-    private void refreshAuthInfo(final HashMap<AuthenticationInfo, AuthenticationInfo> authInfoMap) {
-        logger.info("refreshAuthInfo: refreshing auth info");
-        for (final ServerContext context : getAllServerContexts()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerContext`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+Can generalize to `? extends Workspace.Mapping`
+in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 #### Snippet
 ```java
      * @return
      */
-    public void updateServerContextsAuthInfo(final List<ServerContext> contexts) {
-        logger.info("updateServerContextsAuthInfo: starting with context count: " + contexts.size() + ", contextMap size: " + contextMap.size());
-        final HashMap<AuthenticationInfo, AuthenticationInfo> authInfoMap = new HashMap<AuthenticationInfo, AuthenticationInfo>(contexts.size());
+    public static boolean areMappingsDifferent(final List<Workspace.Mapping> mappings1, final List<Workspace.Mapping> mappings2) {
+        if (mappings1 == mappings2) {
+            // They are the same list (or both null)
 ```
 
 ### BoundedWildcard
@@ -6690,18 +6690,6 @@ public class CellRenderer<T> {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends VirtualFile`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/IdeaFileSelector.java`
-#### Snippet
-```java
-    public Collection<VirtualFile> selectFiles(
-            Project project,
-            List<VirtualFile> originalFiles,
-            @Nls String prompt,
-            VcsShowConfirmationOption confirmationOption,
-```
-
-### BoundedWildcard
 Can generalize to `? extends Path`
 in `plugin/src/com/microsoft/alm/plugin/external/commands/CheckoutCommand.java`
 #### Snippet
@@ -6711,6 +6699,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/CheckoutCommand.java`
             @NotNull List<Path> filePaths,
             boolean recursive) {
         super("checkout", context);
+```
+
+### BoundedWildcard
+Can generalize to `? extends VirtualFile`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/IdeaFileSelector.java`
+#### Snippet
+```java
+    public Collection<VirtualFile> selectFiles(
+            Project project,
+            List<VirtualFile> originalFiles,
+            @Nls String prompt,
+            VcsShowConfirmationOption confirmationOption,
 ```
 
 ### BoundedWildcard
@@ -6779,6 +6779,18 @@ Primitive type members cannot be annotated
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
 #### Snippet
 ```java
+    }
+
+    @Nullable
+    public byte[] doGetContent() throws VcsException {
+        if (myContent == null) {
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
+#### Snippet
+```java
     private final Project project;
 
     @Nullable
@@ -6796,18 +6808,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevisi
     @Nullable
     private byte[] loadContent() throws TfsException, IOException {
         ArgumentHelper.checkNotNull(getFile(), "localPath");
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    public byte[] doGetContent() throws VcsException {
-        if (myContent == null) {
 ```
 
 ### NullableProblems
@@ -6888,10 +6888,10 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/authentication/TfsAuthenticationProvider.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(TfsAuthenticationProvider.class);
 
-    private final static String USER_NAME = "user.name";
-    public final static String TFS_LAST_USED_URL = "http://_TFS_LAST_USED_URL_";
+    private static class Holder {
+        private final static TfsAuthenticationProvider INSTANCE = new TfsAuthenticationProvider();
+    }
 
 ```
 
@@ -6900,10 +6900,10 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/authentication/TfsAuthenticationProvider.java`
 #### Snippet
 ```java
+    private static final Logger logger = LoggerFactory.getLogger(TfsAuthenticationProvider.class);
 
-    private static class Holder {
-        private final static TfsAuthenticationProvider INSTANCE = new TfsAuthenticationProvider();
-    }
+    private final static String USER_NAME = "user.name";
+    public final static String TFS_LAST_USED_URL = "http://_TFS_LAST_USED_URL_";
 
 ```
 
@@ -6984,30 +6984,6 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     * Includes $/ at beginning.
-     */
-    public final static int MAX_SERVER_PATH_SIZE = 399;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
-     * (file/folder), false if not.
-     */
-    public final static boolean isValidPathCharacter(final char c) {
-        final char[] invalidCharacters = {
-                '"',
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
      * otherwise.
      */
     public final static boolean isSeparator(final char c) {
@@ -7020,11 +6996,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     * @return Stripped {@link StringBuilder} (may be empty)
+     * Includes $/ at beginning.
      */
-    private final static StringBuilder cleanupComponent(final StringBuilder s) {
-        while (s.length() > 0
-                && (s.charAt(s.length() - 1) == '.' || Character.isWhitespace(s.charAt(s.length() - 1)))) {
+    public final static int MAX_SERVER_PATH_SIZE = 399;
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -7053,14 +7029,26 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
- */
-public abstract class LocalPath {
-    public final static char TFS_PREFERRED_LOCAL_PATH_SEPARATOR = '\\';
+     * (file/folder), false if not.
+     */
+    public final static boolean isValidPathCharacter(final char c) {
+        final char[] invalidCharacters = {
+                '"',
+```
 
-    public final static String GENERAL_LOCAL_PATH_SEPARATOR = "/";
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
+#### Snippet
+```java
+     * @return Stripped {@link StringBuilder} (may be empty)
+     */
+    private final static StringBuilder cleanupComponent(final StringBuilder s) {
+        while (s.length() > 0
+                && (s.charAt(s.length() - 1) == '.' || Character.isWhitespace(s.charAt(s.length() - 1)))) {
 ```
 
 ### MissortedModifiers
@@ -7068,11 +7056,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
 #### Snippet
 ```java
-     *                 <code>null</code>)
-     */
-    public final static String combine(final String parent, final String relative) {
-        ArgumentHelper.checkNotNull(parent, "parent");
-        ArgumentHelper.checkNotNull(relative, "relative");
+    public final static char TFS_PREFERRED_LOCAL_PATH_SEPARATOR = '\\';
+
+    public final static String GENERAL_LOCAL_PATH_SEPARATOR = "/";
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -7092,11 +7080,47 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
 #### Snippet
 ```java
+     *                 <code>null</code>)
+     */
+    public final static String combine(final String parent, final String relative) {
+        ArgumentHelper.checkNotNull(parent, "parent");
+        ArgumentHelper.checkNotNull(relative, "relative");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
+#### Snippet
+```java
+ */
+public abstract class LocalPath {
     public final static char TFS_PREFERRED_LOCAL_PATH_SEPARATOR = '\\';
 
     public final static String GENERAL_LOCAL_PATH_SEPARATOR = "/";
+```
 
-    /**
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+    protected static class Validator implements UrlHelper.ParseResultValidator {
+        private final static String TFVC_BRANCHES_URL_PATH = "/_apis/tfvc/branches";
+        private final static String REPO_INFO_URL_PATH = "/vsts/info";
+        private String serverUrl;
+        private final ServerContext context;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+
+    protected static class Validator implements UrlHelper.ParseResultValidator {
+        private final static String TFVC_BRANCHES_URL_PATH = "/_apis/tfvc/branches";
+        private final static String REPO_INFO_URL_PATH = "/vsts/info";
+        private String serverUrl;
 ```
 
 ### MissortedModifiers
@@ -7128,11 +7152,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/common/utils/FileHelper.java`
 #### Snippet
 ```java
+     * you will likely need to modify IsReservedName
      */
-    // @formatter:off
-    public final static boolean[] VALID_NTFS_FILE_NAME_CHAR_TABLE = {
-            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+    private final static String[] RESERVED_NAMES_LENGTH3 = {
+            "CON",
+            "PRN",
 ```
 
 ### MissortedModifiers
@@ -7140,11 +7164,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/common/utils/FileHelper.java`
 #### Snippet
 ```java
-     * you will likely need to modify IsReservedName
      */
-    private final static String[] RESERVED_NAMES_LENGTH3 = {
-            "CON",
-            "PRN",
+    // @formatter:off
+    public final static boolean[] VALID_NTFS_FILE_NAME_CHAR_TABLE = {
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
 ```
 
 ### MissortedModifiers
@@ -7212,11 +7236,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
 #### Snippet
 ```java
-    private final Project project;
 
     public final static String PROP_VSO_SELECTED = "vsoSelected";
     public final static String PROP_IMPORT_ENABLED = "importEnabled";
 
+    public ImportModel(final Project project) {
 ```
 
 ### MissortedModifiers
@@ -7224,11 +7248,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
 #### Snippet
 ```java
+    private final Project project;
 
     public final static String PROP_VSO_SELECTED = "vsoSelected";
     public final static String PROP_IMPORT_ENABLED = "importEnabled";
 
-    public ImportModel(final Project project) {
 ```
 
 ### MissortedModifiers
@@ -7241,6 +7265,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
     private final static String PROJECT_CAPABILITY_VC_TYPE = "sourceControlType";
     private final static String PROJECT_CAPABILITY_VC_GIT = "Git";
 
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+    private final static String ACTION_NAME = "import";
+    private final static String REMOTE_ORIGIN = "origin";
+    private final static String PROJECT_CAPABILITY_VC = "versioncontrol";
+    private final static String PROJECT_CAPABILITY_VC_TYPE = "sourceControlType";
+    private final static String PROJECT_CAPABILITY_VC_GIT = "Git";
 ```
 
 ### MissortedModifiers
@@ -7253,18 +7289,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
     private final static String REMOTE_ORIGIN = "origin";
     private final static String PROJECT_CAPABILITY_VC = "versioncontrol";
     private final static String PROJECT_CAPABILITY_VC_TYPE = "sourceControlType";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-    private final static String PROJECT_CAPABILITY_VC = "versioncontrol";
-    private final static String PROJECT_CAPABILITY_VC_TYPE = "sourceControlType";
-    private final static String PROJECT_CAPABILITY_VC_GIT = "Git";
-
-    public ImportPageModelImpl(final ImportModel importModel, final ServerContextTableModel.Column[] columns) {
 ```
 
 ### MissortedModifiers
@@ -7284,11 +7308,47 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
-    private final static String ACTION_NAME = "import";
-    private final static String REMOTE_ORIGIN = "origin";
     private final static String PROJECT_CAPABILITY_VC = "versioncontrol";
     private final static String PROJECT_CAPABILITY_VC_TYPE = "sourceControlType";
     private final static String PROJECT_CAPABILITY_VC_GIT = "Git";
+
+    public ImportPageModelImpl(final ImportModel importModel, final ServerContextTableModel.Column[] columns) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
+#### Snippet
+```java
+    public final static String GIT_REFS_HEADS = "refs/heads/";
+    private final static short REVIEWER_VOTE_NO_RESPONSE = 0;
+    private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
+    private final static short REVIEWER_VOTE_APPROVED = 10;
+    private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
+#### Snippet
+```java
+    private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
+    private final static short REVIEWER_VOTE_APPROVED = 10;
+    private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
+    private final static short REVIEWER_VOTE_REJECTED = -10;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
+#### Snippet
+```java
+    private final static short REVIEWER_VOTE_NO_RESPONSE = 0;
+    private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
+    private final static short REVIEWER_VOTE_APPROVED = 10;
+    private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
+    private final static short REVIEWER_VOTE_REJECTED = -10;
 ```
 
 ### MissortedModifiers
@@ -7301,42 +7361,6 @@ public class PRTreeCellRenderer extends DefaultTreeCellRenderer {
     private final static short REVIEWER_VOTE_NO_RESPONSE = 0;
     private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
     private final static short REVIEWER_VOTE_APPROVED = 10;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
-#### Snippet
-```java
-    public final static String GIT_REFS_HEADS = "refs/heads/";
-    private final static short REVIEWER_VOTE_NO_RESPONSE = 0;
-    private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
-    private final static short REVIEWER_VOTE_APPROVED = 10;
-    private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
-#### Snippet
-```java
-    private final static short REVIEWER_VOTE_APPROVED = 10;
-    private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
-    private final static short REVIEWER_VOTE_REJECTED = -10;
-
-    private PRTreeNodeForm prViewForm;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
-#### Snippet
-```java
-    private final static short REVIEWER_VOTE_NO_RESPONSE = 0;
-    private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
-    private final static short REVIEWER_VOTE_APPROVED = 10;
-    private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
-    private final static short REVIEWER_VOTE_REJECTED = -10;
 ```
 
 ### MissortedModifiers
@@ -7356,11 +7380,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
 #### Snippet
 ```java
-    private final static short REVIEWER_VOTE_APPROVED_WITH_SUGGESTIONS = 5;
     private final static short REVIEWER_VOTE_APPROVED = 10;
     private final static short REVIEWER_VOTE_WAITING_FOR_AUTHOR = -5;
     private final static short REVIEWER_VOTE_REJECTED = -10;
 
+    private PRTreeNodeForm prViewForm;
 ```
 
 ### MissortedModifiers
@@ -7380,18 +7404,6 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutController.java`
 #### Snippet
 ```java
-    private final CheckoutPageController tfsController;
-    public final static int TAB_VSO = 0;
-    public final static int TAB_TFS = 1;
-
-    public CheckoutController(final Project project, final CheckoutProvider.Listener listener, final VcsSpecificCheckoutModel specificCheckoutModel) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutController.java`
-#### Snippet
-```java
     private final CheckoutPageController vsoController;
     private final CheckoutPageController tfsController;
     public final static int TAB_VSO = 0;
@@ -7401,38 +7413,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutControll
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/forms/FeedbackForm.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutController.java`
 #### Snippet
 ```java
+    private final CheckoutPageController tfsController;
+    public final static int TAB_VSO = 0;
+    public final static int TAB_TFS = 1;
 
-public class FeedbackForm {
-    public final static String CMD_GOTO_PRIVACY = "gotoPrivacy";
-
-    private JTextArea comment;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-
-    protected static class Validator implements UrlHelper.ParseResultValidator {
-        private final static String TFVC_BRANCHES_URL_PATH = "/_apis/tfvc/branches";
-        private final static String REPO_INFO_URL_PATH = "/vsts/info";
-        private String serverUrl;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-    protected static class Validator implements UrlHelper.ParseResultValidator {
-        private final static String TFVC_BRANCHES_URL_PATH = "/_apis/tfvc/branches";
-        private final static String REPO_INFO_URL_PATH = "/vsts/info";
-        private String serverUrl;
-        private final ServerContext context;
+    public CheckoutController(final Project project, final CheckoutProvider.Listener listener, final VcsSpecificCheckoutModel specificCheckoutModel) {
 ```
 
 ### MissortedModifiers
@@ -7440,11 +7428,23 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
 #### Snippet
 ```java
+    public final static String PROP_PARENT_DIR = "parentDirectory";
     public final static String COMMANDLINE_CLONE_ACTION = "commandline-clone";
     public final static Pattern GIT_URL_PATTERN = Pattern.compile("/_git/(.*)");
     private final static String MASTER_BRANCH = "master";
 
-    private final Project project;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+    public final static String DEFAULT_SOURCE_PATH = System.getProperty("user.home");
+    public final static String PROP_DIRECTORY_NAME = "directoryName";
+    public final static String PROP_PARENT_DIR = "parentDirectory";
+    public final static String COMMANDLINE_CLONE_ACTION = "commandline-clone";
+    public final static Pattern GIT_URL_PATTERN = Pattern.compile("/_git/(.*)");
 ```
 
 ### MissortedModifiers
@@ -7464,11 +7464,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
 #### Snippet
 ```java
+
     public final static String DEFAULT_SOURCE_PATH = System.getProperty("user.home");
     public final static String PROP_DIRECTORY_NAME = "directoryName";
     public final static String PROP_PARENT_DIR = "parentDirectory";
     public final static String COMMANDLINE_CLONE_ACTION = "commandline-clone";
-    public final static Pattern GIT_URL_PATTERN = Pattern.compile("/_git/(.*)");
 ```
 
 ### MissortedModifiers
@@ -7476,11 +7476,11 @@ Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
 #### Snippet
 ```java
-
-    public final static String DEFAULT_SOURCE_PATH = System.getProperty("user.home");
-    public final static String PROP_DIRECTORY_NAME = "directoryName";
-    public final static String PROP_PARENT_DIR = "parentDirectory";
     public final static String COMMANDLINE_CLONE_ACTION = "commandline-clone";
+    public final static Pattern GIT_URL_PATTERN = Pattern.compile("/_git/(.*)");
+    private final static String MASTER_BRANCH = "master";
+
+    private final Project project;
 ```
 
 ### MissortedModifiers
@@ -7497,14 +7497,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckou
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/forms/FeedbackForm.java`
 #### Snippet
 ```java
-    public final static String PROP_PARENT_DIR = "parentDirectory";
-    public final static String COMMANDLINE_CLONE_ACTION = "commandline-clone";
-    public final static Pattern GIT_URL_PATTERN = Pattern.compile("/_git/(.*)");
-    private final static String MASTER_BRANCH = "master";
 
+public class FeedbackForm {
+    public final static String CMD_GOTO_PRIVACY = "gotoPrivacy";
+
+    private JTextArea comment;
 ```
 
 ### MissortedModifiers
@@ -7517,18 +7517,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsM
     public final static String PROP_FILTER = "filter";
     public final static String PROP_SERVER_NAME = "serverName";
 
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(SelectWorkItemsModel.class);
-
-    public final static String PROP_LOADING = "loading";
-    public final static String PROP_FILTER = "filter";
-    public final static String PROP_SERVER_NAME = "serverName";
 ```
 
 ### MissortedModifiers
@@ -7545,14 +7533,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsM
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
 #### Snippet
 ```java
+    private static final Logger logger = LoggerFactory.getLogger(SelectWorkItemsModel.class);
 
-    public final static String PROP_VSO_SELECTED = "vsoSelected";
-    public final static String PROP_CLONE_ENABLED = "cloneEnabled";
-
-    public CheckoutModel(final Project project, final CheckoutProvider.Listener listener, final VcsSpecificCheckoutModel specificCheckoutModel) {
+    public final static String PROP_LOADING = "loading";
+    public final static String PROP_FILTER = "filter";
+    public final static String PROP_SERVER_NAME = "serverName";
 ```
 
 ### MissortedModifiers
@@ -7565,6 +7553,114 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.ja
     public final static String PROP_VSO_SELECTED = "vsoSelected";
     public final static String PROP_CLONE_ENABLED = "cloneEnabled";
 
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.java`
+#### Snippet
+```java
+
+    public final static String PROP_VSO_SELECTED = "vsoSelected";
+    public final static String PROP_CLONE_ENABLED = "cloneEnabled";
+
+    public CheckoutModel(final Project project, final CheckoutProvider.Listener listener, final VcsSpecificCheckoutModel specificCheckoutModel) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+    public enum Column {GIT_REPOSITORY, TFVC_REPOSITORY, PROJECT, COLLECTION, ACCOUNT, GENERAL_REPOSITORY, USER_NAME, ACCOUNT_URL}
+
+    public final static Column[] VSO_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+
+    public final static Column[] VSO_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+     * The default converter simply returns the index given.
+     */
+    private final static TableModelSelectionConverter DEFAULT_CONVERTER = new TableModelSelectionConverter() {
+        @Override
+        public int convertRowIndexToModel(int viewRowIndex) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
+    public final static Column[] GENERAL_COLUMNS = new Column[]{Column.GENERAL_REPOSITORY, Column.ACCOUNT_URL, Column.USER_NAME};
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+    public final static Column[] VSO_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
+    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
+    public final static Column[] GENERAL_COLUMNS = new Column[]{Column.GENERAL_REPOSITORY, Column.ACCOUNT_URL, Column.USER_NAME};
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
+    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
+    public final static Column[] GENERAL_COLUMNS = new Column[]{Column.GENERAL_REPOSITORY, Column.ACCOUNT_URL, Column.USER_NAME};
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -7593,90 +7689,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportController.j
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-     * The default converter simply returns the index given.
-     */
-    private final static TableModelSelectionConverter DEFAULT_CONVERTER = new TableModelSelectionConverter() {
-        @Override
-        public int convertRowIndexToModel(int viewRowIndex) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
-    public final static Column[] GENERAL_COLUMNS = new Column[]{Column.GENERAL_REPOSITORY, Column.ACCOUNT_URL, Column.USER_NAME};
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-    public final static Column[] VSO_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
-    public final static Column[] GENERAL_COLUMNS = new Column[]{Column.GENERAL_REPOSITORY, Column.ACCOUNT_URL, Column.USER_NAME};
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_PROJECT_COLUMNS = new Column[]{Column.PROJECT, Column.COLLECTION};
-    public final static Column[] GENERAL_COLUMNS = new Column[]{Column.GENERAL_REPOSITORY, Column.ACCOUNT_URL, Column.USER_NAME};
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-    public enum Column {GIT_REPOSITORY, TFVC_REPOSITORY, PROJECT, COLLECTION, ACCOUNT, GENERAL_REPOSITORY, USER_NAME, ACCOUNT_URL}
-
-    public final static Column[] VSO_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/extensions/VcsPullRequestContentProvider.java`
 #### Snippet
 ```java
@@ -7685,18 +7697,6 @@ public class VcsPullRequestContentProvider implements ChangesViewContentProvider
     private final static Logger logger = LoggerFactory.getLogger(VcsPullRequestContentProvider.class);
 
     private VcsPullRequestsController controller;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-
-    public final static Column[] VSO_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_GIT_REPO_COLUMNS = new Column[]{Column.GIT_REPOSITORY, Column.PROJECT, Column.COLLECTION};
-    public final static Column[] VSO_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.ACCOUNT};
-    public final static Column[] TFS_TFVC_REPO_COLUMNS = new Column[]{Column.TFVC_REPOSITORY, Column.PROJECT, Column.COLLECTION};
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -7737,18 +7737,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSTmpFileStore.
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdir()` is ignored
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
-#### Snippet
-```java
-        final File vstsDirectory = new File(parent, VSTS_DIR);
-        if (!vstsDirectory.exists()) {
-            vstsDirectory.mkdir();
-        }
-        return vstsDirectory;
-```
-
-### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
 #### Snippet
@@ -7758,6 +7746,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.jav
                 locationsFile.createNewFile();
             } else {
                 String line;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdir()` is ignored
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
+#### Snippet
+```java
+        final File vstsDirectory = new File(parent, VSTS_DIR);
+        if (!vstsDirectory.exists()) {
+            vstsDirectory.mkdir();
+        }
+        return vstsDirectory;
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
@@ -7786,30 +7786,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckou
 ```
 
 ### RedundantMethodOverride
-Method `renamed()` is identical to its super method
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
-#### Snippet
-```java
-                }
-
-                public void renamed(final @NotNull FilePath localPath, final boolean localItemExists, final @NotNull ServerStatus serverStatus) {
-                    // TODO (JetBrains): add local conflict
-                }
-```
-
-### RedundantMethodOverride
-Method `scheduledForDeletion()` is identical to its super method
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
-#### Snippet
-```java
-                }
-
-                public void scheduledForDeletion(final @NotNull FilePath localPath,
-                                                 final boolean localItemExists,
-                                                 final @NotNull ServerStatus serverStatus) {
-```
-
-### RedundantMethodOverride
 Method `checkedOutForEdit()` is identical to its super method
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
 #### Snippet
@@ -7819,18 +7795,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
                 public void checkedOutForEdit(final @NotNull FilePath localPath,
                                               final boolean localItemExists,
                                               final @NotNull ServerStatus serverStatus) {
-```
-
-### RedundantMethodOverride
-Method `undeleted()` is identical to its super method
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
-#### Snippet
-```java
-                }
-
-                public void undeleted(final @NotNull FilePath localPath,
-                                      final boolean localItemExists,
-                                      final @NotNull ServerStatus serverStatus) {
 ```
 
 ### RedundantMethodOverride
@@ -7846,15 +7810,39 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
 ```
 
 ### RedundantMethodOverride
-Method `setOkEnabled()` only delegates to its super method
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchDialog.java`
+Method `scheduledForDeletion()` is identical to its super method
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
 #### Snippet
 ```java
+                }
 
-    @Override
-    public void setOkEnabled(final boolean enabled) {
-        super.setOkEnabled(enabled);
-    }
+                public void scheduledForDeletion(final @NotNull FilePath localPath,
+                                                 final boolean localItemExists,
+                                                 final @NotNull ServerStatus serverStatus) {
+```
+
+### RedundantMethodOverride
+Method `undeleted()` is identical to its super method
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
+#### Snippet
+```java
+                }
+
+                public void undeleted(final @NotNull FilePath localPath,
+                                      final boolean localItemExists,
+                                      final @NotNull ServerStatus serverStatus) {
+```
+
+### RedundantMethodOverride
+Method `renamed()` is identical to its super method
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
+#### Snippet
+```java
+                }
+
+                public void renamed(final @NotNull FilePath localPath, final boolean localItemExists, final @NotNull ServerStatus serverStatus) {
+                    // TODO (JetBrains): add local conflict
+                }
 ```
 
 ### RedundantMethodOverride
@@ -7869,7 +7857,31 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchDialog.ja
     }
 ```
 
+### RedundantMethodOverride
+Method `setOkEnabled()` only delegates to its super method
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchDialog.java`
+#### Snippet
+```java
+
+    @Override
+    public void setOkEnabled(final boolean enabled) {
+        super.setOkEnabled(enabled);
+    }
+```
+
 ## RuleId[ruleID=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/operations/PullRequestLookupOperation.java`
+#### Snippet
+```java
+            logger.debug("doLookup: Found {} pull requests {} on repo {}", pullRequests.size(), scope.toString(), context.getGitRepository().getRemoteUrl());
+            results.pullRequests.addAll(pullRequests);
+            super.onLookupResults(results);
+
+        } catch (Throwable t) {
+```
+
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/context/rest/TfvcHttpClientEx.java`
@@ -7904,18 +7916,6 @@ in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
         super.onLookupResults(new WitResults(context, items));
     }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/operations/PullRequestLookupOperation.java`
-#### Snippet
-```java
-            logger.debug("doLookup: Found {} pull requests {} on repo {}", pullRequests.size(), scope.toString(), context.getGitRepository().getRemoteUrl());
-            results.pullRequests.addAll(pullRequests);
-            super.onLookupResults(results);
-
-        } catch (Throwable t) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -7956,12 +7956,24 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckou
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetLocalPathCommand.java`
+#### Snippet
+```java
+    @Override
+    public String parseOutput(final String stdout, final String stderr) {
+        super.throwIfError(stderr);
+        return stdout.trim();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
 #### Snippet
 ```java
-        if (!StringUtils.equals(this.comment, comment)) {
-            this.comment = comment;
-            super.setChangedAndNotify(PROP_COMMENT);
+        if (!StringUtils.equals(this.owner, owner)) {
+            this.owner = owner;
+            super.setChangedAndNotify(PROP_OWNER);
         }
     }
 ```
@@ -7974,30 +7986,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.ja
         if (this.location != location) {
             this.location = location;
             super.setChangedAndNotify(PROP_LOCATION);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
-#### Snippet
-```java
-        if (!StringUtils.equals(this.computer, computer)) {
-            this.computer = computer;
-            super.setChangedAndNotify(PROP_COMPUTER);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
-#### Snippet
-```java
-        if (!StringUtils.equals(this.owner, owner)) {
-            this.owner = owner;
-            super.setChangedAndNotify(PROP_OWNER);
         }
     }
 ```
@@ -8040,13 +8028,25 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.ja
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetLocalPathCommand.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
 #### Snippet
 ```java
-    @Override
-    public String parseOutput(final String stdout, final String stderr) {
-        super.throwIfError(stderr);
-        return stdout.trim();
+        if (!StringUtils.equals(this.comment, comment)) {
+            this.comment = comment;
+            super.setChangedAndNotify(PROP_COMMENT);
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+#### Snippet
+```java
+        if (!StringUtils.equals(this.computer, computer)) {
+            this.computer = computer;
+            super.setChangedAndNotify(PROP_COMPUTER);
+        }
     }
 ```
 
@@ -8103,18 +8103,6 @@ Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableModel.java`
 #### Snippet
 ```java
-            filteredRows = Lists.newArrayList(Collections2.filter(rows, this::rowContains));
-        }
-        super.fireTableDataChanged();
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableModel.java`
-#### Snippet
-```java
         filteredRows = null;
         rows.clear();
         super.fireTableDataChanged();
@@ -8131,6 +8119,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableMo
             // Fire an event letting callers know
             super.fireTableDataChanged();
         }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableModel.java`
+#### Snippet
+```java
+            filteredRows = Lists.newArrayList(Collections2.filter(rows, this::rowContains));
+        }
+        super.fireTableDataChanged();
+    }
 
 ```
 
@@ -8208,42 +8208,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/GetWorkspaceCommand.ja
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
-#### Snippet
-```java
-        if (vsoSelected != value) {
-            vsoSelected = value;
-            super.setChangedAndNotify(PROP_VSO_SELECTED);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
-#### Snippet
-```java
-        if (importEnabledForTfs != value) {
-            importEnabledForTfs = value;
-            super.setChangedAndNotify(PROP_IMPORT_ENABLED);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
-#### Snippet
-```java
-        if (importEnabledForVso != value) {
-            importEnabledForVso = value;
-            super.setChangedAndNotify(PROP_IMPORT_ENABLED);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageController.java`
 #### Snippet
 ```java
@@ -8268,6 +8232,42 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageControll
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
+#### Snippet
+```java
+        if (vsoSelected != value) {
+            vsoSelected = value;
+            super.setChangedAndNotify(PROP_VSO_SELECTED);
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
+#### Snippet
+```java
+        if (importEnabledForVso != value) {
+            importEnabledForVso = value;
+            super.setChangedAndNotify(PROP_IMPORT_ENABLED);
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
+#### Snippet
+```java
+        if (importEnabledForTfs != value) {
+            importEnabledForTfs = value;
+            super.setChangedAndNotify(PROP_IMPORT_ENABLED);
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
 #### Snippet
 ```java
@@ -8276,30 +8276,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDro
         super.initializeUI(TfPluginBundle.message(TfPluginBundle.KEY_VCS_WIT_QUERY_TITLE), new JLabel() {
             @Override
             public String getText() {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/Hyperlink.java`
-#### Snippet
-```java
-    protected void processFocusEvent(final FocusEvent e) {
-        super.processFocusEvent(e);
-        super.repaint();
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/Hyperlink.java`
-#### Snippet
-```java
-
-    private void notifyActionListeners() {
-        if (listeners == null || listeners.size() == 0 || !super.isEnabled()) {
-            return;
-        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -8324,6 +8300,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/Hyperlink.java`
         super.setFocusable(true);
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/Hyperlink.java`
+#### Snippet
+```java
+    protected void processFocusEvent(final FocusEvent e) {
+        super.processFocusEvent(e);
+        super.repaint();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/Hyperlink.java`
+#### Snippet
+```java
+
+    private void notifyActionListeners() {
+        if (listeners == null || listeners.size() == 0 || !super.isEnabled()) {
+            return;
+        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -8412,6 +8412,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchDialog.ja
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetDetailedWorkspaceCommand.java`
+#### Snippet
+```java
+    @Override
+    public Workspace parseOutput(final String stdout, final String stderr) {
+        super.throwIfError(stderr);
+
+        // if for some reason no output is given return null
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/external/commands/HistoryCommand.java`
 #### Snippet
 ```java
@@ -8432,18 +8444,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/HistoryCommand.java`
         final NodeList nodes = super.evaluateXPath(stdout, "/history/changeset");
 
         // Convert all the xpath nodes to changeset models
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetDetailedWorkspaceCommand.java`
-#### Snippet
-```java
-    @Override
-    public Workspace parseOutput(final String stdout, final String stderr) {
-        super.throwIfError(stderr);
-
-        // if for some reason no output is given return null
 ```
 
 ### UnnecessarySuperQualifier
@@ -8472,14 +8472,38 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.java`
+in `plugin/src/com/microsoft/alm/plugin/external/commands/AddCommand.java`
 #### Snippet
 ```java
     @Override
-    public void setOkEnabled(final boolean enabled) {
-        super.setOKActionEnabled(enabled);
-    }
+    public List<String> parseOutput(final String stdout, final String stderr) {
+        super.throwIfError(stderr);
+        final List<String> filesAdded = new ArrayList<String>();
+        final String[] output = getLines(stdout);
+```
 
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
+#### Snippet
+```java
+            final URI teamProjectURI = latestServerContext.getTeamProjectURI();
+            if (teamProjectURI != null) {
+                super.gotoLink(UrlHelper.getCreateWorkItemURI(teamProjectURI).toString());
+            } else {
+                logger.warn("Can't goto 'create work item' link: Unable to get team project URI from server context.");
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
+#### Snippet
+```java
+            final URI teamProjectURI = latestServerContext.getTeamProjectURI();
+            if (teamProjectURI != null) {
+                super.gotoLink(UrlHelper.getCreateWorkItemURI(teamProjectURI).toString());
+            } else {
+                logger.warn("Can't goto 'create work item' link: Unable to get team project URI from server context.");
 ```
 
 ### UnnecessarySuperQualifier
@@ -8520,14 +8544,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.jav
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/external/commands/AddCommand.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.java`
 #### Snippet
 ```java
     @Override
-    public List<String> parseOutput(final String stdout, final String stderr) {
-        super.throwIfError(stderr);
-        final List<String> filesAdded = new ArrayList<String>();
-        final String[] output = getLines(stdout);
+    public void setOkEnabled(final boolean enabled) {
+        super.setOKActionEnabled(enabled);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -8556,26 +8580,14 @@ in `plugin/src/com/microsoft/alm/plugin/context/rest/GitHttpClientEx.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsModel.java`
 #### Snippet
 ```java
-            final URI teamProjectURI = latestServerContext.getTeamProjectURI();
-            if (teamProjectURI != null) {
-                super.gotoLink(UrlHelper.getCreateWorkItemURI(teamProjectURI).toString());
-            } else {
-                logger.warn("Can't goto 'create work item' link: Unable to get team project URI from server context.");
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
-#### Snippet
-```java
-            final URI teamProjectURI = latestServerContext.getTeamProjectURI();
-            if (teamProjectURI != null) {
-                super.gotoLink(UrlHelper.getCreateWorkItemURI(teamProjectURI).toString());
-            } else {
-                logger.warn("Can't goto 'create work item' link: Unable to get team project URI from server context.");
+                    final List<WorkItem> workItems = viewForModel.getSelectedWorkItems();
+                    for (WorkItem item : workItems) {
+                        super.gotoLink(UrlHelper.getSpecificWorkItemURI(teamProjectURI, item.getId()).toString());
+                    }
+                } else {
 ```
 
 ### UnnecessarySuperQualifier
@@ -8592,36 +8604,12 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsMode
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsModel.java`
-#### Snippet
-```java
-                    final List<WorkItem> workItems = viewForModel.getSelectedWorkItems();
-                    for (WorkItem item : workItems) {
-                        super.gotoLink(UrlHelper.getSpecificWorkItemURI(teamProjectURI, item.getId()).toString());
-                    }
-                } else {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/external/commands/StatusCommand.java`
-#### Snippet
-```java
-        throwIfError(stderr);
-        final List<PendingChange> changes = new ArrayList<PendingChange>(100);
-        final NodeList nodes = super.evaluateXPath(stdout, "/status/*/pending-change");
-
-        // Convert all the xpath nodes to pending change models
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.java`
 #### Snippet
 ```java
-        if (cloneEnabledForVso != value) {
-            cloneEnabledForVso = value;
-            super.setChangedAndNotify(PROP_CLONE_ENABLED);
+        if (vsoSelected != value) {
+            vsoSelected = value;
+            super.setChangedAndNotify(PROP_VSO_SELECTED);
         }
     }
 ```
@@ -8643,11 +8631,23 @@ Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.java`
 #### Snippet
 ```java
-        if (vsoSelected != value) {
-            vsoSelected = value;
-            super.setChangedAndNotify(PROP_VSO_SELECTED);
+        if (cloneEnabledForVso != value) {
+            cloneEnabledForVso = value;
+            super.setChangedAndNotify(PROP_CLONE_ENABLED);
         }
     }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/external/commands/StatusCommand.java`
+#### Snippet
+```java
+        throwIfError(stderr);
+        final List<PendingChange> changes = new ArrayList<PendingChange>(100);
+        final NodeList nodes = super.evaluateXPath(stdout, "/status/*/pending-change");
+
+        // Convert all the xpath nodes to pending change models
 ```
 
 ### UnnecessarySuperQualifier
@@ -8667,18 +8667,6 @@ Qualifier `super` is unnecessary in this context
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
 #### Snippet
 ```java
-        } else {
-            // Fire an event letting callers know
-            super.fireTableDataChanged();
-        }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
         filteredRows = null;
         rows.clear();
         super.fireTableDataChanged();
@@ -8688,14 +8676,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTable
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemQueriesLookupOperation.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
 #### Snippet
 ```java
-            }
+        } else {
+            // Fire an event letting callers know
+            super.fireTableDataChanged();
+        }
 
-            super.onLookupResults(new QueryResults(queries, inputs));
-        } catch (Throwable t) {
-            logger.warn("doLookup: failed with an exception", t);
 ```
 
 ### UnnecessarySuperQualifier
@@ -8708,6 +8696,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/UpdateWorkspaceMapping
         super.throwIfError(stderr);
         // There is no output on success
         return StringUtils.EMPTY;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemQueriesLookupOperation.java`
+#### Snippet
+```java
+            }
+
+            super.onLookupResults(new QueryResults(queries, inputs));
+        } catch (Throwable t) {
+            logger.warn("doLookup: failed with an exception", t);
 ```
 
 ### UnnecessarySuperQualifier
@@ -8850,6 +8850,18 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
 #### Snippet
 ```java
+import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
+
+fun VersionControlEventEngine.withUndonePendingChangeListener(
+    listener: UndonePendingChangeListener,
+    action: () -> Unit) {
+```
+
+### UnusedReceiverParameter
+Receiver parameter is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
 }
 
 fun VersionControlEventEngine.withNewPendingChangeListener(
@@ -8871,30 +8883,6 @@ fun VersionControlEventEngine.withNonFatalErrorListener(
 
 ### UnusedReceiverParameter
 Receiver parameter is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
-
-fun VersionControlEventEngine.withUndonePendingChangeListener(
-    listener: UndonePendingChangeListener,
-    action: () -> Unit) {
-```
-
-### UnusedReceiverParameter
-Receiver parameter is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    )
-
-fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
-    TfsExtendedItemInfo(
-        lockStatus,
-```
-
-### UnusedReceiverParameter
-Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
@@ -8910,34 +8898,10 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-        else pendingChange.toUIString(false, this)
+        else encoding?.name
 
-private val ExtendedItem.itemTypeName
-    get() = itemType.toUIString()
-
-```
-
-### UnusedReceiverParameter
-Receiver parameter is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
+private val ExtendedItem.fileEncodingName
     get() = if (itemType == ItemType.FILE) encodingName else null
-
-private val ExtendedItem.lockStatus
-    get() = lockLevel.toUIString()
-
-```
-
-### UnusedReceiverParameter
-Receiver parameter is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-}
-
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
-    ItemSpec(toCanonicalPathString(), recursionType)
 
 ```
 
@@ -8958,10 +8922,10 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-    get() = itemType.toUIString()
+}
 
-private val ExtendedItem.checkinDateString
-    get() = checkinDate?.time?.let(isoDateFormat::format)
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
 
 ```
 
@@ -8970,10 +8934,46 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-        else encoding?.name
-
-private val ExtendedItem.fileEncodingName
     get() = if (itemType == ItemType.FILE) encodingName else null
+
+private val ExtendedItem.lockStatus
+    get() = lockLevel.toUIString()
+
+```
+
+### UnusedReceiverParameter
+Receiver parameter is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+        else pendingChange.toUIString(false, this)
+
+private val ExtendedItem.itemTypeName
+    get() = itemType.toUIString()
+
+```
+
+### UnusedReceiverParameter
+Receiver parameter is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    )
+
+fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
+    TfsExtendedItemInfo(
+        lockStatus,
+```
+
+### UnusedReceiverParameter
+Receiver parameter is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = itemType.toUIString()
+
+private val ExtendedItem.checkinDateString
+    get() = checkinDate?.time?.let(isoDateFormat::format)
 
 ```
 
@@ -9004,15 +9004,15 @@ object Logging {
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `forcedContext` is accessed in both synchronized and unsynchronized contexts
-in `plugin/test-utils/src/com/microsoft/alm/plugin/context/MockRepositoryContextManager.java`
+Field `contextMap` is accessed in both synchronized and unsynchronized contexts
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
 #### Snippet
 ```java
+    private final String TFS2015_NEW_SERVICE = "distributedtask";
 
-public class MockRepositoryContextManager extends RepositoryContextManager {
-    private RepositoryContext forcedContext;
+    private Map<String, ServerContext> contextMap = new HashMap<String, ServerContext>();
 
-    @Override
+    private static class Holder {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -9040,15 +9040,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `contextMap` is accessed in both synchronized and unsynchronized contexts
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+Field `forcedContext` is accessed in both synchronized and unsynchronized contexts
+in `plugin/test-utils/src/com/microsoft/alm/plugin/context/MockRepositoryContextManager.java`
 #### Snippet
 ```java
-    private final String TFS2015_NEW_SERVICE = "distributedtask";
 
-    private Map<String, ServerContext> contextMap = new HashMap<String, ServerContext>();
+public class MockRepositoryContextManager extends RepositoryContextManager {
+    private RepositoryContext forcedContext;
 
-    private static class Holder {
+    @Override
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -9246,27 +9246,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsFor
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MergeBranchAction.java`
+Field initialization to `false` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSettingsService.java`
 #### Snippet
 ```java
-        // This class has an internal cache to make successive calls to the getBranches method fast
-        // This is not meant to be a reliable or extensive cache.
-        private String lastSourceUsed = null;
-        private List<String> lastBranchesRetrieved = null;
+    private static final Logger logger = LoggerFactory.getLogger(TeamServicesSettingsService.class);
+    private SettingsState state = null;
+    private boolean serverContextsRestored = false;
+    private boolean propertiesRestored = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MergeBranchAction.java`
-#### Snippet
-```java
-        // This is not meant to be a reliable or extensive cache.
-        private String lastSourceUsed = null;
-        private List<String> lastBranchesRetrieved = null;
-
-        public InternalBranchListProvider(final ServerContext serverContext, final String workingFolder) {
 ```
 
 ### RedundantFieldInitialization
@@ -9294,15 +9282,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSetting
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSettingsService.java`
+Field initialization to `null` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MergeBranchAction.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(TeamServicesSettingsService.class);
-    private SettingsState state = null;
-    private boolean serverContextsRestored = false;
-    private boolean propertiesRestored = false;
+        // This class has an internal cache to make successive calls to the getBranches method fast
+        // This is not meant to be a reliable or extensive cache.
+        private String lastSourceUsed = null;
+        private List<String> lastBranchesRetrieved = null;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MergeBranchAction.java`
+#### Snippet
+```java
+        // This is not meant to be a reliable or extensive cache.
+        private String lastSourceUsed = null;
+        private List<String> lastBranchesRetrieved = null;
+
+        public InternalBranchListProvider(final ServerContext serverContext, final String workingFolder) {
 ```
 
 ### RedundantFieldInitialization
@@ -9418,11 +9418,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageModelImpl.java`
 #### Snippet
 ```java
-
 public abstract class LoginPageModelImpl extends AbstractModel implements LoginPageModel {
     private boolean connected = false;
     private boolean authenticating = false;
     //default values for Strings should be "" rather than null.
+    private String userName = "";
 ```
 
 ### RedundantFieldInitialization
@@ -9430,11 +9430,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageModelImpl.java`
 #### Snippet
 ```java
+
 public abstract class LoginPageModelImpl extends AbstractModel implements LoginPageModel {
     private boolean connected = false;
     private boolean authenticating = false;
     //default values for Strings should be "" rather than null.
-    private String userName = "";
 ```
 
 ### RedundantFieldInitialization
@@ -9490,11 +9490,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
 #### Snippet
 ```java
+
     private boolean vsoSelected = true;
     private boolean importEnabledForVso = false;
     private boolean importEnabledForTfs = false;
     private final ImportPageModel vsoImportPageModel;
-    private final ImportPageModel tfsImportPageModel;
 ```
 
 ### RedundantFieldInitialization
@@ -9502,11 +9502,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportModel.java`
 #### Snippet
 ```java
-
     private boolean vsoSelected = true;
     private boolean importEnabledForVso = false;
     private boolean importEnabledForTfs = false;
     private final ImportPageModel vsoImportPageModel;
+    private final ImportPageModel tfsImportPageModel;
 ```
 
 ### RedundantFieldInitialization
@@ -9519,18 +9519,6 @@ public class BusySpinnerPanel extends JPanel implements Disposable {
     private int rotationAngle = 0;
     private Timer timer;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutForm.java`
-#### Snippet
-```java
-    private JCheckBox advancedCheckBox;
-    private JCheckBox serverWorkspaceCheckBox;
-    private boolean initialized = false;
-    private RepositoryContext.Type repositoryType;
-    private Timer timer;
 ```
 
 ### RedundantFieldInitialization
@@ -9550,11 +9538,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutPageModelImpl.java`
 #### Snippet
 ```java
+    private CheckoutModel parentModel;
+    private boolean loading = false;
     private boolean cloneEnabled = false;
     private boolean advanced = false;
     private boolean isTfvcServerCheckout = false;
-
-    //default values for Strings should be "" rather than null.
 ```
 
 ### RedundantFieldInitialization
@@ -9574,23 +9562,23 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutPageModelImpl.java`
 #### Snippet
 ```java
-    private CheckoutModel parentModel;
-    private boolean loading = false;
     private boolean cloneEnabled = false;
     private boolean advanced = false;
     private boolean isTfvcServerCheckout = false;
+
+    //default values for Strings should be "" rather than null.
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutForm.java`
 #### Snippet
 ```java
-
-    private class HelpIdeTooltip extends IdeTooltip {
-        private boolean showing = false;
-
-        public HelpIdeTooltip(final Component component, final Point point, final JComponent tipComponent) {
+    private JCheckBox advancedCheckBox;
+    private JCheckBox serverWorkspaceCheckBox;
+    private boolean initialized = false;
+    private RepositoryContext.Type repositoryType;
+    private Timer timer;
 ```
 
 ### RedundantFieldInitialization
@@ -9607,26 +9595,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-    private SortedComboBoxModel<GitRemoteBranch> remoteBranchComboModel;
-    private boolean checkoutBranch = true;
-    private boolean branchWasCreated = false;
-
-    protected CreateBranchModel(final Project project, final String defaultBranchName, final GitRepository gitRepository) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
 #### Snippet
 ```java
 
-    /* UI properties */
-    private boolean loading = false;
-    private GitChangesContainer localBranchChanges;
+    private class HelpIdeTooltip extends IdeTooltip {
+        private boolean showing = false;
 
+        public HelpIdeTooltip(final Component component, final Point point, final JComponent tipComponent) {
 ```
 
 ### RedundantFieldInitialization
@@ -9691,18 +9667,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/forms/TfsLoginForm
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/external/reactive/RdIdeaLoggerFactory.java`
-#### Snippet
-```java
-public class RdIdeaLoggerFactory implements ILoggerFactory {
-
-    private static boolean initialized = false;
-    private static final RdIdeaLoggerFactory INSTANCE = new RdIdeaLoggerFactory();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
 #### Snippet
 ```java
@@ -9715,14 +9679,26 @@ public class TFSVcs extends AbstractVcs {
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchForm.java`
+in `plugin/src/com/microsoft/alm/plugin/external/reactive/RdIdeaLoggerFactory.java`
 #### Snippet
 ```java
-    private JLabel basedOn;
-    private JCheckBox checkoutBranch;
-    private boolean initialized = false;
+public class RdIdeaLoggerFactory implements ILoggerFactory {
 
-    public CreateBranchForm() {
+    private static boolean initialized = false;
+    private static final RdIdeaLoggerFactory INSTANCE = new RdIdeaLoggerFactory();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+
+    /* UI properties */
+    private boolean loading = false;
+    private GitChangesContainer localBranchChanges;
+
 ```
 
 ### RedundantFieldInitialization
@@ -9739,6 +9715,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FormattedTable.j
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchForm.java`
+#### Snippet
+```java
+    private JLabel basedOn;
+    private JCheckBox checkoutBranch;
+    private boolean initialized = false;
+
+    public CreateBranchForm() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManager.java`
 #### Snippet
 ```java
@@ -9750,15 +9738,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManage
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+Field initialization to `false` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
 #### Snippet
 ```java
-    private static final String UNKNOWN = "Unknown";
+    private SortedComboBoxModel<GitRemoteBranch> remoteBranchComboModel;
+    private boolean checkoutBranch = true;
+    private boolean branchWasCreated = false;
 
-    private static Pattern pattern = null;
-
-    /**
+    protected CreateBranchModel(final Project project, final String defaultBranchName, final GitRepository gitRepository) {
 ```
 
 ### RedundantFieldInitialization
@@ -9771,6 +9759,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.jav
         protected boolean cancelled = false;
         protected final List<VcsException> errors = new ArrayList<VcsException>();
         protected final List<TItemInfo> itemInfos = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+#### Snippet
+```java
+    private static final String UNKNOWN = "Unknown";
+
+    private static Pattern pattern = null;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -9802,11 +9802,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
 #### Snippet
 ```java
+    private final Project project;
+    private final RepositoryContext repositoryContext;
+    private boolean loading = false;
+    private String filter;
     private ServerContext latestServerContext;
-
-    private boolean maxItemsReached = false;
-
-    public SelectWorkItemsModel(final Project project, final RepositoryContext repositoryContext) {
 ```
 
 ### RedundantFieldInitialization
@@ -9814,11 +9814,11 @@ Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
 #### Snippet
 ```java
-    private final Project project;
-    private final RepositoryContext repositoryContext;
-    private boolean loading = false;
-    private String filter;
     private ServerContext latestServerContext;
+
+    private boolean maxItemsReached = false;
+
+    public SelectWorkItemsModel(final Project project, final RepositoryContext repositoryContext) {
 ```
 
 ### RedundantFieldInitialization
@@ -9838,11 +9838,35 @@ Field initialization to `null` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
 #### Snippet
 ```java
-    //fields have to be public, so IntelliJ can write them to the persistent store
+    public String userId = null;
+    public String teamProjectCollectionReference = null;
+    public String teamProjectReference = null;
+    public String gitRepository = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
+#### Snippet
+```java
+    public String serverUri = null;
+    public String userId = null;
+    public String teamProjectCollectionReference = null;
+    public String teamProjectReference = null;
+    public String gitRepository = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
+#### Snippet
+```java
     public ServerContext.Type type = null;
     public String uri = null;
     public String serverUri = null;
     public String userId = null;
+    public String teamProjectCollectionReference = null;
 ```
 
 ### RedundantFieldInitialization
@@ -9862,23 +9886,11 @@ Field initialization to `null` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
 #### Snippet
 ```java
-    public ServerContext.Type type = null;
     public String uri = null;
     public String serverUri = null;
     public String userId = null;
     public String teamProjectCollectionReference = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
-#### Snippet
-```java
-    public String userId = null;
-    public String teamProjectCollectionReference = null;
     public String teamProjectReference = null;
-    public String gitRepository = null;
-
 ```
 
 ### RedundantFieldInitialization
@@ -9898,35 +9910,11 @@ Field initialization to `null` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
 #### Snippet
 ```java
-    public String serverUri = null;
-    public String userId = null;
-    public String teamProjectCollectionReference = null;
-    public String teamProjectReference = null;
-    public String gitRepository = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/ServerContextState.java`
-#### Snippet
-```java
+    //fields have to be public, so IntelliJ can write them to the persistent store
+    public ServerContext.Type type = null;
     public String uri = null;
     public String serverUri = null;
     public String userId = null;
-    public String teamProjectCollectionReference = null;
-    public String teamProjectReference = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.java`
-#### Snippet
-```java
-    private boolean vsoSelected = true;
-    private boolean cloneEnabledForVso = false;
-    private boolean cloneEnabledForTfs = false;
-    private final CheckoutPageModel vsoModel;
-    private final CheckoutPageModel tfsModel;
 ```
 
 ### RedundantFieldInitialization
@@ -9943,6 +9931,18 @@ public class CheckoutModel extends PageModelImpl implements VcsSpecificCheckoutM
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutModel.java`
+#### Snippet
+```java
+    private boolean vsoSelected = true;
+    private boolean cloneEnabledForVso = false;
+    private boolean cloneEnabledForTfs = false;
+    private final CheckoutPageModel vsoModel;
+    private final CheckoutPageModel tfsModel;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/forms/VsoLoginForm.java`
 #### Snippet
 ```java
@@ -9955,18 +9955,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/forms/VsoLoginForm
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `plugin/src/com/microsoft/alm/plugin/authentication/AuthenticationInfo.java`
-#### Snippet
-```java
-    // If we all use this constant, it provides future type safely if we ever decided to change NONE to a
-    // typed variable instead of 'null'
-    public static AuthenticationInfo NONE = null;
-
-    private final String userName;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
 #### Snippet
 ```java
@@ -9975,6 +9963,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTable
     private List<ServerContext> filteredRows = null;
     private String filter;
     private final Column[] columns;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `plugin/src/com/microsoft/alm/plugin/authentication/AuthenticationInfo.java`
+#### Snippet
+```java
+    // If we all use this constant, it provides future type safely if we ever decided to change NONE to a
+    // typed variable instead of 'null'
+    public static AuthenticationInfo NONE = null;
+
+    private final String userName;
 ```
 
 ### RedundantFieldInitialization
@@ -10050,6 +10050,42 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/ServerPathCellEditor.java`
             serverPath = VcsHelper.TFVC_ROOT.concat(serverContext.getTeamProjectReference().getName());
         }
         return serverPath;
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+
+        final ConnectionData data = VstsHttpClient.sendRequest(context.getClient(),
+                context.getServerUri().toString().concat(CONNECTION_DATA_REST_API_PATH),
+                ConnectionData.class);
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+            try {
+                //Try to query the server endpoint gitRemoteUrl/vsts/info
+                final VstsInfo vstsInfo = VstsHttpClient.sendRequest(context.getClient(), gitRemoteUrl.concat(REPO_INFO_URL_PATH), VstsInfo.class);
+                if (vstsInfo == null || vstsInfo.getCollectionReference() == null ||
+                        vstsInfo.getRepository() == null || vstsInfo.getRepository().getProjectReference() == null) {
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+            }
+            final ConnectionData data = VstsHttpClient.sendRequest(context.getClient(),
+                    urlForConnectionData.concat(CONNECTION_DATA_REST_API_PATH),
+                    ConnectionData.class);
+
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -10138,37 +10174,13 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSett
 
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-            try {
-                //Try to query the server endpoint gitRemoteUrl/vsts/info
-                final VstsInfo vstsInfo = VstsHttpClient.sendRequest(context.getClient(), gitRemoteUrl.concat(REPO_INFO_URL_PATH), VstsInfo.class);
-                if (vstsInfo == null || vstsInfo.getCollectionReference() == null ||
-                        vstsInfo.getRepository() == null || vstsInfo.getRepository().getProjectReference() == null) {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-            }
-            final ConnectionData data = VstsHttpClient.sendRequest(context.getClient(),
-                    urlForConnectionData.concat(CONNECTION_DATA_REST_API_PATH),
-                    ConnectionData.class);
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
 
-        final ConnectionData data = VstsHttpClient.sendRequest(context.getClient(),
-                context.getServerUri().toString().concat(CONNECTION_DATA_REST_API_PATH),
-                ConnectionData.class);
+    public static URI getBranchURI(final URI repoUri, final String branchName) {
+        return UrlHelper.createUri(repoUri.toString().concat(URL_BRANCH_SEGMENT).concat(encode(branchName)));
+    }
 
 ```
 
@@ -10189,9 +10201,9 @@ Call to `concat()` can be replaced with '+' expression
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
-
-    public static URI getBranchURI(final URI repoUri, final String branchName) {
-        return UrlHelper.createUri(repoUri.toString().concat(URL_BRANCH_SEGMENT).concat(encode(branchName)));
+    public static URI getSpecificWorkItemURI(final URI projectUri, final int workItemId) {
+        return UrlHelper.createUri(combine(projectUri.toString(), URL_WIT_PATH_SEGMENT)
+                .concat(String.format(URL_WIT_SPECIFIC_ITEM_PATH_SEGMENT, workItemId)));
     }
 
 ```
@@ -10237,71 +10249,59 @@ Call to `concat()` can be replaced with '+' expression
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
-
-    public static URI getFileURI(final String remoteUrl, final String filePath, final String gitRemoteBranchName) {
-        String uri = getHttpsGitUrlFromSshUrl(remoteUrl).concat(URL_PATH_SEGMENT).concat(filePath);
-
-        if (uri == null) {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
-
-    public static URI getFileURI(final String remoteUrl, final String filePath, final String gitRemoteBranchName) {
-        String uri = getHttpsGitUrlFromSshUrl(remoteUrl).concat(URL_PATH_SEGMENT).concat(filePath);
-
-        if (uri == null) {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
-
-        if (StringUtils.isNotEmpty(gitRemoteBranchName)) {
-            uri = uri.concat(URL_GIT_VERSION_SEGMENT).concat(gitRemoteBranchName);
-        }
-        return UrlHelper.createUri(uri);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
-
-        if (StringUtils.isNotEmpty(gitRemoteBranchName)) {
-            uri = uri.concat(URL_GIT_VERSION_SEGMENT).concat(gitRemoteBranchName);
-        }
-        return UrlHelper.createUri(uri);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
-    public static URI getSpecificWorkItemURI(final URI projectUri, final int workItemId) {
-        return UrlHelper.createUri(combine(projectUri.toString(), URL_WIT_PATH_SEGMENT)
-                .concat(String.format(URL_WIT_SPECIFIC_ITEM_PATH_SEGMENT, workItemId)));
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
     public static URI getBuildURI(final URI projectUri, final int buildId) {
         return UrlHelper.createUri(combine(projectUri.toString(), URL_BUILD_PATH_SEGMENT)
                 .concat(String.format(URL_BUILD_SPECIFIC_ITEM_PATH_SEGMENT, buildId)));
     }
 
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+
+    public static URI getFileURI(final String remoteUrl, final String filePath, final String gitRemoteBranchName) {
+        String uri = getHttpsGitUrlFromSshUrl(remoteUrl).concat(URL_PATH_SEGMENT).concat(filePath);
+
+        if (uri == null) {
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+
+    public static URI getFileURI(final String remoteUrl, final String filePath, final String gitRemoteBranchName) {
+        String uri = getHttpsGitUrlFromSshUrl(remoteUrl).concat(URL_PATH_SEGMENT).concat(filePath);
+
+        if (uri == null) {
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+
+        if (StringUtils.isNotEmpty(gitRemoteBranchName)) {
+            uri = uri.concat(URL_GIT_VERSION_SEGMENT).concat(gitRemoteBranchName);
+        }
+        return UrlHelper.createUri(uri);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+
+        if (StringUtils.isNotEmpty(gitRemoteBranchName)) {
+            uri = uri.concat(URL_GIT_VERSION_SEGMENT).concat(gitRemoteBranchName);
+        }
+        return UrlHelper.createUri(uri);
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
@@ -10344,75 +10344,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 
 ## RuleId[ruleID=NonFinalFieldOfException]
 ### NonFinalFieldOfException
-Non-final field `KEY_TF_BRANCH_EXISTS` of exception class
+Non-final field `KEY_TF_LOCK_FAILED` of exception class
 in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
 #### Snippet
 ```java
-    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
-    public static String KEY_TF_WORKSPACE_EXISTS = "KEY_TF_WORKSPACE_EXISTS";
-    public static String KEY_TF_BRANCH_EXISTS = "KEY_TF_BRANCH_EXISTS";
-    public static String KEY_TF_OOM = "KEY_TF_OOM";
-    public static String KEY_TF_AUTH_FAIL = "KEY_TF_AUTH_FAIL";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TF_HOME_NOT_SET` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
-    // Keys for tool exception messages
-    public static String KEY_TF_DOLLAR_IN_PATH = "KEY_TF_DOLLAR_IN_PATH";
-    public static String KEY_TF_HOME_NOT_SET = "KEY_TF_HOME_NOT_SET";
     public static String KEY_TF_EXE_NOT_FOUND = "KEY_TF_EXE_NOT_FOUND";
-    public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TF_EXE_NOT_FOUND` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
-    public static String KEY_TF_DOLLAR_IN_PATH = "KEY_TF_DOLLAR_IN_PATH";
-    public static String KEY_TF_HOME_NOT_SET = "KEY_TF_HOME_NOT_SET";
-    public static String KEY_TF_EXE_NOT_FOUND = "KEY_TF_EXE_NOT_FOUND";
-    public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
-    public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TF_PARSE_FAILURE` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
     public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
     public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
     public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
     public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
-    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TF_DOLLAR_IN_PATH` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
-
-    // Keys for tool exception messages
-    public static String KEY_TF_DOLLAR_IN_PATH = "KEY_TF_DOLLAR_IN_PATH";
-    public static String KEY_TF_HOME_NOT_SET = "KEY_TF_HOME_NOT_SET";
-    public static String KEY_TF_EXE_NOT_FOUND = "KEY_TF_EXE_NOT_FOUND";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
-    public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
-    public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
-    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
-    public static String KEY_TF_WORKSPACE_EXISTS = "KEY_TF_WORKSPACE_EXISTS";
-    public static String KEY_TF_BRANCH_EXISTS = "KEY_TF_BRANCH_EXISTS";
 ```
 
 ### NonFinalFieldOfException
@@ -10428,51 +10368,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
 ```
 
 ### NonFinalFieldOfException
-Non-final field `KEY_TF_AUTH_FAIL` of exception class
+Non-final field `KEY_TF_DOLLAR_IN_PATH` of exception class
 in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
 #### Snippet
 ```java
-    public static String KEY_TF_BRANCH_EXISTS = "KEY_TF_BRANCH_EXISTS";
-    public static String KEY_TF_OOM = "KEY_TF_OOM";
-    public static String KEY_TF_AUTH_FAIL = "KEY_TF_AUTH_FAIL";
-    public static String KEY_TF_VS_MIN_VERSION_WARNING = "KEY_TF_VS_MIN_VERSION_WARNING";
-}
-```
 
-### NonFinalFieldOfException
-Non-final field `KEY_TF_LOCK_FAILED` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
+    // Keys for tool exception messages
+    public static String KEY_TF_DOLLAR_IN_PATH = "KEY_TF_DOLLAR_IN_PATH";
+    public static String KEY_TF_HOME_NOT_SET = "KEY_TF_HOME_NOT_SET";
     public static String KEY_TF_EXE_NOT_FOUND = "KEY_TF_EXE_NOT_FOUND";
-    public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
-    public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
-    public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
-    public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
-```
-
-### NonFinalFieldOfException
-Non-final field `messageKey` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
-public class ToolException extends RuntimeException implements LocalizedException {
-
-    private String messageKey;
-
-    @Override
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TF_MIN_VERSION_WARNING` of exception class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
-#### Snippet
-```java
-    public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
-    public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
-    public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
-    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
-    public static String KEY_TF_WORKSPACE_EXISTS = "KEY_TF_WORKSPACE_EXISTS";
 ```
 
 ### NonFinalFieldOfException
@@ -10488,15 +10392,87 @@ in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
 ```
 
 ### NonFinalFieldOfException
-Non-final field `KEY_TF_VS_MIN_VERSION_WARNING` of exception class
+Non-final field `KEY_TF_HOME_NOT_SET` of exception class
 in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
 #### Snippet
 ```java
+    // Keys for tool exception messages
+    public static String KEY_TF_DOLLAR_IN_PATH = "KEY_TF_DOLLAR_IN_PATH";
+    public static String KEY_TF_HOME_NOT_SET = "KEY_TF_HOME_NOT_SET";
+    public static String KEY_TF_EXE_NOT_FOUND = "KEY_TF_EXE_NOT_FOUND";
+    public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
+    public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
+    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
+    public static String KEY_TF_WORKSPACE_EXISTS = "KEY_TF_WORKSPACE_EXISTS";
+    public static String KEY_TF_BRANCH_EXISTS = "KEY_TF_BRANCH_EXISTS";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TF_AUTH_FAIL` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_BRANCH_EXISTS = "KEY_TF_BRANCH_EXISTS";
     public static String KEY_TF_OOM = "KEY_TF_OOM";
     public static String KEY_TF_AUTH_FAIL = "KEY_TF_AUTH_FAIL";
     public static String KEY_TF_VS_MIN_VERSION_WARNING = "KEY_TF_VS_MIN_VERSION_WARNING";
 }
+```
 
+### NonFinalFieldOfException
+Non-final field `KEY_TF_EXE_NOT_FOUND` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_DOLLAR_IN_PATH = "KEY_TF_DOLLAR_IN_PATH";
+    public static String KEY_TF_HOME_NOT_SET = "KEY_TF_HOME_NOT_SET";
+    public static String KEY_TF_EXE_NOT_FOUND = "KEY_TF_EXE_NOT_FOUND";
+    public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
+    public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TF_BRANCH_EXISTS` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
+    public static String KEY_TF_WORKSPACE_EXISTS = "KEY_TF_WORKSPACE_EXISTS";
+    public static String KEY_TF_BRANCH_EXISTS = "KEY_TF_BRANCH_EXISTS";
+    public static String KEY_TF_OOM = "KEY_TF_OOM";
+    public static String KEY_TF_AUTH_FAIL = "KEY_TF_AUTH_FAIL";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TF_PARSE_FAILURE` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_BAD_EXIT_CODE = "KEY_TF_BAD_EXIT_CODE";
+    public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
+    public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
+    public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
+    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
+```
+
+### NonFinalFieldOfException
+Non-final field `messageKey` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+public class ToolException extends RuntimeException implements LocalizedException {
+
+    private String messageKey;
+
+    @Override
 ```
 
 ### NonFinalFieldOfException
@@ -10512,6 +10488,54 @@ in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
 ```
 
 ### NonFinalFieldOfException
+Non-final field `KEY_TF_VS_MIN_VERSION_WARNING` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_OOM = "KEY_TF_OOM";
+    public static String KEY_TF_AUTH_FAIL = "KEY_TF_AUTH_FAIL";
+    public static String KEY_TF_VS_MIN_VERSION_WARNING = "KEY_TF_VS_MIN_VERSION_WARNING";
+}
+
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TF_MIN_VERSION_WARNING` of exception class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolException.java`
+#### Snippet
+```java
+    public static String KEY_TF_LOCK_FAILED = "KEY_TF_LOCK_FAILED";
+    public static String KEY_TF_PARSE_FAILURE = "KEY_TF_PARSE_FAILURE";
+    public static String KEY_TF_MIN_VERSION_WARNING = "KEY_TF_MIN_VERSION_WARNING";
+    public static String KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED = "KEY_TF_WORKSPACE_COULD_NOT_BE_DETERMINED";
+    public static String KEY_TF_WORKSPACE_EXISTS = "KEY_TF_WORKSPACE_EXISTS";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TFS_MALFORMED_SERVER_URI` of exception class
+in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
+#### Snippet
+```java
+    public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
+    public static String KEY_VSO_NO_PROFILE_ERROR = "KEY_VSO_NO_PROFILE_ERROR";
+    public static String KEY_TFS_MALFORMED_SERVER_URI = "KEY_TFS_MALFORMED_SERVER_URI";
+    public static String KEY_ERROR_UNKNOWN = "KEY_ERROR_UNKNOWN";
+    public static String KEY_TFS_SERVER_PATH_INVALID = "KEY_TFS_SERVER_PATH_INVALID";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_TFS_SERVER_PATH_INVALID` of exception class
+in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
+#### Snippet
+```java
+    public static String KEY_TFS_MALFORMED_SERVER_URI = "KEY_TFS_MALFORMED_SERVER_URI";
+    public static String KEY_ERROR_UNKNOWN = "KEY_ERROR_UNKNOWN";
+    public static String KEY_TFS_SERVER_PATH_INVALID = "KEY_TFS_SERVER_PATH_INVALID";
+}
+
+```
+
+### NonFinalFieldOfException
 Non-final field `KEY_OPERATION_ERRORS` of exception class
 in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
 #### Snippet
@@ -10521,6 +10545,30 @@ in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
     public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
     public static String KEY_VSO_NO_PROFILE_ERROR = "KEY_VSO_NO_PROFILE_ERROR";
     public static String KEY_TFS_MALFORMED_SERVER_URI = "KEY_TFS_MALFORMED_SERVER_URI";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_VSO_AUTH_FAILED` of exception class
+in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
+#### Snippet
+```java
+    public static String KEY_TFS_UNSUPPORTED_VERSION = "KEY_TFS_UNSUPPORTED_VERSION";
+    public static String KEY_VSO_AUTH_SESSION_EXPIRED = "KEY_VSO_AUTH_SESSION_EXPIRED";
+    public static String KEY_VSO_AUTH_FAILED = "KEY_VSO_AUTH_FAILED";
+    public static String KEY_TFS_AUTH_FAILED = "KEY_TFS_AUTH_FAILED";
+    public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
+```
+
+### NonFinalFieldOfException
+Non-final field `KEY_VSO_AUTH_SESSION_EXPIRED` of exception class
+in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
+#### Snippet
+```java
+    //Keys for exception messages
+    public static String KEY_TFS_UNSUPPORTED_VERSION = "KEY_TFS_UNSUPPORTED_VERSION";
+    public static String KEY_VSO_AUTH_SESSION_EXPIRED = "KEY_VSO_AUTH_SESSION_EXPIRED";
+    public static String KEY_VSO_AUTH_FAILED = "KEY_VSO_AUTH_FAILED";
+    public static String KEY_TFS_AUTH_FAILED = "KEY_TFS_AUTH_FAILED";
 ```
 
 ### NonFinalFieldOfException
@@ -10548,42 +10596,6 @@ public class TeamServicesException extends RuntimeException implements Localized
 ```
 
 ### NonFinalFieldOfException
-Non-final field `KEY_TFS_AUTH_FAILED` of exception class
-in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
-#### Snippet
-```java
-    public static String KEY_VSO_AUTH_SESSION_EXPIRED = "KEY_VSO_AUTH_SESSION_EXPIRED";
-    public static String KEY_VSO_AUTH_FAILED = "KEY_VSO_AUTH_FAILED";
-    public static String KEY_TFS_AUTH_FAILED = "KEY_TFS_AUTH_FAILED";
-    public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
-    public static String KEY_VSO_NO_PROFILE_ERROR = "KEY_VSO_NO_PROFILE_ERROR";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_VSO_AUTH_FAILED` of exception class
-in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
-#### Snippet
-```java
-    public static String KEY_TFS_UNSUPPORTED_VERSION = "KEY_TFS_UNSUPPORTED_VERSION";
-    public static String KEY_VSO_AUTH_SESSION_EXPIRED = "KEY_VSO_AUTH_SESSION_EXPIRED";
-    public static String KEY_VSO_AUTH_FAILED = "KEY_VSO_AUTH_FAILED";
-    public static String KEY_TFS_AUTH_FAILED = "KEY_TFS_AUTH_FAILED";
-    public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TFS_MALFORMED_SERVER_URI` of exception class
-in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
-#### Snippet
-```java
-    public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
-    public static String KEY_VSO_NO_PROFILE_ERROR = "KEY_VSO_NO_PROFILE_ERROR";
-    public static String KEY_TFS_MALFORMED_SERVER_URI = "KEY_TFS_MALFORMED_SERVER_URI";
-    public static String KEY_ERROR_UNKNOWN = "KEY_ERROR_UNKNOWN";
-    public static String KEY_TFS_SERVER_PATH_INVALID = "KEY_TFS_SERVER_PATH_INVALID";
-```
-
-### NonFinalFieldOfException
 Non-final field `KEY_TFS_UNSUPPORTED_VERSION` of exception class
 in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
 #### Snippet
@@ -10608,27 +10620,15 @@ in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
 ```
 
 ### NonFinalFieldOfException
-Non-final field `KEY_VSO_AUTH_SESSION_EXPIRED` of exception class
+Non-final field `KEY_TFS_AUTH_FAILED` of exception class
 in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
 #### Snippet
 ```java
-    //Keys for exception messages
-    public static String KEY_TFS_UNSUPPORTED_VERSION = "KEY_TFS_UNSUPPORTED_VERSION";
     public static String KEY_VSO_AUTH_SESSION_EXPIRED = "KEY_VSO_AUTH_SESSION_EXPIRED";
     public static String KEY_VSO_AUTH_FAILED = "KEY_VSO_AUTH_FAILED";
     public static String KEY_TFS_AUTH_FAILED = "KEY_TFS_AUTH_FAILED";
-```
-
-### NonFinalFieldOfException
-Non-final field `KEY_TFS_SERVER_PATH_INVALID` of exception class
-in `plugin/src/com/microsoft/alm/plugin/exceptions/TeamServicesException.java`
-#### Snippet
-```java
-    public static String KEY_TFS_MALFORMED_SERVER_URI = "KEY_TFS_MALFORMED_SERVER_URI";
-    public static String KEY_ERROR_UNKNOWN = "KEY_ERROR_UNKNOWN";
-    public static String KEY_TFS_SERVER_PATH_INVALID = "KEY_TFS_SERVER_PATH_INVALID";
-}
-
+    public static String KEY_OPERATION_ERRORS = "KEY_OPERATION_ERRORS";
+    public static String KEY_VSO_NO_PROFILE_ERROR = "KEY_VSO_NO_PROFILE_ERROR";
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -10736,18 +10736,6 @@ Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRem
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
 #### Snippet
 ```java
-     * @return compare info which contains empty commits and diff lists
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRemoval' annotation because its signature references unstable type 'git4idea.util.GitCommitCompareInfo'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
     }
 
     public GitCommitCompareInfo getBranchCompareInfo(final Project project, final GitRepository gitRepository,
@@ -10757,26 +10745,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoP
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRemoval' annotation because its signature references unstable type 'git4idea.util.GitCommitCompareInfo'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
 #### Snippet
 ```java
-    }
-
-    public GitCommitCompareInfo getGitCommitCompareInfo() {
-        return gitCommitCompareInfo;
-    }
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRemoval' annotation because its signature references unstable type 'git4idea.util.GitCommitCompareInfo'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
-#### Snippet
-```java
-    private GitRepository gitRepository;
-
-    public static GitChangesContainer createChangesContainer(final String sourceBranchName, final String targetBranchName,
-                                                             final String sourceBranchHash, final String targetBranchHash,
-                                                             final GitCommitCompareInfo gitCommitCompareInfo,
+     * @return compare info which contains empty commits and diff lists
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
 ```
 
 ### UnstableTypeUsedInSignature
@@ -10796,11 +10772,48 @@ Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRem
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
 #### Snippet
 ```java
+    private GitRepository gitRepository;
+
+    public static GitChangesContainer createChangesContainer(final String sourceBranchName, final String targetBranchName,
+                                                             final String sourceBranchHash, final String targetBranchHash,
+                                                             final GitCommitCompareInfo gitCommitCompareInfo,
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRemoval' annotation because its signature references unstable type 'git4idea.util.GitCommitCompareInfo'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+#### Snippet
+```java
     }
 
     public void setGitCommitCompareInfo(final GitCommitCompareInfo gitCommitCompareInfo) {
         this.gitCommitCompareInfo = gitCommitCompareInfo;
     }
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@org.jetbrains.annotations.ApiStatus.ScheduledForRemoval' annotation because its signature references unstable type 'git4idea.util.GitCommitCompareInfo'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+#### Snippet
+```java
+    }
+
+    public GitCommitCompareInfo getGitCommitCompareInfo() {
+        return gitCommitCompareInfo;
+    }
+```
+
+## RuleId[ruleID=NonExceptionNameEndsWithException]
+### NonExceptionNameEndsWithException
+Non-exception class name `LocalizedException` ends with 'Exception'
+in `plugin/src/com/microsoft/alm/plugin/exceptions/LocalizedException.java`
+#### Snippet
+```java
+package com.microsoft.alm.plugin.exceptions;
+
+public interface LocalizedException {
+    String getMessageKey();
+    String[] getMessageParameters();
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -10876,32 +10889,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsMode
                             wasWorkItemAssociated = createWorkItemBranchAssociation(context, branchName, workItem.getId());
 ```
 
-## RuleId[ruleID=NonExceptionNameEndsWithException]
-### NonExceptionNameEndsWithException
-Non-exception class name `LocalizedException` ends with 'Exception'
-in `plugin/src/com/microsoft/alm/plugin/exceptions/LocalizedException.java`
-#### Snippet
-```java
-package com.microsoft.alm.plugin.exceptions;
-
-public interface LocalizedException {
-    String getMessageKey();
-    String[] getMessageParameters();
-```
-
 ## RuleId[ruleID=IndexOfReplaceableByContains]
-### IndexOfReplaceableByContains
-`tool.indexOf(URI_SEPARATOR) != -1` can be replaced with 'tool.contains(URI_SEPARATOR)'
-in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
-#### Snippet
-```java
-         * must be non-zero length
-         */
-        if ((tool.indexOf('\\') != -1) || (tool.indexOf(URI_SEPARATOR) != -1) || (tool.indexOf('.') != -1)) {
-            return false;
-        }
-```
-
 ### IndexOfReplaceableByContains
 `artifactType.indexOf(URI_SEPARATOR) != -1` can be replaced with 'artifactType.contains(URI_SEPARATOR)'
 in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
@@ -10910,6 +10898,18 @@ in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
          * artifact type cannot contain forward slashes
          */
         if (artifactType.indexOf(URI_SEPARATOR) != -1) {
+            return false;
+        }
+```
+
+### IndexOfReplaceableByContains
+`tool.indexOf(URI_SEPARATOR) != -1` can be replaced with 'tool.contains(URI_SEPARATOR)'
+in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
+#### Snippet
+```java
+         * must be non-zero length
+         */
+        if ((tool.indexOf('\\') != -1) || (tool.indexOf(URI_SEPARATOR) != -1) || (tool.indexOf('.') != -1)) {
             return false;
         }
 ```
@@ -10937,6 +10937,30 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
         if (serverItem.length() > 2 && serverItem.charAt(serverItem.length() - 1) == PREFERRED_SEPARATOR_CHARACTER) {
             return false;
         }
+```
+
+### ConstantValue
+Condition `context != null` is always `false` when reached
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+                !StringUtils.equalsIgnoreCase(context.getTeamProjectReference().getName(), teamProjectName)) {
+            context = null;
+            logger.info("createContextFromTfvcServerUrl context fully populated: " + (context != null));
+        }
+
+```
+
+### ConstantValue
+Value `prompt` is always 'true'
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+                        logger.info("createContextFromTfvcServerUrl: refreshing creds");
+                        updateAuthenticationInfo(tfvcServerUrlString);
+                        final AuthenticationInfo authenticationInfoRefreshed = getAuthenticationInfo(tfvcServerUrl, prompt);
+                        final ServerContext contextToValidateRefreshed = new ServerContextBuilder()
+                                .type(type).uri(tfvcServerUrl).authentication(authenticationInfoRefreshed)
 ```
 
 ### ConstantValue
@@ -11024,18 +11048,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### ConstantValue
-Value `hasNotifiedUser` is always 'true'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-            hasNotifiedUser = true;
-        }
-        return hasNotifiedUser;
-    }
-
-```
-
-### ConstantValue
 Value `path` is always 'null'
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
 #### Snippet
@@ -11055,6 +11067,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
             return Optional.of(((TfsServerPath) path).getWorkspace());
         else
             throw new RuntimeException("Unknown path type: " + path);
+    }
+
+```
+
+### ConstantValue
+Condition `formattedDate == null` is always `true`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
+#### Snippet
+```java
+        } catch (final ParseException e) {
+            logger.warn("Exception hit while parsing changeset date", e);
+            if (formattedDate == null) {
+                // need date to be set to something because null is not handled by IntelliJ
+                logger.warn("Date could not be established so defaulting to now");
+```
+
+### ConstantValue
+Condition `getInfo() != null` is always `true`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    @Nullable
+    public GitLocalBranch getSourceBranch() {
+        return getInfo() != null ? getInfo().getCurrentBranch() : null;
     }
 
 ```
@@ -11096,27 +11132,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 ```
 
 ### ConstantValue
-Condition `getInfo() != null` is always `true`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+Value `hasNotifiedUser` is always 'true'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
 #### Snippet
 ```java
-    @Nullable
-    public GitLocalBranch getSourceBranch() {
-        return getInfo() != null ? getInfo().getCurrentBranch() : null;
+            hasNotifiedUser = true;
+        }
+        return hasNotifiedUser;
     }
 
-```
-
-### ConstantValue
-Condition `formattedDate == null` is always `true`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
-#### Snippet
-```java
-        } catch (final ParseException e) {
-            logger.warn("Exception hit while parsing changeset date", e);
-            if (formattedDate == null) {
-                // need date to be set to something because null is not handled by IntelliJ
-                logger.warn("Date could not be established so defaulting to now");
 ```
 
 ### ConstantValue
@@ -11141,30 +11165,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
         if (gitRepository == null) {
             throw new IllegalArgumentException();
         }
-```
-
-### ConstantValue
-Condition `context != null` is always `false` when reached
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-                !StringUtils.equalsIgnoreCase(context.getTeamProjectReference().getName(), teamProjectName)) {
-            context = null;
-            logger.info("createContextFromTfvcServerUrl context fully populated: " + (context != null));
-        }
-
-```
-
-### ConstantValue
-Value `prompt` is always 'true'
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-                        logger.info("createContextFromTfvcServerUrl: refreshing creds");
-                        updateAuthenticationInfo(tfvcServerUrlString);
-                        final AuthenticationInfo authenticationInfoRefreshed = getAuthenticationInfo(tfvcServerUrl, prompt);
-                        final ServerContext contextToValidateRefreshed = new ServerContextBuilder()
-                                .type(type).uri(tfvcServerUrl).authentication(authenticationInfoRefreshed)
 ```
 
 ### ConstantValue
@@ -11245,10 +11245,10 @@ String concatenation as argument to `StringBuilder.append()` call
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
 ```java
-                    public void processStandardError(final String line) {
-                        logger.info("ERROR: " + line);
-                        stderr.append(line + "\n");
-                        listener.progress(line, OUTPUT_TYPE_ERROR, 50);
+                        }
+
+                        stdout.append(line + "\n");
+                        listener.progress(line, OUTPUT_TYPE_INFO, 50);
                     }
 ```
 
@@ -11257,10 +11257,10 @@ String concatenation as argument to `StringBuilder.append()` call
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
 ```java
-                        }
-
-                        stdout.append(line + "\n");
-                        listener.progress(line, OUTPUT_TYPE_INFO, 50);
+                    public void processStandardError(final String line) {
+                        logger.info("ERROR: " + line);
+                        stderr.append(line + "\n");
+                        listener.progress(line, OUTPUT_TYPE_ERROR, 50);
                     }
 ```
 
@@ -11316,18 +11316,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRender
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `MAX_THREADS` may be 'static'
-in `plugin/src/com/microsoft/alm/plugin/operations/OperationExecutor.java`
-#### Snippet
-```java
-    final int THREAD_RECOVERY_TIMEOUT_SECONDS = 5;
-    // For now we are limiting ourselves to 5 threads (single threaded is way too slow)
-    final int MAX_THREADS = 5;
-    // No need for Core threads and Max threads to be different
-    final int CORE_THREADS = MAX_THREADS;
-```
-
-### FieldMayBeStatic
 Field `TASK_TIMEOUT_SECONDS` may be 'static'
 in `plugin/src/com/microsoft/alm/plugin/operations/OperationExecutor.java`
 #### Snippet
@@ -11352,15 +11340,15 @@ public class OperationExecutor {
 ```
 
 ### FieldMayBeStatic
-Field `LOGIN_FORM` may be 'static'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageImpl.java`
+Field `MAX_THREADS` may be 'static'
+in `plugin/src/com/microsoft/alm/plugin/operations/OperationExecutor.java`
 #### Snippet
 ```java
-public class LoginPageImpl extends JPanel implements LoginPage {
-    private final String DATA_FORM = "dataForm";
-    private final String LOGIN_FORM = "loginForm";
-    private final BasicForm dataForm;
-    private final LoginForm loginForm;
+    final int THREAD_RECOVERY_TIMEOUT_SECONDS = 5;
+    // For now we are limiting ourselves to 5 threads (single threaded is way too slow)
+    final int MAX_THREADS = 5;
+    // No need for Core threads and Max threads to be different
+    final int CORE_THREADS = MAX_THREADS;
 ```
 
 ### FieldMayBeStatic
@@ -11373,6 +11361,18 @@ public class LoginPageImpl extends JPanel implements LoginPage {
     private final String DATA_FORM = "dataForm";
     private final String LOGIN_FORM = "loginForm";
     private final BasicForm dataForm;
+```
+
+### FieldMayBeStatic
+Field `LOGIN_FORM` may be 'static'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageImpl.java`
+#### Snippet
+```java
+public class LoginPageImpl extends JPanel implements LoginPage {
+    private final String DATA_FORM = "dataForm";
+    private final String LOGIN_FORM = "loginForm";
+    private final BasicForm dataForm;
+    private final LoginForm loginForm;
 ```
 
 ### FieldMayBeStatic
@@ -11581,18 +11581,6 @@ public class VisualStudioTfvcCommands {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandUtils` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
- * Helper for running commands
- */
-public class CommandUtils {
-    protected static final Logger logger = LoggerFactory.getLogger(CommandUtils.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `BackCompatibleUtils` has only 'static' members, and lacks a 'private' constructor
 in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/BackCompatibleUtils.java`
 #### Snippet
@@ -11617,6 +11605,18 @@ public class IdeaHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CommandUtils` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+ * Helper for running commands
+ */
+public class CommandUtils {
+    protected static final Logger logger = LoggerFactory.getLogger(CommandUtils.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `OperationFactory` has only 'static' members, and lacks a 'private' constructor
 in `plugin/src/com/microsoft/alm/plugin/operations/OperationFactory.java`
 #### Snippet
@@ -11626,18 +11626,6 @@ in `plugin/src/com/microsoft/alm/plugin/operations/OperationFactory.java`
 public class OperationFactory {
     //TODO add other operation types
     public static BuildStatusLookupOperation createBuildStatusLookupOperation(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TfPluginBundle` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/plugin/idea/common/resources/TfPluginBundle.java`
-#### Snippet
-```java
- * This class allows static access to the plugins string resources.
- */
-public class TfPluginBundle {
-    private static final Logger logger = LoggerFactory.getLogger(TfPluginBundle.class);
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11665,14 +11653,14 @@ public class TfIgnoreUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TfsFileUtil` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+Class `TfPluginBundle` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/plugin/idea/common/resources/TfPluginBundle.java`
 #### Snippet
 ```java
-// TODO review usage of getFilePath(), getVirtualFile()
-
-public class TfsFileUtil {
-    public static final Logger logger = LoggerFactory.getLogger(TfsFileUtil.class);
+ * This class allows static access to the plugins string resources.
+ */
+public class TfPluginBundle {
+    private static final Logger logger = LoggerFactory.getLogger(TfPluginBundle.class);
 
 ```
 
@@ -11685,6 +11673,18 @@ import java.util.Objects;
 
 public class TfvcWorkspaceLocator {
     private static final Logger logger = LoggerFactory.getLogger(TfvcWorkspaceLocator.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TfsFileUtil` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+// TODO review usage of getFilePath(), getVirtualFile()
+
+public class TfsFileUtil {
+    public static final Logger logger = LoggerFactory.getLogger(TfsFileUtil.class);
 
 ```
 
@@ -11737,6 +11737,18 @@ public class RenameFileDirectory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `GeneralGitHelper` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/GeneralGitHelper.java`
+#### Snippet
+```java
+ * General helper class for Git functionality using Git4idea
+ */
+public class GeneralGitHelper {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `TfGitHelper` has only 'static' members, and lacks a 'private' constructor
 in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
 #### Snippet
@@ -11773,18 +11785,6 @@ public final class TfvcCheckoutResultUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `WorkspaceHelper` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
-#### Snippet
-```java
- * This is a static helper class to do various things with Workspaces and Workspace.Mappings.
- */
-public class WorkspaceHelper {
-    public static final String ONE_LEVEL_MAPPING_SUFFIX = "/*";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Lifetimes` has only 'static' members, and lacks a 'private' constructor
 in `plugin/src/com/microsoft/alm/plugin/external/reactive/Lifetimes.java`
 #### Snippet
@@ -11809,27 +11809,15 @@ public class TFSProgressUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TFSContentStoreFactory` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentStoreFactory.java`
+Class `WorkspaceHelper` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 #### Snippet
 ```java
-import java.io.IOException;
-
-public class TFSContentStoreFactory {
-    private static final Logger logger = LoggerFactory.getLogger(TFSContentStoreFactory.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GeneralGitHelper` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/GeneralGitHelper.java`
-#### Snippet
-```java
- * General helper class for Git functionality using Git4idea
+ * This is a static helper class to do various things with Workspaces and Workspace.Mappings.
  */
-public class GeneralGitHelper {
+public class WorkspaceHelper {
+    public static final String ONE_LEVEL_MAPPING_SUFFIX = "/*";
 
-    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11845,15 +11833,15 @@ public class EventContextHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ArgumentHelper` has only 'static' members, and lacks a 'private' constructor
-in `plugin/src/com/microsoft/alm/common/utils/ArgumentHelper.java`
+Class `TFSContentStoreFactory` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentStoreFactory.java`
 #### Snippet
 ```java
- * Checks for illegal arguments and throws IllegalArgumentException if found
- */
-public class ArgumentHelper {
-    private static final String EMPTY_ARG_MSG = "%s is empty";
-    private static final String NOT_FILE_MSG = "%s expected to be a file";
+import java.io.IOException;
+
+public class TFSContentStoreFactory {
+    private static final Logger logger = LoggerFactory.getLogger(TFSContentStoreFactory.class);
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11866,6 +11854,18 @@ import java.util.concurrent.CompletionStage;
 public class VisualStudioTfvcClient {
 
     private static final Logger ourLogger = Logger.getInstance(VisualStudioTfvcClient.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ArgumentHelper` has only 'static' members, and lacks a 'private' constructor
+in `plugin/src/com/microsoft/alm/common/utils/ArgumentHelper.java`
+#### Snippet
+```java
+ * Checks for illegal arguments and throws IllegalArgumentException if found
+ */
+public class ArgumentHelper {
+    private static final String EMPTY_ARG_MSG = "%s is empty";
+    private static final String NOT_FILE_MSG = "%s expected to be a file";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12076,18 +12076,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
 ```
 
 ### DataFlowIssue
-Method invocation `isWritable` may produce `NullPointerException`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
-#### Snippet
-```java
-    public static boolean isFileWritable(FilePath localPath) {
-        VirtualFile file = localPath.getVirtualFile();
-        return file.isWritable() && !file.isDirectory();
-    }
-
-```
-
-### DataFlowIssue
 Method invocation `getUrl` may produce `NullPointerException`
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
 #### Snippet
@@ -12097,6 +12085,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDro
                         newContext = ServerContextManager.getInstance().createContextFromGitRemoteUrl(repositoryContext.getUrl(), false);
                     } else {
                         newContext = null;
+```
+
+### DataFlowIssue
+Method invocation `isWritable` may produce `NullPointerException`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+    public static boolean isFileWritable(FilePath localPath) {
+        VirtualFile file = localPath.getVirtualFile();
+        return file.isWritable() && !file.isDirectory();
+    }
+
 ```
 
 ### DataFlowIssue
@@ -12112,30 +12112,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
 ```
 
 ### DataFlowIssue
-`null` is returned by the method declared as @NotNull
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-            @Override
-            public ModalityState getModalityState() {
-                return null;
-            }
-
-```
-
-### DataFlowIssue
-Argument `gitRemoteUrl` might be null
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
-                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
-                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
-                        return;
-                    }
-```
-
-### DataFlowIssue
 Method invocation `getFile` may produce `NullPointerException`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRollbackEnvironment.java`
 #### Snippet
@@ -12145,18 +12121,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRollbackEnvironment.ja
             localPaths.add(revision.getFile());
         }
 
-```
-
-### DataFlowIssue
-Argument `gitRemoteUrl` might be null
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-
-                            if (context == null) {
-                                notifyCreateFailedError(project, TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
-                                return;
-                            }
 ```
 
 ### DataFlowIssue
@@ -12220,6 +12184,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 ```
 
 ### DataFlowIssue
+Argument `gitRemoteUrl` might be null
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+
+                            if (context == null) {
+                                notifyCreateFailedError(project, TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
+                                return;
+                            }
+```
+
+### DataFlowIssue
 Method invocation `getContentPane` may produce `NullPointerException`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/CreateVirtualFolderAction.java`
 #### Snippet
@@ -12229,6 +12205,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/CreateVirtualFol
         final String folderName = Messages.showInputDialog(form.getContentPane(),
                 TfPluginBundle.message(TfPluginBundle.KEY_ACTIONS_TFVC_SERVER_TREE_CREATE_FOLDER_MSG),
                 TfPluginBundle.message(TfPluginBundle.KEY_ACTIONS_TFVC_SERVER_TREE_CREATE_FOLDER_TITLE), null);
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NotNull
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+            @Override
+            public ModalityState getModalityState() {
+                return null;
+            }
+
+```
+
+### DataFlowIssue
+Argument `gitRemoteUrl` might be null
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
+                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
+                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
+                        return;
+                    }
 ```
 
 ### DataFlowIssue
@@ -12256,6 +12256,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckou
 ```
 
 ### DataFlowIssue
+Argument `project` might be null
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/AddAction.java`
+#### Snippet
+```java
+
+        if (!errors.isEmpty()) {
+            AbstractVcsHelper.getInstance(project).showErrors(errors, TFSVcs.TFVC_NAME);
+        }
+    }
+```
+
+### DataFlowIssue
 Argument `TFSVcs.getInstance(project).getCheckinEnvironment().scheduleUnversionedFilesForAddition(Arrays.asLis...` might be null
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/AddAction.java`
 #### Snippet
@@ -12277,18 +12289,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/AddAction.java`
                 errors.addAll(TFSVcs.getInstance(project).getCheckinEnvironment().scheduleUnversionedFilesForAddition(Arrays.asList(files)));
             }
         }, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_ADD_SCHEDULING), false, project);
-```
-
-### DataFlowIssue
-Argument `project` might be null
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/AddAction.java`
-#### Snippet
-```java
-
-        if (!errors.isEmpty()) {
-            AbstractVcsHelper.getInstance(project).showErrors(errors, TFSVcs.TFVC_NAME);
-        }
-    }
 ```
 
 ### DataFlowIssue
@@ -12479,18 +12479,6 @@ public class BuildPopup extends JBPopupMenu {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'minimumVersion' in a Serializable class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolVersionException.java`
-#### Snippet
-```java
-public class ToolVersionException extends ToolException {
-    final ToolVersion versionFound;
-    final ToolVersion minimumVersion;
-
-    public ToolVersionException(final ToolVersion versionFound, final ToolVersion minimumVersion) {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'versionFound' in a Serializable class
 in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolVersionException.java`
 #### Snippet
@@ -12500,6 +12488,18 @@ public class ToolVersionException extends ToolException {
     final ToolVersion versionFound;
     final ToolVersion minimumVersion;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'minimumVersion' in a Serializable class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/ToolVersionException.java`
+#### Snippet
+```java
+public class ToolVersionException extends ToolException {
+    final ToolVersion versionFound;
+    final ToolVersion minimumVersion;
+
+    public ToolVersionException(final ToolVersion versionFound, final ToolVersion minimumVersion) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -12515,15 +12515,15 @@ public class ImportPageImpl extends LoginPageImpl implements ImportPage {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'selectedQuery' in a Serializable class
+Non-serializable field 'defaultQuery' in a Serializable class
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
 #### Snippet
 ```java
-    private final WorkItemQueriesLookupOperation.QueryInputs queryOperationInput;
+    public static final String CMD_QUERY_COMBO_BOX_CHANGED = "cmdQueryComboBoxChanged";
 
-    private QueryAction selectedQuery;
-
-    public WorkItemQueryDropDown(final Project project) {
+    private final QueryAction defaultQuery;
+    private final Project project;
+    private final LoadingAction loadingAction;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -12539,18 +12539,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDro
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'defaultQuery' in a Serializable class
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
-#### Snippet
-```java
-    public static final String CMD_QUERY_COMBO_BOX_CHANGED = "cmdQueryComboBoxChanged";
-
-    private final QueryAction defaultQuery;
-    private final Project project;
-    private final LoadingAction loadingAction;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'queryOperationInput' in a Serializable class
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
 #### Snippet
@@ -12560,6 +12548,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDro
     private final WorkItemQueriesLookupOperation.QueryInputs queryOperationInput;
 
     private QueryAction selectedQuery;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'selectedQuery' in a Serializable class
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
+#### Snippet
+```java
+    private final WorkItemQueriesLookupOperation.QueryInputs queryOperationInput;
+
+    private QueryAction selectedQuery;
+
+    public WorkItemQueryDropDown(final Project project) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -12599,18 +12599,6 @@ public class PRTreeNode extends DefaultMutableTreeNode {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'prViewForm' in a Serializable class
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
-#### Snippet
-```java
-    private final static short REVIEWER_VOTE_REJECTED = -10;
-
-    private PRTreeNodeForm prViewForm;
-
-    public PRTreeCellRenderer() {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'checkoutForm' in a Serializable class
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutPageImpl.java`
 #### Snippet
@@ -12623,15 +12611,15 @@ class CheckoutPageImpl extends LoginPageImpl implements CheckoutPage {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'versionFound' in a Serializable class
-in `plugin/src/com/microsoft/alm/plugin/external/exceptions/VisualStudioClientVersionException.java`
+Non-serializable field 'prViewForm' in a Serializable class
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeCellRenderer.java`
 #### Snippet
 ```java
+    private final static short REVIEWER_VOTE_REJECTED = -10;
 
-public class VisualStudioClientVersionException extends ToolException {
-    @NotNull final ToolVersion versionFound;
-    @NotNull final ToolVersion minimumVersion;
-    @NotNull final String minimalVersionNickname;
+    private PRTreeNodeForm prViewForm;
+
+    public PRTreeCellRenderer() {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -12647,15 +12635,15 @@ public class VisualStudioClientVersionException extends ToolException {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'myEventDispatcher' in a Serializable class
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/LockItemsTableModel.java`
+Non-serializable field 'versionFound' in a Serializable class
+in `plugin/src/com/microsoft/alm/plugin/external/exceptions/VisualStudioClientVersionException.java`
 #### Snippet
 ```java
 
-    private final List<ExtendedItemInfoWithSelection> items;
-    private final EventDispatcher<Listener> myEventDispatcher = EventDispatcher.create(Listener.class);
-
-    public LockItemsTableModel(@NotNull List<ExtendedItemInfo> items) {
+public class VisualStudioClientVersionException extends ToolException {
+    @NotNull final ToolVersion versionFound;
+    @NotNull final ToolVersion minimumVersion;
+    @NotNull final String minimalVersionNickname;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -12668,6 +12656,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/treetable/CustomTr
     private final CellRenderer<T> cellRenderer;
     private final boolean showCellFocus;
     private final boolean showSelection;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'myEventDispatcher' in a Serializable class
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/LockItemsTableModel.java`
+#### Snippet
+```java
+
+    private final List<ExtendedItemInfoWithSelection> items;
+    private final EventDispatcher<Listener> myEventDispatcher = EventDispatcher.create(Listener.class);
+
+    public LockItemsTableModel(@NotNull List<ExtendedItemInfo> items) {
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -12709,14 +12709,14 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/DateHelper.java`
 #### Snippet
 ```java
-        ArgumentHelper.checkNotNull(toolProcess, "toolProcess");
-        ArgumentHelper.checkNotNull(argumentBuilder, "argumentBuilder");
-        logger.info("sendArgsViaStandardInput: proceedWithArgs: " + argumentBuilder.toString());
-        final OutputStream stdin = toolProcess.getOutputStream();
-        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin, StandardCharsets.UTF_8));
+
+        } catch (Throwable t) {
+            logger.warn("getFriendlyDateTimeString unexpected error with input date {}", date.toString(), t);
+            return date.toString();
+        }
 ```
 
 ### UnnecessaryToStringCall
@@ -12733,14 +12733,14 @@ in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/DateHelper.java`
+in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
 #### Snippet
 ```java
-
-        } catch (Throwable t) {
-            logger.warn("getFriendlyDateTimeString unexpected error with input date {}", date.toString(), t);
-            return date.toString();
-        }
+        ArgumentHelper.checkNotNull(toolProcess, "toolProcess");
+        ArgumentHelper.checkNotNull(argumentBuilder, "argumentBuilder");
+        logger.info("sendArgsViaStandardInput: proceedWithArgs: " + argumentBuilder.toString());
+        final OutputStream stdin = toolProcess.getOutputStream();
+        final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin, StandardCharsets.UTF_8));
 ```
 
 ### UnnecessaryToStringCall
@@ -12793,18 +12793,6 @@ in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `WitResults` may be 'static'
-in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
-#### Snippet
-```java
-    }
-
-    public class WitResults extends ResultsImpl {
-        private final List<WorkItem> workItems;
-        private final ServerContext context;
-```
-
-### InnerClassMayBeStatic
 Inner class `PullRequestLookupResults` may be 'static'
 in `plugin/src/com/microsoft/alm/plugin/operations/PullRequestLookupOperation.java`
 #### Snippet
@@ -12814,6 +12802,18 @@ in `plugin/src/com/microsoft/alm/plugin/operations/PullRequestLookupOperation.ja
     public class PullRequestLookupResults extends ResultsImpl {
         private final List<GitPullRequest> pullRequests = new ArrayList<GitPullRequest>();
         private final PullRequestScope scope;
+```
+
+### InnerClassMayBeStatic
+Inner class `WitResults` may be 'static'
+in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
+#### Snippet
+```java
+    }
+
+    public class WitResults extends ResultsImpl {
+        private final List<WorkItem> workItems;
+        private final ServerContext context;
 ```
 
 ### InnerClassMayBeStatic
@@ -12829,18 +12829,6 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/facades/VsoAuthInfoProvid
 ```
 
 ### InnerClassMayBeStatic
-Inner class `Row` may be 'static'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
-#### Snippet
-```java
-    }
-
-    public class Row {
-        public Row(final Row otherRow) {
-            this.serverPath = otherRow.serverPath;
-```
-
-### InnerClassMayBeStatic
 Inner class `ServerContextLookupResults` may be 'static'
 in `plugin/src/com/microsoft/alm/plugin/operations/ServerContextLookupOperation.java`
 #### Snippet
@@ -12853,15 +12841,15 @@ in `plugin/src/com/microsoft/alm/plugin/operations/ServerContextLookupOperation.
 ```
 
 ### InnerClassMayBeStatic
-Inner class `QueryData` may be 'static'
-in `plugin/src/com/microsoft/alm/plugin/context/soap/CatalogServiceImpl.java`
+Inner class `Row` may be 'static'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
 #### Snippet
 ```java
     }
 
-    private class QueryData {
-        final String pathSpecs;
-        final int queryOptions;
+    public class Row {
+        public Row(final Row otherRow) {
+            this.serverPath = otherRow.serverPath;
 ```
 
 ### InnerClassMayBeStatic
@@ -12877,6 +12865,18 @@ in `plugin/src/com/microsoft/alm/plugin/context/soap/CatalogServiceImpl.java`
 ```
 
 ### InnerClassMayBeStatic
+Inner class `QueryData` may be 'static'
+in `plugin/src/com/microsoft/alm/plugin/context/soap/CatalogServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    private class QueryData {
+        final String pathSpecs;
+        final int queryOptions;
+```
+
+### InnerClassMayBeStatic
 Inner class `ServerWorkspaceContentProvider` may be 'static'
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
 #### Snippet
@@ -12889,18 +12889,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspaces
 ```
 
 ### InnerClassMayBeStatic
-Inner class `HelpIdeTooltip` may be 'static'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
-#### Snippet
-```java
-    }
-
-    private class HelpIdeTooltip extends IdeTooltip {
-        private boolean showing = false;
-
-```
-
-### InnerClassMayBeStatic
 Inner class `HelpPopupCommand` may be 'static'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
 #### Snippet
@@ -12910,6 +12898,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
     private class HelpPopupCommand {
         private final String text;
         private final String command;
+```
+
+### InnerClassMayBeStatic
+Inner class `HelpIdeTooltip` may be 'static'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
+#### Snippet
+```java
+    }
+
+    private class HelpIdeTooltip extends IdeTooltip {
+        private boolean showing = false;
+
 ```
 
 ### InnerClassMayBeStatic
@@ -13061,43 +13061,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/starters/ApplicationStarterB
             System.exit(1);
 ```
 
-## RuleId[ruleID=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * @deprecated Use {@link #getBestAuthenticationInfo(URI, boolean)} instead.
-     */
-    public AuthenticationInfo getBestAuthenticationInfo(final String url, final boolean prompt) {
-        return getAuthenticationInfo(URI.create(url), prompt);
-    }
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * @deprecated Use {@link #getAuthenticationInfo(URI, boolean)} instead.
-     */
-    public AuthenticationInfo getAuthenticationInfo(String gitRemoteUrl, boolean prompt) {
-        return getAuthenticationInfo(UrlHelper.createUri(gitRemoteUrl), prompt);
-    }
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `plugin/src/com/microsoft/alm/plugin/authentication/AuthenticationInfo.java`
-#### Snippet
-```java
-     * @deprecated
-     */
-    public AuthenticationInfo() {
-        this(null, null, null, null, null, null);
-    }
-```
-
 ## RuleId[ruleID=RedundantNullableReturnType]
 ### RedundantNullableReturnType
 'getWorkspaceFor' always returns non-null type
@@ -13134,6 +13097,43 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
             if (result != null && result instanceof NodeList) {
                 return (NodeList) result;
             }
+```
+
+## RuleId[ruleID=MissingDeprecatedAnnotation]
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * @deprecated Use {@link #getBestAuthenticationInfo(URI, boolean)} instead.
+     */
+    public AuthenticationInfo getBestAuthenticationInfo(final String url, final boolean prompt) {
+        return getAuthenticationInfo(URI.create(url), prompt);
+    }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * @deprecated Use {@link #getAuthenticationInfo(URI, boolean)} instead.
+     */
+    public AuthenticationInfo getAuthenticationInfo(String gitRemoteUrl, boolean prompt) {
+        return getAuthenticationInfo(UrlHelper.createUri(gitRemoteUrl), prompt);
+    }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `plugin/src/com/microsoft/alm/plugin/authentication/AuthenticationInfo.java`
+#### Snippet
+```java
+     * @deprecated
+     */
+    public AuthenticationInfo() {
+        this(null, null, null, null, null, null);
+    }
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -13307,6 +13307,18 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.alm.plugin.context.rest` is unnecessary and can be removed
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+                throw new TeamServicesException(TeamServicesException.KEY_TFS_UNSUPPORTED_VERSION);
+            }
+        } catch (com.microsoft.alm.plugin.context.rest.VstsHttpClient.VstsHttpClientException e) {
+            if (e.getStatusCode() == 404) {
+                //HTTP not found, so server does not have this endpoint (TFS 2012 or older) or the URL is incorrect
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ActionListenerContainer.java`
 #### Snippet
@@ -13343,6 +13355,18 @@ in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/EULADialog.java`
+#### Snippet
+```java
+
+public class EULADialog extends DialogWrapper {
+    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(EULADialog.class);
+    private static boolean myWasShow = false;
+    private final JBScrollPane myScrollPane;
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
 in `plugin/src/com/microsoft/alm/plugin/external/commands/DeleteCommand.java`
 #### Snippet
@@ -13364,18 +13388,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/DeleteCommand.java`
     private void parseStdOut(String stdout, List<java.nio.file.Path> deletedPaths) {
         final String[] lines = getLines(stdout);
         String path = StringUtils.EMPTY;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/EULADialog.java`
-#### Snippet
-```java
-
-public class EULADialog extends DialogWrapper {
-    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(EULADialog.class);
-    private static boolean myWasShow = false;
-    private final JBScrollPane myScrollPane;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13407,11 +13419,11 @@ Qualifier `com.microsoft.alm.plugin.external.models` is unnecessary and can be r
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
-     *
-     * @param serverPath the server path to translate into a local path (must not be <code>null</code> or empty)
-     * @param mappings  the {@link com.microsoft.alm.plugin.external.models.Workspace.Mapping} mappings to translate
-     *                  with; can be arranged in any order (must not be <code>null</code>)
-     * @return the {@link String} with the translation information ({@link String} is <code>null</code> for cloaked
+     * @param localPath the local path to translate into a server path (must not be
+     *                  <code>null</code> or empty)
+     * @param mappings  the {@link com.microsoft.alm.plugin.external.models.Workspace.Mapping} mappings to translate with; can be
+     *                  arranged in any order (must not be <code>null</code>)
+     * @return the working folder mapping that most precisely matches the given
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13419,11 +13431,11 @@ Qualifier `com.microsoft.alm.plugin.external.models` is unnecessary and can be r
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
-     * @param localPath the local path to translate into a server path (must not be
-     *                  <code>null</code> or empty)
-     * @param mappings  the {@link com.microsoft.alm.plugin.external.models.Workspace.Mapping} mappings to translate with; can be
-     *                  arranged in any order (must not be <code>null</code>)
-     * @return the working folder mapping that most precisely matches the given
+     *
+     * @param serverPath the server path to translate into a local path (must not be <code>null</code> or empty)
+     * @param mappings  the {@link com.microsoft.alm.plugin.external.models.Workspace.Mapping} mappings to translate
+     *                  with; can be arranged in any order (must not be <code>null</code>)
+     * @return the {@link String} with the translation information ({@link String} is <code>null</code> for cloaked
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13448,18 +13460,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
         operation.setOp(com.microsoft.visualstudio.services.webapi.patch.Operation.ADD);
         operation.setPath(RELATIONS_PATH);
         operation.setValue(link);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.alm.plugin.context.rest` is unnecessary and can be removed
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-                throw new TeamServicesException(TeamServicesException.KEY_TFS_UNSUPPORTED_VERSION);
-            }
-        } catch (com.microsoft.alm.plugin.context.rest.VstsHttpClient.VstsHttpClientException e) {
-            if (e.getStatusCode() == 404) {
-                //HTTP not found, so server does not have this endpoint (TFS 2012 or older) or the URL is incorrect
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13615,9 +13615,9 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 ```java
     }
 
-    public Command(final String name, final ServerContext context) {
-        this(name, context, true, true);
-    }
+    public Command(final String name, final ServerContext context, final boolean useProxyIfAvailable, final boolean logStdOut) {
+        this.name = name;
+        this.context = context;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13627,9 +13627,9 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 ```java
     }
 
-    public Command(final String name, final ServerContext context, final boolean useProxyIfAvailable, final boolean logStdOut) {
-        this.name = name;
-        this.context = context;
+    public Command(final String name, final ServerContext context) {
+        this(name, context, true, true);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13706,18 +13706,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchDialog.java`
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Runnable() can be replaced with method reference
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
-#### Snippet
-```java
-
-                // TODO (JETBRAINS) don't do it on focus out, rather provide a 'Refresh' button
-                ApplicationManager.getApplication().invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-```
-
-### Anonymous2MethodRef
 Anonymous new ActionListener() can be replaced with method reference
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/FeedbackAction.java`
 #### Snippet
@@ -13727,6 +13715,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/FeedbackAction.jav
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Runnable() can be replaced with method reference
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+
+                // TODO (JETBRAINS) don't do it on focus out, rather provide a 'Refresh' button
+                ApplicationManager.getApplication().invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
 ```
 
 ### Anonymous2MethodRef
@@ -13766,18 +13766,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceControll
 ```
 
 ### Anonymous2MethodRef
-Anonymous new Callable() can be replaced with method reference
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    public void loadDiff() {
-        if (this.getSourceBranch() != null && this.getTargetBranch() != null) {
-            ListenableFuture<GitChangesContainer> diffFuture = this.executorService.submit(new Callable<GitChangesContainer>() {
-                @Override
-                public GitChangesContainer call() throws Exception {
-```
-
-### Anonymous2MethodRef
 Anonymous new ValidationListener() can be replaced with method reference
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestController.java`
 #### Snippet
@@ -13787,6 +13775,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
         this.createDialog.addValidationListener(new ValidationListener() {
             @Override
             public ValidationInfo doValidate() {
+```
+
+### Anonymous2MethodRef
+Anonymous new Callable() can be replaced with method reference
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    public void loadDiff() {
+        if (this.getSourceBranch() != null && this.getTargetBranch() != null) {
+            ListenableFuture<GitChangesContainer> diffFuture = this.executorService.submit(new Callable<GitChangesContainer>() {
+                @Override
+                public GitChangesContainer call() throws Exception {
 ```
 
 ### Anonymous2MethodRef
@@ -13875,18 +13875,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.j
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
-#### Snippet
-```java
-        // always returns them in id order. We need to use the map we created above to put
-        // them back into the correct order based on the query.
-        Collections.sort(items, new Comparator<WorkItem>() {
-            @Override
-            public int compare(final WorkItem wi1, final WorkItem wi2) {
-```
-
-### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/operations/PullRequestLookupOperation.java`
 #### Snippet
@@ -13923,6 +13911,18 @@ in `plugin/src/com/microsoft/alm/plugin/operations/PullRequestLookupOperation.ja
 ```
 
 ### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
+#### Snippet
+```java
+        // always returns them in id order. We need to use the map we created above to put
+        // them back into the correct order based on the query.
+        Collections.sort(items, new Comparator<WorkItem>() {
+            @Override
+            public int compare(final WorkItem wi1, final WorkItem wi2) {
+```
+
+### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/services/CredentialsPromptImpl.java`
 #### Snippet
@@ -13951,18 +13951,6 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/checkout/TfvcCheckoutModel.java`
 #### Snippet
 ```java
-                        if (controller.showModalDialog(false)) {
-                            // Save and Sync the workspace (this will be backgrounded)
-                            controller.saveWorkspace(localPath, true, new Runnable() {
-                                @Override
-                                public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/checkout/TfvcCheckoutModel.java`
-#### Snippet
-```java
                     logger.warn("Error creating workspace: " + LocalizationServiceImpl.getInstance().getExceptionMessage(e));
                     // TODO: allow user to change name in the flow instead of starting over
                     IdeaHelper.runOnUIThread(new Runnable() {
@@ -13984,14 +13972,26 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/checkout/TfvcCheckoutModel.
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LookupHelper.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/checkout/TfvcCheckoutModel.java`
 #### Snippet
 ```java
-                public void authenticating() {
-                    // Push this event back onto the UI thread
-                    IdeaHelper.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
+                        if (controller.showModalDialog(false)) {
+                            // Save and Sync the workspace (this will be backgrounded)
+                            controller.saveWorkspace(localPath, true, new Runnable() {
+                                @Override
+                                public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/operations/ServerContextLookupOperation.java`
+#### Snippet
+```java
+            for (final ServerContext context : contextList) {
+                // submit each account as a separate piece of work to the executor
+                tasks.add(OperationExecutor.getInstance().submitOperationTask(new Runnable() {
+                    @Override
+                    public void run() {
 ```
 
 ### Convert2Lambda
@@ -14023,8 +14023,8 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LookupHelper.java`
 #### Snippet
 ```java
-                @Override
                 public void authenticating() {
+                    // Push this event back onto the UI thread
                     IdeaHelper.runOnUIThread(new Runnable() {
                         @Override
                         public void run() {
@@ -14044,14 +14044,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LookupHelper.java`
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/operations/ServerContextLookupOperation.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LookupHelper.java`
 #### Snippet
 ```java
-            for (final ServerContext context : contextList) {
-                // submit each account as a separate piece of work to the executor
-                tasks.add(OperationExecutor.getInstance().submitOperationTask(new Runnable() {
-                    @Override
-                    public void run() {
+                @Override
+                public void authenticating() {
+                    IdeaHelper.runOnUIThread(new Runnable() {
+                        @Override
+                        public void run() {
 ```
 
 ### Convert2Lambda
@@ -14107,6 +14107,18 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
 #### Snippet
 ```java
+            //}
+
+            ProgressManager.getInstance().runProcessWithProgressSynchronously(new Runnable() {
+                public void run() {
+                    ProgressManager.getInstance().getProgressIndicator().setFraction(.1);
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
+#### Snippet
+```java
                     } catch (final BranchAlreadyExistsException e) {
                         logger.warn("Branch already exists");
                         IdeaHelper.runOnUIThread(new Runnable() {
@@ -14136,18 +14148,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
-#### Snippet
-```java
-            //}
-
-            ProgressManager.getInstance().runProcessWithProgressSynchronously(new Runnable() {
-                public void run() {
-                    ProgressManager.getInstance().getProgressIndicator().setFraction(.1);
 ```
 
 ### Convert2Lambda
@@ -14203,18 +14203,6 @@ Anonymous new Comparator() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
 #### Snippet
 ```java
-                final List<Workspace> workspaces = new ArrayList<Workspace>(((Server) parent).getWorkspaces());
-
-                Collections.sort(workspaces, new Comparator<Workspace>() {
-                    public int compare(final Workspace w1, final Workspace w2) {
-                        return w1.getName().compareTo(w2.getName());
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
             // pass no context so that all servers saved in the cache are found
             final List<Server> servers = new ArrayList<Server>(CommandUtils.getAllWorkspaces(null));
             Collections.sort(servers, new Comparator<Server>() {
@@ -14235,15 +14223,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspaces
 ```
 
 ### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+                final List<Workspace> workspaces = new ArrayList<Workspace>(((Server) parent).getWorkspaces());
+
+                Collections.sort(workspaces, new Comparator<Workspace>() {
+                    public int compare(final Workspace w1, final Workspace w2) {
+                        return w1.getName().compareTo(w2.getName());
+```
+
+### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextLookupListener.java`
 #### Snippet
 ```java
-    public void notifyLookupStarted() {
-        logger.info("ServerContext lookup started");
+        logger.info("ServerContext lookup completed");
+        operationDone();
         IdeaHelper.runOnUIThread(new Runnable() {
-            @Override
             public void run() {
+                pageModel.setLoading(false);
 ```
 
 ### Convert2Lambda
@@ -14275,47 +14275,59 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextLookupListener.java`
 #### Snippet
 ```java
-        logger.info("ServerContext lookup completed");
-        operationDone();
+    public void notifyLookupStarted() {
+        logger.info("ServerContext lookup started");
         IdeaHelper.runOnUIThread(new Runnable() {
+            @Override
             public void run() {
-                pageModel.setLoading(false);
 ```
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
 #### Snippet
 ```java
-            GuiUtils.runOrInvokeAndWait(new Runnable() {
-                public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    }
+                    // Update table model on UI thread
+                    IdeaHelper.runOnUIThread(new Runnable() {
+                        @Override
                         public void run() {
-                            try {
 ```
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
 #### Snippet
 ```java
-
-    public static void markFileDirty(final Project project, final @NotNull FilePath file) {
-        ApplicationManager.getApplication().runReadAction(new Runnable() {
-            public void run() {
-                VcsDirtyScopeManager.getInstance(project).fileDirty(file);
+                // only remove loading when we have actually gotten a context and made a successful call to get the queries
+                if (isContextFound.get()) {
+                    IdeaHelper.runOnUIThread(new Runnable() {
+                        @Override
+                        public void run() {
 ```
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
 #### Snippet
 ```java
-        final Ref<IOException> exception = new Ref<IOException>();
-        try {
-            GuiUtils.runOrInvokeAndWait(new Runnable() {
-                public void run() {
-                    try {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                IdeaHelper.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
+#### Snippet
+```java
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                IdeaHelper.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
 ```
 
 ### Convert2Lambda
@@ -14335,6 +14347,18 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
+        final Ref<IOException> exception = new Ref<IOException>();
+        try {
+            GuiUtils.runOrInvokeAndWait(new Runnable() {
+                public void run() {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
 
     public static void refreshAndMarkDirty(final Project project, final VirtualFile[] roots, boolean async) {
         RefreshQueue.getInstance().refresh(async, true, new Runnable() {
@@ -14347,11 +14371,11 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
-        }
-
-        ApplicationManager.getApplication().runReadAction(new Runnable() {
-            public void run() {
-                for (FilePath root : roots) {
+        final Ref<IOException> exception = new Ref<IOException>();
+        try {
+            GuiUtils.runOrInvokeAndWait(new Runnable() {
+                public void run() {
+                    try {
 ```
 
 ### Convert2Lambda
@@ -14364,6 +14388,54 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         ApplicationManager.getApplication().runReadAction(new Runnable() {
             public void run() {
                 for (FilePath root : roots) {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+    public static void refreshAndFindFile(final FilePath path) {
+        try {
+            GuiUtils.runOrInvokeAndWait(new Runnable() {
+                public void run() {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+            GuiUtils.runOrInvokeAndWait(new Runnable() {
+                public void run() {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                        public void run() {
+                            try {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+        }
+
+        ApplicationManager.getApplication().runReadAction(new Runnable() {
+            public void run() {
+                for (FilePath root : roots) {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+
+    public static void markFileDirty(final Project project, final @NotNull FilePath file) {
+        ApplicationManager.getApplication().runReadAction(new Runnable() {
+            public void run() {
+                VcsDirtyScopeManager.getInstance(project).fileDirty(file);
 ```
 
 ### Convert2Lambda
@@ -14392,155 +14464,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
-#### Snippet
-```java
-        final Ref<IOException> exception = new Ref<IOException>();
-        try {
-            GuiUtils.runOrInvokeAndWait(new Runnable() {
-                public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
-#### Snippet
-```java
-    public static void refreshAndFindFile(final FilePath path) {
-        try {
-            GuiUtils.runOrInvokeAndWait(new Runnable() {
-                public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
-#### Snippet
-```java
-                // only remove loading when we have actually gotten a context and made a successful call to get the queries
-                if (isContextFound.get()) {
-                    IdeaHelper.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDropDown.java`
-#### Snippet
-```java
-                    }
-                    // Update table model on UI thread
-                    IdeaHelper.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
-#### Snippet
-```java
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                IdeaHelper.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/HelpPanel.java`
-#### Snippet
-```java
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                IdeaHelper.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-                        logger.info("Checking out new branch: " + branchName);
-                        // Creating a branch using the brancher has to start on the UI thread (it will background the work itself)
-                        IdeaHelper.runOnUIThread(new Runnable() {
-                            @Override
-                            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-            Futures.addCallback(diffFuture, new FutureCallback<GitChangesContainer>() {
-                public void onSuccess(final GitChangesContainer changesContainer) {
-                    applicationProvider.invokeAndWaitWithAnyModality(new Runnable() {
-                        @Override
-                        public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                    logger.warn("onFailure in loadDiff", thrown);
-
-                    applicationProvider.invokeAndWaitWithAnyModality(new Runnable() {
-                        public void run() {
-                            final GitLocalBranch sourceBranch = getSourceBranch();
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                                // if we missed the cache, then show the loading spinner, otherwise
-                                // just switch to the diff we have to avoid flickering the screen
-                                applicationProvider.invokeAndWaitWithAnyModality(new Runnable() {
-                                    @Override
-                                    public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    public void loadDiff() {
-        if (this.getSourceBranch() != null && this.getTargetBranch() != null) {
-            ListenableFuture<GitChangesContainer> diffFuture = this.executorService.submit(new Callable<GitChangesContainer>() {
-                @Override
-                public GitChangesContainer call() throws Exception {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FilterDropDown.java`
 #### Snippet
 ```java
 
         // update color on UI thread
-        IdeaHelper.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-        // warn user to verify their project is a hybrid project
-        final List<String> proceed = new ArrayList<String>();
         IdeaHelper.runOnUIThread(new Runnable() {
             @Override
             public void run() {
@@ -14560,14 +14488,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
-
-                        //prompt user for confirmation
-                        IdeaHelper.runOnUIThread(new Runnable() {
-                            @Override
-                            public void run() {
+        // warn user to verify their project is a hybrid project
+        final List<String> proceed = new ArrayList<String>();
+        IdeaHelper.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
 ```
 
 ### Convert2Lambda
@@ -14596,6 +14524,66 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+                                // if we missed the cache, then show the loading spinner, otherwise
+                                // just switch to the diff we have to avoid flickering the screen
+                                applicationProvider.invokeAndWaitWithAnyModality(new Runnable() {
+                                    @Override
+                                    public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+                    logger.warn("onFailure in loadDiff", thrown);
+
+                    applicationProvider.invokeAndWaitWithAnyModality(new Runnable() {
+                        public void run() {
+                            final GitLocalBranch sourceBranch = getSourceBranch();
+```
+
+### Convert2Lambda
+Anonymous new Callable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    public void loadDiff() {
+        if (this.getSourceBranch() != null && this.getTargetBranch() != null) {
+            ListenableFuture<GitChangesContainer> diffFuture = this.executorService.submit(new Callable<GitChangesContainer>() {
+                @Override
+                public GitChangesContainer call() throws Exception {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+            Futures.addCallback(diffFuture, new FutureCallback<GitChangesContainer>() {
+                public void onSuccess(final GitChangesContainer changesContainer) {
+                    applicationProvider.invokeAndWaitWithAnyModality(new Runnable() {
+                        @Override
+                        public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
+#### Snippet
+```java
+
+                        //prompt user for confirmation
+                        IdeaHelper.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabControllerImpl.java`
 #### Snippet
 ```java
@@ -14616,6 +14604,18 @@ public class DialogConflictsHandler implements ConflictsHandler {
         WaitForProgressToShow.runOrInvokeAndWaitAboveProgress(new Runnable() {
             public void run() {
                 final ResolveConflictsController controller = new ResolveConflictsController(project, conflictHelper);
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+                        logger.info("Checking out new branch: " + branchName);
+                        // Creating a branch using the brancher has to start on the UI thread (it will background the work itself)
+                        IdeaHelper.runOnUIThread(new Runnable() {
+                            @Override
+                            public void run() {
 ```
 
 ### Convert2Lambda
@@ -14659,30 +14659,6 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
 #### Snippet
 ```java
-                    // TODO: refactor to use existing call instead of calling twice. Current call happens too late currently
-                    // TODO: so that's why we need to call this beforehand so we can checkout the branch
-                    manager.addInitializationRequest(VcsInitObject.MAPPINGS, new Runnable() {
-                        @Override
-                        public void run() {
-```
-
-### Convert2Lambda
-Anonymous new DumbAwareRunnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-
-                    // step to checkout the desired branch
-                    manager.addInitializationRequest(VcsInitObject.AFTER_COMMON, new DumbAwareRunnable() {
-                        public void run() {
-                            final GitRepositoryManager gitRepositoryManager = ServiceManager.getService(lastOpenedProject, GitRepositoryManager.class);
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
 
                         DvcsUtil.addMappingIfSubRoot(project, FileUtil.join(new String[]{parentDirectory, directoryName}), "Git");
                         destinationParent.refresh(true, true, new Runnable() {
@@ -14700,6 +14676,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckou
                                 IdeaHelper.runOnUIThread(new Runnable() {
                                     @Override
                                     public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+                    // TODO: refactor to use existing call instead of calling twice. Current call happens too late currently
+                    // TODO: so that's why we need to call this beforehand so we can checkout the branch
+                    manager.addInitializationRequest(VcsInitObject.MAPPINGS, new Runnable() {
+                        @Override
+                        public void run() {
+```
+
+### Convert2Lambda
+Anonymous new DumbAwareRunnable() can be replaced with lambda
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+
+                    // step to checkout the desired branch
+                    manager.addInitializationRequest(VcsInitObject.AFTER_COMMON, new DumbAwareRunnable() {
+                        public void run() {
+                            final GitRepositoryManager gitRepositoryManager = ServiceManager.getService(lastOpenedProject, GitRepositoryManager.class);
 ```
 
 ### Convert2Lambda
@@ -14791,11 +14791,11 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
 #### Snippet
 ```java
-
-                // Set loading to false to stop the spinner
-                IdeaHelper.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
+                    }
+                    // Update table model on UI thread
+                    IdeaHelper.runOnUIThread(new Runnable() {
+                        @Override
+                        public void run() {
 ```
 
 ### Convert2Lambda
@@ -14803,11 +14803,11 @@ Anonymous new Runnable() can be replaced with lambda
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsModel.java`
 #### Snippet
 ```java
-                    }
-                    // Update table model on UI thread
-                    IdeaHelper.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
+
+                // Set loading to false to stop the spinner
+                IdeaHelper.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
 ```
 
 ### Convert2Lambda
@@ -14982,11 +14982,11 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageImpl.java`
 #### Snippet
 ```java
+        }
 
-        //We don't have enough context to create project URL
         return null;
     }
 
@@ -15022,7 +15022,7 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
 
-        // We don't have enough context to create a WorkItemTrackingHttpClient
+        //We don't have enough context to create collection URL
         return null;
     }
 
@@ -15046,7 +15046,7 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
 
-        //We don't have enough context to create collection URL
+        // We don't have enough context to create a WorkItemTrackingHttpClient
         return null;
     }
 
@@ -15057,8 +15057,8 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-        }
 
+        //We don't have enough context to create project URL
         return null;
     }
 
@@ -15066,7 +15066,7 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageImpl.java`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
         }
@@ -15162,37 +15162,61 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
 #### Snippet
 ```java
-            }
-
-            return null;
+            logger.warn("getAuthenticatedContext unexpected exception", t);
         }
+        return null;
     }
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
 #### Snippet
 ```java
         }
 
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/operations/BuildStatusLookupOperation.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
 
 ```
 
@@ -15215,18 +15239,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSetting
 ```java
             logger.warn("getServerContextStates: Unexpected exception", t);
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -15282,6 +15294,42 @@ in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
 
 ### ReturnNull
 Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutController.java`
+#### Snippet
+```java
+                    dialog.getComponent(validationInfo.getValidationSource()));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
 #### Snippet
 ```java
@@ -15289,7 +15337,7 @@ in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
         }
         return null;
     }
-
+}
 ```
 
 ### ReturnNull
@@ -15322,18 +15370,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
 #### Snippet
 ```java
             }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutController.java`
-#### Snippet
-```java
-                    dialog.getComponent(validationInfo.getValidationSource()));
         }
         return null;
     }
@@ -15450,11 +15486,23 @@ in `plugin/src/com/microsoft/alm/plugin/external/visualstudio/VisualStudioTfvcCo
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
 #### Snippet
 ```java
-            }
         }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -15465,23 +15513,11 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-            final String result = getLocalPathCommand.runSynchronously();
-            if (StringUtils.startsWithIgnoreCase(result, "ERROR [main] Application - Unexpected exception:")) {
-                return null;
             }
-            return result;
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-        } catch (Throwable t) {
-            logger.warn("Failed to find local path for server path " + serverPath, t);
-            return null;
         }
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -15522,26 +15558,26 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
+            final String result = getLocalPathCommand.runSynchronously();
+            if (StringUtils.startsWithIgnoreCase(result, "ERROR [main] Application - Unexpected exception:")) {
+                return null;
+            }
+            return result;
 ```
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
+        } catch (Throwable t) {
+            logger.warn("Failed to find local path for server path " + serverPath, t);
+            return null;
         }
-
-        return null;
     }
-
 ```
 
 ### ReturnNull
@@ -15609,11 +15645,11 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutForm.java`
 #### Snippet
 ```java
-            return directoryName;
-        } else {
-            return null;
         }
+
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -15621,11 +15657,11 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutForm.java`
 #### Snippet
 ```java
+            return directoryName;
+        } else {
+            return null;
         }
-
-        return null;
     }
-
 ```
 
 ### ReturnNull
@@ -15690,6 +15726,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageControll
 
 ### ReturnNull
 Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
+#### Snippet
+```java
+        }
+
+        return changeset >= 0 ? VersionSpec.create(changeset) : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
 ```java
@@ -15726,14 +15774,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
 #### Snippet
 ```java
+        } else {
+            logger.error("Unhandled status type: " + Arrays.toString(pendingChange.getChangeTypes().toArray()));
+            return null;
         }
-
-        return changeset >= 0 ? VersionSpec.create(changeset) : null;
     }
-}
 ```
 
 ### ReturnNull
@@ -15762,59 +15810,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsRevisionNumber.jav
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
-#### Snippet
-```java
-        } else {
-            logger.error("Unhandled status type: " + Arrays.toString(pendingChange.getChangeTypes().toArray()));
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-            @Override
-            public String getText2() {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-            @Override
-            public ModalityState getModalityState() {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-            @Override
-            public String getText() {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
 #### Snippet
 ```java
 
-    protected String getSingleFileDeleteTitle() {
+    protected String getSingleFileDeletePromptTemplate() {
         return null;
     }
 
@@ -15826,7 +15826,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
 #### Snippet
 ```java
 
-    protected String getSingleFileDeletePromptTemplate() {
+    protected String getSingleFileDeleteTitle() {
         return null;
     }
 
@@ -15858,18 +15858,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/external/commands/FindWorkspaceCommand.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/external/commands/GetDetailedWorkspaceCommand.java`
 #### Snippet
 ```java
@@ -15877,6 +15865,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/GetDetailedWorkspaceCo
         if (StringUtils.isEmpty(stdout)) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/external/commands/FindWorkspaceCommand.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
 
 ```
 
@@ -15918,18 +15918,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
@@ -15938,6 +15926,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
             return null;
         }
         logger.info("User chose: " + mergedServerPath);
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15990,6 +15990,42 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 
 ### ReturnNull
 Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+            @Override
+            public String getText() {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+            @Override
+            public String getText2() {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+            @Override
+            public ModalityState getModalityState() {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
 #### Snippet
 ```java
@@ -15998,18 +16034,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -16038,6 +16062,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
 
 ### ReturnNull
 Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 #### Snippet
 ```java
@@ -16057,42 +16093,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
         if (StringUtils.isEmpty(currentProxy)) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-            logger.warn("getAuthenticatedContext unexpected exception", t);
-        }
-        return null;
-    }
 
 ```
 
@@ -16182,18 +16182,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchControlle
 
 ### ReturnNull
 Return of `null`
-in `plugin/src/com/microsoft/alm/plugin/idea/common/services/PropertyServiceImpl.java`
-#### Snippet
-```java
-    public Map<String, String> getProperties() {
-        if (map == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestsTreeModel.java`
 #### Snippet
 ```java
@@ -16201,6 +16189,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestsTree
         final TreePath treeModel = selectionModel.getLeadSelectionPath();
         return treeModel == null ? null : ((PRTreeNode) treeModel.getLastPathComponent()).getGitPullRequest();
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/services/PropertyServiceImpl.java`
+#### Snippet
+```java
+    public Map<String, String> getProperties() {
+        if (map == null) {
+            return null;
+        }
 
 ```
 
@@ -16221,18 +16221,6 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
-            return httpsUrl;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
     public static String removeUserInfo(final String url) {
         if (url == null) {
             return null;
@@ -16245,11 +16233,11 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
-            logger.debug(url, ex);
+            // unsure what this url is
+            logger.warn("getHttpsGitUrlFromSshUrl: can't determine https url from " + sshGitRemoteUrl);
+            return null;
         }
-        return null;
     }
-
 ```
 
 ### ReturnNull
@@ -16269,8 +16257,20 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
+            return httpsUrl;
+        } else {
+            return null;
         }
+    }
+```
 
+### ReturnNull
+Return of `null`
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+            logger.debug(url, ex);
+        }
         return null;
     }
 
@@ -16281,11 +16281,11 @@ Return of `null`
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
 ```java
-            // unsure what this url is
-            logger.warn("getHttpsGitUrlFromSshUrl: can't determine https url from " + sshGitRemoteUrl);
-            return null;
         }
+
+        return null;
     }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -16314,15 +16314,15 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `teamProjectURI` is redundant
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
+Local variable `targetBranch` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
 ```java
-    public URI getTeamProjectURI() {
-        if (teamProjectCollectionReference != null && teamProjectReference != null) {
-            final URI teamProjectURI = UrlHelper.getTeamProjectURI(serverUri, teamProjectCollectionReference.getName(), teamProjectReference.getName());
-            return teamProjectURI;
-        }
+
+    public String getTargetPath() {
+        final String targetBranch = (String) targetCombo.getSelectedItem();
+        return targetBranch;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -16350,14 +16350,14 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `witClient` is redundant
+Local variable `collectionURI` is redundant
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-        final URI collectionUri = getCollectionURI();
-        if (collectionUri != null) {
-            final WorkItemTrackingHttpClient witClient = new WorkItemTrackingHttpClient(getClient(), collectionUri);
-            return witClient;
+    public URI getCollectionURI() {
+        if (teamProjectCollectionReference != null) {
+            final URI collectionURI = UrlHelper.getCollectionURI(serverUri, teamProjectCollectionReference.getName());
+            return collectionURI;
         }
 ```
 
@@ -16374,39 +16374,27 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `collectionURI` is redundant
+Local variable `witClient` is redundant
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-    public URI getCollectionURI() {
-        if (teamProjectCollectionReference != null) {
-            final URI collectionURI = UrlHelper.getCollectionURI(serverUri, teamProjectCollectionReference.getName());
-            return collectionURI;
+        final URI collectionUri = getCollectionURI();
+        if (collectionUri != null) {
+            final WorkItemTrackingHttpClient witClient = new WorkItemTrackingHttpClient(getClient(), collectionUri);
+            return witClient;
         }
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `targetBranch` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+Local variable `teamProjectURI` is redundant
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-
-    public String getTargetPath() {
-        final String targetBranch = (String) targetCombo.getSelectedItem();
-        return targetBranch;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `serverContext` is redundant
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextBuilder.java`
-#### Snippet
-```java
-
-    protected ServerContext buildWithClient(Client client) {
-        final ServerContext serverContext = new ServerContext(type, authenticationInfo, userId, uri, serverUri, client,
-                teamProjectCollectionReference, teamProjectReference, gitRepository);
-
+    public URI getTeamProjectURI() {
+        if (teamProjectCollectionReference != null && teamProjectReference != null) {
+            final URI teamProjectURI = UrlHelper.getTeamProjectURI(serverUri, teamProjectCollectionReference.getName(), teamProjectReference.getName());
+            return teamProjectURI;
+        }
 ```
 
 ### UnnecessaryLocalVariable
@@ -16422,6 +16410,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.j
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `serverContext` is redundant
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextBuilder.java`
+#### Snippet
+```java
+
+    protected ServerContext buildWithClient(Client client) {
+        final ServerContext serverContext = new ServerContext(type, authenticationInfo, userId, uri, serverUri, client,
+                teamProjectCollectionReference, teamProjectReference, gitRepository);
+
+```
+
+### UnnecessaryLocalVariable
 Local variable `authenticationInfo` is redundant
 in `plugin/src/com/microsoft/alm/plugin/authentication/VsoAuthenticationProvider.java`
 #### Snippet
@@ -16431,6 +16431,30 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/VsoAuthenticationProvider
         final AuthenticationInfo authenticationInfo =
                 ServerContextManager.getInstance().getBestAuthenticationInfo(serverUri, false);
 
+```
+
+### UnnecessaryLocalVariable
+Local variable `context` is redundant
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+    public synchronized ServerContext get(final String uri) {
+        if (!StringUtils.isEmpty(uri)) {
+            final ServerContext context = contextMap.get(ServerContext.getKey(uri));
+            return context;
+        }
+```
+
+### UnnecessaryLocalVariable
+Local variable `context` is redundant
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+
+    public synchronized ServerContext getLastUsedContext() {
+        final ServerContext context = get(getLastUsedContextKey());
+        return context;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -16482,18 +16506,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/GetWorkspaceCommand.ja
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `localPath` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
-#### Snippet
-```java
-
-        if (foundMapping != null) {
-            final String localPath = foundMapping.isCloaked() ? null :
-                    ServerPath.makeLocal(serverPath, foundMapping.getServerPath(), foundMapping.getLocalPath(), checkForIllegalDollar);
-            return localPath;
-```
-
-### UnnecessaryLocalVariable
 Local variable `builder` is redundant
 in `plugin/src/com/microsoft/alm/plugin/external/commands/DeleteWorkspaceCommand.java`
 #### Snippet
@@ -16503,6 +16515,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/DeleteWorkspaceCommand
         final ToolRunner.ArgumentBuilder builder = super.getArgumentBuilder()
                 .addSwitch("delete")
                 .add(workspaceName);
+```
+
+### UnnecessaryLocalVariable
+Local variable `localPath` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+
+        if (foundMapping != null) {
+            final String localPath = foundMapping.isCloaked() ? null :
+                    ServerPath.makeLocal(serverPath, foundMapping.getServerPath(), foundMapping.getLocalPath(), checkForIllegalDollar);
+            return localPath;
 ```
 
 ### UnnecessaryLocalVariable
@@ -16537,30 +16561,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
     public static ServerContext getSavedServerContext(@NotNull final GitRepository gitRepository) {
         //get saved server context, we don't want to prompt for credentials or handle expired credentials on the UI thread
         final ServerContext context = ServerContextManager.getInstance().get(getTfGitRemoteUrl(gitRepository));
-        return context;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `context` is redundant
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-    public synchronized ServerContext get(final String uri) {
-        if (!StringUtils.isEmpty(uri)) {
-            final ServerContext context = contextMap.get(ServerContext.getKey(uri));
-            return context;
-        }
-```
-
-### UnnecessaryLocalVariable
-Local variable `context` is redundant
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-
-    public synchronized ServerContext getLastUsedContext() {
-        final ServerContext context = get(getLastUsedContextKey());
         return context;
     }
 ```
@@ -16665,18 +16665,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/MergeCommand.java`
 
 ## RuleId[ruleID=UnusedSymbol]
 ### UnusedSymbol
-Function "pipeToVoid" is never used
-in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
-#### Snippet
-```java
-    }
-
-    private fun <T> IRdTask<T>.pipeToVoid(lt: Lifetime, future: CompletableFuture<Void>) {
-        result.adviseOnce(lt) {
-            try {
-```
-
-### UnusedSymbol
 Function "pipeTo" is never used
 in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
 #### Snippet
@@ -16684,6 +16672,18 @@ in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientC
     }
 
     private fun <T> IRdTask<T>.pipeTo(lt: Lifetime, future: CompletableFuture<T>) {
+        result.adviseOnce(lt) {
+            try {
+```
+
+### UnusedSymbol
+Function "pipeToVoid" is never used
+in `client/connector/src/main/kotlin/com/microsoft/tfs/connector/ReactiveClientConnection.kt`
+#### Snippet
+```java
+    }
+
+    private fun <T> IRdTask<T>.pipeToVoid(lt: Lifetime, future: CompletableFuture<Void>) {
         result.adviseOnce(lt) {
             try {
 ```
@@ -16698,6 +16698,18 @@ import com.microsoft.tfs.model.host.TfsServerPath
 fun Workspace.isPathMapped(path: TfsPath): Boolean = when (path) {
     is TfsLocalPath -> isLocalPathMapped(path.path)
     is TfsServerPath -> isServerPathMapped(path.path)
+```
+
+### UnusedSymbol
+Function "withUndonePendingChangeListener" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
+import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
+
+fun VersionControlEventEngine.withUndonePendingChangeListener(
+    listener: UndonePendingChangeListener,
+    action: () -> Unit) {
 ```
 
 ### UnusedSymbol
@@ -16725,30 +16737,6 @@ fun VersionControlEventEngine.withNonFatalErrorListener(
 ```
 
 ### UnusedSymbol
-Function "withUndonePendingChangeListener" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
-#### Snippet
-```java
-import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
-
-fun VersionControlEventEngine.withUndonePendingChangeListener(
-    listener: UndonePendingChangeListener,
-    action: () -> Unit) {
-```
-
-### UnusedSymbol
-Function "toExtendedItemInfo" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    )
-
-fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
-    TfsExtendedItemInfo(
-        lockStatus,
-```
-
-### UnusedSymbol
 Property "encodingName" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
@@ -16761,14 +16749,38 @@ private val ExtendedItem.encodingName
 ```
 
 ### UnusedSymbol
-Property "itemTypeName" is never used
+Property "fileEncodingName" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-        else pendingChange.toUIString(false, this)
+        else encoding?.name
 
-private val ExtendedItem.itemTypeName
-    get() = itemType.toUIString()
+private val ExtendedItem.fileEncodingName
+    get() = if (itemType == ItemType.FILE) encodingName else null
+
+```
+
+### UnusedSymbol
+Function "toLocalItemInfo" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+    get() = lockLevel.toUIString()
+
+fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
+    TfsLocalItemInfo(
+        targetServerItem,
+```
+
+### UnusedSymbol
+Function "toCanonicalPathItemSpec" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+}
+
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
 
 ```
 
@@ -16785,14 +16797,26 @@ private val ExtendedItem.lockStatus
 ```
 
 ### UnusedSymbol
-Function "toCanonicalPathItemSpec" is never used
+Property "changeTypeName" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-}
-
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
     ItemSpec(toCanonicalPathString(), recursionType)
+
+private val ExtendedItem.changeTypeName
+    get() =
+        if (pendingChange == ChangeType.NONE) "none"
+```
+
+### UnusedSymbol
+Property "itemTypeName" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+        else pendingChange.toUIString(false, this)
+
+private val ExtendedItem.itemTypeName
+    get() = itemType.toUIString()
 
 ```
 
@@ -16809,27 +16833,15 @@ fun TfsPath.toCanonicalPathString(): String = when (this) {
 ```
 
 ### UnusedSymbol
-Function "toLocalItemInfo" is never used
+Function "toExtendedItemInfo" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-    get() = lockLevel.toUIString()
+    )
 
-fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
-    TfsLocalItemInfo(
-        targetServerItem,
-```
-
-### UnusedSymbol
-Property "changeTypeName" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    ItemSpec(toCanonicalPathString(), recursionType)
-
-private val ExtendedItem.changeTypeName
-    get() =
-        if (pendingChange == ChangeType.NONE) "none"
+fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
+    TfsExtendedItemInfo(
+        lockStatus,
 ```
 
 ### UnusedSymbol
@@ -16841,18 +16853,6 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 
 private val ExtendedItem.checkinDateString
     get() = checkinDate?.time?.let(isoDateFormat::format)
-
-```
-
-### UnusedSymbol
-Property "fileEncodingName" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-        else encoding?.name
-
-private val ExtendedItem.fileEncodingName
-    get() = if (itemType == ItemType.FILE) encodingName else null
 
 ```
 
@@ -16870,15 +16870,15 @@ fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path)
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'getButton()' is scheduled for removal in version 2022.2
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+'notifySuccess(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/FeedbackAction.java`
 #### Snippet
 ```java
-        mySourceIsDirectory = initialSourcePathIsDirectory;
 
-        sourceText.getButton().addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent e) {
-                final ServerBrowserDialog dialog =
+        if (dialog.showAndGet()) {
+            VcsNotifier.getInstance(project).notifySuccess(
+                    TfPluginBundle.message(TfPluginBundle.KEY_FEEDBACK_DIALOG_TITLE),
+                    TfPluginBundle.message(TfPluginBundle.KEY_FEEDBACK_NOTIFICATION));
 ```
 
 ### UnstableApiUsage
@@ -16906,6 +16906,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/BuildWidget.java`
 ```
 
 ### UnstableApiUsage
+'getButton()' is scheduled for removal in version 2022.2
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+        mySourceIsDirectory = initialSourcePathIsDirectory;
+
+        sourceText.getButton().addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                final ServerBrowserDialog dialog =
+```
+
+### UnstableApiUsage
 'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
 #### Snippet
@@ -16918,15 +16930,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsMod
 ```
 
 ### UnstableApiUsage
-'notifySuccess(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/FeedbackAction.java`
+'addWidget(com.intellij.openapi.wm.@org.jetbrains.annotations.NotNull StatusBarWidget, com.intellij.openapi.@org.jetbrains.annotations.NotNull Disposable)' is marked unstable with @ApiStatus.Internal
+in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.java`
 #### Snippet
 ```java
-
-        if (dialog.showAndGet()) {
-            VcsNotifier.getInstance(project).notifySuccess(
-                    TfPluginBundle.message(TfPluginBundle.KEY_FEEDBACK_DIALOG_TITLE),
-                    TfPluginBundle.message(TfPluginBundle.KEY_FEEDBACK_NOTIFICATION));
+        if (buildWidget == null) {
+            buildWidget = new BuildWidget();
+            statusBar.addWidget(buildWidget, project);
+        }
+        // Attempt to get the current repository context (if none, then the status stays as it was)
 ```
 
 ### UnstableApiUsage
@@ -16939,18 +16951,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.j
                 statusBar.removeWidget(BuildWidget.getID());
             }
         }
-```
-
-### UnstableApiUsage
-'addWidget(com.intellij.openapi.wm.@org.jetbrains.annotations.NotNull StatusBarWidget, com.intellij.openapi.@org.jetbrains.annotations.NotNull Disposable)' is marked unstable with @ApiStatus.Internal
-in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.java`
-#### Snippet
-```java
-        if (buildWidget == null) {
-            buildWidget = new BuildWidget();
-            statusBar.addWidget(buildWidget, project);
-        }
-        // Attempt to get the current repository context (if none, then the status stays as it was)
 ```
 
 ### UnstableApiUsage
@@ -16978,18 +16978,6 @@ public abstract class ApplicationStarterBase extends ApplicationStarterEx {
 ```
 
 ### UnstableApiUsage
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MergeBranchAction.java`
-#### Snippet
-```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                @Override
-                public void run() throws VcsException {
-```
-
-### UnstableApiUsage
 'getCommitMessage()' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/common/actions/SelectWorkItemsAction.java`
 #### Snippet
@@ -17002,6 +16990,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/actions/SelectWorkItemsActio
 ```
 
 ### UnstableApiUsage
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MergeBranchAction.java`
+#### Snippet
+```java
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                @Override
+                public void run() throws VcsException {
+```
+
+### UnstableApiUsage
 'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/git/actions/ImportAction.java`
 #### Snippet
@@ -17011,18 +17011,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/actions/ImportAction.java`
             VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_ACTIONS_IMPORT),
                     TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ERRORS_UNEXPECTED, t.getMessage()));
         }
-```
-
-### UnstableApiUsage
-Overridden method 'isAutoExpandNode(com.intellij.ide.util.treeView.NodeDescriptor)' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
-#### Snippet
-```java
-
-    @Override
-    protected boolean isAutoExpandNode(final NodeDescriptor nodeDescriptor) {
-        if (nodeDescriptor instanceof TfsErrorTreeNode) {
-            return true;
 ```
 
 ### UnstableApiUsage
@@ -17050,18 +17038,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.j
 ```
 
 ### UnstableApiUsage
-'com.intellij.ide.util.treeView.AbstractTreeBuilder' is scheduled for removal in version 2020.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
-#### Snippet
-```java
-import java.util.Comparator;
-
-public class TfsTreeBuilder extends AbstractTreeBuilder {
-    private static final Logger LOG = Logger.getInstance(TfsTreeBuilder.class.getName());
-
-```
-
-### UnstableApiUsage
 Overridden method 'isAlwaysShowPlus(com.intellij.ide.util.treeView.NodeDescriptor)' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
 #### Snippet
@@ -17082,6 +17058,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.j
     public TfsTreeBuilder(final JTree tree, final DefaultTreeModel treeModel, final AbstractTreeStructure treeStructure) {
         super(tree, treeModel, treeStructure, COMPARATOR);
     }
+
+```
+
+### UnstableApiUsage
+Overridden method 'isAutoExpandNode(com.intellij.ide.util.treeView.NodeDescriptor)' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
+#### Snippet
+```java
+
+    @Override
+    protected boolean isAutoExpandNode(final NodeDescriptor nodeDescriptor) {
+        if (nodeDescriptor instanceof TfsErrorTreeNode) {
+            return true;
+```
+
+### UnstableApiUsage
+'com.intellij.ide.util.treeView.AbstractTreeBuilder' is scheduled for removal in version 2020.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
+#### Snippet
+```java
+import java.util.Comparator;
+
+public class TfsTreeBuilder extends AbstractTreeBuilder {
+    private static final Logger LOG = Logger.getInstance(TfsTreeBuilder.class.getName());
 
 ```
 
@@ -17110,30 +17110,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
 ```
 
 ### UnstableApiUsage
-'notifySuccess(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
-#### Snippet
-```java
-
-                    // Notify the user of a successful sync
-                    VcsNotifier.getInstance(project).notifySuccess(
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_TITLE),
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
-```
-
-### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
-#### Snippet
-```java
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
-                } catch (final Throwable t) {
-                    VcsNotifier.getInstance(project).notifyError(
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
-                            LocalizationServiceImpl.getInstance().getExceptionMessage(t));
-```
-
-### UnstableApiUsage
 'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
 #### Snippet
@@ -17158,6 +17134,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.ja
 ```
 
 ### UnstableApiUsage
+'notifySuccess(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+#### Snippet
+```java
+
+                    // Notify the user of a successful sync
+                    VcsNotifier.getInstance(project).notifySuccess(
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_TITLE),
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+#### Snippet
+```java
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
+                } catch (final Throwable t) {
+                    VcsNotifier.getInstance(project).notifyError(
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
+                            LocalizationServiceImpl.getInstance().getExceptionMessage(t));
+```
+
+### UnstableApiUsage
 'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
 #### Snippet
@@ -17167,6 +17167,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
     private JComponent createDiffPaneBrowser(final Project project, final GitCommitCompareInfo compareInfo) {
         List<Change> diff = compareInfo.getTotalDiff();
         final SimpleChangesBrowser changesBrowser = new  SimpleChangesBrowser(project,diff);
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+                                              @NotNull final String sourceBranchBeingCompared,
+                                              @NotNull final String targetBranchBeingCompared,
+                                              @NotNull final GitCommitCompareInfo myCompareInfo) {
+        final GitRemoteBranch gitRemoteBranch = this.getSelectedRemoteBranch();
+        final String currBranch = this.sourceBranch.getText();
 ```
 
 ### UnstableApiUsage
@@ -17191,18 +17203,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
         return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
     }
 
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
-#### Snippet
-```java
-                                              @NotNull final String sourceBranchBeingCompared,
-                                              @NotNull final String targetBranchBeingCompared,
-                                              @NotNull final GitCommitCompareInfo myCompareInfo) {
-        final GitRemoteBranch gitRemoteBranch = this.getSelectedRemoteBranch();
-        final String currBranch = this.sourceBranch.getText();
 ```
 
 ### UnstableApiUsage
@@ -17258,107 +17258,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TfvcIntegrationEnabler.ja
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
 #### Snippet
 ```java
-     * @return compare info which contains empty commits and diff lists
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-```
+    }
 
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'GitCommitCompareInfo(git4idea.util.GitCommitCompareInfo.@org.jetbrains.annotations.NotNull InfoType)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo.InfoType' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'BRANCH_TO_HEAD' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, com.intellij.openapi.util.@org.jetbrains.annotations.NotNull Pair,java.util.List\>)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
-```
-
-### UnstableApiUsage
-'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, java.util.@org.jetbrains.annotations.NotNull Collection)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
-
-        return emptyCompareInfo;
+    public GitCommitCompareInfo getBranchCompareInfo(final Project project, final GitRepository gitRepository,
+                                                     final String source, final String target)
+            throws VcsException {
 ```
 
 ### UnstableApiUsage
@@ -17474,11 +17378,107 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoP
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
 #### Snippet
 ```java
-    }
+     * @return compare info which contains empty commits and diff lists
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+```
 
-    public GitCommitCompareInfo getBranchCompareInfo(final Project project, final GitRepository gitRepository,
-                                                     final String source, final String target)
-            throws VcsException {
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'GitCommitCompareInfo(git4idea.util.GitCommitCompareInfo.@org.jetbrains.annotations.NotNull InfoType)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo.InfoType' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'BRANCH_TO_HEAD' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, com.intellij.openapi.util.@org.jetbrains.annotations.NotNull Pair,java.util.List\>)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
+```
+
+### UnstableApiUsage
+'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, java.util.@org.jetbrains.annotations.NotNull Collection)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
+
+        return emptyCompareInfo;
 ```
 
 ### UnstableApiUsage
@@ -17526,7 +17526,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         try {
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 public void run() {
-                    try {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
 ```
 
 ### UnstableApiUsage
@@ -17538,7 +17538,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         try {
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    try {
 ```
 
 ### UnstableApiUsage
@@ -17554,54 +17554,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-
-                    if (context == null) {
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
-                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
-                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
-```
-
-### UnstableApiUsage
-'fetch(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-                    logger.info("Fetching latest from server so that the new branch is available to checkout");
-                    final GitFetcher fetcher = new GitFetcher(project, getProgressIndicator(progressIndicator), true);
-                    final GitFetchResult fetchResult = fetcher.fetch(gitRepository);
-                    if (fetchResult.isSuccess() && this.checkoutBranch) {
-                        logger.info("Checking out new branch: " + branchName);
-```
-
-### UnstableApiUsage
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-                final String branchLink = String.format(UrlHelper.SHORT_HTTP_LINK_FORMATTER, UrlHelper.getBranchURI(context.getUri(), getBranchName()), getBranchName());
-                if (!ApplicationManager.getApplication().isUnitTestMode()) {
-                    VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(TfPluginBundle.KEY_CREATE_BRANCH_DIALOG_SUCCESSFUL_TITLE),
-                            TfPluginBundle.message(TfPluginBundle.KEY_CREATE_BRANCH_DIALOG_SUCCESSFUL_DESCRIPTION, branchLink), new NotificationListener() {
-                                @Override
-```
-
-### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-                logger.warn("Create branch failed: {}", errorMessage);
-                if (!ApplicationManager.getApplication().isUnitTestMode()) {
-                    VcsNotifier.getInstance(project).notifyError(
-                            TfPluginBundle.message(TfPluginBundle.KEY_CREATE_BRANCH_DIALOG_FAILED_TITLE),
-                            TfPluginBundle.message(
-```
-
-### UnstableApiUsage
 'VcsVFSListener(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, com.intellij.openapi.vcs.@org.jetbrains.annotations.NotNull AbstractVcs)' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
 #### Snippet
@@ -17610,114 +17562,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
     public TFSFileListener(Project project, TFSVcs vcs) {
         super(project, vcs);
     }
-
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-        this.diffCache = CacheBuilder.newBuilder().maximumSize(20)
-                .build(
-                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
-                            @Override
-                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
-```
-
-### UnstableApiUsage
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-
-    private void notifySuccess(final Project project, final String title, final String message) {
-        VcsNotifier.getInstance(project).notifyImportantInfo(title, message, new NotificationListener() {
-            @Override
-            public void hyperlinkUpdate(@NotNull final Notification n, @NotNull final HyperlinkEvent e) {
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    private GitChangesContainer localBranchChanges;
-
-    private final LoadingCache<Pair<String, String>, GitCommitCompareInfo> diffCache;
-
-    /* Executor service for running diff calculating Futures */
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
-                            @Override
-                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
-                                // if we missed the cache, then show the loading spinner, otherwise
-                                // just switch to the diff we have to avoid flickering the screen
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                                setLoading(false);
-
-                                final GitCommitCompareInfo compareInfo = changesContainer.getGitCommitCompareInfo();
-                                if (compareInfo != null) {
-                                    List<GitCommit> commits
-```
-
-### UnstableApiUsage
-'getBranchToHeadCommits(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                                if (compareInfo != null) {
-                                    List<GitCommit> commits
-                                            = compareInfo.getBranchToHeadCommits(changesContainer.getGitRepository());
-
-                                    final GitLocalBranch sourceBranch = getSourceBranch();
-```
-
-### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    private void notifyError(final Project project, final String title, final String message) {
-        if (message != null) {
-            VcsNotifier.getInstance(project).notifyError(title, message);
-        } else {
-            VcsNotifier.getInstance(project).notifyError(title, "");
-```
-
-### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-            VcsNotifier.getInstance(project).notifyError(title, message);
-        } else {
-            VcsNotifier.getInstance(project).notifyError(title, "");
-        }
-    }
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-
-        try {
-            GitCommitCompareInfo changes
-                    = this.diffCache.get(new Pair<String, String>(currBranchHash, remoteBranchHash));
 
 ```
 
@@ -17782,18 +17626,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### UnstableApiUsage
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-                    if (StringUtils.isNotEmpty(remoteUrlForDisplay)) {
-                        // Notify the user that we are done and provide a link to the repo
-                        VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_SUCCEEDED),
-                                TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_SUCCEEDED_MESSAGE, project.getName(), remoteUrlForDisplay, repositoryName),
-                                NotificationListener.URL_OPENING_LISTENER);
-```
-
-### UnstableApiUsage
 'getGitDir()' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
@@ -17818,6 +17650,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### UnstableApiUsage
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                    if (StringUtils.isNotEmpty(remoteUrlForDisplay)) {
+                        // Notify the user that we are done and provide a link to the repo
+                        VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_SUCCEEDED),
+                                TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_SUCCEEDED_MESSAGE, project.getName(), remoteUrlForDisplay, repositoryName),
+                                NotificationListener.URL_OPENING_LISTENER);
+```
+
+### UnstableApiUsage
 'notifyImportantWarning(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
 #### Snippet
@@ -17830,27 +17674,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
 ```
 
 ### UnstableApiUsage
-'YES_BUTTON' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_ABANDON_CONFIRMATION, prId),
-                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_TITLE),
-                                        Icons.VSLogo, Messages.YES_BUTTON, Messages.NO_BUTTON);
-                            }
-                        }, true, indicator.getModalityState());
+            }
+        };
+        VcsUtil.runVcsProcessWithProgress(resolveRunnable, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_RESOLVING_PROGRESS_BAR), false, project);
+
+        // The following code is in this method instead of resolveConflict so that it will be called from tests
 ```
 
 ### UnstableApiUsage
-'NO_BUTTON' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_ABANDON_CONFIRMATION, prId),
-                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_TITLE),
-                                        Icons.VSLogo, Messages.YES_BUTTON, Messages.NO_BUTTON);
-                            }
-                        }, true, indicator.getModalityState());
+            }
+        };
+        VcsUtil.runVcsProcessWithProgress(runnable, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_MERGE_LOADING), false, project);
+        return contentTriplet;
+    }
 ```
 
 ### UnstableApiUsage
@@ -17878,27 +17722,183 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsM
 ```
 
 ### UnstableApiUsage
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+'YES_BUTTON' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
 #### Snippet
 ```java
-            }
-        };
-        VcsUtil.runVcsProcessWithProgress(runnable, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_MERGE_LOADING), false, project);
-        return contentTriplet;
+                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_ABANDON_CONFIRMATION, prId),
+                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_TITLE),
+                                        Icons.VSLogo, Messages.YES_BUTTON, Messages.NO_BUTTON);
+                            }
+                        }, true, indicator.getModalityState());
+```
+
+### UnstableApiUsage
+'NO_BUTTON' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsModel.java`
+#### Snippet
+```java
+                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_ABANDON_CONFIRMATION, prId),
+                                        TfPluginBundle.message(TfPluginBundle.KEY_VCS_PR_TITLE),
+                                        Icons.VSLogo, Messages.YES_BUTTON, Messages.NO_BUTTON);
+                            }
+                        }, true, indicator.getModalityState());
+```
+
+### UnstableApiUsage
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+
+    private void notifySuccess(final Project project, final String title, final String message) {
+        VcsNotifier.getInstance(project).notifyImportantInfo(title, message, new NotificationListener() {
+            @Override
+            public void hyperlinkUpdate(@NotNull final Notification n, @NotNull final HyperlinkEvent e) {
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
+                            @Override
+                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
+                                // if we missed the cache, then show the loading spinner, otherwise
+                                // just switch to the diff we have to avoid flickering the screen
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+
+        try {
+            GitCommitCompareInfo changes
+                    = this.diffCache.get(new Pair<String, String>(currBranchHash, remoteBranchHash));
+
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+        this.diffCache = CacheBuilder.newBuilder().maximumSize(20)
+                .build(
+                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
+                            @Override
+                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    private GitChangesContainer localBranchChanges;
+
+    private final LoadingCache<Pair<String, String>, GitCommitCompareInfo> diffCache;
+
+    /* Executor service for running diff calculating Futures */
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    private void notifyError(final Project project, final String title, final String message) {
+        if (message != null) {
+            VcsNotifier.getInstance(project).notifyError(title, message);
+        } else {
+            VcsNotifier.getInstance(project).notifyError(title, "");
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+            VcsNotifier.getInstance(project).notifyError(title, message);
+        } else {
+            VcsNotifier.getInstance(project).notifyError(title, "");
+        }
     }
 ```
 
 ### UnstableApiUsage
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-            }
-        };
-        VcsUtil.runVcsProcessWithProgress(resolveRunnable, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_RESOLVING_PROGRESS_BAR), false, project);
+                                setLoading(false);
 
-        // The following code is in this method instead of resolveConflict so that it will be called from tests
+                                final GitCommitCompareInfo compareInfo = changesContainer.getGitCommitCompareInfo();
+                                if (compareInfo != null) {
+                                    List<GitCommit> commits
+```
+
+### UnstableApiUsage
+'getBranchToHeadCommits(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+                                if (compareInfo != null) {
+                                    List<GitCommit> commits
+                                            = compareInfo.getBranchToHeadCommits(changesContainer.getGitRepository());
+
+                                    final GitLocalBranch sourceBranch = getSourceBranch();
+```
+
+### UnstableApiUsage
+'fetch(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+                    logger.info("Fetching latest from server so that the new branch is available to checkout");
+                    final GitFetcher fetcher = new GitFetcher(project, getProgressIndicator(progressIndicator), true);
+                    final GitFetchResult fetchResult = fetcher.fetch(gitRepository);
+                    if (fetchResult.isSuccess() && this.checkoutBranch) {
+                        logger.info("Checking out new branch: " + branchName);
+```
+
+### UnstableApiUsage
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+                final String branchLink = String.format(UrlHelper.SHORT_HTTP_LINK_FORMATTER, UrlHelper.getBranchURI(context.getUri(), getBranchName()), getBranchName());
+                if (!ApplicationManager.getApplication().isUnitTestMode()) {
+                    VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(TfPluginBundle.KEY_CREATE_BRANCH_DIALOG_SUCCESSFUL_TITLE),
+                            TfPluginBundle.message(TfPluginBundle.KEY_CREATE_BRANCH_DIALOG_SUCCESSFUL_DESCRIPTION, branchLink), new NotificationListener() {
+                                @Override
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+                logger.warn("Create branch failed: {}", errorMessage);
+                if (!ApplicationManager.getApplication().isUnitTestMode()) {
+                    VcsNotifier.getInstance(project).notifyError(
+                            TfPluginBundle.message(TfPluginBundle.KEY_CREATE_BRANCH_DIALOG_FAILED_TITLE),
+                            TfPluginBundle.message(
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+
+                    if (context == null) {
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
+                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
+                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
 ```
 
 ### UnstableApiUsage
@@ -17911,30 +17911,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/operations/RenameFile
                 PersistentFS.getInstance().processEvents(Collections.singletonList(event));
             }
         } catch (Throwable t) {
-```
-
-### UnstableApiUsage
-'installPopupHandler(javax.swing.@org.jetbrains.annotations.NotNull JComponent, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.@org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2022.1
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
-#### Snippet
-```java
-            }
-        });
-        PopupHandler.installPopupHandler(tree, POPUP_ACTION_GROUP, ActionPlaces.REMOTE_HOST_DIALOG_POPUP);
-        setMessage(null, false);
-    }
-```
-
-### UnstableApiUsage
-'getSelectedElements()' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
-#### Snippet
-```java
-    @Nullable
-    private SelectedItem doGetSelectedItem() {
-        final Set<Object> selection = treeBuider.getSelectedElements();
-        if (selection.isEmpty()) {
-            return null;
 ```
 
 ### UnstableApiUsage
@@ -17962,6 +17938,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java
 ```
 
 ### UnstableApiUsage
+'installPopupHandler(javax.swing.@org.jetbrains.annotations.NotNull JComponent, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.@org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2022.1
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
+#### Snippet
+```java
+            }
+        });
+        PopupHandler.installPopupHandler(tree, POPUP_ACTION_GROUP, ActionPlaces.REMOTE_HOST_DIALOG_POPUP);
+        setMessage(null, false);
+    }
+```
+
+### UnstableApiUsage
+'getSelectedElements()' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
+#### Snippet
+```java
+    @Nullable
+    private SelectedItem doGetSelectedItem() {
+        final Set<Object> selection = treeBuider.getSelectedElements();
+        if (selection.isEmpty()) {
+            return null;
+```
+
+### UnstableApiUsage
 'select(java.lang.Object)' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
 #### Snippet
@@ -17986,18 +17986,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java
 ```
 
 ### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-                    if (context == null) {
-                        logger.warn("No context could be found");
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_AUTHENTICATION_FAILED_TITLE), TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitUrl));
-                        return;
-                    }
-```
-
-### UnstableApiUsage
 'getTreeTextForeground()' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeNodeForm.java`
 #### Snippet
@@ -18011,14 +17999,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PRTreeNodeForm.j
 
 ### UnstableApiUsage
 'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/extensions/GitCheckoutProvider.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
 #### Snippet
 ```java
-            //unexpected error
-            logger.warn("doCheckout failed unexpected error", t);
-            VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_DIALOG_TITLE),
-                    TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_UNEXPECTED, t.getMessage()));
-        }
+                    if (context == null) {
+                        logger.warn("No context could be found");
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_AUTHENTICATION_FAILED_TITLE), TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitUrl));
+                        return;
+                    }
 ```
 
 ### UnstableApiUsage
@@ -18046,27 +18034,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/visualstudio/VisualStudioTfvcCl
 ```
 
 ### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/extensions/GitCheckoutProvider.java`
 #### Snippet
 ```java
-    }
-
-    public GitCommitCompareInfo getGitCommitCompareInfo() {
-        return gitCommitCompareInfo;
-    }
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
-#### Snippet
-```java
-    public static GitChangesContainer createChangesContainer(final String sourceBranchName, final String targetBranchName,
-                                                             final String sourceBranchHash, final String targetBranchHash,
-                                                             final GitCommitCompareInfo gitCommitCompareInfo,
-                                                             final GitRepository gitRepository) {
-        final GitChangesContainer container = new GitChangesContainer();
+            //unexpected error
+            logger.warn("doCheckout failed unexpected error", t);
+            VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_DIALOG_TITLE),
+                    TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_UNEXPECTED, t.getMessage()));
+        }
 ```
 
 ### UnstableApiUsage
@@ -18086,10 +18062,34 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContai
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
 #### Snippet
 ```java
+    public static GitChangesContainer createChangesContainer(final String sourceBranchName, final String targetBranchName,
+                                                             final String sourceBranchHash, final String targetBranchHash,
+                                                             final GitCommitCompareInfo gitCommitCompareInfo,
+                                                             final GitRepository gitRepository) {
+        final GitChangesContainer container = new GitChangesContainer();
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+#### Snippet
+```java
     }
 
     public void setGitCommitCompareInfo(final GitCommitCompareInfo gitCommitCompareInfo) {
         this.gitCommitCompareInfo = gitCommitCompareInfo;
+    }
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+#### Snippet
+```java
+    }
+
+    public GitCommitCompareInfo getGitCommitCompareInfo() {
+        return gitCommitCompareInfo;
     }
 ```
 
