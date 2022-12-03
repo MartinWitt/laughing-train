@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-03-12-32-31.711.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-03-17-19-42.838.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -102,15 +102,15 @@ in `src/main/java/com/diffmin/patch/PatchGeneration.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `src/main/java/com/diffmin/SpoonMapping.java`
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
-     */
-    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
-        while (!matches.isEmpty()) {
-            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
 ```
 
 ### BoundedWildcard
@@ -118,23 +118,11 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
 
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
 ```
 
 ### BoundedWildcard
@@ -190,11 +178,11 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
 ```
 
 ### BoundedWildcard
@@ -202,11 +190,23 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
 
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `src/main/java/com/diffmin/SpoonMapping.java`
+#### Snippet
+```java
+     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
+     */
+    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
+        while (!matches.isEmpty()) {
+            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
