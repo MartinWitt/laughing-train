@@ -80,19 +80,6 @@ import org.apache.camel.kameleon.model.CamelComponent;
 import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
-#### Snippet
-```java
-        KameletsCatalog catalog = new KameletsCatalog();
-        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
-                .map(e -> new KameletComponent(
-                        e.getValue().getMetadata().getName(),
-                        e.getValue().getSpec().getDefinition().getTitle(),
-```
-
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -128,6 +115,19 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             e.printStackTrace();
         }
     }
+```
+
+## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
+#### Snippet
+```java
+        KameletsCatalog catalog = new KameletsCatalog();
+        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
+                .map(e -> new KameletComponent(
+                        e.getValue().getMetadata().getName(),
+                        e.getValue().getSpec().getDefinition().getTitle(),
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -187,11 +187,11 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-                                          String groupId, String artifactId, String version)
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
+            }
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -199,11 +199,11 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-        Properties properties = new Properties();
+        } else {
+            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
+            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
+            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -223,11 +223,11 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-            }
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
+                                          String groupId, String artifactId, String version)
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -235,11 +235,11 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-        } else {
-            CamelType camelType = configurationResource.getKc().getTypes().stream().filter(t -> t.getName().equals("quarkus")).findFirst().get();
-            String quarkusVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get().getRuntimeVersion();
-            generateQuarkusArchetype(temp, quarkusVersion, groupId, artifactId, version, components);
-            String folderName = temp.getAbsolutePath() + "/code-with-quarkus";
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+        Properties properties = new Properties();
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
