@@ -40,7 +40,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-05-09-52-15.096.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-05-11-05-43.281.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -76,6 +76,19 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
     private final double mu;
 ```
 
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
+#### Snippet
+```java
+            return lower;
+        }
+        return x < upper ? x : upper;
+    }
+
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -99,18 +112,5 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
             median = m = inverseCumulativeProbability(0.5);
         }
         return m;
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
-#### Snippet
-```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
 ```
 
