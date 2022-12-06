@@ -315,7 +315,7 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-04-49-39.415.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-04-55-43.389.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -500,18 +500,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/PointWriter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SinkRecord`
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
-#### Snippet
-```java
-     * @return the list of sink write failed operations.
-     */
-    protected SinkWriteResponse writeCore(List<SinkRecord> sinkRecords) {
-
-        SinkWriteResponse sinkWriteResponse = new SinkWriteResponse();
-```
-
-### BoundedWildcard
 Can generalize to `? extends SinkOperationFailedResponse`
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
@@ -521,6 +509,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
     private void sendToDlqIfConfigured(List<SinkOperationFailedResponse> failedResponses) {
         if (context != null && context.errantRecordReporter() != null) {
             for (SinkOperationFailedResponse sinkRecordResponse : failedResponses) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SinkRecord`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
+#### Snippet
+```java
+     * @return the list of sink write failed operations.
+     */
+    protected SinkWriteResponse writeCore(List<SinkRecord> sinkRecords) {
+
+        SinkWriteResponse sinkWriteResponse = new SinkWriteResponse();
 ```
 
 ### BoundedWildcard
@@ -548,18 +548,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SourceRecord`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
-    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
-        Long bufferSize = config.getTaskBufferSize();
-        Long batchSize = config.getTaskBatchSize();
-```
-
-### BoundedWildcard
 Can generalize to `? extends JsonNode`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
@@ -569,6 +557,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
     protected void handleCosmosDbChanges(List<JsonNode> docs)  {
         for (JsonNode document : docs) {
             // Blocks for each transfer till it is processed by the poll method.
+```
+
+### BoundedWildcard
+Can generalize to `? super SourceRecord`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
+    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
+        Long bufferSize = config.getTaskBufferSize();
+        Long batchSize = config.getTaskBatchSize();
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
@@ -645,18 +645,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrate
 ```
 
 ### UnusedAssignment
-The value changed at `databaseGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONTAINER_TOPIC_MAP_DOC,
-                        databaseGroupName,
-                        databaseGroupOrder++,
-                        Width.MEDIUM,
-                        COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
-```
-
-### UnusedAssignment
 The value changed at `connectionGroupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -666,6 +654,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
                         connectionGroupOrder++,
                         Width.LONG,
                         COSMOS_CONN_KEY_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `databaseGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONTAINER_TOPIC_MAP_DOC,
+                        databaseGroupName,
+                        databaseGroupOrder++,
+                        Width.MEDIUM,
+                        COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
 ```
 
 ### UnusedAssignment
