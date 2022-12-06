@@ -9,8 +9,8 @@ I found 8 bad smells with 1 repairable:
 | SuspiciousNameCombination | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| ConstantMathCall | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
+| ConstantMathCall | 1 | false |
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
 ### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
@@ -40,7 +40,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-04-14-19.530.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-14-32-21.605.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -61,19 +61,6 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         final double shape = mu;
         final double scale = omega / mu;
         final SharedStateContinuousSampler sampler =
-```
-
-## RuleId[ruleID=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
-#### Snippet
-```java
-    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
-    /** &radic;(2 &pi;). */
-    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
-    /** The mu parameter of this distribution. */
-    private final double mu;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -112,5 +99,18 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         return x < upper ? x : upper;
     }
 
+```
+
+## RuleId[ruleID=ConstantMathCall]
+### ConstantMathCall
+Constant call to `sqrt()` can be simplified
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+#### Snippet
+```java
+    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
+    /** &radic;(2 &pi;). */
+    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
+    /** The mu parameter of this distribution. */
+    private final double mu;
 ```
 
