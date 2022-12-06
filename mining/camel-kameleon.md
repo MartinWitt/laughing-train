@@ -150,11 +150,11 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
+    protected List<String> labels;
+
+    public AbstractComponent() {
     }
 
-    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
-        this.name = name;
-        this.title = title;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -162,11 +162,11 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
-    protected List<String> labels;
-
-    public AbstractComponent() {
     }
 
+    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
+        this.name = name;
+        this.title = title;
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -185,7 +185,7 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-12-51-41.088.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-16-40-06.215.html`
 #### Snippet
 ```java
               <td>0</td>
