@@ -1,7 +1,7 @@
 # sorald 
  
 # Bad smells
-I found 102 bad smells with 15 repairable:
+I found 101 bad smells with 15 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 22 | false |
@@ -27,7 +27,6 @@ I found 102 bad smells with 15 repairable:
 | SetReplaceableByEnumSet | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
 | DoubleBraceInitialization | 1 | false |
@@ -123,7 +122,19 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
-    public Collection<Rule> getRulesByType(@Nonnull IRuleType... types);
+    public Collection<Rule> getAllRules();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     */
+    @Nonnull
+    public Collection<Rule> getHandledRules();
 
     /**
 ```
@@ -147,33 +158,9 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
-    public Collection<Rule> getHandledRules();
+    public Collection<Rule> getRulesByType(@Nonnull IRuleType... types);
 
     /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     */
-    @Nonnull
-    public Collection<Rule> getAllRules();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `sorald-api/src/main/java/sorald/annotations/ProcessorAnnotation.java`
-#### Snippet
-```java
-    public String key();
-
-    public String description();
-}
-
 ```
 
 ### UnnecessaryModifier
@@ -186,6 +173,18 @@ public @interface ProcessorAnnotation {
     public String key();
 
     public String description();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `sorald-api/src/main/java/sorald/annotations/ProcessorAnnotation.java`
+#### Snippet
+```java
+    public String key();
+
+    public String description();
+}
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -365,18 +364,6 @@ in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Character`
-in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
-#### Snippet
-```java
-    }
-
-    private static int reverseFind(String s, int startIdx, Predicate<Character> predicate) {
-        int searchPos = startIdx;
-        while (searchPos > 0 && !predicate.test(s.charAt(searchPos))) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends RuleViolation`
 in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
 #### Snippet
@@ -386,6 +373,18 @@ in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
             Set<RuleViolation> ruleViolations, SoraldAbstractProcessor<?> processor) {
         String procKey = processor.getRuleKey();
         ruleViolations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super Character`
+in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
+#### Snippet
+```java
+    }
+
+    private static int reverseFind(String s, int startIdx, Predicate<Character> predicate) {
+        int searchPos = startIdx;
+        while (searchPos > 0 && !predicate.test(s.charAt(searchPos))) {
 ```
 
 ### BoundedWildcard
@@ -425,6 +424,18 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SoraldEventHandler`
+in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
+#### Snippet
+```java
+    }
+
+    public SoraldAbstractProcessor<E> setEventHandlers(List<SoraldEventHandler> eventHandlers) {
+        this.eventHandlers = eventHandlers;
+        return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends CtElement`
 in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 #### Snippet
@@ -445,18 +456,6 @@ in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 
     public SoraldAbstractProcessor<E> setBestFits(Map<CtElement, RuleViolation> bestFits) {
         this.bestFits = Collections.unmodifiableMap(bestFits);
-        return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoraldEventHandler`
-in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
-#### Snippet
-```java
-    }
-
-    public SoraldAbstractProcessor<E> setEventHandlers(List<SoraldEventHandler> eventHandlers) {
-        this.eventHandlers = eventHandlers;
         return this;
 ```
 
@@ -515,9 +514,9 @@ in `sorald/src/main/java/sorald/Repair.java`
 ```java
     }
 
-    private void reportSegmentCrash(LinkedList<Node> segment, Exception e) {
-        List<String> paths =
-                segment.stream()
+    Launcher createSegmentLauncher(List<Node> segment) {
+        Launcher launcher = new Launcher();
+
 ```
 
 ### BoundedWildcard
@@ -527,9 +526,9 @@ in `sorald/src/main/java/sorald/Repair.java`
 ```java
     }
 
-    Launcher createSegmentLauncher(List<Node> segment) {
-        Launcher launcher = new Launcher();
-
+    private void reportSegmentCrash(LinkedList<Node> segment, Exception e) {
+        List<String> paths =
+                segment.stream()
 ```
 
 ### BoundedWildcard
@@ -537,11 +536,11 @@ Can generalize to `? extends JavaInputFile`
 in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 #### Snippet
 ```java
-    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithCliOptions(
-            File projectRoot,
-            List<JavaInputFile> inputFiles,
-            List<Rule> rules,
-            CLIConfigForStaticAnalyzer cliOptions) {
+
+    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
+            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
+        return StandaloneAnalysisConfiguration.builder()
+                .setBaseDir(projectRoot.toPath())
 ```
 
 ### BoundedWildcard
@@ -549,11 +548,11 @@ Can generalize to `? extends Rule`
 in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 #### Snippet
 ```java
-            File projectRoot,
-            List<JavaInputFile> inputFiles,
-            List<Rule> rules,
-            CLIConfigForStaticAnalyzer cliOptions) {
+
+    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
+            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
         return StandaloneAnalysisConfiguration.builder()
+                .setBaseDir(projectRoot.toPath())
 ```
 
 ### BoundedWildcard
@@ -581,30 +580,6 @@ in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaInputFile`
-in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
-#### Snippet
-```java
-
-    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
-            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
-        return StandaloneAnalysisConfiguration.builder()
-                .setBaseDir(projectRoot.toPath())
-```
-
-### BoundedWildcard
-Can generalize to `? extends Rule`
-in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
-#### Snippet
-```java
-
-    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
-            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
-        return StandaloneAnalysisConfiguration.builder()
-                .setBaseDir(projectRoot.toPath())
-```
-
-### BoundedWildcard
 Can generalize to `? extends File`
 in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 #### Snippet
@@ -616,7 +591,79 @@ in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
             CLIConfigForStaticAnalyzer cliOptions) {
 ```
 
+### BoundedWildcard
+Can generalize to `? extends JavaInputFile`
+in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
+#### Snippet
+```java
+    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithCliOptions(
+            File projectRoot,
+            List<JavaInputFile> inputFiles,
+            List<Rule> rules,
+            CLIConfigForStaticAnalyzer cliOptions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Rule`
+in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
+#### Snippet
+```java
+            File projectRoot,
+            List<JavaInputFile> inputFiles,
+            List<Rule> rules,
+            CLIConfigForStaticAnalyzer cliOptions) {
+        return StandaloneAnalysisConfiguration.builder()
+```
+
 ## RuleId[ruleID=NullableProblems]
+### NullableProblems
+Overridden methods are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     * @return a collection of all rules.
+     */
+    @Nonnull
+    public Collection<Rule> getAllRules();
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     * @return a collection of rules that are handled by Sorald.
+     */
+    @Nonnull
+    public Collection<Rule> getHandledRules();
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     * @return All rules with any of the given types.
+     */
+    @Nonnull
+    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
+}
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     */
+    @Nonnull
+    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
+}
+
+```
+
 ### NullableProblems
 Overridden methods are not annotated
 in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
@@ -639,54 +686,6 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
     public Collection<Rule> getRulesByType(@Nonnull IRuleType... types);
 
     /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     * @return All rules with any of the given types.
-     */
-    @Nonnull
-    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
-}
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     */
-    @Nonnull
-    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
-}
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     * @return a collection of rules that are handled by Sorald.
-     */
-    @Nonnull
-    public Collection<Rule> getHandledRules();
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     * @return a collection of all rules.
-     */
-    @Nonnull
-    public Collection<Rule> getAllRules();
-
 ```
 
 ### NullableProblems
@@ -1082,30 +1081,6 @@ in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
-#### Snippet
-```java
-public class ProcessorsClassGenerator<T>
-        extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
-    private CtCompilationUnit cu = null;
-    private CtType<?> processorsClass = null;
-    private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
-#### Snippet
-```java
-        extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
-    private CtCompilationUnit cu = null;
-    private CtType<?> processorsClass = null;
-    private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
-    private final SortedMap<String, String> descriptions = new TreeMap<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
 #### Snippet
@@ -1131,6 +1106,30 @@ in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
+#### Snippet
+```java
+public class ProcessorsClassGenerator<T>
+        extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
+    private CtCompilationUnit cu = null;
+    private CtType<?> processorsClass = null;
+    private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
+#### Snippet
+```java
+        extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
+    private CtCompilationUnit cu = null;
+    private CtType<?> processorsClass = null;
+    private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
+    private final SortedMap<String, String> descriptions = new TreeMap<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 #### Snippet
 ```java
@@ -1139,19 +1138,6 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
         String ruleKey = null;
 
         @CommandLine.Option(
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-01-22-13.325.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -1196,11 +1182,11 @@ Return of `null`
 in `sorald/src/main/java/sorald/Repair.java`
 #### Snippet
 ```java
-                    .setEventHandlers(eventHandlers);
+            e.printStackTrace();
         }
         return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -1208,11 +1194,11 @@ Return of `null`
 in `sorald/src/main/java/sorald/Repair.java`
 #### Snippet
 ```java
-            e.printStackTrace();
+                    .setEventHandlers(eventHandlers);
         }
         return null;
     }
-
+}
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -1252,31 +1238,6 @@ in `sorald/src/main/java/sorald/sonar/SonarProcessorRepository.java`
                     new java.util.HashMap<>() {
                         {
                             put("S1068", UnusedPrivateFieldProcessor.class);
-```
-
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `sorald/src/main/java/sorald/processor/DeadStoreProcessor.java`
-#### Snippet
-```java
-        return statementLists.stream()
-                .reduce((lhs, rhs) -> greedyFindDeepestCommonParent(lhs, rhs, depths))
-                .get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `sorald/src/main/java/sorald/processor/ThreadLocalWithInitial.java`
-#### Snippet
-```java
-                .filter(v -> v.getSimpleName().equals("initialValue"))
-                .findFirst()
-                .get();
-    }
-}
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -1338,5 +1299,30 @@ in `sorald/src/main/java/sorald/processor/SelfAssignementProcessor.java`
         } else if (!instanceOfFieldAccess && instanceOfVariableAccess) {
             CtField<?> field = type.getField(leftExpression2Check.toString());
             if (field != null) {
+```
+
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `sorald/src/main/java/sorald/processor/DeadStoreProcessor.java`
+#### Snippet
+```java
+        return statementLists.stream()
+                .reduce((lhs, rhs) -> greedyFindDeepestCommonParent(lhs, rhs, depths))
+                .get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `sorald/src/main/java/sorald/processor/ThreadLocalWithInitial.java`
+#### Snippet
+```java
+                .filter(v -> v.getSimpleName().equals("initialValue"))
+                .findFirst()
+                .get();
+    }
+}
 ```
 
