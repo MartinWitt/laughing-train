@@ -60,18 +60,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdOut(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -79,6 +67,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdErr(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdOut(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
 	}
 
 ```
@@ -124,18 +124,6 @@ in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
 
 ### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
-#### Snippet
-```java
- *
- * <p>WARNING: Java considers environment variables to be immutable, so this extension
- * uses reflection to change them. This requires that the {@link SecurityManager}
- * allows modifications and can potentially break on different operating systems and
- * Java versions. Be aware that this is a fragile solution and consider finding a
-```
-
-### MarkedForRemoval
-'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
@@ -144,6 +132,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
  * Warning: If your {@link SecurityManager} does not allow modifications, it fails.
  */
 class EnvironmentVariableUtils {
+```
+
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
+#### Snippet
+```java
+ *
+ * <p>WARNING: Java considers environment variables to be immutable, so this extension
+ * uses reflection to change them. This requires that the {@link SecurityManager}
+ * allows modifications and can potentially break on different operating systems and
+ * Java versions. Be aware that this is a fragile solution and consider finding a
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -213,11 +213,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
-	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -237,11 +237,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -491,18 +491,6 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DisableIfTestFails`
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
-#### Snippet
-```java
-
-	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
-			List<DisableIfTestFails> annotations) {
-		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
-		if (annotations.isEmpty())
-```
-
-### BoundedWildcard
 Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
@@ -527,6 +515,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DisableIfTestFails`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+#### Snippet
+```java
+
+	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
+			List<DisableIfTestFails> annotations) {
+		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
+		if (annotations.isEmpty())
+```
+
+### BoundedWildcard
 Can generalize to `? extends Source`
 in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
 #### Snippet
@@ -536,30 +536,6 @@ in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArguments
 	protected void accept(List<Source> sources, String dataLocation) {
 		this.sources = sources;
 		this.dataLocation = dataLocation;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void setEntries(Map<K, V> entriesToSet) {
-		entriesToSet.forEach(this::setEntry);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void setEntries(Map<K, V> entriesToSet) {
-		entriesToSet.forEach(this::setEntry);
-	}
 ```
 
 ### BoundedWildcard
@@ -595,6 +571,30 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 
 	private void clearEntries(Collection<K> entriesToClear) {
 		entriesToClear.forEach(this::clearEntry);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void setEntries(Map<K, V> entriesToSet) {
+		entriesToSet.forEach(this::setEntry);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void setEntries(Map<K, V> entriesToSet) {
+		entriesToSet.forEach(this::setEntry);
 	}
 ```
 
@@ -635,18 +635,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Shared`
-in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
-#### Snippet
-```java
-	}
-
-	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
-			ExtensionContext extensionContext) {
-		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
-```
-
-### BoundedWildcard
 Can generalize to `? extends ReentrantLock`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -656,6 +644,18 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 	private <T> T invokeWithLocks(Invocation<T> invocation, List<ReentrantLock> locks) throws Throwable {
 		locks.forEach(ReentrantLock::lock);
 		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Shared`
+in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
+#### Snippet
+```java
+	}
+
+	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
+			ExtensionContext extensionContext) {
+		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
 ```
 
 ### BoundedWildcard
