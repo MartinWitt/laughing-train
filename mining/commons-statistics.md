@@ -1,14 +1,15 @@
 # commons-statistics 
  
 # Bad smells
-I found 8 bad smells with 1 repairable:
+I found 10 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| NestedAssignment | 2 | false |
+| NestedAssignment | 3 | false |
 | FunctionalExpressionCanBeFolded | 1 | false |
 | SuspiciousNameCombination | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
+| ZeroLengthArrayInitialization | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
 | ConstantMathCall | 1 | false |
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
@@ -40,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-14-32-21.605.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-07-09-46-21.289.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -63,29 +64,17 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         final SharedStateContinuousSampler sampler =
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
 #### Snippet
 ```java
-        long m = median;
-        if (m == NO_MEDIAN) {
-            median = m = inverseCumulativeProbability(0.5);
+        if (nonNanSize == 0) {
+            // Either NaN are left in-place or removed
+            return nanStrategy == NaNStrategy.FIXED ? data : new double[0];
         }
-        return (int) m;
-```
 
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
-#### Snippet
-```java
-        double m = median;
-        if (Double.isNaN(m)) {
-            median = m = inverseCumulativeProbability(0.5);
-        }
-        return m;
 ```
 
 ## RuleId[ruleID=ManualMinMaxCalculation]
@@ -112,5 +101,42 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
     private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
     /** The mu parameter of this distribution. */
     private final double mu;
+```
+
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+#### Snippet
+```java
+        double m = median;
+        if (Double.isNaN(m)) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return m;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
+#### Snippet
+```java
+        long m = median;
+        if (m == NO_MEDIAN) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return (int) m;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
+#### Snippet
+```java
+        if (r == null) {
+            // Default to a SplittableRandom
+            randomIntFunction = r = new SplittableRandom()::nextInt;
+        }
+        return r;
 ```
 
