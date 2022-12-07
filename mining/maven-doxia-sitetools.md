@@ -21,8 +21,8 @@ I found 100 bad smells with 5 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | BoundedWildcard | 1 | false |
-| StringEqualsEmptyString | 1 | false |
 | UseBulkOperation | 1 | false |
+| StringEqualsEmptyString | 1 | false |
 | RedundantSuppression | 1 | false |
 | UnnecessaryInitCause | 1 | false |
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -139,6 +139,18 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Renderer.java`
+#### Snippet
+```java
+     * @return a SiteRenderingContext.
+     * @throws RendererException if it bombs.
+     * @throws java.io.IOException if it bombs.
+     * @since 1.7.3 was previously with skin as File instead of Artifact
+     */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.doxia.siterenderer` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderer.java`
 #### Snippet
@@ -175,63 +187,15 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Docume
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.module.xhtml5` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/RenderingContext.java`
 #### Snippet
 ```java
+     * <p>Getter for the field <code>inputName</code>.</p>
      *
-     * Reset text buffer, since text content before title mustn't be in title.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#title()
+     * @return a {@link java.lang.String} object.
      */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.module.xhtml5` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
-#### Snippet
-```java
-     *
-     * Do nothing.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body_()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.module.xhtml5` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
-#### Snippet
-```java
-     *
-     * Do nothing.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Renderer.java`
-#### Snippet
-```java
-     * @return a SiteRenderingContext.
-     * @throws RendererException if it bombs.
-     * @throws java.io.IOException if it bombs.
-     * @since 1.7.3 was previously with skin as File instead of Artifact
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
-#### Snippet
-```java
-     * <p>Setter for the field <code>moduleExcludes</code>.</p>
-     *
-     * @param moduleExcludes a {@link java.util.Map} object.
-     */
-    public void setModuleExcludes( Map<String, String> moduleExcludes )
+    public String getInputName()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -271,30 +235,6 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Render
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
-#### Snippet
-```java
-     * a list of locales available for this site context.</p>
-     *
-     * @return a {@link java.util.List} object with {@link java.util.Locale} objects.
-     */
-    public List<Locale> getSiteLocales()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/RenderingContext.java`
-#### Snippet
-```java
-     * <p>Getter for the field <code>inputName</code>.</p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getInputName()
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/RenderingContext.java`
 #### Snippet
@@ -319,99 +259,75 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Render
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Qualifier `org.apache.maven.doxia.module.xhtml5` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
-     * a list of locales available for this site context.</p>
      *
-     * @return a {@link java.util.List} object with {@link java.util.Locale} objects.
+     * Reset text buffer, since text content before title mustn't be in title.
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#title()
      */
-    public List<Locale> getSiteLocales()
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Qualifier `java.net` is unnecessary and can be removed
+in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
 #### Snippet
 ```java
-     * <p>Getter for the field <code>outputEncoding</code>.</p>
+     *      or newBase is not parsable as a URI,
+     *      or newBase and this {@link #getBaseURI()} do not share the
+     *      {@link #sameSite(java.net.URI) same site}.
      *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getOutputEncoding()
+     * @param newBase the new base URI. Has to be parsable as a URI.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Qualifier `org.apache.maven.doxia.module.xhtml5` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
-     * <p>Setter for the field <code>templateName</code>.</p>
      *
-     * @param templateName a {@link java.lang.String} object.
+     * Do nothing.
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body()
      */
-    public void setTemplateName( String templateName )
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Qualifier `org.apache.maven.doxia.module.xhtml5` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
-     * <p>Setter for the field <code>templateClassLoader</code>.</p>
      *
-     * @param templateClassLoader a {@link java.lang.ClassLoader} object.
+     * Do nothing.
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body_()
      */
-    public void setTemplateClassLoader( ClassLoader templateClassLoader )
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Qualifier `java.net` is unnecessary and can be removed
+in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
 #### Snippet
 ```java
-     * <p>Getter for the field <code>templateClassLoader</code>.</p>
      *
-     * @return a {@link java.lang.ClassLoader} object.
+     * @return the resolved link. This is equivalent to calling
+     *      {@link #getBaseURI()}.{@link URI#resolve(java.net.URI) resolve}( {@link #getLink()} ).
      */
-    public ClassLoader getTemplateClassLoader()
+    public URI resolveLink()
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Qualifier `java.net` is unnecessary and can be removed
+in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
 #### Snippet
 ```java
-     * <p>Setter for the field <code>templateProperties</code>.</p>
+     * The original link is returned if either
+     *      link is relative;
+     *      or link and base do not share the {@link #sameSite(java.net.URI) same site}.
      *
-     * @param templateProperties a {@link java.util.Map} object.
-     */
-    public void setTemplateProperties( Map<String, ?> templateProperties )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
-#### Snippet
-```java
-     * <p>Setter for the field <code>inputEncoding</code>.</p>
-     *
-     * @param inputEncoding a {@link java.lang.String} object.
-     */
-    public void setInputEncoding( String inputEncoding )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
-#### Snippet
-```java
-     * <p>Setter for the field <code>locale</code>.</p>
-     *
-     * @param locale a {@link java.util.Locale} object.
-     */
-    public void setLocale( Locale locale )
+     * @return the link as a relative URI.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -431,6 +347,66 @@ Qualifier `java.util` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
+     * <p>Setter for the field <code>locale</code>.</p>
+     *
+     * @param locale a {@link java.util.Locale} object.
+     */
+    public void setLocale( Locale locale )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Setter for the field <code>templateProperties</code>.</p>
+     *
+     * @param templateProperties a {@link java.util.Map} object.
+     */
+    public void setTemplateProperties( Map<String, ?> templateProperties )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Setter for the field <code>templateClassLoader</code>.</p>
+     *
+     * @param templateClassLoader a {@link java.lang.ClassLoader} object.
+     */
+    public void setTemplateClassLoader( ClassLoader templateClassLoader )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Setter for the field <code>outputEncoding</code>.</p>
+     *
+     * @param outputEncoding a {@link java.lang.String} object.
+     */
+    public void setOutputEncoding( String outputEncoding )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Setter for the field <code>inputEncoding</code>.</p>
+     *
+     * @param inputEncoding a {@link java.lang.String} object.
+     */
+    public void setInputEncoding( String inputEncoding )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
     * <p>Adds passed locales to the list of site locales.</p>
     *
     * @param locales List of {@link java.util.Locale} objects to add to the site locales list.
@@ -439,15 +415,39 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRe
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Getter for the field <code>outputEncoding</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getOutputEncoding()
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
-     * <p>Getter for the field <code>templateProperties</code>.</p>
+     * a list of locales available for this site context.</p>
      *
-     * @return a {@link java.util.Map} object.
+     * @return a {@link java.util.List} object with {@link java.util.Locale} objects.
      */
-    public Map<String, ?> getTemplateProperties()
+    public List<Locale> getSiteLocales()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * a list of locales available for this site context.</p>
+     *
+     * @return a {@link java.util.List} object with {@link java.util.Locale} objects.
+     */
+    public List<Locale> getSiteLocales()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -467,23 +467,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
-     * <p>Getter for the field <code>templateName</code>.</p>
+     * <p>Setter for the field <code>defaultWindowTitle</code>.</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @param defaultWindowTitle a {@link java.lang.String} object.
      */
-    public String getTemplateName()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
-#### Snippet
-```java
-     *      or newBase is not parsable as a URI,
-     *      or newBase and this {@link #getBaseURI()} do not share the
-     *      {@link #sameSite(java.net.URI) same site}.
-     *
-     * @param newBase the new base URI. Has to be parsable as a URI.
+    public void setDefaultWindowTitle( String defaultWindowTitle )
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -491,47 +479,11 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
-     * <p>Setter for the field <code>outputEncoding</code>.</p>
+     * <p>Setter for the field <code>templateName</code>.</p>
      *
-     * @param outputEncoding a {@link java.lang.String} object.
+     * @param templateName a {@link java.lang.String} object.
      */
-    public void setOutputEncoding( String outputEncoding )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
-#### Snippet
-```java
-     *
-     * @return the resolved link. This is equivalent to calling
-     *      {@link #getBaseURI()}.{@link URI#resolve(java.net.URI) resolve}( {@link #getLink()} ).
-     */
-    public URI resolveLink()
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
-#### Snippet
-```java
-     * files with parser extension. Typical values are <code>src/site</code> or <code>target/generated-site</code>.
-     *
-     * @param siteDirectory a {@link java.io.File} object.
-     */
-    public void addSiteDirectory( File siteDirectory )
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
-#### Snippet
-```java
-     * The original link is returned if either
-     *      link is relative;
-     *      or link and base do not share the {@link #sameSite(java.net.URI) same site}.
-     *
-     * @return the link as a relative URI.
+    public void setTemplateName( String templateName )
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -547,15 +499,15 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRe
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
+Qualifier `java.util` is unnecessary and can be removed
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
-     * <p>Setter for the field <code>defaultWindowTitle</code>.</p>
+     * <p>Setter for the field <code>moduleExcludes</code>.</p>
      *
-     * @param defaultWindowTitle a {@link java.lang.String} object.
+     * @param moduleExcludes a {@link java.util.Map} object.
      */
-    public void setDefaultWindowTitle( String defaultWindowTitle )
+    public void setModuleExcludes( Map<String, String> moduleExcludes )
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -568,6 +520,54 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRe
      * @return a {@link java.lang.String} object.
      */
     public String getDefaultWindowTitle()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * files with parser extension. Typical values are <code>src/site</code> or <code>target/generated-site</code>.
+     *
+     * @param siteDirectory a {@link java.io.File} object.
+     */
+    public void addSiteDirectory( File siteDirectory )
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Getter for the field <code>templateName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getTemplateName()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Getter for the field <code>templateProperties</code>.</p>
+     *
+     * @return a {@link java.util.Map} object.
+     */
+    public Map<String, ?> getTemplateProperties()
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Getter for the field <code>templateClassLoader</code>.</p>
+     *
+     * @return a {@link java.lang.ClassLoader} object.
+     */
+    public ClassLoader getTemplateClassLoader()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -588,11 +588,11 @@ Call to `toString()` is redundant
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
 #### Snippet
 ```java
-        }
+        final String relativePath = buildRelativePath( toPath, fromPath, File.separatorChar );
 
-        if ( LOGGER.isDebugEnabled() && !relativePath.toString().equals( to ) )
-        {
-            LOGGER.debug( "Mapped url: " + to + " to relative path: " + relativePath );
+        return relativePath.toString();
+    }
+
 ```
 
 ### StringOperationCanBeSimplified
@@ -600,11 +600,11 @@ Call to `toString()` is redundant
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
 #### Snippet
 ```java
-        final String relativePath = buildRelativePath( toPath, fromPath, File.separatorChar );
+        }
 
-        return relativePath.toString();
-    }
-
+        if ( LOGGER.isDebugEnabled() && !relativePath.toString().equals( to ) )
+        {
+            LOGGER.debug( "Mapped url: " + to + " to relative path: " + relativePath );
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -694,6 +694,19 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Defaul
             for ( String name : includedFiles )
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-07-02-50-45.184.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -721,12 +734,12 @@ in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/
 
 ### ReturnNull
 Return of `null`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/RenderingContext.java`
 #### Snippet
 ```java
-        String body = writer.toString();
-
-        return body.length() > 0 ? body : null;
+    public String getDoxiaSourcePath()
+    {
+        return isDoxiaSource() ? ( basedirRelativePath + '/' + inputName ) : null;
     }
 
 ```
@@ -745,12 +758,12 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/S
 
 ### ReturnNull
 Return of `null`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/RenderingContext.java`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
-    public String getDoxiaSourcePath()
-    {
-        return isDoxiaSource() ? ( basedirRelativePath + '/' + inputName ) : null;
+        String body = writer.toString();
+
+        return body.length() > 0 ? body : null;
     }
 
 ```
@@ -765,6 +778,66 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Defaul
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+            // relative path
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+            // path.
+
+            return null;
+
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+
+        // module not found in reactor
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+        {
+            LOGGER.debug( "Unable to locate site descriptor", e );
+            return null;
+        }
+        catch ( ArtifactResolutionException e )
 ```
 
 ### ReturnNull
@@ -796,18 +869,6 @@ Return of `null`
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
 #### Snippet
 ```java
-
-        // module not found in reactor
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
         if ( localeCode == null )
         {
             return null;
@@ -827,80 +888,7 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
 
 ```
 
-### ReturnNull
-Return of `null`
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-        {
-            LOGGER.debug( "Unable to locate site descriptor", e );
-            return null;
-        }
-        catch ( ArtifactResolutionException e )
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-            // relative path
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-            // path.
-
-            return null;
-
-        }
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-06-20-53-42.319.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`body.length() > 0` can be replaced with '!body.isEmpty()'
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
-#### Snippet
-```java
-        String body = writer.toString();
-
-        return body.length() > 0 ? body : null;
-    }
-
-```
-
 ### SizeReplaceableByIsEmpty
 `head.length() > 0` can be replaced with '!head.isEmpty()'
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
@@ -909,6 +897,18 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/S
         String head = headWriter.toString();
 
         return head.length() > 0 ? head : null;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`body.length() > 0` can be replaced with '!body.isEmpty()'
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
+#### Snippet
+```java
+        String body = writer.toString();
+
+        return body.length() > 0 ? body : null;
     }
 
 ```
@@ -1037,19 +1037,6 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
             // URLs, determine if they share protocol and domain info
 ```
 
-## RuleId[ruleID=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
-#### Snippet
-```java
-    private static String correctRelativePath( final String relativePath )
-    {
-        if ( "".equals( relativePath ) || "/".equals( relativePath ) )
-        {
-            return "./";
-```
-
 ## RuleId[ruleID=UseBulkOperation]
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Collection.addAll()' call
@@ -1061,6 +1048,19 @@ in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/
             menus.add( menu );
         }
 
+```
+
+## RuleId[ruleID=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `doxia-decoration-model/src/main/java/org/apache/maven/doxia/site/decoration/inheritance/URIPathDescriptor.java`
+#### Snippet
+```java
+    private static String correctRelativePath( final String relativePath )
+    {
+        if ( "".equals( relativePath ) || "/".equals( relativePath ) )
+        {
+            return "./";
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
