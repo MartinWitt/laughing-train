@@ -24,6 +24,19 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 	}
 ```
 
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
+#### Snippet
+```java
+			// instance worker pool for backup, which can be reused for all groups
+			var hostMeta = new BackupMeta.HostMeta(System.currentTimeMillis(), configuration.hostname());
+			try (var operation = new BackupOperation(docker, tide.maxConcurrent(), configuration.cranes().values(), hostMeta);) {
+				// backup each group individually but in series
+				for (int i = 0; i < groups.size(); i++) {
+```
+
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
@@ -146,6 +159,18 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 ```
 
 ### DataFlowIssue
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+```
+
+### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -167,31 +192,6 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		for (var mount : container.getMounts()) {
 			var volume = volumes.get(mount.getName());
 			if (volume != null)
-```
-
-### DataFlowIssue
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
-#### Snippet
-```java
-			// instance worker pool for backup, which can be reused for all groups
-			var hostMeta = new BackupMeta.HostMeta(System.currentTimeMillis(), configuration.hostname());
-			try (var operation = new BackupOperation(docker, tide.maxConcurrent(), configuration.cranes().values(), hostMeta);) {
-				// backup each group individually but in series
-				for (int i = 0; i < groups.size(); i++) {
 ```
 
 ## RuleId[ruleID=BusyWait]
