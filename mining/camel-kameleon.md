@@ -150,11 +150,11 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
-    protected List<String> labels;
-
-    public AbstractComponent() {
     }
 
+    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
+        this.name = name;
+        this.title = title;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -162,11 +162,11 @@ Constructor `AbstractComponent()` of an abstract class should not be declared 'p
 in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
 #### Snippet
 ```java
+    protected List<String> labels;
+
+    public AbstractComponent() {
     }
 
-    public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
-        this.name = name;
-        this.title = title;
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -185,7 +185,7 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-07-05-10-37.780.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-08-09-10-40.435.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -214,23 +214,11 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-                                          String groupId, String artifactId, String version)
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
-#### Snippet
-```java
-            throws MavenInvocationException, IOException {
-        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
-        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
-
-        Properties properties = new Properties();
+        Model model = reader.read(new FileReader(pom));
+        List<Plugin> plugins = model.getBuild().getPlugins();
+        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
+        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
+        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -262,11 +250,23 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
 in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
 #### Snippet
 ```java
-        Model model = reader.read(new FileReader(pom));
-        List<Plugin> plugins = model.getBuild().getPlugins();
-        Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
-        Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
-        if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
+                                          String groupId, String artifactId, String version)
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.java`
+#### Snippet
+```java
+            throws MavenInvocationException, IOException {
+        CamelType camelType = configurationResource.getKc().getTypes().stream().filter(ct -> ct.getName().equals(type)).findFirst().get();
+        CamelVersion camelVersion = camelType.getVersions().stream().filter(cv -> cv.getName().equals(archetypeVersion)).findFirst().get();
+
+        Properties properties = new Properties();
 ```
 
 ## RuleId[ruleID=ComparatorResultComparison]
