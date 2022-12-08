@@ -41,7 +41,7 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
 #### Snippet
 ```java
 
-    public static List<Failure> runTest(String fullQualifiedName, String testCaseName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
+    public static List<Failure> runTest(String fullQualifiedName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
         ClassLoader classLoader = new URLClassLoader(
                 arrayStringToArrayUrl.apply(classpath),
                 ClassLoader.getSystemClassLoader()
@@ -53,7 +53,7 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
 #### Snippet
 ```java
 
-    public static List<Failure> runTest(String fullQualifiedName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
+    public static List<Failure> runTest(String fullQualifiedName, String testCaseName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
         ClassLoader classLoader = new URLClassLoader(
                 arrayStringToArrayUrl.apply(classpath),
                 ClassLoader.getSystemClassLoader()
@@ -73,6 +73,18 @@ public class TestUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
+#### Snippet
+```java
+ * on 23/05/17
+ */
+public class TestRunner {
+
+    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Util` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
 #### Snippet
@@ -82,18 +94,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
 public class Util {
 
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
-#### Snippet
-```java
- * Created by nicolas on 22/01/2015.
- */
-public class IOUtils {
-	/**
-	 * The default buffer size to use.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -109,15 +109,15 @@ public class Logger {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
+Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 #### Snippet
 ```java
- * on 23/05/17
+ * Created by nicolas on 22/01/2015.
  */
-public class TestRunner {
-
-    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
+public class IOUtils {
+	/**
+	 * The default buffer size to use.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -310,18 +310,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends CtClass`
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-
-	/** compiles the mutants on the fly */
-	public List<Class<?>> compileMutants(List<CtClass> mutants) throws Exception {
-		List<Class<?>> compiledMutants = new ArrayList<>();
-		for (CtClass mutantClass : mutants) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
 #### Snippet
@@ -331,6 +319,18 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 	public void runTestsOnEachMutantInstance(List<T> mutantInstances) throws Exception {
 		// now we run the mutants against the test class
 		for (T t : mutantInstances) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtClass`
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+
+	/** compiles the mutants on the fly */
+	public List<Class<?>> compileMutants(List<CtClass> mutants) throws Exception {
+		List<Class<?>> compiledMutants = new ArrayList<>();
+		for (CtClass mutantClass : mutants) {
 ```
 
 ### BoundedWildcard
@@ -545,30 +545,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/SecondTest.jav
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
-#### Snippet
-```java
-	public boolean compile() {
-		File target = compiler.getSourceOutputDirectory();
-		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
-		return compile;
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
-#### Snippet
-```java
-	public boolean compile() {
-		File target = compiler.getSourceOutputDirectory();
-		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
-		return compile;
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/HelloWorldProcessor.java`
 #### Snippet
 ```java
@@ -577,6 +553,30 @@ in `src/main/java/fr/inria/gforge/spoon/HelloWorldProcessor.java`
 		System.out.println(getFactory().Class().get(getClass().getCanonicalName()).getField("msg").getDefaultExpression());
 	}
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
+#### Snippet
+```java
+	public boolean compile() {
+		File target = compiler.getSourceOutputDirectory();
+		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
+		return compile;
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
+#### Snippet
+```java
+	public boolean compile() {
+		File target = compiler.getSourceOutputDirectory();
+		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
+		return compile;
+	}
 ```
 
 ### SystemOutErr
@@ -617,14 +617,14 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-	  assertEquals(1, y.m());
-	  
-	  System.out.println("yes y.m()="+y.m());
-  }
-}
+					while (p.isAlive()) {
+						try {
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
 ```
 
 ### SystemOutErr
@@ -641,14 +641,14 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 #### Snippet
 ```java
-					while (p.isAlive()) {
-						try {
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
+	  assertEquals(1, y.m());
+	  
+	  System.out.println("yes y.m()="+y.m());
+  }
+}
 ```
 
 ### SystemOutErr
@@ -1019,6 +1019,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+#### Snippet
+```java
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
 #### Snippet
 ```java
@@ -1065,18 +1077,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
     }
 ```
 
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
-#### Snippet
-```java
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
-```
-
 ## RuleId[ruleID=SamePackageImport]
 ### SamePackageImport
 Unnecessary import from the same package `import fr.inria.gforge.spoon.analysis.CatchProcessor;`
@@ -1113,19 +1113,6 @@ class TestListener extends RunListener {
     private final List<Description> testRun = new ArrayList<>();
     private final List<Failure> testFails = new ArrayList<>();
 
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-08-09-42-38.231.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -1187,6 +1174,19 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         return null;
     }
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-08-13-28-04.809.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
