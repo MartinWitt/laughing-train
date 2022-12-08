@@ -73,18 +73,6 @@ public class TestUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
-#### Snippet
-```java
- * on 23/05/17
- */
-public class TestRunner {
-
-    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Util` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
 #### Snippet
@@ -97,15 +85,15 @@ public class Util {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Logger` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Logger.java`
+Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
 #### Snippet
 ```java
- * on 21/06/17
+ * on 23/05/17
  */
-public class Logger {
+public class TestRunner {
 
-	public static Map<String, Object> observations = new HashMap<>();
+    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -118,6 +106,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 public class IOUtils {
 	/**
 	 * The default buffer size to use.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Logger` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Logger.java`
+#### Snippet
+```java
+ * on 21/06/17
+ */
+public class Logger {
+
+	public static Map<String, Object> observations = new HashMap<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -201,6 +201,18 @@ Obsolete collection type `Stack` used
 in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
 #### Snippet
 ```java
+	Set<CtPackageReference> scanned = new HashSet<>();
+
+	void scanDependencies(Stack<CtPackageReference> path) {
+		CtPackageReference ref = path.peek();
+		// return if already scanned
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
+#### Snippet
+```java
 	public void processingDone() {
 		for (CtPackageReference p : packRefs.keySet()) {
 			Stack<CtPackageReference> path = new Stack<>();
@@ -218,18 +230,6 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
 			Stack<CtPackageReference> path = new Stack<>();
 			path.push(p);
 			scanDependencies(path);
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `src/main/java/fr/inria/gforge/spoon/analysis/ReferenceProcessor.java`
-#### Snippet
-```java
-	Set<CtPackageReference> scanned = new HashSet<>();
-
-	void scanDependencies(Stack<CtPackageReference> path) {
-		CtPackageReference ref = path.peek();
-		// return if already scanned
 ```
 
 ## RuleId[ruleID=LongLiteralsEndingWithLowercaseL]
@@ -310,18 +310,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-
-	/** applies the test driver of this mutation tester on each mutant instance */
-	public void runTestsOnEachMutantInstance(List<T> mutantInstances) throws Exception {
-		// now we run the mutants against the test class
-		for (T t : mutantInstances) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends CtClass`
 in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
 #### Snippet
@@ -331,6 +319,18 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 	public List<Class<?>> compileMutants(List<CtClass> mutants) throws Exception {
 		List<Class<?>> compiledMutants = new ArrayList<>();
 		for (CtClass mutantClass : mutants) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+
+	/** applies the test driver of this mutation tester on each mutant instance */
+	public void runTestsOnEachMutantInstance(List<T> mutantInstances) throws Exception {
+		// now we run the mutants against the test class
+		for (T t : mutantInstances) {
 ```
 
 ### BoundedWildcard
@@ -593,30 +593,6 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
-#### Snippet
-```java
-
-	public void m(@Bound(min = 2d, max = 8d) int a) {
-		System.out.println("Great method!");
-	}
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
-#### Snippet
-```java
-				new Main().m(i);
-			} catch (RuntimeException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
@@ -649,6 +625,30 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 	  System.out.println("yes y.m()="+y.m());
   }
 }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+#### Snippet
+```java
+				new Main().m(i);
+			} catch (RuntimeException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+#### Snippet
+```java
+
+	public void m(@Bound(min = 2d, max = 8d) int a) {
+		System.out.println("Great method!");
+	}
+
 ```
 
 ### SystemOutErr
@@ -1019,14 +1019,26 @@ in `src/main/java/fr/inria/gforge/spoon/utils/SpoonClassLoader.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
 #### Snippet
 ```java
-							System.out.print((char) p.getInputStream().read());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					}
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+#### Snippet
+```java
+            new Exception("failed to connect to the database with "
+                    + "jdbc:postgresql:" + _database_ + "," + _username_ + ","
+                    + _password_).printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1055,26 +1067,14 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
-#### Snippet
-```java
-            new Exception("failed to connect to the database with "
-                    + "jdbc:postgresql:" + _database_ + "," + _username_ + ","
-                    + _password_).printStackTrace();
-        }
-    }
+							System.out.print((char) p.getInputStream().read());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 ```
 
 ## RuleId[ruleID=SamePackageImport]
@@ -1113,6 +1113,19 @@ class TestListener extends RunListener {
     private final List<Description> testRun = new ArrayList<>();
     private final List<Failure> testFails = new ArrayList<>();
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-08-14-15-17.496.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -1174,19 +1187,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         return null;
     }
 
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-08-13-28-04.809.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
