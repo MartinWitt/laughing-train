@@ -82,6 +82,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
+	public String printModuleInfo(CtModule ctModule) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+	@Override
 	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
@@ -100,31 +112,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-	@Override
-	public String printModuleInfo(CtModule ctModule) {
-		return null;
-	}
-
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-		String result = "null";
-		if (defaultExpression !=null) {
-			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
-		}
-		field.initializer(result);
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
 		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
 	}
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+		String result = "null";
+		if (defaultExpression !=null) {
+			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
+		}
+		field.initializer(result);
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
