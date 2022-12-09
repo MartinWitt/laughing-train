@@ -211,15 +211,15 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 ```
 
 ### DataFlowIssue
-Argument `serializedPayload` might be null
+Argument `serializeOutput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-        if (eventPayload != null) {
-            String serializedPayload = this.dataConverter.serialize(eventPayload);
-            builder.setInput(StringValue.of(serializedPayload));
-        }
-
+                instanceId,
+                serializeOutput != null ? serializeOutput : "(null)"));
+        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
+        this.sidecarClient.terminateInstance(builder.build());
+    }
 ```
 
 ### DataFlowIssue
@@ -235,15 +235,15 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### DataFlowIssue
-Argument `serializeOutput` might be null
+Argument `serializedPayload` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-                instanceId,
-                serializeOutput != null ? serializeOutput : "(null)"));
-        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
-        this.sidecarClient.terminateInstance(builder.build());
-    }
+        if (eventPayload != null) {
+            String serializedPayload = this.dataConverter.serialize(eventPayload);
+            builder.setInput(StringValue.of(serializedPayload));
+        }
+
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -487,10 +487,10 @@ in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/Durabl
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
 #### Snippet
 ```java
-        // TODO: Input validation
+    public DurableTaskGrpcWorkerBuilder addOrchestration(TaskOrchestrationFactory factory) {
         String key = factory.getName();
         if (key == null || key.length() == 0) {
-            throw new IllegalArgumentException("A non-empty task activity name is required.");
+            throw new IllegalArgumentException("A non-empty task orchestration name is required.");
         }
 ```
 
@@ -499,10 +499,10 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
 #### Snippet
 ```java
-    public DurableTaskGrpcWorkerBuilder addOrchestration(TaskOrchestrationFactory factory) {
+        // TODO: Input validation
         String key = factory.getName();
         if (key == null || key.length() == 0) {
-            throw new IllegalArgumentException("A non-empty task orchestration name is required.");
+            throw new IllegalArgumentException("A non-empty task activity name is required.");
         }
 ```
 
@@ -650,9 +650,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    CompositeTaskFailedException(List<Exception> exceptions) {
         this.exceptions = exceptions;
+    }
 ```
 
 ### BoundedWildcard
@@ -662,8 +662,8 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
-        super(cause);
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
         this.exceptions = exceptions;
 ```
 
@@ -686,8 +686,8 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
-        super(message, cause);
+    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
+        super(cause);
         this.exceptions = exceptions;
 ```
 
@@ -698,9 +698,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(List<Exception> exceptions) {
+    CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
+        super(message, cause);
         this.exceptions = exceptions;
-    }
 ```
 
 ### BoundedWildcard
@@ -729,18 +729,6 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-
-final class Helpers {
-    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
-
-    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
-```
-
-### MissortedModifiers
 Missorted modifiers `static @Nonnull`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 #### Snippet
@@ -762,5 +750,17 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
         if (argValue == null) {
             throw new IllegalArgumentException("The argument '" + argName + "' was null.");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
+
+final class Helpers {
+    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
+
+    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
 ```
 
