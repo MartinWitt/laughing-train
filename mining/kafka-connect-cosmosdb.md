@@ -264,14 +264,14 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
 ```java
-
-    private final AtomicBoolean running = new AtomicBoolean(false);
-    private CosmosAsyncClient client = null;
-    private CosmosDBSourceConfig config;
-    private LinkedTransferQueue<JsonNode> queue = null;
+public class CosmosDBSinkTask extends SinkTask {
+    private static final Logger logger = LoggerFactory.getLogger(CosmosDBSinkTask.class);
+    private CosmosClient client = null;
+    private CosmosDBSinkConfig config;
+    private final ConcurrentHashMap<String, SinkWriterBase> containerWriterMap = new ConcurrentHashMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -288,14 +288,14 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-public class CosmosDBSinkTask extends SinkTask {
-    private static final Logger logger = LoggerFactory.getLogger(CosmosDBSinkTask.class);
-    private CosmosClient client = null;
-    private CosmosDBSinkConfig config;
-    private final ConcurrentHashMap<String, SinkWriterBase> containerWriterMap = new ConcurrentHashMap<>();
+
+    private final AtomicBoolean running = new AtomicBoolean(false);
+    private CosmosAsyncClient client = null;
+    private CosmosDBSourceConfig config;
+    private LinkedTransferQueue<JsonNode> queue = null;
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -341,11 +341,11 @@ Return of `null`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
+        JsonNode leaseRecord = getLeaseContainerRecord();
+        if (client == null || leaseRecord == null) {
+            return null;
         }
-
-        return null;
-    }
-
+        return leaseRecord.get(CONTINUATION_TOKEN).textValue();
 ```
 
 ### ReturnNull
@@ -353,11 +353,11 @@ Return of `null`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-        JsonNode leaseRecord = getLeaseContainerRecord();
-        if (client == null || leaseRecord == null) {
-            return null;
         }
-        return leaseRecord.get(CONTINUATION_TOKEN).textValue();
+
+        return null;
+    }
+
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -411,18 +411,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConnector.
 ```
 
 ### SizeReplaceableByIsEmpty
-`records.size() == 0` can be replaced with 'records.isEmpty()'
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
-#### Snippet
-```java
-                // Add the item to buffer if either conditions met:
-                // it is the first record, or adding this record does not exceed the buffer size
-                if (records.size() == 0 || bufferSize >= 0) {
-                    records.add(sourceRecord);
-                    count++;
-```
-
-### SizeReplaceableByIsEmpty
 `response.getFailedRecordResponses().size() == 0` can be replaced with 'response.getFailedRecordResponses().isEmpty()'
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
@@ -432,6 +420,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
                 if (response.getFailedRecordResponses().size() == 0) {
                     logger.debug("Sink write completed, {} records succeeded.", response.getSucceededRecords().size());
 
+```
+
+### SizeReplaceableByIsEmpty
+`records.size() == 0` can be replaced with 'records.isEmpty()'
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+                // Add the item to buffer if either conditions met:
+                // it is the first record, or adding this record does not exceed the buffer size
+                if (records.size() == 0 || bufferSize >= 0) {
+                    records.add(sourceRecord);
+                    count++;
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -486,18 +486,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/PointWriter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SinkRecord`
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
-#### Snippet
-```java
-     * @return the list of sink write failed operations.
-     */
-    protected SinkWriteResponse writeCore(List<SinkRecord> sinkRecords) {
-
-        SinkWriteResponse sinkWriteResponse = new SinkWriteResponse();
-```
-
-### BoundedWildcard
 Can generalize to `? extends SinkOperationFailedResponse`
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 #### Snippet
@@ -507,6 +495,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
     private void sendToDlqIfConfigured(List<SinkOperationFailedResponse> failedResponses) {
         if (context != null && context.errantRecordReporter() != null) {
             for (SinkOperationFailedResponse sinkRecordResponse : failedResponses) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SinkRecord`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
+#### Snippet
+```java
+     * @return the list of sink write failed operations.
+     */
+    protected SinkWriteResponse writeCore(List<SinkRecord> sinkRecords) {
+
+        SinkWriteResponse sinkWriteResponse = new SinkWriteResponse();
 ```
 
 ### BoundedWildcard
@@ -595,6 +595,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
 ```
 
 ### UnusedAssignment
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
+#### Snippet
+```java
+                TEMPLATE_CONFIG_DOC,
+                groupName,
+                groupOrder++,
+                ConfigDef.Width.MEDIUM,
+                TEMPLATE_CONFIG_DISPLAY
+```
+
+### UnusedAssignment
 The value changed at `messageGroupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
 #### Snippet
@@ -619,18 +631,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.jav
 ```
 
 ### UnusedAssignment
-The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
-#### Snippet
-```java
-                TEMPLATE_CONFIG_DOC,
-                groupName,
-                groupOrder++,
-                ConfigDef.Width.MEDIUM,
-                TEMPLATE_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
 The value changed at `connectionGroupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -643,18 +643,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 ```
 
 ### UnusedAssignment
-Variable `topicContainerMap` initializer `TopicContainerMap.empty()` is redundant
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-    private final boolean connectionSharingEnabled;
-    private final int maxRetryCount;
-    private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
-
-    public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
-```
-
-### UnusedAssignment
 The value changed at `databaseGroupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -664,6 +652,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
                         databaseGroupOrder++,
                         Width.MEDIUM,
                         COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
+```
+
+### UnusedAssignment
+Variable `topicContainerMap` initializer `TopicContainerMap.empty()` is redundant
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+    private final boolean connectionSharingEnabled;
+    private final int maxRetryCount;
+    private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
+
+    public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
 ```
 
 ## RuleId[ruleID=ConstantValue]
