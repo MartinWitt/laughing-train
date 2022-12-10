@@ -1,7 +1,7 @@
 # maven 
  
 # Bad smells
-I found 1356 bad smells with 133 repairable:
+I found 1357 bad smells with 133 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 225 | false |
@@ -73,6 +73,7 @@ I found 1356 bad smells with 133 repairable:
 | ReturnFromFinallyBlock | 1 | false |
 | EqualsAndHashcode | 1 | false |
 | RedundantImplements | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | FieldMayBeStatic | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
@@ -140,18 +141,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of parameter `b`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
-#### Snippet
-```java
-
-        @Override
-        public void write(byte b[]) throws IOException {
-            final PrintStream currentStream = getOutputStreamForCurrentThread();
-            synchronized (currentStream) {
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of parameter `x`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
 #### Snippet
@@ -159,6 +148,18 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
 
         @Override
         public void println(char x[]) {
+            final PrintStream currentStream = getOutputStreamForCurrentThread();
+            synchronized (currentStream) {
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `b`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
+#### Snippet
+```java
+
+        @Override
+        public void write(byte b[]) throws IOException {
             final PrintStream currentStream = getOutputStreamForCurrentThread();
             synchronized (currentStream) {
 ```
@@ -261,6 +262,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
 ```
 
 ### CommentedOutCode
+Commented out code (20 lines)
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+#### Snippet
+```java
+
+            cpc.add(md);
+            //
+            //            TreeSet<MetadataGraphEdge> deps = new TreeSet<MetadataGraphEdge>(
+            //                        new Comparator<MetadataGraphEdge>()
+```
+
+### CommentedOutCode
 Commented out code (4 lines)
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
 #### Snippet
@@ -282,18 +295,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMeta
     //    public void init( ArtifactMetadata af )
     //    {
     //        setGroupId( af.getGroupId() );
-```
-
-### CommentedOutCode
-Commented out code (20 lines)
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
-#### Snippet
-```java
-
-            cpc.add(md);
-            //
-            //            TreeSet<MetadataGraphEdge> deps = new TreeSet<MetadataGraphEdge>(
-            //                        new Comparator<MetadataGraphEdge>()
 ```
 
 ### CommentedOutCode
@@ -463,6 +464,18 @@ in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.j
 #### Snippet
 ```java
                 break;
+            case REQUEST_GET:
+                break;
+            default:
+                throw new IllegalArgumentException("Illegal request type: " + requestType);
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
+#### Snippet
+```java
+                break;
             case TRANSFER_STARTED:
                 break;
             case TRANSFER_COMPLETED:
@@ -506,18 +519,6 @@ in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.j
 ```
 
 ### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
-#### Snippet
-```java
-                break;
-            case REQUEST_GET:
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal request type: " + requestType);
-```
-
-### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
 in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
 #### Snippet
@@ -531,99 +532,75 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/Bu
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+`downloadUrl.length() > 0` can be replaced with '!downloadUrl.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
 #### Snippet
 ```java
-
-    public static boolean isNotEmpty(String str) {
-        return ((str != null) && (str.length() > 0));
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
-#### Snippet
-```java
-
-    public static boolean isEmpty(String str) {
-        return ((str == null) || (str.trim().length() == 0));
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
-#### Snippet
-```java
-        SerializerXMLWriter xmlWriter = new SerializerXMLWriter(namespace, serializer);
-        Xpp3DomWriter.write(xmlWriter, this);
-        if (xmlWriter.getExceptions().size() > 0) {
-            throw (IOException) xmlWriter.getExceptions().get(0);
+            downloadUrl = distMgmt.getDownloadUrl();
         }
+        if (downloadUrl != null && downloadUrl.length() > 0) {
+            Artifact artifact = result.getArtifact();
+            Map<String, String> props = new HashMap<>(artifact.getProperties());
 ```
 
 ### SizeReplaceableByIsEmpty
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+`pomArtifact.getClassifier().length() > 0` can be replaced with '!pomArtifact.getClassifier().isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
 #### Snippet
 ```java
+        Artifact pomArtifact = artifact;
 
-    private static boolean isNotEmpty(String str) {
-        return ((str != null) && (str.length() > 0));
+        if (pomArtifact.getClassifier().length() > 0 || !"pom".equals(pomArtifact.getExtension())) {
+            pomArtifact =
+                    new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(), "pom", artifact.getVersion());
+```
+
+### SizeReplaceableByIsEmpty
+`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        this.artifact = Objects.requireNonNull(artifact, "artifact cannot be null");
+        // TODO Use StringUtils here
+        this.groupId = (groupId != null && groupId.length() > 0) ? groupId : null;
+        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
+        this.version = (version != null && version.length() > 0) ? version : null;
+```
+
+### SizeReplaceableByIsEmpty
+`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        // TODO Use StringUtils here
+        this.groupId = (groupId != null && groupId.length() > 0) ? groupId : null;
+        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
+        this.version = (version != null && version.length() > 0) ? version : null;
+        this.message = (message != null && message.length() > 0) ? message : null;
+```
+
+### SizeReplaceableByIsEmpty
+`version.length() > 0` can be replaced with '!version.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        this.groupId = (groupId != null && groupId.length() > 0) ? groupId : null;
+        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
+        this.version = (version != null && version.length() > 0) ? version : null;
+        this.message = (message != null && message.length() > 0) ? message : null;
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
+        this.version = (version != null && version.length() > 0) ? version : null;
+        this.message = (message != null && message.length() > 0) ? message : null;
     }
 
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-
-    private static boolean isEmpty(String str) {
-        return ((str == null) || (str.length() == 0));
-    }
-}
-```
-
-### SizeReplaceableByIsEmpty
-`recessive.getChildren().size() > 0` can be replaced with '!recessive.getChildren().isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-            }
-
-            if (recessive.getChildren().size() > 0) {
-                boolean mergeChildren = true;
-                if (childMergeOverride != null) {
-```
-
-### SizeReplaceableByIsEmpty
-`dominantChildren.size() > 0` can be replaced with '!dominantChildren.isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-                                    .filter(n -> n.getName().equals(name))
-                                    .collect(Collectors.toList());
-                            if (dominantChildren.size() > 0) {
-                                commonChildren.put(name, dominantChildren.iterator());
-                            }
-```
-
-### SizeReplaceableByIsEmpty
-`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
-#### Snippet
-```java
-        SerializerXMLWriter xmlWriter = new SerializerXMLWriter(namespace, serializer);
-        Xpp3DomWriter.write(xmlWriter, this);
-        if (xmlWriter.getExceptions().size() > 0) {
-            throw (IOException) xmlWriter.getExceptions().get(0);
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -711,18 +688,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifact.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependency.java`
-#### Snippet
-```java
-                + ':'
-                + getExtension()
-                + (getClassifier().length() > 0 ? ":" + getClassifier() : "")
-                + ':'
-                + getVersion();
-```
-
-### SizeReplaceableByIsEmpty
 `getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilder.java`
 #### Snippet
@@ -732,6 +697,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilde
                             if (getSource().length() > 0) {
                                 if (buffer.length() > 0) {
                                     buffer.append(", ");
+```
+
+### SizeReplaceableByIsEmpty
+`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependency.java`
+#### Snippet
+```java
+                + ':'
+                + getExtension()
+                + (getClassifier().length() > 0 ? ":" + getClassifier() : "")
+                + ':'
+                + getVersion();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -759,6 +736,54 @@ in `maven-core/src/main/java/org/apache/maven/configuration/internal/EnhancedCon
 ```
 
 ### SizeReplaceableByIsEmpty
+`localRepository.length() > 0` can be replaced with '!localRepository.isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+        // for the special case of a drive-relative Windows path, make sure it's absolute to save plugins from trouble
+        String localRepository = userSettings.getLocalRepository();
+        if (localRepository != null && localRepository.length() > 0) {
+            File file = new File(localRepository);
+            if (!file.isAbsolute() && file.getPath().startsWith(File.separator)) {
+```
+
+### SizeReplaceableByIsEmpty
+`getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
+#### Snippet
+```java
+        StringBuilder buffer = new StringBuilder(256);
+
+        if (getSource().length() > 0) {
+            if (buffer.length() > 0) {
+                buffer.append(", ");
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
+#### Snippet
+```java
+        String msg;
+
+        if (message != null && message.length() > 0) {
+            msg = message;
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`string.length() > 0` can be replaced with '!string.isEmpty()'
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/validation/DefaultSettingsValidator.java`
+#### Snippet
+```java
+        }
+
+        if (string.length() > 0) {
+            return true;
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `getExecuteGoal().length() > 0` can be replaced with '!getExecuteGoal().isEmpty()'
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
 #### Snippet
@@ -783,6 +808,18 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescri
 ```
 
 ### SizeReplaceableByIsEmpty
+`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+#### Snippet
+```java
+                + ':'
+                + getExtension()
+                + (getClassifier().length() > 0 ? ":" + getClassifier() : "")
+                + ':'
+                + getVersion();
+```
+
+### SizeReplaceableByIsEmpty
 `str.length() > 0` can be replaced with '!str.isEmpty()'
 in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
 #### Snippet
@@ -792,6 +829,30 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
         int c = str != null && str.length() > 0 ? str.charAt(0) : 0;
         if ((c < '0' || c > '9') && (c < 'a' || c > 'z')) {
             Validate.notBlank(str, message);
+```
+
+### SizeReplaceableByIsEmpty
+`restrictions.size() > 0` can be replaced with '!restrictions.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+
+        ArtifactVersion version = null;
+        if (restrictions.size() > 0) {
+            for (Restriction r : restrictions) {
+                if (recommendedVersion != null && r.containsVersion(recommendedVersion)) {
+```
+
+### SizeReplaceableByIsEmpty
+`restrictions.size() == 0` can be replaced with 'restrictions.isEmpty()'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+            value = true;
+        } else {
+            if (restrictions.size() == 0) {
+                throw new OverConstrainedVersionException("The artifact has no valid ranges", artifact);
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -831,30 +892,6 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRan
 ```
 
 ### SizeReplaceableByIsEmpty
-`restrictions.size() == 0` can be replaced with 'restrictions.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            value = true;
-        } else {
-            if (restrictions.size() == 0) {
-                throw new OverConstrainedVersionException("The artifact has no valid ranges", artifact);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`restrictions.size() > 0` can be replaced with '!restrictions.isEmpty()'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-
-        ArtifactVersion version = null;
-        if (restrictions.size() > 0) {
-            for (Restriction r : restrictions) {
-                if (recommendedVersion != null && r.containsVersion(recommendedVersion)) {
-```
-
-### SizeReplaceableByIsEmpty
 `process.length() > 0` can be replaced with '!process.isEmpty()'
 in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
 #### Snippet
@@ -879,20 +916,8 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRan
 ```
 
 ### SizeReplaceableByIsEmpty
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
-#### Snippet
-```java
-        String msg;
-
-        if (message != null && message.length() > 0) {
-            msg = message;
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
 `getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblem.java`
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
 #### Snippet
 ```java
         StringBuilder buffer = new StringBuilder(256);
@@ -903,99 +928,27 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 ```
 
 ### SizeReplaceableByIsEmpty
-`localRepository.length() > 0` can be replaced with '!localRepository.isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
-#### Snippet
-```java
-        // for the special case of a drive-relative Windows path, make sure it's absolute to save plugins from trouble
-        String localRepository = userSettings.getLocalRepository();
-        if (localRepository != null && localRepository.length() > 0) {
-            File file = new File(localRepository);
-            if (!file.isAbsolute() && file.getPath().startsWith(File.separator)) {
-```
-
-### SizeReplaceableByIsEmpty
-`string.length() > 0` can be replaced with '!string.isEmpty()'
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/validation/DefaultSettingsValidator.java`
-#### Snippet
-```java
-        }
-
-        if (string.length() > 0) {
-            return true;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`downloadUrl.length() > 0` can be replaced with '!downloadUrl.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
-#### Snippet
-```java
-            downloadUrl = distMgmt.getDownloadUrl();
-        }
-        if (downloadUrl != null && downloadUrl.length() > 0) {
-            Artifact artifact = result.getArtifact();
-            Map<String, String> props = new HashMap<>(artifact.getProperties());
-```
-
-### SizeReplaceableByIsEmpty
-`pomArtifact.getClassifier().length() > 0` can be replaced with '!pomArtifact.getClassifier().isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
-        Artifact pomArtifact = artifact;
-
-        if (pomArtifact.getClassifier().length() > 0 || !"pom".equals(pomArtifact.getExtension())) {
-            pomArtifact =
-                    new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(), "pom", artifact.getVersion());
-```
-
-### SizeReplaceableByIsEmpty
-`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        this.artifact = Objects.requireNonNull(artifact, "artifact cannot be null");
-        // TODO Use StringUtils here
-        this.groupId = (groupId != null && groupId.length() > 0) ? groupId : null;
-        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
-        this.version = (version != null && version.length() > 0) ? version : null;
-```
-
-### SizeReplaceableByIsEmpty
-`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        // TODO Use StringUtils here
-        this.groupId = (groupId != null && groupId.length() > 0) ? groupId : null;
-        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
-        this.version = (version != null && version.length() > 0) ? version : null;
-        this.message = (message != null && message.length() > 0) ? message : null;
-```
-
-### SizeReplaceableByIsEmpty
-`version.length() > 0` can be replaced with '!version.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-        this.groupId = (groupId != null && groupId.length() > 0) ? groupId : null;
-        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
-        this.version = (version != null && version.length() > 0) ? version : null;
-        this.message = (message != null && message.length() > 0) ? message : null;
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `message.length() > 0` can be replaced with '!message.isEmpty()'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
 #### Snippet
 ```java
-        this.artifactId = (artifactId != null && artifactId.length() > 0) ? artifactId : null;
-        this.version = (version != null && version.length() > 0) ? version : null;
-        this.message = (message != null && message.length() > 0) ? message : null;
-    }
+        String msg;
 
+        if (message != null && message.length() > 0) {
+            msg = message;
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`text.length() == 0` can be replaced with 'text.isEmpty()'
+in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+#### Snippet
+```java
+
+        // last chance => attempt to create an instance of the expected type: use the string if non-empty
+        return text.length() == 0 ? newImplementation(rawType) : newImplementation(rawType, text);
+    }
+}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1167,51 +1120,99 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 ```
 
 ### SizeReplaceableByIsEmpty
-`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
 #### Snippet
 ```java
-                + ':'
-                + getExtension()
-                + (getClassifier().length() > 0 ? ":" + getClassifier() : "")
-                + ':'
-                + getVersion();
+        SerializerXMLWriter xmlWriter = new SerializerXMLWriter(namespace, serializer);
+        Xpp3DomWriter.write(xmlWriter, this);
+        if (xmlWriter.getExceptions().size() > 0) {
+            throw (IOException) xmlWriter.getExceptions().get(0);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`getSource().length() > 0` can be replaced with '!getSource().isEmpty()'
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
+`str.length() > 0` can be replaced with '!str.isEmpty()'
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
 #### Snippet
 ```java
-        StringBuilder buffer = new StringBuilder(256);
 
-        if (getSource().length() > 0) {
-            if (buffer.length() > 0) {
-                buffer.append(", ");
+    public static boolean isNotEmpty(String str) {
+        return ((str != null) && (str.length() > 0));
+    }
+
 ```
 
 ### SizeReplaceableByIsEmpty
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
+`str.trim().length() == 0` can be replaced with 'str.trim().isEmpty()'
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
 #### Snippet
 ```java
-        String msg;
 
-        if (message != null && message.length() > 0) {
-            msg = message;
-        } else {
+    public static boolean isEmpty(String str) {
+        return ((str == null) || (str.trim().length() == 0));
+    }
+
 ```
 
 ### SizeReplaceableByIsEmpty
-`text.length() == 0` can be replaced with 'text.isEmpty()'
-in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+`recessive.getChildren().size() > 0` can be replaced with '!recessive.getChildren().isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+            }
+
+            if (recessive.getChildren().size() > 0) {
+                boolean mergeChildren = true;
+                if (childMergeOverride != null) {
+```
+
+### SizeReplaceableByIsEmpty
+`dominantChildren.size() > 0` can be replaced with '!dominantChildren.isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+                                    .filter(n -> n.getName().equals(name))
+                                    .collect(Collectors.toList());
+                            if (dominantChildren.size() > 0) {
+                                commonChildren.put(name, dominantChildren.iterator());
+                            }
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
 #### Snippet
 ```java
 
-        // last chance => attempt to create an instance of the expected type: use the string if non-empty
-        return text.length() == 0 ? newImplementation(rawType) : newImplementation(rawType, text);
+    private static boolean isEmpty(String str) {
+        return ((str == null) || (str.length() == 0));
     }
 }
+```
+
+### SizeReplaceableByIsEmpty
+`xmlWriter.getExceptions().size() > 0` can be replaced with '!xmlWriter.getExceptions().isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+        SerializerXMLWriter xmlWriter = new SerializerXMLWriter(namespace, serializer);
+        Xpp3DomWriter.write(xmlWriter, this);
+        if (xmlWriter.getExceptions().size() > 0) {
+            throw (IOException) xmlWriter.getExceptions().get(0);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() > 0` can be replaced with '!str.isEmpty()'
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+
+    private static boolean isNotEmpty(String str) {
+        return ((str != null) && (str.length() > 0));
+    }
+
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -1252,18 +1253,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder buffer` can be replaced with 'String'
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-
-    public String extendedToString() {
-        StringBuilder buffer = new StringBuilder(256);
-
-        buffer.append(LS).append("Repository Metadata").append(LS).append("--------------------------");
-```
-
-### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
 #### Snippet
@@ -1273,6 +1262,18 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResoluti
         StringBuilder sb = new StringBuilder()
                 .append("REQUEST: ")
                 .append(LS)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder buffer` can be replaced with 'String'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+
+    public String extendedToString() {
+        StringBuilder buffer = new StringBuilder(256);
+
+        buffer.append(LS).append("Repository Metadata").append(LS).append("--------------------------");
 ```
 
 ### StringBufferReplaceableByString
@@ -1297,42 +1298,6 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRe
         StringBuilder buffer = new StringBuilder(64);
         buffer.append("{enabled=");
         buffer.append(enabled);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder buffer` can be replaced with 'String'
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProblemUtils.java`
-#### Snippet
-```java
-     */
-    static String toId(String groupId, String artifactId, String version) {
-        StringBuilder buffer = new StringBuilder(128);
-
-        buffer.append((groupId != null && groupId.length() > 0) ? groupId : "[unknown-group-id]");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder path` can be replaced with 'String'
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/layout/FlatRepositoryLayout.java`
-#### Snippet
-```java
-
-    private String pathOfRepositoryMetadata(String filename) {
-        StringBuilder path = new StringBuilder(128);
-
-        path.append(filename);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
-#### Snippet
-```java
-
-    public String toString() {
-        StringBuilder sb = new StringBuilder()
-                .append("REQUEST: ")
-                .append("\n")
 ```
 
 ### StringBufferReplaceableByString
@@ -1371,6 +1336,42 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTran
         message.append(": ");
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder buffer` can be replaced with 'String'
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProblemUtils.java`
+#### Snippet
+```java
+     */
+    static String toId(String groupId, String artifactId, String version) {
+        StringBuilder buffer = new StringBuilder(128);
+
+        buffer.append((groupId != null && groupId.length() > 0) ? groupId : "[unknown-group-id]");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder path` can be replaced with 'String'
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/layout/FlatRepositoryLayout.java`
+#### Snippet
+```java
+
+    private String pathOfRepositoryMetadata(String filename) {
+        StringBuilder path = new StringBuilder(128);
+
+        path.append(filename);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
+#### Snippet
+```java
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder()
+                .append("REQUEST: ")
+                .append("\n")
+```
+
 ## RuleId[ruleID=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `r &= exclusionsEquals(aD.getExclusions(), bD.getExclusions())`
@@ -1398,6 +1399,18 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/IncludesA
 
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `hasVersion |= "version".equals(tagName)`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
+#### Snippet
+```java
+            if (event.event == START_TAG) {
+                tagName = event.name;
+                hasVersion |= "version".equals(tagName);
+            } else if (event.event == TEXT) {
+                if (event.text.matches("\\s+")) {
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `hasVersion |= "version".equals(tagName)`
 in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
 #### Snippet
 ```java
@@ -1416,18 +1429,6 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentX
                 tagName = event.name;
                 hasVersion |= "version".equals(tagName);
                 hasRelativePath |= "relativePath".equals(tagName);
-            } else if (event.event == TEXT) {
-                if (event.text.matches("\\s+")) {
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `hasVersion |= "version".equals(tagName)`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
-#### Snippet
-```java
-            if (event.event == START_TAG) {
-                tagName = event.name;
-                hasVersion |= "version".equals(tagName);
             } else if (event.event == TEXT) {
                 if (event.text.matches("\\s+")) {
 ```
@@ -1458,10 +1459,83 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManager.
     }
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `AbstractEventSpy` has no concrete subclass
+in `maven-core/src/main/java/org/apache/maven/eventspy/AbstractEventSpy.java`
+#### Snippet
+```java
+ * @since 3.0.2
+ */
+public abstract class AbstractEventSpy implements EventSpy {
+
+    public void init(Context context) throws Exception {}
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractMojo` has no concrete subclass
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java`
+#### Snippet
+```java
+ * @author <a href="mailto:vincent.siveton@gmail.com">Vincent Siveton</a>
+ */
+public abstract class AbstractMojo implements Mojo, ContextEnabled {
+    /** Instance logger */
+    private Log log;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BaseObject` has no concrete subclass
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+import java.io.Serializable;
+
+public abstract class BaseObject implements Serializable, Cloneable, InputLocationTracker {
+    protected transient ChildrenTracking childrenTracking;
+
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends VersionInfo`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+    }
+
+    private boolean resolve(VersionResult result, Map<String, VersionInfo> infos, String key) {
+        VersionInfo info = infos.get(key);
+        if (info != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+    }
+
+    private void merge(Map<String, VersionInfo> infos, String srcKey, String dstKey) {
+        VersionInfo srcInfo = infos.get(srcKey);
+        VersionInfo dstInfo = infos.get(dstKey);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+    private void merge(
+            String key,
+            Map<String, VersionInfo> infos,
+            String timestamp,
+            String version,
+```
+
+### BoundedWildcard
 Can generalize to `? extends Map`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     final Consumer<Properties> setter;
@@ -1473,84 +1547,12 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 
 ### BoundedWildcard
 Can generalize to `? super Properties`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     final Consumer<Properties> setter;
 
     WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super U`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
         this.getter = getter;
         this.setter = setter;
 ```
@@ -1565,6 +1567,114 @@ in `maven-core/src/main/java/org/apache/maven/plugin/CompoundMojoExecutionListen
     CompoundMojoExecutionListener(Collection<MojoExecutionListener> listeners) {
         this.listeners = listeners; // NB this is live injected collection
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super U`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super org.apache.maven.artifact.Artifact`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+
+    public static void toArtifacts(
+            Collection<org.apache.maven.artifact.Artifact> artifacts,
+            Collection<? extends DependencyNode> nodes,
+            List<String> trail,
+```
+
+### BoundedWildcard
+Can generalize to `? extends org.apache.maven.artifact.Artifact`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static Collection<Artifact> toArtifacts(Collection<org.apache.maven.artifact.Artifact> artifactsToConvert) {
+        return artifactsToConvert.stream().map(RepositoryUtils::toArtifact).collect(Collectors.toList());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static List<RemoteRepository> toRepos(List<ArtifactRepository> repos) {
+        return Optional.ofNullable(repos).orElse(Collections.emptyList()).stream()
+                .map(RepositoryUtils::toRepo)
 ```
 
 ### BoundedWildcard
@@ -1592,39 +1702,51 @@ in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGrap
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends org.apache.maven.artifact.Artifact`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+Can generalize to `? extends T`
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
 #### Snippet
 ```java
     }
 
-    public static Collection<Artifact> toArtifacts(Collection<org.apache.maven.artifact.Artifact> artifactsToConvert) {
-        return artifactsToConvert.stream().map(RepositoryUtils::toArtifact).collect(Collectors.toList());
-    }
+    private <T> Collection<T> getExtensionComponents(Collection<MavenProject> projects, Class<T> role) {
+        Collection<T> foundComponents = new LinkedHashSet<>();
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? super org.apache.maven.artifact.Artifact`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-
-    public static void toArtifacts(
-            Collection<org.apache.maven.artifact.Artifact> artifacts,
-            Collection<? extends DependencyNode> nodes,
-            List<String> trail,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+Can generalize to `? extends MavenProject`
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
 #### Snippet
 ```java
     }
 
-    public static List<RemoteRepository> toRepos(List<ArtifactRepository> repos) {
-        return Optional.ofNullable(repos).orElse(Collections.emptyList()).stream()
-                .map(RepositoryUtils::toRepo)
+    private Map<String, MavenProject> getProjectMap(Collection<MavenProject> projects)
+            throws DuplicateProjectException {
+        Map<String, MavenProject> index = new LinkedHashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MavenProject`
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    }
+
+    protected <T> Collection<T> getProjectScopedExtensionComponents(Collection<MavenProject> projects, Class<T> role) {
+
+        Collection<T> foundComponents = new LinkedHashSet<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    }
+
+    protected <T> Collection<T> getProjectScopedExtensionComponents(Collection<MavenProject> projects, Class<T> role) {
+
+        Collection<T> foundComponents = new LinkedHashSet<>();
 ```
 
 ### BoundedWildcard
@@ -1649,54 +1771,6 @@ public class DefaultMojosExecutionStrategy implements MojosExecutionStrategy {
     public void execute(List<MojoExecution> mojos, MavenSession session, MojoExecutionRunner mojoRunner)
             throws LifecycleExecutionException {
         for (MojoExecution mojoExecution : mojos) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, MavenProject> getProjectMap(Collection<MavenProject> projects)
-            throws DuplicateProjectException {
-        Map<String, MavenProject> index = new LinkedHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    }
-
-    private <T> Collection<T> getExtensionComponents(Collection<MavenProject> projects, Class<T> role) {
-        Collection<T> foundComponents = new LinkedHashSet<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    }
-
-    protected <T> Collection<T> getProjectScopedExtensionComponents(Collection<MavenProject> projects, Class<T> role) {
-
-        Collection<T> foundComponents = new LinkedHashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    }
-
-    protected <T> Collection<T> getProjectScopedExtensionComponents(Collection<MavenProject> projects, Class<T> role) {
-
-        Collection<T> foundComponents = new LinkedHashSet<>();
 ```
 
 ### BoundedWildcard
@@ -1742,9 +1816,21 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    public void injectProxy(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
+    public Set<String> getRepoIds(List<ArtifactRepository> repositories) {
+        Set<String> repoIds = new HashSet<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactRepositoryLayout`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    @Inject
+    public MavenRepositorySystem(
+            ArtifactHandlerManager artifactHandlerManager, Map<String, ArtifactRepositoryLayout> layouts) {
+        this.artifactHandlerManager = artifactHandlerManager;
+        this.layouts = layouts;
 ```
 
 ### BoundedWildcard
@@ -1752,11 +1838,23 @@ Can generalize to `? extends ArtifactRepository`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-     * @since 3.6.1
-     */
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
+    }
+
+    public void injectProxy(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactRepositoryPolicy`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
+        ArtifactRepositoryPolicy effectivePolicy = null;
+
 ```
 
 ### BoundedWildcard
@@ -1776,35 +1874,11 @@ Can generalize to `? extends ArtifactRepository`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-    }
-
-    public Set<String> getRepoIds(List<ArtifactRepository> repositories) {
-        Set<String> repoIds = new HashSet<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepositoryPolicy`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
-        ArtifactRepositoryPolicy effectivePolicy = null;
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepositoryLayout`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    @Inject
-    public MavenRepositorySystem(
-            ArtifactHandlerManager artifactHandlerManager, Map<String, ArtifactRepositoryLayout> layouts) {
-        this.artifactHandlerManager = artifactHandlerManager;
-        this.layouts = layouts;
+     * @since 3.6.1
+     */
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
 ```
 
 ### BoundedWildcard
@@ -1838,9 +1912,9 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```java
     }
 
-    public ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
-        if (remoteRepositories != null) {
-            this.remoteRepositories = new ArrayList<>(remoteRepositories);
+    public ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
+        if (pluginArtifactRepositories != null) {
+            this.pluginArtifactRepositories = new ArrayList<>(pluginArtifactRepositories);
 ```
 
 ### BoundedWildcard
@@ -1850,21 +1924,9 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```java
     }
 
-    public ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
-        if (pluginArtifactRepositories != null) {
-            this.pluginArtifactRepositories = new ArrayList<>(pluginArtifactRepositories);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
-#### Snippet
-```java
-    private void addEdge(
-            Map<String, MavenProject> projectMap,
-            Map<String, Map<String, Vertex>> vertexMap,
-            MavenProject project,
-            Vertex projectVertex,
+    public ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
+        if (remoteRepositories != null) {
+            this.remoteRepositories = new ArrayList<>(remoteRepositories);
 ```
 
 ### BoundedWildcard
@@ -1877,6 +1939,18 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
             Map<String, MavenProject> projectMap,
             boolean force,
             boolean safe)
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
+#### Snippet
+```java
+    private void addEdge(
+            Map<String, MavenProject> projectMap,
+            Map<String, Map<String, Vertex>> vertexMap,
+            MavenProject project,
+            Vertex projectVertex,
 ```
 
 ### BoundedWildcard
@@ -1908,18 +1982,6 @@ Can generalize to `? extends ArtifactHandler`
 in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultArtifactHandlerManager.java`
 #### Snippet
 ```java
-
-    @Inject
-    public DefaultArtifactHandlerManager(Map<String, ArtifactHandler> artifactHandlers) {
-        this.artifactHandlers = artifactHandlers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactHandler`
-in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultArtifactHandlerManager.java`
-#### Snippet
-```java
     }
 
     public void addHandlers(Map<String, ArtifactHandler> handlers) {
@@ -1928,14 +1990,14 @@ in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultAr
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
+Can generalize to `? extends ArtifactHandler`
+in `maven-core/src/main/java/org/apache/maven/artifact/handler/manager/DefaultArtifactHandlerManager.java`
 #### Snippet
 ```java
-    }
 
-    public <T> void seed(Class<T> clazz, final T value) {
-        seed(clazz, (Provider<T>) () -> value);
+    @Inject
+    public DefaultArtifactHandlerManager(Map<String, ArtifactHandler> artifactHandlers) {
+        this.artifactHandlers = artifactHandlers;
     }
 ```
 
@@ -1952,51 +2014,15 @@ in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScop
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-    private List<ArtifactRepository> aggregateRepositories(
-            List<ArtifactRepository> requestRepositories, List<ArtifactRepository> pomRepositories) {
-        List<ArtifactRepository> repositories = requestRepositories;
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+Can generalize to `? extends T`
+in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScope.java`
 #### Snippet
 ```java
     }
 
-    private static int repositoriesHashCode(List<ArtifactRepository> repositories) {
-        int result = 17;
-        for (ArtifactRepository repository : repositories) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-                Set<Artifact> artifacts,
-                Map<String, Artifact> managedVersions,
-                List<ArtifactRepository> remoteRepositories) {
-            this.pomArtifact = ArtifactUtils.copyArtifact(pomArtifact);
-            this.relocatedArtifact = ArtifactUtils.copyArtifactSafe(relocatedArtifact);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
-#### Snippet
-```java
-
-    public void addDependencies(
-            Set<Artifact> artifacts, List<ArtifactRepository> remoteRepositories, ArtifactFilter filter)
-            throws CyclicDependencyException, OverConstrainedVersionException {
-        if (artifacts != null && !artifacts.isEmpty()) {
+    public <T> void seed(Class<T> clazz, final T value) {
+        seed(clazz, (Provider<T>) () -> value);
+    }
 ```
 
 ### BoundedWildcard
@@ -2024,6 +2050,42 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+                Set<Artifact> artifacts,
+                Map<String, Artifact> managedVersions,
+                List<ArtifactRepository> remoteRepositories) {
+            this.pomArtifact = ArtifactUtils.copyArtifact(pomArtifact);
+            this.relocatedArtifact = ArtifactUtils.copyArtifactSafe(relocatedArtifact);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static int repositoriesHashCode(List<ArtifactRepository> repositories) {
+        int result = 17;
+        for (ArtifactRepository repository : repositories) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
+#### Snippet
+```java
+
+    public void addDependencies(
+            Set<Artifact> artifacts, List<ArtifactRepository> remoteRepositories, ArtifactFilter filter)
+            throws CyclicDependencyException, OverConstrainedVersionException {
+        if (artifacts != null && !artifacts.isEmpty()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `maven-core/src/main/java/org/apache/maven/artifact/resolver/DefaultResolutionErrorHandler.java`
 #### Snippet
@@ -2032,18 +2094,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/DefaultResolutio
 
     private static <T> List<T> toList(Collection<T> items) {
         return (items != null) ? new ArrayList<>(items) : null;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactFilter`
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/AndArtifactFilter.java`
-#### Snippet
-```java
-    }
-
-    public AndArtifactFilter(List<ArtifactFilter> filters) {
-        this.filters = new LinkedHashSet<>(filters);
     }
 ```
 
@@ -2073,6 +2123,30 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 
 ### BoundedWildcard
 Can generalize to `? extends ArtifactRepository`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    private List<ArtifactRepository> aggregateRepositories(
+            List<ArtifactRepository> requestRepositories, List<ArtifactRepository> pomRepositories) {
+        List<ArtifactRepository> repositories = requestRepositories;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactFilter`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/AndArtifactFilter.java`
+#### Snippet
+```java
+    }
+
+    public AndArtifactFilter(List<ArtifactFilter> filters) {
+        this.filters = new LinkedHashSet<>(filters);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactRepository`
 in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
 #### Snippet
 ```java
@@ -2080,6 +2154,18 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResoluti
 
     public ArtifactResolutionResult setRepositories(final List<ArtifactRepository> repositories) {
         this.repositories = repositories;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `maven-core/src/main/java/org/apache/maven/DefaultProjectDependenciesResolver.java`
+#### Snippet
+```java
+    }
+
+    private Set<String> getIgnorableArtifacts(Iterable<Artifact> artifactIterable) {
+        Set<String> projectIds = new HashSet<>();
 
 ```
 
@@ -2105,42 +2191,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractNode.java`
     public Node filter(Predicate<Node> filter) {
         List<Node> children =
                 getChildren().stream().filter(filter).map(n -> n.filter(filter)).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/DefaultProjectDependenciesResolver.java`
-#### Snippet
-```java
-    }
-
-    private Set<String> getIgnorableArtifacts(Iterable<Artifact> artifactIterable) {
-        Set<String> projectIds = new HashSet<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
-#### Snippet
-```java
-    private final Function<V, U> mapper;
-
-    public MappedCollection(Collection<V> list, Function<V, U> mapper) {
-        this.list = list;
-        this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
-#### Snippet
-```java
-    private final Function<V, U> mapper;
-
-    public MappedCollection(Collection<V> list, Function<V, U> mapper) {
-        this.list = list;
-        this.mapper = mapper;
 ```
 
 ### BoundedWildcard
@@ -2180,6 +2230,30 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedList.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super V`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
+#### Snippet
+```java
+    private final Function<V, U> mapper;
+
+    public MappedCollection(Collection<V> list, Function<V, U> mapper) {
+        this.list = list;
+        this.mapper = mapper;
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/MappedCollection.java`
+#### Snippet
+```java
+    private final Function<V, U> mapper;
+
+    public MappedCollection(Collection<V> list, Function<V, U> mapper) {
+        this.list = list;
+        this.mapper = mapper;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExceptionSummary`
 in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
 #### Snippet
@@ -2189,18 +2263,6 @@ in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
     public ExceptionSummary(Throwable exception, String message, String reference, List<ExceptionSummary> children) {
         this.exception = exception;
         this.message = (message != null) ? message : "";
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyCoordinate`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
-#### Snippet
-```java
-    public abstract ArtifactRepository toArtifactRepository(RemoteRepository repository);
-
-    public List<org.eclipse.aether.graph.Dependency> toDependencies(Collection<DependencyCoordinate> dependencies) {
-        return dependencies == null
-                ? null
 ```
 
 ### BoundedWildcard
@@ -2216,14 +2278,14 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RemoteRepository`
+Can generalize to `? extends DependencyCoordinate`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-    }
+    public abstract ArtifactRepository toArtifactRepository(RemoteRepository repository);
 
-    public List<ArtifactRepository> toArtifactRepositories(List<RemoteRepository> repositories) {
-        return repositories == null
+    public List<org.eclipse.aether.graph.Dependency> toDependencies(Collection<DependencyCoordinate> dependencies) {
+        return dependencies == null
                 ? null
 ```
 
@@ -2235,6 +2297,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java
     }
 
     public List<org.eclipse.aether.repository.RemoteRepository> toRepositories(List<RemoteRepository> repositories) {
+        return repositories == null
+                ? null
+```
+
+### BoundedWildcard
+Can generalize to `? extends RemoteRepository`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+#### Snippet
+```java
+    }
+
+    public List<ArtifactRepository> toArtifactRepositories(List<RemoteRepository> repositories) {
         return repositories == null
                 ? null
 ```
@@ -2276,6 +2350,18 @@ in `maven-core/src/main/java/org/apache/maven/extension/internal/CoreExtensionEn
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ExecutionPlanItem`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/MavenExecutionPlan.java`
+#### Snippet
+```java
+
+    private static Iterable<String> getDistinctPhasesInOrderOfExecutionPlanAppearance(
+            List<ExecutionPlanItem> planItems) {
+        LinkedHashSet<String> result = new LinkedHashSet<>();
+        for (ExecutionPlanItem executionPlanItem : planItems) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ArtifactRepository`
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
@@ -2300,15 +2386,15 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExecutionPlanItem`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/MavenExecutionPlan.java`
+Can generalize to `? extends MojoExecution`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ExecutionPlanItem.java`
 #### Snippet
 ```java
 
-    private static Iterable<String> getDistinctPhasesInOrderOfExecutionPlanAppearance(
-            List<ExecutionPlanItem> planItems) {
-        LinkedHashSet<String> result = new LinkedHashSet<>();
-        for (ExecutionPlanItem executionPlanItem : planItems) {
+    public static List<ExecutionPlanItem> createExecutionPlanItems(
+            MavenProject mavenProject, List<MojoExecution> executions) {
+        BuilderCommon.attachToThread(mavenProject);
+
 ```
 
 ### BoundedWildcard
@@ -2321,18 +2407,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycle
     public DefaultLifecycleMapping(final List<Lifecycle> lifecycles) {
         this.lifecycleMap =
                 Collections.unmodifiableMap(lifecycles.stream().collect(toMap(Lifecycle::getId, identity())));
-```
-
-### BoundedWildcard
-Can generalize to `? extends MojoExecution`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ExecutionPlanItem.java`
-#### Snippet
-```java
-
-    public static List<ExecutionPlanItem> createExecutionPlanItems(
-            MavenProject mavenProject, List<MojoExecution> executions) {
-        BuilderCommon.attachToThread(mavenProject);
-
 ```
 
 ### BoundedWildcard
@@ -2360,6 +2434,18 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleStarte
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ProjectExecutionListener`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/CompoundProjectExecutionListener.java`
+#### Snippet
+```java
+    private final Collection<ProjectExecutionListener> listeners;
+
+    CompoundProjectExecutionListener(Collection<ProjectExecutionListener> listeners) {
+        this.listeners = listeners; // NB this is live injected collection
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends MojoExecution`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDebugLogger.java`
 #### Snippet
@@ -2372,15 +2458,39 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDebugL
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ProjectExecutionListener`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/CompoundProjectExecutionListener.java`
+Can generalize to `? super String`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
 #### Snippet
 ```java
-    private final Collection<ProjectExecutionListener> listeners;
 
-    CompoundProjectExecutionListener(Collection<ProjectExecutionListener> listeners) {
-        this.listeners = listeners; // NB this is live injected collection
-    }
+    private void collectDependencyRequirements(
+            Set<String> scopesToResolve, Set<String> scopesToCollect, Collection<MojoExecution> mojoExecutions) {
+        for (MojoExecution mojoExecution : mojoExecutions) {
+            MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+#### Snippet
+```java
+
+    private void collectDependencyRequirements(
+            Set<String> scopesToResolve, Set<String> scopesToCollect, Collection<MojoExecution> mojoExecutions) {
+        for (MojoExecution mojoExecution : mojoExecutions) {
+            MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MojoExecution`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+#### Snippet
+```java
+
+    private void collectDependencyRequirements(
+            Set<String> scopesToResolve, Set<String> scopesToCollect, Collection<MojoExecution> mojoExecutions) {
+        for (MojoExecution mojoExecution : mojoExecutions) {
+            MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
 ```
 
 ### BoundedWildcard
@@ -2396,51 +2506,15 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+Can generalize to `? extends MavenProject`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/MultiThreadedBuilder.java`
 #### Snippet
 ```java
-
-    private void collectDependencyRequirements(
-            Set<String> scopesToResolve, Set<String> scopesToCollect, Collection<MojoExecution> mojoExecutions) {
-        for (MojoExecution mojoExecution : mojoExecutions) {
-            MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
-#### Snippet
-```java
-
-    private void collectDependencyRequirements(
-            Set<String> scopesToResolve, Set<String> scopesToCollect, Collection<MojoExecution> mojoExecutions) {
-        for (MojoExecution mojoExecution : mojoExecutions) {
-            MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MojoExecution`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
-#### Snippet
-```java
-
-    private void collectDependencyRequirements(
-            Set<String> scopesToResolve, Set<String> scopesToCollect, Collection<MojoExecution> mojoExecutions) {
-        for (MojoExecution mojoExecution : mojoExecutions) {
-            MojoDescriptor mojoDescriptor = mojoExecution.getMojoDescriptor();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDependencyResolver.java`
-#### Snippet
-```java
-        private Set<String> keys = new HashSet<>();
-
-        ReactorDependencyFilter(Collection<Artifact> artifacts) {
-            for (Artifact artifact : artifacts) {
-                String key = ArtifactUtils.key(artifact);
+            CompletionService<ProjectSegment> service,
+            TaskSegment taskSegment,
+            Map<MavenProject, ProjectSegment> projectBuildList,
+            ThreadOutputMuxer muxer) {
+        // gather artifactIds which are not unique so that the respective thread names can be extended with the groupId
 ```
 
 ### BoundedWildcard
@@ -2456,15 +2530,27 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/MultiThreadedBuilder.java`
+Can generalize to `? extends Artifact`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDependencyResolver.java`
 #### Snippet
 ```java
-            CompletionService<ProjectSegment> service,
-            TaskSegment taskSegment,
-            Map<MavenProject, ProjectSegment> projectBuildList,
-            ThreadOutputMuxer muxer) {
-        // gather artifactIds which are not unique so that the respective thread names can be extended with the groupId
+        private Set<String> keys = new HashSet<>();
+
+        ReactorDependencyFilter(Collection<Artifact> artifacts) {
+            for (Artifact artifact : artifacts) {
+                String key = ArtifactUtils.key(artifact);
+```
+
+### BoundedWildcard
+Can generalize to `? extends MojoExecution`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
+#### Snippet
+```java
+
+    private Set<MojoDescriptor> fillMojoDescriptors(
+            MavenSession session, MavenProject project, List<MojoExecution> mojoExecutions)
+            throws InvalidPluginDescriptorException, MojoNotFoundException, PluginResolutionException,
+                    PluginDescriptorParsingException, PluginNotFoundException {
 ```
 
 ### BoundedWildcard
@@ -2492,15 +2578,39 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MojoExecution`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DefaultLifecycleExecutionPlanCalculator.java`
+Can generalize to `? extends Problem`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
 #### Snippet
 ```java
+    }
 
-    private Set<MojoDescriptor> fillMojoDescriptors(
-            MavenSession session, MavenProject project, List<MojoExecution> mojoExecutions)
-            throws InvalidPluginDescriptorException, MojoNotFoundException, PluginResolutionException,
-                    PluginDescriptorParsingException, PluginNotFoundException {
+    private boolean hasErrors(List<Problem> problems) {
+        if (problems != null) {
+            for (Problem problem : problems) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Problem`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
+#### Snippet
+```java
+    }
+
+    private static String toMessage(List<Problem> problems) {
+        StringWriter buffer = new StringWriter(1024);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClassRealmManagerDelegate`
+in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
+#### Snippet
+```java
+    @Inject
+    public DefaultClassRealmManager(
+            PlexusContainer container, List<ClassRealmManagerDelegate> delegates, CoreExports exports) {
+        this.world = ((MutablePlexusContainer) container).getClassWorld();
+        this.containerRealm = container.getContainerRealm();
 ```
 
 ### BoundedWildcard
@@ -2528,27 +2638,75 @@ in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManage
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassRealmManagerDelegate`
-in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManager.java`
+Can generalize to `? extends SettingsProblem`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
 #### Snippet
 ```java
-    @Inject
-    public DefaultClassRealmManager(
-            PlexusContainer container, List<ClassRealmManagerDelegate> delegates, CoreExports exports) {
-        this.world = ((MutablePlexusContainer) container).getClassWorld();
-        this.containerRealm = container.getContainerRealm();
+    }
+
+    private boolean hasErrors(List<SettingsProblem> problems) {
+        if (problems != null) {
+            for (SettingsProblem problem : problems) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+Can generalize to `? extends SettingsProblem`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
 #### Snippet
 ```java
-            List<InterimResult> interimResults,
-            Map<File, MavenProject> projectIndex,
-            List<File> pomFiles,
-            Set<File> aggregatorFiles,
-            boolean root,
+    }
+
+    private static String toMessage(List<SettingsProblem> problems) {
+        StringWriter buffer = new StringWriter(1024);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super ActivationSettings`
+in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+#### Snippet
+```java
+    }
+
+    private Set<String> getProfileIds(final Predicate<ActivationSettings> predicate) {
+        return this.activations.entrySet().stream()
+                .filter(e -> predicate.test(e.getValue()))
+```
+
+### BoundedWildcard
+Can generalize to `? super ActivationSettings`
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+    }
+
+    private Stream<ProjectActivationSettings> getProjects(final Predicate<ActivationSettings> predicate) {
+        return this.activations.stream().filter(activation -> predicate.test(activation.activationSettings));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Parameter`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+     * @throws DuplicateParameterException if any
+     */
+    public void setParameters(List<Parameter> parameters) throws DuplicateParameterException {
+        this.parameters.clear();
+        for (Parameter parameter : parameters) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MojoDescriptor`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+    }
+
+    public void addMojos(List<MojoDescriptor> mojos) throws DuplicateMojoDescriptorException {
+        for (MojoDescriptor mojoDescriptor : mojos) {
+            addMojo(mojoDescriptor);
 ```
 
 ### BoundedWildcard
@@ -2588,27 +2746,39 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MojoDescriptor`
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+Can generalize to `? extends File`
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+            List<InterimResult> interimResults,
+            Map<File, MavenProject> projectIndex,
+            List<File> pomFiles,
+            Set<File> aggregatorFiles,
+            boolean root,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exclusion`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/DependencyCoordinateFactoryRequest.java`
+#### Snippet
+```java
+        }
+
+        public DependencyCoordinateFactoryRequestBuilder exclusions(Collection<Exclusion> exclusions) {
+            if (exclusions != null) {
+                if (this.exclusions.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/BaseRequest.java`
 #### Snippet
 ```java
     }
 
-    public void addMojos(List<MojoDescriptor> mojos) throws DuplicateMojoDescriptorException {
-        for (MojoDescriptor mojoDescriptor : mojos) {
-            addMojo(mojoDescriptor);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-     * @throws DuplicateParameterException if any
-     */
-    public void setParameters(List<Parameter> parameters) throws DuplicateParameterException {
-        this.parameters.clear();
-        for (Parameter parameter : parameters) {
+    protected static <T> Collection<T> unmodifiable(Collection<T> obj) {
+        return obj != null && !obj.isEmpty()
+                ? Collections.unmodifiableCollection(new ArrayList<>(obj))
 ```
 
 ### BoundedWildcard
@@ -2648,15 +2818,51 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ActivationSettings`
-in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+Can generalize to `? extends ArtifactVersion`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
 #### Snippet
 ```java
     }
 
-    private Set<String> getProfileIds(final Predicate<ActivationSettings> predicate) {
-        return this.activations.entrySet().stream()
-                .filter(e -> predicate.test(e.getValue()))
+    public ArtifactVersion matchVersion(List<ArtifactVersion> versions) {
+        // TODO could be more efficient by sorting the list and then moving along the restrictions in order?
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super Properties`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Event`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
+#### Snippet
+```java
+
+    @Override
+    protected void process(List<Event> buffer) {
+        for (Event event : buffer) {
+            if (event.event == TEXT && replace && event.text.contains("${")) {
 ```
 
 ### BoundedWildcard
@@ -2672,123 +2878,51 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/MultipleArti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArtifactVersion`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+Can generalize to `? extends Event`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RelativePathXMLFilter.java`
 #### Snippet
 ```java
     }
 
-    public ArtifactVersion matchVersion(List<ArtifactVersion> versions) {
-        // TODO could be more efficient by sorting the list and then moving along the restrictions in order?
-
+    protected void process(List<Event> buffer) {
+        boolean skip = false;
+        Event prev = null;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ActivationSettings`
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+Can generalize to `? super String`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
 #### Snippet
 ```java
-    }
 
-    private Stream<ProjectActivationSettings> getProjects(final Predicate<ActivationSettings> predicate) {
-        return this.activations.stream().filter(activation -> predicate.test(activation.activationSettings));
-    }
+    public ReactorDependencyXMLFilter(
+            XmlPullParser xmlPullParser, BiFunction<String, String, String> reactorVersionMapper) {
+        super(xmlPullParser, "dependency");
+        this.reactorVersionMapper = reactorVersionMapper;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+Can generalize to `? super String`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
 #### Snippet
 ```java
-    final Consumer<Properties> setter;
 
-    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
-        this.getter = getter;
-        this.setter = setter;
+    public ReactorDependencyXMLFilter(
+            XmlPullParser xmlPullParser, BiFunction<String, String, String> reactorVersionMapper) {
+        super(xmlPullParser, "dependency");
+        this.reactorVersionMapper = reactorVersionMapper;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Properties`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+Can generalize to `? super Path`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
 #### Snippet
 ```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Problem`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
-#### Snippet
-```java
-    }
-
-    private boolean hasErrors(List<Problem> problems) {
-        if (problems != null) {
-            for (Problem problem : problems) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Problem`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
-#### Snippet
-```java
-    }
-
-    private static String toMessage(List<Problem> problems) {
-        StringWriter buffer = new StringWriter(1024);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends SettingsProblem`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
-#### Snippet
-```java
-    }
-
-    private boolean hasErrors(List<SettingsProblem> problems) {
-        if (problems != null) {
-            for (SettingsProblem problem : problems) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SettingsProblem`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
-#### Snippet
-```java
-    }
-
-    private static String toMessage(List<SettingsProblem> problems) {
-        StringWriter buffer = new StringWriter(1024);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super Properties`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    final Consumer<Properties> setter;
-
-    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
-        this.getter = getter;
-        this.setter = setter;
+     */
+    ParentXMLFilter(
+            XmlPullParser parser, Function<Path, Optional<RelativeProject>> relativePathMapper, Path projectPath) {
+        super(parser, "parent");
+        this.relativePathMapper = relativePathMapper;
 ```
 
 ### BoundedWildcard
@@ -2897,126 +3031,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/path/DefaultModelPa
     private <T> List<T> map(List<T> resources, Function<T, T> mapper) {
         List<T> newResources = null;
         if (resources != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super U`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
-#### Snippet
-```java
-    }
-
-    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
-        this.getter = getter;
-        this.setter = setter;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-    }
-
-    private void merge(Map<String, VersionInfo> infos, String srcKey, String dstKey) {
-        VersionInfo srcInfo = infos.get(srcKey);
-        VersionInfo dstInfo = infos.get(dstKey);
-```
-
-### BoundedWildcard
-Can generalize to `? extends VersionInfo`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-    }
-
-    private boolean resolve(VersionResult result, Map<String, VersionInfo> infos, String key) {
-        VersionInfo info = infos.get(key);
-        if (info != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-    private void merge(
-            String key,
-            Map<String, VersionInfo> infos,
-            String timestamp,
-            String version,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
-#### Snippet
-```java
-    }
-
-    private static void addZeroTokens(List<String> tokens, int max) {
-        while (tokens.size() < max) {
-            tokens.add("0");
 ```
 
 ### BoundedWildcard
@@ -3032,15 +3046,15 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ModelProblem`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelProblemCollector.java`
+Can generalize to `? super String`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
     }
 
-    public void addAll(List<ModelProblem> problems) {
-        this.problems.addAll(problems);
-
+    private static void addZeroTokens(List<String> tokens, int max) {
+        while (tokens.size() < max) {
+            tokens.add("0");
 ```
 
 ### BoundedWildcard
@@ -3053,6 +3067,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.jav
     public static <T> Result<T> addProblems(Result<T> result, Iterable<? extends ModelProblem> problems) {
         Collection<ModelProblem> list = new ArrayList<>();
         for (ModelProblem item : problems) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModelProblem`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelProblemCollector.java`
+#### Snippet
+```java
+    }
+
+    public void addAll(List<ModelProblem> problems) {
+        this.problems.addAll(problems);
+
 ```
 
 ### BoundedWildcard
@@ -3077,6 +3103,102 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
     private static String toMessage(String modelId, List<ModelProblem> problems) {
         StringWriter buffer = new StringWriter(1024);
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends MavenProject`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+     * and {@code groupId:artifactId} when there is a name clash).
+     */
+    String getResumeFromSelector(List<MavenProject> mavenProjects, MavenProject firstFailedProject) {
+        boolean hasOverlappingArtifactId = mavenProjects.stream()
+                        .filter(project -> firstFailedProject.getArtifactId().equals(project.getArtifactId()))
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private void logSummary(
+            ExceptionSummary summary, Map<String, String> references, String indent, boolean showErrors) {
+        String referenceKey = "";
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private ClassRealm setupContainerRealm(
+            ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath, List<CoreExtensionEntry> extensions)
+            throws Exception {
+        if (!extClassPath.isEmpty() || !extensions.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CoreExtensionEntry`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private ClassRealm setupContainerRealm(
+            ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath, List<CoreExtensionEntry> extensions)
+            throws Exception {
+        if (!extClassPath.isEmpty() || !extensions.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    }
+
+    private static <T> List<T> reverse(List<T> list) {
+        List<T> copy = new ArrayList<>(list);
+        Collections.reverse(copy);
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private void enableOnPresentOption(
+            final CommandLine commandLine, final String option, final Consumer<Boolean> setting) {
+        if (commandLine.hasOption(option)) {
+            setting.accept(true);
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private void enableOnAbsentOption(
+            final CommandLine commandLine, final char option, final Consumer<Boolean> setting) {
+        if (!commandLine.hasOption(option)) {
+            setting.accept(true);
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    private void disableOnPresentOption(
+            final CommandLine commandLine, final String option, final Consumer<Boolean> setting) {
+        if (commandLine.hasOption(option)) {
+            setting.accept(false);
 ```
 
 ### BoundedWildcard
@@ -3272,15 +3394,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArtifactRepositoryPolicy`
+Can generalize to `? extends ArtifactRepository`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
     }
 
-    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
-        ArtifactRepositoryPolicy effectivePolicy = null;
-
+    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
 ```
 
 ### BoundedWildcard
@@ -3296,195 +3418,111 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArtifactRepository`
+Can generalize to `? extends ArtifactRepositoryPolicy`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
     }
 
-    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
+    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
+        ArtifactRepositoryPolicy effectivePolicy = null;
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Exclusion`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/DependencyCoordinateFactoryRequest.java`
+Can generalize to `? extends Map`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
-        }
+    final Consumer<Properties> setter;
 
-        public DependencyCoordinateFactoryRequestBuilder exclusions(Collection<Exclusion> exclusions) {
-            if (exclusions != null) {
-                if (this.exclusions.isEmpty()) {
+    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super Properties`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    final Consumer<Properties> setter;
+
+    WrapperProperties(Supplier<Map<String, String>> getter, Consumer<Properties> setter) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
+```
+
+### BoundedWildcard
+Can generalize to `? super U`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+    }
+
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/BaseRequest.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
 #### Snippet
 ```java
     }
 
-    protected static <T> Collection<T> unmodifiable(Collection<T> obj) {
-        return obj != null && !obj.isEmpty()
-                ? Collections.unmodifiableCollection(new ArrayList<>(obj))
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Event`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
-#### Snippet
-```java
-
-    @Override
-    protected void process(List<Event> buffer) {
-        for (Event event : buffer) {
-            if (event.event == TEXT && replace && event.text.contains("${")) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Event`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RelativePathXMLFilter.java`
+Can generalize to `? super T`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
 #### Snippet
 ```java
     }
 
-    protected void process(List<Event> buffer) {
-        boolean skip = false;
-        Event prev = null;
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Path`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
-#### Snippet
-```java
-     */
-    ParentXMLFilter(
-            XmlPullParser parser, Function<Path, Optional<RelativeProject>> relativePathMapper, Path projectPath) {
-        super(parser, "parent");
-        this.relativePathMapper = relativePathMapper;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
-#### Snippet
-```java
-
-    public ReactorDependencyXMLFilter(
-            XmlPullParser xmlPullParser, BiFunction<String, String, String> reactorVersionMapper) {
-        super(xmlPullParser, "dependency");
-        this.reactorVersionMapper = reactorVersionMapper;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
-#### Snippet
-```java
-
-    public ReactorDependencyXMLFilter(
-            XmlPullParser xmlPullParser, BiFunction<String, String, String> reactorVersionMapper) {
-        super(xmlPullParser, "dependency");
-        this.reactorVersionMapper = reactorVersionMapper;
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private void enableOnPresentOption(
-            final CommandLine commandLine, final String option, final Consumer<Boolean> setting) {
-        if (commandLine.hasOption(option)) {
-            setting.accept(true);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+Can generalize to `? extends U`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
 #### Snippet
 ```java
     }
 
-    private static <T> List<T> reverse(List<T> list) {
-        List<T> copy = new ArrayList<>(list);
-        Collections.reverse(copy);
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private void disableOnPresentOption(
-            final CommandLine commandLine, final String option, final Consumer<Boolean> setting) {
-        if (commandLine.hasOption(option)) {
-            setting.accept(false);
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private void enableOnAbsentOption(
-            final CommandLine commandLine, final char option, final Consumer<Boolean> setting) {
-        if (!commandLine.hasOption(option)) {
-            setting.accept(true);
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private ClassRealm setupContainerRealm(
-            ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath, List<CoreExtensionEntry> extensions)
-            throws Exception {
-        if (!extClassPath.isEmpty() || !extensions.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CoreExtensionEntry`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private ClassRealm setupContainerRealm(
-            ClassWorld classWorld, ClassRealm coreRealm, List<File> extClassPath, List<CoreExtensionEntry> extensions)
-            throws Exception {
-        if (!extClassPath.isEmpty() || !extensions.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-     * and {@code groupId:artifactId} when there is a name clash).
-     */
-    String getResumeFromSelector(List<MavenProject> mavenProjects, MavenProject firstFailedProject) {
-        boolean hasOverlappingArtifactId = mavenProjects.stream()
-                        .filter(project -> firstFailedProject.getArtifactId().equals(project.getArtifactId()))
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    private void logSummary(
-            ExceptionSummary summary, Map<String, String> references, String indent, boolean showErrors) {
-        String referenceKey = "";
-
+    WrapperList(Supplier<List<U>> getter, Consumer<List<U>> setter, Function<U, T> mapper, Function<T, U> revMapper) {
+        this.getter = getter;
+        this.setter = setter;
 ```
 
 ### BoundedWildcard
@@ -3497,43 +3535,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/Defau
             List<ResolutionListener> listeners,
             ResolutionNode node,
             Artifact replacement,
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `BaseObject` has no concrete subclass
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-import java.io.Serializable;
-
-public abstract class BaseObject implements Serializable, Cloneable, InputLocationTracker {
-    protected transient ChildrenTracking childrenTracking;
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractEventSpy` has no concrete subclass
-in `maven-core/src/main/java/org/apache/maven/eventspy/AbstractEventSpy.java`
-#### Snippet
-```java
- * @since 3.0.2
- */
-public abstract class AbstractEventSpy implements EventSpy {
-
-    public void init(Context context) throws Exception {}
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractMojo` has no concrete subclass
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java`
-#### Snippet
-```java
- * @author <a href="mailto:vincent.siveton@gmail.com">Vincent Siveton</a>
- */
-public abstract class AbstractMojo implements Mojo, ContextEnabled {
-    /** Instance logger */
-    private Log log;
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -3626,18 +3627,6 @@ Missorted modifiers `private final @Nonnull`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
 #### Snippet
 ```java
-public class DefaultArtifactCoordinate implements ArtifactCoordinate {
-    private final @Nonnull AbstractSession session;
-    private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
-
-    public DefaultArtifactCoordinate(
-```
-
-### MissortedModifiers
-Missorted modifiers `private final @Nonnull`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
-#### Snippet
-```java
  */
 public class DefaultArtifactCoordinate implements ArtifactCoordinate {
     private final @Nonnull AbstractSession session;
@@ -3645,7 +3634,31 @@ public class DefaultArtifactCoordinate implements ArtifactCoordinate {
 
 ```
 
+### MissortedModifiers
+Missorted modifiers `private final @Nonnull`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
+#### Snippet
+```java
+public class DefaultArtifactCoordinate implements ArtifactCoordinate {
+    private final @Nonnull AbstractSession session;
+    private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
+
+    public DefaultArtifactCoordinate(
+```
+
 ## RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/MavenMetadata.java`
+#### Snippet
+```java
+
+    private void write(File metadataFile, Metadata metadata) throws RepositoryException {
+        metadataFile.getParentFile().mkdirs();
+        try (Writer writer = WriterFactory.newXmlWriter(metadataFile)) {
+            new MetadataXpp3Writer().write(writer, metadata);
+```
+
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
@@ -3707,18 +3720,6 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSet
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/MavenMetadata.java`
-#### Snippet
-```java
-
-    private void write(File metadataFile, Metadata metadata) throws RepositoryException {
-        metadataFile.getParentFile().mkdirs();
-        try (Writer writer = WriterFactory.newXmlWriter(metadataFile)) {
-            new MetadataXpp3Writer().write(writer, metadata);
-```
-
-### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
 #### Snippet
@@ -3767,18 +3768,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateC
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-                File checksumFile = new File(destination + checksumFileExtension);
-                if (checksumFile.exists()) {
-                    checksumFile.delete(); // ignore if failed as we will overwrite
-                }
-                FileUtils.copyFile(tempChecksumFile, checksumFile);
-```
-
-### IgnoreResultOfCall
 Result of `File.setLastModified()` is ignored
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
@@ -3788,6 +3777,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
                                 destination.setLastModified(System.currentTimeMillis());
                             }
                         } catch (UnsupportedOperationException e) {
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+                File checksumFile = new File(destination + checksumFileExtension);
+                if (checksumFile.exists()) {
+                    checksumFile.delete(); // ignore if failed as we will overwrite
+                }
+                FileUtils.copyFile(tempChecksumFile, checksumFile);
 ```
 
 ### IgnoreResultOfCall
@@ -3829,18 +3830,6 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/java/DefaultJavaToolChai
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
-Class name `ArtifactMetadataRetrievalException` is the same as one of its superclass' names
-in `maven-core/src/main/java/org/apache/maven/artifact/metadata/ArtifactMetadataRetrievalException.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class ArtifactMetadataRetrievalException
-        extends org.apache.maven.repository.legacy.metadata.ArtifactMetadataRetrievalException {
-
-```
-
-### ClassNameSameAsAncestorName
 Class name `AbstractArtifactMetadata` is the same as one of its superclass' names
 in `maven-core/src/main/java/org/apache/maven/artifact/metadata/AbstractArtifactMetadata.java`
 #### Snippet
@@ -3850,6 +3839,18 @@ in `maven-core/src/main/java/org/apache/maven/artifact/metadata/AbstractArtifact
 public abstract class AbstractArtifactMetadata
         extends org.apache.maven.repository.legacy.metadata.AbstractArtifactMetadata
         implements org.apache.maven.artifact.metadata.ArtifactMetadata {
+```
+
+### ClassNameSameAsAncestorName
+Class name `ArtifactMetadataRetrievalException` is the same as one of its superclass' names
+in `maven-core/src/main/java/org/apache/maven/artifact/metadata/ArtifactMetadataRetrievalException.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class ArtifactMetadataRetrievalException
+        extends org.apache.maven.repository.legacy.metadata.ArtifactMetadataRetrievalException {
+
 ```
 
 ### ClassNameSameAsAncestorName
@@ -4025,7 +4026,31 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 
 ### ReplaceAssignmentWithOperatorAssignment
 `value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring(1, pathSeparator);
+                    value = ReflectionValueExtractor.evaluate(pathExpression, session);
+                    value = value + expression.substring(pathSeparator);
+                } else {
+                    value = ReflectionValueExtractor.evaluate(expression.substring(1), session);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring(0, pathSeparator);
+                    value = ReflectionValueExtractor.evaluate(pathExpression, project);
+                    value = value + expression.substring(pathSeparator);
+                } else {
+                    value = ReflectionValueExtractor.evaluate(expression.substring(1), project);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
                     String pathExpression = expression.substring(0, pathSeparator);
@@ -4049,7 +4074,31 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 
 ### ReplaceAssignmentWithOperatorAssignment
 `value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring(1, pathSeparator);
+                    value = ReflectionValueExtractor.evaluate(pathExpression, mojoExecution);
+                    value = value + expression.substring(pathSeparator);
+                } else {
+                    value = ReflectionValueExtractor.evaluate(expression.substring(1), mojoExecution);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+                    String pathExpression = expression.substring(1, pathSeparator);
+                    value = ReflectionValueExtractor.evaluate(pathExpression, pluginDescriptor);
+                    value = value + expression.substring(pathSeparator);
+                } else {
+                    value = ReflectionValueExtractor.evaluate(expression.substring(1), pluginDescriptor);
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
                     String pathExpression = expression.substring(1, pathSeparator);
@@ -4069,54 +4118,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
                     value = value + expression.substring(pathSeparator);
                 } else {
                     value = ReflectionValueExtractor.evaluate(expression.substring(1), session.getSettings());
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring(1, pathSeparator);
-                    value = ReflectionValueExtractor.evaluate(pathExpression, session);
-                    value = value + expression.substring(pathSeparator);
-                } else {
-                    value = ReflectionValueExtractor.evaluate(expression.substring(1), session);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring(0, pathSeparator);
-                    value = ReflectionValueExtractor.evaluate(pathExpression, project);
-                    value = value + expression.substring(pathSeparator);
-                } else {
-                    value = ReflectionValueExtractor.evaluate(expression.substring(1), project);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring(1, pathSeparator);
-                    value = ReflectionValueExtractor.evaluate(pathExpression, mojoExecution);
-                    value = value + expression.substring(pathSeparator);
-                } else {
-                    value = ReflectionValueExtractor.evaluate(expression.substring(1), mojoExecution);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`value = value + expression.substring(pathSeparator)` could be simplified to 'value += expression.substring(pathSeparator)'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-                    String pathExpression = expression.substring(1, pathSeparator);
-                    value = ReflectionValueExtractor.evaluate(pathExpression, pluginDescriptor);
-                    value = value + expression.substring(pathSeparator);
-                } else {
-                    value = ReflectionValueExtractor.evaluate(expression.substring(1), pluginDescriptor);
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -4267,18 +4268,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `pomFile` is accessed in both synchronized and unsynchronized contexts
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
-#### Snippet
-```java
-    private Model fileModel;
-
-    private File pomFile;
-
-    private ModelSource modelSource;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `modelSource` is accessed in both synchronized and unsynchronized contexts
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
@@ -4291,15 +4280,15 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `interpolator` is accessed in both synchronized and unsynchronized contexts
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
+Field `pomFile` is accessed in both synchronized and unsynchronized contexts
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
 ```java
-    private PathTranslator pathTranslator;
+    private Model fileModel;
 
-    private Interpolator interpolator;
+    private File pomFile;
 
-    private RecursionInterceptor recursionInterceptor;
+    private ModelSource modelSource;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4314,10 +4303,22 @@ in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractSt
     // for testing.
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `interpolator` is accessed in both synchronized and unsynchronized contexts
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
+#### Snippet
+```java
+    private PathTranslator pathTranslator;
+
+    private Interpolator interpolator;
+
+    private RecursionInterceptor recursionInterceptor;
+```
+
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.putAll()` on properties object
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -4328,25 +4329,25 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public synchronized Object putIfAbsent(Object key, Object value) {
-        return writeOperation(p -> p.putIfAbsent(key, value));
-    }
-
-```
-
-### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
     public synchronized Object put(Object key, Object value) {
         return writeOperation(p -> p.put(key, value));
+    }
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+    @Override
+    public synchronized Object putIfAbsent(Object key, Object value) {
+        return writeOperation(p -> p.putIfAbsent(key, value));
     }
 
 ```
@@ -4365,7 +4366,7 @@ in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollec
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
                 // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
@@ -4373,66 +4374,6 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCo
                     super.put(e.getKey(), e.getValue());
                 }
             }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public synchronized Object put(Object key, Object value) {
-        return writeOperation(p -> p.put(key, value));
-    }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public synchronized Object putIfAbsent(Object key, Object value) {
-        return writeOperation(p -> p.putIfAbsent(key, value));
-    }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public synchronized void putAll(Map<?, ?> t) {
-        writeOperationVoid(p -> p.putAll(t));
-    }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/VelocityGenerator.java`
-#### Snippet
-```java
-    public void generate(Model model, Properties parameters) throws ModelloException {
-        try {
-            Map<String, String> params = (Map) Objects.requireNonNull(parameters.get(VELOCITY_PARAMETERS));
-            String templates = getParameter(parameters, VELOCITY_TEMPLATES);
-            String output = getParameter(parameters, ModelloParameterConstants.OUTPUT_DIRECTORY);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/VelocityGenerator.java`
-#### Snippet
-```java
-
-            Properties props = new Properties();
-            props.put("resource.loader.file.path", getParameter(parameters, "basedir"));
-            RuntimeInstance velocity = new RuntimeInstance();
-            velocity.init(props);
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -4472,20 +4413,56 @@ in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/veloci
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+Call to `Hashtable.get()` on properties object
+in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/VelocityGenerator.java`
 #### Snippet
 ```java
-    @Override
-    public synchronized Object putIfAbsent(Object key, Object value) {
-        return writeOperation(p -> p.putIfAbsent(key, value));
-    }
+    public void generate(Model model, Properties parameters) throws ModelloException {
+        try {
+            Map<String, String> params = (Map) Objects.requireNonNull(parameters.get(VELOCITY_PARAMETERS));
+            String templates = getParameter(parameters, VELOCITY_TEMPLATES);
+            String output = getParameter(parameters, ModelloParameterConstants.OUTPUT_DIRECTORY);
+```
 
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/velocity/VelocityGenerator.java`
+#### Snippet
+```java
+
+            Properties props = new Properties();
+            props.put("resource.loader.file.path", getParameter(parameters, "basedir"));
+            RuntimeInstance velocity = new RuntimeInstance();
+            velocity.init(props);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+                // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
+                for (Map.Entry<Object, Object> e : props.entrySet()) {
+                    super.put(e.getKey(), e.getValue());
+                }
+            }
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+                // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
+                for (Map.Entry<Object, Object> e : props.entrySet()) {
+                    super.put(e.getKey(), e.getValue());
+                }
+            }
 ```
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.putAll()` on properties object
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -4496,8 +4473,20 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 ```
 
 ### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+    @Override
+    public synchronized Object putIfAbsent(Object key, Object value) {
+        return writeOperation(p -> p.putIfAbsent(key, value));
+    }
+
+```
+
+### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -4509,6 +4498,30 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
+in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+#### Snippet
+```java
+                final String name = parser.nextText();
+                parser.nextTag();
+                properties.put(name, parser.nextText());
+            } else {
+                final String value = parser.nextText();
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+#### Snippet
+```java
+                final String value = parser.nextText();
+                parser.nextTag();
+                properties.put(parser.nextText(), value);
+            }
+            parser.nextTag();
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
 in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/DefaultModelVersionProcessor.java`
 #### Snippet
 ```java
@@ -4577,30 +4590,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Defau
             modelProperties.put(SHA1_PROPERTY, request.getSystemProperties().get(SHA1_PROPERTY));
         }
     }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            Properties profileProps = new Properties();
-            for (Profile profile : activeExternalProfiles) {
-                profileProps.putAll(profile.getProperties());
-            }
-            profileProps.putAll(profileActivationContext.getUserProperties());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            Properties profileProps = new Properties();
-            for (Profile profile : activeExternalProfiles) {
-                profileProps.putAll(profile.getProperties());
-            }
-            profileProps.putAll(profileActivationContext.getUserProperties());
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -4613,6 +4602,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
             userProperties.put(
                     ProfileActivationContext.PROPERTY_NAME_PACKAGING,
                     request.getFileModel().getPackaging());
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            Properties profileProps = new Properties();
+            for (Profile profile : activeExternalProfiles) {
+                profileProps.putAll(profile.getProperties());
+            }
+            profileProps.putAll(profileActivationContext.getUserProperties());
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            Properties profileProps = new Properties();
+            for (Profile profile : activeExternalProfiles) {
+                profileProps.putAll(profile.getProperties());
+            }
+            profileProps.putAll(profileActivationContext.getUserProperties());
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -4640,51 +4653,39 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+Call to `Hashtable.putAll()` on properties object
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
-                // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
-                for (Map.Entry<Object, Object> e : props.entrySet()) {
-                    super.put(e.getKey(), e.getValue());
-                }
-            }
+    @Override
+    public synchronized void putAll(Map<?, ?> t) {
+        writeOperationVoid(p -> p.putAll(t));
+    }
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    @Override
+    public synchronized Object putIfAbsent(Object key, Object value) {
+        return writeOperation(p -> p.putIfAbsent(key, value));
+    }
+
 ```
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
-                // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
-                for (Map.Entry<Object, Object> e : props.entrySet()) {
-                    super.put(e.getKey(), e.getValue());
-                }
-            }
-```
+    @Override
+    public synchronized Object put(Object key, Object value) {
+        return writeOperation(p -> p.put(key, value));
+    }
 
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
-#### Snippet
-```java
-                final String name = parser.nextText();
-                parser.nextTag();
-                properties.put(name, parser.nextText());
-            } else {
-                final String value = parser.nextText();
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
-#### Snippet
-```java
-                final String value = parser.nextText();
-                parser.nextTag();
-                properties.put(parser.nextText(), value);
-            }
-            parser.nextTag();
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -5087,7 +5088,19 @@ in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Writer.java`
+in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenLoggerFactory.java`
+#### Snippet
+```java
+ */
+public class MavenLoggerFactory extends SimpleLoggerFactory implements MavenSlf4jWrapperFactory {
+    private LogLevelRecorder logLevelRecorder = null;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Writer.java`
 #### Snippet
 ```java
      * Field fileComment.
@@ -5095,18 +5108,6 @@ in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Writer.jav
     private String fileComment = null;
 
     // -----------/
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3WriterEx.java`
-#### Snippet
-```java
-     * Field fileComment.
-     */
-    private String fileComment = null;
-
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -5162,11 +5163,23 @@ Field initialization to `false` is redundant
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-     * @issue MNG-2681
-     */
-    private boolean noSnapshotUpdates = false;
+    private String globalChecksumPolicy;
 
-    private boolean useLegacyLocalRepositoryManager = false;
+    private boolean updateSnapshots = false;
+
+    private List<ArtifactRepository> remoteRepositories;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    private String reactorFailureBehavior = REACTOR_FAIL_FAST;
+
+    private boolean resume = false;
+
+    private String resumeFrom;
 ```
 
 ### RedundantFieldInitialization
@@ -5179,6 +5192,42 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
     private boolean cacheNotFound = false;
 
     private List<Proxy> proxies;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    private File localRepositoryPath;
+
+    private boolean offline = false;
+
+    private boolean interactiveMode = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    private boolean noSnapshotUpdates = false;
+
+    private boolean useLegacyLocalRepositoryManager = false;
+
+    private Map<String, Object> data;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+     * @issue MNG-2681
+     */
+    private boolean noSnapshotUpdates = false;
+
+    private boolean useLegacyLocalRepositoryManager = false;
 ```
 
 ### RedundantFieldInitialization
@@ -5210,59 +5259,11 @@ Field initialization to `false` is redundant
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    private File localRepositoryPath;
-
-    private boolean offline = false;
-
-    private boolean interactiveMode = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    private String globalChecksumPolicy;
-
-    private boolean updateSnapshots = false;
-
-    private List<ArtifactRepository> remoteRepositories;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    private String reactorFailureBehavior = REACTOR_FAIL_FAST;
-
-    private boolean resume = false;
-
-    private String resumeFrom;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
     private Date startTime;
 
     private boolean showErrors = false;
 
     private TransferListener transferListener;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    private boolean noSnapshotUpdates = false;
-
-    private boolean useLegacyLocalRepositoryManager = false;
-
-    private Map<String, Object> data;
 ```
 
 ### RedundantFieldInitialization
@@ -5279,7 +5280,7 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/ReactorBuildSta
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
                 public Iterator<Entry<K, V>> iterator() {
@@ -5291,7 +5292,7 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCo
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
                 public Iterator<Entry<K, V>> iterator() {
@@ -5306,11 +5307,11 @@ Field initialization to `false` is redundant
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
 #### Snippet
 ```java
+     * @since 3.0-beta-2
+     */
     private boolean threadSafe = false;
 
     private boolean v4Api = false;
-
-    /**
 ```
 
 ### RedundantFieldInitialization
@@ -5319,8 +5320,20 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescri
 #### Snippet
 ```java
 
-    /**  By default, the Mojo don't need reports to run */
-    private boolean requiresReports = false;
+    /**  By default, the Mojo is assumed to work offline as well */
+    private boolean onlineRequired = false;
+
+    /**  Plugin configuration */
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+    private boolean threadSafe = false;
+
+    private boolean v4Api = false;
 
     /**
 ```
@@ -5342,11 +5355,23 @@ Field initialization to `false` is redundant
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
 #### Snippet
 ```java
+     * modules. By default, no need to aggregate the Maven project and its child modules
+     */
+    private boolean aggregator = false;
 
-    /**  By default, the Mojo is assumed to work offline as well */
-    private boolean onlineRequired = false;
+    // ----------------------------------------------------------------------
+```
 
-    /**  Plugin configuration */
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+
+    /**  By default, the Mojo don't need reports to run */
+    private boolean requiresReports = false;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -5362,51 +5387,63 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescri
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+Field initialization to `0` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
 ```java
-     * @since 3.0-beta-2
-     */
-    private boolean threadSafe = false;
+                public Iterator<Entry<K, V>> iterator() {
+                    return new Iterator<Entry<K, V>>() {
+                        int index = 0;
 
-    private boolean v4Api = false;
+                        @Override
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+Field initialization to `0` is redundant
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
 ```java
-     * modules. By default, no need to aggregate the Maven project and its child modules
-     */
-    private boolean aggregator = false;
+                public Iterator<Entry<K, V>> iterator() {
+                    return new Iterator<Entry<K, V>>() {
+                        int index = 0;
 
-    // ----------------------------------------------------------------------
+                        @Override
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Writer.java`
+Field initialization to `0` is redundant
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/FastForwardFilter.java`
 #### Snippet
 ```java
-     * Field fileComment.
-     */
-    private String fileComment = null;
+    private final Deque<String> state = new ArrayDeque<>();
 
-    // -----------/
+    private int domDepth = 0;
+
+    FastForwardFilter(XmlPullParser xmlPullParser) {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenLoggerFactory.java`
+Field initialization to `0` is redundant
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
 #### Snippet
 ```java
- */
-public class MavenLoggerFactory extends SimpleLoggerFactory implements MavenSlf4jWrapperFactory {
-    private LogLevelRecorder logLevelRecorder = null;
+                public Iterator<Entry<K, V>> iterator() {
+                    return new Iterator<Entry<K, V>>() {
+                        int index = 0;
 
-    @Override
+                        @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+                public Iterator<Entry<K, V>> iterator() {
+                    return new Iterator<Entry<K, V>>() {
+                        int index = 0;
+
+                        @Override
 ```
 
 ### RedundantFieldInitialization
@@ -5427,10 +5464,10 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 #### Snippet
 ```java
 
-    /** result type - dirty tree */
-    private boolean asDirtyTree = false;
-
     /** result type - resolved tree */
+    private boolean asResolvedTree = false;
+
+    /** result type - graph */
 ```
 
 ### RedundantFieldInitialization
@@ -5439,10 +5476,10 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 #### Snippet
 ```java
 
-    /** result type - resolved tree */
-    private boolean asResolvedTree = false;
+    /** result type - dirty tree */
+    private boolean asDirtyTree = false;
 
-    /** result type - graph */
+    /** result type - resolved tree */
 ```
 
 ### RedundantFieldInitialization
@@ -5471,26 +5508,14 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
 #### Snippet
 ```java
 
-    // flags to indicate the granularity of vertices
-    private boolean versionedVertices = false;
-    private boolean scopedVertices = false;
-    /**
-```
+    /** is metadata found anywhere */
+    protected boolean resolved = false;
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
-#### Snippet
-```java
-    // flags to indicate the granularity of vertices
-    private boolean versionedVertices = false;
-    private boolean scopedVertices = false;
-    /**
-     * the entry point we started building the graph from
+    /** does the actual artifact for this metadata exists */
 ```
 
 ### RedundantFieldInitialization
@@ -5507,54 +5532,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMeta
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-
-    /** is metadata found anywhere */
-    protected boolean resolved = false;
-
-    /** does the actual artifact for this metadata exists */
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-                public Iterator<Entry<K, V>> iterator() {
-                    return new Iterator<Entry<K, V>>() {
-                        int index = 0;
-
-                        @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-                public Iterator<Entry<K, V>> iterator() {
-                    return new Iterator<Entry<K, V>>() {
-                        int index = 0;
-
-                        @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/FastForwardFilter.java`
-#### Snippet
-```java
-    private final Deque<String> state = new ArrayDeque<>();
-
-    private int domDepth = 0;
-
-    FastForwardFilter(XmlPullParser xmlPullParser) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `maven-slf4j-wrapper/src/main/java/org/apache/maven/logwrapper/LogLevelRecorder.java`
 #### Snippet
 ```java
@@ -5566,27 +5543,51 @@ in `maven-slf4j-wrapper/src/main/java/org/apache/maven/logwrapper/LogLevelRecord
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+Field initialization to `false` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
 #### Snippet
 ```java
-                public Iterator<Entry<K, V>> iterator() {
-                    return new Iterator<Entry<K, V>>() {
-                        int index = 0;
-
-                        @Override
+    // flags to indicate the granularity of vertices
+    private boolean versionedVertices = false;
+    private boolean scopedVertices = false;
+    /**
+     * the entry point we started building the graph from
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+Field initialization to `false` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
 #### Snippet
 ```java
-                public Iterator<Entry<K, V>> iterator() {
-                    return new Iterator<Entry<K, V>>() {
-                        int index = 0;
 
-                        @Override
+    // flags to indicate the granularity of vertices
+    private boolean versionedVertices = false;
+    private boolean scopedVertices = false;
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Writer.java`
+#### Snippet
+```java
+     * Field fileComment.
+     */
+    private String fileComment = null;
+
+    // -----------/
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3WriterEx.java`
+#### Snippet
+```java
+     * Field fileComment.
+     */
+    private String fileComment = null;
+
+    /**
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -5613,6 +5614,19 @@ public abstract class DefaultToolchain // should have been AbstractToolchain...
 implements Toolchain, ToolchainPrivate {
     private final Logger logger;
 
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-10-20-13-57.694.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
@@ -5663,6 +5677,18 @@ in `maven-core/src/main/java/org/apache/maven/session/scope/internal/SessionScop
                 synchronized (this) {
                     if (value == null) {
                         value = provider.get();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
+#### Snippet
+```java
+                // display progress [i/n]
+                int number;
+                synchronized (this) {
+                    number = ++currentVisitedProjectCount;
+                }
 ```
 
 ### SynchronizeOnThis
@@ -5725,18 +5751,6 @@ in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractSt
                 interpolator.addValueSource(vs);
 ```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
-#### Snippet
-```java
-                // display progress [i/n]
-                int number;
-                synchronized (this) {
-                    number = ++currentVisitedProjectCount;
-                }
-```
-
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
@@ -5776,7 +5790,7 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManagerP
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
 
@@ -5788,14 +5802,14 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCo
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
 ```java
 
-            if (exits != null && exits.size() > 0) {
-                MetadataGraphEdge[] sortedExits = exits.toArray(new MetadataGraphEdge[0]);
-                Arrays.sort(sortedExits, (e1, e2) -> {
-                    if (e1.getDepth() == e2.getDepth()) {
+        private MapN(Map<K, V> map) {
+            entries = map != null ? map.entrySet().toArray() : new Object[0];
+        }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -5824,18 +5838,6 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        private MapN(Map<K, V> map) {
-            entries = map != null ? map.entrySet().toArray() : new Object[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 #### Snippet
 ```java
@@ -5846,10 +5848,22 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
                 if (!unrecognized.isEmpty()) {
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+#### Snippet
+```java
+
+            if (exits != null && exits.size() > 0) {
+                MetadataGraphEdge[] sortedExits = exits.toArray(new MetadataGraphEdge[0]);
+                Arrays.sort(sortedExits, (e1, e2) -> {
+                    if (e1.getDepth() == e2.getDepth()) {
+```
+
 ## RuleId[ruleID=DuplicateThrows]
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
 
@@ -5873,7 +5887,7 @@ in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/Wrapper
 
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
 
@@ -5885,18 +5899,6 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 
 ## RuleId[ruleID=NonFinalFieldOfException]
 ### NonFinalFieldOfException
-Non-final field `collisions` of exception class
-in `maven-core/src/main/java/org/apache/maven/DuplicateProjectException.java`
-#### Snippet
-```java
-public class DuplicateProjectException extends MavenExecutionException {
-
-    private Map<String, List<File>> collisions;
-
-    /**
-```
-
-### NonFinalFieldOfException
 Non-final field `pomFile` of exception class
 in `maven-core/src/main/java/org/apache/maven/MavenExecutionException.java`
 #### Snippet
@@ -5906,6 +5908,18 @@ public class MavenExecutionException extends Exception {
     private File pomFile;
 
     public MavenExecutionException(String message, File pomFile) {
+```
+
+### NonFinalFieldOfException
+Non-final field `collisions` of exception class
+in `maven-core/src/main/java/org/apache/maven/DuplicateProjectException.java`
+#### Snippet
+```java
+public class DuplicateProjectException extends MavenExecutionException {
+
+    private Map<String, List<File>> collisions;
+
+    /**
 ```
 
 ### NonFinalFieldOfException
@@ -5945,6 +5959,30 @@ public class PluginContainerException extends PluginManagerException {
 ```
 
 ### NonFinalFieldOfException
+Non-final field `pluginDescriptor` of exception class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
+#### Snippet
+```java
+ */
+public class PluginConfigurationException extends Exception {
+    private PluginDescriptor pluginDescriptor;
+
+    private String originalMessage;
+```
+
+### NonFinalFieldOfException
+Non-final field `originalMessage` of exception class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
+#### Snippet
+```java
+    private PluginDescriptor pluginDescriptor;
+
+    private String originalMessage;
+
+    public PluginConfigurationException(PluginDescriptor pluginDescriptor, String originalMessage) {
+```
+
+### NonFinalFieldOfException
 Non-final field `goal` of exception class
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java`
 #### Snippet
@@ -5969,30 +6007,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java
 ```
 
 ### NonFinalFieldOfException
-Non-final field `originalMessage` of exception class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
-#### Snippet
-```java
-    private PluginDescriptor pluginDescriptor;
-
-    private String originalMessage;
-
-    public PluginConfigurationException(PluginDescriptor pluginDescriptor, String originalMessage) {
-```
-
-### NonFinalFieldOfException
-Non-final field `pluginDescriptor` of exception class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
-#### Snippet
-```java
- */
-public class PluginConfigurationException extends Exception {
-    private PluginDescriptor pluginDescriptor;
-
-    private String originalMessage;
-```
-
-### NonFinalFieldOfException
 Non-final field `pluginKey` of exception class
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginLoaderException.java`
 #### Snippet
@@ -6002,18 +6016,6 @@ public class PluginLoaderException extends Exception {
     private String pluginKey;
 
     public PluginLoaderException(Plugin plugin, String message, ArtifactResolutionException cause) {
-```
-
-### NonFinalFieldOfException
-Non-final field `artifact` of exception class
-in `maven-core/src/main/java/org/apache/maven/project/DuplicateArtifactAttachmentException.java`
-#### Snippet
-```java
-    private static final String DEFAULT_MESSAGE = "Duplicate artifact attachment detected.";
-
-    private Artifact artifact;
-
-    private final MavenProject project;
 ```
 
 ### NonFinalFieldOfException
@@ -6038,6 +6040,18 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.j
     private List<ProjectBuildingResult> results;
 
     public ProjectBuildingException(String projectId, String message, Throwable cause) {
+```
+
+### NonFinalFieldOfException
+Non-final field `artifact` of exception class
+in `maven-core/src/main/java/org/apache/maven/project/DuplicateArtifactAttachmentException.java`
+#### Snippet
+```java
+    private static final String DEFAULT_MESSAGE = "Duplicate artifact attachment detected.";
+
+    private Artifact artifact;
+
+    private final MavenProject project;
 ```
 
 ### NonFinalFieldOfException
@@ -6125,6 +6139,18 @@ public class MojoNotFoundException extends Exception {
 ```
 
 ### NonFinalFieldOfException
+Non-final field `longMessage` of exception class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
+#### Snippet
+```java
+    protected Object source;
+
+    protected String longMessage;
+
+    public AbstractMojoExecutionException(String message) {
+```
+
+### NonFinalFieldOfException
 Non-final field `source` of exception class
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
 #### Snippet
@@ -6137,15 +6163,27 @@ public abstract class AbstractMojoExecutionException extends Exception {
 ```
 
 ### NonFinalFieldOfException
+Non-final field `source` of exception class
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
+#### Snippet
+```java
+public class MojoException extends MavenException {
+
+    protected Object source;
+
+    protected String longMessage;
+```
+
+### NonFinalFieldOfException
 Non-final field `longMessage` of exception class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
 #### Snippet
 ```java
     protected Object source;
 
     protected String longMessage;
 
-    public AbstractMojoExecutionException(String message) {
+    /**
 ```
 
 ### NonFinalFieldOfException
@@ -6173,30 +6211,6 @@ public class ArtifactNotFoundException extends AbstractArtifactResolutionExcepti
 ```
 
 ### NonFinalFieldOfException
-Non-final field `type` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String version;
-
-    private String type;
-
-    private String classifier;
-```
-
-### NonFinalFieldOfException
-Non-final field `remoteRepositories` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private Artifact artifact;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    private final String originalMessage;
-```
-
-### NonFinalFieldOfException
 Non-final field `groupId` of exception class
 in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
 #### Snippet
@@ -6206,18 +6220,6 @@ public class AbstractArtifactResolutionException extends Exception {
     private String groupId;
 
     private String artifactId;
-```
-
-### NonFinalFieldOfException
-Non-final field `artifact` of exception class
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String classifier;
-
-    private Artifact artifact;
-
-    private List<ArtifactRepository> remoteRepositories;
 ```
 
 ### NonFinalFieldOfException
@@ -6245,6 +6247,42 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArti
 ```
 
 ### NonFinalFieldOfException
+Non-final field `type` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String version;
+
+    private String type;
+
+    private String classifier;
+```
+
+### NonFinalFieldOfException
+Non-final field `remoteRepositories` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private Artifact artifact;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    private final String originalMessage;
+```
+
+### NonFinalFieldOfException
+Non-final field `artifact` of exception class
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String classifier;
+
+    private Artifact artifact;
+
+    private List<ArtifactRepository> remoteRepositories;
+```
+
+### NonFinalFieldOfException
 Non-final field `artifactId` of exception class
 in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
 #### Snippet
@@ -6266,6 +6304,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/InvalidR
     private Repository repository;
 
     /**
+```
+
+### NonFinalFieldOfException
+Non-final field `exitCode` of exception class
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    static class ExitException extends Exception {
+        int exitCode;
+
+        ExitException(int exitCode) {
 ```
 
 ### NonFinalFieldOfException
@@ -6329,18 +6379,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundExcept
 ```
 
 ### NonFinalFieldOfException
-Non-final field `cause` of exception class
-in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
-#### Snippet
-```java
-    private String projectId;
-    private File pomFile;
-    private InvalidVersionSpecificationException cause;
-
-    public VersionNotFoundException(
-```
-
-### NonFinalFieldOfException
 Non-final field `pomFile` of exception class
 in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
 #### Snippet
@@ -6353,6 +6391,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundExcept
 ```
 
 ### NonFinalFieldOfException
+Non-final field `cause` of exception class
+in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
+#### Snippet
+```java
+    private String projectId;
+    private File pomFile;
+    private InvalidVersionSpecificationException cause;
+
+    public VersionNotFoundException(
+```
+
+### NonFinalFieldOfException
 Non-final field `artifact` of exception class
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataRetrievalException.java`
 #### Snippet
@@ -6362,42 +6412,6 @@ public class MetadataRetrievalException extends Exception {
     private ArtifactMetadata artifact;
 
     public MetadataRetrievalException(String message) {
-```
-
-### NonFinalFieldOfException
-Non-final field `longMessage` of exception class
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
-#### Snippet
-```java
-    protected Object source;
-
-    protected String longMessage;
-
-    /**
-```
-
-### NonFinalFieldOfException
-Non-final field `source` of exception class
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
-#### Snippet
-```java
-public class MojoException extends MavenException {
-
-    protected Object source;
-
-    protected String longMessage;
-```
-
-### NonFinalFieldOfException
-Non-final field `exitCode` of exception class
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    static class ExitException extends Exception {
-        int exitCode;
-
-        ExitException(int exitCode) {
 ```
 
 ## RuleId[ruleID=InfiniteRecursion]
@@ -6548,63 +6562,15 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
 ```
 
 ### UnusedAssignment
-Variable `type` initializer `"jar"` is redundant
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/filter/TypeArtifactFilter.java`
+The value changed at `pos++` is never used
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
 #### Snippet
 ```java
-/** Artifact Filter which filters on artifact type */
-public class TypeArtifactFilter implements ArtifactFilter {
-    private String type = "jar";
-
-    public TypeArtifactFilter(String type) {
-```
-
-### UnusedAssignment
-Variable `pomOrder` initializer `-1` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
-#### Snippet
-```java
-    ArtifactScopeEnum scope;
-    int depth = -1;
-    int pomOrder = -1;
-    boolean resolved = true;
-    String artifactUri;
-```
-
-### UnusedAssignment
-Variable `resolved` initializer `true` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
-#### Snippet
-```java
-    int depth = -1;
-    int pomOrder = -1;
-    boolean resolved = true;
-    String artifactUri;
-
-```
-
-### UnusedAssignment
-Variable `depth` initializer `-1` is redundant
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
-#### Snippet
-```java
-    String version;
-    ArtifactScopeEnum scope;
-    int depth = -1;
-    int pomOrder = -1;
-    boolean resolved = true;
-```
-
-### UnusedAssignment
-The value changed at `i++` is never used
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-
-                    md5ChecksumObserver = addChecksumObserver(wagon, CHECKSUM_ALGORITHMS[i++]);
-                    sha1ChecksumObserver = addChecksumObserver(wagon, CHECKSUM_ALGORITHMS[i++]);
-
-                    // reset the retry flag.
+                    e.namespace = buffer.get(0).namespace;
+                    e.prefix = buffer.get(0).prefix;
+                    buffer.add(pos++, e);
+                }
+                break;
 ```
 
 ### UnusedAssignment
@@ -6632,21 +6598,69 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
 ```
 
 ### UnusedAssignment
-The value changed at `pos++` is never used
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
+Variable `type` initializer `"jar"` is redundant
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/filter/TypeArtifactFilter.java`
 #### Snippet
 ```java
-                    e.namespace = buffer.get(0).namespace;
-                    e.prefix = buffer.get(0).prefix;
-                    buffer.add(pos++, e);
-                }
-                break;
+/** Artifact Filter which filters on artifact type */
+public class TypeArtifactFilter implements ArtifactFilter {
+    private String type = "jar";
+
+    public TypeArtifactFilter(String type) {
+```
+
+### UnusedAssignment
+Variable `resolved` initializer `true` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
+#### Snippet
+```java
+    int depth = -1;
+    int pomOrder = -1;
+    boolean resolved = true;
+    String artifactUri;
+
+```
+
+### UnusedAssignment
+Variable `depth` initializer `-1` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
+#### Snippet
+```java
+    String version;
+    ArtifactScopeEnum scope;
+    int depth = -1;
+    int pomOrder = -1;
+    boolean resolved = true;
+```
+
+### UnusedAssignment
+Variable `pomOrder` initializer `-1` is redundant
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
+#### Snippet
+```java
+    ArtifactScopeEnum scope;
+    int depth = -1;
+    int pomOrder = -1;
+    boolean resolved = true;
+    String artifactUri;
+```
+
+### UnusedAssignment
+The value changed at `i++` is never used
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+
+                    md5ChecksumObserver = addChecksumObserver(wagon, CHECKSUM_ALGORITHMS[i++]);
+                    sha1ChecksumObserver = addChecksumObserver(wagon, CHECKSUM_ALGORITHMS[i++]);
+
+                    // reset the retry flag.
 ```
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
 Value `ret` is always 'true'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
 #### Snippet
 ```java
             boolean ret = list.add(revMapper.apply(t));
@@ -6753,6 +6767,18 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.ja
 ```
 
 ### ConstantValue
+Value `muxer` is always 'null'
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/MultiThreadedBuilder.java`
+#### Snippet
+```java
+                        new ConcurrencyDependencyGraph(segmentProjectBuilds, session.getProjectDependencyGraph());
+                multiThreadedProjectTaskSegmentBuild(
+                        analyzer, reactorContext, session, service, taskSegment, projectBuildMap, muxer);
+                if (reactorContext.getReactorBuildStatus().isHalted()) {
+                    break;
+```
+
+### ConstantValue
 Value `recordArtifacts` is always 'null'
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDependencyResolver.java`
 #### Snippet
@@ -6765,15 +6791,27 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
 ```
 
 ### ConstantValue
-Value `muxer` is always 'null'
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/MultiThreadedBuilder.java`
+Condition `problems != null` is always `true`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
 #### Snippet
 ```java
-                        new ConcurrencyDependencyGraph(segmentProjectBuilds, session.getProjectDependencyGraph());
-                multiThreadedProjectTaskSegmentBuild(
-                        analyzer, reactorContext, session, service, taskSegment, projectBuildMap, muxer);
-                if (reactorContext.getReactorBuildStatus().isHalted()) {
-                    break;
+
+        this.problems = new ArrayList<>();
+        if (problems != null) {
+            this.problems.addAll(problems);
+        }
+```
+
+### ConstantValue
+Condition `problems != null` is always `true`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+#### Snippet
+```java
+
+        this.problems = new ArrayList<>();
+        if (problems != null) {
+            this.problems.addAll(problems);
+        }
 ```
 
 ### ConstantValue
@@ -6825,27 +6863,15 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
 ```
 
 ### ConstantValue
-Value `lowerBoundInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+Value `l` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
 #### Snippet
 ```java
-            ArtifactVersion version = new DefaultArtifactVersion(process);
 
-            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
-        } else {
-            String lowerBound = process.substring(0, index).trim();
-```
+                        // if this is shorter, then invert the compare and mul with -1
+                        int result = l == null ? (r == null ? 0 : -1 * r.compareTo(l)) : l.compareTo(r);
 
-### ConstantValue
-Value `upperBoundInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            ArtifactVersion version = new DefaultArtifactVersion(process);
-
-            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
-        } else {
-            String lowerBound = process.substring(0, index).trim();
+                        if (result != 0) {
 ```
 
 ### ConstantValue
@@ -6873,56 +6899,56 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRan
 ```
 
 ### ConstantValue
-Value `l` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+Value `lowerBoundInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
 #### Snippet
 ```java
+            ArtifactVersion version = new DefaultArtifactVersion(process);
 
-                        // if this is shorter, then invert the compare and mul with -1
-                        int result = l == null ? (r == null ? 0 : -1 * r.compareTo(l)) : l.compareTo(r);
-
-                        if (result != 0) {
+            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
+        } else {
+            String lowerBound = process.substring(0, index).trim();
 ```
 
 ### ConstantValue
-Condition `problems != null` is always `true`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
+Value `upperBoundInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
 #### Snippet
 ```java
+            ArtifactVersion version = new DefaultArtifactVersion(process);
 
-        this.problems = new ArrayList<>();
-        if (problems != null) {
-            this.problems.addAll(problems);
-        }
+            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
+        } else {
+            String lowerBound = process.substring(0, index).trim();
 ```
 
 ### ConstantValue
-Condition `problems != null` is always `true`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
+Condition `currentArg != null` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
 #### Snippet
 ```java
 
-        this.problems = new ArrayList<>();
-        if (problems != null) {
-            this.problems.addAll(problems);
-        }
+                // if we're building an argument, keep doing so.
+                if (currentArg != null) {
+                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
+                    if (addedToBuffer) {
+```
+
+### ConstantValue
+Condition `addedToBuffer` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+                if (currentArg != null) {
+                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
+                    if (addedToBuffer) {
+                        currentArg.setLength(currentArg.length() - 1);
+                    }
 ```
 
 ### ConstantValue
 Value `ret` is always 'true'
 in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-            boolean ret = list.add(revMapper.apply(t));
-            setter.accept(list);
-            return ret;
-        } else {
-            return getter.get().add(revMapper.apply(t));
-```
-
-### ConstantValue
-Value `ret` is always 'true'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
 #### Snippet
 ```java
             boolean ret = list.add(revMapper.apply(t));
@@ -6969,27 +6995,15 @@ in `maven-compat/src/main/java/org/apache/maven/project/DefaultMavenProjectBuild
 ```
 
 ### ConstantValue
-Condition `currentArg != null` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+Value `ret` is always 'true'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
 #### Snippet
 ```java
-
-                // if we're building an argument, keep doing so.
-                if (currentArg != null) {
-                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
-                    if (addedToBuffer) {
-```
-
-### ConstantValue
-Condition `addedToBuffer` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-                if (currentArg != null) {
-                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
-                    if (addedToBuffer) {
-                        currentArg.setLength(currentArg.length() - 1);
-                    }
+            boolean ret = list.add(revMapper.apply(t));
+            setter.accept(list);
+            return ret;
+        } else {
+            return getter.get().add(revMapper.apply(t));
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -7056,63 +7070,15 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/DomBuilder.java`
+Class `ArtifactDescriptorUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
 #### Snippet
 ```java
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
-public class DomBuilder {
-
-    public static Xpp3Dom build(Reader reader) throws MavenXmlException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Xpp3DomWriter` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomWriter.java`
-#### Snippet
-```java
- *
+ * @author Benjamin Bentmann
  */
-public class Xpp3DomWriter {
-    public static void write(Writer writer, Dom dom) {
-        write(new PrettyPrintXMLWriter(writer), dom);
-```
+public class ArtifactDescriptorUtils {
 
-### UtilityClassWithoutPrivateConstructor
-Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
- * @version $Id$
- */
-public class Xpp3DomBuilder {
-    private static final boolean DEFAULT_TRIM = true;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
-#### Snippet
-```java
- *
- */
-public class Xpp3DomBuilder {
-    private static final boolean DEFAULT_TRIM = true;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-import java.util.function.UnaryOperator;
-
-class ImmutableCollections {
-
-    private static final List<?> EMPTY_LIST = new AbstractImmutableList<Object>() {
+    public static Artifact toPomArtifact(Artifact artifact) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7125,6 +7091,18 @@ in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 public class RepositoryUtils {
 
     private static String nullify(String string) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+import java.util.function.UnaryOperator;
+
+class ImmutableCollections {
+
+    private static final List<?> EMPTY_LIST = new AbstractImmutableList<Object>() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7189,6 +7167,18 @@ public class EnvironmentUtils {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+import java.util.function.UnaryOperator;
+
+class ImmutableCollections {
+
+    private static final List<?> EMPTY_LIST = new AbstractImmutableList<Object>() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
 ```java
@@ -7209,66 +7199,6 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/ArtifactUtils.java`
 public final class ArtifactUtils {
 
     public static boolean isSnapshot(String version) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ArtifactDescriptorUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
- * @author Benjamin Bentmann
- */
-public class ArtifactDescriptorUtils {
-
-    public static Artifact toPomArtifact(Artifact artifact) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ModelProblemUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProblemUtils.java`
-#### Snippet
-```java
- * @author Benjamin Bentmann
- */
-public class ModelProblemUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ModelUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-compat/src/main/java/org/apache/maven/project/ModelUtils.java`
-#### Snippet
-```java
-/** @deprecated */
-@Deprecated
-public final class ModelUtils {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MetadataUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/MetadataUtils.java`
-#### Snippet
-```java
- * @author Benjamin Bentmann
- */
-class MetadataUtils {
-
-    public static Metadata cloneMetadata(Metadata src) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ExpressionDocumenter` has only 'static' members, and lacks a 'private' constructor
-in `maven-compat/src/main/java/org/apache/maven/usability/plugin/ExpressionDocumenter.java`
-#### Snippet
-```java
- * ExpressionDocumenter
- */
-public class ExpressionDocumenter {
-
-    private static final String[] EXPRESSION_ROOTS = {"project", "settings", "session", "plugin", "rootless"};
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7320,18 +7250,6 @@ public class MavenSlf4jSimpleFriend {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CleanArgument` has only 'static' members, and lacks a 'private' constructor
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
- * CleanArgument
- */
-public class CleanArgument {
-    public static String[] cleanArgs(String[] args) {
-        List<String> cleaned = new ArrayList<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProblemCollectorFactory` has only 'static' members, and lacks a 'private' constructor
 in `maven-builder-support/src/main/java/org/apache/maven/building/ProblemCollectorFactory.java`
 #### Snippet
@@ -7341,6 +7259,18 @@ in `maven-builder-support/src/main/java/org/apache/maven/building/ProblemCollect
 public class ProblemCollectorFactory {
 
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CleanArgument` has only 'static' members, and lacks a 'private' constructor
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+ * CleanArgument
+ */
+public class CleanArgument {
+    public static String[] cleanArgs(String[] args) {
+        List<String> cleaned = new ArrayList<>();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -7380,15 +7310,99 @@ public class Slf4jConfigurationFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ImmutableCollections` has only 'static' members, and lacks a 'private' constructor
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+Class `ModelProblemUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelProblemUtils.java`
 #### Snippet
 ```java
-import java.util.function.UnaryOperator;
+ * @author Benjamin Bentmann
+ */
+public class ModelProblemUtils {
 
-class ImmutableCollections {
+    /**
+```
 
-    private static final List<?> EMPTY_LIST = new AbstractImmutableList<Object>() {
+### UtilityClassWithoutPrivateConstructor
+Class `ModelUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-compat/src/main/java/org/apache/maven/project/ModelUtils.java`
+#### Snippet
+```java
+/** @deprecated */
+@Deprecated
+public final class ModelUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MetadataUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/MetadataUtils.java`
+#### Snippet
+```java
+ * @author Benjamin Bentmann
+ */
+class MetadataUtils {
+
+    public static Metadata cloneMetadata(Metadata src) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ExpressionDocumenter` has only 'static' members, and lacks a 'private' constructor
+in `maven-compat/src/main/java/org/apache/maven/usability/plugin/ExpressionDocumenter.java`
+#### Snippet
+```java
+ * ExpressionDocumenter
+ */
+public class ExpressionDocumenter {
+
+    private static final String[] EXPRESSION_ROOTS = {"project", "settings", "session", "plugin", "rootless"};
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/DomBuilder.java`
+#### Snippet
+```java
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+
+public class DomBuilder {
+
+    public static Xpp3Dom build(Reader reader) throws MavenXmlException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Xpp3DomWriter` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomWriter.java`
+#### Snippet
+```java
+ *
+ */
+public class Xpp3DomWriter {
+    public static void write(Writer writer, Dom dom) {
+        write(new PrettyPrintXMLWriter(writer), dom);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+ * @version $Id$
+ */
+public class Xpp3DomBuilder {
+    private static final boolean DEFAULT_TRIM = true;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Xpp3DomBuilder` has only 'static' members, and lacks a 'private' constructor
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+ *
+ */
+public class Xpp3DomBuilder {
+    private static final boolean DEFAULT_TRIM = true;
+
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -7521,11 +7535,11 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoDescriptorC
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultTransport.java`
 #### Snippet
 ```java
-    public Optional<String> getString(URI relativeSource, Charset charset) {
-        requireNonNull(charset, "charset is null");
-        Optional<byte[]> data = getBytes(relativeSource);
-        return data.map(bytes -> new String(bytes, charset));
-    }
+
+    @Override
+    public Optional<byte[]> getBytes(URI relativeSource) {
+        try {
+            Path tempPath = null;
 ```
 
 ### OptionalContainsCollection
@@ -7533,11 +7547,11 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultTransport.jav
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultTransport.java`
 #### Snippet
 ```java
-
-    @Override
-    public Optional<byte[]> getBytes(URI relativeSource) {
-        try {
-            Path tempPath = null;
+    public Optional<String> getString(URI relativeSource, Charset charset) {
+        requireNonNull(charset, "charset is null");
+        Optional<byte[]> data = getBytes(relativeSource);
+        return data.map(bytes -> new String(bytes, charset));
+    }
 ```
 
 ### OptionalContainsCollection
@@ -7638,27 +7652,15 @@ public abstract class AbstractArtifactMetadata
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'createArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    // USED BY MAVEN ASSEMBLY PLUGIN
-    @Deprecated
-    public static Set<Artifact> createArtifacts(
-            ArtifactFactory artifactFactory,
-            List<Dependency> dependencies,
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'manageArtifact' is still used
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionListener.java`
+Deprecated member 'setScriptSourceRoots' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
 
     @Deprecated
-    void manageArtifact(Artifact artifact, Artifact replacement);
-
-    // TODO Use the following two instead of manageArtifact
+    protected void setScriptSourceRoots(List<String> scriptSourceRoots) {
+        this.scriptSourceRoots = scriptSourceRoots;
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -7674,90 +7676,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setProjectBuildingRequest' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    // used by maven-dependency-tree
-    @Deprecated
-    public void setProjectBuildingRequest(ProjectBuildingRequest projectBuildingRequest) {
-        this.projectBuilderConfiguration = projectBuildingRequest;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'addScriptSourceRoot' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public void addScriptSourceRoot(String path) {
-        if (path != null) {
-            path = path.trim();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setScriptSourceRoots' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    protected void setScriptSourceRoots(List<String> scriptSourceRoots) {
-        this.scriptSourceRoots = scriptSourceRoots;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getScriptSourceRoots' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public List<String> getScriptSourceRoots() {
-        return scriptSourceRoots;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDependencyArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Set<Artifact> getDependencyArtifacts() {
-        return dependencyArtifacts;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getReportPlugins' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public List<ReportPlugin> getReportPlugins() {
-        if (getModel().getReporting() == null) {
-            return Collections.emptyList();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'addAttachedArtifact' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     * @throws DuplicateArtifactAttachmentException will never happen but leave it for backward compatibility
-     */
-    public void addAttachedArtifact(Artifact artifact) throws DuplicateArtifactAttachmentException {
-        // if already there we remove it and add again
-        int index = attachedArtifacts.indexOf(artifact);
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setExtensionArtifacts' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -7767,6 +7685,18 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     public void setExtensionArtifacts(Set<Artifact> extensionArtifacts) {
         this.extensionArtifacts = extensionArtifacts;
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setProjectBuildingRequest' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    // used by maven-dependency-tree
+    @Deprecated
+    public void setProjectBuildingRequest(ProjectBuildingRequest projectBuildingRequest) {
+        this.projectBuilderConfiguration = projectBuildingRequest;
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -7806,6 +7736,54 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'setDependencyArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void setDependencyArtifacts(Set<Artifact> dependencyArtifacts) {
+        this.dependencyArtifacts = dependencyArtifacts;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDependencyArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Set<Artifact> getDependencyArtifacts() {
+        return dependencyArtifacts;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'addAttachedArtifact' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     * @throws DuplicateArtifactAttachmentException will never happen but leave it for backward compatibility
+     */
+    public void addAttachedArtifact(Artifact artifact) throws DuplicateArtifactAttachmentException {
+        // if already there we remove it and add again
+        int index = attachedArtifacts.indexOf(artifact);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getReportPlugins' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public List<ReportPlugin> getReportPlugins() {
+        if (getModel().getReporting() == null) {
+            return Collections.emptyList();
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getReportArtifacts' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -7830,15 +7808,63 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setDependencyArtifacts' is still used
+Deprecated member 'addScriptSourceRoot' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
 
     @Deprecated
-    public void setDependencyArtifacts(Set<Artifact> dependencyArtifacts) {
-        this.dependencyArtifacts = dependencyArtifacts;
+    public void addScriptSourceRoot(String path) {
+        if (path != null) {
+            path = path.trim();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getScriptSourceRoots' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public List<String> getScriptSourceRoots() {
+        return scriptSourceRoots;
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'manageArtifact' is still used
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionListener.java`
+#### Snippet
+```java
+
+    @Deprecated
+    void manageArtifact(Artifact artifact, Artifact replacement);
+
+    // TODO Use the following two instead of manageArtifact
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'createArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    // USED BY MAVEN ASSEMBLY PLUGIN
+    @Deprecated
+    public static Set<Artifact> createArtifacts(
+            ArtifactFactory artifactFactory,
+            List<Dependency> dependencies,
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'RepositoryCache' is still used
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/RepositoryCache.java`
+#### Snippet
+```java
+// this here, possibly indefinitely.
+//
+public interface RepositoryCache {
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -7890,63 +7916,14 @@ public class DefaultJavaToolChain extends JavaToolchainImpl {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setLog' is still used
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/Mojo.java`
+Deprecated member 'SettingsSource' is still used
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsSource.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    void setLog(Log log);
+ */
+@Deprecated
+public interface SettingsSource extends Source {}
 
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getInactiveProfiles' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public List<String> getInactiveProfiles() {
-        return Collections.unmodifiableList(new ArrayList<>(getProfileIds(pa -> !pa.active)));
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'overwriteInactiveProfiles' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void overwriteInactiveProfiles(List<String> inactiveProfileIds) {
-        getInactiveProfiles().forEach(this.activations::remove);
-        inactiveProfileIds.forEach(this::deactivateOptionalProfile);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'overwriteActiveProfiles' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void overwriteActiveProfiles(List<String> activeProfileIds) {
-        getActiveProfiles().forEach(this.activations::remove);
-        activeProfileIds.forEach(this::activateOptionalProfile);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'RepositoryCache' is still used
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/RepositoryCache.java`
-#### Snippet
-```java
-// this here, possibly indefinitely.
-//
-public interface RepositoryCache {
-
-    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -7998,6 +7975,42 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.ja
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getInactiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public List<String> getInactiveProfiles() {
+        return Collections.unmodifiableList(new ArrayList<>(getProfileIds(pa -> !pa.active)));
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'overwriteInactiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void overwriteInactiveProfiles(List<String> inactiveProfileIds) {
+        getInactiveProfiles().forEach(this.activations::remove);
+        inactiveProfileIds.forEach(this::deactivateOptionalProfile);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'overwriteActiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void overwriteActiveProfiles(List<String> activeProfileIds) {
+        getActiveProfiles().forEach(this.activations::remove);
+        activeProfileIds.forEach(this::activateOptionalProfile);
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'overwriteInactiveProjects' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
 #### Snippet
@@ -8007,6 +8020,18 @@ in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
     public void overwriteInactiveProjects(List<String> inactiveProjectSelectors) {
         List<ProjectActivationSettings> projects = getProjects(pa -> !pa.active).collect(Collectors.toList());
         this.activations.removeAll(projects);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setLog' is still used
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/Mojo.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    void setLog(Log log);
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -8046,14 +8071,27 @@ in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SettingsSource' is still used
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsSource.java`
+Deprecated member 'DEBUG' is still used
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIManager.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public interface SettingsSource extends Source {}
+     * Use {@code -X/--verbose} instead. */
+    @Deprecated
+    public static final String DEBUG = "debug";
 
+    protected Options options;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setRawModel' is still used
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    ModelBuildingRequest setRawModel(Model rawModel);
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -8069,18 +8107,6 @@ public class UrlModelSource extends UrlSource implements ModelSource {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DefaultPathTranslator' is still used
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
-#### Snippet
-```java
-@Deprecated
-@Component(role = PathTranslator.class)
-public class DefaultPathTranslator implements PathTranslator {
-    private static final String[] BASEDIR_EXPRESSIONS = {"${basedir}", "${pom.basedir}", "${project.basedir}"};
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'ModelInheritanceAssembler' is still used
 in `maven-compat/src/main/java/org/apache/maven/project/inheritance/ModelInheritanceAssembler.java`
 #### Snippet
@@ -8093,13 +8119,25 @@ public interface ModelInheritanceAssembler {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setRawModel' is still used
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+Deprecated member 'DefaultPathTranslator' is still used
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    ModelBuildingRequest setRawModel(Model rawModel);
+@Deprecated
+@Component(role = PathTranslator.class)
+public class DefaultPathTranslator implements PathTranslator {
+    private static final String[] BASEDIR_EXPRESSIONS = {"${basedir}", "${pom.basedir}", "${project.basedir}"};
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'StringModelSource' is still used
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/StringModelSource.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class StringModelSource extends StringSource implements ModelSource {
 
     /**
 ```
@@ -8129,15 +8167,15 @@ public interface ResolutionListenerForDepMgmt {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'StringModelSource' is still used
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/StringModelSource.java`
+Deprecated member 'resolveTransitively' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolver.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class StringModelSource extends StringSource implements ModelSource {
-
-    /**
+    // USED BY INVOKER PLUGIN
+    @Deprecated
+    ArtifactResolutionResult resolveTransitively(
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
 ```
 
 ### DeprecatedIsStillUsed
@@ -8153,15 +8191,15 @@ public class ManagedVersionMap extends HashMap<String, Artifact> {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'resolveTransitively' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolver.java`
+Deprecated member 'DefaultArtifactRepository' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
 #### Snippet
 ```java
-    // USED BY INVOKER PLUGIN
-    @Deprecated
-    ArtifactResolutionResult resolveTransitively(
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
+ */
+@Deprecated
+public class DefaultArtifactRepository extends Repository implements ArtifactRepository {
+    private ArtifactRepositoryLayout layout;
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -8177,30 +8215,6 @@ public class DefaultProfileManager implements ProfileManager {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ArtifactCollector' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface ArtifactCollector extends org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector {
-
-    @Deprecated
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DefaultArtifactRepository' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class DefaultArtifactRepository extends Repository implements ArtifactRepository {
-    private ArtifactRepositoryLayout layout;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'ProfileManager' is still used
 in `maven-compat/src/main/java/org/apache/maven/profiles/ProfileManager.java`
 #### Snippet
@@ -8210,6 +8224,18 @@ in `maven-compat/src/main/java/org/apache/maven/profiles/ProfileManager.java`
 public interface ProfileManager {
 
     void addProfile(Profile profile);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ArtifactCollector' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface ArtifactCollector extends org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector {
+
+    @Deprecated
 ```
 
 ### DeprecatedIsStillUsed
@@ -8237,18 +8263,6 @@ public interface LegacyArtifactCollector {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setRemoteRepostories' is still used
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public MetadataResolutionRequest setRemoteRepostories(List<ArtifactRepository> remoteRepositories) {
-        this.remoteRepositories = remoteRepositories;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getRemoteRepostories' is still used
 in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
 #### Snippet
@@ -8261,14 +8275,14 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'createDeploymentArtifactRepository' is still used
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
+Deprecated member 'setRemoteRepostories' is still used
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
 #### Snippet
 ```java
-
+     */
     @Deprecated
-    ArtifactRepository createDeploymentArtifactRepository(String id, String url, String layoutId, boolean uniqueVersion)
-            throws UnknownRepositoryLayoutException;
+    public MetadataResolutionRequest setRemoteRepostories(List<ArtifactRepository> remoteRepositories) {
+        this.remoteRepositories = remoteRepositories;
 
 ```
 
@@ -8285,15 +8299,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEBUG' is still used
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIManager.java`
+Deprecated member 'createDeploymentArtifactRepository' is still used
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
 #### Snippet
 ```java
-     * Use {@code -X/--verbose} instead. */
-    @Deprecated
-    public static final String DEBUG = "debug";
 
-    protected Options options;
+    @Deprecated
+    ArtifactRepository createDeploymentArtifactRepository(String id, String url, String layoutId, boolean uniqueVersion)
+            throws UnknownRepositoryLayoutException;
+
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -8359,942 +8373,41 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
         }
 ```
 
-## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `containsKey()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsKey(Object key) {
-        return getter.get().containsKey(key);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `isEmpty()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isEmpty() {
-        return getter.get().isEmpty();
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `contains()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains(Object value) {
-        return getter.get().containsKey(value != null ? value.toString() : null);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `keys()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> keys() {
-        return Collections.enumeration((Set) getter.get().keySet());
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `elements()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `size()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public int size() {
-        return getter.get().size();
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `getOrDefault()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getOrDefault(Object key, Object defaultValue) {
-        return getter.get().getOrDefault(key, defaultValue != null ? defaultValue.toString() : null);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `get()` overrides synchronized method
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object get(Object key) {
-        return getter.get().get(key);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `clear()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear() {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace(Object key, Object oldValue, Object newValue) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove(Object key) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `put()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `merge()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `compute()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putAll()` overrides synchronized method
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll(Map<?, ?> t) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace(Object key, Object oldValue, Object newValue) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `merge()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putAll()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll(Map<?, ?> t) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `put()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `clear()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear() {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove(Object key) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `compute()` overrides synchronized method
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `containsKey()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsKey(Object key) {
-        return getter.get().containsKey(key);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `isEmpty()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isEmpty() {
-        return getter.get().isEmpty();
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `getOrDefault()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getOrDefault(Object key, Object defaultValue) {
-        return getter.get().getOrDefault(key, defaultValue != null ? defaultValue.toString() : null);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `keys()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> keys() {
-        return Collections.enumeration((Set) getter.get().keySet());
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `size()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public int size() {
-        return getter.get().size();
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `contains()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains(Object value) {
-        return getter.get().containsKey(value != null ? value.toString() : null);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `elements()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `get()` overrides synchronized method
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object get(Object key) {
-        return getter.get().get(key);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `get()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object get(Object key) {
-        return getter.get().get(key);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `keys()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> keys() {
-        return Collections.enumeration((Set) getter.get().keySet());
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `elements()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `contains()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean contains(Object value) {
-        return getter.get().containsKey(value != null ? value.toString() : null);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `isEmpty()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isEmpty() {
-        return getter.get().isEmpty();
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `size()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public int size() {
-        return getter.get().size();
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `getOrDefault()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getOrDefault(Object key, Object defaultValue) {
-        return getter.get().getOrDefault(key, defaultValue != null ? defaultValue.toString() : null);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `containsKey()` overrides synchronized method
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsKey(Object key) {
-        return getter.get().containsKey(key);
-    }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove(Object key) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `compute()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `merge()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `clear()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear() {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putAll()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll(Map<?, ?> t) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace(Object key, Object oldValue, Object newValue) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `put()` overrides synchronized method
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `compute()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfAbsent()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replaceAll()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putAll()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll(Map<?, ?> t) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `putIfAbsent()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object putIfAbsent(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `merge()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `computeIfPresent()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean replace(Object key, Object oldValue, Object newValue) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object remove(Object key) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `put()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object put(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `replace()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public Object replace(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `remove()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean remove(Object key, Object value) {
-            throw uoe();
-        }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `clear()` overrides synchronized method
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
-#### Snippet
-```java
-
-        @Override
-        public void clear() {
-            throw uoe();
-        }
-```
-
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'delegate' in a Serializable class
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+Non-serializable field 'pluginRealm' in a Serializable class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginContainerException.java`
 #### Snippet
 ```java
-    protected transient ChildrenTracking childrenTracking;
+public class PluginContainerException extends PluginManagerException {
 
-    protected Object delegate;
+    private ClassRealm pluginRealm;
 
-    public BaseObject() {}
+    public PluginContainerException(
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'location' in a Serializable class
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+Non-serializable field 'pluginDescriptor' in a Serializable class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
 #### Snippet
 ```java
-    protected final List<Dom> children;
+ */
+public class PluginConfigurationException extends Exception {
+    private PluginDescriptor pluginDescriptor;
 
-    protected final Object location;
+    private String originalMessage;
+```
 
-    public Xpp3Dom(String name) {
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'project' in a Serializable class
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java`
+#### Snippet
+```java
+    private String goal;
+
+    private MavenProject project;
+
+    protected PluginManagerException(Plugin plugin, String message, MavenProject project, Throwable cause) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -9319,42 +8432,6 @@ in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollec
         private final Object[] entries;
 
         private MapN(Map<K, V> map) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'pluginRealm' in a Serializable class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginContainerException.java`
-#### Snippet
-```java
-public class PluginContainerException extends PluginManagerException {
-
-    private ClassRealm pluginRealm;
-
-    public PluginContainerException(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'project' in a Serializable class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginManagerException.java`
-#### Snippet
-```java
-    private String goal;
-
-    private MavenProject project;
-
-    protected PluginManagerException(Plugin plugin, String message, MavenProject project, Throwable cause) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'pluginDescriptor' in a Serializable class
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
-#### Snippet
-```java
- */
-public class PluginConfigurationException extends Exception {
-    private PluginDescriptor pluginDescriptor;
-
-    private String originalMessage;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -9406,6 +8483,30 @@ public class LifecycleExecutionException extends Exception {
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'entries' in a Serializable class
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+    private static class MapN<K, V> extends AbstractImmutableMap<K, V> {
+        private final Object[] entries;
+
+        private MapN(Map<K, V> map) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'elements' in a Serializable class
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+    private static class ListN<E> extends AbstractImmutableList<E> {
+        private final Object[] elements;
+
+        private ListN(Collection<E> elements) {
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'pluginDescriptor' in a Serializable class
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
 #### Snippet
@@ -9430,6 +8531,30 @@ public abstract class AbstractMojoExecutionException extends Exception {
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'source' in a Serializable class
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
+#### Snippet
+```java
+public class MojoException extends MavenException {
+
+    protected Object source;
+
+    protected String longMessage;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'elements' in a Serializable class
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+    private static class ListN<E> extends AbstractImmutableList<E> {
+        private final Object[] elements;
+
+        private ListN(Collection<E> elements) {
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'entries' in a Serializable class
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
@@ -9442,8 +8567,20 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCo
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'entries' in a Serializable class
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+    private static class MapN<K, V> extends AbstractImmutableMap<K, V> {
+        private final Object[] entries;
+
+        private MapN(Map<K, V> map) {
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'elements' in a Serializable class
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
 #### Snippet
 ```java
 
@@ -9526,63 +8663,940 @@ public class MetadataRetrievalException extends Exception {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'source' in a Serializable class
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/MojoException.java`
+Non-serializable field 'delegate' in a Serializable class
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
 #### Snippet
 ```java
-public class MojoException extends MavenException {
+    protected transient ChildrenTracking childrenTracking;
 
-    protected Object source;
+    protected Object delegate;
 
-    protected String longMessage;
+    public BaseObject() {}
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'elements' in a Serializable class
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+Non-serializable field 'location' in a Serializable class
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    protected final List<Dom> children;
+
+    protected final Object location;
+
+    public Xpp3Dom(String name) {
+```
+
+## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `elements()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
 
-    private static class ListN<E> extends AbstractImmutableList<E> {
-        private final Object[] elements;
-
-        private ListN(Collection<E> elements) {
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
+    }
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'entries' in a Serializable class
-in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `get()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
 
-    private static class MapN<K, V> extends AbstractImmutableMap<K, V> {
-        private final Object[] entries;
-
-        private MapN(Map<K, V> map) {
+    @Override
+    public Object get(Object key) {
+        return getter.get().get(key);
+    }
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'elements' in a Serializable class
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `keys()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> keys() {
+        return Collections.enumeration((Set) getter.get().keySet());
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `containsKey()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsKey(Object key) {
+        return getter.get().containsKey(key);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `contains()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean contains(Object value) {
+        return getter.get().containsKey(value != null ? value.toString() : null);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `isEmpty()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isEmpty() {
+        return getter.get().isEmpty();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `size()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public int size() {
+        return getter.get().size();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `getOrDefault()` overrides synchronized method
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object getOrDefault(Object key, Object defaultValue) {
+        return getter.get().getOrDefault(key, defaultValue != null ? defaultValue.toString() : null);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putAll()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll(Map<?, ?> t) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace(Object key, Object oldValue, Object newValue) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `put()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `compute()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `merge()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `clear()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear() {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove(Object key) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `put()` overrides synchronized method
 in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
 
-    private static class ListN<E> extends AbstractImmutableList<E> {
-        private final Object[] elements;
-
-        private ListN(Collection<E> elements) {
+        @Override
+        public Object put(Object key, Object value) {
+            throw uoe();
+        }
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'entries' in a Serializable class
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
 in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
 
-    private static class MapN<K, V> extends AbstractImmutableMap<K, V> {
-        private final Object[] entries;
+        @Override
+        public Object replace(Object key, Object value) {
+            throw uoe();
+        }
+```
 
-        private MapN(Map<K, V> map) {
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace(Object key, Object oldValue, Object newValue) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove(Object key) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `clear()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear() {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `merge()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `compute()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putAll()` overrides synchronized method
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll(Map<?, ?> t) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putAll()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll(Map<?, ?> t) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace(Object key, Object oldValue, Object newValue) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `clear()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear() {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove(Object key) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `compute()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `put()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `merge()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `merge()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `compute()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean remove(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replaceAll()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void replaceAll(BiFunction<? super Object, ? super Object, ?> function) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `remove()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object remove(Object key) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object replace(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putAll()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll(Map<?, ?> t) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `putIfAbsent()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object putIfAbsent(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `put()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object put(Object key, Object value) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `replace()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean replace(Object key, Object oldValue, Object newValue) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `clear()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public void clear() {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfPresent()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `computeIfAbsent()` overrides synchronized method
+in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
+#### Snippet
+```java
+
+        @Override
+        public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
+            throw uoe();
+        }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `containsKey()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsKey(Object key) {
+        return getter.get().containsKey(key);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `keys()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> keys() {
+        return Collections.enumeration((Set) getter.get().keySet());
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `contains()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean contains(Object value) {
+        return getter.get().containsKey(value != null ? value.toString() : null);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `size()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public int size() {
+        return getter.get().size();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `elements()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `get()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object get(Object key) {
+        return getter.get().get(key);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `isEmpty()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isEmpty() {
+        return getter.get().isEmpty();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `getOrDefault()` overrides synchronized method
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object getOrDefault(Object key, Object defaultValue) {
+        return getter.get().getOrDefault(key, defaultValue != null ? defaultValue.toString() : null);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `get()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object get(Object key) {
+        return getter.get().get(key);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `elements()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `keys()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Enumeration<Object> keys() {
+        return Collections.enumeration((Set) getter.get().keySet());
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `isEmpty()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isEmpty() {
+        return getter.get().isEmpty();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `contains()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean contains(Object value) {
+        return getter.get().containsKey(value != null ? value.toString() : null);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `size()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public int size() {
+        return getter.get().size();
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `getOrDefault()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public Object getOrDefault(Object key, Object defaultValue) {
+        return getter.get().getOrDefault(key, defaultValue != null ? defaultValue.toString() : null);
+    }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `containsKey()` overrides synchronized method
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsKey(Object key) {
+        return getter.get().containsKey(key);
+    }
 ```
 
 ## RuleId[ruleID=CollectionContainsUrl]
@@ -9650,18 +9664,6 @@ public final class CleanLifecycleProvider extends AbstractLifecycleProvider {
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `maven-core/src/main/java/org/apache/maven/lifecycle/providers/WrapperLifecycleProvider.java`
-#### Snippet
-```java
-@Singleton
-public final class WrapperLifecycleProvider extends AbstractLifecycleProvider {
-    protected static final String LIFECYCLE_ID = "wrapper";
-
-    // START SNIPPET: wrapper
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `maven-core/src/main/java/org/apache/maven/lifecycle/providers/SiteLifecycleProvider.java`
 #### Snippet
 ```java
@@ -9670,6 +9672,18 @@ public final class SiteLifecycleProvider extends AbstractLifecycleProvider {
     protected static final String LIFECYCLE_ID = "site";
 
     // START SNIPPET: site
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `maven-core/src/main/java/org/apache/maven/lifecycle/providers/WrapperLifecycleProvider.java`
+#### Snippet
+```java
+@Singleton
+public final class WrapperLifecycleProvider extends AbstractLifecycleProvider {
+    protected static final String LIFECYCLE_ID = "wrapper";
+
+    // START SNIPPET: wrapper
 ```
 
 ### ProtectedMemberInFinalClass
@@ -9685,6 +9699,18 @@ public final class DefaultLifecycleProvider extends AbstractLifecycleProvider {
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+        error.printStackTrace(pWriter);
+
+        System.err.println("[error] " + sWriter.toString());
+    }
+
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
@@ -9714,18 +9740,6 @@ Unnecessary `toString()` call
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
-        error.printStackTrace(pWriter);
-
-        System.err.println("[error] " + sWriter.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
 
         System.err.println(
                 "[error] " + content.toString() + System.lineSeparator() + System.lineSeparator() + sWriter.toString());
@@ -9747,14 +9761,14 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/Comparable
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
 #### Snippet
 ```java
-                        .debug(
-                                "Failed to record lastUpdated information for resolution.\nFile: "
-                                        + touchfile.toString() + "; key: " + key,
-                                e);
-            } finally {
+
+        message.append(')');
+        out.println(message.toString());
+    }
+}
 ```
 
 ### UnnecessaryToStringCall
@@ -9771,14 +9785,14 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTran
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
 #### Snippet
 ```java
-
-        message.append(')');
-        out.println(message.toString());
-    }
-}
+                        .debug(
+                                "Failed to record lastUpdated information for resolution.\nFile: "
+                                        + touchfile.toString() + "; key: " + key,
+                                e);
+            } finally {
 ```
 
 ## RuleId[ruleID=SetReplaceableByEnumSet]
@@ -9983,6 +9997,18 @@ in `maven-builder-support/src/main/java/org/apache/maven/building/UrlSource.java
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+    public Artifact setVersion(String version) {
+        String current = getVersion();
+        if (current.equals(version) || (version == null && current.length() <= 0)) {
+            return this;
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
 in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
@@ -9990,18 +10016,6 @@ in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
     private static String nullify(String string) {
         return (string == null || string.length() <= 0) ? null : string;
     }
-
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-
-        private String nullify(String str) {
-            return (str == null || str.length() <= 0) ? null : str;
-        }
 
 ```
 
@@ -10019,14 +10033,14 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-    public Artifact setVersion(String version) {
-        String current = getVersion();
-        if (current.equals(version) || (version == null && current.length() <= 0)) {
-            return this;
+
+        private String nullify(String str) {
+            return (str == null || str.length() <= 0) ? null : str;
         }
+
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -10043,26 +10057,14 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSet
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
-#### Snippet
-```java
-        }
-
-        if (name == null || name.length() <= 0) {
-            problems.add(new ModelProblemCollectorRequest(Severity.ERROR, Version.BASE)
-                    .setMessage("The property name is required to activate the profile " + profile.getId())
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
+        String version = context.getSystemProperties().get("java.version");
 
-    private static int getRelationOrder(String value, RangeValue rangeValue, boolean isLeft) {
-        if (rangeValue.value.length() <= 0) {
-            return isLeft ? 1 : -1;
-        }
+        if (version == null || version.length() <= 0) {
+            problems.add(new ModelProblemCollectorRequest(Severity.ERROR, Version.BASE)
+                    .setMessage("Failed to determine Java version for profile " + profile.getId())
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -10082,11 +10084,23 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-        String version = context.getSystemProperties().get("java.version");
 
-        if (version == null || version.length() <= 0) {
+    private static int getRelationOrder(String value, RangeValue rangeValue, boolean isLeft) {
+        if (rangeValue.value.length() <= 0) {
+            return isLeft ? 1 : -1;
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
+#### Snippet
+```java
+        }
+
+        if (name == null || name.length() <= 0) {
             problems.add(new ModelProblemCollectorRequest(Severity.ERROR, Version.BASE)
-                    .setMessage("Failed to determine Java version for profile " + profile.getId())
+                    .setMessage("The property name is required to activate the profile " + profile.getId())
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -10106,11 +10120,11 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            String msg = e.getMessage();
-            if (msg == null || msg.length() <= 0) {
-                // NOTE: There's java.nio.charset.MalformedInputException and sun.io.MalformedInputException
-                if (e.getClass().getName().endsWith("MalformedInputException")) {
+        String parentPath = childModel.getParent().getRelativePath();
+
+        if (parentPath == null || parentPath.length() <= 0) {
+            return null;
+        }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -10154,10 +10168,46 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        String parentPath = childModel.getParent().getRelativePath();
+        } catch (IOException e) {
+            String msg = e.getMessage();
+            if (msg == null || msg.length() <= 0) {
+                // NOTE: There's java.nio.charset.MalformedInputException and sun.io.MalformedInputException
+                if (e.getClass().getName().endsWith("MalformedInputException")) {
+```
 
-        if (parentPath == null || parentPath.length() <= 0) {
-            return null;
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
+            String sourceHint,
+            InputLocationTracker tracker) {
+        if (string == null || string.length() <= 0) {
+            return true;
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
+            String sourceHint,
+            InputLocationTracker tracker) {
+        if (string == null || string.length() <= 0) {
+            return true;
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
+            InputLocationTracker tracker,
+            String... validValues) {
+        if (string == null || string.length() <= 0) {
+            return true;
         }
 ```
 
@@ -10199,42 +10249,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultM
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
-#### Snippet
-```java
-            InputLocationTracker tracker,
-            String... validValues) {
-        if (string == null || string.length() <= 0) {
-            return true;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
-#### Snippet
-```java
-            String sourceHint,
-            InputLocationTracker tracker) {
-        if (string == null || string.length() <= 0) {
-            return true;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
-#### Snippet
-```java
-            String sourceHint,
-            InputLocationTracker tracker) {
-        if (string == null || string.length() <= 0) {
-            return true;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/io/DefaultModelWriter.java`
 #### Snippet
 ```java
@@ -10247,13 +10261,13 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/io/DefaultModelWrit
 
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
+Uses of `System.err` should probably be replaced with more robust logging
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
         error.printStackTrace(pWriter);
 
-        System.out.println("[" + prefix + "] " + sWriter.toString());
+        System.err.println("[error] " + sWriter.toString());
     }
 
 ```
@@ -10265,9 +10279,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
         error.printStackTrace(pWriter);
 
-        System.out.println("[" + prefix + "] " + content.toString() + System.lineSeparator() + System.lineSeparator()
-                + sWriter.toString());
+        System.out.println("[" + prefix + "] " + sWriter.toString());
     }
+
 ```
 
 ### SystemOutErr
@@ -10287,23 +10301,23 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
-        error.printStackTrace(pWriter);
-
-        System.err.println("[error] " + sWriter.toString());
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
      */
     public void error(CharSequence content) {
         System.err.println("[error] " + content.toString());
     }
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+        error.printStackTrace(pWriter);
+
+        System.out.println("[" + prefix + "] " + content.toString() + System.lineSeparator() + System.lineSeparator()
+                + sWriter.toString());
+    }
 ```
 
 ### SystemOutErr
@@ -10379,6 +10393,102 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            }
+        } catch (ParseException e) {
+            System.err.println("Unable to parse maven.config: " + e.getMessage());
+            cliManager.displayHelp(System.out);
+            throw e;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        } catch (ParseException e) {
+            System.err.println("Unable to parse maven.config: " + e.getMessage());
+            cliManager.displayHelp(System.out);
+            throw e;
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            }
+        } catch (ParseException e) {
+            System.err.println("Unable to parse command line options: " + e.getMessage());
+            cliManager.displayHelp(System.out);
+            throw e;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        } catch (ParseException e) {
+            System.err.println("Unable to parse command line options: " + e.getMessage());
+            cliManager.displayHelp(System.out);
+            throw e;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+    protected TransferListener getConsoleTransferListener(boolean printResourceNames) {
+        return new ConsoleMavenTransferListener(System.out, printResourceNames);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
+
+            System.out.println(cipher.encryptAndDecorate(passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION));
+
+            throw new ExitException(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
+            String masterPasswd = cipher.decryptDecorated(master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION);
+            System.out.println(cipher.encryptAndDecorate(passwd, masterPasswd));
+
+            throw new ExitException(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    private void version(CliRequest cliRequest) {
+        if (cliRequest.verbose || cliRequest.commandLine.hasOption(CLIManager.SHOW_VERSION)) {
+            System.out.println(CLIReportingUtils.showVersion());
+        }
+    }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 #### Snippet
@@ -10400,30 +10510,6 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
         PrintStream olderr = System.err;
 
         final Set<String> realms;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    private void version(CliRequest cliRequest) {
-        if (cliRequest.verbose || cliRequest.commandLine.hasOption(CLIManager.SHOW_VERSION)) {
-            System.out.println(CLIReportingUtils.showVersion());
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-    protected TransferListener getConsoleTransferListener(boolean printResourceNames) {
-        return new ConsoleMavenTransferListener(System.out, printResourceNames);
-    }
-
 ```
 
 ### SystemOutErr
@@ -10467,83 +10553,11 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 #### Snippet
 ```java
-            }
-        } catch (ParseException e) {
-            System.err.println("Unable to parse maven.config: " + e.getMessage());
-            cliManager.displayHelp(System.out);
-            throw e;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        } catch (ParseException e) {
-            System.err.println("Unable to parse maven.config: " + e.getMessage());
-            cliManager.displayHelp(System.out);
-            throw e;
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            }
-        } catch (ParseException e) {
-            System.err.println("Unable to parse command line options: " + e.getMessage());
-            cliManager.displayHelp(System.out);
-            throw e;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        } catch (ParseException e) {
-            System.err.println("Unable to parse command line options: " + e.getMessage());
-            cliManager.displayHelp(System.out);
-            throw e;
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
             String basedirProperty = System.getProperty(MULTIMODULE_PROJECT_DIRECTORY);
             if (basedirProperty == null) {
                 System.err.format("-D%s system property is not set.", MULTIMODULE_PROJECT_DIRECTORY);
                 throw new ExitException(1);
             }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-
-            System.out.println(cipher.encryptAndDecorate(passwd, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION));
-
-            throw new ExitException(0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            DefaultPlexusCipher cipher = new DefaultPlexusCipher();
-            String masterPasswd = cipher.decryptDecorated(master, DefaultSecDispatcher.SYSTEM_PROPERTY_SEC_LOCATION);
-            System.out.println(cipher.encryptAndDecorate(passwd, masterPasswd));
-
-            throw new ExitException(0);
 ```
 
 ## RuleId[ruleID=MissingDeprecatedAnnotation]
@@ -10554,9 +10568,9 @@ in `maven-core/src/main/java/org/apache/maven/ArtifactFilterManager.java`
 ```java
      *             extensions.
      */
-    void excludeArtifact(String artifactId);
+    ArtifactFilter getArtifactFilter();
 
-    Set<String> getCoreArtifactExcludes();
+    /**
 ```
 
 ### MissingDeprecatedAnnotation
@@ -10566,9 +10580,9 @@ in `maven-core/src/main/java/org/apache/maven/ArtifactFilterManager.java`
 ```java
      *             extensions.
      */
-    ArtifactFilter getArtifactFilter();
+    void excludeArtifact(String artifactId);
 
-    /**
+    Set<String> getCoreArtifactExcludes();
 ```
 
 ### MissingDeprecatedAnnotation
@@ -10590,9 +10604,9 @@ in `maven-core/src/main/java/org/apache/maven/project/DuplicateProjectException.
 ```java
      * @deprecated use {@link #DuplicateProjectException(String, File, File, String)}
      */
-    public DuplicateProjectException(String message, Exception e) {
-        super(message, e);
-        this.projectId = null;
+    public DuplicateProjectException(String message) {
+        this(null, null, null, message);
+    }
 ```
 
 ### MissingDeprecatedAnnotation
@@ -10602,9 +10616,9 @@ in `maven-core/src/main/java/org/apache/maven/project/DuplicateProjectException.
 ```java
      * @deprecated use {@link #DuplicateProjectException(String, File, File, String)}
      */
-    public DuplicateProjectException(String message) {
-        this(null, null, null, message);
-    }
+    public DuplicateProjectException(String message, Exception e) {
+        super(message, e);
+        this.projectId = null;
 ```
 
 ### MissingDeprecatedAnnotation
@@ -10757,35 +10771,35 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/AbstractMavenPluginParametersValidator.java`
 #### Snippet
 ```java
-        }
-
-        String propertyName = strValue.replace("${", "").replace("}", "");
-
-        if (IGNORED_PROPERTY_VALUES.contains(propertyName)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/AbstractMavenPluginParametersValidator.java`
-#### Snippet
-```java
-        }
-
-        String propertyName = strValue.replace("${", "").replace("}", "");
-
-        if (IGNORED_PROPERTY_VALUES.contains(propertyName)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/AbstractMavenPluginParametersValidator.java`
-#### Snippet
-```java
 
         if (parameter.getExpression() != null) {
             String userProperty = parameter.getExpression().replace("${", "'").replace('}', '\'');
             messageBuilder.warning(" (user property ").warning(userProperty).warning(")");
         }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/AbstractMavenPluginParametersValidator.java`
+#### Snippet
+```java
+        }
+
+        String propertyName = strValue.replace("${", "").replace("}", "");
+
+        if (IGNORED_PROPERTY_VALUES.contains(propertyName)) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/AbstractMavenPluginParametersValidator.java`
+#### Snippet
+```java
+        }
+
+        String propertyName = strValue.replace("${", "").replace("}", "");
+
+        if (IGNORED_PROPERTY_VALUES.contains(propertyName)) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -10858,30 +10872,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultBuildResumptionDa
             Stream.of(propertyValue.split(PROPERTY_DELIMITER))
                     .filter(StringUtils::isNotEmpty)
                     .forEach(request.getProjectActivation()::activateOptionalProject);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-            return "plugin";
-        } else {
-            return artifactId.replaceAll("-?maven-?", "").replaceAll("-?plugin-?", "");
-        }
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-            return "plugin";
-        } else {
-            return artifactId.replaceAll("-?maven-?", "").replaceAll("-?plugin-?", "");
-        }
-    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -10970,26 +10960,110 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/validation/De
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
 #### Snippet
 ```java
+            return "plugin";
+        } else {
+            return artifactId.replaceAll("-?maven-?", "").replaceAll("-?plugin-?", "");
         }
-
-        value = value.replaceAll("[^0-9\\.\\-\\_]", "");
-
-        List<String> valueTokens = new ArrayList<>(Arrays.asList(value.split("[\\.\\-\\_]")));
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
 #### Snippet
 ```java
-        value = value.replaceAll("[^0-9\\.\\-\\_]", "");
+            return "plugin";
+        } else {
+            return artifactId.replaceAll("-?maven-?", "").replaceAll("-?plugin-?", "");
+        }
+    }
+```
 
-        List<String> valueTokens = new ArrayList<>(Arrays.asList(value.split("[\\.\\-\\_]")));
-        List<String> rangeValueTokens = new ArrayList<>(Arrays.asList(rangeValue.value.split("\\.")));
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
+#### Snippet
+```java
 
+    public CiFriendlyXMLFilter setChangelist(String changelist) {
+        replaceChain = replaceChain.andThen(t -> t.replace("${changelist}", changelist));
+        return this;
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
+#### Snippet
+```java
+
+    public CiFriendlyXMLFilter setRevision(String revision) {
+        replaceChain = replaceChain.andThen(t -> t.replace("${revision}", revision));
+        return this;
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
+#### Snippet
+```java
+
+    public CiFriendlyXMLFilter setSha1(String sha1) {
+        replaceChain = replaceChain.andThen(t -> t.replace("${sha1}", sha1));
+        return this;
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RelativePathXMLFilter.java`
+#### Snippet
+```java
+            if (event.event == START_TAG && "relativePath".equals(event.name)) {
+                skip = true;
+                if (prev != null && prev.event == TEXT && prev.text.matches("\\s+")) {
+                    prev = null;
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
+#### Snippet
+```java
+                hasVersion |= "version".equals(tagName);
+            } else if (event.event == TEXT) {
+                if (event.text.matches("\\s+")) {
+                    if (dependencyWhitespace.isEmpty()) {
+                        dependencyWhitespace = event.text;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/XmlUtils.java`
+#### Snippet
+```java
+    private static String normalize(String input) {
+        if (input.indexOf('\n') >= 0 && !"\n".equals(System.lineSeparator())) {
+            return input.replace("\n", System.lineSeparator());
+        }
+        return input;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
+#### Snippet
+```java
+                hasRelativePath |= "relativePath".equals(tagName);
+            } else if (event.event == TEXT) {
+                if (event.text.matches("\\s+")) {
+                    if (whitespaceAfterParentStart.isEmpty()) {
+                        whitespaceAfterParentStart = event.text;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11042,98 +11116,26 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-compat/src/main/java/org/apache/maven/profiles/activation/JdkPrefixProfileActivator.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-
-    private String convertJdkToMavenVersion(String jdk) {
-        return jdk.replaceAll("_", "-");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
-#### Snippet
-```java
-
-    public CiFriendlyXMLFilter setSha1(String sha1) {
-        replaceChain = replaceChain.andThen(t -> t.replace("${sha1}", sha1));
-        return this;
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
-#### Snippet
-```java
-
-    public CiFriendlyXMLFilter setChangelist(String changelist) {
-        replaceChain = replaceChain.andThen(t -> t.replace("${changelist}", changelist));
-        return this;
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/CiFriendlyXMLFilter.java`
-#### Snippet
-```java
-
-    public CiFriendlyXMLFilter setRevision(String revision) {
-        replaceChain = replaceChain.andThen(t -> t.replace("${revision}", revision));
-        return this;
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RelativePathXMLFilter.java`
-#### Snippet
-```java
-            if (event.event == START_TAG && "relativePath".equals(event.name)) {
-                skip = true;
-                if (prev != null && prev.event == TEXT && prev.text.matches("\\s+")) {
-                    prev = null;
-                }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/XmlUtils.java`
-#### Snippet
-```java
-    private static String normalize(String input) {
-        if (input.indexOf('\n') >= 0 && !"\n".equals(System.lineSeparator())) {
-            return input.replace("\n", System.lineSeparator());
         }
-        return input;
+
+        value = value.replaceAll("[^0-9\\.\\-\\_]", "");
+
+        List<String> valueTokens = new ArrayList<>(Arrays.asList(value.split("[\\.\\-\\_]")));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-                hasRelativePath |= "relativePath".equals(tagName);
-            } else if (event.event == TEXT) {
-                if (event.text.matches("\\s+")) {
-                    if (whitespaceAfterParentStart.isEmpty()) {
-                        whitespaceAfterParentStart = event.text;
-```
+        value = value.replaceAll("[^0-9\\.\\-\\_]", "");
 
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
-#### Snippet
-```java
-                hasVersion |= "version".equals(tagName);
-            } else if (event.event == TEXT) {
-                if (event.text.matches("\\s+")) {
-                    if (dependencyWhitespace.isEmpty()) {
-                        dependencyWhitespace = event.text;
+        List<String> valueTokens = new ArrayList<>(Arrays.asList(value.split("[\\.\\-\\_]")));
+        List<String> rangeValueTokens = new ArrayList<>(Arrays.asList(rangeValue.value.split("\\.")));
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11145,6 +11147,18 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 
         String[] lines = msg.split("(\r\n)|(\r)|(\n)");
         String currentColor = "";
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-compat/src/main/java/org/apache/maven/profiles/activation/JdkPrefixProfileActivator.java`
+#### Snippet
+```java
+
+    private String convertJdkToMavenVersion(String jdk) {
+        return jdk.replaceAll("_", "-");
+    }
 
 ```
 
@@ -11178,30 +11192,6 @@ Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced wit
 in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
 #### Snippet
 ```java
-    }
-
-    public org.codehaus.plexus.util.xml.Xpp3Dom getConfiguration() {
-        return configuration;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
-#### Snippet
-```java
-
-    public void setConfiguration(Dom configuration) {
-        this.configuration = configuration != null ? new org.codehaus.plexus.util.xml.Xpp3Dom(configuration) : null;
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
-#### Snippet
-```java
     public MojoExecution(MojoDescriptor mojoDescriptor, Dom configuration) {
         this.mojoDescriptor = mojoDescriptor;
         this.configuration = new org.codehaus.plexus.util.xml.Xpp3Dom(configuration);
@@ -11219,6 +11209,18 @@ in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
     private org.codehaus.plexus.util.xml.Xpp3Dom configuration;
 
     /**
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
+#### Snippet
+```java
+
+    public void setConfiguration(Dom configuration) {
+        this.configuration = configuration != null ? new org.codehaus.plexus.util.xml.Xpp3Dom(configuration) : null;
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11246,6 +11248,18 @@ in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
+#### Snippet
+```java
+    }
+
+    public org.codehaus.plexus.util.xml.Xpp3Dom getConfiguration() {
+        return configuration;
+    }
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.aether.repository` is unnecessary, and can be replaced with an import
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
@@ -11258,15 +11272,27 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.artifact` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/project/DefaultMavenProjectHelper.java`
+Qualifier `org.apache.maven.repository.internal` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
 #### Snippet
 ```java
-     * Add an attached artifact or replace the file for an existing artifact.
-     *
-     * @see MavenProject#addAttachedArtifact(org.apache.maven.artifact.Artifact)
-     * @param project project reference.
-     * @param artifact artifact to add or replace.
+            if (logger.isWarnEnabled()) {
+                if (!result.getRelocations().isEmpty()) {
+                    String message = pluginArtifact instanceof org.apache.maven.repository.internal.RelocatedArtifact
+                            ? ((org.apache.maven.repository.internal.RelocatedArtifact) pluginArtifact).getMessage()
+                            : null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.repository.internal` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
+#### Snippet
+```java
+                if (!result.getRelocations().isEmpty()) {
+                    String message = pluginArtifact instanceof org.apache.maven.repository.internal.RelocatedArtifact
+                            ? ((org.apache.maven.repository.internal.RelocatedArtifact) pluginArtifact).getMessage()
+                            : null;
+                    logger.warn("The artifact " + result.getRelocations().get(0) + " has been relocated to "
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11294,27 +11320,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDepen
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.repository.internal` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
+Qualifier `org.apache.maven.artifact` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/project/DefaultMavenProjectHelper.java`
 #### Snippet
 ```java
-            if (logger.isWarnEnabled()) {
-                if (!result.getRelocations().isEmpty()) {
-                    String message = pluginArtifact instanceof org.apache.maven.repository.internal.RelocatedArtifact
-                            ? ((org.apache.maven.repository.internal.RelocatedArtifact) pluginArtifact).getMessage()
-                            : null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.repository.internal` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDependenciesResolver.java`
-#### Snippet
-```java
-                if (!result.getRelocations().isEmpty()) {
-                    String message = pluginArtifact instanceof org.apache.maven.repository.internal.RelocatedArtifact
-                            ? ((org.apache.maven.repository.internal.RelocatedArtifact) pluginArtifact).getMessage()
-                            : null;
-                    logger.warn("The artifact " + result.getRelocations().get(0) + " has been relocated to "
+     * Add an attached artifact or replace the file for an existing artifact.
+     *
+     * @see MavenProject#addAttachedArtifact(org.apache.maven.artifact.Artifact)
+     * @param project project reference.
+     * @param artifact artifact to add or replace.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11390,27 +11404,15 @@ public interface RepositoryMetadata extends org.apache.maven.artifact.metadata.A
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractNode.java`
-#### Snippet
-```java
-public abstract class AbstractNode implements Node {
-
-    abstract org.eclipse.aether.graph.DependencyNode getDependencyNode();
-
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoordinate.java`
 #### Snippet
 ```java
 
-    public DefaultDependencyCoordinate(
-            @Nonnull AbstractSession session, @Nonnull org.eclipse.aether.graph.Dependency dependency) {
-        this.session = nonNull(session, "session");
-        this.dependency = nonNull(dependency, "dependency");
+    @Nonnull
+    public org.eclipse.aether.graph.Dependency getDependency() {
+        return dependency;
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11431,10 +11433,22 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoo
 #### Snippet
 ```java
 
-    @Nonnull
-    public org.eclipse.aether.graph.Dependency getDependency() {
-        return dependency;
-    }
+    public DefaultDependencyCoordinate(
+            @Nonnull AbstractSession session, @Nonnull org.eclipse.aether.graph.Dependency dependency) {
+        this.session = nonNull(session, "session");
+        this.dependency = nonNull(dependency, "dependency");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractNode.java`
+#### Snippet
+```java
+public abstract class AbstractNode implements Node {
+
+    abstract org.eclipse.aether.graph.DependencyNode getDependencyNode();
+
+    @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11459,6 +11473,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultDependencyCoo
                 new org.eclipse.aether.graph.Dependency(
                         new org.eclipse.aether.artifact.DefaultArtifact(
                                 request.getGroupId(),
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.building` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultToolchainsBuilder.java`
+#### Snippet
+```java
+
+    private static class MappedBuilderProblem implements BuilderProblem {
+        private final org.apache.maven.building.Problem problem;
+
+        MappedBuilderProblem(org.apache.maven.building.Problem problem) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11498,39 +11524,39 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultToolchainsBui
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.building` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultToolchainsBuilder.java`
+Qualifier `org.eclipse.aether.repository` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
 #### Snippet
 ```java
-
-    private static class MappedBuilderProblem implements BuilderProblem {
-        private final org.apache.maven.building.Problem problem;
-
-        MappedBuilderProblem(org.apache.maven.building.Problem problem) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
-#### Snippet
-```java
-
-    protected final @Nonnull AbstractSession session;
-    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
-    protected final boolean verbose;
+        }
+        org.eclipse.aether.repository.LocalRepository repository = toRepository(localRepository);
+        org.eclipse.aether.repository.LocalRepositoryManager localRepositoryManager =
+                repositorySystem.newLocalRepositoryManager(session, repository);
 
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
 #### Snippet
 ```java
+    }
 
-    public DefaultNode(
-            @Nonnull AbstractSession session, @Nonnull org.eclipse.aether.graph.DependencyNode node, boolean verbose) {
-        this.session = session;
-        this.node = node;
+    public org.eclipse.aether.graph.Dependency toDependency(DependencyCoordinate dependency) {
+        if (dependency instanceof DefaultDependencyCoordinate) {
+            return ((DefaultDependencyCoordinate) dependency).getDependency();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
+#### Snippet
+```java
+            return ((DefaultDependencyCoordinate) dependency).getDependency();
+        } else {
+            return new org.eclipse.aether.graph.Dependency(
+                    new org.eclipse.aether.artifact.DefaultArtifact(
+                            dependency.getGroupId(),
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11570,38 +11596,26 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 #### Snippet
 ```java
-    }
 
-    public org.eclipse.aether.graph.Dependency toDependency(DependencyCoordinate dependency) {
-        if (dependency instanceof DefaultDependencyCoordinate) {
-            return ((DefaultDependencyCoordinate) dependency).getDependency();
+    public DefaultNode(
+            @Nonnull AbstractSession session, @Nonnull org.eclipse.aether.graph.DependencyNode node, boolean verbose) {
+        this.session = session;
+        this.node = node;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultNode.java`
 #### Snippet
 ```java
-            return ((DefaultDependencyCoordinate) dependency).getDependency();
-        } else {
-            return new org.eclipse.aether.graph.Dependency(
-                    new org.eclipse.aether.artifact.DefaultArtifact(
-                            dependency.getGroupId(),
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.repository` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
-#### Snippet
-```java
-        }
-        org.eclipse.aether.repository.LocalRepository repository = toRepository(localRepository);
-        org.eclipse.aether.repository.LocalRepositoryManager localRepositoryManager =
-                repositorySystem.newLocalRepositoryManager(session, repository);
+    protected final @Nonnull AbstractSession session;
+    protected final @Nonnull org.eclipse.aether.graph.DependencyNode node;
+    protected final boolean verbose;
 
 ```
 
@@ -11610,11 +11624,11 @@ Qualifier `org.eclipse.aether.artifact` is unnecessary, and can be replaced with
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
 #### Snippet
 ```java
-public class DefaultArtifactCoordinate implements ArtifactCoordinate {
-    private final @Nonnull AbstractSession session;
-    private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
+    }
 
-    public DefaultArtifactCoordinate(
+    public org.eclipse.aether.artifact.Artifact getCoordinate() {
+        return coordinate;
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11634,11 +11648,11 @@ Qualifier `org.eclipse.aether.artifact` is unnecessary, and can be replaced with
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultArtifactCoordinate.java`
 #### Snippet
 ```java
-    }
+public class DefaultArtifactCoordinate implements ArtifactCoordinate {
+    private final @Nonnull AbstractSession session;
+    private final @Nonnull org.eclipse.aether.artifact.Artifact coordinate;
 
-    public org.eclipse.aether.artifact.Artifact getCoordinate() {
-        return coordinate;
-    }
+    public DefaultArtifactCoordinate(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11694,18 +11708,6 @@ Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an
 in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-
-    private final List<Listener> listeners = new CopyOnWriteArrayList<>();
-    private final Map<org.eclipse.aether.graph.DependencyNode, Node> allNodes =
-            Collections.synchronizedMap(new WeakHashMap<>());
-    private final Map<org.eclipse.aether.artifact.Artifact, Artifact> allArtifacts =
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
-#### Snippet
-```java
     }
 
     public Node getNode(org.eclipse.aether.graph.DependencyNode node, boolean verbose) {
@@ -11723,6 +11725,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java
     public Node getNode(org.eclipse.aether.graph.DependencyNode node) {
         return getNode(node, false);
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.graph` is unnecessary, and can be replaced with an import
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+#### Snippet
+```java
+
+    private final List<Listener> listeners = new CopyOnWriteArrayList<>();
+    private final Map<org.eclipse.aether.graph.DependencyNode, Node> allNodes =
+            Collections.synchronizedMap(new WeakHashMap<>());
+    private final Map<org.eclipse.aether.artifact.Artifact, Artifact> allArtifacts =
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11768,9 +11782,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
      */
-    public void info(Throwable error) {
+    public void warn(CharSequence content) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11780,9 +11794,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
      */
-    public void info(Throwable error) {
+    public void warn(CharSequence content) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11792,45 +11806,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
      */
-    public boolean isWarnEnabled() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-public class SystemStreamLog implements Log {
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    public void debug(CharSequence content) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-public class SystemStreamLog implements Log {
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    public void debug(CharSequence content) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
-     */
-    public void warn(Throwable error) {
+    public void error(Throwable error) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11840,165 +11818,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
      */
-    public void warn(Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void debug(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void debug(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void debug(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void warn(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void warn(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void warn(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
-     */
-    public void info(CharSequence content) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
-     */
-    public void info(CharSequence content) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void info(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void info(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    public void info(CharSequence content, Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    public void debug(Throwable error) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    public void debug(Throwable error) {
+    public void error(Throwable error) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12020,9 +11842,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
      */
-    public void warn(CharSequence content) {
+    public void debug(Throwable error) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12032,9 +11854,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
      */
-    public void warn(CharSequence content) {
+    public void debug(Throwable error) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12044,9 +11866,9 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
      */
-    public void error(Throwable error) {
+    public void warn(CharSequence content, Throwable error) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12056,9 +11878,69 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 ```java
 
     /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
      */
-    public void error(Throwable error) {
+    public void warn(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void warn(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    public void info(Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    public void info(Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
+     */
+    public void info(CharSequence content) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence)
+     */
+    public void info(CharSequence content) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12083,6 +11965,150 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
      * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
      */
     public void error(CharSequence content) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     */
+    public void warn(Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.Throwable)
+     */
+    public void warn(Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void error(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void error(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void error(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     */
+    public boolean isWarnEnabled() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void debug(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void debug(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void debug(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void info(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void info(CharSequence content, Throwable error) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    public void info(CharSequence content, Throwable error) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12102,11 +12128,11 @@ Qualifier `org.apache.maven.plugin.logging` is unnecessary and can be removed
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
-
+public class SystemStreamLog implements Log {
     /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
      */
-    public void error(CharSequence content, Throwable error) {
+    public void debug(CharSequence content) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12114,23 +12140,47 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
-
+public class SystemStreamLog implements Log {
     /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
      */
-    public void error(CharSequence content, Throwable error) {
+    public void debug(CharSequence content) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+Qualifier `org.apache.maven.api` is unnecessary and can be removed
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Version.java`
 #### Snippet
 ```java
+ * @since 4.0
+ * @see org.apache.maven.api.services.VersionParser#parseVersion(String)
+ * @see org.apache.maven.api.Session#parseVersion(String)
+ */
+@Experimental
+```
 
-    /**
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence, java.lang.Throwable)
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.api` is unnecessary and can be removed
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+#### Snippet
+```java
+     *
+     * @return an {@link ArtifactCoordinate}
+     * @see org.apache.maven.api.Session#createArtifactCoordinate(Artifact)
      */
-    public void error(CharSequence content, Throwable error) {
+    @Nonnull
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.api` is unnecessary and can be removed
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
+#### Snippet
+```java
+     *
+     * @return {@code true} if the artifact is a snapshot, {@code false} otherwise
+     * @see org.apache.maven.api.Session#isVersionSnapshot(String)
+     */
+    boolean isSnapshot();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12158,6 +12208,42 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.building` is unnecessary and can be removed
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
+#### Snippet
+```java
+     * @param message The message describing the problem, may be {@code null}.
+     * @param severity The severity level of the problem, may be {@code null} to default to
+     *            {@link org.apache.maven.building.Problem.Severity#ERROR}.
+     * @param source A hint about the source of the problem like a file path, may be {@code null}.
+     * @param lineNumber The one-based index of the line containing the problem or {@code -1} if unknown.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary and can be removed
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+
+/**
+ * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
+ * {@link org.codehaus.plexus.logging.LoggerManager},
+ * ignoring Plexus logger API parts that are not classical and probably not really used.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+/**
+ * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
+ * {@link org.codehaus.plexus.logging.LoggerManager},
+ * ignoring Plexus logger API parts that are not classical and probably not really used.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
@@ -12227,6 +12313,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelRes
      * Unlike the {@link #resolveModel(java.lang.String, java.lang.String, java.lang.String)} method, this method
      * supports version ranges and updates the given {@code dependency} instance to match the returned
      * {@code ModelSource}. If {@code dependency} declares a version range, the version corresponding to the returned
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+                    // Sun/Oracle advises to empty the char array
+                    java.util.Arrays.fill(password, ' ');
+                }
+            }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+                    // Sun/Oracle advises to empty the char array
+                    java.util.Arrays.fill(password, ' ');
+                }
+            }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12278,39 +12388,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.api` is unnecessary and can be removed
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Version.java`
+Qualifier `org.apache.maven.wagon` is unnecessary, and can be replaced with an import
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
- * @since 4.0
- * @see org.apache.maven.api.services.VersionParser#parseVersion(String)
- * @see org.apache.maven.api.Session#parseVersion(String)
- */
-@Experimental
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.api` is unnecessary and can be removed
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
-#### Snippet
-```java
-     *
-     * @return an {@link ArtifactCoordinate}
-     * @see org.apache.maven.api.Session#createArtifactCoordinate(Artifact)
-     */
-    @Nonnull
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.api` is unnecessary and can be removed
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Artifact.java`
-#### Snippet
-```java
-     *
-     * @return {@code true} if the artifact is a snapshot, {@code false} otherwise
-     * @see org.apache.maven.api.Session#isVersionSnapshot(String)
-     */
-    boolean isSnapshot();
+            wagonManager.putRemoteFile(
+                    repository, source, remotePath, TransferListenerAdapter.newAdapter(transferListener));
+        } catch (org.apache.maven.wagon.TransferFailedException e) {
+            throw new ArtifactTransferFailedException(getMessage(e, "Error transferring artifact."), e);
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12335,78 +12421,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
         } catch (org.apache.maven.wagon.ResourceDoesNotExistException e) {
             throw new ArtifactDoesNotExistException(getMessage(e, "Requested artifact does not exist."), e);
         }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.wagon` is unnecessary, and can be replaced with an import
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            wagonManager.putRemoteFile(
-                    repository, source, remotePath, TransferListenerAdapter.newAdapter(transferListener));
-        } catch (org.apache.maven.wagon.TransferFailedException e) {
-            throw new ArtifactTransferFailedException(getMessage(e, "Error transferring artifact."), e);
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.building` is unnecessary and can be removed
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblem.java`
-#### Snippet
-```java
-     * @param message The message describing the problem, may be {@code null}.
-     * @param severity The severity level of the problem, may be {@code null} to default to
-     *            {@link org.apache.maven.building.Problem.Severity#ERROR}.
-     * @param source A hint about the source of the problem like a file path, may be {@code null}.
-     * @param lineNumber The one-based index of the line containing the problem or {@code -1} if unknown.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary and can be removed
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-
-/**
- * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
- * {@link org.codehaus.plexus.logging.LoggerManager},
- * ignoring Plexus logger API parts that are not classical and probably not really used.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.logging` is unnecessary and can be removed
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-/**
- * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
- * {@link org.codehaus.plexus.logging.LoggerManager},
- * ignoring Plexus logger API parts that are not classical and probably not really used.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-                    // Sun/Oracle advises to empty the char array
-                    java.util.Arrays.fill(password, ' ');
-                }
-            }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-                    // Sun/Oracle advises to empty the char array
-                    java.util.Arrays.fill(password, ' ');
-                }
-            }
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -12436,54 +12450,6 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jConfiguration
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseObject()` of an abstract class should not be declared 'public'
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    public BaseObject() {}
-
-    public BaseObject(Object delegate, BaseObject parent) {
-        this.delegate = delegate;
-        this.childrenTracking = parent != null ? parent::replace : null;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseObject()` of an abstract class should not be declared 'public'
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    protected Object delegate;
-
-    public BaseObject() {}
-
-    public BaseObject(Object delegate, BaseObject parent) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseObject()` of an abstract class should not be declared 'public'
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
-#### Snippet
-```java
-    }
-
-    public BaseObject(Object delegate, ChildrenTracking parent) {
-        this.delegate = delegate;
-        this.childrenTracking = parent;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractMojoExecutionException()` of an abstract class should not be declared 'public'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
-#### Snippet
-```java
-    protected String longMessage;
-
-    public AbstractMojoExecutionException(String message) {
-        super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractMojoExecutionException()` of an abstract class should not be declared 'public'
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
 #### Snippet
@@ -12508,15 +12474,15 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecution
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractStringBasedModelInterpolator()` of an abstract class should not be declared 'public'
-in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/AbstractStringBasedModelInterpolator.java`
+Constructor `AbstractMojoExecutionException()` of an abstract class should not be declared 'public'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojoExecutionException.java`
 #### Snippet
 ```java
+    protected String longMessage;
 
-    @Inject
-    public AbstractStringBasedModelInterpolator(PathTranslator pathTranslator, UrlNormalizer urlNormalizer) {
-        this.pathTranslator = pathTranslator;
-        this.urlNormalizer = urlNormalizer;
+    public AbstractMojoExecutionException(String message) {
+        super(message);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12529,6 +12495,54 @@ in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/No
     public NodeBufferingParser(XmlPullParser xmlPullParser, String nodeName) {
         super(xmlPullParser);
         this.nodeName = Objects.requireNonNull(nodeName);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractStringBasedModelInterpolator()` of an abstract class should not be declared 'public'
+in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/AbstractStringBasedModelInterpolator.java`
+#### Snippet
+```java
+
+    @Inject
+    public AbstractStringBasedModelInterpolator(PathTranslator pathTranslator, UrlNormalizer urlNormalizer) {
+        this.pathTranslator = pathTranslator;
+        this.urlNormalizer = urlNormalizer;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseObject()` of an abstract class should not be declared 'public'
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    }
+
+    public BaseObject(Object delegate, ChildrenTracking parent) {
+        this.delegate = delegate;
+        this.childrenTracking = parent;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseObject()` of an abstract class should not be declared 'public'
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    protected Object delegate;
+
+    public BaseObject() {}
+
+    public BaseObject(Object delegate, BaseObject parent) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseObject()` of an abstract class should not be declared 'public'
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+#### Snippet
+```java
+    public BaseObject() {}
+
+    public BaseObject(Object delegate, BaseObject parent) {
+        this.delegate = delegate;
+        this.childrenTracking = parent != null ? parent::replace : null;
 ```
 
 ## RuleId[ruleID=Java8MapApi]
@@ -12546,32 +12560,32 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `reader`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
+Assignment to method parameter `t`
+in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenSimpleLogger.java`
 #### Snippet
 ```java
-            final Xpp3Dom xpp3Dom = build(parser, trim, locationBuilder);
-            reader.close();
-            reader = null;
+            }
 
-            return xpp3Dom;
+            t = t.getCause();
+            if (t != null) {
+                stream.print(buffer().strong("Caused by").a(": ").a(t.getClass().getName()));
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `is`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
+Assignment to method parameter `artifact`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RemoteSnapshotMetadataGenerator.java`
 #### Snippet
 ```java
-            final Xpp3Dom xpp3Dom = build(parser, trim);
-            is.close();
-            is = null;
-
-            return xpp3Dom;
+            RemoteSnapshotMetadata snapshotMetadata = snapshots.get(key);
+            if (snapshotMetadata != null) {
+                artifact = artifact.setVersion(snapshotMetadata.getExpandedVersion(artifact));
+            }
+        }
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `o`
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized boolean equals(Object o) {
@@ -12579,6 +12593,18 @@ in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
             o = ((WrapperProperties) o).getter.get();
         }
         return getter.get().equals(o);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expr`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+    private String stripTokens(String expr) {
+        if (expr.startsWith("${") && (expr.indexOf('}') == expr.length() - 1)) {
+            expr = expr.substring(2, expr.length() - 1);
+        }
+        return expr;
 ```
 
 ### AssignmentToMethodParameter
@@ -12594,30 +12620,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-            } else {
-                // an ordinary relative path, align with project directory
-                file = new File(new File(basedir, file.getPath()).toURI().normalize()).getAbsoluteFile();
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expr`
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-    private String stripTokens(String expr) {
-        if (expr.startsWith("${") && (expr.indexOf('}') == expr.length() - 1)) {
-            expr = expr.substring(2, expr.length() - 1);
-        }
-        return expr;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `expr`
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
@@ -12627,6 +12629,18 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
             expr = expr.substring(2, expr.length() - 1);
         }
         return expr;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
+#### Snippet
+```java
+            } else {
+                // an ordinary relative path, align with project directory
+                file = new File(new File(basedir, file.getPath()).toURI().normalize()).getAbsoluteFile();
+            }
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -12690,18 +12704,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginDepen
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `originalScope`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-        if (originalScope == null) {
-            originalScope = Artifact.SCOPE_COMPILE;
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -12758,6 +12760,18 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
                 } else {
                     path = new File(getBasedir(), path).getAbsolutePath();
                 }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `originalScope`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+        if (originalScope == null) {
+            originalScope = Artifact.SCOPE_COMPILE;
+        }
 
 ```
 
@@ -12906,150 +12920,6 @@ in `maven-core/src/main/java/org/apache/maven/classrealm/DefaultClassRealmManage
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `classifier`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-
-        if (classifier == null) {
-            classifier = artifactHandler.getClassifier();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `updatePolicy`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
-#### Snippet
-```java
-
-        if (updatePolicy == null) {
-            updatePolicy = UPDATE_POLICY_DAILY;
-        }
-        this.updatePolicy = updatePolicy;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `checksumPolicy`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
-#### Snippet
-```java
-
-        if (checksumPolicy == null) {
-            checksumPolicy = DEFAULT_CHECKSUM_POLICY;
-        }
-        this.checksumPolicy = checksumPolicy;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `artifact`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
-#### Snippet
-```java
-    public Artifact find(Artifact artifact) {
-        if (!artifact.isRelease() && buildReactor != null) {
-            artifact = buildReactor.find(artifact);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `artifact`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
-#### Snippet
-```java
-
-        if (!artifact.isResolved() && ideWorkspace != null) {
-            artifact = ideWorkspace.find(artifact);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `artifact`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
-#### Snippet
-```java
-
-        if (!artifact.isResolved()) {
-            artifact = userLocalArtifactRepository.find(artifact);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buf`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-    private static Item parseItem(boolean isDigit, String buf) {
-        if (isDigit) {
-            buf = stripLeadingZeroes(buf);
-            if (buf.length() <= MAX_INTITEM_LENGTH) {
-                // lower than 2^31
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-                switch (value.charAt(0)) {
-                    case 'a':
-                        value = "alpha";
-                        break;
-                    case 'b':
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-                        break;
-                    case 'b':
-                        value = "beta";
-                        break;
-                    case 'm':
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-                        break;
-                    case 'm':
-                        value = "milestone";
-                        break;
-                    default:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `version`
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-        items = new ListItem();
-
-        version = version.toLowerCase(Locale.ENGLISH);
-
-        ListItem list = items;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `o`
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    public synchronized boolean equals(Object o) {
-        if (o instanceof WrapperProperties) {
-            o = ((WrapperProperties) o).getter.get();
-        }
-        return getter.get().equals(o);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `line`
 in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsProblemCollector.java`
 #### Snippet
@@ -13110,20 +12980,140 @@ in `api/modello-plugin-velocity/src/main/java/org/codehaus/modello/plugin/veloci
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `maven-slf4j-provider/src/main/java/org/slf4j/impl/MavenSimpleLogger.java`
+Assignment to method parameter `artifact`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
 #### Snippet
 ```java
-            }
+    public Artifact find(Artifact artifact) {
+        if (!artifact.isRelease() && buildReactor != null) {
+            artifact = buildReactor.find(artifact);
+        }
 
-            t = t.getCause();
-            if (t != null) {
-                stream.print(buffer().strong("Caused by").a(": ").a(t.getClass().getName()));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `artifact`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+#### Snippet
+```java
+
+        if (!artifact.isResolved() && ideWorkspace != null) {
+            artifact = ideWorkspace.find(artifact);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `artifact`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+#### Snippet
+```java
+
+        if (!artifact.isResolved()) {
+            artifact = userLocalArtifactRepository.find(artifact);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `updatePolicy`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
+#### Snippet
+```java
+
+        if (updatePolicy == null) {
+            updatePolicy = UPDATE_POLICY_DAILY;
+        }
+        this.updatePolicy = updatePolicy;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `checksumPolicy`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
+#### Snippet
+```java
+
+        if (checksumPolicy == null) {
+            checksumPolicy = DEFAULT_CHECKSUM_POLICY;
+        }
+        this.checksumPolicy = checksumPolicy;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `classifier`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+
+        if (classifier == null) {
+            classifier = artifactHandler.getClassifier();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `version`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+        items = new ListItem();
+
+        version = version.toLowerCase(Locale.ENGLISH);
+
+        ListItem list = items;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buf`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+    private static Item parseItem(boolean isDigit, String buf) {
+        if (isDigit) {
+            buf = stripLeadingZeroes(buf);
+            if (buf.length() <= MAX_INTITEM_LENGTH) {
+                // lower than 2^31
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+                switch (value.charAt(0)) {
+                    case 'a':
+                        value = "alpha";
+                        break;
+                    case 'b':
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+                        break;
+                    case 'b':
+                        value = "beta";
+                        break;
+                    case 'm':
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+                        break;
+                    case 'm':
+                        value = "milestone";
+                        break;
+                    default:
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `o`
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     public synchronized boolean equals(Object o) {
@@ -13134,15 +13124,27 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `artifact`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RemoteSnapshotMetadataGenerator.java`
+Assignment to method parameter `spaces`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
 #### Snippet
 ```java
-            RemoteSnapshotMetadata snapshotMetadata = snapshots.get(key);
-            if (snapshotMetadata != null) {
-                artifact = artifact.setVersion(snapshotMetadata.getExpandedVersion(artifact));
-            }
+            int n = Math.min(spaces, block.length());
+            buffer.append(block, 0, n);
+            spaces -= n;
         }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `unit`
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+#### Snippet
+```java
+
+            if (unit == null) {
+                unit = ScaleUnit.getScaleUnit(size);
+            }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -13194,6 +13196,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `indent`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        }
+
+        indent += "  ";
+
+        for (ExceptionSummary child : summary.getChildren()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `threadConfiguration`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    int calculateDegreeOfConcurrency(String threadConfiguration) {
+        if (threadConfiguration.endsWith("C")) {
+            threadConfiguration = threadConfiguration.substring(0, threadConfiguration.length() - 1);
+
+            if (!NumberUtils.isParsable(threadConfiguration)) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `expression`
 in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/PathTranslatingPostProcessor.java`
 #### Snippet
@@ -13242,30 +13268,6 @@ in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslat
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
-#### Snippet
-```java
-                if (s.length() > basedirExpr.length()) {
-                    // Take out basedir expression and the leading slash
-                    s = chopLeadingFileSeparator(s.substring(basedirExpr.length()));
-                } else {
-                    s = ".";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
-#### Snippet
-```java
-                    s = chopLeadingFileSeparator(s.substring(basedirExpr.length()));
-                } else {
-                    s = ".";
-                }
-            }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
 #### Snippet
@@ -13311,6 +13313,30 @@ in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslat
             path = path.replace('\\', '/');
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `s`
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+#### Snippet
+```java
+                if (s.length() > basedirExpr.length()) {
+                    // Take out basedir expression and the leading slash
+                    s = chopLeadingFileSeparator(s.substring(basedirExpr.length()));
+                } else {
+                    s = ".";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `s`
+in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
+#### Snippet
+```java
+                    s = chopLeadingFileSeparator(s.substring(basedirExpr.length()));
+                } else {
+                    s = ".";
+                }
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -13458,51 +13484,39 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `spaces`
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
+Assignment to method parameter `is`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
 #### Snippet
 ```java
-            int n = Math.min(spaces, block.length());
-            buffer.append(block, 0, n);
-            spaces -= n;
+            final Xpp3Dom xpp3Dom = build(parser, trim);
+            is.close();
+            is = null;
+
+            return xpp3Dom;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `reader`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3DomBuilder.java`
+#### Snippet
+```java
+            final Xpp3Dom xpp3Dom = build(parser, trim, locationBuilder);
+            reader.close();
+            reader = null;
+
+            return xpp3Dom;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `o`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    public synchronized boolean equals(Object o) {
+        if (o instanceof WrapperProperties) {
+            o = ((WrapperProperties) o).getter.get();
         }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `unit`
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-
-            if (unit == null) {
-                unit = ScaleUnit.getScaleUnit(size);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `threadConfiguration`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    int calculateDegreeOfConcurrency(String threadConfiguration) {
-        if (threadConfiguration.endsWith("C")) {
-            threadConfiguration = threadConfiguration.substring(0, threadConfiguration.length() - 1);
-
-            if (!NumberUtils.isParsable(threadConfiguration)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indent`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        }
-
-        indent += "  ";
-
-        for (ExceptionSummary child : summary.getChildren()) {
+        return getter.get().equals(o);
 ```
 
 ### AssignmentToMethodParameter
@@ -13557,6 +13571,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/PluginsMetadataGenerator.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `api/maven-api-model/src/main/java/org/apache/maven/api/model/InputLocation.java`
 #### Snippet
 ```java
@@ -13569,35 +13595,47 @@ in `api/maven-api-model/src/main/java/org/apache/maven/api/model/InputLocation.j
 
 ### ReturnNull
 Return of `null`
-in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
 #### Snippet
 ```java
-    public Xpp3Dom getChild(String name) {
-        Dom child = dom.getChild(name);
-        return child != null ? new Xpp3Dom(child, this) : null;
-    }
-
+                invalidDescriptor(session, trace, a, exception);
+                if ((getPolicy(session, a, request) & ArtifactDescriptorPolicy.IGNORE_INVALID) != 0) {
+                    return null;
+                }
+                result.addException(exception);
 ```
 
 ### ReturnNull
 Return of `null`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
+#### Snippet
+```java
+                    missingDescriptor(session, trace, a, (Exception) e.getCause());
+                    if ((getPolicy(session, a, request) & ArtifactDescriptorPolicy.IGNORE_MISSING) != 0) {
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
+#### Snippet
+```java
+                invalidDescriptor(session, trace, a, e);
+                if ((getPolicy(session, a, request) & ArtifactDescriptorPolicy.IGNORE_INVALID) != 0) {
+                    return null;
+                }
+                result.addException(e);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
 #### Snippet
 ```java
             }
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -13632,8 +13670,8 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
 #### Snippet
 ```java
-        // The fall-through indicates that the artifact cannot be found;
-        // for instance if package produced nothing or classifier problems.
+        }
+
         return null;
     }
 
@@ -13647,6 +13685,18 @@ in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
         String projectKey = ArtifactUtils.key(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
         MavenProject project = projectsByGAV.get(projectKey);
         return project == null ? null : project.getModel();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
+#### Snippet
+```java
+        // The fall-through indicates that the artifact cannot be found;
+        // for instance if package produced nothing or classifier problems.
+        return null;
     }
 
 ```
@@ -13668,22 +13718,10 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-    public static WorkspaceRepository getWorkspace(RepositorySystemSession session) {
-        WorkspaceReader reader = session.getWorkspaceReader();
-        return (reader != null) ? reader.getRepository() : null;
+
+    private static String nullify(String string) {
+        return (string == null || string.length() <= 0) ? null : string;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    private static org.apache.maven.artifact.Artifact toArtifact(Dependency dependency) {
-        if (dependency == null) {
-            return null;
-        }
 
 ```
 
@@ -13704,8 +13742,8 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-    public static org.apache.maven.artifact.Artifact toArtifact(Artifact artifact) {
-        if (artifact == null) {
+    private static org.apache.maven.artifact.Artifact toArtifact(Dependency dependency) {
+        if (dependency == null) {
             return null;
         }
 
@@ -13728,10 +13766,22 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
-
-    private static String nullify(String string) {
-        return (string == null || string.length() <= 0) ? null : string;
+    public static WorkspaceRepository getWorkspace(RepositorySystemSession session) {
+        WorkspaceReader reader = session.getWorkspaceReader();
+        return (reader != null) ? reader.getRepository() : null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    public static org.apache.maven.artifact.Artifact toArtifact(Artifact artifact) {
+        if (artifact == null) {
+            return null;
+        }
 
 ```
 
@@ -13754,114 +13804,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 ```java
 
         if (expr == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.java`
-#### Snippet
-```java
-        @Override
-        public Log getLog() {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            versionRange = VersionRange.createFromVersionSpec(version);
-        } catch (InvalidVersionSpecificationException e) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            desiredScope = scope;
-        } else if (Artifact.SCOPE_TEST.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope)) {
-            return null;
-        } else if (Artifact.SCOPE_COMPILE.equals(scope) && Artifact.SCOPE_COMPILE.equals(inheritedScope)) {
-            // added to retain compile artifactScope. Remove if you want compile inherited as runtime
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    public Artifact createDependencyArtifact(Dependency d) {
-        if (d.getVersion() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            versionRange = VersionRange.createFromVersionSpec(d.getVersion());
-        } catch (InvalidVersionSpecificationException e) {
             return null;
         }
 
@@ -13905,12 +13847,156 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultLegacySupport.java`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-    public MavenSession getSession() {
-        AtomicReference<MavenSession> currentSession = DefaultLegacySupport.SESSION.get();
-        return currentSession != null ? currentSession.get() : null;
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            desiredScope = scope;
+        } else if (Artifact.SCOPE_TEST.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope)) {
+            return null;
+        } else if (Artifact.SCOPE_COMPILE.equals(scope) && Artifact.SCOPE_COMPILE.equals(inheritedScope)) {
+            // added to retain compile artifactScope. Remove if you want compile inherited as runtime
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            versionRange = VersionRange.createFromVersionSpec(version);
+        } catch (InvalidVersionSpecificationException e) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    public Artifact createDependencyArtifact(Dependency d) {
+        if (d.getVersion() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            versionRange = VersionRange.createFromVersionSpec(d.getVersion());
+        } catch (InvalidVersionSpecificationException e) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.java`
+#### Snippet
+```java
+        @Override
+        public Log getLog() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+#### Snippet
+```java
+        }
+
+        return null;
     }
 
 ```
@@ -13929,48 +14015,12 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultLegacySuppo
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultLegacySupport.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/plugin/prefix/internal/DefaultPluginPrefixResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
+    public MavenSession getSession() {
+        AtomicReference<MavenSession> currentSession = DefaultLegacySupport.SESSION.get();
+        return currentSession != null ? currentSession.get() : null;
     }
 
 ```
@@ -13980,8 +14030,8 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginManager.java`
 #### Snippet
 ```java
-            return plugin;
-        } catch (NoPluginFoundForPrefixException e) {
+            return loadPluginDescriptor(plugin, session.getCurrentProject(), session);
+        } catch (Exception e) {
             return null;
         }
     }
@@ -13992,8 +14042,8 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginManager.java`
 #### Snippet
 ```java
-            return loadPluginDescriptor(plugin, session.getCurrentProject(), session);
-        } catch (Exception e) {
+            return plugin;
+        } catch (NoPluginFoundForPrefixException e) {
             return null;
         }
     }
@@ -14028,18 +14078,6 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/project/artifact/PluginArtifact.java`
 #### Snippet
 ```java
-
-        public String getDirectory() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/PluginArtifact.java`
-#### Snippet
-```java
     static class PluginArtifactHandler implements ArtifactHandler {
         public String getClassifier() {
             return null;
@@ -14049,7 +14087,7 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/PluginArtifact.ja
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifact.java`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/PluginArtifact.java`
 #### Snippet
 ```java
 
@@ -14073,6 +14111,18 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifact.j
 
 ### ReturnNull
 Return of `null`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifact.java`
+#### Snippet
+```java
+
+        public String getDirectory() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-core/src/main/java/org/apache/maven/artifact/factory/DefaultArtifactFactory.java`
 #### Snippet
 ```java
@@ -14081,66 +14131,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/factory/DefaultArtifactFa
             return null;
         } else if (Artifact.SCOPE_COMPILE.equals(scope) && Artifact.SCOPE_COMPILE.equals(inheritedScope)) {
             // added to retain compile artifactScope. Remove if you want compile inherited as runtime
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-                        if (artifact.getDependencyFilter() != null
-                                && !artifact.getDependencyFilter().include(artifact)) {
-                            return null;
-                        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-        if (effectiveScope == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-        if (inheritedFilter != null && !inheritedFilter.include(dependencyArtifact)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-            if (rel == null) {
-                return null;
-            }
-
 ```
 
 ### ReturnNull
@@ -14172,18 +14162,6 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
-
-    public String getDefaultGoal() {
-        return getBuild() != null ? getBuild().getDefaultGoal() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
     public Object getContextValue(String key) {
         if (context == null) {
             return null;
@@ -14193,11 +14171,35 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
 
-    public ArtifactRepository getRepository() {
+    public String getDefaultGoal() {
+        return getBuild() != null ? getBuild().getDefaultGoal() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+            if (rel == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+            }
+        }
         return null;
     }
 
@@ -14205,23 +14207,23 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/Artif
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
-    public String getBaseVersion() {
-        // Don't want the artifact's version in here, as this is stored in the directory above that
-        return null;
-    }
+                        if (artifact.getDependencyFilter() != null
+                                && !artifact.getDependencyFilter().include(artifact)) {
+                            return null;
+                        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
 
-        public Proxy getProxy() {
+        if (effectiveScope == null) {
             return null;
         }
 
@@ -14229,11 +14231,11 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
 
-        public org.apache.maven.artifact.Artifact find(org.apache.maven.artifact.Artifact artifact) {
+        if (inheritedFilter != null && !inheritedFilter.include(dependencyArtifact)) {
             return null;
         }
 
@@ -14257,19 +14259,7 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 #### Snippet
 ```java
 
-        private String nullify(String str) {
-            return (str == null || str.length() <= 0) ? null : str;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-
-        public ArtifactRepositoryPolicy getSnapshots() {
+        public Proxy getProxy() {
             return null;
         }
 
@@ -14293,7 +14283,7 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 #### Snippet
 ```java
 
-        public Authentication getAuthentication() {
+        public org.apache.maven.artifact.Artifact find(org.apache.maven.artifact.Artifact artifact) {
             return null;
         }
 
@@ -14329,8 +14319,8 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 #### Snippet
 ```java
 
-        public String pathOfRemoteRepositoryMetadata(ArtifactMetadata artifactMetadata) {
-            return null;
+        private String nullify(String str) {
+            return (str == null || str.length() <= 0) ? null : str;
         }
 
 ```
@@ -14344,6 +14334,66 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
         public ArtifactRepositoryLayout getLayout() {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+
+        public String pathOfRemoteRepositoryMetadata(ArtifactMetadata artifactMetadata) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+
+        public Authentication getAuthentication() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+
+        public ArtifactRepositoryPolicy getSnapshots() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+#### Snippet
+```java
+    public String getBaseVersion() {
+        // Don't want the artifact's version in here, as this is stored in the directory above that
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+#### Snippet
+```java
+
+    public ArtifactRepository getRepository() {
+        return null;
+    }
 
 ```
 
@@ -14376,18 +14426,6 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-    public List<org.eclipse.aether.graph.Dependency> toDependencies(Collection<DependencyCoordinate> dependencies) {
-        return dependencies == null
-                ? null
-                : dependencies.stream().map(this::toDependency).collect(Collectors.toList());
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
-#### Snippet
-```java
     public List<org.eclipse.aether.artifact.Artifact> toArtifacts(Collection<Artifact> artifacts) {
         return artifacts == null
                 ? null
@@ -14400,10 +14438,10 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-    public List<ArtifactRepository> toArtifactRepositories(List<RemoteRepository> repositories) {
-        return repositories == null
+    public List<org.eclipse.aether.graph.Dependency> toDependencies(Collection<DependencyCoordinate> dependencies) {
+        return dependencies == null
                 ? null
-                : repositories.stream().map(this::toArtifactRepository).collect(Collectors.toList());
+                : dependencies.stream().map(this::toDependency).collect(Collectors.toList());
     }
 ```
 
@@ -14416,6 +14454,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java
         return repositories == null
                 ? null
                 : repositories.stream().map(this::toRepository).collect(Collectors.toList());
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+#### Snippet
+```java
+    public List<ArtifactRepository> toArtifactRepositories(List<RemoteRepository> repositories) {
+        return repositories == null
+                ? null
+                : repositories.stream().map(this::toArtifactRepository).collect(Collectors.toList());
     }
 ```
 
@@ -14448,11 +14498,11 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.java`
 #### Snippet
 ```java
-            return handle(message, problem.getException());
-        } else {
+
+        if (children.isEmpty()) {
             return null;
         }
-    }
+
 ```
 
 ### ReturnNull
@@ -14460,11 +14510,11 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.java`
 #### Snippet
 ```java
-
-        if (children.isEmpty()) {
+            return handle(message, problem.getException());
+        } else {
             return null;
         }
-
+    }
 ```
 
 ### ReturnNull
@@ -14505,30 +14555,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycleMapping.java`
-#### Snippet
-```java
-            return phases;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycleMapping.java`
-#### Snippet
-```java
-    @Override
-    public List<String> getOptionalMojos(String lifecycle) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/LifecyclePhase.java`
 #### Snippet
 ```java
@@ -14549,6 +14575,30 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycleMapping.java`
+#### Snippet
+```java
+    @Override
+    public List<String> getOptionalMojos(String lifecycle) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycleMapping.java`
+#### Snippet
+```java
+            return phases;
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -14640,18 +14690,6 @@ Return of `null`
 in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainImpl.java`
 #### Snippet
 ```java
-            return toRet.getAbsolutePath();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainImpl.java`
-#### Snippet
-```java
             }
         }
         return null;
@@ -14661,11 +14699,11 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainImpl.j
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManager.java`
+in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainImpl.java`
 #### Snippet
 ```java
+            return toRet.getAbsolutePath();
         }
-
         return null;
     }
 
@@ -14697,6 +14735,18 @@ in `maven-core/src/main/java/org/apache/maven/toolchain/java/JavaToolchainFactor
 
 ### ReturnNull
 Return of `null`
+in `maven-core/src/main/java/org/apache/maven/toolchain/DefaultToolchainManager.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-core/src/main/java/org/apache/maven/configuration/DefaultBeanConfigurationRequest.java`
 #### Snippet
 ```java
@@ -14721,6 +14771,90 @@ in `maven-core/src/main/java/org/apache/maven/configuration/internal/EnhancedCon
 
 ### ReturnNull
 Return of `null`
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
+#### Snippet
+```java
+                return value;
+            }
+            return null;
+        });
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecrypter.java`
+#### Snippet
+```java
+
+    private String decrypt(String str) throws SecDispatcherException {
+        return (str == null) ? null : securityDispatcher.decrypt(str);
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
+#### Snippet
+```java
+    @Override
+    public Server getServer() {
+        return servers.isEmpty() ? null : servers.get(0);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
+#### Snippet
+```java
+    @Override
+    public Proxy getProxy() {
+        return proxies.isEmpty() ? null : proxies.get(0);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+                return value;
+            }
+            return null;
+        });
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+#### Snippet
+```java
+            return new FileSource(settingsFile);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+#### Snippet
+```java
+    @Override
+    public String getBasedir() {
+        return (userLocalArtifactRepository != null) ? userLocalArtifactRepository.getBasedir() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
 #### Snippet
 ```java
@@ -14740,6 +14874,18 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDesc
         }
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/XmlReaderRequest.java`
+#### Snippet
+```java
+            @Override
+            public URL getURL() {
+                return null;
+            }
 
 ```
 
@@ -14817,71 +14963,11 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRan
 
 ### ReturnNull
 Return of `null`
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildToRawPomXMLFilterFactory.java`
 #### Snippet
 ```java
-    @Override
-    public String getBasedir() {
-        return (userLocalArtifactRepository != null) ? userLocalArtifactRepository.getBasedir() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuilder.java`
-#### Snippet
-```java
-                return value;
-            }
-            return null;
-        });
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecrypter.java`
-#### Snippet
-```java
-
-    private String decrypt(String str) throws SecDispatcherException {
-        return (str == null) ? null : securityDispatcher.decrypt(str);
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
-#### Snippet
-```java
-    @Override
-    public Proxy getProxy() {
-        return proxies.isEmpty() ? null : proxies.get(0);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
-#### Snippet
-```java
-    @Override
-    public Server getServer() {
-        return servers.isEmpty() ? null : servers.get(0);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
-#### Snippet
-```java
-            return new FileSource(settingsFile);
-        }
+     */
+    protected Function<Path, Optional<RelativeProject>> getRelativePathMapper() {
         return null;
     }
 
@@ -14889,26 +14975,86 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 
 ### ReturnNull
 Return of `null`
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildToRawPomXMLFilterFactory.java`
 #### Snippet
 ```java
-                return value;
-            }
-            return null;
-        });
+
+    protected BiFunction<String, String, String> getDependencyKeyToVersionMapper() {
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/PluginsMetadataGenerator.java`
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
 #### Snippet
 ```java
+                }
             }
-        }
+            return null;
+        } else {
+            return xmlPullParser.getAttributeValue(namespace, name);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/ResolveFile.java`
+#### Snippet
+```java
+    public static File resolveFile(File file, String baseDirectory) {
+        if (file == null) {
+            return null;
+        } else if (file.isAbsolute()) {
+            return file;
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+
+    private static String reduce(String s) {
+        return (s != null ? (s.startsWith("${") && s.endsWith("}") ? null : s) : null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
+#### Snippet
+```java
+
+    private static String reduce(String s) {
+        return (s != null ? (s.startsWith("${") && s.endsWith("}") ? null : s) : null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java`
+#### Snippet
+```java
+     */
+    public Logger getChildLogger(String name) {
         return null;
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
+#### Snippet
+```java
+    //
+    public String getName() {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -14961,59 +15107,11 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/path/DefaultModelPa
 
 ### ReturnNull
 Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
-#### Snippet
-```java
-                invalidDescriptor(session, trace, a, exception);
-                if ((getPolicy(session, a, request) & ArtifactDescriptorPolicy.IGNORE_INVALID) != 0) {
-                    return null;
-                }
-                result.addException(exception);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
-#### Snippet
-```java
-                    missingDescriptor(session, trace, a, (Exception) e.getCause());
-                    if ((getPolicy(session, a, request) & ArtifactDescriptorPolicy.IGNORE_MISSING) != 0) {
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultArtifactDescriptorReader.java`
-#### Snippet
-```java
-                invalidDescriptor(session, trace, a, e);
-                if ((getPolicy(session, a, request) & ArtifactDescriptorPolicy.IGNORE_INVALID) != 0) {
-                    return null;
-                }
-                result.addException(e);
-```
-
-### ReturnNull
-Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/plugin/DefaultReportingConverter.java`
 #### Snippet
 ```java
         }
 
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-            }
-        }
         return null;
     }
 
@@ -15048,18 +15146,6 @@ Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache.java`
 #### Snippet
 ```java
-    default <T> T get(Source path, ModelCacheTag<T> tag) {
-        Object obj = get(path, tag.getName());
-        return (obj != null) ? tag.fromCache(tag.getType().cast(obj)) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache.java`
-#### Snippet
-```java
     default Object get(Source path, String tag) {
         // only useful for ReactorModelCache
         return null;
@@ -15077,6 +15163,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache
         return (obj != null) ? tag.fromCache(tag.getType().cast(obj)) : null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelCache.java`
+#### Snippet
+```java
+    default <T> T get(Source path, ModelCacheTag<T> tag) {
+        Object obj = get(path, tag.getName());
+        return (obj != null) ? tag.fromCache(tag.getType().cast(obj)) : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15137,6 +15235,42 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Abstr
                             return null;
                         }
                     },
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            return MavenExecutionRequest.REACTOR_MAKE_BOTH;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+            return MavenExecutionRequest.CHECKSUM_POLICY_WARN;
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -15204,10 +15338,10 @@ Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-            return modelCache.get(groupId, artifactId, version, tag);
+    private ModelSource getParentPomFile(Model childModel, Source source) {
+        if (!(source instanceof ModelSource2)) {
+            return null;
         }
-        return null;
-    }
 
 ```
 
@@ -15216,11 +15350,11 @@ Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-            Set<Source> sources = mappedSources.get(new DefaultTransformerContext.GAKey(groupId, artifactId));
-            if (sources == null) {
-                return null;
-            }
-            return sources.stream()
+
+        if (parentPath == null || parentPath.length() <= 0) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -15233,18 +15367,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
                     return null;
                 }
 
-```
-
-### ReturnNull
-Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                        // gathered with problem collector
-                    }
-                    return null;
-                }
-            };
 ```
 
 ### ReturnNull
@@ -15420,6 +15542,18 @@ Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
+                        // gathered with problem collector
+                    }
+                    return null;
+                }
+            };
+```
+
+### ReturnNull
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
             return modelCache.get(source, tag);
         }
         return null;
@@ -15432,11 +15566,11 @@ Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-    private ModelSource getParentPomFile(Model childModel, Source source) {
-        if (!(source instanceof ModelSource2)) {
-            return null;
-        }
-
+            Set<Source> sources = mappedSources.get(new DefaultTransformerContext.GAKey(groupId, artifactId));
+            if (sources == null) {
+                return null;
+            }
+            return sources.stream()
 ```
 
 ### ReturnNull
@@ -15444,10 +15578,22 @@ Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-
-        if (parentPath == null || parentPath.length() <= 0) {
-            return null;
+            return modelCache.get(groupId, artifactId, version, tag);
         }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
+        }
+
+        return location != null ? new org.apache.maven.model.InputLocation(location) : null;
+    }
 
 ```
 
@@ -15465,22 +15611,10 @@ in `maven-compat/src/main/java/org/apache/maven/project/interpolation/BuildTimes
 
 ### ReturnNull
 Return of `null`
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
-#### Snippet
-```java
-        }
-
-        return location != null ? new org.apache.maven.model.InputLocation(location) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
 #### Snippet
 ```java
-                            return projectDir.getAbsoluteFile().toPath().toUri().toASCIIString();
+                            return projectDir.getAbsolutePath();
                         }
                         return null;
                     }
@@ -15492,7 +15626,7 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
 #### Snippet
 ```java
-                            return projectDir.getAbsolutePath();
+                            return projectDir.getAbsoluteFile().toPath().toUri().toASCIIString();
                         }
                         return null;
                     }
@@ -15537,18 +15671,6 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Met
 
 ### ReturnNull
 Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/StringSearchModelInterpolator.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
 #### Snippet
 ```java
@@ -15585,6 +15707,18 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Gro
 
 ### ReturnNull
 Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/StringSearchModelInterpolator.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-model-builder/src/main/java/org/apache/maven/model/profile/DefaultProfileActivationContext.java`
 #### Snippet
 ```java
@@ -15609,14 +15743,26 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
 
 ### ReturnNull
 Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/TransferListenerAdapter.java`
 #### Snippet
 ```java
-    private ArtifactTransferEvent wrap(TransferEvent event) {
-        if (event == null) {
+    public static TransferListener newAdapter(ArtifactTransferListener listener) {
+        if (listener == null) {
             return null;
         } else {
-            String wagon = event.getWagon().getClass().getName();
+            return new TransferListenerAdapter(listener);
 ```
 
 ### ReturnNull
@@ -15636,23 +15782,11 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/TransferListenerAdapter.java`
 #### Snippet
 ```java
-    public static TransferListener newAdapter(ArtifactTransferListener listener) {
-        if (listener == null) {
+    private ArtifactTransferEvent wrap(TransferEvent event) {
+        if (event == null) {
             return null;
         } else {
-            return new TransferListenerAdapter(listener);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
+            String wagon = event.getWagon().getClass().getName();
 ```
 
 ### ReturnNull
@@ -15684,30 +15818,6 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
 #### Snippet
 ```java
-            return props.getProperty(key + ERROR_KEY_SUFFIX);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
         if (!touchfile.canRead()) {
             getLogger().debug("Skipped unreadable resolution tracking file: " + touchfile);
             return null;
@@ -15729,11 +15839,71 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateC
 
 ### ReturnNull
 Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+            return props.getProperty(key + ERROR_KEY_SUFFIX);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
 #### Snippet
 ```java
-        ClasspathContainer cpc = getClasspath(scope);
-        if (cpc == null) {
+            throws MetadataGraphTransformationException, MetadataResolutionException {
+        if (classpathTransformation == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
+#### Snippet
+```java
+        MetadataGraph dirtyGraph = getGraph();
+        if (dirtyGraph == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
+#### Snippet
+```java
+            throws MetadataResolutionException, GraphConflictResolutionException {
+        if (treeRoot == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
+#### Snippet
+```java
+
+        if (conflictResolver == null) {
             return null;
         }
 
@@ -15792,20 +15962,8 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
 #### Snippet
 ```java
-            throws MetadataGraphTransformationException, MetadataResolutionException {
-        if (classpathTransformation == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
-#### Snippet
-```java
-        MetadataGraph dirtyGraph = getGraph();
-        if (dirtyGraph == null) {
+        ClasspathContainer cpc = getClasspath(scope);
+        if (cpc == null) {
             return null;
         }
 
@@ -15821,78 +15979,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
         return treeRoot == null ? null : new MetadataGraph(treeRoot);
     }
     // ----------------------------------------------------------------------------
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
-#### Snippet
-```java
-            throws MetadataResolutionException, GraphConflictResolutionException {
-        if (treeRoot == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionResult.java`
-#### Snippet
-```java
-
-        if (conflictResolver == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
-#### Snippet
-```java
-    public MetadataGraphVertex findVertex(ArtifactMetadata md) {
-        if (md == null || vertices == null || vertices.size() < 1) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-    // ------------------------------------------------------------------------
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
-#### Snippet
-```java
-        List<MetadataGraphEdge> edges = getIncidentEdges(vTo);
-        if (edges == null || edges.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
-#### Snippet
-```java
-    public MetadataGraphVertex addVertex(ArtifactMetadata md) {
-        if (md == null) {
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -15981,11 +16067,47 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 
 ### ReturnNull
 Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathContainer.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
 #### Snippet
 ```java
-    public MetadataTreeNode getClasspathAsTree() throws MetadataResolutionException {
-        if (classpath == null || classpath.size() < 1) {
+    public MetadataGraphVertex findVertex(ArtifactMetadata md) {
+        if (md == null || vertices == null || vertices.size() < 1) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+    // ------------------------------------------------------------------------
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
+#### Snippet
+```java
+    public MetadataGraphVertex addVertex(ArtifactMetadata md) {
+        if (md == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraph.java`
+#### Snippet
+```java
+        List<MetadataGraphEdge> edges = getIncidentEdges(vTo);
+        if (edges == null || edges.isEmpty()) {
             return null;
         }
 
@@ -15999,6 +16121,30 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathCon
     // -------------------------------------------------------------------------------------------
     public Iterator<ArtifactMetadata> iterator() {
         return classpath == null ? null : classpath.iterator();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathContainer.java`
+#### Snippet
+```java
+    public MetadataTreeNode getClasspathAsTree() throws MetadataResolutionException {
+        if (classpath == null || classpath.size() < 1) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
     }
 
 ```
@@ -16020,22 +16166,10 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                    e);
-
-            return null;
-        }
+        return null;
+    }
 
 ```
 
@@ -16068,18 +16202,6 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
                             "Invalid version specification '%s' creating dependency artifact '%s'.", d.getVersion(), d),
                     e);
             return null;
@@ -16104,155 +16226,47 @@ Return of `null`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
+                    e);
+
+            return null;
         }
 
-        return null;
+```
+
+### ReturnNull
+Return of `null`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-xml-impl/src/main/java/org/codehaus/plexus/util/xml/Xpp3Dom.java`
+#### Snippet
+```java
+    public Xpp3Dom getChild(String name) {
+        Dom child = dom.getChild(name);
+        return child != null ? new Xpp3Dom(child, this) : null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/XmlReaderRequest.java`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/Xpp3Dom.java`
 #### Snippet
 ```java
-            @Override
-            public URL getURL() {
-                return null;
             }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildToRawPomXMLFilterFactory.java`
-#### Snippet
-```java
-
-    protected BiFunction<String, String, String> getDependencyKeyToVersionMapper() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildToRawPomXMLFilterFactory.java`
-#### Snippet
-```java
-     */
-    protected Function<Path, Optional<RelativeProject>> getRelativePathMapper() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        } else {
-            return xmlPullParser.getAttributeValue(namespace, name);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/ResolveFile.java`
-#### Snippet
-```java
-    public static File resolveFile(File file, String baseDirectory) {
-        if (file == null) {
-            return null;
-        } else if (file.isAbsolute()) {
-            return file;
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java`
-#### Snippet
-```java
-     */
-    public Logger getChildLogger(String name) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
-#### Snippet
-```java
-
-    private static String reduce(String s) {
-        return (s != null ? (s.startsWith("${") && s.endsWith("}") ? null : s) : null);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIReportingUtils.java`
-#### Snippet
-```java
-
-    private static String reduce(String s) {
-        return (s != null ? (s.startsWith("${") && s.endsWith("}") ? null : s) : null);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
-#### Snippet
-```java
-    //
-    public String getName() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
         }
-
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            return MavenExecutionRequest.REACTOR_MAKE_BOTH;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-            return MavenExecutionRequest.CHECKSUM_POLICY_WARN;
-        } else {
-            return null;
-        }
-    }
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -16409,6 +16423,18 @@ in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollec
 
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Map.putAll()' call
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+#### Snippet
+```java
+                // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
+                for (Map.Entry<Object, Object> e : props.entrySet()) {
+                    super.put(e.getKey(), e.getValue());
+                }
+            }
+```
+
+### UseBulkOperation
+Iteration can be replaced with bulk 'Map.putAll()' call
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCollections.java`
 #### Snippet
 ```java
@@ -16422,18 +16448,6 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/lifecycle/ImmutableCo
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Map.putAll()' call
 in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/ImmutableCollections.java`
-#### Snippet
-```java
-                // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
-                for (Map.Entry<Object, Object> e : props.entrySet()) {
-                    super.put(e.getKey(), e.getValue());
-                }
-            }
-```
-
-### UseBulkOperation
-Iteration can be replaced with bulk 'Map.putAll()' call
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
                 // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
