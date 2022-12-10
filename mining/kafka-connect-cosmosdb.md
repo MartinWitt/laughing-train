@@ -1,7 +1,7 @@
 # kafka-connect-cosmosdb 
  
 # Bad smells
-I found 56 bad smells with 10 repairable:
+I found 55 bad smells with 10 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnusedAssignment | 9 | false |
@@ -22,7 +22,6 @@ I found 56 bad smells with 10 repairable:
 | CodeBlock2Expr | 1 | true |
 | Convert2MethodRef | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryReturn | 1 | true |
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=EmptyTryBlock]
@@ -312,19 +311,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
             case STRUCT:
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-10-06-37-47.902.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -467,11 +453,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-            // Wait till the items are drained by poll before stopping.
+        while (!running.get()) {
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.error("Interrupted! Failed to stop the task", e);            
+                logger.warn("Interrupted!", e);                
 ```
 
 ### BusyWait
@@ -479,11 +465,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-        while (!running.get()) {
+            // Wait till the items are drained by poll before stopping.
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.warn("Interrupted!", e);                
+                logger.error("Interrupted! Failed to stop the task", e);            
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -524,30 +510,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConfigValue`
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-    }
-
-    public static void validateConnection(Map<String, String> connectorConfigs, Map<String, ConfigValue> configValues) {
-        String endpoint = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONN_ENDPOINT_CONF);
-        String key = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONN_KEY_CONF);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigValue`
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-
-    public static void validateTopicMap(Map<String, String> connectorConfigs,
-        Map<String, ConfigValue> configValues) {
-
-        String topicMap = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONTAINER_TOPIC_MAP_CONF);
-```
-
-### BoundedWildcard
 Can generalize to `? extends JsonNode`
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
@@ -571,6 +533,30 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
         Long batchSize = config.getTaskBatchSize();
 ```
 
+### BoundedWildcard
+Can generalize to `? extends ConfigValue`
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+
+    public static void validateTopicMap(Map<String, String> connectorConfigs,
+        Map<String, ConfigValue> configValues) {
+
+        String topicMap = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONTAINER_TOPIC_MAP_CONF);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConfigValue`
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+    }
+
+    public static void validateConnection(Map<String, String> connectorConfigs, Map<String, ConfigValue> configValues) {
+        String endpoint = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONN_ENDPOINT_CONF);
+        String key = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONN_KEY_CONF);
+```
+
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
@@ -586,18 +572,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConf
 
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
-#### Snippet
-```java
-                ID_STRATEGY_DOC,
-                groupName,
-                groupOrder++,
-                Width.MEDIUM,
-                TEMPLATE_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
 #### Snippet
 ```java
@@ -606,6 +580,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataS
                 groupOrder++,
                 ConfigDef.Width.MEDIUM,
                 DELIMITER_CONFIG_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
+#### Snippet
+```java
+                ID_STRATEGY_DOC,
+                groupName,
+                groupOrder++,
+                Width.MEDIUM,
+                TEMPLATE_CONFIG_DISPLAY
 ```
 
 ### UnusedAssignment
@@ -657,18 +643,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 ```
 
 ### UnusedAssignment
-The value changed at `connectionGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONN_KEY_DOC,
-                        connectionGroupName,
-                        connectionGroupOrder++,
-                        Width.LONG,
-                        COSMOS_CONN_KEY_DISPLAY
-```
-
-### UnusedAssignment
 The value changed at `databaseGroupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -678,6 +652,18 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
                         databaseGroupOrder++,
                         Width.MEDIUM,
                         COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
+```
+
+### UnusedAssignment
+The value changed at `connectionGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONN_KEY_DOC,
+                        connectionGroupName,
+                        connectionGroupOrder++,
+                        Width.LONG,
+                        COSMOS_CONN_KEY_DISPLAY
 ```
 
 ## RuleId[ruleID=ConstantValue]
