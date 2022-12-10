@@ -211,18 +211,6 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 ```
 
 ### DataFlowIssue
-Argument `serializedInput` might be null
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-        if (input != null) {
-            String serializedInput = this.dataConverter.serialize(input);
-            builder.setInput(StringValue.of(serializedInput));
-        }
-
-```
-
-### DataFlowIssue
 Argument `serializedPayload` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
@@ -244,6 +232,18 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
         TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
         this.sidecarClient.terminateInstance(builder.build());
     }
+```
+
+### DataFlowIssue
+Argument `serializedInput` might be null
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+        if (input != null) {
+            String serializedInput = this.dataConverter.serialize(input);
+            builder.setInput(StringValue.of(serializedInput));
+        }
+
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -287,18 +287,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (10 lines)
-in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
-#### Snippet
-```java
-                    ctx.complete(z);
-
-                    // var order = ctx.getInput(OrderInfo.class); // deserialize order info from JSON to an object
-                    // var retryPolicy = RetryPolicy.newBuilder()
-                    //         .setMaxRetries(100)
-```
-
-### CommentedOutCode
 Commented out code (8 lines)
 in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 #### Snippet
@@ -308,6 +296,18 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
     // class OrderInfo {}
 
     // class ServicesAPIs {
+```
+
+### CommentedOutCode
+Commented out code (10 lines)
+in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
+#### Snippet
+```java
+                    ctx.complete(z);
+
+                    // var order = ctx.getInput(OrderInfo.class); // deserialize order info from JSON to an object
+                    // var retryPolicy = RetryPolicy.newBuilder()
+                    //         .setMaxRetries(100)
 ```
 
 ### CommentedOutCode
@@ -348,30 +348,6 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `timeout`
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-
-        if (timeout == null || timeout.isNegative() || timeout.isZero()) {
-            timeout = Duration.ofMinutes(10);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `timeout`
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-
-        if (timeout == null || timeout.isNegative() || timeout.isZero()) {
-            timeout = Duration.ofMinutes(10);
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `instanceId`
 in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
@@ -381,6 +357,30 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
                 instanceId = UUID.randomUUID().toString();
             }
             createSubOrchestrationActionBuilder.setInstanceId(instanceId);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeout`
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+
+        if (timeout == null || timeout.isNegative() || timeout.isZero()) {
+            timeout = Duration.ofMinutes(10);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeout`
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+
+        if (timeout == null || timeout.isNegative() || timeout.isZero()) {
+            timeout = Duration.ofMinutes(10);
+        }
+
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -397,30 +397,6 @@ public class TaskFailedException extends RuntimeException {
 ```
 
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null) {
-                return null;
-            }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
@@ -442,6 +418,30 @@ in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
         if (ts == null) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
 
 ```
 
@@ -470,6 +470,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`argValue.trim().length() == 0` can be replaced with 'argValue.trim().isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
+    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
+        throwIfArgumentNull(argValue, argName);
+        if (argValue.trim().length() == 0){
+            throw new IllegalArgumentException("The argument '" + argName + "' was empty or contained only whitespace.");
+        }
+```
+
 ### SizeReplaceableByIsEmpty
 `this.rpcBaseUrl.length() == 0` can be replaced with 'this.rpcBaseUrl.isEmpty()'
 in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/DurableClientContext.java`
@@ -519,30 +531,6 @@ in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`argValue.trim().length() == 0` can be replaced with 'argValue.trim().isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
-        throwIfArgumentNull(argValue, argName);
-        if (argValue.trim().length() == 0){
-            throw new IllegalArgumentException("The argument '" + argName + "' was empty or contained only whitespace.");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`orchestratorName.length() == 0` can be replaced with 'orchestratorName.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-            String orchestratorName,
-            NewOrchestrationInstanceOptions options) {
-        if (orchestratorName == null || orchestratorName.length() == 0) {
-            throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
 in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
@@ -564,6 +552,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
             return this.outstandingEvents.size() > 0;
         }
 
+```
+
+### SizeReplaceableByIsEmpty
+`orchestratorName.length() == 0` can be replaced with 'orchestratorName.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+            String orchestratorName,
+            NewOrchestrationInstanceOptions options) {
+        if (orchestratorName == null || orchestratorName.length() == 0) {
+            throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
+        }
 ```
 
 ## RuleId[ruleID=NonStaticFinalLogger]
@@ -662,8 +662,8 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, List<Exception> exceptions) {
-        super(message);
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
         this.exceptions = exceptions;
 ```
 
@@ -674,8 +674,8 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    CompositeTaskFailedException(String message, List<Exception> exceptions) {
+        super(message);
         this.exceptions = exceptions;
 ```
 
@@ -710,7 +710,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
+        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
@@ -722,7 +722,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
+        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
@@ -733,11 +733,11 @@ Missorted modifiers `static @Nonnull`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 #### Snippet
 ```java
-    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
+    }
 
-    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
-        if (argValue == null) {
-            throw new IllegalArgumentException("The argument '" + argName + "' was null.");
+    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
+        throwIfArgumentNull(argValue, argName);
+        if (argValue.trim().length() == 0){
 ```
 
 ### MissortedModifiers
@@ -757,10 +757,10 @@ Missorted modifiers `static @Nonnull`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 #### Snippet
 ```java
-    }
+    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
 
-    static @Nonnull String throwIfArgumentNullOrWhiteSpace(String argValue, String argName) {
-        throwIfArgumentNull(argValue, argName);
-        if (argValue.trim().length() == 0){
+    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
+        if (argValue == null) {
+            throw new IllegalArgumentException("The argument '" + argName + "' was null.");
 ```
 
