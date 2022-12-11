@@ -22,11 +22,11 @@ StandardCharsets.ISO_8859_1 can be used instead
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 #### Snippet
 ```java
-        DataOutputStream dos = null;
-        try {
-            final byte[] rawBytes = id.getBytes("ISO-8859-1");
-            dos = new DataOutputStream(new FileOutputStream(idFile));
-            dos.write(rawBytes, 0, rawBytes.length);
+                dis = new DataInputStream(new FileInputStream(idFile));
+                dis.readFully(rawBytes);
+                final String rawString = new String(rawBytes, "ISO-8859-1");
+
+                // roundtrip to ensure correct format of UUID value
 ```
 
 ### CharsetObjectCanBeUsed
@@ -34,11 +34,11 @@ StandardCharsets.ISO_8859_1 can be used instead
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 #### Snippet
 ```java
-                dis = new DataInputStream(new FileInputStream(idFile));
-                dis.readFully(rawBytes);
-                final String rawString = new String(rawBytes, "ISO-8859-1");
-
-                // roundtrip to ensure correct format of UUID value
+        DataOutputStream dos = null;
+        try {
+            final byte[] rawBytes = id.getBytes("ISO-8859-1");
+            dos = new DataOutputStream(new FileOutputStream(idFile));
+            dos.write(rawBytes, 0, rawBytes.length);
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -131,18 +131,6 @@ package org.apache.sling.settings;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
-#### Snippet
-```java
-    /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
-     */
-    public void printConfiguration(PrintWriter pw) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.felix.shell` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 #### Snippet
@@ -227,15 +215,63 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
+#### Snippet
+```java
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
+     */
+    public void printConfiguration(PrintWriter printWriter, String mode) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
+     */
+    public void printConfiguration(PrintWriter printWriter, String mode) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.sling.settings` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 #### Snippet
 ```java
     }
 
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
+    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
     @Override
-    public URL getSlingHome() {
+    public String getAbsolutePathWithinSlingHome(final String relativePath) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -248,18 +284,6 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
      * @see org.apache.sling.settings.SlingSettingsService#getSlingName()
      */
     @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
-    @Override
-    public String getSlingHomePath() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -305,45 +329,21 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```java
     }
 
-    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
     @Override
-    public String getAbsolutePathWithinSlingHome(final String relativePath) {
+    public URL getSlingHome() {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 #### Snippet
 ```java
+    }
 
-    /**
-     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
-     */
-    public void printConfiguration(PrintWriter printWriter, String mode) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.webconsole.ModeAwareConfigurationPrinter#printConfiguration(java.io.PrintWriter, java.lang.String)
-     */
-    public void printConfiguration(PrintWriter printWriter, String mode) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-    /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
-     */
-    public void printConfiguration(PrintWriter pw) {
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
+    @Override
+    public String getSlingHomePath() {
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
