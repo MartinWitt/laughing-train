@@ -210,6 +210,30 @@ Redundant character escape `\\.` in RegExp
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
 #### Snippet
 ```java
+ */
+public class SemanticVersion implements Version<SemanticVersion> {
+    private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
+#### Snippet
+```java
+public class SemanticVersion implements Version<SemanticVersion> {
+    private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
+#### Snippet
+```java
     private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
     private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
     private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
@@ -218,27 +242,27 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
 #### Snippet
 ```java
-public class SemanticVersion implements Version<SemanticVersion> {
-    private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-    private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-    private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
 
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
 #### Snippet
 ```java
- */
-public class SemanticVersion implements Version<SemanticVersion> {
-    private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-    private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-    private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+
 ```
 
 ### RegExpRedundantEscape
@@ -251,30 +275,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersi
     private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
 
     private final String version;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-
 ```
 
 ### RegExpRedundantEscape
@@ -414,6 +414,30 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 
 ## RuleId[ruleID=OctalLiteral]
 ### OctalLiteral
+Octal integer `0100755`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+                archiveEntry.setMethod(ZipOutputStream.DEFLATED);
+                if (inputFile.isFile() && Files.isExecutable(path)) {
+                    archiveEntry.setUnixMode(0100755);
+                }
+
+```
+
+### OctalLiteral
+Octal integer `0100755`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+
+            if (inputFile.isFile() && Files.isExecutable(path)) {
+                archiveEntry.setMode(0100755);
+            }
+
+```
+
+### OctalLiteral
 Octal integer `0777`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
@@ -461,41 +485,17 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
         }
 ```
 
-### OctalLiteral
-Octal integer `0100755`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-
-            if (inputFile.isFile() && Files.isExecutable(path)) {
-                archiveEntry.setMode(0100755);
-            }
-
-```
-
-### OctalLiteral
-Octal integer `0100755`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-                archiveEntry.setMethod(ZipOutputStream.DEFLATED);
-                if (inputFile.isFile() && Files.isExecutable(path)) {
-                    archiveEntry.setUnixMode(0100755);
-                }
-
-```
-
 ## RuleId[ruleID=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\\w]` can be simplified to '\\w'
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
+    private static final String PROPERTY_GET_PREFIX = "get";
     private static final Pattern GETTER_PATTERN_1 = Pattern.compile("^get[A-Z][\\w]*$");
     private static final Pattern GETTER_PATTERN_2 = Pattern.compile("^is[A-Z][\\w]*$");
     private static final Pattern SETTER_PATTERN = Pattern.compile("^set[A-Z][\\w]*$");
     private static final String ERROR_METHOD_NULL = "Argument 'method' must not be null";
-    private static final Pattern REGEX_CHARS = Pattern.compile("[{}()\\[\\].+*?^$\\\\|/]");
 ```
 
 ### RegExpSimplifiable
@@ -515,14 +515,26 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
-    private static final String PROPERTY_GET_PREFIX = "get";
     private static final Pattern GETTER_PATTERN_1 = Pattern.compile("^get[A-Z][\\w]*$");
     private static final Pattern GETTER_PATTERN_2 = Pattern.compile("^is[A-Z][\\w]*$");
     private static final Pattern SETTER_PATTERN = Pattern.compile("^set[A-Z][\\w]*$");
     private static final String ERROR_METHOD_NULL = "Argument 'method' must not be null";
+    private static final Pattern REGEX_CHARS = Pattern.compile("[{}()\\[\\].+*?^$\\\\|/]");
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`hooks.size() > 0` can be replaced with '!hooks.isEmpty()'
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/CommandHookExecutor.java`
+#### Snippet
+```java
+        }
+
+        if (hooks.size() > 0) {
+            context.getLogger().info(RB.$("hooks.execution"), event.getType().name().toLowerCase(Locale.ENGLISH), hooks.size());
+        }
+```
+
 ### SizeReplaceableByIsEmpty
 `current.length() > 0` can be replaced with '!current.isEmpty()'
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/CommandHookExecutor.java`
@@ -544,18 +556,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/CommandHookEx
 
         if (lastTokenHasBeenQuoted || current.length() > 0) {
             result.add(current.toString());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`hooks.size() > 0` can be replaced with '!hooks.isEmpty()'
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/CommandHookExecutor.java`
-#### Snippet
-```java
-        }
-
-        if (hooks.size() > 0) {
-            context.getLogger().info(RB.$("hooks.execution"), event.getType().name().toLowerCase(Locale.ENGLISH), hooks.size());
         }
 ```
 
@@ -632,18 +632,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaModuleVersio
 ```
 
 ### SizeReplaceableByIsEmpty
-`tokens.size() > 0` can be replaced with '!tokens.isEmpty()'
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/CalVer.java`
-#### Snippet
-```java
-        }
-
-        if (tokens.size() > 0 && tokens.get(tokens.size() - 1).endsWith(MODIFIER_OP2)) {
-            String sep = tokens.remove(tokens.size() - 2);
-            String mod = "(?:" + sep + PATTERNS.get(MODIFIER_OP);
-```
-
-### SizeReplaceableByIsEmpty
 `extensionManagers.size() == 0` can be replaced with 'extensionManagers.isEmpty()'
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/extensions/api/ExtensionManagerHolder.java`
 #### Snippet
@@ -653,6 +641,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/extensions/api/Extension
             if (extensionManagers.size() == 0) {
                 // Should never happen!
                 throw new IllegalStateException(RB.$("ERROR_extension_manager_load"));
+```
+
+### SizeReplaceableByIsEmpty
+`tokens.size() > 0` can be replaced with '!tokens.isEmpty()'
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/CalVer.java`
+#### Snippet
+```java
+        }
+
+        if (tokens.size() > 0 && tokens.get(tokens.size() - 1).endsWith(MODIFIER_OP2)) {
+            String sep = tokens.remove(tokens.size() - 2);
+            String mod = "(?:" + sep + PATTERNS.get(MODIFIER_OP);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -729,7 +729,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 
 ### SizeReplaceableByIsEmpty
 `candidateArtifacts.size() == 0` can be replaced with 'candidateArtifacts.isEmpty()'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/AsdfPackagerValidator.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SdkmanPackagerValidator.java`
 #### Snippet
 ```java
 
@@ -753,7 +753,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 
 ### SizeReplaceableByIsEmpty
 `candidateArtifacts.size() == 0` can be replaced with 'candidateArtifacts.isEmpty()'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SdkmanPackagerValidator.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/AsdfPackagerValidator.java`
 #### Snippet
 ```java
 
@@ -766,6 +766,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 ### SizeReplaceableByIsEmpty
 `candidateArtifacts.size() == 0` can be replaced with 'candidateArtifacts.isEmpty()'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SnapPackagerValidator.java`
+#### Snippet
+```java
+
+        List<Artifact> candidateArtifacts = packager.resolveCandidateArtifacts(context, distribution);
+        if (candidateArtifacts.size() == 0) {
+            packager.setActive(Active.NEVER);
+            context.getLogger().debug(RB.$("validation.disabled.no.artifacts"));
+```
+
+### SizeReplaceableByIsEmpty
+`candidateArtifacts.size() == 0` can be replaced with 'candidateArtifacts.isEmpty()'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/DockerPackagerValidator.java`
 #### Snippet
 ```java
 
@@ -801,10 +813,10 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 
 ### SizeReplaceableByIsEmpty
 `candidateArtifacts.size() == 0` can be replaced with 'candidateArtifacts.isEmpty()'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/DockerPackagerValidator.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/BrewPackagerValidator.java`
 #### Snippet
 ```java
-
+        validateCask(context, distribution, packager, cask, errors);
         List<Artifact> candidateArtifacts = packager.resolveCandidateArtifacts(context, distribution);
         if (candidateArtifacts.size() == 0) {
             packager.setActive(Active.NEVER);
@@ -824,15 +836,27 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 ```
 
 ### SizeReplaceableByIsEmpty
-`candidateArtifacts.size() == 0` can be replaced with 'candidateArtifacts.isEmpty()'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/BrewPackagerValidator.java`
+`string.length() == 0` can be replaced with 'string.isEmpty()'
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
-        validateCask(context, distribution, packager, cask, errors);
-        List<Artifact> candidateArtifacts = packager.resolveCandidateArtifacts(context, distribution);
-        if (candidateArtifacts.size() == 0) {
-            packager.setActive(Active.NEVER);
-            context.getLogger().debug(RB.$("validation.disabled.no.artifacts"));
+
+    private static String applyQuotes(String string) {
+        if (string == null || string.length() == 0) {
+            return "\"\"";
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
+#### Snippet
+```java
+     */
+    public static boolean isBlank(String str) {
+        if (str == null || str.length() == 0) {
+            return true;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -872,27 +896,15 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`buf.length() > 0` can be replaced with '!buf.isEmpty()'
+`name.length() > 0` can be replaced with '!name.isEmpty()'
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
-                    continue;
-                }
-                if (buf.length() > 0) {
-                    buf.append(' ');
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static boolean isBlank(String str) {
-        if (str == null || str.length() == 0) {
-            return true;
-        }
+    public static String getClassNameRepresentation(String name) {
+        StringBuilder buf = new StringBuilder();
+        if (name != null && name.length() > 0) {
+            String[] tokens = name.split("[^\\w\\d]");
+            for (String token1 : tokens) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -908,27 +920,15 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`string.length() == 0` can be replaced with 'string.isEmpty()'
+`buf.length() > 0` can be replaced with '!buf.isEmpty()'
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
-
-    private static String applyQuotes(String string) {
-        if (string == null || string.length() == 0) {
-            return "\"\"";
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() > 0` can be replaced with '!name.isEmpty()'
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
-#### Snippet
-```java
-    public static String getClassNameRepresentation(String name) {
-        StringBuilder buf = new StringBuilder();
-        if (name != null && name.length() > 0) {
-            String[] tokens = name.split("[^\\w\\d]");
-            for (String token1 : tokens) {
+                    continue;
+                }
+                if (buf.length() > 0) {
+                    buf.append(' ');
+                }
 ```
 
 ## RuleId[ruleID=DuplicateExpressions]
@@ -1106,10 +1106,10 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Banner.java`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Banner.java`
 #### Snippet
 ```java
-                        System.out.println(BANNER.banner);
+                        if (!JReleaserOutput.isQuiet()) out.println(BANNER.banner);
                     }
                     writeQuietly(markerFile, (count + 1) + "");
                 } catch (NumberFormatException e) {
@@ -1118,10 +1118,10 @@ in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Bann
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Banner.java`
+in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Banner.java`
 #### Snippet
 ```java
-                        if (!JReleaserOutput.isQuiet()) out.println(BANNER.banner);
+                        System.out.println(BANNER.banner);
                     }
                     writeQuietly(markerFile, (count + 1) + "");
                 } catch (NumberFormatException e) {
@@ -1202,18 +1202,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `FilesValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/files/FilesValidator.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-public abstract class FilesValidator extends Validator {
-    public static void validateFiles(JReleaserContext context, Mode mode, Errors errors) {
-        if (!mode.validateConfig()) {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `HooksValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/hooks/HooksValidator.java`
 #### Snippet
@@ -1226,27 +1214,15 @@ public abstract class HooksValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CommandHooksValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/hooks/CommandHooksValidator.java`
+Abstract class `FilesValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/files/FilesValidator.java`
 #### Snippet
 ```java
- * @since 1.2.0
+ * @since 0.1.0
  */
-public abstract class CommandHooksValidator extends Validator {
-    public static void validateCommandHooks(JReleaserContext context, Mode mode, Errors errors) {
-        context.getLogger().debug("hooks.command");
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SshValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/common/SshValidator.java`
-#### Snippet
-```java
- * @since 1.1.0
- */
-public abstract class SshValidator extends Validator {
-    public static void validateSsh(JReleaserContext context, Ssh ssh, String name,
-                                   String envPrefix, String propPrefix, Errors errors) {
+public abstract class FilesValidator extends Validator {
+    public static void validateFiles(JReleaserContext context, Mode mode, Errors errors) {
+        if (!mode.validateConfig()) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -1286,6 +1262,30 @@ public abstract class DeployValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `SshValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/common/SshValidator.java`
+#### Snippet
+```java
+ * @since 1.1.0
+ */
+public abstract class SshValidator extends Validator {
+    public static void validateSsh(JReleaserContext context, Ssh ssh, String name,
+                                   String envPrefix, String propPrefix, Errors errors) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CommandHooksValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/hooks/CommandHooksValidator.java`
+#### Snippet
+```java
+ * @since 1.2.0
+ */
+public abstract class CommandHooksValidator extends Validator {
+    public static void validateCommandHooks(JReleaserContext context, Mode mode, Errors errors) {
+        context.getLogger().debug("hooks.command");
+```
+
+### AbstractClassNeverImplemented
 Abstract class `GiteaMavenDeployerValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/deploy/maven/GiteaMavenDeployerValidator.java`
 #### Snippet
@@ -1310,18 +1310,6 @@ public abstract class Nexus2MavenDeployerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GitlabMavenDeployerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/deploy/maven/GitlabMavenDeployerValidator.java`
-#### Snippet
-```java
- * @since 1.3.0
- */
-public abstract class GitlabMavenDeployerValidator extends Validator {
-    public static void validateGitlabMavenDeployer(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, GitlabMavenDeployer> gitlab = context.getModel().getDeploy().getMaven().getGitlab();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ArtifactoryMavenDeployerValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/deploy/maven/ArtifactoryMavenDeployerValidator.java`
 #### Snippet
@@ -1334,15 +1322,15 @@ public abstract class ArtifactoryMavenDeployerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GithubMavenDeployerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/deploy/maven/GithubMavenDeployerValidator.java`
+Abstract class `GitlabMavenDeployerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/deploy/maven/GitlabMavenDeployerValidator.java`
 #### Snippet
 ```java
  * @since 1.3.0
  */
-public abstract class GithubMavenDeployerValidator extends Validator {
-    public static void validateGithubMavenDeployer(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, GithubMavenDeployer> github = context.getModel().getDeploy().getMaven().getGithub();
+public abstract class GitlabMavenDeployerValidator extends Validator {
+    public static void validateGitlabMavenDeployer(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, GitlabMavenDeployer> gitlab = context.getModel().getDeploy().getMaven().getGitlab();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1355,6 +1343,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class SftpUploaderValidator extends Validator {
     public static void validateSftpUploader(JReleaserContext context, Mode mode, Errors errors) {
         Map<String, SftpUploader> sftp = context.getModel().getUpload().getSftp();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GithubMavenDeployerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/deploy/maven/GithubMavenDeployerValidator.java`
+#### Snippet
+```java
+ * @since 1.3.0
+ */
+public abstract class GithubMavenDeployerValidator extends Validator {
+    public static void validateGithubMavenDeployer(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, GithubMavenDeployer> github = context.getModel().getDeploy().getMaven().getGithub();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1406,18 +1406,6 @@ public abstract class UploadersValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `FtpUploaderValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/FtpUploaderValidator.java`
-#### Snippet
-```java
- * @since 1.1.0
- */
-public abstract class FtpUploaderValidator extends Validator {
-    public static void validateFtpUploader(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, FtpUploader> ftp = context.getModel().getUpload().getFtp();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ScpUploaderValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/ScpUploaderValidator.java`
 #### Snippet
@@ -1427,6 +1415,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class ScpUploaderValidator extends Validator {
     public static void validateScpUploader(JReleaserContext context, Mode mode, Errors errors) {
         Map<String, ScpUploader> scp = context.getModel().getUpload().getScp();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `FtpUploaderValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/FtpUploaderValidator.java`
+#### Snippet
+```java
+ * @since 1.1.0
+ */
+public abstract class FtpUploaderValidator extends Validator {
+    public static void validateFtpUploader(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, FtpUploader> ftp = context.getModel().getUpload().getFtp();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1442,15 +1442,15 @@ public abstract class GiteaUploaderValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `HttpUploaderValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/HttpUploaderValidator.java`
+Abstract class `S3UploaderValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/S3UploaderValidator.java`
 #### Snippet
 ```java
- * @since 0.4.0
+ * @since 0.3.0
  */
-public abstract class HttpUploaderValidator extends Validator {
-    public static void validateHttpUploader(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, HttpUploader> http = context.getModel().getUpload().getHttp();
+public abstract class S3UploaderValidator extends Validator {
+    public static void validateS3(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, S3Uploader> s3 = context.getModel().getUpload().getS3();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1466,15 +1466,15 @@ public abstract class GithubReleaserValidator extends BaseReleaserValidator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ReleaseValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/release/ReleaseValidator.java`
+Abstract class `HttpUploaderValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/HttpUploaderValidator.java`
 #### Snippet
 ```java
- * @since 0.1.0
+ * @since 0.4.0
  */
-public abstract class ReleaseValidator extends Validator {
-    public static void validateRelease(JReleaserContext context, Mode mode, Errors errors) {
-        context.getLogger().debug("release");
+public abstract class HttpUploaderValidator extends Validator {
+    public static void validateHttpUploader(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, HttpUploader> http = context.getModel().getUpload().getHttp();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1490,27 +1490,15 @@ public abstract class GiteaReleaserValidator extends BaseReleaserValidator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CodebergReleaserValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/release/CodebergReleaserValidator.java`
+Abstract class `ReleaseValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/release/ReleaseValidator.java`
 #### Snippet
 ```java
  * @since 0.1.0
  */
-public abstract class CodebergReleaserValidator extends BaseReleaserValidator {
-    public static boolean validateCodeberg(JReleaserContext context, Mode mode, CodebergReleaser codeberg, Errors errors) {
-        if (null == codeberg) return false;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `S3UploaderValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/upload/S3UploaderValidator.java`
-#### Snippet
-```java
- * @since 0.3.0
- */
-public abstract class S3UploaderValidator extends Validator {
-    public static void validateS3(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, S3Uploader> s3 = context.getModel().getUpload().getS3();
+public abstract class ReleaseValidator extends Validator {
+    public static void validateRelease(JReleaserContext context, Mode mode, Errors errors) {
+        context.getLogger().debug("release");
 ```
 
 ### AbstractClassNeverImplemented
@@ -1538,6 +1526,18 @@ public abstract class GenericGitReleaserValidator extends BaseReleaserValidator 
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `CodebergReleaserValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/release/CodebergReleaserValidator.java`
+#### Snippet
+```java
+ * @since 0.1.0
+ */
+public abstract class CodebergReleaserValidator extends BaseReleaserValidator {
+    public static boolean validateCodeberg(JReleaserContext context, Mode mode, CodebergReleaser codeberg, Errors errors) {
+        if (null == codeberg) return false;
+```
+
+### AbstractClassNeverImplemented
 Abstract class `SigningValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/signing/SigningValidator.java`
 #### Snippet
@@ -1547,30 +1547,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class SigningValidator extends Validator {
     public static void validateSigning(JReleaserContext context, Mode mode, Errors errors) {
         if (!mode.validateConfig()) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DiscourseAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/DiscourseAnnouncerValidator.java`
-#### Snippet
-```java
- * @since 1.3.0
- */
-public abstract class DiscourseAnnouncerValidator extends Validator {
-    private static final String DEFAULT_DISCOURSE_TPL = "src/jreleaser/templates/discourse.tpl";
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ZulipAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/ZulipAnnouncerValidator.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-public abstract class ZulipAnnouncerValidator extends Validator {
-    private static final String DEFAULT_ZULIP_TPL = "src/jreleaser/templates/zulip.tpl";
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -1598,6 +1574,18 @@ public abstract class DiscussionsAnnouncerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `DiscourseAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/DiscourseAnnouncerValidator.java`
+#### Snippet
+```java
+ * @since 1.3.0
+ */
+public abstract class DiscourseAnnouncerValidator extends Validator {
+    private static final String DEFAULT_DISCOURSE_TPL = "src/jreleaser/templates/discourse.tpl";
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `SdkmanAnnouncerValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/SdkmanAnnouncerValidator.java`
 #### Snippet
@@ -1610,14 +1598,26 @@ public abstract class SdkmanAnnouncerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GitterAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/GitterAnnouncerValidator.java`
+Abstract class `ZulipAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/ZulipAnnouncerValidator.java`
 #### Snippet
 ```java
- * @since 0.2.0
+ * @since 0.1.0
  */
-public abstract class GitterAnnouncerValidator extends Validator {
-    private static final String DEFAULT_GITTER_TPL = "src/jreleaser/templates/gitter.tpl";
+public abstract class ZulipAnnouncerValidator extends Validator {
+    private static final String DEFAULT_ZULIP_TPL = "src/jreleaser/templates/zulip.tpl";
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `TelegramAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/TelegramAnnouncerValidator.java`
+#### Snippet
+```java
+ * @since 0.8.0
+ */
+public abstract class TelegramAnnouncerValidator extends Validator {
+    private static final String DEFAULT_TELEGRAM_TPL = "src/jreleaser/templates/telegram.tpl";
 
 ```
 
@@ -1646,14 +1646,26 @@ public abstract class DiscordAnnouncerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `TelegramAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/TelegramAnnouncerValidator.java`
+Abstract class `SlackAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/SlackAnnouncerValidator.java`
 #### Snippet
 ```java
- * @since 0.8.0
+ * @since 0.1.0
  */
-public abstract class TelegramAnnouncerValidator extends Validator {
-    private static final String DEFAULT_TELEGRAM_TPL = "src/jreleaser/templates/telegram.tpl";
+public abstract class SlackAnnouncerValidator extends Validator {
+    private static final String DEFAULT_SLACK_TPL = "src/jreleaser/templates/slack.tpl";
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GitterAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/GitterAnnouncerValidator.java`
+#### Snippet
+```java
+ * @since 0.2.0
+ */
+public abstract class GitterAnnouncerValidator extends Validator {
+    private static final String DEFAULT_GITTER_TPL = "src/jreleaser/templates/gitter.tpl";
 
 ```
 
@@ -1670,26 +1682,14 @@ public abstract class SmtpAnnouncerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AnnouncersValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/AnnouncersValidator.java`
+Abstract class `TeamsAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/TeamsAnnouncerValidator.java`
 #### Snippet
 ```java
- * @since 0.1.0
+ * @since 0.2.0
  */
-public abstract class AnnouncersValidator extends Validator {
-    public static void validateAnnouncers(JReleaserContext context, Mode mode, Errors errors) {
-        Announce announce = context.getModel().getAnnounce();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SlackAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/SlackAnnouncerValidator.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-public abstract class SlackAnnouncerValidator extends Validator {
-    private static final String DEFAULT_SLACK_TPL = "src/jreleaser/templates/slack.tpl";
+public abstract class TeamsAnnouncerValidator extends Validator {
+    private static final String DEFAULT_TEAMS_TPL = "src/jreleaser/templates/teams.tpl";
 
 ```
 
@@ -1706,18 +1706,6 @@ public abstract class MastodonAnnouncerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `TeamsAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/TeamsAnnouncerValidator.java`
-#### Snippet
-```java
- * @since 0.2.0
- */
-public abstract class TeamsAnnouncerValidator extends Validator {
-    private static final String DEFAULT_TEAMS_TPL = "src/jreleaser/templates/teams.tpl";
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `HttpAnnouncerValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/HttpAnnouncerValidator.java`
 #### Snippet
@@ -1730,15 +1718,15 @@ public abstract class HttpAnnouncerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ArticleAnnouncerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/ArticleAnnouncerValidator.java`
+Abstract class `AnnouncersValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/AnnouncersValidator.java`
 #### Snippet
 ```java
- * @since 0.6.0
+ * @since 0.1.0
  */
-public abstract class ArticleAnnouncerValidator extends Validator {
-    public static void validateArticle(JReleaserContext context, ArticleAnnouncer article, Errors errors) {
-        context.getLogger().debug("announce.article");
+public abstract class AnnouncersValidator extends Validator {
+    public static void validateAnnouncers(JReleaserContext context, Mode mode, Errors errors) {
+        Announce announce = context.getModel().getAnnounce();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1763,6 +1751,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class MattermostAnnouncerValidator extends Validator {
     private static final String DEFAULT_MATTERMOST_TPL = "src/jreleaser/templates/mattermost.tpl";
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ArticleAnnouncerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/ArticleAnnouncerValidator.java`
+#### Snippet
+```java
+ * @since 0.6.0
+ */
+public abstract class ArticleAnnouncerValidator extends Validator {
+    public static void validateArticle(JReleaserContext context, ArticleAnnouncer article, Errors errors) {
+        context.getLogger().debug("announce.article");
 ```
 
 ### AbstractClassNeverImplemented
@@ -1802,6 +1802,18 @@ public abstract class AssemblersValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `BaseReleaserValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/release/BaseReleaserValidator.java`
+#### Snippet
+```java
+ * @since 0.1.0
+ */
+public abstract class BaseReleaserValidator extends Validator {
+    private static final String DEFAULT_CHANGELOG_TPL = "src/jreleaser/templates/changelog.tpl";
+    private static final String DEFAULT_APPEND_CHANGELOG_TPL = "src/jreleaser/templates/append-changelog.tpl";
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AssemblersResolver` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/AssemblersResolver.java`
 #### Snippet
@@ -1811,6 +1823,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class AssemblersResolver extends Validator {
     public static void resolveAssemblers(JReleaserContext context, Errors errors) {
         Environment environment = context.getModel().getEnvironment();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `NativeImageAssemblerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/NativeImageAssemblerValidator.java`
+#### Snippet
+```java
+ * @since 0.2.0
+ */
+public abstract class NativeImageAssemblerValidator extends Validator {
+    public static void validateNativeImage(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, NativeImageAssembler> nativeImage = context.getModel().getAssemble().getNativeImage();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1826,30 +1850,6 @@ public abstract class NativeImageAssemblerResolver extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `BaseReleaserValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/release/BaseReleaserValidator.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-public abstract class BaseReleaserValidator extends Validator {
-    private static final String DEFAULT_CHANGELOG_TPL = "src/jreleaser/templates/changelog.tpl";
-    private static final String DEFAULT_APPEND_CHANGELOG_TPL = "src/jreleaser/templates/append-changelog.tpl";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JpackageAssemblerResolver` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JpackageAssemblerResolver.java`
-#### Snippet
-```java
- * @since 0.10.0
- */
-public abstract class JpackageAssemblerResolver extends Validator {
-    public static void resolveJpackageOutputs(JReleaserContext context, Errors errors) {
-        List<JpackageAssembler> activeJpackages = context.getModel().getAssemble().getActiveJpackages();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ArchiveAssemblerResolver` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/ArchiveAssemblerResolver.java`
 #### Snippet
@@ -1859,42 +1859,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class ArchiveAssemblerResolver extends Validator {
     public static void resolveArchiveOutputs(JReleaserContext context, Errors errors) {
         List<ArchiveAssembler> activeArchives = context.getModel().getAssemble().getActiveArchives();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JlinkAssemblerResolver` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JlinkAssemblerResolver.java`
-#### Snippet
-```java
- * @since 0.2.0
- */
-public abstract class JlinkAssemblerResolver extends Validator {
-    public static void resolveJlinkOutputs(JReleaserContext context, Errors errors) {
-        List<JlinkAssembler> activeJlinks = context.getModel().getAssemble().getActiveJlinks();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JavaArchiveAssemblerResolver` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JavaArchiveAssemblerResolver.java`
-#### Snippet
-```java
- * @since 1.4.0
- */
-public abstract class JavaArchiveAssemblerResolver extends Validator {
-    public static void resolveJavaArchiveOutputs(JReleaserContext context, Errors errors) {
-        List<JavaArchiveAssembler> activeArchives = context.getModel().getAssemble().getActiveJavaArchives();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `NativeImageAssemblerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/NativeImageAssemblerValidator.java`
-#### Snippet
-```java
- * @since 0.2.0
- */
-public abstract class NativeImageAssemblerValidator extends Validator {
-    public static void validateNativeImage(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, NativeImageAssembler> nativeImage = context.getModel().getAssemble().getNativeImage();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1934,6 +1898,42 @@ public abstract class JlinkAssemblerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `JlinkAssemblerResolver` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JlinkAssemblerResolver.java`
+#### Snippet
+```java
+ * @since 0.2.0
+ */
+public abstract class JlinkAssemblerResolver extends Validator {
+    public static void resolveJlinkOutputs(JReleaserContext context, Errors errors) {
+        List<JlinkAssembler> activeJlinks = context.getModel().getAssemble().getActiveJlinks();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JavaArchiveAssemblerResolver` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JavaArchiveAssemblerResolver.java`
+#### Snippet
+```java
+ * @since 1.4.0
+ */
+public abstract class JavaArchiveAssemblerResolver extends Validator {
+    public static void resolveJavaArchiveOutputs(JReleaserContext context, Errors errors) {
+        List<JavaArchiveAssembler> activeArchives = context.getModel().getAssemble().getActiveJavaArchives();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JpackageAssemblerResolver` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JpackageAssemblerResolver.java`
+#### Snippet
+```java
+ * @since 0.10.0
+ */
+public abstract class JpackageAssemblerResolver extends Validator {
+    public static void resolveJpackageOutputs(JReleaserContext context, Errors errors) {
+        List<JpackageAssembler> activeJpackages = context.getModel().getAssemble().getActiveJpackages();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `ScpDownloaderValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/download/ScpDownloaderValidator.java`
 #### Snippet
@@ -1943,18 +1943,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class ScpDownloaderValidator extends Validator {
     public static void validateScpDownloader(JReleaserContext context, Mode mode, Errors errors) {
         Map<String, ScpDownloader> scp = context.getModel().getDownload().getScp();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DownloadersValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/download/DownloadersValidator.java`
-#### Snippet
-```java
- * @since 1.1.0
- */
-public abstract class DownloadersValidator extends Validator {
-    public static void validateDownloaders(JReleaserContext context, Mode mode, Errors errors) {
-        Download download = context.getModel().getDownload();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1979,6 +1967,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class FtpDownloaderValidator extends Validator {
     public static void validateFtpDownloader(JReleaserContext context, Mode mode, Errors errors) {
         Map<String, FtpDownloader> ftp = context.getModel().getDownload().getFtp();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DownloadersValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/download/DownloadersValidator.java`
+#### Snippet
+```java
+ * @since 1.1.0
+ */
+public abstract class DownloadersValidator extends Validator {
+    public static void validateDownloaders(JReleaserContext context, Mode mode, Errors errors) {
+        Download download = context.getModel().getDownload();
 ```
 
 ### AbstractClassNeverImplemented
@@ -2018,18 +2018,6 @@ public abstract class MacportsPackagerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `PackagersValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/PackagersValidator.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-public abstract class PackagersValidator extends Validator {
-    public static void validatePackagers(JReleaserContext context, Mode mode, Errors errors) {
-        if (!mode.validateConfig()) {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `GofishPackagerValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/GofishPackagerValidator.java`
 #### Snippet
@@ -2054,15 +2042,27 @@ public abstract class ChocolateyPackagerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AsdfPackagerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/AsdfPackagerValidator.java`
+Abstract class `PackagersValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/PackagersValidator.java`
 #### Snippet
 ```java
- * @since 1.2.0
+ * @since 0.1.0
  */
-public abstract class AsdfPackagerValidator extends Validator {
-    public static void validateAsdf(JReleaserContext context, Distribution distribution, AsdfPackager packager, Errors errors) {
-        context.getLogger().debug("distribution.{}.asdf", distribution.getName());
+public abstract class PackagersValidator extends Validator {
+    public static void validatePackagers(JReleaserContext context, Mode mode, Errors errors) {
+        if (!mode.validateConfig()) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SdkmanPackagerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SdkmanPackagerValidator.java`
+#### Snippet
+```java
+ * @since 0.6.0
+ */
+public abstract class SdkmanPackagerValidator extends Validator {
+    public static void validateSdkman(JReleaserContext context, Distribution distribution, SdkmanPackager packager, Errors errors) {
+        context.getLogger().debug("distribution.{}.sdkman", distribution.getName());
 ```
 
 ### AbstractClassNeverImplemented
@@ -2078,15 +2078,15 @@ public abstract class SpecPackagerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SdkmanPackagerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SdkmanPackagerValidator.java`
+Abstract class `AsdfPackagerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/AsdfPackagerValidator.java`
 #### Snippet
 ```java
- * @since 0.6.0
+ * @since 1.2.0
  */
-public abstract class SdkmanPackagerValidator extends Validator {
-    public static void validateSdkman(JReleaserContext context, Distribution distribution, SdkmanPackager packager, Errors errors) {
-        context.getLogger().debug("distribution.{}.sdkman", distribution.getName());
+public abstract class AsdfPackagerValidator extends Validator {
+    public static void validateAsdf(JReleaserContext context, Distribution distribution, AsdfPackager packager, Errors errors) {
+        context.getLogger().debug("distribution.{}.asdf", distribution.getName());
 ```
 
 ### AbstractClassNeverImplemented
@@ -2114,15 +2114,15 @@ public abstract class SnapPackagerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ExtensionsValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/extensions/ExtensionsValidator.java`
+Abstract class `DockerPackagerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/DockerPackagerValidator.java`
 #### Snippet
 ```java
- * @since 1.3.0
+ * @since 0.1.0
  */
-public abstract class ExtensionsValidator extends Validator {
-    public static void validateExtensions(JReleaserContext context, Mode mode, Errors errors) {
-        Map<String, Extension> extensions = context.getModel().getExtensions();
+public abstract class DockerPackagerValidator extends Validator {
+    public static void validateDocker(JReleaserContext context, Distribution distribution, DockerPackager packager, Errors errors) {
+        String element = "distribution." + distribution.getName() + ".docker";
 ```
 
 ### AbstractClassNeverImplemented
@@ -2138,6 +2138,18 @@ public abstract class ScoopPackagerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `ExtensionsValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/extensions/ExtensionsValidator.java`
+#### Snippet
+```java
+ * @since 1.3.0
+ */
+public abstract class ExtensionsValidator extends Validator {
+    public static void validateExtensions(JReleaserContext context, Mode mode, Errors errors) {
+        Map<String, Extension> extensions = context.getModel().getExtensions();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AppImagePackagerValidator` has no concrete subclass
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/AppImagePackagerValidator.java`
 #### Snippet
@@ -2150,15 +2162,15 @@ public abstract class AppImagePackagerValidator extends Validator {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `DockerPackagerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/DockerPackagerValidator.java`
+Abstract class `BrewPackagerValidator` has no concrete subclass
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/BrewPackagerValidator.java`
 #### Snippet
 ```java
  * @since 0.1.0
  */
-public abstract class DockerPackagerValidator extends Validator {
-    public static void validateDocker(JReleaserContext context, Distribution distribution, DockerPackager packager, Errors errors) {
-        String element = "distribution." + distribution.getName() + ".docker";
+public abstract class BrewPackagerValidator extends Validator {
+    public static void validateBrew(JReleaserContext context, Distribution distribution, BrewPackager packager, Errors errors) {
+        context.getLogger().debug("distribution.{}.brew", distribution.getName());
 ```
 
 ### AbstractClassNeverImplemented
@@ -2171,18 +2183,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 public abstract class FlatpakPackagerValidator extends Validator {
     public static void validateFlatpak(JReleaserContext context, Mode mode, Distribution distribution, FlatpakPackager packager, Errors errors) {
         context.getLogger().debug("distribution.{}.flatpak", distribution.getName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BrewPackagerValidator` has no concrete subclass
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/BrewPackagerValidator.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-public abstract class BrewPackagerValidator extends Validator {
-    public static void validateBrew(JReleaserContext context, Distribution distribution, BrewPackager packager, Errors errors) {
-        context.getLogger().debug("distribution.{}.brew", distribution.getName());
 ```
 
 ### AbstractClassNeverImplemented
@@ -2199,50 +2199,26 @@ public abstract class DistributionsValidator extends Validator {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SnapPackagerProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    protected void fillPackagerProperties(Map<String, Object> props, Distribution distribution) throws PackagerProcessingException {
-        BaseReleaser<?, ?> releaser = context.getModel().getRelease().getReleaser();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
+Can generalize to `? extends SigningUtils.FilePair`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 #### Snippet
 ```java
     }
 
-    private void setupJavaBinary(Distribution distribution, Map<String, Object> props) throws PackagerProcessingException {
-        Artifact artifact = (Artifact) props.get(KEY_DISTRIBUTION_ARTIFACT);
-        Path artifactPath = artifact.getResolvedPath(context, distribution);
+    private static void sign(JReleaserContext context, List<SigningUtils.FilePair> files,
+                             Cosign cosign, Path privateKeyFile, byte[] password) throws SigningException {
+        Path signaturesDirectory = context.getSignaturesDirectory();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
+Can generalize to `? super SigningUtils.FilePair`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    protected void fillPackagerProperties(Map<String, Object> props, Distribution distribution) throws PackagerProcessingException {
-        props.put(KEY_SPEC_PACKAGE_NAME, packager.getPackageName());
-        props.put(KEY_SPEC_RELEASE, packager.getRelease());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/JbangPackagerProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    protected void fillPackagerProperties(Map<String, Object> props, Distribution distribution) throws PackagerProcessingException {
-        BaseReleaser<?, ?> releaser = context.getModel().getRelease().getReleaser();
+    private static List<SigningUtils.FilePair> collectArtifacts(JReleaserContext context, boolean forceSign, Function<SigningUtils.FilePair, Boolean> validator) {
+        List<SigningUtils.FilePair> files = new ArrayList<>();
 
 ```
 
@@ -2265,33 +2241,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 ```java
     }
 
-    private static void verify(JReleaserContext context, List<SigningUtils.FilePair> files) throws SigningException {
-        context.getLogger().debug(RB.$("signing.verify.signatures"), files.size());
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends SigningUtils.FilePair`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
-#### Snippet
-```java
-    }
-
     private static void sign(JReleaserContext context, Keyring keyring, List<SigningUtils.FilePair> files) throws SigningException {
         Path signaturesDirectory = context.getSignaturesDirectory();
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends SigningUtils.FilePair`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
-#### Snippet
-```java
-    }
-
-    private static void sign(JReleaserContext context, List<SigningUtils.FilePair> files,
-                             Cosign cosign, Path privateKeyFile, byte[] password) throws SigningException {
-        Path signaturesDirectory = context.getSignaturesDirectory();
 ```
 
 ### BoundedWildcard
@@ -2307,14 +2259,62 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SigningUtils.FilePair`
+Can generalize to `? extends SigningUtils.FilePair`
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 #### Snippet
 ```java
     }
 
-    private static List<SigningUtils.FilePair> collectArtifacts(JReleaserContext context, boolean forceSign, Function<SigningUtils.FilePair, Boolean> validator) {
-        List<SigningUtils.FilePair> files = new ArrayList<>();
+    private static void verify(JReleaserContext context, List<SigningUtils.FilePair> files) throws SigningException {
+        context.getLogger().debug(RB.$("signing.verify.signatures"), files.size());
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    protected void fillPackagerProperties(Map<String, Object> props, Distribution distribution) throws PackagerProcessingException {
+        props.put(KEY_SPEC_PACKAGE_NAME, packager.getPackageName());
+        props.put(KEY_SPEC_RELEASE, packager.getRelease());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
+#### Snippet
+```java
+    }
+
+    private void setupJavaBinary(Distribution distribution, Map<String, Object> props) throws PackagerProcessingException {
+        Artifact artifact = (Artifact) props.get(KEY_DISTRIBUTION_ARTIFACT);
+        Path artifactPath = artifact.getResolvedPath(context, distribution);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SnapPackagerProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    protected void fillPackagerProperties(Map<String, Object> props, Distribution distribution) throws PackagerProcessingException {
+        BaseReleaser<?, ?> releaser = context.getModel().getRelease().getReleaser();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/JbangPackagerProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    protected void fillPackagerProperties(Map<String, Object> props, Distribution distribution) throws PackagerProcessingException {
+        BaseReleaser<?, ?> releaser = context.getModel().getRelease().getReleaser();
 
 ```
 
@@ -2343,18 +2343,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/FlatpakPackagerP
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/AbstractAssemblerProcessor.java`
-#### Snippet
-```java
-    }
-
-    protected void fillAssemblerProperties(Map<String, Object> props) {
-        props.putAll(assembler.props());
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Path`
 in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/NativeImageAssemblerProcessor.java`
 #### Snippet
@@ -2380,26 +2368,14 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/JavaArchiveAsse
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/DefaultExtensionManager.java`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/AbstractAssemblerProcessor.java`
 #### Snippet
 ```java
     }
 
-    private void processExtension(JReleaserContext context, Extension extension, Set<String> visitedExtensionNames, Set<String> visitedExtensionTypes) {
-        String extensionName = extension.getName();
-        String extensionType = extension.getClass().getName();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/DefaultExtensionManager.java`
-#### Snippet
-```java
+    protected void fillAssemblerProperties(Map<String, Object> props) {
+        props.putAll(assembler.props());
     }
-
-    private void processExtension(JReleaserContext context, Extension extension, Set<String> visitedExtensionNames, Set<String> visitedExtensionTypes) {
-        String extensionName = extension.getName();
-        String extensionType = extension.getClass().getName();
 ```
 
 ### BoundedWildcard
@@ -2428,6 +2404,30 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/AbstractPackager
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/DefaultExtensionManager.java`
+#### Snippet
+```java
+    }
+
+    private void processExtension(JReleaserContext context, Extension extension, Set<String> visitedExtensionNames, Set<String> visitedExtensionTypes) {
+        String extensionName = extension.getName();
+        String extensionType = extension.getClass().getName();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/DefaultExtensionManager.java`
+#### Snippet
+```java
+    }
+
+    private void processExtension(JReleaserContext context, Extension extension, Set<String> visitedExtensionNames, Set<String> visitedExtensionTypes) {
+        String extensionName = extension.getName();
+        String extensionType = extension.getClass().getName();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustache/DefaultMustacheExtensionPoint.java`
 #### Snippet
 ```java
@@ -2448,42 +2448,6 @@ in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/api/GtIs
     public void setLabels(List<GtLabel> labels) {
         if (labels != null) {
             this.labels.clear();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Asset`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-    }
-
-    public void updateAssets(String owner, String repo, GtRelease release, List<Asset> assets, Map<String, GtAsset> existingAssets) throws IOException {
-        for (Asset asset : assets) {
-            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GtAsset`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-    }
-
-    public void updateAssets(String owner, String repo, GtRelease release, List<Asset> assets, Map<String, GtAsset> existingAssets) throws IOException {
-        for (Asset asset : assets) {
-            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Asset`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-    }
-
-    public void uploadAssets(String owner, String repo, GtRelease release, List<Asset> assets) throws IOException {
-        for (Asset asset : assets) {
-            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
 ```
 
 ### BoundedWildcard
@@ -2517,18 +2481,6 @@ in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github
 ```java
     }
 
-    void uploadAssets(GHRelease release, List<Asset> assets) throws IOException {
-        for (Asset asset : assets) {
-            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Asset`
-in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
-#### Snippet
-```java
-    }
-
     void updateAssets(GHRelease release, List<Asset> assets, Map<String, GHAsset> existingAssets) throws IOException {
         for (Asset asset : assets) {
             if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
@@ -2547,6 +2499,54 @@ in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Asset`
+in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
+#### Snippet
+```java
+    }
+
+    void uploadAssets(GHRelease release, List<Asset> assets) throws IOException {
+        for (Asset asset : assets) {
+            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Asset`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+    }
+
+    public void uploadAssets(String owner, String repo, GtRelease release, List<Asset> assets) throws IOException {
+        for (Asset asset : assets) {
+            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Asset`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+    }
+
+    public void updateAssets(String owner, String repo, GtRelease release, List<Asset> assets, Map<String, GtAsset> existingAssets) throws IOException {
+        for (Asset asset : assets) {
+            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GtAsset`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+    }
+
+    public void updateAssets(String owner, String repo, GtRelease release, List<Asset> assets, Map<String, GtAsset> existingAssets) throws IOException {
+        for (Asset asset : assets) {
+            if (0 == Files.size(asset.getPath()) || !Files.exists(asset.getPath())) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Collection`
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/internal/Page.java`
 #### Snippet
@@ -2559,27 +2559,27 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/intern
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RevCommit`
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+Can generalize to `? super GlLinkRequest`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
 #### Snippet
 ```java
-    protected String formatChangelog(JReleaserContext context,
-                                     Changelog changelog,
-                                     List<RevCommit> commits,
-                                     Comparator<RevCommit> revCommitComparator,
-                                     String lineSeparator) {
+    }
+
+    private void collectUploadLinks(Uploader<?> uploader, List<GlLinkRequest> links) {
+        List<String> keys = uploader.resolveSkipKeys();
+        keys.add(org.jreleaser.model.api.release.GitlabReleaser.SKIP_GITLAB_LINKS);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RevCommit`
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+Can generalize to `? extends GlLink`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
 #### Snippet
 ```java
-                                     Changelog changelog,
-                                     List<RevCommit> commits,
-                                     Comparator<RevCommit> revCommitComparator,
-                                     String lineSeparator) {
-        Set<Contributor> contributors = new TreeSet<>();
+    }
+
+    private void updateAssets(Gitlab api, GlRelease release, List<Asset> assetsToBeUpdated, Integer projectIdentifier, String tagName, Map<String, GlLink> existingLinks) throws IOException {
+       try {
+           if (!assetsToBeUpdated.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -2589,45 +2589,33 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```java
     }
 
-    private void collectLinks(Page<List<GlLink>> page, List<GlLink> links) throws URISyntaxException {
+    private void collectReleases(Page<List<GlRelease>> page, List<Release> releases) throws URISyntaxException {
         URI next = new URI(page.getLinks().next());
         logger.debug(next.toString());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GlLink`
+Can generalize to `? super Release`
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
     }
 
-    private void collectLinks(Page<List<GlLink>> page, List<GlLink> links) throws URISyntaxException {
+    private void collectReleases(Page<List<GlRelease>> page, List<Release> releases) throws URISyntaxException {
         URI next = new URI(page.getLinks().next());
         logger.debug(next.toString());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
+Can generalize to `? extends GlFileUpload`
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
     }
 
-    private void collectLabels(Page<List<GlLabel>> page, List<GlLabel> labels) throws URISyntaxException {
-        URI next = new URI(page.getLinks().next());
-        logger.debug(next.toString());
-```
+    void linkReleaseAssets(String owner, String repoName, GlRelease release, Integer projectIdentifier, Collection<GlFileUpload> uploads) throws IOException, RestAPIException {
+        logger.info(RB.$("git.upload.asset.links"), owner, repoName, release.getTagName());
 
-### BoundedWildcard
-Can generalize to `? super GlLabel`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-    }
-
-    private void collectLabels(Page<List<GlLabel>> page, List<GlLabel> labels) throws URISyntaxException {
-        URI next = new URI(page.getLinks().next());
-        logger.debug(next.toString());
 ```
 
 ### BoundedWildcard
@@ -2679,42 +2667,6 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-    }
-
-    private void collectReleases(Page<List<GlRelease>> page, List<Release> releases) throws URISyntaxException {
-        URI next = new URI(page.getLinks().next());
-        logger.debug(next.toString());
-```
-
-### BoundedWildcard
-Can generalize to `? super Release`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-    }
-
-    private void collectReleases(Page<List<GlRelease>> page, List<Release> releases) throws URISyntaxException {
-        URI next = new URI(page.getLinks().next());
-        logger.debug(next.toString());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Asset`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-    }
-
-    Collection<GlFileUpload> uploadAssets(String owner, String repoName, Integer projectIdentifier, List<Asset> assets) throws IOException, RestAPIException {
-        logger.debug(RB.$("git.upload.assets"), owner, repoName);
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends GlLinkRequest`
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
@@ -2751,39 +2703,87 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GlFileUpload`
+Can generalize to `? extends List`
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
     }
 
-    void linkReleaseAssets(String owner, String repoName, GlRelease release, Integer projectIdentifier, Collection<GlFileUpload> uploads) throws IOException, RestAPIException {
-        logger.info(RB.$("git.upload.asset.links"), owner, repoName, release.getTagName());
-
+    private void collectLabels(Page<List<GlLabel>> page, List<GlLabel> labels) throws URISyntaxException {
+        URI next = new URI(page.getLinks().next());
+        logger.debug(next.toString());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GlLinkRequest`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
+Can generalize to `? super GlLabel`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
     }
 
-    private void collectUploadLinks(Uploader<?> uploader, List<GlLinkRequest> links) {
-        List<String> keys = uploader.resolveSkipKeys();
-        keys.add(org.jreleaser.model.api.release.GitlabReleaser.SKIP_GITLAB_LINKS);
+    private void collectLabels(Page<List<GlLabel>> page, List<GlLabel> labels) throws URISyntaxException {
+        URI next = new URI(page.getLinks().next());
+        logger.debug(next.toString());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GlLink`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
+Can generalize to `? extends List`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
     }
 
-    private void updateAssets(Gitlab api, GlRelease release, List<Asset> assetsToBeUpdated, Integer projectIdentifier, String tagName, Map<String, GlLink> existingLinks) throws IOException {
-       try {
-           if (!assetsToBeUpdated.isEmpty()) {
+    private void collectLinks(Page<List<GlLink>> page, List<GlLink> links) throws URISyntaxException {
+        URI next = new URI(page.getLinks().next());
+        logger.debug(next.toString());
+```
+
+### BoundedWildcard
+Can generalize to `? super GlLink`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+#### Snippet
+```java
+    }
+
+    private void collectLinks(Page<List<GlLink>> page, List<GlLink> links) throws URISyntaxException {
+        URI next = new URI(page.getLinks().next());
+        logger.debug(next.toString());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Asset`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+#### Snippet
+```java
+    }
+
+    Collection<GlFileUpload> uploadAssets(String owner, String repoName, Integer projectIdentifier, List<Asset> assets) throws IOException, RestAPIException {
+        logger.debug(RB.$("git.upload.assets"), owner, repoName);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends RevCommit`
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+#### Snippet
+```java
+    protected String formatChangelog(JReleaserContext context,
+                                     Changelog changelog,
+                                     List<RevCommit> commits,
+                                     Comparator<RevCommit> revCommitComparator,
+                                     String lineSeparator) {
+```
+
+### BoundedWildcard
+Can generalize to `? super RevCommit`
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+#### Snippet
+```java
+                                     Changelog changelog,
+                                     List<RevCommit> commits,
+                                     Comparator<RevCommit> revCommitComparator,
+                                     String lineSeparator) {
+        Set<Contributor> contributors = new TreeSet<>();
 ```
 
 ### BoundedWildcard
@@ -2931,6 +2931,30 @@ in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/Abst
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/SdkmanHelper.java`
+#### Snippet
+```java
+    }
+
+    public static void collectArtifacts(JReleaserContext context, Distribution distribution, Map<String, String> platforms) {
+        for (Artifact artifact : distribution.getArtifacts()) {
+            if (!artifact.isActive()) continue;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/SdkmanHelper.java`
+#### Snippet
+```java
+    }
+
+    public static void collectArtifacts(JReleaserContext context, Distribution distribution, Map<String, String> platforms) {
+        for (Artifact artifact : distribution.getArtifacts()) {
+            if (!artifact.isActive()) continue;
+```
+
+### BoundedWildcard
 Can generalize to `? extends Asset`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/spi/release/AbstractReleaserBuilder.java`
 #### Snippet
@@ -2940,30 +2964,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/spi/release/Abst
     public ReleaserBuilder<R> setReleaseAssets(List<Asset> assets) {
         if (null != assets) {
             this.assets.addAll(assets);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/SdkmanHelper.java`
-#### Snippet
-```java
-    }
-
-    public static void collectArtifacts(JReleaserContext context, Distribution distribution, Map<String, String> platforms) {
-        for (Artifact artifact : distribution.getArtifacts()) {
-            if (!artifact.isActive()) continue;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/SdkmanHelper.java`
-#### Snippet
-```java
-    }
-
-    public static void collectArtifacts(JReleaserContext context, Distribution distribution, Map<String, String> platforms) {
-        for (Artifact artifact : distribution.getArtifacts()) {
-            if (!artifact.isActive()) continue;
 ```
 
 ### BoundedWildcard
@@ -2992,14 +2992,14 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Nexus2MavenDeployer.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/GitlabMavenDeployer.java`
 #### Snippet
 ```java
 
     @Override
     protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("snapshotUrl", snapshotUrl);
-        props.put("closeRepository", isCloseRepository());
+        props.put("projectIdentifier", projectIdentifier);
+    }
 ```
 
 ### BoundedWildcard
@@ -3016,38 +3016,14 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/GitlabMavenDeployer.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Nexus2MavenDeployer.java`
 #### Snippet
 ```java
 
     @Override
     protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("projectIdentifier", projectIdentifier);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/AbstractModelObject.java`
-#### Snippet
-```java
-    }
-
-    protected <T> List<T> merge(List<T> existing, List<T> incoming) {
-        List<T> l1 = new ArrayList<>();
-        if (null != existing) l1.addAll(existing);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/AbstractModelObject.java`
-#### Snippet
-```java
-    }
-
-    protected <T> List<T> merge(List<T> existing, List<T> incoming) {
-        List<T> l1 = new ArrayList<>();
-        if (null != existing) l1.addAll(existing);
+        props.put("snapshotUrl", snapshotUrl);
+        props.put("closeRepository", isCloseRepository());
 ```
 
 ### BoundedWildcard
@@ -3111,6 +3087,30 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/AbstractModelObject.java`
+#### Snippet
+```java
+    }
+
+    protected <T> List<T> merge(List<T> existing, List<T> incoming) {
+        List<T> l1 = new ArrayList<>();
+        if (null != existing) l1.addAll(existing);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/AbstractModelObject.java`
+#### Snippet
+```java
+    }
+
+    protected <T> List<T> merge(List<T> existing, List<T> incoming) {
+        List<T> l1 = new ArrayList<>();
+        if (null != existing) l1.addAll(existing);
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/HttpUploader.java`
 #### Snippet
@@ -3120,30 +3120,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/
     protected void asMap(boolean full, Map<String, Object> props) {
         props.put("authorization", authorization);
         props.put("method", method);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/AbstractWebUploader.java`
-#### Snippet
-```java
-    }
-
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("uploadUrl", uploadUrl);
-        props.put("downloadUrl", downloadUrl);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/GitlabUploader.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("host", host);
-        props.put("token", isNotBlank(token) ? HIDE : UNSET);
 ```
 
 ### BoundedWildcard
@@ -3172,6 +3148,30 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/AbstractWebUploader.java`
+#### Snippet
+```java
+    }
+
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("uploadUrl", uploadUrl);
+        props.put("downloadUrl", downloadUrl);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/GitlabUploader.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("host", host);
+        props.put("token", isNotBlank(token) ? HIDE : UNSET);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/ArtifactoryUploader.java`
 #### Snippet
 ```java
@@ -3180,18 +3180,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/
     protected void asMap(boolean full, Map<String, Object> props) {
         props.put("authorization", authorization);
         props.put("host", host);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/AbstractSshUploader.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("host", isNotBlank(host) ? HIDE : UNSET);
-        props.put("port", getPort());
 ```
 
 ### BoundedWildcard
@@ -3208,14 +3196,14 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TeamsAnnouncer.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/AbstractSshUploader.java`
 #### Snippet
 ```java
 
     @Override
     protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("webhook", isNotBlank(webhook) ? HIDE : UNSET);
-        props.put("messageTemplate", messageTemplate);
+        props.put("host", isNotBlank(host) ? HIDE : UNSET);
+        props.put("port", getPort());
 ```
 
 ### BoundedWildcard
@@ -3228,6 +3216,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/
     protected void asMap(boolean full, Map<String, Object> props) {
         props.put("host", host);
         props.put("port", getPort());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TeamsAnnouncer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("webhook", isNotBlank(webhook) ? HIDE : UNSET);
+        props.put("messageTemplate", messageTemplate);
 ```
 
 ### BoundedWildcard
@@ -3256,14 +3256,14 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/SdkmanAnnouncer.java`
 #### Snippet
 ```java
-        }
 
-        public void fillProps(Map<String, Object> props) {
-            if (isNotBlank(homepage)) props.put(PROJECT_LINK + "Homepage", homepage);
-            if (isNotBlank(documentation)) props.put(PROJECT_LINK + "Documentation", documentation);
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("consumerKey", isNotBlank(consumerKey) ? HIDE : UNSET);
+        props.put("consumerToken", isNotBlank(consumerToken) ? HIDE : UNSET);
 ```
 
 ### BoundedWildcard
@@ -3280,18 +3280,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/SdkmanAnnouncer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("consumerKey", isNotBlank(consumerKey) ? HIDE : UNSET);
-        props.put("consumerToken", isNotBlank(consumerToken) ? HIDE : UNSET);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TelegramAnnouncer.java`
 #### Snippet
 ```java
@@ -3303,15 +3291,15 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/GoogleChatAnnouncer.java`
+Can generalize to `? extends PathMatcher`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/Artifacts.java`
 #### Snippet
 ```java
+        private boolean failed;
 
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("webhook", isNotBlank(webhook) ? HIDE : UNSET);
-        props.put("message", message);
+        private GlobResolver(JReleaserLogger logger, Path basedir, List<PathMatcher> matchers) {
+            this.logger = logger;
+            this.matchers = matchers;
 ```
 
 ### BoundedWildcard
@@ -3328,55 +3316,19 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
+#### Snippet
+```java
+        }
+
+        public void fillProps(Map<String, Object> props) {
+            if (isNotBlank(homepage)) props.put(PROJECT_LINK + "Homepage", homepage);
+            if (isNotBlank(documentation)) props.put(PROJECT_LINK + "Documentation", documentation);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/GitterAnnouncer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("webhook", isNotBlank(webhook) ? HIDE : UNSET);
-        props.put("message", message);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/BaseReleaser.java`
-#### Snippet
-```java
-    }
-
-    public void fillProps(Map<String, Object> props, JReleaserModel model) {
-        props.put(Constants.KEY_REPO_HOST, host);
-        props.put(Constants.KEY_REPO_OWNER, owner);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/DiscourseAnnouncer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("host", host);
-        props.put("apiKey", isNotBlank(apiKey) ? HIDE : UNSET);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/ZulipAnnouncer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("account", account);
-        props.put("apiKey", isNotBlank(apiKey) ? HIDE : UNSET);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/MattermostAnnouncer.java`
 #### Snippet
 ```java
 
@@ -3400,6 +3352,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/DiscourseAnnouncer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("host", host);
+        props.put("apiKey", isNotBlank(apiKey) ? HIDE : UNSET);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/WebhookAnnouncer.java`
 #### Snippet
 ```java
@@ -3411,15 +3375,51 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PathMatcher`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/Artifacts.java`
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/GoogleChatAnnouncer.java`
 #### Snippet
 ```java
-        private boolean failed;
 
-        private GlobResolver(JReleaserLogger logger, Path basedir, List<PathMatcher> matchers) {
-            this.logger = logger;
-            this.matchers = matchers;
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("webhook", isNotBlank(webhook) ? HIDE : UNSET);
+        props.put("message", message);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/MattermostAnnouncer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("webhook", isNotBlank(webhook) ? HIDE : UNSET);
+        props.put("message", message);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/BaseReleaser.java`
+#### Snippet
+```java
+    }
+
+    public void fillProps(Map<String, Object> props, JReleaserModel model) {
+        props.put(Constants.KEY_REPO_HOST, host);
+        props.put(Constants.KEY_REPO_OWNER, owner);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/ZulipAnnouncer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("account", account);
+        props.put("apiKey", isNotBlank(apiKey) ? HIDE : UNSET);
 ```
 
 ### BoundedWildcard
@@ -3448,6 +3448,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TwitterAnnouncer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("consumerKey", isNotBlank(consumerKey) ? HIDE : UNSET);
+        props.put("consumerSecret", isNotBlank(consumerSecret) ? HIDE : UNSET);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/HttpAnnouncers.java`
 #### Snippet
 ```java
@@ -3468,18 +3480,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
     protected void asMap(boolean full, Map<String, Object> props) {
         props.put("url", url);
         props.put("authorization", authorization);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TwitterAnnouncer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("consumerKey", isNotBlank(consumerKey) ? HIDE : UNSET);
-        props.put("consumerSecret", isNotBlank(consumerSecret) ? HIDE : UNSET);
 ```
 
 ### BoundedWildcard
@@ -3508,31 +3508,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/download/FtpDownloader.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("host", host);
-        props.put("port", getPort());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/download/AbstractSshDownloader.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("host", isNotBlank(host) ? HIDE : UNSET);
-        props.put("port", getPort());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
 #### Snippet
 ```java
 
@@ -3556,7 +3532,19 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/download/FtpDownloader.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("host", host);
+        props.put("port", getPort());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
 #### Snippet
 ```java
 
@@ -3567,15 +3555,15 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Asset`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/download/AbstractDownloader.java`
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/download/AbstractSshDownloader.java`
 #### Snippet
 ```java
-    }
 
-    public void setAssets(List<Asset> assets) {
-        this.assets.clear();
-        this.assets.addAll(assets);
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("host", isNotBlank(host) ? HIDE : UNSET);
+        props.put("port", getPort());
 ```
 
 ### BoundedWildcard
@@ -3588,6 +3576,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/downloa
     protected void asMap(boolean full, Map<String, Object> props) {
         props.put("authorization", authorization);
         props.put("username", isNotBlank(username) ? HIDE : UNSET);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Asset`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/download/AbstractDownloader.java`
+#### Snippet
+```java
+    }
+
+    public void setAssets(List<Asset> assets) {
+        this.assets.clear();
+        this.assets.addAll(assets);
 ```
 
 ### BoundedWildcard
@@ -3628,18 +3628,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/GofishPackager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        super.asMap(full, props);
-        props.put("repository", repository.asMap(full));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
 #### Snippet
 ```java
@@ -3664,7 +3652,19 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/GofishPackager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        super.asMap(full, props);
+        props.put("repository", repository.asMap(full));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AppImagePackager.java`
 #### Snippet
 ```java
 
@@ -3688,18 +3688,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AppImagePackager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> map) {
-        super.asMap(full, map);
-        map.put("componentId", componentId);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AbstractTemplatePackager.java`
 #### Snippet
 ```java
@@ -3708,42 +3696,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
     protected void asMap(boolean full, Map<String, Object> props) {
         props.put("templateDirectory", templateDirectory);
         props.put("skipTemplates", skipTemplates);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/JbangPackager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        super.asMap(full, props);
-        props.put("alias", alias);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        super.asMap(full, props);
-        props.put("packageName", packageName);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/DockerPackager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        props.put("commitAuthor", commitAuthor.asMap(full));
-        props.put("repository", repository.asMap(full));
 ```
 
 ### BoundedWildcard
@@ -3788,10 +3740,10 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 #### Snippet
 ```java
 
-    @Override
-    protected void asMap(boolean full, Map<String, Object> props) {
-        super.asMap(full, props);
-        props.put("jlink", jlink);
+        @Override
+        protected void asMap(boolean full, Map<String, Object> props) {
+            props.put("packageName", packageName);
+            props.put("maintainer", maintainer);
 ```
 
 ### BoundedWildcard
@@ -3800,10 +3752,58 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 #### Snippet
 ```java
 
-        @Override
-        protected void asMap(boolean full, Map<String, Object> props) {
-            props.put("packageName", packageName);
-            props.put("maintainer", maintainer);
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        super.asMap(full, props);
+        props.put("jlink", jlink);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/DockerPackager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        props.put("commitAuthor", commitAuthor.asMap(full));
+        props.put("repository", repository.asMap(full));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> map) {
+        super.asMap(full, map);
+        map.put("componentId", componentId);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        super.asMap(full, props);
+        props.put("packageName", packageName);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/JbangPackager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void asMap(boolean full, Map<String, Object> props) {
+        super.asMap(full, props);
+        props.put("alias", alias);
 ```
 
 ### BoundedWildcard
@@ -3867,18 +3867,6 @@ in `sdks/jreleaser-nexus2-java-sdk/src/main/java/org/jreleaser/sdk/nexus2/Nexus2
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Path`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-    }
-
-    public static void copyFiles(JReleaserLogger logger, Path source, Path target, Set<Path> paths) throws IOException {
-        logger.debug(RB.$("files.copy", source, target));
-
-```
-
-### BoundedWildcard
 Can generalize to `? super Stream`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
@@ -3915,6 +3903,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Path`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+    }
+
+    public static void copyFiles(JReleaserLogger logger, Path source, Path target, Set<Path> paths) throws IOException {
+        logger.debug(RB.$("files.copy", source, target));
+
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 #### Snippet
@@ -3945,9 +3945,21 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 ```java
     }
 
-    public static void safePut(String key, Object value, Map<String, Object> dest, boolean forceKey) {
-        if (value != null) {
-            dest.put(key, value);
+    public static void safePut(String key, Map<String, Object> src, Map<String, Object> dest) {
+        if (src.containsKey(key)) {
+            dest.put(key, src.get(key));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+    }
+
+    public static void safePut(String key, Map<String, Object> src, Map<String, Object> dest, boolean forceKey) {
+        if (src.containsKey(key)) {
+            dest.put(key, src.get(key));
 ```
 
 ### BoundedWildcard
@@ -3960,18 +3972,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
     public static <T> List<T> reverse(List<T> input) {
         List<T> output = new ArrayList<>(input);
         Collections.reverse(output);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-    }
-
-    public static void safePut(String key, Map<String, Object> src, Map<String, Object> dest) {
-        if (src.containsKey(key)) {
-            dest.put(key, src.get(key));
 ```
 
 ### BoundedWildcard
@@ -3993,9 +3993,9 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 ```java
     }
 
-    public static void safePut(String key, Map<String, Object> src, Map<String, Object> dest, boolean forceKey) {
-        if (src.containsKey(key)) {
-            dest.put(key, src.get(key));
+    public static void safePut(String key, Object value, Map<String, Object> dest, boolean forceKey) {
+        if (value != null) {
+            dest.put(key, value);
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -4074,18 +4074,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/environ
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Banner.java`
-#### Snippet
-```java
-            if (!markerFile.exists()) {
-                System.out.println(BANNER.banner);
-                markerFile.getParentFile().mkdirs();
-                PrintStream out = new PrintStream(new FileOutputStream(markerFile));
-                out.println("1");
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Banner.java`
 #### Snippet
 ```java
@@ -4094,6 +4082,18 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Banner.java`
                 markerFile.getParentFile().mkdirs();
                 PrintStream fout = new PrintStream(new FileOutputStream(markerFile));
                 fout.println("1");
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Banner.java`
+#### Snippet
+```java
+            if (!markerFile.exists()) {
+                System.out.println(BANNER.banner);
+                markerFile.getParentFile().mkdirs();
+                PrintStream out = new PrintStream(new FileOutputStream(markerFile));
+                out.println("1");
 ```
 
 ### IgnoreResultOfCall
@@ -4137,42 +4137,6 @@ Result of `File.setReadable()` is ignored
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
 ```java
-            File s = src.toFile();
-            File d = dest.toFile();
-            d.setReadable(s.canRead());
-            d.setWritable(s.canWrite());
-            d.setExecutable(s.canExecute());
-```
-
-### IgnoreResultOfCall
-Result of `File.setWritable()` is ignored
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-            File d = dest.toFile();
-            d.setReadable(s.canRead());
-            d.setWritable(s.canWrite());
-            d.setExecutable(s.canExecute());
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.setExecutable()` is ignored
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-            d.setReadable(s.canRead());
-            d.setWritable(s.canWrite());
-            d.setExecutable(s.canExecute());
-        }
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.setReadable()` is ignored
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
             Files.setPosixFilePermissions(path, perms);
         } else if (accessRights.contains("r")) {
             path.toFile().setReadable(true);
@@ -4200,6 +4164,42 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
             path.toFile().setWritable(true);
         } else if (accessRights.contains("x")) {
             path.toFile().setExecutable(true);
+        }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.setReadable()` is ignored
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+            File s = src.toFile();
+            File d = dest.toFile();
+            d.setReadable(s.canRead());
+            d.setWritable(s.canWrite());
+            d.setExecutable(s.canExecute());
+```
+
+### IgnoreResultOfCall
+Result of `File.setWritable()` is ignored
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+            File d = dest.toFile();
+            d.setReadable(s.canRead());
+            d.setWritable(s.canWrite());
+            d.setExecutable(s.canExecute());
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.setExecutable()` is ignored
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+            d.setReadable(s.canRead());
+            d.setWritable(s.canWrite());
+            d.setExecutable(s.canExecute());
         }
     }
 ```
@@ -4239,19 +4239,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/AbstractJavaAss
     public void setAssembler(S assembler) {
         this.assembler = assembler;
     }
-```
-
-## RuleId[ruleID=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-@CommandLine.Command(name = "template")
-public class Template extends AbstractLoggingCommand {
-    @CommandLine.ArgGroup(exclusive = true, multiplicity = "1")
-    Composite composite;
-
 ```
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -4305,19 +4292,19 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/Defaul
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
 #### Snippet
 ```java
     }
 
     public static class Builder extends AbstractSdkmanCommand.Builder<Builder> {
         private final Map<String, String> platforms = new LinkedHashMap<>();
-        private String url;
+        private String hashtag;
 ```
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MinorReleaseSdkmanCommand.java`
 #### Snippet
 ```java
     }
@@ -4341,14 +4328,14 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/Announ
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MinorReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
 #### Snippet
 ```java
     }
 
     public static class Builder extends AbstractSdkmanCommand.Builder<Builder> {
         private final Map<String, String> platforms = new LinkedHashMap<>();
-        private String hashtag;
+        private String url;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -4360,6 +4347,19 @@ in `sdks/jreleaser-twitter-java-sdk/src/main/java/org/jreleaser/sdk/twitter/Upda
 
     public static class Builder extends AbstractTwitterCommand.Builder<Builder> {
         private List<String> statuses;
+
+```
+
+## RuleId[ruleID=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+@CommandLine.Command(name = "template")
+public class Template extends AbstractLoggingCommand {
+    @CommandLine.ArgGroup(exclusive = true, multiplicity = "1")
+    Composite composite;
 
 ```
 
@@ -4420,10 +4420,10 @@ Result of assignment expression used
 in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
 #### Snippet
 ```java
-
-            int ch;
-            while ((ch = fileInputStream.read()) >= 0) {
-                sig.update((byte) ch);
+            byte[] buffer = new byte[8192];
+            int length = 0;
+            while ((length = in.read(buffer)) >= 0) {
+                signatureGenerator.update(buffer, 0, length);
             }
 ```
 
@@ -4432,10 +4432,10 @@ Result of assignment expression used
 in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
 #### Snippet
 ```java
-            byte[] buffer = new byte[8192];
-            int length = 0;
-            while ((length = in.read(buffer)) >= 0) {
-                signatureGenerator.update(buffer, 0, length);
+
+            int ch;
+            while ((ch = fileInputStream.read()) >= 0) {
+                sig.update((byte) ch);
             }
 ```
 
@@ -4733,18 +4733,6 @@ public interface FtpUploader extends Uploader, ExtraProperties, Ftp {
 
 ### RedundantImplements
 Redundant interface declaration `Assembler`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/assemble/NativeImageAssembler.java`
-#### Snippet
-```java
- * @since 0.2.0
- */
-public interface NativeImageAssembler extends Assembler, JavaAssembler {
-    String TYPE = "native-image";
-
-```
-
-### RedundantImplements
-Redundant interface declaration `Assembler`
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/assemble/JlinkAssembler.java`
 #### Snippet
 ```java
@@ -4752,6 +4740,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/assemble/Jlink
  */
 public interface JlinkAssembler extends Assembler, JavaAssembler {
     String TYPE = "jlink";
+
+```
+
+### RedundantImplements
+Redundant interface declaration `Assembler`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/assemble/NativeImageAssembler.java`
+#### Snippet
+```java
+ * @since 0.2.0
+ */
+public interface NativeImageAssembler extends Assembler, JavaAssembler {
+    String TYPE = "native-image";
 
 ```
 
@@ -4879,42 +4879,6 @@ in `sdks/jreleaser-nexus2-java-sdk/src/main/java/org/jreleaser/sdk/nexus2/Nexus2
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/ChocolateyPackagerProcessor.java`
-#### Snippet
-```java
-
-        Path outputFile = "binary.nuspec".equals(fileName) ?
-            outputDirectory.resolve(distribution.getName()).resolve(packager.getPackageName().concat(".nuspec")) :
-            fileName.endsWith(".ps1") ? outputDirectory.resolve(distribution.getName()).resolve(fileName) :
-                outputDirectory.resolve(fileName);
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
-#### Snippet
-```java
-
-        Path outputFile = "app.spec".equals(fileName) ?
-            outputDirectory.resolve(packager.getPackageName().concat(".spec")) :
-            outputDirectory.resolve(fileName);
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/JbangPackagerProcessor.java`
-#### Snippet
-```java
-        String scriptName = (String) props.get(KEY_JBANG_SCRIPT_NAME);
-        Path outputFile = "jbang.java".equals(fileName) ?
-            outputDirectory.resolve(scriptName.concat(".java")) :
-            outputDirectory.resolve(fileName);
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 #### Snippet
 ```java
@@ -4947,6 +4911,42 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
                     Path output = signaturesDirectory.resolve(checksums.getFileName().toString().concat(extension));
                     SigningUtils.FilePair pair = new SigningUtils.FilePair(checksums, output);
                     if (!forceSign) pair.setValid(validator.apply(pair));
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
+#### Snippet
+```java
+
+        Path outputFile = "app.spec".equals(fileName) ?
+            outputDirectory.resolve(packager.getPackageName().concat(".spec")) :
+            outputDirectory.resolve(fileName);
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/ChocolateyPackagerProcessor.java`
+#### Snippet
+```java
+
+        Path outputFile = "binary.nuspec".equals(fileName) ?
+            outputDirectory.resolve(distribution.getName()).resolve(packager.getPackageName().concat(".nuspec")) :
+            fileName.endsWith(".ps1") ? outputDirectory.resolve(distribution.getName()).resolve(fileName) :
+                outputDirectory.resolve(fileName);
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/JbangPackagerProcessor.java`
+#### Snippet
+```java
+        String scriptName = (String) props.get(KEY_JBANG_SCRIPT_NAME);
+        Path outputFile = "jbang.java".equals(fileName) ?
+            outputDirectory.resolve(scriptName.concat(".java")) :
+            outputDirectory.resolve(fileName);
+
 ```
 
 ### CallToStringConcatCanBeReplacedByOperator
@@ -5219,18 +5219,6 @@ in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@org.gradle.api.Incubating' annotation because its signature references unstable type 'org.gradle.api.provider.MapProperty'
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/announce/HttpAnnouncer.groovy`
-#### Snippet
-```java
-    Property<String> getBearerKeyword()
-
-    MapProperty<String, String> getHeaders()
-
-    void setHeader(String key, String value)
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@org.gradle.api.Incubating' annotation because its signature references unstable type 'org.gradle.api.provider.MapProperty'
 in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/announce/SmtpAnnouncer.groovy`
 #### Snippet
 ```java
@@ -5242,10 +5230,10 @@ in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@org.gradle.api.Incubating' annotation because its signature references unstable type 'org.gradle.api.provider.MapProperty'
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/download/HttpDownloader.groovy`
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/announce/HttpAnnouncer.groovy`
 #### Snippet
 ```java
-    Property<Http.Authorization> getAuthorization()
+    Property<String> getBearerKeyword()
 
     MapProperty<String, String> getHeaders()
 
@@ -5265,14 +5253,14 @@ interface Platform {
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@org.gradle.api.Incubating' annotation because its signature references unstable type 'org.gradle.api.provider.MapProperty'
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/packagers/DockerConfiguration.groovy`
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/download/HttpDownloader.groovy`
 #### Snippet
 ```java
-    ListProperty<String> getPostCommands()
+    Property<Http.Authorization> getAuthorization()
 
-    MapProperty<String, String> getLabels()
+    MapProperty<String, String> getHeaders()
 
-    void imageName(String imageName)
+    void setHeader(String key, String value)
 ```
 
 ### UnstableTypeUsedInSignature
@@ -5289,14 +5277,14 @@ interface DockerSpec extends DockerConfiguration {
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@org.gradle.api.Incubating' annotation because its signature references unstable type 'org.gradle.api.provider.MapProperty'
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/packagers/SnapPackager.groovy`
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/packagers/DockerConfiguration.groovy`
 #### Snippet
 ```java
-    @CompileStatic
-    interface Slot {
-        MapProperty<String, String> getAttributes()
+    ListProperty<String> getPostCommands()
 
-        void attribute(String key, String value)
+    MapProperty<String, String> getLabels()
+
+    void imageName(String imageName)
 ```
 
 ### UnstableTypeUsedInSignature
@@ -5305,7 +5293,7 @@ in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/
 #### Snippet
 ```java
     @CompileStatic
-    interface Plug {
+    interface Slot {
         MapProperty<String, String> getAttributes()
 
         void attribute(String key, String value)
@@ -5321,6 +5309,18 @@ in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/
     MapProperty<String, String> getDependencies()
 
     void dependency(String key, String value)
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@org.gradle.api.Incubating' annotation because its signature references unstable type 'org.gradle.api.provider.MapProperty'
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/dsl/packagers/SnapPackager.groovy`
+#### Snippet
+```java
+    @CompileStatic
+    interface Plug {
+        MapProperty<String, String> getAttributes()
+
+        void attribute(String key, String value)
 ```
 
 ### UnstableTypeUsedInSignature
@@ -5372,6 +5372,18 @@ in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
+Variable `message` initializer `""` is redundant
+in `sdks/jreleaser-discourse-java-sdk/src/main/java/org/jreleaser/sdk/discourse/DiscourseAnnouncer.java`
+#### Snippet
+```java
+    @Override
+    public void announce() throws AnnounceException {
+        String message = "";
+        if (isNotBlank(discourse.getMessage())) {
+            message = discourse.getResolvedMessage(context);
+```
+
+### UnusedAssignment
 Variable `config` initializer `null` is redundant
 in `core/jreleaser-config-yaml/src/main/java/org/jreleaser/config/yaml/YamlJReleaserConfigParser.java`
 #### Snippet
@@ -5396,30 +5408,6 @@ in `sdks/jreleaser-discord-java-sdk/src/main/java/org/jreleaser/sdk/discord/Disc
 ```
 
 ### UnusedAssignment
-Variable `message` initializer `""` is redundant
-in `sdks/jreleaser-discourse-java-sdk/src/main/java/org/jreleaser/sdk/discourse/DiscourseAnnouncer.java`
-#### Snippet
-```java
-    @Override
-    public void announce() throws AnnounceException {
-        String message = "";
-        if (isNotBlank(discourse.getMessage())) {
-            message = discourse.getResolvedMessage(context);
-```
-
-### UnusedAssignment
-Variable `gtLabel` initializer `null` is redundant
-in `sdks/jreleaser-codeberg-java-sdk/src/main/java/org/jreleaser/sdk/codeberg/CodebergReleaser.java`
-#### Snippet
-```java
-        }
-
-        GtLabel gtLabel = null;
-
-        try {
-```
-
-### UnusedAssignment
 Variable `commandLine` initializer `null` is redundant
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/CommandHookExecutor.java`
 #### Snippet
@@ -5441,6 +5429,18 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/context/ModelConfig
         Repository repository = null;
         try {
             repository = GitSdk.of(context).getRemote();
+```
+
+### UnusedAssignment
+Variable `gtLabel` initializer `null` is redundant
+in `sdks/jreleaser-codeberg-java-sdk/src/main/java/org/jreleaser/sdk/codeberg/CodebergReleaser.java`
+#### Snippet
+```java
+        }
+
+        GtLabel gtLabel = null;
+
+        try {
 ```
 
 ### UnusedAssignment
@@ -5720,18 +5720,6 @@ in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/SmtpAnnoun
 ```
 
 ### UnusedAssignment
-Variable `pgpSigList` initializer `null` is redundant
-in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
-#### Snippet
-```java
-
-            PGPObjectFactory pgpObjFactory = new PGPObjectFactory(sigInputStream, keyring.getKeyFingerPrintCalculator());
-            Iterable<?> pgpSigList = null;
-
-            Object obj = pgpObjFactory.nextObject();
-```
-
-### UnusedAssignment
 Variable `length` initializer `0` is redundant
 in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
 #### Snippet
@@ -5741,6 +5729,18 @@ in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/Sign
             int length = 0;
             while ((length = in.read(buffer)) >= 0) {
                 signatureGenerator.update(buffer, 0, length);
+```
+
+### UnusedAssignment
+Variable `pgpSigList` initializer `null` is redundant
+in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
+#### Snippet
+```java
+
+            PGPObjectFactory pgpObjFactory = new PGPObjectFactory(sigInputStream, keyring.getKeyFingerPrintCalculator());
+            Iterable<?> pgpSigList = null;
+
+            Object obj = pgpObjFactory.nextObject();
 ```
 
 ### UnusedAssignment
@@ -5757,18 +5757,6 @@ in `sdks/jreleaser-telegram-java-sdk/src/main/java/org/jreleaser/sdk/telegram/Te
 
 ### UnusedAssignment
 Variable `message` initializer `""` is redundant
-in `sdks/jreleaser-webhooks-java-sdk/src/main/java/org/jreleaser/sdk/webhooks/WebhooksAnnouncer.java`
-#### Snippet
-```java
-
-    public void announce(WebhookAnnouncer webhook) throws AnnounceException {
-        String message = "";
-        if (isNotBlank(webhook.getMessage())) {
-            message = webhook.getResolvedMessage(context);
-```
-
-### UnusedAssignment
-Variable `message` initializer `""` is redundant
 in `sdks/jreleaser-zulip-java-sdk/src/main/java/org/jreleaser/sdk/zulip/ZulipAnnouncer.java`
 #### Snippet
 ```java
@@ -5777,6 +5765,18 @@ in `sdks/jreleaser-zulip-java-sdk/src/main/java/org/jreleaser/sdk/zulip/ZulipAnn
         String message = "";
         if (isNotBlank(zulip.getMessage())) {
             message = zulip.getResolvedMessage(context);
+```
+
+### UnusedAssignment
+Variable `message` initializer `""` is redundant
+in `sdks/jreleaser-webhooks-java-sdk/src/main/java/org/jreleaser/sdk/webhooks/WebhooksAnnouncer.java`
+#### Snippet
+```java
+
+    public void announce(WebhookAnnouncer webhook) throws AnnounceException {
+        String message = "";
+        if (isNotBlank(webhook.getMessage())) {
+            message = webhook.getResolvedMessage(context);
 ```
 
 ### UnusedAssignment
@@ -5881,30 +5881,6 @@ Value `b` is always 'true'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
 #### Snippet
 ```java
-        if ("true".equalsIgnoreCase(s) || "false".equalsIgnoreCase(s)) {
-            boolean b = Boolean.valueOf(s);
-            return b ? green(String.valueOf(b)) : red(String.valueOf(b));
-        } else {
-            return null;
-```
-
-### ConstantValue
-Value `b` is always 'false'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
-#### Snippet
-```java
-        if ("true".equalsIgnoreCase(s) || "false".equalsIgnoreCase(s)) {
-            boolean b = Boolean.valueOf(s);
-            return b ? green(String.valueOf(b)) : red(String.valueOf(b));
-        } else {
-            return null;
-```
-
-### ConstantValue
-Value `b` is always 'true'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
-#### Snippet
-```java
         if (value instanceof Boolean) {
             Boolean b = (Boolean) value;
             return b ? green(String.valueOf(b)) : red(String.valueOf(b));
@@ -5934,6 +5910,30 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
         return String.valueOf(value);
     }
 
+```
+
+### ConstantValue
+Value `b` is always 'true'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
+#### Snippet
+```java
+        if ("true".equalsIgnoreCase(s) || "false".equalsIgnoreCase(s)) {
+            boolean b = Boolean.valueOf(s);
+            return b ? green(String.valueOf(b)) : red(String.valueOf(b));
+        } else {
+            return null;
+```
+
+### ConstantValue
+Value `b` is always 'false'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
+#### Snippet
+```java
+        if ("true".equalsIgnoreCase(s) || "false".equalsIgnoreCase(s)) {
+            boolean b = Boolean.valueOf(s);
+            return b ? green(String.valueOf(b)) : red(String.valueOf(b));
+        } else {
+            return null;
 ```
 
 ### ConstantValue
@@ -6025,18 +6025,6 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ## RuleId[ruleID=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
-#### Snippet
-```java
-    private Set<UpdateSection> collectUpdateSections() {
-        Set<UpdateSection> set = new LinkedHashSet<>();
-        if (composite.autoConfig.updateSections != null && composite.autoConfig.updateSections.length > 0) {
-            for (String updateSection : composite.autoConfig.updateSections) {
-                set.add(UpdateSection.of(updateSection.trim()));
-```
-
-### RedundantLengthCheck
-Redundant array length check
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractLoggingCommand.java`
 #### Snippet
 ```java
@@ -6045,6 +6033,18 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractLoggingCommand.jav
         if (input != null && input.length > 0) {
             for (String s : input) {
                 if (isNotBlank(s)) {
+```
+
+### RedundantLengthCheck
+Redundant array length check
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
+#### Snippet
+```java
+    private Set<UpdateSection> collectUpdateSections() {
+        Set<UpdateSection> set = new LinkedHashSet<>();
+        if (composite.autoConfig.updateSections != null && composite.autoConfig.updateSections.length > 0) {
+            for (String updateSection : composite.autoConfig.updateSections) {
+                set.add(UpdateSection.of(updateSection.trim()));
 ```
 
 ### RedundantLengthCheck
@@ -6109,18 +6109,6 @@ public class JReleaserVersion {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ArtifactDeployers` has only 'static' members, and lacks a 'private' constructor
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/deploy/maven/ArtifactDeployers.java`
-#### Snippet
-```java
- * @since 1.3.0
- */
-public class ArtifactDeployers {
-    public static <A extends org.jreleaser.model.api.deploy.maven.MavenDeployer, D extends org.jreleaser.model.internal.deploy.maven.MavenDeployer<A>> MavenDeployer<A, D> findMavenDeployer(JReleaserContext context, D deployer) {
-        Map<String, MavenDeployer<?, ?>> deployers = StreamSupport.stream(ServiceLoader.load(MavenDeployerFactory.class,
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ArtifactUploaders` has only 'static' members, and lacks a 'private' constructor
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/upload/ArtifactUploaders.java`
 #### Snippet
@@ -6130,6 +6118,18 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/upload/ArtifactUplo
 public class ArtifactUploaders {
     public static <A extends org.jreleaser.model.api.upload.Uploader, U extends Uploader<A>> ArtifactUploader<A, U> findUploader(JReleaserContext context, U uploader) {
         Map<String, ArtifactUploader<?, ?>> uploaders = StreamSupport.stream(ServiceLoader.load(ArtifactUploaderFactory.class,
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ArtifactDeployers` has only 'static' members, and lacks a 'private' constructor
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/deploy/maven/ArtifactDeployers.java`
+#### Snippet
+```java
+ * @since 1.3.0
+ */
+public class ArtifactDeployers {
+    public static <A extends org.jreleaser.model.api.deploy.maven.MavenDeployer, D extends org.jreleaser.model.internal.deploy.maven.MavenDeployer<A>> MavenDeployer<A, D> findMavenDeployer(JReleaserContext context, D deployer) {
+        Map<String, MavenDeployer<?, ?>> deployers = StreamSupport.stream(ServiceLoader.load(MavenDeployerFactory.class,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6157,6 +6157,18 @@ public class Uploaders {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `Releasers` has only 'static' members, and lacks a 'private' constructor
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/release/Releasers.java`
+#### Snippet
+```java
+ * @since 0.1.0
+ */
+public class Releasers {
+    public static void release(JReleaserContext context) throws ReleaseException {
+        org.jreleaser.model.api.release.Releaser releaser = context.getModel().getRelease().releaser();
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ModelValidator` has only 'static' members, and lacks a 'private' constructor
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/context/ModelValidator.java`
 #### Snippet
@@ -6169,27 +6181,15 @@ public class ModelValidator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ModelConfigurer` has only 'static' members, and lacks a 'private' constructor
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/context/ModelConfigurer.java`
-#### Snippet
-```java
- * @since 0.2.0
- */
-public class ModelConfigurer {
-    public static void configure(JReleaserContext context) {
-        try {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Releasers` has only 'static' members, and lacks a 'private' constructor
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/release/Releasers.java`
+Class `Announcers` has only 'static' members, and lacks a 'private' constructor
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/announce/Announcers.java`
 #### Snippet
 ```java
  * @since 0.1.0
  */
-public class Releasers {
-    public static void release(JReleaserContext context) throws ReleaseException {
-        org.jreleaser.model.api.release.Releaser releaser = context.getModel().getRelease().releaser();
+public class Announcers {
+    public static void announce(JReleaserContext context) throws AnnounceException {
+        context.getLogger().info(RB.$("announcers.header"));
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6205,15 +6205,15 @@ public class AssemblerProcessors {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Announcers` has only 'static' members, and lacks a 'private' constructor
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/announce/Announcers.java`
+Class `ModelConfigurer` has only 'static' members, and lacks a 'private' constructor
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/context/ModelConfigurer.java`
 #### Snippet
 ```java
- * @since 0.1.0
+ * @since 0.2.0
  */
-public class Announcers {
-    public static void announce(JReleaserContext context) throws AnnounceException {
-        context.getLogger().info(RB.$("announcers.header"));
+public class ModelConfigurer {
+    public static void configure(JReleaserContext context) {
+        try {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6253,18 +6253,6 @@ public class Changelog {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Downloaders` has only 'static' members, and lacks a 'private' constructor
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/download/Downloaders.java`
-#### Snippet
-```java
- * @since 1.1.0
- */
-public class Downloaders {
-    public static void download(JReleaserContext context) {
-        Download download = context.getModel().getDownload();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PackagerProcessors` has only 'static' members, and lacks a 'private' constructor
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/distribution/PackagerProcessors.java`
 #### Snippet
@@ -6274,6 +6262,18 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/distribution/Packag
 public class PackagerProcessors {
     public static <T extends Packager> PackagerProcessor<T> findProcessor(JReleaserContext context, T packager) {
         Map<String, PackagerProcessor> processors = StreamSupport.stream(ServiceLoader.load(PackagerProcessorFactory.class,
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Downloaders` has only 'static' members, and lacks a 'private' constructor
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/download/Downloaders.java`
+#### Snippet
+```java
+ * @since 1.1.0
+ */
+public class Downloaders {
+    public static void download(JReleaserContext context) {
+        Download download = context.getModel().getDownload();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6313,18 +6313,6 @@ public class Workflows {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ContextCreator` has only 'static' members, and lacks a 'private' constructor
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/context/ContextCreator.java`
-#### Snippet
-```java
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class ContextCreator {
-    public static JReleaserContext create(JReleaserLogger logger,
-                                          JReleaserContext.Configurer configurer,
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Signer` has only 'static' members, and lacks a 'private' constructor
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 #### Snippet
@@ -6334,6 +6322,18 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
 public class Signer {
     public static void sign(JReleaserContext context) throws SigningException {
         context.getLogger().info(RB.$("signing.header"));
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ContextCreator` has only 'static' members, and lacks a 'private' constructor
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/context/ContextCreator.java`
+#### Snippet
+```java
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public class ContextCreator {
+    public static JReleaserContext create(JReleaserLogger logger,
+                                          JReleaserContext.Configurer configurer,
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6421,18 +6421,6 @@ public class JReleaserConfigLoader {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Templates` has only 'static' members, and lacks a 'private' constructor
-in `api/jreleaser-mustache/src/main/java/org/jreleaser/mustache/Templates.java`
-#### Snippet
-```java
- * @since 0.10.0
- */
-public class Templates {
-    public static String resolveTemplate(String input, Map<String, Object> props) {
-        if (isBlank(input)) return input;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ProcessorUtil` has only 'static' members, and lacks a 'private' constructor
 in `infra/jreleaser-nativeimage-processor/src/main/java/org/jreleaser/infra/nativeimage/processor/ProcessorUtil.java`
 #### Snippet
@@ -6442,6 +6430,18 @@ in `infra/jreleaser-nativeimage-processor/src/main/java/org/jreleaser/infra/nati
 public final class ProcessorUtil {
     static void generate(Location location, String fileName, String content, Context context) throws IOException {
         if (content == null || content.isEmpty()) return;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Templates` has only 'static' members, and lacks a 'private' constructor
+in `api/jreleaser-mustache/src/main/java/org/jreleaser/mustache/Templates.java`
+#### Snippet
+```java
+ * @since 0.10.0
+ */
+public class Templates {
+    public static String resolveTemplate(String input, Map<String, Object> props) {
+        if (isBlank(input)) return input;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -6760,6 +6760,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'getWebsite' is still used
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public String getWebsite() {
+        return links.getHomepage();
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getLicenseUrl' is still used
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
 #### Snippet
@@ -6780,18 +6792,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project
     @Deprecated
     public String getDocsUrl() {
         return links.getDocumentation();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getWebsite' is still used
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public String getWebsite() {
-        return links.getHomepage();
     }
 ```
 
@@ -7071,18 +7071,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'previous'
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
-#### Snippet
-```java
-    public static class Tags {
-        private final Optional<Ref> current;
-        private final Optional<Ref> previous;
-
-        private Tags(Ref current, Ref previous) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'current'
 in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
 #### Snippet
@@ -7092,6 +7080,18 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGen
         private final Optional<Ref> current;
         private final Optional<Ref> previous;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'previous'
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+#### Snippet
+```java
+    public static class Tags {
+        private final Optional<Ref> current;
+        private final Optional<Ref> previous;
+
+        private Tags(Ref current, Ref previous) {
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -7145,7 +7145,7 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserC
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractJReleaserTask.java`
+in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserTemplateTask.java`
 #### Snippet
 ```java
     @Override
@@ -7169,7 +7169,7 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserI
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserTemplateTask.java`
+in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractJReleaserTask.java`
 #### Snippet
 ```java
     @Override
@@ -7189,18 +7189,6 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserA
         Banner.display(new PrintWriter(System.out, true));
 
         basedir();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `api/jreleaser-logger-api/src/main/java/org/jreleaser/logging/SimpleJReleaserLoggerAdapter.java`
-#### Snippet
-```java
-
-    public SimpleJReleaserLoggerAdapter(PrintWriter out, Level level) {
-        super(new PrintWriter(System.err));
-        this.out = out;
-        this.level = level;
 ```
 
 ### SystemOutErr
@@ -7225,6 +7213,18 @@ in `api/jreleaser-logger-api/src/main/java/org/jreleaser/logging/SimpleJReleaser
         this(System.out, level);
     }
 
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `api/jreleaser-logger-api/src/main/java/org/jreleaser/logging/SimpleJReleaserLoggerAdapter.java`
+#### Snippet
+```java
+
+    public SimpleJReleaserLoggerAdapter(PrintWriter out, Level level) {
+        super(new PrintWriter(System.err));
+        this.out = out;
+        this.level = level;
 ```
 
 ### SystemOutErr
@@ -7377,9 +7377,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/AppImagePackager
 in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/AssemblerUtils.java`
 #### Snippet
 ```java
-    public static Path maybeAdjust(Path path) {
+    public static String maybeAdjust(String path) {
         if (PlatformUtils.isWindows()) {
-            return Paths.get(path.toString().replace("/", File.separator));
+            return path.replace("/", File.separator);
         }
 
 ```
@@ -7389,9 +7389,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/AssemblerUtils.
 in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/AssemblerUtils.java`
 #### Snippet
 ```java
-    public static String maybeAdjust(String path) {
+    public static Path maybeAdjust(Path path) {
         if (PlatformUtils.isWindows()) {
-            return path.replace("/", File.separator);
+            return Paths.get(path.toString().replace("/", File.separator));
         }
 
 ```
@@ -7451,9 +7451,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustac
 ```java
         @Override
         public String apply(String input) {
-            return input.replace(".", "/")
-                .replace("-", "/")
-                .replace("+", "/");
+            return input.replace(".", "_")
+                .replace("-", "_")
+                .replace("+", "_");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7462,9 +7462,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustac
 #### Snippet
 ```java
         public String apply(String input) {
-            return input.replace(".", "/")
-                .replace("-", "/")
-                .replace("+", "/");
+            return input.replace(".", "_")
+                .replace("-", "_")
+                .replace("+", "_");
         }
 ```
 
@@ -7473,9 +7473,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustac
 in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustache/DefaultMustacheExtensionPoint.java`
 #### Snippet
 ```java
-            return input.replace(".", "/")
-                .replace("-", "/")
-                .replace("+", "/");
+            return input.replace(".", "_")
+                .replace("-", "_")
+                .replace("+", "_");
         }
     }
 ```
@@ -7487,9 +7487,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustac
 ```java
         @Override
         public String apply(String input) {
-            return input.replace(".", "_")
-                .replace("-", "_")
-                .replace("+", "_");
+            return input.replace(".", "/")
+                .replace("-", "/")
+                .replace("+", "/");
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7498,9 +7498,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustac
 #### Snippet
 ```java
         public String apply(String input) {
-            return input.replace(".", "_")
-                .replace("-", "_")
-                .replace("+", "_");
+            return input.replace(".", "/")
+                .replace("-", "/")
+                .replace("+", "/");
         }
 ```
 
@@ -7509,9 +7509,9 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustac
 in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/mustache/DefaultMustacheExtensionPoint.java`
 #### Snippet
 ```java
-            return input.replace(".", "_")
-                .replace("-", "_")
-                .replace("+", "_");
+            return input.replace(".", "/")
+                .replace("-", "/")
+                .replace("+", "/");
         }
     }
 ```
@@ -7577,15 +7577,15 @@ in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
-        String effectiveTagName = releaser.getEffectiveTagName(context.getModel());
-        String tagName = releaser.getConfiguredTagName();
-        String tagPattern = tagName.replaceAll("\\{\\{.*}}", "\\.\\*");
 
-        Pattern versionPattern = VersionUtils.resolveVersionPattern(context);
+        this.apiHost = endpoint.substring(0, endpoint.length() - API_V4.length());
+        this.graphQlEndpoint = endpoint.replace("v4", "graphql");
+        this.connectTimeout = connectTimeout;
+        this.readTimeout = readTimeout;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7601,15 +7601,15 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGen
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
 #### Snippet
 ```java
+        String effectiveTagName = releaser.getEffectiveTagName(context.getModel());
+        String tagName = releaser.getConfiguredTagName();
+        String tagPattern = tagName.replaceAll("\\{\\{.*}}", "\\.\\*");
 
-        this.apiHost = endpoint.substring(0, endpoint.length() - API_V4.length());
-        this.graphQlEndpoint = endpoint.replace("v4", "graphql");
-        this.connectTimeout = connectTimeout;
-        this.readTimeout = readTimeout;
+        Pattern versionPattern = VersionUtils.resolveVersionPattern(context);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7673,30 +7673,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/VersionPattern.jav
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Distribution.java`
-#### Snippet
-```java
-            if (isBlank(str)) return null;
-
-            String value = str.replaceAll(" ", "_")
-                .replaceAll("-", "_")
-                .toUpperCase(Locale.ENGLISH).trim();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Distribution.java`
-#### Snippet
-```java
-
-            String value = str.replaceAll(" ", "_")
-                .replaceAll("-", "_")
-                .toUpperCase(Locale.ENGLISH).trim();
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Archive.java`
 #### Snippet
@@ -7706,6 +7682,30 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Archive.java`
                 .replace(".", "_"));
         }
     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Distribution.java`
+#### Snippet
+```java
+            if (isBlank(str)) return null;
+
+            String value = str.replaceAll(" ", "_")
+                .replaceAll("-", "_")
+                .toUpperCase(Locale.ENGLISH).trim();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Distribution.java`
+#### Snippet
+```java
+
+            String value = str.replaceAll(" ", "_")
+                .replaceAll("-", "_")
+                .toUpperCase(Locale.ENGLISH).trim();
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7785,6 +7785,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/hooks/Executio
 in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/AbstractMavenDeployer.java`
 #### Snippet
 ```java
+
+        public String getDeployPath() {
+            return path.replace("\\", "/");
+        }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/AbstractMavenDeployer.java`
+#### Snippet
+```java
             p = p.getParent();
             String gid = p.toString()
                 .replace("/", ".")
@@ -7806,18 +7818,6 @@ in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/Abst
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/AbstractMavenDeployer.java`
-#### Snippet
-```java
-
-        public String getDeployPath() {
-            return path.replace("\\", "/");
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/CustomVersion.java`
 #### Snippet
 ```java
@@ -7826,6 +7826,30 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/CustomVersion.ja
         return toString().replace("-", "_");
     }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaModuleVersion.java`
+#### Snippet
+```java
+        StringBuilder b = new StringBuilder();
+        b.append(version);
+        if (hasPrerelease()) b.append("~").append(prerelease.replace("-", "_"));
+        if (hasBuild()) b.append("_").append(build.replace("-", "_"));
+        return b.toString();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaModuleVersion.java`
+#### Snippet
+```java
+        b.append(version);
+        if (hasPrerelease()) b.append("~").append(prerelease.replace("-", "_"));
+        if (hasBuild()) b.append("_").append(build.replace("-", "_"));
+        return b.toString();
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7910,30 +7934,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersi
             if (hasOptional()) b.append("_").append(optional.replace("-", "_"));
         }
         return b.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaModuleVersion.java`
-#### Snippet
-```java
-        StringBuilder b = new StringBuilder();
-        b.append(version);
-        if (hasPrerelease()) b.append("~").append(prerelease.replace("-", "_"));
-        if (hasBuild()) b.append("_").append(build.replace("-", "_"));
-        return b.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaModuleVersion.java`
-#### Snippet
-```java
-        b.append(version);
-        if (hasPrerelease()) b.append("~").append(prerelease.replace("-", "_"));
-        if (hasBuild()) b.append("_").append(build.replace("-", "_"));
-        return b.toString();
-    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -8130,42 +8130,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/Ve
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/Glob.java`
-#### Snippet
-```java
-            String test = path;
-            if (PlatformUtils.isWindows()) {
-                test = test.replace("*", "x");
-            }
-            if (!Paths.get(test).isAbsolute()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/Glob.java`
-#### Snippet
-```java
-            String test = path;
-            if (PlatformUtils.isWindows()) {
-                test = test.replace("*", "x");
-            }
-            if (!Paths.get(test).isAbsolute()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/Glob.java`
-#### Snippet
-```java
-
-        if (PlatformUtils.isWindows()) {
-            this.pattern = pattern.replace("/", "\\\\");
-        }
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModel.java`
 #### Snippet
 ```java
@@ -8198,6 +8162,42 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
                         .replace("{{artifactFile}}", artifactFile);
             }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/Glob.java`
+#### Snippet
+```java
+            String test = path;
+            if (PlatformUtils.isWindows()) {
+                test = test.replace("*", "x");
+            }
+            if (!Paths.get(test).isAbsolute()) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/Glob.java`
+#### Snippet
+```java
+            String test = path;
+            if (PlatformUtils.isWindows()) {
+                test = test.replace("*", "x");
+            }
+            if (!Paths.get(test).isAbsolute()) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/Glob.java`
+#### Snippet
+```java
+
+        if (PlatformUtils.isWindows()) {
+            this.pattern = pattern.replace("/", "\\\\");
+        }
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -8421,10 +8421,10 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileType.java`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
 #### Snippet
 ```java
-            key = JRELEASER_ENV_PREFIX + key;
+            key = JRELEASER_SYS_PREFIX + key;
         }
-        return key.replace(".", "_")
-            .toUpperCase(Locale.ENGLISH);
+        return key.replace("_", ".")
+            .toLowerCase(Locale.ENGLISH);
     }
 ```
 
@@ -8433,10 +8433,10 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
 #### Snippet
 ```java
-            key = JRELEASER_SYS_PREFIX + key;
+            key = JRELEASER_ENV_PREFIX + key;
         }
-        return key.replace("_", ".")
-            .toLowerCase(Locale.ENGLISH);
+        return key.replace(".", "_")
+            .toUpperCase(Locale.ENGLISH);
     }
 ```
 
@@ -8469,10 +8469,10 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
-        String propertyName = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
-        if (propertyName.contains(" ")) {
-            propertyName = propertyName.replaceAll("\\s", "");
-        }
+
+        String naturalName = getNaturalName(getShortName(name));
+        return naturalName.replaceAll("\\s", "-").toLowerCase(Locale.ENGLISH);
+    }
 
 ```
 
@@ -8493,10 +8493,10 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
-
-        String naturalName = getNaturalName(getShortName(name));
-        return naturalName.replaceAll("\\s", "-").toLowerCase(Locale.ENGLISH);
-    }
+        String propertyName = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
+        if (propertyName.contains(" ")) {
+            propertyName = propertyName.replaceAll("\\s", "");
+        }
 
 ```
 
@@ -8530,6 +8530,18 @@ Qualifier `org.jreleaser.model.api` is unnecessary, and can be replaced with an 
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractPlatformAwareModelCommand.java`
 #### Snippet
 ```java
+            Collections.addAll(list, rejectedPlatforms);
+        }
+        return resolveCollection(org.jreleaser.model.api.JReleaserContext.REJECT_PLATFORMS, list);
+    }
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api` is unnecessary, and can be replaced with an import
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractPlatformAwareModelCommand.java`
+#### Snippet
+```java
     @Override
     protected List<String> collectSelectedPlatforms() {
         boolean resolvedSelectCurrentPlatform = resolveBoolean(org.jreleaser.model.api.JReleaserContext.SELECT_CURRENT_PLATFORM, selectCurrentPlatform);
@@ -8547,54 +8559,6 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractPlatformAwareModel
         return resolveCollection(org.jreleaser.model.api.JReleaserContext.SELECT_PLATFORMS, list);
     }
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api` is unnecessary, and can be replaced with an import
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractPlatformAwareModelCommand.java`
-#### Snippet
-```java
-            Collections.addAll(list, rejectedPlatforms);
-        }
-        return resolveCollection(org.jreleaser.model.api.JReleaserContext.REJECT_PLATFORMS, list);
-    }
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-disco-java-sdk/src/main/java/org/jreleaser/sdk/disco/JReleaserVersion.java`
-#### Snippet
-```java
- * @since 0.9.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class JReleaserVersion {
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(JReleaserVersion.class.getName());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `core/jreleaser-config-toml/src/main/java/org/jreleaser/config/toml/TomlJReleaserConfigParser.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-@ServiceProviderFor(JReleaserConfigParser.class)
-public class TomlJReleaserConfigParser implements JReleaserConfigParser {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `core/jreleaser-config-yaml/src/main/java/org/jreleaser/config/yaml/YamlJReleaserConfigParser.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-@ServiceProviderFor(JReleaserConfigParser.class)
-public class YamlJReleaserConfigParser implements JReleaserConfigParser {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8639,6 +8603,18 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractPl
 #### Snippet
 ```java
     @Override
+    protected List<String> collectRejectedPlatforms() {
+        return resolveCollection(org.jreleaser.model.api.JReleaserContext.REJECT_PLATFORMS, rejectPlatforms);
+    }
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api` is unnecessary, and can be replaced with an import
+in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractPlatformAwareJReleaserTask.java`
+#### Snippet
+```java
+    @Override
     protected List<String> collectSelectedPlatforms() {
         boolean resolvedSelectCurrentPlatform = resolveBoolean(org.jreleaser.model.api.JReleaserContext.SELECT_CURRENT_PLATFORM, selectCurrentPlatform);
         if (resolvedSelectCurrentPlatform) return Collections.singletonList(PlatformUtils.getCurrentFull());
@@ -8658,18 +8634,6 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractPl
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api` is unnecessary, and can be replaced with an import
-in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractPlatformAwareJReleaserTask.java`
-#### Snippet
-```java
-    @Override
-    protected List<String> collectRejectedPlatforms() {
-        return resolveCollection(org.jreleaser.model.api.JReleaserContext.REJECT_PLATFORMS, rejectPlatforms);
-    }
-}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
 in `sdks/jreleaser-artifactory-java-sdk/src/main/java/org/jreleaser/sdk/artifactory/ArtifactoryArtifactUploader.java`
 #### Snippet
@@ -8683,14 +8647,26 @@ public class ArtifactoryArtifactUploader extends AbstractArtifactUploader<org.jr
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `core/jreleaser-config-json/src/main/java/org/jreleaser/config/json/JsonJReleaserConfigParser.java`
+in `sdks/jreleaser-disco-java-sdk/src/main/java/org/jreleaser/sdk/disco/JReleaserVersion.java`
+#### Snippet
+```java
+ * @since 0.9.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public class JReleaserVersion {
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle(JReleaserVersion.class.getName());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `core/jreleaser-config-toml/src/main/java/org/jreleaser/config/toml/TomlJReleaserConfigParser.java`
 #### Snippet
 ```java
  * @since 0.1.0
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 @ServiceProviderFor(JReleaserConfigParser.class)
-public class JsonJReleaserConfigParser implements JReleaserConfigParser {
+public class TomlJReleaserConfigParser implements JReleaserConfigParser {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8707,14 +8683,14 @@ public class Command {
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-discord-java-sdk/src/main/java/org/jreleaser/sdk/discord/DiscordAnnouncer.java`
+in `core/jreleaser-config-json/src/main/java/org/jreleaser/config/json/JsonJReleaserConfigParser.java`
 #### Snippet
 ```java
- * @since 0.2.0
+ * @since 0.1.0
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class DiscordAnnouncer implements Announcer<org.jreleaser.model.api.announce.DiscordAnnouncer> {
-    private final JReleaserContext context;
+@ServiceProviderFor(JReleaserConfigParser.class)
+public class JsonJReleaserConfigParser implements JReleaserConfigParser {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8726,6 +8702,30 @@ in `sdks/jreleaser-discourse-java-sdk/src/main/java/org/jreleaser/sdk/discourse/
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 public class DiscourseAnnouncer implements Announcer<org.jreleaser.model.api.announce.DiscourseAnnouncer> {
+    private final JReleaserContext context;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `core/jreleaser-config-yaml/src/main/java/org/jreleaser/config/yaml/YamlJReleaserConfigParser.java`
+#### Snippet
+```java
+ * @since 0.1.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+@ServiceProviderFor(JReleaserConfigParser.class)
+public class YamlJReleaserConfigParser implements JReleaserConfigParser {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-discord-java-sdk/src/main/java/org/jreleaser/sdk/discord/DiscordAnnouncer.java`
+#### Snippet
+```java
+ * @since 0.2.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public class DiscordAnnouncer implements Announcer<org.jreleaser.model.api.announce.DiscordAnnouncer> {
     private final JReleaserContext context;
 ```
 
@@ -8802,18 +8802,6 @@ abstract class AbstractJavaAssemblerProcessor<A extends org.jreleaser.model.api.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpArtifactDownloader.java`
-#### Snippet
-```java
-    @Override
-    public String getType() {
-        return org.jreleaser.model.api.download.ScpDownloader.TYPE;
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
 in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpArtifactUploader.java`
 #### Snippet
@@ -8823,6 +8811,18 @@ in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpArtifactU
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 public class FtpArtifactUploader extends AbstractArtifactUploader<org.jreleaser.model.api.upload.FtpUploader, FtpUploader> {
     private FtpUploader uploader;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpArtifactDownloader.java`
+#### Snippet
+```java
+    @Override
+    public String getType() {
+        return org.jreleaser.model.api.download.ScpDownloader.TYPE;
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8887,6 +8887,18 @@ public class GiteaReleaser extends AbstractReleaser<org.jreleaser.model.api.rele
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-google-chat-java-sdk/src/main/java/org/jreleaser/sdk/googlechat/GoogleChatAnnouncer.java`
+#### Snippet
+```java
+ * @since 0.5.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public class GoogleChatAnnouncer implements Announcer<org.jreleaser.model.api.announce.GoogleChatAnnouncer> {
+    private final JReleaserContext context;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
 in `sdks/jreleaser-gitter-java-sdk/src/main/java/org/jreleaser/sdk/gitter/GitterAnnouncer.java`
 #### Snippet
 ```java
@@ -8899,14 +8911,14 @@ public class GitterAnnouncer implements Announcer<org.jreleaser.model.api.announ
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-google-chat-java-sdk/src/main/java/org/jreleaser/sdk/googlechat/GoogleChatAnnouncer.java`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
 #### Snippet
 ```java
- * @since 0.5.0
+ * @since 0.1.0
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class GoogleChatAnnouncer implements Announcer<org.jreleaser.model.api.announce.GoogleChatAnnouncer> {
-    private final JReleaserContext context;
+public class GitlabReleaser extends AbstractReleaser<org.jreleaser.model.api.release.GitlabReleaser> {
+    private final org.jreleaser.model.internal.release.GitlabReleaser gitlab;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8919,18 +8931,6 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGen
         if (org.jreleaser.model.api.release.GitlabReleaser.TYPE.equals(releaser.getServiceName())) {
             separator += lineSeparator();
         }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class GitlabReleaser extends AbstractReleaser<org.jreleaser.model.api.release.GitlabReleaser> {
-    private final org.jreleaser.model.internal.release.GitlabReleaser gitlab;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9102,6 +9102,18 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JRel
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserAutoConfigReleaseMojo.java`
+#### Snippet
+```java
+    private PrintWriter createTracer() throws MojoExecutionException {
+        try {
+            java.nio.file.Files.createDirectories(outputDirectory.toPath());
+            return new PrintWriter(new FileOutputStream(
+                outputDirectory.toPath().resolve("trace.log").toFile()));
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserAutoConfigReleaseMojo.java`
 #### Snippet
@@ -9139,14 +9151,14 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JRel
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserAutoConfigReleaseMojo.java`
+in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/AbstractJReleaserMojo.java`
 #### Snippet
 ```java
-    private PrintWriter createTracer() throws MojoExecutionException {
+    protected PrintWriter createTracer() throws MojoExecutionException {
         try {
             java.nio.file.Files.createDirectories(outputDirectory.toPath());
             return new PrintWriter(new FileOutputStream(
-                outputDirectory.toPath().resolve("trace.log").toFile()));
+                outputDirectory.toPath().resolve("trace.log").toFile()),
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9159,18 +9171,6 @@ in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/Clie
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 public final class ClientUtils {
     private static final Tika TIKA = new Tika();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/AbstractJReleaserMojo.java`
-#### Snippet
-```java
-    protected PrintWriter createTracer() throws MojoExecutionException {
-        try {
-            java.nio.file.Files.createDirectories(outputDirectory.toPath());
-            return new PrintWriter(new FileOutputStream(
-                outputDirectory.toPath().resolve("trace.log").toFile()),
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9193,7 +9193,7 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/signing/Keyrin
         }
 
         try (InputStream decoded = org.bouncycastle.openpgp.PGPUtil.getDecoderStream(raw)) {
-            addSecretKeyRing(new PGPSecretKeyRing(decoded, keyFingerPrintCalculator));
+            addPublicKeyRing(new PGPPublicKeyRing(decoded, keyFingerPrintCalculator));
         }
 ```
 
@@ -9205,164 +9205,20 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/signing/Keyrin
         }
 
         try (InputStream decoded = org.bouncycastle.openpgp.PGPUtil.getDecoderStream(raw)) {
-            addPublicKeyRing(new PGPPublicKeyRing(decoded, keyFingerPrintCalculator));
+            addSecretKeyRing(new PGPSecretKeyRing(decoded, keyFingerPrintCalculator));
         }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/extensions/api/ExtensionManagerHolder.java`
 #### Snippet
 ```java
-    public static Set<String> supportedPackagers() {
-        Set<String> set = new LinkedHashSet<>();
-        set.add(org.jreleaser.model.api.packagers.AppImagePackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        Set<String> set = new LinkedHashSet<>();
-        set.add(org.jreleaser.model.api.packagers.AppImagePackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.AppImagePackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SpecPackager.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SpecPackager.TYPE);
-        return unmodifiableSet(set);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
-        set.add(org.jreleaser.model.api.packagers.SpecPackager.TYPE);
-        return unmodifiableSet(set);
-    }
+ * @since 1.3.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public final class ExtensionManagerHolder {
+    private static final ThreadLocal<ExtensionManager> EXTENSION_MANAGER_THREAD_LOCAL = ThreadLocal.withInitial(new Supplier<ExtensionManager>() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9421,6 +9277,150 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
         set.add(org.jreleaser.model.api.deploy.maven.GithubMavenDeployer.TYPE);
         set.add(org.jreleaser.model.api.deploy.maven.GitlabMavenDeployer.TYPE);
         set.add(org.jreleaser.model.api.deploy.maven.Nexus2MavenDeployer.TYPE);
+        return unmodifiableSet(set);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+    public static Set<String> supportedDownloaders() {
+        Set<String> set = new LinkedHashSet<>();
+        set.add(org.jreleaser.model.api.download.FtpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        Set<String> set = new LinkedHashSet<>();
+        set.add(org.jreleaser.model.api.download.FtpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.SftpDownloader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.download.FtpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.SftpDownloader.TYPE);
+        return unmodifiableSet(set);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
+        set.add(org.jreleaser.model.api.download.SftpDownloader.TYPE);
+        return unmodifiableSet(set);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+    public static Set<String> supportedUploaders() {
+        Set<String> set = new LinkedHashSet<>();
+        set.add(org.jreleaser.model.api.upload.ArtifactoryUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        Set<String> set = new LinkedHashSet<>();
+        set.add(org.jreleaser.model.api.upload.ArtifactoryUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.upload.ArtifactoryUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.SftpUploader.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.SftpUploader.TYPE);
+        return unmodifiableSet(set);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
+        set.add(org.jreleaser.model.api.upload.SftpUploader.TYPE);
         return unmodifiableSet(set);
     }
 ```
@@ -9630,6 +9630,162 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+    public static Set<String> supportedPackagers() {
+        Set<String> set = new LinkedHashSet<>();
+        set.add(org.jreleaser.model.api.packagers.AppImagePackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        Set<String> set = new LinkedHashSet<>();
+        set.add(org.jreleaser.model.api.packagers.AppImagePackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.AppImagePackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.AsdfPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.BrewPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.ChocolateyPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.DockerPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.FlatpakPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.GofishPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.JbangPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.MacportsPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SpecPackager.TYPE);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.ScoopPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SpecPackager.TYPE);
+        return unmodifiableSet(set);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
+#### Snippet
+```java
+        set.add(org.jreleaser.model.api.packagers.SdkmanPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SnapPackager.TYPE);
+        set.add(org.jreleaser.model.api.packagers.SpecPackager.TYPE);
+        return unmodifiableSet(set);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.assemble` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
 #### Snippet
@@ -9690,159 +9846,15 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-    public static Set<String> supportedUploaders() {
-        Set<String> set = new LinkedHashSet<>();
-        set.add(org.jreleaser.model.api.upload.ArtifactoryUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        Set<String> set = new LinkedHashSet<>();
-        set.add(org.jreleaser.model.api.upload.ArtifactoryUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.upload.ArtifactoryUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.upload.FtpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.upload.GiteaUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.upload.GitlabUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.SftpUploader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.upload.HttpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.SftpUploader.TYPE);
-        return unmodifiableSet(set);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.upload` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.upload.S3Uploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.ScpUploader.TYPE);
-        set.add(org.jreleaser.model.api.upload.SftpUploader.TYPE);
-        return unmodifiableSet(set);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-    public static Set<String> supportedDownloaders() {
-        Set<String> set = new LinkedHashSet<>();
-        set.add(org.jreleaser.model.api.download.FtpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        Set<String> set = new LinkedHashSet<>();
-        set.add(org.jreleaser.model.api.download.FtpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.SftpDownloader.TYPE);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.download.FtpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.SftpDownloader.TYPE);
-        return unmodifiableSet(set);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.download` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserSupport.java`
-#### Snippet
-```java
-        set.add(org.jreleaser.model.api.download.HttpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.ScpDownloader.TYPE);
-        set.add(org.jreleaser.model.api.download.SftpDownloader.TYPE);
-        return unmodifiableSet(set);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/extensions/api/ExtensionManagerHolder.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModel.java`
 #### Snippet
 ```java
- * @since 1.3.0
+ * @since 0.1.0
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
-public final class ExtensionManagerHolder {
-    private static final ThreadLocal<ExtensionManager> EXTENSION_MANAGER_THREAD_LOCAL = ThreadLocal.withInitial(new Supplier<ExtensionManager>() {
+public class JReleaserModel {
+    private final Environment environment = new Environment();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9870,32 +9882,8 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModel.java`
-#### Snippet
-```java
- * @since 0.1.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class JReleaserModel {
-    private final Environment environment = new Environment();
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/GithubReleaser.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
-            return commitAuthor.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/CodebergReleaser.java`
 #### Snippet
 ```java
 
@@ -9920,6 +9908,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/GenericGitReleaser.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
+            return commitAuthor.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/CodebergReleaser.java`
 #### Snippet
 ```java
 
@@ -9979,18 +9979,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/GoogleChatAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(messageTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/MastodonAnnouncer.java`
 #### Snippet
 ```java
@@ -10015,43 +10003,19 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/DiscourseAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(messageTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/ZulipAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(messageTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/MattermostAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(messageTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/SmtpAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(messageTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/DiscourseAnnouncer.java`
 #### Snippet
 ```java
         Path templatePath = context.getBasedir().resolve(messageTemplate);
@@ -10075,46 +10039,46 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/GoogleChatAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(messageTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/MattermostAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(messageTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/ZulipAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(messageTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/SlackAnnouncer.java`
 #### Snippet
 ```java
         Path templatePath = context.getBasedir().resolve(messageTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/DiscordAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(messageTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/HttpAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(payloadTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TwitterAnnouncer.java`
-#### Snippet
-```java
-        Path templatePath = context.getBasedir().resolve(statusTemplate);
         try {
             Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
             return applyTemplate(reader, props);
@@ -10146,6 +10110,42 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/DiscordAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(messageTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/TwitterAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(statusTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/HttpAnnouncer.java`
+#### Snippet
+```java
+        Path templatePath = context.getBasedir().resolve(payloadTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/ArchiveAssembler.java`
 #### Snippet
@@ -10159,7 +10159,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
 #### Snippet
 ```java
 
@@ -10171,7 +10171,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
 #### Snippet
 ```java
 
@@ -10179,30 +10179,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
         public org.jreleaser.model.api.common.Java getJava() {
             return java.asImmutable();
         }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JavaArchiveAssembler.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.platform.Platform getPlatform() {
-            return platform.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.internal.assemble` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JavaArchiveAssembler.java`
-#### Snippet
-```java
-
-        @Override
-        public void merge(org.jreleaser.model.internal.assemble.JavaArchiveAssembler.Java source) {
-            this.mainModule = merge(this.mainModule, source.mainModule);
-            this.mainClass = merge(this.mainClass, source.mainClass);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10231,7 +10207,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JavaArchiveAssembler.java`
 #### Snippet
 ```java
 
@@ -10242,8 +10218,20 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.internal.assemble` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JavaArchiveAssembler.java`
+#### Snippet
+```java
+
+        @Override
+        public void merge(org.jreleaser.model.internal.assemble.JavaArchiveAssembler.Java source) {
+            this.mainModule = merge(this.mainModule, source.mainModule);
+            this.mainClass = merge(this.mainClass, source.mainClass);
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
 #### Snippet
 ```java
 
@@ -10251,6 +10239,30 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
         public org.jreleaser.model.api.common.Java getJava() {
             return java.asImmutable();
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.platform.Platform getPlatform() {
+            return platform.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SdkmanPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10272,18 +10284,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 ```java
 
     @Override
-    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SdkmanPackager.java`
-#### Snippet
-```java
-
-    @Override
     public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
         return SUPPORTED.containsKey(distributionType);
     }
@@ -10294,11 +10294,11 @@ Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ScoopPackager.java`
 #### Snippet
 ```java
+ */
+public final class ScoopPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.ScoopPackager, ScoopPackager> {
+    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
 
-    @Override
-    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
-    }
+    static {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10320,8 +10320,8 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 ```java
 
     @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
+    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
     }
 ```
 
@@ -10330,11 +10330,11 @@ Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ScoopPackager.java`
 #### Snippet
 ```java
- */
-public final class ScoopPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.ScoopPackager, ScoopPackager> {
-    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
 
-    static {
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10362,6 +10362,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ChocolateyPackager.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
+            return commitAuthor.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ChocolateyPackager.java`
 #### Snippet
@@ -10375,7 +10387,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ChocolateyPackager.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
 #### Snippet
 ```java
 
@@ -10386,15 +10398,51 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
+#### Snippet
+```java
+ */
+public final class AsdfPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.AsdfPackager, AsdfPackager> {
+    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
+
+    static {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/GofishPackager.java`
 #### Snippet
 ```java
 
-        @Override
-        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
-            return commitAuthor.asImmutable();
-        }
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10422,159 +10470,15 @@ public final class GofishPackager extends AbstractRepositoryPackager<org.jreleas
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/GofishPackager.java`
 #### Snippet
 ```java
 
-    @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
-#### Snippet
-```java
-
         @Override
         public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
             return commitAuthor.asImmutable();
         }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
-#### Snippet
-```java
- */
-public final class AsdfPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.AsdfPackager, AsdfPackager> {
-    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
-
-    static {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
-#### Snippet
-```java
- */
-public final class FlatpakPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.FlatpakPackager, FlatpakPackager> {
-    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
-
-    static {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
-            return commitAuthor.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
-            return commitAuthor.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
-#### Snippet
-```java
- */
-public final class MacportsPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.MacportsPackager, MacportsPackager> {
-    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
-
-    static {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10603,7 +10507,7 @@ public final class AppImagePackager extends AbstractRepositoryPackager<org.jrele
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/JbangPackager.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
 #### Snippet
 ```java
 
@@ -10611,6 +10515,162 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
     public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
         return SUPPORTED.containsKey(distributionType);
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
+#### Snippet
+```java
+ */
+public final class MacportsPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.MacportsPackager, MacportsPackager> {
+    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
+
+    static {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
+            return commitAuthor.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JpackageAssembler.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.platform.Platform getPlatform() {
+            return platform.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JpackageAssembler.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.Java getJava() {
+            return java.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
+            return commitAuthor.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+ */
+public final class FlatpakPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.FlatpakPackager, FlatpakPackager> {
+    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
+
+    static {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
+            return commitAuthor.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
+#### Snippet
+```java
+ */
+public final class SpecPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.SpecPackager, SpecPackager> {
+    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
+
+    static {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10623,6 +10683,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
         public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
             return commitAuthor.asImmutable();
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/JbangPackager.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10651,78 +10723,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
-#### Snippet
-```java
- */
-public final class SpecPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.SpecPackager, SpecPackager> {
-    private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
-
-    static {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<String> getSupportedFileExtensions(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return unmodifiableSet(SUPPORTED.getOrDefault(distributionType, emptySet()));
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
-            return commitAuthor.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JpackageAssembler.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.common.Java getJava() {
-            return java.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.platform` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JpackageAssembler.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.platform.Platform getPlatform() {
-            return platform.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/project/ProjectValidator.java`
 #### Snippet
 ```java
@@ -10746,18 +10746,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.release` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/DiscussionsAnnouncerValidator.java`
-#### Snippet
-```java
-        }
-
-        if (!org.jreleaser.model.api.release.GithubReleaser.TYPE.equals(context.getModel().getRelease().getReleaser().getServiceName())) {
-            errors.configuration(RB.$("validation_discussions_enabled"));
-            context.getLogger().debug(RB.$("validation.disabled"));
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/SdkmanAnnouncerValidator.java`
 #### Snippet
@@ -10767,6 +10755,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
             sdkman.setCommand(org.jreleaser.model.Sdkman.Command.MAJOR);
         }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.release` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/announce/DiscussionsAnnouncerValidator.java`
+#### Snippet
+```java
+        }
+
+        if (!org.jreleaser.model.api.release.GithubReleaser.TYPE.equals(context.getModel().getRelease().getReleaser().getServiceName())) {
+            errors.configuration(RB.$("validation_discussions_enabled"));
+            context.getLogger().debug(RB.$("validation.disabled"));
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10834,30 +10834,6 @@ Qualifier `org.jreleaser.model` is unnecessary and can be removed
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SnapPackager.java`
 #### Snippet
 ```java
-
-    @Override
-    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
-        return SUPPORTED.containsKey(distributionType);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SnapPackager.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
-            return commitAuthor.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary and can be removed
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SnapPackager.java`
-#### Snippet
-```java
  */
 public final class SnapPackager extends AbstractRepositoryPackager<org.jreleaser.model.api.packagers.SnapPackager, SnapPackager> {
     private static final Map<org.jreleaser.model.Distribution.DistributionType, Set<String>> SUPPORTED = new LinkedHashMap<>();
@@ -10878,14 +10854,26 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SdkmanPackagerValidator.java`
+Qualifier `org.jreleaser.model` is unnecessary and can be removed
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SnapPackager.java`
 #### Snippet
 ```java
-            packager.setCommand(parentPackager.getCommand());
-            if (null == packager.getCommand()) {
-                packager.setCommand(org.jreleaser.model.Sdkman.Command.MAJOR);
-            }
+
+    @Override
+    public boolean supportsDistribution(org.jreleaser.model.Distribution.DistributionType distributionType) {
+        return SUPPORTED.containsKey(distributionType);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.common` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SnapPackager.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.common.CommitAuthor getCommitAuthor() {
+            return commitAuthor.asImmutable();
         }
 ```
 
@@ -10902,15 +10890,39 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/FilesKeyring.java`
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/SdkmanPackagerValidator.java`
 #### Snippet
 ```java
- * @since 0.4.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public final class FilesKeyring extends Keyring {
-    private final Path publicKeyring;
+            packager.setCommand(parentPackager.getCommand());
+            if (null == packager.getCommand()) {
+                packager.setCommand(org.jreleaser.model.Sdkman.Command.MAJOR);
+            }
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.JbangPackager getJbang() {
+            return jbang.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.ChocolateyPackager getChocolatey() {
+            return chocolatey.asImmutable();
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10922,30 +10934,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distrib
         @Override
         public org.jreleaser.model.api.packagers.BrewPackager getBrew() {
             return brew.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.MacportsPackager getMacports() {
-            return macports.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.GofishPackager getGofish() {
-            return gofish.asImmutable();
         }
 ```
 
@@ -10968,8 +10956,68 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distrib
 ```java
 
         @Override
-        public org.jreleaser.model.api.packagers.FlatpakPackager getFlatpak() {
-            return flatpak.asImmutable();
+        public org.jreleaser.model.api.packagers.SdkmanPackager getSdkman() {
+            return sdkman.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.DockerPackager getDocker() {
+            return docker.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.GofishPackager getGofish() {
+            return gofish.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.SpecPackager getSpec() {
+            return spec.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.AppImagePackager getAppImage() {
+            return appImage.asImmutable();
+        }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.SnapPackager getSnap() {
+            return snap.asImmutable();
         }
 ```
 
@@ -11148,8 +11196,8 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distrib
 ```java
 
         @Override
-        public org.jreleaser.model.api.packagers.AppImagePackager getAppImage() {
-            return appImage.asImmutable();
+        public org.jreleaser.model.api.packagers.MacportsPackager getMacports() {
+            return macports.asImmutable();
         }
 ```
 
@@ -11160,68 +11208,8 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distrib
 ```java
 
         @Override
-        public org.jreleaser.model.api.packagers.ChocolateyPackager getChocolatey() {
-            return chocolatey.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.SpecPackager getSpec() {
-            return spec.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.SnapPackager getSnap() {
-            return snap.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.DockerPackager getDocker() {
-            return docker.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.JbangPackager getJbang() {
-            return jbang.asImmutable();
-        }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model.api.packagers` is unnecessary, and can be replaced with an import
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.SdkmanPackager getSdkman() {
-            return sdkman.asImmutable();
+        public org.jreleaser.model.api.packagers.FlatpakPackager getFlatpak() {
+            return flatpak.asImmutable();
         }
 ```
 
@@ -11239,14 +11227,14 @@ public class S3ArtifactUploader extends AbstractArtifactUploader<org.jreleaser.m
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/SdkmanAnnouncer.java`
+in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/FilesKeyring.java`
 #### Snippet
 ```java
- * @since 0.1.0
+ * @since 0.4.0
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class SdkmanAnnouncer implements Announcer<org.jreleaser.model.api.announce.SdkmanAnnouncer> {
-    private final JReleaserContext context;
+public final class FilesKeyring extends Keyring {
+    private final Path publicKeyring;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11258,6 +11246,18 @@ in `sdks/jreleaser-slack-java-sdk/src/main/java/org/jreleaser/sdk/slack/SlackAnn
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 public class SlackAnnouncer implements Announcer<org.jreleaser.model.api.announce.SlackAnnouncer> {
+    private final JReleaserContext context;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/SdkmanAnnouncer.java`
+#### Snippet
+```java
+ * @since 0.1.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public class SdkmanAnnouncer implements Announcer<org.jreleaser.model.api.announce.SdkmanAnnouncer> {
     private final JReleaserContext context;
 ```
 
@@ -11310,138 +11310,6 @@ public class TeamsAnnouncer implements Announcer<org.jreleaser.model.api.announc
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-        private final JReleaserLogger logger;
-        private boolean dryrun;
-        private org.jreleaser.model.Mail.Transport transport = org.jreleaser.model.Mail.Transport.SMTP;
-        private String host;
-        private Integer port;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-        private final JReleaserLogger logger;
-        private boolean dryrun;
-        private org.jreleaser.model.Mail.Transport transport = org.jreleaser.model.Mail.Transport.SMTP;
-        private String host;
-        private Integer port;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-        private String subject;
-        private String message;
-        private org.jreleaser.model.Mail.MimeType mimeType = org.jreleaser.model.Mail.MimeType.TEXT;
-        private final Map<String, String> properties = new LinkedHashMap<>();
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-        private String subject;
-        private String message;
-        private org.jreleaser.model.Mail.MimeType mimeType = org.jreleaser.model.Mail.MimeType.TEXT;
-        private final Map<String, String> properties = new LinkedHashMap<>();
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-    private final JReleaserLogger logger;
-    private final boolean dryrun;
-    private final org.jreleaser.model.Mail.Transport transport;
-    private final String host;
-    private final Integer port;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-                props.put("mail.smtp.auth", "true");
-            }
-            if (transport == org.jreleaser.model.Mail.Transport.SMTP) {
-                if (!props.containsKey("mail.smtp.starttls.enable")) {
-                    props.put("mail.smtp.starttls.enable", "true");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-    private final String subject;
-    private final String message;
-    private final org.jreleaser.model.Mail.MimeType mimeType;
-    private final Map<String, String> properties = new LinkedHashMap<>();
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-    private MessageSmtpCommand(JReleaserLogger logger,
-                               boolean dryrun,
-                               org.jreleaser.model.Mail.Transport transport,
-                               String host,
-                               Integer port,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-                               String subject,
-                               String message,
-                               org.jreleaser.model.Mail.MimeType mimeType,
-                               Map<String, String> properties) {
-        this.logger = logger;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-        }
-
-        public Builder mimeType(org.jreleaser.model.Mail.MimeType mimeType) {
-            this.mimeType = mimeType;
-            return this;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
-#### Snippet
-```java
-        }
-
-        public Builder transport(org.jreleaser.model.Mail.Transport transport) {
-            this.transport = transport;
-            return this;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
 in `sdks/jreleaser-telegram-java-sdk/src/main/java/org/jreleaser/sdk/telegram/TelegramAnnouncer.java`
 #### Snippet
@@ -11451,6 +11319,18 @@ in `sdks/jreleaser-telegram-java-sdk/src/main/java/org/jreleaser/sdk/telegram/Te
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 public class TelegramAnnouncer implements Announcer<org.jreleaser.model.api.announce.TelegramAnnouncer> {
     private final JReleaserContext context;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/TemplateUtils.java`
+#### Snippet
+```java
+ * @since 0.1.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public final class TemplateUtils {
+    private static final Properties TEMPLATES_INVENTORY = new Properties();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11514,15 +11394,135 @@ in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/TemplateGener
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/TemplateUtils.java`
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
 #### Snippet
 ```java
- * @since 0.1.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public final class TemplateUtils {
-    private static final Properties TEMPLATES_INVENTORY = new Properties();
+        private String subject;
+        private String message;
+        private org.jreleaser.model.Mail.MimeType mimeType = org.jreleaser.model.Mail.MimeType.TEXT;
+        private final Map<String, String> properties = new LinkedHashMap<>();
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+        private String subject;
+        private String message;
+        private org.jreleaser.model.Mail.MimeType mimeType = org.jreleaser.model.Mail.MimeType.TEXT;
+        private final Map<String, String> properties = new LinkedHashMap<>();
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+    private MessageSmtpCommand(JReleaserLogger logger,
+                               boolean dryrun,
+                               org.jreleaser.model.Mail.Transport transport,
+                               String host,
+                               Integer port,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+                               String subject,
+                               String message,
+                               org.jreleaser.model.Mail.MimeType mimeType,
+                               Map<String, String> properties) {
+        this.logger = logger;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+    private final String subject;
+    private final String message;
+    private final org.jreleaser.model.Mail.MimeType mimeType;
+    private final Map<String, String> properties = new LinkedHashMap<>();
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+        }
+
+        public Builder mimeType(org.jreleaser.model.Mail.MimeType mimeType) {
+            this.mimeType = mimeType;
+            return this;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+        }
+
+        public Builder transport(org.jreleaser.model.Mail.Transport transport) {
+            this.transport = transport;
+            return this;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+    private final JReleaserLogger logger;
+    private final boolean dryrun;
+    private final org.jreleaser.model.Mail.Transport transport;
+    private final String host;
+    private final Integer port;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+                props.put("mail.smtp.auth", "true");
+            }
+            if (transport == org.jreleaser.model.Mail.Transport.SMTP) {
+                if (!props.containsKey("mail.smtp.starttls.enable")) {
+                    props.put("mail.smtp.starttls.enable", "true");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+        private final JReleaserLogger logger;
+        private boolean dryrun;
+        private org.jreleaser.model.Mail.Transport transport = org.jreleaser.model.Mail.Transport.SMTP;
+        private String host;
+        private Integer port;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.model` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-smtp-java-sdk/src/main/java/org/jreleaser/sdk/smtp/MessageSmtpCommand.java`
+#### Snippet
+```java
+        private final JReleaserLogger logger;
+        private boolean dryrun;
+        private org.jreleaser.model.Mail.Transport transport = org.jreleaser.model.Mail.Transport.SMTP;
+        private String host;
+        private Integer port;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11551,18 +11551,6 @@ public class TwitterAnnouncer implements Announcer<org.jreleaser.model.api.annou
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
-in `sdks/jreleaser-webhooks-java-sdk/src/main/java/org/jreleaser/sdk/webhooks/WebhooksAnnouncer.java`
-#### Snippet
-```java
- * @since 0.5.0
- */
-@org.jreleaser.infra.nativeimage.annotations.NativeImage
-public class WebhooksAnnouncer implements Announcer<org.jreleaser.model.api.announce.WebhooksAnnouncer> {
-    private final JReleaserContext context;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
 in `sdks/jreleaser-zulip-java-sdk/src/main/java/org/jreleaser/sdk/zulip/ZulipAnnouncer.java`
 #### Snippet
 ```java
@@ -11570,6 +11558,18 @@ in `sdks/jreleaser-zulip-java-sdk/src/main/java/org/jreleaser/sdk/zulip/ZulipAnn
  */
 @org.jreleaser.infra.nativeimage.annotations.NativeImage
 public class ZulipAnnouncer implements Announcer<org.jreleaser.model.api.announce.ZulipAnnouncer> {
+    private final JReleaserContext context;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jreleaser.infra.nativeimage.annotations` is unnecessary, and can be replaced with an import
+in `sdks/jreleaser-webhooks-java-sdk/src/main/java/org/jreleaser/sdk/webhooks/WebhooksAnnouncer.java`
+#### Snippet
+```java
+ * @since 0.5.0
+ */
+@org.jreleaser.infra.nativeimage.annotations.NativeImage
+public class WebhooksAnnouncer implements Announcer<org.jreleaser.model.api.announce.WebhooksAnnouncer> {
     private final JReleaserContext context;
 ```
 
@@ -11699,14 +11699,14 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/MacportsPackager
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `fileName`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/ChocolateyPackagerProcessor.java`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
 #### Snippet
 ```java
-        }
-
+                             String fileName)
+        throws PackagerProcessingException {
         fileName = trimTplExtension(fileName);
 
-        Path outputFile = "binary.nuspec".equals(fileName) ?
+        Path outputFile = "app.spec".equals(fileName) ?
 ```
 
 ### AssignmentToMethodParameter
@@ -11723,14 +11723,14 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SnapPackagerProc
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `fileName`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/SpecPackagerProcessor.java`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/ChocolateyPackagerProcessor.java`
 #### Snippet
 ```java
-                             String fileName)
-        throws PackagerProcessingException {
+        }
+
         fileName = trimTplExtension(fileName);
 
-        Path outputFile = "app.spec".equals(fileName) ?
+        Path outputFile = "binary.nuspec".equals(fileName) ?
 ```
 
 ### AssignmentToMethodParameter
@@ -11843,6 +11843,18 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/AsdfPackagerProc
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `fileName`
+in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/BrewPackagerProcessor.java`
+#### Snippet
+```java
+                             String fileName)
+        throws PackagerProcessingException {
+        fileName = trimTplExtension(fileName);
+
+        if (packager.getCask().isEnabled()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fileName`
 in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/FlatpakPackagerProcessor.java`
 #### Snippet
 ```java
@@ -11879,18 +11891,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/FlatpakPackagerP
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `fileName`
-in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/BrewPackagerProcessor.java`
-#### Snippet
-```java
-                             String fileName)
-        throws PackagerProcessingException {
-        fileName = trimTplExtension(fileName);
-
-        if (packager.getCask().isEnabled()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
 in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/JavaArchiveAssemblerProcessor.java`
 #### Snippet
 ```java
@@ -11911,30 +11911,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/assemblers/JlinkAssemblerP
         fileName = trimTplExtension(fileName);
 
         Path outputDirectory = (Path) props.get(Constants.KEY_DISTRIBUTION_ASSEMBLE_DIRECTORY);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endpoint`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-        if (!endpoint.endsWith(API_V1)) {
-            if (endpoint.endsWith("/")) {
-                endpoint = endpoint.substring(0, endpoint.length() - 1);
-            }
-            endpoint += API_V1;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `endpoint`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-                endpoint = endpoint.substring(0, endpoint.length() - 1);
-            }
-            endpoint += API_V1;
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -11962,18 +11938,6 @@ in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/XGithu
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `endpoint`
-in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
-#### Snippet
-```java
-
-        if (isBlank(endpoint)) {
-            endpoint = ENDPOINT;
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `fileName`
 in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/DockerPackagerProcessor.java`
 #### Snippet
@@ -11986,13 +11950,37 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/DockerPackagerPr
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+Assignment to method parameter `endpoint`
+in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
 #### Snippet
 ```java
-            String search = resolveTemplate(replacer.getSearch(), props);
-            String replace = resolveTemplate(replacer.getReplace(), props);
-            text = text.replaceAll(search, replace);
+
+        if (isBlank(endpoint)) {
+            endpoint = ENDPOINT;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endpoint`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+        if (!endpoint.endsWith(API_V1)) {
+            if (endpoint.endsWith("/")) {
+                endpoint = endpoint.substring(0, endpoint.length() - 1);
+            }
+            endpoint += API_V1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `endpoint`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+                endpoint = endpoint.substring(0, endpoint.length() - 1);
+            }
+            endpoint += API_V1;
         }
 
 ```
@@ -12004,21 +11992,9 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```java
         logger.debug(next.toString());
 
-        page = api.listLinks1(next);
-        links.addAll(page.getContent());
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `page`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-        logger.debug(next.toString());
-
-        page = api.listLabels1(next);
-        labels.addAll(page.getContent());
-
+        page = api.listReleases1(next);
+        page.getContent().stream()
+            .map(r -> new Release(
 ```
 
 ### AssignmentToMethodParameter
@@ -12064,9 +12040,9 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```java
         logger.debug(next.toString());
 
-        page = api.listReleases1(next);
+        page = api.listBranches1(next);
         page.getContent().stream()
-            .map(r -> new Release(
+            .map(GlBranch::getName)
 ```
 
 ### AssignmentToMethodParameter
@@ -12088,9 +12064,21 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```java
         logger.debug(next.toString());
 
-        page = api.listBranches1(next);
-        page.getContent().stream()
-            .map(GlBranch::getName)
+        page = api.listLabels1(next);
+        labels.addAll(page.getContent());
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `page`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+#### Snippet
+```java
+        logger.debug(next.toString());
+
+        page = api.listLinks1(next);
+        links.addAll(page.getContent());
+
 ```
 
 ### AssignmentToMethodParameter
@@ -12125,6 +12113,18 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
                 endpoint = endpoint.substring(0, endpoint.length() - 1);
             }
             endpoint += API_V4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGenerator.java`
+#### Snippet
+```java
+            String search = resolveTemplate(replacer.getSearch(), props);
+            String replace = resolveTemplate(replacer.getReplace(), props);
+            text = text.replaceAll(search, replace);
         }
 
 ```
@@ -12226,6 +12226,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/TimeUtils.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `key`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
+#### Snippet
+```java
+    public static String sysKey(String key) {
+        if (!key.startsWith(JRELEASER_SYS_PREFIX)) {
+            key = JRELEASER_SYS_PREFIX + key;
+        }
+        return key.replace("_", ".")
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `value`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
 #### Snippet
@@ -12247,54 +12259,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
             key = JRELEASER_ENV_PREFIX + key;
         }
         return key.replace(".", "_")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `key`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Env.java`
-#### Snippet
-```java
-    public static String sysKey(String key) {
-        if (!key.startsWith(JRELEASER_SYS_PREFIX)) {
-            key = JRELEASER_SYS_PREFIX + key;
-        }
-        return key.replace("_", ".")
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
-#### Snippet
-```java
-     */
-    public static String getNaturalName(String name) {
-        name = getShortName(name);
-        if (isBlank(name)) {
-            return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
-#### Snippet
-```java
-        int pos = name.lastIndexOf(".");
-        if (pos != -1) {
-            name = name.substring(pos + 1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `className`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
-#### Snippet
-```java
-        int i = className.lastIndexOf(".");
-        if (i > -1) {
-            className = className.substring(i + 1, className.length());
-        }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -12321,19 +12285,43 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
             }
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Checksum.java`
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 #### Snippet
 ```java
+     */
+    public static String getNaturalName(String name) {
+        name = getShortName(name);
+        if (isBlank(name)) {
+            return name;
+```
 
-        String[] includedDistributions() {
-            return include != null ? include.includedDistributions : null;
+### AssignmentToMethodParameter
+Assignment to method parameter `className`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
+#### Snippet
+```java
+        int i = className.lastIndexOf(".");
+        if (i > -1) {
+            className = className.substring(i + 1, className.length());
         }
 
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
+#### Snippet
+```java
+        int pos = name.lastIndexOf(".");
+        if (pos != -1) {
+            name = name.substring(pos + 1);
+        }
+
+```
+
+## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Checksum.java`
@@ -12348,12 +12336,12 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Checksum.java`
 
 ### ReturnNull
 Return of `null`
-in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/SetupDiscoMojo.java`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Checksum.java`
 #### Snippet
 ```java
 
-        if (result.isEmpty()) {
-            return null;
+        String[] includedDistributions() {
+            return include != null ? include.includedDistributions : null;
         }
 
 ```
@@ -12384,84 +12372,12 @@ in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Setu
 
 ### ReturnNull
 Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
+in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/SetupDiscoMojo.java`
 #### Snippet
 ```java
 
-        String[] includedDistributions() {
-            return include != null ? include.includedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
-#### Snippet
-```java
-
-        String[] excludedAssemblers() {
-            return exclude != null ? exclude.excludedAssemblers : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
-#### Snippet
-```java
-
-        String[] excludedDistributions() {
-            return exclude != null ? exclude.excludedDistributions : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
-#### Snippet
-```java
-
-        String[] includedAssemblers() {
-            return include != null ? include.includedAssemblers : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Sign.java`
-#### Snippet
-```java
-
-        String[] includedDistributions() {
-            return include != null ? include.includedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Sign.java`
-#### Snippet
-```java
-
-        String[] excludedDistributions() {
-            return exclude != null ? exclude.excludedDistributions : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] includedDeployerNames() {
-            return include != null ? include.includedDeployerNames : null;
+        if (result.isEmpty()) {
+            return null;
         }
 
 ```
@@ -12472,20 +12388,8 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
 #### Snippet
 ```java
 
-        String[] excludedUploaderNames() {
-            return exclude != null ? exclude.excludedUploaderNames : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] includedPackagers() {
-            return include != null ? include.includedPackagers : null;
+        String[] excludedPackagers() {
+            return exclude != null ? exclude.excludedPackagers : null;
         }
 
 ```
@@ -12508,92 +12412,8 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
 #### Snippet
 ```java
 
-        String[] excludedDeployerNames() {
-            return exclude != null ? exclude.excludedDeployerNames : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
         String[] excludedDeployerTypes() {
             return exclude != null ? exclude.excludedDeployerTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] includedUploaderNames() {
-            return include != null ? include.includedUploaderNames : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] includedDistributions() {
-            return include != null ? include.includedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] includedUploaderTypes() {
-            return include != null ? include.includedUploaderTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] excludedAnnouncers() {
-            return exclude != null ? exclude.excludedAnnouncers : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] excludedDistributions() {
-            return exclude != null ? exclude.excludedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
-#### Snippet
-```java
-
-        String[] excludedUploaderTypes() {
-            return exclude != null ? exclude.excludedUploaderTypes : null;
         }
 
 ```
@@ -12616,8 +12436,236 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
 #### Snippet
 ```java
 
+        String[] excludedUploaderTypes() {
+            return exclude != null ? exclude.excludedUploaderTypes : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] includedUploaderTypes() {
+            return include != null ? include.includedUploaderTypes : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] excludedDistributions() {
+            return exclude != null ? exclude.excludedDistributions : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] includedDistributions() {
+            return include != null ? include.includedDistributions : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] excludedDeployerNames() {
+            return exclude != null ? exclude.excludedDeployerNames : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] excludedUploaderNames() {
+            return exclude != null ? exclude.excludedUploaderNames : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] includedDeployerNames() {
+            return include != null ? include.includedDeployerNames : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] includedPackagers() {
+            return include != null ? include.includedPackagers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] includedUploaderNames() {
+            return include != null ? include.includedUploaderNames : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
+#### Snippet
+```java
+
+        String[] excludedAnnouncers() {
+            return exclude != null ? exclude.excludedAnnouncers : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
+#### Snippet
+```java
+
+        String[] excludedAssemblers() {
+            return exclude != null ? exclude.excludedAssemblers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
+#### Snippet
+```java
+
+        String[] includedAssemblers() {
+            return include != null ? include.includedAssemblers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
+#### Snippet
+```java
+
+        String[] includedDistributions() {
+            return include != null ? include.includedDistributions : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Assemble.java`
+#### Snippet
+```java
+
+        String[] excludedDistributions() {
+            return exclude != null ? exclude.excludedDistributions : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Sign.java`
+#### Snippet
+```java
+
+        String[] excludedDistributions() {
+            return exclude != null ? exclude.excludedDistributions : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Sign.java`
+#### Snippet
+```java
+
+        String[] includedDistributions() {
+            return include != null ? include.includedDistributions : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
+#### Snippet
+```java
+
+        String[] excludedDistributions() {
+            return exclude != null ? exclude.excludedDistributions : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
+#### Snippet
+```java
+
         String[] excludedPackagers() {
             return exclude != null ? exclude.excludedPackagers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
+#### Snippet
+```java
+
+        String[] includedPackagers() {
+            return include != null ? include.includedPackagers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
+#### Snippet
+```java
+
+        String[] includedDistributions() {
+            return include != null ? include.includedDistributions : null;
         }
 
 ```
@@ -12632,6 +12680,18 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Deploy.java`
             return exclude != null ? exclude.excludedDeployerNames : null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Deploy.java`
+#### Snippet
+```java
+
+        String[] excludedDeployerTypes() {
+            return exclude != null ? exclude.excludedDeployerTypes : null;
+        }
+
 ```
 
 ### ReturnNull
@@ -12660,31 +12720,7 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Deploy.java`
 
 ### ReturnNull
 Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Deploy.java`
-#### Snippet
-```java
-
-        String[] excludedDeployerTypes() {
-            return exclude != null ? exclude.excludedDeployerTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
-#### Snippet
-```java
-
-        String[] includedPackagers() {
-            return include != null ? include.includedPackagers : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Upload.java`
 #### Snippet
 ```java
 
@@ -12692,30 +12728,6 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
             return exclude != null ? exclude.excludedDistributions : null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
-#### Snippet
-```java
-
-        String[] includedDistributions() {
-            return include != null ? include.includedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Package.java`
-#### Snippet
-```java
-
-        String[] excludedPackagers() {
-            return exclude != null ? exclude.excludedPackagers : null;
-        }
-
 ```
 
 ### ReturnNull
@@ -12748,6 +12760,18 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Upload.java`
 #### Snippet
 ```java
 
+        String[] includedUploaderTypes() {
+            return include != null ? include.includedUploaderTypes : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Upload.java`
+#### Snippet
+```java
+
         String[] includedUploaderNames() {
             return include != null ? include.includedUploaderNames : null;
         }
@@ -12762,90 +12786,6 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Upload.java`
 
         String[] includedDistributions() {
             return include != null ? include.includedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Upload.java`
-#### Snippet
-```java
-
-        String[] excludedDistributions() {
-            return exclude != null ? exclude.excludedDistributions : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Upload.java`
-#### Snippet
-```java
-
-        String[] includedUploaderTypes() {
-            return include != null ? include.includedUploaderTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
-#### Snippet
-```java
-
-        String[] excludedDownloaderTypes() {
-            return exclude != null ? exclude.excludedDownloaderTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
-#### Snippet
-```java
-
-        String[] excludedDownloaderNames() {
-            return exclude != null ? exclude.excludedDownloaderNames : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
-#### Snippet
-```java
-
-        String[] includedDownloaderNames() {
-            return include != null ? include.includedDownloaderNames : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
-#### Snippet
-```java
-
-        String[] includedDownloaderTypes() {
-            return include != null ? include.includedDownloaderTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Prepare.java`
-#### Snippet
-```java
-
-        String[] excludedPackagers() {
-            return exclude != null ? exclude.excludedPackagers : null;
         }
 
 ```
@@ -12877,6 +12817,210 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Prepare.java`
 ### ReturnNull
 Return of `null`
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Prepare.java`
+#### Snippet
+```java
+
+        String[] excludedPackagers() {
+            return exclude != null ? exclude.excludedPackagers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Prepare.java`
+#### Snippet
+```java
+
+        String[] includedDistributions() {
+            return include != null ? include.includedDistributions : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+
+        String distributionName() {
+            return packagers != null ? packagers.distributionName : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+
+        String assemblerName() {
+            return assemblers != null ? assemblers.assemblerName : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+
+        String assemblerType() {
+            return assemblers != null ? assemblers.assemblerType : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+
+        org.jreleaser.model.Distribution.DistributionType distributionType() {
+            return packagers != null ? packagers.distributionType : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+
+        String announcerName() {
+            return announcers != null ? announcers.announcerName : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
+#### Snippet
+```java
+
+        String packagerName() {
+            return packagers != null ? packagers.packagerName : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Announce.java`
+#### Snippet
+```java
+
+        String[] excludedAnnouncers() {
+            return exclude != null ? exclude.excludedAnnouncers : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Announce.java`
+#### Snippet
+```java
+
+        String[] includedAnnouncers() {
+            return include != null ? include.includedAnnouncers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
+#### Snippet
+```java
+
+        String[] includedDownloaderNames() {
+            return include != null ? include.includedDownloaderNames : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
+#### Snippet
+```java
+
+        String[] excludedDownloaderNames() {
+            return exclude != null ? exclude.excludedDownloaderNames : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
+#### Snippet
+```java
+
+        String[] excludedDownloaderTypes() {
+            return exclude != null ? exclude.excludedDownloaderTypes : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Download.java`
+#### Snippet
+```java
+
+        String[] includedDownloaderTypes() {
+            return include != null ? include.includedDownloaderTypes : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
+#### Snippet
+```java
+
+        String[] excludedPackagers() {
+            return exclude != null ? exclude.excludedPackagers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
+#### Snippet
+```java
+
+        String[] includedPackagers() {
+            return include != null ? include.includedPackagers : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
+#### Snippet
+```java
+
+        String[] excludedDistributions() {
+            return exclude != null ? exclude.excludedDistributions : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
 #### Snippet
 ```java
 
@@ -12912,42 +13056,6 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/JsonSchema.java`
 
 ### ReturnNull
 Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-
-        String announcerName() {
-            return announcers != null ? announcers.announcerName : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-
-        org.jreleaser.model.Distribution.DistributionType distributionType() {
-            return packagers != null ? packagers.distributionType : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-
-        String distributionName() {
-            return packagers != null ? packagers.distributionName : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/JsonSchema.java`
 #### Snippet
 ```java
@@ -12960,132 +13068,12 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/JsonSchema.java`
 
 ### ReturnNull
 Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-
-        String packagerName() {
-            return packagers != null ? packagers.packagerName : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-
-        String assemblerType() {
-            return assemblers != null ? assemblers.assemblerType : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Template.java`
-#### Snippet
-```java
-
-        String assemblerName() {
-            return assemblers != null ? assemblers.assemblerName : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Announce.java`
-#### Snippet
-```java
-
-        String[] excludedAnnouncers() {
-            return exclude != null ? exclude.excludedAnnouncers : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
-#### Snippet
-```java
-
-        String[] includedDistributions() {
-            return include != null ? include.includedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Announce.java`
-#### Snippet
-```java
-
-        String[] includedAnnouncers() {
-            return include != null ? include.includedAnnouncers : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
-#### Snippet
-```java
-
-        String[] includedPackagers() {
-            return include != null ? include.includedPackagers : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
-#### Snippet
-```java
-
-        String[] excludedDistributions() {
-            return exclude != null ? exclude.excludedDistributions : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Publish.java`
-#### Snippet
-```java
-
-        String[] excludedPackagers() {
-            return exclude != null ? exclude.excludedPackagers : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
 #### Snippet
 ```java
 
-        String[] excludedDeployerNames() {
-            return exclude != null ? exclude.excludedDeployerNames : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
-#### Snippet
-```java
-
-        String[] excludedUploaderTypes() {
-            return exclude != null ? exclude.excludedUploaderTypes : null;
+        String[] excludedDeployerTypes() {
+            return exclude != null ? exclude.excludedDeployerTypes : null;
         }
 
 ```
@@ -13098,6 +13086,30 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
 
         String[] includedUploaderNames() {
             return include != null ? include.includedUploaderNames : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
+#### Snippet
+```java
+
+        String[] excludedDistributions() {
+            return exclude != null ? exclude.excludedDistributions : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
+#### Snippet
+```java
+
+        String[] includedDeployerNames() {
+            return include != null ? include.includedDeployerNames : null;
         }
 
 ```
@@ -13144,42 +13156,6 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
 #### Snippet
 ```java
 
-        String[] excludedDeployerTypes() {
-            return exclude != null ? exclude.excludedDeployerTypes : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
-#### Snippet
-```java
-
-        String[] excludedDistributions() {
-            return exclude != null ? exclude.excludedDistributions : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
-#### Snippet
-```java
-
-        String[] includedDeployerNames() {
-            return include != null ? include.includedDeployerNames : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
-#### Snippet
-```java
-
         String[] includedDistributions() {
             return include != null ? include.includedDistributions : null;
         }
@@ -13188,13 +13164,25 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
 
 ### ReturnNull
 Return of `null`
-in `sdks/jreleaser-genericgit-java-sdk/src/main/java/org/jreleaser/sdk/generic/git/GenericGitReleaser.java`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
 #### Snippet
 ```java
-    @Override
-    public Repository maybeCreateRepository(String owner, String repo, String password) throws IOException {
-        return null;
-    }
+
+        String[] excludedUploaderTypes() {
+            return exclude != null ? exclude.excludedUploaderTypes : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Release.java`
+#### Snippet
+```java
+
+        String[] excludedDeployerNames() {
+            return exclude != null ? exclude.excludedDeployerNames : null;
+        }
 
 ```
 
@@ -13212,50 +13200,14 @@ in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpUtils.jav
 
 ### ReturnNull
 Return of `null`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+in `sdks/jreleaser-genericgit-java-sdk/src/main/java/org/jreleaser/sdk/generic/git/GenericGitReleaser.java`
 #### Snippet
 ```java
-            if (e.isNotFound()) {
-                // ok
-                return null;
-            }
-            throw e;
-```
-
-### ReturnNull
-Return of `null`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-            if (e.isNotFound()) {
-                // ok
-                return null;
-            }
-            throw e;
-```
-
-### ReturnNull
-Return of `null`
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
-#### Snippet
-```java
-            if (e.isNotFound()) {
-                // ok
-                return null;
-            }
-            throw e;
-```
-
-### ReturnNull
-Return of `null`
-in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
-#### Snippet
-```java
-        } catch (GHFileNotFoundException ignored) {
-            // OK, means the organization does not exist
-            return null;
-        }
+    @Override
+    public Repository maybeCreateRepository(String owner, String repo, String password) throws IOException {
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -13272,10 +13224,22 @@ in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github
 
 ### ReturnNull
 Return of `null`
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
 #### Snippet
 ```java
-            if (e.isNotFound() || e.isForbidden()) {
+        } catch (GHFileNotFoundException ignored) {
+            // OK, means the organization does not exist
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+            if (e.isNotFound()) {
                 // ok
                 return null;
             }
@@ -13284,14 +13248,38 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 
 ### ReturnNull
 Return of `null`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Sdkman.java`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
 #### Snippet
 ```java
+            if (e.isNotFound()) {
+                // ok
+                return null;
+            }
+            throw e;
+```
 
-        public static Command of(String str) {
-            if (isBlank(str)) return null;
-            return Command.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
-        }
+### ReturnNull
+Return of `null`
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
+#### Snippet
+```java
+            if (e.isNotFound()) {
+                // ok
+                return null;
+            }
+            throw e;
+```
+
+### ReturnNull
+Return of `null`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+#### Snippet
+```java
+            if (e.isNotFound() || e.isForbidden()) {
+                // ok
+                return null;
+            }
+            throw e;
 ```
 
 ### ReturnNull
@@ -13308,6 +13296,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Signing.java`
 
 ### ReturnNull
 Return of `null`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Sdkman.java`
+#### Snippet
+```java
+
+        public static Command of(String str) {
+            if (isBlank(str)) return null;
+            return Command.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
+        }
+```
+
+### ReturnNull
+Return of `null`
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Active.java`
 #### Snippet
 ```java
@@ -13316,18 +13316,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Active.java`
         if (isBlank(str)) return null;
         return Active.valueOf(str.toUpperCase(Locale.ENGLISH).trim()
             .replace("+", "_")
-```
-
-### ReturnNull
-Return of `null`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Icon.java`
-#### Snippet
-```java
-
-        public static Type of(String str) {
-            if (isBlank(str)) return null;
-            return valueOf(str.toUpperCase(Locale.ENGLISH).trim());
-        }
 ```
 
 ### ReturnNull
@@ -13356,6 +13344,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/VersionPattern.jav
 
 ### ReturnNull
 Return of `null`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Icon.java`
+#### Snippet
+```java
+
+        public static Type of(String str) {
+            if (isBlank(str)) return null;
+            return valueOf(str.toUpperCase(Locale.ENGLISH).trim());
+        }
+```
+
+### ReturnNull
+Return of `null`
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Flatpak.java`
 #### Snippet
 ```java
@@ -13364,6 +13364,42 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Flatpak.java`
             if (isBlank(str)) return null;
             return Runtime.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
         }
+```
+
+### ReturnNull
+Return of `null`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Archive.java`
+#### Snippet
+```java
+
+        public static Format of(String str) {
+            if (isBlank(str)) return null;
+            return valueOf(str.toUpperCase(Locale.ENGLISH).trim()
+                .replace(".", "_"));
+```
+
+### ReturnNull
+Return of `null`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Distribution.java`
+#### Snippet
+```java
+
+        public static DistributionType of(String str) {
+            if (isBlank(str)) return null;
+
+            String value = str.replaceAll(" ", "_")
+```
+
+### ReturnNull
+Return of `null`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/UpdateSection.java`
+#### Snippet
+```java
+
+    public static UpdateSection of(String str) {
+        if (isBlank(str)) return null;
+        return UpdateSection.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
+    }
 ```
 
 ### ReturnNull
@@ -13388,42 +13424,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Http.java`
             if (isBlank(str)) return null;
             return Method.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
         }
-```
-
-### ReturnNull
-Return of `null`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Distribution.java`
-#### Snippet
-```java
-
-        public static DistributionType of(String str) {
-            if (isBlank(str)) return null;
-
-            String value = str.replaceAll(" ", "_")
-```
-
-### ReturnNull
-Return of `null`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/Archive.java`
-#### Snippet
-```java
-
-        public static Format of(String str) {
-            if (isBlank(str)) return null;
-            return valueOf(str.toUpperCase(Locale.ENGLISH).trim()
-                .replace(".", "_"));
-```
-
-### ReturnNull
-Return of `null`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/UpdateSection.java`
-#### Snippet
-```java
-
-    public static UpdateSection of(String str) {
-        if (isBlank(str)) return null;
-        return UpdateSection.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
-    }
 ```
 
 ### ReturnNull
@@ -13464,18 +13464,6 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/inte
 
 ### ReturnNull
 Return of `null`
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/common/Apply.java`
-#### Snippet
-```java
-
-    public static Apply of(String str) {
-        if (isBlank(str)) return null;
-        return Apply.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/hooks/ExecutionEvent.java`
 #### Snippet
 ```java
@@ -13484,6 +13472,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/hooks/Executio
             if (isBlank(str)) return null;
             return Type.valueOf(str.replaceAll(" ", "_")
                 .replaceAll("-", "_")
+```
+
+### ReturnNull
+Return of `null`
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/model/api/common/Apply.java`
+#### Snippet
+```java
+
+    public static Apply of(String str) {
+        if (isBlank(str)) return null;
+        return Apply.valueOf(str.toUpperCase(Locale.ENGLISH).trim());
+    }
 ```
 
 ### ReturnNull
@@ -13515,32 +13515,32 @@ Return of `null`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
 #### Snippet
 ```java
+            return cyan(s);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
+#### Snippet
+```java
+            return cyan(s);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
+#### Snippet
+```java
             return b ? green(String.valueOf(b)) : red(String.valueOf(b));
         } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
-#### Snippet
-```java
-            return cyan(s);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
-#### Snippet
-```java
-            return cyan(s);
-        } catch (Exception e) {
             return null;
         }
     }
@@ -13553,18 +13553,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/
 ```java
             return String.valueOf(getExtraProperties().get(key));
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/CodebergReleaser.java`
-#### Snippet
-```java
-    @Override
-    public String getReverseRepoHost() {
         return null;
     }
 
@@ -13600,8 +13588,32 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release
 #### Snippet
 ```java
         @Override
-        public org.jreleaser.model.api.release.CodebergReleaser getCodeberg() {
-            return null != codeberg ? codeberg.asImmutable() : null;
+        public org.jreleaser.model.api.release.GenericGitReleaser getGeneric() {
+            return null != generic ? generic.asImmutable() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/Release.java`
+#### Snippet
+```java
+        @Override
+        public org.jreleaser.model.api.release.GithubReleaser getGithub() {
+            return null != github ? github.asImmutable() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/Release.java`
+#### Snippet
+```java
+        @Override
+        public org.jreleaser.model.api.release.GitlabReleaser getGitlab() {
+            return null != gitlab ? gitlab.asImmutable() : null;
         }
 
 ```
@@ -13624,46 +13636,22 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release
 #### Snippet
 ```java
         @Override
-        public org.jreleaser.model.api.release.GenericGitReleaser getGeneric() {
-            return null != generic ? generic.asImmutable() : null;
+        public org.jreleaser.model.api.release.CodebergReleaser getCodeberg() {
+            return null != codeberg ? codeberg.asImmutable() : null;
         }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/Release.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/CodebergReleaser.java`
 #### Snippet
 ```java
-        @Override
-        public org.jreleaser.model.api.release.GitlabReleaser getGitlab() {
-            return null != gitlab ? gitlab.asImmutable() : null;
-        }
+    @Override
+    public String getReverseRepoHost() {
+        return null;
+    }
 
-```
-
-### ReturnNull
-Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/release/Release.java`
-#### Snippet
-```java
-        @Override
-        public org.jreleaser.model.api.release.GithubReleaser getGithub() {
-            return null != github ? github.asImmutable() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
-#### Snippet
-```java
-
-        public static VersionPattern of(String str) {
-            if (isBlank(str)) return null;
-
-            String[] parts = str.trim().split(":");
 ```
 
 ### ReturnNull
@@ -13704,6 +13692,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/util/Ar
 
 ### ReturnNull
 Return of `null`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
+#### Snippet
+```java
+
+        public static VersionPattern of(String str) {
+            if (isBlank(str)) return null;
+
+            String[] parts = str.trim().split(":");
+```
+
+### ReturnNull
+Return of `null`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/HttpAnnouncer.java`
 #### Snippet
 ```java
@@ -13716,7 +13716,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### ReturnNull
 Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
 #### Snippet
 ```java
 
@@ -13728,7 +13728,7 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
 
 ### ReturnNull
 Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/JlinkAssembler.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/NativeImageAssembler.java`
 #### Snippet
 ```java
 
@@ -13791,18 +13791,6 @@ Return of `null`
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/common/Validator.java`
 #### Snippet
 ```java
-        Errors errors = new Errors();
-        String result = Env.check(key, environment.getVariable(key), property, dsl, configFilePath, errors);
-        return !errors.hasErrors() ? result : (null != defaultValue ? defaultValue.name() : null);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/common/Validator.java`
-#### Snippet
-```java
         String configFilePath = environment.getPropertiesFile().toAbsolutePath().normalize().toString();
         String val = Env.check(key, environment.getVariable(key), property, dsl, configFilePath, dryrun ? new Errors() : errors);
         return isNotBlank(val) ? Integer.parseInt(val) : null;
@@ -13817,6 +13805,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 ```java
         Errors errors = new Errors();
         String result = Env.check(keys, environment.getVars(), property, dsl, configFilePath, errors);
+        return !errors.hasErrors() ? result : (null != defaultValue ? defaultValue.name() : null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/common/Validator.java`
+#### Snippet
+```java
+        Errors errors = new Errors();
+        String result = Env.check(key, environment.getVariable(key), property, dsl, configFilePath, errors);
         return !errors.hasErrors() ? result : (null != defaultValue ? defaultValue.name() : null);
     }
 
@@ -13839,11 +13839,11 @@ Return of `null`
 in `sdks/jreleaser-nexus2-java-sdk/src/main/java/org/jreleaser/sdk/nexus2/Nexus2.java`
 #### Snippet
 ```java
-                reader.mark(1);
-                if (reader.read() == -1) {
-                    return null; // Eagerly returning null avoids "No content to map due to end-of-input"
-                }
-                reader.reset();
+                return callable.call();
+            }
+            return null;
+        } catch (Nexus2Exception e) {
+            logger.trace(e);
 ```
 
 ### ReturnNull
@@ -13851,11 +13851,11 @@ Return of `null`
 in `sdks/jreleaser-nexus2-java-sdk/src/main/java/org/jreleaser/sdk/nexus2/Nexus2.java`
 #### Snippet
 ```java
-                return callable.call();
-            }
-            return null;
-        } catch (Nexus2Exception e) {
-            logger.trace(e);
+                reader.mark(1);
+                if (reader.read() == -1) {
+                    return null; // Eagerly returning null avoids "No content to map due to end-of-input"
+                }
+                reader.reset();
 ```
 
 ### ReturnNull
@@ -14004,6 +14004,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/ResourceUtils.java`
 
 ### ReturnNull
 Return of `null`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Algorithm.java`
+#### Snippet
+```java
+    @JsonCreator
+    public static Algorithm of(String str) {
+        if (isBlank(str)) return null;
+
+        String value = str.toUpperCase(Locale.ENGLISH).trim();
+```
+
+### ReturnNull
+Return of `null`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/ResourceUtils.java`
 #### Snippet
 ```java
@@ -14028,18 +14040,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/ResourceUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/Algorithm.java`
-#### Snippet
-```java
-    @JsonCreator
-    public static Algorithm of(String str) {
-        if (isBlank(str)) return null;
-
-        String value = str.toUpperCase(Locale.ENGLISH).trim();
-```
-
-### ReturnNull
-Return of `null`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileType.java`
 #### Snippet
 ```java
@@ -14048,6 +14048,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileType.java`
         if (isBlank(str)) return null;
         return FileType.valueOf(str.toUpperCase(Locale.ENGLISH).trim()
             .replace(".", "_"));
+```
+
+### ReturnNull
+Return of `null`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
+#### Snippet
+```java
+    public static String getHyphenatedName(Class<?> clazz) {
+        if (clazz == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -14124,18 +14136,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/StringUtils.java`
-#### Snippet
-```java
-    public static String getHyphenatedName(Class<?> clazz) {
-        if (clazz == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
 ```java
@@ -14164,11 +14164,11 @@ Unnecessary non-capturing group `(?:[1-9]\\d*)`
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/ChronVer.java`
 #### Snippet
 ```java
+ */
 public class ChronVer implements Version<ChronVer> {
     private static final Pattern PATTERN = Pattern.compile("^([2-9][0-9]{3})\\.(0[1-9]|1[0-2])\\.(0[1-9]|[1-2][0-9]|3[0-1])(?:\\.((?:[1-9]\\d*)(?:(?:-[a-zA-Z0-9]+)+(?:\\.[1-9]\\d*)?)?))?$");
     private static final Pattern CHANGESET = Pattern.compile("^(?:((?:[1-9]\\d*))(?:-([a-zA-Z0-9-]+[a-zA-Z0-9]?)(?:\\.([1-9]\\d*))?)?)?$");
 
-    private final int year;
 ```
 
 ### RegExpUnnecessaryNonCapturingGroup
@@ -14176,11 +14176,11 @@ Unnecessary non-capturing group `(?:[1-9]\\d*)`
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/ChronVer.java`
 #### Snippet
 ```java
- */
 public class ChronVer implements Version<ChronVer> {
     private static final Pattern PATTERN = Pattern.compile("^([2-9][0-9]{3})\\.(0[1-9]|1[0-2])\\.(0[1-9]|[1-2][0-9]|3[0-1])(?:\\.((?:[1-9]\\d*)(?:(?:-[a-zA-Z0-9]+)+(?:\\.[1-9]\\d*)?)?))?$");
     private static final Pattern CHANGESET = Pattern.compile("^(?:((?:[1-9]\\d*))(?:-([a-zA-Z0-9-]+[a-zA-Z0-9]?)(?:\\.([1-9]\\d*))?)?)?$");
 
+    private final int year;
 ```
 
 ## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
