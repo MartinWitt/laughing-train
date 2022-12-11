@@ -15,6 +15,18 @@ I found 16 bad smells with 3 repairable:
 | MethodOverridesStaticMethod | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
+in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+#### Snippet
+```java
+		}
+
+		return result.toArray(new Modifier[result.size()]);
+	}
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new TypeName\[bounds.size()\]'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
@@ -36,18 +48,6 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 			return (T) ParameterizedTypeName.get(ClassName.get(ref.getActualClass()), parameters.toArray(new TypeName[parameters.size()]));
 		}
 		throw new UnsupportedOperationException();
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
-in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
-#### Snippet
-```java
-		}
-
-		return result.toArray(new Modifier[result.size()]);
-	}
-
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -82,18 +82,6 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-	@Override
 	public Map<Integer, Integer> getLineNumberMapping() {
 		return null;
 	}
@@ -107,6 +95,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 ```java
 	@Override
 	public String printModuleInfo(CtModule ctModule) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+	@Override
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
