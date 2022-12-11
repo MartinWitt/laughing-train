@@ -90,18 +90,6 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Unboxing of `queueItem.get(QueueItemFactory.RECORD_TIMESTAMP, Long.class)` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
-#### Snippet
-```java
-
-    private Calendar itemCalendar(DistributionQueueItem queueItem) {
-        long recordTimestamp = queueItem.get(QueueItemFactory.RECORD_TIMESTAMP, Long.class);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(recordTimestamp);
-```
-
-### DataFlowIssue
 Method invocation `putAll` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/LocalStore.java`
 #### Snippet
@@ -111,6 +99,18 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/LocalStore.ja
             store.adaptTo(ModifiableValueMap.class).putAll(map);
         } else {
             serviceResolver.create(parent, storeId, map);
+```
+
+### DataFlowIssue
+Unboxing of `queueItem.get(QueueItemFactory.RECORD_TIMESTAMP, Long.class)` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
+#### Snippet
+```java
+
+    private Calendar itemCalendar(DistributionQueueItem queueItem) {
+        long recordTimestamp = queueItem.get(QueueItemFactory.RECORD_TIMESTAMP, Long.class);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(recordTimestamp);
 ```
 
 ### DataFlowIssue
@@ -248,18 +248,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `lastCheck` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
-#### Snippet
-```java
-    
-    private long currentMaxDelay;
-    private long lastCheck;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
 #### Snippet
@@ -269,6 +257,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
     private long currentMaxDelay;
     private long lastCheck;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lastCheck` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
+#### Snippet
+```java
+    
+    private long currentMaxDelay;
+    private long lastCheck;
+
+    /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -322,18 +322,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
-#### Snippet
-```java
-    
-    private Dictionary<String, Object> createServiceProps(PublisherConfiguration config) {
-        Dictionary<String, Object> props = new Hashtable<>();
-        props.put("name", config.name());
-        props.put("title", config.name());
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PubQueueProviderPublisher.java`
 #### Snippet
 ```java
@@ -342,6 +330,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PubQueueP
         reg = context.registerService(PubQueueProvider.class, this.pubQueueProvider, new Hashtable<>());
     }
     
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
+#### Snippet
+```java
+    
+    private Dictionary<String, Object> createServiceProps(PublisherConfiguration config) {
+        Dictionary<String, Object> props = new Hashtable<>();
+        props.put("name", config.name());
+        props.put("title", config.name());
 ```
 
 ### ObsoleteCollection
@@ -444,7 +444,7 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-11-09-30-57.536.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-11-20-58-20.384.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -470,18 +470,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
-#### Snippet
-```java
-    public DistributionQueueEntry create(DistributionQueueItem queueItem) {
-        if (queueItem == null) {
-            return null;
-        }
-        String entryId = EntryUtil.entryId(queueItem);
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
 #### Snippet
 ```java
@@ -490,6 +478,18 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java
         return queueItem.equals(headItem) ? error : null ;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
+#### Snippet
+```java
+    public DistributionQueueEntry create(DistributionQueueItem queueItem) {
+        if (queueItem == null) {
+            return null;
+        }
+        String entryId = EntryUtil.entryId(queueItem);
 ```
 
 ### ReturnNull
@@ -618,18 +618,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/Delay.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
-#### Snippet
-```java
-    }
-
-    private void queued(FullMessage<PackageMessage> fullMessage) {
-        long offset = fullMessage.getInfo().getOffset();
-        PackageMessage message = fullMessage.getMessage();
-```
-
-### BoundedWildcard
 Can generalize to `? extends FullMessage`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
 #### Snippet
@@ -639,6 +627,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQu
     public void queued(List<FullMessage<PackageMessage>> fullMessages) {
         fullMessages.forEach(this::queued);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
+#### Snippet
+```java
+    }
+
+    private void queued(FullMessage<PackageMessage> fullMessage) {
+        long offset = fullMessage.getInfo().getOffset();
+        PackageMessage message = fullMessage.getMessage();
 ```
 
 ### BoundedWildcard
