@@ -10,8 +10,8 @@ I found 10 bad smells with 1 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
-| ManualMinMaxCalculation | 1 | false |
 | ConstantMathCall | 1 | false |
+| ManualMinMaxCalculation | 1 | false |
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
 ### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
@@ -41,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-11-01-21-31.257.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-11-10-36-58.343.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -77,33 +77,19 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
 
 ```
 
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
-#### Snippet
-```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
-```
-
-## RuleId[ruleID=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
-#### Snippet
-```java
-    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
-    /** &radic;(2 &pi;). */
-    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
-    /** The mu parameter of this distribution. */
-    private final double mu;
-```
-
 ## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
+#### Snippet
+```java
+        if (r == null) {
+            // Default to a SplittableRandom
+            randomIntFunction = r = new SplittableRandom()::nextInt;
+        }
+        return r;
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
@@ -128,15 +114,29 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         return (int) m;
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
+## RuleId[ruleID=ConstantMathCall]
+### ConstantMathCall
+Constant call to `sqrt()` can be simplified
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
 #### Snippet
 ```java
-        if (r == null) {
-            // Default to a SplittableRandom
-            randomIntFunction = r = new SplittableRandom()::nextInt;
+    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
+    /** &radic;(2 &pi;). */
+    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
+    /** The mu parameter of this distribution. */
+    private final double mu;
+```
+
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
+#### Snippet
+```java
+            return lower;
         }
-        return r;
+        return x < upper ? x : upper;
+    }
+
 ```
 
