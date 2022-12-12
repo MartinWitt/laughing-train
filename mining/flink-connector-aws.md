@@ -492,15 +492,15 @@ public class KinesisStreamShard implements Serializable {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'AGGREGATION_MAX_COUNT' is still used
+Deprecated member 'COLLECTION_MAX_COUNT' is still used
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/config/ProducerConfigConstants.java`
 #### Snippet
 ```java
+     *     keys. Please use {@code CollectionMaxCount} instead.
      */
-    @Deprecated
-    public static final String AGGREGATION_MAX_COUNT = "aws.producer.aggregationMaxCount";
-}
+    @Deprecated public static final String COLLECTION_MAX_COUNT = "aws.producer.collectionMaxCount";
 
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -516,30 +516,18 @@ public class ProducerConfigConstants extends AWSConfigConstants {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'COLLECTION_MAX_COUNT' is still used
+Deprecated member 'AGGREGATION_MAX_COUNT' is still used
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/config/ProducerConfigConstants.java`
 #### Snippet
 ```java
-     *     keys. Please use {@code CollectionMaxCount} instead.
      */
-    @Deprecated public static final String COLLECTION_MAX_COUNT = "aws.producer.collectionMaxCount";
+    @Deprecated
+    public static final String AGGREGATION_MAX_COUNT = "aws.producer.aggregationMaxCount";
+}
 
-    /**
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `addCount` from instance context
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/JobManagerWatermarkTracker.java`
-#### Snippet
-```java
-        public Map<String, WatermarkState> add(
-                byte[] valueBytes, Map<String, WatermarkState> accumulator) {
-            addCount++;
-            final WatermarkUpdate value;
-            try {
-```
-
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `lastLogged` from instance context
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/JobManagerWatermarkTracker.java`
@@ -550,6 +538,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
                     lastLogged = System.currentTimeMillis();
                     LOG.info(
                             "WatermarkAggregateFunction added: {}, timeout: {}, map: {}",
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `addCount` from instance context
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/JobManagerWatermarkTracker.java`
+#### Snippet
+```java
+        public Map<String, WatermarkState> add(
+                byte[] valueBytes, Map<String, WatermarkState> accumulator) {
+            addCount++;
+            final WatermarkUpdate value;
+            try {
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -620,11 +620,11 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/RecordEmitter.java`
 #### Snippet
 ```java
-            queue.put(record);
-            synchronized (condition) {
-                condition.notify();
-            }
+        maxEmitTimestamp = watermark + maxLookaheadMillis;
+        synchronized (condition) {
+            condition.notify();
         }
+        LOG.info(
 ```
 
 ### ObjectNotify
@@ -632,11 +632,11 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/RecordEmitter.java`
 #### Snippet
 ```java
-        maxEmitTimestamp = watermark + maxLookaheadMillis;
-        synchronized (condition) {
-            condition.notify();
+            queue.put(record);
+            synchronized (condition) {
+                condition.notify();
+            }
         }
-        LOG.info(
 ```
 
 ## RuleId[ruleID=RegExpSimplifiable]
@@ -714,18 +714,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```
 
 ### SizeReplaceableByIsEmpty
-`requestedMetadataFields.size() > 0` can be replaced with '!requestedMetadataFields.isEmpty()'
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/table/KinesisDynamicSource.java`
-#### Snippet
-```java
-        KinesisDeserializationSchema<RowData> deserializationSchema;
-
-        if (requestedMetadataFields.size() > 0) {
-            deserializationSchema =
-                    new RowDataKinesisDeserializationSchema(
-```
-
-### SizeReplaceableByIsEmpty
 `streams.size() != 0` can be replaced with '!streams.isEmpty()'
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisConsumer.java`
 #### Snippet
@@ -735,6 +723,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
         checkArgument(streams.size() != 0, "must be consuming at least 1 stream");
         checkArgument(!streams.contains(""), "stream names cannot be empty Strings");
         this.streams = streams;
+```
+
+### SizeReplaceableByIsEmpty
+`requestedMetadataFields.size() > 0` can be replaced with '!requestedMetadataFields.isEmpty()'
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/table/KinesisDynamicSource.java`
+#### Snippet
+```java
+        KinesisDeserializationSchema<RowData> deserializationSchema;
+
+        if (requestedMetadataFields.size() > 0) {
+            deserializationSchema =
+                    new RowDataKinesisDeserializationSchema(
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -779,6 +779,18 @@ Unnecessary `toString()` call
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisConsumer.java`
 #### Snippet
 ```java
+            LOG.info(
+                    "Flink Kinesis Consumer is going to read the following streams: {}",
+                    sb.toString());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisConsumer.java`
+#### Snippet
+```java
                                         + " starting state set to the restored sequence number {}",
                                 getRuntimeContext().getIndexOfThisSubtask(),
                                 shard.toString(),
@@ -812,14 +824,14 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisConsumer.java`
+in `flink-connector-aws-base/src/main/java/org/apache/flink/connector/aws/util/AWSGeneralUtil.java`
 #### Snippet
 ```java
-            LOG.info(
-                    "Flink Kinesis Consumer is going to read the following streams: {}",
-                    sb.toString());
+                }
+                throw new IllegalArgumentException(
+                        "Invalid AWS region set in config. Valid values are: " + sb.toString());
+            }
         }
-    }
 ```
 
 ### UnnecessaryToStringCall
@@ -836,18 +848,6 @@ in `flink-connector-aws-base/src/main/java/org/apache/flink/connector/aws/util/A
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `flink-connector-aws-base/src/main/java/org/apache/flink/connector/aws/util/AWSGeneralUtil.java`
-#### Snippet
-```java
-                }
-                throw new IllegalArgumentException(
-                        "Invalid AWS region set in config. Valid values are: " + sb.toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/internals/KinesisDataFetcher.java`
 #### Snippet
 ```java
@@ -859,30 +859,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends ConfigOption`
-in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/util/KinesisStreamsConnectorOptionsUtils.java`
-#### Snippet
-```java
-        }
-
-        public static Set<ConfigOption<?>> addDeprecatedKeys(Set<ConfigOption<?>> tableOptions) {
-            HashSet<ConfigOption<?>> tableOptionsWithDeprecatedKeys = new HashSet<>(tableOptions);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
-#### Snippet
-```java
-            Throwable err,
-            List<DynamoDbWriteRequest> requestEntries,
-            Consumer<List<DynamoDbWriteRequest>> requestResult) {
-        LOG.warn(
-                "DynamoDB Sink failed to persist and will retry {} entries.",
-```
-
 ### BoundedWildcard
 Can generalize to `? extends DynamoDbAsyncClient`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
@@ -900,10 +876,34 @@ Can generalize to `? super List`
 in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
 #### Snippet
 ```java
+            Throwable err,
+            List<DynamoDbWriteRequest> requestEntries,
+            Consumer<List<DynamoDbWriteRequest>> requestResult) {
+        LOG.warn(
+                "DynamoDB Sink failed to persist and will retry {} entries.",
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/sink/DynamoDbSinkWriter.java`
+#### Snippet
+```java
 
     private void handlePartiallyUnprocessedRequest(
             BatchWriteItemResponse response, Consumer<List<DynamoDbWriteRequest>> requestResult) {
         List<DynamoDbWriteRequest> unprocessed = new ArrayList<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConfigOption`
+in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/util/KinesisStreamsConnectorOptionsUtils.java`
+#### Snippet
+```java
+        }
+
+        public static Set<ConfigOption<?>> addDeprecatedKeys(Set<ConfigOption<?>> tableOptions) {
+            HashSet<ConfigOption<?>> tableOptionsWithDeprecatedKeys = new HashSet<>(tableOptions);
 
 ```
 
@@ -914,9 +914,9 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```java
      *     credentials and AWS region
      */
-    public FlinkKinesisProducer(final SerializationSchema<OUT> schema, Properties configProps) {
-
-        // create a simple wrapper for the serialization schema
+    public FlinkKinesisProducer(KinesisSerializationSchema<OUT> schema, Properties configProps) {
+        checkNotNull(configProps, "configProps can not be null");
+        this.configProps = KinesisConfigUtil.replaceDeprecatedProducerKeys(configProps);
 ```
 
 ### BoundedWildcard
@@ -938,9 +938,9 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```java
      *     credentials and AWS region
      */
-    public FlinkKinesisProducer(KinesisSerializationSchema<OUT> schema, Properties configProps) {
-        checkNotNull(configProps, "configProps can not be null");
-        this.configProps = KinesisConfigUtil.replaceDeprecatedProducerKeys(configProps);
+    public FlinkKinesisProducer(final SerializationSchema<OUT> schema, Properties configProps) {
+
+        // create a simple wrapper for the serialization schema
 ```
 
 ### BoundedWildcard
@@ -953,18 +953,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
     public void addRetrievedShardsToStream(String stream, List<StreamShardHandle> retrievedShards) {
         if (retrievedShards.size() != 0) {
             if (!streamsToRetrievedShardList.containsKey(stream)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super InputT`
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkElementConverter.java`
-#### Snippet
-```java
-    private final SerializationSchema<InputT> serializationSchema;
-
-    private KinesisFirehoseSinkElementConverter(SerializationSchema<InputT> serializationSchema) {
-        this.serializationSchema = serializationSchema;
-    }
 ```
 
 ### BoundedWildcard
@@ -992,15 +980,15 @@ in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connecto
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/converter/ArrayAttributeConverter.java`
+Can generalize to `? super InputT`
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkElementConverter.java`
 #### Snippet
 ```java
+    private final SerializationSchema<InputT> serializationSchema;
 
-    public ArrayAttributeConverter(
-            AttributeConverter<T> tAttributeConverter, EnhancedType<T[]> enhancedType) {
-        this.tAttributeConverter = tAttributeConverter;
-        this.enhancedType = enhancedType;
+    private KinesisFirehoseSinkElementConverter(SerializationSchema<InputT> serializationSchema) {
+        this.serializationSchema = serializationSchema;
+    }
 ```
 
 ### BoundedWildcard
@@ -1013,6 +1001,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
             KinesisDeserializationSchema<T> shardDeserializer) {
         this.fetcherRef = checkNotNull(fetcherRef);
         this.recordPublisher = checkNotNull(recordPublisher);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `flink-connector-dynamodb/src/main/java/org/apache/flink/connector/dynamodb/table/converter/ArrayAttributeConverter.java`
+#### Snippet
+```java
+
+    public ArrayAttributeConverter(
+            AttributeConverter<T> tAttributeConverter, EnhancedType<T[]> enhancedType) {
+        this.tAttributeConverter = tAttributeConverter;
+        this.enhancedType = enhancedType;
 ```
 
 ### BoundedWildcard
@@ -1288,18 +1288,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ## RuleId[ruleID=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
-#### Snippet
-```java
-
-        Optional.ofNullable(failOnError).ifPresent(builder::setFailOnError);
-        super.addAsyncOptionsToSinkBuilder(builder);
-
-        return SinkV2Provider.of(builder.build());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/JobManagerWatermarkTracker.java`
 #### Snippet
 ```java
@@ -1308,6 +1296,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
         this.aggregateFunction.updateTimeoutMillis = super.getUpdateTimeoutMillis();
         this.aggregateFunction.logAccumulatorIntervalMillis = logAccumulatorIntervalMillis;
         Preconditions.checkArgument(context instanceof StreamingRuntimeContext);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
+#### Snippet
+```java
+
+        Optional.ofNullable(failOnError).ifPresent(builder::setFailOnError);
+        super.addAsyncOptionsToSinkBuilder(builder);
+
+        return SinkV2Provider.of(builder.build());
 ```
 
 ### UnnecessarySuperQualifier
@@ -1360,18 +1360,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.streaming.connectors.kinesis.config` is unnecessary and can be removed
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/config/ProducerConfigConstants.java`
-#### Snippet
-```java
- *     here</a> for the full list of available configs. For configuring the region and credentials,
- *     please use the keys in {@link
- *     org.apache.flink.streaming.connectors.kinesis.config.AWSConfigConstants}.
- */
-@Deprecated
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.flink.api.common` is unnecessary and can be removed
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisConsumer.java`
 #### Snippet
@@ -1381,6 +1369,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
  * org.apache.flink.api.common.ExecutionConfig#setAutoWatermarkInterval(long)}.
  *
  * <p>Watermarks can only advance when all shards of a subtask continuously deliver records. To
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.streaming.connectors.kinesis.config` is unnecessary and can be removed
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/config/ProducerConfigConstants.java`
+#### Snippet
+```java
+ *     here</a> for the full list of available configs. For configuring the region and credentials,
+ *     please use the keys in {@link
+ *     org.apache.flink.streaming.connectors.kinesis.config.AWSConfigConstants}.
+ */
+@Deprecated
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1510,39 +1510,15 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/util/KinesisFirehoseConnectorOptionUtils.java`
+Call to `Hashtable.putIfAbsent()` on properties object
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkBuilder.java`
 #### Snippet
 ```java
-    public Properties getSinkProperties() {
-        Properties properties = asyncSinkConfigurationValidator.getValidatedConfigurations();
-        properties.put(DELIVERY_STREAM.key(), tableOptions.get(DELIVERY_STREAM));
-        Properties kinesisClientProps = asyncClientOptionsUtils.getValidatedConfigurations();
-        properties.put(FIREHOSE_CLIENT_PROPERTIES_KEY, kinesisClientProps);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/util/KinesisFirehoseConnectorOptionUtils.java`
-#### Snippet
-```java
-        properties.put(DELIVERY_STREAM.key(), tableOptions.get(DELIVERY_STREAM));
-        Properties kinesisClientProps = asyncClientOptionsUtils.getValidatedConfigurations();
-        properties.put(FIREHOSE_CLIENT_PROPERTIES_KEY, kinesisClientProps);
-        if (tableOptions.getOptional(SINK_FAIL_ON_ERROR).isPresent()) {
-            properties.put(
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/util/KinesisFirehoseConnectorOptionUtils.java`
-#### Snippet
-```java
-        properties.put(FIREHOSE_CLIENT_PROPERTIES_KEY, kinesisClientProps);
-        if (tableOptions.getOptional(SINK_FAIL_ON_ERROR).isPresent()) {
-            properties.put(
-                    SINK_FAIL_ON_ERROR.key(), tableOptions.getOptional(SINK_FAIL_ON_ERROR).get());
-        }
+        Properties clientProperties =
+                Optional.ofNullable(firehoseClientProperties).orElse(new Properties());
+        clientProperties.putIfAbsent(HTTP_PROTOCOL_VERSION, DEFAULT_HTTP_PROTOCOL.toString());
+        return clientProperties;
+    }
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -1594,15 +1570,39 @@ in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkBuilder.java`
+Call to `Hashtable.put()` on properties object
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/util/KinesisFirehoseConnectorOptionUtils.java`
 #### Snippet
 ```java
-        Properties clientProperties =
-                Optional.ofNullable(firehoseClientProperties).orElse(new Properties());
-        clientProperties.putIfAbsent(HTTP_PROTOCOL_VERSION, DEFAULT_HTTP_PROTOCOL.toString());
-        return clientProperties;
-    }
+    public Properties getSinkProperties() {
+        Properties properties = asyncSinkConfigurationValidator.getValidatedConfigurations();
+        properties.put(DELIVERY_STREAM.key(), tableOptions.get(DELIVERY_STREAM));
+        Properties kinesisClientProps = asyncClientOptionsUtils.getValidatedConfigurations();
+        properties.put(FIREHOSE_CLIENT_PROPERTIES_KEY, kinesisClientProps);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/util/KinesisFirehoseConnectorOptionUtils.java`
+#### Snippet
+```java
+        properties.put(DELIVERY_STREAM.key(), tableOptions.get(DELIVERY_STREAM));
+        Properties kinesisClientProps = asyncClientOptionsUtils.getValidatedConfigurations();
+        properties.put(FIREHOSE_CLIENT_PROPERTIES_KEY, kinesisClientProps);
+        if (tableOptions.getOptional(SINK_FAIL_ON_ERROR).isPresent()) {
+            properties.put(
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/util/KinesisFirehoseConnectorOptionUtils.java`
+#### Snippet
+```java
+        properties.put(FIREHOSE_CLIENT_PROPERTIES_KEY, kinesisClientProps);
+        if (tableOptions.getOptional(SINK_FAIL_ON_ERROR).isPresent()) {
+            properties.put(
+                    SINK_FAIL_ON_ERROR.key(), tableOptions.getOptional(SINK_FAIL_ON_ERROR).get());
+        }
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -1659,6 +1659,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 #### Snippet
 ```java
 
+    public static boolean isEagerEfoRegistrationType(final Properties properties) {
+        return EAGER.name().equals(properties.get(EFO_REGISTRATION_TYPE));
+    }
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/AwsV2Util.java`
+#### Snippet
+```java
+
     public static boolean isUsingEfoRecordPublisher(final Properties properties) {
         return EFO.name().equals(properties.get(RECORD_PUBLISHER_TYPE));
     }
@@ -1673,18 +1685,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 
     public static boolean isNoneEfoRegistrationType(final Properties properties) {
         return NONE.name().equals(properties.get(EFO_REGISTRATION_TYPE));
-    }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/AwsV2Util.java`
-#### Snippet
-```java
-
-    public static boolean isEagerEfoRegistrationType(final Properties properties) {
-        return EAGER.name().equals(properties.get(EFO_REGISTRATION_TYPE));
     }
 
 ```
@@ -1824,6 +1824,54 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/JobManagerWatermarkTracker.java`
+#### Snippet
+```java
+    protected static class WatermarkResult implements Serializable {
+        protected long watermark = Long.MIN_VALUE;
+        protected long updateTimeoutCount = 0;
+    }
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
+#### Snippet
+```java
+        private String deliveryStream = null;
+        private Properties firehoseClientProperties = null;
+        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
+        private Boolean failOnError = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
+#### Snippet
+```java
+            extends AsyncDynamicTableSinkBuilder<Record, KinesisFirehoseDynamicSinkBuilder> {
+
+        private DataType consumedDataType = null;
+        private String deliveryStream = null;
+        private Properties firehoseClientProperties = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
+#### Snippet
+```java
+        private DataType consumedDataType = null;
+        private String deliveryStream = null;
+        private Properties firehoseClientProperties = null;
+        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
+        private Boolean failOnError = null;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
 #### Snippet
@@ -1840,59 +1888,11 @@ Field initialization to `null` is redundant
 in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
 #### Snippet
 ```java
-        private DataType consumedDataType = null;
-        private String deliveryStream = null;
-        private Properties firehoseClientProperties = null;
-        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-        private Boolean failOnError = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
-#### Snippet
-```java
-        private String deliveryStream = null;
-        private Properties firehoseClientProperties = null;
-        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-        private Boolean failOnError = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
-#### Snippet
-```java
 
         private DataType consumedDataType = null;
         private String deliveryStream = null;
         private Properties firehoseClientProperties = null;
         private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/table/KinesisFirehoseDynamicSink.java`
-#### Snippet
-```java
-            extends AsyncDynamicTableSinkBuilder<Record, KinesisFirehoseDynamicSinkBuilder> {
-
-        private DataType consumedDataType = null;
-        private String deliveryStream = null;
-        private Properties firehoseClientProperties = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/util/JobManagerWatermarkTracker.java`
-#### Snippet
-```java
-    protected static class WatermarkResult implements Serializable {
-        protected long watermark = Long.MIN_VALUE;
-        protected long updateTimeoutCount = 0;
-    }
-
 ```
 
 ### RedundantFieldInitialization
@@ -1920,18 +1920,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisProducer.java`
-#### Snippet
-```java
-
-    /* Flag controlling the error behavior of the producer */
-    private boolean failOnError = false;
-
-    /* Maximum length of the internal record queue before backpressuring */
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisProducer.java`
 #### Snippet
@@ -1944,15 +1932,15 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/internals/publisher/polling/AdaptivePollingRecordPublisher.java`
+Field initialization to `false` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/FlinkKinesisProducer.java`
 #### Snippet
 ```java
-    private int lastRecordBatchSize = 0;
 
-    private long lastRecordBatchSizeInBytes = 0;
+    /* Flag controlling the error behavior of the producer */
+    private boolean failOnError = false;
 
-    private long processingStartTimeNanos = System.nanoTime();
+    /* Maximum length of the internal record queue before backpressuring */
 ```
 
 ### RedundantFieldInitialization
@@ -1968,6 +1956,18 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/internals/publisher/polling/AdaptivePollingRecordPublisher.java`
+#### Snippet
+```java
+    private int lastRecordBatchSize = 0;
+
+    private long lastRecordBatchSizeInBytes = 0;
+
+    private long processingStartTimeNanos = System.nanoTime();
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `flink-connector-aws-kinesis-firehose/src/main/java/org/apache/flink/connector/firehose/sink/KinesisFirehoseSinkElementConverter.java`
 #### Snippet
@@ -1980,54 +1980,6 @@ public class KinesisFirehoseSinkElementConverter<InputT>
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/ShardConsumerMetricsReporter.java`
-#### Snippet
-```java
-    private volatile long averageRecordSizeBytes = 0L;
-    private volatile int numberOfAggregatedRecords = 0;
-    private volatile int numberOfDeaggregatedRecords = 0;
-
-    public ShardConsumerMetricsReporter(final MetricGroup metricGroup) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/ShardConsumerMetricsReporter.java`
-#### Snippet
-```java
-
-    private volatile long millisBehindLatest = -1;
-    private volatile long averageRecordSizeBytes = 0L;
-    private volatile int numberOfAggregatedRecords = 0;
-    private volatile int numberOfDeaggregatedRecords = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/ShardConsumerMetricsReporter.java`
-#### Snippet
-```java
-    private volatile long millisBehindLatest = -1;
-    private volatile long averageRecordSizeBytes = 0L;
-    private volatile int numberOfAggregatedRecords = 0;
-    private volatile int numberOfDeaggregatedRecords = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
-#### Snippet
-```java
-        private Properties kinesisClientProperties = null;
-        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-        private PartitionKeyGenerator<RowData> partitioner = null;
-        private Boolean failOnError = null;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
 #### Snippet
@@ -2037,18 +1989,6 @@ in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector
         private String stream = null;
         private Properties kinesisClientProperties = null;
         private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
-#### Snippet
-```java
-        private DataType consumedDataType = null;
-        private String stream = null;
-        private Properties kinesisClientProperties = null;
-        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-        private PartitionKeyGenerator<RowData> partitioner = null;
 ```
 
 ### RedundantFieldInitialization
@@ -2068,6 +2008,42 @@ Field initialization to `null` is redundant
 in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
 #### Snippet
 ```java
+        private String stream = null;
+        private Properties kinesisClientProperties = null;
+        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
+        private PartitionKeyGenerator<RowData> partitioner = null;
+        private Boolean failOnError = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
+#### Snippet
+```java
+        private DataType consumedDataType = null;
+        private String stream = null;
+        private Properties kinesisClientProperties = null;
+        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
+        private PartitionKeyGenerator<RowData> partitioner = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
+#### Snippet
+```java
+        private Properties kinesisClientProperties = null;
+        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
+        private PartitionKeyGenerator<RowData> partitioner = null;
+        private Boolean failOnError = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
+#### Snippet
+```java
         private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
         private PartitionKeyGenerator<RowData> partitioner = null;
         private Boolean failOnError = null;
@@ -2076,15 +2052,39 @@ in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-aws-kinesis-streams/src/main/java/org/apache/flink/connector/kinesis/table/KinesisDynamicSink.java`
+Field initialization to `0` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/ShardConsumerMetricsReporter.java`
 #### Snippet
 ```java
-        private String stream = null;
-        private Properties kinesisClientProperties = null;
-        private EncodingFormat<SerializationSchema<RowData>> encodingFormat = null;
-        private PartitionKeyGenerator<RowData> partitioner = null;
-        private Boolean failOnError = null;
+    private volatile long millisBehindLatest = -1;
+    private volatile long averageRecordSizeBytes = 0L;
+    private volatile int numberOfAggregatedRecords = 0;
+    private volatile int numberOfDeaggregatedRecords = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/ShardConsumerMetricsReporter.java`
+#### Snippet
+```java
+
+    private volatile long millisBehindLatest = -1;
+    private volatile long averageRecordSizeBytes = 0L;
+    private volatile int numberOfAggregatedRecords = 0;
+    private volatile int numberOfDeaggregatedRecords = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/ShardConsumerMetricsReporter.java`
+#### Snippet
+```java
+    private volatile long averageRecordSizeBytes = 0L;
+    private volatile int numberOfAggregatedRecords = 0;
+    private volatile int numberOfDeaggregatedRecords = 0;
+
+    public ShardConsumerMetricsReporter(final MetricGroup metricGroup) {
 ```
 
 ### RedundantFieldInitialization
@@ -2116,6 +2116,18 @@ Field initialization to `0.0` is redundant
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/PollingRecordPublisherMetricsReporter.java`
 #### Snippet
 ```java
+public class PollingRecordPublisherMetricsReporter {
+
+    private volatile double loopFrequencyHz = 0.0;
+    private volatile double bytesPerRead = 0.0;
+    private volatile long runLoopTimeNanos = 0L;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/PollingRecordPublisherMetricsReporter.java`
+#### Snippet
+```java
 
     private volatile double loopFrequencyHz = 0.0;
     private volatile double bytesPerRead = 0.0;
@@ -2133,18 +2145,6 @@ in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/
     private volatile long sleepTimeMillis = 0L;
     private volatile int maxNumberOfRecordsPerFetch = 0;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/metrics/PollingRecordPublisherMetricsReporter.java`
-#### Snippet
-```java
-public class PollingRecordPublisherMetricsReporter {
-
-    private volatile double loopFrequencyHz = 0.0;
-    private volatile double bytesPerRead = 0.0;
-    private volatile long runLoopTimeNanos = 0L;
 ```
 
 ### RedundantFieldInitialization
@@ -2311,11 +2311,11 @@ Return of `null`
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/proxy/GetShardListResult.java`
 #### Snippet
 ```java
-    public StreamShardHandle getLastSeenShardOfStream(String stream) {
+    public List<StreamShardHandle> getRetrievedShardListOfStream(String stream) {
         if (!streamsToRetrievedShardList.containsKey(stream)) {
             return null;
         } else {
-            return streamsToRetrievedShardList.get(stream).getLast();
+            return streamsToRetrievedShardList.get(stream);
 ```
 
 ### ReturnNull
@@ -2323,11 +2323,11 @@ Return of `null`
 in `flink-connector-kinesis/src/main/java/org/apache/flink/streaming/connectors/kinesis/proxy/GetShardListResult.java`
 #### Snippet
 ```java
-    public List<StreamShardHandle> getRetrievedShardListOfStream(String stream) {
+    public StreamShardHandle getLastSeenShardOfStream(String stream) {
         if (!streamsToRetrievedShardList.containsKey(stream)) {
             return null;
         } else {
-            return streamsToRetrievedShardList.get(stream);
+            return streamsToRetrievedShardList.get(stream).getLast();
 ```
 
 ### ReturnNull
