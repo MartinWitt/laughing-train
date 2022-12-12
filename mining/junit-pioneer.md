@@ -12,27 +12,14 @@ I found 67 bad smells with 3 repairable:
 | MarkedForRemoval | 3 | false |
 | AssignmentToMethodParameter | 2 | false |
 | RedundantSuppression | 2 | false |
-| NonStrictComparisonCanBeEquality | 1 | true |
 | OptionalUsedAsFieldOrParameterType | 1 | false |
+| NonStrictComparisonCanBeEquality | 1 | true |
 | RedundantMethodOverride | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | RedundantClassCall | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | DeprecatedIsStillUsed | 1 | false |
 | RedundantImplements | 1 | false |
-## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
-#### Snippet
-```java
-			Class<?>[] parameterTypes = method.getParameterTypes();
-
-			if (parameterTypes.length <= 0)
-				throw new PreconditionViolationException(
-					"Test method must declare at least one parameter: " + method.toGenericString());
-```
-
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'type'
@@ -44,6 +31,19 @@ in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
 			boolean findRepeated, boolean findAllEnclosing) {
 		if (!type.isPresent())
+```
+
+## RuleId[ruleID=NonStrictComparisonCanBeEquality]
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
+#### Snippet
+```java
+			Class<?>[] parameterTypes = method.getParameterTypes();
+
+			if (parameterTypes.length <= 0)
+				throw new PreconditionViolationException(
+					"Test method must declare at least one parameter: " + method.toGenericString());
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -197,18 +197,6 @@ in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	 * found or the top level class is reached.
-	 *
-	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
-	 *
-	 * @param clazz the class or interface in which to find the method; never {@code null}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
@@ -270,6 +258,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	 * found or the top level class is reached.
+	 *
+	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
+	 *
+	 * @param clazz the class or interface in which to find the method; never {@code null}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
 #### Snippet
 ```java
@@ -305,18 +305,6 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.Collection}.
-		 *
-		 * The passed argument does not have to be an instance of {@link java.util.Set}.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util.stream` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -326,6 +314,18 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 		 * from the elements of the passed {@link java.util.stream.Stream}.
 		 *
 		 * @param entries the objects we want to include in a single set
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
+#### Snippet
+```java
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.Collection}.
+		 *
+		 * The passed argument does not have to be an instance of {@link java.util.Set}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -507,11 +507,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Windows
+	 * Works on Linux and OSX
 	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -519,11 +519,11 @@ Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
+	 * Works on Windows
 	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
 			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
 ```
 
 ### BoundedWildcard
@@ -635,18 +635,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Shared`
-in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
-#### Snippet
-```java
-	}
-
-	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
-			ExtensionContext extensionContext) {
-		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
-```
-
-### BoundedWildcard
 Can generalize to `? extends ReentrantLock`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -656,6 +644,18 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 	private <T> T invokeWithLocks(Invocation<T> invocation, List<ReentrantLock> locks) throws Throwable {
 		locks.forEach(ReentrantLock::lock);
 		try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Shared`
+in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
+#### Snippet
+```java
+	}
+
+	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
+			ExtensionContext extensionContext) {
+		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
 ```
 
 ### BoundedWildcard
