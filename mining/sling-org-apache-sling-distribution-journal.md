@@ -188,18 +188,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `notifier` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
-#### Snippet
-```java
-    private Configuration config;
-
-    private PackageDistributedNotifier notifier;
-
-    @Activate
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `context` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
@@ -212,15 +200,15 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `metrics` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
+Field `notifier` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
 ```java
-    
-    @Reference
-    DistributionMetricsService metrics;
-    
-    JournalAvailableServiceMarker marker;
+    private Configuration config;
+
+    private PackageDistributedNotifier notifier;
+
+    @Activate
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -248,6 +236,30 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `metrics` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
+#### Snippet
+```java
+    
+    @Reference
+    DistributionMetricsService metrics;
+    
+    JournalAvailableServiceMarker marker;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `schedule` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
+#### Snippet
+```java
+    private final AtomicBoolean isReady;
+    private final ScheduledExecutorService executor;
+    private ScheduledFuture<?> schedule;
+
+    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
 #### Snippet
@@ -272,15 +284,15 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `schedule` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
+Field `topics` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/StagingPrecondition.java`
 #### Snippet
 ```java
-    private final AtomicBoolean isReady;
-    private final ScheduledExecutorService executor;
-    private ScheduledFuture<?> schedule;
 
-    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
+    @Reference
+    private Topics topics;
+
+    private volatile PackageStatusWatcher watcher;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -293,18 +305,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/Stagin
     private MessagingProvider messagingProvider;
 
     @Reference
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `topics` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/StagingPrecondition.java`
-#### Snippet
-```java
-
-    @Reference
-    private Topics topics;
-
-    private volatile PackageStatusWatcher watcher;
 ```
 
 ## RuleId[ruleID=ObsoleteCollection]
@@ -322,18 +322,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PubQueueProviderPublisher.java`
-#### Snippet
-```java
-                commandSender);
-        this.pubQueueProvider = pubQueueProviderFactory.create(callback);
-        reg = context.registerService(PubQueueProvider.class, this.pubQueueProvider, new Hashtable<>());
-    }
-    
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
 #### Snippet
 ```java
@@ -342,6 +330,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
         Dictionary<String, Object> props = new Hashtable<>();
         props.put("name", config.name());
         props.put("title", config.name());
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PubQueueProviderPublisher.java`
+#### Snippet
+```java
+                commandSender);
+        this.pubQueueProvider = pubQueueProviderFactory.create(callback);
+        reg = context.registerService(PubQueueProvider.class, this.pubQueueProvider, new Hashtable<>());
+    }
+    
 ```
 
 ### ObsoleteCollection
@@ -444,7 +444,7 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-11-20-58-20.384.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-12-14-04-46.576.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -470,18 +470,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
-#### Snippet
-```java
-
-    private Throwable error(DistributionQueueItem queueItem) {
-        return queueItem.equals(headItem) ? error : null ;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
 #### Snippet
 ```java
@@ -490,6 +478,18 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFac
             return null;
         }
         String entryId = EntryUtil.entryId(queueItem);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
+#### Snippet
+```java
+
+    private Throwable error(DistributionQueueItem queueItem) {
+        return queueItem.equals(headItem) ? error : null ;
+    }
+
 ```
 
 ### ReturnNull
@@ -618,18 +618,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/Delay.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends FullMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
-#### Snippet
-```java
-
-    @Override
-    public void queued(List<FullMessage<PackageMessage>> fullMessages) {
-        fullMessages.forEach(this::queued);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends PackageMessage`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
 #### Snippet
@@ -642,14 +630,14 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
+Can generalize to `? extends FullMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
 #### Snippet
 ```java
-    }
 
-    public static DistributionQueueItem fromPackage(FullMessage<PackageMessage> fMessage) {
-        return fromPackage(fMessage.getInfo(), fMessage.getMessage(), false);
+    @Override
+    public void queued(List<FullMessage<PackageMessage>> fullMessages) {
+        fullMessages.forEach(this::queued);
     }
 ```
 
@@ -663,6 +651,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDi
     private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
         long minOffset = offsets.get().findFirst().getAsLong();
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
+#### Snippet
+```java
+    }
+
+    public static DistributionQueueItem fromPackage(FullMessage<PackageMessage> fMessage) {
+        return fromPackage(fMessage.getInfo(), fMessage.getMessage(), false);
+    }
 ```
 
 ### BoundedWildcard
@@ -726,30 +726,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
-#### Snippet
-```java
-    }
-
-    private <T> Set<T> retained(Set<T> oldSet, Set<T> newSet) {
-        Set<T> retained = new HashSet<>(newSet);
-        retained.retainAll(oldSet);
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueueCache.java`
-#### Snippet
-```java
-    }
-
-    private boolean isNotTestMessage(FullMessage<PackageMessage> message) {
-        return message.getMessage().getReqType() != PackageMessage.ReqType.TEST;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super ClearCommand`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/MessagingCacheCallback.java`
 #### Snippet
@@ -774,6 +750,42 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Messaging
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
+#### Snippet
+```java
+    }
+
+    private <T> Set<T> retained(Set<T> oldSet, Set<T> newSet) {
+        Set<T> retained = new HashSet<>(newSet);
+        retained.retainAll(oldSet);
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueueCache.java`
+#### Snippet
+```java
+    }
+
+    private boolean isNotTestMessage(FullMessage<PackageMessage> message) {
+        return message.getMessage().getReqType() != PackageMessage.ReqType.TEST;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/DistributionSubscriber.java`
+#### Snippet
+```java
+    }
+
+    private void processQueueItem(FullMessage<PackageMessage> item)
+            throws PersistenceException, LoginException, DistributionException, ImportPostProcessException {
+        MessageInfo info = item.getInfo();
+```
+
+### BoundedWildcard
 Can generalize to `? super PackageStatusMessage`
 in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.java`
 #### Snippet
@@ -795,18 +807,6 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
         PackageHandler packageHandler, EventAdmin eventAdmin, Consumer<PackageStatusMessage> sender, Consumer<LogMessage> logSender,
         BookKeeperConfig config, ImportPostProcessor importPostProcessor, InvalidationProcessor invalidationProcessor) {
         this.packageHandler = packageHandler;
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/DistributionSubscriber.java`
-#### Snippet
-```java
-    }
-
-    private void processQueueItem(FullMessage<PackageMessage> item)
-            throws PersistenceException, LoginException, DistributionException, ImportPostProcessException {
-        MessageInfo info = item.getInfo();
 ```
 
 ## RuleId[ruleID=ConstantValue]
