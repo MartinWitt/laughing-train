@@ -1,7 +1,7 @@
 # sling-org-apache-sling-distribution-journal 
  
 # Bad smells
-I found 70 bad smells with 2 repairable:
+I found 69 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 16 | false |
@@ -19,7 +19,6 @@ I found 70 bad smells with 2 repairable:
 | UnnecessarySemicolon | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
 | InstanceofCatchParameter | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
 | WaitNotInLoop | 1 | false |
@@ -176,18 +175,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `context` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
-#### Snippet
-```java
-    private ServiceRegistration<TopologyChangeHandler> reg;
-
-    private BundleContext context;
-
-    private Configuration config;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `notifier` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
@@ -212,15 +199,15 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `backoffRetry` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
+Field `context` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
 ```java
-    private static final Logger LOG = LoggerFactory.getLogger(JournalAvailableChecker.class);
-    
-    private ExponentialBackOff backoffRetry;
-    
-    @Reference
+    private ServiceRegistration<TopologyChangeHandler> reg;
+
+    private BundleContext context;
+
+    private Configuration config;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -248,15 +235,15 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
+Field `backoffRetry` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
 #### Snippet
 ```java
-    private final AtomicBoolean isScheduled;
+    private static final Logger LOG = LoggerFactory.getLogger(JournalAvailableChecker.class);
     
-    private long currentMaxDelay;
-    private long lastCheck;
-
+    private ExponentialBackOff backoffRetry;
+    
+    @Reference
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -269,6 +256,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
     private long lastCheck;
 
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
+#### Snippet
+```java
+    private final AtomicBoolean isScheduled;
+    
+    private long currentMaxDelay;
+    private long lastCheck;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -322,18 +321,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PubQueueProviderPublisher.java`
-#### Snippet
-```java
-                commandSender);
-        this.pubQueueProvider = pubQueueProviderFactory.create(callback);
-        reg = context.registerService(PubQueueProvider.class, this.pubQueueProvider, new Hashtable<>());
-    }
-    
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
 #### Snippet
 ```java
@@ -342,6 +329,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
         Dictionary<String, Object> props = new Hashtable<>();
         props.put("name", config.name());
         props.put("title", config.name());
+```
+
+### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PubQueueProviderPublisher.java`
+#### Snippet
+```java
+                commandSender);
+        this.pubQueueProvider = pubQueueProviderFactory.create(callback);
+        reg = context.registerService(PubQueueProvider.class, this.pubQueueProvider, new Hashtable<>());
+    }
+    
 ```
 
 ### ObsoleteCollection
@@ -452,19 +451,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
             if (e instanceof Error) {
                 throw (Error) e;
             } else {
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-12-17-20-41.392.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -642,18 +628,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
-#### Snippet
-```java
-    }
-
-    public static DistributionQueueItem fromPackage(FullMessage<PackageMessage> fMessage) {
-        return fromPackage(fMessage.getInfo(), fMessage.getMessage(), false);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends LongStream`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
 #### Snippet
@@ -663,6 +637,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDi
     private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
         long minOffset = offsets.get().findFirst().getAsLong();
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
+#### Snippet
+```java
+    }
+
+    public static DistributionQueueItem fromPackage(FullMessage<PackageMessage> fMessage) {
+        return fromPackage(fMessage.getInfo(), fMessage.getMessage(), false);
+    }
 ```
 
 ### BoundedWildcard
@@ -762,30 +748,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Messaging
 ```
 
 ### BoundedWildcard
-Can generalize to `? super PackageStatusMessage`
-in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.java`
-#### Snippet
-```java
-    
-    public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
-        PackageHandler packageHandler, EventAdmin eventAdmin, Consumer<PackageStatusMessage> sender, Consumer<LogMessage> logSender,
-        BookKeeperConfig config, ImportPostProcessor importPostProcessor, InvalidationProcessor invalidationProcessor) {
-        this.packageHandler = packageHandler;
-```
-
-### BoundedWildcard
-Can generalize to `? super LogMessage`
-in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.java`
-#### Snippet
-```java
-    
-    public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
-        PackageHandler packageHandler, EventAdmin eventAdmin, Consumer<PackageStatusMessage> sender, Consumer<LogMessage> logSender,
-        BookKeeperConfig config, ImportPostProcessor importPostProcessor, InvalidationProcessor invalidationProcessor) {
-        this.packageHandler = packageHandler;
-```
-
-### BoundedWildcard
 Can generalize to `? extends PackageMessage`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueueCache.java`
 #### Snippet
@@ -807,6 +769,30 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/Distribu
     private void processQueueItem(FullMessage<PackageMessage> item)
             throws PersistenceException, LoginException, DistributionException, ImportPostProcessException {
         MessageInfo info = item.getInfo();
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageStatusMessage`
+in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.java`
+#### Snippet
+```java
+    
+    public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
+        PackageHandler packageHandler, EventAdmin eventAdmin, Consumer<PackageStatusMessage> sender, Consumer<LogMessage> logSender,
+        BookKeeperConfig config, ImportPostProcessor importPostProcessor, InvalidationProcessor invalidationProcessor) {
+        this.packageHandler = packageHandler;
+```
+
+### BoundedWildcard
+Can generalize to `? super LogMessage`
+in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.java`
+#### Snippet
+```java
+    
+    public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
+        PackageHandler packageHandler, EventAdmin eventAdmin, Consumer<PackageStatusMessage> sender, Consumer<LogMessage> logSender,
+        BookKeeperConfig config, ImportPostProcessor importPostProcessor, InvalidationProcessor invalidationProcessor) {
+        this.packageHandler = packageHandler;
 ```
 
 ## RuleId[ruleID=ConstantValue]
