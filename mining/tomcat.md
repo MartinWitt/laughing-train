@@ -131,7 +131,7 @@ in `java/jakarta/servlet/resources/jakartaee_web_services_client_2_0.xsd`
 
 ### RegExpSimplifiable
 `[^\s]` can be simplified to '\\S'
-in `java/jakarta/servlet/resources/web-common_3_1.xsd`
+in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -143,7 +143,7 @@ in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 
 ### RegExpSimplifiable
 `[^\s]` can be simplified to '\\S'
-in `java/jakarta/servlet/resources/web-common_3_0.xsd`
+in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -360,7 +360,7 @@ in `java/jakarta/servlet/resources/web-app_2_4.xsd`
 
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
-in `java/jakarta/servlet/resources/web-common_3_1.xsd`
+in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -372,7 +372,7 @@ in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
-in `java/jakarta/servlet/resources/web-common_3_0.xsd`
+in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -529,7 +529,7 @@ in `java/jakarta/servlet/resources/jakartaee_web_services_client_2_0.xsd`
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `java/jakarta/servlet/resources/web-common_3_1.xsd`
+in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -541,7 +541,7 @@ in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `java/jakarta/servlet/resources/web-common_3_0.xsd`
+in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -782,7 +782,7 @@ in `java/jakarta/servlet/resources/web-common_6_0.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
-in `java/jakarta/servlet/resources/web-common_3_1.xsd`
+in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -794,7 +794,7 @@ in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\)` in RegExp
-in `java/jakarta/servlet/resources/web-common_3_1.xsd`
+in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -806,7 +806,7 @@ in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\{` in RegExp
-in `java/jakarta/servlet/resources/web-common_3_1.xsd`
+in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -818,7 +818,7 @@ in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
-in `java/jakarta/servlet/resources/web-common_3_0.xsd`
+in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -830,7 +830,7 @@ in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\)` in RegExp
-in `java/jakarta/servlet/resources/web-common_3_0.xsd`
+in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -842,7 +842,7 @@ in `java/jakarta/servlet/resources/web-common_3_0.xsd`
 
 ### RegExpRedundantEscape
 Redundant character escape `\{` in RegExp
-in `java/jakarta/servlet/resources/web-common_3_0.xsd`
+in `java/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
