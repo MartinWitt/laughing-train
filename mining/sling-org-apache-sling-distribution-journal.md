@@ -18,8 +18,8 @@ I found 70 bad smells with 2 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
 | WaitNotInLoop | 1 | false |
@@ -176,6 +176,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `notifier` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
+#### Snippet
+```java
+    private Configuration config;
+
+    private PackageDistributedNotifier notifier;
+
+    @Activate
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `context` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
@@ -197,18 +209,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
     private ServiceRegistration<TopologyChangeHandler> reg;
 
     private BundleContext context;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `notifier` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
-#### Snippet
-```java
-    private Configuration config;
-
-    private PackageDistributedNotifier notifier;
-
-    @Activate
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -248,18 +248,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `schedule` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
-#### Snippet
-```java
-    private final AtomicBoolean isReady;
-    private final ScheduledExecutorService executor;
-    private ScheduledFuture<?> schedule;
-
-    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
 #### Snippet
@@ -281,6 +269,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
     private long lastCheck;
 
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `schedule` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
+#### Snippet
+```java
+    private final AtomicBoolean isReady;
+    private final ScheduledExecutorService executor;
+    private ScheduledFuture<?> schedule;
+
+    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -441,19 +441,6 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
     public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-14-03-01-42.196.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
@@ -467,19 +454,20 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
             } else {
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-14-10-20-59.042.html`
 #### Snippet
 ```java
-
-    private Throwable error(DistributionQueueItem queueItem) {
-        return queueItem.equals(headItem) ? error : null ;
-    }
-
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
+## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
@@ -490,6 +478,18 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFac
             return null;
         }
         String entryId = EntryUtil.entryId(queueItem);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
+#### Snippet
+```java
+
+    private Throwable error(DistributionQueueItem queueItem) {
+        return queueItem.equals(headItem) ? error : null ;
+    }
+
 ```
 
 ### ReturnNull
@@ -642,18 +642,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LongStream`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
-#### Snippet
-```java
-     * @param offsets range of offsets, from smallest offset to largest offset.
-     */
-    private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
-        long minOffset = offsets.get().findFirst().getAsLong();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends PackageMessage`
 in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.java`
 #### Snippet
@@ -666,15 +654,15 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/QueueCacheSeeder.java`
+Can generalize to `? extends LongStream`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
 #### Snippet
 ```java
-    private Thread seedingThread;
-    
-    public QueueCacheSeeder(MessageSender<PackageMessage> sender) {
-        this.sender = sender;
-    }
+     * @param offsets range of offsets, from smallest offset to largest offset.
+     */
+    private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
+        long minOffset = offsets.get().findFirst().getAsLong();
+
 ```
 
 ### BoundedWildcard
@@ -715,6 +703,18 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFac
 
 ### BoundedWildcard
 Can generalize to `? super PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/QueueCacheSeeder.java`
+#### Snippet
+```java
+    private Thread seedingThread;
+    
+    public QueueCacheSeeder(MessageSender<PackageMessage> sender) {
+        this.sender = sender;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageMessage`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
 #### Snippet
 ```java
@@ -723,6 +723,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
                                          ToLongFunction<PackageMessage> sender)
             throws DistributionException {
         final PackageMessage pkg;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
+#### Snippet
+```java
+    }
+
+    private <T> Set<T> retained(Set<T> oldSet, Set<T> newSet) {
+        Set<T> retained = new HashSet<>(newSet);
+        retained.retainAll(oldSet);
 ```
 
 ### BoundedWildcard
@@ -759,18 +771,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Messaging
             Consumer<ClearCommand> commandSender) {
         this.messagingProvider = messagingProvider;
         this.packageTopic = packageTopic;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
-#### Snippet
-```java
-    }
-
-    private <T> Set<T> retained(Set<T> oldSet, Set<T> newSet) {
-        Set<T> retained = new HashSet<>(newSet);
-        retained.retainAll(oldSet);
 ```
 
 ### BoundedWildcard
