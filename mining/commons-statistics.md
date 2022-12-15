@@ -41,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-15-02-08-20.529.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-15-21-27-36.206.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -90,6 +90,19 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 
 ```
 
+## RuleId[ruleID=ConstantMathCall]
+### ConstantMathCall
+Constant call to `sqrt()` can be simplified
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+#### Snippet
+```java
+    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
+    /** &radic;(2 &pi;). */
+    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
+    /** The mu parameter of this distribution. */
+    private final double mu;
+```
+
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -105,18 +118,6 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
-#### Snippet
-```java
-        if (r == null) {
-            // Default to a SplittableRandom
-            randomIntFunction = r = new SplittableRandom()::nextInt;
-        }
-        return r;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
 #### Snippet
 ```java
@@ -127,16 +128,15 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         return m;
 ```
 
-## RuleId[ruleID=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
 #### Snippet
 ```java
-    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
-    /** &radic;(2 &pi;). */
-    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
-    /** The mu parameter of this distribution. */
-    private final double mu;
+        if (r == null) {
+            // Default to a SplittableRandom
+            randomIntFunction = r = new SplittableRandom()::nextInt;
+        }
+        return r;
 ```
 
