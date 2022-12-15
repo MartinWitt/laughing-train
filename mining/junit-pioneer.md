@@ -12,27 +12,14 @@ I found 67 bad smells with 3 repairable:
 | MarkedForRemoval | 3 | false |
 | AssignmentToMethodParameter | 2 | false |
 | RedundantSuppression | 2 | false |
-| NonStrictComparisonCanBeEquality | 1 | true |
 | OptionalUsedAsFieldOrParameterType | 1 | false |
+| NonStrictComparisonCanBeEquality | 1 | true |
 | RedundantMethodOverride | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | RedundantClassCall | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | DeprecatedIsStillUsed | 1 | false |
 | RedundantImplements | 1 | false |
-## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
-#### Snippet
-```java
-			Class<?>[] parameterTypes = method.getParameterTypes();
-
-			if (parameterTypes.length <= 0)
-				throw new PreconditionViolationException(
-					"Test method must declare at least one parameter: " + method.toGenericString());
-```
-
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'type'
@@ -44,6 +31,19 @@ in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
 			boolean findRepeated, boolean findAllEnclosing) {
 		if (!type.isPresent())
+```
+
+## RuleId[ruleID=NonStrictComparisonCanBeEquality]
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
+#### Snippet
+```java
+			Class<?>[] parameterTypes = method.getParameterTypes();
+
+			if (parameterTypes.length <= 0)
+				throw new PreconditionViolationException(
+					"Test method must declare at least one parameter: " + method.toGenericString());
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -209,6 +209,30 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
+	 *
+	 * @param arguments the objects that should be passed to the parameter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.Collection Collection}.
+	 * <p>
+	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
@@ -242,30 +266,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
 	 * @param tests List of all tests, annotated with the issueId
 	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.Collection Collection}.
-	 * <p>
-	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -555,6 +555,30 @@ Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
 ```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+		}
+
+		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
+			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
+				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
 	}
 
 	private void setEntries(Map<K, V> entriesToSet) {
@@ -572,30 +596,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
 	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-		}
-
-		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
-			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
-				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
 ```
 
 ### BoundedWildcard
