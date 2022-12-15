@@ -159,6 +159,18 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 ```
 
 ### DataFlowIssue
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+```
+
+### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 #### Snippet
@@ -180,18 +192,6 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		for (var mount : container.getMounts()) {
 			var volume = volumes.get(mount.getName());
 			if (volume != null)
-```
-
-### DataFlowIssue
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
 ## RuleId[ruleID=BusyWait]
