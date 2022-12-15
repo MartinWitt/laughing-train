@@ -1,7 +1,7 @@
 # flacoco 
  
 # Bad smells
-I found 72 bad smells with 7 repairable:
+I found 73 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | AssignmentToStaticFieldFromInstanceMethod | 21 | false |
@@ -24,6 +24,7 @@ I found 72 bad smells with 7 repairable:
 | UNUSED_IMPORT | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | KeySetIterationMayUseEntrySet | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnusedAssignment | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
 | UnnecessaryBoxing | 1 | false |
@@ -142,18 +143,6 @@ public class StackTraceParser {
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
-#### Snippet
-```java
-		for (String iClassNameCovered : covLine.getDetailedCoverage().keySet()) {
-
-			String className = iClassNameCovered.replace("/", ".");
-			if (!config.isCoverTests() && testClasses.contains(className)) {
-				continue;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
 ```java
@@ -164,19 +153,19 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
             if (new File(new File(dir), path).exists()) {
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 #### Snippet
 ```java
+		for (String iClassNameCovered : covLine.getDetailedCoverage().keySet()) {
 
-		// Warn if system memory is lower than 4GiB
-		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
-				.getTotalPhysicalMemorySize();
-		if (memorySize < 4294967296L) {
+			String className = iClassNameCovered.replace("/", ".");
+			if (!config.isCoverTests() && testClasses.contains(className)) {
+				continue;
 ```
 
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit` is unnecessary, and can be replaced with an import
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
@@ -199,6 +188,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
                 if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
                         && !isPrivateMethod(method)
                         && !isIgnoredMethod(clazz, method)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+#### Snippet
+```java
+
+		// Warn if system memory is lower than 4GiB
+		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
+				.getTotalPhysicalMemorySize();
+		if (memorySize < 4294967296L) {
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -253,6 +254,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
+#### Snippet
+```java
+        }
+
+        found = bestFit;
+    }
+}
+```
+
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `EntryPoint.useOptionsFile` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
@@ -386,30 +399,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.ja
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
-#### Snippet
-```java
-        }
-
-        found = bestFit;
-    }
-}
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
-#### Snippet
-```java
-	public void process(CtType<?> ctType) {
-		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
-		found = filterResult(result);
-	}
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
@@ -505,6 +494,18 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 
 ```
 
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+#### Snippet
+```java
+	public void process(CtType<?> ctType) {
+		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
+		found = filterResult(result);
+	}
+
+```
+
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
@@ -542,32 +543,7 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
 
 ```
 
-## RuleId[ruleID=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-		Map<Location, CtStatement> mapping = new HashMap<>();
-		Map<Location, Suspiciousness> original = flacocoResult.getDefaultSuspiciousnessMap();
-		for (Location location : original.keySet()) {
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-```
-
 ## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-	boolean includeZeros = false;
-
-	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
-```
-
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
@@ -578,18 +554,6 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	boolean testRunnerVerbose = false;
 
 	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
-	boolean coverTest = false;
-
-	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
 ```
 
 ### RedundantFieldInitialization
@@ -614,6 +578,56 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	String testRunnerJVMArgs = null;
 
 	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+	boolean includeZeros = false;
+
+	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
+	boolean coverTest = false;
+
+	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
+```
+
+## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+		Map<Location, CtStatement> mapping = new HashMap<>();
+		Map<Location, Suspiciousness> original = flacocoResult.getDefaultSuspiciousnessMap();
+		for (Location location : original.keySet()) {
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-15-19-54-46.680.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -644,24 +658,24 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/ClassloaderFinder.java`
-#### Snippet
-```java
-            classes.addAll(SourceFolderFinder.getClassesLoc(new File(url.getPath())));
-        }
-        return classes.toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java`
 #### Snippet
 ```java
     @Override
     public String[] getClasses() {
         return getClassesLoc(new File(srcFolder)).toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/ClassloaderFinder.java`
+#### Snippet
+```java
+            classes.addAll(SourceFolderFinder.getClassesLoc(new File(url.getPath())));
+        }
+        return classes.toArray(new String[0]);
     }
 
 ```
