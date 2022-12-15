@@ -12,27 +12,14 @@ I found 67 bad smells with 3 repairable:
 | MarkedForRemoval | 3 | false |
 | AssignmentToMethodParameter | 2 | false |
 | RedundantSuppression | 2 | false |
-| OptionalUsedAsFieldOrParameterType | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
+| OptionalUsedAsFieldOrParameterType | 1 | false |
 | RedundantMethodOverride | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | RedundantClassCall | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | DeprecatedIsStillUsed | 1 | false |
 | RedundantImplements | 1 | false |
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'type'
-in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
-#### Snippet
-```java
-	}
-
-	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
-			boolean findRepeated, boolean findAllEnclosing) {
-		if (!type.isPresent())
-```
-
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -44,6 +31,19 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianEnumArgumentsProvider.java`
 			if (parameterTypes.length <= 0)
 				throw new PreconditionViolationException(
 					"Test method must declare at least one parameter: " + method.toGenericString());
+```
+
+## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'type'
+in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
+#### Snippet
+```java
+	}
+
+	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
+			boolean findRepeated, boolean findAllEnclosing) {
+		if (!type.isPresent())
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -60,18 +60,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdOut(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -79,6 +67,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdErr(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdOut(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
 	}
 
 ```
@@ -197,42 +197,6 @@ in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	 * found or the top level class is reached.
-	 *
-	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
-	 *
-	 * @param clazz the class or interface in which to find the method; never {@code null}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.Collection Collection}.
-	 * <p>
-	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
@@ -249,6 +213,18 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
+	 * Constructor with all attributes.
+	 *
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
 
 /**
  * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
@@ -257,15 +233,39 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.Collection Collection}.
+	 * <p>
+	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
 	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+	 * @param arguments the objects that should be passed to the parameter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	 * found or the top level class is reached.
+	 *
+	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
+	 *
+	 * @param clazz the class or interface in which to find the method; never {@code null}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -305,18 +305,6 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
-#### Snippet
-```java
-		 * Creates a single set of distinct objects (according to
-		 * {@link Object#equals(Object)}) for a CartesianProductTest
-		 * from the elements of the passed {@link java.util.stream.Stream}.
-		 *
-		 * @param entries the objects we want to include in a single set
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
@@ -341,27 +329,15 @@ in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/CartesianProductTest.java`
 #### Snippet
 ```java
-	/**
-	 * Specifies when the extension should publish the report entry.
-	 * Defaults to {@link org.junitpioneer.jupiter.ReportEntry.PublishCondition#ALWAYS ALWAYS}.
-	 * @see PublishCondition
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary, and can be replaced with an import
-in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements ArgumentsProvider,
-		org.junitpioneer.jupiter.CartesianAnnotationConsumer<Annotation>, CartesianParameterArgumentsProvider<N> { //NOSONAR deprecated interface use will be removed in later release
-
-	// Once the CartesianAnnotationConsumer is removed we can make this provider stateless.
+		 * Creates a single set of distinct objects (according to
+		 * {@link Object#equals(Object)}) for a CartesianProductTest
+		 * from the elements of the passed {@link java.util.stream.Stream}.
+		 *
+		 * @param entries the objects we want to include in a single set
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -398,6 +374,30 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
 	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
 	 *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
+#### Snippet
+```java
+	/**
+	 * Specifies when the extension should publish the report entry.
+	 * Defaults to {@link org.junitpioneer.jupiter.ReportEntry.PublishCondition#ALWAYS ALWAYS}.
+	 * @see PublishCondition
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary, and can be replaced with an import
+in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+#### Snippet
+```java
+@SuppressWarnings("deprecation")
+class RangeSourceArgumentsProvider<N extends Number & Comparable<N>> implements ArgumentsProvider,
+		org.junitpioneer.jupiter.CartesianAnnotationConsumer<Annotation>, CartesianParameterArgumentsProvider<N> { //NOSONAR deprecated interface use will be removed in later release
+
+	// Once the CartesianAnnotationConsumer is removed we can make this provider stateless.
 ```
 
 ## RuleId[ruleID=RedundantClassCall]
@@ -479,15 +479,15 @@ class ExpectedToFailExtension implements Extension, InvocationInterceptor {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
-	}
-
-	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
-		List<List<?>> resultLists = new ArrayList<>();
-		if (lists.isEmpty()) {
+	 * Works on Linux and OSX
+	 */
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
 ```
 
 ### BoundedWildcard
@@ -503,15 +503,15 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+Can generalize to `? extends List`
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 #### Snippet
 ```java
-	 * Works on Linux and OSX
-	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+	}
+
+	public static List<List<?>> cartesianProduct(List<List<?>> lists) {
+		List<List<?>> resultLists = new ArrayList<>();
+		if (lists.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -599,18 +599,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends N`
-in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
-#### Snippet
-```java
-	}
-
-	private Stream<N> asStream(Range<N> range) {
-		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
-	}
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 #### Snippet
@@ -632,6 +620,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
 				this.validator = validator;
 				this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? extends N`
+in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+#### Snippet
+```java
+	}
+
+	private Stream<N> asStream(Range<N> range) {
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
+	}
 ```
 
 ### BoundedWildcard
