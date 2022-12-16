@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-15-19-51-17.699.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-16-09-13-15.504.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -89,42 +89,6 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `src/main/java/com/diffmin/SpoonMapping.java`
-#### Snippet
-```java
-     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
-     */
-    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
-        while (!matches.isEmpty()) {
-            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/com/diffmin/patch/PatchGeneration.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    private boolean isRootOperation(Operation<?> operation, List<Operation> rootOperations) {
-        // assuming that insert, delete, and move root operations are correctly computed by
-        // gumtree-spoon-ast-diff
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    private static void performMovement(
-            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
-        CtElement toBeDeleted = movePatch.getFirst();
-        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
-```
-
 ### BoundedWildcard
 Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
@@ -207,6 +171,42 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
             List<Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>>> movePatches) {
         deletePatches.forEach(PatchApplication::performDeletion);
         updatePatches.forEach(PatchApplication::performUpdating);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    private static void performMovement(
+            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
+        CtElement toBeDeleted = movePatch.getFirst();
+        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `src/main/java/com/diffmin/SpoonMapping.java`
+#### Snippet
+```java
+     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
+     */
+    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
+        while (!matches.isEmpty()) {
+            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/com/diffmin/patch/PatchGeneration.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    private boolean isRootOperation(Operation<?> operation, List<Operation> rootOperations) {
+        // assuming that insert, delete, and move root operations are correctly computed by
+        // gumtree-spoon-ast-diff
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
