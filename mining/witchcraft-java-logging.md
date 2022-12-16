@@ -202,18 +202,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
-#### Snippet
-```java
-    }
-
-    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
-        for (Pair<String, ConsoleViewContentType> item : lines) {
-            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
-```
-
-### BoundedWildcard
 Can generalize to `? extends U`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogVisitor.java`
 #### Snippet
@@ -274,6 +262,18 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Pair`
+in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/idea/WitchcraftLogFilter.java`
+#### Snippet
+```java
+    }
+
+    private static boolean containsWitchcraftData(List<Pair<String, ConsoleViewContentType>> lines) {
+        for (Pair<String, ConsoleViewContentType> item : lines) {
+            // The null check is likely unnecessarily defensive, the goal is to avoid breaking any non-witchcraft
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/ServiceLogFormatter.java`
 #### Snippet
@@ -283,6 +283,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     private static String interpolateParameters(String original, Function<String, Object> lookup) {
         Matcher matcher = PARAMETER_PATTERN.matcher(original);
         String current = original;
+```
+
+### BoundedWildcard
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
 ```
 
 ### BoundedWildcard
@@ -307,18 +319,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
         return parseJson(logLine, clazz).flatMap(function);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
