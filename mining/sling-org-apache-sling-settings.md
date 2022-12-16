@@ -131,30 +131,6 @@ package org.apache.sling.settings;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
-#### Snippet
-```java
-    /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
-     */
-    public void printConfiguration(PrintWriter pw) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.felix.shell` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getName()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.felix.shell` is unnecessary and can be removed
 in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 #### Snippet
@@ -227,87 +203,27 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
-    @Override
-    public String getAbsolutePathWithinSlingHome(final String relativePath) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
-    @Override
-    public URL getSlingHome() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
-    @Override
-    public String getSlingDescription() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
-    @Override
-    public String getSlingHomePath() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getRunModes() */
-    @Override
-    public Set<String> getRunModes() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+Qualifier `org.apache.felix.shell` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.sling.settings.SlingSettingsService#getSlingName()
+     * @see org.apache.felix.shell.Command#getName()
      */
     @Override
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 #### Snippet
 ```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
-    @Override
-    public String getSlingId() {
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -335,8 +251,92 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
+    @Override
+    public URL getSlingHome() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
+    @Override
+    public String getSlingHomePath() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
+    @Override
+    public String getSlingDescription() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.sling.settings.SlingSettingsService#getSlingName()
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
+    @Override
+    public String getSlingId() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getRunModes() */
+    @Override
+    public Set<String> getRunModes() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
+    @Override
+    public String getAbsolutePathWithinSlingHome(final String relativePath) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
 #### Snippet
 ```java
     /**
@@ -425,18 +425,6 @@ in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-                    final Object value = bundleContext.getProperty(key.toString());
-                    if ( value != null ) {
-                        tmp.put(key, value);
-                    }
-                }
-```
-
-### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 #### Snippet
@@ -446,5 +434,17 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
             final Object value = props.get(key);
             if ( value != null ) {
                 pw.print(value.toString());
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+                    final Object value = bundleContext.getProperty(key.toString());
+                    if ( value != null ) {
+                        tmp.put(key, value);
+                    }
+                }
 ```
 
