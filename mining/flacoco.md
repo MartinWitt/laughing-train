@@ -47,47 +47,47 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
-	Set<String> jacocoExcludes = new HashSet<>();
-
-	@CommandLine.ArgGroup(exclusive = false, multiplicity = "0..1", heading = "\nSetting any of these options will result in test detection being bypassed:\n")
-	Tests tests = new Tests();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
 			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
 			arity = "0..1",
 			fallbackValue = ""
 	)
 	String output;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	Set<String> jacocoExcludes = new HashSet<>();
+
+	@CommandLine.ArgGroup(exclusive = false, multiplicity = "0..1", heading = "\nSetting any of these options will result in test detection being bypassed:\n")
+	Tests tests = new Tests();
+
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -255,18 +255,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
-#### Snippet
-```java
-        }
-
-        found = bestFit;
-    }
-}
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `EntryPoint.useOptionsFile` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
 #### Snippet
@@ -388,14 +376,26 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
 #### Snippet
 ```java
-	public void process(CtType<?> ctType) {
-		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
-		found = filterResult(result);
-	}
+        }
 
+        found = bestFit;
+    }
+}
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+#### Snippet
+```java
+
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
+
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -447,15 +447,15 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
 #### Snippet
 ```java
+	public void process(CtType<?> ctType) {
+		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
+		found = filterResult(result);
+	}
 
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
-
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -545,18 +545,6 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
-	double threshold = 0.0;
-
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
@@ -578,6 +566,18 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	boolean includeZeros = false;
 
 	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
+```
+
+### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
+	double threshold = 0.0;
+
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
 ```
 
 ### RedundantFieldInitialization
@@ -620,7 +620,7 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-15-22-59-09.618.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-15-23-59-50.300.html`
 #### Snippet
 ```java
               <td>0</td>
