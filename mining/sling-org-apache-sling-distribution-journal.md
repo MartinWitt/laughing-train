@@ -1,7 +1,7 @@
 # sling-org-apache-sling-distribution-journal 
  
 # Bad smells
-I found 70 bad smells with 2 repairable:
+I found 69 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 16 | false |
@@ -18,7 +18,6 @@ I found 70 bad smells with 2 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
@@ -176,18 +175,6 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `notifier` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
-#### Snippet
-```java
-    private Configuration config;
-
-    private PackageDistributedNotifier notifier;
-
-    @Activate
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `reg` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
@@ -197,6 +184,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
     private ServiceRegistration<TopologyChangeHandler> reg;
 
     private BundleContext context;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `notifier` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
+#### Snippet
+```java
+    private Configuration config;
+
+    private PackageDistributedNotifier notifier;
+
+    @Activate
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -212,18 +211,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `metrics` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
-#### Snippet
-```java
-    
-    @Reference
-    DistributionMetricsService metrics;
-    
-    JournalAvailableServiceMarker marker;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `marker` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
 #### Snippet
@@ -233,6 +220,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
     JournalAvailableServiceMarker marker;
 
     @Activate
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `metrics` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableChecker.java`
+#### Snippet
+```java
+    
+    @Reference
+    DistributionMetricsService metrics;
+    
+    JournalAvailableServiceMarker marker;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -248,15 +247,15 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
+Field `schedule` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
 #### Snippet
 ```java
-    private final AtomicBoolean isScheduled;
-    
-    private long currentMaxDelay;
-    private long lastCheck;
+    private final AtomicBoolean isReady;
+    private final ScheduledExecutorService executor;
+    private ScheduledFuture<?> schedule;
 
+    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -272,15 +271,15 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `schedule` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
+Field `currentMaxDelay` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
 #### Snippet
 ```java
-    private final AtomicBoolean isReady;
-    private final ScheduledExecutorService executor;
-    private ScheduledFuture<?> schedule;
+    private final AtomicBoolean isScheduled;
+    
+    private long currentMaxDelay;
+    private long lastCheck;
 
-    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -441,19 +440,6 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
     public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-16-13-33-49.441.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
@@ -470,18 +456,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
-#### Snippet
-```java
-    public DistributionQueueEntry create(DistributionQueueItem queueItem) {
-        if (queueItem == null) {
-            return null;
-        }
-        String entryId = EntryUtil.entryId(queueItem);
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
 #### Snippet
 ```java
@@ -490,6 +464,18 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java
         return queueItem.equals(headItem) ? error : null ;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
+#### Snippet
+```java
+    public DistributionQueueEntry create(DistributionQueueItem queueItem) {
+        if (queueItem == null) {
+            return null;
+        }
+        String entryId = EntryUtil.entryId(queueItem);
 ```
 
 ### ReturnNull
@@ -618,6 +604,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/Delay.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends LongStream`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
+#### Snippet
+```java
+     * @param offsets range of offsets, from smallest offset to largest offset.
+     */
+    private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
+        long minOffset = offsets.get().findFirst().getAsLong();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends FullMessage`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
 #### Snippet
@@ -639,18 +637,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQu
     private void queued(FullMessage<PackageMessage> fullMessage) {
         long offset = fullMessage.getInfo().getOffset();
         PackageMessage message = fullMessage.getMessage();
-```
-
-### BoundedWildcard
-Can generalize to `? extends LongStream`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
-#### Snippet
-```java
-     * @param offsets range of offsets, from smallest offset to largest offset.
-     */
-    private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
-        long minOffset = offsets.get().findFirst().getAsLong();
-
 ```
 
 ### BoundedWildcard
