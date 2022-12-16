@@ -20,8 +20,8 @@ I found 101 bad smells with 15 repairable:
 | DataFlowIssue | 2 | false |
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
 | OptionalGetWithoutIsPresent | 2 | false |
-| UnnecessaryStringEscape | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
+| UnnecessaryStringEscape | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
@@ -134,9 +134,9 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
-    public Collection<Rule> getAllRules();
+    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
+}
 
-    /**
 ```
 
 ### UnnecessaryModifier
@@ -146,9 +146,9 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
-    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
-}
+    public Collection<Rule> getAllRules();
 
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -249,17 +249,6 @@ in `sorald/src/main/java/sorald/segment/FirstFitSegmentationAlgorithm.java`
                     segments.add(segment);
 ```
 
-## RuleId[ruleID=UnnecessaryStringEscape]
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `sorald/src/main/java/sorald/sonar/SonarProcessorRepository.java`
-#### Snippet
-```java
-nS1656: Variables should not be self-assigned\nS1854: Unused assignments should be removed\nS1860: Synchronization should not be based on Strings or boxed primitives\nS1948: Fields in a \"Serializable\" class should either be transient or serializable\nS2057: Every class implementing Serializable should declare a static final serialVersionUID.\n\t(incomplete: This processor does not address the case where the class already has a serialVersionUID with a non long type.)\nS2095: Resources should be closed\nS2097: \"equals(Object obj)\" should test argument type\nS2111: \"BigDecimal(double)\" should not be used\nS2116: \"hashCode\" and \"toString\" should not be called on array instances\nS2142: \"InterruptedException\" should not be ignored\nS2164: Math should not be performed on floats\n\t(incomplete: does not cast the operands to double when the expected type of the result is float.)\nS2167: \"compareTo\" should not return \"Integer.MIN_VALUE\"\nS2184: Math operands should be cast before assignment\nS2204: \".equals()\" should not be used to test the values of \"Atomic\" classes\nS2225: \"toString()\" and \"clone()\" methods should not return null\n\t(incomplete: does not fix null returning clone())\nS2272: \"Iterator.next()\" methods should throw \"NoSuchElementException\"\nS2755: XML parsers should not be vulnerable to XXE attacks\n\t(incomplete: This processor is a WIP and currently supports a subset of rule 2755. See Sorald\'s documentation for details.)\nS3032: JEE applications should not \"getClassLoader\"\nS3067: \"getClass\" should not be used for synchronization\nS3984: Exception should not be created without being thrown\nS4065: \"ThreadLocal.withInitial\" should be preferred\nS4973: Strings and Boxed types should be compared using \"equals()\"";
-
-    @Override
-```
-
 ## RuleId[ruleID=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
@@ -271,6 +260,17 @@ in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
                 .toString();
     }
 
+```
+
+## RuleId[ruleID=UnnecessaryStringEscape]
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `sorald/src/main/java/sorald/sonar/SonarProcessorRepository.java`
+#### Snippet
+```java
+nS1656: Variables should not be self-assigned\nS1854: Unused assignments should be removed\nS1860: Synchronization should not be based on Strings or boxed primitives\nS1948: Fields in a \"Serializable\" class should either be transient or serializable\nS2057: Every class implementing Serializable should declare a static final serialVersionUID.\n\t(incomplete: This processor does not address the case where the class already has a serialVersionUID with a non long type.)\nS2095: Resources should be closed\nS2097: \"equals(Object obj)\" should test argument type\nS2111: \"BigDecimal(double)\" should not be used\nS2116: \"hashCode\" and \"toString\" should not be called on array instances\nS2142: \"InterruptedException\" should not be ignored\nS2164: Math should not be performed on floats\n\t(incomplete: does not cast the operands to double when the expected type of the result is float.)\nS2167: \"compareTo\" should not return \"Integer.MIN_VALUE\"\nS2184: Math operands should be cast before assignment\nS2204: \".equals()\" should not be used to test the values of \"Atomic\" classes\nS2225: \"toString()\" and \"clone()\" methods should not return null\n\t(incomplete: does not fix null returning clone())\nS2272: \"Iterator.next()\" methods should throw \"NoSuchElementException\"\nS2755: XML parsers should not be vulnerable to XXE attacks\n\t(incomplete: This processor is a WIP and currently supports a subset of rule 2755. See Sorald\'s documentation for details.)\nS3032: JEE applications should not \"getClassLoader\"\nS3067: \"getClass\" should not be used for synchronization\nS3984: Exception should not be created without being thrown\nS4065: \"ThreadLocal.withInitial\" should be preferred\nS4973: Strings and Boxed types should be compared using \"equals()\"";
+
+    @Override
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -400,6 +400,30 @@ in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Character`
+in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
+#### Snippet
+```java
+    }
+
+    private static int reverseFind(String s, int startIdx, Predicate<Character> predicate) {
+        int searchPos = startIdx;
+        while (searchPos > 0 && !predicate.test(s.charAt(searchPos))) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RuleViolation`
+in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
+#### Snippet
+```java
+    /** All rule violations must concern the same rule as the processor. */
+    private static void checkRuleViolationsConcernProcessorRule(
+            Set<RuleViolation> ruleViolations, SoraldAbstractProcessor<?> processor) {
+        String procKey = processor.getRuleKey();
+        ruleViolations.stream()
+```
+
+### BoundedWildcard
 Can generalize to `? extends SoraldEventHandler`
 in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 #### Snippet
@@ -436,18 +460,6 @@ in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RuleViolation`
-in `sorald/src/main/java/sorald/cli/RepairCommand.java`
-#### Snippet
-```java
-    }
-
-    private String parseRuleKey(Rules rules, List<RuleViolation> ruleViolations) {
-        return withSonarPrefix(
-                ruleViolations.isEmpty()
-```
-
-### BoundedWildcard
 Can generalize to `? extends SoraldEventHandler`
 in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 #### Snippet
@@ -460,27 +472,15 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Character`
-in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
+Can generalize to `? extends RuleViolation`
+in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 #### Snippet
 ```java
     }
 
-    private static int reverseFind(String s, int startIdx, Predicate<Character> predicate) {
-        int searchPos = startIdx;
-        while (searchPos > 0 && !predicate.test(s.charAt(searchPos))) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleViolation`
-in `sorald/src/main/java/sorald/sonar/BestFitScanner.java`
-#### Snippet
-```java
-    /** All rule violations must concern the same rule as the processor. */
-    private static void checkRuleViolationsConcernProcessorRule(
-            Set<RuleViolation> ruleViolations, SoraldAbstractProcessor<?> processor) {
-        String procKey = processor.getRuleKey();
-        ruleViolations.stream()
+    private String parseRuleKey(Rules rules, List<RuleViolation> ruleViolations) {
+        return withSonarPrefix(
+                ruleViolations.isEmpty()
 ```
 
 ### BoundedWildcard
@@ -532,42 +532,6 @@ in `sorald/src/main/java/sorald/Repair.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaInputFile`
-in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
-#### Snippet
-```java
-
-    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
-            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
-        return StandaloneAnalysisConfiguration.builder()
-                .setBaseDir(projectRoot.toPath())
-```
-
-### BoundedWildcard
-Can generalize to `? extends Rule`
-in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
-#### Snippet
-```java
-
-    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
-            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
-        return StandaloneAnalysisConfiguration.builder()
-                .setBaseDir(projectRoot.toPath())
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
-#### Snippet
-```java
-    private Collection<RuleViolation> analyze(
-            File projectRoot,
-            List<File> files,
-            List<Rule> rules,
-            CLIConfigForStaticAnalyzer cliOptions) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Rule`
 in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
 #### Snippet
@@ -589,6 +553,42 @@ in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
             Map<Rule, Map<String, String>> passedRuleParameters) {
         Map<RuleKey, Map<String, String>> parsedRuleParameters = new HashMap<>();
         passedRuleParameters
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
+#### Snippet
+```java
+    private Collection<RuleViolation> analyze(
+            File projectRoot,
+            List<File> files,
+            List<Rule> rules,
+            CLIConfigForStaticAnalyzer cliOptions) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaInputFile`
+in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
+#### Snippet
+```java
+
+    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
+            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
+        return StandaloneAnalysisConfiguration.builder()
+                .setBaseDir(projectRoot.toPath())
+```
+
+### BoundedWildcard
+Can generalize to `? extends Rule`
+in `sorald/src/main/java/sorald/sonar/SonarStaticAnalyzer.java`
+#### Snippet
+```java
+
+    private static StandaloneAnalysisConfiguration getAnalysisConfigurationWithoutCliOptions(
+            File projectRoot, List<JavaInputFile> inputFiles, List<Rule> rules) {
+        return StandaloneAnalysisConfiguration.builder()
+                .setBaseDir(projectRoot.toPath())
 ```
 
 ### BoundedWildcard
@@ -645,18 +645,6 @@ Overridden methods are not annotated
 in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 #### Snippet
 ```java
-     * @return a collection of all rules.
-     */
-    @Nonnull
-    public Collection<Rule> getAllRules();
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
      * @return All rules with any of the given types.
      */
     @Nonnull
@@ -673,6 +661,18 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
     @Nonnull
     public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
 }
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     * @return a collection of all rules.
+     */
+    @Nonnull
+    public Collection<Rule> getAllRules();
 
 ```
 
@@ -848,6 +848,42 @@ in `sorald/src/main/java/sorald/segment/Node.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/cli/Cli.java`
+#### Snippet
+```java
+        @Override
+        public Integer call() {
+            new CommandLine(this).usage(System.out);
+            return -1;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/segment/FirstFitSegmentationAlgorithm.java`
+#### Snippet
+```java
+    public static Pair<Node, Node> splitFileNode(Node fileNode, int index) {
+        if (!(index > 0 || index < fileNode.getJavaFiles().size())) {
+            System.out.println(
+                    "Invalid index: " + index + " Files: " + fileNode.getJavaFiles().size());
+            return null;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `sorald/src/main/java/sorald/miner/MineSonarWarnings.java`
+#### Snippet
+```java
+        warnings.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .forEach(System.out::println);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `sorald/src/main/java/sorald/cli/RepairCommand.java`
 #### Snippet
 ```java
@@ -892,42 +928,6 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
             System.out.println("No rule violations found, nothing to do ...");
         } else {
             SoraldAbstractProcessor<?> proc =
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/cli/Cli.java`
-#### Snippet
-```java
-        @Override
-        public Integer call() {
-            new CommandLine(this).usage(System.out);
-            return -1;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/segment/FirstFitSegmentationAlgorithm.java`
-#### Snippet
-```java
-    public static Pair<Node, Node> splitFileNode(Node fileNode, int index) {
-        if (!(index > 0 || index < fileNode.getJavaFiles().size())) {
-            System.out.println(
-                    "Invalid index: " + index + " Files: " + fileNode.getJavaFiles().size());
-            return null;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sorald/src/main/java/sorald/miner/MineSonarWarnings.java`
-#### Snippet
-```java
-        warnings.entrySet().stream()
-                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .forEach(System.out::println);
-    }
-
 ```
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
@@ -1085,18 +1085,6 @@ Field initialization to `null` is redundant
 in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
 #### Snippet
 ```java
-        extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
-    private CtCompilationUnit cu = null;
-    private CtType<?> processorsClass = null;
-    private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
-    private final SortedMap<String, String> descriptions = new TreeMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
-#### Snippet
-```java
 public class ProcessorsClassGenerator<T>
         extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
     private CtCompilationUnit cu = null;
@@ -1105,15 +1093,15 @@ public class ProcessorsClassGenerator<T>
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
+Field initialization to `null` is redundant
+in `sorald/src/main/java/sorald/sonar/ProcessorsClassGenerator.java`
 #### Snippet
 ```java
-    private long repairStart = INVALID_TIME;
-    private long parseTotal = 0;
-    private long repairTotal = 0;
-    private final List<SoraldEvent> crashes = new ArrayList<>();
-
+        extends AbstractAnnotationProcessor<ProcessorAnnotation, CtClass<T>> {
+    private CtCompilationUnit cu = null;
+    private CtType<?> processorsClass = null;
+    private final SortedMap<String, CtClass<?>> processorMap = new TreeMap<>();
+    private final SortedMap<String, String> descriptions = new TreeMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1126,6 +1114,18 @@ in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
     private long parseTotal = 0;
     private long repairTotal = 0;
     private final List<SoraldEvent> crashes = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `sorald/src/main/java/sorald/event/collectors/RepairStatisticsCollector.java`
+#### Snippet
+```java
+    private long repairStart = INVALID_TIME;
+    private long parseTotal = 0;
+    private long repairTotal = 0;
+    private final List<SoraldEvent> crashes = new ArrayList<>();
+
 ```
 
 ### RedundantFieldInitialization
