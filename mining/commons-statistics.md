@@ -41,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-17-07-05-51.589.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-17-07-52-27.254.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -90,19 +90,20 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
     private final double mu;
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
 #### Snippet
 ```java
-        double m = median;
-        if (Double.isNaN(m)) {
-            median = m = inverseCumulativeProbability(0.5);
+            return lower;
         }
-        return m;
+        return x < upper ? x : upper;
+    }
+
 ```
 
+## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
@@ -117,6 +118,18 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 
 ### NestedAssignment
 Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+#### Snippet
+```java
+        double m = median;
+        if (Double.isNaN(m)) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return m;
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
 #### Snippet
 ```java
@@ -125,18 +138,5 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
             randomIntFunction = r = new SplittableRandom()::nextInt;
         }
         return r;
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
-#### Snippet
-```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
 ```
 
