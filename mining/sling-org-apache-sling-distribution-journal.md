@@ -175,15 +175,15 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `context` is accessed in both synchronized and unsynchronized contexts
+Field `notifier` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
 ```java
-    private ServiceRegistration<TopologyChangeHandler> reg;
-
-    private BundleContext context;
-
     private Configuration config;
+
+    private PackageDistributedNotifier notifier;
+
+    @Activate
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -199,15 +199,15 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Distribut
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `notifier` is accessed in both synchronized and unsynchronized contexts
+Field `context` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributedEventNotifierManager.java`
 #### Snippet
 ```java
+    private ServiceRegistration<TopologyChangeHandler> reg;
+
+    private BundleContext context;
+
     private Configuration config;
-
-    private PackageDistributedNotifier notifier;
-
-    @Activate
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -247,6 +247,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/JournalAvailableC
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `schedule` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
+#### Snippet
+```java
+    private final AtomicBoolean isReady;
+    private final ScheduledExecutorService executor;
+    private ScheduledFuture<?> schedule;
+
+    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `lastCheck` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOff.java`
 #### Snippet
@@ -271,15 +283,15 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/ExponentialBackOf
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `schedule` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/subscriber/SubscriberIdle.java`
+Field `messagingProvider` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/StagingPrecondition.java`
 #### Snippet
 ```java
-    private final AtomicBoolean isReady;
-    private final ScheduledExecutorService executor;
-    private ScheduledFuture<?> schedule;
 
-    public SubscriberIdle(int idleMillis, int forceIdleMillies, AtomicBoolean readyHolder) {
+    @Reference
+    private MessagingProvider messagingProvider;
+
+    @Reference
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -292,18 +304,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/Stagin
     private Topics topics;
 
     private volatile PackageStatusWatcher watcher;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `messagingProvider` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/sling/distribution/journal/impl/precondition/StagingPrecondition.java`
-#### Snippet
-```java
-
-    @Reference
-    private MessagingProvider messagingProvider;
-
-    @Reference
 ```
 
 ## RuleId[ruleID=ObsoleteCollection]
@@ -440,19 +440,20 @@ in `src/main/java/org/apache/sling/distribution/journal/bookkeeper/BookKeeper.ja
     public BookKeeper(ResourceResolverFactory resolverFactory, DistributionMetricsService distributionMetricsService,
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
+## RuleId[ruleID=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
 #### Snippet
 ```java
-    public DistributionQueueEntry create(DistributionQueueItem queueItem) {
-        if (queueItem == null) {
-            return null;
-        }
-        String entryId = EntryUtil.entryId(queueItem);
+            String msg = format("Failed to append distribution package %s to the journal", pkg);
+            log.error(msg, e);
+            if (e instanceof Error) {
+                throw (Error) e;
+            } else {
 ```
 
+## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java`
@@ -467,14 +468,14 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubQueue.java
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/sling/distribution/journal/binary/jcr/JcrBinaryStore.java`
+in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFactory.java`
 #### Snippet
 ```java
-            }
+    public DistributionQueueEntry create(DistributionQueueItem queueItem) {
+        if (queueItem == null) {
+            return null;
         }
-        return null;
-    }
-    
+        String entryId = EntryUtil.entryId(queueItem);
 ```
 
 ### ReturnNull
@@ -491,6 +492,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Messaging
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/sling/distribution/journal/binary/jcr/JcrBinaryStore.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+    
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubErrQueue.java`
 #### Snippet
 ```java
@@ -499,19 +512,6 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/PubErrQueue.j
         this.entryFactory = new QueueEntryFactory(queueName, queueItem -> 0, queueItem -> null);
     }
 
-```
-
-## RuleId[ruleID=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/DistributionPublisher.java`
-#### Snippet
-```java
-            String msg = format("Failed to append distribution package %s to the journal", pkg);
-            log.error(msg, e);
-            if (e instanceof Error) {
-                throw (Error) e;
-            } else {
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -604,6 +604,18 @@ in `src/main/java/org/apache/sling/distribution/journal/shared/Delay.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends LongStream`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
+#### Snippet
+```java
+     * @param offsets range of offsets, from smallest offset to largest offset.
+     */
+    private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
+        long minOffset = offsets.get().findFirst().getAsLong();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends FullMessage`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageQueuedNotifier.java`
 #### Snippet
@@ -640,15 +652,15 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/QueueItemFactory.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LongStream`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/PackageDistributedNotifier.java`
+Can generalize to `? super PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/QueueCacheSeeder.java`
 #### Snippet
 ```java
-     * @param offsets range of offsets, from smallest offset to largest offset.
-     */
-    private void processOffsets(String pubAgentName, Supplier<LongStream> offsets) {
-        long minOffset = offsets.get().findFirst().getAsLong();
-
+    private Thread seedingThread;
+    
+    public QueueCacheSeeder(MessageSender<PackageMessage> sender) {
+        this.sender = sender;
+    }
 ```
 
 ### BoundedWildcard
@@ -700,18 +712,6 @@ in `src/main/java/org/apache/sling/distribution/journal/queue/impl/QueueEntryFac
 ```
 
 ### BoundedWildcard
-Can generalize to `? super PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/QueueCacheSeeder.java`
-#### Snippet
-```java
-    private Thread seedingThread;
-    
-    public QueueCacheSeeder(MessageSender<PackageMessage> sender) {
-        this.sender = sender;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyViewDiff.java`
 #### Snippet
@@ -724,18 +724,6 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/discovery/TopologyV
 ```
 
 ### BoundedWildcard
-Can generalize to `? super PackageMessage`
-in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/MessagingCacheCallback.java`
-#### Snippet
-```java
-
-    @Override
-    public Closeable createConsumer(MessageHandler<PackageMessage> handler) {
-        log.info("Starting consumer");
-        QueueCacheSeeder seeder = new QueueCacheSeeder(messagingProvider.createSender(packageTopic)); //NOSONAR
-```
-
-### BoundedWildcard
 Can generalize to `? super ClearCommand`
 in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/MessagingCacheCallback.java`
 #### Snippet
@@ -745,6 +733,18 @@ in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/Messaging
             Consumer<ClearCommand> commandSender) {
         this.messagingProvider = messagingProvider;
         this.packageTopic = packageTopic;
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageMessage`
+in `src/main/java/org/apache/sling/distribution/journal/impl/publisher/MessagingCacheCallback.java`
+#### Snippet
+```java
+
+    @Override
+    public Closeable createConsumer(MessageHandler<PackageMessage> handler) {
+        log.info("Starting consumer");
+        QueueCacheSeeder seeder = new QueueCacheSeeder(messagingProvider.createSender(packageTopic)); //NOSONAR
 ```
 
 ### BoundedWildcard
