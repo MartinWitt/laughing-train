@@ -50,17 +50,17 @@ I found 345 bad smells with 60 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | EmptyMethod | 1 | false |
 | RedundantExplicitClose | 1 | false |
-| NonFinalFieldOfException | 1 | false |
 | DuplicateThrows | 1 | false |
+| NonFinalFieldOfException | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
-| OptionalGetWithoutIsPresent | 1 | false |
 | ConstantValue | 1 | false |
+| OptionalGetWithoutIsPresent | 1 | false |
 | IOResource | 1 | false |
 | FieldMayBeStatic | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
+| RedundantCollectionOperation | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
 | FinallyBlockCannotCompleteNormally | 1 | false |
-| RedundantCollectionOperation | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
 | OptionalUsedAsFieldOrParameterType | 1 | false |
 | ComparatorMethodParameterNotUsed | 1 | false |
@@ -339,6 +339,114 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
+`namespace.length() == 0` can be replaced with 'namespace.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/NotebookManager.java`
+#### Snippet
+```java
+    List<Notebook> notebookList = new ArrayList<>();
+    for (Notebook notebook : notebookService.selectAll()) {
+      if (namespace == null || namespace.length() == 0 ){
+        notebookList.add(notebook);
+      }
+```
+
+### SizeReplaceableByIsEmpty
+`dictItems.size() > 0` can be replaced with '!dictItems.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
+#### Snippet
+```java
+          String code = field.getAnnotation(Dict.class).Code();
+          List<SysDictItemEntity> dictItems = sysDictItemService.queryDictByCode(code);
+          if (dictItems.size() > 0) {
+            mapDictItems.put(field.getName(), dictItems);
+          }
+```
+
+### SizeReplaceableByIsEmpty
+`mapDictItems.size() == 0` can be replaced with 'mapDictItems.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
+#### Snippet
+```java
+      }
+
+      if (mapDictItems.size() == 0) {
+        // don't contain dict Annotation
+        return false;
+```
+
+### SizeReplaceableByIsEmpty
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/NetworkUtils.java`
+#### Snippet
+```java
+
+  public static boolean isEnvString(String key) {
+    if (key == null || key.length() == 0) {
+      return false;
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`illegalParamList.size() > 0` can be replaced with '!illegalParamList.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    }
+
+    if (illegalParamList.size() > 0) {
+      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
+            "Parameters contains illegal key: " + illegalParamList.toString());
+```
+
+### SizeReplaceableByIsEmpty
+`unusedParamList.size() > 0` can be replaced with '!unusedParamList.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    }
+
+    if (unusedParamList.size() > 0) {
+      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
+            "Parameters contains unused key: " + unusedParamList.toString());
+```
+
+### SizeReplaceableByIsEmpty
+`unmapedParamList.size() > 0` can be replaced with '!unmapedParamList.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    }
+
+    if (unmapedParamList.size() > 0) {
+      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
+          "Template contains unmapped value: " + unmapedParamList.toString());
+```
+
+### SizeReplaceableByIsEmpty
+`tpls.size() != 0` can be replaced with '!tpls.isEmpty()'
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+
+    // Is it available in cache?
+    if (tpls.size() != 0) {
+      return tpls;
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`model.getChildren().size() == 0` can be replaced with 'model.getChildren().isEmpty()'
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
+#### Snippet
+```java
+  private static void setEmptyChildrenAsNull(List<SysDeptTree> treeList) {
+    for (SysDeptTree model : treeList) {
+      if (model.getChildren().size() == 0) {
+        model.setChildren(null);
+      } else {
+```
+
+### SizeReplaceableByIsEmpty
 `kernel.getCondaDependencies().size() > 0` can be replaced with '!kernel.getCondaDependencies().isEmpty()'
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
 #### Snippet
@@ -386,139 +494,7 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
           String minVersion = "minVersion=\""
 ```
 
-### SizeReplaceableByIsEmpty
-`namespace.length() == 0` can be replaced with 'namespace.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/NotebookManager.java`
-#### Snippet
-```java
-    List<Notebook> notebookList = new ArrayList<>();
-    for (Notebook notebook : notebookService.selectAll()) {
-      if (namespace == null || namespace.length() == 0 ){
-        notebookList.add(notebook);
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`dictItems.size() > 0` can be replaced with '!dictItems.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
-#### Snippet
-```java
-          String code = field.getAnnotation(Dict.class).Code();
-          List<SysDictItemEntity> dictItems = sysDictItemService.queryDictByCode(code);
-          if (dictItems.size() > 0) {
-            mapDictItems.put(field.getName(), dictItems);
-          }
-```
-
-### SizeReplaceableByIsEmpty
-`mapDictItems.size() == 0` can be replaced with 'mapDictItems.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
-#### Snippet
-```java
-      }
-
-      if (mapDictItems.size() == 0) {
-        // don't contain dict Annotation
-        return false;
-```
-
-### SizeReplaceableByIsEmpty
-`tpls.size() != 0` can be replaced with '!tpls.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-
-    // Is it available in cache?
-    if (tpls.size() != 0) {
-      return tpls;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`illegalParamList.size() > 0` can be replaced with '!illegalParamList.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    }
-
-    if (illegalParamList.size() > 0) {
-      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
-            "Parameters contains illegal key: " + illegalParamList.toString());
-```
-
-### SizeReplaceableByIsEmpty
-`unusedParamList.size() > 0` can be replaced with '!unusedParamList.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    }
-
-    if (unusedParamList.size() > 0) {
-      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
-            "Parameters contains unused key: " + unusedParamList.toString());
-```
-
-### SizeReplaceableByIsEmpty
-`unmapedParamList.size() > 0` can be replaced with '!unmapedParamList.isEmpty()'
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    }
-
-    if (unmapedParamList.size() > 0) {
-      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
-          "Template contains unmapped value: " + unmapedParamList.toString());
-```
-
-### SizeReplaceableByIsEmpty
-`model.getChildren().size() == 0` can be replaced with 'model.getChildren().isEmpty()'
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
-#### Snippet
-```java
-  private static void setEmptyChildrenAsNull(List<SysDeptTree> treeList) {
-    for (SysDeptTree model : treeList) {
-      if (model.getChildren().size() == 0) {
-        model.setChildren(null);
-      } else {
-```
-
-### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/NetworkUtils.java`
-#### Snippet
-```java
-
-  public static boolean isEnvString(String key) {
-    if (key == null || key.length() == 0) {
-      return false;
-    }
-```
-
 ## RuleId[ruleID=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuffer condaVersionValidationCommand` can be replaced with 'String'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
-#### Snippet
-```java
-            + conf.getString(SubmarineConfVars.ConfVars.ENVIRONMENT_CONDA_MAX_VERSION)
-            + "\";";
-    StringBuffer condaVersionValidationCommand = new StringBuffer();
-    condaVersionValidationCommand.append(minVersion);
-    condaVersionValidationCommand.append(maxVersion);
-```
-
-### StringBufferReplaceableByString
-`StringBuffer condaVersionValidationCommand` can be replaced with 'String'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
-#### Snippet
-```java
-              + "\";";
-          String currentVersion = "currentVersion=$(conda -V | cut -f2 -d' ');";
-          StringBuffer condaVersionValidationCommand = new StringBuffer();
-          condaVersionValidationCommand.append(minVersion);
-          condaVersionValidationCommand.append(maxVersion);
-```
-
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/websocket/Message.java`
@@ -543,6 +519,30 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/workb
     sb.append(", op=").append(op);
 ```
 
+### StringBufferReplaceableByString
+`StringBuffer condaVersionValidationCommand` can be replaced with 'String'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
+#### Snippet
+```java
+            + conf.getString(SubmarineConfVars.ConfVars.ENVIRONMENT_CONDA_MAX_VERSION)
+            + "\";";
+    StringBuffer condaVersionValidationCommand = new StringBuffer();
+    condaVersionValidationCommand.append(minVersion);
+    condaVersionValidationCommand.append(maxVersion);
+```
+
+### StringBufferReplaceableByString
+`StringBuffer condaVersionValidationCommand` can be replaced with 'String'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
+#### Snippet
+```java
+              + "\";";
+          String currentVersion = "currentVersion=$(conda -V | cut -f2 -d' ');";
+          StringBuffer condaVersionValidationCommand = new StringBuffer();
+          condaVersionValidationCommand.append(minVersion);
+          condaVersionValidationCommand.append(maxVersion);
+```
+
 ## RuleId[ruleID=UnnecessaryReturn]
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
@@ -556,19 +556,32 @@ in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/sp
 
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJob.java`
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `MLJobSpec` has no concrete subclass
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobSpec.java`
 #### Snippet
 ```java
-   * Convert MLJob object to return Experiment object
-   */
-  protected <T extends MLJob> Experiment parseExperimentResponseObject(T object, Class<T> tClass)
-          throws SubmarineRuntimeException {
-    String jsonString = JsonUtils.toJson(object);
+import com.google.gson.annotations.SerializedName;
+
+public abstract class MLJobSpec {
+  
+  @SerializedName("backoffLimit")
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `K8sUtils` has no concrete subclass
+in `submarine-server/server-submitter/k8s-utils/src/main/java/org/apache/submarine/server/k8s/utils/K8sUtils.java`
+#### Snippet
+```java
+ * @since 0.8.0-SNAPSHOT
+ */
+public abstract class K8sUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(K8sUtils.class);
+```
+
+## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends ModelVersionEntity`
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/RegisteredModelManager.java`
@@ -603,30 +616,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils
   private static Object mergeDictText(Object object, Map<String, List<SysDictItemEntity>> mapDictItems)
       throws Exception {
     // Map<Field->Value>
-```
-
-### BoundedWildcard
-Can generalize to `? extends SysDeptEntity`
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
-#### Snippet
-```java
-  }
-
-  public static List<SysDeptTree> wrapDeptListToTree(List<SysDeptEntity> sysDeptList,
-                                                     List<SysDeptSelectEntity> sysDeptSelects) {
-    sysDeptSelects.clear();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SysDeptTree`
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
-#### Snippet
-```java
-  }
-
-  public static long getDeptTreeSize(List<SysDeptTree> sysDeptTreeList) {
-    if (sysDeptTreeList == null) {
-      return 0;
 ```
 
 ### BoundedWildcard
@@ -678,6 +667,18 @@ in `submarine-server/server-database/src/main/java/org/apache/submarine/server/d
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SysDeptEntity`
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
+#### Snippet
+```java
+  }
+
+  public static List<SysDeptTree> wrapDeptListToTree(List<SysDeptEntity> sysDeptList,
+                                                     List<SysDeptSelectEntity> sysDeptSelects) {
+    sysDeptSelects.clear();
+```
+
+### BoundedWildcard
 Can generalize to `? extends SysDeptSelectEntity`
 in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
 #### Snippet
@@ -690,6 +691,30 @@ public class DepartmentUtil {
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SysDeptTree`
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/DepartmentUtil.java`
+#### Snippet
+```java
+  }
+
+  public static long getDeptTreeSize(List<SysDeptTree> sysDeptTreeList) {
+    if (sysDeptTreeList == null) {
+      return 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJob.java`
+#### Snippet
+```java
+   * Convert MLJob object to return Experiment object
+   */
+  protected <T extends MLJob> Experiment parseExperimentResponseObject(T object, Class<T> tClass)
+          throws SubmarineRuntimeException {
+    String jsonString = JsonUtils.toJson(object);
+```
+
+### BoundedWildcard
 Can generalize to `? extends IstioVirtualService`
 in `submarine-serve/src/main/java/org/apache/submarine/serve/istio/IstioVirtualServiceList.java`
 #### Snippet
@@ -699,31 +724,6 @@ in `submarine-serve/src/main/java/org/apache/submarine/serve/istio/IstioVirtualS
   public void setItems(List<IstioVirtualService> items) {
     this.items = items;
   }
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `K8sUtils` has no concrete subclass
-in `submarine-server/server-submitter/k8s-utils/src/main/java/org/apache/submarine/server/k8s/utils/K8sUtils.java`
-#### Snippet
-```java
- * @since 0.8.0-SNAPSHOT
- */
-public abstract class K8sUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(K8sUtils.class);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `MLJobSpec` has no concrete subclass
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobSpec.java`
-#### Snippet
-```java
-import com.google.gson.annotations.SerializedName;
-
-public abstract class MLJobSpec {
-  
-  @SerializedName("backoffLimit")
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -764,15 +764,15 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils
 ```
 
 ### IgnoreResultOfCall
-Result of `Long.valueOf()` is ignored
+Result of `Boolean.valueOf()` is ignored
 in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfVars.java`
 #### Snippet
 ```java
         @Override
         void checkType(String value) throws Exception {
-          Long.valueOf(value);
+          Boolean.valueOf(value);
         }
-      },
+      };
 ```
 
 ### IgnoreResultOfCall
@@ -788,6 +788,18 @@ in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/u
 ```
 
 ### IgnoreResultOfCall
+Result of `Long.valueOf()` is ignored
+in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfVars.java`
+#### Snippet
+```java
+        @Override
+        void checkType(String value) throws Exception {
+          Long.valueOf(value);
+        }
+      },
+```
+
+### IgnoreResultOfCall
 Result of `Float.valueOf()` is ignored
 in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfVars.java`
 #### Snippet
@@ -797,18 +809,6 @@ in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/u
           Float.valueOf(value);
         }
       },
-```
-
-### IgnoreResultOfCall
-Result of `Boolean.valueOf()` is ignored
-in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfVars.java`
-#### Snippet
-```java
-        @Override
-        void checkType(String value) throws Exception {
-          Boolean.valueOf(value);
-        }
-      };
 ```
 
 ## RuleId[ruleID=AccessStaticViaInstance]
@@ -853,18 +853,6 @@ public class IstioVirtualService extends org.apache.submarine.serve.istio.IstioV
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/s3/Client.java`
-#### Snippet
-```java
-      buffer[0] = (byte) b;
-      int i = 1;
-      while ((b = is.read()) != -1){
-        buffer[i] = (byte) b;
-        i += 1;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/SubmarineServer.java`
 #### Snippet
 ```java
@@ -873,6 +861,18 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/Subma
         while ((lineTxt = bufferedReader.readLine()) != null) {
           sbIndexBuf.append(lineTxt);
         }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/s3/Client.java`
+#### Snippet
+```java
+      buffer[0] = (byte) b;
+      int i = 1;
+      while ((b = is.read()) != -1){
+        buffer[i] = (byte) b;
+        i += 1;
 ```
 
 ### NestedAssignment
@@ -1005,6 +1005,18 @@ Field initialization to `0` is redundant
 in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons/runtime/api/JobComponentStatus.java`
 #### Snippet
 ```java
+  private String compName;
+  private long numReadyContainers = 0;
+  private long numRunningButUnreadyContainers = 0;
+  private long totalAskedContainers;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons/runtime/api/JobComponentStatus.java`
+#### Snippet
+```java
 public class JobComponentStatus {
   private String compName;
   private long numReadyContainers = 0;
@@ -1013,51 +1025,51 @@ public class JobComponentStatus {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons/runtime/api/JobComponentStatus.java`
+Field initialization to `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
 #### Snippet
 ```java
-  private String compName;
-  private long numReadyContainers = 0;
-  private long numRunningButUnreadyContainers = 0;
-  private long totalAskedContainers;
+  private final Map<String, Object> attributes;
 
+  private static Gson safeGson = null;
+
+  private static final String CGLIB_PROPERTY_PREFIX = "\\$cglib_prop_";
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
+#### Snippet
+```java
+    private Map<String, Object> attributes = new HashMap<>();
+    private transient ArrayList<NewCookie> cookies;
+    private transient boolean pretty = false;
+
+    public Builder(javax.ws.rs.core.Response.Status status) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `submarine-server/server-submitter/k8s-utils/src/main/java/org/apache/submarine/server/k8s/utils/K8sUtils.java`
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
 #### Snippet
 ```java
 
-  private static final Logger LOG = LoggerFactory.getLogger(K8sUtils.class);
-  private static String namespace = null;
+  // Attribute name and type of attribute
+  private BeanMap beanMap = null;
 
-  /**
+  public DictAnnotation(Map propertyMap) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/ObjectMeta.java`
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
 #### Snippet
 ```java
 
-  @SerializedName("name")
-  private String name = null;
+  // Dynamically generated class
+  private Object object = null;
 
-  @SerializedName("namespace")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/ObjectMeta.java`
-#### Snippet
-```java
-
-  @SerializedName("labels")
-  private Map<String, String> labels = null;
-
-  @SerializedName("name")
+  // Attribute name and type of attribute
 ```
 
 ### RedundantFieldInitialization
@@ -1078,18 +1090,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 #### Snippet
 ```java
 
-  @SerializedName("selfLink")
-  private String selfLink = null;
-
-  @SerializedName("uid")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/ObjectMeta.java`
-#### Snippet
-```java
-
   @SerializedName("uid")
   private String uid = null;
 
@@ -1102,106 +1102,46 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 #### Snippet
 ```java
 
+  @SerializedName("selfLink")
+  private String selfLink = null;
+
+  @SerializedName("uid")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/ObjectMeta.java`
+#### Snippet
+```java
+
+  @SerializedName("labels")
+  private Map<String, String> labels = null;
+
+  @SerializedName("name")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/ObjectMeta.java`
+#### Snippet
+```java
+
+  @SerializedName("name")
+  private String name = null;
+
+  @SerializedName("namespace")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/ObjectMeta.java`
+#### Snippet
+```java
+
   @SerializedName("resourceVersion")
   private String resourceVersion = null;
 
   @SerializedName("selfLink")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/client/K8sDefaultClient.java`
-#### Snippet
-```java
-  private final CustomObjectsApi customObjectsApi;
-
-  private ApiClient client = null;
-
-  public K8sDefaultClient() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
-#### Snippet
-```java
-    private Map<String, Object> attributes = new HashMap<>();
-    private transient ArrayList<NewCookie> cookies;
-    private transient boolean pretty = false;
-
-    public Builder(javax.ws.rs.core.Response.Status status) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
-#### Snippet
-```java
-  private final Map<String, Object> attributes;
-
-  private static Gson safeGson = null;
-
-  private static final String CGLIB_PROPERTY_PREFIX = "\\$cglib_prop_";
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
-#### Snippet
-```java
-
-  // Dynamically generated class
-  private Object object = null;
-
-  // Attribute name and type of attribute
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
-#### Snippet
-```java
-
-  // Attribute name and type of attribute
-  private BeanMap beanMap = null;
-
-  public DictAnnotation(Map propertyMap) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
-#### Snippet
-```java
-  private static final String KUBECONFIG_ENV = "KUBECONFIG";
-    
-  protected ApiClient client = null;  
-  protected CustomObjectsApi customObjectsApi = null;
-  protected CoreV1Api coreV1Api = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
-#### Snippet
-```java
-    
-  protected ApiClient client = null;  
-  protected CustomObjectsApi customObjectsApi = null;
-  protected CoreV1Api coreV1Api = null;
-  protected String namespace;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
-#### Snippet
-```java
-  protected ApiClient client = null;  
-  protected CustomObjectsApi customObjectsApi = null;
-  protected CoreV1Api coreV1Api = null;
-  protected String namespace;
-  protected String crType;
 ```
 
 ### RedundantFieldInitialization
@@ -1264,6 +1204,66 @@ in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/wo
     private Role role;
 ```
 
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/client/K8sDefaultClient.java`
+#### Snippet
+```java
+  private final CustomObjectsApi customObjectsApi;
+
+  private ApiClient client = null;
+
+  public K8sDefaultClient() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/k8s-utils/src/main/java/org/apache/submarine/server/k8s/utils/K8sUtils.java`
+#### Snippet
+```java
+
+  private static final Logger LOG = LoggerFactory.getLogger(K8sUtils.class);
+  private static String namespace = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
+#### Snippet
+```java
+  private static final String KUBECONFIG_ENV = "KUBECONFIG";
+    
+  protected ApiClient client = null;  
+  protected CustomObjectsApi customObjectsApi = null;
+  protected CoreV1Api coreV1Api = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
+#### Snippet
+```java
+    
+  protected ApiClient client = null;  
+  protected CustomObjectsApi customObjectsApi = null;
+  protected CoreV1Api coreV1Api = null;
+  protected String namespace;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
+#### Snippet
+```java
+  protected ApiClient client = null;  
+  protected CustomObjectsApi customObjectsApi = null;
+  protected CoreV1Api coreV1Api = null;
+  protected String namespace;
+  protected String crType;
+```
+
 ## RuleId[ruleID=RedundantExplicitClose]
 ### RedundantExplicitClose
 Redundant 'close()'
@@ -1316,18 +1316,6 @@ in `submarine-workbench/workbench-web/src/app/pages/workbench/template/template-
 
 ## RuleId[ruleID=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
-`StringBuffer condaVersionValidationCommand` may be declared as 'StringBuilder'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
-#### Snippet
-```java
-            + conf.getString(SubmarineConfVars.ConfVars.ENVIRONMENT_CONDA_MAX_VERSION)
-            + "\";";
-    StringBuffer condaVersionValidationCommand = new StringBuffer();
-    condaVersionValidationCommand.append(minVersion);
-    condaVersionValidationCommand.append(maxVersion);
-```
-
-### StringBufferReplaceableByStringBuilder
 `StringBuffer installCommand` may be declared as 'StringBuilder'
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
 #### Snippet
@@ -1337,6 +1325,18 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
       StringBuffer installCommand = new StringBuffer();
       installCommand.append(condaVersionValidationCommand);
 
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer condaVersionValidationCommand` may be declared as 'StringBuilder'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
+#### Snippet
+```java
+            + conf.getString(SubmarineConfVars.ConfVars.ENVIRONMENT_CONDA_MAX_VERSION)
+            + "\";";
+    StringBuffer condaVersionValidationCommand = new StringBuffer();
+    condaVersionValidationCommand.append(minVersion);
+    condaVersionValidationCommand.append(maxVersion);
 ```
 
 ### StringBufferReplaceableByStringBuilder
@@ -1363,19 +1363,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
               environmentSpec.getKernelSpec().getName();
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `code` of exception class
-in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/exception/SubmarineRuntimeException.java`
-#### Snippet
-```java
-  private static final long serialVersionUID = 7159777541471705348L;
-
-  private int code;
-
-  public SubmarineRuntimeException(String message) {
-```
-
 ## RuleId[ruleID=DuplicateThrows]
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
@@ -1389,19 +1376,20 @@ in `submarine-server/server-database/src/main/java/org/apache/submarine/server/d
     String date = jp.getText();
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/NotebookManager.java`
+## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `code` of exception class
+in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/exception/SubmarineRuntimeException.java`
 #### Snippet
 ```java
-  public static NotebookManager getInstance() {
-    if (manager == null) {
-      synchronized (NotebookManager.class) {
-        if (manager == null) {
-          manager = new NotebookManager(SubmitterManager.loadSubmitter(), new NotebookService());
+  private static final long serialVersionUID = 7159777541471705348L;
+
+  private int code;
+
+  public SubmarineRuntimeException(String message) {
 ```
 
+## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/RegisteredModelManager.java`
@@ -1412,6 +1400,18 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manag
       synchronized (RegisteredModelManager.class) {
         if (manager == null) {
           manager = new RegisteredModelManager(new RegisteredModelService(), new ModelVersionService(),
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/NotebookManager.java`
+#### Snippet
+```java
+  public static NotebookManager getInstance() {
+    if (manager == null) {
+      synchronized (NotebookManager.class) {
+        if (manager == null) {
+          manager = new NotebookManager(SubmitterManager.loadSubmitter(), new NotebookService());
 ```
 
 ### SynchronizeOnThis
@@ -1464,18 +1464,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manag
 
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-  public static ExperimentTemplateManager getInstance() {
-    if (manager == null) {
-      synchronized (ExperimentTemplateManager.class) {
-        if (manager == null) {
-          manager = new ExperimentTemplateManager();
-```
-
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
 in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfiguration.java`
 #### Snippet
 ```java
@@ -1486,19 +1474,19 @@ in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/u
           conf = newInstance();
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
 #### Snippet
 ```java
-
-    // delete resources
-    return deleteResourcesTransaction(notebookCR, dependents.toArray(dependents.toArray(new K8sResource[0])));
-  }
-
+  public static ExperimentTemplateManager getInstance() {
+    if (manager == null) {
+      synchronized (ExperimentTemplateManager.class) {
+        if (manager == null) {
+          manager = new ExperimentTemplateManager();
 ```
 
+## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/SubmitterManager.java`
@@ -1535,6 +1523,18 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils
         mapFieldAndType.put(propertyName, descriptor.getPropertyType());
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
+#### Snippet
+```java
+
+    // delete resources
+    return deleteResourcesTransaction(notebookCR, dependents.toArray(dependents.toArray(new K8sResource[0])));
+  }
+
+```
+
 ## RuleId[ruleID=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
@@ -1550,18 +1550,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `numReadyContainers` initializer `0` is redundant
-in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons/runtime/api/JobComponentStatus.java`
-#### Snippet
-```java
-public class JobComponentStatus {
-  private String compName;
-  private long numReadyContainers = 0;
-  private long numRunningButUnreadyContainers = 0;
-  private long totalAskedContainers;
-```
-
-### UnusedAssignment
 Variable `numRunningButUnreadyContainers` initializer `0` is redundant
 in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons/runtime/api/JobComponentStatus.java`
 #### Snippet
@@ -1574,15 +1562,15 @@ in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons
 ```
 
 ### UnusedAssignment
-Variable `notebook` initializer `null` is redundant
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCR.java`
+Variable `numReadyContainers` initializer `0` is redundant
+in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons/runtime/api/JobComponentStatus.java`
 #### Snippet
 ```java
-   */
-  public Notebook create(K8sClient client, boolean tolerate) {
-    Notebook notebook = null;
-    try {
-      if (LOG.isDebugEnabled()) {
+public class JobComponentStatus {
+  private String compName;
+  private long numReadyContainers = 0;
+  private long numRunningButUnreadyContainers = 0;
+  private long totalAskedContainers;
 ```
 
 ### UnusedAssignment
@@ -1595,102 +1583,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/
     List<ProjectEntity> projectList = new ArrayList<>();
     try {
       projectList = projectService.queryPageList(userName, column, order, pageNo, pageSize);
-```
-
-### UnusedAssignment
-Variable `teams` initializer `new ArrayList<>()` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/TeamRestApi.java`
-#### Snippet
-```java
-    LOG.info("TeamRestApi.list() owner:{}, pageNo:{}, pageSize:{}", owner, pageNo, pageSize);
-
-    List<TeamEntity> teams = new ArrayList<>();
-    try {
-      // TODO(zhulinhao): Front need to correct 'owner' value, and Whether need the
-```
-
-### UnusedAssignment
-Variable `result` initializer `false` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/ParamRestApi.java`
-#### Snippet
-```java
-  public Response putParam(ParamEntity param) {
-    LOG.info("putParam ({})", param);
-    boolean result = false;
-    try {
-      result = paramService.update(param);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysUserRestApi.java`
-#### Snippet
-```java
-        userName, email, deptCode, column, field, pageNo, pageSize);
-
-    List<SysUserEntity> list = null;
-    try {
-      list = userService.queryPageList(userName, email, deptCode, column, field, pageNo, pageSize);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SystemRestApi.java`
-#### Snippet
-```java
-
-    if (StringUtils.equals(tableName, "sys_user")) {
-      List<SysUserEntity> list = null;
-      try {
-        list = userService.queryPageList(keyword, null, null, null, null, 1, 1000);
-```
-
-### UnusedAssignment
-Variable `result` initializer `false` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/MetricRestApi.java`
-#### Snippet
-```java
-  @SubmarineApi
-  public Response postMetric(MetricEntity metric) {
-    boolean result = false;
-    try {
-      result = metricService.insert(metric);
-```
-
-### UnusedAssignment
-Variable `result` initializer `false` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/MetricRestApi.java`
-#### Snippet
-```java
-  @SubmarineApi
-  public Response deleteMetric(@QueryParam("id") String id) {
-    boolean result = false;
-    try {
-      result = metricService.deleteById(id);
-```
-
-### UnusedAssignment
-Variable `result` initializer `false` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/MetricRestApi.java`
-#### Snippet
-```java
-  @SubmarineApi
-  public Response putMetric(MetricEntity metric) {
-    boolean result = false;
-    try {
-      result = metricService.update(metric);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysDictRestApi.java`
-#### Snippet
-```java
-        column, field, order, pageNo, pageSize);
-
-    List<SysDictEntity> list = null;
-    SqlSession sqlSession = MyBatisUtil.getSqlSession();
-    SysDictMapper sysDictMapper = sqlSession.getMapper(SysDictMapper.class);
 ```
 
 ### UnusedAssignment
@@ -1718,15 +1610,51 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/Subma
 ```
 
 ### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysDictItemRestApi.java`
+Variable `teams` initializer `new ArrayList<>()` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/TeamRestApi.java`
 #### Snippet
 ```java
-        dictCode, itemText, itemValue, pageNo, pageSize);
+    LOG.info("TeamRestApi.list() owner:{}, pageNo:{}, pageSize:{}", owner, pageNo, pageSize);
 
-    List<SysDictItemEntity> list = null;
-    SqlSession sqlSession = MyBatisUtil.getSqlSession();
-    SysDictItemMapper sysDictItemMapper = sqlSession.getMapper(SysDictItemMapper.class);
+    List<TeamEntity> teams = new ArrayList<>();
+    try {
+      // TODO(zhulinhao): Front need to correct 'owner' value, and Whether need the
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysUserRestApi.java`
+#### Snippet
+```java
+        userName, email, deptCode, column, field, pageNo, pageSize);
+
+    List<SysUserEntity> list = null;
+    try {
+      list = userService.queryPageList(userName, email, deptCode, column, field, pageNo, pageSize);
+```
+
+### UnusedAssignment
+Variable `result` initializer `false` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/ParamRestApi.java`
+#### Snippet
+```java
+  public Response putParam(ParamEntity param) {
+    LOG.info("putParam ({})", param);
+    boolean result = false;
+    try {
+      result = paramService.update(param);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SystemRestApi.java`
+#### Snippet
+```java
+
+    if (StringUtils.equals(tableName, "sys_user")) {
+      List<SysUserEntity> list = null;
+      try {
+        list = userService.queryPageList(keyword, null, null, null, null, 1, 1000);
 ```
 
 ### UnusedAssignment
@@ -1734,8 +1662,8 @@ Variable `sysUser` initializer `null` is redundant
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/LoginRestApi.java`
 #### Snippet
 ```java
-        = gson.fromJson(loginParams, new TypeToken<HashMap<String, String>>() {}.getType());
-
+   */
+  public SysUserEntity getUserByName(String name) throws Exception {
     SysUserEntity sysUser = null;
     try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
       SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
@@ -1746,8 +1674,8 @@ Variable `sysUser` initializer `null` is redundant
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/LoginRestApi.java`
 #### Snippet
 ```java
-   */
-  public SysUserEntity getUserByName(String name) throws Exception {
+        = gson.fromJson(loginParams, new TypeToken<HashMap<String, String>>() {}.getType());
+
     SysUserEntity sysUser = null;
     try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
       SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
@@ -1766,15 +1694,63 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/
 ```
 
 ### UnusedAssignment
-Variable `object` initializer `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
+Variable `result` initializer `false` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/MetricRestApi.java`
 #### Snippet
 ```java
+  @SubmarineApi
+  public Response postMetric(MetricEntity metric) {
+    boolean result = false;
+    try {
+      result = metricService.insert(metric);
+```
 
-  // Dynamically generated class
-  private Object object = null;
+### UnusedAssignment
+Variable `result` initializer `false` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/MetricRestApi.java`
+#### Snippet
+```java
+  @SubmarineApi
+  public Response putMetric(MetricEntity metric) {
+    boolean result = false;
+    try {
+      result = metricService.update(metric);
+```
 
-  // Attribute name and type of attribute
+### UnusedAssignment
+Variable `result` initializer `false` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/MetricRestApi.java`
+#### Snippet
+```java
+  @SubmarineApi
+  public Response deleteMetric(@QueryParam("id") String id) {
+    boolean result = false;
+    try {
+      result = metricService.deleteById(id);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysDictRestApi.java`
+#### Snippet
+```java
+        column, field, order, pageNo, pageSize);
+
+    List<SysDictEntity> list = null;
+    SqlSession sqlSession = MyBatisUtil.getSqlSession();
+    SysDictMapper sysDictMapper = sqlSession.getMapper(SysDictMapper.class);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysDictItemRestApi.java`
+#### Snippet
+```java
+        dictCode, itemText, itemValue, pageNo, pageSize);
+
+    List<SysDictItemEntity> list = null;
+    SqlSession sqlSession = MyBatisUtil.getSqlSession();
+    SysDictItemMapper sysDictItemMapper = sqlSession.getMapper(SysDictItemMapper.class);
 ```
 
 ### UnusedAssignment
@@ -1787,6 +1763,174 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils
   private BeanMap beanMap = null;
 
   public DictAnnotation(Map propertyMap) {
+```
+
+### UnusedAssignment
+Variable `object` initializer `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/DictAnnotation.java`
+#### Snippet
+```java
+
+  // Dynamically generated class
+  private Object object = null;
+
+  // Attribute name and type of attribute
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/ProjectFilesService.java`
+#### Snippet
+```java
+    LOG.info("queryPageList projectId:{}", projectId);
+
+    List<ProjectFilesEntity> list = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      ProjectFilesMapper projectFilesMapper = sqlSession.getMapper(ProjectFilesMapper.class);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/TeamMemberService.java`
+#### Snippet
+```java
+    LOG.info("queryList teamId:{}", teamId);
+
+    List<TeamMemberEntity> list = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      TeamMemberMapper teamMemberMapper = sqlSession.getMapper(TeamMemberMapper.class);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/JobService.java`
+#### Snippet
+```java
+            userName, column, order, pageNo, pageSize);
+
+    List<JobEntity> list = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      JobMapper projectMapper = sqlSession.getMapper(JobMapper.class);
+```
+
+### UnusedAssignment
+Variable `dictItems` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysDictItemService.java`
+#### Snippet
+```java
+
+  public List<SysDictItemEntity> queryDictByCode(String dictCode) {
+    List<SysDictItemEntity> dictItems = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      SysDictItemMapper dictItemMapper = sqlSession.getMapper(SysDictItemMapper.class);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/TeamService.java`
+#### Snippet
+```java
+        owner, column, order, pageNo, pageSize);
+
+    List<TeamEntity> list = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      TeamMapper teamMapper = sqlSession.getMapper(TeamMapper.class);
+```
+
+### UnusedAssignment
+Variable `returnExperimentSpec` initializer `null` is redundant
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    LOG.info("nestedJson    " + nestedJson);
+
+    ExperimentSpec returnExperimentSpec = null;
+    try {
+      returnExperimentSpec = gson.fromJson(nestedJson, ExperimentSpec.class);
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/ProjectService.java`
+#### Snippet
+```java
+        userName, column, order, pageNo, pageSize);
+
+    List<ProjectEntity> list = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
+```
+
+### UnusedAssignment
+Variable `sysUser` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysUserService.java`
+#### Snippet
+```java
+
+  public SysUserEntity login(HashMap<String, String> mapParams) throws Exception {
+    SysUserEntity sysUser = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+```
+
+### UnusedAssignment
+Variable `sysUser` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysUserService.java`
+#### Snippet
+```java
+
+  public SysUserEntity getUserByName(String name, String password) throws Exception {
+    SysUserEntity sysUser = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      HashMap<String, Object> mapParams = new HashMap<>();
+```
+
+### UnusedAssignment
+Variable `list` initializer `null` is redundant
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysUserService.java`
+#### Snippet
+```java
+        userName, email, deptCode, column, field, pageNo, pageSize);
+
+    List<SysUserEntity> list = null;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
+```
+
+### UnusedAssignment
+Variable `notebook` initializer `null` is redundant
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCR.java`
+#### Snippet
+```java
+   */
+  public Notebook create(K8sClient client, boolean tolerate) {
+    Notebook notebook = null;
+    try {
+      if (LOG.isDebugEnabled()) {
+```
+
+### UnusedAssignment
+Variable `defaultCheck` initializer `false` is redundant
+in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/workbench/Action.java`
+#### Snippet
+```java
+public class Action {
+  private String action;
+  private boolean defaultCheck = false;
+  private String describe;
+
+```
+
+### UnusedAssignment
+Variable `podLog` initializer `new ArrayList`() is redundant
+in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/experiment/ExperimentLog.java`
+#### Snippet
+```java
+
+    String podName;
+    List<String> podLog = new ArrayList<String>();
+
+    PodLog(String name, String log) {
 ```
 
 ### UnusedAssignment
@@ -1837,148 +1981,17 @@ in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apac
           switch (reason) {
 ```
 
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/ProjectFilesService.java`
+## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Condition `notebook == null` is always `true`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCR.java`
 #### Snippet
 ```java
-    LOG.info("queryPageList projectId:{}", projectId);
-
-    List<ProjectFilesEntity> list = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      ProjectFilesMapper projectFilesMapper = sqlSession.getMapper(ProjectFilesMapper.class);
-```
-
-### UnusedAssignment
-Variable `dictItems` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysDictItemService.java`
-#### Snippet
-```java
-
-  public List<SysDictItemEntity> queryDictByCode(String dictCode) {
-    List<SysDictItemEntity> dictItems = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      SysDictItemMapper dictItemMapper = sqlSession.getMapper(SysDictItemMapper.class);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/TeamMemberService.java`
-#### Snippet
-```java
-    LOG.info("queryList teamId:{}", teamId);
-
-    List<TeamMemberEntity> list = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      TeamMemberMapper teamMemberMapper = sqlSession.getMapper(TeamMemberMapper.class);
-```
-
-### UnusedAssignment
-Variable `returnExperimentSpec` initializer `null` is redundant
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    LOG.info("nestedJson    " + nestedJson);
-
-    ExperimentSpec returnExperimentSpec = null;
-    try {
-      returnExperimentSpec = gson.fromJson(nestedJson, ExperimentSpec.class);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/JobService.java`
-#### Snippet
-```java
-            userName, column, order, pageNo, pageSize);
-
-    List<JobEntity> list = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      JobMapper projectMapper = sqlSession.getMapper(JobMapper.class);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/TeamService.java`
-#### Snippet
-```java
-        owner, column, order, pageNo, pageSize);
-
-    List<TeamEntity> list = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      TeamMapper teamMapper = sqlSession.getMapper(TeamMapper.class);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/ProjectService.java`
-#### Snippet
-```java
-        userName, column, order, pageNo, pageSize);
-
-    List<ProjectEntity> list = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      ProjectMapper projectMapper = sqlSession.getMapper(ProjectMapper.class);
-```
-
-### UnusedAssignment
-Variable `list` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysUserService.java`
-#### Snippet
-```java
-        userName, email, deptCode, column, field, pageNo, pageSize);
-
-    List<SysUserEntity> list = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
-```
-
-### UnusedAssignment
-Variable `sysUser` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysUserService.java`
-#### Snippet
-```java
-
-  public SysUserEntity getUserByName(String name, String password) throws Exception {
-    SysUserEntity sysUser = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      HashMap<String, Object> mapParams = new HashMap<>();
-```
-
-### UnusedAssignment
-Variable `sysUser` initializer `null` is redundant
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/service/SysUserService.java`
-#### Snippet
-```java
-
-  public SysUserEntity login(HashMap<String, String> mapParams) throws Exception {
-    SysUserEntity sysUser = null;
-    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
-      SysUserMapper sysUserMapper = sqlSession.getMapper(SysUserMapper.class);
-```
-
-### UnusedAssignment
-Variable `defaultCheck` initializer `false` is redundant
-in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/workbench/Action.java`
-#### Snippet
-```java
-public class Action {
-  private String action;
-  private boolean defaultCheck = false;
-  private String describe;
-
-```
-
-### UnusedAssignment
-Variable `podLog` initializer `new ArrayList`() is redundant
-in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/experiment/ExperimentLog.java`
-#### Snippet
-```java
-
-    String podName;
-    List<String> podLog = new ArrayList<String>();
-
-    PodLog(String name, String log) {
+      // Therefore, the status of the notebook should be set to a new enum NOTFOUND.
+      LOG.warn("Get error when submitter is finding notebook: {}", getMetadata().getName());
+      if (notebook == null) {
+        notebook = new Notebook();
+      }
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -1992,19 +2005,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manag
       MlflowExperiment = MlflowExperimentOptional.get();
       String mlflowId = MlflowExperiment.getExperimentId();
       mlflowClient.deleteExperiment(mlflowId);
-```
-
-## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `notebook == null` is always `true`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCR.java`
-#### Snippet
-```java
-      // Therefore, the status of the notebook should be set to a new enum NOTFOUND.
-      LOG.warn("Get error when submitter is finding notebook: {}", getMetadata().getName());
-      if (notebook == null) {
-        notebook = new Notebook();
-      }
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
@@ -2120,90 +2120,6 @@ in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OwnerReferenceUtils` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/OwnerReferenceUtils.java`
-#### Snippet
-```java
-import io.kubernetes.client.openapi.models.V1OwnerReference;
-
-public class OwnerReferenceUtils {
-  private static final String SUBMARINE_APIVERSION = "SUBMARINE_APIVERSION";
-  private static final String SUBMARINE_KIND = "SUBMARINE_KIND";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/JsonUtils.java`
-#### Snippet
-```java
-import io.kubernetes.client.openapi.JSON;
-
-public class JsonUtils {
-
-  public static final Gson defaultGson = new JSON().getGson();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MLJobConverter` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
-#### Snippet
-```java
- * Such as MLJob to Job, V1Status to Job and others.
- */
-public class MLJobConverter {
-  public static Experiment toJobFromMLJob(MLJob mlJob) {
-    Experiment experiment = new Experiment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MLJobFactory` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobFactory.java`
-#### Snippet
-```java
- * Select different MLJob implementation classes according to different framework
- */
-public class MLJobFactory {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `YamlUtils` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/YamlUtils.java`
-#### Snippet
-```java
- * so that the resource information can be displayed on the log in a more k8s declarative and readable manner
- */
-public class YamlUtils {
-
-  private static final YAMLMapper YAML_MAPPER = YAMLMapper.builder(new YAMLFactory()
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NotebookUtils` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
-#### Snippet
-```java
- * Utils for building response of k8s (notebook) submitter
- */
-public class NotebookUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(NotebookUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SeldonDeploymentFactory` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/seldon/SeldonDeploymentFactory.java`
-#### Snippet
-```java
- * SeldonDeployment K8s Model Resource Factory
- */
-public class SeldonDeploymentFactory {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `S3Constants` has only 'static' members, and lacks a 'private' constructor
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/s3/S3Constants.java`
 #### Snippet
@@ -2216,18 +2132,6 @@ public class S3Constants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NotebookSpecParser` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class NotebookSpecParser {
-
-  // jupyter workspace path
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `RestConstants` has only 'static' members, and lacks a 'private' constructor
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/RestConstants.java`
 #### Snippet
@@ -2237,18 +2141,6 @@ package org.apache.submarine.server.rest;
 public class RestConstants {
   public static final String V1 = "v1";
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ExperimentSpecParser` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class ExperimentSpecParser {
-
-  private static final SubmarineConfiguration conf = SubmarineConfiguration.getInstance();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -2276,15 +2168,15 @@ public class SecurityFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HandlerFactory` has only 'static' members, and lacks a 'private' constructor
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/HandlerFactory.java`
+Class `NetworkUtils` has only 'static' members, and lacks a 'private' constructor
+in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/NetworkUtils.java`
 #### Snippet
 ```java
-import org.apache.submarine.server.k8s.agent.handler.CustomResourceHandler;
+import java.util.Collections;
 
-public class HandlerFactory {
+public class NetworkUtils {
+  static Logger LOG = LoggerFactory.getLogger(NetworkUtils.class);
 
-  private static String HANDLER_POSTFIX = "Handler";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -2324,6 +2216,114 @@ public class DepartmentUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CliConstants` has only 'static' members, and lacks a 'private' constructor
+in `submarine-client/src/main/java/org/apache/submarine/client/cli/CliConstants.java`
+#### Snippet
+```java
+ * NOTE: use lowercase + "_" for the option name
+ */
+public class CliConstants {
+  public static final String RUN = "run";
+  public static final String SERVE = "serve";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OwnerReferenceUtils` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/OwnerReferenceUtils.java`
+#### Snippet
+```java
+import io.kubernetes.client.openapi.models.V1OwnerReference;
+
+public class OwnerReferenceUtils {
+  private static final String SUBMARINE_APIVERSION = "SUBMARINE_APIVERSION";
+  private static final String SUBMARINE_KIND = "SUBMARINE_KIND";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/JsonUtils.java`
+#### Snippet
+```java
+import io.kubernetes.client.openapi.JSON;
+
+public class JsonUtils {
+
+  public static final Gson defaultGson = new JSON().getGson();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MLJobConverter` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
+#### Snippet
+```java
+ * Such as MLJob to Job, V1Status to Job and others.
+ */
+public class MLJobConverter {
+  public static Experiment toJobFromMLJob(MLJob mlJob) {
+    Experiment experiment = new Experiment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `YamlUtils` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/YamlUtils.java`
+#### Snippet
+```java
+ * so that the resource information can be displayed on the log in a more k8s declarative and readable manner
+ */
+public class YamlUtils {
+
+  private static final YAMLMapper YAML_MAPPER = YAMLMapper.builder(new YAMLFactory()
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MLJobFactory` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobFactory.java`
+#### Snippet
+```java
+ * Select different MLJob implementation classes according to different framework
+ */
+public class MLJobFactory {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NotebookUtils` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
+#### Snippet
+```java
+ * Utils for building response of k8s (notebook) submitter
+ */
+public class NotebookUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(NotebookUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SeldonDeploymentFactory` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/seldon/SeldonDeploymentFactory.java`
+#### Snippet
+```java
+ * SeldonDeployment K8s Model Resource Factory
+ */
+public class SeldonDeploymentFactory {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NotebookSpecParser` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class NotebookSpecParser {
+
+  // jupyter workspace path
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SeldonConstants` has only 'static' members, and lacks a 'private' constructor
 in `submarine-serve/src/main/java/org/apache/submarine/serve/utils/SeldonConstants.java`
 #### Snippet
@@ -2348,30 +2348,78 @@ public class IstioConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CliConstants` has only 'static' members, and lacks a 'private' constructor
-in `submarine-client/src/main/java/org/apache/submarine/client/cli/CliConstants.java`
+Class `HandlerFactory` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/HandlerFactory.java`
 #### Snippet
 ```java
- * NOTE: use lowercase + "_" for the option name
- */
-public class CliConstants {
-  public static final String RUN = "run";
-  public static final String SERVE = "serve";
+import org.apache.submarine.server.k8s.agent.handler.CustomResourceHandler;
+
+public class HandlerFactory {
+
+  private static String HANDLER_POSTFIX = "Handler";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NetworkUtils` has only 'static' members, and lacks a 'private' constructor
-in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/NetworkUtils.java`
+Class `ExperimentSpecParser` has only 'static' members, and lacks a 'private' constructor
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
 #### Snippet
 ```java
-import java.util.Collections;
+import java.util.Map;
 
-public class NetworkUtils {
-  static Logger LOG = LoggerFactory.getLogger(NetworkUtils.class);
+public class ExperimentSpecParser {
 
+  private static final SubmarineConfiguration conf = SubmarineConfiguration.getInstance();
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getFile` may produce `NullPointerException`
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/MybatisGenerator.java`
+#### Snippet
+```java
+    // If a null pointer here, write directly absolute path.
+    String genCfg = "/mbgConfiguration.xml";
+    File configFile = new File(MybatisGenerator.class.getResource(genCfg).getFile());
+    ConfigurationParser cp = new ConfigurationParser(warnings);
+    Configuration config = null;
+```
+
+### DataFlowIssue
+Argument `path` might be null
+in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfiguration.java`
+#### Snippet
+```java
+
+  public String getRelativeDir(String path) {
+    if (path != null && path.startsWith(File.separator) || isWindowsPath(path)) {
+      return path;
+    } else {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+  private ExperimentTemplate createOrUpdateExperimentTemplate(ExperimentTemplateSpec spec, String operation) {
+
+    spec = addResourcesParameter(spec);
+
+    ExperimentTemplateEntity entity = new ExperimentTemplateEntity();
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
+#### Snippet
+```java
+          if (condition.getType().toLowerCase().equals("running")) {
+            dateTime = condition.getLastTransitionTime();
+            experiment.setRunningTime(dateTime.toString());
+            break;
+          }
+```
+
 ### DataFlowIssue
 Method invocation `toLowerCase` may produce `NullPointerException`
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
@@ -2385,15 +2433,15 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
+Method invocation `toLowerCase` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
 #### Snippet
 ```java
-          if (condition.getType().toLowerCase().equals("running")) {
-            dateTime = condition.getLastTransitionTime();
-            experiment.setRunningTime(dateTime.toString());
-            break;
-          }
+  private static Notebook buildNotebookResponseFromStatus(V1Status status) {
+    Notebook notebook = new Notebook();
+    if (status.getStatus().toLowerCase().equals("success")) {
+      notebook.setStatus(Notebook.Status.STATUS_TERMINATING.toString());
+      notebook.setReason("The notebook instance is terminating");
 ```
 
 ### DataFlowIssue
@@ -2417,18 +2465,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
     }
     api.getPodClient().delete(this.getMetadata().getNamespace(), this.getMetadata().getName());
     return this;
-  }
-```
-
-### DataFlowIssue
-Method invocation `getContainers` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobReplicaSpec.java`
-#### Snippet
-```java
-  public String getContainerImageName() {
-    V1PodTemplateSpec podSpec = getTemplate();
-    return podSpec.getSpec().getContainers().get(0)
-        .getImage();
   }
 ```
 
@@ -2529,15 +2565,63 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### DataFlowIssue
-Method invocation `toLowerCase` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
+Method invocation `getContainers` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobReplicaSpec.java`
 #### Snippet
 ```java
-  private static Notebook buildNotebookResponseFromStatus(V1Status status) {
-    Notebook notebook = new Notebook();
-    if (status.getStatus().toLowerCase().equals("success")) {
-      notebook.setStatus(Notebook.Status.STATUS_TERMINATING.toString());
-      notebook.setReason("The notebook instance is terminating");
+  public String getContainerImageName() {
+    V1PodTemplateSpec podSpec = getTemplate();
+    return podSpec.getSpec().getContainers().get(0)
+        .getImage();
+  }
+```
+
+### DataFlowIssue
+Method invocation `getContainers` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
+#### Snippet
+```java
+  public List<V1EnvVar> getEnvs() {
+    V1PodTemplateSpec podSpec = getTemplate();
+    return podSpec.getSpec().getContainers().get(0).getEnv();
+  }
+}
+```
+
+### DataFlowIssue
+Method invocation `getContainers` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
+#### Snippet
+```java
+    V1PodTemplateSpec podSpec = getTemplate();
+    return String.join(" ",
+            podSpec.getSpec().getContainers().get(0)
+                    .getResources().getLimits().get("memory").
+                    getNumber().divide(BigDecimal.valueOf(1024 * 1024 * 1024)).toString() + "Gi");
+```
+
+### DataFlowIssue
+Method invocation `getLimits` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
+#### Snippet
+```java
+    return String.join(" ",
+            podSpec.getSpec().getContainers().get(0)
+                    .getResources().getLimits().get("memory").
+                    getNumber().divide(BigDecimal.valueOf(1024 * 1024 * 1024)).toString() + "Gi");
+  }
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
+#### Snippet
+```java
+    return String.join(" ",
+            podSpec.getSpec().getContainers().get(0)
+                    .getResources().getLimits().get("memory").
+                    getNumber().divide(BigDecimal.valueOf(1024 * 1024 * 1024)).toString() + "Gi");
+  }
 ```
 
 ### DataFlowIssue
@@ -2572,18 +2656,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
     V1PodTemplateSpec podSpec = getTemplate();
     return podSpec.getSpec().getContainers().get(0)
             .getResources().getLimits().get("nvidia.com/gpu").getNumber().toString();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `getContainers` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
-#### Snippet
-```java
-  public String getContainerImageName() {
-    V1PodTemplateSpec podSpec = getTemplate();
-    return podSpec.getSpec().getContainers().get(0).getImage();
   }
 
 ```
@@ -2629,47 +2701,35 @@ Method invocation `getContainers` may produce `NullPointerException`
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
 #### Snippet
 ```java
+  public String getContainerImageName() {
     V1PodTemplateSpec podSpec = getTemplate();
-    return String.join(" ",
-            podSpec.getSpec().getContainers().get(0)
-                    .getResources().getLimits().get("memory").
-                    getNumber().divide(BigDecimal.valueOf(1024 * 1024 * 1024)).toString() + "Gi");
+    return podSpec.getSpec().getContainers().get(0).getImage();
+  }
+
 ```
 
 ### DataFlowIssue
-Method invocation `getLimits` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
+Method invocation `addInitContainersItem` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/tfjob/TFJob.java`
 #### Snippet
 ```java
-    return String.join(" ",
-            podSpec.getSpec().getContainers().get(0)
-                    .getResources().getLimits().get("memory").
-                    getNumber().divide(BigDecimal.valueOf(1024 * 1024 * 1024)).toString() + "Gi");
-  }
+      if (replicaSet.keySet().contains(TFJobReplicaType.Ps)) {
+        MLJobReplicaSpec psSpec = replicaSet.get(TFJobReplicaType.Ps);
+        psSpec.getTemplate().getSpec().addInitContainersItem(initContainer);
+      } else {
+        throw new InvalidSpecException("PreHandler only support TFJob with PS for now");
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
+Method invocation `getNamespace` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/common/PersistentVolumeClaim.java`
 #### Snippet
 ```java
-    return String.join(" ",
-            podSpec.getSpec().getContainers().get(0)
-                    .getResources().getLimits().get("memory").
-                    getNumber().divide(BigDecimal.valueOf(1024 * 1024 * 1024)).toString() + "Gi");
-  }
-```
-
-### DataFlowIssue
-Method invocation `getContainers` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCRSpec.java`
-#### Snippet
-```java
-  public List<V1EnvVar> getEnvs() {
-    V1PodTemplateSpec podSpec = getTemplate();
-    return podSpec.getSpec().getContainers().get(0).getEnv();
-  }
-}
+      return api.getPersistentVolumeClaimClient()
+          .create(
+              this.getMetadata().getNamespace(),
+              this, new CreateOptions()
+          ).throwsApiException().throwsApiException().getObject();
 ```
 
 ### DataFlowIssue
@@ -2697,54 +2757,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### DataFlowIssue
-Method invocation `getNamespace` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/common/PersistentVolumeClaim.java`
-#### Snippet
-```java
-      return api.getPersistentVolumeClaimClient()
-          .create(
-              this.getMetadata().getNamespace(),
-              this, new CreateOptions()
-          ).throwsApiException().throwsApiException().getObject();
-```
-
-### DataFlowIssue
-Method invocation `addInitContainersItem` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/tfjob/TFJob.java`
-#### Snippet
-```java
-      if (replicaSet.keySet().contains(TFJobReplicaType.Ps)) {
-        MLJobReplicaSpec psSpec = replicaSet.get(TFJobReplicaType.Ps);
-        psSpec.getTemplate().getSpec().addInitContainersItem(initContainer);
-      } else {
-        throw new InvalidSpecException("PreHandler only support TFJob with PS for now");
-```
-
-### DataFlowIssue
-Method invocation `addInitContainersItem` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/xgboostjob/XGBoostJob.java`
-#### Snippet
-```java
-        
-        if (initContainer != null && replicaType.equals("Master")) {
-          podTemplateSpec.getSpec().addInitContainersItem(initContainer);  
-        }
-        
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
-#### Snippet
-```java
-              .throwsApiException().getObject();
-      for (V1Pod pod : podList.getItems()) {
-        String podName = pod.getMetadata().getName();
-        experimentLog.addPodLog(podName, null);
-      }
-```
-
-### DataFlowIssue
 Method invocation `getAvailableReplicas` may produce `NullPointerException`
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
 #### Snippet
@@ -2761,6 +2773,30 @@ Method invocation `getName` may produce `NullPointerException`
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
 #### Snippet
 ```java
+    AgentPod agentPod = new AgentPod(namespace, name, CustomResourceType.Notebook, notebookId);
+    LOG.info(String.format("Notebook:%s had been deleted, start to delete agent pod:%s",
+            spec.getMeta().getName(), agentPod.getMetadata().getName()));
+    dependents.add(agentPod);
+
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
+#### Snippet
+```java
+              .throwsApiException().getObject();
+      for (V1Pod pod : podList.getItems()) {
+        String podName = pod.getMetadata().getName();
+        experimentLog.addPodLog(podName, null);
+      }
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
+#### Snippet
+```java
               .throwsApiException().getObject();
       for (V1Pod pod : podList.getItems()) {
         String podName = pod.getMetadata().getName();
@@ -2769,15 +2805,15 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
+Method invocation `addInitContainersItem` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/xgboostjob/XGBoostJob.java`
 #### Snippet
 ```java
-    AgentPod agentPod = new AgentPod(namespace, name, CustomResourceType.Notebook, notebookId);
-    LOG.info(String.format("Notebook:%s had been deleted, start to delete agent pod:%s",
-            spec.getMeta().getName(), agentPod.getMetadata().getName()));
-    dependents.add(agentPod);
-
+        
+        if (initContainer != null && replicaType.equals("Master")) {
+          podTemplateSpec.getSpec().addInitContainersItem(initContainer);  
+        }
+        
 ```
 
 ### DataFlowIssue
@@ -2790,18 +2826,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
           podTemplateSpec.getSpec().addInitContainersItem(initContainer);  
         }
         
-```
-
-### DataFlowIssue
-Method invocation `getNamespace` may produce `NullPointerException`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/common/Configmap.java`
-#### Snippet
-```java
-      return api.getConfigMapClient()
-          .create(
-              this.getMetadata().getNamespace(),
-              this,
-              new CreateOptions()
 ```
 
 ### DataFlowIssue
@@ -2850,6 +2874,18 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
       if (StringUtils.isBlank(this.getMetadata().getResourceVersion())) {
         resetMeta(api);
       }
+```
+
+### DataFlowIssue
+Method invocation `getNamespace` may produce `NullPointerException`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/common/Configmap.java`
+#### Snippet
+```java
+      return api.getConfigMapClient()
+          .create(
+              this.getMetadata().getNamespace(),
+              this,
+              new CreateOptions()
 ```
 
 ### DataFlowIssue
@@ -2913,6 +2949,18 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### DataFlowIssue
+Method invocation `setReadTimeout` may produce `NullPointerException`
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
+#### Snippet
+```java
+    } finally {
+      // let watcher can wait until the next change
+      client.setReadTimeout(0);
+      OkHttpClient httpClient = client.getHttpClient();
+      this.client.setHttpClient(httpClient);
+```
+
+### DataFlowIssue
 Dereference of `initContainerVolumeMounts` may produce `NullPointerException`
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
 #### Snippet
@@ -2949,15 +2997,15 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### DataFlowIssue
-Method invocation `setReadTimeout` may produce `NullPointerException`
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
+Method invocation `getUid` may produce `NullPointerException`
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/NotebookHandler.java`
 #### Snippet
 ```java
-    } finally {
-      // let watcher can wait until the next change
-      client.setReadTimeout(0);
-      OkHttpClient httpClient = client.getHttpClient();
-      this.client.setHttpClient(httpClient);
+      
+      V1PodList podList = podClient.list(namespace, listOptions).throwsApiException().getObject();
+      this.uid = podList.getItems().get(podList.getItems().size() - 1).getMetadata().getUid();
+      
+      listOptions = new ListOptions();
 ```
 
 ### DataFlowIssue
@@ -2972,79 +3020,7 @@ in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apac
             case "Scheduled":
 ```
 
-### DataFlowIssue
-Method invocation `getUid` may produce `NullPointerException`
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/NotebookHandler.java`
-#### Snippet
-```java
-      
-      V1PodList podList = podClient.list(namespace, listOptions).throwsApiException().getObject();
-      this.uid = podList.getItems().get(podList.getItems().size() - 1).getMetadata().getUid();
-      
-      listOptions = new ListOptions();
-```
-
-### DataFlowIssue
-Method invocation `getFile` may produce `NullPointerException`
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/workbench/utils/MybatisGenerator.java`
-#### Snippet
-```java
-    // If a null pointer here, write directly absolute path.
-    String genCfg = "/mbgConfiguration.xml";
-    File configFile = new File(MybatisGenerator.class.getResource(genCfg).getFile());
-    ConfigurationParser cp = new ConfigurationParser(warnings);
-    Configuration config = null;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-  private ExperimentTemplate createOrUpdateExperimentTemplate(ExperimentTemplateSpec spec, String operation) {
-
-    spec = addResourcesParameter(spec);
-
-    ExperimentTemplateEntity entity = new ExperimentTemplateEntity();
-```
-
-### DataFlowIssue
-Argument `path` might be null
-in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/SubmarineConfiguration.java`
-#### Snippet
-```java
-
-  public String getRelativeDir(String path) {
-    if (path != null && path.startsWith(File.separator) || isWindowsPath(path)) {
-      return path;
-    } else {
-```
-
 ## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
-#### Snippet
-```java
-    PARSE_OPT_GET,
-    PARSE_OPT_REPLACE,
-    PARSE_OPT_DELETE;
-  }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/experiment/codelocalizer/GitCodeLocalizer.java`
-#### Snippet
-```java
-      return this.mode;
-    }
-  };
-
-}
-```
-
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/SubmarineServer.java`
@@ -3079,6 +3055,18 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/inter
       notebook.setName(updateObject.get("name").toString());;
     }
     if (updateObject.get("reason") != null) {
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/NetworkUtils.java`
+#### Snippet
+```java
+  public static int findRandomAvailablePortOnAllLocalInterfaces() throws IOException {
+    int port;
+    try (ServerSocket socket = new ServerSocket(0);) {
+      port = socket.getLocalPort();
+      socket.close();
 ```
 
 ### UnnecessarySemicolon
@@ -3131,6 +3119,30 @@ in `submarine-server/server-database/src/main/java/org/apache/submarine/server/d
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
+#### Snippet
+```java
+    PARSE_OPT_GET,
+    PARSE_OPT_REPLACE,
+    PARSE_OPT_DELETE;
+  }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/experiment/codelocalizer/GitCodeLocalizer.java`
+#### Snippet
+```java
+      return this.mode;
+    }
+  };
+
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `submarine-serve/src/main/java/org/apache/submarine/serve/seldon/SeldonPredictor.java`
 #### Snippet
 ```java
@@ -3141,55 +3153,7 @@ in `submarine-serve/src/main/java/org/apache/submarine/serve/seldon/SeldonPredic
   public String getName() {
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/NetworkUtils.java`
-#### Snippet
-```java
-  public static int findRandomAvailablePortOnAllLocalInterfaces() throws IOException {
-    int port;
-    try (ServerSocket socket = new ServerSocket(0);) {
-      port = socket.getLocalPort();
-      socket.close();
-```
-
 ## RuleId[ruleID=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
-#### Snippet
-```java
-      experiment.setUid(details.getUid());
-    }
-    if (status.getStatus().toLowerCase().equals("success")) {
-      experiment.setStatus(Experiment.Status.STATUS_DELETED.getValue());
-    }
-```
-
-### StringOperationCanBeSimplified
-`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
-#### Snippet
-```java
-        experiment.setStatus(Experiment.Status.STATUS_RUNNING.getValue());
-        for (V1JobCondition condition : conditions) {
-          if (condition.getType().toLowerCase().equals("running")) {
-            dateTime = condition.getLastTransitionTime();
-            experiment.setRunningTime(dateTime.toString());
-```
-
-### StringOperationCanBeSimplified
-`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
-#### Snippet
-```java
-  private static Notebook buildNotebookResponseFromStatus(V1Status status) {
-    Notebook notebook = new Notebook();
-    if (status.getStatus().toLowerCase().equals("success")) {
-      notebook.setStatus(Notebook.Status.STATUS_TERMINATING.toString());
-      notebook.setReason("The notebook instance is terminating");
-```
-
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/rest/workbench/SysDeptRestApi.java`
@@ -3238,6 +3202,42 @@ in `submarine-server/server-database/src/main/java/org/apache/submarine/server/d
       SysUserMapper userMapper = sqlSession.getMapper(SysUserMapper.class);
 ```
 
+### StringOperationCanBeSimplified
+`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
+#### Snippet
+```java
+        experiment.setStatus(Experiment.Status.STATUS_RUNNING.getValue());
+        for (V1JobCondition condition : conditions) {
+          if (condition.getType().toLowerCase().equals("running")) {
+            dateTime = condition.getLastTransitionTime();
+            experiment.setRunningTime(dateTime.toString());
+```
+
+### StringOperationCanBeSimplified
+`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/MLJobConverter.java`
+#### Snippet
+```java
+      experiment.setUid(details.getUid());
+    }
+    if (status.getStatus().toLowerCase().equals("success")) {
+      experiment.setStatus(Experiment.Status.STATUS_DELETED.getValue());
+    }
+```
+
+### StringOperationCanBeSimplified
+`toLowerCase()` call can be replaced with 'equalsIgnoreCase()'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/util/NotebookUtils.java`
+#### Snippet
+```java
+  private static Notebook buildNotebookResponseFromStatus(V1Status status) {
+    Notebook notebook = new Notebook();
+    if (status.getStatus().toLowerCase().equals("success")) {
+      notebook.setStatus(Notebook.Status.STATUS_TERMINATING.toString());
+      notebook.setReason("The notebook instance is terminating");
+```
+
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
 Unnecessary `String.valueOf()` call
@@ -3249,6 +3249,19 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
         String memoryLimit = String.valueOf(Integer.parseInt(value) * 2) + suffix;
         resources.put("memory", new Quantity(memoryLimit));
       }
+```
+
+## RuleId[ruleID=RedundantCollectionOperation]
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/tfjob/TFJob.java`
+#### Snippet
+```java
+    if (initContainer != null) {
+      Map<TFJobReplicaType, MLJobReplicaSpec> replicaSet = this.getSpec().getReplicaSpecs();
+      if (replicaSet.keySet().contains(TFJobReplicaType.Ps)) {
+        MLJobReplicaSpec psSpec = replicaSet.get(TFJobReplicaType.Ps);
+        psSpec.getTemplate().getSpec().addInitContainersItem(initContainer);
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -3277,20 +3290,103 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manag
     }
 ```
 
-## RuleId[ruleID=RedundantCollectionOperation]
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/tfjob/TFJob.java`
+## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/SubmarineServer.java`
 #### Snippet
 ```java
-    if (initContainer != null) {
-      Map<TFJobReplicaType, MLJobReplicaSpec> replicaSet = this.getSpec().getReplicaSpecs();
-      if (replicaSet.keySet().contains(TFJobReplicaType.Ps)) {
-        MLJobReplicaSpec psSpec = replicaSet.get(TFJobReplicaType.Ps);
-        psSpec.getTemplate().getSpec().addInitContainersItem(initContainer);
+      }
+
+      response.getWriter().print(sbIndexBuf.toString());
+    }
+  }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/EnvironmentManager.java`
+#### Snippet
+```java
+      throws SubmarineRuntimeException {
+    checkSpec(spec);
+    LOG.info("Create Environment using spec: " + spec.toString());
+    return createOrUpdateEnvironment(spec, "c");
+  }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/EnvironmentManager.java`
+#### Snippet
+```java
+    }
+    checkSpec(spec);
+    LOG.info("Update Environment using spec: " + spec.toString());
+    return createOrUpdateEnvironment(spec, "u");
+  }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    if (illegalParamList.size() > 0) {
+      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
+            "Parameters contains illegal key: " + illegalParamList.toString());
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    if (unusedParamList.size() > 0) {
+      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
+            "Parameters contains unused key: " + unusedParamList.toString());
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    if (unmapedParamList.size() > 0) {
+      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
+          "Template contains unmapped value: " + unmapedParamList.toString());
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+    }
+    checkSpec(spec);
+    LOG.info("Update ExperimentTemplate using spec: " + spec.toString());
+    return createOrUpdateExperimentTemplate(spec, "u");
+  }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+        throws SubmarineRuntimeException {
+    checkSpec(spec);
+    LOG.info("Create ExperimentTemplate using spec: " + spec.toString());
+    return createOrUpdateExperimentTemplate(spec, "c");
+  }
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJobReplicaSpec.java`
@@ -3337,102 +3433,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
               " && " + createCommand.toString() + " && "
               + activateCommand + " && " + pathCommand;
           initContainer.addCommandItem("/bin/bash");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/SubmarineServer.java`
-#### Snippet
-```java
-      }
-
-      response.getWriter().print(sbIndexBuf.toString());
-    }
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/EnvironmentManager.java`
-#### Snippet
-```java
-      throws SubmarineRuntimeException {
-    checkSpec(spec);
-    LOG.info("Create Environment using spec: " + spec.toString());
-    return createOrUpdateEnvironment(spec, "c");
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/EnvironmentManager.java`
-#### Snippet
-```java
-    }
-    checkSpec(spec);
-    LOG.info("Update Environment using spec: " + spec.toString());
-    return createOrUpdateEnvironment(spec, "u");
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-        throws SubmarineRuntimeException {
-    checkSpec(spec);
-    LOG.info("Create ExperimentTemplate using spec: " + spec.toString());
-    return createOrUpdateExperimentTemplate(spec, "c");
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    }
-    checkSpec(spec);
-    LOG.info("Update ExperimentTemplate using spec: " + spec.toString());
-    return createOrUpdateExperimentTemplate(spec, "u");
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    if (illegalParamList.size() > 0) {
-      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
-            "Parameters contains illegal key: " + illegalParamList.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    if (unusedParamList.size() > 0) {
-      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
-            "Parameters contains unused key: " + unusedParamList.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
-#### Snippet
-```java
-    if (unmapedParamList.size() > 0) {
-      throw new SubmarineRuntimeException(Status.BAD_REQUEST.getStatusCode(),
-          "Template contains unmapped value: " + unmapedParamList.toString());
-    }
-
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -3548,18 +3548,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manag
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCR.java`
-#### Snippet
-```java
-    this.notebookId = notebookId;
-    this.notebookSpec = notebookSpec;
-    String notebookName = String.format("%s-%s", notebookId.replace("_", "-"),
-            notebookSpec.getMeta().getName());
-    try {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
 #### Snippet
@@ -3595,19 +3583,19 @@ in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/u
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/CustomResourceJob/CustomResourceJobList.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/notebook/NotebookCR.java`
 #### Snippet
 ```java
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    this.notebookId = notebookId;
+    this.notebookSpec = notebookSpec;
+    String notebookName = String.format("%s-%s", notebookId.replace("_", "-"),
+            notebookSpec.getMeta().getName());
+    try {
 ```
 
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.glassfish.jersey.servlet` is unnecessary, and can be replaced with an import
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/SubmarineServer.java`
@@ -3618,30 +3606,6 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/Subma
         new ServletHolder(new org.glassfish.jersey.servlet.ServletContainer());
 
     servletHolder.setInitParameter("javax.ws.rs.Application", SubmarineServer.class.getName());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.ws.rs.core` is unnecessary and can be removed
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
-#### Snippet
-```java
-
-  public static class Builder<T> {
-    private javax.ws.rs.core.Response.Status status;
-    private int code;
-    private Boolean success;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.ws.rs.core` is unnecessary and can be removed
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
-#### Snippet
-```java
-    private transient boolean pretty = false;
-
-    public Builder(javax.ws.rs.core.Response.Status status) {
-      this.status = status;
-      this.code = status.getStatusCode();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3673,6 +3637,18 @@ Qualifier `javax.ws.rs.core` is unnecessary and can be removed
 in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
 #### Snippet
 ```java
+
+  public static class Builder<T> {
+    private javax.ws.rs.core.Response.Status status;
+    private int code;
+    private Boolean success;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.ws.rs.core` is unnecessary and can be removed
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
+#### Snippet
+```java
   private static final Logger LOG = LoggerFactory.getLogger(JsonResponse.class);
 
   private javax.ws.rs.core.Response.Status status;
@@ -3690,6 +3666,18 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils
     public javax.ws.rs.core.Response build() {
       JsonResponse<T> jsonResponse = new JsonResponse<>(this);
       return jsonResponse.build();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.ws.rs.core` is unnecessary and can be removed
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/utils/response/JsonResponse.java`
+#### Snippet
+```java
+    private transient boolean pretty = false;
+
+    public Builder(javax.ws.rs.core.Response.Status status) {
+      this.status = status;
+      this.code = status.getStatusCode();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3728,6 +3716,18 @@ public class WebSocketServer extends WebSocketServlet
   /**
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/CustomResourceJob/CustomResourceJobList.java`
+#### Snippet
+```java
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+```
+
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
 ### ComparatorMethodParameterNotUsed
 Comparator never returns negative value
@@ -3756,7 +3756,31 @@ in `submarine-server/server-core/src/main/java/org/apache/submarine/server/webso
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/entity/BaseEntity.java`
+#### Snippet
+```java
+        buffer.append(", ");
+      } catch (IllegalArgumentException | IllegalAccessException  e) {
+        e.printStackTrace();
+      }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/PyTorchJobHandler.java`
+#### Snippet
+```java
+      watcher = Watch.createWatch(client, call, new TypeToken<Response<CoreV1Event>>(){}.getType());
+    } catch (ApiException e) {
+      e.printStackTrace();
+    }
+    restClient = new RestClient(serverHost, serverPort);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/TFJobHandler.java`
 #### Snippet
 ```java
       watcher = Watch.createWatch(client, call, new TypeToken<Response<CoreV1Event>>(){}.getType());
@@ -3772,30 +3796,6 @@ in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apac
 #### Snippet
 ```java
 
-    } catch (ApiException e) {
-      e.printStackTrace();
-    }
-    restClient = new RestClient(serverHost, serverPort);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `submarine-server/server-database/src/main/java/org/apache/submarine/server/database/entity/BaseEntity.java`
-#### Snippet
-```java
-        buffer.append(", ");
-      } catch (IllegalArgumentException | IllegalAccessException  e) {
-        e.printStackTrace();
-      }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/TFJobHandler.java`
-#### Snippet
-```java
-      watcher = Watch.createWatch(client, call, new TypeToken<Response<CoreV1Event>>(){}.getType());
     } catch (ApiException e) {
       e.printStackTrace();
     }
@@ -3840,18 +3840,6 @@ in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/sub
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `CustomResourceHandler()` of an abstract class should not be declared 'public'
-in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
-#### Snippet
-```java
-  protected RestClient restClient;
-    
-  public CustomResourceHandler() throws IOException {
-    try {
-      String path = System.getenv(KUBECONFIG_ENV);
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `Info()` of an abstract class should not be declared 'public'
 in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/experiment/Info.java`
 #### Snippet
@@ -3863,19 +3851,19 @@ in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/ex
     this.url = url;
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `spec`
-in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+### NonProtectedConstructorInAbstractClass
+Constructor `CustomResourceHandler()` of an abstract class should not be declared 'public'
+in `submarine-server/server-submitter/submarine-k8s-agent/src/main/java/org/apache/submarine/server/k8s/agent/handler/CustomResourceHandler.java`
 #### Snippet
 ```java
-  private ExperimentTemplate createOrUpdateExperimentTemplate(ExperimentTemplateSpec spec, String operation) {
-
-    spec = addResourcesParameter(spec);
-
-    ExperimentTemplateEntity entity = new ExperimentTemplateEntity();
+  protected RestClient restClient;
+    
+  public CustomResourceHandler() throws IOException {
+    try {
+      String path = System.getenv(KUBECONFIG_ENV);
 ```
 
+## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `value`
 in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/utils/AbstractUniqueIdGenerator.java`
@@ -3886,6 +3874,18 @@ in `submarine-commons/commons-utils/src/main/java/org/apache/submarine/commons/u
       value = -value;
     }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `spec`
+in `submarine-server/server-core/src/main/java/org/apache/submarine/server/manager/ExperimentTemplateManager.java`
+#### Snippet
+```java
+  private ExperimentTemplate createOrUpdateExperimentTemplate(ExperimentTemplateSpec spec, String operation) {
+
+    spec = addResourcesParameter(spec);
+
+    ExperimentTemplateEntity entity = new ExperimentTemplateEntity();
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -3911,78 +3911,6 @@ in `submarine-commons/commons-runtime/src/main/java/org/apache/submarine/commons
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJob.java`
-#### Snippet
-```java
-      return initContainer;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
-#### Snippet
-```java
-      throw new SubmarineRuntimeException(e.getCode(), e.getMessage());
-    } else {
-      return null;
-    }
-  };
-```
-
-### ReturnNull
-Return of `null`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
-#### Snippet
-```java
-              .getEnvironment(notebookSpec.getEnvironment().getName());
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
-#### Snippet
-```java
-  private static List<V1EnvVar> parseEnvVars(NotebookPodSpec podSpec) {
-    if (podSpec.getEnvVars() == null)
-      return null;
-    List<V1EnvVar> envVars = new ArrayList<>();
-    for (Map.Entry<String, String> entry : podSpec.getEnvVars().entrySet()) {
-```
-
-### ReturnNull
-Return of `null`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
-#### Snippet
-```java
-          .getEnvironment(experimentSpec.getEnvironment().getName());
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
-#### Snippet
-```java
-  private static List<V1EnvVar> parseEnvVars(Map<String, String> envMap) {
-    if (envMap == null)
-      return null;
-    List<V1EnvVar> envVars = new ArrayList<>();
-    for (Map.Entry<String, String> entry : envMap.entrySet()) {
 ```
 
 ### ReturnNull
@@ -4047,14 +3975,50 @@ in `submarine-server/server-database/src/main/java/org/apache/submarine/server/d
 
 ### ReturnNull
 Return of `null`
-in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/spec/NotebookPodSpec.java`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/K8sSubmitter.java`
 #### Snippet
 ```java
-   */
-  public String getCpu() {
-    return resourceMap == null ? null : resourceMap.get("cpu");
+      throw new SubmarineRuntimeException(e.getCode(), e.getMessage());
+    } else {
+      return null;
+    }
+  };
+```
+
+### ReturnNull
+Return of `null`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/model/mljob/MLJob.java`
+#### Snippet
+```java
+      return initContainer;
+    }
+    return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
+#### Snippet
+```java
+              .getEnvironment(notebookSpec.getEnvironment().getName());
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/NotebookSpecParser.java`
+#### Snippet
+```java
+  private static List<V1EnvVar> parseEnvVars(NotebookPodSpec podSpec) {
+    if (podSpec.getEnvVars() == null)
+      return null;
+    List<V1EnvVar> envVars = new ArrayList<>();
+    for (Map.Entry<String, String> entry : podSpec.getEnvVars().entrySet()) {
 ```
 
 ### ReturnNull
@@ -4077,6 +4041,18 @@ in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/sp
    */
   public String getGpu() {
     return resourceMap == null ? null : resourceMap.get("nvidia.com/gpu");
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/spec/NotebookPodSpec.java`
+#### Snippet
+```java
+   */
+  public String getCpu() {
+    return resourceMap == null ? null : resourceMap.get("cpu");
   }
 
 ```
@@ -4175,6 +4151,30 @@ in `submarine-server/server-api/src/main/java/org/apache/submarine/server/api/ex
       return null;
     }
     return ExperimentTemplateId.newInstance(Long.parseLong(components[1]),
+```
+
+### ReturnNull
+Return of `null`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
+#### Snippet
+```java
+          .getEnvironment(experimentSpec.getEnvironment().getName());
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `submarine-server/server-submitter/submitter-k8s/src/main/java/org/apache/submarine/server/submitter/k8s/parser/ExperimentSpecParser.java`
+#### Snippet
+```java
+  private static List<V1EnvVar> parseEnvVars(Map<String, String> envMap) {
+    if (envMap == null)
+      return null;
+    List<V1EnvVar> envVars = new ArrayList<>();
+    for (Map.Entry<String, String> entry : envMap.entrySet()) {
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
