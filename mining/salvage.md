@@ -39,18 +39,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
-#### Snippet
-```java
-		var tideNames = new HashSet<String>();
-		var craneNames = new HashSet<String>();
-		for (var key : labels.keySet()) {
-			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
-				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
-```
-
-### DataFlowIssue
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -159,15 +147,15 @@ in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 ```
 
 ### DataFlowIssue
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 #### Snippet
 ```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
+		var tideNames = new HashSet<String>();
+		var craneNames = new HashSet<String>();
+		for (var key : labels.keySet()) {
+			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
+				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
 ```
 
 ### DataFlowIssue
@@ -192,6 +180,18 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageContainer.java`
 		for (var mount : container.getMounts()) {
 			var volume = volumes.get(mount.getName());
 			if (volume != null)
+```
+
+### DataFlowIssue
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
 ## RuleId[ruleID=BusyWait]
