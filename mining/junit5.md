@@ -266,18 +266,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/AbstractOsBa
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends A`
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/AbstractRepeatableAnnotationCondition.java`
-#### Snippet
-```java
-	private final Class<A> annotationType;
-
-	AbstractRepeatableAnnotationCondition(Class<A> annotationType) {
-		this.annotationType = annotationType;
-	}
-```
-
-### BoundedWildcard
 Can generalize to `? extends Executable`
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertAll.java`
 #### Snippet
@@ -287,6 +275,18 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertAll.java`
 	static void assertAll(String heading, Stream<Executable> executables) {
 		Preconditions.notNull(executables, "executables stream must not be null");
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends A`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/AbstractRepeatableAnnotationCondition.java`
+#### Snippet
+```java
+	private final Class<A> annotationType;
+
+	AbstractRepeatableAnnotationCondition(Class<A> annotationType) {
+		this.annotationType = annotationType;
+	}
 ```
 
 ### BoundedWildcard
@@ -350,18 +350,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/config/EnumConfi
 ```
 
 ### BoundedWildcard
-Can generalize to `? super List`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/AbstractOrderingVisitor.java`
-#### Snippet
-```java
-		private final MessageGenerator descriptorsRemovedMessageGenerator;
-
-		DescriptorWrapperOrderer(Consumer<List<WRAPPER>> orderingAction,
-				MessageGenerator descriptorsAddedMessageGenerator,
-				MessageGenerator descriptorsRemovedMessageGenerator) {
-```
-
-### BoundedWildcard
 Can generalize to `? super PARENT`
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/AbstractOrderingVisitor.java`
 #### Snippet
@@ -422,6 +410,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/Abstra
 ```
 
 ### BoundedWildcard
+Can generalize to `? super List`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/AbstractOrderingVisitor.java`
+#### Snippet
+```java
+		private final MessageGenerator descriptorsRemovedMessageGenerator;
+
+		DescriptorWrapperOrderer(Consumer<List<WRAPPER>> orderingAction,
+				MessageGenerator descriptorsAddedMessageGenerator,
+				MessageGenerator descriptorsRemovedMessageGenerator) {
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/ClassSelectorResolver.java`
 #### Snippet
@@ -458,6 +458,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Invoca
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends V`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
+#### Snippet
+```java
+	}
+
+	<K, V> V getOrComputeIfAbsent(Namespace namespace, K key, Function<K, V> defaultCreator, Class<V> requiredType) {
+		Object value = getOrComputeIfAbsent(namespace, key, defaultCreator);
+		return castToRequiredType(key, value, requiredType);
+```
+
+### BoundedWildcard
 Can generalize to `? extends E`
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/MutableExtensionRegistry.java`
 #### Snippet
@@ -467,30 +479,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/Mutabl
 	private <E extends Extension> Stream<E> streamLocal(Class<E> extensionType) {
 		// @formatter:off
 		return this.registeredExtensions.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends E`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/ExtensionRegistry.java`
-#### Snippet
-```java
-	 * @see #stream(Class)
-	 */
-	default <E extends Extension> List<E> getExtensions(Class<E> extensionType) {
-		return stream(extensionType).collect(toCollection(ArrayList::new));
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/SameThreadTimeoutInvocation.java`
-#### Snippet
-```java
-	private final Supplier<String> descriptionSupplier;
-
-	SameThreadTimeoutInvocation(Invocation<T> delegate, TimeoutDuration timeout, ScheduledExecutorService executor,
-			Supplier<String> descriptionSupplier) {
-		this.delegate = delegate;
 ```
 
 ### BoundedWildcard
@@ -518,6 +506,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/Method
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends E`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/ExtensionRegistry.java`
+#### Snippet
+```java
+	 * @see #stream(Class)
+	 */
+	default <E extends Extension> List<E> getExtensions(Class<E> extensionType) {
+		return stream(extensionType).collect(toCollection(ArrayList::new));
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? extends Match`
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/MethodSelectorResolver.java`
 #### Snippet
@@ -527,6 +527,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/Method
 			BiFunction<TestDescriptor, Supplier<Set<? extends DiscoverySelector>>, Match> matchFactory) {
 		if (!testClassPredicate.test(testClass)) {
 			return unresolved();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/SameThreadTimeoutInvocation.java`
+#### Snippet
+```java
+	private final Supplier<String> descriptionSupplier;
+
+	SameThreadTimeoutInvocation(Invocation<T> delegate, TimeoutDuration timeout, ScheduledExecutorService executor,
+			Supplier<String> descriptionSupplier) {
+		this.delegate = delegate;
 ```
 
 ### BoundedWildcard
@@ -542,18 +554,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/Method
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
-#### Snippet
-```java
-	}
-
-	<K, V> V getOrComputeIfAbsent(Namespace namespace, K key, Function<K, V> defaultCreator, Class<V> requiredType) {
-		Object value = getOrComputeIfAbsent(namespace, key, defaultCreator);
-		return castToRequiredType(key, value, requiredType);
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/SeparateThreadTimeoutInvocation.java`
 #### Snippet
@@ -563,18 +563,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/Separa
 	SeparateThreadTimeoutInvocation(Invocation<T> delegate, TimeoutDuration timeout,
 			Supplier<String> descriptionSupplier) {
 		this.delegate = delegate;
-```
-
-### BoundedWildcard
-Can generalize to `? super DisplayNameGenerator`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/DisplayNameUtils.java`
-#### Snippet
-```java
-
-	private static Supplier<String> createDisplayNameSupplier(Class<?> testClass, JupiterConfiguration configuration,
-			Function<DisplayNameGenerator, String> generatorFunction) {
-		return () -> findDisplayNameGenerator(testClass) //
-				.map(generatorFunction) //
 ```
 
 ### BoundedWildcard
@@ -602,14 +590,26 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TempDi
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExtendWith`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/ExtensionUtils.java`
+Can generalize to `? super DisplayNameGenerator`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/DisplayNameUtils.java`
 #### Snippet
 ```java
-	 * @since 5.8
-	 */
-	private static Stream<Class<? extends Extension>> streamExtensionTypes(List<ExtendWith> extendWithAnnotations) {
-		return extendWithAnnotations.stream().map(ExtendWith::value).flatMap(Arrays::stream);
+
+	private static Supplier<String> createDisplayNameSupplier(Class<?> testClass, JupiterConfiguration configuration,
+			Function<DisplayNameGenerator, String> generatorFunction) {
+		return () -> findDisplayNameGenerator(testClass) //
+				.map(generatorFunction) //
+```
+
+### BoundedWildcard
+Can generalize to `? extends AnnotatedElement`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TimeoutExtension.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+	private Optional<ThreadMode> readTimeoutThreadModeFromAnnotation(Optional<AnnotatedElement> element) {
+		return AnnotationSupport.findAnnotation(element, Timeout.class).map(Timeout::threadMode);
 	}
 ```
 
@@ -626,14 +626,14 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/Timeou
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AnnotatedElement`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TimeoutExtension.java`
+Can generalize to `? extends ExtendWith`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/ExtensionUtils.java`
 #### Snippet
 ```java
-
-	@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-	private Optional<ThreadMode> readTimeoutThreadModeFromAnnotation(Optional<AnnotatedElement> element) {
-		return AnnotationSupport.findAnnotation(element, Timeout.class).map(Timeout::threadMode);
+	 * @since 5.8
+	 */
+	private static Stream<Class<? extends Extension>> streamExtensionTypes(List<ExtendWith> extendWithAnnotations) {
+		return extendWithAnnotations.stream().map(ExtendWith::value).flatMap(Arrays::stream);
 	}
 ```
 
@@ -656,7 +656,7 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestM
 ```java
 	}
 
-	private <T extends Extension> void invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(Class<T> type,
+	private <T extends Extension> void invokeAllAfterMethodsOrCallbacks(Class<T> type,
 			JupiterEngineExecutionContext context, CallbackInvoker<T> callbackInvoker) {
 
 ```
@@ -667,7 +667,7 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestM
 #### Snippet
 ```java
 
-	private <T extends Extension> void invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(Class<T> type,
+	private <T extends Extension> void invokeAllAfterMethodsOrCallbacks(Class<T> type,
 			JupiterEngineExecutionContext context, CallbackInvoker<T> callbackInvoker) {
 
 		ExtensionRegistry registry = context.getExtensionRegistry();
@@ -680,7 +680,7 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestM
 ```java
 	}
 
-	private <T extends Extension> void invokeAllAfterMethodsOrCallbacks(Class<T> type,
+	private <T extends Extension> void invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(Class<T> type,
 			JupiterEngineExecutionContext context, CallbackInvoker<T> callbackInvoker) {
 
 ```
@@ -691,10 +691,22 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestM
 #### Snippet
 ```java
 
-	private <T extends Extension> void invokeAllAfterMethodsOrCallbacks(Class<T> type,
+	private <T extends Extension> void invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(Class<T> type,
 			JupiterEngineExecutionContext context, CallbackInvoker<T> callbackInvoker) {
 
 		ExtensionRegistry registry = context.getExtensionRegistry();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TestInstances`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/ClassBasedTestDescriptor.java`
+#### Snippet
+```java
+			ThrowableCollector throwableCollector);
+
+	protected TestInstances instantiateTestClass(Optional<TestInstances> outerInstances, ExtensionRegistry registry,
+			ExtensionContext extensionContext) {
+
 ```
 
 ### BoundedWildcard
@@ -719,18 +731,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/Class
 			Function<Method, Extension> extensionSynthesizer) {
 
 		methods.forEach(method -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TestInstances`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/ClassBasedTestDescriptor.java`
-#### Snippet
-```java
-			ThrowableCollector throwableCollector);
-
-	protected TestInstances instantiateTestClass(Optional<TestInstances> outerInstances, ExtensionRegistry registry,
-			ExtensionContext extensionContext) {
-
 ```
 
 ### BoundedWildcard
@@ -783,54 +783,6 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/EnumSou
 
 ### BoundedWildcard
 Can generalize to `? super RunnerTestDescriptor`
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/RunnerTestDescriptor.java`
-#### Snippet
-```java
-	}
-
-	public void applyFilters(Consumer<RunnerTestDescriptor> childrenCreator) {
-		if (filters != null && !filters.isEmpty()) {
-			if (runner instanceof Filterable) {
-```
-
-### BoundedWildcard
-Can generalize to `? super TestTag`
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/VintageTestDescriptor.java`
-#### Snippet
-```java
-	}
-
-	private void addTagsFromParent(Set<TestTag> tags) {
-		getParent().map(TestDescriptor::getTags).ifPresent(tags::addAll);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? super TestTag`
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/VintageTestDescriptor.java`
-#### Snippet
-```java
-	}
-
-	private void addCategoriesAsTags(Set<TestTag> tags) {
-		Category annotation = description.getAnnotation(Category.class);
-		if (annotation != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super VintageDescriptors`
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/TestRun.java`
-#### Snippet
-```java
-
-	private Optional<VintageTestDescriptor> lookupUnambiguouslyOrApplyFallback(Description description,
-			Function<VintageDescriptors, Optional<VintageTestDescriptor>> fallback) {
-		VintageDescriptors vintageDescriptors = descriptionToDescriptors.getOrDefault(description,
-			VintageDescriptors.NONE);
-```
-
-### BoundedWildcard
-Can generalize to `? super RunnerTestDescriptor`
 in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/MethodSelectorResolver.java`
 #### Snippet
 ```java
@@ -854,6 +806,54 @@ in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/Method
 ```
 
 ### BoundedWildcard
+Can generalize to `? super RunnerTestDescriptor`
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/RunnerTestDescriptor.java`
+#### Snippet
+```java
+	}
+
+	public void applyFilters(Consumer<RunnerTestDescriptor> childrenCreator) {
+		if (filters != null && !filters.isEmpty()) {
+			if (runner instanceof Filterable) {
+```
+
+### BoundedWildcard
+Can generalize to `? super VintageDescriptors`
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/TestRun.java`
+#### Snippet
+```java
+
+	private Optional<VintageTestDescriptor> lookupUnambiguouslyOrApplyFallback(Description description,
+			Function<VintageDescriptors, Optional<VintageTestDescriptor>> fallback) {
+		VintageDescriptors vintageDescriptors = descriptionToDescriptors.getOrDefault(description,
+			VintageDescriptors.NONE);
+```
+
+### BoundedWildcard
+Can generalize to `? super TestTag`
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/VintageTestDescriptor.java`
+#### Snippet
+```java
+	}
+
+	private void addCategoriesAsTags(Set<TestTag> tags) {
+		Category annotation = description.getAnnotation(Category.class);
+		if (annotation != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super TestTag`
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/VintageTestDescriptor.java`
+#### Snippet
+```java
+	}
+
+	private void addTagsFromParent(Set<TestTag> tags) {
+		getParent().map(TestDescriptor::getTags).ifPresent(tags::addAll);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? super Description`
 in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/RunListenerAdapter.java`
 #### Snippet
@@ -863,18 +863,6 @@ in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/RunLis
 			Function<Description, Optional<VintageTestDescriptor>> lookup) {
 		// @formatter:off
 		return Optional.ofNullable(description.getTestClass())
-```
-
-### BoundedWildcard
-Can generalize to `? extends TestDescriptor`
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/RunListenerAdapter.java`
-#### Snippet
-```java
-	}
-
-	private void fireExecutionStartedIncludingUnstartedAncestors(Optional<TestDescriptor> parent) {
-		if (parent.isPresent() && canStart(parent.get())) {
-			fireExecutionStartedIncludingUnstartedAncestors(parent.get().getParent());
 ```
 
 ### BoundedWildcard
@@ -899,6 +887,18 @@ in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/RunLis
 	private void handleFailure(Failure failure, Function<Throwable, TestExecutionResult> resultCreator,
 			TestDescriptor testDescriptor) {
 		TestExecutionResult result = resultCreator.apply(failure.getException());
+```
+
+### BoundedWildcard
+Can generalize to `? extends TestDescriptor`
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/execution/RunListenerAdapter.java`
+#### Snippet
+```java
+	}
+
+	private void fireExecutionStartedIncludingUnstartedAncestors(Optional<TestDescriptor> parent) {
+		if (parent.isPresent() && canStart(parent.get())) {
+			fireExecutionStartedIncludingUnstartedAncestors(parent.get().getParent());
 ```
 
 ### BoundedWildcard
@@ -998,6 +998,18 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierar
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ExclusiveTask`
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/ForkJoinPoolHierarchicalTestExecutorService.java`
+#### Snippet
+```java
+	}
+
+	private void executeNonConcurrentTasks(Deque<ExclusiveTask> nonConcurrentTasks) {
+		for (ExclusiveTask task : nonConcurrentTasks) {
+			task.compute();
+```
+
+### BoundedWildcard
 Can generalize to `? super ExclusiveTask`
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/ForkJoinPoolHierarchicalTestExecutorService.java`
 #### Snippet
@@ -1022,75 +1034,27 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierar
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExclusiveTask`
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/ForkJoinPoolHierarchicalTestExecutorService.java`
-#### Snippet
-```java
-	}
-
-	private void executeNonConcurrentTasks(Deque<ExclusiveTask> nonConcurrentTasks) {
-		for (ExclusiveTask task : nonConcurrentTasks) {
-			task.compute();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Function`, R>
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discovery/EngineDiscoveryRequestResolver.java`
-#### Snippet
-```java
-	}
-
-	private <R> List<R> instantiate(List<Function<InitializationContext<T>, R>> creators,
-			InitializationContext<T> context) {
-		return creators.stream().map(creator -> creator.apply(context)).collect(toCollection(ArrayList::new));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/CompositeLock.java`
-#### Snippet
-```java
-	}
-
-	private void release(List<Lock> acquiredLocks) {
-		for (int i = acquiredLocks.size() - 1; i >= 0; i--) {
-			acquiredLocks.get(i).unlock();
-```
-
-### BoundedWildcard
-Can generalize to `? super TestDescriptor`
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/NodeTreeWalker.java`
-#### Snippet
-```java
-	}
-
-	private void doForChildrenRecursively(TestDescriptor parent, Consumer<TestDescriptor> consumer) {
-		parent.getChildren().forEach(child -> {
-			consumer.accept(child);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExclusiveResource`
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/NodeTreeWalker.java`
-#### Snippet
-```java
-	}
-
-	private boolean isReadOnly(Set<ExclusiveResource> exclusiveResources) {
-		return exclusiveResources.stream().allMatch(
-			exclusiveResource -> exclusiveResource.getLockMode() == ExclusiveResource.LockMode.READ);
-```
-
-### BoundedWildcard
-Can generalize to `? super TestDescriptor`
+Can generalize to `? super SelectorResolver`
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discovery/EngineDiscoveryRequestResolution.java`
 #### Snippet
 ```java
-		@SuppressWarnings("unchecked")
-		private <T extends TestDescriptor> Optional<T> createAndAdd(TestDescriptor parent,
-				Function<TestDescriptor, Optional<T>> creator) {
-			Optional<T> child = creator.apply(parent);
-			if (child.isPresent()) {
+
+	private Optional<Resolution> resolve(DiscoverySelector selector,
+			Function<SelectorResolver, Resolution> resolutionFunction) {
+		// @formatter:off
+		return resolvers.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Resolution`
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discovery/EngineDiscoveryRequestResolution.java`
+#### Snippet
+```java
+
+	private Optional<Resolution> resolve(DiscoverySelector selector,
+			Function<SelectorResolver, Resolution> resolutionFunction) {
+		// @formatter:off
+		return resolvers.stream()
 ```
 
 ### BoundedWildcard
@@ -1130,27 +1094,63 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discov
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SelectorResolver`
+Can generalize to `? super TestDescriptor`
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discovery/EngineDiscoveryRequestResolution.java`
 #### Snippet
 ```java
-
-	private Optional<Resolution> resolve(DiscoverySelector selector,
-			Function<SelectorResolver, Resolution> resolutionFunction) {
-		// @formatter:off
-		return resolvers.stream()
+		@SuppressWarnings("unchecked")
+		private <T extends TestDescriptor> Optional<T> createAndAdd(TestDescriptor parent,
+				Function<TestDescriptor, Optional<T>> creator) {
+			Optional<T> child = creator.apply(parent);
+			if (child.isPresent()) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Resolution`
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discovery/EngineDiscoveryRequestResolution.java`
+Can generalize to `? extends Lock`
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/CompositeLock.java`
 #### Snippet
 ```java
+	}
 
-	private Optional<Resolution> resolve(DiscoverySelector selector,
-			Function<SelectorResolver, Resolution> resolutionFunction) {
-		// @formatter:off
-		return resolvers.stream()
+	private void release(List<Lock> acquiredLocks) {
+		for (int i = acquiredLocks.size() - 1; i >= 0; i--) {
+			acquiredLocks.get(i).unlock();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Function`, R>
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/discovery/EngineDiscoveryRequestResolver.java`
+#### Snippet
+```java
+	}
+
+	private <R> List<R> instantiate(List<Function<InitializationContext<T>, R>> creators,
+			InitializationContext<T> context) {
+		return creators.stream().map(creator -> creator.apply(context)).collect(toCollection(ArrayList::new));
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExclusiveResource`
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/NodeTreeWalker.java`
+#### Snippet
+```java
+	}
+
+	private boolean isReadOnly(Set<ExclusiveResource> exclusiveResources) {
+		return exclusiveResources.stream().allMatch(
+			exclusiveResource -> exclusiveResource.getLockMode() == ExclusiveResource.LockMode.READ);
+```
+
+### BoundedWildcard
+Can generalize to `? super TestDescriptor`
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/NodeTreeWalker.java`
+#### Snippet
+```java
+	}
+
+	private void doForChildrenRecursively(TestDescriptor parent, Consumer<TestDescriptor> consumer) {
+		parent.getChildren().forEach(child -> {
+			consumer.accept(child);
 ```
 
 ### BoundedWildcard
@@ -1250,18 +1250,6 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Functio
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Package`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/PackageUtils.java`
-#### Snippet
-```java
-	 * @see Package#getImplementationVersion()
-	 */
-	public static Optional<String> getAttribute(Class<?> type, Function<Package, String> function) {
-		Preconditions.notNull(type, "type must not be null");
-		Preconditions.notNull(function, "function must not be null");
-```
-
-### BoundedWildcard
 Can generalize to `? super Class`
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ClasspathScanner.java`
 #### Snippet
@@ -1322,6 +1310,18 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Classpa
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Package`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/PackageUtils.java`
+#### Snippet
+```java
+	 * @see Package#getImplementationVersion()
+	 */
+	public static Optional<String> getAttribute(Class<?> type, Function<Package, String> function) {
+		Preconditions.notNull(type, "type must not be null");
+		Preconditions.notNull(function, "function must not be null");
+```
+
+### BoundedWildcard
 Can generalize to `? extends Path`
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
 #### Snippet
@@ -1331,54 +1331,6 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/Disc
 	public static List<ClasspathRootSelector> selectClasspathRoots(Set<Path> classpathRoots) {
 		Preconditions.notNull(classpathRoots, "classpathRoots must not be null");
 
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `junit-platform-commons/src/main/java9/org/junit/platform/commons/util/ModuleUtils.java`
-#### Snippet
-```java
-	 * Stream resolved modules from the supplied layer.
-	 */
-	private static Stream<ResolvedModule> streamResolvedModules(Predicate<String> moduleNamePredicate,
-			ModuleLayer layer) {
-		logger.debug(() -> "Streaming modules for layer @" + System.identityHashCode(layer) + ": " + layer);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleReference`
-in `junit-platform-commons/src/main/java9/org/junit/platform/commons/util/ModuleUtils.java`
-#### Snippet
-```java
-	 * filter, and loader.
-	 */
-	private static List<Class<?>> scan(Set<ModuleReference> references, ClassFilter filter, ClassLoader loader) {
-		logger.debug(() -> "Scanning " + references.size() + " module references: " + references);
-		ModuleReferenceScanner scanner = new ModuleReferenceScanner(filter, loader);
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
-#### Snippet
-```java
-
-		@Override
-		public Try<V> ifSuccess(Consumer<V> valueConsumer) {
-			checkNotNull(valueConsumer, "valueConsumer");
-			valueConsumer.accept(this.value);
-```
-
-### BoundedWildcard
-Can generalize to `? super Exception`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
-#### Snippet
-```java
-
-		@Override
-		public Try<V> ifFailure(Consumer<Exception> causeConsumer) {
-			checkNotNull(causeConsumer, "causeConsumer");
-			causeConsumer.accept(this.cause);
 ```
 
 ### BoundedWildcard
@@ -1403,6 +1355,66 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try
 		public <U> Try<U> andThen(Function<V, Try<U>> function) {
 			checkNotNull(function, "function");
 			return Try.of(() -> function.apply(this.value));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Try`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
+#### Snippet
+```java
+	}
+
+	private static <V> Try<V> of(Callable<Try<V>> action) {
+		try {
+			return action.call();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
+#### Snippet
+```java
+	 * @see #failure(Exception)
+	 */
+	public static <V> Try<V> call(Callable<V> action) {
+		checkNotNull(action, "action");
+		return Try.of(() -> success(action.call()));
+```
+
+### BoundedWildcard
+Can generalize to `? super Exception`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
+#### Snippet
+```java
+
+		@Override
+		public Try<V> ifFailure(Consumer<Exception> causeConsumer) {
+			checkNotNull(causeConsumer, "causeConsumer");
+			causeConsumer.accept(this.cause);
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
+#### Snippet
+```java
+
+		@Override
+		public Try<V> ifSuccess(Consumer<V> valueConsumer) {
+			checkNotNull(valueConsumer, "valueConsumer");
+			valueConsumer.accept(this.value);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Try`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
+#### Snippet
+```java
+
+		@Override
+		public Try<V> orElse(Supplier<Try<V>> supplier) {
+			checkNotNull(supplier, "supplier");
+			return Try.of(supplier::get);
 ```
 
 ### BoundedWildcard
@@ -1430,42 +1442,6 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Try`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
-#### Snippet
-```java
-
-		@Override
-		public Try<V> orElse(Supplier<Try<V>> supplier) {
-			checkNotNull(supplier, "supplier");
-			return Try.of(supplier::get);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
-#### Snippet
-```java
-	 * @see #failure(Exception)
-	 */
-	public static <V> Try<V> call(Callable<V> action) {
-		checkNotNull(action, "action");
-		return Try.of(() -> success(action.call()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Try`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/function/Try.java`
-#### Snippet
-```java
-	}
-
-	private static <V> Try<V> of(Callable<Try<V>> action) {
-		try {
-			return action.call();
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `junit-platform-commons/src/testFixtures/java/org/junit/platform/commons/test/ConcurrencyTestingUtils.java`
 #### Snippet
@@ -1478,15 +1454,27 @@ in `junit-platform-commons/src/testFixtures/java/org/junit/platform/commons/test
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TreeNode`
-in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/TreePrintingListener.java`
+Can generalize to `? super String`
+in `junit-platform-commons/src/main/java9/org/junit/platform/commons/util/ModuleUtils.java`
 #### Snippet
 ```java
-	}
+	 * Stream resolved modules from the supplied layer.
+	 */
+	private static Stream<ResolvedModule> streamResolvedModules(Predicate<String> moduleNamePredicate,
+			ModuleLayer layer) {
+		logger.debug(() -> "Streaming modules for layer @" + System.identityHashCode(layer) + ": " + layer);
+```
 
-	private void addNode(TestIdentifier testIdentifier, Supplier<TreeNode> nodeSupplier) {
-		TreeNode node = nodeSupplier.get();
-		nodesByUniqueId.put(testIdentifier.getUniqueIdObject(), node);
+### BoundedWildcard
+Can generalize to `? extends ModuleReference`
+in `junit-platform-commons/src/main/java9/org/junit/platform/commons/util/ModuleUtils.java`
+#### Snippet
+```java
+	 * filter, and loader.
+	 */
+	private static List<Class<?>> scan(Set<ModuleReference> references, ClassFilter filter, ClassLoader loader) {
+		logger.debug(() -> "Scanning " + references.size() + " module references: " + references);
+		ModuleReferenceScanner scanner = new ModuleReferenceScanner(filter, loader);
 ```
 
 ### BoundedWildcard
@@ -1502,15 +1490,15 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/Consol
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/TestExecutionResultConditions.java`
+Can generalize to `? extends TreeNode`
+in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/TreePrintingListener.java`
 #### Snippet
 ```java
 	}
 
-	private static Condition<Throwable> cause(Condition<Throwable> condition) {
-		return new Condition<>(throwable -> condition.matches(throwable.getCause()), "throwable cause matches %s",
-			condition);
+	private void addNode(TestIdentifier testIdentifier, Supplier<TreeNode> nodeSupplier) {
+		TreeNode node = nodeSupplier.get();
+		nodesByUniqueId.put(testIdentifier.getUniqueIdObject(), node);
 ```
 
 ### BoundedWildcard
@@ -1520,9 +1508,9 @@ in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/TestE
 ```java
 	}
 
-	private static Condition<Throwable> suppressed(int index, Condition<Throwable> condition) {
-		return new Condition<>(
-			throwable -> throwable.getSuppressed().length > index
+	private static Condition<Throwable> cause(Condition<Throwable> condition) {
+		return new Condition<>(throwable -> condition.matches(throwable.getCause()), "throwable cause matches %s",
+			condition);
 ```
 
 ### BoundedWildcard
@@ -1538,15 +1526,15 @@ in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/TestE
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Event.java`
+Can generalize to `? super Throwable`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/TestExecutionResultConditions.java`
 #### Snippet
 ```java
-	 * @see #getRequiredPayload(Class)
-	 */
-	public <T> Optional<T> getPayload(Class<T> payloadType) {
-		Preconditions.notNull(payloadType, "Payload type must not be null");
-		return getPayload().filter(payloadType::isInstance).map(payloadType::cast);
+	}
+
+	private static Condition<Throwable> suppressed(int index, Condition<Throwable> condition) {
+		return new Condition<>(
+			throwable -> throwable.getSuppressed().length > index
 ```
 
 ### BoundedWildcard
@@ -1559,6 +1547,18 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/Custom
 	CustomContextClassLoaderExecutor(Optional<ClassLoader> customClassLoader) {
 		this.customClassLoader = customClassLoader;
 	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Event.java`
+#### Snippet
+```java
+	 * @see #getRequiredPayload(Class)
+	 */
+	public <T> Optional<T> getPayload(Class<T> payloadType) {
+		Preconditions.notNull(payloadType, "Payload type must not be null");
+		return getPayload().filter(payloadType::isInstance).map(payloadType::cast);
 ```
 
 ### BoundedWildcard
@@ -1634,6 +1634,30 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/TestPlan.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? super TestExecutionResult`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
+#### Snippet
+```java
+	 * {@link TestExecutionResult} that matches the supplied {@code Condition}.
+	 */
+	public static Condition<Event> result(Condition<TestExecutionResult> condition) {
+		return new Condition<>(byPayload(TestExecutionResult.class, condition::matches), "event with result where %s",
+			condition);
+```
+
+### BoundedWildcard
+Can generalize to `? super Event`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
+#### Snippet
+```java
+	 * {@code Condition}.
+	 */
+	public static Condition<Event> dynamicTestRegistered(Condition<Event> condition) {
+		return allOf(type(DYNAMIC_TEST_REGISTERED), condition);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
 #### Snippet
@@ -1642,6 +1666,18 @@ in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Event
 	 */
 	public static Condition<Event> reason(Predicate<String> predicate) {
 		return new Condition<>(byPayload(String.class, predicate), "event with custom reason predicate");
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? super Event`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
+#### Snippet
+```java
+	 * {@linkplain TestDescriptor#isContainer() container}.
+	 */
+	public static Condition<Event> container(Condition<Event> condition) {
+		return allOf(container(), condition);
 	}
 ```
 
@@ -1670,38 +1706,26 @@ in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Event
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Event`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
+Can generalize to `? extends T`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/DefaultDiscoveryRequest.java`
 #### Snippet
 ```java
-	 * {@linkplain TestDescriptor#isContainer() container}.
-	 */
-	public static Condition<Event> container(Condition<Event> condition) {
-		return allOf(container(), condition);
-	}
+
+	@Override
+	public <T extends DiscoverySelector> List<T> getSelectorsByType(Class<T> selectorType) {
+		Preconditions.notNull(selectorType, "selectorType must not be null");
+		return this.selectors.stream().filter(selectorType::isInstance).map(selectorType::cast).collect(toList());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TestExecutionResult`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
+Can generalize to `? super List`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/ListenerRegistry.java`
 #### Snippet
 ```java
-	 * {@link TestExecutionResult} that matches the supplied {@code Condition}.
-	 */
-	public static Condition<Event> result(Condition<TestExecutionResult> condition) {
-		return new Condition<>(byPayload(TestExecutionResult.class, condition::matches), "event with result where %s",
-			condition);
-```
+	private final ArrayList<T> listeners = new ArrayList<>();
 
-### BoundedWildcard
-Can generalize to `? super Event`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EventConditions.java`
-#### Snippet
-```java
-	 * {@code Condition}.
-	 */
-	public static Condition<Event> dynamicTestRegistered(Condition<Event> condition) {
-		return allOf(type(DYNAMIC_TEST_REGISTERED), condition);
+	private ListenerRegistry(Function<List<T>, T> compositeListenerFactory) {
+		this.compositeListenerFactory = compositeListenerFactory;
 	}
 ```
 
@@ -1715,6 +1739,18 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Defau
 	public <T extends DiscoveryFilter<?>> List<T> getFiltersByType(Class<T> filterType) {
 		Preconditions.notNull(filterType, "filterType must not be null");
 		return this.discoveryFilters.stream().filter(filterType::isInstance).map(filterType::cast).collect(toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/ListenerRegistry.java`
+#### Snippet
+```java
+	private final ArrayList<T> listeners = new ArrayList<>();
+
+	private ListenerRegistry(Function<List<T>, T> compositeListenerFactory) {
+		this.compositeListenerFactory = compositeListenerFactory;
+	}
 ```
 
 ### BoundedWildcard
@@ -1739,18 +1775,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Defau
 			List<DiscoveryFilter<?>> discoveryFilters, List<PostDiscoveryFilter> postDiscoveryFilters,
 			LauncherConfigurationParameters configurationParameters, LauncherDiscoveryListener discoveryListener) {
 		this.selectors = selectors;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/DefaultDiscoveryRequest.java`
-#### Snippet
-```java
-
-	@Override
-	public <T extends DiscoverySelector> List<T> getSelectorsByType(Class<T> selectorType) {
-		Preconditions.notNull(selectorType, "selectorType must not be null");
-		return this.selectors.stream().filter(selectorType::isInstance).map(selectorType::cast).collect(toList());
 ```
 
 ### BoundedWildcard
@@ -1802,30 +1826,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Strea
 ```
 
 ### BoundedWildcard
-Can generalize to `? super List`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/ListenerRegistry.java`
-#### Snippet
-```java
-	private final ArrayList<T> listeners = new ArrayList<>();
-
-	private ListenerRegistry(Function<List<T>, T> compositeListenerFactory) {
-		this.compositeListenerFactory = compositeListenerFactory;
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/ListenerRegistry.java`
-#### Snippet
-```java
-	private final ArrayList<T> listeners = new ArrayList<>();
-
-	private ListenerRegistry(Function<List<T>, T> compositeListenerFactory) {
-		this.compositeListenerFactory = compositeListenerFactory;
-	}
-```
-
-### BoundedWildcard
 Can generalize to `? extends ParameterProvider`
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/LauncherConfigurationParameters.java`
 #### Snippet
@@ -1859,54 +1859,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Compo
 	private static <T extends TestExecutionListener> void notifyEach(List<T> listeners, Consumer<T> consumer,
 			Supplier<String> description) {
 		listeners.forEach(listener -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Event`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
-#### Snippet
-```java
-
-	@SafeVarargs
-	private static void assertEventsMatchExactly(List<Event> events, Condition<? super Event>... conditions) {
-		Assertions.assertThat(events).hasSize(conditions.length);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Event`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
-#### Snippet
-```java
-	private final String category;
-
-	Events(Stream<Event> events, String category) {
-		this(Preconditions.notNull(events, "Event stream must not be null").collect(toList()), category);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends Event`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
-#### Snippet
-```java
-	}
-
-	private static void checkCondition(List<Event> events, SoftAssertions softly, Condition<? super Event> condition) {
-		if (events.stream().noneMatch(condition::matches)) {
-			softly.fail("Condition did not match any event: " + condition);
-```
-
-### BoundedWildcard
-Can generalize to `? super EventStatistics`
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
-#### Snippet
-```java
-	 * @return this {@code Events} object for method chaining; never {@code null}
-	 */
-	public Events assertStatistics(Consumer<EventStatistics> statisticsConsumer) {
-		Preconditions.notNull(statisticsConsumer, "Consumer must not be null");
-		EventStatistics eventStatistics = new EventStatistics(this, this.category);
 ```
 
 ### BoundedWildcard
@@ -1958,18 +1910,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/TestE
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Field`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
-#### Snippet
-```java
-	 */
-	public static List<Field> findAnnotatedFields(Class<?> clazz, Class<? extends Annotation> annotationType,
-			Predicate<Field> predicate, HierarchyTraversalMode traversalMode) {
-
-		Preconditions.notNull(clazz, "Class must not be null");
-```
-
-### BoundedWildcard
 Can generalize to `? super TestExecutionListener`
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineExecutionOrchestrator.java`
 #### Snippet
@@ -1991,6 +1931,66 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Strea
 	private StreamInterceptor(PrintStream originalStream, Consumer<PrintStream> unregisterAction,
 			int maxNumberOfBytesPerThread) {
 		super(originalStream);
+```
+
+### BoundedWildcard
+Can generalize to `? super Field`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
+#### Snippet
+```java
+	 */
+	public static List<Field> findAnnotatedFields(Class<?> clazz, Class<? extends Annotation> annotationType,
+			Predicate<Field> predicate, HierarchyTraversalMode traversalMode) {
+
+		Preconditions.notNull(clazz, "Class must not be null");
+```
+
+### BoundedWildcard
+Can generalize to `? super EventStatistics`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
+#### Snippet
+```java
+	 * @return this {@code Events} object for method chaining; never {@code null}
+	 */
+	public Events assertStatistics(Consumer<EventStatistics> statisticsConsumer) {
+		Preconditions.notNull(statisticsConsumer, "Consumer must not be null");
+		EventStatistics eventStatistics = new EventStatistics(this, this.category);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Event`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
+#### Snippet
+```java
+	private final String category;
+
+	Events(Stream<Event> events, String category) {
+		this(Preconditions.notNull(events, "Event stream must not be null").collect(toList()), category);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends Event`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
+#### Snippet
+```java
+
+	@SafeVarargs
+	private static void assertEventsMatchExactly(List<Event> events, Condition<? super Event>... conditions) {
+		Assertions.assertThat(events).hasSize(conditions.length);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Event`
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
+#### Snippet
+```java
+	}
+
+	private static void checkCondition(List<Event> events, SoftAssertions softly, Condition<? super Event> condition) {
+		if (events.stream().noneMatch(condition::matches)) {
+			softly.fail("Condition did not match any event: " + condition);
 ```
 
 ### BoundedWildcard
@@ -2078,6 +2078,30 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpress
 ```
 
 ### BoundedWildcard
+Can generalize to `? super TagExpression`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpression/Operator.java`
+#### Snippet
+```java
+
+	static Operator unaryOperator(String representation, int precedence, Associativity associativity,
+			Function<TagExpression, TagExpression> unaryExpression) {
+
+		return new Operator(representation, precedence, 1, associativity, (expressions, operatorToken) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TagExpression`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpression/Operator.java`
+#### Snippet
+```java
+
+	static Operator unaryOperator(String representation, int precedence, Associativity associativity,
+			Function<TagExpression, TagExpression> unaryExpression) {
+
+		return new Operator(representation, precedence, 1, associativity, (expressions, operatorToken) -> {
+```
+
+### BoundedWildcard
 Can generalize to `? extends TokenWith`
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpression/Operator.java`
 #### Snippet
@@ -2126,30 +2150,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpress
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TagExpression`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpression/Operator.java`
-#### Snippet
-```java
-
-	static Operator unaryOperator(String representation, int precedence, Associativity associativity,
-			Function<TagExpression, TagExpression> unaryExpression) {
-
-		return new Operator(representation, precedence, 1, associativity, (expressions, operatorToken) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TagExpression`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/tagexpression/Operator.java`
-#### Snippet
-```java
-
-	static Operator unaryOperator(String representation, int precedence, Associativity associativity,
-			Function<TagExpression, TagExpression> unaryExpression) {
-
-		return new Operator(representation, precedence, 1, associativity, (expressions, operatorToken) -> {
-```
-
-### BoundedWildcard
 Can generalize to `? super TestIdentifier`
 in `junit-platform-reporting/src/main/java/org/junit/platform/reporting/legacy/xml/XmlReportData.java`
 #### Snippet
@@ -2159,6 +2159,30 @@ in `junit-platform-reporting/src/main/java/org/junit/platform/reporting/legacy/x
 	private Optional<TestIdentifier> findAncestor(TestIdentifier testIdentifier, Predicate<TestIdentifier> predicate) {
 		Optional<TestIdentifier> current = Optional.of(testIdentifier);
 		while (current.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineDiscoveryOrchestrator.java`
+#### Snippet
+```java
+	}
+
+	private void logTestDescriptorExclusionReasons(Map<String, List<TestDescriptor>> excludedTestDescriptorsByReason) {
+		excludedTestDescriptorsByReason.forEach((exclusionReason, testDescriptors) -> {
+			String displayNames = testDescriptors.stream().map(TestDescriptor::getDisplayName).collect(joining(", "));
+```
+
+### BoundedWildcard
+Can generalize to `? extends PostDiscoveryFilter`
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineDiscoveryOrchestrator.java`
+#### Snippet
+```java
+
+	private void applyPostDiscoveryFilters(Map<TestEngine, TestDescriptor> testEngineDescriptors,
+			List<PostDiscoveryFilter> filters) {
+		Filter<TestDescriptor> postDiscoveryFilter = composeFilters(filters);
+		Map<String, List<TestDescriptor>> excludedTestDescriptorsByReason = new LinkedHashMap<>();
 ```
 
 ### BoundedWildcard
@@ -2186,18 +2210,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Engin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineDiscoveryOrchestrator.java`
-#### Snippet
-```java
-	}
-
-	private void logTestDescriptorExclusionReasons(Map<String, List<TestDescriptor>> excludedTestDescriptorsByReason) {
-		excludedTestDescriptorsByReason.forEach((exclusionReason, testDescriptors) -> {
-			String displayNames = testDescriptors.stream().map(TestDescriptor::getDisplayName).collect(joining(", "));
-```
-
-### BoundedWildcard
 Can generalize to `? extends TestDescriptor`
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineDiscoveryOrchestrator.java`
 #### Snippet
@@ -2207,18 +2219,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Engin
 	private void acceptInAllTestEngines(Map<TestEngine, TestDescriptor> testEngineDescriptors,
 			TestDescriptor.Visitor visitor) {
 		testEngineDescriptors.values().forEach(descriptor -> descriptor.accept(visitor));
-```
-
-### BoundedWildcard
-Can generalize to `? extends PostDiscoveryFilter`
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineDiscoveryOrchestrator.java`
-#### Snippet
-```java
-
-	private void applyPostDiscoveryFilters(Map<TestEngine, TestDescriptor> testEngineDescriptors,
-			List<PostDiscoveryFilter> filters) {
-		Filter<TestDescriptor> postDiscoveryFilter = composeFilters(filters);
-		Map<String, List<TestDescriptor>> excludedTestDescriptorsByReason = new LinkedHashMap<>();
 ```
 
 ### BoundedWildcard
@@ -2246,18 +2246,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Engin
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `junit-platform-suite-engine/src/main/java/org/junit/platform/suite/engine/ClassSelectorResolver.java`
-#### Snippet
-```java
-	private final ConfigurationParameters configurationParameters;
-
-	ClassSelectorResolver(Predicate<String> classNameFilter, SuiteEngineDescriptor suiteEngineDescriptor,
-			ConfigurationParameters configurationParameters) {
-		this.classNameFilter = classNameFilter;
-```
-
-### BoundedWildcard
 Can generalize to `? extends TestEngine`
 in `junit-platform-suite-engine/src/main/java/org/junit/platform/suite/engine/SuiteLauncher.java`
 #### Snippet
@@ -2267,6 +2255,18 @@ in `junit-platform-suite-engine/src/main/java/org/junit/platform/suite/engine/Su
 	private boolean hasTestEngineOtherThanSuiteEngine(Set<TestEngine> testEngines) {
 		return testEngines.stream().anyMatch(testEngine -> !SuiteEngineDescriptor.ENGINE_ID.equals(testEngine.getId()));
 	}
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `junit-platform-suite-engine/src/main/java/org/junit/platform/suite/engine/ClassSelectorResolver.java`
+#### Snippet
+```java
+	private final ConfigurationParameters configurationParameters;
+
+	ClassSelectorResolver(Predicate<String> classNameFilter, SuiteEngineDescriptor suiteEngineDescriptor,
+			ConfigurationParameters configurationParameters) {
+		this.classNameFilter = classNameFilter;
 ```
 
 ### BoundedWildcard
@@ -2334,11 +2334,11 @@ Can generalize to `? super String`
 in `junit-platform-reporting/src/main/java/org/junit/platform/reporting/legacy/xml/XmlReportWriter.java`
 #### Snippet
 ```java
+	}
 
-	private void removeIfPresentAndAddAsSeparateElement(Map<String, String> keyValuePairs, String key,
-			List<String> elements) {
-		String value = keyValuePairs.remove(key);
-		if (value != null) {
+	private void collectReportEntries(TestIdentifier testIdentifier, List<String> systemOutElements,
+			List<String> systemErrElements) {
+		List<ReportEntry> entries = this.reportData.getReportEntries(testIdentifier);
 ```
 
 ### BoundedWildcard
@@ -2346,11 +2346,11 @@ Can generalize to `? super String`
 in `junit-platform-reporting/src/main/java/org/junit/platform/reporting/legacy/xml/XmlReportWriter.java`
 #### Snippet
 ```java
-	}
 
-	private void collectReportEntries(TestIdentifier testIdentifier, List<String> systemOutElements,
-			List<String> systemErrElements) {
-		List<ReportEntry> entries = this.reportData.getReportEntries(testIdentifier);
+	private void removeIfPresentAndAddAsSeparateElement(Map<String, String> keyValuePairs, String key,
+			List<String> elements) {
+		String value = keyValuePairs.remove(key);
+		if (value != null) {
 ```
 
 ### BoundedWildcard
@@ -2367,6 +2367,30 @@ in `platform-tooling-support-tests/src/main/java/platform/tooling/support/MavenR
 
 ### BoundedWildcard
 Can generalize to `? super String`
+in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Request.java`
+#### Snippet
+```java
+		}
+
+		private void buildEnvironment(Map<String, String> environment) {
+			environment.computeIfAbsent("JUNIT_JUPITER_VERSION", key -> Helper.version("junit-jupiter"));
+			environment.computeIfAbsent("JUNIT_VINTAGE_VERSION", key -> Helper.version("junit-vintage"));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Request.java`
+#### Snippet
+```java
+		}
+
+		private void buildEnvironment(Map<String, String> environment) {
+			environment.computeIfAbsent("JUNIT_JUPITER_VERSION", key -> Helper.version("junit-jupiter"));
+			environment.computeIfAbsent("JUNIT_VINTAGE_VERSION", key -> Helper.version("junit-vintage"));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Helper.java`
 #### Snippet
 ```java
@@ -2378,73 +2402,13 @@ in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Helper
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Request.java`
-#### Snippet
-```java
-		}
-
-		private void buildEnvironment(Map<String, String> environment) {
-			environment.computeIfAbsent("JUNIT_JUPITER_VERSION", key -> Helper.version("junit-jupiter"));
-			environment.computeIfAbsent("JUNIT_VINTAGE_VERSION", key -> Helper.version("junit-vintage"));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Request.java`
-#### Snippet
-```java
-		}
-
-		private void buildEnvironment(Map<String, String> environment) {
-			environment.computeIfAbsent("JUNIT_JUPITER_VERSION", key -> Helper.version("junit-jupiter"));
-			environment.computeIfAbsent("JUNIT_VINTAGE_VERSION", key -> Helper.version("junit-vintage"));
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
+Can generalize to `? super Constructor`
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
 #### Snippet
 ```java
-	}
-
-	private static void findNestedClasses(Class<?> clazz, Predicate<Class<?>> predicate, Set<Class<?>> candidates) {
-		if (!isSearchable(clazz)) {
-			return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-	}
-
-	private static void findNestedClasses(Class<?> clazz, Predicate<Class<?>> predicate, Set<Class<?>> candidates) {
-		if (!isSearchable(clazz)) {
-			return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Field`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-	 * {@code null} but may be empty or contain {@code null} entries
+	 * @see Class#isSynthetic()
 	 */
-	public static List<Object> readFieldValues(List<Field> fields, Object instance, Predicate<Field> predicate) {
-		Preconditions.notNull(fields, "fields list must not be null");
-		Preconditions.notNull(predicate, "Predicate must not be null");
-```
-
-### BoundedWildcard
-Can generalize to `? super Method`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-	}
-
-	private static Optional<Method> findMethod(Class<?> clazz, Predicate<Method> predicate) {
+	public static List<Constructor<?>> findConstructors(Class<?> clazz, Predicate<Constructor<?>> predicate) {
 		Preconditions.notNull(clazz, "Class must not be null");
 		Preconditions.notNull(predicate, "Predicate must not be null");
 ```
@@ -2462,26 +2426,14 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Reflect
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Method`
+Can generalize to `? super Field`
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
 #### Snippet
 ```java
-	 * @see org.junit.platform.commons.support.ReflectionSupport#streamMethods(Class, Predicate, org.junit.platform.commons.support.HierarchyTraversalMode)
+	 * {@code null} but may be empty or contain {@code null} entries
 	 */
-	public static Stream<Method> streamMethods(Class<?> clazz, Predicate<Method> predicate,
-			HierarchyTraversalMode traversalMode) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Constructor`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-	 * @see Class#isSynthetic()
-	 */
-	public static List<Constructor<?>> findConstructors(Class<?> clazz, Predicate<Constructor<?>> predicate) {
-		Preconditions.notNull(clazz, "Class must not be null");
+	public static List<Object> readFieldValues(List<Field> fields, Object instance, Predicate<Field> predicate) {
+		Preconditions.notNull(fields, "fields list must not be null");
 		Preconditions.notNull(predicate, "Predicate must not be null");
 ```
 
@@ -2495,6 +2447,54 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Reflect
 	private static void getAllAssignmentCompatibleClasses(Class<?> clazz, Set<Class<?>> result) {
 		for (Class<?> current = clazz; current != null; current = current.getSuperclass()) {
 			result.add(current);
+```
+
+### BoundedWildcard
+Can generalize to `? super Method`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	 * @see org.junit.platform.commons.support.ReflectionSupport#streamMethods(Class, Predicate, org.junit.platform.commons.support.HierarchyTraversalMode)
+	 */
+	public static Stream<Method> streamMethods(Class<?> clazz, Predicate<Method> predicate,
+			HierarchyTraversalMode traversalMode) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	}
+
+	private static void findNestedClasses(Class<?> clazz, Predicate<Class<?>> predicate, Set<Class<?>> candidates) {
+		if (!isSearchable(clazz)) {
+			return;
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	}
+
+	private static void findNestedClasses(Class<?> clazz, Predicate<Class<?>> predicate, Set<Class<?>> candidates) {
+		if (!isSearchable(clazz)) {
+			return;
+```
+
+### BoundedWildcard
+Can generalize to `? super Method`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	}
+
+	private static Optional<Method> findMethod(Class<?> clazz, Predicate<Method> predicate) {
+		Preconditions.notNull(clazz, "Class must not be null");
+		Preconditions.notNull(predicate, "Predicate must not be null");
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -2872,6 +2872,18 @@ Field initialization to `false` is redundant
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/JupiterEngineExecutionContext.java`
 #### Snippet
 ```java
+
+	// The following is not "cloneable" State.
+	private boolean beforeAllCallbacksExecuted = false;
+	private boolean beforeAllMethodsExecuted = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/JupiterEngineExecutionContext.java`
+#### Snippet
+```java
 	// The following is not "cloneable" State.
 	private boolean beforeAllCallbacksExecuted = false;
 	private boolean beforeAllMethodsExecuted = false;
@@ -2889,18 +2901,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Jupite
 		private State newState = null;
 
 		private Builder(State originalState) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/JupiterEngineExecutionContext.java`
-#### Snippet
-```java
-
-	// The following is not "cloneable" State.
-	private boolean beforeAllCallbacksExecuted = false;
-	private boolean beforeAllMethodsExecuted = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -2982,54 +2982,6 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
 #### Snippet
 ```java
-			Object messageOrSupplier) {
-
-		if (expected == actual) {
-			return;
-		}
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
-#### Snippet
-```java
-			Object messageOrSupplier) {
-
-		if (expected == actual) {
-			return;
-		}
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
-#### Snippet
-```java
-			Object messageOrSupplier) {
-
-		if (expected == actual) {
-			return;
-		}
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
-#### Snippet
-```java
-			Object messageOrSupplier) {
-
-		if (expected == actual) {
-			return;
-		}
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
-#### Snippet
-```java
 
 		AssertionUtils.assertValidDelta(delta);
 		if (expected == actual) {
@@ -3068,6 +3020,54 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java
 ```java
 
 		AssertionUtils.assertValidDelta(delta);
+		if (expected == actual) {
+			return;
+		}
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
+#### Snippet
+```java
+			Object messageOrSupplier) {
+
+		if (expected == actual) {
+			return;
+		}
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
+#### Snippet
+```java
+			Object messageOrSupplier) {
+
+		if (expected == actual) {
+			return;
+		}
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
+#### Snippet
+```java
+			Object messageOrSupplier) {
+
+		if (expected == actual) {
+			return;
+		}
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertArrayEquals.java`
+#### Snippet
+```java
+			Object messageOrSupplier) {
+
 		if (expected == actual) {
 			return;
 		}
@@ -3104,8 +3104,8 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/Pack
 #### Snippet
 ```java
 	 */
-	static PackageNameFilter includePackageNames(List<String> names) {
-		return includePackageNames(names.toArray(new String[0]));
+	static PackageNameFilter excludePackageNames(List<String> names) {
+		return excludePackageNames(names.toArray(new String[0]));
 	}
 
 ```
@@ -3116,8 +3116,8 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/Pack
 #### Snippet
 ```java
 	 */
-	static PackageNameFilter excludePackageNames(List<String> names) {
-		return excludePackageNames(names.toArray(new String[0]));
+	static PackageNameFilter includePackageNames(List<String> names) {
+		return includePackageNames(names.toArray(new String[0]));
 	}
 
 ```
@@ -3179,9 +3179,9 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Annotat
 ```java
 				Class<?> superclass = clazz.getSuperclass();
 				if (superclass != null && superclass != Object.class) {
-					findRepeatableAnnotations(superclass, annotationType, containerType, inherited, found, visited);
-				}
-			}
+					Optional<A> annotationOnSuperclass = findAnnotation(superclass, annotationType, inherited, visited);
+					if (annotationOnSuperclass.isPresent()) {
+						return annotationOnSuperclass;
 ```
 
 ### ConstantValue
@@ -3191,9 +3191,9 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Annotat
 ```java
 				Class<?> superclass = clazz.getSuperclass();
 				if (superclass != null && superclass != Object.class) {
-					Optional<A> annotationOnSuperclass = findAnnotation(superclass, annotationType, inherited, visited);
-					if (annotationOnSuperclass.isPresent()) {
-						return annotationOnSuperclass;
+					findRepeatableAnnotations(superclass, annotationType, containerType, inherited, found, visited);
+				}
+			}
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -3223,18 +3223,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/Repeat
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTestExtension.java`
-#### Snippet
-```java
-	private ParameterizedTestNameFormatter createNameFormatter(ExtensionContext extensionContext, Method templateMethod,
-			ParameterizedTestMethodContext methodContext, String displayName, int argumentMaxLength) {
-		ParameterizedTest parameterizedTest = findAnnotation(templateMethod, ParameterizedTest.class).get();
-		String pattern = parameterizedTest.name().equals(DEFAULT_DISPLAY_NAME)
-				? extensionContext.getConfigurationParameter(DISPLAY_NAME_PATTERN_KEY).orElse(
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTestParameterResolver.java`
 #### Snippet
 ```java
@@ -3243,6 +3231,18 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTes
 			ParameterizedTest.class).get();
 		if (!parameterizedTest.autoCloseArguments()) {
 			return;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTestExtension.java`
+#### Snippet
+```java
+	private ParameterizedTestNameFormatter createNameFormatter(ExtensionContext extensionContext, Method templateMethod,
+			ParameterizedTestMethodContext methodContext, String displayName, int argumentMaxLength) {
+		ParameterizedTest parameterizedTest = findAnnotation(templateMethod, ParameterizedTest.class).get();
+		String pattern = parameterizedTest.name().equals(DEFAULT_DISPLAY_NAME)
+				? extensionContext.getConfigurationParameter(DISPLAY_NAME_PATTERN_KEY).orElse(
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3440,18 +3440,6 @@ public class ModuleUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ModuleUtils` has only 'static' members, and lacks a 'private' constructor
-in `junit-platform-commons/src/main/java9/org/junit/platform/commons/util/ModuleUtils.java`
-#### Snippet
-```java
- */
-@API(status = INTERNAL, since = "1.1")
-public class ModuleUtils {
-
-	private static final Logger logger = LoggerFactory.getLogger(ModuleUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ConcurrencyTestingUtils` has only 'static' members, and lacks a 'private' constructor
 in `junit-platform-commons/src/testFixtures/java/org/junit/platform/commons/test/ConcurrencyTestingUtils.java`
 #### Snippet
@@ -3461,6 +3449,18 @@ import java.util.concurrent.Executors;
 public class ConcurrencyTestingUtils {
 
 	public static void executeConcurrently(int threads, Runnable action) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ModuleUtils` has only 'static' members, and lacks a 'private' constructor
+in `junit-platform-commons/src/main/java9/org/junit/platform/commons/util/ModuleUtils.java`
+#### Snippet
+```java
+ */
+@API(status = INTERNAL, since = "1.1")
+public class ModuleUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(ModuleUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3742,18 +3742,6 @@ in `junit-jupiter-migrationsupport/src/main/java/org/junit/jupiter/migrationsupp
 ```
 
 ### DataFlowIssue
-Dereference of `ExceptionUtils.throwAsUncheckedException(t)` may produce `NullPointerException`
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-					}
-					catch (Throwable t) {
-						throw ExceptionUtils.throwAsUncheckedException(t);
-					}
-				});
-```
-
-### DataFlowIssue
 Dereference of `ExceptionUtils.throwAsUncheckedException(getUnderlyingCause(t))` may produce `NullPointerException`
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
 #### Snippet
@@ -3763,6 +3751,18 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Reflect
 			throw ExceptionUtils.throwAsUncheckedException(getUnderlyingCause(t));
 		}
 	}
+```
+
+### DataFlowIssue
+Dereference of `ExceptionUtils.throwAsUncheckedException(t)` may produce `NullPointerException`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+					}
+					catch (Throwable t) {
+						throw ExceptionUtils.throwAsUncheckedException(t);
+					}
+				});
 ```
 
 ### DataFlowIssue
@@ -3973,18 +3973,6 @@ public class JUnitPlatform extends Runner implements Filterable {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'LegacyReportingUtils' is still used
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/LegacyReportingUtils.java`
-#### Snippet
-```java
-@SuppressWarnings("JavadocReference")
-@API(status = DEPRECATED, since = "1.6")
-public class LegacyReportingUtils {
-
-	private LegacyReportingUtils() {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'UseTechnicalNames' is still used
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/UseTechnicalNames.java`
 #### Snippet
@@ -3997,27 +3985,15 @@ public @interface UseTechnicalNames {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'readFieldValue' is still used
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+Deprecated member 'LegacyReportingUtils' is still used
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/LegacyReportingUtils.java`
 #### Snippet
 ```java
-	@API(status = DEPRECATED, since = "1.4")
-	@Deprecated
-	public static Optional<Object> readFieldValue(Field field) {
-		return tryToReadFieldValue(field).toOptional();
-	}
-```
+@SuppressWarnings("JavadocReference")
+@API(status = DEPRECATED, since = "1.6")
+public class LegacyReportingUtils {
 
-### DeprecatedIsStillUsed
-Deprecated member 'getOutermostInstance' is still used
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-	@API(status = DEPRECATED, since = "1.4")
-	@Deprecated
-	public static Optional<Object> getOutermostInstance(Object inner, Class<?> requiredType) {
-		Preconditions.notNull(inner, "inner object must not be null");
-		Preconditions.notNull(requiredType, "requiredType must not be null");
+	private LegacyReportingUtils() {
 ```
 
 ### DeprecatedIsStillUsed
@@ -4039,9 +4015,33 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Reflect
 ```java
 	@API(status = DEPRECATED, since = "1.4")
 	@Deprecated
+	public static Optional<Object> readFieldValue(Field field) {
+		return tryToReadFieldValue(field).toOptional();
+	}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'readFieldValue' is still used
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	@API(status = DEPRECATED, since = "1.4")
+	@Deprecated
 	public static <T> Optional<Object> readFieldValue(Class<T> clazz, String fieldName, T instance) {
 		return tryToReadFieldValue(clazz, fieldName, instance).toOptional();
 	}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getOutermostInstance' is still used
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	@API(status = DEPRECATED, since = "1.4")
+	@Deprecated
+	public static Optional<Object> getOutermostInstance(Object inner, Class<?> requiredType) {
+		Preconditions.notNull(inner, "inner object must not be null");
+		Preconditions.notNull(requiredType, "requiredType must not be null");
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -4053,6 +4053,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestM
 	private void invokeBeforeEachCallbacks(JupiterEngineExecutionContext context) {
 		invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(BeforeEachCallback.class, context,
 			(callback, extensionContext) -> callback.beforeEach(extensionContext));
+	}
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestMethodTestDescriptor.java`
+#### Snippet
+```java
+	private void invokeAfterTestExecutionCallbacks(JupiterEngineExecutionContext context) {
+		invokeAllAfterMethodsOrCallbacks(AfterTestExecutionCallback.class, context,
+			(callback, extensionContext) -> callback.afterTestExecution(extensionContext));
 	}
 
 ```
@@ -4077,18 +4089,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestM
 	private void invokeBeforeTestExecutionCallbacks(JupiterEngineExecutionContext context) {
 		invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(BeforeTestExecutionCallback.class, context,
 			(callback, extensionContext) -> callback.beforeTestExecution(extensionContext));
-	}
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestMethodTestDescriptor.java`
-#### Snippet
-```java
-	private void invokeAfterTestExecutionCallbacks(JupiterEngineExecutionContext context) {
-		invokeAllAfterMethodsOrCallbacks(AfterTestExecutionCallback.class, context,
-			(callback, extensionContext) -> callback.afterTestExecution(extensionContext));
 	}
 
 ```
@@ -4207,30 +4207,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/TestWatcher.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'testDescriptor'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/ClassSelectorResolver.java`
-#### Snippet
-```java
-	}
-
-	private Resolution toResolution(Optional<? extends ClassBasedTestDescriptor> testDescriptor) {
-		return testDescriptor.map(it -> {
-			Class<?> testClass = it.getTestClass();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'target'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ParameterResolutionUtils.java`
-#### Snippet
-```java
-	 * invocation; never {@code null} though potentially empty
-	 */
-	public static Object[] resolveParameters(Method method, Optional<Object> target, ExtensionContext extensionContext,
-			ExtensionRegistry extensionRegistry) {
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'target'
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ParameterResolutionUtils.java`
 #### Snippet
@@ -4252,6 +4228,42 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Parame
 			Optional<Object> outerInstance, ExtensionContext extensionContext, ExtensionRegistry extensionRegistry) {
 
 		Preconditions.notNull(target, "target must not be null");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'target'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ParameterResolutionUtils.java`
+#### Snippet
+```java
+	 * invocation; never {@code null} though potentially empty
+	 */
+	public static Object[] resolveParameters(Method method, Optional<Object> target, ExtensionContext extensionContext,
+			ExtensionRegistry extensionRegistry) {
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'testDescriptor'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/ClassSelectorResolver.java`
+#### Snippet
+```java
+	}
+
+	private Resolution toResolution(Optional<? extends ClassBasedTestDescriptor> testDescriptor) {
+		return testDescriptor.map(it -> {
+			Class<?> testClass = it.getTestClass();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'outerInstance'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/InterceptingExecutableInvoker.java`
+#### Snippet
+```java
+	 * interceptors}
+	 */
+	public <T> T invoke(Constructor<T> constructor, Optional<Object> outerInstance, ExtensionContext extensionContext,
+			ExtensionRegistry extensionRegistry, ReflectiveInterceptorCall<Constructor<T>, T> interceptorCall) {
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4279,18 +4291,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Defaul
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'target'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/MethodInvocation.java`
-#### Snippet
-```java
-	private final Object[] arguments;
-
-	MethodInvocation(Method method, Optional<Object> target, Object[] arguments) {
-		this.method = method;
-		this.target = target;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'target'
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/MethodInvocation.java`
 #### Snippet
@@ -4303,15 +4303,15 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Method
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'outerInstance'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/InterceptingExecutableInvoker.java`
+`Optional` used as type for parameter 'target'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/MethodInvocation.java`
 #### Snippet
 ```java
-	 * interceptors}
-	 */
-	public <T> T invoke(Constructor<T> constructor, Optional<Object> outerInstance, ExtensionContext extensionContext,
-			ExtensionRegistry extensionRegistry, ReflectiveInterceptorCall<Constructor<T>, T> interceptorCall) {
+	private final Object[] arguments;
 
+	MethodInvocation(Method method, Optional<Object> target, Object[] arguments) {
+		this.method = method;
+		this.target = target;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4327,18 +4327,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestIn
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'testClass'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestInfoParameterResolver.java`
-#### Snippet
-```java
-		private final String displayName;
-		private final Set<String> tags;
-		private final Optional<Class<?>> testClass;
-		private final Optional<Method> testMethod;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optional'
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestInfoParameterResolver.java`
 #### Snippet
@@ -4351,15 +4339,15 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestIn
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'outerInstance'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/DefaultTestInstanceFactoryContext.java`
+`Optional`> used as type for field 'testClass'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestInfoParameterResolver.java`
 #### Snippet
 ```java
-	private final Optional<Object> outerInstance;
+		private final String displayName;
+		private final Set<String> tags;
+		private final Optional<Class<?>> testClass;
+		private final Optional<Method> testMethod;
 
-	DefaultTestInstanceFactoryContext(Class<?> testClass, Optional<Object> outerInstance) {
-		this.testClass = testClass;
-		this.outerInstance = outerInstance;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4372,6 +4360,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/Defau
 	private final Optional<Object> outerInstance;
 
 	DefaultTestInstanceFactoryContext(Class<?> testClass, Optional<Object> outerInstance) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'outerInstance'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/DefaultTestInstanceFactoryContext.java`
+#### Snippet
+```java
+	private final Optional<Object> outerInstance;
+
+	DefaultTestInstanceFactoryContext(Class<?> testClass, Optional<Object> outerInstance) {
+		this.testClass = testClass;
+		this.outerInstance = outerInstance;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4476,8 +4476,8 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Anno
 #### Snippet
 ```java
 	 */
-	@API(status = MAINTAINED, since = "1.5")
-	public static <A extends Annotation> List<A> findRepeatableAnnotations(Optional<? extends AnnotatedElement> element,
+	@API(status = MAINTAINED, since = "1.1")
+	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
 			Class<A> annotationType) {
 
 ```
@@ -4488,8 +4488,8 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Anno
 #### Snippet
 ```java
 	 */
-	@API(status = MAINTAINED, since = "1.1")
-	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
+	@API(status = MAINTAINED, since = "1.5")
+	public static <A extends Annotation> List<A> findRepeatableAnnotations(Optional<? extends AnnotatedElement> element,
 			Class<A> annotationType) {
 
 ```
@@ -4507,6 +4507,18 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Anno
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'customClassLoader'
+in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/CustomContextClassLoaderExecutor.java`
+#### Snippet
+```java
+	private final Optional<ClassLoader> customClassLoader;
+
+	CustomContextClassLoaderExecutor(Optional<ClassLoader> customClassLoader) {
+		this.customClassLoader = customClassLoader;
+	}
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'customClassLoader'
 in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/CustomContextClassLoaderExecutor.java`
 #### Snippet
@@ -4519,15 +4531,15 @@ class CustomContextClassLoaderExecutor {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'customClassLoader'
-in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/CustomContextClassLoaderExecutor.java`
+`Optional` used as type for field 'stdoutInterceptor'
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/StreamInterceptingTestExecutionListener.java`
 #### Snippet
 ```java
-	private final Optional<ClassLoader> customClassLoader;
+class StreamInterceptingTestExecutionListener implements EagerTestExecutionListener {
 
-	CustomContextClassLoaderExecutor(Optional<ClassLoader> customClassLoader) {
-		this.customClassLoader = customClassLoader;
-	}
+	private final Optional<StreamInterceptor> stdoutInterceptor;
+	private final Optional<StreamInterceptor> stderrInterceptor;
+	private final BiConsumer<TestIdentifier, ReportEntry> reporter;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4567,18 +4579,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Strea
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'stdoutInterceptor'
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/StreamInterceptingTestExecutionListener.java`
-#### Snippet
-```java
-class StreamInterceptingTestExecutionListener implements EagerTestExecutionListener {
-
-	private final Optional<StreamInterceptor> stdoutInterceptor;
-	private final Optional<StreamInterceptor> stderrInterceptor;
-	private final BiConsumer<TestIdentifier, ReportEntry> reporter;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'element'
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
 #### Snippet
@@ -4595,9 +4595,9 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Annotat
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
 #### Snippet
 ```java
-	 * @see org.junit.platform.commons.support.AnnotationSupport#findAnnotation(Optional, Class)
+	 * @see org.junit.platform.commons.support.AnnotationSupport#findRepeatableAnnotations(Optional, Class)
 	 */
-	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
+	public static <A extends Annotation> List<A> findRepeatableAnnotations(Optional<? extends AnnotatedElement> element,
 			Class<A> annotationType) {
 
 ```
@@ -4607,9 +4607,9 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Annotat
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
 #### Snippet
 ```java
-	 * @see org.junit.platform.commons.support.AnnotationSupport#findRepeatableAnnotations(Optional, Class)
+	 * @see org.junit.platform.commons.support.AnnotationSupport#findAnnotation(Optional, Class)
 	 */
-	public static <A extends Annotation> List<A> findRepeatableAnnotations(Optional<? extends AnnotatedElement> element,
+	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
 			Class<A> annotationType) {
 
 ```
@@ -4724,18 +4724,6 @@ in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Execu
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
-#### Snippet
-```java
-	 */
-	public Events debug() {
-		debug(System.out);
-		return this;
-	}
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/StreamInterceptor.java`
 #### Snippet
@@ -4757,6 +4745,18 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Strea
 		return register(System.out, System::setOut, maxNumberOfBytesPerThread);
 	}
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Events.java`
+#### Snippet
+```java
+	 */
+	public Events debug() {
+		debug(System.out);
+		return this;
+	}
 ```
 
 ### SystemOutErr
@@ -6227,6 +6227,30 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
+#### Snippet
+```java
+ * @see OS
+ * @see org.junit.jupiter.api.condition.EnabledIf
+ * @see org.junit.jupiter.api.condition.DisabledIf
+ * @see org.junit.jupiter.api.condition.EnabledOnOs
+ * @see org.junit.jupiter.api.condition.EnabledOnJre
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.api.condition.EnabledIf
+ * @see org.junit.jupiter.api.condition.DisabledIf
+ * @see org.junit.jupiter.api.condition.EnabledOnOs
+ * @see org.junit.jupiter.api.condition.EnabledOnJre
+ * @see org.junit.jupiter.api.condition.DisabledOnJre
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
 #### Snippet
 ```java
@@ -6242,35 +6266,23 @@ Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
 #### Snippet
 ```java
+ * @see org.junit.jupiter.api.condition.DisabledIf
+ * @see org.junit.jupiter.api.condition.EnabledOnOs
+ * @see org.junit.jupiter.api.condition.EnabledOnJre
+ * @see org.junit.jupiter.api.condition.DisabledOnJre
+ * @see org.junit.jupiter.api.condition.EnabledForJreRange
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+#### Snippet
+```java
  * @see OS
  * @see org.junit.jupiter.api.condition.EnabledIf
  * @see org.junit.jupiter.api.condition.DisabledIf
- * @see org.junit.jupiter.api.condition.EnabledOnOs
- * @see org.junit.jupiter.api.condition.EnabledOnJre
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
-#### Snippet
-```java
- * @see OS
- * @see org.junit.jupiter.api.condition.EnabledIf
- * @see org.junit.jupiter.api.condition.DisabledIf
  * @see org.junit.jupiter.api.condition.DisabledOnOs
  * @see org.junit.jupiter.api.condition.EnabledOnJre
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.EnabledIf
- * @see org.junit.jupiter.api.condition.DisabledIf
- * @see org.junit.jupiter.api.condition.EnabledOnOs
- * @see org.junit.jupiter.api.condition.EnabledOnJre
- * @see org.junit.jupiter.api.condition.DisabledOnJre
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6290,11 +6302,11 @@ Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
 #### Snippet
 ```java
- * @see org.junit.jupiter.api.condition.DisabledIf
  * @see org.junit.jupiter.api.condition.EnabledOnOs
  * @see org.junit.jupiter.api.condition.EnabledOnJre
  * @see org.junit.jupiter.api.condition.DisabledOnJre
  * @see org.junit.jupiter.api.condition.EnabledForJreRange
+ * @see org.junit.jupiter.api.condition.DisabledForJreRange
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6307,18 +6319,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.
  * @see org.junit.jupiter.api.condition.EnabledOnJre
  * @see org.junit.jupiter.api.condition.DisabledOnJre
  * @see org.junit.jupiter.api.condition.EnabledForJreRange
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.EnabledOnOs
- * @see org.junit.jupiter.api.condition.EnabledOnJre
- * @see org.junit.jupiter.api.condition.DisabledOnJre
- * @see org.junit.jupiter.api.condition.EnabledForJreRange
- * @see org.junit.jupiter.api.condition.DisabledForJreRange
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6336,18 +6336,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.EnabledOnJre
- * @see org.junit.jupiter.api.condition.DisabledOnJre
- * @see org.junit.jupiter.api.condition.EnabledForJreRange
- * @see org.junit.jupiter.api.condition.DisabledForJreRange
- * @see org.junit.jupiter.api.condition.EnabledInNativeImage
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledOnJre
@@ -6379,42 +6367,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
  * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.DisabledOnJre
- * @see org.junit.jupiter.api.condition.EnabledForJreRange
- * @see org.junit.jupiter.api.condition.DisabledForJreRange
- * @see org.junit.jupiter.api.condition.EnabledInNativeImage
- * @see org.junit.jupiter.api.condition.DisabledInNativeImage
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.EnabledForJreRange
- * @see org.junit.jupiter.api.condition.DisabledForJreRange
- * @see org.junit.jupiter.api.condition.EnabledInNativeImage
- * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.DisabledForJreRange
- * @see org.junit.jupiter.api.condition.EnabledInNativeImage
- * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6431,7 +6383,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
@@ -6444,6 +6396,18 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.api.condition.EnabledOnJre
+ * @see org.junit.jupiter.api.condition.DisabledOnJre
+ * @see org.junit.jupiter.api.condition.EnabledForJreRange
+ * @see org.junit.jupiter.api.condition.DisabledForJreRange
+ * @see org.junit.jupiter.api.condition.EnabledInNativeImage
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
@@ -6455,19 +6419,31 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
 #### Snippet
 ```java
+ * @see org.junit.jupiter.api.condition.DisabledOnJre
+ * @see org.junit.jupiter.api.condition.EnabledForJreRange
+ * @see org.junit.jupiter.api.condition.DisabledForJreRange
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.api.condition.EnabledForJreRange
+ * @see org.junit.jupiter.api.condition.DisabledForJreRange
+ * @see org.junit.jupiter.api.condition.EnabledInNativeImage
+ * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
@@ -6480,18 +6456,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
- * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
@@ -6503,7 +6467,43 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.api.condition.DisabledForJreRange
+ * @see org.junit.jupiter.api.condition.EnabledInNativeImage
+ * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.api.condition.EnabledInNativeImage
+ * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
+ * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
@@ -6515,7 +6515,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnOs.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledOnOs.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
@@ -6995,7 +6995,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/DisabledOnJr
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  *
@@ -7007,7 +7007,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @since 5.1
@@ -7019,7 +7019,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledIf
@@ -7031,7 +7031,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledIf
@@ -7043,7 +7043,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledOnOs
@@ -7055,7 +7055,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledOnOs
@@ -7067,7 +7067,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledOnJre
@@ -7079,7 +7079,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledOnJre
@@ -7091,59 +7091,59 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledForJreRange
  * @see org.junit.jupiter.api.condition.DisabledForJreRange
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledForJreRange
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.Disabled
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
 #### Snippet
 ```java
- * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.Disabled
  */
@@ -7151,7 +7151,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnv
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  *
@@ -7163,7 +7163,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @since 5.1
@@ -7175,7 +7175,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledIf
@@ -7187,7 +7187,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledIf
@@ -7199,7 +7199,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledOnOs
@@ -7211,7 +7211,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledOnOs
@@ -7223,7 +7223,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledOnJre
@@ -7235,7 +7235,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledOnJre
@@ -7247,59 +7247,59 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSys
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledForJreRange
  * @see org.junit.jupiter.api.condition.DisabledForJreRange
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
- * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledForJreRange
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.EnabledInNativeImage
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
  * @see org.junit.jupiter.api.condition.DisabledInNativeImage
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.Disabled
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api.condition` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfSystemProperty.java`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/condition/EnabledIfEnvironmentVariable.java`
 #### Snippet
 ```java
+ * @see org.junit.jupiter.api.condition.EnabledIfSystemProperty
  * @see org.junit.jupiter.api.condition.DisabledIfSystemProperty
- * @see org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable
  * @see org.junit.jupiter.api.Disabled
  */
@@ -7354,18 +7354,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/support/OpenTest
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api.io` is unnecessary and can be removed
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/io/TempDir.java`
-#### Snippet
-```java
-	/**
-	 * Property name used to set the scope of temporary directories created via
-	 * {@link org.junit.jupiter.api.io.TempDir @TempDir} annotation: {@value}
-	 *
-	 * <h4>Supported Values</h4>
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang.reflect` is unnecessary and can be removed
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/InterceptingExecutableInvoker.java`
 #### Snippet
@@ -7390,6 +7378,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/TestF
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.api.io` is unnecessary and can be removed
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/io/TempDir.java`
+#### Snippet
+```java
+	/**
+	 * Property name used to set the scope of temporary directories created via
+	 * {@link org.junit.jupiter.api.io.TempDir @TempDir} annotation: {@value}
+	 *
+	 * <h4>Supported Values</h4>
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTest.java`
 #### Snippet
@@ -7403,30 +7403,6 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTes
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/Arguments.java`
-#### Snippet
-```java
- * @since 5.0
- * @see org.junit.jupiter.params.ParameterizedTest
- * @see org.junit.jupiter.params.provider.ArgumentsSource
- * @see org.junit.jupiter.params.provider.ArgumentsProvider
- * @see org.junit.jupiter.params.converter.ArgumentConverter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/Arguments.java`
-#### Snippet
-```java
- * @see org.junit.jupiter.params.ParameterizedTest
- * @see org.junit.jupiter.params.provider.ArgumentsSource
- * @see org.junit.jupiter.params.provider.ArgumentsProvider
- * @see org.junit.jupiter.params.converter.ArgumentConverter
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
 in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/CsvFileSource.java`
 #### Snippet
 ```java
@@ -7434,6 +7410,30 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/CsvFile
  * @see CsvSource
  * @see org.junit.jupiter.params.provider.ArgumentsSource
  * @see org.junit.jupiter.params.ParameterizedTest
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/Arguments.java`
+#### Snippet
+```java
+ * @since 5.0
+ * @see org.junit.jupiter.params.ParameterizedTest
+ * @see org.junit.jupiter.params.provider.ArgumentsSource
+ * @see org.junit.jupiter.params.provider.ArgumentsProvider
+ * @see org.junit.jupiter.params.converter.ArgumentConverter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/Arguments.java`
+#### Snippet
+```java
+ * @see org.junit.jupiter.params.ParameterizedTest
+ * @see org.junit.jupiter.params.provider.ArgumentsSource
+ * @see org.junit.jupiter.params.provider.ArgumentsProvider
+ * @see org.junit.jupiter.params.converter.ArgumentConverter
  */
 ```
 
@@ -7570,6 +7570,18 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/converter/Argume
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/EnumSource.java`
+#### Snippet
+```java
+ *
+ * @since 5.0
+ * @see org.junit.jupiter.params.provider.ArgumentsSource
+ * @see org.junit.jupiter.params.ParameterizedTest
+ */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.params.converter` is unnecessary and can be removed
 in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/converter/ArgumentConverter.java`
 #### Snippet
@@ -7591,18 +7603,6 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/converter/Conver
  * @see org.junit.jupiter.params.converter.ArgumentConverter
  */
 @Target({ ElementType.ANNOTATION_TYPE, ElementType.PARAMETER })
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.params.provider` is unnecessary and can be removed
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/EnumSource.java`
-#### Snippet
-```java
- *
- * @since 5.0
- * @see org.junit.jupiter.params.provider.ArgumentsSource
- * @see org.junit.jupiter.params.ParameterizedTest
- */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7703,18 +7703,6 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/descri
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.platform.engine` is unnecessary and can be removed
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/descriptor/MethodSource.java`
-#### Snippet
-```java
-
-/**
- * Method based {@link org.junit.platform.engine.TestSource TestSource}.
- *
- * <p>This class stores the method name along with the names of its parameter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.platform.engine` is unnecessary and can be removed
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/descriptor/ClasspathResourceSource.java`
 #### Snippet
 ```java
@@ -7726,15 +7714,15 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/descri
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/FileSelector.java`
+Qualifier `org.junit.platform.engine` is unnecessary and can be removed
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/descriptor/MethodSource.java`
 #### Snippet
 ```java
 
-	/**
-	 * Get the selected file as a {@link java.io.File}.
-	 *
-	 * @see #getPath()
+/**
+ * Method based {@link org.junit.platform.engine.TestSource TestSource}.
+ *
+ * <p>This class stores the method name along with the names of its parameter
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7750,6 +7738,18 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/File
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/FileSelector.java`
+#### Snippet
+```java
+
+	/**
+	 * Get the selected file as a {@link java.io.File}.
+	 *
+	 * @see #getPath()
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.platform.engine.discovery` is unnecessary and can be removed
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/ClassNameFilter.java`
 #### Snippet
@@ -7762,18 +7762,6 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/Clas
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DirectorySelector.java`
-#### Snippet
-```java
-
-	/**
-	 * Get the selected directory as a {@link java.io.File}.
-	 *
-	 * @see #getPath()
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.file` is unnecessary and can be removed
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DirectorySelector.java`
 #### Snippet
@@ -7783,6 +7771,18 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/Dire
 	 * Get the selected directory as a {@link java.nio.file.Path} using the
 	 * {@linkplain FileSystems#getDefault default} {@link FileSystem}.
 	 *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DirectorySelector.java`
+#### Snippet
+```java
+
+	/**
+	 * Get the selected directory as a {@link java.io.File}.
+	 *
+	 * @see #getPath()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7846,15 +7846,15 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Avai
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.platform.launcher.core` is unnecessary and can be removed
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EngineTestKit.java`
+Qualifier `org.assertj.core.api` is unnecessary and can be removed
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Executions.java`
 #### Snippet
 ```java
-	 * the JUnit Platform Launcher API.
-	 *
-	 * <p>{@link org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder}
-	 * provides a convenient way to build an appropriate discovery request to
-	 * supply to this method. As an alternative, consider using
+	 * @return an instance of {@link ListAssert} for executions; never {@code null}
+	 * @see org.assertj.core.api.Assertions#assertThat(List)
+	 * @see org.assertj.core.api.ListAssert
+	 */
+	public ListAssert<Execution> assertThatExecutions() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7886,7 +7886,7 @@ Qualifier `org.junit.platform.launcher.core` is unnecessary and can be removed
 in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EngineTestKit.java`
 #### Snippet
 ```java
-	 * supplied {@link TestEngine}.
+	 * the JUnit Platform Launcher API.
 	 *
 	 * <p>{@link org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder}
 	 * provides a convenient way to build an appropriate discovery request to
@@ -7918,15 +7918,15 @@ in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Engin
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.api` is unnecessary and can be removed
-in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/Executions.java`
+Qualifier `org.junit.platform.launcher.core` is unnecessary and can be removed
+in `junit-platform-testkit/src/main/java/org/junit/platform/testkit/engine/EngineTestKit.java`
 #### Snippet
 ```java
-	 * @return an instance of {@link ListAssert} for executions; never {@code null}
-	 * @see org.assertj.core.api.Assertions#assertThat(List)
-	 * @see org.assertj.core.api.ListAssert
-	 */
-	public ListAssert<Execution> assertThatExecutions() {
+	 * supplied {@link TestEngine}.
+	 *
+	 * <p>{@link org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder}
+	 * provides a convenient way to build an appropriate discovery request to
+	 * supply to this method. As an alternative, consider using
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7958,11 +7958,11 @@ Qualifier `org.junit.platform.engine` is unnecessary and can be removed
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/TestIdentifier.java`
 #### Snippet
 ```java
-	 *
-	 * @return the legacy reporting name; never {@code null} or blank
-	 * @see org.junit.platform.engine.TestDescriptor#getLegacyReportingName()
-	 * @see org.junit.platform.reporting.legacy.LegacyReportingUtils
+	 * @return the display name for this identifier; never {@code null} or blank
+	 * @see #getSource()
+	 * @see org.junit.platform.engine.TestDescriptor#getDisplayName()
 	 */
+	public String getDisplayName() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7970,11 +7970,11 @@ Qualifier `org.junit.platform.engine` is unnecessary and can be removed
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/TestIdentifier.java`
 #### Snippet
 ```java
-	 * @return the display name for this identifier; never {@code null} or blank
-	 * @see #getSource()
-	 * @see org.junit.platform.engine.TestDescriptor#getDisplayName()
+	 *
+	 * @return the legacy reporting name; never {@code null} or blank
+	 * @see org.junit.platform.engine.TestDescriptor#getLegacyReportingName()
+	 * @see org.junit.platform.reporting.legacy.LegacyReportingUtils
 	 */
-	public String getDisplayName() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8032,8 +8032,8 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/
 ```java
 	/**
 	 * Create a {@code LoggingListener} which delegates to a
-	 * {@link java.util.logging.Logger} using the supplied
-	 * {@linkplain Level log level}.
+	 * {@link java.util.logging.Logger} using a log level of
+	 * {@link Level#FINE FINE}.
 	 *
 ```
 
@@ -8044,8 +8044,8 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/
 ```java
 	/**
 	 * Create a {@code LoggingListener} which delegates to a
-	 * {@link java.util.logging.Logger} using a log level of
-	 * {@link Level#FINE FINE}.
+	 * {@link java.util.logging.Logger} using the supplied
+	 * {@linkplain Level log level}.
 	 *
 ```
 
@@ -8160,18 +8160,6 @@ in `junit-jupiter-migrationsupport/src/main/java/org/junit/jupiter/migrationsupp
 
 ## RuleId[ruleID=TestCaseWithConstructor]
 ### TestCaseWithConstructor
-Initialization logic in constructor `JUnit3SuiteWithSubsuites()` instead of 'setup()' life cycle method
-in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit3/JUnit3SuiteWithSubsuites.java`
-#### Snippet
-```java
-	private final String arg;
-
-	public JUnit3SuiteWithSubsuites(String name, String arg) {
-		super(name);
-		this.arg = arg;
-```
-
-### TestCaseWithConstructor
 Initialization logic in constructor `JUnit3ParallelSuiteWithSubsuites()` instead of 'setup()' life cycle method
 in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit3/JUnit3ParallelSuiteWithSubsuites.java`
 #### Snippet
@@ -8179,6 +8167,18 @@ in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/
 	private final String arg;
 
 	public JUnit3ParallelSuiteWithSubsuites(String name, String arg) {
+		super(name);
+		this.arg = arg;
+```
+
+### TestCaseWithConstructor
+Initialization logic in constructor `JUnit3SuiteWithSubsuites()` instead of 'setup()' life cycle method
+in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit3/JUnit3SuiteWithSubsuites.java`
+#### Snippet
+```java
+	private final String arg;
+
+	public JUnit3SuiteWithSubsuites(String name, String arg) {
 		super(name);
 		this.arg = arg;
 ```
@@ -8221,18 +8221,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/Mutabl
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fastForwardLine`
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertLinesMatch.java`
-#### Snippet
-```java
-
-	static int parseFastForwardLimit(String fastForwardLine) {
-		fastForwardLine = fastForwardLine.trim();
-		String text = fastForwardLine.substring(2, fastForwardLine.length() - 2).trim();
-		try {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `line`
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertLinesMatch.java`
 #### Snippet
@@ -8242,6 +8230,18 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertLinesMatch.java`
 		line = line.trim();
 		return line.length() >= 4 && line.startsWith(">>") && line.endsWith(">>");
 	}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fastForwardLine`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertLinesMatch.java`
+#### Snippet
+```java
+
+	static int parseFastForwardLimit(String fastForwardLine) {
+		fastForwardLine = fastForwardLine.trim();
+		String text = fastForwardLine.substring(2, fastForwardLine.length() - 2).trim();
+		try {
 ```
 
 ### AssignmentToMethodParameter
@@ -8397,7 +8397,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertTimeoutPreemptiv
 		assertTimeoutPreemptively(timeout, () -> {
 			executable.execute();
 			return null;
-		}, message);
+		}, messageSupplier);
 	}
 ```
 
@@ -8409,19 +8409,7 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertTimeoutPreemptiv
 		assertTimeoutPreemptively(timeout, () -> {
 			executable.execute();
 			return null;
-		}, messageSupplier);
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertTimeout.java`
-#### Snippet
-```java
-		assertTimeout(timeout, () -> {
-			executable.execute();
-			return null;
-		}, messageSupplier);
+		}, message);
 	}
 ```
 
@@ -8434,6 +8422,18 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertTimeout.java`
 			executable.execute();
 			return null;
 		}, message);
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/AssertTimeout.java`
+#### Snippet
+```java
+		assertTimeout(timeout, () -> {
+			executable.execute();
+			return null;
+		}, messageSupplier);
 	}
 ```
 
@@ -8502,30 +8502,6 @@ Return of `null`
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
 #### Snippet
 ```java
-	private <T> T castToRequiredType(Object key, Object value, Class<T> requiredType) {
-		if (value == null) {
-			return null;
-		}
-		if (isAssignableTo(value, requiredType)) {
-```
-
-### ReturnNull
-Return of `null`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
-#### Snippet
-```java
-			}
-			catch (RuntimeException e) {
-				return null;
-			}
-		}
-```
-
-### ReturnNull
-Return of `null`
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
-#### Snippet
-```java
 			return parentStore.getStoredValue(compositeKey);
 		}
 		return null;
@@ -8555,6 +8531,30 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Extens
 		return (storedValue != null ? storedValue.evaluate() : null);
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
+#### Snippet
+```java
+			}
+			catch (RuntimeException e) {
+				return null;
+			}
+		}
+```
+
+### ReturnNull
+Return of `null`
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/ExtensionValuesStore.java`
+#### Snippet
+```java
+	private <T> T castToRequiredType(Object key, Object value, Class<T> requiredType) {
+		if (value == null) {
+			return null;
+		}
+		if (isAssignableTo(value, requiredType)) {
 ```
 
 ### ReturnNull
@@ -8646,6 +8646,18 @@ Return of `null`
 in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/DefensiveAllDefaultPossibilitiesBuilder.java`
 #### Snippet
 ```java
+			if ("org.junit.platform.runner.JUnitPlatform".equals(runnerClass.getName())) {
+				logger.warn(() -> "Ignoring test class using JUnitPlatform runner: " + testClass.getName());
+				return null;
+			}
+			return super.buildRunner(runnerClass, testClass);
+```
+
+### ReturnNull
+Return of `null`
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/DefensiveAllDefaultPossibilitiesBuilder.java`
+#### Snippet
+```java
 		public Runner runnerForClass(Class<?> testClass) {
 			// don't ignore entire test classes just yet
 			return null;
@@ -8659,30 +8671,6 @@ in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/Defens
 #### Snippet
 ```java
 				return super.runnerForClass(testClass);
-			}
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/DefensiveAllDefaultPossibilitiesBuilder.java`
-#### Snippet
-```java
-			if ("org.junit.platform.runner.JUnitPlatform".equals(runnerClass.getName())) {
-				logger.warn(() -> "Ignoring test class using JUnitPlatform runner: " + testClass.getName());
-				return null;
-			}
-			return super.buildRunner(runnerClass, testClass);
-```
-
-### ReturnNull
-Return of `null`
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/converter/DefaultArgumentConverter.java`
-#### Snippet
-```java
-					"Cannot convert null to primitive value of type " + targetType.getName());
 			}
 			return null;
 		}
@@ -8722,6 +8710,18 @@ in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/descriptor/TestS
 		}
 		return null;
 	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/converter/DefaultArgumentConverter.java`
+#### Snippet
+```java
+					"Cannot convert null to primitive value of type " + targetType.getName());
+			}
+			return null;
+		}
 
 ```
 
@@ -8790,9 +8790,9 @@ Return of `null`
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/StringUtils.java`
 #### Snippet
 ```java
-	public static String replaceIsoControlCharacters(String str, String replacement) {
+	public static String replaceWhitespaceCharacters(String str, String replacement) {
 		Preconditions.notNull(replacement, "replacement must not be null");
-		return str == null ? null : ISO_CONTROL_PATTERN.matcher(str).replaceAll(replacement);
+		return str == null ? null : WHITESPACE_PATTERN.matcher(str).replaceAll(replacement);
 	}
 
 ```
@@ -8802,9 +8802,9 @@ Return of `null`
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/StringUtils.java`
 #### Snippet
 ```java
-	public static String replaceWhitespaceCharacters(String str, String replacement) {
+	public static String replaceIsoControlCharacters(String str, String replacement) {
 		Preconditions.notNull(replacement, "replacement must not be null");
-		return str == null ? null : WHITESPACE_PATTERN.matcher(str).replaceAll(replacement);
+		return str == null ? null : ISO_CONTROL_PATTERN.matcher(str).replaceAll(replacement);
 	}
 
 ```
@@ -8886,32 +8886,8 @@ Return of `null`
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/Assertions.java`
 #### Snippet
 ```java
-	public static <V> V fail(String message, Throwable cause) {
-		AssertionUtils.fail(message, cause);
-		return null; // appeasing the compiler: this line will never be executed.
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/Assertions.java`
-#### Snippet
-```java
 	public static <V> V fail() {
 		AssertionUtils.fail();
-		return null; // appeasing the compiler: this line will never be executed.
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/Assertions.java`
-#### Snippet
-```java
-	public static <V> V fail(Throwable cause) {
-		AssertionUtils.fail(cause);
 		return null; // appeasing the compiler: this line will never be executed.
 	}
 
@@ -8934,8 +8910,32 @@ Return of `null`
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/Assertions.java`
 #### Snippet
 ```java
+	public static <V> V fail(String message, Throwable cause) {
+		AssertionUtils.fail(message, cause);
+		return null; // appeasing the compiler: this line will never be executed.
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/Assertions.java`
+#### Snippet
+```java
 	public static <V> V fail(Supplier<String> messageSupplier) {
 		AssertionUtils.fail(messageSupplier);
+		return null; // appeasing the compiler: this line will never be executed.
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/Assertions.java`
+#### Snippet
+```java
+	public static <V> V fail(Throwable cause) {
+		AssertionUtils.fail(cause);
 		return null; // appeasing the compiler: this line will never be executed.
 	}
 
@@ -9089,18 +9089,6 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierar
 
 ### ThrowableNotThrown
 Result of `throwAsUncheckedException()` not thrown
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/NodeTestTask.java`
-#### Snippet
-```java
-				}
-				catch (ExecutionException e) {
-					ExceptionUtils.throwAsUncheckedException(e.getCause());
-				}
-			}
-```
-
-### ThrowableNotThrown
-Result of `throwAsUncheckedException()` not thrown
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/ThrowableCollector.java`
 #### Snippet
 ```java
@@ -9109,6 +9097,18 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierar
 			ExceptionUtils.throwAsUncheckedException(this.throwable);
 		}
 	}
+```
+
+### ThrowableNotThrown
+Result of `throwAsUncheckedException()` not thrown
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierarchical/NodeTestTask.java`
+#### Snippet
+```java
+				}
+				catch (ExecutionException e) {
+					ExceptionUtils.throwAsUncheckedException(e.getCause());
+				}
+			}
 ```
 
 ### ThrowableNotThrown
@@ -9259,18 +9259,6 @@ public class EnclosedJUnit4TestCase {
 ```
 
 ### TestCaseWithNoTestMethods
-Test class `JUnit4SuiteWithExceptionThrowingRunner` has no tests
-in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4SuiteWithExceptionThrowingRunner.java`
-#### Snippet
-```java
-@RunWith(ExceptionThrowingRunner.class)
-@ChildCount(1)
-public class JUnit4SuiteWithExceptionThrowingRunner {
-}
-
-```
-
-### TestCaseWithNoTestMethods
 Test class `CompletelyDynamicTestCase` has no tests
 in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/CompletelyDynamicTestCase.java`
 #### Snippet
@@ -9278,6 +9266,18 @@ in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/
 @RunWith(DynamicRunner.class)
 @ChildCount(1)
 public class CompletelyDynamicTestCase {
+}
+
+```
+
+### TestCaseWithNoTestMethods
+Test class `JUnit4SuiteWithExceptionThrowingRunner` has no tests
+in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4SuiteWithExceptionThrowingRunner.java`
+#### Snippet
+```java
+@RunWith(ExceptionThrowingRunner.class)
+@ChildCount(1)
+public class JUnit4SuiteWithExceptionThrowingRunner {
 }
 
 ```
