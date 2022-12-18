@@ -10,8 +10,8 @@ I found 10 bad smells with 1 repairable:
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
-| ConstantMathCall | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
+| ConstantMathCall | 1 | false |
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
 ### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
@@ -41,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-18-06-01-38.308.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-18-09-00-19.852.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -77,19 +77,6 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
 
 ```
 
-## RuleId[ruleID=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
-#### Snippet
-```java
-    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
-    /** &radic;(2 &pi;). */
-    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
-    /** The mu parameter of this distribution. */
-    private final double mu;
-```
-
 ## RuleId[ruleID=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.min()' call
@@ -101,6 +88,19 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         return x < upper ? x : upper;
     }
 
+```
+
+## RuleId[ruleID=ConstantMathCall]
+### ConstantMathCall
+Constant call to `sqrt()` can be simplified
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+#### Snippet
+```java
+    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
+    /** &radic;(2 &pi;). */
+    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
+    /** The mu parameter of this distribution. */
+    private final double mu;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -118,18 +118,6 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
-#### Snippet
-```java
-        double m = median;
-        if (Double.isNaN(m)) {
-            median = m = inverseCumulativeProbability(0.5);
-        }
-        return m;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranking/NaturalRanking.java`
 #### Snippet
 ```java
@@ -138,5 +126,17 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
             randomIntFunction = r = new SplittableRandom()::nextInt;
         }
         return r;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+#### Snippet
+```java
+        double m = median;
+        if (Double.isNaN(m)) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return m;
 ```
 
