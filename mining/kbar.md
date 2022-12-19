@@ -154,24 +154,24 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/edu/lu/uni/serval/jdt/tree/hash/HashGenerator.java`
-#### Snippet
-```java
-public interface HashGenerator {
-
-    public void hash(ITree t);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/edu/lu/uni/serval/jdt/tree/ITree.java`
 #### Snippet
 ```java
     Iterator<Entry<String, Object>> getMetadata();
     
     public abstract String getChildrenLabels();
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/edu/lu/uni/serval/jdt/tree/hash/HashGenerator.java`
+#### Snippet
+```java
+public interface HashGenerator {
+
+    public void hash(ITree t);
 
 }
 ```
@@ -205,18 +205,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/edu/lu/uni/serval/tbar/IFixer.java`
 #### Snippet
 ```java
-public interface IFixer {
-
-	public List<SuspiciousPosition> readSuspiciousCodeFromFile();
-	
-	public List<SuspCodeNode> parseSuspiciousCode(SuspiciousPosition suspiciousCode);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/edu/lu/uni/serval/tbar/IFixer.java`
-#### Snippet
-```java
 	public List<SuspiciousPosition> readSuspiciousCodeFromFile();
 	
 	public List<SuspCodeNode> parseSuspiciousCode(SuspiciousPosition suspiciousCode);
@@ -226,14 +214,14 @@ in `src/main/java/edu/lu/uni/serval/tbar/IFixer.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/IFixTemplate.java`
+in `src/main/java/edu/lu/uni/serval/tbar/IFixer.java`
 #### Snippet
 ```java
-public interface IFixTemplate {
+public interface IFixer {
+
+	public List<SuspiciousPosition> readSuspiciousCodeFromFile();
 	
-	public void setSuspiciousCodeStr(String suspiciousCodeStr);
-	
-	public String getSuspiciousCodeStr();
+	public List<SuspCodeNode> parseSuspiciousCode(SuspiciousPosition suspiciousCode);
 ```
 
 ### UnnecessaryModifier
@@ -277,11 +265,35 @@ Modifier `public` is redundant for interface members
 in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/IFixTemplate.java`
 #### Snippet
 ```java
+	public void setSuspiciousCodeStr(String suspiciousCodeStr);
+	
+	public String getSuspiciousCodeStr();
+	
+	public void setSuspiciousCodeTree(ITree suspiciousCodeTree);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/IFixTemplate.java`
+#### Snippet
+```java
+public interface IFixTemplate {
+	
+	public void setSuspiciousCodeStr(String suspiciousCodeStr);
+	
+	public String getSuspiciousCodeStr();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/IFixTemplate.java`
+#### Snippet
+```java
+	public void setSuspiciousCodeTree(ITree suspiciousCodeTree);
+	
+	public ITree getSuspiciousCodeTree();
+	
 	public void generatePatches();
-	
-	public List<Patch> getPatches();
-	
-	public String getSubSuspiciouCodeStr(int startPos, int endPos);
 ```
 
 ### UnnecessaryModifier
@@ -301,23 +313,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/IFixTemplate.java`
 #### Snippet
 ```java
-	public void setSuspiciousCodeStr(String suspiciousCodeStr);
-	
-	public String getSuspiciousCodeStr();
-	
-	public void setSuspiciousCodeTree(ITree suspiciousCodeTree);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/IFixTemplate.java`
-#### Snippet
-```java
-	public void setSuspiciousCodeTree(ITree suspiciousCodeTree);
-	
-	public ITree getSuspiciousCodeTree();
-	
 	public void generatePatches();
+	
+	public List<Patch> getPatches();
+	
+	public String getSubSuspiciouCodeStr(int startPos, int endPos);
 ```
 
 ### UnnecessaryModifier
@@ -374,11 +374,11 @@ Conditional break inside loop
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
-	private void readClassDeclaration(ITree suspCodeTree) {
-		ITree parent = suspCodeTree.getParent();
+		ITree exp = para.getChild(0);
+		int i = 1;
 		while (true) {
-			if (Checker.isTypeDeclaration(parent.getType())) {
-				this.classDeclarationAst = parent;
+			if (!Checker.isArrayAccess(exp.getType())) break;
+			exp = exp.getChild(0);
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -386,11 +386,11 @@ Conditional break inside loop
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
-		ITree exp = para.getChild(0);
-		int i = 1;
+	private void readClassDeclaration(ITree suspCodeTree) {
+		ITree parent = suspCodeTree.getParent();
 		while (true) {
-			if (!Checker.isArrayAccess(exp.getType())) break;
-			exp = exp.getChild(0);
+			if (Checker.isTypeDeclaration(parent.getType())) {
+				this.classDeclarationAst = parent;
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -440,6 +440,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
 		if (Checker.isTypeDeclaration(treeType)) {
 		} else if (Checker.isMethodDeclaration(treeType) && !ignoreOtherMethods) {
 			ITree parent = tree.getParent();
+```
+
+### EmptyStatementBody
+`else` statement has empty body
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
+#### Snippet
+```java
+			if (path.endsWith("INNER-CLASS")) {
+				path = path.substring(0, path.length() - 11);
+			} else {
+				
+			}
 ```
 
 ### EmptyStatementBody
@@ -610,18 +622,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 			return false;
 ```
 
-### EmptyStatementBody
-`else` statement has empty body
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
-#### Snippet
-```java
-			if (path.endsWith("INNER-CLASS")) {
-				path = path.substring(0, path.length() - 11);
-			} else {
-				
-			}
-```
-
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `Configuration.lastFixPattern` from instance context
@@ -758,18 +758,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (27 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeContext.java`
-#### Snippet
-```java
-    }
-
-//    public static class MetadataSerializers extends Marshallers<MetadataSerializer> {
-//
-//        public void serialize(TreeFormatter formatter, String key, Object value) throws Exception {
-```
-
-### CommentedOutCode
 Commented out code (13 lines)
 in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeContext.java`
 #### Snippet
@@ -794,6 +782,18 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeContext.java`
 ```
 
 ### CommentedOutCode
+Commented out code (27 lines)
+in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeContext.java`
+#### Snippet
+```java
+    }
+
+//    public static class MetadataSerializers extends Marshallers<MetadataSerializer> {
+//
+//        public void serialize(TreeFormatter formatter, String key, Object value) throws Exception {
+```
+
+### CommentedOutCode
 Commented out code (3 lines)
 in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeContext.java`
 #### Snippet
@@ -815,102 +815,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/main/Main.java`
 		//String[] elements = bugIdStr.split("_");
 		//String projectName = elements[0];
 		//int bugId;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-		Block methodBody = node.getBody();
-		if (methodBody != null) {
-//			push(8, "Block", "MethodBody", methodBody.getStartPosition(), methodBody.getLength());
-//			methodBody.accept(this);
-			List<?> stmts = methodBody.statements();
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-				popNode();
-			}
-//			for (Object obj : typeArguments) {
-//				Type typeArgu = (Type) obj; // TypeArugment: Collections.<T>emptyList()
-//				pushNode(typeArgu, "TypeArgument:" + typeArgu.getClass().getSimpleName() + ":" + typeArgu.toString());
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-	@Override
-	public boolean visit(ExpressionMethodReference node) {
-//		pushNode(node, node.getName().getFullyQualifiedName());
-//		Expression exp = node.getExpression();
-//		exp.accept(this);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
-        exp.accept(this);
-//        int startPosition = exp.getStartPosition();
-//        int length1 = exp.getLength();
-//        int length2 = node.getLength();
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-	public boolean visit(NumberLiteral node) {
-		String num = node.getToken();
-//		if (num.endsWith("L") || num.endsWith("l")) {
-//			num = "longNumber";
-//		}
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-			label = exp.toString();
-		}
-//		List<?> typeArguments = node.typeArguments();
-//		for (Object obj : typeArguments) {
-//			Type typeArgu = (Type) obj;// TypeArugment: Collections.<T>emptyList()
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-	@Override
-	public boolean visit(CreationReference node) {
-//		pushNode(node, node.toString());
-//		Type type = node.getType();
-//		type.accept(this);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/utils/PathUtils.java`
-#### Snippet
-```java
-		path.append(System.getProperty("path.separator"));
-
-		/*for (String addclasspath : Configuration.additionalClasspathsFromCmdLine) {
-			path.append(addclasspath);
-			path.append(System.getProperty("path.separator"));
 ```
 
 ### CommentedOutCode
@@ -951,50 +855,98 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/PathUtils.java`
 
 ### CommentedOutCode
 Commented out code (4 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/PathUtils.java`
 #### Snippet
 ```java
-			counter++;
+		path.append(System.getProperty("path.separator"));
 
-			/*if(counter<50)
-			{
-				continue;
+		/*for (String addclasspath : Configuration.additionalClasspathsFromCmdLine) {
+			path.append(addclasspath);
+			path.append(System.getProperty("path.separator"));
 ```
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-				}
+		Block methodBody = node.getBody();
+		if (methodBody != null) {
+//			push(8, "Block", "MethodBody", methodBody.getStartPosition(), methodBody.getLength());
+//			methodBody.accept(this);
+			List<?> stmts = methodBody.statements();
+```
 
-				//fullBuggyProjectPath
-				//result = ShellUtils.shellRun(Arrays.asList("cd " + projectName + "\n", "mvn -Dmaven.test.skip clean install"), buggyProject, cmdType.equals("test") ? 2 : 1);//"defects4j " + cmdType + "\n"));//
-			}
+### CommentedOutCode
+Commented out code (8 lines)
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+	@Override
+	public boolean visit(ExpressionMethodReference node) {
+//		pushNode(node, node.getName().getFullyQualifiedName());
+//		Expression exp = node.getExpression();
+//		exp.accept(this);
 ```
 
 ### CommentedOutCode
 Commented out code (3 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-
-				if (results.isEmpty()) {
-//					System.out.println(scn.suspiciousJavaFile + "@" + scn.buggyLine);
-//					System.out.println("Bug: " + buggyCode);
-//					System.out.println("Patch: " + patchCode);
+	public boolean visit(NumberLiteral node) {
+		String num = node.getToken();
+//		if (num.endsWith("L") || num.endsWith("l")) {
+//			num = "longNumber";
+//		}
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+Commented out code (4 lines)
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-			//System.out.println("ForLoop:"+failedTestCase);
-			failed.add(failedTestCase);
-			//failedTestCase = failedTestCase.substring(failedTestCase.indexOf("-") + 1).trim();
-			//failedTestCasesStrList.add(failedTestCase);
-			int colonIndex = failedTestCase.indexOf("::");
+        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
+        exp.accept(this);
+//        int startPosition = exp.getStartPosition();
+//        int length1 = exp.getLength();
+//        int length2 = node.getLength();
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+	@Override
+	public boolean visit(CreationReference node) {
+//		pushNode(node, node.toString());
+//		Type type = node.getType();
+//		type.accept(this);
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+				popNode();
+			}
+//			for (Object obj : typeArguments) {
+//				Type typeArgu = (Type) obj; // TypeArugment: Collections.<T>emptyList()
+//				pushNode(typeArgu, "TypeArgument:" + typeArgu.getClass().getSimpleName() + ":" + typeArgu.toString());
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+			label = exp.toString();
+		}
+//		List<?> typeArguments = node.typeArguments();
+//		for (Object obj : typeArguments) {
+//			Type typeArgu = (Type) obj;// TypeArugment: Collections.<T>emptyList()
 ```
 
 ### CommentedOutCode
@@ -1034,27 +986,63 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 ```
 
 ### CommentedOutCode
-Commented out code (15 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/TestClassesFinder.java`
+Commented out code (2 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 #### Snippet
 ```java
-		}
-
-//		if (this.logger.isDebugEnabled()) {
-//			this.logger.debug("Test clases:");
-//			for (String testClass : testClasses) {
+			//System.out.println("ForLoop:"+failedTestCase);
+			failed.add(failedTestCase);
+			//failedTestCase = failedTestCase.substring(failedTestCase.indexOf("-") + 1).trim();
+			//failedTestCasesStrList.add(failedTestCase);
+			int colonIndex = failedTestCase.indexOf("::");
 ```
 
 ### CommentedOutCode
-Commented out code (17 lines)
+Commented out code (4 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+			counter++;
+
+			/*if(counter<50)
+			{
+				continue;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+				}
+
+				//fullBuggyProjectPath
+				//result = ShellUtils.shellRun(Arrays.asList("cd " + projectName + "\n", "mvn -Dmaven.test.skip clean install"), buggyProject, cmdType.equals("test") ? 2 : 1);//"defects4j " + cmdType + "\n"));//
+			}
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+
+				if (results.isEmpty()) {
+//					System.out.println(scn.suspiciousJavaFile + "@" + scn.buggyLine);
+//					System.out.println("Bug: " + buggyCode);
+//					System.out.println("Patch: " + patchCode);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/DataPreparer.java`
 #### Snippet
 ```java
-		testCases = new TestClassesFinder().findIn(JavaLibrary.classPathFrom(testClassPath + ":" + classPath), false);
-
-//		List<File> testCasesFiles = FileHelper.getAllFiles(testClassPath, ".class");
-////		testCasesFiles.addAll(FileHelper.getAllFiles(testClassPath, "Tests.class"));
-//		StringBuilder b = new StringBuilder();
+		classPaths = JavaLibrary.classPathFrom(testClassPath);
+		classPaths = JavaLibrary.extendClassPathWith(classPath, classPaths);
+		//classPaths = JavaLibrary.extendClassPathWith(additionaltest, classPaths); // nytt
+		//classPaths = JavaLibrary.extendClassPathWith(additionalnotest, classPaths); // nytt
+		if (libPaths != null) {
 ```
 
 ### CommentedOutCode
@@ -1070,15 +1058,15 @@ in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/DataPreparer.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
+Commented out code (17 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/DataPreparer.java`
 #### Snippet
 ```java
-		classPaths = JavaLibrary.classPathFrom(testClassPath);
-		classPaths = JavaLibrary.extendClassPathWith(classPath, classPaths);
-		//classPaths = JavaLibrary.extendClassPathWith(additionaltest, classPaths); // nytt
-		//classPaths = JavaLibrary.extendClassPathWith(additionalnotest, classPaths); // nytt
-		if (libPaths != null) {
+		testCases = new TestClassesFinder().findIn(JavaLibrary.classPathFrom(testClassPath + ":" + classPath), false);
+
+//		List<File> testCasesFiles = FileHelper.getAllFiles(testClassPath, ".class");
+////		testCasesFiles.addAll(FileHelper.getAllFiles(testClassPath, "Tests.class"));
+//		StringBuilder b = new StringBuilder();
 ```
 
 ### CommentedOutCode
@@ -1118,6 +1106,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/DataPreparer.java`
 ```
 
 ### CommentedOutCode
+Commented out code (15 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/TestClassesFinder.java`
+#### Snippet
+```java
+		}
+
+//		if (this.logger.isDebugEnabled()) {
+//			this.logger.debug("Test clases:");
+//			for (String testClass : testClasses) {
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 #### Snippet
@@ -1142,6 +1142,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 ```
 
 ### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+#### Snippet
+```java
+	}
+	
+	/*public TBarFixer(String path, String metric, String projectName, int bugId, String defects4jPath) {
+		super(path, metric, projectName, bugId, defects4jPath);
+	}*/
+```
+
+### CommentedOutCode
 Commented out code (14 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 #### Snippet
@@ -1154,15 +1166,63 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+Commented out code (36 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
 #### Snippet
 ```java
 	}
 	
-	/*public TBarFixer(String path, String metric, String projectName, int bugId, String defects4jPath) {
-		super(path, metric, projectName, bugId, defects4jPath);
-	}*/
+//	public static int getFailTestNumInProject(String buggyProject, List<String> failedTests, String classPath,
+//			String testClassPath, String[] testCasesArray){
+//		StringBuilder builder = new StringBuilder();
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+//	}
+	
+	/*public static int compileProjectWithDefects4j(String projectName, String defects4jPath) {
+		String compileResults = getDefects4jResult(projectName, defects4jPath, "compile");
+		String[] lines = compileResults.split("\n");
+```
+
+### CommentedOutCode
+Commented out code (11 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+	}
+
+	/*private static String getDefects4jResult(String projectName, String defects4jPath, String cmdType) {
+		try {
+			String buggyProject = projectName.substring(projectName.lastIndexOf("/") + 1);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+        }
+
+        /*if(readBoth && st.trim().isEmpty()){ //3. Stop reading Results || Running
+            readBoth=false;
+        }*/
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+		String compileResults = getProjectResultCompile(projectName,"compile");
+		String[] lines = compileResults.split("\n");
+		/*if (lines.length != 2) return 1;
+        for (String lineString: lines){
+        	if (!lineString.endsWith("OK")) return 1;
 ```
 
 ### CommentedOutCode
@@ -1226,90 +1286,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/DataTypeReplacer.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
-#### Snippet
-```java
-        }
-
-        /*if(readBoth && st.trim().isEmpty()){ //3. Stop reading Results || Running
-            readBoth=false;
-        }*/
-```
-
-### CommentedOutCode
-Commented out code (36 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
-#### Snippet
-```java
-	}
-	
-//	public static int getFailTestNumInProject(String buggyProject, List<String> failedTests, String classPath,
-//			String testClassPath, String[] testCasesArray){
-//		StringBuilder builder = new StringBuilder();
-```
-
-### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
-#### Snippet
-```java
-//	}
-	
-	/*public static int compileProjectWithDefects4j(String projectName, String defects4jPath) {
-		String compileResults = getDefects4jResult(projectName, defects4jPath, "compile");
-		String[] lines = compileResults.split("\n");
-```
-
-### CommentedOutCode
-Commented out code (11 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
-#### Snippet
-```java
-	}
-
-	/*private static String getDefects4jResult(String projectName, String defects4jPath, String cmdType) {
-		try {
-			String buggyProject = projectName.substring(projectName.lastIndexOf("/") + 1);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
-#### Snippet
-```java
-		String compileResults = getProjectResultCompile(projectName,"compile");
-		String[] lines = compileResults.split("\n");
-		/*if (lines.length != 2) return 1;
-        for (String lineString: lines){
-        	if (!lineString.endsWith("OK")) return 1;
-```
-
-### CommentedOutCode
-Commented out code (8 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
-#### Snippet
-```java
-				} else sameTypeVars = new ArrayList<>();
-				
-//				List<String> variables = new ArrayList<>();
-//				variables.addAll(allVarNamesList);
-//				variables.removeAll(sameTypeVars);
-```
-
-### CommentedOutCode
-Commented out code (21 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
-#### Snippet
-```java
-	}
-
-//	private List<Pair<String, Double>> identifySimilarVariableNames(String suspVarName, List<String> vars) {
-//		List<Pair<String, Double>> similarVars = new ArrayList<>();
-//		int index = suspVarName.lastIndexOf(".");
-```
-
-### CommentedOutCode
 Commented out code (4 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ReturnStatementMutator.java`
 #### Snippet
@@ -1343,6 +1319,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/MethodInvocationMutator.jav
 //						// some default values. FIXME: it could be removed.
 //						for (int i = 0; i < paraListSize; i++) {
 //							List<String> subParaList = new ArrayList<>();
+```
+
+### CommentedOutCode
+Commented out code (21 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
+#### Snippet
+```java
+	}
+
+//	private List<Pair<String, Double>> identifySimilarVariableNames(String suspVarName, List<String> vars) {
+//		List<Pair<String, Double>> similarVars = new ArrayList<>();
+//		int index = suspVarName.lastIndexOf(".");
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
+#### Snippet
+```java
+				} else sameTypeVars = new ArrayList<>();
+				
+//				List<String> variables = new ArrayList<>();
+//				variables.addAll(allVarNamesList);
+//				variables.removeAll(sameTypeVars);
 ```
 
 ### CommentedOutCode
@@ -1442,18 +1442,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/FixTemplate.java`
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/OperatorMutator.java`
-#### Snippet
-```java
-				String codePart1 = getSubSuspiciouCodeStr(suspCodeStartPos, pos1);
-				String codePart2 = getSubSuspiciouCodeStr(pos2, suspCodeEndPos);
-//				for (String operator : arithmeticOperators) {
-//					if (operator.equals(op)) continue;
-//					generatePatch(codePart1 + operator + codePart2);
-```
-
-### CommentedOutCode
 Commented out code (12 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 #### Snippet
@@ -1487,6 +1475,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 //		for (String var : varStrList) {
 //			String varType = varTypesMap.get(var);
 //			if (varType == null) continue;
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/OperatorMutator.java`
+#### Snippet
+```java
+				String codePart1 = getSubSuspiciouCodeStr(suspCodeStartPos, pos1);
+				String codePart2 = getSubSuspiciouCodeStr(pos2, suspCodeEndPos);
+//				for (String operator : arithmeticOperators) {
+//					if (operator.equals(op)) continue;
+//					generatePatch(codePart1 + operator + codePart2);
 ```
 
 ### CommentedOutCode
@@ -1526,18 +1526,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 ```
 
 ### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
-#### Snippet
-```java
-			if(dataType!= null) return dataType;
-			else {
-//				ITree exp = para.getChild(0);
-//				String type = readParameterType(exp);
-//				if ("Object".equals(type)) {
-```
-
-### CommentedOutCode
 Commented out code (12 lines)
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
@@ -1547,6 +1535,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 //					boolean contained = false;
 //					for (Map.Entry<ITree, Integer> entry : suspMethodInvocations.entrySet()) {
 //						int size = entry.getKey().getChildren().size();
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
+#### Snippet
+```java
+			if(dataType!= null) return dataType;
+			else {
+//				ITree exp = para.getChild(0);
+//				String type = readParameterType(exp);
+//				if ("Object".equals(type)) {
 ```
 
 ### CommentedOutCode
@@ -1563,6 +1563,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
+`stack.size() > 0` can be replaced with '!stack.isEmpty()'
+in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
+#### Snippet
+```java
+            @Override
+            public boolean hasNext() {
+                return stack.size() > 0;
+            }
+
+```
+
+### SizeReplaceableByIsEmpty
+`stack.size() > 0` can be replaced with '!stack.isEmpty()'
+in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
+#### Snippet
+```java
+            @Override
+            public boolean hasNext() {
+                return stack.size() > 0;
+            }
+
+```
+
+### SizeReplaceableByIsEmpty
 `currents.size() > 0` can be replaced with '!currents.isEmpty()'
 in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
 #### Snippet
@@ -1572,30 +1596,6 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
         while (currents.size() > 0) {
             ITree c = currents.remove(0);
             trees.add(c);
-```
-
-### SizeReplaceableByIsEmpty
-`stack.size() > 0` can be replaced with '!stack.isEmpty()'
-in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
-#### Snippet
-```java
-            @Override
-            public boolean hasNext() {
-                return stack.size() > 0;
-            }
-
-```
-
-### SizeReplaceableByIsEmpty
-`stack.size() > 0` can be replaced with '!stack.isEmpty()'
-in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
-#### Snippet
-```java
-            @Override
-            public boolean hasNext() {
-                return stack.size() > 0;
-            }
-
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1615,6 +1615,18 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/AbstractTree.java`
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ListSorter.java`
 #### Snippet
 ```java
+
+	public List<T> sortDescending() {
+		if (list != null && list.size() > 0) {
+			Collections.sort(this.list, Collections.reverseOrder());
+		}
+```
+
+### SizeReplaceableByIsEmpty
+`list.size() > 0` can be replaced with '!list.isEmpty()'
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ListSorter.java`
+#### Snippet
+```java
 	public List<T> sortAscending() {
 		try {
 			if (list != null && list.size() > 0) {
@@ -1623,15 +1635,27 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/ListSorter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`list.size() > 0` can be replaced with '!list.isEmpty()'
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ListSorter.java`
+`s.length()!=0` can be replaced with '!s.isEmpty()'
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
 ```java
+            in = new BufferedInputStream(process.getInputStream());
+            br = new BufferedReader(new InputStreamReader(in));
+            while ((s = br.readLine()) != null && s.length()!=0) {
+                if (sb.length() < 1000000){
+                    if (Thread.interrupted()){
+```
 
-	public List<T> sortDescending() {
-		if (list != null && list.size() > 0) {
-			Collections.sort(this.list, Collections.reverseOrder());
-		}
+### SizeReplaceableByIsEmpty
+`s.length()!=0` can be replaced with '!s.isEmpty()'
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+            in = new BufferedInputStream(process.getErrorStream());
+            br = new BufferedReader(new InputStreamReader(in));
+            while ((s = br.readLine()) != null && s.length()!=0) {
+                if (Thread.interrupted()){
+                    return sb.toString();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1699,10 +1723,10 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-    	}
+    	
     	List<?> interfaceTypes = node.superInterfaceTypes(); // type
     	if (interfaceTypes.size() > 0) {
-    		label += "@@Interface:" + interfaceTypes.toString();
+    		label += interfaceTypes.toString();
     	}
 ```
 
@@ -1723,47 +1747,11 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-    	
+    	}
     	List<?> interfaceTypes = node.superInterfaceTypes(); // type
     	if (interfaceTypes.size() > 0) {
-    		label += interfaceTypes.toString();
+    		label += "@@Interface:" + interfaceTypes.toString();
     	}
-```
-
-### SizeReplaceableByIsEmpty
-`s.length()!=0` can be replaced with '!s.isEmpty()'
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-            in = new BufferedInputStream(process.getInputStream());
-            br = new BufferedReader(new InputStreamReader(in));
-            while ((s = br.readLine()) != null && s.length()!=0) {
-                if (sb.length() < 1000000){
-                    if (Thread.interrupted()){
-```
-
-### SizeReplaceableByIsEmpty
-`s.length()!=0` can be replaced with '!s.isEmpty()'
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-            in = new BufferedInputStream(process.getErrorStream());
-            br = new BufferedReader(new InputStreamReader(in));
-            while ((s = br.readLine()) != null && s.length()!=0) {
-                if (Thread.interrupted()){
-                    return sb.toString();
-```
-
-### SizeReplaceableByIsEmpty
-`method.getBody().statements().size() == 0` can be replaced with 'method.getBody().statements().isEmpty()'
-in `src/main/java/edu/lu/uni/serval/tbar/utils/CodeUtils.java`
-#### Snippet
-```java
-		List<MethodDeclaration> methodDec = getMethod(code, methodName, unit);
-		for (MethodDeclaration method : methodDec) {
-			if (method.getBody() == null || method.getBody().statements().size() == 0) {
-				continue;
-			}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1776,6 +1764,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/CodeUtils.java`
 		if (unit.types().size() == 0) {
 			return new ArrayList<>();
 		}
+```
+
+### SizeReplaceableByIsEmpty
+`method.getBody().statements().size() == 0` can be replaced with 'method.getBody().statements().isEmpty()'
+in `src/main/java/edu/lu/uni/serval/tbar/utils/CodeUtils.java`
+#### Snippet
+```java
+		List<MethodDeclaration> methodDec = getMethod(code, methodName, unit);
+		for (MethodDeclaration method : methodDec) {
+			if (method.getBody() == null || method.getBody().statements().size() == 0) {
+				continue;
+			}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1894,11 +1894,11 @@ Can generalize to `? extends ITree`
 in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
 #### Snippet
 ```java
-            }
+    }
 
-            ITree selectNextChild(Iterator<ITree> it) {
-                if (!it.hasNext())
-                    return stack.pop().getFirst();
+    public static void numbering(Iterable<ITree> iterable) {
+        int i = 0;
+        for (ITree t: iterable)
 ```
 
 ### BoundedWildcard
@@ -1930,11 +1930,11 @@ Can generalize to `? extends ITree`
 in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
 #### Snippet
 ```java
-    }
+            }
 
-    public static void numbering(Iterable<ITree> iterable) {
-        int i = 0;
-        for (ITree t: iterable)
+            ITree selectNextChild(Iterator<ITree> it) {
+                if (!it.hasNext())
+                    return stack.pop().getFirst();
 ```
 
 ### BoundedWildcard
@@ -1950,39 +1950,15 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/SetUtils.java`
-#### Snippet
-```java
-public class SetUtils {
-
-	public static <T> void addToMap(Map<String, List<T>> dictionary, String key, T t) {
-		List<T> objects = dictionary.get(key);
-		if (objects == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ListSorter.java`
-#### Snippet
-```java
-	private List<T> list;
-
-	public ListSorter(List<T> list) {
-		this.list = new ArrayList<>();
-		this.list.addAll(list);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ASTNode`
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/JdtVisitor.java`
 #### Snippet
 ```java
     }
 
-    private int endPosition(List<ASTNode> list) {
-        if (list.isEmpty())
-            return 0;
+    private void visitList(List<ASTNode> list) {
+        for (ASTNode node : list) {
+            (node).accept(this);
 ```
 
 ### BoundedWildcard
@@ -2004,9 +1980,33 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/JdtVisitor.java`
 ```java
     }
 
-    private void visitList(List<ASTNode> list) {
-        for (ASTNode node : list) {
-            (node).accept(this);
+    private int endPosition(List<ASTNode> list) {
+        if (list.isEmpty())
+            return 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ListSorter.java`
+#### Snippet
+```java
+	private List<T> list;
+
+	public ListSorter(List<T> list) {
+		this.list = new ArrayList<>();
+		this.list.addAll(list);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/SetUtils.java`
+#### Snippet
+```java
+public class SetUtils {
+
+	public static <T> void addToMap(Map<String, List<T>> dictionary, String key, T t) {
+		List<T> objects = dictionary.get(key);
+		if (objects == null) {
 ```
 
 ### BoundedWildcard
@@ -2040,8 +2040,8 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/Dictionary.java`
 ```java
 	}
 
-	public void setImportedDependencies(Map<String, List<String>> importedDependencies) {
-		this.importedDependencies.putAll(importedDependencies);
+	public void setMethods(Map<String, List<Method>> methods) {
+		this.methods.putAll(methods);
 	}
 ```
 
@@ -2052,8 +2052,8 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/Dictionary.java`
 ```java
 	}
 
-	public void setMethods(Map<String, List<Method>> methods) {
-		this.methods.putAll(methods);
+	public void setImportedDependencies(Map<String, List<String>> importedDependencies) {
+		this.importedDependencies.putAll(importedDependencies);
 	}
 ```
 
@@ -2067,18 +2067,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementMover.java`
 	private void exchangeStatementSequence(List<ITree> peerStmts, int buggyStmtIndex) {
 		for (int index = 0, size = peerStmts.size(); index < size; index ++) {
 			if (index < buggyStmtIndex) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ITree`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/DataTypeReplacer.java`
-#### Snippet
-```java
-	}
-	
-	private boolean isCorelatedStmt(ITree stmt, List<String> variables, int stmtType, List<ITree> peerStmts, List<Integer> posList, String oldType) {
-		List<ITree> children = stmt.getChildren();
-		boolean isCorelatedStmt = false;
 ```
 
 ### BoundedWildcard
@@ -2106,6 +2094,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ITree`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/DataTypeReplacer.java`
+#### Snippet
+```java
+	}
+	
+	private boolean isCorelatedStmt(ITree stmt, List<String> variables, int stmtType, List<ITree> peerStmts, List<Integer> posList, String oldType) {
+		List<ITree> children = stmt.getChildren();
+		boolean isCorelatedStmt = false;
+```
+
+### BoundedWildcard
 Can generalize to `? super ITree`
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ReturnStatementMutator.java`
 #### Snippet
@@ -2115,6 +2115,66 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ReturnStatementMutator.java
 	private void searchForExpressions(ITree tree, List<ITree> expList) {
 		int treeType = tree.getType();
 		ITree exp = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super ITree`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
+#### Snippet
+```java
+	}
+
+	private void identifySinglePredicateExpressions(ITree expAst, int distance, Map<ITree, Integer> predicateExps, List<String> varNames) {
+		if (Checker.isInfixExpression(expAst.getType())) { // InfixExpression
+			String operator = expAst.getChild(1).getLabel();
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
+#### Snippet
+```java
+	}
+
+	private void identifySinglePredicateExpressions(ITree expAst, int distance, Map<ITree, Integer> predicateExps, List<String> varNames) {
+		if (Checker.isInfixExpression(expAst.getType())) { // InfixExpression
+			String operator = expAst.getChild(1).getLabel();
+```
+
+### BoundedWildcard
+Can generalize to `? super ITree`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
+#### Snippet
+```java
+	}
+
+	private void identifyPredicateExpressionsInParentTree(ITree tree, int distance, Map<ITree, Integer> predicateExps) {
+		int treeType = tree.getType();
+		if (Checker.isTypeDeclaration(treeType)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
+#### Snippet
+```java
+	}
+
+	private void identifyPredicateExpressionsInParentTree(ITree tree, int distance, Map<ITree, Integer> predicateExps) {
+		int treeType = tree.getType();
+		if (Checker.isTypeDeclaration(treeType)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ITree`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
+#### Snippet
+```java
+	}
+
+	private Map<ITree, Integer> readSubPredicateExpressions(List<ITree> subExps) {
+		Map<ITree, Integer> predicateExps = new HashMap<>();
+		ITree operator = subExps.get(1);
 ```
 
 ### BoundedWildcard
@@ -2142,66 +2202,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ITree`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
-#### Snippet
-```java
-	}
-
-	private void identifyPredicateExpressionsInParentTree(ITree tree, int distance, Map<ITree, Integer> predicateExps) {
-		int treeType = tree.getType();
-		if (Checker.isTypeDeclaration(treeType)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
-#### Snippet
-```java
-	}
-
-	private void identifyPredicateExpressionsInParentTree(ITree tree, int distance, Map<ITree, Integer> predicateExps) {
-		int treeType = tree.getType();
-		if (Checker.isTypeDeclaration(treeType)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ITree`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
-#### Snippet
-```java
-	}
-
-	private void identifySinglePredicateExpressions(ITree expAst, int distance, Map<ITree, Integer> predicateExps, List<String> varNames) {
-		if (Checker.isInfixExpression(expAst.getType())) { // InfixExpression
-			String operator = expAst.getChild(1).getLabel();
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
-#### Snippet
-```java
-	}
-
-	private void identifySinglePredicateExpressions(ITree expAst, int distance, Map<ITree, Integer> predicateExps, List<String> varNames) {
-		if (Checker.isInfixExpression(expAst.getType())) { // InfixExpression
-			String operator = expAst.getChild(1).getLabel();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ITree`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ChangeCondition.java`
-#### Snippet
-```java
-	}
-
-	private Map<ITree, Integer> readSubPredicateExpressions(List<ITree> subExps) {
-		Map<ITree, Integer> predicateExps = new HashMap<>();
-		ITree operator = subExps.get(1);
-```
-
-### BoundedWildcard
 Can generalize to `? extends ITree`
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
@@ -2214,90 +2214,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-
-	private static void addStaticFieldsFromDependencies(Map<String, List<String>> allVarNamesMap,
-			Map<String, String> varTypesMap, List<String> allVarNamesList, String classNameAndPath, Dictionary dic, String codePath) {
-		List<String> dependencies = dic.findImportedDependencies(classNameAndPath);
-		if (dependencies == null) return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-
-	private static void addStaticFieldsFromDependencies(Map<String, List<String>> allVarNamesMap,
-			Map<String, String> varTypesMap, List<String> allVarNamesList, String classNameAndPath, Dictionary dic, String codePath) {
-		List<String> dependencies = dic.findImportedDependencies(classNameAndPath);
-		if (dependencies == null) return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-
-	private static void addStaticFieldsFromDependencies(Map<String, List<String>> allVarNamesMap,
-			Map<String, String> varTypesMap, List<String> allVarNamesList, String classNameAndPath, Dictionary dic, String codePath) {
-		List<String> dependencies = dic.findImportedDependencies(classNameAndPath);
-		if (dependencies == null) return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-	}
-	
-	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
-		if (Checker.isSingleVariableDeclaration(treeType)) {
-			List<ITree> children = codeTree.getChildren();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-	}
-	
-	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
-		if (Checker.isSingleVariableDeclaration(treeType)) {
-			List<ITree> children = codeTree.getChildren();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-	}
-	
-	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
-		if (Checker.isSingleVariableDeclaration(treeType)) {
-			List<ITree> children = codeTree.getChildren();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-	}
-	
-	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
-		if (Checker.isSingleVariableDeclaration(treeType)) {
-			List<ITree> children = codeTree.getChildren();
-```
-
-### BoundedWildcard
 Can generalize to `? super ITree`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
@@ -2319,6 +2235,54 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 	public static void identifySuspiciousVariables(ITree suspCodeAst, List<ITree> varTrees, List<String> allSuspVariables) {
 		List<ITree> children = suspCodeAst.getChildren();
 		for (ITree child : children) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+	}
+	
+	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
+		if (Checker.isSingleVariableDeclaration(treeType)) {
+			List<ITree> children = codeTree.getChildren();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+	}
+	
+	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
+		if (Checker.isSingleVariableDeclaration(treeType)) {
+			List<ITree> children = codeTree.getChildren();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+	}
+	
+	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
+		if (Checker.isSingleVariableDeclaration(treeType)) {
+			List<ITree> children = codeTree.getChildren();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+	}
+	
+	private static void readSingleVariableDeclaration(ITree codeTree, int treeType, Map<String, List<String>> varNamesMap, Map<String, String> varTypesMap, List<String> allVarNamesList) {
+		if (Checker.isSingleVariableDeclaration(treeType)) {
+			List<ITree> children = codeTree.getChildren();
 ```
 
 ### BoundedWildcard
@@ -2417,6 +2381,42 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 		
 ```
 
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+
+	private static void addStaticFieldsFromDependencies(Map<String, List<String>> allVarNamesMap,
+			Map<String, String> varTypesMap, List<String> allVarNamesList, String classNameAndPath, Dictionary dic, String codePath) {
+		List<String> dependencies = dic.findImportedDependencies(classNameAndPath);
+		if (dependencies == null) return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+
+	private static void addStaticFieldsFromDependencies(Map<String, List<String>> allVarNamesMap,
+			Map<String, String> varTypesMap, List<String> allVarNamesList, String classNameAndPath, Dictionary dic, String codePath) {
+		List<String> dependencies = dic.findImportedDependencies(classNameAndPath);
+		if (dependencies == null) return;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+
+	private static void addStaticFieldsFromDependencies(Map<String, List<String>> allVarNamesMap,
+			Map<String, String> varTypesMap, List<String> allVarNamesList, String classNameAndPath, Dictionary dic, String codePath) {
+		List<String> dependencies = dic.findImportedDependencies(classNameAndPath);
+		if (dependencies == null) return;
+```
+
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `AbstractRawTokenJdtVisitor` has no concrete subclass
@@ -2431,15 +2431,15 @@ public abstract class AbstractRawTokenJdtVisitor extends AbstractJdtVisitor {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractRawTokenJdtTreeGenerator` has no concrete subclass
-in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerator.java`
+Abstract class `Registry` has no concrete subclass
+in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
 #### Snippet
 ```java
-import java.util.Map;
+import java.util.TreeSet;
 
-public abstract class AbstractRawTokenJdtTreeGenerator extends TreeGenerator {
+public abstract class Registry<K, C, A> {
 
-    private static char[] readerToCharArray(Reader r) throws IOException {
+    Set<Entry> entries = new TreeSet<>(
 ```
 
 ### AbstractClassNeverImplemented
@@ -2455,15 +2455,15 @@ in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Registry` has no concrete subclass
-in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
+Abstract class `AbstractRawTokenJdtTreeGenerator` has no concrete subclass
+in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerator.java`
 #### Snippet
 ```java
-import java.util.TreeSet;
+import java.util.Map;
 
-public abstract class Registry<K, C, A> {
+public abstract class AbstractRawTokenJdtTreeGenerator extends TreeGenerator {
 
-    Set<Entry> entries = new TreeSet<>(
+    private static char[] readerToCharArray(Reader r) throws IOException {
 ```
 
 ## RuleId[ruleID=DuplicateCondition]
@@ -2565,30 +2565,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 
 ## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-
-	public static String tempClassPath(String classname, String identifier) {
-		new File(Configuration.TEMP_FILES_PATH + identifier).mkdirs();
-		return Configuration.TEMP_FILES_PATH + identifier + "/" + classname.substring(classname.lastIndexOf(".") + 1) + ".class";
-	}
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-
-	public static String tempJavaPath(String classname, String identifier) {
-		new File(Configuration.TEMP_FILES_PATH + identifier).mkdirs();
-		return Configuration.TEMP_FILES_PATH + identifier + "/" + classname.substring(classname.lastIndexOf(".") + 1) + ".java";
-	}
-```
-
-### IgnoreResultOfCall
 Result of `File.setReadable()` is ignored
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
@@ -2649,15 +2625,27 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.renameTo()` is ignored
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+Result of `File.mkdirs()` is ignored
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
 #### Snippet
 ```java
-	        String patchedJavaFile = javaCode.substring(0, exactBuggyCodeStartPos) + patchCode + javaCode.substring(exactBuggyCodeEndPos);
-	        FileHelper.outputToFile(newFile, patchedJavaFile, false);
-	        newFile.renameTo(scn.targetJavaFile);
-		} catch (StringIndexOutOfBoundsException e) {
-			log.debug(exactBuggyCodeStartPos + " ==> " + exactBuggyCodeEndPos + " : " + javaCode.length());
+
+	public static String tempClassPath(String classname, String identifier) {
+		new File(Configuration.TEMP_FILES_PATH + identifier).mkdirs();
+		return Configuration.TEMP_FILES_PATH + identifier + "/" + classname.substring(classname.lastIndexOf(".") + 1) + ".class";
+	}
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+#### Snippet
+```java
+
+	public static String tempJavaPath(String classname, String identifier) {
+		new File(Configuration.TEMP_FILES_PATH + identifier).mkdirs();
+		return Configuration.TEMP_FILES_PATH + identifier + "/" + classname.substring(classname.lastIndexOf(".") + 1) + ".java";
+	}
 ```
 
 ### IgnoreResultOfCall
@@ -2682,6 +2670,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
         	if (classBackup.exists()) classBackup.delete();
 			Files.copy(targetJavaFile.toPath(), javaBackup.toPath());
 			Files.copy(targetClassFile.toPath(), classBackup.toPath());
+```
+
+### IgnoreResultOfCall
+Result of `File.renameTo()` is ignored
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+	        String patchedJavaFile = javaCode.substring(0, exactBuggyCodeStartPos) + patchCode + javaCode.substring(exactBuggyCodeEndPos);
+	        FileHelper.outputToFile(newFile, patchedJavaFile, false);
+	        newFile.renameTo(scn.targetJavaFile);
+		} catch (StringIndexOutOfBoundsException e) {
+			log.debug(exactBuggyCodeStartPos + " ==> " + exactBuggyCodeEndPos + " : " + javaCode.length());
 ```
 
 ### IgnoreResultOfCall
@@ -2721,15 +2721,15 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `FilterInputStream.read()` is ignored
+Result of `File.delete()` is ignored
 in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 #### Snippet
 ```java
-			bis = new BufferedInputStream(new FileInputStream(file));
-			input = new byte[bis.available()];
-			bis.read(input);
-			
-		} catch (FileNotFoundException e) {
+		if (file.exists()) {
+			if (file.isFile()) {
+				file.delete();
+			} else {
+				deleteDirectory(fileName);
 ```
 
 ### IgnoreResultOfCall
@@ -2757,15 +2757,27 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
+Result of `File.mkdirs()` is ignored
 in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 #### Snippet
 ```java
-		if (file.exists()) {
-			if (file.isFile()) {
-				file.delete();
-			} else {
-				deleteDirectory(fileName);
+			deleteDirectory(filePath);
+		}
+		file.mkdirs();
+	}
+	
+```
+
+### IgnoreResultOfCall
+Result of `FilterInputStream.read()` is ignored
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
+#### Snippet
+```java
+			bis = new BufferedInputStream(new FileInputStream(file));
+			input = new byte[bis.available()];
+			bis.read(input);
+			
+		} catch (FileNotFoundException e) {
 ```
 
 ### IgnoreResultOfCall
@@ -2802,18 +2814,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 			file.mkdirs();
 		}
 	}
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
-#### Snippet
-```java
-			deleteDirectory(filePath);
-		}
-		file.mkdirs();
-	}
-	
 ```
 
 ### IgnoreResultOfCall
@@ -2870,11 +2870,11 @@ Unnecessary unboxing
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 #### Snippet
 ```java
-			if (parentContext == null) return;
-			
-			boolean isLoopStmt = parentContext.getSecond().booleanValue();
-			
-			buggyExps = new ListSorter<ExpStr>(buggyExps).sortAscending();
+				 * +   …v…
+				 */
+				boolean isLoopStmt = parentContext.getSecond().booleanValue();
+				
+				String fixedCodeStr1 = "";
 ```
 
 ### UnnecessaryUnboxing
@@ -2906,26 +2906,14 @@ Unnecessary unboxing
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 #### Snippet
 ```java
-				 * +   …v…
-				 */
-				boolean isLoopStmt = parentContext.getSecond().booleanValue();
-				
-				String fixedCodeStr1 = "";
+			if (parentContext == null) return;
+			
+			boolean isLoopStmt = parentContext.getSecond().booleanValue();
+			
+			buggyExps = new ListSorter<ExpStr>(buggyExps).sortAscending();
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `setParent()` is identical to its super method
-in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
-#### Snippet
-```java
-
-    @Override
-    public void setParent(ITree parent) {
-        this.parent = parent;
-    }
-```
-
 ### RedundantMethodOverride
 Method `getParent()` is identical to its super method
 in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
@@ -2939,14 +2927,14 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
 ```
 
 ### RedundantMethodOverride
-Method `endVisit()` is identical to its super method
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+Method `setParent()` is identical to its super method
+in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
 #### Snippet
 ```java
 
     @Override
-    public void endVisit(VariableDeclarationExpression node) {
-        popNode();
+    public void setParent(ITree parent) {
+        this.parent = parent;
     }
 ```
 
@@ -2957,7 +2945,7 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 ```java
 
     @Override
-    public void endVisit(TypeLiteral node) {
+    public void endVisit(VariableDeclarationExpression node) {
         popNode();
     }
 ```
@@ -2982,6 +2970,18 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 
     @Override
     public void endVisit(CatchClause node) {
+        popNode();
+    }
+```
+
+### RedundantMethodOverride
+Method `endVisit()` is identical to its super method
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+
+    @Override
+    public void endVisit(TypeLiteral node) {
         popNode();
     }
 ```
@@ -3159,7 +3159,7 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/TreeContext.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerator.java`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractJdtTreeGenerator.java`
 #### Snippet
 ```java
             char[] buf = new char[10];
@@ -3171,7 +3171,7 @@ in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerat
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractJdtTreeGenerator.java`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerator.java`
 #### Snippet
 ```java
             char[] buf = new char[10];
@@ -3210,18 +3210,6 @@ Result of assignment expression used
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
 ```java
-    
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line + "\n");
-                if(Configuration.ShellVerbose)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
             in = new BufferedInputStream(process.getInputStream());
             br = new BufferedReader(new InputStreamReader(in));
             while ((s = br.readLine()) != null && s.length()!=0) {
@@ -3239,6 +3227,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
             while ((s = br.readLine()) != null && s.length()!=0) {
                 if (Thread.interrupted()){
                     return sb.toString();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+    
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line + "\n");
+                if(Configuration.ShellVerbose)
 ```
 
 ### NestedAssignment
@@ -3582,15 +3582,15 @@ in `src/main/java/edu/lu/uni/serval/tbar/code/analyser/JavaCodeFileParser.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `0` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
 #### Snippet
 ```java
-	public static boolean NO_GIT = false;
-	public static boolean ShellVerbose = false;
-	public static boolean testVerbose = false;
-	public static String testOutputAdapter_for="bears";
-	public static String bugDataSet = "bears"; // d4j or bears
+	public static int dictionarysize = 0;
+	public static Map<String, Integer> freq = new HashMap<String, Integer>();
+	public static long dicttime = 0;
+	public static String lastFixPattern = "";
+	public static long generatePatchTime = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -3598,11 +3598,11 @@ Field initialization to `false` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
 #### Snippet
 ```java
-	public static String outputPath = "OUTPUT/";
-	public static boolean NO_GIT = false;
-	public static boolean ShellVerbose = false;
-	public static boolean testVerbose = false;
 	public static String testOutputAdapter_for="bears";
+	public static String bugDataSet = "bears"; // d4j or bears
+	public static boolean run_tests_locally = false;
+
+	public static List<String> additionalDepsFromCmdLine = new ArrayList<>();
 ```
 
 ### RedundantFieldInitialization
@@ -3642,30 +3642,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
-#### Snippet
-```java
-	public static int dictionarysize = 0;
-	public static Map<String, Integer> freq = new HashMap<String, Integer>();
-	public static long dicttime = 0;
-	public static String lastFixPattern = "";
-	public static long generatePatchTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
-#### Snippet
-```java
-	public static String testOutputAdapter_for="bears";
-	public static String bugDataSet = "bears"; // d4j or bears
-	public static boolean run_tests_locally = false;
-
-	public static List<String> additionalDepsFromCmdLine = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
 #### Snippet
@@ -3679,6 +3655,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
+#### Snippet
+```java
+	public static boolean NO_GIT = false;
+	public static boolean ShellVerbose = false;
+	public static boolean testVerbose = false;
+	public static String testOutputAdapter_for="bears";
+	public static String bugDataSet = "bears"; // d4j or bears
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
+#### Snippet
+```java
+	public static String outputPath = "OUTPUT/";
+	public static boolean NO_GIT = false;
+	public static boolean ShellVerbose = false;
+	public static boolean testVerbose = false;
+	public static String testOutputAdapter_for="bears";
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/context/Field.java`
 #### Snippet
 ```java
@@ -3687,6 +3687,42 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/Field.java`
 	private boolean isStatic = false;
 	
 	public Field(String className, ModifierType modifier, String dataType, String varName,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+	public int minErrorTest;                // Number of failed test cases before fixing.
+	public int minErrorTest_;
+	protected int minErrorTestAfterFix = 0; // Number of failed test cases after fixing
+	protected String fullBuggyProjectPath;  // The full path of the local buggy project.
+	public String outputPath = "";          // Output path for the generated patches.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+	public String dataType = "";
+	protected int patchId = 0;
+	protected int comparablePatches = 0;
+//	private TimeLine timeLine;
+	protected Dictionary dic = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+	protected String fullBuggyProjectPath;  // The full path of the local buggy project.
+	public String outputPath = "";          // Output path for the generated patches.
+	public File suspCodePosFile = null;     // The file containing suspicious code positions localized by FL tools.
+	protected DataPreparer dp;              // The needed data of buggy program for compiling and testing.
+	
 ```
 
 ### RedundantFieldInitialization
@@ -3718,42 +3754,6 @@ Field initialization to `0` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 #### Snippet
 ```java
-	public int minErrorTest;                // Number of failed test cases before fixing.
-	public int minErrorTest_;
-	protected int minErrorTestAfterFix = 0; // Number of failed test cases after fixing
-	protected String fullBuggyProjectPath;  // The full path of the local buggy project.
-	public String outputPath = "";          // Output path for the generated patches.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-	protected int comparablePatches = 0;
-//	private TimeLine timeLine;
-	protected Dictionary dic = null;
-	
-	public boolean isTestFixPatterns = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-	public String dataType = "";
-	protected int patchId = 0;
-	protected int comparablePatches = 0;
-//	private TimeLine timeLine;
-	protected Dictionary dic = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
 	public int fixedStatus = 0;
 	public String dataType = "";
 	protected int patchId = 0;
@@ -3766,11 +3766,11 @@ Field initialization to `null` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 #### Snippet
 ```java
-	protected String fullBuggyProjectPath;  // The full path of the local buggy project.
-	public String outputPath = "";          // Output path for the generated patches.
-	public File suspCodePosFile = null;     // The file containing suspicious code positions localized by FL tools.
-	protected DataPreparer dp;              // The needed data of buggy program for compiling and testing.
+	protected int comparablePatches = 0;
+//	private TimeLine timeLine;
+	protected Dictionary dic = null;
 	
+	public boolean isTestFixPatterns = false;
 ```
 
 ### RedundantFieldInitialization
@@ -3838,6 +3838,30 @@ Field initialization to `null` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
+	
+	protected Map<ITree, Integer> suspMethodInvocations = new HashMap<>();
+	ITree classDeclarationAst = null;
+	String packageName = "";
+	String className = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
+#### Snippet
+```java
+		private ITree codeAst;
+		private Map<String, List<String>> couldBeReplacedMethods = null; // replace method name.
+		private List<ITree> differentParaMethods = null;  // add or delete parameter(s);
+		private List<Method> canBeReplacedMethods = null; // replace method name;
+		private List<Method> diffParameterMethods = null; // add or delete parameter(s);
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
+#### Snippet
+```java
 	ITree classDeclarationAst = null;
 	String packageName = "";
 	String className = null;
@@ -3874,30 +3898,6 @@ Field initialization to `null` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
-		private List<List<String>> parameterTypes = new ArrayList<>();
-		private ITree codeAst;
-		private Map<String, List<String>> couldBeReplacedMethods = null; // replace method name.
-		private List<ITree> differentParaMethods = null;  // add or delete parameter(s);
-		private List<Method> canBeReplacedMethods = null; // replace method name;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
-#### Snippet
-```java
-	
-	protected Map<ITree, Integer> suspMethodInvocations = new HashMap<>();
-	ITree classDeclarationAst = null;
-	String packageName = "";
-	String className = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
-#### Snippet
-```java
 		private List<ITree> differentParaMethods = null;  // add or delete parameter(s);
 		private List<Method> canBeReplacedMethods = null; // replace method name;
 		private List<Method> diffParameterMethods = null; // add or delete parameter(s);
@@ -3922,11 +3922,11 @@ Field initialization to `null` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
+		private List<List<String>> parameterTypes = new ArrayList<>();
 		private ITree codeAst;
 		private Map<String, List<String>> couldBeReplacedMethods = null; // replace method name.
 		private List<ITree> differentParaMethods = null;  // add or delete parameter(s);
 		private List<Method> canBeReplacedMethods = null; // replace method name;
-		private List<Method> diffParameterMethods = null; // add or delete parameter(s);
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -3982,7 +3982,7 @@ public class Tree extends AbstractTree implements ITree {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-19-17-15-31.484.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-19-23-00-18.892.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4057,7 +4057,7 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
 
 ### UnusedAssignment
 Variable `numRead` initializer `0` is redundant
-in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerator.java`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractJdtTreeGenerator.java`
 #### Snippet
 ```java
         try (BufferedReader br = new BufferedReader(r)) {
@@ -4069,7 +4069,7 @@ in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerat
 
 ### UnusedAssignment
 Variable `numRead` initializer `0` is redundant
-in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractJdtTreeGenerator.java`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/AbstractRawTokenJdtTreeGenerator.java`
 #### Snippet
 ```java
         try (BufferedReader br = new BufferedReader(r)) {
@@ -4101,6 +4101,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/SuspiciousCodeParser.java`
 						br = null;
 					}
 				} catch (IOException e) {
+```
+
+### UnusedAssignment
+Variable `returnString` initializer `""` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+		ExecutorService service = Executors.newSingleThreadExecutor();
+        Future<String> future = service.submit(new ReadShellProcess(process));
+        String returnString = "";
+        System.out.println("getShellOut1");
+        try {
+```
+
+### UnusedAssignment
+Variable `isStatic` initializer `false` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/context/Field.java`
+#### Snippet
+```java
+	private String dataType;
+	private String varName;
+	private boolean isStatic = false;
+	
+	public Field(String className, ModifierType modifier, String dataType, String varName,
 ```
 
 ### UnusedAssignment
@@ -4140,78 +4164,6 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 ```
 
 ### UnusedAssignment
-Variable `returnString` initializer `""` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-		ExecutorService service = Executors.newSingleThreadExecutor();
-        Future<String> future = service.submit(new ReadShellProcess(process));
-        String returnString = "";
-        System.out.println("getShellOut1");
-        try {
-```
-
-### UnusedAssignment
-Variable `isStatic` initializer `false` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/context/Field.java`
-#### Snippet
-```java
-	private String dataType;
-	private String varName;
-	private boolean isStatic = false;
-	
-	public Field(String className, ModifierType modifier, String dataType, String varName,
-```
-
-### UnusedAssignment
-Variable `buggyProject` initializer `""` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-	public String metric = "Ochiai";          // Fault localization metric.
-	protected String path = "";
-	protected String buggyProject = "";     // The buggy project name.
-	protected String defects4jPath;         // The path of local installed defects4j.
-	public int minErrorTest;                // Number of failed test cases before fixing.
-```
-
-### UnusedAssignment
-Variable `results` initializer `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-			log.debug("Test previously failed test cases.");
-			try {
-				String results=null;
-
-				if(Configuration.bugDataSet.equals("d4j"))
-```
-
-### UnusedAssignment
-Variable `errorTestAfterFix` initializer `0` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-			//int errorTestAfterFix = TestUtils.getFailTestNumInProjectBears2(fullBuggyProjectPath,failedTestsAfterFix);
-
-			int errorTestAfterFix = 0;
-
-			if(Configuration.testOutputAdapter_for.equals("bears2"))
-```
-
-### UnusedAssignment
-Variable `path` initializer `""` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-	
-	public String metric = "Ochiai";          // Fault localization metric.
-	protected String path = "";
-	protected String buggyProject = "";     // The buggy project name.
-	protected String defects4jPath;         // The path of local installed defects4j.
-```
-
-### UnusedAssignment
 Variable `suspiciousFile` initializer `null` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 #### Snippet
@@ -4245,6 +4197,54 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
             String line = null;
             while ((line = reader.readLine()) != null) {
             	String[] elements = line.split("@");
+```
+
+### UnusedAssignment
+Variable `buggyProject` initializer `""` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+	public String metric = "Ochiai";          // Fault localization metric.
+	protected String path = "";
+	protected String buggyProject = "";     // The buggy project name.
+	protected String defects4jPath;         // The path of local installed defects4j.
+	public int minErrorTest;                // Number of failed test cases before fixing.
+```
+
+### UnusedAssignment
+Variable `path` initializer `""` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+	
+	public String metric = "Ochiai";          // Fault localization metric.
+	protected String path = "";
+	protected String buggyProject = "";     // The buggy project name.
+	protected String defects4jPath;         // The path of local installed defects4j.
+```
+
+### UnusedAssignment
+Variable `results` initializer `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+			log.debug("Test previously failed test cases.");
+			try {
+				String results=null;
+
+				if(Configuration.bugDataSet.equals("d4j"))
+```
+
+### UnusedAssignment
+Variable `errorTestAfterFix` initializer `0` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+			//int errorTestAfterFix = TestUtils.getFailTestNumInProjectBears2(fullBuggyProjectPath,failedTestsAfterFix);
+
+			int errorTestAfterFix = 0;
+
+			if(Configuration.testOutputAdapter_for.equals("bears2"))
 ```
 
 ### UnusedAssignment
@@ -4296,6 +4296,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 ```
 
 ### UnusedAssignment
+The value `true` assigned to `nullChecked` is never used
+in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+#### Snippet
+```java
+			
+			if (!nullChecked) {
+				nullChecked = true;
+				ft = new NullPointerChecker();
+				if (isTestFixPatterns) dataType = readDirectory() + "/NullPointerChecker";
+```
+
+### UnusedAssignment
 Variable `suspiciousFile` initializer `null` is redundant
 in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 #### Snippet
@@ -4329,18 +4341,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 			line = reader.readLine();
 			while ((line = reader.readLine()) != null) {
 				int dollarIndex = line.indexOf("$");
-```
-
-### UnusedAssignment
-The value `true` assigned to `nullChecked` is never used
-in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
-#### Snippet
-```java
-			
-			if (!nullChecked) {
-				nullChecked = true;
-				ft = new NullPointerChecker();
-				if (isTestFixPatterns) dataType = readDirectory() + "/NullPointerChecker";
 ```
 
 ### UnusedAssignment
@@ -4404,15 +4404,27 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 ```
 
 ### UnusedAssignment
-Variable `varName` initializer `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/RangeChecker.java`
+Variable `errorNum` initializer `0` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
 #### Snippet
 ```java
-			List<Pair<ITree, ITree>> methodInvocations = identifyMethodInvocations(suspStmtTree);
-			if (methodInvocations.isEmpty()) return;
-			String varName = null;
-			String returnType = null;
-			int codeEndPos = suspCodeEndPos;
+    fileTestOutput.delete();
+
+    int errorNum=0;
+
+    if (lineCount<2){//error occurs in run
+```
+
+### UnusedAssignment
+Variable `errorNum` initializer `0` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+        fileTestOutput.delete();
+
+        int errorNum=0;
+
+        if (lineCount<2){//error occurs in run
 ```
 
 ### UnusedAssignment
@@ -4428,15 +4440,15 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/RangeChecker.java`
 ```
 
 ### UnusedAssignment
-Variable `suspPredicateExp` initializer `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ConditionalExpressionMutator.java`
+Variable `varName` initializer `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/RangeChecker.java`
 #### Snippet
 ```java
-			ITree suspStmtAst = getSuspiciousCodeTree();
-			
-			ITree suspPredicateExp = null;
-			if (Checker.isDoStatement(suspStmtAst.getType())) {
-				List<ITree> children = suspStmtAst.getChildren();
+			List<Pair<ITree, ITree>> methodInvocations = identifyMethodInvocations(suspStmtTree);
+			if (methodInvocations.isEmpty()) return;
+			String varName = null;
+			String returnType = null;
+			int codeEndPos = suspCodeEndPos;
 ```
 
 ### UnusedAssignment
@@ -4449,6 +4461,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ConditionalExpressionMutato
 	private int type = 0;
 	public ConditionalExpressionMutator(int type) {
 		this.type = type;
+```
+
+### UnusedAssignment
+Variable `suspPredicateExp` initializer `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ConditionalExpressionMutator.java`
+#### Snippet
+```java
+			ITree suspStmtAst = getSuspiciousCodeTree();
+			
+			ITree suspPredicateExp = null;
+			if (Checker.isDoStatement(suspStmtAst.getType())) {
+				List<ITree> children = suspStmtAst.getChildren();
 ```
 
 ### UnusedAssignment
@@ -4476,39 +4500,15 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
 ```
 
 ### UnusedAssignment
-Variable `errorNum` initializer `0` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+Variable `lastPeerStmt` initializer `peerStmts.get(peerStmts.size() - 1)` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 #### Snippet
 ```java
-    fileTestOutput.delete();
-
-    int errorNum=0;
-
-    if (lineCount<2){//error occurs in run
-```
-
-### UnusedAssignment
-Variable `errorNum` initializer `0` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
-#### Snippet
-```java
-        fileTestOutput.delete();
-
-        int errorNum=0;
-
-        if (lineCount<2){//error occurs in run
-```
-
-### UnusedAssignment
-Variable `suspCodeEndPos` initializer `this.suspCodeEndPos` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
-#### Snippet
-```java
-					String fixedCodeStr1 = "if (" + var + " != null) {\n\t";
-					String fixedCodeStr2 = "\n\t}\n";
-					int suspCodeEndPos = this.suspCodeEndPos;
-					suspCodeEndPos = ContextReader.identifyRelatedStatements(suspCodeTree, var, this.suspCodeEndPos);
-					this.generatePatch(suspCodeStartPos, suspCodeEndPos, fixedCodeStr1, fixedCodeStr2);
+			int parentNodeType = parentTree.getType();
+			List<ITree> peerStmts = suspCodeTree.getParent().getChildren();
+			ITree lastPeerStmt = peerStmts.get(peerStmts.size() - 1);
+			
+			if (Checker.isSwitchStatement(parentNodeType)) {
 ```
 
 ### UnusedAssignment
@@ -4560,15 +4560,27 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/OperatorMutator.java`
 ```
 
 ### UnusedAssignment
-Variable `lastPeerStmt` initializer `peerStmts.get(peerStmts.size() - 1)` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
+Variable `suspCodeEndPos` initializer `this.suspCodeEndPos` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 #### Snippet
 ```java
-			int parentNodeType = parentTree.getType();
-			List<ITree> peerStmts = suspCodeTree.getParent().getChildren();
-			ITree lastPeerStmt = peerStmts.get(peerStmts.size() - 1);
-			
-			if (Checker.isSwitchStatement(parentNodeType)) {
+					String fixedCodeStr1 = "if (" + var + " != null) {\n\t";
+					String fixedCodeStr2 = "\n\t}\n";
+					int suspCodeEndPos = this.suspCodeEndPos;
+					suspCodeEndPos = ContextReader.identifyRelatedStatements(suspCodeTree, var, this.suspCodeEndPos);
+					this.generatePatch(suspCodeStartPos, suspCodeEndPos, fixedCodeStr1, fixedCodeStr2);
+```
+
+### UnusedAssignment
+Variable `path` initializer `null` is redundant
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
+#### Snippet
+```java
+	 */
+	private Map<List<String>, String> identifyPossibleReturnTypes(ITree classDeclarationAst, String varType, String methodName, List<String> paraTypeStrs) {
+		String path = null;
+		int constructorIndex = varType.indexOf("=CONSTRUCTOR=");
+		boolean isConstructor = false;
 ```
 
 ### UnusedAssignment
@@ -4593,18 +4605,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 				int i = 0;
 				if (Checker.isNewKeyword(parameters.get(0).getType())) {
 					methodName = parameters.get(1).getLabel(); 
-```
-
-### UnusedAssignment
-Variable `path` initializer `null` is redundant
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
-#### Snippet
-```java
-	 */
-	private Map<List<String>, String> identifyPossibleReturnTypes(ITree classDeclarationAst, String varType, String methodName, List<String> paraTypeStrs) {
-		String path = null;
-		int constructorIndex = varType.indexOf("=CONSTRUCTOR=");
-		boolean isConstructor = false;
 ```
 
 ### UnusedAssignment
@@ -4974,6 +4974,18 @@ public class AssertUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `LineUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/edu/lu/uni/serval/tbar/utils/LineUtils.java`
+#### Snippet
+```java
+package edu.lu.uni.serval.tbar.utils;
+
+public class LineUtils {
+
+	public static boolean isLineInFailBlock(String code, int lineNum){
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SetUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/edu/lu/uni/serval/tbar/utils/SetUtils.java`
 #### Snippet
@@ -4995,18 +5007,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/main/Main.java`
 public class Main {
 
 	public static long totalstartTime;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LineUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/edu/lu/uni/serval/tbar/utils/LineUtils.java`
-#### Snippet
-```java
-package edu.lu.uni.serval.tbar.utils;
-
-public class LineUtils {
-
-	public static boolean isLineInFailBlock(String code, int lineNum){
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5034,18 +5034,6 @@ public class Checker {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JunitRunner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
-#### Snippet
-```java
-import org.junit.runner.notification.Failure;
-
-public class JunitRunner {
-
-    public static void main(String... args) throws ClassNotFoundException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ASTNodeMap` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ASTNodeMap.java`
 #### Snippet
@@ -5055,18 +5043,6 @@ import java.util.Map;
 public class ASTNodeMap {
 	
 	public static Map<Integer, String> map;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-import edu.lu.uni.serval.tbar.config.Configuration;
-
-public class FileUtils {
-
-	public static String getMD5(String s) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5082,18 +5058,6 @@ public class PathUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Configuration` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
-#### Snippet
-```java
-
-
-public class Configuration {
-
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ShellUtils` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
@@ -5103,6 +5067,42 @@ import edu.lu.uni.serval.tbar.config.Configuration;
 public class ShellUtils {
 
 	public static String shellRun(List<String> asList, String buggyProject, int type) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JunitRunner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
+#### Snippet
+```java
+import org.junit.runner.notification.Failure;
+
+public class JunitRunner {
+
+    public static void main(String... args) throws ClassNotFoundException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+#### Snippet
+```java
+import edu.lu.uni.serval.tbar.config.Configuration;
+
+public class FileUtils {
+
+	public static String getMD5(String s) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Configuration` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/edu/lu/uni/serval/tbar/config/Configuration.java`
+#### Snippet
+```java
+
+
+public class Configuration {
+
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5208,11 +5208,11 @@ Unnecessary semicolon `;`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
 ```java
-		String superClassName = readSuperClassName(codeAst);
-		if (superClassName != null) {
-			String superClassPath = findJavaFilePath(codeAst, srcCodePath, superClassName);;
-			if (superClassPath != null && new File(superClassPath).exists()) {
-				ITree superClassTree = new ASTGenerator().generateTreeForJavaFile(superClassPath, TokenType.EXP_JDT);
+						for (ITree subChild : subChildren) {
+							if (readVar) {
+								String varName_ = subChild.getChild(0).getLabel();;
+								if (varName.equals(varName_)) return varType;
+							} else if (!Checker.isModifier(subChild.getType())) {
 ```
 
 ### UnnecessarySemicolon
@@ -5220,11 +5220,11 @@ Unnecessary semicolon `;`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
 ```java
-						for (ITree subChild : subChildren) {
-							if (readVar) {
-								String varName_ = subChild.getChild(0).getLabel();;
-								if (varName.equals(varName_)) return varType;
-							} else if (!Checker.isModifier(subChild.getType())) {
+		String superClassName = readSuperClassName(codeAst);
+		if (superClassName != null) {
+			String superClassPath = findJavaFilePath(codeAst, srcCodePath, superClassName);;
+			if (superClassPath != null && new File(superClassPath).exists()) {
+				ITree superClassTree = new ASTGenerator().generateTreeForJavaFile(superClassPath, TokenType.EXP_JDT);
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -5293,18 +5293,6 @@ Dereference of `files` may produce `NullPointerException`
 in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 #### Snippet
 ```java
-		File[] files = file.listFiles();
-		
-		for (File f : files) {
-			if (f.isDirectory()) {
-				fileList.add(f);
-```
-
-### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
-#### Snippet
-```java
 		File[] files = directory.listFiles();
 		
 		for (File file : files) {
@@ -5322,6 +5310,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 				if (files.length > 0) {
 					for (File f : files) {
 						if (f.isFile()) {
+```
+
+### DataFlowIssue
+Dereference of `files` may produce `NullPointerException`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
+#### Snippet
+```java
+		File[] files = file.listFiles();
+		
+		for (File f : files) {
+			if (f.isDirectory()) {
+				fileList.add(f);
 ```
 
 ### DataFlowIssue
@@ -5361,18 +5361,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/SourceFolderFinder.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getLabel` may produce `NullPointerException`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/DataTypeReplacer.java`
-#### Snippet
-```java
-				break;
-			}
-			String dataType = ContextReader.readType(type.getLabel());
-			
-			// we only focus on the primitive types.
-```
-
-### DataFlowIssue
 Method invocation `trim` may produce `NullPointerException`
 in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
 #### Snippet
@@ -5397,6 +5385,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getLabel` may produce `NullPointerException`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/DataTypeReplacer.java`
+#### Snippet
+```java
+				break;
+			}
+			String dataType = ContextReader.readType(type.getLabel());
+			
+			// we only focus on the primitive types.
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ReturnStatementMutator.java`
 #### Snippet
@@ -5410,18 +5410,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/ReturnStatementMutator.java
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
-#### Snippet
-```java
-					// PAR Patch 2.
-					if (returnType != null && !returnType.isEmpty()) {
-						fixedCodeStr1 = fixedCodeStr1.append(") return");
-						if ("void".equals(returnType)) {
-							fixedCodeStr1.append(";\n");
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 #### Snippet
 ```java
@@ -5430,6 +5418,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 					maps = ContextReader.arrangeVariableGroups(maps, parameterType, vars);
 				}
 				if (!isMatched) continue;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
+#### Snippet
+```java
+					// PAR Patch 2.
+					if (returnType != null && !returnType.isEmpty()) {
+						fixedCodeStr1 = fixedCodeStr1.append(") return");
+						if ("void".equals(returnType)) {
+							fixedCodeStr1.append(";\n");
 ```
 
 ### DataFlowIssue
@@ -5508,14 +5508,26 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 ## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
 ```java
-				try {
-					stream.close();
-				} catch (IOException e) {
-				}
-			}
+                try {
+                    br.close();
+                } catch (IOException e){
+                }
+            }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+                try {
+                    in.close();
+                } catch (IOException e){
+                }
+            }
 ```
 
 ### CatchMayIgnoreException
@@ -5544,26 +5556,14 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
 #### Snippet
 ```java
-                try {
-                    br.close();
-                } catch (IOException e){
-                }
-            }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-                try {
-                    in.close();
-                } catch (IOException e){
-                }
-            }
+				try {
+					stream.close();
+				} catch (IOException e) {
+				}
+			}
 ```
 
 ### CatchMayIgnoreException
@@ -5593,6 +5593,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/TestFinder.java`
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+#### Snippet
+```java
+			}
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		} finally {
+			if (input != null) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
@@ -5608,71 +5620,11 @@ Unnecessary `toString()` call
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-			IExtendedModifier modifier = (IExtendedModifier) obj;
-			if (modifier.isModifier()) {
-				methodLabel += obj.toString() + ", ";
-				realModifiers.add((Modifier) modifier);
-				if (startPosition == 0) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-    public boolean visit(WhileStatement node) {
+    public boolean visit(SynchronizedStatement node) {
     	Expression exp = node.getExpression();
         pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
         exp.accept(this);
-        
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-    public boolean visit(ThrowStatement node) {
-    	Expression exp = node.getExpression();
-        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
-        exp.accept(this);
-        return false;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-    	Expression exp = node.getExpression();
-    	Expression msg = node.getMessage();
-        String value = exp.getClass().getSimpleName() + COLON + exp.toString();
-        if (msg != null) {
-            value += ", Msg-" + msg.getClass().getSimpleName() + COLON + msg.toString();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-        String value = exp.getClass().getSimpleName() + COLON + exp.toString();
-        if (msg != null) {
-            value += ", Msg-" + msg.getClass().getSimpleName() + COLON + msg.toString();
-            pushNode(node, value);
-            exp.accept(this);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-        value += init.toString() + ";";
-		if (exp != null) {
-			value += exp.toString() + ";";
-		}
-		value += update.toString();
+        Statement body = node.getBody();
 ```
 
 ### UnnecessaryToStringCall
@@ -5692,35 +5644,23 @@ Unnecessary `toString()` call
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
+    public boolean visit(SwitchStatement node) {
+    	Expression exp = node.getExpression();
+        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
+        exp.accept(this);
+//        int startPosition = exp.getStartPosition();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
     	Expression exp = node.getExpression();
     	if (exp != null) {
     		pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
     		exp.accept(this);
     	} else {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-    public boolean visit(IfStatement node) {
-        Expression exp = node.getExpression();
-        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
-        exp.accept(this);
-        Statement stmt = node.getThenStatement();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
-#### Snippet
-```java
-    public boolean visit(DoStatement node) {
-    	Expression exp = node.getExpression();
-        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
-        Statement body = node.getBody();
-        if (body != null) {
 ```
 
 ### UnnecessaryToStringCall
@@ -5764,11 +5704,11 @@ Unnecessary `toString()` call
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-    public boolean visit(SynchronizedStatement node) {
     	Expression exp = node.getExpression();
-        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
-        exp.accept(this);
-        Statement body = node.getBody();
+    	Expression msg = node.getMessage();
+        String value = exp.getClass().getSimpleName() + COLON + exp.toString();
+        if (msg != null) {
+            value += ", Msg-" + msg.getClass().getSimpleName() + COLON + msg.toString();
 ```
 
 ### UnnecessaryToStringCall
@@ -5776,11 +5716,71 @@ Unnecessary `toString()` call
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
 #### Snippet
 ```java
-    public boolean visit(SwitchStatement node) {
+        String value = exp.getClass().getSimpleName() + COLON + exp.toString();
+        if (msg != null) {
+            value += ", Msg-" + msg.getClass().getSimpleName() + COLON + msg.toString();
+            pushNode(node, value);
+            exp.accept(this);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+    public boolean visit(DoStatement node) {
+    	Expression exp = node.getExpression();
+        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
+        Statement body = node.getBody();
+        if (body != null) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+			IExtendedModifier modifier = (IExtendedModifier) obj;
+			if (modifier.isModifier()) {
+				methodLabel += obj.toString() + ", ";
+				realModifiers.add((Modifier) modifier);
+				if (startPosition == 0) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+    public boolean visit(IfStatement node) {
+        Expression exp = node.getExpression();
+        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
+        exp.accept(this);
+        Statement stmt = node.getThenStatement();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+        value += init.toString() + ";";
+		if (exp != null) {
+			value += exp.toString() + ";";
+		}
+		value += update.toString();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+    public boolean visit(WhileStatement node) {
     	Expression exp = node.getExpression();
         pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
         exp.accept(this);
-//        int startPosition = exp.getStartPosition();
+        
 ```
 
 ### UnnecessaryToStringCall
@@ -5793,6 +5793,18 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
         		nodeStr += modifier.toString() + ", ";
         		realModifiers.add((Modifier)modifier);
         		if (startPosition == 0) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
+#### Snippet
+```java
+    public boolean visit(ThrowStatement node) {
+    	Expression exp = node.getExpression();
+        pushNode(node, exp.getClass().getSimpleName() + COLON + exp.toString());
+        exp.accept(this);
+        return false;
 ```
 
 ### UnnecessaryToStringCall
@@ -5817,18 +5829,6 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/ExpJdtVisitor.java`
     		label += "@@Interface:" + interfaceTypes.toString();
     	}
     	
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-			}
-		} catch (IOException e) {
-			System.out.println(e.toString());
-		} finally {
-			if (input != null) {
 ```
 
 ### UnnecessaryToStringCall
@@ -5953,18 +5953,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `NPNullOnSomePathFromReturnValue` may be 'static'
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
-#### Snippet
-```java
-	 *
-	 */
-	public class NPNullOnSomePathFromReturnValue extends FixTemplate {
-		
-		/*
-```
-
-### InnerClassMayBeStatic
 Inner class `SuspNullExpStr` may be 'static'
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 #### Snippet
@@ -5974,6 +5962,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 	class SuspNullExpStr implements Comparable<SuspNullExpStr> {
 		public String expStr;
 		public Integer startPos;
+```
+
+### InnerClassMayBeStatic
+Inner class `NPNullOnSomePathFromReturnValue` may be 'static'
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
+#### Snippet
+```java
+	 *
+	 */
+	public class NPNullOnSomePathFromReturnValue extends FixTemplate {
+		
+		/*
 ```
 
 ### InnerClassMayBeStatic
@@ -6153,6 +6153,30 @@ Redundant boxing, `Integer.parseInt()` call can be used instead
 in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 #### Snippet
 ```java
+            	SuspiciousPosition sp = new SuspiciousPosition();
+            	sp.classPath = elements[0];
+            	sp.lineNumber = Integer.valueOf(elements[1]);
+            	suspiciousCodeList.add(sp);
+            }
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+#### Snippet
+```java
+            	SuspiciousPosition sp = new SuspiciousPosition();
+            	sp.classPath = elements[0];
+            	sp.lineNumber = Integer.valueOf(elements[1]);
+            	suspiciousCodeList.add(sp);
+            }
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+#### Snippet
+```java
 	    				if (lineStr.contains("-")) {
 	    					String[] subPos = lineStr.split("-");
 	    					for (int line = Integer.valueOf(subPos[0]), endLine = Integer.valueOf(subPos[1]); line <= endLine; line ++) {
@@ -6182,30 +6206,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 	    	            	sp.lineNumber = Integer.valueOf(lineStr);
 	    	            	suspiciousCodeList.add(sp);
 	    				}
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
-#### Snippet
-```java
-            	SuspiciousPosition sp = new SuspiciousPosition();
-            	sp.classPath = elements[0];
-            	sp.lineNumber = Integer.valueOf(elements[1]);
-            	suspiciousCodeList.add(sp);
-            }
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
-#### Snippet
-```java
-            	SuspiciousPosition sp = new SuspiciousPosition();
-            	sp.classPath = elements[0];
-            	sp.lineNumber = Integer.valueOf(elements[1]);
-            	suspiciousCodeList.add(sp);
-            }
 ```
 
 ### UnnecessaryBoxing
@@ -6488,114 +6488,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/main/Main.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
-#### Snippet
-```java
-        Result result = new JUnitCore().run(request);
-        if (result.getFailureCount()>0){
-            System.out.println("E");
-        }
-        System.out.println("<<");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
-#### Snippet
-```java
-            System.out.println("E");
-        }
-        System.out.println("<<");
-        List<Failure> failures = result.getFailures();
-        for (Failure failure: failures){
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
-#### Snippet
-```java
-        List<Failure> failures = result.getFailures();
-        for (Failure failure: failures){
-            System.out.println(failure.getMessage());
-            System.out.println(failure.getDescription().toString());
-            System.out.println(failure.getTrace());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
-#### Snippet
-```java
-        for (Failure failure: failures){
-            System.out.println(failure.getMessage());
-            System.out.println(failure.getDescription().toString());
-            System.out.println(failure.getTrace());
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
-#### Snippet
-```java
-            System.out.println(failure.getMessage());
-            System.out.println(failure.getDescription().toString());
-            System.out.println(failure.getTrace());
-        }
-        System.exit(0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-			return new String(b);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "";
-		} finally {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-			}
-		} catch (IOException e) {
-			System.out.println(e.toString());
-		} finally {
-			if (input != null) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-                if(Configuration.ShellVerbose)
-                {
-                System.out.println(line);
-                }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-            int exitVal = process.waitFor();
-            if (exitVal == 0) {
-                System.out.println("ShellUtils.java - getShellOut() - Success excecuting shell process!");
-                returnString=output.toString();
-                //System.exit(0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
 ```java
@@ -6716,6 +6608,114 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+                if(Configuration.ShellVerbose)
+                {
+                System.out.println(line);
+                }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+            int exitVal = process.waitFor();
+            if (exitVal == 0) {
+                System.out.println("ShellUtils.java - getShellOut() - Success excecuting shell process!");
+                returnString=output.toString();
+                //System.exit(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
+#### Snippet
+```java
+        Result result = new JUnitCore().run(request);
+        if (result.getFailureCount()>0){
+            System.out.println("E");
+        }
+        System.out.println("<<");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
+#### Snippet
+```java
+            System.out.println("E");
+        }
+        System.out.println("<<");
+        List<Failure> failures = result.getFailures();
+        for (Failure failure: failures){
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
+#### Snippet
+```java
+        List<Failure> failures = result.getFailures();
+        for (Failure failure: failures){
+            System.out.println(failure.getMessage());
+            System.out.println(failure.getDescription().toString());
+            System.out.println(failure.getTrace());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
+#### Snippet
+```java
+        for (Failure failure: failures){
+            System.out.println(failure.getMessage());
+            System.out.println(failure.getDescription().toString());
+            System.out.println(failure.getTrace());
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/JunitRunner.java`
+#### Snippet
+```java
+            System.out.println(failure.getMessage());
+            System.out.println(failure.getDescription().toString());
+            System.out.println(failure.getTrace());
+        }
+        System.exit(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+#### Snippet
+```java
+			}
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		} finally {
+			if (input != null) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+#### Snippet
+```java
+			return new String(b);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "";
+		} finally {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 #### Snippet
 ```java
@@ -6735,6 +6735,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 		{ 
 			System.out.println("suspiciousJavaFile FILEPATH DO NOT EXIST");
 			return null;
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+		suspiciousFile = new File(suspiciousFilePath + "/" + this.buggyProject + "/" + this.metric + ".txt");
+		if (!suspiciousFile.exists()) {
+			System.out.println("Cannot find the suspicious code position file." + suspiciousFile.getPath());
+			suspiciousFile = new File(suspiciousFilePath + "/" + this.buggyProject + "/" + this.metric.toLowerCase() + ".txt");
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+		}
+		if (!suspiciousFile.exists()) {
+			System.out.println("Cannot find the suspicious code position file." + suspiciousFile.getPath());
+			suspiciousFile = new File(suspiciousFilePath + "/" + this.buggyProject + "/All.txt");
 		}
 ```
 
@@ -6800,30 +6824,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-		suspiciousFile = new File(suspiciousFilePath + "/" + this.buggyProject + "/" + this.metric + ".txt");
-		if (!suspiciousFile.exists()) {
-			System.out.println("Cannot find the suspicious code position file." + suspiciousFile.getPath());
-			suspiciousFile = new File(suspiciousFilePath + "/" + this.buggyProject + "/" + this.metric.toLowerCase() + ".txt");
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
-#### Snippet
-```java
-		}
-		if (!suspiciousFile.exists()) {
-			System.out.println("Cannot find the suspicious code position file." + suspiciousFile.getPath());
-			suspiciousFile = new File(suspiciousFilePath + "/" + this.buggyProject + "/All.txt");
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/DataPreparer.java`
 #### Snippet
 ```java
@@ -6868,30 +6868,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/DataPreparer.java`
 			System.out.println("Test source path: " + testSrcPath + " does not exist!");
 			System.exit(0);
 			return false;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
-#### Snippet
-```java
-		String addtoMap=tpString.substring(0,indexSort);
-		Configuration.lastFixPattern=addtoMap;
-		System.out.println("FixTemplate: "+addtoMap);
-
-		ft.setSuspiciousCodeStr(scn.suspCodeStr);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
-#### Snippet
-```java
-		{
-
-		System.out.println("patchandidates"+patchCandidates.size());
-		
-		//Measure number of patches per pattern
 ```
 
 ### SystemOutErr
@@ -6964,6 +6940,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 				System.out.println(scn.suspCodeStr);
 				
 				// Parse context information of the suspicious code.
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+#### Snippet
+```java
+		String addtoMap=tpString.substring(0,indexSort);
+		Configuration.lastFixPattern=addtoMap;
+		System.out.println("FixTemplate: "+addtoMap);
+
+		ft.setSuspiciousCodeStr(scn.suspCodeStr);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
+#### Snippet
+```java
+		{
+
+		System.out.println("patchandidates"+patchCandidates.size());
+		
+		//Measure number of patches per pattern
 ```
 
 ### SystemOutErr
@@ -7376,18 +7376,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/edu/lu/uni/serval/tbar/code/analyser/JavaCodeFileParser.java`
-#### Snippet
-```java
-			return parameterTypes;
-		} else {
-			String argus = methodDeclarationLabel.substring(methodDeclarationLabel.indexOf("@@Argus:") + 8, methodDeclarationLabel.length() - 1).replace(" ", "");
-			int expIndex = argus.indexOf("@@Exp:");
-			if (expIndex > 0) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/edu/lu/uni/serval/jdt/visitor/JdtVisitor.java`
 #### Snippet
@@ -7409,6 +7397,18 @@ in `src/main/java/edu/lu/uni/serval/jdt/visitor/JdtVisitor.java`
             result = result.split("\\s*\\*/")[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             result = result.replace('/', ' ');
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/edu/lu/uni/serval/tbar/code/analyser/JavaCodeFileParser.java`
+#### Snippet
+```java
+			return parameterTypes;
+		} else {
+			String argus = methodDeclarationLabel.substring(methodDeclarationLabel.indexOf("@@Argus:") + 8, methodDeclarationLabel.length() - 1).replace(" ", "");
+			int expIndex = argus.indexOf("@@Exp:");
+			if (expIndex > 0) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7557,6 +7557,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/FixTemplate.java`
+#### Snippet
+```java
+				classPath = classPath.substring(0, classPath.lastIndexOf(sourceCodeFileName + ".")) + sourceCodeFileName;
+			}
+			File javaCodeFile = new File(this.sourceCodePath + classPath.replace(".", "/") + ".java");
+			JavaCodeFileParser jcfp = new JavaCodeFileParser(javaCodeFile);
+			dic.setAllFields(jcfp.fields);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 #### Snippet
 ```java
@@ -7605,14 +7617,14 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/edu/lu/uni/serval/tbar/fixtemplate/FixTemplate.java`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
-				classPath = classPath.substring(0, classPath.lastIndexOf(sourceCodeFileName + ".")) + sourceCodeFileName;
-			}
-			File javaCodeFile = new File(this.sourceCodePath + classPath.replace(".", "/") + ".java");
-			JavaCodeFileParser jcfp = new JavaCodeFileParser(javaCodeFile);
-			dic.setAllFields(jcfp.fields);
+		}
+		if ("this".equals(varType)) {
+			path = this.sourceCodePath + this.packageName.replace(".", "/") + "/" + this.className + ".java";
+		} else {
+			path = identifyJavaFilePath(classDeclarationAst, varType);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7649,18 +7661,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 										rootTree = new ASTGenerator().generateTreeForJavaFile(this.sourceCodePath + packageName.replace(".", "/") + ".java", TokenType.EXP_JDT);
 										rootTree = findClassTree(rootTree, dataType);
 										if (rootTree == null) continue;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
-#### Snippet
-```java
-		}
-		if ("this".equals(varType)) {
-			path = this.sourceCodePath + this.packageName.replace(".", "/") + "/" + this.className + ".java";
-		} else {
-			path = identifyJavaFilePath(classDeclarationAst, varType);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7822,54 +7822,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/SuspiciousCodeParser.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
-#### Snippet
-```java
-			return new String(str);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-    
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
-#### Snippet
-```java
-	        process.getOutputStream().close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        process.destroy();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
 ```java
@@ -7906,13 +7858,49 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
 #### Snippet
 ```java
-		} catch (StringIndexOutOfBoundsException e) {
-			log.debug(exactBuggyCodeStartPos + " ==> " + exactBuggyCodeEndPos + " : " + javaCode.length());
+	        process.getOutputStream().close();
+		} catch (IOException e) {
 			e.printStackTrace();
-			buggyCode = "===StringIndexOutOfBoundsException===";
+		}
+        process.destroy();
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/ShellUtils.java`
+#### Snippet
+```java
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileUtils.java`
+#### Snippet
+```java
+			return new String(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 ```
 
@@ -7933,6 +7921,30 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 #### Snippet
 ```java
+            fileReader.close();
+        }catch (Exception e){
+        	e.printStackTrace();
+        	log.debug("Reloading Localization Result...");
+            return null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
+		} catch (StringIndexOutOfBoundsException e) {
+			log.debug(exactBuggyCodeStartPos + " ==> " + exactBuggyCodeEndPos + " : " + javaCode.length());
+			e.printStackTrace();
+			buggyCode = "===StringIndexOutOfBoundsException===";
+		}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+#### Snippet
+```java
 			Files.copy(scn.classBackup.toPath(), scn.targetClassFile.toPath());
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -7942,14 +7954,26 @@ in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/AbstractFixer.java`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 #### Snippet
 ```java
-            fileReader.close();
-        }catch (Exception e){
-        	e.printStackTrace();
-        	log.debug("Reloading Localization Result...");
-            return null;
+			bw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			close(bw);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
+#### Snippet
+```java
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 ```
 
 ### ThrowablePrintStackTrace
@@ -7993,30 +8017,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 #### Snippet
 ```java
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
-#### Snippet
-```java
-			bw.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			close(bw);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
-#### Snippet
-```java
 			bw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -8034,6 +8034,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 			e.printStackTrace();
 		}
 	}
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/TestFinder.java`
+#### Snippet
+```java
+						}
+					} catch (ClassNotFoundException cnfExp2) {
+						cnfExp2.printStackTrace();
+					} catch (NoClassDefFoundError ncefErr) {
+					}
 ```
 
 ### ThrowablePrintStackTrace
@@ -8070,18 +8082,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
         	e.printStackTrace();
         	log.debug("Reloading Localization Result...");
             return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/edu/lu/uni/serval/tbar/dataprepare/TestFinder.java`
-#### Snippet
-```java
-						}
-					} catch (ClassNotFoundException cnfExp2) {
-						cnfExp2.printStackTrace();
-					} catch (NoClassDefFoundError ncefErr) {
-					}
 ```
 
 ### ThrowablePrintStackTrace
@@ -8328,18 +8328,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/VariableReplacer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `suspCodeTree`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
-#### Snippet
-```java
-			if (Checker.isMethodDeclaration(parent.getType())) break;
-			if (Checker.isTypeDeclaration(parent.getType())) break;
-			suspCodeTree = parent;
-			parent = parent.getParent();
-		}
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `suspExpTree`
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/OperatorMutator.java`
 #### Snippet
@@ -8349,6 +8337,18 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/OperatorMutator.java`
 					suspExpTree = anotherSuspExpTree;
 					anotherSuspExpTree = _suspExpTree;
 					int _startPos = startPos1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `suspCodeTree`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
+#### Snippet
+```java
+			if (Checker.isMethodDeclaration(parent.getType())) break;
+			if (Checker.isTypeDeclaration(parent.getType())) break;
+			suspCodeTree = parent;
+			parent = parent.getParent();
+		}
 ```
 
 ### AssignmentToMethodParameter
@@ -8436,6 +8436,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `codeAst`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+			}
+			
+			codeAst = parentTree;
+			parentTree = parentTree.getParent();
+			if (parentTree == null) break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `codeAst`
+in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
+#### Snippet
+```java
+			}
+			
+			codeAst = codeAst.getParent();
+			if (codeAst == null) break;
+		}
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `endPosition`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
@@ -8483,30 +8507,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `codeAst`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-			}
-			
-			codeAst = codeAst.getParent();
-			if (codeAst == null) break;
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `codeAst`
-in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
-#### Snippet
-```java
-			}
-			
-			codeAst = parentTree;
-			parentTree = parentTree.getParent();
-			if (parentTree == null) break;
-```
-
 ## RuleId[ruleID=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
@@ -8550,18 +8550,6 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/jdt/tree/AssociationMap.java`
 #### Snippet
 ```java
-            keys.add(key);
-            values.add(value);
-            return null;
-        }
-        return values.set(idx, value);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/jdt/tree/AssociationMap.java`
-#### Snippet
-```java
         int idx = keys.indexOf(key);
         if (idx == -1)
             return null;
@@ -8571,14 +8559,14 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/AssociationMap.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
+in `src/main/java/edu/lu/uni/serval/jdt/tree/AssociationMap.java`
 #### Snippet
 ```java
-        if (value == null) {
-            if (metadata == null)
-                return null;
-            else
-                return metadata.remove(key);
+            keys.add(key);
+            values.add(value);
+            return null;
+        }
+        return values.set(idx, value);
 ```
 
 ### ReturnNull
@@ -8595,14 +8583,14 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
+in `src/main/java/edu/lu/uni/serval/jdt/tree/Tree.java`
 #### Snippet
 ```java
-						return ctor.newInstance(args);
-					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-						return null;
-					}
-				}
+        if (value == null) {
+            if (metadata == null)
+                return null;
+            else
+                return metadata.remove(key);
 ```
 
 ### ReturnNull
@@ -8622,7 +8610,19 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
 #### Snippet
 ```java
-            if (e.clazz.equals(aClass))
+            if (e.id.equals(id))
+                return e;
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
+#### Snippet
+```java
+            if (e.handle(key))
                 return e;
         return null;
     }
@@ -8658,6 +8658,30 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
 #### Snippet
 ```java
+            if (e.clazz.equals(aClass))
+                return e;
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
+#### Snippet
+```java
+						return ctor.newInstance(args);
+					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						return null;
+					}
+				}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
+#### Snippet
+```java
         if (entry != null)
             return entry.factory;
         return null;
@@ -8667,38 +8691,14 @@ in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
+in `src/main/java/edu/lu/uni/serval/jdt/tree/AbstractTree.java`
 #### Snippet
 ```java
-            if (e.handle(key))
-                return e;
-        return null;
-    }
+        @Override
+        public Object setMetadata(String key, Object value) {
+            return null;
+        }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/jdt/generator/Registry.java`
-#### Snippet
-```java
-            if (e.id.equals(id))
-                return e;
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/SuspiciousCodeParser.java`
-#### Snippet
-```java
-	private ITree traverseParentNode(ITree tree) {
-		ITree parent = tree.getParent();
-		if (parent == null) return null;
-		if (!isRequiredAstNode(parent)) {
-			parent = traverseParentNode(parent);
 ```
 
 ### ReturnNull
@@ -8715,14 +8715,14 @@ in `src/main/java/edu/lu/uni/serval/jdt/tree/AbstractTree.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/jdt/tree/AbstractTree.java`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/SuspiciousCodeParser.java`
 #### Snippet
 ```java
-        @Override
-        public Object setMetadata(String key, Object value) {
-            return null;
-        }
-
+	private ITree traverseParentNode(ITree tree) {
+		ITree parent = tree.getParent();
+		if (parent == null) return null;
+		if (!isRequiredAstNode(parent)) {
+			parent = traverseParentNode(parent);
 ```
 
 ### ReturnNull
@@ -8850,18 +8850,6 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 #### Snippet
 ```java
-			return fileName;
-		} else {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
-#### Snippet
-```java
 			return file.getName();
 		} else {
 			return null;
@@ -8879,6 +8867,30 @@ in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
 			return null;
 		}
 		
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/FileHelper.java`
+#### Snippet
+```java
+			return fileName;
+		} else {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/context/Dictionary.java`
+#### Snippet
+```java
+	public String findDependencyByClassName(String currentClassPath, String className) {
+		List<String> importedDependencies = this.findImportedDependencies(currentClassPath);
+		if (importedDependencies == null) return null;
+		
+		String className_ = "." + className;
 ```
 
 ### ReturnNull
@@ -8979,18 +8991,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/TBarFixer.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/context/Dictionary.java`
-#### Snippet
-```java
-	public String findDependencyByClassName(String currentClassPath, String className) {
-		List<String> importedDependencies = this.findImportedDependencies(currentClassPath);
-		if (importedDependencies == null) return null;
-		
-		String className_ = "." + className;
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NPEqualsShouldHandleNullArgument.java`
 #### Snippet
 ```java
@@ -8999,6 +8999,42 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NPEqualsShouldHandleNullArg
 			if (parent == null) return null;
 			if (Checker.isTypeDeclaration(parent.getType())) {
 				break;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+            }
+            else{
+                return null;
+            }
+        } catch (IOException e){
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+            }
+        } catch (IOException e){
+            return null;
+        }
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+#### Snippet
+```java
+
+        } catch (IOException e){
+            return null;
+        }
+	}
 ```
 
 ### ReturnNull
@@ -9087,38 +9123,62 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/CNIdiomNoSuperCall.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 #### Snippet
 ```java
-            }
-            else{
-                return null;
-            }
-        } catch (IOException e){
+		ITree parent = suspCodeTree.getParent();
+		while (true) {
+			if (parent == null) return null;
+			if (Checker.isMethodDeclaration(parent.getType())) {
+				break;
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 #### Snippet
 ```java
-            }
-        } catch (IOException e){
-            return null;
-        }
-	}
+				break;
+			} else if (Checker.isTypeDeclaration(parent.getType())) {
+				return null;
+			}
+			parent = parent.getParent();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/utils/TestUtils.java`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
 #### Snippet
 ```java
+		int index = methodLabel.indexOf("MethodName:");
+		String returnType = methodLabel.substring(0, index - 2);
+		if (!"boolean".equals(returnType)) return null;
+		methodLabel = methodLabel.substring(index + 11);
+		if (!methodLabel.startsWith("equals, ")) return null;
+```
 
-        } catch (IOException e){
-            return null;
-        }
-	}
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
+#### Snippet
+```java
+		if (!"boolean".equals(returnType)) return null;
+		methodLabel = methodLabel.substring(index + 11);
+		if (!methodLabel.startsWith("equals, ")) return null;
+		methodLabel = methodLabel.substring(methodLabel.indexOf("@@Argus:") + 8);
+		String[] parameters = methodLabel.split("\\+");
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
+#### Snippet
+```java
+		methodLabel = methodLabel.substring(methodLabel.indexOf("@@Argus:") + 8);
+		String[] parameters = methodLabel.split("\\+");
+		if (parameters.length != 2 || !"Object".equals(parameters[0])) return null;
+		Pair<String, ITree> equalsMethod = new Pair<>(parameters[1], parent);
+		return equalsMethod;
 ```
 
 ### ReturnNull
@@ -9231,66 +9291,6 @@ in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/NullPointerChecker.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
-#### Snippet
-```java
-		ITree parent = suspCodeTree.getParent();
-		while (true) {
-			if (parent == null) return null;
-			if (Checker.isMethodDeclaration(parent.getType())) {
-				break;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
-#### Snippet
-```java
-				break;
-			} else if (Checker.isTypeDeclaration(parent.getType())) {
-				return null;
-			}
-			parent = parent.getParent();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
-#### Snippet
-```java
-		int index = methodLabel.indexOf("MethodName:");
-		String returnType = methodLabel.substring(0, index - 2);
-		if (!"boolean".equals(returnType)) return null;
-		methodLabel = methodLabel.substring(index + 11);
-		if (!methodLabel.startsWith("equals, ")) return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
-#### Snippet
-```java
-		if (!"boolean".equals(returnType)) return null;
-		methodLabel = methodLabel.substring(index + 11);
-		if (!methodLabel.startsWith("equals, ")) return null;
-		methodLabel = methodLabel.substring(methodLabel.indexOf("@@Argus:") + 8);
-		String[] parameters = methodLabel.split("\\+");
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/StatementInserter.java`
-#### Snippet
-```java
-		methodLabel = methodLabel.substring(methodLabel.indexOf("@@Argus:") + 8);
-		String[] parameters = methodLabel.split("\\+");
-		if (parameters.length != 2 || !"Object".equals(parameters[0])) return null;
-		Pair<String, ITree> equalsMethod = new Pair<>(parameters[1], parent);
-		return equalsMethod;
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/fixpatterns/AlterMethodInvocation.java`
 #### Snippet
 ```java
@@ -9342,11 +9342,11 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
 ```java
-			if (parent == null) break;
-		}
-		if (parent == null) return null;
-		List<ITree> children = parent.getParent().getChildren();
-		for (ITree child : children) {
+		ITree parent = suspCodeTree.getParent();
+		while (true) {
+			if (parent == null) return null;
+			if (Checker.isMethodDeclaration(parent.getType())) {
+				break;
 ```
 
 ### ReturnNull
@@ -9366,11 +9366,11 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
 ```java
+			if (parentTree == null) break;
 		}
-		
-		if (superClassName == null) return null;
-		
-		return readSimpleNameOfDataType(superClassName);
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -9402,11 +9402,11 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
 ```java
-			if (parentTree == null) break;
 		}
-		return null;
-	}
-
+		
+		if (superClassName == null) return null;
+		
+		return readSimpleNameOfDataType(superClassName);
 ```
 
 ### ReturnNull
@@ -9414,11 +9414,11 @@ Return of `null`
 in `src/main/java/edu/lu/uni/serval/tbar/context/ContextReader.java`
 #### Snippet
 ```java
-		ITree parent = suspCodeTree.getParent();
-		while (true) {
-			if (parent == null) return null;
-			if (Checker.isMethodDeclaration(parent.getType())) {
-				break;
+			if (parent == null) break;
+		}
+		if (parent == null) return null;
+		List<ITree> children = parent.getParent().getChildren();
+		for (ITree child : children) {
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
