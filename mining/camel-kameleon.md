@@ -1,7 +1,7 @@
 # camel-kameleon 
  
 # Bad smells
-I found 23 bad smells with 3 repairable:
+I found 24 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | OptionalGetWithoutIsPresent | 5 | false |
@@ -13,9 +13,10 @@ I found 23 bad smells with 3 repairable:
 | DataFlowIssue | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
-| InnerClassMayBeStatic | 1 | true |
 | SamePackageImport | 1 | false |
 | Convert2MethodRef | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
+| InnerClassMayBeStatic | 1 | true |
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -80,6 +81,19 @@ import org.apache.camel.kameleon.model.CamelComponent;
 import org.apache.camel.springboot.catalog.SpringBootRuntimeProvider;
 ```
 
+## RuleId[ruleID=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
+#### Snippet
+```java
+        KameletsCatalog catalog = new KameletsCatalog();
+        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
+                .map(e -> new KameletComponent(
+                        e.getValue().getMetadata().getName(),
+                        e.getValue().getSpec().getDefinition().getTitle(),
+```
+
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -115,32 +129,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
             e.printStackTrace();
         }
     }
-```
-
-## RuleId[ruleID=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `src/main/java/org/apache/camel/kameleon/component/KameletComponentService.java`
-#### Snippet
-```java
-        KameletsCatalog catalog = new KameletsCatalog();
-        List<KameletComponent> list = catalog.getKamelets().entrySet().stream()
-                .map(e -> new KameletComponent(
-                        e.getValue().getMetadata().getName(),
-                        e.getValue().getSpec().getDefinition().getTitle(),
-```
-
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `WarmupRequest` may be 'static'
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
-#### Snippet
-```java
-    }
-
-    public class WarmupRequest {
-        public String type;
-        public String version;
 ```
 
 ## RuleId[ruleID=SamePackageImport]
@@ -179,6 +167,45 @@ in `src/main/java/org/apache/camel/kameleon/model/AbstractComponent.java`
     public AbstractComponent(String name, String title, String description, String supportLevel, List<String> labels) {
         this.name = name;
         this.title = title;
+```
+
+## RuleId[ruleID=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+#### Snippet
+```java
+        try {
+            JsonArray componentArray = componentResource.components(type, version);
+            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
+            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
+            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-20-16-51-22.815.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[ruleID=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `WarmupRequest` may be 'static'
+in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
+#### Snippet
+```java
+    }
+
+    public class WarmupRequest {
+        public String type;
+        public String version;
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -240,19 +267,6 @@ in `src/main/java/org/apache/camel/kameleon/generator/ProjectGeneratorService.ja
         Plugin mavenCompiler = plugins.stream().filter(p -> p.getArtifactId().equals("maven-compiler-plugin")).findFirst().get();
         Xpp3Dom config = (Xpp3Dom) mavenCompiler.getConfiguration();
         if (config.getChild("source") == null) config.addChild(new Xpp3Dom("source"));
-```
-
-## RuleId[ruleID=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
-#### Snippet
-```java
-        try {
-            JsonArray componentArray = componentResource.components(type, version);
-            List<String> componentList = componentArray.stream().map(o -> o.toString()).collect(Collectors.toList());
-            String components = componentList.stream().limit(5).collect(Collectors.joining(","));
-            projectGeneratorService.generate(type, version, "org.apache.camel.kameleon", "demo", "0.0.1", javaVersion, components);
 ```
 
 ## RuleId[ruleID=ComparatorResultComparison]
