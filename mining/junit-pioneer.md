@@ -287,6 +287,18 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
+
+	/**
+	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 *
+	 * @return IssueId the test belongs to
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
+#### Snippet
+```java
 	 * Constructor with all attributes.
 	 *
 	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
@@ -304,18 +316,6 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
  * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
  *
  * Once Pioneer baselines against Java 17, this will be a record.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
-#### Snippet
-```java
-
-	/**
-	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
-	 *
-	 * @return IssueId the test belongs to
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -553,6 +553,18 @@ in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArguments
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Shared`
+in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
+#### Snippet
+```java
+	}
+
+	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
+			ExtensionContext extensionContext) {
+		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
+```
+
+### BoundedWildcard
 Can generalize to `? extends ReentrantLock`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -565,15 +577,15 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Shared`
-in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
 ```java
 	}
 
-	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
-			ExtensionContext extensionContext) {
-		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
+	private void clearEntries(Collection<K> entriesToClear) {
+		entriesToClear.forEach(this::clearEntry);
+	}
 ```
 
 ### BoundedWildcard
@@ -622,18 +634,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
 			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
 				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void clearEntries(Collection<K> entriesToClear) {
-		entriesToClear.forEach(this::clearEntry);
-	}
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
