@@ -14,14 +14,14 @@ I found 46 bad smells with 2 repairable:
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | NestedAssignment | 1 | false |
-| UnnecessaryQualifierForThis | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
+| UnnecessaryQualifierForThis | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | NonFinalFieldOfException | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
-| BusyWait | 1 | false |
 | TrivialStringConcatenation | 1 | false |
+| BusyWait | 1 | false |
 | BoundedWildcard | 1 | false |
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
@@ -102,6 +102,18 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `label` is accessed in both synchronized and unsynchronized contexts
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
+#### Snippet
+```java
+    private int batchCount = 0;
+    private long batchSize = 0;
+    private String label;
+    private String database;
+    private String table;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `buffer` is accessed in both synchronized and unsynchronized contexts
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
@@ -123,18 +135,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
     private long batchSize = 0;
     private String label;
     private String database;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `label` is accessed in both synchronized and unsynchronized contexts
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
-#### Snippet
-```java
-    private int batchCount = 0;
-    private long batchSize = 0;
-    private String label;
-    private String database;
-    private String table;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -203,11 +203,11 @@ Field initialization to `false` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
 #### Snippet
 ```java
-    private final Map<String, DorisSinkBufferEntry> bufferMap = new ConcurrentHashMap<>();
     private final Long timeout = 3000L;
     private volatile boolean closed = false;
     private volatile boolean flushThreadAlive = false;
     private volatile Throwable flushException;
+
 ```
 
 ### RedundantFieldInitialization
@@ -215,24 +215,11 @@ Field initialization to `false` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
 #### Snippet
 ```java
+    private final Map<String, DorisSinkBufferEntry> bufferMap = new ConcurrentHashMap<>();
     private final Long timeout = 3000L;
     private volatile boolean closed = false;
     private volatile boolean flushThreadAlive = false;
     private volatile Throwable flushException;
-
-```
-
-## RuleId[ruleID=UnnecessaryQualifierForThis]
-### UnnecessaryQualifierForThis
-Qualifier `DorisSinkWriter` on 'this' is unnecessary in this context
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
-#### Snippet
-```java
-        this.schedule = Executors.newScheduledThreadPool(1, ThreadUtils.threadFactory("doris-interval-sink"));
-        this.scheduledFuture = this.schedule.schedule(() -> {
-            synchronized (DorisSinkWriter.this) {
-                if (!closed) {
-                    try {
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -246,6 +233,19 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
                             return;
                         case RESULT_LABEL_PREPARE:
                             continue;
+```
+
+## RuleId[ruleID=UnnecessaryQualifierForThis]
+### UnnecessaryQualifierForThis
+Qualifier `DorisSinkWriter` on 'this' is unnecessary in this context
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
+#### Snippet
+```java
+        this.schedule = Executors.newScheduledThreadPool(1, ThreadUtils.threadFactory("doris-interval-sink"));
+        this.scheduledFuture = this.schedule.schedule(() -> {
+            synchronized (DorisSinkWriter.this) {
+                if (!closed) {
+                    try {
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -263,12 +263,12 @@ public enum Semantic implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/StorageType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
 #### Snippet
 ```java
-import java.io.Serializable;
-
-public enum StorageType implements Serializable {
+ * kubernetes.rest-service.exposed.type
+ */
+public enum FlinkK8sRestExposedType implements Serializable {
 
     /**
 ```
@@ -287,14 +287,14 @@ public enum DevelopmentMode implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkSqlValidationFailedType.java`
 #### Snippet
 ```java
- * kubernetes.rest-service.exposed.type
- */
-public enum FlinkK8sRestExposedType implements Serializable {
+import java.io.Serializable;
 
+public enum FlinkSqlValidationFailedType implements Serializable {
     /**
+     * Basic test failed (such as null, etc.)
 ```
 
 ### RedundantImplements
@@ -323,14 +323,14 @@ public enum ClusterState implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkSqlValidationFailedType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/StorageType.java`
 #### Snippet
 ```java
 import java.io.Serializable;
 
-public enum FlinkSqlValidationFailedType implements Serializable {
+public enum StorageType implements Serializable {
+
     /**
-     * Basic test failed (such as null, etc.)
 ```
 
 ### RedundantImplements
@@ -385,6 +385,18 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Semantic
 
 ### ReturnNull
 Return of `null`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/DevelopmentMode.java`
 #### Snippet
 ```java
@@ -397,7 +409,7 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Developm
 
 ### ReturnNull
 Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkSqlValidationFailedType.java`
 #### Snippet
 ```java
             }
@@ -422,18 +434,6 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveO
 ### ReturnNull
 Return of `null`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkSqlValidationFailedType.java`
 #### Snippet
 ```java
             }
@@ -504,19 +504,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
         }
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `reCreateLabel` of exception class
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/LoadStatusFailedException.java`
-#### Snippet
-```java
-    static final long serialVersionUID = 1L;
-    private final Map<String, Object> response;
-    private boolean reCreateLabel;
-
-    public LoadStatusFailedException(String message, Map<String, Object> response) {
-```
-
 ## RuleId[ruleID=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
@@ -542,6 +529,19 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
                     try {
 ```
 
+## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `reCreateLabel` of exception class
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/LoadStatusFailedException.java`
+#### Snippet
+```java
+    static final long serialVersionUID = 1L;
+    private final Map<String, Object> response;
+    private boolean reCreateLabel;
+
+    public LoadStatusFailedException(String message, Map<String, Object> response) {
+```
+
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
@@ -555,19 +555,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 
 ```
 
-## RuleId[ruleID=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
-#### Snippet
-```java
-            }
-            try {
-                Thread.sleep(1000L * (i + 1));
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-```
-
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -579,6 +566,19 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
                 put.setHeader("timeout", dorisConfig.timeout() + "");
             }
             put.setHeader(HttpHeaders.EXPECT, "100-continue");
+```
+
+## RuleId[ruleID=BusyWait]
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
+#### Snippet
+```java
+            }
+            try {
+                Thread.sleep(1000L * (i + 1));
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
