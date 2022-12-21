@@ -161,7 +161,7 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getUsage()
+     * @see org.apache.felix.shell.Command#getShortDescription()
      */
     @Override
 ```
@@ -221,7 +221,7 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getShortDescription()
+     * @see org.apache.felix.shell.Command#getUsage()
      */
     @Override
 ```
@@ -269,6 +269,54 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```java
     }
 
+    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
+    @Override
+    public String getAbsolutePathWithinSlingHome(final String relativePath) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
+    @Override
+    public String getSlingId() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
+    @Override
+    public String getSlingDescription() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
+    @Override
+    public String getSlingHomePath() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
     /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
     @Override
     public URL getSlingHome() {
@@ -293,57 +341,9 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 ```java
     }
 
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
-    @Override
-    public String getSlingDescription() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
-    @Override
-    public String getAbsolutePathWithinSlingHome(final String relativePath) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
     /** @see org.apache.sling.settings.SlingSettingsService#getRunModes() */
     @Override
     public Set<String> getRunModes() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
-    @Override
-    public String getSlingHomePath() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
-    @Override
-    public String getSlingId() {
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
