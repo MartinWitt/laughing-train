@@ -224,6 +224,18 @@ in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 ```
 
 ### DataFlowIssue
+Argument `serializeOutput` might be null
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+                instanceId,
+                serializeOutput != null ? serializeOutput : "(null)"));
+        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
+        this.sidecarClient.terminateInstance(builder.build());
+    }
+```
+
+### DataFlowIssue
 Argument `serializedInput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
@@ -245,18 +257,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
             builder.setInput(StringValue.of(serializedPayload));
         }
 
-```
-
-### DataFlowIssue
-Argument `serializeOutput` might be null
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-                instanceId,
-                serializeOutput != null ? serializeOutput : "(null)"));
-        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
-        this.sidecarClient.terminateInstance(builder.build());
-    }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -287,18 +287,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (8 lines)
-in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
-#### Snippet
-```java
-    }
-
-    // class OrderInfo {}
-
-    // class ServicesAPIs {
-```
-
-### CommentedOutCode
 Commented out code (10 lines)
 in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 #### Snippet
@@ -308,6 +296,18 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
                     // var order = ctx.getInput(OrderInfo.class); // deserialize order info from JSON to an object
                     // var retryPolicy = RetryPolicy.newBuilder()
                     //         .setMaxRetries(100)
+```
+
+### CommentedOutCode
+Commented out code (8 lines)
+in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
+#### Snippet
+```java
+    }
+
+    // class OrderInfo {}
+
+    // class ServicesAPIs {
 ```
 
 ### CommentedOutCode
@@ -414,8 +414,8 @@ Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 #### Snippet
 ```java
-    static Instant getInstantFromTimestamp(Timestamp ts) {
-        if (ts == null) {
+    static Timestamp getTimestampFromInstant(Instant instant) {
+        if (instant == null) {
             return null;
         }
 
@@ -426,8 +426,8 @@ Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 #### Snippet
 ```java
-    static Timestamp getTimestampFromInstant(Instant instant) {
-        if (instant == null) {
+    static Instant getInstantFromTimestamp(Timestamp ts) {
+        if (ts == null) {
             return null;
         }
 
@@ -483,38 +483,14 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
+`jsonText.length() == 0` can be replaced with 'jsonText.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
 #### Snippet
 ```java
-        // TODO: Input validation
-        String key = factory.getName();
-        if (key == null || key.length() == 0) {
-            throw new IllegalArgumentException("A non-empty task activity name is required.");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
-#### Snippet
-```java
-    public DurableTaskGrpcWorkerBuilder addOrchestration(TaskOrchestrationFactory factory) {
-        String key = factory.getName();
-        if (key == null || key.length() == 0) {
-            throw new IllegalArgumentException("A non-empty task orchestration name is required.");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`orchestratorName.length() == 0` can be replaced with 'orchestratorName.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-            String orchestratorName,
-            NewOrchestrationInstanceOptions options) {
-        if (orchestratorName == null || orchestratorName.length() == 0) {
-            throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
+    @Override
+    public <T> T deserialize(String jsonText, Class<T> targetType) {
+        if (jsonText == null || jsonText.length() == 0 || targetType == Void.class) {
+            return null;
         }
 ```
 
@@ -531,27 +507,39 @@ in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/Durabl
 ```
 
 ### SizeReplaceableByIsEmpty
-`jsonText.length() == 0` can be replaced with 'jsonText.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public <T> T deserialize(String jsonText, Class<T> targetType) {
-        if (jsonText == null || jsonText.length() == 0 || targetType == Void.class) {
-            return null;
+    public DurableTaskGrpcWorkerBuilder addOrchestration(TaskOrchestrationFactory factory) {
+        String key = factory.getName();
+        if (key == null || key.length() == 0) {
+            throw new IllegalArgumentException("A non-empty task orchestration name is required.");
         }
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
 #### Snippet
 ```java
-        @Override
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null || this.rawInput.length() == 0) {
-                return null;
-            }
+        // TODO: Input validation
+        String key = factory.getName();
+        if (key == null || key.length() == 0) {
+            throw new IllegalArgumentException("A non-empty task activity name is required.");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`orchestratorName.length() == 0` can be replaced with 'orchestratorName.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+            String orchestratorName,
+            NewOrchestrationInstanceOptions options) {
+        if (orchestratorName == null || orchestratorName.length() == 0) {
+            throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -564,6 +552,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
             return this.outstandingEvents.size() > 0;
         }
 
+```
+
+### SizeReplaceableByIsEmpty
+`this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
+#### Snippet
+```java
+        @Override
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null || this.rawInput.length() == 0) {
+                return null;
+            }
 ```
 
 ## RuleId[ruleID=NonStaticFinalLogger]
@@ -632,30 +632,6 @@ in `samples/src/main/java/io/durabletask/samples/OrchestrationController.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends TaskActivityFactory`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-
-    public TaskActivityExecutor(
-            HashMap<String, TaskActivityFactory> activityFactories,
-            DataConverter dataConverter,
-            Logger logger) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
-    CompositeTaskFailedException(String message, List<Exception> exceptions) {
-        super(message);
-        this.exceptions = exceptions;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Exception`
 in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
 #### Snippet
@@ -665,6 +641,18 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
     CompositeTaskFailedException(List<Exception> exceptions) {
         this.exceptions = exceptions;
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.exceptions = exceptions;
 ```
 
 ### BoundedWildcard
@@ -686,8 +674,8 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
-        super(cause);
+    CompositeTaskFailedException(String message, List<Exception> exceptions) {
+        super(message);
         this.exceptions = exceptions;
 ```
 
@@ -698,9 +686,21 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
+        super(cause);
         this.exceptions = exceptions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TaskActivityFactory`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+
+    public TaskActivityExecutor(
+            HashMap<String, TaskActivityFactory> activityFactories,
+            DataConverter dataConverter,
+            Logger logger) {
 ```
 
 ### BoundedWildcard
@@ -710,7 +710,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
+        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
@@ -722,7 +722,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
+        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
