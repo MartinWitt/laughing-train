@@ -90,15 +90,15 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `batchCount` is accessed in both synchronized and unsynchronized contexts
+Field `label` is accessed in both synchronized and unsynchronized contexts
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
-
-    private ArrayList<byte[]> buffer = new ArrayList<>();
     private int batchCount = 0;
     private long batchSize = 0;
     private String label;
+    private String database;
+    private String table;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -114,18 +114,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `label` is accessed in both synchronized and unsynchronized contexts
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
-#### Snippet
-```java
-    private int batchCount = 0;
-    private long batchSize = 0;
-    private String label;
-    private String database;
-    private String table;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `buffer` is accessed in both synchronized and unsynchronized contexts
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
@@ -138,15 +126,15 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `scheduledFuture` is accessed in both synchronized and unsynchronized contexts
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
+Field `batchCount` is accessed in both synchronized and unsynchronized contexts
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
 
-    private ScheduledExecutorService schedule;
-    private ScheduledFuture<?> scheduledFuture;
-
-    private transient Counter totalFlushBytes;
+    private ArrayList<byte[]> buffer = new ArrayList<>();
+    private int batchCount = 0;
+    private long batchSize = 0;
+    private String label;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -159,6 +147,18 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
     private ScheduledExecutorService schedule;
     private ScheduledFuture<?> scheduledFuture;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `scheduledFuture` is accessed in both synchronized and unsynchronized contexts
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
+#### Snippet
+```java
+
+    private ScheduledExecutorService schedule;
+    private ScheduledFuture<?> scheduledFuture;
+
+    private transient Counter totalFlushBytes;
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -179,11 +179,11 @@ Field initialization to `0` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
-
     private ArrayList<byte[]> buffer = new ArrayList<>();
     private int batchCount = 0;
     private long batchSize = 0;
     private String label;
+    private String database;
 ```
 
 ### RedundantFieldInitialization
@@ -191,11 +191,11 @@ Field initialization to `0` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
+
     private ArrayList<byte[]> buffer = new ArrayList<>();
     private int batchCount = 0;
     private long batchSize = 0;
     private String label;
-    private String database;
 ```
 
 ### RedundantFieldInitialization
@@ -287,14 +287,14 @@ public enum ClusterState implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/StorageType.java`
 #### Snippet
 ```java
- * classloader.resolve-order
- */
-public enum ResolveOrder implements Serializable {
+import java.io.Serializable;
+
+public enum StorageType implements Serializable {
+
     /**
-     * parent-first
 ```
 
 ### RedundantImplements
@@ -311,14 +311,14 @@ public enum FlinkK8sRestExposedType implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/StorageType.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
 #### Snippet
 ```java
-import java.io.Serializable;
-
-public enum StorageType implements Serializable {
-
+ * classloader.resolve-order
+ */
+public enum ResolveOrder implements Serializable {
     /**
+     * parent-first
 ```
 
 ### RedundantImplements
