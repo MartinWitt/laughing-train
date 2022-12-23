@@ -41,7 +41,7 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
 #### Snippet
 ```java
 
-    public static List<Failure> runTest(String fullQualifiedName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
+    public static List<Failure> runTest(String fullQualifiedName, String testCaseName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
         ClassLoader classLoader = new URLClassLoader(
                 arrayStringToArrayUrl.apply(classpath),
                 ClassLoader.getSystemClassLoader()
@@ -53,7 +53,7 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
 #### Snippet
 ```java
 
-    public static List<Failure> runTest(String fullQualifiedName, String testCaseName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
+    public static List<Failure> runTest(String fullQualifiedName, String[] classpath) throws MalformedURLException, ClassNotFoundException {
         ClassLoader classLoader = new URLClassLoader(
                 arrayStringToArrayUrl.apply(classpath),
                 ClassLoader.getSystemClassLoader()
@@ -85,15 +85,15 @@ public class Util {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
+Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
 #### Snippet
 ```java
- * Created by nicolas on 22/01/2015.
+ * on 23/05/17
  */
-public class IOUtils {
-	/**
-	 * The default buffer size to use.
+public class TestRunner {
+
+    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -109,15 +109,15 @@ public class Logger {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestRunner` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/test/TestRunner.java`
+Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 #### Snippet
 ```java
- * on 23/05/17
+ * Created by nicolas on 22/01/2015.
  */
-public class TestRunner {
-
-    private static Function<String[], URL[]> arrayStringToArrayUrl = (arrayStr) ->
+public class IOUtils {
+	/**
+	 * The default buffer size to use.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -617,18 +617,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
-#### Snippet
-```java
-	  assertEquals(1, y.m());
-	  
-	  System.out.println("yes y.m()="+y.m());
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
 #### Snippet
 ```java
@@ -641,14 +629,14 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 #### Snippet
 ```java
-			// Analyze
-			Map<CtMethod, List<CtLocalVariable>> localVariablesPerTestMethod = analyzer.analyze(ctClass);
-			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
-			if (!localVariablesPerTestMethod.isEmpty()) {
-				// Collect
+	  assertEquals(1, y.m());
+	  
+	  System.out.println("yes y.m()="+y.m());
+  }
+}
 ```
 
 ### SystemOutErr
@@ -661,6 +649,18 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 							System.out.print((char) p.getInputStream().read());
 						} catch (IOException e) {
 							e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+#### Snippet
+```java
+			// Analyze
+			Map<CtMethod, List<CtLocalVariable>> localVariablesPerTestMethod = analyzer.analyze(ctClass);
+			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
+			if (!localVariablesPerTestMethod.isEmpty()) {
+				// Collect
 ```
 
 ### SystemOutErr
@@ -1022,30 +1022,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
 #### Snippet
 ```java
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
-#### Snippet
-```java
-            new Exception("failed to connect to the database with "
-                    + "jdbc:postgresql:" + _database_ + "," + _username_ + ","
-                    + _password_).printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
-#### Snippet
-```java
             return rs.getString(1);
         } catch (java.sql.SQLException ex12) {
             ex12.printStackTrace();
@@ -1063,6 +1039,30 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
                 ex13.printStackTrace();
             }
         }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+#### Snippet
+```java
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeTemplate.java`
+#### Snippet
+```java
+            new Exception("failed to connect to the database with "
+                    + "jdbc:postgresql:" + _database_ + "," + _username_ + ","
+                    + _password_).printStackTrace();
+        }
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -1118,7 +1118,7 @@ class TestListener extends RunListener {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-23-03-08-56.713.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-23-16-03-24.782.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1131,14 +1131,14 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-23-03-08-56.713.
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/gforge/spoon/transformation/autologging/TracingTest.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
-                    }
-                }
-                return null;
-            }
-            @Override
+
+    public String getLastName() {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -1155,14 +1155,14 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/autologging/TracingTest.java`
 #### Snippet
 ```java
-
-    public String getLastName() {
-        return null;
-    }
-
+                    }
+                }
+                return null;
+            }
+            @Override
 ```
 
 ### ReturnNull
