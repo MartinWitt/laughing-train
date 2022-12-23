@@ -1,7 +1,7 @@
 # closure-templates 
  
 # Bad smells
-I found 2029 bad smells with 111 repairable:
+I found 2028 bad smells with 111 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 410 | false |
@@ -71,8 +71,8 @@ I found 2029 bad smells with 111 repairable:
 | NonFinalFieldOfException | 2 | false |
 | StringConcatenationInsideStringBufferAppend | 2 | false |
 | SwitchStatementWithConfusingDeclaration | 2 | false |
-| RegExpSingleCharAlternation | 2 | false |
 | ThrowablePrintStackTrace | 2 | false |
+| RegExpSingleCharAlternation | 2 | false |
 | UnnecessaryContinue | 2 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
 | WrapperTypeMayBePrimitive | 1 | false |
@@ -87,7 +87,6 @@ I found 2029 bad smells with 111 repairable:
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
 | RegExpDuplicateCharacterInClass | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
 | DoubleBraceInitialization | 1 | false |
 | Java8MapForEach | 1 | false |
@@ -168,11 +167,11 @@ Modifier `public` is redundant for interface members
 in `java/src/com/google/template/soy/base/internal/IdGenerator.java`
 #### Snippet
 ```java
-   * @return The generated id.
+   * @return A clone of this id generator.
    */
-  public int genId();
+  public IdGenerator copy();
+}
 
-  /**
 ```
 
 ### UnnecessaryModifier
@@ -180,11 +179,11 @@ Modifier `public` is redundant for interface members
 in `java/src/com/google/template/soy/base/internal/IdGenerator.java`
 #### Snippet
 ```java
-   * @return A clone of this id generator.
+   * @return The generated id.
    */
-  public IdGenerator copy();
-}
+  public int genId();
 
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -206,9 +205,9 @@ in `java/src/com/google/template/soy/data/SoyDict.java`
 ```java
    */
   @Nonnull
-  public Map<String, ? extends SoyValue> asResolvedJavaStringMap();
-}
+  public Map<String, ? extends SoyValueProvider> asJavaStringMap();
 
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -218,9 +217,9 @@ in `java/src/com/google/template/soy/data/SoyDict.java`
 ```java
    */
   @Nonnull
-  public Map<String, ? extends SoyValueProvider> asJavaStringMap();
+  public Map<String, ? extends SoyValue> asResolvedJavaStringMap();
+}
 
-  /**
 ```
 
 ### UnnecessaryModifier
@@ -261,24 +260,24 @@ public final class SourceSnippetPrinter {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `java/src/com/google/template/soy/jssrc/restricted/SoyLibraryAssistedJsSrcPrintDirective.java`
-#### Snippet
-```java
-   * @return A collection of strings representing Closure JS library names
-   */
-  public ImmutableSet<String> getRequiredJsLibNames();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `java/src/com/google/template/soy/jssrc/restricted/SoyJsSrcPrintDirective.java`
 #### Snippet
 ```java
    * @return The resulting value.
    */
   public JsExpr applyForJsSrc(JsExpr value, List<JsExpr> args);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `java/src/com/google/template/soy/jssrc/restricted/SoyLibraryAssistedJsSrcPrintDirective.java`
+#### Snippet
+```java
+   * @return A collection of strings representing Closure JS library names
+   */
+  public ImmutableSet<String> getRequiredJsLibNames();
 }
 
 ```
@@ -296,27 +295,15 @@ in `java/src/com/google/template/soy/pysrc/restricted/SoyPySrcPrintDirective.jav
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `java/src/com/google/template/soy/pysrc/restricted/SoyPySrcFunction.java`
+Modifier `static` is redundant for inner classes of interfaces
+in `java/src/com/google/template/soy/jbcsrc/ExpressionDetacher.java`
 #### Snippet
 ```java
-   * @return The computed result of this function.
+   * }</pre>
    */
-  public PyExpr computeForPySrc(List<PyExpr> args);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `java/src/com/google/template/soy/jssrc/restricted/SoyJsSrcFunction.java`
-#### Snippet
-```java
-   * @return The computed result of this function.
-   */
-  public JsExpr computeForJsSrc(List<JsExpr> args);
-}
-
+  static final class BasicDetacher implements ExpressionDetacher {
+    static final BasicDetacher INSTANCE = new BasicDetacher(() -> Statement.NULL_STATEMENT);
+    private final Supplier<Statement> saveOperationSupplier;
 ```
 
 ### UnnecessaryModifier
@@ -329,18 +316,6 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionDetacher.java`
   static final class NullDetatcher implements ExpressionDetacher, Factory {
     static final NullDetatcher INSTANCE = new NullDetatcher();
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `java/src/com/google/template/soy/jbcsrc/ExpressionDetacher.java`
-#### Snippet
-```java
-   * }</pre>
-   */
-  static final class BasicDetacher implements ExpressionDetacher {
-    static final BasicDetacher INSTANCE = new BasicDetacher(() -> Statement.NULL_STATEMENT);
-    private final Supplier<Statement> saveOperationSupplier;
 ```
 
 ### UnnecessaryModifier
@@ -369,14 +344,26 @@ in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `java/src/com/google/template/soy/shared/internal/SoyScopedData.java`
+in `java/src/com/google/template/soy/jssrc/restricted/SoyJsSrcFunction.java`
 #### Snippet
 ```java
+   * @return The computed result of this function.
+   */
+  public JsExpr computeForJsSrc(List<JsExpr> args);
+}
 
-  /** A subtype of {@link AutoCloseable} that can be closed without an IOException. */
-  public interface InScope extends AutoCloseable {
+```
 
-    BidiGlobalDir getBidiGlobalDir();
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `java/src/com/google/template/soy/pysrc/restricted/SoyPySrcFunction.java`
+#### Snippet
+```java
+   * @return The computed result of this function.
+   */
+  public PyExpr computeForPySrc(List<PyExpr> args);
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -389,6 +376,18 @@ in `java/src/com/google/template/soy/shared/internal/SoyScopedData.java`
   public interface Enterable {
     /** Enters an occurrence of this scope. */
     @CheckReturnValue
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `java/src/com/google/template/soy/shared/internal/SoyScopedData.java`
+#### Snippet
+```java
+
+  /** A subtype of {@link AutoCloseable} that can be closed without an IOException. */
+  public interface InScope extends AutoCloseable {
+
+    BidiGlobalDir getBidiGlobalDir();
 ```
 
 ### UnnecessaryModifier
@@ -492,23 +491,11 @@ Modifier `public` is redundant for interface members
 in `java/src/com/google/template/soy/exprtree/ExprNode.java`
 #### Snippet
 ```java
-  /** See {@link Node#copy(CopyState)} for a description of the copy contract. */
+   */
   @Override
-  public ExprNode copy(CopyState copyState);
+  public Kind getKind();
 
-  // -----------------------------------------------------------------------------------------------
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `java/src/com/google/template/soy/exprtree/ExprNode.java`
-#### Snippet
-```java
-
-  @Override
-  public ParentExprNode getParent();
-
-  /** See {@link Node#copy(CopyState)} for a description of the copy contract. */
+  /** Gets the data type of this node. */
 ```
 
 ### UnnecessaryModifier
@@ -521,6 +508,18 @@ in `java/src/com/google/template/soy/exprtree/ExprNode.java`
     public OperatorNode copy(CopyState copyState);
   }
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `java/src/com/google/template/soy/exprtree/ExprNode.java`
+#### Snippet
+```java
+
+  /** Gets the data type of this node. */
+  public SoyType getType();
+
+  @Override
 ```
 
 ### UnnecessaryModifier
@@ -541,10 +540,10 @@ in `java/src/com/google/template/soy/exprtree/ExprNode.java`
 #### Snippet
 ```java
 
-  /** Gets the data type of this node. */
-  public SoyType getType();
-
   @Override
+  public ParentExprNode getParent();
+
+  /** See {@link Node#copy(CopyState)} for a description of the copy contract. */
 ```
 
 ### UnnecessaryModifier
@@ -552,11 +551,23 @@ Modifier `public` is redundant for interface members
 in `java/src/com/google/template/soy/exprtree/ExprNode.java`
 #### Snippet
 ```java
-   */
+  /** See {@link Node#copy(CopyState)} for a description of the copy contract. */
   @Override
-  public Kind getKind();
+  public ExprNode copy(CopyState copyState);
 
-  /** Gets the data type of this node. */
+  // -----------------------------------------------------------------------------------------------
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `java/src/com/google/template/soy/exprtree/Operator.java`
+#### Snippet
+```java
+  /** Represents a syntax element (used in a syntax specification for an operator). */
+  @Immutable
+  public static interface SyntaxElement {}
+
+  /** A syntax element for an operand. */
 ```
 
 ### UnnecessaryModifier
@@ -581,18 +592,6 @@ in `java/src/com/google/template/soy/exprtree/Operator.java`
   private Operator(
       ImmutableList<SyntaxElement> syntax, int precedence, Associativity associativity) {
     this(syntax, precedence, associativity, /* description= */ null);
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `java/src/com/google/template/soy/exprtree/Operator.java`
-#### Snippet
-```java
-  /** Represents a syntax element (used in a syntax specification for an operator). */
-  @Immutable
-  public static interface SyntaxElement {}
-
-  /** A syntax element for an operand. */
 ```
 
 ### UnnecessaryModifier
@@ -627,6 +626,18 @@ in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
 ```java
           // Skip over a quoted attribute value inside the tag.
           char quote = lastChar;
+          while (charIndex < length && (lastChar = text.charAt(charIndex++)) != quote) {}
+        }
+      }
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
+#### Snippet
+```java
+          // Skip over a quoted attribute value inside the tag.
+          char quote = lastChar;
           while (charIndex > 0 && (lastChar = text.charAt(--charIndex)) != quote) {}
         }
       }
@@ -642,18 +653,6 @@ in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
       while (charIndex < length && (lastChar = text.charAt(charIndex++)) != ';') {}
       return UCharacter.DIRECTIONALITY_WHITESPACE;
     }
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
-#### Snippet
-```java
-          // Skip over a quoted attribute value inside the tag.
-          char quote = lastChar;
-          while (charIndex < length && (lastChar = text.charAt(charIndex++)) != quote) {}
-        }
-      }
 ```
 
 ### EmptyStatementBody
@@ -700,18 +699,6 @@ in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
 #### Snippet
 ```java
    */
-  private static final Function<String, String> escaperForPyFormatString =
-      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
-
-  /**
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
-#### Snippet
-```java
-   */
   private static final Function<String, String> escaperForIcuSection =
       str -> str.replace("'", "\\\'");
 }
@@ -720,14 +707,14 @@ in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
+in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
 #### Snippet
 ```java
-          // and
-          //      <img src="/foo/{print $x}.png">
-          .escapeAll(" (){}\"\'\\<>")
-          // More spaces and newlines.
-          .escapeAll("\u0085\u00A0\u2028\u2029")
+   */
+  private static final Function<String, String> escaperForPyFormatString =
+      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
+
+  /**
 ```
 
 ### UnnecessaryStringEscape
@@ -744,14 +731,14 @@ in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
 
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
-in `java/src/com/google/template/soy/soyparse/Tokens.java`
+in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
 #### Snippet
 ```java
-        return "eof";
-      case SoyFileParserConstants.AS:
-        return "\'as\'";
-
-        // Template tokens:
+          // and
+          //      <img src="/foo/{print $x}.png">
+          .escapeAll(" (){}\"\'\\<>")
+          // More spaces and newlines.
+          .escapeAll("\u0085\u00A0\u2028\u2029")
 ```
 
 ### UnnecessaryStringEscape
@@ -764,6 +751,18 @@ in `java/src/com/google/template/soy/soyparse/SoyParseUtils.java`
     int index = s.indexOf(quoteStyle == QuoteStyle.DOUBLE ? "\\\"" : "\\\'");
     if (index == -1) {
       return s;
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `java/src/com/google/template/soy/soyparse/Tokens.java`
+#### Snippet
+```java
+        return "eof";
+      case SoyFileParserConstants.AS:
+        return "\'as\'";
+
+        // Template tokens:
 ```
 
 ### UnnecessaryStringEscape
@@ -832,11 +831,11 @@ Referencing subclass BasicTemplateContentKind from superclass TemplateContentKin
 in `java/src/com/google/template/soy/base/internal/TemplateContentKind.java`
 #### Snippet
 ```java
-
-  public static final TemplateContentKind DEFAULT =
-      BasicTemplateContentKind.KINDS_BY_ATTR_VALUE.get(
-          SanitizedContentKind.HTML.asAttributeValue());
-
+          "Invalid value for template attribute ''kind'', expected one of "
+              + ImmutableSortedSet.naturalOrder()
+                  .addAll(BasicTemplateContentKind.KINDS_BY_ATTR_VALUE.keySet())
+                  .add("html<...>")
+                  .build()
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -844,11 +843,11 @@ Referencing subclass BasicTemplateContentKind from superclass TemplateContentKin
 in `java/src/com/google/template/soy/base/internal/TemplateContentKind.java`
 #### Snippet
 ```java
-          "Invalid value for template attribute ''kind'', expected one of "
-              + ImmutableSortedSet.naturalOrder()
-                  .addAll(BasicTemplateContentKind.KINDS_BY_ATTR_VALUE.keySet())
-                  .add("html<...>")
-                  .build()
+
+  public static final TemplateContentKind DEFAULT =
+      BasicTemplateContentKind.KINDS_BY_ATTR_VALUE.get(
+          SanitizedContentKind.HTML.asAttributeValue());
+
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -880,11 +879,11 @@ Referencing subclass PrimitiveJavaType from superclass SimpleJavaType initialize
 in `java/src/com/google/template/soy/javagencode/javatypes/SimpleJavaType.java`
 #### Snippet
 ```java
-
-  public static final SimpleJavaType FLOAT =
+   */
+  public static final SimpleJavaType BOOLEAN =
       new PrimitiveJavaType(
-          /* boxedType= */ "java.lang.Double",
-          /* primitiveType= */ "double",
+          /* boxedType= */ "java.lang.Boolean",
+          /* primitiveType= */ "boolean",
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -892,11 +891,11 @@ Referencing subclass PrimitiveJavaType from superclass SimpleJavaType initialize
 in `java/src/com/google/template/soy/javagencode/javatypes/SimpleJavaType.java`
 #### Snippet
 ```java
-   */
-  public static final SimpleJavaType BOOLEAN =
+
+  public static final SimpleJavaType FLOAT =
       new PrimitiveJavaType(
-          /* boxedType= */ "java.lang.Boolean",
-          /* primitiveType= */ "boolean",
+          /* boxedType= */ "java.lang.Double",
+          /* primitiveType= */ "double",
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
@@ -967,11 +966,11 @@ Redundant character escape `\\ ` in RegExp
 in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
 #### Snippet
 ```java
-  /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
-  private static final Pattern SOY_DOC_END =
-      Pattern.compile("\\r?\\n? [\\ ]* [*][/] $", Pattern.COMMENTS);
+  /** Pattern for a SoyDoc start token, including spaces up to the first newline. */
+  private static final Pattern SOY_DOC_START =
+      Pattern.compile("^ [/][*][*] [\\ ]* \\r?\\n?", Pattern.COMMENTS);
 
-  /**
+  /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
 ```
 
 ### RegExpRedundantEscape
@@ -979,11 +978,11 @@ Redundant character escape `\\ ` in RegExp
 in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
 #### Snippet
 ```java
-  /** Pattern for a SoyDoc start token, including spaces up to the first newline. */
-  private static final Pattern SOY_DOC_START =
-      Pattern.compile("^ [/][*][*] [\\ ]* \\r?\\n?", Pattern.COMMENTS);
-
   /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
+  private static final Pattern SOY_DOC_END =
+      Pattern.compile("\\r?\\n? [\\ ]* [*][/] $", Pattern.COMMENTS);
+
+  /**
 ```
 
 ### RegExpRedundantEscape
@@ -1102,8 +1101,8 @@ Pseudo functional style code
 in `java/src/com/google/template/soy/data/internal/DictImpl.java`
 #### Snippet
 ```java
-  public final Iterable<? extends SoyValue> getItemKeys() {
-    typeTracker.maybeSetLegacyObjectMapOrRecordType();
+  public Iterable<? extends SoyValue> keys() {
+    typeTracker.maybeSetMapType();
     return Iterables.transform(providerMap.keySet(), StringData::forValue);
   }
 
@@ -1114,21 +1113,9 @@ Pseudo functional style code
 in `java/src/com/google/template/soy/data/internal/DictImpl.java`
 #### Snippet
 ```java
-  public Iterable<? extends SoyValue> keys() {
-    typeTracker.maybeSetMapType();
+  public final Iterable<? extends SoyValue> getItemKeys() {
+    typeTracker.maybeSetLegacyObjectMapOrRecordType();
     return Iterables.transform(providerMap.keySet(), StringData::forValue);
-  }
-
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
-in `java/src/com/google/template/soy/data/SoyMapData.java`
-#### Snippet
-```java
-  @Override
-  public Iterable<? extends SoyValue> keys() {
-    return Iterables.transform(map.keySet(), StringData::forValue);
   }
 
 ```
@@ -1147,14 +1134,14 @@ in `java/src/com/google/template/soy/jbcsrc/JbcSrcValueFactory.java`
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
+in `java/src/com/google/template/soy/data/SoyMapData.java`
 #### Snippet
 ```java
-  public TofuJavaValue listOf(List<JavaValue> args) {
-    List<SoyValue> values =
-        Lists.transform(
-            args,
-            soyArg -> {
+  @Override
+  public Iterable<? extends SoyValue> keys() {
+    return Iterables.transform(map.keySet(), StringData::forValue);
+  }
+
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -1167,6 +1154,18 @@ in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
         Lists.transform(args, soyArg -> TofuJavaValue.forSoyValue(soyArg, fnSourceLocation));
     TofuJavaValue result = (TofuJavaValue) srcFn.applyForJavaSource(this, javaArgs, context);
     if (!result.hasSoyValue()) {
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
+#### Snippet
+```java
+  public TofuJavaValue listOf(List<JavaValue> args) {
+    List<SoyValue> values =
+        Lists.transform(
+            args,
+            soyArg -> {
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
@@ -1282,14 +1281,14 @@ in `java/src/com/google/template/soy/jssrc/internal/GenJsCodeVisitor.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
-in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
 #### Snippet
 ```java
+    }
 
-  /** The {@link Method} signature of the {@code static CompiledTemplate template()} method. */
-  private static final Method createTemplateMethod(String methodName) {
-    return new Method(methodName, Type.getMethodDescriptor(BytecodeUtils.COMPILED_TEMPLATE_TYPE));
-  }
+    private static final Type getKeyType(FieldDescriptor keyDescriptor) {
+      switch (keyDescriptor.getJavaType()) {
+        case INT:
 ```
 
 ### FinalPrivateMethod
@@ -1306,14 +1305,14 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
 #### Snippet
 ```java
-    }
 
-    private static final Type getKeyType(FieldDescriptor keyDescriptor) {
-      switch (keyDescriptor.getJavaType()) {
-        case INT:
+  /** The {@link Method} signature of the {@code static CompiledTemplate template()} method. */
+  private static final Method createTemplateMethod(String methodName) {
+    return new Method(methodName, Type.getMethodDescriptor(BytecodeUtils.COMPILED_TEMPLATE_TYPE));
+  }
 ```
 
 ### FinalPrivateMethod
@@ -1354,14 +1353,26 @@ in `java/src/com/google/template/soy/soytree/JsImplNode.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
+in `java/src/com/google/template/soy/internal/proto/ProtoUtils.java`
+#### Snippet
+```java
+  public static final ExtensionRegistry REGISTRY = createRegistry();
+
+  private static final ExtensionRegistry createRegistry() {
+    ExtensionRegistry instance = ExtensionRegistry.newInstance();
+    // Add extensions needed for parsing descriptors here.
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
 in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
 #### Snippet
 ```java
   }
 
-  private final HashMap<String, Wrapper> recordLiteralFields(RecordLiteralNode node) {
-    HashMap<String, Wrapper> map = new HashMap<>();
-    List<ExprNode> children = node.getChildren();
+  private final HashMap<Wrapper, Wrapper> mapLiteralFields(MapLiteralNode node) {
+    // both of these nodes store keys and values as alternating children.  We don't want order to
+    // matter so we store in a map
 ```
 
 ### FinalPrivateMethod
@@ -1383,21 +1394,9 @@ in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
 ```java
   }
 
-  private final HashMap<Wrapper, Wrapper> mapLiteralFields(MapLiteralNode node) {
-    // both of these nodes store keys and values as alternating children.  We don't want order to
-    // matter so we store in a map
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `java/src/com/google/template/soy/internal/proto/ProtoUtils.java`
-#### Snippet
-```java
-  public static final ExtensionRegistry REGISTRY = createRegistry();
-
-  private static final ExtensionRegistry createRegistry() {
-    ExtensionRegistry instance = ExtensionRegistry.newInstance();
-    // Add extensions needed for parsing descriptors here.
+  private final HashMap<String, Wrapper> recordLiteralFields(RecordLiteralNode node) {
+    HashMap<String, Wrapper> map = new HashMap<>();
+    List<ExprNode> children = node.getChildren();
 ```
 
 ### FinalPrivateMethod
@@ -1438,30 +1437,6 @@ in `java/src/com/google/template/soy/passes/BasicHtmlValidationPass.java`
 ```
 
 ### RegExpSimplifiable
-`[\\ ]` can be simplified to '\\ '
-in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
-#### Snippet
-```java
-  /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
-  private static final Pattern SOY_DOC_END =
-      Pattern.compile("\\r?\\n? [\\ ]* [*][/] $", Pattern.COMMENTS);
-
-  /**
-```
-
-### RegExpSimplifiable
-`[/]` can be simplified to '/'
-in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
-#### Snippet
-```java
-  /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
-  private static final Pattern SOY_DOC_END =
-      Pattern.compile("\\r?\\n? [\\ ]* [*][/] $", Pattern.COMMENTS);
-
-  /**
-```
-
-### RegExpSimplifiable
 `[/]` can be simplified to '/'
 in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
 #### Snippet
@@ -1483,18 +1458,42 @@ in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
       Pattern.compile("^ [/][*][*] [\\ ]* \\r?\\n?", Pattern.COMMENTS);
 
   /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
+```
+
+### RegExpSimplifiable
+`[\\ ]` can be simplified to '\\ '
+in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
+#### Snippet
+```java
+  /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
+  private static final Pattern SOY_DOC_END =
+      Pattern.compile("\\r?\\n? [\\ ]* [*][/] $", Pattern.COMMENTS);
+
+  /**
+```
+
+### RegExpSimplifiable
+`[/]` can be simplified to '/'
+in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
+#### Snippet
+```java
+  /** Pattern for a SoyDoc end token, including preceding spaces up to the last newline. */
+  private static final Pattern SOY_DOC_END =
+      Pattern.compile("\\r?\\n? [\\ ]* [*][/] $", Pattern.COMMENTS);
+
+  /**
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`targetLocaleString.length() > 0` can be replaced with '!targetLocaleString.isEmpty()'
-in `java/src/com/google/template/soy/SoyMsgExtractor.java`
+`runtimePath.length() == 0` can be replaced with 'runtimePath.isEmpty()'
+in `java/src/com/google/template/soy/SoyToPySrcCompiler.java`
 #### Snippet
 ```java
-    OutputFileOptions options = new OutputFileOptions();
-    options.setSourceLocaleString(sourceLocaleString);
-    if (targetLocaleString.length() > 0) {
-      options.setTargetLocaleString(targetLocaleString);
+  @Override
+  protected void validateFlags() {
+    if (runtimePath.length() == 0) {
+      exitWithError("Must provide the Python runtime library path.");
     }
 ```
 
@@ -1511,14 +1510,14 @@ in `java/src/com/google/template/soy/SoyParseInfoGenerator.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`runtimePath.length() == 0` can be replaced with 'runtimePath.isEmpty()'
-in `java/src/com/google/template/soy/SoyToPySrcCompiler.java`
+`targetLocaleString.length() > 0` can be replaced with '!targetLocaleString.isEmpty()'
+in `java/src/com/google/template/soy/SoyMsgExtractor.java`
 #### Snippet
 ```java
-  @Override
-  protected void validateFlags() {
-    if (runtimePath.length() == 0) {
-      exitWithError("Must provide the Python runtime library path.");
+    OutputFileOptions options = new OutputFileOptions();
+    options.setSourceLocaleString(sourceLocaleString);
+    if (targetLocaleString.length() > 0) {
+      options.setTargetLocaleString(targetLocaleString);
     }
 ```
 
@@ -1559,18 +1558,6 @@ in `java/src/com/google/template/soy/data/SanitizedContent.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `java/src/com/google/template/soy/data/restricted/StringData.java`
-#### Snippet
-```java
-   */
-  public static StringData forValue(String value) {
-    return (value.length() == 0) ? EMPTY_STRING : new StringData(value);
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
 `getValue().length() > 0` can be replaced with '!getValue().isEmpty()'
 in `java/src/com/google/template/soy/data/restricted/StringData.java`
 #### Snippet
@@ -1578,6 +1565,18 @@ in `java/src/com/google/template/soy/data/restricted/StringData.java`
   @Override
   public boolean coerceToBoolean() {
     return getValue().length() > 0;
+  }
+
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `java/src/com/google/template/soy/data/restricted/StringData.java`
+#### Snippet
+```java
+   */
+  public static StringData forValue(String value) {
+    return (value.length() == 0) ? EMPTY_STRING : new StringData(value);
   }
 
 ```
@@ -1607,6 +1606,18 @@ in `java/src/com/google/template/soy/jssrc/dsl/RawText.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`params().size() == 0` can be replaced with 'params().isEmpty()'
+in `java/src/com/google/template/soy/jssrc/dsl/JsDoc.java`
+#### Snippet
+```java
+
+  private boolean isSingleLine() {
+    return params().size() == 0
+        || (overviewComment().isEmpty()
+            && params().size() == 1
+```
+
+### SizeReplaceableByIsEmpty
 `overviewComment().length() > 0` can be replaced with '!overviewComment().isEmpty()'
 in `java/src/com/google/template/soy/jssrc/dsl/JsDoc.java`
 #### Snippet
@@ -1628,18 +1639,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/JsDoc.java`
     if (overviewComment().length() > 0) {
       sb.append(" * ").append(overviewComment()).append("\n");
     }
-```
-
-### SizeReplaceableByIsEmpty
-`params().size() == 0` can be replaced with 'params().isEmpty()'
-in `java/src/com/google/template/soy/jssrc/dsl/JsDoc.java`
-#### Snippet
-```java
-
-  private boolean isSingleLine() {
-    return params().size() == 0
-        || (overviewComment().isEmpty()
-            && params().size() == 1
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1849,18 +1848,6 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `value instanceof NullData | value instanceof UndefinedData`
-in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
-#### Snippet
-```java
-  @Nullable
-  private static SoyValue handleTofuNull(SoyValue value) {
-    if (value instanceof NullData | value instanceof UndefinedData) {
-      return null;
-    }
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `v != 0.0 & !Double.isNaN(v)`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
@@ -1870,6 +1857,18 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
     return v != 0.0 & !Double.isNaN(v);
   }
 
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `value instanceof NullData | value instanceof UndefinedData`
+in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
+#### Snippet
+```java
+  @Nullable
+  private static SoyValue handleTofuNull(SoyValue value) {
+    if (value instanceof NullData | value instanceof UndefinedData) {
+      return null;
+    }
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -1926,6 +1925,18 @@ in `java/src/com/google/template/soy/passes/PluginResolver.java`
 in `java/src/com/google/template/soy/javagencode/KytheHelper.java`
 #### Snippet
 ```java
+  public void addKytheLinkTo(Span classNameSpan, SoyFileNode file) {
+    if (!isEnabled()) {
+      return;
+    }
+  }
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `java/src/com/google/template/soy/javagencode/KytheHelper.java`
+#### Snippet
+```java
   public void addKytheLinkTo(Span methodNameSpan, ParamInfo paramInfo, TemplateInfo template) {
     if (!isEnabled()) {
       return;
@@ -1939,18 +1950,6 @@ in `java/src/com/google/template/soy/javagencode/KytheHelper.java`
 #### Snippet
 ```java
   public void addKytheLinkTo(Span classNameSpan, TemplateInfo template) {
-    if (!isEnabled()) {
-      return;
-    }
-  }
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `java/src/com/google/template/soy/javagencode/KytheHelper.java`
-#### Snippet
-```java
-  public void addKytheLinkTo(Span classNameSpan, SoyFileNode file) {
     if (!isEnabled()) {
       return;
     }
@@ -1984,18 +1983,6 @@ in `java/src/com/google/template/soy/xliffmsgplugin/XliffParser.java`
 ## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
-in `java/src/com/google/template/soy/PerInputOutputFiles.java`
-#### Snippet
-```java
-   * @param errorMsg The error message to print.
-   */
-  static final RuntimeException exitWithError(String errorMsg) {
-    throw new CommandLineError("Error: " + errorMsg);
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
 ```java
@@ -2003,6 +1990,18 @@ in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
    */
   protected static final RuntimeException exitWithError(String errorMsg) {
     throw new CommandLineError(errorMsg);
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+#### Snippet
+```java
+   * @param errorMsg The error message to print.
+   */
+  static final RuntimeException exitWithError(String errorMsg) {
+    throw new CommandLineError("Error: " + errorMsg);
   }
 ```
 
@@ -2068,26 +2067,14 @@ in `java/src/com/google/template/soy/jssrc/internal/GenJsCodeVisitor.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
 #### Snippet
 ```java
+    }
 
-  /** The {@link Method} signature of the {@code static CompiledTemplate template()} method. */
-  private static final Method createTemplateMethod(String methodName) {
-    return new Method(methodName, Type.getMethodDescriptor(BytecodeUtils.COMPILED_TEMPLATE_TYPE));
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
-#### Snippet
-```java
-   * CompiledTemplate#render(SoyRecord,SoyRecord,AdvisingAppendable, RenderContext)} method.
-   */
-  static final Method createRenderMethod(String methodName) {
-    return new Method(
-        methodName,
+    private static final Type getKeyType(FieldDescriptor keyDescriptor) {
+      switch (keyDescriptor.getJavaType()) {
+        case INT:
 ```
 
 ### FinalStaticMethod
@@ -2104,14 +2091,26 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
 #### Snippet
 ```java
-    }
+   * CompiledTemplate#render(SoyRecord,SoyRecord,AdvisingAppendable, RenderContext)} method.
+   */
+  static final Method createRenderMethod(String methodName) {
+    return new Method(
+        methodName,
+```
 
-    private static final Type getKeyType(FieldDescriptor keyDescriptor) {
-      switch (keyDescriptor.getJavaType()) {
-        case INT:
+### FinalStaticMethod
+'static' method declared `final`
+in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
+#### Snippet
+```java
+
+  /** The {@link Method} signature of the {@code static CompiledTemplate template()} method. */
+  private static final Method createTemplateMethod(String methodName) {
+    return new Method(methodName, Type.getMethodDescriptor(BytecodeUtils.COMPILED_TEMPLATE_TYPE));
+  }
 ```
 
 ### FinalStaticMethod
@@ -2200,6 +2199,30 @@ in `java/src/com/google/template/soy/i18ndirectives/FormatNumFunction.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends SoyFunction`
+in `java/src/com/google/template/soy/SoyModule.java`
+#### Snippet
+```java
+  @Provides
+  SoyFileSet.Builder provideBuilder(
+      Set<SoyFunction> pluginFunctions, Set<SoyPrintDirective> pluginDirectives) {
+    return SoyFileSet.builder()
+        .addSoyFunctions(pluginFunctions)
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyPrintDirective`
+in `java/src/com/google/template/soy/SoyModule.java`
+#### Snippet
+```java
+  @Provides
+  SoyFileSet.Builder provideBuilder(
+      Set<SoyFunction> pluginFunctions, Set<SoyPrintDirective> pluginDirectives) {
+    return SoyFileSet.builder()
+        .addSoyFunctions(pluginFunctions)
+```
+
+### BoundedWildcard
 Can generalize to `? extends FileSetMetadata`
 in `java/src/com/google/template/soy/SoyFileSetParser.java`
 #### Snippet
@@ -2224,27 +2247,27 @@ in `java/src/com/google/template/soy/SoyFileSetParser.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyFunction`
-in `java/src/com/google/template/soy/SoyModule.java`
+Can generalize to `? extends File`
+in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
 ```java
-  @Provides
-  SoyFileSet.Builder provideBuilder(
-      Set<SoyFunction> pluginFunctions, Set<SoyPrintDirective> pluginDirectives) {
-    return SoyFileSet.builder()
-        .addSoyFunctions(pluginFunctions)
+  @VisibleForTesting
+  static ImmutableListMultimap<File, FileDescriptor> parseProtos(
+      Collection<File> protoFileDescriptors,
+      SoyInputCache cache,
+      SoyCompilerFileReader reader,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyPrintDirective`
-in `java/src/com/google/template/soy/SoyModule.java`
+Can generalize to `? extends SoyTemplateParam`
+in `java/src/com/google/template/soy/data/SoyTemplatesRestrictedApi.java`
 #### Snippet
 ```java
-  @Provides
-  SoyFileSet.Builder provideBuilder(
-      Set<SoyFunction> pluginFunctions, Set<SoyPrintDirective> pluginDirectives) {
-    return SoyFileSet.builder()
-        .addSoyFunctions(pluginFunctions)
+
+    private static ImmutableMap<String, ParamRequisiteness> paramsAsMap(
+        ImmutableSet<SoyTemplateParam<?>> params) {
+      return params.stream()
+          .collect(
 ```
 
 ### BoundedWildcard
@@ -2272,18 +2295,6 @@ in `java/src/com/google/template/soy/PerInputOutputFiles.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static ImmutableListMultimap<File, FileDescriptor> parseProtos(
-      Collection<File> protoFileDescriptors,
-      SoyInputCache cache,
-      SoyCompilerFileReader reader,
-```
-
-### BoundedWildcard
 Can generalize to `? extends SoyValueProvider`
 in `java/src/com/google/template/soy/data/SoyValueConverter.java`
 #### Snippet
@@ -2296,18 +2307,6 @@ in `java/src/com/google/template/soy/data/SoyValueConverter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyTemplateParam`
-in `java/src/com/google/template/soy/data/SoyTemplatesRestrictedApi.java`
-#### Snippet
-```java
-
-    private static ImmutableMap<String, ParamRequisiteness> paramsAsMap(
-        ImmutableSet<SoyTemplateParam<?>> params) {
-      return params.stream()
-          .collect(
-```
-
-### BoundedWildcard
 Can generalize to `? extends K`
 in `java/src/com/google/template/soy/data/internal/LazyProtoToSoyValueMap.java`
 #### Snippet
@@ -2317,18 +2316,6 @@ in `java/src/com/google/template/soy/data/internal/LazyProtoToSoyValueMap.java`
       Class<K> keyClass) {
     rawMap = ImmutableMap.copyOf(map);
     wrappedValues = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `java/src/com/google/template/soy/data/internal/ParamStore.java`
-#### Snippet
-```java
-
-  @Override
-  public void forEach(BiConsumer<String, ? super SoyValueProvider> action) {
-    localStore.forEach(action);
-  }
 ```
 
 ### BoundedWildcard
@@ -2352,6 +2339,18 @@ in `java/src/com/google/template/soy/data/internal/SoyRecordImpl.java`
   @Override
   public void forEach(BiConsumer<String, ? super SoyValueProvider> action) {
     map.forEach(action);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `java/src/com/google/template/soy/data/internal/ParamStore.java`
+#### Snippet
+```java
+
+  @Override
+  public void forEach(BiConsumer<String, ? super SoyValueProvider> action) {
+    localStore.forEach(action);
   }
 ```
 
@@ -2380,18 +2379,6 @@ in `java/src/com/google/template/soy/data/internal/DictImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyValueProvider`
-in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
-#### Snippet
-```java
-  private final ImmutableMap<String, SoyValueProvider> data;
-
-  protected BaseSoyTemplateImpl(ImmutableMap<String, SoyValueProvider> data) {
-    this.data = data;
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? super SoyMsgPart`
 in `java/src/com/google/template/soy/msgs/internal/MsgUtils.java`
 #### Snippet
@@ -2401,6 +2388,18 @@ in `java/src/com/google/template/soy/msgs/internal/MsgUtils.java`
       MsgBlockNode parent, MsgNode msgNode, ImmutableList.Builder<SoyMsgPart> msgParts) {
     for (StandaloneNode child : parent.getChildren()) {
       if (child instanceof RawTextNode) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyValueProvider`
+in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
+#### Snippet
+```java
+  private final ImmutableMap<String, SoyValueProvider> data;
+
+  protected BaseSoyTemplateImpl(ImmutableMap<String, SoyValueProvider> data) {
+    this.data = data;
+  }
 ```
 
 ### BoundedWildcard
@@ -2452,6 +2451,18 @@ in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super GoogRequire`
+in `java/src/com/google/template/soy/jssrc/dsl/Cast.java`
+#### Snippet
+```java
+
+  @Override
+  public void collectRequires(Consumer<GoogRequire> collector) {
+    for (GoogRequire require : googRequires()) {
+      collector.accept(require);
+```
+
+### BoundedWildcard
 Can generalize to `? extends SourceFilePath`
 in `java/src/com/google/template/soy/error/ErrorReporter.java`
 #### Snippet
@@ -2473,18 +2484,6 @@ in `java/src/com/google/template/soy/error/ErrorReporter.java`
   public static ErrorReporter create(Map<SourceFilePath, SoyFileSupplier> filePathsToSuppliers) {
     return new ErrorReporterImpl(ImmutableMap.copyOf(filePathsToSuppliers));
   }
-```
-
-### BoundedWildcard
-Can generalize to `? super GoogRequire`
-in `java/src/com/google/template/soy/jssrc/dsl/Cast.java`
-#### Snippet
-```java
-
-  @Override
-  public void collectRequires(Consumer<GoogRequire> collector) {
-    for (GoogRequire require : googRequires()) {
-      collector.accept(require);
 ```
 
 ### BoundedWildcard
@@ -2512,18 +2511,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/Statement.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyError`
-in `java/src/com/google/template/soy/error/SoyErrors.java`
-#### Snippet
-```java
-  }
-
-  private static String formatErrorsInternal(Iterable<SoyError> errors, boolean messageOnly) {
-    int numErrors = 0;
-    int numWarnings = 0;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Statement`
 in `java/src/com/google/template/soy/jssrc/dsl/ImportsBuilder.java`
 #### Snippet
@@ -2541,10 +2528,10 @@ in `java/src/com/google/template/soy/jssrc/dsl/TsArrowFunction.java`
 #### Snippet
 ```java
 
-  /** Arrow function with implicit return type. */
-  TsArrowFunction(ParamDecls params, ImmutableList<Statement> bodyStmts) {
+  /** Arrow function with explicit return type. */
+  TsArrowFunction(ParamDecls params, Expression returnType, ImmutableList<Statement> bodyStmts) {
     this.params = params;
-    this.returnType = Optional.empty();
+    this.returnType = Optional.of(returnType);
 ```
 
 ### BoundedWildcard
@@ -2553,10 +2540,22 @@ in `java/src/com/google/template/soy/jssrc/dsl/TsArrowFunction.java`
 #### Snippet
 ```java
 
-  /** Arrow function with explicit return type. */
-  TsArrowFunction(ParamDecls params, Expression returnType, ImmutableList<Statement> bodyStmts) {
+  /** Arrow function with implicit return type. */
+  TsArrowFunction(ParamDecls params, ImmutableList<Statement> bodyStmts) {
     this.params = params;
-    this.returnType = Optional.of(returnType);
+    this.returnType = Optional.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyError`
+in `java/src/com/google/template/soy/error/SoyErrors.java`
+#### Snippet
+```java
+  }
+
+  private static String formatErrorsInternal(Iterable<SoyError> errors, boolean messageOnly) {
+    int numErrors = 0;
+    int numWarnings = 0;
 ```
 
 ### BoundedWildcard
@@ -2596,6 +2595,54 @@ in `java/src/com/google/template/soy/jssrc/dsl/GenericType.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Expression`
+in `java/src/com/google/template/soy/jssrc/dsl/SoyJsPluginUtils.java`
+#### Snippet
+```java
+      Expression expr,
+      SoyJsSrcPrintDirective directive,
+      List<Expression> args,
+      SourceLocation location,
+      ErrorReporter errorReporter) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `java/src/com/google/template/soy/jssrc/dsl/SoyJsPluginUtils.java`
+#### Snippet
+```java
+  public static Expression applySoyFunction(
+      SoyJsSrcFunction soyJsSrcFunction,
+      List<Expression> args,
+      SourceLocation location,
+      ErrorReporter errorReporter) {
+```
+
+### BoundedWildcard
+Can generalize to `? super GoogRequire`
+in `java/src/com/google/template/soy/jssrc/dsl/New.java`
+#### Snippet
+```java
+
+  @Override
+  public void collectRequires(Consumer<GoogRequire> collector) {
+    if (googRequire() != null) {
+      collector.accept(googRequire());
+```
+
+### BoundedWildcard
+Can generalize to `? super TemplateNode`
+in `java/src/com/google/template/soy/tofu/internal/BaseTofu.java`
+#### Snippet
+```java
+
+  private static void maybeAddTemplateToModifiableMap(
+      TemplateNode template, DelTemplateSelector.Builder<TemplateNode> delTemplates) {
+    if (!(template instanceof TemplateBasicNode)) {
+      return;
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `java/src/com/google/template/soy/tofu/internal/BaseTofu.java`
 #### Snippet
@@ -2632,51 +2679,15 @@ in `java/src/com/google/template/soy/tofu/internal/BaseTofu.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TemplateNode`
-in `java/src/com/google/template/soy/tofu/internal/BaseTofu.java`
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/jssrc/internal/VeLogFunction.java`
 #### Snippet
 ```java
-
-  private static void maybeAddTemplateToModifiableMap(
-      TemplateNode template, DelTemplateSelector.Builder<TemplateNode> delTemplates) {
-    if (!(template instanceof TemplateBasicNode)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `java/src/com/google/template/soy/jssrc/dsl/SoyJsPluginUtils.java`
-#### Snippet
-```java
-  public static Expression applySoyFunction(
-      SoyJsSrcFunction soyJsSrcFunction,
-      List<Expression> args,
-      SourceLocation location,
-      ErrorReporter errorReporter) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `java/src/com/google/template/soy/jssrc/dsl/SoyJsPluginUtils.java`
-#### Snippet
-```java
-      Expression expr,
-      SoyJsSrcPrintDirective directive,
-      List<Expression> args,
-      SourceLocation location,
-      ErrorReporter errorReporter) {
-```
-
-### BoundedWildcard
-Can generalize to `? super GoogRequire`
-in `java/src/com/google/template/soy/jssrc/dsl/New.java`
-#### Snippet
-```java
-
   @Override
-  public void collectRequires(Consumer<GoogRequire> collector) {
-    if (googRequire() != null) {
-      collector.accept(googRequire());
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callModuleFunction(
+        "soy.velog",
 ```
 
 ### BoundedWildcard
@@ -2689,18 +2700,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/VariableDeclaration.java`
   public void collectRequires(Consumer<GoogRequire> collector) {
     for (GoogRequire require : allRequires()) {
       collector.accept(require);
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/jssrc/internal/VeLogFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callModuleFunction(
-        "soy.velog",
 ```
 
 ### BoundedWildcard
@@ -2768,11 +2767,11 @@ Can generalize to `? extends ChainAccess`
 in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
 #### Snippet
 ```java
-  }
+      Expression base,
+      CodeChunk.Generator generator,
+      Iterator<ChainAccess> chain,
+      Deque<ChainAccess> unpackBuffer) {
 
-  private static Expression flushUnpackBuffer(Expression base, Deque<ChainAccess> unpackBuffer) {
-    boolean tail = true;
-    for (ChainAccess link : unpackBuffer) {
 ```
 
 ### BoundedWildcard
@@ -2804,11 +2803,11 @@ Can generalize to `? extends ChainAccess`
 in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
 #### Snippet
 ```java
-      Expression base,
-      CodeChunk.Generator generator,
-      Iterator<ChainAccess> chain,
-      Deque<ChainAccess> unpackBuffer) {
+  }
 
+  private static Expression flushUnpackBuffer(Expression base, Deque<ChainAccess> unpackBuffer) {
+    boolean tail = true;
+    for (ChainAccess link : unpackBuffer) {
 ```
 
 ### BoundedWildcard
@@ -2836,15 +2835,15 @@ in `java/src/com/google/template/soy/jssrc/internal/GenJsTemplateBodyVisitor.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `java/src/com/google/template/soy/data/SoyMapData.java`
+Can generalize to `? extends GoogRequire`
+in `java/src/com/google/template/soy/jssrc/internal/JsType.java`
 #### Snippet
 ```java
 
-  @Override
-  public void forEach(BiConsumer<String, ? super SoyValueProvider> action) {
-    map.forEach(action);
-  }
+    @CanIgnoreReturnValue
+    Builder addRequires(Iterable<GoogRequire> symbols) {
+      extraRequires.addAll(symbols);
+      return this;
 ```
 
 ### BoundedWildcard
@@ -2857,66 +2856,6 @@ in `java/src/com/google/template/soy/jssrc/internal/GenCallCodeUtils.java`
       CallNode callNode, TranslateExprNodeVisitor exprTranslator, List<Expression> params) {
     if (hasVariant(callNode)) {
       params.add(exprTranslator.exec(((CallBasicNode) callNode).getVariantExpr()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends ByteSink`
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-   * @throws SoyCompilationException If compilation fails.
-   */
-  void compileToJar(ByteSink jarTarget, Optional<ByteSink> srcJarTarget) {
-    entryPointVoid(
-        () -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-  /** Helper method to compile SoyTofu from {@link ServerCompilationPrimitives} */
-  private SoyTofu doCompileToTofu(
-      ServerCompilationPrimitives primitives, Map<String, Supplier<Object>> pluginInstances) {
-    return new BaseTofu(
-        scopedData.enterable(), primitives.soyTree, PluginInstances.of(pluginInstances));
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-     */
-    @CanIgnoreReturnValue
-    Builder setPluginRuntimeJars(List<File> pluginRuntimeJars) {
-      this.pluginRuntimeJars = ImmutableList.copyOf(pluginRuntimeJars);
-      return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-   * @throws SoyCompilationException If compilation fails.
-   */
-  public SoySauce compileTemplates(Map<String, Supplier<Object>> pluginInstances) {
-    return entryPoint(
-        () -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GoogRequire`
-in `java/src/com/google/template/soy/jssrc/internal/JsType.java`
-#### Snippet
-```java
-
-    @CanIgnoreReturnValue
-    Builder addRequires(Iterable<GoogRequire> symbols) {
-      extraRequires.addAll(symbols);
-      return this;
 ```
 
 ### BoundedWildcard
@@ -2968,30 +2907,6 @@ in `java/src/com/google/template/soy/pysrc/internal/PythonValueFactoryImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyPrintDirective`
-in `java/src/com/google/template/soy/pysrc/internal/GenPyCallExprVisitor.java`
-#### Snippet
-```java
-   * @return A PyExpr containing the call expression with all directives applied.
-   */
-  private PyExpr escapeCall(String callExpr, ImmutableList<SoyPrintDirective> directives) {
-    PyExpr escapedExpr = new PyExpr(callExpr, Integer.MAX_VALUE);
-    if (directives.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PyExpr`
-in `java/src/com/google/template/soy/pysrc/restricted/PyFunctionExprBuilder.java`
-#### Snippet
-```java
-
-  @CanIgnoreReturnValue
-  public PyFunctionExprBuilder addArgs(List<PyExpr> argList) {
-    this.argList.addAll(argList);
-    return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends SourceFilePath`
 in `java/src/com/google/template/soy/pysrc/internal/PySrcMain.java`
 #### Snippet
@@ -3001,6 +2916,18 @@ in `java/src/com/google/template/soy/pysrc/internal/PySrcMain.java`
       Map<SourceFilePath, Path> inputToOutputPaths,
       Optional<Path> outputDirectoryFlag,
       ErrorReporter errorReporter) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyPrintDirective`
+in `java/src/com/google/template/soy/pysrc/internal/GenPyCallExprVisitor.java`
+#### Snippet
+```java
+   * @return A PyExpr containing the call expression with all directives applied.
+   */
+  private PyExpr escapeCall(String callExpr, ImmutableList<SoyPrintDirective> directives) {
+    PyExpr escapedExpr = new PyExpr(callExpr, Integer.MAX_VALUE);
+    if (directives.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -3028,6 +2955,18 @@ in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends PyExpr`
+in `java/src/com/google/template/soy/pysrc/restricted/PyFunctionExprBuilder.java`
+#### Snippet
+```java
+
+  @CanIgnoreReturnValue
+  public PyFunctionExprBuilder addArgs(List<PyExpr> argList) {
+    this.argList.addAll(argList);
+    return this;
+```
+
+### BoundedWildcard
 Can generalize to `? extends SoyType`
 in `java/src/com/google/template/soy/types/UnionType.java`
 #### Snippet
@@ -3037,30 +2976,6 @@ in `java/src/com/google/template/soy/types/UnionType.java`
   public static SoyType of(Collection<SoyType> members) {
     // sort and flatten the set of types
     ImmutableSortedSet.Builder<SoyType> builder = ImmutableSortedSet.orderedBy(MEMBER_ORDER);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GenericDescriptor`
-in `java/src/com/google/template/soy/types/TypeRegistries.java`
-#### Snippet
-```java
-    }
-
-    private SoyType getProtoImportType(Map<String, GenericDescriptor> index, String member) {
-      GenericDescriptor d = index.get(member);
-      if (d != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyType`
-in `java/src/com/google/template/soy/types/SoyTypes.java`
-#### Snippet
-```java
-   */
-  public static SoyType computeLowestCommonType(
-      SoyTypeRegistry typeRegistry, Collection<SoyType> types) {
-    SoyType result = null;
-    for (SoyType type : types) {
 ```
 
 ### BoundedWildcard
@@ -3088,6 +3003,30 @@ in `java/src/com/google/template/soy/types/TemplateType.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SoyType`
+in `java/src/com/google/template/soy/types/SoyTypes.java`
+#### Snippet
+```java
+   */
+  public static SoyType computeLowestCommonType(
+      SoyTypeRegistry typeRegistry, Collection<SoyType> types) {
+    SoyType result = null;
+    for (SoyType type : types) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GenericDescriptor`
+in `java/src/com/google/template/soy/types/TypeRegistries.java`
+#### Snippet
+```java
+    }
+
+    private SoyType getProtoImportType(Map<String, GenericDescriptor> index, String member) {
+      GenericDescriptor d = index.get(member);
+      if (d != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends GenericDescriptor`
 in `java/src/com/google/template/soy/types/SoyTypeRegistryBuilder.java`
 #### Snippet
@@ -3112,15 +3051,51 @@ in `java/src/com/google/template/soy/types/SoyTypeRegistryBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyPrintDirective`
-in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
+Can generalize to `? extends SoyType`
+in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
 #### Snippet
 ```java
-   */
-  static AppendableAndFlushBuffersDepth applyStreamingEscapingDirectives(
-      List<SoyPrintDirective> directives,
-      AppendableExpression appendable,
-      JbcSrcPluginContext context) {
+          new GenericTypeInfo(2) {
+            @Override
+            SoyType create(List<SoyType> types, TypeInterner interner) {
+              return interner.getOrCreateMapType(types.get(0), types.get(1));
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyType`
+in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
+#### Snippet
+```java
+          new GenericTypeInfo(2) {
+            @Override
+            SoyType create(List<SoyType> types, TypeInterner interner) {
+              return interner.getOrCreateLegacyObjectMapType(types.get(0), types.get(1));
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends BaseGenericTypeInfo`
+in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
+#### Snippet
+```java
+
+  private SoyType visit(
+      GenericTypeNode node, ImmutableMap<String, BaseGenericTypeInfo> genericTypes) {
+    ImmutableList<TypeNode> args = node.arguments();
+    String name = node.name();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyType`
+in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
+#### Snippet
+```java
+          new GenericTypeInfo(1) {
+            @Override
+            SoyType create(List<SoyType> types, TypeInterner interner) {
+              return interner.getOrCreateListType(types.get(0));
+            }
 ```
 
 ### BoundedWildcard
@@ -3131,6 +3106,18 @@ in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
 
   private static AppendableAndFlushBuffersDepth applyStreamingPrintDirectivesTo(
       List<StreamingDirectiveWithArgs> directivesToApply,
+      AppendableExpression appendable,
+      JbcSrcPluginContext context) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyPrintDirective`
+in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
+#### Snippet
+```java
+   */
+  static AppendableAndFlushBuffersDepth applyStreamingEscapingDirectives(
+      List<SoyPrintDirective> directives,
       AppendableExpression appendable,
       JbcSrcPluginContext context) {
 ```
@@ -3160,54 +3147,6 @@ in `java/src/com/google/template/soy/jbcsrc/AppendableExpression.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyType`
-in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
-#### Snippet
-```java
-          new GenericTypeInfo(2) {
-            @Override
-            SoyType create(List<SoyType> types, TypeInterner interner) {
-              return interner.getOrCreateMapType(types.get(0), types.get(1));
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? extends BaseGenericTypeInfo`
-in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
-#### Snippet
-```java
-
-  private SoyType visit(
-      GenericTypeNode node, ImmutableMap<String, BaseGenericTypeInfo> genericTypes) {
-    ImmutableList<TypeNode> args = node.arguments();
-    String name = node.name();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyType`
-in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
-#### Snippet
-```java
-          new GenericTypeInfo(2) {
-            @Override
-            SoyType create(List<SoyType> types, TypeInterner interner) {
-              return interner.getOrCreateLegacyObjectMapType(types.get(0), types.get(1));
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyType`
-in `java/src/com/google/template/soy/types/ast/TypeNodeConverter.java`
-#### Snippet
-```java
-          new GenericTypeInfo(1) {
-            @Override
-            SoyType create(List<SoyType> types, TypeInterner interner) {
-              return interner.getOrCreateListType(types.get(0));
-            }
-```
-
-### BoundedWildcard
 Can generalize to `? extends SoyPrintDirective`
 in `java/src/com/google/template/soy/jbcsrc/MsgCompiler.java`
 #### Snippet
@@ -3220,39 +3159,27 @@ in `java/src/com/google/template/soy/jbcsrc/MsgCompiler.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IfBlock`
-in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
+Can generalize to `? super ExprNode`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
 #### Snippet
 ```java
-   * if-elseif-else chain.
-   */
-  static Statement ifElseChain(final List<IfBlock> ifs, final Optional<Statement> elseBlock) {
-    checkArgument(!ifs.isEmpty());
-    return new Statement() {
+    ProtoInitGenerator(
+        FunctionNode node,
+        Function<ExprNode, SoyExpression> compilerFunction,
+        ExpressionDetacher detacher,
+        LocalVariableManager varManager) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Statement`
-in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
+Can generalize to `? super SoyExpression`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
 #### Snippet
 ```java
-   * if-elseif-else chain.
-   */
-  static Statement ifElseChain(final List<IfBlock> ifs, final Optional<Statement> elseBlock) {
-    checkArgument(!ifs.isEmpty());
-    return new Statement() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
-#### Snippet
-```java
-                      @Override
-                      public Expression call(
-                          List<Expression> params,
-                          Expression ij,
-                          AppendableExpression appendable,
+        SoyType fieldType,
+        LocalVariableManager varManager,
+        Function<SoyExpression, SoyExpression> memberGenerator) {
+      checkArgument(baseExpr.soyType().getKind() == SoyType.Kind.UNION, baseExpr.soyType());
+      this.baseExpr = baseExpr;
 ```
 
 ### BoundedWildcard
@@ -3280,6 +3207,18 @@ in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Expression`
+in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+#### Snippet
+```java
+                      @Override
+                      public Expression call(
+                          List<Expression> params,
+                          Expression ij,
+                          AppendableExpression appendable,
+```
+
+### BoundedWildcard
 Can generalize to `? extends SoyFileSupplier`
 in `java/src/com/google/template/soy/jbcsrc/BytecodeCompiler.java`
 #### Snippet
@@ -3289,6 +3228,42 @@ in `java/src/com/google/template/soy/jbcsrc/BytecodeCompiler.java`
       SoyFileSetNode soyFileSet, ImmutableMap<SourceFilePath, SoyFileSupplier> files, ByteSink sink)
       throws IOException {
     try (SoyJarFileWriter writer = new SoyJarFileWriter(sink.openStream())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends IfBlock`
+in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
+#### Snippet
+```java
+   * if-elseif-else chain.
+   */
+  static Statement ifElseChain(final List<IfBlock> ifs, final Optional<Statement> elseBlock) {
+    checkArgument(!ifs.isEmpty());
+    return new Statement() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Statement`
+in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
+#### Snippet
+```java
+   * if-elseif-else chain.
+   */
+  static Statement ifElseChain(final List<IfBlock> ifs, final Optional<Statement> elseBlock) {
+    checkArgument(!ifs.isEmpty());
+    return new Statement() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
+#### Snippet
+```java
+    }
+
+    private SoyExpression callExtern(ExternRef extern, List<ExprNode> params) {
+      String namespace = fileSetMetadata.getNamespaceForPath(extern.path());
+      TypeInfo externOwner = TypeInfo.createClass(Names.javaClassNameFromSoyNamespace(namespace));
 ```
 
 ### BoundedWildcard
@@ -3316,54 +3291,6 @@ in `java/src/com/google/template/soy/jbcsrc/api/OutputAppendable.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SoyExpression`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-        SoyType fieldType,
-        LocalVariableManager varManager,
-        Function<SoyExpression, SoyExpression> memberGenerator) {
-      checkArgument(baseExpr.soyType().getKind() == SoyType.Kind.UNION, baseExpr.soyType());
-      this.baseExpr = baseExpr;
-```
-
-### BoundedWildcard
-Can generalize to `? super ExprNode`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-    ProtoInitGenerator(
-        FunctionNode node,
-        Function<ExprNode, SoyExpression> compilerFunction,
-        ExpressionDetacher detacher,
-        LocalVariableManager varManager) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginRuntimeInstanceInfo`
-in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
-#### Snippet
-```java
-  public abstract ImmutableSortedSet<String> sourceLocations();
-
-  public static ByteSource serialize(Iterable<PluginRuntimeInstanceInfo> plugins) {
-    StringBuilder builder = new StringBuilder();
-    for (PluginRuntimeInstanceInfo plugin : plugins) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
-#### Snippet
-```java
-    }
-
-    private SoyExpression callExtern(ExternRef extern, List<ExprNode> params) {
-      String namespace = fileSetMetadata.getNamespaceForPath(extern.path());
-      TypeInfo externOwner = TypeInfo.createClass(Names.javaClassNameFromSoyNamespace(namespace));
-```
-
-### BoundedWildcard
 Can generalize to `? extends ParentCapture`
 in `java/src/com/google/template/soy/jbcsrc/LazyClosureCompiler.java`
 #### Snippet
@@ -3373,54 +3300,6 @@ in `java/src/com/google/template/soy/jbcsrc/LazyClosureCompiler.java`
     Expression generateConstructor(Iterable<ParentCapture> captures) {
       final Label start = new Label();
       final Label end = new Label();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `java/src/com/google/template/soy/jbcsrc/api/SoySauceImpl.java`
-#### Snippet
-```java
-
-    private < T>
-        Continuation<T> renderToValue(Function<String, T> factory) {
-      StringBuilder sb = new StringBuilder();
-      try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `java/src/com/google/template/soy/jbcsrc/api/SoySauceImpl.java`
-#### Snippet
-```java
-
-    private < T>
-        Continuation<T> renderToValue(Function<String, T> factory) {
-      StringBuilder sb = new StringBuilder();
-      try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `java/src/com/google/template/soy/jbcsrc/api/SoySauceImpl.java`
-#### Snippet
-```java
-    @CanIgnoreReturnValue
-    @Override
-    public RendererImpl setPluginInstances(Map<String, Supplier<Object>> pluginInstances) {
-      contextBuilder.withPluginInstances(
-          SoySauceImpl.this.pluginInstances.combine(pluginInstances));
-```
-
-### BoundedWildcard
-Can generalize to `? super Block`
-in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
-#### Snippet
-```java
-
-    private static Block deepCopyBlock(
-        Block original, IdentityHashMap<Block, Block> originalToCopy) {
-      if (originalToCopy.containsKey(original)) {
-        return originalToCopy.get(original);
 ```
 
 ### BoundedWildcard
@@ -3448,15 +3327,123 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TemplateData`
-in `java/src/com/google/template/soy/jbcsrc/shared/CompiledTemplates.java`
+Can generalize to `? super Block`
+in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
 #### Snippet
 ```java
+
+    private static Block deepCopyBlock(
+        Block original, IdentityHashMap<Block, Block> originalToCopy) {
+      if (originalToCopy.containsKey(original)) {
+        return originalToCopy.get(original);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `java/src/com/google/template/soy/data/SoyMapData.java`
+#### Snippet
+```java
+
+  @Override
+  public void forEach(BiConsumer<String, ? super SoyValueProvider> action) {
+    map.forEach(action);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+  /** Helper method to compile SoyTofu from {@link ServerCompilationPrimitives} */
+  private SoyTofu doCompileToTofu(
+      ServerCompilationPrimitives primitives, Map<String, Supplier<Object>> pluginInstances) {
+    return new BaseTofu(
+        scopedData.enterable(), primitives.soyTree, PluginInstances.of(pluginInstances));
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteSink`
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+   * @throws SoyCompilationException If compilation fails.
    */
-  private void collectTransitiveCallees(
-      @Nullable TemplateData templateData, Set<TemplateData> visited) {
-    if (templateData == null || visited.contains(templateData)) {
-      return; // avoids chasing recursive cycles
+  void compileToJar(ByteSink jarTarget, Optional<ByteSink> srcJarTarget) {
+    entryPointVoid(
+        () -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+   * @throws SoyCompilationException If compilation fails.
+   */
+  public SoySauce compileTemplates(Map<String, Supplier<Object>> pluginInstances) {
+    return entryPoint(
+        () -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+     */
+    @CanIgnoreReturnValue
+    Builder setPluginRuntimeJars(List<File> pluginRuntimeJars) {
+      this.pluginRuntimeJars = ImmutableList.copyOf(pluginRuntimeJars);
+      return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PluginRuntimeInstanceInfo`
+in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
+#### Snippet
+```java
+  public abstract ImmutableSortedSet<String> sourceLocations();
+
+  public static ByteSource serialize(Iterable<PluginRuntimeInstanceInfo> plugins) {
+    StringBuilder builder = new StringBuilder();
+    for (PluginRuntimeInstanceInfo plugin : plugins) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `java/src/com/google/template/soy/jbcsrc/api/SoySauceImpl.java`
+#### Snippet
+```java
+    @CanIgnoreReturnValue
+    @Override
+    public RendererImpl setPluginInstances(Map<String, Supplier<Object>> pluginInstances) {
+      contextBuilder.withPluginInstances(
+          SoySauceImpl.this.pluginInstances.combine(pluginInstances));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `java/src/com/google/template/soy/jbcsrc/api/SoySauceImpl.java`
+#### Snippet
+```java
+
+    private < T>
+        Continuation<T> renderToValue(Function<String, T> factory) {
+      StringBuilder sb = new StringBuilder();
+      try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `java/src/com/google/template/soy/jbcsrc/api/SoySauceImpl.java`
+#### Snippet
+```java
+
+    private < T>
+        Continuation<T> renderToValue(Function<String, T> factory) {
+      StringBuilder sb = new StringBuilder();
+      try {
 ```
 
 ### BoundedWildcard
@@ -3484,15 +3471,15 @@ in `java/src/com/google/template/soy/jbcsrc/shared/CompiledTemplates.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyMsgPart`
-in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
+Can generalize to `? super TemplateData`
+in `java/src/com/google/template/soy/jbcsrc/shared/CompiledTemplates.java`
 #### Snippet
 ```java
-
-  private static ImmutableList<Object> partsToConstantPartsList(
-      ImmutableList<SoyMsgPart> msgParts) {
-    ImmutableList.Builder<Object> builder = ImmutableList.builder();
-    for (SoyMsgPart msgPart : msgParts) {
+   */
+  private void collectTransitiveCallees(
+      @Nullable TemplateData templateData, Set<TemplateData> visited) {
+    if (templateData == null || visited.contains(templateData)) {
+      return; // avoids chasing recursive cycles
 ```
 
 ### BoundedWildcard
@@ -3505,6 +3492,18 @@ in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.jav
       PeekingIterator<Object> rawParts, Function<Object, T> specFactory) {
     Tag next = null;
     ImmutableList.Builder<Case<T>> cases = ImmutableList.builder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyMsgPart`
+in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
+#### Snippet
+```java
+
+  private static ImmutableList<Object> partsToConstantPartsList(
+      ImmutableList<SoyMsgPart> msgParts) {
+    ImmutableList.Builder<Object> builder = ImmutableList.builder();
+    for (SoyMsgPart msgPart : msgParts) {
 ```
 
 ### BoundedWildcard
@@ -3521,18 +3520,6 @@ in `java/src/com/google/template/soy/jbcsrc/restricted/LocalVariable.java`
 
 ### BoundedWildcard
 Can generalize to `? extends FileSetMetadata`
-in `java/src/com/google/template/soy/passes/CheckIndirectDepsPass.java`
-#### Snippet
-```java
-      ErrorReporter errorReporter,
-      SoyTypeRegistry registry,
-      Supplier<FileSetMetadata> templateRegistryFull) {
-    this.errorReporter = errorReporter;
-    this.registry = registry;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileSetMetadata`
 in `java/src/com/google/template/soy/passes/BanDuplicateNamespacesPass.java`
 #### Snippet
 ```java
@@ -3545,14 +3532,14 @@ in `java/src/com/google/template/soy/passes/BanDuplicateNamespacesPass.java`
 
 ### BoundedWildcard
 Can generalize to `? extends FileSetMetadata`
-in `java/src/com/google/template/soy/passes/CheckTemplateVisibilityPass.java`
+in `java/src/com/google/template/soy/passes/CheckIndirectDepsPass.java`
 #### Snippet
 ```java
-
-  CheckTemplateVisibilityPass(
-      ErrorReporter errorReporter, Supplier<FileSetMetadata> templateRegistryFull) {
+      ErrorReporter errorReporter,
+      SoyTypeRegistry registry,
+      Supplier<FileSetMetadata> templateRegistryFull) {
     this.errorReporter = errorReporter;
-    this.templateRegistryFull = templateRegistryFull;
+    this.registry = registry;
 ```
 
 ### BoundedWildcard
@@ -3580,6 +3567,18 @@ in `java/src/com/google/template/soy/passes/CheckBadContextualUsagePass.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends FileSetMetadata`
+in `java/src/com/google/template/soy/passes/CheckTemplateVisibilityPass.java`
+#### Snippet
+```java
+
+  CheckTemplateVisibilityPass(
+      ErrorReporter errorReporter, Supplier<FileSetMetadata> templateRegistryFull) {
+    this.errorReporter = errorReporter;
+    this.templateRegistryFull = templateRegistryFull;
+```
+
+### BoundedWildcard
 Can generalize to `? extends SoyType`
 in `java/src/com/google/template/soy/passes/RuntimeTypeCoercion.java`
 #### Snippet
@@ -3604,30 +3603,6 @@ in `java/src/com/google/template/soy/passes/CheckModifiableTemplatesPass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyValueProvider`
-in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
-#### Snippet
-```java
-  }
-
-  public static SoyValueProvider getSoyListItemProvider(List<SoyValueProvider> list, long index) {
-    if (list == null) {
-      throw new NullPointerException("Attempted to access list item '" + index + "' of null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyValue`
-in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
-#### Snippet
-```java
-
-  @Nullable
-  public static ImmutableList<Double> listUnboxFloats(List<SoyValue> values) {
-    if (values == null) {
-      return null;
-```
-
-### BoundedWildcard
 Can generalize to `? extends SoyValue`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
@@ -3640,25 +3615,13 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyMsgPart`
-in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
-#### Snippet
-```java
-    public MsgRenderer(
-        long msgId,
-        ImmutableList<SoyMsgPart> msgParts,
-        @Nullable ULocale locale,
-        int numPlaceholders,
-```
-
-### BoundedWildcard
 Can generalize to `? extends SoyValue`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
 
   @Nullable
-  public static ImmutableList<Boolean> listUnboxBools(List<SoyValue> values) {
+  public static ImmutableList<Double> listUnboxFloats(List<SoyValue> values) {
     if (values == null) {
       return null;
 ```
@@ -3694,7 +3657,7 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```java
 
   @Nullable
-  public static ImmutableList<String> listUnboxStrings(List<SoyValue> values) {
+  public static ImmutableList<Boolean> listUnboxBools(List<SoyValue> values) {
     if (values == null) {
       return null;
 ```
@@ -3712,6 +3675,30 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SoyValueProvider`
+in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
+#### Snippet
+```java
+  }
+
+  public static SoyValueProvider getSoyListItemProvider(List<SoyValueProvider> list, long index) {
+    if (list == null) {
+      throw new NullPointerException("Attempted to access list item '" + index + "' of null");
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyMsgPart`
+in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
+#### Snippet
+```java
+    public MsgRenderer(
+        long msgId,
+        ImmutableList<SoyMsgPart> msgParts,
+        @Nullable ULocale locale,
+        int numPlaceholders,
+```
+
+### BoundedWildcard
 Can generalize to `? extends Function`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
@@ -3721,6 +3708,18 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
             LoggingFunctionInvocation funCall, ImmutableList<Function<String, String>> escapers)
             throws IOException {
           String val = funCall.placeholderValue();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyValue`
+in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
+#### Snippet
+```java
+
+  @Nullable
+  public static ImmutableList<String> listUnboxStrings(List<SoyValue> values) {
+    if (values == null) {
+      return null;
 ```
 
 ### BoundedWildcard
@@ -3856,15 +3855,15 @@ in `java/src/com/google/template/soy/passes/FileDependencyOrderPass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ActiveEdge`
-in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherAccumulatorNode.java`
+Can generalize to `? super StandaloneNode`
+in `java/src/com/google/template/soy/passes/ElementAttributePass.java`
 #### Snippet
 ```java
-   *     more than once.
-   */
-  public void accumulateActiveEdges(ImmutableList<ActiveEdge> activeEdges) {
-    for (ActiveEdge accEdge : activeEdges) {
-      accEdge.getGraphNode().linkEdgeToNode(accEdge.getActiveEdge(), this);
+  }
+
+  private static void copyChildren(HtmlAttributeNode from, ParentSoyNode<StandaloneNode> to) {
+    Iterator<StandaloneNode> i = from.getChildren().iterator();
+    i.next(); // skip the attribute name
 ```
 
 ### BoundedWildcard
@@ -3904,27 +3903,15 @@ in `java/src/com/google/template/soy/passes/ElementAttributePass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super StandaloneNode`
-in `java/src/com/google/template/soy/passes/ElementAttributePass.java`
+Can generalize to `? extends ActiveEdge`
+in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherAccumulatorNode.java`
 #### Snippet
 ```java
-  }
-
-  private static void copyChildren(HtmlAttributeNode from, ParentSoyNode<StandaloneNode> to) {
-    Iterator<StandaloneNode> i = from.getChildren().iterator();
-    i.next(); // skip the attribute name
-```
-
-### BoundedWildcard
-Can generalize to `? extends MethodChecker`
-in `java/src/com/google/template/soy/plugin/java/DelegatingMethodChecker.java`
-#### Snippet
-```java
-  private final List<MethodChecker> methodCheckers;
-
-  public DelegatingMethodChecker(List<MethodChecker> methodCheckers) {
-    this.methodCheckers = methodCheckers;
-  }
+   *     more than once.
+   */
+  public void accumulateActiveEdges(ImmutableList<ActiveEdge> activeEdges) {
+    for (ActiveEdge accEdge : activeEdges) {
+      accEdge.getGraphNode().linkEdgeToNode(accEdge.getActiveEdge(), this);
 ```
 
 ### BoundedWildcard
@@ -3937,6 +3924,18 @@ in `java/src/com/google/template/soy/passes/TemplateImportProcessor.java`
   TemplateImportProcessor(ErrorReporter errorReporter, Supplier<FileSetMetadata> registryFromDeps) {
     this.registryFromDeps = registryFromDeps;
     this.errorReporter = errorReporter;
+```
+
+### BoundedWildcard
+Can generalize to `? extends MethodChecker`
+in `java/src/com/google/template/soy/plugin/java/DelegatingMethodChecker.java`
+#### Snippet
+```java
+  private final List<MethodChecker> methodCheckers;
+
+  public DelegatingMethodChecker(List<MethodChecker> methodCheckers) {
+    this.methodCheckers = methodCheckers;
+  }
 ```
 
 ### BoundedWildcard
@@ -3976,30 +3975,6 @@ in `java/src/com/google/template/soy/passes/CheckTemplateCallsPass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
-#### Snippet
-```java
-
-  private static Set<Parameter> getRequiredParamsDifference(
-      List<Parameter> paramList1, List<Parameter> paramList2) {
-    Map<String, Parameter> nameToParamMap =
-        paramList2.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
-#### Snippet
-```java
-
-  private static Set<Parameter> getRequiredParamsDifference(
-      List<Parameter> paramList1, List<Parameter> paramList2) {
-    Map<String, Parameter> nameToParamMap =
-        paramList2.stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends FileSetMetadata`
 in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
 #### Snippet
@@ -4024,6 +3999,30 @@ in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Parameter`
+in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
+#### Snippet
+```java
+
+  private static Set<Parameter> getRequiredParamsDifference(
+      List<Parameter> paramList1, List<Parameter> paramList2) {
+    Map<String, Parameter> nameToParamMap =
+        paramList2.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Parameter`
+in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
+#### Snippet
+```java
+
+  private static Set<Parameter> getRequiredParamsDifference(
+      List<Parameter> paramList1, List<Parameter> paramList2) {
+    Map<String, Parameter> nameToParamMap =
+        paramList2.stream()
+```
+
+### BoundedWildcard
 Can generalize to `? extends TemplateMetadata`
 in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
 #### Snippet
@@ -4036,27 +4035,27 @@ in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyType`
-in `java/src/com/google/template/soy/plugin/java/internal/JavaPluginValidator.java`
+Can generalize to `? extends SoyError`
+in `java/src/com/google/template/soy/plugin/java/internal/ValidatorErrorReporter.java`
 #### Snippet
 ```java
-      String fnName,
-      SoyJavaSourceFunction fn,
-      List<SoyType> expectedParams,
-      SoyType expectedReturn,
-      SourceLocation sourceLocation,
+  }
+
+  public void wrapWarnings(Iterable<SoyError> warnings) {
+    warnings.forEach(e -> warn(UNEXPECTED_ERROR, e.message()));
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileSetMetadata`
-in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
+Can generalize to `? extends SoyError`
+in `java/src/com/google/template/soy/plugin/java/internal/ValidatorErrorReporter.java`
 #### Snippet
 ```java
-      ErrorReporter errorReporter,
-      ImmutableList<? extends SoyPrintDirective> printDirectives,
-      Supplier<FileSetMetadata> templateRegistryFull,
-      boolean desugarIdomFeatures) {
-    this.errorReporter = errorReporter;
+  }
+
+  public void wrapErrors(Iterable<SoyError> errors) {
+    errors.forEach(e -> report(UNEXPECTED_ERROR, e.message()));
+  }
 ```
 
 ### BoundedWildcard
@@ -4084,6 +4083,18 @@ in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends FileSetMetadata`
+in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
+#### Snippet
+```java
+      ErrorReporter errorReporter,
+      ImmutableList<? extends SoyPrintDirective> printDirectives,
+      Supplier<FileSetMetadata> templateRegistryFull,
+      boolean desugarIdomFeatures) {
+    this.errorReporter = errorReporter;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExprNode`
 in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 #### Snippet
@@ -4108,27 +4119,15 @@ in `java/src/com/google/template/soy/plugin/internal/PluginValidator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyError`
-in `java/src/com/google/template/soy/plugin/java/internal/ValidatorErrorReporter.java`
+Can generalize to `? extends SoyType`
+in `java/src/com/google/template/soy/plugin/java/internal/JavaPluginValidator.java`
 #### Snippet
 ```java
-  }
-
-  public void wrapErrors(Iterable<SoyError> errors) {
-    errors.forEach(e -> report(UNEXPECTED_ERROR, e.message()));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyError`
-in `java/src/com/google/template/soy/plugin/java/internal/ValidatorErrorReporter.java`
-#### Snippet
-```java
-  }
-
-  public void wrapWarnings(Iterable<SoyError> warnings) {
-    warnings.forEach(e -> warn(UNEXPECTED_ERROR, e.message()));
-  }
+      String fnName,
+      SoyJavaSourceFunction fn,
+      List<SoyType> expectedParams,
+      SoyType expectedReturn,
+      SourceLocation sourceLocation,
 ```
 
 ### BoundedWildcard
@@ -4141,6 +4140,18 @@ in `java/src/com/google/template/soy/shared/internal/DelTemplateSelector.java`
     T select(Predicate<String> activeModSelector) {
       Map.Entry<String, T> selected = null;
       // Select whatever mod is active and ensure that only one is activated.  If none are
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `java/src/com/google/template/soy/shared/internal/InternalPlugins.java`
+#### Snippet
+```java
+
+  static <T> ImmutableList<T> filterDuplicates(
+      Iterable<? extends T> items, Function<T, String> nameFn) {
+    Map<String, T> indexed = new HashMap<>();
+    ImmutableList.Builder<T> output = ImmutableList.builder();
 ```
 
 ### BoundedWildcard
@@ -4168,63 +4179,63 @@ in `java/src/com/google/template/soy/plugin/javascript/restricted/JavaScriptValu
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `java/src/com/google/template/soy/shared/internal/InternalPlugins.java`
+Can generalize to `? extends FileSetMetadata`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
+    private final Table<SourceFilePath, String, List<ExternNode>> sources = HashBasedTable.create();
 
-  static <T> ImmutableList<T> filterDuplicates(
-      Iterable<? extends T> items, Function<T, String> nameFn) {
-    Map<String, T> indexed = new HashMap<>();
-    ImmutableList.Builder<T> output = ImmutableList.builder();
+    public ExternsTypeIndex(Supplier<FileSetMetadata> deps) {
+      this.deps = deps;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `java/src/com/google/template/soy/plugin/java/internal/CompiledJarsPluginSignatureReader.java`
+Can generalize to `? extends SoyMethod.Registry`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
-   * fails, falls back to using reflection.
-   */
-  private ClassSignatures index(String runtimeClassName, Consumer<String> errorReporter) {
-    String ownerName = TypeInfo.create(runtimeClassName, /* doesn't matter */ false).internalName();
-    for (File f : pluginRuntimeJars) {
+    private final List<SoyMethod.Registry> registries;
+
+    public CompositeMethodRegistry(List<SoyMethod.Registry> registries) {
+      this.registries = registries;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/plugin/javascript/restricted/JavaScriptValueFactory.java`
+Can generalize to `? extends ExternRef`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
-  /** See {@link #callNamespaceFunction(String, String, JavaScriptValue...)}. */
-  public final JavaScriptValue callNamespaceFunction(
-      String googProvide, String fullFunctionName, Iterable<JavaScriptValue> params) {
-    return callNamespaceFunction(
-        googProvide, fullFunctionName, Iterables.toArray(params, JavaScriptValue.class));
+    }
+
+    private boolean maybeSetExtern(FunctionNode node, List<ExternRef> externTypes) {
+      List<ExternRef> matching =
+          externTypes.stream()
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/plugin/javascript/restricted/JavaScriptValueFactory.java`
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
-  /** See {@link #callModuleFunction(String, String, JavaScriptValue...)}. */
-  public final JavaScriptValue callModuleFunction(
-      String moduleName, String functionName, Iterable<JavaScriptValue> params) {
-    return callModuleFunction(
-        moduleName, functionName, Iterables.toArray(params, JavaScriptValue.class));
+    }
+
+    private SoyType getGenericMapType(Iterable<ExprNode> intersectionOf) {
+      ImmutableSet.Builder<SoyType> keyTypesBuilder = ImmutableSet.builder();
+      ImmutableSet.Builder<SoyType> valueTypesBuilder = ImmutableSet.builder();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscapingDirectiveCode.java`
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
-   */
-  @VisibleForTesting
-  public void generateCode(Predicate<String> availableIdentifiers, StringBuilder outputCode) {
+    }
 
-    outputCode.append(generatedCodeStartMarker).append('\n');
+    private SoyType getGenericListType(Iterable<ExprNode> intersectionOf) {
+      ImmutableSet.Builder<SoyType> elementTypesBuilder = ImmutableSet.builder();
+      for (ExprNode childNode : intersectionOf) {
 ```
 
 ### BoundedWildcard
@@ -4264,27 +4275,15 @@ in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExternRef`
+Can generalize to `? extends FileSetMetadata`
 in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
+    private final Table<SourceFilePath, String, ConstNode> sources = HashBasedTable.create();
+
+    public ConstantsTypeIndex(Supplier<FileSetMetadata> deps) {
+      this.deps = deps;
     }
-
-    private boolean maybeSetExtern(FunctionNode node, List<ExternRef> externTypes) {
-      List<ExternRef> matching =
-          externTypes.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-    }
-
-    private SoyType getGenericListType(Iterable<ExprNode> intersectionOf) {
-      ImmutableSet.Builder<SoyType> elementTypesBuilder = ImmutableSet.builder();
-      for (ExprNode childNode : intersectionOf) {
 ```
 
 ### BoundedWildcard
@@ -4297,18 +4296,6 @@ in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
         List<ExprNode> providedParams, FunctionType functionType) {
       ImmutableList<Parameter> functParams = functionType.getParameters();
       if (functParams.size() != providedParams.size()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileSetMetadata`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-    private final Table<SourceFilePath, String, ConstNode> sources = HashBasedTable.create();
-
-    public ConstantsTypeIndex(Supplier<FileSetMetadata> deps) {
-      this.deps = deps;
-    }
 ```
 
 ### BoundedWildcard
@@ -4360,39 +4347,51 @@ in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileSetMetadata`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+Can generalize to `? super String`
+in `java/src/com/google/template/soy/plugin/java/internal/CompiledJarsPluginSignatureReader.java`
 #### Snippet
 ```java
-    private final Table<SourceFilePath, String, List<ExternNode>> sources = HashBasedTable.create();
-
-    public ExternsTypeIndex(Supplier<FileSetMetadata> deps) {
-      this.deps = deps;
-    }
+   * fails, falls back to using reflection.
+   */
+  private ClassSignatures index(String runtimeClassName, Consumer<String> errorReporter) {
+    String ownerName = TypeInfo.create(runtimeClassName, /* doesn't matter */ false).internalName();
+    for (File f : pluginRuntimeJars) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyMethod.Registry`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+Can generalize to `? super String`
+in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscapingDirectiveCode.java`
 #### Snippet
 ```java
-    private final List<SoyMethod.Registry> registries;
+   */
+  @VisibleForTesting
+  public void generateCode(Predicate<String> availableIdentifiers, StringBuilder outputCode) {
 
-    public CompositeMethodRegistry(List<SoyMethod.Registry> registries) {
-      this.registries = registries;
-    }
+    outputCode.append(generatedCodeStartMarker).append('\n');
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/plugin/javascript/restricted/JavaScriptValueFactory.java`
 #### Snippet
 ```java
-    }
+  /** See {@link #callNamespaceFunction(String, String, JavaScriptValue...)}. */
+  public final JavaScriptValue callNamespaceFunction(
+      String googProvide, String fullFunctionName, Iterable<JavaScriptValue> params) {
+    return callNamespaceFunction(
+        googProvide, fullFunctionName, Iterables.toArray(params, JavaScriptValue.class));
+```
 
-    private SoyType getGenericMapType(Iterable<ExprNode> intersectionOf) {
-      ImmutableSet.Builder<SoyType> keyTypesBuilder = ImmutableSet.builder();
-      ImmutableSet.Builder<SoyType> valueTypesBuilder = ImmutableSet.builder();
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/plugin/javascript/restricted/JavaScriptValueFactory.java`
+#### Snippet
+```java
+  /** See {@link #callModuleFunction(String, String, JavaScriptValue...)}. */
+  public final JavaScriptValue callModuleFunction(
+      String moduleName, String functionName, Iterable<JavaScriptValue> params) {
+    return callModuleFunction(
+        moduleName, functionName, Iterables.toArray(params, JavaScriptValue.class));
 ```
 
 ### BoundedWildcard
@@ -4405,42 +4404,6 @@ in `java/src/com/google/template/soy/shared/restricted/SoySourceFunctionMethod.j
   public boolean appliesToArgs(List<SoyType> argTypes) {
     Preconditions.checkArgument(argTypes.size() == this.argTypes.size());
     for (int i = 0; i < argTypes.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends HtmlMatcherGraphNode`
-in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java`
-#### Snippet
-```java
-
-  private QueuedTask visit(
-      Optional<HtmlMatcherGraphNode> maybeNode,
-      Map<ExprEquivalence.Wrapper, Boolean> exprValueMap,
-      HtmlStack stack) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/logging/GetVeMetadataMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    checkArgument(args.size() == 1);
-    return factory.callStaticMethod(Methods.METHOD, args.get(0));
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/logging/GetVeMetadataMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    checkArgument(args.size() == 1);
-    return factory.callModuleFunction("soy.velog", "$$getVeMetadata", args.get(0));
 ```
 
 ### BoundedWildcard
@@ -4468,27 +4431,27 @@ in `java/src/com/google/template/soy/logging/GetMetadataMethod.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ValidatedLoggableElement`
-in `java/src/com/google/template/soy/logging/ValidatedLoggingConfig.java`
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/logging/GetVeMetadataMethod.java`
 #### Snippet
 ```java
-  private final ImmutableMap<String, ValidatedLoggableElement> elementsByName;
-
-  private ValidatedLoggingConfig(ImmutableMap<String, ValidatedLoggableElement> elementsByName) {
-    this.elementsByName = elementsByName;
-  }
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    checkArgument(args.size() == 1);
+    return factory.callModuleFunction("soy.velog", "$$getVeMetadata", args.get(0));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/logging/GetVeMetadataMethod.java`
 #### Snippet
 ```java
-        String methodName,
-        SoyType baseType,
-        List<ExprNode> params,
-        SoyTypeRegistry soyTypeRegistry,
-        ErrorReporter errorReporter) {
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    checkArgument(args.size() == 1);
+    return factory.callStaticMethod(Methods.METHOD, args.get(0));
 ```
 
 ### BoundedWildcard
@@ -4525,6 +4488,42 @@ in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
       SoyType baseType, Function<String, String> fieldToMethodName) {
     if (!appliesToBase(baseType)) {
       return ImmutableList.of();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
+#### Snippet
+```java
+        String methodName,
+        SoyType baseType,
+        List<ExprNode> params,
+        SoyTypeRegistry soyTypeRegistry,
+        ErrorReporter errorReporter) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends HtmlMatcherGraphNode`
+in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java`
+#### Snippet
+```java
+
+  private QueuedTask visit(
+      Optional<HtmlMatcherGraphNode> maybeNode,
+      Map<ExprEquivalence.Wrapper, Boolean> exprValueMap,
+      HtmlStack stack) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ValidatedLoggableElement`
+in `java/src/com/google/template/soy/logging/ValidatedLoggingConfig.java`
+#### Snippet
+```java
+  private final ImmutableMap<String, ValidatedLoggableElement> elementsByName;
+
+  private ValidatedLoggingConfig(ImmutableMap<String, ValidatedLoggableElement> elementsByName) {
+    this.elementsByName = elementsByName;
+  }
 ```
 
 ### BoundedWildcard
@@ -4576,18 +4575,6 @@ in `java/src/com/google/template/soy/soytree/AstEdits.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SoyNode`
-in `java/src/com/google/template/soy/soytree/MsgNode.java`
-#### Snippet
-```java
-    }
-
-    private static void maybeEnqueue(Deque<SoyNode> traversalQueue, SoyNode child) {
-      if (child instanceof MsgSubstUnitNode || child instanceof VeLogNode) {
-        traversalQueue.add(child);
-```
-
-### BoundedWildcard
 Can generalize to `? extends CaseOrDefaultNode`
 in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
@@ -4600,87 +4587,15 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ImportedVar`
-in `java/src/com/google/template/soy/soytree/ImportNode.java`
+Can generalize to `? super SoyNode`
+in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
+    }
 
-  private static void visitVars(
-      ImportedVar id, SoyType parentType, BiConsumer<ImportedVar, SoyType> visitor) {
-    visitor.accept(id, parentType);
-    id.getNestedTypes()
-```
-
-### BoundedWildcard
-Can generalize to `? super SoyType`
-in `java/src/com/google/template/soy/soytree/ImportNode.java`
-#### Snippet
-```java
-
-  private static void visitVars(
-      ImportedVar id, SoyType parentType, BiConsumer<ImportedVar, SoyType> visitor) {
-    visitor.accept(id, parentType);
-    id.getNestedTypes()
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/soytree/MsgSubstUnitPlaceholderNameUtils.java`
-#### Snippet
-```java
-   */
-  public static List<String> genNoncollidingBaseNamesForExprs(
-      List<ExprNode> exprNodes, String fallbackBaseName, ErrorReporter errorReporter) {
-
-    int numExprs = exprNodes.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `java/src/com/google/template/soy/basetree/ParentNode.java`
-#### Snippet
-```java
-
-  default <T extends N> ImmutableList<T> getChildrenOfType(
-      ParentNode<? super T> root, Class<T> type) {
-    return root.getChildren().stream()
-        .filter(type::isInstance)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-   */
-  public static <T extends Node> ImmutableList<T> getAllNodesOfType(
-      Node rootSoyNode, final Class<T> classObject) {
-    return allNodesOfType(rootSoyNode, classObject).collect(toImmutableList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super ExprNode`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-   */
-  public static <R> void execOnAllV2Exprs(
-      SoyNode node, final AbstractNodeVisitor<ExprNode, R> exprNodeVisitor) {
-    allNodes(node, SoyTreeUtils::visitNonExpr)
-        .filter(n -> n instanceof ExprHolderNode)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-   */
-  public static <T extends Node> Stream<T> allNodesOfType(
-      Node rootSoyNode, Class<T> classObject, NodeVisitor<? super Node, VisitDirective> visitor) {
-    return allNodes(rootSoyNode, visitor).filter(classObject::isInstance).map(classObject::cast);
-  }
+    private static void maybeEnqueue(Deque<SoyNode> traversalQueue, SoyNode child) {
+      if (child instanceof MsgSubstUnitNode || child instanceof VeLogNode) {
+        traversalQueue.add(child);
 ```
 
 ### BoundedWildcard
@@ -4725,10 +4640,94 @@ in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
 #### Snippet
 ```java
    */
+  public static <T extends Node> Stream<T> allNodesOfType(
+      Node rootSoyNode, Class<T> classObject, NodeVisitor<? super Node, VisitDirective> visitor) {
+    return allNodes(rootSoyNode, visitor).filter(classObject::isInstance).map(classObject::cast);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super ExprNode`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+   */
+  public static <R> void execOnAllV2Exprs(
+      SoyNode node, final AbstractNodeVisitor<ExprNode, R> exprNodeVisitor) {
+    allNodes(node, SoyTreeUtils::visitNonExpr)
+        .filter(n -> n instanceof ExprHolderNode)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+   */
   public static <T extends SoyNode> List<T> cloneListWithNewIds(
       List<T> origNodes, IdGenerator nodeIdGen) {
 
     Preconditions.checkNotNull(origNodes);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+   */
+  public static <T extends Node> ImmutableList<T> getAllNodesOfType(
+      Node rootSoyNode, final Class<T> classObject) {
+    return allNodesOfType(rootSoyNode, classObject).collect(toImmutableList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/soytree/MsgSubstUnitPlaceholderNameUtils.java`
+#### Snippet
+```java
+   */
+  public static List<String> genNoncollidingBaseNamesForExprs(
+      List<ExprNode> exprNodes, String fallbackBaseName, ErrorReporter errorReporter) {
+
+    int numExprs = exprNodes.size();
+```
+
+### BoundedWildcard
+Can generalize to `? super ImportedVar`
+in `java/src/com/google/template/soy/soytree/ImportNode.java`
+#### Snippet
+```java
+
+  private static void visitVars(
+      ImportedVar id, SoyType parentType, BiConsumer<ImportedVar, SoyType> visitor) {
+    visitor.accept(id, parentType);
+    id.getNestedTypes()
+```
+
+### BoundedWildcard
+Can generalize to `? super SoyType`
+in `java/src/com/google/template/soy/soytree/ImportNode.java`
+#### Snippet
+```java
+
+  private static void visitVars(
+      ImportedVar id, SoyType parentType, BiConsumer<ImportedVar, SoyType> visitor) {
+    visitor.accept(id, parentType);
+    id.getNestedTypes()
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `java/src/com/google/template/soy/basetree/ParentNode.java`
+#### Snippet
+```java
+
+  default <T extends N> ImmutableList<T> getChildrenOfType(
+      ParentNode<? super T> root, Class<T> type) {
+    return root.getChildren().stream()
+        .filter(type::isInstance)
 ```
 
 ### BoundedWildcard
@@ -4816,54 +4815,6 @@ in `java/src/com/google/template/soy/exprtree/CallableExprBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ExprNode`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-    private final int hashCode;
-
-    Wrapper(Equivalence<ExprNode> equivalence, ExprNode expr) {
-      this.equivalence = equivalence;
-      this.expr = checkNotNull(expr);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-  }
-
-  public final int hash(List<ExprNode> a) {
-    int result = 1;
-    for (ExprNode element : a) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-  }
-
-  public final boolean equivalent(List<ExprNode> a, List<ExprNode> b) {
-    if (a.size() != b.size()) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-  }
-
-  public final boolean equivalent(List<ExprNode> a, List<ExprNode> b) {
-    if (a.size() != b.size()) {
-      return false;
-```
-
-### BoundedWildcard
 Can generalize to `? extends TemplateMetadata`
 in `java/src/com/google/template/soy/soytree/Metadata.java`
 #### Snippet
@@ -4900,54 +4851,6 @@ in `java/src/com/google/template/soy/internal/util/BreadthFirstStream.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `java/src/com/google/template/soy/internal/proto/Field.java`
-#### Snippet
-```java
-  /** Returns the set of fields indexed by soy accessor name for the given type. */
-  public static <T extends Field> ImmutableMap<String, T> getFieldsForType(
-      Descriptor descriptor, Set<FieldDescriptor> extensions, Factory<T> factory) {
-    ImmutableMap.Builder<String, T> fields = ImmutableMap.builder();
-    for (FieldDescriptor fieldDescriptor : descriptor.getFields()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TemplateHeaderVarDefn`
-in `java/src/com/google/template/soy/soytree/TemplateNode.java`
-#### Snippet
-```java
-
-  private static ImmutableList<TemplateHeaderVarDefn> copyParams(
-      ImmutableList<TemplateHeaderVarDefn> orig, CopyState copyState) {
-    ImmutableList.Builder<TemplateHeaderVarDefn> newParams = ImmutableList.builder();
-    for (TemplateHeaderVarDefn prev : orig) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AliasDeclaration`
-in `java/src/com/google/template/soy/soytree/TemplateNode.java`
-#### Snippet
-```java
-        ErrorReporter errorReporter,
-        NamespaceDeclaration namespaceDeclaration,
-        Collection<AliasDeclaration> aliases) {
-      Map<String, String> map = Maps.newLinkedHashMap();
-      String aliasForFileNamespace =
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyType`
-in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
-#### Snippet
-```java
-  }
-
-  public void setAllowedParamTypes(List<SoyType> allowedParamTypes) {
-    checkState(paramsStyle == ParamsStyle.POSITIONAL || numChildren() == 0);
-    checkState(
-```
-
-### BoundedWildcard
 Can generalize to `? extends Identifier`
 in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
 #### Snippet
@@ -4969,6 +4872,78 @@ in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
       Identifier name, SourceLocation sourceLocation, @Nullable List<Point> commaLocations) {
     return new FunctionNode(
         sourceLocation,
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyType`
+in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
+#### Snippet
+```java
+  }
+
+  public void setAllowedParamTypes(List<SoyType> allowedParamTypes) {
+    checkState(paramsStyle == ParamsStyle.POSITIONAL || numChildren() == 0);
+    checkState(
+```
+
+### BoundedWildcard
+Can generalize to `? super ExprNode`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+    private final int hashCode;
+
+    Wrapper(Equivalence<ExprNode> equivalence, ExprNode expr) {
+      this.equivalence = equivalence;
+      this.expr = checkNotNull(expr);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+  }
+
+  public final boolean equivalent(List<ExprNode> a, List<ExprNode> b) {
+    if (a.size() != b.size()) {
+      return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+  }
+
+  public final boolean equivalent(List<ExprNode> a, List<ExprNode> b) {
+    if (a.size() != b.size()) {
+      return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+  }
+
+  public final int hash(List<ExprNode> a) {
+    int result = 1;
+    for (ExprNode element : a) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `java/src/com/google/template/soy/internal/proto/Field.java`
+#### Snippet
+```java
+  /** Returns the set of fields indexed by soy accessor name for the given type. */
+  public static <T extends Field> ImmutableMap<String, T> getFieldsForType(
+      Descriptor descriptor, Set<FieldDescriptor> extensions, Factory<T> factory) {
+    ImmutableMap.Builder<String, T> fields = ImmutableMap.builder();
+    for (FieldDescriptor fieldDescriptor : descriptor.getFields()) {
 ```
 
 ### BoundedWildcard
@@ -4996,6 +4971,54 @@ in `java/src/com/google/template/soy/internal/util/TopoSort.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `java/src/com/google/template/soy/internal/util/TopoSort.java`
+#### Snippet
+```java
+
+  private static <T> boolean dfs(
+      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
+    chain.addLast(node);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `java/src/com/google/template/soy/internal/util/TopoSort.java`
+#### Snippet
+```java
+
+  private static <T> boolean dfs(
+      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
+    chain.addLast(node);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `java/src/com/google/template/soy/internal/util/TopoSort.java`
+#### Snippet
+```java
+
+  private static <T> boolean dfs(
+      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
+    chain.addLast(node);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Iterable`
+in `java/src/com/google/template/soy/internal/util/TopoSort.java`
+#### Snippet
+```java
+
+  private static <T> boolean dfs(
+      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
+    chain.addLast(node);
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `java/src/com/google/template/soy/internal/util/TopoSort.java`
 #### Snippet
@@ -5032,51 +5055,27 @@ in `java/src/com/google/template/soy/internal/util/TopoSort.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `java/src/com/google/template/soy/internal/util/TopoSort.java`
+Can generalize to `? extends AliasDeclaration`
+in `java/src/com/google/template/soy/soytree/TemplateNode.java`
 #### Snippet
 ```java
-
-  private static <T> boolean dfs(
-      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
-    chain.addLast(node);
-
+        ErrorReporter errorReporter,
+        NamespaceDeclaration namespaceDeclaration,
+        Collection<AliasDeclaration> aliases) {
+      Map<String, String> map = Maps.newLinkedHashMap();
+      String aliasForFileNamespace =
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `java/src/com/google/template/soy/internal/util/TopoSort.java`
+Can generalize to `? extends TemplateHeaderVarDefn`
+in `java/src/com/google/template/soy/soytree/TemplateNode.java`
 #### Snippet
 ```java
 
-  private static <T> boolean dfs(
-      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
-    chain.addLast(node);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `java/src/com/google/template/soy/internal/util/TopoSort.java`
-#### Snippet
-```java
-
-  private static <T> boolean dfs(
-      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
-    chain.addLast(node);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Iterable`
-in `java/src/com/google/template/soy/internal/util/TopoSort.java`
-#### Snippet
-```java
-
-  private static <T> boolean dfs(
-      Set<T> visited, Deque<T> chain, T node, Function<T, Iterable<T>> successors) {
-    chain.addLast(node);
-
+  private static ImmutableList<TemplateHeaderVarDefn> copyParams(
+      ImmutableList<TemplateHeaderVarDefn> orig, CopyState copyState) {
+    ImmutableList.Builder<TemplateHeaderVarDefn> newParams = ImmutableList.builder();
+    for (TemplateHeaderVarDefn prev : orig) {
 ```
 
 ### BoundedWildcard
@@ -5089,18 +5088,6 @@ in `java/src/com/google/template/soy/conformance/SoyConformance.java`
   SoyConformance(ImmutableList<RuleWithExemptions> rules) {
     this.rules = rules;
   }
-```
-
-### BoundedWildcard
-Can generalize to `? super ParamInfo`
-in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
-#### Snippet
-```java
-  }
-
-  private void addIndirectParams(TemplateNode template, Map<String, ParamInfo> params) {
-    Set<String> directParamNames = ImmutableSet.copyOf(params.keySet());
-
 ```
 
 ### BoundedWildcard
@@ -5128,6 +5115,18 @@ in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ParamInfo`
+in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
+#### Snippet
+```java
+  }
+
+  private void addIndirectParams(TemplateNode template, Map<String, ParamInfo> params) {
+    Set<String> directParamNames = ImmutableSet.copyOf(params.keySet());
+
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
 #### Snippet
@@ -5152,18 +5151,6 @@ in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GeneratedFile`
-in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
-#### Snippet
-```java
-
-  /** Logs a warning if two soy files mapped to the same generated java file name. */
-  private void logWarningIfFilenamesNotUnique(ImmutableList<GeneratedFile> files) {
-    ImmutableList<String> duplicateFilenames =
-        files.stream().collect(groupingBy(GeneratedFile::fileName, counting())).entrySet().stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends ParamInfo`
 in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
 #### Snippet
@@ -5176,15 +5163,15 @@ in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TemplateType`
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/InferenceEngine.java`
+Can generalize to `? extends GeneratedFile`
+in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
 #### Snippet
 ```java
-     * content kind.
-     */
-    private SanitizedContentKind getCommonContentKindIfStrict(List<TemplateType> templates) {
-      if (templates.isEmpty()) {
-        return null;
+
+  /** Logs a warning if two soy files mapped to the same generated java file name. */
+  private void logWarningIfFilenamesNotUnique(ImmutableList<GeneratedFile> files) {
+    ImmutableList<String> duplicateFilenames =
+        files.stream().collect(groupingBy(GeneratedFile::fileName, counting())).entrySet().stream()
 ```
 
 ### BoundedWildcard
@@ -5200,6 +5187,30 @@ in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUp
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends TemplateType`
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/InferenceEngine.java`
+#### Snippet
+```java
+     * content kind.
+     */
+    private SanitizedContentKind getCommonContentKindIfStrict(List<TemplateType> templates) {
+      if (templates.isEmpty()) {
+        return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyMsgPart`
+in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitorAssistantForMsgs.java`
+#### Snippet
+```java
+   */
+  private void renderMsgFromTranslation(
+      MsgNode msg, ImmutableList<SoyMsgPart> msgParts, @Nullable ULocale locale) {
+    SoyMsgPart firstPart = msgParts.get(0);
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends JavaType`
 in `java/src/com/google/template/soy/javagencode/javatypes/JavaTypeUtils.java`
 #### Snippet
@@ -5208,54 +5219,6 @@ in `java/src/com/google/template/soy/javagencode/javatypes/JavaTypeUtils.java`
 
   public static ImmutableList<JavaType> makeNullable(List<JavaType> types) {
     return types.stream().map(JavaType::asNullable).collect(toImmutableList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super MsgBlockNode`
-in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
-#### Snippet
-```java
-  }
-
-  private static void collectMsgBranches(MsgBlockNode parent, List<MsgBlockNode> msgBranches) {
-    StandaloneNode firstChild = Iterables.getFirst(parent.getChildren(), null);
-    if (firstChild instanceof MsgPluralNode) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StandaloneNode`
-in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
-#### Snippet
-```java
-    }
-
-    static SourceLocation getLocationOf(List<StandaloneNode> nodes) {
-      SourceLocation location = nodes.get(0).getSourceLocation();
-      if (nodes.size() > 1) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends NamedExprNode`
-in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
-#### Snippet
-```java
-  }
-
-  public static FunctionNode elementCall(String name, ImmutableList<NamedExprNode> params) {
-    ImmutableList.Builder<Identifier> paramNames = ImmutableList.builder();
-    for (NamedExprNode param : params) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExprNode`
-in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
-#### Snippet
-```java
-   * to the tree.
-   */
-  private static ImmutableList<ExprNode> maybeCopyNodes(ImmutableList<ExprNode> nodes) {
-    return nodes.stream().map(ExprNodes::maybeCopyNode).collect(toImmutableList());
   }
 ```
 
@@ -5278,21 +5241,81 @@ in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
 ```java
   }
 
+  public static FunctionNode elementCall(String name, ImmutableList<NamedExprNode> params) {
+    ImmutableList.Builder<Identifier> paramNames = ImmutableList.builder();
+    for (NamedExprNode param : params) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends NamedExprNode`
+in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
+#### Snippet
+```java
+  }
+
   public static FunctionNode protoInit(String protoName, ImmutableList<NamedExprNode> children) {
     FunctionNode node =
         FunctionNode.newNamed(
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyMsgPart`
-in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitorAssistantForMsgs.java`
+Can generalize to `? extends ExprNode`
+in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
 #### Snippet
 ```java
+   * to the tree.
    */
-  private void renderMsgFromTranslation(
-      MsgNode msg, ImmutableList<SoyMsgPart> msgParts, @Nullable ULocale locale) {
-    SoyMsgPart firstPart = msgParts.get(0);
+  private static ImmutableList<ExprNode> maybeCopyNodes(ImmutableList<ExprNode> nodes) {
+    return nodes.stream().map(ExprNodes::maybeCopyNode).collect(toImmutableList());
+  }
+```
 
+### BoundedWildcard
+Can generalize to `? extends StandaloneNode`
+in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
+#### Snippet
+```java
+    }
+
+    static SourceLocation getLocationOf(List<StandaloneNode> nodes) {
+      SourceLocation location = nodes.get(0).getSourceLocation();
+      if (nodes.size() > 1) {
+```
+
+### BoundedWildcard
+Can generalize to `? super MsgBlockNode`
+in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
+#### Snippet
+```java
+  }
+
+  private static void collectMsgBranches(MsgBlockNode parent, List<MsgBlockNode> msgBranches) {
+    StandaloneNode firstChild = Iterables.getFirst(parent.getChildren(), null);
+    if (firstChild instanceof MsgPluralNode) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/bidifunctions/BidiTextDirFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory
+        .global("bidi.text_dir")
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/bidifunctions/BidiTextDirFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    JavaValue html = args.size() == 2 ? args.get(1).asSoyBoolean() : factory.constant(false);
+    return factory.callStaticMethod(Methods.BIDI_TEXT_DIR, args.get(0), html);
 ```
 
 ### BoundedWildcard
@@ -5320,18 +5343,6 @@ in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    JavaValue html = args.size() == 1 ? factory.constant(false) : args.get(1).asSoyBoolean();
-    return factory.callStaticMethod(Methods.MARK_AFTER, context.getBidiDir(), args.get(0), html);
-```
-
-### BoundedWildcard
 Can generalize to `? extends PythonValue`
 in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
 #### Snippet
@@ -5345,38 +5356,26 @@ in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
 
 ### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/bidifunctions/BidiTextDirFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    JavaValue html = args.size() == 2 ? args.get(1).asSoyBoolean() : factory.constant(false);
-    return factory.callStaticMethod(Methods.BIDI_TEXT_DIR, args.get(0), html);
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/bidifunctions/BidiTextDirFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory
-        .global("bidi.text_dir")
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/bidifunctions/BidiDirAttrFunction.java`
+in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
     JavaValue html = args.size() == 1 ? factory.constant(false) : args.get(1).asSoyBoolean();
-    return factory.callStaticMethod(
+    return factory.callStaticMethod(Methods.MARK_AFTER, context.getBidiDir(), args.get(0), html);
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/bidifunctions/BidiDirAttrFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    List<JavaScriptValue> fnArgs = new ArrayList<>();
+    fnArgs.add(context.getBidiDir());
 ```
 
 ### BoundedWildcard
@@ -5392,15 +5391,63 @@ in `java/src/com/google/template/soy/bidifunctions/BidiDirAttrFunction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
+Can generalize to `? extends JavaValue`
 in `java/src/com/google/template/soy/bidifunctions/BidiDirAttrFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    JavaValue html = args.size() == 1 ? factory.constant(false) : args.get(1).asSoyBoolean();
+    return factory.callStaticMethod(
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/RangeFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    JavaValue start;
+    JavaValue end;
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/PowFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.MATH_POW, args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/PowFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("math.pow").call(args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/PowFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    List<JavaScriptValue> fnArgs = new ArrayList<>();
-    fnArgs.add(context.getBidiDir());
+    return factory.global("Math").invokeMethod("pow", args.get(0), args.get(1));
+  }
 ```
 
 ### BoundedWildcard
@@ -5453,98 +5500,26 @@ in `java/src/com/google/template/soy/basicfunctions/StrToAsciiLowerCaseFunction.
 
 ### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/RangeFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/StrSubFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    JavaValue start;
-    JavaValue end;
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/PowFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.MATH_POW, args.get(0), args.get(1));
-  }
+    if (args.size() == 2) {
+      return factory.callStaticMethod(Methods.STR_SUB_START, args.get(0), args.get(1));
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/PowFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/StrSubFunction.java`
 #### Snippet
 ```java
   @Override
   public PythonValue applyForPythonSource(
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("math.pow").call(args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/PowFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.global("Math").invokeMethod("pow", args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/StrIndexOfFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    List<JavaScriptValue> transformedArgs = new ArrayList<>();
-    transformedArgs.add(args.get(1).coerceToString());
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrIndexOfFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.INDEX_OF,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/StrIndexOfFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    List<PythonValue> transformedArgs = new ArrayList<>();
     // Coerce SanitizedContent args to strings.
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/MapKeysFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return args.get(0).getProp("keys").call();
-  }
+    PythonValue str = args.get(0).coerceToString();
 ```
 
 ### BoundedWildcard
@@ -5573,38 +5548,98 @@ in `java/src/com/google/template/soy/basicfunctions/MapKeysFunction.java`
 
 ### BoundedWildcard
 Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/StrSubFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/MapKeysFunction.java`
 #### Snippet
 ```java
   @Override
   public PythonValue applyForPythonSource(
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    // Coerce SanitizedContent args to strings.
-    PythonValue str = args.get(0).coerceToString();
+    return args.get(0).getProp("keys").call();
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrSubFunction.java`
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/StrIndexOfFunction.java`
 #### Snippet
 ```java
   @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    if (args.size() == 2) {
-      return factory.callStaticMethod(Methods.STR_SUB_START, args.get(0), args.get(1));
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    List<PythonValue> transformedArgs = new ArrayList<>();
+    // Coerce SanitizedContent args to strings.
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/MapToLegacyObjectMapFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/StrIndexOfFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    // TODO(lukes) this could be callModuleFunction but other parts of soy don't generate aliased
-    // requires so we can't generate one here without create a 'multiple require' error
+    List<JavaScriptValue> transformedArgs = new ArrayList<>();
+    transformedArgs.add(args.get(1).coerceToString());
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/StrIndexOfFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(
+        Methods.INDEX_OF,
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyRecord`
+in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitor.java`
+#### Snippet
+```java
+
+  private void visitCallNodeHelper(
+      CallNode node, TemplateNode callee, Optional<SoyRecord> boundParams) {
+
+    // ------ Build the call data. ------
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/MinFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.global("Math").invokeMethod("min", args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/MinFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("min").call(args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/MinFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.MIN_FN, args.get(0), args.get(1));
+  }
 ```
 
 ### BoundedWildcard
@@ -5632,75 +5667,27 @@ in `java/src/com/google/template/soy/basicfunctions/MapToLegacyObjectMapFunction
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/MinFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("min").call(args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/MinFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/MapToLegacyObjectMapFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.global("Math").invokeMethod("min", args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/MinFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.MIN_FN, args.get(0), args.get(1));
-  }
+    // TODO(lukes) this could be callModuleFunction but other parts of soy don't generate aliased
+    // requires so we can't generate one here without create a 'multiple require' error
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ListSliceMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/ParseFloatFunction.java`
 #### Snippet
 ```java
   @Override
   public PythonValue applyForPythonSource(
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory
-        .global("runtime.list_slice")
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ListSliceMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.LIST_SLICE_FN,
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyRecord`
-in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitor.java`
-#### Snippet
-```java
-
-  private void visitCallNodeHelper(
-      CallNode node, TemplateNode callee, Optional<SoyRecord> boundParams) {
-
-    // ------ Build the call data. ------
+    return factory.global("runtime.parse_float").call(args.get(0));
+  }
 ```
 
 ### BoundedWildcard
@@ -5728,62 +5715,14 @@ in `java/src/com/google/template/soy/basicfunctions/ParseFloatFunction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ParseFloatFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.parse_float").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ListReverseMethod.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.list_reverse").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ListReverseMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/ListContainsFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.LIST_REVERSE_FN, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/ListReverseMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction("soy", "soy.$$listReverse", args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ListContainsFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.list_contains").call(args.get(0), args.get(1));
+    return factory.callStaticMethod(Methods.LIST_CONTAINS_FN, args.get(0), args.get(1));
   }
 ```
 
@@ -5800,14 +5739,122 @@ in `java/src/com/google/template/soy/basicfunctions/ListContainsFunction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaValue`
+Can generalize to `? extends PythonValue`
 in `java/src/com/google/template/soy/basicfunctions/ListContainsFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.list_contains").call(args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/ListSliceMethod.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.LIST_CONTAINS_FN, args.get(0), args.get(1));
+    return factory.callStaticMethod(
+        Methods.LIST_SLICE_FN,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/ListSliceMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory
+        .global("runtime.list_slice")
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/KeysFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.KEYS_FN, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/KeysFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callNamespaceFunction("soy", "soy.$$getMapKeys", args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/KeysFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return args.get(0).getProp("keys").call();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/StringListSortMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.LIST_SORT_FN, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/StringListSortMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callNamespaceFunction("soy", "soy.$$stringListSort", args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/StringListSortMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.string_list_sort").call(args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/ListReverseMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.list_reverse").call(args.get(0));
   }
 ```
 
@@ -5849,85 +5896,61 @@ in `java/src/com/google/template/soy/basicfunctions/ListUniqMethod.java`
 
 ### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StringListSortMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/LengthFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.LIST_SORT_FN, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/StringListSortMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction("soy", "soy.$$stringListSort", args.get(0));
+    return factory.callStaticMethod(Methods.DELEGATE_SOYLIST_LENGTH, args.get(0));
   }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/StringListSortMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/LengthFunction.java`
 #### Snippet
 ```java
   @Override
   public PythonValue applyForPythonSource(
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.string_list_sort").call(args.get(0));
+    return factory.global("len").call(args.get(0));
   }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/KeysFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/ListReverseMethod.java`
 #### Snippet
 ```java
   @Override
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction("soy", "soy.$$getMapKeys", args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/KeysFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return args.get(0).getProp("keys").call();
+    return factory.callNamespaceFunction("soy", "soy.$$listReverse", args.get(0));
   }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/KeysFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/ListReverseMethod.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.KEYS_FN, args.get(0));
+    return factory.callStaticMethod(Methods.LIST_REVERSE_FN, args.get(0));
   }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/JoinFunction.java`
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/LengthFunction.java`
 #### Snippet
 ```java
   @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.JOIN, args.get(0), args.get(1));
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return args.get(0).accessProperty("length");
   }
 ```
 
@@ -5944,6 +5967,18 @@ in `java/src/com/google/template/soy/basicfunctions/JoinFunction.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/JoinFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.JOIN, args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends PythonValue`
 in `java/src/com/google/template/soy/basicfunctions/JoinFunction.java`
 #### Snippet
@@ -5953,6 +5988,18 @@ in `java/src/com/google/template/soy/basicfunctions/JoinFunction.java`
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
     return args.get(1)
         .getProp("join")
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/StrReplaceAllMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.str_replace_all").call(args.get(0), args.get(1), args.get(2));
+  }
 ```
 
 ### BoundedWildcard
@@ -5980,66 +6027,6 @@ in `java/src/com/google/template/soy/basicfunctions/StrReplaceAllMethod.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/StrReplaceAllMethod.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.str_replace_all").call(args.get(0), args.get(1), args.get(2));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/LengthFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.DELEGATE_SOYLIST_LENGTH, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/LengthFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("len").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/LengthFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return args.get(0).accessProperty("length");
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrStartsWithMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.STR_STARTS_WITH,
-```
-
-### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
 in `java/src/com/google/template/soy/basicfunctions/ConcatMapsMethod.java`
 #### Snippet
@@ -6048,6 +6035,18 @@ in `java/src/com/google/template/soy/basicfunctions/ConcatMapsMethod.java`
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
     return factory.callNamespaceFunction("soy", "soy.map.$$concatMaps", args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/ConcatMapsMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.CONCAT_MAPS_FN, args.get(0), args.get(1));
   }
 ```
 
@@ -6065,50 +6064,14 @@ in `java/src/com/google/template/soy/basicfunctions/ConcatMapsMethod.java`
 
 ### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatMapsMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.CONCAT_MAPS_FN, args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrEndsWithMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/StrStartsWithMethod.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
     return factory.callStaticMethod(
-        Methods.STR_ENDS_WITH,
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/StrSplitMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    if (args.size() == 3) {
-      return args.get(0).invokeMethod("split", args.get(1), args.get(2));
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrSplitMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.STR_SPLIT,
+        Methods.STR_STARTS_WITH,
 ```
 
 ### BoundedWildcard
@@ -6133,42 +6096,6 @@ in `java/src/com/google/template/soy/basicfunctions/ProtoIsDefaultMethod.java`
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
     return factory.callNamespaceFunction("soy.map", "soy.map.$$isProtoDefault", args.get(0));
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatAttributeValuesFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction(
-        "soy", "soy.$$concatAttributeValues", args.get(0), args.get(1), args.get(2));
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatAttributeValuesFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.CONCAT_ATTRIBUTE_VALUES, args.get(0), args.get(1), args.get(2));
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatAttributeValuesFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory
-        .global("runtime.concat_attribute_values")
 ```
 
 ### BoundedWildcard
@@ -6208,6 +6135,150 @@ in `java/src/com/google/template/soy/basicfunctions/ListFlatMethod.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/StrEndsWithMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(
+        Methods.STR_ENDS_WITH,
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/ConcatAttributeValuesFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callNamespaceFunction(
+        "soy", "soy.$$concatAttributeValues", args.get(0), args.get(1), args.get(2));
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/ConcatAttributeValuesFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(
+        Methods.CONCAT_ATTRIBUTE_VALUES, args.get(0), args.get(1), args.get(2));
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/ConcatAttributeValuesFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory
+        .global("runtime.concat_attribute_values")
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/StrSplitMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    if (args.size() == 3) {
+      return args.get(0).invokeMethod("split", args.get(1), args.get(2));
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/StrSplitMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(
+        Methods.STR_SPLIT,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/ConcatListsFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    PythonValue accum = args.get(0);
+    for (int i = 1; i < args.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/MaxFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.MAX_FN, args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/MaxFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.global("Math").invokeMethod("max", args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/MaxFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("max").call(args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyList`
+in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
+#### Snippet
+```java
+
+  /** Concatenates its arguments. */
+  public static ImmutableList<SoyValueProvider> concatLists(List<SoyList> args) {
+    ImmutableList.Builder<SoyValueProvider> flattened = ImmutableList.builder();
+    for (SoyList soyList : args) {
+```
+
+### BoundedWildcard
+Can generalize to `? super SoyValueProvider`
+in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
+#### Snippet
+```java
+
+  private static void listFlatImpl(
+      SoyList list, ImmutableList.Builder<SoyValueProvider> builder, int maxDepth) {
+    for (SoyValueProvider value : list.asJavaList()) {
+      if (maxDepth > 0 && value.resolve() instanceof SoyList) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
 in `java/src/com/google/template/soy/basicfunctions/StrSmsUriToUriFunction.java`
 #### Snippet
@@ -6241,138 +6312,6 @@ in `java/src/com/google/template/soy/basicfunctions/StrSmsUriToUriFunction.java`
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
     return factory.global("sanitize.sms_to_uri").call(args.get(0).coerceToString());
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatListsFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    PythonValue accum = args.get(0);
-    for (int i = 1; i < args.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SoyList`
-in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
-#### Snippet
-```java
-
-  /** Concatenates its arguments. */
-  public static ImmutableList<SoyValueProvider> concatLists(List<SoyList> args) {
-    ImmutableList.Builder<SoyValueProvider> flattened = ImmutableList.builder();
-    for (SoyList soyList : args) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/HtmlToTextFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("sanitize.html_to_text").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super SoyValueProvider`
-in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
-#### Snippet
-```java
-
-  private static void listFlatImpl(
-      SoyList list, ImmutableList.Builder<SoyValueProvider> builder, int maxDepth) {
-    for (SoyValueProvider value : list.asJavaList()) {
-      if (maxDepth > 0 && value.resolve() instanceof SoyList) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/HtmlToTextFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction("soy", "soy.$$htmlToText", args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/HtmlToTextFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.HTML_TO_TEXT, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/MaxFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.global("Math").invokeMethod("max", args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/MaxFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.MAX_FN, args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/MaxFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("max").call(args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImmutableList`
-in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
-#### Snippet
-```java
-      PluginInstances pluginInstances,
-      UndefinedDataHandlingMode undefinedDataHandlingMode,
-      ImmutableTable<SourceFilePath, String, ImmutableList<ExternNode>> externs,
-      DelTemplateSelector<TemplateNode> deltemplates,
-      Predicate<String> activeModSelector) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TemplateNode`
-in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
-#### Snippet
-```java
-      UndefinedDataHandlingMode undefinedDataHandlingMode,
-      ImmutableTable<SourceFilePath, String, ImmutableList<ExternNode>> externs,
-      DelTemplateSelector<TemplateNode> deltemplates,
-      Predicate<String> activeModSelector) {
-    this.env = checkNotNull(env);
 ```
 
 ### BoundedWildcard
@@ -6424,15 +6363,63 @@ in `java/src/com/google/template/soy/basicfunctions/ParseIntFunction.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/HtmlToTextFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("sanitize.html_to_text").call(args.get(0));
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ProtoEqualsMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/HtmlToTextFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.PROTO_EQUALS_FN, args.get(0), args.get(1));
+    return factory.callStaticMethod(Methods.HTML_TO_TEXT, args.get(0));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/HtmlToTextFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callNamespaceFunction("soy", "soy.$$htmlToText", args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImmutableList`
+in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
+#### Snippet
+```java
+      PluginInstances pluginInstances,
+      UndefinedDataHandlingMode undefinedDataHandlingMode,
+      ImmutableTable<SourceFilePath, String, ImmutableList<ExternNode>> externs,
+      DelTemplateSelector<TemplateNode> deltemplates,
+      Predicate<String> activeModSelector) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TemplateNode`
+in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
+#### Snippet
+```java
+      UndefinedDataHandlingMode undefinedDataHandlingMode,
+      ImmutableTable<SourceFilePath, String, ImmutableList<ExternNode>> externs,
+      DelTemplateSelector<TemplateNode> deltemplates,
+      Predicate<String> activeModSelector) {
+    this.env = checkNotNull(env);
 ```
 
 ### BoundedWildcard
@@ -6445,6 +6432,18 @@ in `java/src/com/google/template/soy/basicfunctions/ProtoEqualsMethod.java`
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
     return factory.callNamespaceFunction(
         "soy.map", "soy.map.$$protoEquals", args.get(0), args.get(1));
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/ProtoEqualsMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.PROTO_EQUALS_FN, args.get(0), args.get(1));
+  }
 ```
 
 ### BoundedWildcard
@@ -6484,51 +6483,15 @@ in `java/src/com/google/template/soy/basicfunctions/StrToAsciiUpperCaseFunction.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/MapEntriesMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.MAP_ENTRIES_FN, args.get(0));
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/MapEntriesMethod.java`
+in `java/src/com/google/template/soy/basicfunctions/RandomIntFunction.java`
 #### Snippet
 ```java
   @Override
   public PythonValue applyForPythonSource(
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.map_entries").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/MapEntriesMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    // TODO(lukes) this could be callModuleFunction but other parts of soy don't generate aliased
-    // requires so we can't generate one here without create a 'multiple require' error
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/RandomIntFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.RANDOM_INT_FN, args.get(0).asSoyInt());
-  }
+    return factory
+        .global("random.randint")
 ```
 
 ### BoundedWildcard
@@ -6544,170 +6507,14 @@ in `java/src/com/google/template/soy/basicfunctions/RandomIntFunction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PythonValue`
+Can generalize to `? extends JavaValue`
 in `java/src/com/google/template/soy/basicfunctions/RandomIntFunction.java`
 #### Snippet
 ```java
   @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory
-        .global("random.randint")
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/CeilingFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.global("Math").invokeMethod("ceil", args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/CeilingFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("int").call(factory.global("math.ceil").call(args.get(0)));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/CeilingFunction.java`
-#### Snippet
-```java
-  @Override
   public JavaValue applyForJavaSource(
       JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.CEIL_FN, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrLenFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.STR_LEN, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/StrLenFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("len").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/StrLenFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return args.get(0).coerceToString().accessProperty("length");
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ListIndexOfFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.LIST_CONTAINS_FN,
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/SqrtFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.global("Math").invokeMethod("sqrt", args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/SqrtFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.sqrt").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/SqrtFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.MATH_SQRT, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatCssValuesFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction("soy", "soy.$$concatCssValues", args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatCssValuesFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.concat_css_values").call(args.get(0), args.get(1));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/ConcatCssValuesFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.CONCAT_CSS_VALUES, args.get(0), args.get(1));
+    return factory.callStaticMethod(Methods.RANDOM_INT_FN, args.get(0).asSoyInt());
   }
 ```
 
@@ -6736,6 +6543,18 @@ in `java/src/com/google/template/soy/basicfunctions/MapLengthMethod.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/ListIndexOfFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(
+        Methods.LIST_CONTAINS_FN,
+```
+
+### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
 in `java/src/com/google/template/soy/basicfunctions/MapLengthMethod.java`
 #### Snippet
@@ -6745,6 +6564,198 @@ in `java/src/com/google/template/soy/basicfunctions/MapLengthMethod.java`
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
     // TODO(lukes) this could be callModuleFunction but other parts of soy don't generate aliased
     // requires so we can't generate one here without create a 'multiple require' error
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/SqrtFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.MATH_SQRT, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/SqrtFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.global("Math").invokeMethod("sqrt", args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/SqrtFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.sqrt").call(args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/MapEntriesMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    // TODO(lukes) this could be callModuleFunction but other parts of soy don't generate aliased
+    // requires so we can't generate one here without create a 'multiple require' error
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/MapEntriesMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.MAP_ENTRIES_FN, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/MapEntriesMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.map_entries").call(args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/StrLenFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("len").call(args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/StrLenFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.STR_LEN, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/CeilingFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.global("Math").invokeMethod("ceil", args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/StrLenFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return args.get(0).coerceToString().accessProperty("length");
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/CeilingFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.CEIL_FN, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/CeilingFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("int").call(factory.global("math.ceil").call(args.get(0)));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/StrTrimMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return args.get(0).invokeMethod("trim");
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/StrTrimMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.STR_TRIM, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/StrTrimMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.str_trim").call(args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/RoundFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory
+        .global("runtime.soy_round")
 ```
 
 ### BoundedWildcard
@@ -6773,26 +6784,74 @@ in `java/src/com/google/template/soy/basicfunctions/RoundFunction.java`
 
 ### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/StrContainsFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/ConcatCssValuesFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callNamespaceFunction(
-        "soy", "soy.$$strContains", args.get(0).coerceToString(), args.get(1).coerceToString());
+    return factory.callNamespaceFunction("soy", "soy.$$concatCssValues", args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/ConcatCssValuesFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.CONCAT_CSS_VALUES, args.get(0), args.get(1));
+  }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/RoundFunction.java`
+in `java/src/com/google/template/soy/basicfunctions/ConcatCssValuesFunction.java`
 #### Snippet
 ```java
   @Override
   public PythonValue applyForPythonSource(
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory
-        .global("runtime.soy_round")
+    return factory.global("runtime.concat_css_values").call(args.get(0), args.get(1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/basicfunctions/FloorFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(Methods.FLOOR_FN, args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/FloorFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.global("Math").invokeMethod("floor", args.get(0));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/basicfunctions/FloorFunction.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("int").call(factory.global("math.floor").call(args.get(0)));
+  }
 ```
 
 ### BoundedWildcard
@@ -6817,6 +6876,18 @@ in `java/src/com/google/template/soy/basicfunctions/StrContainsFunction.java`
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
     return args.get(1).coerceToString().in(args.get(0).coerceToString());
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/basicfunctions/StrContainsFunction.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callNamespaceFunction(
+        "soy", "soy.$$strContains", args.get(0).coerceToString(), args.get(1).coerceToString());
 ```
 
 ### BoundedWildcard
@@ -6857,42 +6928,6 @@ in `java/src/com/google/template/soy/basicfunctions/MapValuesMethod.java`
 
 ### BoundedWildcard
 Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/StrTrimMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.STR_TRIM, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/StrTrimMethod.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.str_trim").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/StrTrimMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return args.get(0).invokeMethod("trim");
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
 in `java/src/com/google/template/soy/basicfunctions/NumberListSortMethod.java`
 #### Snippet
 ```java
@@ -6928,39 +6963,15 @@ in `java/src/com/google/template/soy/basicfunctions/NumberListSortMethod.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/basicfunctions/FloorFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(Methods.FLOOR_FN, args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/basicfunctions/FloorFunction.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("int").call(factory.global("math.floor").call(args.get(0)));
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/basicfunctions/FloorFunction.java`
+in `java/src/com/google/template/soy/i18ndirectives/FormatNumFunction.java`
 #### Snippet
 ```java
   @Override
   public JavaScriptValue applyForJavaScriptSource(
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.global("Math").invokeMethod("floor", args.get(0));
-  }
+    List<JavaScriptValue> jsArgs = new ArrayList<>(args);
+    if (jsArgs.size() == 1) {
 ```
 
 ### BoundedWildcard
@@ -6976,18 +6987,6 @@ in `java/src/com/google/template/soy/i18ndirectives/FormatNumFunction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/i18ndirectives/FormatNumFunction.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    List<JavaScriptValue> jsArgs = new ArrayList<>(args);
-    if (jsArgs.size() == 1) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends PythonValue`
 in `java/src/com/google/template/soy/i18ndirectives/FormatNumFunction.java`
 #### Snippet
@@ -6997,42 +6996,6 @@ in `java/src/com/google/template/soy/i18ndirectives/FormatNumFunction.java`
       PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
     List<PythonValue> pyArgs = new ArrayList<>(args);
     if (pyArgs.size() > 2) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaValue`
-in `java/src/com/google/template/soy/i18ndirectives/LocaleSortMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaValue applyForJavaSource(
-      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
-    return factory.callStaticMethod(
-        Methods.LIST_SORT_FN,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PythonValue`
-in `java/src/com/google/template/soy/i18ndirectives/LocaleSortMethod.java`
-#### Snippet
-```java
-  @Override
-  public PythonValue applyForPythonSource(
-      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
-    return factory.global("runtime.string_list_sort").call(args.get(0));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaScriptValue`
-in `java/src/com/google/template/soy/i18ndirectives/LocaleSortMethod.java`
-#### Snippet
-```java
-  @Override
-  public JavaScriptValue applyForJavaScriptSource(
-      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
-    return factory.callModuleFunction(
-        "soy.i18n",
 ```
 
 ### BoundedWildcard
@@ -7048,15 +7011,39 @@ in `java/src/com/google/template/soy/basicdirectives/InsertWordBreaksDirective.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SoyValue`
-in `java/src/com/google/template/soy/basicdirectives/TruncateDirective.java`
+Can generalize to `? extends JavaValue`
+in `java/src/com/google/template/soy/i18ndirectives/LocaleSortMethod.java`
 #### Snippet
 ```java
-
   @Override
-  public SoyValue applyForJava(SoyValue value, List<SoyValue> args) {
-    int maxLen;
-    try {
+  public JavaValue applyForJavaSource(
+      JavaValueFactory factory, List<JavaValue> args, JavaPluginContext context) {
+    return factory.callStaticMethod(
+        Methods.LIST_SORT_FN,
+```
+
+### BoundedWildcard
+Can generalize to `? extends JavaScriptValue`
+in `java/src/com/google/template/soy/i18ndirectives/LocaleSortMethod.java`
+#### Snippet
+```java
+  @Override
+  public JavaScriptValue applyForJavaScriptSource(
+      JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
+    return factory.callModuleFunction(
+        "soy.i18n",
+```
+
+### BoundedWildcard
+Can generalize to `? extends PythonValue`
+in `java/src/com/google/template/soy/i18ndirectives/LocaleSortMethod.java`
+#### Snippet
+```java
+  @Override
+  public PythonValue applyForPythonSource(
+      PythonValueFactory factory, List<PythonValue> args, PythonPluginContext context) {
+    return factory.global("runtime.string_list_sort").call(args.get(0));
+  }
 ```
 
 ### BoundedWildcard
@@ -7073,14 +7060,14 @@ in `java/src/com/google/template/soy/basicdirectives/TruncateDirective.java`
 
 ### BoundedWildcard
 Can generalize to `? extends SoyValue`
-in `java/src/com/google/template/soy/basicdirectives/CleanHtmlDirective.java`
+in `java/src/com/google/template/soy/basicdirectives/TruncateDirective.java`
 #### Snippet
 ```java
 
   @Override
   public SoyValue applyForJava(SoyValue value, List<SoyValue> args) {
-    ImmutableSet<OptionalSafeTag> optionalSafeTags =
-        args.stream()
+    int maxLen;
+    try {
 ```
 
 ### BoundedWildcard
@@ -7093,6 +7080,18 @@ in `java/src/com/google/template/soy/basicdirectives/CleanHtmlDirective.java`
   public PyExpr applyForPySrc(PyExpr value, List<PyExpr> args) {
     String optionalSafeTagsArg = generateOptionalSafeTagsArg(args);
     return new PyExpr(
+```
+
+### BoundedWildcard
+Can generalize to `? extends SoyValue`
+in `java/src/com/google/template/soy/basicdirectives/CleanHtmlDirective.java`
+#### Snippet
+```java
+
+  @Override
+  public SoyValue applyForJava(SoyValue value, List<SoyValue> args) {
+    ImmutableSet<OptionalSafeTag> optionalSafeTags =
+        args.stream()
 ```
 
 ### BoundedWildcard
@@ -7121,30 +7120,6 @@ in `java/src/com/google/template/soy/incrementaldomsrc/GenIncrementalDomTemplate
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `SoyFileSetParser` has no concrete subclass
-in `java/src/com/google/template/soy/SoyFileSetParser.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class SoyFileSetParser {
-
-  /** A simple tuple for the result of a parse operation. */
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `java/src/com/google/template/soy/SoyFileSetParser.java`
-#### Snippet
-```java
-  /** Builder for {@link SoyFileSetParser}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setCache(SoyAstCache cache);
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CssRegistry` has no concrete subclass
 in `java/src/com/google/template/soy/css/CssRegistry.java`
 #### Snippet
@@ -7166,6 +7141,30 @@ in `java/src/com/google/template/soy/base/SourceFilePath.java`
 public abstract class SourceFilePath implements Comparable<SourceFilePath> {
   // TODO(b/162524005): Add support for different 'logical/import paths' vs 'real paths'. Consider
   // modelling file types, there is a limited number and recording it might be useful
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SoyFileSetParser` has no concrete subclass
+in `java/src/com/google/template/soy/SoyFileSetParser.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class SoyFileSetParser {
+
+  /** A simple tuple for the result of a parse operation. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `java/src/com/google/template/soy/SoyFileSetParser.java`
+#### Snippet
+```java
+  /** Builder for {@link SoyFileSetParser}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setCache(SoyAstCache cache);
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -7205,18 +7204,6 @@ public abstract class SoyTemplateParam<T> {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SoyVisualElement` has no concrete subclass
-in `java/src/com/google/template/soy/data/SoyVisualElement.java`
-#### Snippet
-```java
-/** Soy's runtime representation of objects of the Soy {@code ve} type. */
-@AutoValue
-public abstract class SoyVisualElement extends SoyAbstractValue {
-
-  private static final LoggableElementMetadata EMPTY_METADATA =
-```
-
-### AbstractClassNeverImplemented
 Abstract class `LoggingFunctionInvocation` has no concrete subclass
 in `java/src/com/google/template/soy/data/LoggingFunctionInvocation.java`
 #### Snippet
@@ -7226,6 +7213,18 @@ in `java/src/com/google/template/soy/data/LoggingFunctionInvocation.java`
 public abstract class LoggingFunctionInvocation {
   public static LoggingFunctionInvocation create(
       String functionName, String placeholderValue, List<SoyValue> args) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SoyVisualElement` has no concrete subclass
+in `java/src/com/google/template/soy/data/SoyVisualElement.java`
+#### Snippet
+```java
+/** Soy's runtime representation of objects of the Soy {@code ve} type. */
+@AutoValue
+public abstract class SoyVisualElement extends SoyAbstractValue {
+
+  private static final LoggableElementMetadata EMPTY_METADATA =
 ```
 
 ### AbstractClassNeverImplemented
@@ -7253,18 +7252,6 @@ public abstract class LogStatement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CssParam` has no concrete subclass
-in `java/src/com/google/template/soy/data/CssParam.java`
-#### Snippet
-```java
- */
-@AutoOneOf(CssParam.Type.class)
-public abstract class CssParam {
-  enum Type {
-    SAFE_STYLE,
-```
-
-### AbstractClassNeverImplemented
 Abstract class `SoyVisualElementData` has no concrete subclass
 in `java/src/com/google/template/soy/data/SoyVisualElementData.java`
 #### Snippet
@@ -7277,6 +7264,18 @@ public abstract class SoyVisualElementData extends SoyAbstractValue {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `CssParam` has no concrete subclass
+in `java/src/com/google/template/soy/data/CssParam.java`
+#### Snippet
+```java
+ */
+@AutoOneOf(CssParam.Type.class)
+public abstract class CssParam {
+  enum Type {
+    SAFE_STYLE,
+```
+
+### AbstractClassNeverImplemented
 Abstract class `LoggingFunctionCommand` has no concrete subclass
 in `java/src/com/google/template/soy/data/LoggingAdvisingAppendable.java`
 #### Snippet
@@ -7286,6 +7285,30 @@ in `java/src/com/google/template/soy/data/LoggingAdvisingAppendable.java`
     abstract static class LoggingFunctionCommand {
       static LoggingFunctionCommand create(
           LoggingFunctionInvocation fn, ImmutableList<Function<String, String>> escapers) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Case` has no concrete subclass
+in `java/src/com/google/template/soy/msgs/restricted/SoyMsgPart.java`
+#### Snippet
+```java
+  @AutoValue
+  @Immutable(containerOf = "T")
+  public abstract static class Case<T> {
+    public static <T> Case<T> create(T spec, Iterable<? extends SoyMsgPart> parts) {
+      return new AutoValue_SoyMsgPart_Case<>(spec, ImmutableList.copyOf(parts));
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractBuilderWithAccumulatorParameters` has no concrete subclass
+in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
+#### Snippet
+```java
+   * @param <T> The type of the concrete SoyTemplate class
+   */
+  public abstract static class AbstractBuilderWithAccumulatorParameters<
+          B extends AbstractBuilderWithAccumulatorParameters<?, T>, T extends SoyTemplate>
+      extends AbstractBuilder<B, T> {
 ```
 
 ### AbstractClassNeverImplemented
@@ -7313,39 +7336,15 @@ public abstract class BaseSoyTemplateImpl implements SoyTemplate {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractBuilderWithAccumulatorParameters` has no concrete subclass
-in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
+Abstract class `SourceLine` has no concrete subclass
+in `java/src/com/google/template/soy/error/SourceSnippetPrinter.java`
 #### Snippet
 ```java
-   * @param <T> The type of the concrete SoyTemplate class
-   */
-  public abstract static class AbstractBuilderWithAccumulatorParameters<
-          B extends AbstractBuilderWithAccumulatorParameters<?, T>, T extends SoyTemplate>
-      extends AbstractBuilder<B, T> {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Case` has no concrete subclass
-in `java/src/com/google/template/soy/msgs/restricted/SoyMsgPart.java`
-#### Snippet
-```java
+  /** A portion of a snippet corresponding to a single line. */
   @AutoValue
-  @Immutable(containerOf = "T")
-  public abstract static class Case<T> {
-    public static <T> Case<T> create(T spec, Iterable<? extends SoyMsgPart> parts) {
-      return new AutoValue_SoyMsgPart_Case<>(spec, ImmutableList.copyOf(parts));
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SourceLocationAndTemplate` has no concrete subclass
-in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
-#### Snippet
-```java
-  @AutoValue
-  @Immutable
-  public abstract static class SourceLocationAndTemplate {
-    static SourceLocationAndTemplate create(SourceLocation srcLoc, String template) {
-      return new AutoValue_SoyMsg_SourceLocationAndTemplate(srcLoc, template);
+  abstract static class SourceLine implements Printable {
+    static SourceLine create(int lineNumber, String line) {
+      return new AutoValue_SourceSnippetPrinter_SourceLine(lineNumber, line);
 ```
 
 ### AbstractClassNeverImplemented
@@ -7361,15 +7360,15 @@ public abstract class SoyMsg {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SourceLine` has no concrete subclass
-in `java/src/com/google/template/soy/error/SourceSnippetPrinter.java`
+Abstract class `SourceLocationAndTemplate` has no concrete subclass
+in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
 #### Snippet
 ```java
-  /** A portion of a snippet corresponding to a single line. */
   @AutoValue
-  abstract static class SourceLine implements Printable {
-    static SourceLine create(int lineNumber, String line) {
-      return new AutoValue_SourceSnippetPrinter_SourceLine(lineNumber, line);
+  @Immutable
+  public abstract static class SourceLocationAndTemplate {
+    static SourceLocationAndTemplate create(SourceLocation srcLoc, String template) {
+      return new AutoValue_SoyMsg_SourceLocationAndTemplate(srcLoc, template);
 ```
 
 ### AbstractClassNeverImplemented
@@ -7445,18 +7444,6 @@ public abstract class RawText extends Statement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `NamedFunctionDeclaration` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/NamedFunctionDeclaration.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class NamedFunctionDeclaration extends Statement {
-
-  abstract String name();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Concatenation` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/Concatenation.java`
 #### Snippet
@@ -7466,6 +7453,18 @@ in `java/src/com/google/template/soy/jssrc/dsl/Concatenation.java`
 abstract class Concatenation extends Operation {
 
   static Concatenation create(Iterable<? extends Expression> parts) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `NamedFunctionDeclaration` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/NamedFunctionDeclaration.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class NamedFunctionDeclaration extends Statement {
+
+  abstract String name();
 ```
 
 ### AbstractClassNeverImplemented
@@ -7517,18 +7516,6 @@ abstract class ForOf extends Statement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `VariableReference` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/VariableReference.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-abstract class VariableReference extends Expression {
-
-  abstract VariableDeclaration declaration();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Composite` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/Composite.java`
 #### Snippet
@@ -7538,6 +7525,18 @@ in `java/src/com/google/template/soy/jssrc/dsl/Composite.java`
 abstract class Composite extends Expression {
 
   abstract Expression value();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `VariableReference` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/VariableReference.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+abstract class VariableReference extends Expression {
+
+  abstract VariableDeclaration declaration();
 ```
 
 ### AbstractClassNeverImplemented
@@ -7561,6 +7560,42 @@ in `java/src/com/google/template/soy/jssrc/dsl/Assignment.java`
 @Immutable
 abstract class Assignment extends Statement {
   abstract Expression lhs();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ProtoImportData` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/ImportsBuilder.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class ProtoImportData {
+
+    static ProtoImportData create(String file, String symbol, String alias) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ClassExpression` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/ClassExpression.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class ClassExpression extends Expression {
+  @Nullable
+  abstract Expression baseClass();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MethodDeclaration` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/ClassExpression.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class MethodDeclaration extends Expression {
+    abstract String name();
 
 ```
 
@@ -7589,42 +7624,6 @@ public abstract class HtmlTag extends Statement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ProtoImportData` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/ImportsBuilder.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class ProtoImportData {
-
-    static ProtoImportData create(String file, String symbol, String alias) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `MethodDeclaration` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/ClassExpression.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class MethodDeclaration extends Expression {
-    abstract String name();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ClassExpression` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/ClassExpression.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class ClassExpression extends Expression {
-  @Nullable
-  abstract Expression baseClass();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `TsGlobal` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/TsGlobal.java`
 #### Snippet
@@ -7634,30 +7633,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/TsGlobal.java`
 public abstract class TsGlobal extends Statement {
 
   abstract ImmutableList<Statement> bodyStmts();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BinaryOperation` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/BinaryOperation.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-abstract class BinaryOperation extends Operation {
-  abstract String operator();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Conditional` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/Conditional.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-abstract class Conditional extends Statement {
-  abstract ImmutableList<IfThenPair<Statement>> conditions();
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -7673,6 +7648,18 @@ public abstract class TemplateLiteral extends Expression {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `BinaryOperation` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/BinaryOperation.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+abstract class BinaryOperation extends Operation {
+  abstract String operator();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `StatementList` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/StatementList.java`
 #### Snippet
@@ -7681,6 +7668,18 @@ in `java/src/com/google/template/soy/jssrc/dsl/StatementList.java`
 @AutoValue
 public abstract class StatementList extends Statement {
   private static final StatementList EMPTY = new AutoValue_StatementList(ImmutableList.of());
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Conditional` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/Conditional.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+abstract class Conditional extends Statement {
+  abstract ImmutableList<IfThenPair<Statement>> conditions();
 
 ```
 
@@ -7757,18 +7756,6 @@ public abstract class GoogRequire implements Comparable<GoogRequire> {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Leaf` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/Leaf.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-abstract class Leaf extends Expression {
-  static Leaf create(String text, boolean isCheap, Iterable<GoogRequire> require) {
-    return create(
-```
-
-### AbstractClassNeverImplemented
 Abstract class `UnaryOperation` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/UnaryOperation.java`
 #### Snippet
@@ -7781,15 +7768,15 @@ abstract class UnaryOperation extends Operation {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Ternary` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/Ternary.java`
+Abstract class `Leaf` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/Leaf.java`
 #### Snippet
 ```java
 @AutoValue
 @Immutable
-abstract class Ternary extends Operation {
-  abstract Expression predicate();
-
+abstract class Leaf extends Expression {
+  static Leaf create(String text, boolean isCheap, Iterable<GoogRequire> require) {
+    return create(
 ```
 
 ### AbstractClassNeverImplemented
@@ -7805,6 +7792,18 @@ public abstract class TsxElement extends Expression {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Ternary` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/Ternary.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+abstract class Ternary extends Operation {
+  abstract Expression predicate();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `Group` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/Group.java`
 #### Snippet
@@ -7814,18 +7813,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/Group.java`
 abstract class Group extends Operation {
   abstract Expression underlying();
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/DoWhile.java`
-#### Snippet
-```java
-  /** A builder for a {@link DoWhile}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setCondition(Expression condition);
 ```
 
 ### AbstractClassNeverImplemented
@@ -7841,15 +7828,15 @@ public abstract class DoWhile extends Statement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ParamDecls` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/ParamDecls.java`
+Abstract class `Builder` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/DoWhile.java`
 #### Snippet
 ```java
-@AutoValue
-@Immutable
-public abstract class ParamDecls {
+  /** A builder for a {@link DoWhile}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
 
-  abstract ImmutableList<ParamDecl> params();
+    public abstract Builder setCondition(Expression condition);
 ```
 
 ### AbstractClassNeverImplemented
@@ -7865,15 +7852,27 @@ abstract class Switch extends Statement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `New` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/New.java`
+Abstract class `ParamDecls` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/ParamDecls.java`
 #### Snippet
 ```java
 @AutoValue
 @Immutable
-abstract class New extends Operation {
+public abstract class ParamDecls {
 
-  abstract Expression ctor();
+  abstract ImmutableList<ParamDecl> params();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Import` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/Import.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+abstract class Import extends Statement {
+
+  static final String STAR = "*";
 ```
 
 ### AbstractClassNeverImplemented
@@ -7889,18 +7888,6 @@ public abstract class TaggedTemplateLiteral extends Operation {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `For` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/For.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-abstract class For extends Statement {
-
-  abstract String localVar();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `RangeComment` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/RangeComment.java`
 #### Snippet
@@ -7913,15 +7900,27 @@ public abstract class RangeComment extends Statement {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Import` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/dsl/Import.java`
+Abstract class `New` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/New.java`
 #### Snippet
 ```java
 @AutoValue
 @Immutable
-abstract class Import extends Statement {
+abstract class New extends Operation {
 
-  static final String STAR = "*";
+  abstract Expression ctor();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `For` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/dsl/For.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+abstract class For extends Statement {
+
+  abstract String localVar();
 ```
 
 ### AbstractClassNeverImplemented
@@ -7985,15 +7984,15 @@ in `java/src/com/google/template/soy/jssrc/dsl/VariableDeclaration.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Param` has no concrete subclass
+Abstract class `Builder` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/JsDoc.java`
 #### Snippet
 ```java
-  @AutoValue
-  @Immutable
-  public abstract static class Param {
-    abstract String annotationType();
+  /** Builder for JsDoc. */
+  @AutoValue.Builder
+  public abstract static class Builder {
 
+    abstract ImmutableList.Builder<Param> paramsBuilder();
 ```
 
 ### AbstractClassNeverImplemented
@@ -8009,15 +8008,15 @@ public abstract class JsDoc {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
+Abstract class `Param` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/dsl/JsDoc.java`
 #### Snippet
 ```java
-  /** Builder for JsDoc. */
-  @AutoValue.Builder
-  public abstract static class Builder {
+  @AutoValue
+  @Immutable
+  public abstract static class Param {
+    abstract String annotationType();
 
-    abstract ImmutableList.Builder<Param> paramsBuilder();
 ```
 
 ### AbstractClassNeverImplemented
@@ -8033,18 +8032,6 @@ public abstract class TranslationContext {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Call` has no concrete subclass
-in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class Call extends FieldAccess {
-    abstract String getter();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ProtoCall` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
 #### Snippet
@@ -8054,6 +8041,18 @@ in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
   abstract static class ProtoCall extends FieldAccess {
 
     private enum Type {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Id` has no concrete subclass
+in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class Id extends FieldAccess {
+    abstract String fieldName();
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -8069,14 +8068,14 @@ in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Id` has no concrete subclass
+Abstract class `Call` has no concrete subclass
 in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
 #### Snippet
 ```java
 
   @AutoValue
-  abstract static class Id extends FieldAccess {
-    abstract String fieldName();
+  abstract static class Call extends FieldAccess {
+    abstract String getter();
 
 ```
 
@@ -8105,27 +8104,15 @@ in `java/src/com/google/template/soy/jssrc/internal/GenCallCodeUtils.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `HeaderResult` has no concrete subclass
-in `java/src/com/google/template/soy/SoyFileSet.java`
+Abstract class `NamespaceAndName` has no concrete subclass
+in `java/src/com/google/template/soy/pysrc/internal/GenPyCodeVisitor.java`
 #### Snippet
 ```java
 
   @AutoValue
-  abstract static class HeaderResult {
-    abstract SoyFileSetNode fileSet();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AnalysisResult` has no concrete subclass
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-  /** Returns the result of {@link #compileForAnalysis}. */
-  @AutoValue
-  public abstract static class AnalysisResult {
-    AnalysisResult() {}
-
+  abstract static class NamespaceAndName {
+    static NamespaceAndName fromModule(String moduleName) {
+      String namespace = moduleName;
 ```
 
 ### AbstractClassNeverImplemented
@@ -8138,18 +8125,6 @@ in `java/src/com/google/template/soy/pysrc/internal/PyCodeBuilder.java`
   abstract static class OutputVar {
     static OutputVar create(String name, boolean isInited) {
       return new AutoValue_PyCodeBuilder_OutputVar(name, isInited);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `NamespaceAndName` has no concrete subclass
-in `java/src/com/google/template/soy/pysrc/internal/GenPyCodeVisitor.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class NamespaceAndName {
-    static NamespaceAndName fromModule(String moduleName) {
-      String namespace = moduleName;
 ```
 
 ### AbstractClassNeverImplemented
@@ -8177,6 +8152,90 @@ public abstract class ProtoImportType extends ImportType {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Member` has no concrete subclass
+in `java/src/com/google/template/soy/types/RecordType.java`
+#### Snippet
+```java
+  /** The {name, type} pair that is a record member. */
+  @AutoValue
+  public abstract static class Member {
+    public abstract String name();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+  /** Builder pattern. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setAllowExtraAttributes(boolean allowAttributes);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `TemplateType` has no concrete subclass
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+/** Template type, containing a list of named, typed parameters and a return type. */
+@AutoValue
+public abstract class TemplateType extends SoyType {
+
+  public static final String ATTRIBUTES_HIDDEN_PARAM_NAME = "__soyInternalAttributes";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DataAllCallSituation` has no concrete subclass
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class DataAllCallSituation {
+    public static Builder builder() {
+      return new AutoValue_TemplateType_DataAllCallSituation.Builder();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+    /** Builder for {@link Parameter} */
+    @AutoValue.Builder
+    public abstract static class Builder {
+      public abstract Builder setName(String name);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Parameter` has no concrete subclass
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class Parameter {
+
+    private static final Pattern ATTR_NAME = Pattern.compile("^[a-z_][a-z_\\d]*(-[a-z_\\d]+)*$");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+    /** Builder for {@link DataAllCallSituation} */
+    @AutoValue.Builder
+    public abstract static class Builder {
+      public abstract Builder setTemplateName(String templateName);
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `ProtoModuleImportType` has no concrete subclass
 in `java/src/com/google/template/soy/types/ProtoModuleImportType.java`
 #### Snippet
@@ -8201,30 +8260,6 @@ public abstract class TemplateModuleImportType extends ImportType {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ImportType` has no concrete subclass
-in `java/src/com/google/template/soy/types/ImportType.java`
-#### Snippet
-```java
-
-/** Base type for all imported symbol types. */
-public abstract class ImportType extends SoyType {
-
-  @Override
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Member` has no concrete subclass
-in `java/src/com/google/template/soy/types/RecordType.java`
-#### Snippet
-```java
-  /** The {name, type} pair that is a record member. */
-  @AutoValue
-  public abstract static class Member {
-    public abstract String name();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Parameter` has no concrete subclass
 in `java/src/com/google/template/soy/types/FunctionType.java`
 #### Snippet
@@ -8246,6 +8281,18 @@ in `java/src/com/google/template/soy/types/FunctionType.java`
 public abstract class FunctionType extends SoyType {
 
   public static FunctionType of(Collection<Parameter> parameters, SoyType returnType) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ImportType` has no concrete subclass
+in `java/src/com/google/template/soy/types/ImportType.java`
+#### Snippet
+```java
+
+/** Base type for all imported symbol types. */
+public abstract class ImportType extends SoyType {
+
+  @Override
 ```
 
 ### AbstractClassNeverImplemented
@@ -8285,18 +8332,6 @@ public abstract class NamedTypeNode extends TypeNode {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RecordTypeNode` has no concrete subclass
-in `java/src/com/google/template/soy/types/ast/RecordTypeNode.java`
-#### Snippet
-```java
-/** A record type (eg, [a: someType, b: otherType]). */
-@AutoValue
-public abstract class RecordTypeNode extends TypeNode {
-
-  public static RecordTypeNode create(
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Property` has no concrete subclass
 in `java/src/com/google/template/soy/types/ast/RecordTypeNode.java`
 #### Snippet
@@ -8309,6 +8344,18 @@ in `java/src/com/google/template/soy/types/ast/RecordTypeNode.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `RecordTypeNode` has no concrete subclass
+in `java/src/com/google/template/soy/types/ast/RecordTypeNode.java`
+#### Snippet
+```java
+/** A record type (eg, [a: someType, b: otherType]). */
+@AutoValue
+public abstract class RecordTypeNode extends TypeNode {
+
+  public static RecordTypeNode create(
+```
+
+### AbstractClassNeverImplemented
 Abstract class `UnionTypeNode` has no concrete subclass
 in `java/src/com/google/template/soy/types/ast/UnionTypeNode.java`
 #### Snippet
@@ -8318,42 +8365,6 @@ in `java/src/com/google/template/soy/types/ast/UnionTypeNode.java`
 public abstract class UnionTypeNode extends TypeNode {
 
   public static UnionTypeNode create(Iterable<TypeNode> candidates) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GenericTypeNode` has no concrete subclass
-in `java/src/com/google/template/soy/types/ast/GenericTypeNode.java`
-#### Snippet
-```java
-/** A typename with type arguments (eg, list<someType>). */
-@AutoValue
-public abstract class GenericTypeNode extends TypeNode {
-  GenericTypeNode() {}
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TypeNode` has no concrete subclass
-in `java/src/com/google/template/soy/types/ast/TypeNode.java`
-#### Snippet
-```java
-
-/** The base class for an immutable node in the type AST. */
-public abstract class TypeNode {
-
-  @Nullable private SoyType resolvedType;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Parameter` has no concrete subclass
-in `java/src/com/google/template/soy/types/ast/TemplateTypeNode.java`
-#### Snippet
-```java
-  /** A single named, typed parameter to a template. */
-  @AutoValue
-  public abstract static class Parameter {
-    public static Parameter create(
-        SourceLocation nameLocation,
 ```
 
 ### AbstractClassNeverImplemented
@@ -8370,6 +8381,18 @@ public abstract class TemplateTypeNode extends TypeNode {
 
 ### AbstractClassNeverImplemented
 Abstract class `Parameter` has no concrete subclass
+in `java/src/com/google/template/soy/types/ast/TemplateTypeNode.java`
+#### Snippet
+```java
+  /** A single named, typed parameter to a template. */
+  @AutoValue
+  public abstract static class Parameter {
+    public static Parameter create(
+        SourceLocation nameLocation,
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Parameter` has no concrete subclass
 in `java/src/com/google/template/soy/types/ast/FunctionTypeNode.java`
 #### Snippet
 ```java
@@ -8378,6 +8401,18 @@ in `java/src/com/google/template/soy/types/ast/FunctionTypeNode.java`
   public abstract static class Parameter {
     public static Parameter create(
         SourceLocation nameLocation, String name, String sourceName, TypeNode type) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GenericTypeNode` has no concrete subclass
+in `java/src/com/google/template/soy/types/ast/GenericTypeNode.java`
+#### Snippet
+```java
+/** A typename with type arguments (eg, list<someType>). */
+@AutoValue
+public abstract class GenericTypeNode extends TypeNode {
+  GenericTypeNode() {}
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -8393,75 +8428,15 @@ public abstract class FunctionTypeNode extends TypeNode {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Parameter` has no concrete subclass
-in `java/src/com/google/template/soy/types/TemplateType.java`
+Abstract class `TypeNode` has no concrete subclass
+in `java/src/com/google/template/soy/types/ast/TypeNode.java`
 #### Snippet
 ```java
-   */
-  @AutoValue
-  public abstract static class Parameter {
 
-    private static final Pattern ATTR_NAME = Pattern.compile("^[a-z_][a-z_\\d]*(-[a-z_\\d]+)*$");
-```
+/** The base class for an immutable node in the type AST. */
+public abstract class TypeNode {
 
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `java/src/com/google/template/soy/types/TemplateType.java`
-#### Snippet
-```java
-    /** Builder for {@link DataAllCallSituation} */
-    @AutoValue.Builder
-    public abstract static class Builder {
-      public abstract Builder setTemplateName(String templateName);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TemplateType` has no concrete subclass
-in `java/src/com/google/template/soy/types/TemplateType.java`
-#### Snippet
-```java
-/** Template type, containing a list of named, typed parameters and a return type. */
-@AutoValue
-public abstract class TemplateType extends SoyType {
-
-  public static final String ATTRIBUTES_HIDDEN_PARAM_NAME = "__soyInternalAttributes";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `java/src/com/google/template/soy/types/TemplateType.java`
-#### Snippet
-```java
-  /** Builder pattern. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setAllowExtraAttributes(boolean allowAttributes);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `java/src/com/google/template/soy/types/TemplateType.java`
-#### Snippet
-```java
-    /** Builder for {@link Parameter} */
-    @AutoValue.Builder
-    public abstract static class Builder {
-      public abstract Builder setName(String name);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DataAllCallSituation` has no concrete subclass
-in `java/src/com/google/template/soy/types/TemplateType.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class DataAllCallSituation {
-    public static Builder builder() {
-      return new AutoValue_TemplateType_DataAllCallSituation.Builder();
+  @Nullable private SoyType resolvedType;
 ```
 
 ### AbstractClassNeverImplemented
@@ -8489,18 +8464,6 @@ abstract class SyntheticVarName {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AppendableAndFlushBuffersDepth` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class AppendableAndFlushBuffersDepth {
-    static AppendableAndFlushBuffersDepth create(
-        AppendableExpression appendableExpression, int flushDepth) {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `StreamingDirectiveWithArgs` has no concrete subclass
 in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
 #### Snippet
@@ -8510,6 +8473,18 @@ in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
   abstract static class StreamingDirectiveWithArgs {
     static StreamingDirectiveWithArgs create(SoyJbcSrcPrintDirective.Streamable directive) {
       return new AutoValue_PrintDirectives_StreamingDirectiveWithArgs(
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AppendableAndFlushBuffersDepth` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class AppendableAndFlushBuffersDepth {
+    static AppendableAndFlushBuffersDepth create(
+        AppendableExpression appendableExpression, int flushDepth) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -8549,18 +8524,6 @@ in `java/src/com/google/template/soy/jbcsrc/MsgCompiler.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `StaticFieldVariable` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/FieldManager.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class StaticFieldVariable {
-    abstract FieldRef field();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `VarKey` has no concrete subclass
 in `java/src/com/google/template/soy/jbcsrc/TemplateVariableManager.java`
 #### Snippet
@@ -8585,6 +8548,18 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateVariableManager.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `StaticFieldVariable` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/FieldManager.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class StaticFieldVariable {
+    abstract FieldRef field();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `ReattachState` has no concrete subclass
 in `java/src/com/google/template/soy/jbcsrc/DetachState.java`
 #### Snippet
@@ -8594,6 +8569,66 @@ in `java/src/com/google/template/soy/jbcsrc/DetachState.java`
   abstract static class ReattachState {
     static ReattachState create(Label reattachPoint, Optional<Statement> restore) {
       return new AutoValue_DetachState_ReattachState(reattachPoint, restore);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ListOfExpressionsAndInitializer` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class ListOfExpressionsAndInitializer {
+    static ListOfExpressionsAndInitializer create(
+        ImmutableList<Expression> expressions, Statement initializer) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CompiledForeachRangeArgs` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class CompiledForeachRangeArgs {
+    /** Current loop index. */
+    abstract Expression start();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ExpressionAndInitializer` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class ExpressionAndInitializer {
+    static ExpressionAndInitializer create(Expression expression, Statement initializer) {
+      return new AutoValue_SoyNodeCompiler_ExpressionAndInitializer(expression, initializer);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RecordOrPositional` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class RecordOrPositional {
+    static RecordOrPositional create(Expression record) {
+      return create(Suppliers.ofInstance(record), Optional.empty());
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CompiledMethodBody` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class CompiledMethodBody {
+    static CompiledMethodBody create(Statement body, int numDetaches) {
+      return new AutoValue_SoyNodeCompiler_CompiledMethodBody(body, numDetaches);
 ```
 
 ### AbstractClassNeverImplemented
@@ -8633,87 +8668,15 @@ in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CompiledForeachRangeArgs` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
+Abstract class `LazyClosure` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/LazyClosureCompiler.java`
 #### Snippet
 ```java
-
+final class LazyClosureCompiler {
   @AutoValue
-  abstract static class CompiledForeachRangeArgs {
-    /** Current loop index. */
-    abstract Expression start();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ExpressionAndInitializer` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class ExpressionAndInitializer {
-    static ExpressionAndInitializer create(Expression expression, Statement initializer) {
-      return new AutoValue_SoyNodeCompiler_ExpressionAndInitializer(expression, initializer);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ListOfExpressionsAndInitializer` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class ListOfExpressionsAndInitializer {
-    static ListOfExpressionsAndInitializer create(
-        ImmutableList<Expression> expressions, Statement initializer) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CompiledMethodBody` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class CompiledMethodBody {
-    static CompiledMethodBody create(Statement body, int numDetaches) {
-      return new AutoValue_SoyNodeCompiler_CompiledMethodBody(body, numDetaches);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RecordOrPositional` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class RecordOrPositional {
-    static RecordOrPositional create(Expression record) {
-      return create(Suppliers.ofInstance(record), Optional.empty());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
-#### Snippet
-```java
-  /** Builder for {@link PluginRuntimeInstanceInfo}, with an accumulator for source locations. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setPluginName(String value);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `PluginRuntimeInstanceInfo` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class PluginRuntimeInstanceInfo {
-  private static final char FIELD_DELIMITER = '|';
-  private static final Splitter FIELD_SPLITTER = Splitter.on(FIELD_DELIMITER);
+  abstract static class LazyClosure {
+    static LazyClosure create(
+        String name,
 ```
 
 ### AbstractClassNeverImplemented
@@ -8729,15 +8692,51 @@ in `java/src/com/google/template/soy/jbcsrc/LazyClosureCompiler.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `LazyClosure` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/LazyClosureCompiler.java`
+Abstract class `AnalysisResult` has no concrete subclass
+in `java/src/com/google/template/soy/SoyFileSet.java`
 #### Snippet
 ```java
-final class LazyClosureCompiler {
+  /** Returns the result of {@link #compileForAnalysis}. */
   @AutoValue
-  abstract static class LazyClosure {
-    static LazyClosure create(
-        String name,
+  public abstract static class AnalysisResult {
+    AnalysisResult() {}
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `HeaderResult` has no concrete subclass
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class HeaderResult {
+    abstract SoyFileSetNode fileSet();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PluginRuntimeInstanceInfo` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class PluginRuntimeInstanceInfo {
+  private static final char FIELD_DELIMITER = '|';
+  private static final Splitter FIELD_SPLITTER = Splitter.on(FIELD_DELIMITER);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
+#### Snippet
+```java
+  /** Builder for {@link PluginRuntimeInstanceInfo}, with an accumulator for source locations. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setPluginName(String value);
 ```
 
 ### AbstractClassNeverImplemented
@@ -8777,15 +8776,15 @@ in `java/src/com/google/template/soy/jbcsrc/restricted/SoyJbcSrcPrintDirective.j
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ConstructorRef` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/restricted/ConstructorRef.java`
+Abstract class `LineNumberTableEntry` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/restricted/CodeBuilder.java`
 #### Snippet
 ```java
-/** A reference to a type that can be constructed at runtime. */
-@AutoValue
-public abstract class ConstructorRef {
-  /**
-   * Returns a new {@link ConstructorRef} that refers to a constructor on the given type with the
+
+  @AutoValue
+  abstract static class LineNumberTableEntry {
+    static LineNumberTableEntry create(Label label, int lineNumber) {
+      return new AutoValue_CodeBuilder_LineNumberTableEntry(label, lineNumber);
 ```
 
 ### AbstractClassNeverImplemented
@@ -8801,15 +8800,15 @@ public abstract class TypeInfo {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `LineNumberTableEntry` has no concrete subclass
-in `java/src/com/google/template/soy/jbcsrc/restricted/CodeBuilder.java`
+Abstract class `ConstructorRef` has no concrete subclass
+in `java/src/com/google/template/soy/jbcsrc/restricted/ConstructorRef.java`
 #### Snippet
 ```java
-
-  @AutoValue
-  abstract static class LineNumberTableEntry {
-    static LineNumberTableEntry create(Label label, int lineNumber) {
-      return new AutoValue_CodeBuilder_LineNumberTableEntry(label, lineNumber);
+/** A reference to a type that can be constructed at runtime. */
+@AutoValue
+public abstract class ConstructorRef {
+  /**
+   * Returns a new {@link ConstructorRef} that refers to a constructor on the given type with the
 ```
 
 ### AbstractClassNeverImplemented
@@ -8861,18 +8860,6 @@ public abstract class ReadMethodData {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ValueType` has no concrete subclass
-in `java/src/com/google/template/soy/plugin/java/internal/ValidatorValue.java`
-#### Snippet
-```java
-
-  @AutoOneOf(ValueType.Type.class)
-  abstract static class ValueType {
-    enum Type {
-      CONSTANT_NULL,
-```
-
-### AbstractClassNeverImplemented
 Abstract class `PluginMetadata` has no concrete subclass
 in `java/src/com/google/template/soy/plugin/java/internal/PluginAnalyzer.java`
 #### Snippet
@@ -8885,15 +8872,15 @@ in `java/src/com/google/template/soy/plugin/java/internal/PluginAnalyzer.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ValidationResult` has no concrete subclass
-in `java/src/com/google/template/soy/plugin/java/internal/ValidatorFactory.java`
+Abstract class `ValueType` has no concrete subclass
+in `java/src/com/google/template/soy/plugin/java/internal/ValidatorValue.java`
 #### Snippet
 ```java
 
-  @AutoValue
-  abstract static class ValidationResult {
-    enum Result {
-      VALID,
+  @AutoOneOf(ValueType.Type.class)
+  abstract static class ValueType {
+    enum Type {
+      CONSTANT_NULL,
 ```
 
 ### AbstractClassNeverImplemented
@@ -8909,15 +8896,15 @@ public abstract class MethodSignature {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ResolvedSignature` has no concrete subclass
-in `java/src/com/google/template/soy/shared/internal/ResolvedSignature.java`
+Abstract class `ValidationResult` has no concrete subclass
+in `java/src/com/google/template/soy/plugin/java/internal/ValidatorFactory.java`
 #### Snippet
 ```java
- */
-@AutoValue
-public abstract class ResolvedSignature {
 
-  /** A list of parameter types. */
+  @AutoValue
+  abstract static class ValidationResult {
+    enum Result {
+      VALID,
 ```
 
 ### AbstractClassNeverImplemented
@@ -8930,6 +8917,18 @@ in `java/src/com/google/template/soy/shared/RangeArgs.java`
 public abstract class RangeArgs {
   private static RangeArgs create(List<ExprNode> args) {
     switch (args.size()) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ResolvedSignature` has no concrete subclass
+in `java/src/com/google/template/soy/shared/internal/ResolvedSignature.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class ResolvedSignature {
+
+  /** A list of parameter types. */
 ```
 
 ### AbstractClassNeverImplemented
@@ -9005,18 +9004,6 @@ in `java/src/com/google/template/soy/soytree/MsgHtmlTagNode.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `MessagePlaceholder` has no concrete subclass
-in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
-#### Snippet
-```java
-@Immutable
-@AutoValue
-public abstract class MessagePlaceholder {
-  public static final String PHNAME_ATTR = "phname";
-  public static final String PHEX_ATTR = "phex";
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Summary` has no concrete subclass
 in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 #### Snippet
@@ -9029,15 +9016,15 @@ in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ModNameDeclaration` has no concrete subclass
-in `java/src/com/google/template/soy/soytree/ModNameDeclaration.java`
+Abstract class `MessagePlaceholder` has no concrete subclass
+in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 #### Snippet
 ```java
-@AutoValue
 @Immutable
-public abstract class ModNameDeclaration {
-
-  public static ModNameDeclaration create(SourceLocation location, Identifier name) {
+@AutoValue
+public abstract class MessagePlaceholder {
+  public static final String PHNAME_ATTR = "phname";
+  public static final String PHEX_ATTR = "phex";
 ```
 
 ### AbstractClassNeverImplemented
@@ -9050,6 +9037,18 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
   abstract static class RepresentativeNodes {
     static RepresentativeNodes createFromNode(MsgNode msgNode, ErrorReporter reporter) {
       ListMultimap<String, MsgSubstUnitNode> baseNameToRepNodesMap = LinkedListMultimap.create();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ModNameDeclaration` has no concrete subclass
+in `java/src/com/google/template/soy/soytree/ModNameDeclaration.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+public abstract class ModNameDeclaration {
+
+  public static ModNameDeclaration create(SourceLocation location, Identifier name) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -9125,27 +9124,15 @@ in `java/src/com/google/template/soy/soytree/Metadata.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ParseContext` has no concrete subclass
+Abstract class `CompilationUnitAndKind` has no concrete subclass
 in `java/src/com/google/template/soy/soytree/Metadata.java`
 #### Snippet
 ```java
-  /** Parameter bean. */
+  /** Simple tuple of un an-evaluated compilation unit containing information about dependencies. */
   @AutoValue
-  abstract static class ParseContext {
-    static ParseContext of(ErrorReporter errorReporter, SoyTypeRegistry typeRegistry) {
-      return new AutoValue_Metadata_ParseContext(errorReporter, typeRegistry);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BidiWrappingText` has no concrete subclass
-in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
-#### Snippet
-```java
-  /** The text used to bidi wrap a string. */
-  @AutoValue
-  public abstract static class BidiWrappingText {
-    static BidiWrappingText create(String beforeText, String afterText) {
-      return new AutoValue_BidiFormatter_BidiWrappingText(beforeText, afterText);
+  public abstract static class CompilationUnitAndKind {
+    public static CompilationUnitAndKind create(
+        SoyFileKind fileKind, CompilationUnit compilationUnit) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -9185,27 +9172,27 @@ in `java/src/com/google/template/soy/soytree/Metadata.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CompilationUnitAndKind` has no concrete subclass
+Abstract class `ParseContext` has no concrete subclass
 in `java/src/com/google/template/soy/soytree/Metadata.java`
 #### Snippet
 ```java
-  /** Simple tuple of un an-evaluated compilation unit containing information about dependencies. */
+  /** Parameter bean. */
   @AutoValue
-  public abstract static class CompilationUnitAndKind {
-    public static CompilationUnitAndKind create(
-        SoyFileKind fileKind, CompilationUnit compilationUnit) {
+  abstract static class ParseContext {
+    static ParseContext of(ErrorReporter errorReporter, SoyTypeRegistry typeRegistry) {
+      return new AutoValue_Metadata_ParseContext(errorReporter, typeRegistry);
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `TemplateName` has no concrete subclass
-in `java/src/com/google/template/soy/parseinfo/TemplateName.java`
+Abstract class `BidiWrappingText` has no concrete subclass
+in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
 #### Snippet
 ```java
-@AutoValue
-@Immutable
-public abstract class TemplateName {
-
-  public static TemplateName of(String name) {
+  /** The text used to bidi wrap a string. */
+  @AutoValue
+  public abstract static class BidiWrappingText {
+    static BidiWrappingText create(String beforeText, String afterText) {
+      return new AutoValue_BidiFormatter_BidiWrappingText(beforeText, afterText);
 ```
 
 ### AbstractClassNeverImplemented
@@ -9233,6 +9220,18 @@ in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `TemplateName` has no concrete subclass
+in `java/src/com/google/template/soy/parseinfo/TemplateName.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+public abstract class TemplateName {
+
+  public static TemplateName of(String name) {
+```
+
+### AbstractClassNeverImplemented
 Abstract class `RuleWithExemptions` has no concrete subclass
 in `java/src/com/google/template/soy/conformance/RuleWithExemptions.java`
 #### Snippet
@@ -9242,18 +9241,6 @@ in `java/src/com/google/template/soy/conformance/RuleWithExemptions.java`
 abstract class RuleWithExemptions {
   static RuleWithExemptions create(
       Rule<? extends Node> rule,
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TemplateInfo` has no concrete subclass
-in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
-#### Snippet
-```java
-  /** The transformed {@link TemplateNode}. */
-  @AutoValue
-  public abstract static class TemplateInfo {
-
-    static TemplateInfo error(TemplateNode template, TemplateStatus status) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -9281,6 +9268,30 @@ in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `TemplateInfo` has no concrete subclass
+in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
+#### Snippet
+```java
+  /** The transformed {@link TemplateNode}. */
+  @AutoValue
+  public abstract static class TemplateInfo {
+
+    static TemplateInfo error(TemplateNode template, TemplateStatus status) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Result` has no concrete subclass
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
+#### Snippet
+```java
+  interface Processor {
+    @AutoValue
+    abstract static class Result {
+      static Result create(Context next, int numCharactersConsumed) {
+        return new AutoValue_RawTextContextUpdater_Processor_Result(next, numCharactersConsumed);
+```
+
+### AbstractClassNeverImplemented
 Abstract class `DerivedNameAndContext` has no concrete subclass
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/InferenceEngine.java`
 #### Snippet
@@ -9302,18 +9313,6 @@ in `java/src/com/google/template/soy/parsepasses/contextautoesc/InferenceEngine.
   abstract static class InferencesAndContext {
     static InferencesAndContext create(Inferences inferences, Context context) {
       return new AutoValue_InferenceEngine_InferencesAndContext(inferences, context);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Result` has no concrete subclass
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
-#### Snippet
-```java
-  interface Processor {
-    @AutoValue
-    abstract static class Result {
-      static Result create(Context next, int numCharactersConsumed) {
-        return new AutoValue_RawTextContextUpdater_Processor_Result(next, numCharactersConsumed);
 ```
 
 ### AbstractClassNeverImplemented
@@ -9382,11 +9381,11 @@ Overridden method parameters are not annotated
 in `java/src/com/google/template/soy/data/SoyRecord.java`
 #### Snippet
 ```java
-  ImmutableMap<String, SoyValueProvider> recordAsMap();
+   * @return Whether this SoyRecord has a field of the given name.
+   */
+  boolean hasField(String name);
 
-  void forEach(BiConsumer<String, ? super SoyValueProvider> action);
-
-  int recordSize();
+  /**
 ```
 
 ### NullableProblems
@@ -9406,11 +9405,11 @@ Overridden method parameters are not annotated
 in `java/src/com/google/template/soy/data/SoyRecord.java`
 #### Snippet
 ```java
-   * @return Whether this SoyRecord has a field of the given name.
-   */
-  boolean hasField(String name);
+  ImmutableMap<String, SoyValueProvider> recordAsMap();
 
-  /**
+  void forEach(BiConsumer<String, ? super SoyValueProvider> action);
+
+  int recordSize();
 ```
 
 ### NullableProblems
@@ -9435,6 +9434,30 @@ in `java/src/com/google/template/soy/data/SoyValue.java`
   void render(LoggingAdvisingAppendable appendable) throws IOException;
 
   /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/data/SoyAbstractCachingValueProvider.java`
+#### Snippet
+```java
+  // We thread a simple linked list through this field to eliminate the cost of allocating a
+  // collection
+  @Nullable private ValueAssertion valueAssertion;
+
+  @Override
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `java/src/com/google/template/soy/data/SoyMap.java`
+#### Snippet
+```java
+   * @return An iterable over all item keys.
+   */
+  @Nonnull
+  Iterable<? extends SoyValue> keys();
+
 ```
 
 ### NullableProblems
@@ -9475,26 +9498,38 @@ in `java/src/com/google/template/soy/data/SoyMap.java`
 
 ### NullableProblems
 Overridden methods are not annotated
-in `java/src/com/google/template/soy/data/SoyMap.java`
+in `java/src/com/google/template/soy/data/SoyValueProvider.java`
 #### Snippet
 ```java
-   * @return An iterable over all item keys.
+   * RenderResult}
    */
   @Nonnull
-  Iterable<? extends SoyValue> keys();
+  RenderResult status();
 
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/data/SoyAbstractCachingValueProvider.java`
+Overridden method parameters are not annotated
+in `java/src/com/google/template/soy/data/SoyValueProvider.java`
 #### Snippet
 ```java
-  // We thread a simple linked list through this field to eliminate the cost of allocating a
-  // collection
-  @Nullable private ValueAssertion valueAssertion;
+   * @throws IOException If the appendable throws an IOException
+   */
+  RenderResult renderAndResolve(LoggingAdvisingAppendable appendable, boolean isLast)
+      throws IOException;
+}
+```
 
-  @Override
+### NullableProblems
+Overridden methods are not annotated
+in `java/src/com/google/template/soy/data/SoyValueProvider.java`
+#### Snippet
+```java
+   * @return The resolved value.
+   */
+  @Nonnull
+  SoyValue resolve();
+
 ```
 
 ### NullableProblems
@@ -9518,42 +9553,6 @@ in `java/src/com/google/template/soy/data/SoyList.java`
    */
   @Nonnull
   List<? extends SoyValueProvider> asJavaList();
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `java/src/com/google/template/soy/data/SoyValueProvider.java`
-#### Snippet
-```java
-   * @throws IOException If the appendable throws an IOException
-   */
-  RenderResult renderAndResolve(LoggingAdvisingAppendable appendable, boolean isLast)
-      throws IOException;
-}
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `java/src/com/google/template/soy/data/SoyValueProvider.java`
-#### Snippet
-```java
-   * RenderResult}
-   */
-  @Nonnull
-  RenderResult status();
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `java/src/com/google/template/soy/data/SoyValueProvider.java`
-#### Snippet
-```java
-   * @return The resolved value.
-   */
-  @Nonnull
-  SoyValue resolve();
 
 ```
 
@@ -9622,6 +9621,30 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
 #### Snippet
 ```java
+    @Nullable private String meaning;
+    @Nullable private String desc;
+    @Nullable private String contentType;
+    private final ImmutableSet.Builder<SourceLocationAndTemplate> sourceLocations =
+        ImmutableSet.builder();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
+#### Snippet
+```java
+    @Nullable private String localeString;
+    @Nullable private String meaning;
+    @Nullable private String desc;
+    @Nullable private String contentType;
+    private final ImmutableSet.Builder<SourceLocationAndTemplate> sourceLocations =
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
+#### Snippet
+```java
     private long id;
     private OptionalLong alternateId = OptionalLong.empty();
     @Nullable private String localeString;
@@ -9634,35 +9657,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
 #### Snippet
 ```java
-    @Nullable private String localeString;
-    @Nullable private String meaning;
-    @Nullable private String desc;
-    @Nullable private String contentType;
-    private final ImmutableSet.Builder<SourceLocationAndTemplate> sourceLocations =
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
-#### Snippet
-```java
     private OptionalLong alternateId = OptionalLong.empty();
     @Nullable private String localeString;
     @Nullable private String meaning;
     @Nullable private String desc;
     @Nullable private String contentType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/msgs/restricted/SoyMsg.java`
-#### Snippet
-```java
-    @Nullable private String meaning;
-    @Nullable private String desc;
-    @Nullable private String contentType;
-    private final ImmutableSet.Builder<SourceLocationAndTemplate> sourceLocations =
-        ImmutableSet.builder();
 ```
 
 ### NullableProblems
@@ -9711,42 +9710,6 @@ in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
     @Nullable final Expression arg;
 
     DotCall(String getter, @Nullable Expression arg, boolean nullSafe, boolean assertNonNull) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-  private ErrorReporter errorReporter;
-
-  @Nullable private final Appendable warningSink;
-
-  SoyFileSet(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-    private final SoyTypeRegistryBuilder typeRegistryBuilder = new SoyTypeRegistryBuilder();
-
-    @Nullable private Appendable warningSink;
-
-    private ValidatedConformanceConfig conformanceConfig = ValidatedConformanceConfig.EMPTY;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-
-  /** Optional soy tree cache for faster recompile times. */
-  @Nullable private final SoyAstCache cache;
-
-  private final SoyGeneralOptions generalOptions;
 ```
 
 ### NullableProblems
@@ -9823,18 +9786,6 @@ in `java/src/com/google/template/soy/jbcsrc/JbcSrcJavaValue.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/jbcsrc/api/RenderResult.java`
-#### Snippet
-```java
-  private final Type type;
-
-  @Nullable
-  private final Future<?> future;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler.java`
 #### Snippet
 ```java
@@ -9843,18 +9794,6 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler
     @Nullable final BasicExpressionCompiler detachingExprCompiler;
     @Nullable final ExpressionDetacher detacher;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler.java`
-#### Snippet
-```java
-
-    // depending on the mode at most one of exprCompiler and detachingExprCompiler will be null
-    @Nullable final ExpressionCompiler exprCompiler;
-    @Nullable final BasicExpressionCompiler detachingExprCompiler;
-    @Nullable final ExpressionDetacher detacher;
 ```
 
 ### NullableProblems
@@ -9871,6 +9810,18 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler.java`
+#### Snippet
+```java
+
+    // depending on the mode at most one of exprCompiler and detachingExprCompiler will be null
+    @Nullable final ExpressionCompiler exprCompiler;
+    @Nullable final BasicExpressionCompiler detachingExprCompiler;
+    @Nullable final ExpressionDetacher detacher;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
 #### Snippet
 ```java
@@ -9882,15 +9833,63 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
 ```
 
 ### NullableProblems
-Method annotated with @Nullable must not override @Nonnull method
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/jbcsrc/api/RenderResult.java`
+#### Snippet
+```java
+  private final Type type;
+
+  @Nullable
+  private final Future<?> future;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+
+  /** Optional soy tree cache for faster recompile times. */
+  @Nullable private final SoyAstCache cache;
+
+  private final SoyGeneralOptions generalOptions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+    private final SoyTypeRegistryBuilder typeRegistryBuilder = new SoyTypeRegistryBuilder();
+
+    @Nullable private Appendable warningSink;
+
+    private ValidatedConformanceConfig conformanceConfig = ValidatedConformanceConfig.EMPTY;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+  private ErrorReporter errorReporter;
+
+  @Nullable private final Appendable warningSink;
+
+  SoyFileSet(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-    }
-
-    @Nullable
-    @Override
-    public SoyValue resolve() {
+    @Nullable Multiset<String> startPlaceholderRenderCount;
+    // an optional map from a placeholder to another placeholder that must precede it.
+    @Nullable SetMultimap<String, String> endPlaceholderToStartPlaceholder;
+    private final long msgId;
+    private final boolean htmlEscape;
 ```
 
 ### NullableProblems
@@ -9906,15 +9905,15 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+Method annotated with @Nullable must not override @Nonnull method
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-    @Nullable Multiset<String> startPlaceholderRenderCount;
-    // an optional map from a placeholder to another placeholder that must precede it.
-    @Nullable SetMultimap<String, String> endPlaceholderToStartPlaceholder;
-    private final long msgId;
-    private final boolean htmlEscape;
+    }
+
+    @Nullable
+    @Override
+    public SoyValue resolve() {
 ```
 
 ### NullableProblems
@@ -10063,6 +10062,18 @@ in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/HtmlAttributeNode.java`
+#### Snippet
+```java
+
+  /** Will be null if this attribute node doesn't have a value. */
+  @Nullable private final SourceLocation.Point equalsSignLocation;
+
+  public HtmlAttributeNode(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
 #### Snippet
 ```java
@@ -10087,14 +10098,26 @@ in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/HtmlAttributeNode.java`
+in `java/src/com/google/template/soy/soytree/TagName.java`
+#### Snippet
+```java
+  private final StandaloneNode node;
+  @Nullable private final String nameAsLowerCase;
+  @Nullable private final RcDataTagName rcDataTagName;
+
+  public TagName(RawTextNode node) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/TagName.java`
 #### Snippet
 ```java
 
-  /** Will be null if this attribute node doesn't have a value. */
-  @Nullable private final SourceLocation.Point equalsSignLocation;
+  private final StandaloneNode node;
+  @Nullable private final String nameAsLowerCase;
+  @Nullable private final RcDataTagName rcDataTagName;
 
-  public HtmlAttributeNode(
 ```
 
 ### NullableProblems
@@ -10107,30 +10130,6 @@ in `java/src/com/google/template/soy/soytree/PrintNode.java`
   @Nullable private HtmlContext htmlContext;
 
   // TODO(user): Consider adding static factory methods for implicit vs explicit print.
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/TagName.java`
-#### Snippet
-```java
-
-  private final StandaloneNode node;
-  @Nullable private final String nameAsLowerCase;
-  @Nullable private final RcDataTagName rcDataTagName;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/TagName.java`
-#### Snippet
-```java
-  private final StandaloneNode node;
-  @Nullable private final String nameAsLowerCase;
-  @Nullable private final RcDataTagName rcDataTagName;
-
-  public TagName(RawTextNode node) {
 ```
 
 ### NullableProblems
@@ -10162,18 +10161,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `java/src/com/google/template/soy/soytree/HtmlContext.java`
 #### Snippet
 ```java
-
-  @Nullable private final EscapingMode escapingMode;
-  @Nullable private final String errorMessage;
-
-  /** Whether a class contains information about HTML context */
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/HtmlContext.java`
-#### Snippet
-```java
   TEXT(EscapingMode.TEXT);
 
   @Nullable private final EscapingMode escapingMode;
@@ -10183,38 +10170,14 @@ in `java/src/com/google/template/soy/soytree/HtmlContext.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/IfNode.java`
-#### Snippet
-```java
-        StatementNode {
-
-  @Nullable private HtmlContext htmlContext;
-  private final SourceLocation closeTagLocation;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/CallNode.java`
-#### Snippet
-```java
-   * used to help with dom alignment in Incremental DOM backend.
-   */
-  @Nullable private String callKey;
-
-  /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/CallNode.java`
+in `java/src/com/google/template/soy/soytree/HtmlContext.java`
 #### Snippet
 ```java
 
-  /** The HTML context that the call is in, such as in HTML or Attributes. */
-  @Nullable private HtmlContext htmlContext;
+  @Nullable private final EscapingMode escapingMode;
+  @Nullable private final String errorMessage;
 
-  /**
+  /** Whether a class contains information about HTML context */
 ```
 
 ### NullableProblems
@@ -10231,6 +10194,18 @@ in `java/src/com/google/template/soy/soytree/MsgFallbackGroupNode.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/IfNode.java`
+#### Snippet
+```java
+        StatementNode {
+
+  @Nullable private HtmlContext htmlContext;
+  private final SourceLocation closeTagLocation;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `java/src/com/google/template/soy/soytree/MsgHtmlTagNode.java`
 #### Snippet
 ```java
@@ -10239,6 +10214,30 @@ in `java/src/com/google/template/soy/soytree/MsgHtmlTagNode.java`
   @Nullable private final SamenessKey samenessKey;
 
   private final MessagePlaceholder placeholder;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/CallNode.java`
+#### Snippet
+```java
+
+  /** The HTML context that the call is in, such as in HTML or Attributes. */
+  @Nullable private HtmlContext htmlContext;
+
+  /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/CallNode.java`
+#### Snippet
+```java
+   * used to help with dom alignment in Incremental DOM backend.
+   */
+  @Nullable private String callKey;
+
+  /**
 ```
 
 ### NullableProblems
@@ -10259,10 +10258,22 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
 
-  /** The substitution unit info (var name mappings, or null if not yet generated). */
-  @Nullable private SubstUnitInfo substUnitInfo = null;
-
   /** The EscapingMode where this message is used. */
+  @Nullable private EscapingMode escapingMode = null;
+
+  /** The optional alternate id attribute to be used if a translation for the msg id is missing. */
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/MsgNode.java`
+#### Snippet
+```java
+
+  /** The list of expressions for gender values. Null after rewriting. */
+  @Nullable private ImmutableList<ExprRootNode> genderExprs;
+
+  /** The meaning string if set, otherwise null (usually null). */
 ```
 
 ### NullableProblems
@@ -10283,18 +10294,6 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
 
-  /** The EscapingMode where this message is used. */
-  @Nullable private EscapingMode escapingMode = null;
-
-  /** The optional alternate id attribute to be used if a translation for the msg id is missing. */
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/MsgNode.java`
-#### Snippet
-```java
-
   /** The string representation of genderExprs, for debugging. */
   @Nullable private final String genderExprsString;
 
@@ -10307,10 +10306,10 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
 
-  /** The list of expressions for gender values. Null after rewriting. */
-  @Nullable private ImmutableList<ExprRootNode> genderExprs;
+  /** The substitution unit info (var name mappings, or null if not yet generated). */
+  @Nullable private SubstUnitInfo substUnitInfo = null;
 
-  /** The meaning string if set, otherwise null (usually null). */
+  /** The EscapingMode where this message is used. */
 ```
 
 ### NullableProblems
@@ -10335,54 +10334,6 @@ in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
   @Nullable protected ImmutableList<TemplateHeaderVarDefn> params;
 
   protected boolean strictHtmlDisabled;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/RawTextNode.java`
-#### Snippet
-```java
-  private final Provenance provenance;
-
-  @Nullable private final SourceOffsets offsets;
-
-  @Nullable private HtmlContext htmlContext;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/RawTextNode.java`
-#### Snippet
-```java
-  @Nullable private final SourceOffsets offsets;
-
-  @Nullable private HtmlContext htmlContext;
-
-  /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
-#### Snippet
-```java
-  private String desc;
-  private final SourceLocation sourceLocation;
-  @Nullable private final TypeNode typeNode;
-  private final TypeNode originalTypeNode;
-  @Nullable private final ExprRootNode initialValue;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
-#### Snippet
-```java
-  @Nullable private final TypeNode typeNode;
-  private final TypeNode originalTypeNode;
-  @Nullable private final ExprRootNode initialValue;
-  private final boolean isExplicitlyOptional;
-
 ```
 
 ### NullableProblems
@@ -10423,14 +10374,50 @@ in `java/src/com/google/template/soy/soytree/defn/TemplateParam.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/exprtree/VeLiteralNode.java`
+in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
 #### Snippet
 ```java
-  private final Identifier veIdentifier;
-  private final Identifier name;
-  @Nullable private ValidatedLoggableElement loggableElement;
-  private SoyType type;
+  @Nullable private final TypeNode typeNode;
+  private final TypeNode originalTypeNode;
+  @Nullable private final ExprRootNode initialValue;
+  private final boolean isExplicitlyOptional;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
+#### Snippet
+```java
+  private String desc;
+  private final SourceLocation sourceLocation;
+  @Nullable private final TypeNode typeNode;
+  private final TypeNode originalTypeNode;
+  @Nullable private final ExprRootNode initialValue;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/RawTextNode.java`
+#### Snippet
+```java
+  @Nullable private final SourceOffsets offsets;
+
+  @Nullable private HtmlContext htmlContext;
+
+  /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/RawTextNode.java`
+#### Snippet
+```java
+  private final Provenance provenance;
+
+  @Nullable private final SourceOffsets offsets;
+
+  @Nullable private HtmlContext htmlContext;
 ```
 
 ### NullableProblems
@@ -10443,6 +10430,18 @@ in `java/src/com/google/template/soy/testing/SoyFileSetParserBuilder.java`
   @Nullable private SoyAstCache astCache = null;
   private ErrorReporter errorReporter = ErrorReporter.exploding(); // See #parse for discussion.
   private boolean allowUnboundGlobals;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/exprtree/VeLiteralNode.java`
+#### Snippet
+```java
+  private final Identifier veIdentifier;
+  private final Identifier name;
+  @Nullable private ValidatedLoggableElement loggableElement;
+  private SoyType type;
+
 ```
 
 ### NullableProblems
@@ -10495,26 +10494,14 @@ in `java/src/com/google/template/soy/internal/i18n/BidiGlobalDir.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/TemplateNode.java`
+in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
 #### Snippet
 ```java
-    private final ImmutableList<String> importSymbols;
 
-    @Nullable private final ModNameDeclaration modNameDeclaration;
-    private final Priority priority;
-    @Nullable private final String namespace;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/soytree/TemplateNode.java`
-#### Snippet
-```java
-    @Nullable private final ModNameDeclaration modNameDeclaration;
-    private final Priority priority;
-    @Nullable private final String namespace;
-
-    private final Set<String> usedAliases;
+  private static final class FunctionState {
+    @Nullable private FunctionRef function;
+    @Nullable private ImmutableList<SoyType> allowedParamTypes;
+    private boolean allowedToInvokeAsFunction = false;
 ```
 
 ### NullableProblems
@@ -10543,14 +10530,26 @@ in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
+in `java/src/com/google/template/soy/soytree/TemplateNode.java`
 #### Snippet
 ```java
+    @Nullable private final ModNameDeclaration modNameDeclaration;
+    private final Priority priority;
+    @Nullable private final String namespace;
 
-  private static final class FunctionState {
-    @Nullable private FunctionRef function;
-    @Nullable private ImmutableList<SoyType> allowedParamTypes;
-    private boolean allowedToInvokeAsFunction = false;
+    private final Set<String> usedAliases;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/soytree/TemplateNode.java`
+#### Snippet
+```java
+    private final ImmutableList<String> importSymbols;
+
+    @Nullable private final ModNameDeclaration modNameDeclaration;
+    private final Priority priority;
+    @Nullable private final String namespace;
 ```
 
 ### NullableProblems
@@ -10570,35 +10569,11 @@ Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable p
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
 #### Snippet
 ```java
-    return new Transition(regex) {
-      @Override
-      Context computeNextContext(RawTextNode node, int offset, Context prior, Matcher matcher) {
-        throw SoyAutoescapeException.createWithNode(
-            message, node.substring(Integer.MAX_VALUE, offset));
-```
-
-### NullableProblems
-Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable parameter
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
-#### Snippet
-```java
-
-        @Override
-        Context computeNextContext(Context prior, Matcher matcher) {
-          // TODO(gboyer): Ban all but whitelisted schemes.
-          return prior.derive(UriPart.DANGEROUS_SCHEME);
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
-#### Snippet
-```java
-
-    /** Matches a pattern. */
-    @Nullable final Pattern pattern;
-
-    /** For matching a literal string. */
+                      Pattern.compile("[,;] *(URL *=? *)?['\"]?", Pattern.CASE_INSENSITIVE)) {
+                    @Override
+                    Context computeNextContext(Context prior, Matcher matcher) {
+                      return prior.toBuilder()
+                          .withState(HtmlContext.URI)
 ```
 
 ### NullableProblems
@@ -10618,11 +10593,11 @@ Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable p
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
 #### Snippet
 ```java
-      new Transition(Pattern.compile("([:./&?=#])|\\z")) {
-        @Override
-        boolean isApplicableTo(Context prior, Matcher matcher) {
-          return prior.uriType() != UriType.TRUSTED_RESOURCE;
-        }
+    return new Transition(regex) {
+      @Override
+      Context computeNextContext(Context prior, Matcher matcher) {
+        return prior.transitionToState(state);
+      }
 ```
 
 ### NullableProblems
@@ -10630,11 +10605,11 @@ Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable p
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
 #### Snippet
 ```java
-    return new Transition(regex) {
-      @Override
-      Context computeNextContext(Context prior, Matcher matcher) {
-        return prior;
-      }
+      new Transition(Pattern.compile("(?i)^(javascript|data|blob|filesystem):")) {
+        @Override
+        boolean isApplicableTo(Context prior, Matcher matcher) {
+          return prior.uriPart() == UriPart.START && prior.uriType() != UriType.TRUSTED_RESOURCE;
+        }
 ```
 
 ### NullableProblems
@@ -10646,6 +10621,42 @@ in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUp
       @Override
       Context computeNextContext(Context prior, Matcher matcher) {
         return prior.transitionToState(state);
+      }
+```
+
+### NullableProblems
+Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable parameter
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
+#### Snippet
+```java
+
+        @Override
+        Context computeNextContext(Context prior, Matcher matcher) {
+          // TODO(gboyer): Ban all but whitelisted schemes.
+          return prior.derive(UriPart.DANGEROUS_SCHEME);
+```
+
+### NullableProblems
+Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable parameter
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
+#### Snippet
+```java
+    return new Transition(regex) {
+      @Override
+      Context computeNextContext(RawTextNode node, int offset, Context prior, Matcher matcher) {
+        throw SoyAutoescapeException.createWithNode(
+            message, node.substring(Integer.MAX_VALUE, offset));
+```
+
+### NullableProblems
+Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable parameter
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
+#### Snippet
+```java
+    return new Transition(regex) {
+      @Override
+      Context computeNextContext(Context prior, Matcher matcher) {
+        return prior;
       }
 ```
 
@@ -10666,23 +10677,23 @@ Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable p
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
 #### Snippet
 ```java
-      new Transition(Pattern.compile("(?i)^(javascript|data|blob|filesystem):")) {
-        @Override
-        boolean isApplicableTo(Context prior, Matcher matcher) {
-          return prior.uriPart() == UriPart.START && prior.uriType() != UriType.TRUSTED_RESOURCE;
-        }
-```
-
-### NullableProblems
-Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable parameter
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
-#### Snippet
-```java
 
         @Override
         Context computeNextContext(RawTextNode node, int offset, Context prior, Matcher matcher) {
           UriPart uriPart = prior.uriPart();
           if (uriPart == UriPart.START) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
+#### Snippet
+```java
+
+    /** Matches a pattern. */
+    @Nullable final Pattern pattern;
+
+    /** For matching a literal string. */
 ```
 
 ### NullableProblems
@@ -10702,10 +10713,10 @@ Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable p
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
 #### Snippet
 ```java
-      new Transition() {
+      new Transition(Pattern.compile("([:./&?=#])|\\z")) {
         @Override
-        Context computeNextContext(Context prior, Matcher matcher) {
-          return prior;
+        boolean isApplicableTo(Context prior, Matcher matcher) {
+          return prior.uriType() != UriType.TRUSTED_RESOURCE;
         }
 ```
 
@@ -10714,23 +10725,11 @@ Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable p
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
 #### Snippet
 ```java
-    return new Transition(regex) {
-      @Override
-      Context computeNextContext(Context prior, Matcher matcher) {
-        return prior.transitionToState(state);
-      }
-```
-
-### NullableProblems
-Parameter annotated @ParametersAreNonnullByDefault must not override @Nullable parameter
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/RawTextContextUpdater.java`
-#### Snippet
-```java
-                      Pattern.compile("[,;] *(URL *=? *)?['\"]?", Pattern.CASE_INSENSITIVE)) {
-                    @Override
-                    Context computeNextContext(Context prior, Matcher matcher) {
-                      return prior.toBuilder()
-                          .withState(HtmlContext.URI)
+      new Transition() {
+        @Override
+        Context computeNextContext(Context prior, Matcher matcher) {
+          return prior;
+        }
 ```
 
 ### NullableProblems
@@ -10762,11 +10761,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `java/src/com/google/template/soy/sharedpasses/render/TofuJavaValue.java`
 #### Snippet
 ```java
-  }
-
   @Nullable private final SoyValue soyValue;
   @Nullable private final SourceLocation sourceLocation;
   @Nullable private final Object rawValue;
+
+  private TofuJavaValue(SoyValue soyValue, Object rawValue, SourceLocation sourceLocation) {
 ```
 
 ### NullableProblems
@@ -10774,11 +10773,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `java/src/com/google/template/soy/sharedpasses/render/TofuJavaValue.java`
 #### Snippet
 ```java
+  }
+
   @Nullable private final SoyValue soyValue;
   @Nullable private final SourceLocation sourceLocation;
   @Nullable private final Object rawValue;
-
-  private TofuJavaValue(SoyValue soyValue, Object rawValue, SourceLocation sourceLocation) {
 ```
 
 ### NullableProblems
@@ -11268,6 +11267,18 @@ in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
+#### Snippet
+```java
+      toVisit.add(start);
+      Block current;
+      while ((current = toVisit.poll()) != null) {
+        if (visited.add(current)) {
+          adjacencyMatrix.putAll(current, current.successors);
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `java/src/com/google/template/soy/jbcsrc/runtime/DetachableContentProvider.java`
 #### Snippet
 ```java
@@ -11288,18 +11299,6 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/DetachableContentProvider.ja
       builder = currentBuilder = new TeeAdvisingAppendable(appendable);
     }
     RenderResult result = doRender(currentBuilder);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
-#### Snippet
-```java
-      toVisit.add(start);
-      Block current;
-      while ((current = toVisit.poll()) != null) {
-        if (visited.add(current)) {
-          adjacencyMatrix.putAll(current, current.successors);
 ```
 
 ### NestedAssignment
@@ -11333,6 +11332,18 @@ in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
 ```java
           // Skip over a quoted attribute value inside the tag.
           char quote = lastChar;
+          while (charIndex < length && (lastChar = text.charAt(charIndex++)) != quote) {}
+        }
+      }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
+#### Snippet
+```java
+          // Skip over a quoted attribute value inside the tag.
+          char quote = lastChar;
           while (charIndex > 0 && (lastChar = text.charAt(--charIndex)) != quote) {}
         }
       }
@@ -11348,18 +11359,6 @@ in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
       while (charIndex < length && (lastChar = text.charAt(charIndex++)) != ';') {}
       return UCharacter.DIRECTIONALITY_WHITESPACE;
     }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
-#### Snippet
-```java
-          // Skip over a quoted attribute value inside the tag.
-          char quote = lastChar;
-          while (charIndex < length && (lastChar = text.charAt(charIndex++)) != quote) {}
-        }
-      }
 ```
 
 ### NestedAssignment
@@ -11413,18 +11412,6 @@ in `java/src/com/google/template/soy/soytree/VeLogNode.java`
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `conformanceConfigs` are queried, but never updated
-in `java/src/com/google/template/soy/SoyConformanceChecker.java`
-#### Snippet
-```java
-      usage = "Location of conformance config protos in text proto format.",
-      handler = SoyCmdLineParser.FileListOptionHandler.class)
-  private List<File> conformanceConfigs = new ArrayList<>();
-
-  SoyConformanceChecker(PluginLoader loader, SoyInputCache cache) {
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `locales` are queried, but never updated
 in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
 #### Snippet
@@ -11437,15 +11424,15 @@ in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `inputRoots` are queried, but never updated
-in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+Contents of collection `conformanceConfigs` are queried, but never updated
+in `java/src/com/google/template/soy/SoyConformanceChecker.java`
 #### Snippet
 ```java
-              + "are transformed into output paths.  See --outputDirectory for more information.",
-      handler = SoyCmdLineParser.PathListOptionHandler.class)
-  private List<Path> inputRoots = new ArrayList<>();
+      usage = "Location of conformance config protos in text proto format.",
+      handler = SoyCmdLineParser.FileListOptionHandler.class)
+  private List<File> conformanceConfigs = new ArrayList<>();
 
-  @Option(
+  SoyConformanceChecker(PluginLoader loader, SoyInputCache cache) {
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -11473,18 +11460,6 @@ in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `depHeaders` are queried, but never updated
-in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
-#### Snippet
-```java
-              + " analysis/checking..",
-      handler = SoyCmdLineParser.FileListOptionHandler.class)
-  private List<File> depHeaders = new ArrayList<>();
-
-  @Option(
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `pluginModules` are queried, but never updated
 in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
@@ -11497,6 +11472,18 @@ in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
+Contents of collection `depHeaders` are queried, but never updated
+in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
+#### Snippet
+```java
+              + " analysis/checking..",
+      handler = SoyCmdLineParser.FileListOptionHandler.class)
+  private List<File> depHeaders = new ArrayList<>();
+
+  @Option(
+```
+
+### MismatchedCollectionQueryUpdate
 Contents of collection `indirectDepHeaders` are queried, but never updated
 in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
@@ -11504,6 +11491,18 @@ in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
               + "Used by the compiler for typechecking and call analysis.",
       handler = SoyCmdLineParser.FileListOptionHandler.class)
   private List<File> indirectDepHeaders = new ArrayList<>();
+
+  @Option(
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `inputRoots` are queried, but never updated
+in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+#### Snippet
+```java
+              + "are transformed into output paths.  See --outputDirectory for more information.",
+      handler = SoyCmdLineParser.PathListOptionHandler.class)
+  private List<Path> inputRoots = new ArrayList<>();
 
   @Option(
 ```
@@ -11644,73 +11643,13 @@ in `java/src/com/google/template/soy/soytree/SoyFileSetNode.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `java/src/com/google/template/soy/SoyToIncrementalDomSrcCompiler.java`
-#### Snippet
-```java
-          "When this option is used, the generated JS files will have a requirecss annotation for"
-              + " the generated GSS header file.")
-  private boolean dependOnCssHeader = false;
-
-  private final PerInputOutputFiles outputFiles =
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `java/src/com/google/template/soy/SoyParseInfoGenerator.java`
-#### Snippet
-```java
-              + " (FooTemplates.java). If false, generates the old FooSoyInfo.java files"
-              + " instead.")
-  private boolean generateBuilders = false;
-
-  @Option(
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/SoyToPySrcCompiler.java`
-#### Snippet
-```java
-            + " to write. Default is to not write this file."
-  )
-  private String outputNamespaceManifest = null;
-
-  private final PerInputOutputFiles outputFiles = new PerInputOutputFiles("py");
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/SoyHeaderCompiler.java`
-#### Snippet
-```java
-          "Where to write metadata about the template calls.  This will be a file containing"
-              + " a gzipped TemplateCallMetadata proto")
-  private File templateCallMetadataOutput = null;
-
-  SoyHeaderCompiler(PluginLoader loader, SoyInputCache cache) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/SoyHeaderCompiler.java`
-#### Snippet
-```java
-          "Where to write metadata about CSS.  This will be a file containing a gzipped"
-              + " CssMetadata proto")
-  private File cssMetadataOutput = null;
-
-  @Option(
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `0` is redundant
 in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
 #### Snippet
 ```java
-          "When this option is used, the generated JS files will have a requirecss annotation for"
-              + " the generated CSS header file.")
-  private boolean dependOnCssHeader = false;
+              + " necessary if a message file is provided, because by default the bidi global"
+              + " directionality is simply inferred from the message file.")
+  private int bidiGlobalDir = 0;
 
   @Option(
 ```
@@ -11744,6 +11683,18 @@ Field initialization to `false` is redundant
 in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
 #### Snippet
 ```java
+          "When this option is used, the generated JS files will have a requirecss annotation for"
+              + " the generated CSS header file.")
+  private boolean dependOnCssHeader = false;
+
+  @Option(
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
+#### Snippet
+```java
               + " Whether to determine the bidi global direction at template runtime by"
               + " evaluating (goog.i18n.bidi.IS_RTL). Do not combine with --bidiGlobalDir.")
   private boolean useGoogIsRtlForBidiGlobalDir = false;
@@ -11752,13 +11703,61 @@ in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `java/src/com/google/template/soy/SoyToJsSrcCompiler.java`
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/SoyHeaderCompiler.java`
 #### Snippet
 ```java
-              + " necessary if a message file is provided, because by default the bidi global"
-              + " directionality is simply inferred from the message file.")
-  private int bidiGlobalDir = 0;
+          "Where to write metadata about the template calls.  This will be a file containing"
+              + " a gzipped TemplateCallMetadata proto")
+  private File templateCallMetadataOutput = null;
+
+  SoyHeaderCompiler(PluginLoader loader, SoyInputCache cache) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/SoyHeaderCompiler.java`
+#### Snippet
+```java
+          "Where to write metadata about CSS.  This will be a file containing a gzipped"
+              + " CssMetadata proto")
+  private File cssMetadataOutput = null;
+
+  @Option(
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `java/src/com/google/template/soy/SoyToIncrementalDomSrcCompiler.java`
+#### Snippet
+```java
+          "When this option is used, the generated JS files will have a requirecss annotation for"
+              + " the generated GSS header file.")
+  private boolean dependOnCssHeader = false;
+
+  private final PerInputOutputFiles outputFiles =
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/SoyToPySrcCompiler.java`
+#### Snippet
+```java
+            + " to write. Default is to not write this file."
+  )
+  private String outputNamespaceManifest = null;
+
+  private final PerInputOutputFiles outputFiles = new PerInputOutputFiles("py");
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `java/src/com/google/template/soy/SoyParseInfoGenerator.java`
+#### Snippet
+```java
+              + " (FooTemplates.java). If false, generates the old FooSoyInfo.java files"
+              + " instead.")
+  private boolean generateBuilders = false;
 
   @Option(
 ```
@@ -11780,9 +11779,9 @@ Field initialization to `false` is redundant
 in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
 ```java
-              + "the performance in general. "
-              + "This flag should only be set in integration test environment.")
-  private boolean disableOptimizer = false;
+      name = "--skip_css_reference_check",
+      usage = "Whether to skip the go/css-conformance#css-reference-checks.")
+  private boolean skipCssReferenceCheck = false;
 
   @Option(
 ```
@@ -11792,9 +11791,9 @@ Field initialization to `false` is redundant
 in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
 ```java
-      name = "--skip_css_reference_check",
-      usage = "Whether to skip the go/css-conformance#css-reference-checks.")
-  private boolean skipCssReferenceCheck = false;
+              + "the performance in general. "
+              + "This flag should only be set in integration test environment.")
+  private boolean disableOptimizer = false;
 
   @Option(
 ```
@@ -11873,42 +11872,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/ConditionalBuilder.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-
-    /** The general compiler options. */
-    private SoyGeneralOptions lazyGeneralOptions = null;
-
-    /** The SoyProtoTypeProvider builder that will be built for local type registry. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-
-    /** Optional AST cache. */
-    private SoyAstCache cache = null;
-
-    /** The general compiler options. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-    private Optional<CssRegistry> cssRegistry = Optional.empty();
-
-    private boolean skipPluginValidation = false;
-
-    private boolean optimize = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `java/src/com/google/template/soy/pysrc/restricted/PyFunctionExprBuilder.java`
 #### Snippet
 ```java
@@ -11953,6 +11916,42 @@ in `java/src/com/google/template/soy/jbcsrc/FieldManager.java`
   private boolean definedFields = false;
 
   FieldManager(TypeInfo owner) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+
+    /** Optional AST cache. */
+    private SoyAstCache cache = null;
+
+    /** The general compiler options. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+    private Optional<CssRegistry> cssRegistry = Optional.empty();
+
+    private boolean skipPluginValidation = false;
+
+    private boolean optimize = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+
+    /** The general compiler options. */
+    private SoyGeneralOptions lazyGeneralOptions = null;
+
+    /** The SoyProtoTypeProvider builder that will be built for local type registry. */
 ```
 
 ### RedundantFieldInitialization
@@ -12112,15 +12111,15 @@ in `java/src/com/google/template/soy/soytree/HtmlOpenTagNode.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `java/src/com/google/template/soy/soytree/CallNode.java`
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
 #### Snippet
 ```java
+  private final String useVariantTypeString;
 
-  /** True if this node is within a HTML context. */
-  private boolean isPcData = false;
+  private String variantString = null;
 
-  /** Protected constructor for use by subclasses. */
+  /**
 ```
 
 ### RedundantFieldInitialization
@@ -12136,15 +12135,15 @@ in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
+Field initialization to `false` is redundant
+in `java/src/com/google/template/soy/soytree/CallNode.java`
 #### Snippet
 ```java
-  private final String useVariantTypeString;
 
-  private String variantString = null;
+  /** True if this node is within a HTML context. */
+  private boolean isPcData = false;
 
-  /**
+  /** Protected constructor for use by subclasses. */
 ```
 
 ### RedundantFieldInitialization
@@ -12177,10 +12176,10 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
 
-  /** The substitution unit info (var name mappings, or null if not yet generated). */
-  @Nullable private SubstUnitInfo substUnitInfo = null;
-
   /** The EscapingMode where this message is used. */
+  @Nullable private EscapingMode escapingMode = null;
+
+  /** The optional alternate id attribute to be used if a translation for the msg id is missing. */
 ```
 
 ### RedundantFieldInitialization
@@ -12189,10 +12188,10 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
 
-  /** The EscapingMode where this message is used. */
-  @Nullable private EscapingMode escapingMode = null;
+  /** The substitution unit info (var name mappings, or null if not yet generated). */
+  @Nullable private SubstUnitInfo substUnitInfo = null;
 
-  /** The optional alternate id attribute to be used if a translation for the msg id is missing. */
+  /** The EscapingMode where this message is used. */
 ```
 
 ### RedundantFieldInitialization
@@ -12236,6 +12235,18 @@ Field initialization to `false` is redundant
 in `java/src/com/google/template/soy/testing/SoyFileSetParserBuilder.java`
 #### Snippet
 ```java
+  // By default, do not modify the AST to add the HTML comments, since many unit tests depend on
+  // the order of the nodes in the AST.
+  private boolean addHtmlAttributesForDebugging = false;
+  private final PassManager.Builder passManager = new PassManager.Builder();
+  private boolean disableAllTypeChecking = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `java/src/com/google/template/soy/testing/SoyFileSetParserBuilder.java`
+#### Snippet
+```java
   // escaper not running and enable by default.  This configuration bit only really exists
   // for incrementaldomsrc, not tests.
   private boolean runAutoescaper = false;
@@ -12260,11 +12271,11 @@ Field initialization to `false` is redundant
 in `java/src/com/google/template/soy/testing/SoyFileSetParserBuilder.java`
 #### Snippet
 ```java
-  // By default, do not modify the AST to add the HTML comments, since many unit tests depend on
-  // the order of the nodes in the AST.
   private boolean addHtmlAttributesForDebugging = false;
   private final PassManager.Builder passManager = new PassManager.Builder();
   private boolean disableAllTypeChecking = false;
+
+  public static SoyFileSetParserBuilder forTemplateAndImports(
 ```
 
 ### RedundantFieldInitialization
@@ -12281,14 +12292,14 @@ in `java/src/com/google/template/soy/testing/SoyFileSetParserBuilder.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `java/src/com/google/template/soy/testing/SoyFileSetParserBuilder.java`
+in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
 #### Snippet
 ```java
-  private boolean addHtmlAttributesForDebugging = false;
-  private final PassManager.Builder passManager = new PassManager.Builder();
-  private boolean disableAllTypeChecking = false;
+    @Nullable private FunctionRef function;
+    @Nullable private ImmutableList<SoyType> allowedParamTypes;
+    private boolean allowedToInvokeAsFunction = false;
+  }
 
-  public static SoyFileSetParserBuilder forTemplateAndImports(
 ```
 
 ### RedundantFieldInitialization
@@ -12309,10 +12320,10 @@ in `java/src/com/google/template/soy/soytree/TemplateNode.java`
 #### Snippet
 ```java
 
-  /** Serialized container for template calls, used for template traversal. */
-  private TemplateCallMetadata.Template templateCallMetadata = null;
+  /** Additional metadata for serialization and verification across templates. */
+  private HtmlElementMetadataP templateMetadata = null;
 
-  // TODO(b/19406885): Remove.
+  /** Serialized container for template calls, used for template traversal. */
 ```
 
 ### RedundantFieldInitialization
@@ -12321,34 +12332,10 @@ in `java/src/com/google/template/soy/soytree/TemplateNode.java`
 #### Snippet
 ```java
 
-  /** Additional metadata for serialization and verification across templates. */
-  private HtmlElementMetadataP templateMetadata = null;
-
   /** Serialized container for template calls, used for template traversal. */
-```
+  private TemplateCallMetadata.Template templateCallMetadata = null;
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
-#### Snippet
-```java
-    @Nullable private FunctionRef function;
-    @Nullable private ImmutableList<SoyType> allowedParamTypes;
-    private boolean allowedToInvokeAsFunction = false;
-  }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/Inferences.java`
-#### Snippet
-```java
-
-  /** Map of template names to instances used to type <code>{call}</code> commands. */
-  private FileSetMetadata fileSetMetadata = null;
-
-  /** Maps print, msg and call commands to the inferred escaping modes. */
+  // TODO(b/19406885): Remove.
 ```
 
 ### RedundantFieldInitialization
@@ -12361,6 +12348,18 @@ in `java/src/com/google/template/soy/javagencode/SoyFileNodeTransformer.java`
     private int uniqueSerial = 0;
 
     public abstract Parameter param();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/Inferences.java`
+#### Snippet
+```java
+
+  /** Map of template names to instances used to type <code>{call}</code> commands. */
+  private FileSetMetadata fileSetMetadata = null;
+
+  /** Maps print, msg and call commands to the inferred escaping modes. */
 ```
 
 ### RedundantFieldInitialization
@@ -12380,11 +12379,11 @@ Field initialization to `null` is redundant
 in `java/src/com/google/template/soy/basicfunctions/HtmlToText.java`
 #### Snippet
 ```java
-
     Matcher whitespaceMatcher = null;
     Matcher attributeMatcher = null;
     Matcher styleMatcher = null;
     ArrayDeque<TagAndWs> preserveWhitespaceStack = new ArrayDeque<>();
+
 ```
 
 ### RedundantFieldInitialization
@@ -12404,11 +12403,11 @@ Field initialization to `null` is redundant
 in `java/src/com/google/template/soy/basicfunctions/HtmlToText.java`
 #### Snippet
 ```java
+
     Matcher whitespaceMatcher = null;
     Matcher attributeMatcher = null;
     Matcher styleMatcher = null;
     ArrayDeque<TagAndWs> preserveWhitespaceStack = new ArrayDeque<>();
-
 ```
 
 ### RedundantFieldInitialization
@@ -12498,18 +12497,6 @@ public final class PrintNode extends AbstractParentCommandNode<PrintDirectiveNod
 ```
 
 ### RedundantImplements
-Redundant interface declaration `ExprHolderNode`
-in `java/src/com/google/template/soy/soytree/TemplateElementNode.java`
-#### Snippet
-```java
- * <p>Important: Do not use outside of Soy code (treat as superpackage-private).
- */
-public final class TemplateElementNode extends TemplateNode implements ExprHolderNode {
-  /**
-   * Main constructor. This is package-private because TemplateElementNode instances should be built
-```
-
-### RedundantImplements
 Redundant interface declaration `StandaloneNode`
 in `java/src/com/google/template/soy/soytree/SwitchNode.java`
 #### Snippet
@@ -12522,27 +12509,15 @@ public final class SwitchNode extends AbstractParentCommandNode<CaseOrDefaultNod
 ```
 
 ### RedundantImplements
-Redundant interface declaration `StandaloneNode`
-in `java/src/com/google/template/soy/soytree/IfNode.java`
+Redundant interface declaration `ExprHolderNode`
+in `java/src/com/google/template/soy/soytree/TemplateElementNode.java`
 #### Snippet
 ```java
-public final class IfNode extends AbstractParentSoyNode<BlockNode>
-    implements HtmlContext.HtmlContextHolder,
-        StandaloneNode,
-        SplitLevelTopNode<BlockNode>,
-        StatementNode {
-```
-
-### RedundantImplements
-Redundant interface declaration `StandaloneNode`
-in `java/src/com/google/template/soy/soytree/CallNode.java`
-#### Snippet
-```java
+ * <p>Important: Do not use outside of Soy code (treat as superpackage-private).
  */
-public abstract class CallNode extends AbstractParentCommandNode<CallParamNode>
-    implements StandaloneNode,
-        SplitLevelTopNode<CallParamNode>,
-        StatementNode,
+public final class TemplateElementNode extends TemplateNode implements ExprHolderNode {
+  /**
+   * Main constructor. This is package-private because TemplateElementNode instances should be built
 ```
 
 ### RedundantImplements
@@ -12559,6 +12534,18 @@ public final class MsgFallbackGroupNode extends AbstractParentSoyNode<MsgNode>
 
 ### RedundantImplements
 Redundant interface declaration `StandaloneNode`
+in `java/src/com/google/template/soy/soytree/IfNode.java`
+#### Snippet
+```java
+public final class IfNode extends AbstractParentSoyNode<BlockNode>
+    implements HtmlContext.HtmlContextHolder,
+        StandaloneNode,
+        SplitLevelTopNode<BlockNode>,
+        StatementNode {
+```
+
+### RedundantImplements
+Redundant interface declaration `StandaloneNode`
 in `java/src/com/google/template/soy/soytree/LogNode.java`
 #### Snippet
 ```java
@@ -12567,6 +12554,18 @@ public final class LogNode extends AbstractBlockCommandNode
     implements StandaloneNode, StatementNode, RenderUnitNode {
 
   public LogNode(int id, SourceLocation sourceLocation) {
+```
+
+### RedundantImplements
+Redundant interface declaration `StandaloneNode`
+in `java/src/com/google/template/soy/soytree/CallNode.java`
+#### Snippet
+```java
+ */
+public abstract class CallNode extends AbstractParentCommandNode<CallParamNode>
+    implements StandaloneNode,
+        SplitLevelTopNode<CallParamNode>,
+        StatementNode,
 ```
 
 ### RedundantImplements
@@ -12615,19 +12614,6 @@ in `java/src/com/google/template/soy/soytree/defn/AttrParam.java`
 public final class AttrParam extends TemplateParam implements TemplateHeaderVarDefn {
 
   private final String originalAttributeName;
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-22-20-56-25.800.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
@@ -12779,24 +12765,24 @@ in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
-#### Snippet
-```java
-    fnArgs.addAll(args);
-    return factory.callNamespaceFunction(
-        "soy", "soy.$$bidiMarkAfter", fnArgs.toArray(new JavaScriptValue[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `java/src/com/google/template/soy/bidifunctions/BidiTextDirFunction.java`
 #### Snippet
 ```java
       JavaScriptValueFactory factory, List<JavaScriptValue> args, JavaScriptPluginContext context) {
     return factory.callNamespaceFunction(
         "soy", "soy.$$bidiTextDir", args.toArray(new JavaScriptValue[0]));
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `java/src/com/google/template/soy/bidifunctions/BidiMarkAfterFunction.java`
+#### Snippet
+```java
+    fnArgs.addAll(args);
+    return factory.callNamespaceFunction(
+        "soy", "soy.$$bidiMarkAfter", fnArgs.toArray(new JavaScriptValue[0]));
   }
 
 ```
@@ -12811,18 +12797,6 @@ in `java/src/com/google/template/soy/bidifunctions/BidiDirAttrFunction.java`
         "soy", "soy.$$bidiDirAttr", fnArgs.toArray(new JavaScriptValue[0]));
   }
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
-#### Snippet
-```java
-      Class<?> clazz = Class.forName(methodSig.fullyQualifiedClassName());
-      Method method =
-          clazz.getMethod(methodSig.methodName(), methodSig.arguments().toArray(new Class<?>[0]));
-      if (!method.getReturnType().equals(methodSig.returnType())) {
-        throw RenderException.create(
 ```
 
 ### ZeroLengthArrayInitialization
@@ -12847,6 +12821,18 @@ in `java/src/com/google/template/soy/basicfunctions/RangeFunction.java`
         "goog.array", "goog.array.range", args.toArray(new JavaScriptValue[0]));
   }
 }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
+#### Snippet
+```java
+      Class<?> clazz = Class.forName(methodSig.fullyQualifiedClassName());
+      Method method =
+          clazz.getMethod(methodSig.methodName(), methodSig.arguments().toArray(new Class<?>[0]));
+      if (!method.getReturnType().equals(methodSig.returnType())) {
+        throw RenderException.create(
 ```
 
 ### ZeroLengthArrayInitialization
@@ -12937,30 +12923,6 @@ in `java/src/com/google/template/soy/jbcsrc/JbcSrcValueFactory.java`
 ```
 
 ### UnusedAssignment
-Variable `next` initializer `null` is redundant
-in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
-#### Snippet
-```java
-  private static <T> ImmutableList<Case<T>> parseCases(
-      PeekingIterator<Object> rawParts, Function<Object, T> specFactory) {
-    Tag next = null;
-    ImmutableList.Builder<Case<T>> cases = ImmutableList.builder();
-    while (rawParts.hasNext()) {
-```
-
-### UnusedAssignment
-The value `null` assigned to `next` is never used
-in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
-#### Snippet
-```java
-        T spec = specFactory.apply(rawParts.next());
-        cases.add(Case.create(spec, parseParts(rawParts, /* isCase=*/ true)));
-        next = null;
-      } else if (next == Tag.END) {
-        break;
-```
-
-### UnusedAssignment
 Variable `serialized` initializer `null` is redundant
 in `java/src/com/google/template/soy/jbcsrc/restricted/Statement.java`
 #### Snippet
@@ -12982,6 +12944,30 @@ in `java/src/com/google/template/soy/jbcsrc/restricted/FieldRef.java`
     int modifiers = 0;
     try {
       java.lang.reflect.Field declaredField = owner.getDeclaredField(name);
+```
+
+### UnusedAssignment
+Variable `next` initializer `null` is redundant
+in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
+#### Snippet
+```java
+  private static <T> ImmutableList<Case<T>> parseCases(
+      PeekingIterator<Object> rawParts, Function<Object, T> specFactory) {
+    Tag next = null;
+    ImmutableList.Builder<Case<T>> cases = ImmutableList.builder();
+    while (rawParts.hasNext()) {
+```
+
+### UnusedAssignment
+The value `null` assigned to `next` is never used
+in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
+#### Snippet
+```java
+        T spec = specFactory.apply(rawParts.next());
+        cases.add(Case.create(spec, parseParts(rawParts, /* isCase=*/ true)));
+        next = null;
+      } else if (next == Tag.END) {
+        break;
 ```
 
 ### UnusedAssignment
@@ -13045,15 +13031,15 @@ in `java/src/com/google/template/soy/soytree/Metadata.java`
 ```
 
 ### UnusedAssignment
-Variable `cp` initializer `-1` is redundant
-in `java/src/com/google/template/soy/internal/base/UnescapeUtils.java`
+The value `text.charAt(charIndex++)` assigned to `lastChar` is never used
+in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
 #### Snippet
 ```java
+          // Skip over a quoted attribute value inside the tag.
+          char quote = lastChar;
+          while (charIndex < length && (lastChar = text.charAt(charIndex++)) != quote) {}
         }
       }
-      int cp = -1;
-      if (end == -1) {
-        cp = -1;
 ```
 
 ### UnusedAssignment
@@ -13069,15 +13055,15 @@ in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
 ```
 
 ### UnusedAssignment
-The value `text.charAt(charIndex++)` assigned to `lastChar` is never used
-in `java/src/com/google/template/soy/internal/i18n/BidiUtils.java`
+Variable `cp` initializer `-1` is redundant
+in `java/src/com/google/template/soy/internal/base/UnescapeUtils.java`
 #### Snippet
 ```java
-          // Skip over a quoted attribute value inside the tag.
-          char quote = lastChar;
-          while (charIndex < length && (lastChar = text.charAt(charIndex++)) != quote) {}
         }
       }
+      int cp = -1;
+      if (end == -1) {
+        cp = -1;
 ```
 
 ### UnusedAssignment
@@ -13347,42 +13333,6 @@ in `java/src/com/google/template/soy/jssrc/internal/GenCallCodeUtils.java`
 ```
 
 ### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-          throwIfErrorsPresent();
-          return new AutoValue_SoyFileSet_HeaderResult(
-              parseResult.fileSet(), parseResult.registry(), cssRegistry.get());
-        });
-  }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-
-    return new SoySauceImpl(
-        templates.get(), scopedData.enterable(), soyFunctions, printDirectives, pluginInstances);
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-
-  public CssRegistry getCssRegistry() {
-    return cssRegistry.get();
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
 `OptionalLong.getAsLong()` without 'isPresent()' check
 in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
 #### Snippet
@@ -13408,6 +13358,66 @@ in `java/src/com/google/template/soy/jbcsrc/JbcSrcValueFactory.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+
+    HasserGenerator(SoyProtoType protoType, SoyExpression baseExpr, String fieldName) {
+      super(SoyRuntimeType.getUnboxedType(protoType).get(), baseExpr);
+      this.descriptor = protoType.getFieldDescriptor(fieldName);
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+          }.asNonNullable();
+
+      return SoyExpression.forProto(SoyRuntimeType.getUnboxedType(protoType).get(), expression);
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+        // The caller should check that all member types are protos, so this cast is safe.
+        SoyProtoType protoType = (SoyProtoType) member;
+        SoyRuntimeType unboxed = SoyRuntimeType.getUnboxedType(protoType).get();
+        SoyExpression fieldAccess =
+            memberGenerator.apply(
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+      if (fieldType.getKind() == SoyType.Kind.PROTO) {
+        SoyProtoType fieldProtoType = (SoyProtoType) fieldType;
+        SoyRuntimeType protoRuntimeType = SoyRuntimeType.getUnboxedType(fieldProtoType).get();
+        return SoyExpression.forProto(protoRuntimeType, field);
+      } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+        SoyType fieldType,
+        ScalarFieldMode mode) {
+      super(SoyRuntimeType.getUnboxedType(protoType).get(), baseExpr);
+      this.fieldType = fieldType;
+      this.descriptor = protoType.getFieldDescriptor(fieldName);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
 #### Snippet
 ```java
@@ -13428,18 +13438,6 @@ in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
     RangeArgs rangeArgs = RangeArgs.createFromNode(forNode).get();
     ForNonemptyNode nonEmptyNode = (ForNonemptyNode) forNode.getChild(0);
     ImmutableList.Builder<Statement> initStatements = ImmutableList.builder();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler.java`
-#### Snippet
-```java
-    checkNotNull(detacher);
-    // This mode always works so we can unconditionally dereference this
-    return createVisitor(exprCompiler, detacher).exec(node).get();
-  }
-
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -13480,62 +13478,50 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler.java`
 #### Snippet
 ```java
-        // The caller should check that all member types are protos, so this cast is safe.
-        SoyProtoType protoType = (SoyProtoType) member;
-        SoyRuntimeType unboxed = SoyRuntimeType.getUnboxedType(protoType).get();
-        SoyExpression fieldAccess =
-            memberGenerator.apply(
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-        SoyType fieldType,
-        ScalarFieldMode mode) {
-      super(SoyRuntimeType.getUnboxedType(protoType).get(), baseExpr);
-      this.fieldType = fieldType;
-      this.descriptor = protoType.getFieldDescriptor(fieldName);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-          }.asNonNullable();
-
-      return SoyExpression.forProto(SoyRuntimeType.getUnboxedType(protoType).get(), expression);
-    }
+    checkNotNull(detacher);
+    // This mode always works so we can unconditionally dereference this
+    return createVisitor(exprCompiler, detacher).exec(node).get();
+  }
 
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+in `java/src/com/google/template/soy/SoyFileSet.java`
 #### Snippet
 ```java
-
-    HasserGenerator(SoyProtoType protoType, SoyExpression baseExpr, String fieldName) {
-      super(SoyRuntimeType.getUnboxedType(protoType).get(), baseExpr);
-      this.descriptor = protoType.getFieldDescriptor(fieldName);
-    }
+          throwIfErrorsPresent();
+          return new AutoValue_SoyFileSet_HeaderResult(
+              parseResult.fileSet(), parseResult.registry(), cssRegistry.get());
+        });
+  }
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+in `java/src/com/google/template/soy/SoyFileSet.java`
 #### Snippet
 ```java
-      if (fieldType.getKind() == SoyType.Kind.PROTO) {
-        SoyProtoType fieldProtoType = (SoyProtoType) fieldType;
-        SoyRuntimeType protoRuntimeType = SoyRuntimeType.getUnboxedType(fieldProtoType).get();
-        return SoyExpression.forProto(protoRuntimeType, field);
-      } else {
+
+    return new SoySauceImpl(
+        templates.get(), scopedData.enterable(), soyFunctions, printDirectives, pluginInstances);
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+
+  public CssRegistry getCssRegistry() {
+    return cssRegistry.get();
+  }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -13794,18 +13780,6 @@ in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `java/src/com/google/template/soy/soytree/MsgSelectNode.java`
-#### Snippet
-```java
-  public String getCommandText() {
-    Optional<String> phname = placeholder.userSuppliedName();
-    return phname.isPresent()
-        ? selectExpr.toSourceString() + " phname=\"" + phname.get() + "\""
-        : selectExpr.toSourceString();
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
 in `java/src/com/google/template/soy/soytree/MsgNode.java`
 #### Snippet
 ```java
@@ -13814,6 +13788,18 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
         orig.alternateIdAttribute.isPresent()
             ? Optional.of(orig.alternateIdAttribute.get().copy(copyState))
             : Optional.empty();
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `java/src/com/google/template/soy/soytree/MsgSelectNode.java`
+#### Snippet
+```java
+  public String getCommandText() {
+    Optional<String> phname = placeholder.userSuppliedName();
+    return phname.isPresent()
+        ? selectExpr.toSourceString() + " phname=\"" + phname.get() + "\""
+        : selectExpr.toSourceString();
 ```
 
 ### OptionalIsPresent
@@ -13952,18 +13938,6 @@ public final class EscapingConventions {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `java/src/com/google/template/soy/exprtree/Operator.java`
-#### Snippet
-```java
-
-  /** Constants used in the enum definitions above. */
-  static class Constants {
-    static final Spacer SP = new Spacer();
-    static final Operand OPERAND_0 = new Operand(0);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SoyParseUtils` has only 'static' members, and lacks a 'private' constructor
 in `java/src/com/google/template/soy/soyparse/SoyParseUtils.java`
 #### Snippet
@@ -13973,6 +13947,18 @@ in `java/src/com/google/template/soy/soyparse/SoyParseUtils.java`
 final class SoyParseUtils {
 
   private static final SoyErrorKind CALL_COLLIDES_WITH_NAMESPACE_ALIAS =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `java/src/com/google/template/soy/exprtree/Operator.java`
+#### Snippet
+```java
+
+  /** Constants used in the enum definitions above. */
+  static class Constants {
+    static final Spacer SP = new Spacer();
+    static final Operand OPERAND_0 = new Operand(0);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -14076,10 +14062,10 @@ Unnecessary semicolon `;`
 in `java/src/com/google/template/soy/jbcsrc/TemplateVariableManager.java`
 #### Snippet
 ```java
-    DERIVED,
-    /** Means that the value of the variable should be saved . */
-    STORE;
-  }
+       * expression.
+       */
+      SYNTHETIC;
+    }
 
 ```
 
@@ -14088,10 +14074,10 @@ Unnecessary semicolon `;`
 in `java/src/com/google/template/soy/jbcsrc/TemplateVariableManager.java`
 #### Snippet
 ```java
-       * expression.
-       */
-      SYNTHETIC;
-    }
+    DERIVED,
+    /** Means that the value of the variable should be saved . */
+    STORE;
+  }
 
 ```
 
@@ -14216,6 +14202,18 @@ in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+    SKIP_CHILDREN,
+    /** This means that traversal should continue as normal. */
+    CONTINUE;
+  }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `java/src/com/google/template/soy/soytree/ImportNode.java`
 #### Snippet
 ```java
@@ -14235,18 +14233,6 @@ in `java/src/com/google/template/soy/soytree/RawTextNode.java`
        */
       NONE;
     }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-    SKIP_CHILDREN,
-    /** This means that traversal should continue as normal. */
-    CONTINUE;
-  }
 
 ```
 
@@ -14279,32 +14265,8 @@ Unnecessary semicolon `;`
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
 #### Snippet
 ```java
-     * </ul>
-     */
-    TRUSTED_RESOURCE;
-  }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
-#### Snippet
-```java
-
-    /** A known-dangerous scheme where dynamic content is forbidden. */
-    DANGEROUS_SCHEME;
-  }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
-#### Snippet
-```java
-     */
-    UNKNOWN,
+    /** Other content. Human readable or other non-structured plain text or keyword values. */
+    PLAIN_TEXT,
     ;
   }
 
@@ -14327,9 +14289,9 @@ Unnecessary semicolon `;`
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
 #### Snippet
 ```java
-    /** An element whose content is normal mixed PCDATA and child elements. */
-    NORMAL,
-    ;
+
+    /** A known-dangerous scheme where dynamic content is forbidden. */
+    DANGEROUS_SCHEME;
   }
 
 ```
@@ -14351,9 +14313,33 @@ Unnecessary semicolon `;`
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
 #### Snippet
 ```java
-    /** Other content. Human readable or other non-structured plain text or keyword values. */
-    PLAIN_TEXT,
+     */
+    UNKNOWN,
     ;
+  }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
+#### Snippet
+```java
+    /** An element whose content is normal mixed PCDATA and child elements. */
+    NORMAL,
+    ;
+  }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/Context.java`
+#### Snippet
+```java
+     * </ul>
+     */
+    TRUSTED_RESOURCE;
   }
 
 ```
@@ -14456,30 +14442,6 @@ in `java/src/com/google/template/soy/msgs/internal/ExtractMsgsVisitor.java`
 ```
 
 ### DataFlowIssue
-Argument `repl` might be null
-in `java/src/com/google/template/soy/msgs/internal/IcuSyntaxUtils.java`
-#### Snippet
-```java
-    do {
-      String repl = ICU_SYNTAX_CHAR_ESCAPE_MAP.get(matcher.group());
-      matcher.appendReplacement(escapedTextSb, repl);
-    } while (matcher.find());
-    matcher.appendTail(escapedTextSb);
-```
-
-### DataFlowIssue
-Argument `pluralCase.spec()` might be null
-in `java/src/com/google/template/soy/msgs/internal/IcuSyntaxUtils.java`
-#### Snippet
-```java
-
-    for (Case<SoyMsgPluralCaseSpec> pluralCase : origPluralPart.getCases()) {
-      currRawTextSb.append(getPluralCaseOpenString(pluralCase.spec()));
-      convertMsgPartsHelper(
-          newMsgPartsBuilder, currRawTextSb, pluralCase.parts(), /* isInPlrselPart= */ true);
-```
-
-### DataFlowIssue
 Method invocation `getType` may produce `NullPointerException`
 in `java/src/com/google/template/soy/msgs/restricted/SoyMsgPluralPart.java`
 #### Snippet
@@ -14501,6 +14463,30 @@ in `java/src/com/google/template/soy/msgs/restricted/SoyMsgPluralPart.java`
         if (case0.spec().getType() == correctCaseType) {
           caseParts = case0.parts();
           break;
+```
+
+### DataFlowIssue
+Argument `repl` might be null
+in `java/src/com/google/template/soy/msgs/internal/IcuSyntaxUtils.java`
+#### Snippet
+```java
+    do {
+      String repl = ICU_SYNTAX_CHAR_ESCAPE_MAP.get(matcher.group());
+      matcher.appendReplacement(escapedTextSb, repl);
+    } while (matcher.find());
+    matcher.appendTail(escapedTextSb);
+```
+
+### DataFlowIssue
+Argument `pluralCase.spec()` might be null
+in `java/src/com/google/template/soy/msgs/internal/IcuSyntaxUtils.java`
+#### Snippet
+```java
+
+    for (Case<SoyMsgPluralCaseSpec> pluralCase : origPluralPart.getCases()) {
+      currRawTextSb.append(getPluralCaseOpenString(pluralCase.spec()));
+      convertMsgPartsHelper(
+          newMsgPartsBuilder, currRawTextSb, pluralCase.parts(), /* isInPlrselPart= */ true);
 ```
 
 ### DataFlowIssue
@@ -14576,75 +14562,15 @@ in `java/src/com/google/template/soy/jssrc/internal/GenJsTemplateBodyVisitor.jav
 ```
 
 ### DataFlowIssue
-Casting `callNode` to `CallBasicNode` may produce `ClassCastException`
-in `java/src/com/google/template/soy/jssrc/internal/GenCallCodeUtils.java`
+Switch label `TEXT` is unreachable
+in `java/src/com/google/template/soy/jssrc/internal/JsType.java`
 #### Snippet
 ```java
-                  templateAliases.get(
-                          ((TemplateLiteralNode)
-                                  ((CallBasicNode) callNode).getCalleeExpr().getRoot())
-                              .getResolvedName())
-                      + "$"));
-```
-
-### DataFlowIssue
-Method invocation `longValue` may produce `NullPointerException`
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
-   */
-  public long getLong(int index) {
-    return get(index).longValue();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `floatValue` may produce `NullPointerException`
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
-   */
-  public double getFloat(int index) {
-    return get(index).floatValue();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `integerValue` may produce `NullPointerException`
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
-   */
-  public int getInteger(int index) {
-    return get(index).integerValue();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `stringValue` may produce `NullPointerException`
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
-   */
-  public String getString(int index) {
-    return get(index).stringValue();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `booleanValue` may produce `NullPointerException`
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
-   */
-  public boolean getBoolean(int index) {
-    return get(index).booleanValue();
-  }
-
+        break;
+      case ATTRIBUTES:
+      case TEXT:
+        // nothing extra
+        break;
 ```
 
 ### DataFlowIssue
@@ -14660,27 +14586,27 @@ in `java/src/com/google/template/soy/jssrc/internal/JsType.java`
 ```
 
 ### DataFlowIssue
-Switch label `TEXT` is unreachable
-in `java/src/com/google/template/soy/jssrc/internal/JsType.java`
+Casting `callNode` to `CallBasicNode` may produce `ClassCastException`
+in `java/src/com/google/template/soy/jssrc/internal/GenCallCodeUtils.java`
 #### Snippet
 ```java
-        break;
-      case ATTRIBUTES:
-      case TEXT:
-        // nothing extra
-        break;
+                  templateAliases.get(
+                          ((TemplateLiteralNode)
+                                  ((CallBasicNode) callNode).getCalleeExpr().getRoot())
+                              .getResolvedName())
+                      + "$"));
 ```
 
 ### DataFlowIssue
-Method invocation `getSourceLocation` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jssrc/internal/VeLogInstrumentationVisitor.java`
+Unboxing of `node.getId()` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jssrc/internal/TranslateExprNodeVisitor.java`
 #### Snippet
 ```java
-      HtmlOpenTagNode tag = node.getOpenTagNode();
-      SourceLocation insertionLocation =
-          tag.getSourceLocation()
-              .getEndPoint()
-              .asLocation(tag.getSourceLocation().getFilePath());
+            construct(
+                SOY_VISUAL_ELEMENT,
+                Expression.number(node.getId()),
+                metadata,
+                Expression.stringLiteral(node.getName().identifier())))
 ```
 
 ### DataFlowIssue
@@ -14708,15 +14634,15 @@ in `java/src/com/google/template/soy/jssrc/internal/TranslateExprNodeVisitor.jav
 ```
 
 ### DataFlowIssue
-Unboxing of `node.getId()` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jssrc/internal/TranslateExprNodeVisitor.java`
+Method invocation `getSourceLocation` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jssrc/internal/VeLogInstrumentationVisitor.java`
 #### Snippet
 ```java
-            construct(
-                SOY_VISUAL_ELEMENT,
-                Expression.number(node.getId()),
-                metadata,
-                Expression.stringLiteral(node.getName().identifier())))
+      HtmlOpenTagNode tag = node.getOpenTagNode();
+      SourceLocation insertionLocation =
+          tag.getSourceLocation()
+              .getEndPoint()
+              .asLocation(tag.getSourceLocation().getFilePath());
 ```
 
 ### DataFlowIssue
@@ -14828,6 +14754,18 @@ in `java/src/com/google/template/soy/types/TemplateBindingUtil.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getKind` may produce `NullPointerException`
+in `java/src/com/google/template/soy/types/TemplateType.java`
+#### Snippet
+```java
+      if (thisParam.getKind() == ParameterKind.ATTRIBUTE) {
+        if (!(srcParams.containsKey(thisParam.getName())
+            && srcParams.get(thisParam.getName()).getKind() == ParameterKind.ATTRIBUTE)) {
+          return false;
+        }
+```
+
+### DataFlowIssue
 Method invocation `getType` may produce `NullPointerException`
 in `java/src/com/google/template/soy/types/FunctionType.java`
 #### Snippet
@@ -14840,15 +14778,39 @@ in `java/src/com/google/template/soy/types/FunctionType.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getKind` may produce `NullPointerException`
-in `java/src/com/google/template/soy/types/TemplateType.java`
+Method invocation `invokeUnchecked` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
 #### Snippet
 ```java
-      if (thisParam.getKind() == ParameterKind.ATTRIBUTE) {
-        if (!(srcParams.containsKey(thisParam.getName())
-            && srcParams.get(thisParam.getName()).getKind() == ParameterKind.ATTRIBUTE)) {
-          return false;
+          cb.checkCast(BytecodeUtils.SANITIZED_CONTENT_TYPE);
         }
+        toProto.invokeUnchecked(cb);
+        currentType = toProto.returnType();
+      }
+```
+
+### DataFlowIssue
+Method invocation `invoke` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+        Descriptor messageType = descriptor.getMessageType();
+        MethodRef fromProtoMethod = SAFE_PROTO_TO_SANITIZED_CONTENT.get(messageType.getFullName());
+        return SoyExpression.forSoyValue(fieldType, fromProtoMethod.invoke(field));
+      }
+    }
+```
+
+### DataFlowIssue
+@Nullable method 'classToUnboxTo' always returns a non-null value
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+    }
+
+    @Nullable
+    private static Class<?> classToUnboxTo(FieldDescriptor field) {
+      switch (field.getJavaType()) {
 ```
 
 ### DataFlowIssue
@@ -14888,42 +14850,6 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionToSoyValueProviderCompiler
 ```
 
 ### DataFlowIssue
-@Nullable method 'classToUnboxTo' always returns a non-null value
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    private static Class<?> classToUnboxTo(FieldDescriptor field) {
-      switch (field.getJavaType()) {
-```
-
-### DataFlowIssue
-Method invocation `invokeUnchecked` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-          cb.checkCast(BytecodeUtils.SANITIZED_CONTENT_TYPE);
-        }
-        toProto.invokeUnchecked(cb);
-        currentType = toProto.returnType();
-      }
-```
-
-### DataFlowIssue
-Method invocation `invoke` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-        Descriptor messageType = descriptor.getMessageType();
-        MethodRef fromProtoMethod = SAFE_PROTO_TO_SANITIZED_CONTENT.get(messageType.getFullName());
-        return SoyExpression.forSoyValue(fieldType, fromProtoMethod.invoke(field));
-      }
-    }
-```
-
-### DataFlowIssue
 Method invocation `resolveSoyValueProvider` may produce `NullPointerException`
 in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
 #### Snippet
@@ -14945,6 +14871,42 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
                 adapter.pushLong(node.getId());
                 adapter.pushString(node.getName().identifier());
                 renderContext.gen(adapter);
+```
+
+### DataFlowIssue
+Method invocation `resolveSoyValueProvider` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
+#### Snippet
+```java
+            MethodRef.RUNTIME_GET_FIELD_PROVIDER.invoke(
+                baseExprAsRecord, constant(node.getFieldName()));
+        fieldAccess = detacher.resolveSoyValueProvider(fieldProvider);
+      }
+      return SoyExpression.forSoyValue(
+```
+
+### DataFlowIssue
+Method invocation `resolveSoyValueProvider` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
+#### Snippet
+```java
+      } else if (!analysis.isResolved(varRef)) {
+        // otherwise it must be a SoyValueProvider, resolve and cast
+        expression = detacher.resolveSoyValueProvider(expression);
+        return SoyExpression.forSoyValue(
+            varRef.getType(),
+```
+
+### DataFlowIssue
+Unboxing of `node.getId()` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
+#### Snippet
+```java
+        visualElement =
+            MethodRef.SOY_VISUAL_ELEMENT_CREATE.invoke(
+                constant(node.getId()), constant(node.getName().identifier()));
+      }
+      return SoyExpression.forSoyValue(node.getType(), visualElement);
 ```
 
 ### DataFlowIssue
@@ -14984,51 +14946,15 @@ in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
 ```
 
 ### DataFlowIssue
-Method invocation `resolveSoyValueProvider` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
+Method invocation `addBranch` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
 #### Snippet
 ```java
-            MethodRef.RUNTIME_GET_FIELD_PROVIDER.invoke(
-                baseExprAsRecord, constant(node.getFieldName()));
-        fieldAccess = detacher.resolveSoyValueProvider(fieldProvider);
-      }
-      return SoyExpression.forSoyValue(
-```
-
-### DataFlowIssue
-Unboxing of `node.getId()` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
-#### Snippet
-```java
-        visualElement =
-            MethodRef.SOY_VISUAL_ELEMENT_CREATE.invoke(
-                constant(node.getId()), constant(node.getName().identifier()));
-      }
-      return SoyExpression.forSoyValue(node.getType(), visualElement);
-```
-
-### DataFlowIssue
-Method invocation `resolveSoyValueProvider` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
-#### Snippet
-```java
-      } else if (!analysis.isResolved(varRef)) {
-        // otherwise it must be a SoyValueProvider, resolve and cast
-        expression = detacher.resolveSoyValueProvider(expression);
-        return SoyExpression.forSoyValue(
-            varRef.getType(),
-```
-
-### DataFlowIssue
-Method invocation `replayOn` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/runtime/DetachableContentProvider.java`
-#### Snippet
-```java
-            "calling renderAndResolve after setting isLast = true is not supported");
-      }
-      buffer.replayOn(appendable);
-      return RenderResult.done();
-    }
+        } else {
+          IfElseNode ien = (IfElseNode) child;
+          Block branch = conditionFork.addBranch();
+          branch = exec(branch, ien);
+          branchEnds.add(branch);
 ```
 
 ### DataFlowIssue
@@ -15044,15 +14970,75 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
 ```
 
 ### DataFlowIssue
-Method invocation `addBranch` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/TemplateAnalysisImpl.java`
+Method invocation `stringValue` may produce `NullPointerException`
+in `java/src/com/google/template/soy/data/SoyListData.java`
 #### Snippet
 ```java
-        } else {
-          IfElseNode ien = (IfElseNode) child;
-          Block branch = conditionFork.addBranch();
-          branch = exec(branch, ien);
-          branchEnds.add(branch);
+   */
+  public String getString(int index) {
+    return get(index).stringValue();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `floatValue` may produce `NullPointerException`
+in `java/src/com/google/template/soy/data/SoyListData.java`
+#### Snippet
+```java
+   */
+  public double getFloat(int index) {
+    return get(index).floatValue();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `integerValue` may produce `NullPointerException`
+in `java/src/com/google/template/soy/data/SoyListData.java`
+#### Snippet
+```java
+   */
+  public int getInteger(int index) {
+    return get(index).integerValue();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `booleanValue` may produce `NullPointerException`
+in `java/src/com/google/template/soy/data/SoyListData.java`
+#### Snippet
+```java
+   */
+  public boolean getBoolean(int index) {
+    return get(index).booleanValue();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `longValue` may produce `NullPointerException`
+in `java/src/com/google/template/soy/data/SoyListData.java`
+#### Snippet
+```java
+   */
+  public long getLong(int index) {
+    return get(index).longValue();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `replayOn` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/runtime/DetachableContentProvider.java`
+#### Snippet
+```java
+            "calling renderAndResolve after setting isLast = true is not supported");
+      }
+      buffer.replayOn(appendable);
+      return RenderResult.done();
+    }
 ```
 
 ### DataFlowIssue
@@ -15132,18 +15118,6 @@ Method invocation `contains` may produce `NullPointerException`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-                endPlaceholder));
-      }
-      if (startPlaceholders.contains(endPlaceholder)) {
-        String beforePlaceholder = null;
-        // scan to find the placeholder that is supposed to come after this one.
-```
-
-### DataFlowIssue
-Method invocation `contains` may produce `NullPointerException`
-in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
-#### Snippet
-```java
           String placeholderName = ((SoyMsgPlaceholderPart) msgPart).getPlaceholderName();
           if (endPlaceholderToStartPlaceholder != null) {
             if (startPlaceholders.contains(placeholderName)) {
@@ -15176,6 +15150,18 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```
 
 ### DataFlowIssue
+Method invocation `contains` may produce `NullPointerException`
+in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
+#### Snippet
+```java
+                endPlaceholder));
+      }
+      if (startPlaceholders.contains(endPlaceholder)) {
+        String beforePlaceholder = null;
+        // scan to find the placeholder that is supposed to come after this one.
+```
+
+### DataFlowIssue
 Method invocation `getMessageTypes` may produce `NullPointerException`
 in `java/src/com/google/template/soy/passes/ProtoImportProcessor.java`
 #### Snippet
@@ -15185,18 +15171,6 @@ in `java/src/com/google/template/soy/passes/ProtoImportProcessor.java`
         fd.getMessageTypes().stream().collect(toImmutableMap(Descriptor::getName, f -> f));
     ImmutableMap<String, EnumDescriptor> enums =
         fd.getEnumTypes().stream().collect(toImmutableMap(EnumDescriptor::getName, f -> f));
-```
-
-### DataFlowIssue
-Method invocation `getClass` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/PluginResolver.java`
-#### Snippet
-```java
-            SourceLocation.UNKNOWN,
-            FUNCTION_PRINT_DIRECTIVE_COLLISION,
-            functions.get(functionName).getClass().getName(),
-            functionName,
-            directive.getClass().getName());
 ```
 
 ### DataFlowIssue
@@ -15224,6 +15198,18 @@ in `java/src/com/google/template/soy/passes/LocalVariablesNodeVisitor.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getClass` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/PluginResolver.java`
+#### Snippet
+```java
+            SourceLocation.UNKNOWN,
+            FUNCTION_PRINT_DIRECTIVE_COLLISION,
+            functions.get(functionName).getClass().getName(),
+            functionName,
+            directive.getClass().getName());
+```
+
+### DataFlowIssue
 Method invocation `getAndIncrement` may produce `NullPointerException`
 in `java/src/com/google/template/soy/passes/IncrementalDomKeysPass.java`
 #### Snippet
@@ -15233,30 +15219,6 @@ in `java/src/com/google/template/soy/passes/IncrementalDomKeysPass.java`
       return template.getTemplateName() + "-" + keyCounter.getAndIncrement();
     }
   }
-```
-
-### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/StrictHtmlValidationPass.java`
-#### Snippet
-```java
-      if (htmlMatcherGraph.getNodeAtCursor().isPresent()) {
-        HtmlMatcherGraphNode activeNode = htmlMatcherGraph.getNodeAtCursor().get();
-        activeEdgeStack.peek().add(ActiveEdge.create(activeNode, activeNode.getActiveEdgeKind()));
-      }
-      ifConditionNode.setActiveEdgeKind(EdgeKind.FALSE_EDGE);
-```
-
-### DataFlowIssue
-Argument `htmlMatcherGraph` might be null
-in `java/src/com/google/template/soy/passes/StrictHtmlValidationPass.java`
-#### Snippet
-```java
-
-            /* parentBlockType= */ null)
-        .run(htmlMatcherGraph);
-    if (node.isStrictHtml()) {
-      reporter.copyTo(this.errorReporter);
 ```
 
 ### DataFlowIssue
@@ -15320,27 +15282,39 @@ in `java/src/com/google/template/soy/passes/SoyElementPass.java`
 ```
 
 ### DataFlowIssue
-Argument `graph` might be null
-in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
+Argument `htmlMatcherGraph` might be null
+in `java/src/com/google/template/soy/passes/StrictHtmlValidationPass.java`
 #### Snippet
 ```java
-    if (foreignContentTagDepth > 0) {
-      if (!isInternallyBalancedForForeignContent.isPresent()) {
-        pass.run(graph);
-        isInternallyBalancedForForeignContent = Optional.of(errorReporter.getErrors().isEmpty());
-      }
+
+            /* parentBlockType= */ null)
+        .run(htmlMatcherGraph);
+    if (node.isStrictHtml()) {
+      reporter.copyTo(this.errorReporter);
 ```
 
 ### DataFlowIssue
-Argument `graph` might be null
-in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
+Method invocation `add` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/StrictHtmlValidationPass.java`
 #### Snippet
 ```java
-    }
-    if (!isInternallyBalanced.isPresent()) {
-      pass.run(graph);
-      isInternallyBalanced = Optional.of(errorReporter.getErrors().isEmpty());
-    }
+      if (htmlMatcherGraph.getNodeAtCursor().isPresent()) {
+        HtmlMatcherGraphNode activeNode = htmlMatcherGraph.getNodeAtCursor().get();
+        activeEdgeStack.peek().add(ActiveEdge.create(activeNode, activeNode.getActiveEdgeKind()));
+      }
+      ifConditionNode.setActiveEdgeKind(EdgeKind.FALSE_EDGE);
+```
+
+### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/ElementAttributePass.java`
+#### Snippet
+```java
+              AttrParam attr = attrs.get(attrName);
+              unseenParams.remove(attr);
+              VarRefNode attrExpr = new VarRefNode("$" + attr.name(), unknown, attr);
+
+              final StandaloneNode replacementNode;
 ```
 
 ### DataFlowIssue
@@ -15368,27 +15342,27 @@ in `java/src/com/google/template/soy/passes/ElementAttributePass.java`
 ```
 
 ### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/ElementAttributePass.java`
+Argument `graph` might be null
+in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
 #### Snippet
 ```java
-              AttrParam attr = attrs.get(attrName);
-              unseenParams.remove(attr);
-              VarRefNode attrExpr = new VarRefNode("$" + attr.name(), unknown, attr);
-
-              final StandaloneNode replacementNode;
+    if (foreignContentTagDepth > 0) {
+      if (!isInternallyBalancedForForeignContent.isPresent()) {
+        pass.run(graph);
+        isInternallyBalancedForForeignContent = Optional.of(errorReporter.getErrors().isEmpty());
+      }
 ```
 
 ### DataFlowIssue
-Method invocation `getNamespace` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/TemplateImportProcessor.java`
+Argument `graph` might be null
+in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
 #### Snippet
 ```java
-    return typeRegistry.intern(
-        TemplateModuleImportType.create(
-            templatesPerFile.getNamespace(),
-            path,
-            ImmutableSet.copyOf(templatesPerFile.getConstantNames()),
+    }
+    if (!isInternallyBalanced.isPresent()) {
+      pass.run(graph);
+      isInternallyBalanced = Optional.of(errorReporter.getErrors().isEmpty());
+    }
 ```
 
 ### DataFlowIssue
@@ -15404,6 +15378,18 @@ in `java/src/com/google/template/soy/passes/TemplateImportProcessor.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getNamespace` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/TemplateImportProcessor.java`
+#### Snippet
+```java
+    return typeRegistry.intern(
+        TemplateModuleImportType.create(
+            templatesPerFile.getNamespace(),
+            path,
+            ImmutableSet.copyOf(templatesPerFile.getConstantNames()),
+```
+
+### DataFlowIssue
 Method invocation `getType` may produce `NullPointerException`
 in `java/src/com/google/template/soy/passes/CheckTemplateCallsPass.java`
 #### Snippet
@@ -15413,18 +15399,6 @@ in `java/src/com/google/template/soy/passes/CheckTemplateCallsPass.java`
           if (!SoyTypes.isKindOrUnionOfKind(dataExpr.getType(), SoyType.Kind.RECORD)
               && dataExpr.getType().getKind() != SoyType.Kind.UNKNOWN
               // We allow 'any' due to a convention in wiz components :(
-```
-
-### DataFlowIssue
-Method invocation `isRequired` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
-#### Snippet
-```java
-              // with the same name differ in either the type or isRequired.
-              Parameter param2 = nameToParamMap.get(paramName);
-              return !param.equals(param2) && (param.isRequired() || param2.isRequired());
-            })
-        .collect(Collectors.toSet());
 ```
 
 ### DataFlowIssue
@@ -15440,15 +15414,15 @@ in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `java/src/com/google/template/soy/plugin/java/internal/JavaPluginValidator.java`
+Method invocation `isRequired` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/CheckDelegatesPass.java`
 #### Snippet
 ```java
-        break;
-      case CLAZZ:
-        actualSoyType = null;
-        break;
-    }
+              // with the same name differ in either the type or isRequired.
+              Parameter param2 = nameToParamMap.get(paramName);
+              return !param.equals(param2) && (param.isRequired() || param2.isRequired());
+            })
+        .collect(Collectors.toSet());
 ```
 
 ### DataFlowIssue
@@ -15476,6 +15450,18 @@ in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `java/src/com/google/template/soy/plugin/java/internal/JavaPluginValidator.java`
+#### Snippet
+```java
+        break;
+      case CLAZZ:
+        actualSoyType = null;
+        break;
+    }
+```
+
+### DataFlowIssue
 @Nullable method 'get' always returns a non-null value
 in `java/src/com/google/template/soy/shared/SoyCssRenamingMap.java`
 #### Snippet
@@ -15485,6 +15471,66 @@ in `java/src/com/google/template/soy/shared/SoyCssRenamingMap.java`
         @Nullable
         @Override
         public String get(String key) {
+```
+
+### DataFlowIssue
+Method invocation `getFieldNames` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+#### Snippet
+```java
+      // TODO(user): Consider writing a soyProtoTypeImpl.getRequiredFields()
+      Set<String> givenParams = new HashSet<>();
+      ImmutableSet<String> fields = protoType.getFieldNames();
+
+      boolean hasAliasedParams = false;
+```
+
+### DataFlowIssue
+Method invocation `getKind` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+#### Snippet
+```java
+
+        // Same for List<?>, for repeated fields
+        if (fieldType.getKind() == Kind.LIST && argType.getKind() == Kind.LIST) {
+          SoyType argElementType = ((ListType) argType).getElementType();
+          if (argElementType == null || argElementType.equals(UnknownType.getInstance())) {
+```
+
+### DataFlowIssue
+Casting `argType` to `ListType` may produce `ClassCastException`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+#### Snippet
+```java
+        // Same for List<?>, for repeated fields
+        if (fieldType.getKind() == Kind.LIST && argType.getKind() == Kind.LIST) {
+          SoyType argElementType = ((ListType) argType).getElementType();
+          if (argElementType == null || argElementType.equals(UnknownType.getInstance())) {
+            continue;
+```
+
+### DataFlowIssue
+Method invocation `nameLocation` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+#### Snippet
+```java
+              node.getName().location(),
+              VE_CONFLICTS_WITH_TYPE,
+              importIndex.get(node.getName().identifier()).nameLocation().getBeginLine());
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `getBeginLine` may produce `NullPointerException`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+#### Snippet
+```java
+              node.getName().location(),
+              VE_CONFLICTS_WITH_TYPE,
+              importIndex.get(node.getName().identifier()).nameLocation().getBeginLine());
+        }
+
 ```
 
 ### DataFlowIssue
@@ -15536,66 +15582,6 @@ in `java/src/com/google/template/soy/shared/internal/SharedRuntime.java`
 ```
 
 ### DataFlowIssue
-Method invocation `nameLocation` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-              node.getName().location(),
-              VE_CONFLICTS_WITH_TYPE,
-              importIndex.get(node.getName().identifier()).nameLocation().getBeginLine());
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `getBeginLine` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-              node.getName().location(),
-              VE_CONFLICTS_WITH_TYPE,
-              importIndex.get(node.getName().identifier()).nameLocation().getBeginLine());
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `getFieldNames` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-      // TODO(user): Consider writing a soyProtoTypeImpl.getRequiredFields()
-      Set<String> givenParams = new HashSet<>();
-      ImmutableSet<String> fields = protoType.getFieldNames();
-
-      boolean hasAliasedParams = false;
-```
-
-### DataFlowIssue
-Method invocation `getKind` may produce `NullPointerException`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-
-        // Same for List<?>, for repeated fields
-        if (fieldType.getKind() == Kind.LIST && argType.getKind() == Kind.LIST) {
-          SoyType argElementType = ((ListType) argType).getElementType();
-          if (argElementType == null || argElementType.equals(UnknownType.getInstance())) {
-```
-
-### DataFlowIssue
-Casting `argType` to `ListType` may produce `ClassCastException`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
-#### Snippet
-```java
-        // Same for List<?>, for repeated fields
-        if (fieldType.getKind() == Kind.LIST && argType.getKind() == Kind.LIST) {
-          SoyType argElementType = ((ListType) argType).getElementType();
-          if (argElementType == null || argElementType.equals(UnknownType.getInstance())) {
-            continue;
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java`
 #### Snippet
@@ -15612,11 +15598,47 @@ Method invocation `matcher` may produce `NullPointerException`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
+   */
+  public static String filterNormalizeUri(String value) {
+    if (EscapingConventions.FilterNormalizeUri.INSTANCE.getValueFilter().matcher(value).find()) {
+      return EscapingConventions.FilterNormalizeUri.INSTANCE.escape(value);
+    }
+```
+
+### DataFlowIssue
+Method invocation `matcher` may produce `NullPointerException`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
 
   public static String filterCspNonceValue(String value) {
     if (EscapingConventions.FilterCspNonceValue.INSTANCE.getValueFilter().matcher(value).find()) {
       return value;
     }
+```
+
+### DataFlowIssue
+Method invocation `matcher` may produce `NullPointerException`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+   */
+  public static String filterHtmlAttributes(String value) {
+    if (EscapingConventions.FilterHtmlAttributes.INSTANCE.getValueFilter().matcher(value).find()) {
+      return value;
+    }
+```
+
+### DataFlowIssue
+Method invocation `matcher` may produce `NullPointerException`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Makes sure that the given input is a tel URI. */
+  public static SanitizedContent filterTelUri(String value) {
+    if (EscapingConventions.FilterTelUri.INSTANCE.getValueFilter().matcher(value).find()) {
+      // NOTE: No need to escape. Escaping for other contexts (e.g. HTML) happen after this.
+      return UnsafeSanitizedContentOrdainer.ordainAsSafe(value, ContentKind.URI);
 ```
 
 ### DataFlowIssue
@@ -15673,20 +15695,8 @@ in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
    */
-  public static String filterNormalizeUri(String value) {
-    if (EscapingConventions.FilterNormalizeUri.INSTANCE.getValueFilter().matcher(value).find()) {
-      return EscapingConventions.FilterNormalizeUri.INSTANCE.escape(value);
-    }
-```
-
-### DataFlowIssue
-Method invocation `matcher` may produce `NullPointerException`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-   */
-  public static String filterHtmlAttributes(String value) {
-    if (EscapingConventions.FilterHtmlAttributes.INSTANCE.getValueFilter().matcher(value).find()) {
+  public static String filterCssValue(String value) {
+    if (EscapingConventions.FilterCssValue.INSTANCE.getValueFilter().matcher(value).find()) {
       return value;
     }
 ```
@@ -15713,42 +15723,6 @@ in `java/src/com/google/template/soy/soytree/ForNode.java`
             ((ForNonemptyNode) getChild(0)).getIndexVar().refName(),
             expr.toSourceString());
   }
-```
-
-### DataFlowIssue
-Method invocation `matcher` may produce `NullPointerException`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-  /** Makes sure that the given input is a tel URI. */
-  public static SanitizedContent filterTelUri(String value) {
-    if (EscapingConventions.FilterTelUri.INSTANCE.getValueFilter().matcher(value).find()) {
-      // NOTE: No need to escape. Escaping for other contexts (e.g. HTML) happen after this.
-      return UnsafeSanitizedContentOrdainer.ordainAsSafe(value, ContentKind.URI);
-```
-
-### DataFlowIssue
-Method invocation `matcher` may produce `NullPointerException`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-   */
-  public static String filterCssValue(String value) {
-    if (EscapingConventions.FilterCssValue.INSTANCE.getValueFilter().matcher(value).find()) {
-      return value;
-    }
-```
-
-### DataFlowIssue
-Method invocation `asAttributeValue` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/LetContentNode.java`
-#### Snippet
-```java
-            Identifier.create("kind", SourceLocation.UNKNOWN),
-            QuoteStyle.DOUBLE,
-            contentKind.asAttributeValue(),
-            SourceLocation.UNKNOWN,
-            SourceLocation.UNKNOWN);
 ```
 
 ### DataFlowIssue
@@ -15788,6 +15762,30 @@ in `java/src/com/google/template/soy/logging/VeMetadataGenerator.java`
 ```
 
 ### DataFlowIssue
+Method invocation `asAttributeValue` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/LetContentNode.java`
+#### Snippet
+```java
+            Identifier.create("kind", SourceLocation.UNKNOWN),
+            QuoteStyle.DOUBLE,
+            contentKind.asAttributeValue(),
+            SourceLocation.UNKNOWN,
+            SourceLocation.UNKNOWN);
+```
+
+### DataFlowIssue
+Dereference of `templateKind` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/TemplateMetadataSerializer.java`
+#### Snippet
+```java
+    String templateName;
+    String variant = templateProto.getDelTemplateVariant();
+    switch (templateKind) {
+      case ELEMENT:
+      case BASIC:
+```
+
+### DataFlowIssue
 Method invocation `hashCode` may produce `NullPointerException`
 in `java/src/com/google/template/soy/soytree/TagName.java`
 #### Snippet
@@ -15812,18 +15810,6 @@ in `java/src/com/google/template/soy/soytree/TagName.java`
 ```
 
 ### DataFlowIssue
-Dereference of `templateKind` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/TemplateMetadataSerializer.java`
-#### Snippet
-```java
-    String templateName;
-    String variant = templateProto.getDelTemplateVariant();
-    switch (templateKind) {
-      case ELEMENT:
-      case BASIC:
-```
-
-### DataFlowIssue
 Method invocation `name` may produce `NullPointerException`
 in `java/src/com/google/template/soy/soytree/ForNonemptyNode.java`
 #### Snippet
@@ -15833,30 +15819,6 @@ in `java/src/com/google/template/soy/soytree/ForNonemptyNode.java`
     return indexVar.name();
   }
 
-```
-
-### DataFlowIssue
-Method invocation `substring` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
-#### Snippet
-```java
-        return templateLiteralNode
-            .getResolvedName()
-            .substring(0, templateLiteralNode.getResolvedName().lastIndexOf("."));
-      }
-    }
-```
-
-### DataFlowIssue
-Method invocation `getRoot` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
-#### Snippet
-```java
-   */
-  private String resolveVariantExpression() {
-    variantString = TemplateNode.variantExprToString(getVariantExpr().getRoot());
-    return variantString;
-  }
 ```
 
 ### DataFlowIssue
@@ -15872,6 +15834,30 @@ in `java/src/com/google/template/soy/soytree/MsgHtmlTagNode.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getRoot` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
+#### Snippet
+```java
+   */
+  private String resolveVariantExpression() {
+    variantString = TemplateNode.variantExprToString(getVariantExpr().getRoot());
+    return variantString;
+  }
+```
+
+### DataFlowIssue
+Method invocation `substring` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
+#### Snippet
+```java
+        return templateLiteralNode
+            .getResolvedName()
+            .substring(0, templateLiteralNode.getResolvedName().lastIndexOf("."));
+      }
+    }
+```
+
+### DataFlowIssue
 Method invocation `getNamespace` may produce `NullPointerException`
 in `java/src/com/google/template/soy/soytree/PartialFileSetMetadata.java`
 #### Snippet
@@ -15881,18 +15867,6 @@ in `java/src/com/google/template/soy/soytree/PartialFileSetMetadata.java`
     return getPartialFile(path).getNamespace();
   }
 }
-```
-
-### DataFlowIssue
-Argument `SoyFileHeaderInfo.EMPTY.getNamespace()` might be null
-in `java/src/com/google/template/soy/soytree/NamespaceDeclaration.java`
-#### Snippet
-```java
-  public static final NamespaceDeclaration EMPTY =
-      new NamespaceDeclaration(
-          Identifier.create(SoyFileHeaderInfo.EMPTY.getNamespace(), UNKNOWN),
-          ImmutableList.of(),
-          null,
 ```
 
 ### DataFlowIssue
@@ -15920,6 +15894,18 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 ```
 
 ### DataFlowIssue
+Argument `SoyFileHeaderInfo.EMPTY.getNamespace()` might be null
+in `java/src/com/google/template/soy/soytree/NamespaceDeclaration.java`
+#### Snippet
+```java
+  public static final NamespaceDeclaration EMPTY =
+      new NamespaceDeclaration(
+          Identifier.create(SoyFileHeaderInfo.EMPTY.getNamespace(), UNKNOWN),
+          ImmutableList.of(),
+          null,
+```
+
+### DataFlowIssue
 Method invocation `getSourceLocation` may produce `NullPointerException`
 in `java/src/com/google/template/soy/soytree/MsgSubstUnitPlaceholderNameUtils.java`
 #### Snippet
@@ -15941,6 +15927,150 @@ in `java/src/com/google/template/soy/soytree/TemplateMetadata.java`
       TemplateDelegateNode deltemplate = (TemplateDelegateNode) template;
       builder.setDelTemplateName(deltemplate.getDelTemplateName());
       builder.setDelTemplateVariant(deltemplate.getDelTemplateVariant());
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+    checkAsExpr(reporter);
+    // Return the first expr to avoid an NPE in CallNode ctor.
+    return valueExprList.get(0);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+  void checkAsExpr(ErrorReporter reporter) {
+    checkState(value == null);
+    if (valueExprList.size() != 1) {
+      SourceLocation loc =
+          valueExprList.isEmpty() ? getSourceLocation() : valueExprList.get(1).getSourceLocation();
+```
+
+### DataFlowIssue
+Method invocation `stream` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+          key,
+          quoteStyle,
+          valueExprList.stream()
+              .map(expr -> expr.getRoot().copy(copyState))
+              .collect(toImmutableList()),
+```
+
+### DataFlowIssue
+Argument `valueExprList` might be null
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+    String valueStr =
+        quoteStyle.getQuoteChar()
+            + ((value != null) ? value : SoyTreeUtils.toSourceString(valueExprList))
+            + quoteStyle.getQuoteChar();
+    return key.identifier() + "=" + valueStr;
+```
+
+### DataFlowIssue
+Argument `value` might be null
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+
+    try {
+      return OptionalLong.of(Long.parseLong(value));
+    } catch (NumberFormatException e) {
+      errorReporter.report(valueLocation, INVALID_ATTRIBUTE, key.identifier(), "a number");
+```
+
+### DataFlowIssue
+Argument `value` might be null
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+    checkState(valueExprList == null);
+
+    return ImmutableList.copyOf(SPLITTER.split(value));
+  }
+
+```
+
+### DataFlowIssue
+Argument `valueExprList` might be null
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+            ? BaseUtils.escapeToWrappedSoyString(value, false, quoteStyle)
+            : quoteStyle.getQuoteChar()
+                + SoyTreeUtils.toSourceString(valueExprList)
+                + quoteStyle.getQuoteChar();
+    return key.identifier() + "=" + valueStr;
+```
+
+### DataFlowIssue
+Argument `value` might be null
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+    checkState(valueExprList == null);
+
+    Iterable<String> namespaces = SPLITTER.split(value);
+    boolean hasError = false;
+    for (String namespace : namespaces) {
+```
+
+### DataFlowIssue
+Argument `value` might be null
+in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
+#### Snippet
+```java
+
+    try {
+      return OptionalInt.of(Integer.parseInt(value));
+    } catch (NumberFormatException e) {
+      errorReporter.report(valueLocation, INVALID_ATTRIBUTE, key.identifier(), "a number");
+```
+
+### DataFlowIssue
+Method invocation `copy` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
+#### Snippet
+```java
+    this.isExplicitlyOptional = old.isExplicitlyOptional;
+    this.desc = old.desc;
+    this.initialValue = old.initialValue.copy(copyState);
+    this.sourceLocation = old.sourceLocation;
+    copyState.updateRefs(old.initialValue, this.initialValue);
+```
+
+### DataFlowIssue
+Argument `value` might be null
+in `java/src/com/google/template/soy/testing/AbstractSoyPrintDirectiveTestCase.java`
+#### Snippet
+```java
+      SoyJavaPrintDirective directive,
+      Object... args) {
+    assertTofuOutput(StringData.forValue(expectedOutput), value, directive, args);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `isSingleLine` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/defn/ImportedVar.java`
+#### Snippet
+```java
+  public SourceLocation symbolLocation() {
+    SourceLocation full = nameLocation();
+    if (isAliased() && full.isSingleLine()) {
+      return full.substring(0, symbol.length());
+    } else {
 ```
 
 ### DataFlowIssue
@@ -15992,150 +16122,6 @@ in `java/src/com/google/template/soy/soytree/RawTextNode.java`
 ```
 
 ### DataFlowIssue
-Argument `value` might be null
-in `java/src/com/google/template/soy/testing/AbstractSoyPrintDirectiveTestCase.java`
-#### Snippet
-```java
-      SoyJavaPrintDirective directive,
-      Object... args) {
-    assertTofuOutput(StringData.forValue(expectedOutput), value, directive, args);
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `copy` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
-#### Snippet
-```java
-    this.isExplicitlyOptional = old.isExplicitlyOptional;
-    this.desc = old.desc;
-    this.initialValue = old.initialValue.copy(copyState);
-    this.sourceLocation = old.sourceLocation;
-    copyState.updateRefs(old.initialValue, this.initialValue);
-```
-
-### DataFlowIssue
-Method invocation `isSingleLine` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/defn/ImportedVar.java`
-#### Snippet
-```java
-  public SourceLocation symbolLocation() {
-    SourceLocation full = nameLocation();
-    if (isAliased() && full.isSingleLine()) {
-      return full.substring(0, symbol.length());
-    } else {
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-    checkAsExpr(reporter);
-    // Return the first expr to avoid an NPE in CallNode ctor.
-    return valueExprList.get(0);
-  }
-
-```
-
-### DataFlowIssue
-Argument `value` might be null
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-    checkState(valueExprList == null);
-
-    return ImmutableList.copyOf(SPLITTER.split(value));
-  }
-
-```
-
-### DataFlowIssue
-Argument `valueExprList` might be null
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-            ? BaseUtils.escapeToWrappedSoyString(value, false, quoteStyle)
-            : quoteStyle.getQuoteChar()
-                + SoyTreeUtils.toSourceString(valueExprList)
-                + quoteStyle.getQuoteChar();
-    return key.identifier() + "=" + valueStr;
-```
-
-### DataFlowIssue
-Argument `value` might be null
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-
-    try {
-      return OptionalInt.of(Integer.parseInt(value));
-    } catch (NumberFormatException e) {
-      errorReporter.report(valueLocation, INVALID_ATTRIBUTE, key.identifier(), "a number");
-```
-
-### DataFlowIssue
-Argument `value` might be null
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-    checkState(valueExprList == null);
-
-    Iterable<String> namespaces = SPLITTER.split(value);
-    boolean hasError = false;
-    for (String namespace : namespaces) {
-```
-
-### DataFlowIssue
-Argument `valueExprList` might be null
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-    String valueStr =
-        quoteStyle.getQuoteChar()
-            + ((value != null) ? value : SoyTreeUtils.toSourceString(valueExprList))
-            + quoteStyle.getQuoteChar();
-    return key.identifier() + "=" + valueStr;
-```
-
-### DataFlowIssue
-Argument `value` might be null
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-
-    try {
-      return OptionalLong.of(Long.parseLong(value));
-    } catch (NumberFormatException e) {
-      errorReporter.report(valueLocation, INVALID_ATTRIBUTE, key.identifier(), "a number");
-```
-
-### DataFlowIssue
-Method invocation `size` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-  void checkAsExpr(ErrorReporter reporter) {
-    checkState(value == null);
-    if (valueExprList.size() != 1) {
-      SourceLocation loc =
-          valueExprList.isEmpty() ? getSourceLocation() : valueExprList.get(1).getSourceLocation();
-```
-
-### DataFlowIssue
-Method invocation `stream` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/CommandTagAttribute.java`
-#### Snippet
-```java
-          key,
-          quoteStyle,
-          valueExprList.stream()
-              .map(expr -> expr.getRoot().copy(copyState))
-              .collect(toImmutableList()),
-```
-
-### DataFlowIssue
 Method invocation `toSourceString` may produce `NullPointerException`
 in `java/src/com/google/template/soy/exprtree/ListComprehensionNode.java`
 #### Snippet
@@ -16172,54 +16158,6 @@ in `java/src/com/google/template/soy/exprtree/NullSafeAccessNode.java`
 ```
 
 ### DataFlowIssue
-Method invocation `hashCode` may produce `NullPointerException`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-        @Override
-        protected Integer visitTemplateLiteralNode(TemplateLiteralNode node) {
-          return node.getResolvedName().hashCode();
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-    protected Boolean visitVeLiteralNode(VeLiteralNode node) {
-      VeLiteralNode otherNode = (VeLiteralNode) other;
-      return node.getId().equals(otherNode.getId())
-          && node.getName().equals(otherNode.getName())
-          && node.getType().toString().equals(otherNode.getType().toString());
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
-#### Snippet
-```java
-    protected Boolean visitTemplateLiteralNode(TemplateLiteralNode node) {
-      TemplateLiteralNode otherNode = (TemplateLiteralNode) other;
-      return node.getResolvedName().equals(otherNode.getResolvedName());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `java/src/com/google/template/soy/soytree/Metadata.java`
-#### Snippet
-```java
-                  e ->
-                      ExternImpl.of(
-                          e.getName(),
-                          (FunctionType)
-                              TemplateMetadataSerializer.fromProto(
-```
-
-### DataFlowIssue
 Method invocation `equals` may produce `NullPointerException`
 in `java/src/com/google/template/soy/soytree/Metadata.java`
 #### Snippet
@@ -16236,35 +16174,23 @@ Method invocation `getName` may produce `NullPointerException`
 in `java/src/com/google/template/soy/soytree/Metadata.java`
 #### Snippet
 ```java
+                  e ->
+                      ExternImpl.of(
+                          e.getName(),
+                          (FunctionType)
+                              TemplateMetadataSerializer.fromProto(
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `java/src/com/google/template/soy/soytree/Metadata.java`
+#### Snippet
+```java
                   c ->
                       ConstantImpl.of(
                           c.getName(),
                           TemplateMetadataSerializer.fromProto(
                               c.getType(),
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `java/src/com/google/template/soy/internal/base/UnescapeUtils.java`
-#### Snippet
-```java
-      int cp = -1;
-      if (end == -1) {
-        cp = -1;
-      } else {
-        if (s.charAt(amp + 1) == '#') { // Decode a numeric entity
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `java/src/com/google/template/soy/internal/base/UnescapeUtils.java`
-#### Snippet
-```java
-            }
-          } catch (NumberFormatException ex) {
-            cp = -1; // Malformed numeric entity
-          }
-        } else {
 ```
 
 ### DataFlowIssue
@@ -16292,6 +16218,42 @@ in `java/src/com/google/template/soy/internal/proto/FieldVisitor.java`
 ```
 
 ### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+    protected Boolean visitVeLiteralNode(VeLiteralNode node) {
+      VeLiteralNode otherNode = (VeLiteralNode) other;
+      return node.getId().equals(otherNode.getId())
+          && node.getName().equals(otherNode.getName())
+          && node.getType().toString().equals(otherNode.getType().toString());
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+    protected Boolean visitTemplateLiteralNode(TemplateLiteralNode node) {
+      TemplateLiteralNode otherNode = (TemplateLiteralNode) other;
+      return node.getResolvedName().equals(otherNode.getResolvedName());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `hashCode` may produce `NullPointerException`
+in `java/src/com/google/template/soy/exprtree/ExprEquivalence.java`
+#### Snippet
+```java
+        @Override
+        protected Integer visitTemplateLiteralNode(TemplateLiteralNode node) {
+          return node.getResolvedName().hashCode();
+        }
+
+```
+
+### DataFlowIssue
 Method invocation `getPrecedence` may produce `NullPointerException`
 in `java/src/com/google/template/soy/exprtree/Operator.java`
 #### Snippet
@@ -16316,6 +16278,30 @@ in `java/src/com/google/template/soy/soytree/TemplateNode.java`
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `java/src/com/google/template/soy/internal/base/UnescapeUtils.java`
+#### Snippet
+```java
+      int cp = -1;
+      if (end == -1) {
+        cp = -1;
+      } else {
+        if (s.charAt(amp + 1) == '#') { // Decode a numeric entity
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `java/src/com/google/template/soy/internal/base/UnescapeUtils.java`
+#### Snippet
+```java
+            }
+          } catch (NumberFormatException ex) {
+            cp = -1; // Malformed numeric entity
+          }
+        } else {
+```
+
+### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/SoyAutoescapeException.java`
 #### Snippet
@@ -16328,18 +16314,6 @@ in `java/src/com/google/template/soy/parsepasses/contextautoesc/SoyAutoescapeExc
 ```
 
 ### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/Rewriter.java`
-#### Snippet
-```java
-              (templateLiteral) ->
-                  !templateLiteral.isStaticCall()
-                      && templateLiteral.getResolvedName().equals(template.getTemplateName()))) {
-        // If a template is passed around into other templates, we cannot be sure of the trusted
-        // content kind.
-```
-
-### DataFlowIssue
 Argument `printDirectives.get(escapingMode.directiveName)` might be null
 in `java/src/com/google/template/soy/parsepasses/contextautoesc/Rewriter.java`
 #### Snippet
@@ -16349,6 +16323,18 @@ in `java/src/com/google/template/soy/parsepasses/contextautoesc/Rewriter.java`
         escapingDirectiveNames.add(printDirectives.get(escapingMode.directiveName));
       }
       return escapingDirectiveNames.build();
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/Rewriter.java`
+#### Snippet
+```java
+              (templateLiteral) ->
+                  !templateLiteral.isStaticCall()
+                      && templateLiteral.getResolvedName().equals(template.getTemplateName()))) {
+        // If a template is passed around into other templates, we cannot be sure of the trusted
+        // content kind.
 ```
 
 ### DataFlowIssue
@@ -16388,18 +16374,6 @@ in `java/src/com/google/template/soy/sharedpasses/render/Environment.java`
 ```
 
 ### DataFlowIssue
-Method invocation `coerceToString` may produce `NullPointerException`
-in `java/src/com/google/template/soy/sharedpasses/render/TofuJavaValue.java`
-#### Snippet
-```java
-  public JavaValue coerceToSoyString() {
-    return TofuJavaValue.forSoyValue(
-        StringData.forValue(soyValue.coerceToString()), sourceLocation);
-  }
-
-```
-
-### DataFlowIssue
 Method invocation `getClass` may produce `NullPointerException`
 in `java/src/com/google/template/soy/sharedpasses/render/TofuJavaValue.java`
 #### Snippet
@@ -16419,6 +16393,18 @@ in `java/src/com/google/template/soy/sharedpasses/render/TofuJavaValue.java`
   public JavaValue coerceToSoyBoolean() {
     return TofuJavaValue.forSoyValue(
         BooleanData.forValue(soyValue.coerceToBoolean()), sourceLocation);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `coerceToString` may produce `NullPointerException`
+in `java/src/com/google/template/soy/sharedpasses/render/TofuJavaValue.java`
+#### Snippet
+```java
+  public JavaValue coerceToSoyString() {
+    return TofuJavaValue.forSoyValue(
+        StringData.forValue(soyValue.coerceToString()), sourceLocation);
   }
 
 ```
@@ -16484,18 +16470,6 @@ in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
 ```
 
 ### DataFlowIssue
-Casting `listValue` to `SoyList` may produce `ClassCastException`
-in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
-#### Snippet
-```java
-          listValue instanceof SoyList, listValue, OptionalInt.empty());
-
-      List<? extends SoyValueProvider> list = ((SoyList) listValue).asJavaList();
-      return constructMapFromList(list);
-    } catch (IllegalArgumentException e) {
-```
-
-### DataFlowIssue
 Argument `((TemplateParam) node.getDefnDecl()).defaultValue()` might be null
 in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
 #### Snippet
@@ -16508,6 +16482,18 @@ in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
 ```
 
 ### DataFlowIssue
+Casting `listValue` to `SoyList` may produce `ClassCastException`
+in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
+#### Snippet
+```java
+          listValue instanceof SoyList, listValue, OptionalInt.empty());
+
+      List<? extends SoyValueProvider> list = ((SoyList) listValue).asJavaList();
+      return constructMapFromList(list);
+    } catch (IllegalArgumentException e) {
+```
+
+### DataFlowIssue
 Unboxing of `isNonConst.get(headerVar)` may produce `NullPointerException`
 in `java/src/com/google/template/soy/incrementaldomsrc/GenIncrementalDomCodeVisitor.java`
 #### Snippet
@@ -16517,18 +16503,6 @@ in `java/src/com/google/template/soy/incrementaldomsrc/GenIncrementalDomCodeVisi
       if (isNonConst.get(headerVar)) {
         stateReassignmentBuilder.add(
             Statement.assign(
-```
-
-### DataFlowIssue
-Argument `contentKind.peek()` might be null
-in `java/src/com/google/template/soy/incrementaldomsrc/GenIncrementalDomTemplateBodyVisitor.java`
-#### Snippet
-```java
-  @Override
-  protected Statement visitIfNode(IfNode node) {
-    if (!isTextContent(contentKind.peek())) {
-      return super.generateNonExpressionIfNode(node);
-    } else {
 ```
 
 ### DataFlowIssue
@@ -16553,6 +16527,499 @@ in `java/src/com/google/template/soy/incrementaldomsrc/GenIncrementalDomTemplate
         checkState(contentKind.peek().isHtml(), "unexpected contentKind: %s", contentKind);
       }
     }
+```
+
+### DataFlowIssue
+Argument `contentKind.peek()` might be null
+in `java/src/com/google/template/soy/incrementaldomsrc/GenIncrementalDomTemplateBodyVisitor.java`
+#### Snippet
+```java
+  @Override
+  protected Statement visitIfNode(IfNode node) {
+    if (!isTextContent(contentKind.peek())) {
+      return super.generateNonExpressionIfNode(node);
+    } else {
+```
+
+## RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'SoyEasyList' is still used
+in `java/src/com/google/template/soy/data/SoyEasyList.java`
+#### Snippet
+```java
+@Deprecated
+@ParametersAreNonnullByDefault
+public interface SoyEasyList extends SoyList, SoyLegacyObjectMap {
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'EasyListImpl' is still used
+in `java/src/com/google/template/soy/data/internal/EasyListImpl.java`
+#### Snippet
+```java
+@ParametersAreNonnullByDefault
+@Deprecated
+public final class EasyListImpl extends ListBackedList implements SoyEasyList {
+
+  /** Whether this instance is still mutable (immutability cannot be undone, of course). */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'createFromExistingData' is still used
+in `java/src/com/google/template/soy/data/restricted/CollectionData.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  protected static SoyValue createFromExistingData(Object obj) {
+    if (obj instanceof SoyValue) {
+      return (SoyValue) obj;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SoyLibraryAssistedJsSrcFunction' is still used
+in `java/src/com/google/template/soy/jssrc/restricted/SoyLibraryAssistedJsSrcFunction.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface SoyLibraryAssistedJsSrcFunction extends SoyJsSrcFunction {
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'maybeWrapAsSanitizedContent' is still used
+in `java/src/com/google/template/soy/jssrc/restricted/JsExprUtils.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static JsExpr maybeWrapAsSanitizedContent(ContentKind contentKind, JsExpr jsExpr) {
+    if (contentKind == ContentKind.TEXT) {
+      return jsExpr;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SoyJsSrcFunction' is still used
+in `java/src/com/google/template/soy/jssrc/restricted/SoyJsSrcFunction.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface SoyJsSrcFunction extends SoyFunction {
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SoyMapData' is still used
+in `java/src/com/google/template/soy/data/SoyMapData.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class SoyMapData extends CollectionData implements SoyDict, SoyMap {
+
+  /** Underlying map. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SoyPySrcFunction' is still used
+in `java/src/com/google/template/soy/pysrc/restricted/SoyPySrcFunction.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface SoyPySrcFunction extends SoyFunction {
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SoyListData' is still used
+in `java/src/com/google/template/soy/data/SoyListData.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class SoyListData extends CollectionData implements Iterable<SoyValue>, SoyList {
+  /** The underlying list. */
+  private final List<SoyValue> list;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'extractMsgs' is still used
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SoyMsgBundle extractMsgs() {
+    return entryPoint(this::doExtractMsgs);
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'compileToTofu' is still used
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SoyTofu compileToTofu() {
+    return compileToTofu(ImmutableMap.of());
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'renderTemplate' is still used
+in `java/src/com/google/template/soy/jbcsrc/api/SoySauce.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  Renderer renderTemplate(String template);
+
+  default Renderer renderTemplate(TemplateName template) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'TypedSoyFunction' is still used
+in `java/src/com/google/template/soy/shared/restricted/TypedSoyFunction.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public abstract class TypedSoyFunction implements SoyFunction {
+
+  @Override
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoForRangeSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoForRangeSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_CALL_WITH_PARAM_BLOCK' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoCallWithParamBlockSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoCallWithParamBlockSoyTemplateInfo DEMO_CALL_WITH_PARAM_BLOCK =
+      DemoCallWithParamBlockSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_RAW_TEXT_COMMANDS' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoRawTextCommandsSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoRawTextCommandsSoyTemplateInfo DEMO_RAW_TEXT_COMMANDS =
+      DemoRawTextCommandsSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_FOR' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoForSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoForSoyTemplateInfo DEMO_FOR =
+      DemoForSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_BIDI_SUPPORT' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoBidiSupportSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoBidiSupportSoyTemplateInfo DEMO_BIDI_SUPPORT =
+      DemoBidiSupportSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoAutoescapeTrueSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoAutoescapeTrueSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoDoubleBracesSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoDoubleBracesSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoMsgSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoMsgSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_PRINT' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoPrintSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoPrintSoyTemplateInfo DEMO_PRINT =
+      DemoPrintSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoExpressionsSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoExpressionsSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_AUTOESCAPE_TRUE' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoAutoescapeTrueSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoAutoescapeTrueSoyTemplateInfo DEMO_AUTOESCAPE_TRUE =
+      DemoAutoescapeTrueSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoBidiSupportSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoBidiSupportSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_CALL_WITH_PARAM' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoCallWithParamSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoCallWithParamSoyTemplateInfo DEMO_CALL_WITH_PARAM =
+      DemoCallWithParamSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_IF' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoIfSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoIfSoyTemplateInfo DEMO_IF =
+      DemoIfSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoCallWithParamSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoCallWithParamSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_MSG' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoMsgSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoMsgSoyTemplateInfo DEMO_MSG =
+      DemoMsgSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_LINE_JOINING' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoLineJoiningSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoLineJoiningSoyTemplateInfo DEMO_LINE_JOINING =
+      DemoLineJoiningSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_EXPRESSIONS' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoExpressionsSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoExpressionsSoyTemplateInfo DEMO_EXPRESSIONS =
+      DemoExpressionsSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoPrintSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoPrintSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoCallWithoutParamSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoCallWithoutParamSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_COMMENTS' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoCommentsSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoCommentsSoyTemplateInfo DEMO_COMMENTS =
+      DemoCommentsSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_FOR_RANGE' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoForRangeSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoForRangeSoyTemplateInfo DEMO_FOR_RANGE =
+      DemoForRangeSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_CALL_WITHOUT_PARAM' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoCallWithoutParamSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoCallWithoutParamSoyTemplateInfo DEMO_CALL_WITHOUT_PARAM =
+      DemoCallWithoutParamSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_SWITCH' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoSwitchSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoSwitchSoyTemplateInfo DEMO_SWITCH =
+      DemoSwitchSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEMO_DOUBLE_BRACES' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+  /** Same as DemoDoubleBracesSoyTemplateInfo.getInstance(). */
+  @Deprecated
+  public static final DemoDoubleBracesSoyTemplateInfo DEMO_DOUBLE_BRACES =
+      DemoDoubleBracesSoyTemplateInfo.getInstance();
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoCallWithParamBlockSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoCallWithParamBlockSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DemoForSoyTemplateInfo' is still used
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final class DemoForSoyTemplateInfo extends SoyTemplateInfo {
+
+    /** This template's full name. */
 ```
 
 ## RuleId[ruleID=OptionalContainsCollection]
@@ -16664,487 +17131,6 @@ in `java/src/com/google/template/soy/exprtree/FunctionNode.java`
   }
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'SoyEasyList' is still used
-in `java/src/com/google/template/soy/data/SoyEasyList.java`
-#### Snippet
-```java
-@Deprecated
-@ParametersAreNonnullByDefault
-public interface SoyEasyList extends SoyList, SoyLegacyObjectMap {
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'EasyListImpl' is still used
-in `java/src/com/google/template/soy/data/internal/EasyListImpl.java`
-#### Snippet
-```java
-@ParametersAreNonnullByDefault
-@Deprecated
-public final class EasyListImpl extends ListBackedList implements SoyEasyList {
-
-  /** Whether this instance is still mutable (immutability cannot be undone, of course). */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'createFromExistingData' is still used
-in `java/src/com/google/template/soy/data/restricted/CollectionData.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  protected static SoyValue createFromExistingData(Object obj) {
-    if (obj instanceof SoyValue) {
-      return (SoyValue) obj;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SoyMapData' is still used
-in `java/src/com/google/template/soy/data/SoyMapData.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class SoyMapData extends CollectionData implements SoyDict, SoyMap {
-
-  /** Underlying map. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SoyListData' is still used
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class SoyListData extends CollectionData implements Iterable<SoyValue>, SoyList {
-  /** The underlying list. */
-  private final List<SoyValue> list;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'extractMsgs' is still used
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SoyMsgBundle extractMsgs() {
-    return entryPoint(this::doExtractMsgs);
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'compileToTofu' is still used
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SoyTofu compileToTofu() {
-    return compileToTofu(ImmutableMap.of());
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SoyLibraryAssistedJsSrcFunction' is still used
-in `java/src/com/google/template/soy/jssrc/restricted/SoyLibraryAssistedJsSrcFunction.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface SoyLibraryAssistedJsSrcFunction extends SoyJsSrcFunction {
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'maybeWrapAsSanitizedContent' is still used
-in `java/src/com/google/template/soy/jssrc/restricted/JsExprUtils.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static JsExpr maybeWrapAsSanitizedContent(ContentKind contentKind, JsExpr jsExpr) {
-    if (contentKind == ContentKind.TEXT) {
-      return jsExpr;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SoyPySrcFunction' is still used
-in `java/src/com/google/template/soy/pysrc/restricted/SoyPySrcFunction.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface SoyPySrcFunction extends SoyFunction {
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'SoyJsSrcFunction' is still used
-in `java/src/com/google/template/soy/jssrc/restricted/SoyJsSrcFunction.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface SoyJsSrcFunction extends SoyFunction {
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'renderTemplate' is still used
-in `java/src/com/google/template/soy/jbcsrc/api/SoySauce.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  Renderer renderTemplate(String template);
-
-  default Renderer renderTemplate(TemplateName template) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'TypedSoyFunction' is still used
-in `java/src/com/google/template/soy/shared/restricted/TypedSoyFunction.java`
-#### Snippet
-```java
- */
-@Deprecated
-public abstract class TypedSoyFunction implements SoyFunction {
-
-  @Override
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_DOUBLE_BRACES' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoDoubleBracesSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoDoubleBracesSoyTemplateInfo DEMO_DOUBLE_BRACES =
-      DemoDoubleBracesSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_CALL_WITH_PARAM_BLOCK' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoCallWithParamBlockSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoCallWithParamBlockSoyTemplateInfo DEMO_CALL_WITH_PARAM_BLOCK =
-      DemoCallWithParamBlockSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_BIDI_SUPPORT' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoBidiSupportSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoBidiSupportSoyTemplateInfo DEMO_BIDI_SUPPORT =
-      DemoBidiSupportSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_MSG' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoMsgSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoMsgSoyTemplateInfo DEMO_MSG =
-      DemoMsgSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_COMMENTS' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoCommentsSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoCommentsSoyTemplateInfo DEMO_COMMENTS =
-      DemoCommentsSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_PRINT' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoPrintSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoPrintSoyTemplateInfo DEMO_PRINT =
-      DemoPrintSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoBidiSupportSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoBidiSupportSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoCallWithoutParamSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoCallWithoutParamSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoMsgSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoMsgSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoPrintSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoPrintSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_SWITCH' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoSwitchSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoSwitchSoyTemplateInfo DEMO_SWITCH =
-      DemoSwitchSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoAutoescapeTrueSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoAutoescapeTrueSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoForRangeSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoForRangeSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_EXPRESSIONS' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoExpressionsSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoExpressionsSoyTemplateInfo DEMO_EXPRESSIONS =
-      DemoExpressionsSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_CALL_WITH_PARAM' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoCallWithParamSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoCallWithParamSoyTemplateInfo DEMO_CALL_WITH_PARAM =
-      DemoCallWithParamSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoForSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoForSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_AUTOESCAPE_TRUE' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoAutoescapeTrueSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoAutoescapeTrueSoyTemplateInfo DEMO_AUTOESCAPE_TRUE =
-      DemoAutoescapeTrueSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_CALL_WITHOUT_PARAM' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoCallWithoutParamSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoCallWithoutParamSoyTemplateInfo DEMO_CALL_WITHOUT_PARAM =
-      DemoCallWithoutParamSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_LINE_JOINING' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoLineJoiningSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoLineJoiningSoyTemplateInfo DEMO_LINE_JOINING =
-      DemoLineJoiningSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_IF' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoIfSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoIfSoyTemplateInfo DEMO_IF =
-      DemoIfSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_FOR_RANGE' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoForRangeSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoForRangeSoyTemplateInfo DEMO_FOR_RANGE =
-      DemoForRangeSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoDoubleBracesSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoDoubleBracesSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_FOR' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoForSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoForSoyTemplateInfo DEMO_FOR =
-      DemoForSoyTemplateInfo.getInstance();
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoCallWithParamBlockSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoCallWithParamBlockSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoExpressionsSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoExpressionsSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DemoCallWithParamSoyTemplateInfo' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final class DemoCallWithParamSoyTemplateInfo extends SoyTemplateInfo {
-
-    /** This template's full name. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEMO_RAW_TEXT_COMMANDS' is still used
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-  /** Same as DemoRawTextCommandsSoyTemplateInfo.getInstance(). */
-  @Deprecated
-  public static final DemoRawTextCommandsSoyTemplateInfo DEMO_RAW_TEXT_COMMANDS =
-      DemoRawTextCommandsSoyTemplateInfo.getInstance();
-
-```
-
 ## RuleId[ruleID=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
@@ -17223,6 +17209,18 @@ Lambda can be replaced with method reference
 in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
 #### Snippet
 ```java
+      paramNames.addAll(
+          template.templateType().getActualParameters().stream()
+              .map(p -> p.getName())
+              .collect(toList()));
+    } else {
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
+#### Snippet
+```java
     namespaces.addAll(templateNode.getParent().getRequiredCssNamespaces());
     templateNode.getParent().getRequiredCssPaths().stream()
         .map(p -> p.getNamespace())
@@ -17240,18 +17238,6 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
         .filter(p -> p != null)
         .forEach(namespaces::add);
     namespaces.addAll(templateNode.getRequiredCssNamespaces());
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
-#### Snippet
-```java
-      paramNames.addAll(
-          template.templateType().getActualParameters().stream()
-              .map(p -> p.getName())
-              .collect(toList()));
-    } else {
 ```
 
 ### Convert2MethodRef
@@ -17322,11 +17308,11 @@ Call to 'abstract' method `getLineCommentSyntax()` during object construction
 in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscapingDirectiveCode.java`
 #### Snippet
 ```java
+  /** A line that precedes the rest of the generated code. */
+  public final String generatedCodeStartMarker =
+      getLineCommentSyntax() + " START GENERATED CODE FOR ESCAPERS.";
 
   /** A line that follows the rest of the generated code. */
-  public final String generatedCodeEndMarker = getLineCommentSyntax() + " END GENERATED CODE";
-
-  /**
 ```
 
 ### AbstractMethodCallInConstructor
@@ -17334,11 +17320,11 @@ Call to 'abstract' method `getLineCommentSyntax()` during object construction
 in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscapingDirectiveCode.java`
 #### Snippet
 ```java
-  /** A line that precedes the rest of the generated code. */
-  public final String generatedCodeStartMarker =
-      getLineCommentSyntax() + " START GENERATED CODE FOR ESCAPERS.";
 
   /** A line that follows the rest of the generated code. */
+  public final String generatedCodeEndMarker = getLineCommentSyntax() + " END GENERATED CODE";
+
+  /**
 ```
 
 ### AbstractMethodCallInConstructor
@@ -17354,18 +17340,6 @@ in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
 ```
 
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `java/src/com/google/template/soy/pysrc/internal/GenPyCodeVisitor.java`
-#### Snippet
-```java
-  private final FileSetMetadata fileSetMetadata;
-
-  @VisibleForTesting protected PyCodeBuilder pyCodeBuilder;
-
-  private final IsComputableAsPyExprVisitor isComputableAsPyExprVisitor;
-```
-
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
 in `java/src/com/google/template/soy/pysrc/internal/GenPyCodeVisitor.java`
@@ -17388,6 +17362,18 @@ in `java/src/com/google/template/soy/pysrc/internal/GenPyCodeVisitor.java`
   @VisibleForTesting protected LocalVariableStack localVarExprs;
 
   private static final SoyErrorKind DELEGATE_TEMPLATES_UNSUPPORTED =
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `java/src/com/google/template/soy/pysrc/internal/GenPyCodeVisitor.java`
+#### Snippet
+```java
+  private final FileSetMetadata fileSetMetadata;
+
+  @VisibleForTesting protected PyCodeBuilder pyCodeBuilder;
+
+  private final IsComputableAsPyExprVisitor isComputableAsPyExprVisitor;
 ```
 
 ## RuleId[ruleID=AssignmentToForLoopParameter]
@@ -17452,18 +17438,6 @@ in `java/src/com/google/template/soy/soytree/RawTextNode.java`
 ```
 
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `java/src/com/google/template/soy/incrementaldomsrc/RemoveUnnecessaryEscapingDirectives.java`
-#### Snippet
-```java
-        ImmutableList.Builder<SoyPrintDirective> builder = ImmutableList.builder();
-        builder.addAll(escapingDirectives.subList(0, i));
-        for (; i < escapingDirectives.size(); i++) {
-          directive = escapingDirectives.get(i);
-          if (!canSkip(directive)) {
-```
-
-### AssignmentToForLoopParameter
 Assignment to for-loop parameter `codePoint`
 in `java/src/com/google/template/soy/basicdirectives/BasicDirectivesRuntime.java`
 #### Snippet
@@ -17473,6 +17447,18 @@ in `java/src/com/google/template/soy/basicdirectives/BasicDirectivesRuntime.java
         codePoint = str.codePointAt(i);
         processOneCodePoint(codePoint);
       }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `java/src/com/google/template/soy/incrementaldomsrc/RemoveUnnecessaryEscapingDirectives.java`
+#### Snippet
+```java
+        ImmutableList.Builder<SoyPrintDirective> builder = ImmutableList.builder();
+        builder.addAll(escapingDirectives.subList(0, i));
+        for (; i < escapingDirectives.size(); i++) {
+          directive = escapingDirectives.get(i);
+          if (!canSkip(directive)) {
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -17639,6 +17625,54 @@ in `java/src/com/google/template/soy/javagencode/GenerateParseInfoVisitor.java`
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'srcJarTarget'
+in `java/src/com/google/template/soy/SoyToJbcSrcCompiler.java`
+#### Snippet
+```java
+   *     be useful for enabling IDE debugging scenarios.
+   */
+  public static void compile(SoyFileSet sfs, ByteSink jarTarget, Optional<ByteSink> srcJarTarget)
+      throws IOException {
+    // compileToJar disallows external calls so we don't need to enforce the external call
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'registry'
+in `java/src/com/google/template/soy/SoyFileSetParser.java`
+#### Snippet
+```java
+
+    /** The TemplateRegistry, which is guaranteed to be present if the error reporter is empty. */
+    private final Optional<FileSetMetadata> registry;
+
+    private final Optional<CssRegistry> cssRegistry;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'registry'
+in `java/src/com/google/template/soy/SoyFileSetParser.java`
+#### Snippet
+```java
+    static ParseResult create(
+        SoyFileSetNode soyTree,
+        Optional<FileSetMetadata> registry,
+        Optional<CssRegistry> cssRegistry) {
+      return new ParseResult(soyTree, registry, cssRegistry);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'cssRegistry'
+in `java/src/com/google/template/soy/SoyFileSetParser.java`
+#### Snippet
+```java
+        SoyFileSetNode soyTree,
+        Optional<FileSetMetadata> registry,
+        Optional<CssRegistry> cssRegistry) {
+      return new ParseResult(soyTree, registry, cssRegistry);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'cssRegistry'
 in `java/src/com/google/template/soy/SoyFileSetParser.java`
 #### Snippet
@@ -17675,42 +17709,6 @@ in `java/src/com/google/template/soy/SoyFileSetParser.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'registry'
-in `java/src/com/google/template/soy/SoyFileSetParser.java`
-#### Snippet
-```java
-    static ParseResult create(
-        SoyFileSetNode soyTree,
-        Optional<FileSetMetadata> registry,
-        Optional<CssRegistry> cssRegistry) {
-      return new ParseResult(soyTree, registry, cssRegistry);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cssRegistry'
-in `java/src/com/google/template/soy/SoyFileSetParser.java`
-#### Snippet
-```java
-        SoyFileSetNode soyTree,
-        Optional<FileSetMetadata> registry,
-        Optional<CssRegistry> cssRegistry) {
-      return new ParseResult(soyTree, registry, cssRegistry);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'registry'
-in `java/src/com/google/template/soy/SoyFileSetParser.java`
-#### Snippet
-```java
-
-    /** The TemplateRegistry, which is guaranteed to be present if the error reporter is empty. */
-    private final Optional<FileSetMetadata> registry;
-
-    private final Optional<CssRegistry> cssRegistry;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'cssRegistry'
 in `java/src/com/google/template/soy/SoyFileSetParser.java`
 #### Snippet
@@ -17720,18 +17718,6 @@ in `java/src/com/google/template/soy/SoyFileSetParser.java`
     private final Optional<CssRegistry> cssRegistry;
 
     static ParseResult create(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'srcJarTarget'
-in `java/src/com/google/template/soy/SoyToJbcSrcCompiler.java`
-#### Snippet
-```java
-   *     be useful for enabling IDE debugging scenarios.
-   */
-  public static void compile(SoyFileSet sfs, ByteSink jarTarget, Optional<ByteSink> srcJarTarget)
-      throws IOException {
-    // compileToJar disallows external calls so we don't need to enforce the external call
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -17795,30 +17781,6 @@ in `java/src/com/google/template/soy/jssrc/dsl/TsArrowFunction.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'expr'
-in `java/src/com/google/template/soy/jssrc/dsl/TsxPrintNode.java`
-#### Snippet
-```java
-@Immutable
-public class TsxPrintNode extends Statement {
-  private final Optional<Expression> expr;
-
-  public static TsxPrintNode create(Expression expr) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'charContents'
-in `java/src/com/google/template/soy/jssrc/dsl/TsxPrintNode.java`
-#### Snippet
-```java
-    }
-
-    private CommandChar(Optional<String> charContents, boolean endLineAfterChar) {
-      super(charContents.map(c -> StringLiteral.create(c)));
-      this.endLineAfterChar = endLineAfterChar;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'expr'
 in `java/src/com/google/template/soy/jssrc/dsl/TsxPrintNode.java`
 #### Snippet
@@ -17843,63 +17805,27 @@ in `java/src/com/google/template/soy/jssrc/dsl/TsxPrintNode.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'srcJarTarget'
-in `java/src/com/google/template/soy/SoyFileSet.java`
+`Optional` used as type for field 'expr'
+in `java/src/com/google/template/soy/jssrc/dsl/TsxPrintNode.java`
 #### Snippet
 ```java
-   * @throws SoyCompilationException If compilation fails.
-   */
-  void compileToJar(ByteSink jarTarget, Optional<ByteSink> srcJarTarget) {
-    entryPointVoid(
-        () -> {
+@Immutable
+public class TsxPrintNode extends Statement {
+  private final Optional<Expression> expr;
+
+  public static TsxPrintNode create(Expression expr) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'cssRegistry'
-in `java/src/com/google/template/soy/SoyFileSet.java`
+`Optional` used as type for parameter 'charContents'
+in `java/src/com/google/template/soy/jssrc/dsl/TsxPrintNode.java`
 #### Snippet
 ```java
-    private ImmutableList<File> pluginRuntimeJars = ImmutableList.of();
+    }
 
-    private Optional<CssRegistry> cssRegistry = Optional.empty();
-
-    private boolean skipPluginValidation = false;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cssRegistry'
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-      boolean optimize,
-      Set<SourceFilePath> generatedPathsToCheck,
-      Optional<CssRegistry> cssRegistry,
-      MethodChecker javaMethodChecker) {
-    this.scopedData = apiCallScopeProvider;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'cssRegistry'
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-  private final ValidatedLoggingConfig loggingConfig;
-  private final ImmutableList<File> pluginRuntimeJars;
-  private final Optional<CssRegistry> cssRegistry;
-
-  private final ImmutableList<SoyFunction> soyFunctions;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'resourceOutput'
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-      String generator,
-      CharSink output,
-      Optional<ByteSink> resourceOutput)
-      throws IOException {
-    new VeMetadataGenerator(
+    private CommandChar(Optional<String> charContents, boolean endLineAfterChar) {
+      super(charContents.map(c -> StringLiteral.create(c)));
+      this.endLineAfterChar = endLineAfterChar;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -17939,18 +17865,6 @@ in `java/src/com/google/template/soy/pysrc/internal/PySrcMain.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'dataType'
-in `java/src/com/google/template/soy/types/VeType.java`
-#### Snippet
-```java
-  private final Optional<String> dataType;
-
-  private VeType(Optional<String> dataType) {
-    this.dataType = dataType;
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'dataType'
 in `java/src/com/google/template/soy/types/VeType.java`
 #### Snippet
@@ -17960,6 +17874,18 @@ in `java/src/com/google/template/soy/types/VeType.java`
   private final Optional<String> dataType;
 
   private VeType(Optional<String> dataType) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'dataType'
+in `java/src/com/google/template/soy/types/VeType.java`
+#### Snippet
+```java
+  private final Optional<String> dataType;
+
+  private VeType(Optional<String> dataType) {
+    this.dataType = dataType;
+  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -17987,54 +17913,6 @@ in `java/src/com/google/template/soy/jbcsrc/DetachState.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
-#### Snippet
-```java
-    abstract Builder setTemplateMethod(MethodRef value);
-
-    abstract Builder setDefaultModTemplateMethod(Optional<MethodRef> value);
-
-    abstract Builder setTemplateType(TemplateType value);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
-#### Snippet
-```java
-    abstract Builder setPositionalRenderMethod(Optional<MethodRef> value);
-
-    abstract Builder setModifiableSelectMethod(Optional<MethodRef> value);
-
-    abstract Builder setTemplateMethod(MethodRef value);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
-#### Snippet
-```java
-    abstract Builder setRenderMethod(MethodRef value);
-
-    abstract Builder setPositionalRenderMethod(Optional<MethodRef> value);
-
-    abstract Builder setModifiableSelectMethod(Optional<MethodRef> value);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'elseBlock'
-in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
-#### Snippet
-```java
-   * if-elseif-else chain.
-   */
-  static Statement ifElseChain(final List<IfBlock> ifs, final Optional<Statement> elseBlock) {
-    checkArgument(!ifs.isEmpty());
-    return new Statement() {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`>> used as type for parameter 'explicit'
 in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
 #### Snippet
@@ -18059,6 +17937,18 @@ in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paramsRecord'
+in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
+#### Snippet
+```java
+    TemplateVariables(
+        TemplateVariableManager variableSet,
+        Optional<? extends Expression> paramsRecord,
+        Expression ijRecord,
+        RenderContextExpression renderContext) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'paramsRecord'
 in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
 #### Snippet
@@ -18071,15 +17961,111 @@ in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paramsRecord'
-in `java/src/com/google/template/soy/jbcsrc/TemplateCompiler.java`
+`Optional` used as type for parameter 'value'
+in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
 #### Snippet
 ```java
-    TemplateVariables(
-        TemplateVariableManager variableSet,
-        Optional<? extends Expression> paramsRecord,
-        Expression ijRecord,
-        RenderContextExpression renderContext) {
+    abstract Builder setRenderMethod(MethodRef value);
+
+    abstract Builder setPositionalRenderMethod(Optional<MethodRef> value);
+
+    abstract Builder setModifiableSelectMethod(Optional<MethodRef> value);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
+#### Snippet
+```java
+    abstract Builder setTemplateMethod(MethodRef value);
+
+    abstract Builder setDefaultModTemplateMethod(Optional<MethodRef> value);
+
+    abstract Builder setTemplateType(TemplateType value);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `java/src/com/google/template/soy/jbcsrc/CompiledTemplateMetadata.java`
+#### Snippet
+```java
+    abstract Builder setPositionalRenderMethod(Optional<MethodRef> value);
+
+    abstract Builder setModifiableSelectMethod(Optional<MethodRef> value);
+
+    abstract Builder setTemplateMethod(MethodRef value);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'elseBlock'
+in `java/src/com/google/template/soy/jbcsrc/ControlFlow.java`
+#### Snippet
+```java
+   * if-elseif-else chain.
+   */
+  static Statement ifElseChain(final List<IfBlock> ifs, final Optional<Statement> elseBlock) {
+    checkArgument(!ifs.isEmpty());
+    return new Statement() {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'resourceOutput'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+      String generator,
+      CharSink output,
+      Optional<ByteSink> resourceOutput)
+      throws IOException {
+    new VeMetadataGenerator(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'srcJarTarget'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+   * @throws SoyCompilationException If compilation fails.
+   */
+  void compileToJar(ByteSink jarTarget, Optional<ByteSink> srcJarTarget) {
+    entryPointVoid(
+        () -> {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'cssRegistry'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+  private final ValidatedLoggingConfig loggingConfig;
+  private final ImmutableList<File> pluginRuntimeJars;
+  private final Optional<CssRegistry> cssRegistry;
+
+  private final ImmutableList<SoyFunction> soyFunctions;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'cssRegistry'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+      boolean optimize,
+      Set<SourceFilePath> generatedPathsToCheck,
+      Optional<CssRegistry> cssRegistry,
+      MethodChecker javaMethodChecker) {
+    this.scopedData = apiCallScopeProvider;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'cssRegistry'
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+    private ImmutableList<File> pluginRuntimeJars = ImmutableList.of();
+
+    private Optional<CssRegistry> cssRegistry = Optional.empty();
+
+    private boolean skipPluginValidation = false;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18179,18 +18165,6 @@ public final class HtmlMatcherGraph {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'isInternallyBalancedForForeignContent'
-in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
-#### Snippet
-```java
-  @Nullable private HtmlMatcherGraphNode falseBranchNode = null;
-
-  private Optional<Boolean> isInternallyBalancedForForeignContent = Optional.empty();
-  private Optional<Boolean> isInternallyBalanced = Optional.empty();
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'isInternallyBalanced'
 in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
 #### Snippet
@@ -18203,15 +18177,15 @@ in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'registry'
-in `java/src/com/google/template/soy/passes/PassManager.java`
+`Optional` used as type for field 'isInternallyBalancedForForeignContent'
+in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlMatcherConditionNode.java`
 #### Snippet
 ```java
+  @Nullable private HtmlMatcherGraphNode falseBranchNode = null;
 
-    @CanIgnoreReturnValue
-    public Builder setCssRegistry(Optional<CssRegistry> registry) {
-      this.cssRegistry = registry;
-      return this;
+  private Optional<Boolean> isInternallyBalancedForForeignContent = Optional.empty();
+  private Optional<Boolean> isInternallyBalanced = Optional.empty();
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18224,6 +18198,18 @@ in `java/src/com/google/template/soy/passes/PassManager.java`
     private Optional<CssRegistry> cssRegistry = Optional.empty();
     private boolean allowUnknownGlobals;
     private boolean allowUnknownJsGlobals;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'registry'
+in `java/src/com/google/template/soy/passes/PassManager.java`
+#### Snippet
+```java
+
+    @CanIgnoreReturnValue
+    public Builder setCssRegistry(Optional<CssRegistry> registry) {
+      this.cssRegistry = registry;
+      return this;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18243,11 +18229,11 @@ in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 #### Snippet
 ```java
-  private static void maybePrintAttribute(
-      CallParamContentNode attributesNode,
-      Optional<ExprNode> conditional,
-      IdGenerator nodeIdGen,
-      HtmlAttributeNode attrNode) {
+      Map<String, AttrParam> attrs,
+      @Nullable CallParamContentNode attributesNode,
+      Optional<ExprNode> conditional) {
+    if (c.getKind() == SoyNode.Kind.HTML_ATTRIBUTE_NODE) {
+      HtmlAttributeNode attrNode = (HtmlAttributeNode) c;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18255,11 +18241,11 @@ in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
 #### Snippet
 ```java
-      Map<String, AttrParam> attrs,
-      @Nullable CallParamContentNode attributesNode,
-      Optional<ExprNode> conditional) {
-    if (c.getKind() == SoyNode.Kind.HTML_ATTRIBUTE_NODE) {
-      HtmlAttributeNode attrNode = (HtmlAttributeNode) c;
+  private static void maybePrintAttribute(
+      CallParamContentNode attributesNode,
+      Optional<ExprNode> conditional,
+      IdGenerator nodeIdGen,
+      HtmlAttributeNode attrNode) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18275,18 +18261,6 @@ in `java/src/com/google/template/soy/shared/internal/SharedRuntime.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'INVALID_NODE'
-in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java`
-#### Snippet
-```java
-  private static final String EXPECTED_TAG_NAME = "Expected an html tag name.";
-
-  private static final Optional<HtmlTagNode> INVALID_NODE = Optional.empty();
-
-  private final ErrorReporter errorReporter;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'maybeNode'
 in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java`
 #### Snippet
@@ -18299,15 +18273,15 @@ in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'resourceOutput'
-in `java/src/com/google/template/soy/logging/VeMetadataGenerator.java`
+`Optional` used as type for field 'INVALID_NODE'
+in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java`
 #### Snippet
 ```java
-        ExtensionRegistry registry,
-        CharSink output,
-        Optional<ByteSink> resourceOutput)
-        throws IOException;
+  private static final String EXPECTED_TAG_NAME = "Expected an html tag name.";
 
+  private static final Optional<HtmlTagNode> INVALID_NODE = Optional.empty();
+
+  private final ErrorReporter errorReporter;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18335,6 +18309,18 @@ in `java/src/com/google/template/soy/logging/VeMetadataGenerator.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'resourceOutput'
+in `java/src/com/google/template/soy/logging/VeMetadataGenerator.java`
+#### Snippet
+```java
+        ExtensionRegistry registry,
+        CharSink output,
+        Optional<ByteSink> resourceOutput)
+        throws IOException;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'example'
 in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 #### Snippet
@@ -18351,9 +18337,9 @@ in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 #### Snippet
 ```java
-      String userSuppliedName,
-      SourceLocation userSuppliedNameLocation,
-      Optional<String> example) {
+  }
+
+  public static MessagePlaceholder create(String name, Optional<String> example) {
     return new AutoValue_MessagePlaceholder(
         Summary.create(name, example),
 ```
@@ -18363,9 +18349,9 @@ in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 in `java/src/com/google/template/soy/soytree/MessagePlaceholder.java`
 #### Snippet
 ```java
-  }
-
-  public static MessagePlaceholder create(String name, Optional<String> example) {
+      String userSuppliedName,
+      SourceLocation userSuppliedNameLocation,
+      Optional<String> example) {
     return new AutoValue_MessagePlaceholder(
         Summary.create(name, example),
 ```
@@ -18395,18 +18381,6 @@ in `java/src/com/google/template/soy/soytree/MsgNode.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'commandChar'
-in `java/src/com/google/template/soy/soytree/RawTextNode.java`
-#### Snippet
-```java
-      int id,
-      String rawText,
-      Optional<CommandChar> commandChar,
-      SourceLocation sourceLocation,
-      @Nullable SourceOffsets offsets,
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'commandChar'
 in `java/src/com/google/template/soy/soytree/RawTextNode.java`
 #### Snippet
@@ -18416,6 +18390,18 @@ in `java/src/com/google/template/soy/soytree/RawTextNode.java`
   private final Optional<CommandChar> commandChar;
 
   /** Whether this raw text was created from the {literal} command. */
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'commandChar'
+in `java/src/com/google/template/soy/soytree/RawTextNode.java`
+#### Snippet
+```java
+      int id,
+      String rawText,
+      Optional<CommandChar> commandChar,
+      SourceLocation sourceLocation,
+      @Nullable SourceOffsets offsets,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18443,18 +18429,6 @@ public final class ListLiteralNode extends AbstractParentExprNode {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'onPass'
-in `java/src/com/google/template/soy/sharedpasses/render/TofuTypeChecks.java`
-#### Snippet
-```java
-
-    final boolean result;
-    final Optional<Runnable> onPass;
-
-    CheckResult(boolean result, Optional<Runnable> onPass) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'onPass'
 in `java/src/com/google/template/soy/sharedpasses/render/TofuTypeChecks.java`
 #### Snippet
@@ -18464,6 +18438,18 @@ in `java/src/com/google/template/soy/sharedpasses/render/TofuTypeChecks.java`
     CheckResult(boolean result, Optional<Runnable> onPass) {
       this.result = result;
       this.onPass = checkNotNull(onPass);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'onPass'
+in `java/src/com/google/template/soy/sharedpasses/render/TofuTypeChecks.java`
+#### Snippet
+```java
+
+    final boolean result;
+    final Optional<Runnable> onPass;
+
+    CheckResult(boolean result, Optional<Runnable> onPass) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -18520,9 +18506,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-            val = directive.apply(val);
-          }
-          System.out.append(val);
+        @Override
+        protected final void doAppend(CharSequence csq) throws IOException {
+          System.out.append(csq);
         }
 
 ```
@@ -18544,9 +18530,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-        @Override
-        protected final void doAppend(char c) throws IOException {
-          System.out.append(c);
+            val = directive.apply(val);
+          }
+          System.out.append(val);
         }
 
 ```
@@ -18557,8 +18543,8 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
         @Override
-        protected final void doAppend(CharSequence csq) throws IOException {
-          System.out.append(csq);
+        protected final void doAppend(char c) throws IOException {
+          System.out.append(c);
         }
 
 ```
@@ -18585,6 +18571,30 @@ in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscaping
         System.err.println("Failed to read " + input.file);
         ex.printStackTrace();
         return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `java/src/com/google/template/soy/examples/SimpleUsage.java`
+#### Snippet
+```java
+  private static void writeExampleHeader() {
+    numExamples++;
+    System.out.println("----------------------------------------------------------------");
+    System.out.println("[" + numExamples + "]");
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `java/src/com/google/template/soy/examples/SimpleUsage.java`
+#### Snippet
+```java
+    numExamples++;
+    System.out.println("----------------------------------------------------------------");
+    System.out.println("[" + numExamples + "]");
+  }
+}
 ```
 
 ### SystemOutErr
@@ -18625,24 +18635,24 @@ in `java/src/com/google/template/soy/examples/SimpleUsage.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `java/src/com/google/template/soy/examples/SimpleUsage.java`
+in `java/src/com/google/template/soy/examples/FeaturesUsage.java`
 #### Snippet
 ```java
-  private static void writeExampleHeader() {
+  private void writeExampleHeader(String exampleName) {
     numExamples++;
-    System.out.println("----------------------------------------------------------------");
-    System.out.println("[" + numExamples + "]");
-  }
+    System.out.println(
+        "--------------------------------------------------------------------------------");
+    System.out.printf("[%d. %s]\n", numExamples, exampleName);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `java/src/com/google/template/soy/examples/SimpleUsage.java`
+in `java/src/com/google/template/soy/examples/FeaturesUsage.java`
 #### Snippet
 ```java
-    numExamples++;
-    System.out.println("----------------------------------------------------------------");
-    System.out.println("[" + numExamples + "]");
+    System.out.println(
+        "--------------------------------------------------------------------------------");
+    System.out.printf("[%d. %s]\n", numExamples, exampleName);
   }
 }
 ```
@@ -18936,30 +18946,6 @@ in `java/src/com/google/template/soy/examples/FeaturesUsage.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `java/src/com/google/template/soy/examples/FeaturesUsage.java`
-#### Snippet
-```java
-  private void writeExampleHeader(String exampleName) {
-    numExamples++;
-    System.out.println(
-        "--------------------------------------------------------------------------------");
-    System.out.printf("[%d. %s]\n", numExamples, exampleName);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `java/src/com/google/template/soy/examples/FeaturesUsage.java`
-#### Snippet
-```java
-    System.out.println(
-        "--------------------------------------------------------------------------------");
-    System.out.printf("[%d. %s]\n", numExamples, exampleName);
-  }
-}
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
 #### Snippet
@@ -19213,42 +19199,6 @@ in `java/src/com/google/template/soy/pysrc/internal/PySrcMain.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
-#### Snippet
-```java
-   */
-  private static final Function<String, String> escaperForPyFormatString =
-      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
-
-  /**
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
-#### Snippet
-```java
-   */
-  private static final Function<String, String> escaperForPyFormatString =
-      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
-
-  /**
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
-#### Snippet
-```java
-   */
-  private static final Function<String, String> escaperForPyFormatString =
-      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
-
-  /**
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
 #### Snippet
@@ -19258,6 +19208,42 @@ in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
       str -> str.replace("'", "\\\'");
 }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
+#### Snippet
+```java
+   */
+  private static final Function<String, String> escaperForPyFormatString =
+      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
+
+  /**
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
+#### Snippet
+```java
+   */
+  private static final Function<String, String> escaperForPyFormatString =
+      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
+
+  /**
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `java/src/com/google/template/soy/pysrc/internal/MsgFuncGenerator.java`
+#### Snippet
+```java
+   */
+  private static final Function<String, String> escaperForPyFormatString =
+      str -> str.replaceAll("\\{", "{{").replaceAll("\\}", "}}").replace("'", "\\\'");
+
+  /**
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -19373,6 +19359,18 @@ in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscaping
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
+  /** Like {@link #filterNormalizeUri} but also escapes ';'. */
+  public static String filterNormalizeRefreshUri(String value) {
+    return filterNormalizeUri(value).replace(";", "%3B");
+  }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
    */
   public static String filterNormalizeRefreshUri(SoyValue value) {
     return filterNormalizeUri(value).replace(";", "%3B");
@@ -19390,18 +19388,6 @@ in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
     if (!value.matches("\\d*\\.?\\d+")) {
       return EscapingConventions.INNOCUOUS_OUTPUT;
     }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-  /** Like {@link #filterNormalizeUri} but also escapes ';'. */
-  public static String filterNormalizeRefreshUri(String value) {
-    return filterNormalizeUri(value).replace(";", "%3B");
-  }
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -19465,18 +19451,6 @@ in `java/src/com/google/template/soy/soyparse/ParseErrors.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
-#### Snippet
-```java
-    do {
-      type = newType;
-      newType = type.replaceAll("<[^>]*>", "");
-    } while (!newType.equals(type));
-    return newType;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
 #### Snippet
@@ -19486,6 +19460,18 @@ in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
               : (genericType.matches("(\\.|\\w)+")
                   ? "com.google.common.reflect.TypeToken.of(" + genericType + ".class" + ")"
                   : "new com.google.common.reflect.TypeToken<" + genericType + ">() {}");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `java/src/com/google/template/soy/javagencode/GenerateBuildersVisitor.java`
+#### Snippet
+```java
+    do {
+      type = newType;
+      newType = type.replaceAll("<[^>]*>", "");
+    } while (!newType.equals(type));
+    return newType;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -19594,7 +19580,7 @@ in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
    * @param directives The directives. All are required to be {@link
    *     com.google.template.soy.jbcsrc.restricted.SoyJbcSrcPrintDirective.Streamable streamable}
    * @param appendable The appendable to wrap
-   * @param context The render context for the plugins
+   * @param basic The expression compiler to use for compiling the arguments
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19606,7 +19592,7 @@ in `java/src/com/google/template/soy/jbcsrc/PrintDirectives.java`
    * @param directives The directives. All are required to be {@link
    *     com.google.template.soy.jbcsrc.restricted.SoyJbcSrcPrintDirective.Streamable streamable}
    * @param appendable The appendable to wrap
-   * @param basic The expression compiler to use for compiling the arguments
+   * @param context The render context for the plugins
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19619,18 +19605,6 @@ in `java/src/com/google/template/soy/jbcsrc/internal/InnerClasses.java`
    * @throws java.lang.IllegalArgumentException if the class wasn't previous registered via {@link
    *     #registerInnerClass(String, int)} or {@link #registerInnerClassWithGeneratedName(String,
    *     int)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
-in `java/src/com/google/template/soy/jbcsrc/restricted/FieldRef.java`
-#### Snippet
-```java
-  }
-
-  public static FieldRef staticFieldReference(java.lang.reflect.Field field) {
-    if (!Modifier.isStatic(field.getModifiers())) {
-      throw new IllegalStateException("Field: " + field + " is not static");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19655,6 +19629,18 @@ in `java/src/com/google/template/soy/jbcsrc/restricted/FieldRef.java`
       java.lang.reflect.Field declaredField = owner.getDeclaredField(name);
       modifiers = declaredField.getModifiers();
       if (Modifier.isStatic(modifiers)) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
+in `java/src/com/google/template/soy/jbcsrc/restricted/FieldRef.java`
+#### Snippet
+```java
+  }
+
+  public static FieldRef staticFieldReference(java.lang.reflect.Field field) {
+    if (!Modifier.isStatic(field.getModifiers())) {
+      throw new IllegalStateException("Field: " + field + " is not static");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19754,18 +19740,6 @@ public final class SoyFileSetParserBuilder {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.template.soy.exprtree` is unnecessary and can be removed
-in `java/src/com/google/template/soy/exprtree/AbstractLocalVarDefn.java`
-#### Snippet
-```java
- *
- * <p>NOTE: The reason for this base class is that the declaring node type can be either a {@link
- * com.google.template.soy.soytree.SoyNode} or an {@link com.google.template.soy.exprtree.ExprNode}:
- *
- * <p>Regular {@link com.google.template.soy.soytree.defn.LocalVar}s that are declared in a
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.google.common.collect` is unnecessary and can be removed
 in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
 #### Snippet
@@ -19773,20 +19747,8 @@ in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
           __NAME__,
           __TEMPLATE_NAME__,
           com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(SET_NAME, ParamRequisiteness.REQUIRED)
-              .put(SET_MEMBERS, ParamRequisiteness.REQUIRED)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-          __NAME__,
-          __TEMPLATE_NAME__,
-          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(MESSAGE, ParamRequisiteness.REQUIRED)
-              .put(LIST, ParamRequisiteness.REQUIRED)
+              .put(NAME, ParamRequisiteness.REQUIRED)
+              .build());
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19810,7 +19772,31 @@ in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
           __TEMPLATE_NAME__,
           com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
               .put(NAME, ParamRequisiteness.REQUIRED)
-              .put(COMPANION_NAME, ParamRequisiteness.REQUIRED)
+              .build());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+          __NAME__,
+          __TEMPLATE_NAME__,
+          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
+              .put(NUM_LINES, ParamRequisiteness.REQUIRED)
+              .build());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+          __NAME__,
+          __TEMPLATE_NAME__,
+          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
+              .put(PERSONS, ParamRequisiteness.REQUIRED)
+              .build());
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19823,6 +19809,30 @@ in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
         com.google.common.collect.ImmutableList.<SoyTemplateInfo>of(
             DEMO_COMMENTS,
             DEMO_LINE_JOINING,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+          __NAME__,
+          __TEMPLATE_NAME__,
+          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
+              .put(BOO, ParamRequisiteness.REQUIRED)
+              .put(TWO, ParamRequisiteness.REQUIRED)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+          __NAME__,
+          __TEMPLATE_NAME__,
+          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
+              .put(ITALIC_HTML, ParamRequisiteness.REQUIRED)
+              .build());
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19857,56 +19867,8 @@ in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
           __NAME__,
           __TEMPLATE_NAME__,
           com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(NUM_LINES, ParamRequisiteness.REQUIRED)
-              .build());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-          __NAME__,
-          __TEMPLATE_NAME__,
-          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(NAME, ParamRequisiteness.REQUIRED)
-              .build());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-          __NAME__,
-          __TEMPLATE_NAME__,
-          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(BOO, ParamRequisiteness.REQUIRED)
-              .put(TWO, ParamRequisiteness.REQUIRED)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-          __NAME__,
-          __TEMPLATE_NAME__,
-          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(PERSONS, ParamRequisiteness.REQUIRED)
-              .build());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
-#### Snippet
-```java
-          __NAME__,
-          __TEMPLATE_NAME__,
-          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(EXAMPLE_NUM, ParamRequisiteness.REQUIRED)
-              .put(EXAMPLE_NAME, ParamRequisiteness.REQUIRED)
+              .put(MESSAGE, ParamRequisiteness.REQUIRED)
+              .put(LIST, ParamRequisiteness.REQUIRED)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19942,7 +19904,7 @@ in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
           __TEMPLATE_NAME__,
           com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
               .put(NAME, ParamRequisiteness.REQUIRED)
-              .build());
+              .put(COMPANION_NAME, ParamRequisiteness.REQUIRED)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19953,8 +19915,32 @@ in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
           __NAME__,
           __TEMPLATE_NAME__,
           com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
-              .put(ITALIC_HTML, ParamRequisiteness.REQUIRED)
-              .build());
+              .put(EXAMPLE_NUM, ParamRequisiteness.REQUIRED)
+              .put(EXAMPLE_NAME, ParamRequisiteness.REQUIRED)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `java/src/com/google/template/soy/examples/FeaturesSoyInfo.java`
+#### Snippet
+```java
+          __NAME__,
+          __TEMPLATE_NAME__,
+          com.google.common.collect.ImmutableMap.<String, ParamRequisiteness>builder()
+              .put(SET_NAME, ParamRequisiteness.REQUIRED)
+              .put(SET_MEMBERS, ParamRequisiteness.REQUIRED)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.template.soy.exprtree` is unnecessary and can be removed
+in `java/src/com/google/template/soy/exprtree/AbstractLocalVarDefn.java`
+#### Snippet
+```java
+ *
+ * <p>NOTE: The reason for this base class is that the declaring node type can be either a {@link
+ * com.google.template.soy.soytree.SoyNode} or an {@link com.google.template.soy.exprtree.ExprNode}:
+ *
+ * <p>Regular {@link com.google.template.soy.soytree.defn.LocalVar}s that are declared in a
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19988,8 +19974,8 @@ in `java/src/com/google/template/soy/soyparse/SoySimpleCharStream.java`
 ```java
 
   /** Constructor. */
-  public SoySimpleCharStream(java.io.Reader dstream, int startline, int startcolumn) {
-    this(dstream, startline, startcolumn, 4096);
+  public SoySimpleCharStream(java.io.Reader dstream) {
+    this(dstream, 1, 1, 4096);
   }
 ```
 
@@ -20010,10 +19996,10 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `java/src/com/google/template/soy/soyparse/SoySimpleCharStream.java`
 #### Snippet
 ```java
-
   /** Constructor. */
-  public SoySimpleCharStream(java.io.Reader dstream) {
-    this(dstream, 1, 1, 4096);
+  public SoySimpleCharStream(
+      java.io.Reader dstream, int startline, int startcolumn, int buffersize) {
+    super(dstream, startline, startcolumn, buffersize);
   }
 ```
 
@@ -20022,10 +20008,10 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `java/src/com/google/template/soy/soyparse/SoySimpleCharStream.java`
 #### Snippet
 ```java
+
   /** Constructor. */
-  public SoySimpleCharStream(
-      java.io.Reader dstream, int startline, int startcolumn, int buffersize) {
-    super(dstream, startline, startcolumn, buffersize);
+  public SoySimpleCharStream(java.io.Reader dstream, int startline, int startcolumn) {
+    this(dstream, startline, startcolumn, 4096);
   }
 ```
 
@@ -20053,31 +20039,6 @@ package com.google.template.soy.parsepasses.contextautoesc;
 
 ```
 
-## RuleId[ruleID=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `java/src/com/google/template/soy/jssrc/internal/GenJsCodeVisitorAssistantForMsgs.java`
-#### Snippet
-```java
-public class GenJsCodeVisitorAssistantForMsgs extends AbstractReturningSoyNodeVisitor<Statement> {
-
-  private static final Pattern LINE_BOUNDARY_PATTERN = Pattern.compile("\\s*?(\\n|\\r)\\s*");
-  /** Regex pattern for an underscore-number suffix. */
-  private static final Pattern UNDERSCORE_NUMBER_SUFFIX = Pattern.compile("_[0-9]+$");
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `java/src/com/google/template/soy/soytree/MsgNode.java`
-#### Snippet
-```java
-
-  // Note that the first set of whitespace is reluctant.
-  private static final Pattern LINE_BOUNDARY_PATTERN = Pattern.compile("\\s*?(\\n|\\r)\\s*");
-
-  /** We don't use different content types. It may be a historical artifact in the TC. */
-```
-
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -20101,6 +20062,31 @@ in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscaping
         ex.printStackTrace();
         return;
       }
+```
+
+## RuleId[ruleID=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `java/src/com/google/template/soy/jssrc/internal/GenJsCodeVisitorAssistantForMsgs.java`
+#### Snippet
+```java
+public class GenJsCodeVisitorAssistantForMsgs extends AbstractReturningSoyNodeVisitor<Statement> {
+
+  private static final Pattern LINE_BOUNDARY_PATTERN = Pattern.compile("\\s*?(\\n|\\r)\\s*");
+  /** Regex pattern for an underscore-number suffix. */
+  private static final Pattern UNDERSCORE_NUMBER_SUFFIX = Pattern.compile("_[0-9]+$");
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `java/src/com/google/template/soy/soytree/MsgNode.java`
+#### Snippet
+```java
+
+  // Note that the first set of whitespace is reluctant.
+  private static final Pattern LINE_BOUNDARY_PATTERN = Pattern.compile("\\s*?(\\n|\\r)\\s*");
+
+  /** We don't use different content types. It may be a historical artifact in the TC. */
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -20229,11 +20215,11 @@ Constructor `AbstractLocalVarDefn()` of an abstract class should not be declared
 in `java/src/com/google/template/soy/exprtree/AbstractLocalVarDefn.java`
 #### Snippet
 ```java
-
-  /** Copy constructor for when the declaring node is being cloned. */
-  public AbstractLocalVarDefn(AbstractLocalVarDefn<T> localVar, T declaringNode) {
-    super(localVar);
-    checkArgument(localVar.declaringNode != declaringNode);
+   * @param type The data type of the variable.
+   */
+  public AbstractLocalVarDefn(
+      String name, SourceLocation nameLocation, T declaringNode, SoyType type) {
+    super(name.startsWith("$") ? name.substring(1) : name, nameLocation, type);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -20241,11 +20227,11 @@ Constructor `AbstractLocalVarDefn()` of an abstract class should not be declared
 in `java/src/com/google/template/soy/exprtree/AbstractLocalVarDefn.java`
 #### Snippet
 ```java
-   * @param type The data type of the variable.
-   */
-  public AbstractLocalVarDefn(
-      String name, SourceLocation nameLocation, T declaringNode, SoyType type) {
-    super(name.startsWith("$") ? name.substring(1) : name, nameLocation, type);
+
+  /** Copy constructor for when the declaring node is being cloned. */
+  public AbstractLocalVarDefn(AbstractLocalVarDefn<T> localVar, T declaringNode) {
+    super(localVar);
+    checkArgument(localVar.declaringNode != declaringNode);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -20440,18 +20426,6 @@ in `java/src/com/google/template/soy/msgs/restricted/SoyMsgBundleCompactor.java`
       part = compactPlaceholder((SoyMsgPlaceholderPart) part);
     }
     // Now intern the message part.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msgParts`
-in `java/src/com/google/template/soy/msgs/internal/SoyMsgIdComputer.java`
-#### Snippet
-```java
-      ImmutableList<SoyMsgPart> msgParts, boolean doUseBracedPhs) {
-
-    msgParts = IcuSyntaxUtils.convertMsgPartsToEmbeddedIcuSyntax(msgParts);
-
-    StringBuilder msgStrSb = new StringBuilder();
 ```
 
 ### AssignmentToMethodParameter
@@ -20731,6 +20705,18 @@ in `java/src/com/google/template/soy/msgs/internal/SoyMsgIdComputer.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `msgParts`
+in `java/src/com/google/template/soy/msgs/internal/SoyMsgIdComputer.java`
+#### Snippet
+```java
+      ImmutableList<SoyMsgPart> msgParts, boolean doUseBracedPhs) {
+
+    msgParts = IcuSyntaxUtils.convertMsgPartsToEmbeddedIcuSyntax(msgParts);
+
+    StringBuilder msgStrSb = new StringBuilder();
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `stuff`
 in `java/src/com/google/template/soy/jssrc/dsl/FormattingContext.java`
 #### Snippet
@@ -20795,18 +20781,6 @@ Assignment to method parameter `base`
 in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
 #### Snippet
 ```java
-      Unpacking unpacking = link.getUnpacking();
-      if (unpacking == Unpacking.UNPACK) {
-        base = link.unpack(base, tail);
-        break;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `base`
-in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
-#### Snippet
-```java
     Expression result;
     if (link.nullSafe && !base.isCheap()) {
       base = generator.declarationBuilder().setRhs(base).build().ref();
@@ -20824,6 +20798,18 @@ in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
       prevTip = SOY_CHECK_NOT_NULL.call(prevTip);
       return funct.apply(prevTip);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `base`
+in `java/src/com/google/template/soy/jssrc/internal/NullSafeAccumulator.java`
+#### Snippet
+```java
+      Unpacking unpacking = link.getUnpacking();
+      if (unpacking == Unpacking.UNPACK) {
+        base = link.unpack(base, tail);
+        break;
+      }
 ```
 
 ### AssignmentToMethodParameter
@@ -20863,6 +20849,18 @@ in `java/src/com/google/template/soy/jssrc/internal/GenJsCodeVisitorAssistantFor
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `containerExpr`
+in `java/src/com/google/template/soy/pysrc/internal/TranslateToPyExprVisitor.java`
+#### Snippet
+```java
+
+    // Never allow a null method receiver.
+    containerExpr = assertNotNull(containerExpr);
+
+    if (method instanceof BuiltinMethod) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `dataAccessNode`
 in `java/src/com/google/template/soy/pysrc/internal/TranslateToPyExprVisitor.java`
 #### Snippet
@@ -20887,18 +20885,6 @@ in `java/src/com/google/template/soy/pysrc/internal/TranslateToPyExprVisitor.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `containerExpr`
-in `java/src/com/google/template/soy/pysrc/internal/TranslateToPyExprVisitor.java`
-#### Snippet
-```java
-
-    // Never allow a null method receiver.
-    containerExpr = assertNotNull(containerExpr);
-
-    if (method instanceof BuiltinMethod) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `value`
 in `java/src/com/google/template/soy/jbcsrc/RenderContextExpression.java`
 #### Snippet
@@ -20920,6 +20906,18 @@ in `java/src/com/google/template/soy/jbcsrc/RenderContextExpression.java`
       value =
           SoyExpression.forSoyValue(
               UnknownType.getInstance(),
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentType`
+in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
+#### Snippet
+```java
+        }
+        toProto.invokeUnchecked(cb);
+        currentType = toProto.returnType();
+      }
+      if (!currentType.equals(runtimeFieldType)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -20983,27 +20981,15 @@ in `java/src/com/google/template/soy/jbcsrc/SoyNodeCompiler.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `currentType`
-in `java/src/com/google/template/soy/jbcsrc/ProtoUtils.java`
-#### Snippet
-```java
-        }
-        toProto.invokeUnchecked(cb);
-        currentType = toProto.returnType();
-      }
-      if (!currentType.equals(runtimeFieldType)) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `baseExpr`
 in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
 #### Snippet
 ```java
-        DataAccessNode dataAccessNode, SoyExpression baseExpr, boolean hasAssertNonNull) {
-      if (dataAccessNode.getBaseExprChild() instanceof DataAccessNode) {
-        baseExpr =
-            accumulateDataAccess(
-                    (DataAccessNode) dataAccessNode.getBaseExprChild(),
+        Label nullSafeExit,
+        boolean hasAssertNonNull) {
+      baseExpr = addNullSafetyCheck(baseExpr, nullSafeExit);
+      return accumulateDataAccess(dataAccessNode, baseExpr, hasAssertNonNull);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -21023,11 +21009,11 @@ Assignment to method parameter `baseExpr`
 in `java/src/com/google/template/soy/jbcsrc/ExpressionCompiler.java`
 #### Snippet
 ```java
-        Label nullSafeExit,
-        boolean hasAssertNonNull) {
-      baseExpr = addNullSafetyCheck(baseExpr, nullSafeExit);
-      return accumulateDataAccess(dataAccessNode, baseExpr, hasAssertNonNull);
-    }
+        DataAccessNode dataAccessNode, SoyExpression baseExpr, boolean hasAssertNonNull) {
+      if (dataAccessNode.getBaseExprChild() instanceof DataAccessNode) {
+        baseExpr =
+            accumulateDataAccess(
+                    (DataAccessNode) dataAccessNode.getBaseExprChild(),
 ```
 
 ### AssignmentToMethodParameter
@@ -21139,6 +21125,18 @@ in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `attrType`
+in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
+#### Snippet
+```java
+
+  private static String getKind(SoyType attrType) {
+    attrType = SoyTypes.removeNull(attrType);
+    if (TrustedResourceUriType.getInstance().isAssignableFromStrict(attrType)) {
+      return "trusted_resource_uri";
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `type`
 in `java/src/com/google/template/soy/plugin/java/internal/ValidatorFactory.java`
 #### Snippet
@@ -21151,15 +21149,27 @@ in `java/src/com/google/template/soy/plugin/java/internal/ValidatorFactory.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `attrType`
-in `java/src/com/google/template/soy/passes/SoyElementCompositionPass.java`
+Assignment to method parameter `baseType`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
 #### Snippet
 ```java
+        calculateAccessChainTypes(baseType, (DataAccessNode) dataAccess.getBaseExprChild());
+        nullSafe = false;
+        baseType = dataAccess.getBaseExprChild().getType();
+      } else if (dataAccess.getBaseExprChild().getKind() == ExprNode.Kind.ASSERT_NON_NULL_OP_NODE) {
+        AssertNonNullOpNode baseExpr = (AssertNonNullOpNode) dataAccess.getBaseExprChild();
+```
 
-  private static String getKind(SoyType attrType) {
-    attrType = SoyTypes.removeNull(attrType);
-    if (TrustedResourceUriType.getInstance().isAssignableFromStrict(attrType)) {
-      return "trusted_resource_uri";
+### AssignmentToMethodParameter
+Assignment to method parameter `baseType`
+in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+#### Snippet
+```java
+        finishAssertNonNullOpNodeChain(baseExpr);
+        nullSafe = false;
+        baseType = dataAccess.getBaseExprChild().getType();
+      }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -21199,27 +21209,27 @@ in `java/src/com/google/template/soy/shared/internal/AbstractGenerateSoyEscaping
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `baseType`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+Assignment to method parameter `methodName`
+in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
 #### Snippet
 ```java
-        calculateAccessChainTypes(baseType, (DataAccessNode) dataAccess.getBaseExprChild());
-        nullSafe = false;
-        baseType = dataAccess.getBaseExprChild().getType();
-      } else if (dataAccess.getBaseExprChild().getKind() == ExprNode.Kind.ASSERT_NON_NULL_OP_NODE) {
-        AssertNonNullOpNode baseExpr = (AssertNonNullOpNode) dataAccess.getBaseExprChild();
+        methodName.length() >= 4 && (methodName.startsWith("get") || methodName.startsWith("has")));
+    if (methodName.endsWith("OrUndefined")) {
+      methodName = methodName.substring(3, methodName.length() - "OrUndefined".length());
+    } else {
+      methodName = methodName.substring(3);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `baseType`
-in `java/src/com/google/template/soy/passes/ResolveExpressionTypesPass.java`
+Assignment to method parameter `methodName`
+in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
 #### Snippet
 ```java
-        finishAssertNonNullOpNodeChain(baseExpr);
-        nullSafe = false;
-        baseType = dataAccess.getBaseExprChild().getType();
-      }
-
+      methodName = methodName.substring(3, methodName.length() - "OrUndefined".length());
+    } else {
+      methodName = methodName.substring(3);
+    }
+    return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, methodName);
 ```
 
 ### AssignmentToMethodParameter
@@ -21235,123 +21245,39 @@ in `java/src/com/google/template/soy/passes/htmlmatcher/HtmlTagMatchingPass.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `doc`
-in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-        wrappedLines.add(line);
-      }
-      doc = Joiner.on("\n").join(wrappedLines);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fileName`
-in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(!fileName.contains("/") && !fileName.contains("\\"));
-    if (Ascii.toLowerCase(fileName).endsWith(".soy")) {
-      fileName = fileName.substring(0, fileName.length() - 4);
-    }
-    String prefix = makeUpperCamelCase(fileName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
-#### Snippet
-```java
-   */
-  public static String makeUpperCamelCase(String str) {
-    str = makeWordsCapitalized(str, ALL_UPPER_WORD);
-    str = makeWordsCapitalized(str, ALL_LOWER_WORD);
-    str = NON_LETTER_DIGIT.matcher(str).replaceAll("");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
-#### Snippet
-```java
-  public static String makeUpperCamelCase(String str) {
-    str = makeWordsCapitalized(str, ALL_UPPER_WORD);
-    str = makeWordsCapitalized(str, ALL_LOWER_WORD);
-    str = NON_LETTER_DIGIT.matcher(str).replaceAll("");
-    return str;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
-#### Snippet
-```java
-    str = makeWordsCapitalized(str, ALL_UPPER_WORD);
-    str = makeWordsCapitalized(str, ALL_LOWER_WORD);
-    str = NON_LETTER_DIGIT.matcher(str).replaceAll("");
-    return str;
+  /** Makes sure that the given input is a sms URI. */
+  public static SanitizedContent filterSmsUri(SoyValue value) {
+    value = normalizeNull(value);
+    return filterSmsUri(value.coerceToString());
   }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-
-  public static String makeLowerCamelCase(String str) {
-    str = makeUpperCamelCase(str);
-    return Character.toLowerCase(str.charAt(0)) + str.substring(1);
+  /** Normalizes HTML to HTML making sure quotes and other specials are entity encoded. */
+  public static String normalizeHtml(SoyValue value) {
+    value = normalizeNull(value);
+    return normalizeHtml(value.coerceToString());
   }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `notEscaped`
-in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-    final EscapeListBuilder escapeAllInRangeExcept(
-        int startInclusive, int endExclusive, char... notEscaped) {
-      notEscaped = notEscaped.clone();
-      Arrays.sort(notEscaped);
-      int k = 0;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `out`
-in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
-#### Snippet
-```java
-              // Create a new buffer if we need to escape a character in s.
-              // We add 32 to the size to leave a decent amount of space for escape characters.
-              out = new StringBuilder(end - start + 32);
-            }
-            out.append(s, pos, i).append(esc);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `out`
-in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
-#### Snippet
-```java
-          if (index >= 0) {
-            if (out == null) {
-              out = new StringBuilder(end - start + 32);
-            }
-            out.append(s, pos, i).append(nonAsciiEscapes[index]);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `out`
-in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
-#### Snippet
-```java
-          } else if (nonAsciiPrefix != null) { // Fallback to the prefix based escaping.
-            if (out == null) {
-              out = new StringBuilder(end - start + 32);
-            }
-            out.append(s, pos, i);
+  public static SanitizedContent cleanHtml(
+      SoyValue value, Collection<? extends OptionalSafeTag> optionalSafeTags) {
+    value = normalizeNull(value);
+    Dir valueDir = null;
+    if (value instanceof SanitizedContent) {
 ```
 
 ### AssignmentToMethodParameter
@@ -21360,9 +21286,69 @@ in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
    */
-  public static String normalizeHtmlNospace(SoyValue value) {
+  public static String filterNormalizeUri(SoyValue value) {
     value = normalizeNull(value);
-    return normalizeHtmlNospace(value.coerceToString());
+    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.URI)
+        || isSanitizedContentOfKind(value, SanitizedContent.ContentKind.TRUSTED_RESOURCE_URI)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Converts the input to the body of a JavaScript regular expression literal. */
+  public static String escapeJsRegex(SoyValue value) {
+    value = normalizeNull(value);
+    return escapeJsRegex(value.coerceToString());
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Converts the input to the body of a JavaScript string by using {@code \n} style escapes. */
+  public static String escapeJsString(SoyValue value) {
+    value = normalizeNull(value);
+    return escapeJsString(value.coerceToString());
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Filters out strings that cannot be a substring of a valid <script> tag. */
+  public static String filterHtmlScriptPhrasingData(SoyValue value) {
+    value = normalizeNull(value);
+    // no content types are safe for this context
+    return filterHtmlScriptPhrasingData(value.coerceToString());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+   */
+  public static String filterCssValue(SoyValue value) {
+    value = normalizeNull(value);
+    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.CSS)) {
+      // We don't need to do this when the CSS is embedded in a
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Filters bad csp values. */
+  public static String filterCspNonceValue(SoyValue value) {
+    value = normalizeNull(value);
+    return filterCspNonceValue(value.coerceToString());
   }
 ```
 
@@ -21395,42 +21381,6 @@ Assignment to method parameter `value`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-  /** Makes sure that the given input is a sip URI. */
-  public static SanitizedContent filterSipUri(SoyValue value) {
-    value = normalizeNull(value);
-    return filterSipUri(value.coerceToString());
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-  /** Converts the input to the body of a JavaScript string by using {@code \n} style escapes. */
-  public static String escapeJsString(SoyValue value) {
-    value = normalizeNull(value);
-    return escapeJsString(value.coerceToString());
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-   */
-  public static SanitizedContent filterImageDataUri(SoyValue value) {
-    value = normalizeNull(value);
-    return filterImageDataUri(value.coerceToString());
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
   /** Converts the input to HTML by entity escaping. */
   public static String escapeHtml(SoyValue value) {
     value = normalizeNull(value);
@@ -21443,11 +21393,23 @@ Assignment to method parameter `value`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-  /** Makes sure that the given input is a sms URI. */
-  public static SanitizedContent filterSmsUri(SoyValue value) {
+  /** Makes sure that the given input is a sip URI. */
+  public static SanitizedContent filterSipUri(SoyValue value) {
     value = normalizeNull(value);
-    return filterSmsUri(value.coerceToString());
+    return filterSipUri(value.coerceToString());
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Makes sure the given input is an instance of either trustedResourceUrl or trustedString. */
+  public static String filterTrustedResourceUri(SoyValue value) {
+    value = normalizeNull(value);
+    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.TRUSTED_RESOURCE_URI)) {
+      return value.coerceToString();
 ```
 
 ### AssignmentToMethodParameter
@@ -21467,11 +21429,11 @@ Assignment to method parameter `value`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-  /** Filters bad csp values. */
-  public static String filterCspNonceValue(SoyValue value) {
+   */
+  public static String escapeHtmlAttributeNospace(SoyValue value) {
     value = normalizeNull(value);
-    return filterCspNonceValue(value.coerceToString());
-  }
+    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.HTML)) {
+      // |escapeHtmlAttributeNospace should only be used on attribute values that cannot have tags.
 ```
 
 ### AssignmentToMethodParameter
@@ -21479,11 +21441,11 @@ Assignment to method parameter `value`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-  /** Filters out strings that cannot be a substring of a valid <script> tag. */
-  public static String filterHtmlScriptPhrasingData(SoyValue value) {
+   */
+  public static String escapeHtmlAttribute(SoyValue value) {
     value = normalizeNull(value);
-    // no content types are safe for this context
-    return filterHtmlScriptPhrasingData(value.coerceToString());
+    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.HTML)) {
+      // |escapeHtmlAttribute should only be used on attribute values that cannot have tags.
 ```
 
 ### AssignmentToMethodParameter
@@ -21491,10 +21453,10 @@ Assignment to method parameter `value`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-  /** Normalizes HTML to HTML making sure quotes and other specials are entity encoded. */
-  public static String normalizeHtml(SoyValue value) {
+   */
+  public static SanitizedContent filterImageDataUri(SoyValue value) {
     value = normalizeNull(value);
-    return normalizeHtml(value.coerceToString());
+    return filterImageDataUri(value.coerceToString());
   }
 ```
 
@@ -21507,6 +21469,18 @@ in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
   public static String filterHtmlElementName(SoyValue value) {
     value = normalizeNull(value);
     return filterHtmlElementName(value.coerceToString());
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+#### Snippet
+```java
+  /** Converts the input to the body of a CSS string literal. */
+  public static String escapeCssString(SoyValue value) {
+    value = normalizeNull(value);
+    return escapeCssString(value.coerceToString());
   }
 ```
 
@@ -21576,46 +21550,10 @@ in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
    */
-  public static String filterNormalizeUri(SoyValue value) {
+  public static String normalizeHtmlNospace(SoyValue value) {
     value = normalizeNull(value);
-    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.URI)
-        || isSanitizedContentOfKind(value, SanitizedContent.ContentKind.TRUSTED_RESOURCE_URI)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-  /** Converts the input to the body of a JavaScript regular expression literal. */
-  public static String escapeJsRegex(SoyValue value) {
-    value = normalizeNull(value);
-    return escapeJsRegex(value.coerceToString());
+    return normalizeHtmlNospace(value.coerceToString());
   }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-   */
-  public static String escapeHtmlAttributeNospace(SoyValue value) {
-    value = normalizeNull(value);
-    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.HTML)) {
-      // |escapeHtmlAttributeNospace should only be used on attribute values that cannot have tags.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-  /** Makes sure the given input is an instance of either trustedResourceUrl or trustedString. */
-  public static String filterTrustedResourceUri(SoyValue value) {
-    value = normalizeNull(value);
-    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.TRUSTED_RESOURCE_URI)) {
-      return value.coerceToString();
 ```
 
 ### AssignmentToMethodParameter
@@ -21635,42 +21573,6 @@ Assignment to method parameter `value`
 in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 #### Snippet
 ```java
-   */
-  public static String filterCssValue(SoyValue value) {
-    value = normalizeNull(value);
-    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.CSS)) {
-      // We don't need to do this when the CSS is embedded in a
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-   */
-  public static String escapeHtmlAttribute(SoyValue value) {
-    value = normalizeNull(value);
-    if (isSanitizedContentOfKind(value, SanitizedContent.ContentKind.HTML)) {
-      // |escapeHtmlAttribute should only be used on attribute values that cannot have tags.
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
-  /** Converts the input to the body of a CSS string literal. */
-  public static String escapeCssString(SoyValue value) {
-    value = normalizeNull(value);
-    return escapeCssString(value.coerceToString());
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
-#### Snippet
-```java
   /** Converts the input to a piece of a URI by percent encoding the value as UTF-8 bytes. */
   public static String escapeUri(SoyValue value) {
     value = normalizeNull(value);
@@ -21679,39 +21581,123 @@ in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `java/src/com/google/template/soy/shared/internal/Sanitizers.java`
+Assignment to method parameter `fileName`
+in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
 #### Snippet
 ```java
-  public static SanitizedContent cleanHtml(
-      SoyValue value, Collection<? extends OptionalSafeTag> optionalSafeTags) {
-    value = normalizeNull(value);
-    Dir valueDir = null;
-    if (value instanceof SanitizedContent) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `methodName`
-in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
-#### Snippet
-```java
-        methodName.length() >= 4 && (methodName.startsWith("get") || methodName.startsWith("has")));
-    if (methodName.endsWith("OrUndefined")) {
-      methodName = methodName.substring(3, methodName.length() - "OrUndefined".length());
-    } else {
-      methodName = methodName.substring(3);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `methodName`
-in `java/src/com/google/template/soy/shared/internal/BuiltinMethod.java`
-#### Snippet
-```java
-      methodName = methodName.substring(3, methodName.length() - "OrUndefined".length());
-    } else {
-      methodName = methodName.substring(3);
+    Preconditions.checkArgument(!fileName.contains("/") && !fileName.contains("\\"));
+    if (Ascii.toLowerCase(fileName).endsWith(".soy")) {
+      fileName = fileName.substring(0, fileName.length() - 4);
     }
-    return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, methodName);
+    String prefix = makeUpperCamelCase(fileName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+#### Snippet
+```java
+   */
+  public static String makeUpperCamelCase(String str) {
+    str = makeWordsCapitalized(str, ALL_UPPER_WORD);
+    str = makeWordsCapitalized(str, ALL_LOWER_WORD);
+    str = NON_LETTER_DIGIT.matcher(str).replaceAll("");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+#### Snippet
+```java
+  public static String makeUpperCamelCase(String str) {
+    str = makeWordsCapitalized(str, ALL_UPPER_WORD);
+    str = makeWordsCapitalized(str, ALL_LOWER_WORD);
+    str = NON_LETTER_DIGIT.matcher(str).replaceAll("");
+    return str;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+#### Snippet
+```java
+    str = makeWordsCapitalized(str, ALL_UPPER_WORD);
+    str = makeWordsCapitalized(str, ALL_LOWER_WORD);
+    str = NON_LETTER_DIGIT.matcher(str).replaceAll("");
+    return str;
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+#### Snippet
+```java
+
+  public static String makeLowerCamelCase(String str) {
+    str = makeUpperCamelCase(str);
+    return Character.toLowerCase(str.charAt(0)) + str.substring(1);
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `doc`
+in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
+#### Snippet
+```java
+        wrappedLines.add(line);
+      }
+      doc = Joiner.on("\n").join(wrappedLines);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `notEscaped`
+in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
+#### Snippet
+```java
+    final EscapeListBuilder escapeAllInRangeExcept(
+        int startInclusive, int endExclusive, char... notEscaped) {
+      notEscaped = notEscaped.clone();
+      Arrays.sort(notEscaped);
+      int k = 0;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `out`
+in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
+#### Snippet
+```java
+              // Create a new buffer if we need to escape a character in s.
+              // We add 32 to the size to leave a decent amount of space for escape characters.
+              out = new StringBuilder(end - start + 32);
+            }
+            out.append(s, pos, i).append(esc);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `out`
+in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
+#### Snippet
+```java
+          if (index >= 0) {
+            if (out == null) {
+              out = new StringBuilder(end - start + 32);
+            }
+            out.append(s, pos, i).append(nonAsciiEscapes[index]);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `out`
+in `java/src/com/google/template/soy/shared/internal/EscapingConventions.java`
+#### Snippet
+```java
+          } else if (nonAsciiPrefix != null) { // Fallback to the prefix based escaping.
+            if (out == null) {
+              out = new StringBuilder(end - start + 32);
+            }
+            out.append(s, pos, i);
 ```
 
 ### AssignmentToMethodParameter
@@ -21724,6 +21710,18 @@ in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
     soyDoc = NEWLINE.matcher(soyDoc).replaceAll("\n");
 
     // Escape all @deprecated javadoc tags.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+    // first find the root of the expression tree
+    while (node.getParent() != null) {
+      node = node.getParent();
+    }
+    Node nodeRoot = node;
 ```
 
 ### AssignmentToMethodParameter
@@ -21748,6 +21746,18 @@ in `java/src/com/google/template/soy/soytree/TemplateNodeBuilder.java`
     soyDoc = SOY_DOC_START.matcher(soyDoc).replaceFirst("");
     soyDoc = SOY_DOC_END.matcher(soyDoc).replaceFirst("");
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+
+  private static boolean doIsDescendantOf(Node node, Node ancestor) {
+    for (; node != null; node = node.getParent()) {
+      if (ancestor == node) {
+        return true;
 ```
 
 ### AssignmentToMethodParameter
@@ -21799,15 +21809,15 @@ in `java/src/com/google/template/soy/soytree/MsgSubstUnitPlaceholderNameUtils.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `endTextIndex`
-in `java/src/com/google/template/soy/soytree/RawTextNode.java`
+Assignment to method parameter `typeNode`
+in `java/src/com/google/template/soy/soytree/defn/TemplateParam.java`
 #### Snippet
 ```java
-      // subtract 1 from end since we want the endLocation to point at the last character rather
-      // than just beyond it.
-      endTextIndex--;
-
-      int startLocation = Arrays.binarySearch(indexes, startTextIndex);
+    // Optional params become nullable
+    if (optional && !isNullable && typeNode != null) {
+      typeNode = getNullableTypeNode(typeNode);
+    }
+    this.typeNode = typeNode;
 ```
 
 ### AssignmentToMethodParameter
@@ -21823,51 +21833,15 @@ in `java/src/com/google/template/soy/soytree/defn/TemplateStateVar.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `typeNode`
-in `java/src/com/google/template/soy/soytree/defn/TemplateParam.java`
+Assignment to method parameter `endTextIndex`
+in `java/src/com/google/template/soy/soytree/RawTextNode.java`
 #### Snippet
 ```java
-    // Optional params become nullable
-    if (optional && !isNullable && typeNode != null) {
-      typeNode = getNullableTypeNode(typeNode);
-    }
-    this.typeNode = typeNode;
-```
+      // subtract 1 from end since we want the endLocation to point at the last character rather
+      // than just beyond it.
+      endTextIndex--;
 
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-    // first find the root of the expression tree
-    while (node.getParent() != null) {
-      node = node.getParent();
-    }
-    Node nodeRoot = node;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-
-  private static boolean doIsDescendantOf(Node node, Node ancestor) {
-    for (; node != null; node = node.getParent()) {
-      if (ancestor == node) {
-        return true;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `dir`
-in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
-#### Snippet
-```java
-  public BidiWrappingText unicodeWrappingText(@Nullable Dir dir, String str, boolean isHtml) {
-    if (dir == null) {
-      dir = estimateDirection(str, isHtml);
-    }
-    StringBuilder beforeText = new StringBuilder();
+      int startLocation = Arrays.binarySearch(indexes, startTextIndex);
 ```
 
 ### AssignmentToMethodParameter
@@ -21883,18 +21857,6 @@ in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `str`
-in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
-#### Snippet
-```java
-    BidiWrappingText wrappingText = spanWrappingText(dir, str, isHtml);
-    if (!isHtml) {
-      str = HtmlEscapers.htmlEscaper().escape(str);
-    }
-    return wrappingText.beforeText() + str + wrappingText.afterText();
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `dir`
 in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
 #### Snippet
@@ -21904,6 +21866,30 @@ in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
       dir = estimateDirection(str, isHtml);
     }
     // BidiUtils.getExitDir() is called only if needed (short-circuit).
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `dir`
+in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
+#### Snippet
+```java
+  public BidiWrappingText unicodeWrappingText(@Nullable Dir dir, String str, boolean isHtml) {
+    if (dir == null) {
+      dir = estimateDirection(str, isHtml);
+    }
+    StringBuilder beforeText = new StringBuilder();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `str`
+in `java/src/com/google/template/soy/internal/i18n/BidiFormatter.java`
+#### Snippet
+```java
+    BidiWrappingText wrappingText = spanWrappingText(dir, str, isHtml);
+    if (!isHtml) {
+      str = HtmlEscapers.htmlEscaper().escape(str);
+    }
+    return wrappingText.beforeText() + str + wrappingText.afterText();
 ```
 
 ### AssignmentToMethodParameter
@@ -22027,6 +22013,18 @@ in `java/src/com/google/template/soy/soyparse/ParseErrors.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `expectedTokens`
+in `java/src/com/google/template/soy/soyparse/ParseErrors.java`
+#### Snippet
+```java
+      normalizedTokensBuilder.add(maybeQuoteForParseError(t));
+    }
+    expectedTokens = normalizedTokensBuilder.build().asList();
+
+    StringBuilder details = new StringBuilder();
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `optionalAdvice`
 in `java/src/com/google/template/soy/soyparse/ParseErrors.java`
 #### Snippet
@@ -22120,18 +22118,6 @@ in `java/src/com/google/template/soy/soyparse/ParseErrors.java`
     s = s.replace("\t", "\\t");
     return s;
   }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expectedTokens`
-in `java/src/com/google/template/soy/soyparse/ParseErrors.java`
-#### Snippet
-```java
-      normalizedTokensBuilder.add(maybeQuoteForParseError(t));
-    }
-    expectedTokens = normalizedTokensBuilder.build().asList();
-
-    StringBuilder details = new StringBuilder();
 ```
 
 ### AssignmentToMethodParameter
@@ -22231,6 +22217,18 @@ in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyExprVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `templateName`
+in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
+#### Snippet
+```java
+  public static TemplateLiteralNode templateLiteral(String templateName) {
+    if (templateName.startsWith(".")) {
+      templateName = templateName.substring(1);
+    }
+    return TemplateLiteralNode.forVarRef(
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `error`
 in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
 #### Snippet
@@ -22252,18 +22250,6 @@ in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
         s = s.substring(0, charsLeft);
       }
       return matchPrefixIgnoreCase(s, /* advance= */ false);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `templateName`
-in `java/src/com/google/template/soy/treebuilder/ExprNodes.java`
-#### Snippet
-```java
-  public static TemplateLiteralNode templateLiteral(String templateName) {
-    if (templateName.startsWith(".")) {
-      templateName = templateName.substring(1);
-    }
-    return TemplateLiteralNode.forVarRef(
 ```
 
 ### AssignmentToMethodParameter
@@ -22447,18 +22433,6 @@ in `java/src/com/google/template/soy/basicfunctions/HtmlToText.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `paramValue`
-in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitor.java`
-#### Snippet
-```java
-    }
-    if (paramValue == null) {
-      paramValue = NullData.INSTANCE;
-    } else if (paramValue instanceof SoyAbstractCachingValueProvider) {
-      SoyAbstractCachingValueProvider typedValue = (SoyAbstractCachingValueProvider) paramValue;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `outputBuf`
 in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitor.java`
 #### Snippet
@@ -22471,15 +22445,27 @@ in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `dataAccessNode`
+Assignment to method parameter `paramValue`
+in `java/src/com/google/template/soy/sharedpasses/render/RenderVisitor.java`
+#### Snippet
+```java
+    }
+    if (paramValue == null) {
+      paramValue = NullData.INSTANCE;
+    } else if (paramValue instanceof SoyAbstractCachingValueProvider) {
+      SoyAbstractCachingValueProvider typedValue = (SoyAbstractCachingValueProvider) paramValue;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `base`
 in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
 #### Snippet
 ```java
-    if (dataAccessNode.getKind() == ExprNode.Kind.ASSERT_NON_NULL_OP_NODE) {
-      AssertNonNullOpNode assertNonNull = (AssertNonNullOpNode) dataAccessNode;
-      dataAccessNode = (AccessChainComponentNode) assertNonNull.getChild(0);
-      hasAssertNonNull = true;
-    }
+    boolean accessChain = false;
+    if (dataAccessNode.getBaseExprChild() instanceof DataAccessNode) {
+      base =
+          accumulateDataAccess(
+              (DataAccessNode) dataAccessNode.getBaseExprChild(),
 ```
 
 ### AssignmentToMethodParameter
@@ -22495,15 +22481,15 @@ in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `base`
+Assignment to method parameter `dataAccessNode`
 in `java/src/com/google/template/soy/sharedpasses/render/EvalVisitor.java`
 #### Snippet
 ```java
-    boolean accessChain = false;
-    if (dataAccessNode.getBaseExprChild() instanceof DataAccessNode) {
-      base =
-          accumulateDataAccess(
-              (DataAccessNode) dataAccessNode.getBaseExprChild(),
+    if (dataAccessNode.getKind() == ExprNode.Kind.ASSERT_NON_NULL_OP_NODE) {
+      AssertNonNullOpNode assertNonNull = (AssertNonNullOpNode) dataAccessNode;
+      dataAccessNode = (AccessChainComponentNode) assertNonNull.getChild(0);
+      hasAssertNonNull = true;
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -22754,19 +22740,7 @@ Return of `null`
 in `java/src/com/google/template/soy/data/SoyProtoValue.java`
 #### Snippet
 ```java
-  public SoyValue getItem(SoyValue key) {
-    asMap();
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/data/SoyProtoValue.java`
-#### Snippet
-```java
-  public SoyValue getField(String name) {
+  public SoyValueProvider getFieldProvider(String name) {
     asRecord();
     return null;
   }
@@ -22790,8 +22764,8 @@ Return of `null`
 in `java/src/com/google/template/soy/data/SoyProtoValue.java`
 #### Snippet
 ```java
-  public SoyValueProvider getFieldProvider(String name) {
-    asRecord();
+  public SoyValue getItem(SoyValue key) {
+    asMap();
     return null;
   }
 
@@ -22799,12 +22773,12 @@ in `java/src/com/google/template/soy/data/SoyProtoValue.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/data/internal/SoyMapImpl.java`
+in `java/src/com/google/template/soy/data/SoyProtoValue.java`
 #### Snippet
 ```java
-  public SoyValue get(SoyValue key) {
-    SoyValueProvider provider = getProvider(key);
-    return (provider != null) ? provider.resolve() : null;
+  public SoyValue getField(String name) {
+    asRecord();
+    return null;
   }
 
 ```
@@ -22847,12 +22821,12 @@ in `java/src/com/google/template/soy/data/internal/ListBackedList.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/data/internal/ParamStore.java`
+in `java/src/com/google/template/soy/data/internal/SoyMapImpl.java`
 #### Snippet
 ```java
-  public SoyValue getField(String name) {
-    SoyValueProvider valueProvider = getFieldProvider(name);
-    return (valueProvider != null) ? valueProvider.resolve() : null;
+  public SoyValue get(SoyValue key) {
+    SoyValueProvider provider = getProvider(key);
+    return (provider != null) ? provider.resolve() : null;
   }
 
 ```
@@ -22879,6 +22853,18 @@ in `java/src/com/google/template/soy/data/internal/SoyRecordImpl.java`
       return null;
     }
     return svp.resolve();
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/data/internal/ParamStore.java`
+#### Snippet
+```java
+  public SoyValue getField(String name) {
+    SoyValueProvider valueProvider = getFieldProvider(name);
+    return (valueProvider != null) ? valueProvider.resolve() : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -22927,30 +22913,6 @@ in `java/src/com/google/template/soy/msgs/restricted/RenderOnlySoyMsgBundleImpl.
     return index >= 0 ? resurrectMsg(msgId, partsForIndex(index)) : null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/data/SoyListData.java`
-#### Snippet
-```java
-      return list.get(index);
-    } catch (IndexOutOfBoundsException ioobe) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/SoyFileSet.java`
-#### Snippet
-```java
-        () -> {
-          variant.run();
-          return null;
-        });
-  }
 ```
 
 ### ReturnNull
@@ -23027,18 +22989,6 @@ in `java/src/com/google/template/soy/types/TypeRegistries.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/jbcsrc/BytecodeCompiler.java`
-#### Snippet
-```java
-
-    T getResult() {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `java/src/com/google/template/soy/jbcsrc/CompilingClassLoader.java`
 #### Snippet
 ```java
@@ -23059,6 +23009,42 @@ in `java/src/com/google/template/soy/jbcsrc/CompilingClassLoader.java`
       return null;
     }
     ClassData clazzToLoad = null;
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/jbcsrc/BytecodeCompiler.java`
+#### Snippet
+```java
+
+    T getResult() {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/data/SoyListData.java`
+#### Snippet
+```java
+      return list.get(index);
+    } catch (IndexOutOfBoundsException ioobe) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/SoyFileSet.java`
+#### Snippet
+```java
+        () -> {
+          variant.run();
+          return null;
+        });
+  }
 ```
 
 ### ReturnNull
@@ -23087,18 +23073,6 @@ in `java/src/com/google/template/soy/jbcsrc/internal/AbstractMemoryClassLoader.j
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
-#### Snippet
-```java
-                    spec -> {
-                      String s = (String) spec;
-                      return s.isEmpty() ? null : s;
-                    });
-            parts.add(new SoyMsgSelectPart(selectVarName, cases));
-```
-
-### ReturnNull
-Return of `null`
 in `java/src/com/google/template/soy/jbcsrc/restricted/CodeBuilder.java`
 #### Snippet
 ```java
@@ -23107,6 +23081,18 @@ in `java/src/com/google/template/soy/jbcsrc/restricted/CodeBuilder.java`
       return null;
     }
     String[] names = new String[types.length];
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/jbcsrc/shared/MsgDefaultConstantFactory.java`
+#### Snippet
+```java
+                    spec -> {
+                      String s = (String) spec;
+                      return s.isEmpty() ? null : s;
+                    });
+            parts.add(new SoyMsgSelectPart(selectVarName, cases));
 ```
 
 ### ReturnNull
@@ -23162,18 +23148,6 @@ Return of `null`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-  public static Integer toBoxedInteger(SoyValue value) {
-    if (value == null) {
-      return null;
-    }
-    return value.integerValue();
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
-#### Snippet
-```java
   public static Object unboxMapItem(SoyValue value, Class<?> type) {
     if (value == null) {
       return null;
@@ -23198,11 +23172,11 @@ Return of `null`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-  public static Float toBoxedFloat(SoyValue value) {
+  public static Long toBoxedLong(SoyValue value) {
     if (value == null) {
       return null;
-    } else if (value instanceof NumberData) {
-      return (float) ((NumberData) value).numberValue();
+    }
+    return value.longValue();
 ```
 
 ### ReturnNull
@@ -23222,11 +23196,23 @@ Return of `null`
 in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
 #### Snippet
 ```java
-  public static Long toBoxedLong(SoyValue value) {
+  public static Integer toBoxedInteger(SoyValue value) {
     if (value == null) {
       return null;
     }
-    return value.longValue();
+    return value.integerValue();
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/jbcsrc/runtime/JbcSrcRuntime.java`
+#### Snippet
+```java
+  public static Float toBoxedFloat(SoyValue value) {
+    if (value == null) {
+      return null;
+    } else if (value instanceof NumberData) {
+      return (float) ((NumberData) value).numberValue();
 ```
 
 ### ReturnNull
@@ -23414,11 +23400,11 @@ Return of `null`
 in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
 #### Snippet
 ```java
-                    return ((SoyProtoEnumType) type).getDescriptorExpression();
-                  }
+                  return ((SoyProtoEnumType) type).getDescriptorExpression();
+                default:
                   return null;
-                })
-            .filter(Objects::nonNull);
+              }
+            })
 ```
 
 ### ReturnNull
@@ -23426,11 +23412,11 @@ Return of `null`
 in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils.java`
 #### Snippet
 ```java
-                  return ((SoyProtoEnumType) type).getDescriptorExpression();
-                default:
+                    return ((SoyProtoEnumType) type).getDescriptorExpression();
+                  }
                   return null;
-              }
-            })
+                })
+            .filter(Objects::nonNull);
 ```
 
 ### ReturnNull
@@ -23471,7 +23457,19 @@ in `java/src/com/google/template/soy/soytree/TemplateBasicNode.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/basetree/AbstractNode.java`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+#### Snippet
+```java
+  public static HtmlTagNode getNodeAsHtmlTagNode(SoyNode node, boolean openTag) {
+    if (node == null) {
+      return null;
+    }
+    SoyNode.Kind tagKind =
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
 #### Snippet
 ```java
       }
@@ -23507,19 +23505,7 @@ in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
-#### Snippet
-```java
-  public static HtmlTagNode getNodeAsHtmlTagNode(SoyNode node, boolean openTag) {
-    if (node == null) {
-      return null;
-    }
-    SoyNode.Kind tagKind =
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/soytree/SoyTreeUtils.java`
+in `java/src/com/google/template/soy/basetree/AbstractNode.java`
 #### Snippet
 ```java
       }
@@ -23579,18 +23565,6 @@ in `java/src/com/google/template/soy/internal/proto/ProtoUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/soytree/TemplateNode.java`
-#### Snippet
-```java
-
-    public String getModName() {
-      return modNameDeclaration == null ? null : modNameDeclaration.name().identifier();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `java/src/com/google/template/soy/conformance/BanFragmentNavigation.java`
 #### Snippet
 ```java
@@ -23603,6 +23577,18 @@ in `java/src/com/google/template/soy/conformance/BanFragmentNavigation.java`
 
 ### ReturnNull
 Return of `null`
+in `java/src/com/google/template/soy/soytree/TemplateNode.java`
+#### Snippet
+```java
+
+    public String getModName() {
+      return modNameDeclaration == null ? null : modNameDeclaration.name().identifier();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `java/src/com/google/template/soy/javagencode/javatypes/FutureJavaType.java`
 #### Snippet
 ```java
@@ -23611,6 +23597,18 @@ in `java/src/com/google/template/soy/javagencode/javatypes/FutureJavaType.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/ContextualAutoescaper.java`
+#### Snippet
+```java
+    }
+    if (errorReporter.hasErrors()) {
+      return null;
+    }
+    return inferences;
 ```
 
 ### ReturnNull
@@ -23675,42 +23673,6 @@ in `java/src/com/google/template/soy/parsepasses/contextautoesc/Rewriter.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/ContextualAutoescaper.java`
-#### Snippet
-```java
-    }
-    if (errorReporter.hasErrors()) {
-      return null;
-    }
-    return inferences;
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/parsepasses/contextautoesc/InferenceEngine.java`
-#### Snippet
-```java
-    private SanitizedContentKind getCommonContentKindIfStrict(List<TemplateType> templates) {
-      if (templates.isEmpty()) {
-        return null;
-      }
-      TemplateContentKind contentKind = templates.get(0).getContentKind();
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyExprVisitor.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyExprVisitor.java`
 #### Snippet
 ```java
@@ -23731,6 +23693,42 @@ in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyExprVisitor.java`
         return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyExprVisitor.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/parsepasses/contextautoesc/InferenceEngine.java`
+#### Snippet
+```java
+    private SanitizedContentKind getCommonContentKindIfStrict(List<TemplateType> templates) {
+      if (templates.isEmpty()) {
+        return null;
+      }
+      TemplateContentKind contentKind = templates.get(0).getContentKind();
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyVisitor.java`
+#### Snippet
+```java
+  private static SoyValue getConstantOrNull(ExprRootNode exprRoot) {
+    if (exprRoot == null) {
+      return null;
+    }
+    ExprNode expr = exprRoot.getRoot();
 ```
 
 ### ReturnNull
@@ -23759,18 +23757,6 @@ in `java/src/com/google/template/soy/soyparse/HtmlRewriter.java`
 
 ### ReturnNull
 Return of `null`
-in `java/src/com/google/template/soy/sharedpasses/opti/SimplifyVisitor.java`
-#### Snippet
-```java
-  private static SoyValue getConstantOrNull(ExprRootNode exprRoot) {
-    if (exprRoot == null) {
-      return null;
-    }
-    ExprNode expr = exprRoot.getRoot();
-```
-
-### ReturnNull
-Return of `null`
 in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
 #### Snippet
 ```java
@@ -23779,6 +23765,18 @@ in `java/src/com/google/template/soy/sharedpasses/render/TofuValueFactory.java`
         return null;
       } else if (isExternApi && type == Object.class) {
         return SoyValueUnconverter.unconvert(value);
+```
+
+### ReturnNull
+Return of `null`
+in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
+#### Snippet
+```java
+  public static FloatData parseFloat(String str) {
+    Double d = Doubles.tryParse(str);
+    return (d == null || d.isNaN()) ? null : FloatData.forValue(d);
+  }
+
 ```
 
 ### ReturnNull
@@ -23801,18 +23799,6 @@ in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
     }
     Long l = Longs.tryParse(str, radix);
     return (l == null) ? null : IntegerData.forValue(l);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
-#### Snippet
-```java
-  public static FloatData parseFloat(String str) {
-    Double d = Doubles.tryParse(str);
-    return (d == null || d.isNaN()) ? null : FloatData.forValue(d);
   }
 
 ```
@@ -23868,18 +23854,6 @@ in `java/src/com/google/template/soy/internal/proto/ProtoUtils.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `biggerLineLengthsArr` is redundant
-in `java/src/com/google/template/soy/soyparse/SoySimpleCharStream.java`
-#### Snippet
-```java
-    // Increase the size of the array, if necessary.
-    if (line >= lineLengths.length) {
-      int[] biggerLineLengthsArr =
-          Arrays.copyOf(lineLengths, Math.max(lineLengths.length, line) + 2048);
-      lineLengths = biggerLineLengthsArr;
-```
-
-### UnnecessaryLocalVariable
 Local variable `name` is redundant
 in `java/src/com/google/template/soy/internal/proto/JavaQualifiedNames.java`
 #### Snippet
@@ -23889,6 +23863,18 @@ in `java/src/com/google/template/soy/internal/proto/JavaQualifiedNames.java`
     String name = stripPackageName(descriptor.getFullName(), descriptor.getFile());
     return name;
   }
+```
+
+### UnnecessaryLocalVariable
+Local variable `biggerLineLengthsArr` is redundant
+in `java/src/com/google/template/soy/soyparse/SoySimpleCharStream.java`
+#### Snippet
+```java
+    // Increase the size of the array, if necessary.
+    if (line >= lineLengths.length) {
+      int[] biggerLineLengthsArr =
+          Arrays.copyOf(lineLengths, Math.max(lineLengths.length, line) + 2048);
+      lineLengths = biggerLineLengthsArr;
 ```
 
 ### UnnecessaryLocalVariable
@@ -24052,54 +24038,6 @@ in `java/src/com/google/template/soy/base/internal/IndentedLinesBuilder.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.MoreFiles' is marked unstable with @Beta
-in `java/src/com/google/template/soy/PerInputOutputFiles.java`
-#### Snippet
-```java
-            continue;
-          }
-          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
-        } else {
-          checkState(
-```
-
-### UnstableApiUsage
-'asCharSink(java.nio.file.Path, java.nio.charset.Charset, java.nio.file.OpenOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
-in `java/src/com/google/template/soy/PerInputOutputFiles.java`
-#### Snippet
-```java
-            continue;
-          }
-          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
-        } else {
-          checkState(
-```
-
-### UnstableApiUsage
-'com.google.common.io.MoreFiles' is marked unstable with @Beta
-in `java/src/com/google/template/soy/PerInputOutputFiles.java`
-#### Snippet
-```java
-            continue;
-          }
-          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
-        }
-
-```
-
-### UnstableApiUsage
-'asCharSink(java.nio.file.Path, java.nio.charset.Charset, java.nio.file.OpenOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
-in `java/src/com/google/template/soy/PerInputOutputFiles.java`
-#### Snippet
-```java
-            continue;
-          }
-          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
-        }
-
-```
-
-### UnstableApiUsage
 'asMap(com.google.common.collect.SetMultimap)' is marked unstable with @Beta
 in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
 #### Snippet
@@ -24109,6 +24047,78 @@ in `java/src/com/google/template/soy/AbstractSoyCompiler.java`
         Multimaps.asMap(protoFileToDescriptor).entrySet()) {
       if (entry.getValue().size() > 1) {
         err.println(
+```
+
+### UnstableApiUsage
+'com.google.common.io.MoreFiles' is marked unstable with @Beta
+in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+#### Snippet
+```java
+            continue;
+          }
+          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
+        } else {
+          checkState(
+```
+
+### UnstableApiUsage
+'asCharSink(java.nio.file.Path, java.nio.charset.Charset, java.nio.file.OpenOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
+in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+#### Snippet
+```java
+            continue;
+          }
+          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
+        } else {
+          checkState(
+```
+
+### UnstableApiUsage
+'com.google.common.io.MoreFiles' is marked unstable with @Beta
+in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+#### Snippet
+```java
+            continue;
+          }
+          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
+        }
+
+```
+
+### UnstableApiUsage
+'asCharSink(java.nio.file.Path, java.nio.charset.Charset, java.nio.file.OpenOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
+in `java/src/com/google/template/soy/PerInputOutputFiles.java`
+#### Snippet
+```java
+            continue;
+          }
+          MoreFiles.asCharSink(outputPath, UTF_8).write(contents);
+        }
+
+```
+
+### UnstableApiUsage
+'com.google.common.primitives.UnsignedLongs' is marked unstable with @Beta
+in `java/src/com/google/template/soy/data/ProtoFieldInterpreter.java`
+#### Snippet
+```java
+        @Override
+        public Object protoFromSoy(SoyValue field) {
+          return UnsignedLongs.parseUnsignedLong(field.stringValue());
+        }
+      };
+```
+
+### UnstableApiUsage
+'parseUnsignedLong(java.lang.String)' is declared in unstable class 'com.google.common.primitives.UnsignedLongs' marked with @Beta
+in `java/src/com/google/template/soy/data/ProtoFieldInterpreter.java`
+#### Snippet
+```java
+        @Override
+        public Object protoFromSoy(SoyValue field) {
+          return UnsignedLongs.parseUnsignedLong(field.stringValue());
+        }
+      };
 ```
 
 ### UnstableApiUsage
@@ -24160,30 +24170,6 @@ in `java/src/com/google/template/soy/data/ProtoFieldInterpreter.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.primitives.UnsignedLongs' is marked unstable with @Beta
-in `java/src/com/google/template/soy/data/ProtoFieldInterpreter.java`
-#### Snippet
-```java
-        @Override
-        public Object protoFromSoy(SoyValue field) {
-          return UnsignedLongs.parseUnsignedLong(field.stringValue());
-        }
-      };
-```
-
-### UnstableApiUsage
-'parseUnsignedLong(java.lang.String)' is declared in unstable class 'com.google.common.primitives.UnsignedLongs' marked with @Beta
-in `java/src/com/google/template/soy/data/ProtoFieldInterpreter.java`
-#### Snippet
-```java
-        @Override
-        public Object protoFromSoy(SoyValue field) {
-          return UnsignedLongs.parseUnsignedLong(field.stringValue());
-        }
-      };
-```
-
-### UnstableApiUsage
 'com.google.common.primitives.UnsignedInts' is marked unstable with @Beta
 in `java/src/com/google/template/soy/data/ProtoFieldInterpreter.java`
 #### Snippet
@@ -24224,11 +24210,11 @@ in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
 in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
 #### Snippet
 ```java
-      prepareDataForBuild();
-      ImmutableMap.Builder<String, SoyValueProvider> finalDataBuilder =
-          ImmutableMap.<String, SoyValueProvider>builderWithExpectedSize(data.size());
-      // Use forEach instead of looping over the entry set to avoid allocating entrySet+entry
-      // objects
+        Function<? super V, ? extends SoyValueProvider> valueMapper) {
+      ImmutableMap.Builder<SoyValue, SoyValueProvider> builder =
+          ImmutableMap.builderWithExpectedSize(map.size());
+      map.forEach((k, v) -> builder.put(keyMapper.apply(k), valueMapper.apply(v)));
+      return SoyMapImpl.forProviderMap(builder.build());
 ```
 
 ### UnstableApiUsage
@@ -24248,11 +24234,11 @@ in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
 in `java/src/com/google/template/soy/data/BaseSoyTemplateImpl.java`
 #### Snippet
 ```java
-        Function<? super V, ? extends SoyValueProvider> valueMapper) {
-      ImmutableMap.Builder<SoyValue, SoyValueProvider> builder =
-          ImmutableMap.builderWithExpectedSize(map.size());
-      map.forEach((k, v) -> builder.put(keyMapper.apply(k), valueMapper.apply(v)));
-      return SoyMapImpl.forProviderMap(builder.build());
+      prepareDataForBuild();
+      ImmutableMap.Builder<String, SoyValueProvider> finalDataBuilder =
+          ImmutableMap.<String, SoyValueProvider>builderWithExpectedSize(data.size());
+      // Use forEach instead of looping over the entry set to avoid allocating entrySet+entry
+      // objects
 ```
 
 ### UnstableApiUsage
@@ -24292,18 +24278,6 @@ in `java/src/com/google/template/soy/jbcsrc/api/PluginRuntimeInstanceInfo.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.primitives.UnsignedInts' is marked unstable with @Beta
-in `java/src/com/google/template/soy/jbcsrc/restricted/MethodRef.java`
-#### Snippet
-```java
-      create(UnsignedInts.class, "saturatedCast", long.class).asCheap();
-  public static final MethodRef UNSIGNED_INTS_TO_LONG =
-      create(UnsignedInts.class, "toLong", int.class).asCheap();
-
-  public static final MethodRef LONG_TO_STRING = create(Long.class, "toString", long.class);
-```
-
-### UnstableApiUsage
 'com.google.common.primitives.UnsignedLongs' is marked unstable with @Beta
 in `java/src/com/google/template/soy/jbcsrc/restricted/MethodRef.java`
 #### Snippet
@@ -24337,6 +24311,18 @@ in `java/src/com/google/template/soy/jbcsrc/restricted/MethodRef.java`
       create(UnsignedInts.class, "saturatedCast", long.class).asCheap();
   public static final MethodRef UNSIGNED_INTS_TO_LONG =
       create(UnsignedInts.class, "toLong", int.class).asCheap();
+```
+
+### UnstableApiUsage
+'com.google.common.primitives.UnsignedInts' is marked unstable with @Beta
+in `java/src/com/google/template/soy/jbcsrc/restricted/MethodRef.java`
+#### Snippet
+```java
+      create(UnsignedInts.class, "saturatedCast", long.class).asCheap();
+  public static final MethodRef UNSIGNED_INTS_TO_LONG =
+      create(UnsignedInts.class, "toLong", int.class).asCheap();
+
+  public static final MethodRef LONG_TO_STRING = create(Long.class, "toString", long.class);
 ```
 
 ### UnstableApiUsage
@@ -24380,6 +24366,18 @@ in `java/src/com/google/template/soy/shared/internal/gencode/JavaGenerationUtils
 in `java/src/com/google/template/soy/soytree/TemplateMetadataSerializer.java`
 #### Snippet
 ```java
+      List<DataAllCallSituationP> callSituationList, SoyFileP fileProto) {
+    ImmutableList.Builder<DataAllCallSituation> builder =
+        ImmutableList.builderWithExpectedSize(callSituationList.size());
+    for (DataAllCallSituationP call : callSituationList) {
+      String templateName = call.getTemplateName();
+```
+
+### UnstableApiUsage
+'builderWithExpectedSize(int)' is marked unstable with @Beta
+in `java/src/com/google/template/soy/soytree/TemplateMetadataSerializer.java`
+#### Snippet
+```java
       ImmutableList<DataAllCallSituation> callSituationList, SoyFileNode fileNode) {
     ImmutableList.Builder<DataAllCallSituationP> builder =
         ImmutableList.builderWithExpectedSize(callSituationList.size());
@@ -24397,18 +24395,6 @@ in `java/src/com/google/template/soy/soytree/TemplateMetadataSerializer.java`
         ImmutableList.builderWithExpectedSize(parameterList.size());
     for (ParameterP parameter : parameterList) {
       builder.add(
-```
-
-### UnstableApiUsage
-'builderWithExpectedSize(int)' is marked unstable with @Beta
-in `java/src/com/google/template/soy/soytree/TemplateMetadataSerializer.java`
-#### Snippet
-```java
-      List<DataAllCallSituationP> callSituationList, SoyFileP fileProto) {
-    ImmutableList.Builder<DataAllCallSituation> builder =
-        ImmutableList.builderWithExpectedSize(callSituationList.size());
-    for (DataAllCallSituationP call : callSituationList) {
-      String templateName = call.getTemplateName();
 ```
 
 ### UnstableApiUsage
@@ -24508,18 +24494,6 @@ in `java/src/com/google/template/soy/javagencode/javatypes/JavaTypeUtils.java`
 ```
 
 ### UnstableApiUsage
-'tryParse(java.lang.String, int)' is marked unstable with @Beta
-in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
-#### Snippet
-```java
-      return null;
-    }
-    Long l = Longs.tryParse(str, radix);
-    return (l == null) ? null : IntegerData.forValue(l);
-  }
-```
-
-### UnstableApiUsage
 'tryParse(java.lang.String)' is marked unstable with @Beta
 in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
 #### Snippet
@@ -24528,6 +24502,18 @@ in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
   public static FloatData parseFloat(String str) {
     Double d = Doubles.tryParse(str);
     return (d == null || d.isNaN()) ? null : FloatData.forValue(d);
+  }
+```
+
+### UnstableApiUsage
+'tryParse(java.lang.String, int)' is marked unstable with @Beta
+in `java/src/com/google/template/soy/basicfunctions/BasicFunctionsRuntime.java`
+#### Snippet
+```java
+      return null;
+    }
+    Long l = Longs.tryParse(str, radix);
+    return (l == null) ? null : IntegerData.forValue(l);
   }
 ```
 
