@@ -1,7 +1,7 @@
 # gumtree-spoon-ast-diff 
  
 # Bad smells
-I found 51 bad smells with 9 repairable:
+I found 50 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 9 | false |
@@ -29,7 +29,6 @@ I found 51 bad smells with 9 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | Convert2Lambda | 1 | false |
 | AssignmentToMethodParameter | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
@@ -276,9 +275,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### BoundedWildcard
@@ -291,6 +290,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
 			String nodeLabel) {
 		return operations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -312,21 +323,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -460,18 +459,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -480,6 +467,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 	private boolean includeComments = false;
 
 	public AstComparator() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ### RedundantFieldInitialization
@@ -530,19 +529,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 public class CtVirtualElement extends CtWrapper<String> {
 
 	protected Collection<?> children;
-```
-
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-23-23-16-35.525.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
