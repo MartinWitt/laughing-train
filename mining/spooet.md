@@ -15,18 +15,6 @@ I found 16 bad smells with 3 repairable:
 | MethodOverridesStaticMethod | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
-in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
-#### Snippet
-```java
-		}
-
-		return result.toArray(new Modifier[result.size()]);
-	}
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new TypeName\[bounds.size()\]'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
@@ -50,6 +38,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 		throw new UnsupportedOperationException();
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
+in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+#### Snippet
+```java
+		}
+
+		return result.toArray(new Modifier[result.size()]);
+	}
+
+```
+
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CtVisitor`
@@ -70,7 +70,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public Map<Integer, Integer> getLineNumberMapping() {
+	public String printModuleInfo(CtModule ctModule) {
 		return null;
 	}
 
@@ -94,7 +94,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printModuleInfo(CtModule ctModule) {
+	public Map<Integer, Integer> getLineNumberMapping() {
 		return null;
 	}
 
@@ -115,18 +115,6 @@ in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
-#### Snippet
-```java
-		defaultJavaPrettyPrinter.scan(element);
-		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
-		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
-	}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
@@ -135,6 +123,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
 		}
 		field.initializer(result);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
+#### Snippet
+```java
+		defaultJavaPrettyPrinter.scan(element);
+		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
+		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
+	}
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
