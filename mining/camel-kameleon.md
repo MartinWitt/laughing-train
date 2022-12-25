@@ -185,7 +185,7 @@ in `src/main/java/org/apache/camel/kameleon/WarmUpService.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-24-23-05-54.103.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-25-21-04-45.227.html`
 #### Snippet
 ```java
               <td>0</td>
