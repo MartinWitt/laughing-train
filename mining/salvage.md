@@ -39,18 +39,6 @@ in `src/main/java/de/chrisliebaer/salvage/SalvageService.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Argument `config.getEnv()` might be null
-in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
-#### Snippet
-```java
-				.withAttachStderr(true)
-				.withAttachStdin(false)
-				.withEnv(Arrays.asList(config.getEnv()))
-				.withUser(user)
-				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
-```
-
-### DataFlowIssue
 Unboxing of `state.getRestarting()` may produce `NullPointerException`
 in `src/main/java/de/chrisliebaer/salvage/StateTransaction.java`
 #### Snippet
@@ -168,6 +156,18 @@ in `src/main/java/de/chrisliebaer/salvage/entity/SalvageConfiguration.java`
 		for (var key : labels.keySet()) {
 			if (key.startsWith(LABEL_SALVAGE_TIDE_PREFIX)) {
 				var tide = key.substring(LABEL_SALVAGE_TIDE_PREFIX.length());
+```
+
+### DataFlowIssue
+Argument `config.getEnv()` might be null
+in `src/main/java/de/chrisliebaer/salvage/entity/ContainerCommand.java`
+#### Snippet
+```java
+				.withAttachStderr(true)
+				.withAttachStdin(false)
+				.withEnv(Arrays.asList(config.getEnv()))
+				.withUser(user)
+				.withPrivileged(dockerContainer.getHostConfig().getPrivileged())
 ```
 
 ### DataFlowIssue
