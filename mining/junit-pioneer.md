@@ -174,18 +174,6 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 ```
 
 ### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
-#### Snippet
-```java
-		Optional<Class<?>> type = context.getTestClass();
-		// type may not be present because of recursion to the parent context
-		if (!type.isPresent())
-			return Stream.empty();
-
-```
-
-### SimplifyOptionalCallChains
 Optional chain can be simplified
 in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
@@ -195,6 +183,18 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 				.orElse(Stream.empty());
 		Stream<DisableIfTestFails> onInterfaces = Arrays
 				.stream(element.getInterfaces())
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+#### Snippet
+```java
+		Optional<Class<?>> type = context.getTestClass();
+		// type may not be present because of recursion to the parent context
+		if (!type.isPresent())
+			return Stream.empty();
+
 ```
 
 ### SimplifyOptionalCallChains
@@ -287,11 +287,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-	 * Constructor with all attributes.
+
+	/**
+	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
 	 *
-	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
-	 * @param tests List of all tests, annotated with the issueId
-	 */
+	 * @return IssueId the test belongs to
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -311,23 +311,11 @@ Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
-
-	/**
-	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 * Constructor with all attributes.
 	 *
-	 * @return IssueId the test belongs to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-	 * found or the top level class is reached.
-	 *
-	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
-	 *
-	 * @param clazz the class or interface in which to find the method; never {@code null}
+	 * @param issueId Value of the {@link org.junitpioneer.jupiter.Issue} annotation
+	 * @param tests List of all tests, annotated with the issueId
+	 */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -364,6 +352,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 	 * - {@link org.junitpioneer.jupiter.cartesian.CartesianTest#ARGUMENTS_PLACEHOLDER}
 	 * - <code>{0}</code>, <code>{1}</code>, etc.: an individual argument (0-based)
 	 *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+	 * found or the top level class is reached.
+	 *
+	 * <p>The algorithm does not search for methods in {@link java.lang.Object}.
+	 *
+	 * @param clazz the class or interface in which to find the method; never {@code null}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -469,6 +469,30 @@ in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+			private final BiPredicate<String, Set<String>> selector;
+
+			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
+				this.validator = validator;
+				this.selector = selector;
+```
+
+### BoundedWildcard
+Can generalize to `? super Set`
+in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
+#### Snippet
+```java
+			private final BiPredicate<String, Set<String>> selector;
+
+			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
+				this.validator = validator;
+				this.selector = selector;
+```
+
+### BoundedWildcard
 Can generalize to `? super Map`
 in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
@@ -505,54 +529,6 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DisableIfTestFails`
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
-#### Snippet
-```java
-
-	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
-			List<DisableIfTestFails> annotations) {
-		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
-		if (annotations.isEmpty())
-```
-
-### BoundedWildcard
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
-#### Snippet
-```java
-	private List<Source> sources;
-
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-			private final BiPredicate<String, Set<String>> selector;
-
-			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
-				this.validator = validator;
-				this.selector = selector;
-```
-
-### BoundedWildcard
-Can generalize to `? super Set`
-in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
-#### Snippet
-```java
-			private final BiPredicate<String, Set<String>> selector;
-
-			Mode(CartesianTest.Enum.Mode.Validator validator, BiPredicate<String, Set<String>> selector) {
-				this.validator = validator;
-				this.selector = selector;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Shared`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -577,6 +553,42 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DisableIfTestFails`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+#### Snippet
+```java
+
+	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
+			List<DisableIfTestFails> annotations) {
+		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
+		if (annotations.isEmpty())
+```
+
+### BoundedWildcard
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+#### Snippet
+```java
+	private List<Source> sources;
+
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void clearEntries(Collection<K> entriesToClear) {
+		entriesToClear.forEach(this::clearEntry);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
@@ -597,18 +609,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void clearEntries(Collection<K> entriesToClear) {
-		entriesToClear.forEach(this::clearEntry);
 	}
 ```
 
