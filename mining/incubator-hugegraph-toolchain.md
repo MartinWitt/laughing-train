@@ -50,8 +50,8 @@ I found 557 bad smells with 123 repairable:
 | UseOfPropertiesAsHashtable | 2 | false |
 | EmptyMethod | 2 | false |
 | PointlessBitwiseExpression | 2 | false |
-| RedundantStringFormatCall | 2 | false |
 | SynchronizeOnThis | 2 | false |
+| RedundantStringFormatCall | 2 | false |
 | DoubleBraceInitialization | 2 | false |
 | FieldMayBeStatic | 2 | false |
 | Convert2MethodRef | 2 | false |
@@ -60,8 +60,8 @@ I found 557 bad smells with 123 repairable:
 | WrapperTypeMayBePrimitive | 1 | false |
 | StaticCallOnSubclass | 1 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
-| ManualMinMaxCalculation | 1 | false |
 | ConstantMathCall | 1 | false |
+| ManualMinMaxCalculation | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
 | IfStatementWithIdenticalBranches | 1 | false |
@@ -77,44 +77,7 @@ I found 557 bad smells with 123 repairable:
 | SynchronizeOnNonFinalField | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
 | AssignmentToLambdaParameter | 1 | false |
-## RuleId[ruleID=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
-#### Snippet
-```java
-
-        File file = new File(tradeValueFile);
-        Long fileLen = file.length();
-        byte[] fileBytes = new byte[fileLen.intValue()];
-        try (FileInputStream in = new FileInputStream(file)) {
-```
-
 ## RuleId[ruleID=StringEquality]
-### StringEquality
-String values are compared using `==`, not 'equals()'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/HBaseSerializer.java`
-#### Snippet
-```java
-    public byte[] getKeyBytes(GraphElement e) {
-        byte[] array = null;
-        if(e.type() == "vertex" && e.id() != null){
-            BytesBuffer buffer = BytesBuffer.allocate(2 + 1 + e.id().toString().length());
-            buffer.writeShort(getPartition(HugeType.VERTEX,  IdGenerator.of(e.id())));
-```
-
-### StringEquality
-String values are compared using `==`, not 'equals()'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/HBaseSerializer.java`
-#### Snippet
-```java
-            buffer.writeId(IdGenerator.of(e.id()));
-            array = buffer.bytes();
-        }else if ( e.type() == "edge" ){
-            BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
-            Edge edge = (Edge)e;
-```
-
 ### StringEquality
 String values are compared using `==`, not 'equals()'
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/HBaseSerializer.java`
@@ -139,6 +102,43 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/HBaseS
             BytesBuffer buffer = BytesBuffer.allocate(4 + 16 * propsCount);
 ```
 
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/HBaseSerializer.java`
+#### Snippet
+```java
+    public byte[] getKeyBytes(GraphElement e) {
+        byte[] array = null;
+        if(e.type() == "vertex" && e.id() != null){
+            BytesBuffer buffer = BytesBuffer.allocate(2 + 1 + e.id().toString().length());
+            buffer.writeShort(getPartition(HugeType.VERTEX,  IdGenerator.of(e.id())));
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/HBaseSerializer.java`
+#### Snippet
+```java
+            buffer.writeId(IdGenerator.of(e.id()));
+            array = buffer.bytes();
+        }else if ( e.type() == "edge" ){
+            BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
+            Edge edge = (Edge)e;
+```
+
+## RuleId[ruleID=WrapperTypeMayBePrimitive]
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
+#### Snippet
+```java
+
+        File file = new File(tradeValueFile);
+        Long fileLen = file.length();
+        byte[] fileBytes = new byte[fileLen.intValue()];
+        try (FileInputStream in = new FileInputStream(file)) {
+```
+
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
@@ -150,6 +150,18 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/Formatter.java`
     public static Formatter loadFormatter(String formatter) {
         String classPath = String.format("%s.%s", PACKAGE, formatter);
         ClassLoader loader = Formatter.class.getClassLoader();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/Formatter.java`
+#### Snippet
+```java
+
+    // Serialize a vertex(with edge and property) to string
+    public String dump(JsonGraph.JsonVertex vertex) throws Exception;
+
+    public static final String PACKAGE = Formatter.class.getPackage().getName();
 ```
 
 ### UnnecessaryModifier
@@ -188,31 +200,7 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/Formatter.java`
     public static Formatter loadFormatter(String formatter) {
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/Formatter.java`
-#### Snippet
-```java
-
-    // Serialize a vertex(with edge and property) to string
-    public String dump(JsonGraph.JsonVertex vertex) throws Exception;
-
-    public static final String PACKAGE = Formatter.class.getPackage().getName();
-```
-
 ## RuleId[ruleID=PointlessArithmeticExpression]
-### PointlessArithmeticExpression
-`1 * Bytes.GB` can be replaced with 'Bytes.GB'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-    public static final byte STRING_ENDING_BYTE_FF = (byte) 0xff;
-    public static final int STRING_LEN_MAX = UINT16_MAX;
-    public static final long BLOB_LEN_MAX = 1 * Bytes.GB;
-
-    // The value must be in range [8, ID_LEN_MAX]
-```
-
 ### PointlessArithmeticExpression
 `1 * Bytes.GB` can be replaced with 'Bytes.GB'
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/options/HubbleOptions.java`
@@ -235,6 +223,18 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/load/L
     @Scheduled(fixedDelay = 1 * 1000)
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void updateLoadTaskProgress() {
+```
+
+### PointlessArithmeticExpression
+`1 * Bytes.GB` can be replaced with 'Bytes.GB'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+#### Snippet
+```java
+    public static final byte STRING_ENDING_BYTE_FF = (byte) 0xff;
+    public static final int STRING_LEN_MAX = UINT16_MAX;
+    public static final long BLOB_LEN_MAX = 1 * Bytes.GB;
+
+    // The value must be in range [8, ID_LEN_MAX]
 ```
 
 ## RuleId[ruleID=StaticCallOnSubclass]
@@ -344,6 +344,18 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBa
 #### Snippet
 ```java
 
+    public Integer getTablePartitions() {
+        return struct.edges().size() > 0 ?
+               loadOptions.edgePartitions : loadOptions.vertexPartitions;
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`struct.edges().size() > 0` can be replaced with '!struct.edges().isEmpty()'
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBaseDirectLoader.java`
+#### Snippet
+```java
+
         String tableName = null;
         if (struct.edges().size() > 0) {
             tableName = this.loadOptions.edgeTablename;
@@ -363,18 +375,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBa
 ```
 
 ### SizeReplaceableByIsEmpty
-`struct.edges().size() > 0` can be replaced with '!struct.edges().isEmpty()'
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBaseDirectLoader.java`
-#### Snippet
-```java
-
-    public Integer getTablePartitions() {
-        return struct.edges().size() > 0 ?
-               loadOptions.edgePartitions : loadOptions.vertexPartitions;
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `id.length() > 0` can be replaced with '!id.isEmpty()'
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/Id.java`
 #### Snippet
@@ -386,33 +386,31 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
             switch (id.charAt(0)) {
 ```
 
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/PageUtil.java`
-#### Snippet
-```java
-    public static <T> IPage<T> page(List<T> entities, int pageNo, int pageSize) {
-        // Regard page no < 1 as 1
-        int current = pageNo > 1 ? pageNo : 1;
-        int pages;
-        List<T> records;
-```
-
-## RuleId[ruleID=ConstantMathCall]
-### ConstantMathCall
-Constant call to `ceil()` can be simplified
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
-#### Snippet
-```java
-
-        final int cacheSize = 1000;
-        final int capacity = (int) Math.ceil(cacheSize / 0.75f) + 1;
-        entPlain2Id = new LinkedHashMap<String, String>(capacity, 0.75f, true) {
-            @Override
-```
-
 ## RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
+#### Snippet
+```java
+    }
+
+    public final static Id of(UUID id) {
+        return new UuidId(id);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
+#### Snippet
+```java
+    }
+
+    public final static String asStoredString(Id id) {
+        switch (id.type()) {
+            case LONG:
+```
+
 ### FinalStaticMethod
 'static' method declared `final`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
@@ -430,10 +428,10 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
 #### Snippet
 ```java
-    public static final Id ZERO = IdGenerator.of(0L);
+    }
 
-    public final static Id of(String id) {
-        return new StringId(id);
+    public final static Id of(String id, boolean uuid) {
+        return uuid ? new UuidId(id) : new StringId(id);
     }
 ```
 
@@ -456,30 +454,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
 ```java
     }
 
-    public final static String asStoredString(Id id) {
-        switch (id.type()) {
-            case LONG:
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
-#### Snippet
-```java
-    }
-
-    public final static Id of(UUID id) {
-        return new UuidId(id);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
-#### Snippet
-```java
-    }
-
     public final static Id of(byte[] bytes, Id.IdType type) {
         switch (type) {
             case LONG:
@@ -492,9 +466,9 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
 ```java
     }
 
-    public final static Id of(String id, boolean uuid) {
-        return uuid ? new UuidId(id) : new StringId(id);
-    }
+    public final static Id ofStoredString(String id, Id.IdType type) {
+        switch (type) {
+            case LONG:
 ```
 
 ### FinalStaticMethod
@@ -502,11 +476,37 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
 #### Snippet
 ```java
-    }
+    public static final Id ZERO = IdGenerator.of(0L);
 
-    public final static Id ofStoredString(String id, Id.IdType type) {
-        switch (type) {
-            case LONG:
+    public final static Id of(String id) {
+        return new StringId(id);
+    }
+```
+
+## RuleId[ruleID=ConstantMathCall]
+### ConstantMathCall
+Constant call to `ceil()` can be simplified
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
+#### Snippet
+```java
+
+        final int cacheSize = 1000;
+        final int capacity = (int) Math.ceil(cacheSize / 0.75f) + 1;
+        entPlain2Id = new LinkedHashMap<String, String>(capacity, 0.75f, true) {
+            @Override
+```
+
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/PageUtil.java`
+#### Snippet
+```java
+    public static <T> IPage<T> page(List<T> entities, int pageNo, int pageSize) {
+        // Regard page no < 1 as 1
+        int current = pageNo > 1 ? pageNo : 1;
+        int pages;
+        List<T> records;
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -548,15 +548,15 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/task/InsertTask.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InputStruct`
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/HugeGraphLoader.java`
+Can generalize to `? extends List`>
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/task/ParseTaskBuilder.java`
 #### Snippet
 ```java
-    }
 
-    private void loadStructs(List<InputStruct> structs) {
-        // Load input structs one by one
-        for (InputStruct struct : structs) {
+        public ParseTask(ElementMapping mapping,
+                         Supplier<List<List<Record>>> supplier) {
+            this.mapping = mapping;
+            this.supplier = supplier;
 ```
 
 ### BoundedWildcard
@@ -572,15 +572,27 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/HugeGraphLoader.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`>
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/task/ParseTaskBuilder.java`
+Can generalize to `? extends InputStruct`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/HugeGraphLoader.java`
+#### Snippet
+```java
+    }
+
+    private void loadStructs(List<InputStruct> structs) {
+        // Load input structs one by one
+        for (InputStruct struct : structs) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Readable`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/ParquetFileLineFetcher.java`
 #### Snippet
 ```java
 
-        public ParseTask(ElementMapping mapping,
-                         Supplier<List<List<Record>>> supplier) {
-            this.mapping = mapping;
-            this.supplier = supplier;
+    @Override
+    public String[] readHeader(List<Readable> readables) {
+        Readable readable = readables.get(0);
+        this.openReader(readables.get(0));
 ```
 
 ### BoundedWildcard
@@ -605,18 +617,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/FileL
     public String[] readHeader(List<Readable> readables) {
         String[] header = null;
         for (Readable readable : readables) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Readable`
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/ParquetFileLineFetcher.java`
-#### Snippet
-```java
-
-    @Override
-    public String[] readHeader(List<Readable> readables) {
-        Readable readable = readables.get(0);
-        this.openReader(readables.get(0));
 ```
 
 ### BoundedWildcard
@@ -677,6 +677,366 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBa
                                                                List<ElementBuilder> builders) {
         List<GraphElement> elementsElement;
         List<Tuple2<ImmutableBytesWritable, KeyValue>> result = new LinkedList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SchemaConflict`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/schema/ConflictDetail.java`
+#### Snippet
+```java
+
+    private <T extends SchemaEntity> boolean anyConflict(
+                                             List<SchemaConflict<T>> conflicts,
+                                             Collection<String> names) {
+        if (CollectionUtils.isEmpty(names)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PropertyKeyEntity`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
+#### Snippet
+```java
+    }
+
+    public void checkConflict(List<PropertyKeyEntity> entities,
+                              ConflictDetail detail, int connId,
+                              boolean compareEachOther) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Edge`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/query/GremlinQueryService.java`
+#### Snippet
+```java
+
+    private Map<Object, Vertex> verticesOfEdge(TypedResult result,
+                                               Map<String, Edge> edges,
+                                               HugeClient client) {
+        int batchSize = this.config.get(HubbleOptions.GREMLIN_BATCH_QUERY_IDS);
+```
+
+### BoundedWildcard
+Can generalize to `? extends VertexLabelEntity`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+    }
+
+    public void checkConflict(List<VertexLabelEntity> entities,
+                              ConflictDetail detail, int connId,
+                              boolean compareEachOther) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PropertyIndex`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+    }
+
+    public void checkConflict(List<PropertyIndex> entities,
+                              ConflictDetail detail, int connId,
+                              boolean compareEachOther) {
+```
+
+### BoundedWildcard
+Can generalize to `? super HugeClient`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+
+    public static void removeBatch(List<String> names, HugeClient client,
+                                   BiConsumer<HugeClient, String> func,
+                                   SchemaType type) {
+        if (CollectionUtils.isEmpty(names)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+
+    public static void removeBatch(List<String> names, HugeClient client,
+                                   BiConsumer<HugeClient, String> func,
+                                   SchemaType type) {
+        if (CollectionUtils.isEmpty(names)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends SchemaConflict`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static <T extends SchemaEntity>
+           ConflictStatus compareWithOthers(int currentIdx,
+                                            List<SchemaConflict<T>> conflicts) {
+        SchemaConflict<T> current = conflicts.get(currentIdx);
+        T currentEntity = current.getEntity();
+```
+
+### BoundedWildcard
+Can generalize to `? super HugeClient`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static List<Long> removeBatch(
+           List<String> names, HugeClient client,
+           BiFunction<HugeClient, String, Long> func, SchemaType type) {
+        List<Long> tasks = new ArrayList<>();
+        if (CollectionUtils.isEmpty(names)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static List<Long> removeBatch(
+           List<String> names, HugeClient client,
+           BiFunction<HugeClient, String, Long> func, SchemaType type) {
+        List<Long> tasks = new ArrayList<>();
+        if (CollectionUtils.isEmpty(names)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends IndexLabel`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static List<PropertyIndex> collectPropertyIndexes(
+                                      SchemaLabel schemaLabel,
+                                      List<IndexLabel> indexLabels) {
+        List<PropertyIndex> propertyIndexes = new ArrayList<>();
+        if (indexLabels == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+
+    public static <T extends SchemaElement> List<Long> addBatch(
+           List<T> schemas, HugeClient client,
+           BiFunction<HugeClient, T, Long> func, SchemaType type) {
+        List<Long> tasks = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super HugeClient`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static <T extends SchemaElement> List<Long> addBatch(
+           List<T> schemas, HugeClient client,
+           BiFunction<HugeClient, T, Long> func, SchemaType type) {
+        List<Long> tasks = new ArrayList<>();
+        if (CollectionUtils.isEmpty(schemas)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static <T extends SchemaElement> List<Long> addBatch(
+           List<T> schemas, HugeClient client,
+           BiFunction<HugeClient, T, Long> func, SchemaType type) {
+        List<Long> tasks = new ArrayList<>();
+        if (CollectionUtils.isEmpty(schemas)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+
+    public static <T extends SchemaElement> void addBatch(
+           List<T> schemas, HugeClient client,
+           BiConsumer<HugeClient, T> func, SchemaType type) {
+        if (CollectionUtils.isEmpty(schemas)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super HugeClient`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static <T extends SchemaElement> void addBatch(
+           List<T> schemas, HugeClient client,
+           BiConsumer<HugeClient, T> func, SchemaType type) {
+        if (CollectionUtils.isEmpty(schemas)) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    public static <T extends SchemaElement> void addBatch(
+           List<T> schemas, HugeClient client,
+           BiConsumer<HugeClient, T> func, SchemaType type) {
+        if (CollectionUtils.isEmpty(schemas)) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PropertyIndex`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
+#### Snippet
+```java
+    }
+
+    public static List<IndexLabel> convertIndexLabels(List<PropertyIndex> entities,
+                                                      HugeClient client,
+                                                      boolean isVertex,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PropertyKeyEntity`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
+#### Snippet
+```java
+    }
+
+    private PropertyKeyEntity findPropertyKey(List<PropertyKeyEntity> entities,
+                                              String name) {
+        for (PropertyKeyEntity entity : entities) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Property`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
+#### Snippet
+```java
+     */
+    public static void checkProperties(PropertyKeyService service,
+                                       Set<Property> properties,
+                                       boolean mustNullable, int connId) {
+        if (properties == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
+#### Snippet
+```java
+    }
+
+    private void fillProperties(Map<String, String> properties,
+                                SchemaLabelEntity entity,
+                                List<PropertyKeyEntity> propertyKeys) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
+#### Snippet
+```java
+    }
+
+    private void fillProperties(Map<String, String> properties,
+                                SchemaLabelEntity entity,
+                                List<PropertyKeyEntity> propertyKeys) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
+#### Snippet
+```java
+
+    public <T extends SchemaEntity> IPage<T> listInPage(
+                                             Function<Integer, List<T>> fetcher,
+                                             int connId, String content,
+                                             String nameOrder,
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
+#### Snippet
+```java
+
+    public <T extends SchemaEntity> IPage<T> listInPage(
+                                             Function<Integer, List<T>> fetcher,
+                                             int connId, String content,
+                                             String nameOrder,
+```
+
+### BoundedWildcard
+Can generalize to `? extends JsonGraph.JsonVertex`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/DumpGraphManager.java`
+#### Snippet
+```java
+    }
+
+    private void dump(String file, Collection<JsonGraph.JsonVertex> vertices) {
+        try (OutputStream os = this.outputStream(file, false);
+             BufferedOutputStream bos = new BufferedOutputStream(os)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Edge`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
+#### Snippet
+```java
+    }
+
+    private void updateVertexIdInEdge(List<Edge> edges) {
+        for (Edge edge : edges) {
+            edge.sourceId(this.updateVid(edge.sourceLabel(), edge.sourceId()));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupRestoreBaseManager.java`
+#### Snippet
+```java
+
+    protected void read(String file, HugeType type,
+                        BiConsumer<String, String> consumer) {
+        InputStream is = this.inputStream(file);
+        try (InputStreamReader isr = new InputStreamReader(is, API.CHARSET);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupRestoreBaseManager.java`
+#### Snippet
+```java
+
+    protected void read(String file, HugeType type,
+                        BiConsumer<String, String> consumer) {
+        InputStream is = this.inputStream(file);
+        try (InputStreamReader isr = new InputStreamReader(is, API.CHARSET);
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthManager`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+    }
+
+    private void doRestore(List<AuthManager> authManagers) {
+        E.checkState(CollectionUtils.isNotEmpty(authManagers),
+                     "Restore data is empty, please check the type");
+```
+
+### BoundedWildcard
+Can generalize to `? extends AuthManager`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+    }
+
+    private void doBackup(List<AuthManager> authManagers) {
+        E.checkState(CollectionUtils.isNotEmpty(authManagers),
+                     "Backup data is empty, please check the type");
 ```
 
 ### BoundedWildcard
@@ -763,367 +1123,31 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/reuse/
             byte[] rowkey = HBaseSer.getKeyBytes(vertex);
 ```
 
-### BoundedWildcard
-Can generalize to `? extends JsonGraph.JsonVertex`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/DumpGraphManager.java`
-#### Snippet
-```java
-    }
-
-    private void dump(String file, Collection<JsonGraph.JsonVertex> vertices) {
-        try (OutputStream os = this.outputStream(file, false);
-             BufferedOutputStream bos = new BufferedOutputStream(os)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Edge`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
-#### Snippet
-```java
-    }
-
-    private void updateVertexIdInEdge(List<Edge> edges) {
-        for (Edge edge : edges) {
-            edge.sourceId(this.updateVid(edge.sourceLabel(), edge.sourceId()));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupRestoreBaseManager.java`
-#### Snippet
-```java
-
-    protected void read(String file, HugeType type,
-                        BiConsumer<String, String> consumer) {
-        InputStream is = this.inputStream(file);
-        try (InputStreamReader isr = new InputStreamReader(is, API.CHARSET);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupRestoreBaseManager.java`
-#### Snippet
-```java
-
-    protected void read(String file, HugeType type,
-                        BiConsumer<String, String> consumer) {
-        InputStream is = this.inputStream(file);
-        try (InputStreamReader isr = new InputStreamReader(is, API.CHARSET);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaConflict`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/schema/ConflictDetail.java`
-#### Snippet
-```java
-
-    private <T extends SchemaEntity> boolean anyConflict(
-                                             List<SchemaConflict<T>> conflicts,
-                                             Collection<String> names) {
-        if (CollectionUtils.isEmpty(names)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthManager`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
-#### Snippet
-```java
-    }
-
-    private void doRestore(List<AuthManager> authManagers) {
-        E.checkState(CollectionUtils.isNotEmpty(authManagers),
-                     "Restore data is empty, please check the type");
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthManager`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
-#### Snippet
-```java
-    }
-
-    private void doBackup(List<AuthManager> authManagers) {
-        E.checkState(CollectionUtils.isNotEmpty(authManagers),
-                     "Backup data is empty, please check the type");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyKeyEntity`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
-#### Snippet
-```java
-    }
-
-    public void checkConflict(List<PropertyKeyEntity> entities,
-                              ConflictDetail detail, int connId,
-                              boolean compareEachOther) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends VertexLabelEntity`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-    }
-
-    public void checkConflict(List<VertexLabelEntity> entities,
-                              ConflictDetail detail, int connId,
-                              boolean compareEachOther) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyIndex`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-    }
-
-    public void checkConflict(List<PropertyIndex> entities,
-                              ConflictDetail detail, int connId,
-                              boolean compareEachOther) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Edge`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/query/GremlinQueryService.java`
-#### Snippet
-```java
-
-    private Map<Object, Vertex> verticesOfEdge(TypedResult result,
-                                               Map<String, Edge> edges,
-                                               HugeClient client) {
-        int batchSize = this.config.get(HubbleOptions.GREMLIN_BATCH_QUERY_IDS);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-
-    public static <T extends SchemaElement> void addBatch(
-           List<T> schemas, HugeClient client,
-           BiConsumer<HugeClient, T> func, SchemaType type) {
-        if (CollectionUtils.isEmpty(schemas)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super HugeClient`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static <T extends SchemaElement> void addBatch(
-           List<T> schemas, HugeClient client,
-           BiConsumer<HugeClient, T> func, SchemaType type) {
-        if (CollectionUtils.isEmpty(schemas)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static <T extends SchemaElement> void addBatch(
-           List<T> schemas, HugeClient client,
-           BiConsumer<HugeClient, T> func, SchemaType type) {
-        if (CollectionUtils.isEmpty(schemas)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyIndex`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    }
-
-    public static List<IndexLabel> convertIndexLabels(List<PropertyIndex> entities,
-                                                      HugeClient client,
-                                                      boolean isVertex,
-```
-
-### BoundedWildcard
-Can generalize to `? super HugeClient`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-
-    public static void removeBatch(List<String> names, HugeClient client,
-                                   BiConsumer<HugeClient, String> func,
-                                   SchemaType type) {
-        if (CollectionUtils.isEmpty(names)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-
-    public static void removeBatch(List<String> names, HugeClient client,
-                                   BiConsumer<HugeClient, String> func,
-                                   SchemaType type) {
-        if (CollectionUtils.isEmpty(names)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super HugeClient`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static List<Long> removeBatch(
-           List<String> names, HugeClient client,
-           BiFunction<HugeClient, String, Long> func, SchemaType type) {
-        List<Long> tasks = new ArrayList<>();
-        if (CollectionUtils.isEmpty(names)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static List<Long> removeBatch(
-           List<String> names, HugeClient client,
-           BiFunction<HugeClient, String, Long> func, SchemaType type) {
-        List<Long> tasks = new ArrayList<>();
-        if (CollectionUtils.isEmpty(names)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaConflict`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static <T extends SchemaEntity>
-           ConflictStatus compareWithOthers(int currentIdx,
-                                            List<SchemaConflict<T>> conflicts) {
-        SchemaConflict<T> current = conflicts.get(currentIdx);
-        T currentEntity = current.getEntity();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-
-    public static <T extends SchemaElement> List<Long> addBatch(
-           List<T> schemas, HugeClient client,
-           BiFunction<HugeClient, T, Long> func, SchemaType type) {
-        List<Long> tasks = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super HugeClient`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static <T extends SchemaElement> List<Long> addBatch(
-           List<T> schemas, HugeClient client,
-           BiFunction<HugeClient, T, Long> func, SchemaType type) {
-        List<Long> tasks = new ArrayList<>();
-        if (CollectionUtils.isEmpty(schemas)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static <T extends SchemaElement> List<Long> addBatch(
-           List<T> schemas, HugeClient client,
-           BiFunction<HugeClient, T, Long> func, SchemaType type) {
-        List<Long> tasks = new ArrayList<>();
-        if (CollectionUtils.isEmpty(schemas)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends IndexLabel`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/SchemaService.java`
-#### Snippet
-```java
-    public static List<PropertyIndex> collectPropertyIndexes(
-                                      SchemaLabel schemaLabel,
-                                      List<IndexLabel> indexLabels) {
-        List<PropertyIndex> propertyIndexes = new ArrayList<>();
-        if (indexLabels == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
-#### Snippet
-```java
-
-    public <T extends SchemaEntity> IPage<T> listInPage(
-                                             Function<Integer, List<T>> fetcher,
-                                             int connId, String content,
-                                             String nameOrder,
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
-#### Snippet
-```java
-
-    public <T extends SchemaEntity> IPage<T> listInPage(
-                                             Function<Integer, List<T>> fetcher,
-                                             int connId, String content,
-                                             String nameOrder,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Property`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
-#### Snippet
-```java
-     */
-    public static void checkProperties(PropertyKeyService service,
-                                       Set<Property> properties,
-                                       boolean mustNullable, int connId) {
-        if (properties == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
-#### Snippet
-```java
-    }
-
-    private void fillProperties(Map<String, String> properties,
-                                SchemaLabelEntity entity,
-                                List<PropertyKeyEntity> propertyKeys) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
-#### Snippet
-```java
-    }
-
-    private void fillProperties(Map<String, String> properties,
-                                SchemaLabelEntity entity,
-                                List<PropertyKeyEntity> propertyKeys) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertyKeyEntity`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/schema/SchemaController.java`
-#### Snippet
-```java
-    }
-
-    private PropertyKeyEntity findPropertyKey(List<PropertyKeyEntity> entities,
-                                              String name) {
-        for (PropertyKeyEntity entity : entities) {
-```
-
 ## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
+#### Snippet
+```java
+    }
+
+    public final static Id of(UUID id) {
+        return new UuidId(id);
+    }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
+#### Snippet
+```java
+    }
+
+    public final static String asStoredString(Id id) {
+        switch (id.type()) {
+            case LONG:
+```
+
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
@@ -1141,10 +1165,10 @@ Missorted modifiers `final static`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
 #### Snippet
 ```java
-    public static final Id ZERO = IdGenerator.of(0L);
+    }
 
-    public final static Id of(String id) {
-        return new StringId(id);
+    public final static Id of(String id, boolean uuid) {
+        return uuid ? new UuidId(id) : new StringId(id);
     }
 ```
 
@@ -1167,30 +1191,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
 ```java
     }
 
-    public final static String asStoredString(Id id) {
-        switch (id.type()) {
-            case LONG:
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
-#### Snippet
-```java
-    }
-
-    public final static Id of(UUID id) {
-        return new UuidId(id);
-    }
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
-#### Snippet
-```java
-    }
-
     public final static Id of(byte[] bytes, Id.IdType type) {
         switch (type) {
             case LONG:
@@ -1203,9 +1203,9 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/I
 ```java
     }
 
-    public final static Id of(String id, boolean uuid) {
-        return uuid ? new UuidId(id) : new StringId(id);
-    }
+    public final static Id ofStoredString(String id, Id.IdType type) {
+        switch (type) {
+            case LONG:
 ```
 
 ### MissortedModifiers
@@ -1213,11 +1213,11 @@ Missorted modifiers `final static`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/IdGenerator.java`
 #### Snippet
 ```java
-    }
+    public static final Id ZERO = IdGenerator.of(0L);
 
-    public final static Id ofStoredString(String id, Id.IdType type) {
-        switch (type) {
-            case LONG:
+    public final static Id of(String id) {
+        return new StringId(id);
+    }
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -1258,18 +1258,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/failure/FailLogge
 ```
 
 ### IgnoreResultOfCall
-Result of `FileInputStream.read()` is ignored
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
-#### Snippet
-```java
-        byte[] fileBytes = new byte[fileLen.intValue()];
-        try (FileInputStream in = new FileInputStream(file)) {
-            in.read(fileBytes);
-        }
-
-```
-
-### IgnoreResultOfCall
 Result of `Result.getObject()` is ignored
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/HugeClientUtil.java`
 #### Snippet
@@ -1301,6 +1289,18 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/load/F
         }
         if (destFile.exists()) {
             destFile.delete();
+        }
+
+```
+
+### IgnoreResultOfCall
+Result of `FileInputStream.read()` is ignored
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
+#### Snippet
+```java
+        byte[] fileBytes = new byte[fileLen.intValue()];
+        try (FileInputStream in = new FileInputStream(file)) {
+            in.read(fileBytes);
         }
 
 ```
@@ -1345,18 +1345,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/mapping/VertexMap
 
 ## RuleId[ruleID=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
-this.readUInt8() \<\< 16: integer shift implicitly cast to long
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-                break;
-            case 2:
-                value |= this.readUInt8() << 16 | this.readUInt16();
-                break;
-            case 3:
-```
-
-### IntegerMultiplicationImplicitCastToLong
 c \* primes.get(i \& 0xFF): integer multiplication implicitly cast to long
 in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/SignFS64.java`
 #### Snippet
@@ -1366,6 +1354,18 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/SignFS
             sign += c * primes.get(i & 0xFF);
         }
         return sign & 0xFFFFFFFFL;
+```
+
+### IntegerMultiplicationImplicitCastToLong
+this.readUInt8() \<\< 16: integer shift implicitly cast to long
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+#### Snippet
+```java
+                break;
+            case 2:
+                value |= this.readUInt8() << 16 | this.readUInt16();
+                break;
+            case 3:
 ```
 
 ## RuleId[ruleID=IfStatementWithIdenticalBranches]
@@ -1396,18 +1396,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/FileL
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            return super.getMessage();
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeClientPoolService.java`
 #### Snippet
 ```java
@@ -1424,10 +1412,10 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeCl
 #### Snippet
 ```java
 
-    public void remove(GraphConnection connection) {
-        HugeClient client = super.remove(connection.getId());
-        if (client == null) {
-            return;
+    public synchronized HugeClient getOrCreate(Integer id) {
+        HugeClient client = super.get(id);
+        if (client != null) {
+            return client;
 ```
 
 ### UnnecessarySuperQualifier
@@ -1436,10 +1424,10 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeCl
 #### Snippet
 ```java
 
-    public synchronized HugeClient getOrCreate(Integer id) {
-        HugeClient client = super.get(id);
-        if (client != null) {
-            return client;
+    public void remove(GraphConnection connection) {
+        HugeClient client = super.remove(connection.getId());
+        if (client == null) {
+            return;
 ```
 
 ### UnnecessarySuperQualifier
@@ -1466,19 +1454,19 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestore
         }
 ```
 
-## RuleId[ruleID=SlowListContainsAll]
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/load/FileMappingController.java`
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
 #### Snippet
 ```java
-        FileSetting fileSetting = fileMapping.getFileSetting();
-        List<String> columnNames = fileSetting.getColumnNames();
-        Ex.check(columnNames.containsAll(vertexMapping.getIdFields()),
-                 "load.file-mapping.vertex.id-fields-should-in-column-names",
-                 vertexMapping.getIdFields(), columnNames);
+        @Override
+        public String toString() {
+            return super.getMessage();
+        }
+    }
 ```
 
+## RuleId[ruleID=SlowListContainsAll]
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/load/FileMappingController.java`
@@ -1525,6 +1513,18 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/loa
         Ex.check(columnNames.containsAll(edgeMapping.getTargetFields()),
                  "load.file-mapping.edge.target-fields-should-in-column-names",
                  edgeMapping.getTargetFields(), columnNames);
+```
+
+### SlowListContainsAll
+Call to 'list.containsAll(collection)' may have poor performance
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/load/FileMappingController.java`
+#### Snippet
+```java
+        FileSetting fileSetting = fileMapping.getFileSetting();
+        List<String> columnNames = fileSetting.getColumnNames();
+        Ex.check(columnNames.containsAll(vertexMapping.getIdFields()),
+                 "load.file-mapping.vertex.id-fields-should-in-column-names",
+                 vertexMapping.getIdFields(), columnNames);
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -1604,14 +1604,14 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/failure/FailLogge
 
 ### NestedAssignment
 Result of assignment expression used
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/LZ4Util.java`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/load/FileMappingService.java`
 #### Snippet
 ```java
-        byte[] buffer = new byte[blockSize];
         try {
-            while ((count = lzInput.read(buffer)) != -1) {
-                buf.write(buffer, 0, count);
-            }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!pattern.matcher(line).matches()) {
+                    break;
 ```
 
 ### NestedAssignment
@@ -1643,9 +1643,9 @@ Result of assignment expression used
 in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
 #### Snippet
 ```java
-            this.edgeCounter.getAndAdd(count);
-            Printer.printInBackward(this.edgeCounter.get());
-        } while ((page = edges.page()) != null);
+            this.vertexCounter.getAndAdd(count);
+            Printer.printInBackward(this.vertexCounter.get());
+        } while ((page = vertices.page()) != null);
     }
 
 ```
@@ -1655,9 +1655,9 @@ Result of assignment expression used
 in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
 #### Snippet
 ```java
-            this.vertexCounter.getAndAdd(count);
-            Printer.printInBackward(this.vertexCounter.get());
-        } while ((page = vertices.page()) != null);
+            this.edgeCounter.getAndAdd(count);
+            Printer.printInBackward(this.edgeCounter.get());
+        } while ((page = edges.page()) != null);
     }
 
 ```
@@ -1688,14 +1688,14 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestore
 
 ### NestedAssignment
 Result of assignment expression used
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/load/FileMappingService.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/LZ4Util.java`
 #### Snippet
 ```java
+        byte[] buffer = new byte[blockSize];
         try {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!pattern.matcher(line).matches()) {
-                    break;
+            while ((count = lzInput.read(buffer)) != -1) {
+                buf.write(buffer, 0, count);
+            }
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
@@ -1764,42 +1764,6 @@ Statement lambda can be replaced with expression lambda
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
 #### Snippet
 ```java
-    public void updateAll() {
-        this.propertyKeys.clear();
-        client.schema().getPropertyKeys().forEach(pk -> {
-            this.propertyKeys.put(pk.name(), pk);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
-#### Snippet
-```java
-        });
-        this.vertexLabels.clear();
-        client.schema().getVertexLabels().forEach(vl -> {
-            this.vertexLabels.put(vl.name(), vl);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
-#### Snippet
-```java
-        });
-        this.edgeLabels.clear();
-        client.schema().getEdgeLabels().forEach(el -> {
-            this.edgeLabels.put(el.name(), el);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
-#### Snippet
-```java
         this.vertexLabels = new HashMap<>();
         this.edgeLabels = new HashMap<>();
         propertyKeyList.forEach(pk -> {
@@ -1833,6 +1797,42 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCac
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
+#### Snippet
+```java
+    public void updateAll() {
+        this.propertyKeys.clear();
+        client.schema().getPropertyKeys().forEach(pk -> {
+            this.propertyKeys.put(pk.name(), pk);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
+#### Snippet
+```java
+        });
+        this.vertexLabels.clear();
+        client.schema().getVertexLabels().forEach(vl -> {
+            this.vertexLabels.put(vl.name(), vl);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/SchemaCache.java`
+#### Snippet
+```java
+        });
+        this.edgeLabels.clear();
+        client.schema().getEdgeLabels().forEach(el -> {
+            this.edgeLabels.put(el.name(), el);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/progress/LoadProgress.java`
 #### Snippet
 ```java
@@ -1841,54 +1841,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/progress/LoadProg
             return name.startsWith(Constants.LOAD_PROGRESS);
         });
         if (subFiles == null || subFiles.length == 0) {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
-#### Snippet
-```java
-            List<Object> rawIdValues = splitField(fieldName, fieldValue);
-            this.idValues = rawIdValues.stream().map(rawIdValue -> {
-                return mappingValue(fieldName, rawIdValue);
-            }).collect(Collectors.toList());
-        }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
-#### Snippet
-```java
-                                                          fieldValue);
-                    this.idValues = rawIdValues.stream().map(rawIdValue -> {
-                        return mappingValue(fieldName, rawIdValue);
-                    }).collect(Collectors.toList());
-                } else {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
-#### Snippet
-```java
-            List<Object> rawPkValues = splitField(fieldName, fieldValue);
-            this.pkValues = rawPkValues.stream().map(rawPkValue -> {
-                return mappingValue(fieldName, rawPkValue);
-            }).collect(Collectors.toList());
-        }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
-#### Snippet
-```java
-                                                          fieldValue);
-                    this.pkValues = rawPkValues.stream().map(rawPkValue -> {
-                        return mappingValue(fieldName, rawPkValue);
-                    }).collect(Collectors.toList());
-                    handledPk = true;
 ```
 
 ### CodeBlock2Expr
@@ -1929,26 +1881,50 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/mapping/ElementMa
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/TraverserManager.java`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
 #### Snippet
 ```java
-    public Iterator<Vertex> iteratorVertices(Shard shard, int sizePerPage) {
-        return new GraphIterator<>(this.graphManager, sizePerPage, (page) -> {
-            return this.vertices(shard, page, sizePerPage);
-        });
-    }
+                                                          fieldValue);
+                    this.pkValues = rawPkValues.stream().map(rawPkValue -> {
+                        return mappingValue(fieldName, rawPkValue);
+                    }).collect(Collectors.toList());
+                    handledPk = true;
 ```
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/TraverserManager.java`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
 #### Snippet
 ```java
-    public Iterator<Edge> iteratorEdges(Shard shard, int sizePerPage) {
-        return new GraphIterator<>(this.graphManager, sizePerPage, (page) -> {
-            return this.edges(shard, page, sizePerPage);
-        });
-    }
+                                                          fieldValue);
+                    this.idValues = rawIdValues.stream().map(rawIdValue -> {
+                        return mappingValue(fieldName, rawIdValue);
+                    }).collect(Collectors.toList());
+                } else {
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
+#### Snippet
+```java
+            List<Object> rawPkValues = splitField(fieldName, fieldValue);
+            this.pkValues = rawPkValues.stream().map(rawPkValue -> {
+                return mappingValue(fieldName, rawPkValue);
+            }).collect(Collectors.toList());
+        }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
+#### Snippet
+```java
+            List<Object> rawIdValues = splitField(fieldName, fieldValue);
+            this.idValues = rawIdValues.stream().map(rawIdValue -> {
+                return mappingValue(fieldName, rawIdValue);
+            }).collect(Collectors.toList());
+        }
 ```
 
 ### CodeBlock2Expr
@@ -2001,74 +1977,14 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/query/
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
 #### Snippet
 ```java
-                restoreBelong.group(idsMap.get(restoreBelong.group().toString()));
-                retry(() -> {
-                     return client.authManager().createBelong(restoreBelong);
-                }, "restore belongs of authority");
-                count++;
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
-#### Snippet
-```java
-                Target restoreTarget = entry.getValue();
-                Target target = retry(() -> {
-                    return client.authManager().createTarget(restoreTarget);
-                }, "restore targets of authority");
-                idsMap.put(restoreTarget.id().toString(),
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
-#### Snippet
-```java
-                restoreAccess.group(idsMap.get(restoreAccess.group().toString()));
-                retry(() -> {
-                     return client.authManager().createAccess(restoreAccess);
-                }, "restore accesses of authority");
-                count++;
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
-#### Snippet
-```java
-                restoreUser.password(initPassword);
-                User user = retry(() -> {
-                    return client.authManager().createUser(restoreUser);
-                }, "restore users of authority");
-                idsMap.put(restoreUser.id().toString(), user.id().toString());
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
-#### Snippet
-```java
-                Group restoreGroup = entry.getValue();
-                Group group = retry(() -> {
-                    return client.authManager().createGroup(restoreGroup);
-                }, "restore groups of authority");
-                idsMap.put(restoreGroup.id().toString(), group.id().toString());
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/load/LoadTaskService.java`
-#### Snippet
-```java
-        // list error data file
-        File[] errorFiles = failureDataDir.listFiles((dir, name) -> {
-            return name.endsWith("error");
+        }
+        List<PropertyKeyEntity> results = new ArrayList<>(propertyKeys.size());
+        propertyKeys.forEach(propertyKey -> {
+            results.add(convert(propertyKey));
         });
-        if (errorFiles == null) {
 ```
 
 ### CodeBlock2Expr
@@ -2097,98 +2013,14 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/load/LoadTaskService.java`
 #### Snippet
 ```java
-        }
-        List<PropertyKeyEntity> results = new ArrayList<>(propertyKeys.size());
-        propertyKeys.forEach(propertyKey -> {
-            results.add(convert(propertyKey));
+        // list error data file
+        File[] errorFiles = failureDataDir.listFiles((dir, name) -> {
+            return name.endsWith("error");
         });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-        List<String> names = collectNames(vertexLabels);
-        BiFunction<HugeClient, String, Long> func = (hugeClient, name) -> {
-            return hugeClient.schema().removeVertexLabelAsync(name);
-        };
-        removeBatch(names, client, func, SchemaType.VERTEX_LABEL);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-
-    public void addBatch(List<VertexLabel> vertexLabels, HugeClient client) {
-        BiConsumer<HugeClient, VertexLabel> consumer = (hugeClient, vl) -> {
-            hugeClient.schema().addVertexLabel(vl);
-        };
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-
-        List<VertexLabelEntity> results = new ArrayList<>(vertexLabels.size());
-        vertexLabels.forEach(vertexLabel -> {
-            results.add(join(vertexLabel, indexLabels));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-        Set<String> properties = new HashSet<>();
-        if (entity.getAppendProperties() != null) {
-            entity.getAppendProperties().forEach(p -> {
-                properties.add(p.getName());
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-    public List<Long> removeBatch(List<String> indexLabels, HugeClient client) {
-        BiFunction<HugeClient, String, Long> func = (hugeClient, name) -> {
-            return hugeClient.schema().removeIndexLabelAsync(name);
-        };
-        return removeBatch(indexLabels, client, func, SchemaType.PROPERTY_INDEX);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-    public List<Long> addBatch(List<IndexLabel> indexLabels, HugeClient client) {
-        BiFunction<HugeClient, IndexLabel, Long> func = (hugeClient, il) -> {
-            return hugeClient.schema().addIndexLabelAsync(il);
-        };
-        return addBatch(indexLabels, client, func,
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-        }
-        List<PropertyIndex> results = new ArrayList<>(indexLabels.size());
-        indexLabels.forEach(indexLabel -> {
-            results.add(convert(indexLabel));
-        });
+        if (errorFiles == null) {
 ```
 
 ### CodeBlock2Expr
@@ -2253,6 +2085,174 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/query/
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+
+        List<VertexLabelEntity> results = new ArrayList<>(vertexLabels.size());
+        vertexLabels.forEach(vertexLabel -> {
+            results.add(join(vertexLabel, indexLabels));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+        Set<String> properties = new HashSet<>();
+        if (entity.getAppendProperties() != null) {
+            entity.getAppendProperties().forEach(p -> {
+                properties.add(p.getName());
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+
+    public void addBatch(List<VertexLabel> vertexLabels, HugeClient client) {
+        BiConsumer<HugeClient, VertexLabel> consumer = (hugeClient, vl) -> {
+            hugeClient.schema().addVertexLabel(vl);
+        };
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+        List<String> names = collectNames(vertexLabels);
+        BiFunction<HugeClient, String, Long> func = (hugeClient, name) -> {
+            return hugeClient.schema().removeVertexLabelAsync(name);
+        };
+        removeBatch(names, client, func, SchemaType.VERTEX_LABEL);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+        }
+        List<PropertyIndex> results = new ArrayList<>(indexLabels.size());
+        indexLabels.forEach(indexLabel -> {
+            results.add(convert(indexLabel));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+    public List<Long> addBatch(List<IndexLabel> indexLabels, HugeClient client) {
+        BiFunction<HugeClient, IndexLabel, Long> func = (hugeClient, il) -> {
+            return hugeClient.schema().addIndexLabelAsync(il);
+        };
+        return addBatch(indexLabels, client, func,
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+    public List<Long> removeBatch(List<String> indexLabels, HugeClient client) {
+        BiFunction<HugeClient, String, Long> func = (hugeClient, name) -> {
+            return hugeClient.schema().removeIndexLabelAsync(name);
+        };
+        return removeBatch(indexLabels, client, func, SchemaType.PROPERTY_INDEX);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+                Group restoreGroup = entry.getValue();
+                Group group = retry(() -> {
+                    return client.authManager().createGroup(restoreGroup);
+                }, "restore groups of authority");
+                idsMap.put(restoreGroup.id().toString(), group.id().toString());
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+                restoreAccess.group(idsMap.get(restoreAccess.group().toString()));
+                retry(() -> {
+                     return client.authManager().createAccess(restoreAccess);
+                }, "restore accesses of authority");
+                count++;
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+                Target restoreTarget = entry.getValue();
+                Target target = retry(() -> {
+                    return client.authManager().createTarget(restoreTarget);
+                }, "restore targets of authority");
+                idsMap.put(restoreTarget.id().toString(),
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+                restoreUser.password(initPassword);
+                User user = retry(() -> {
+                    return client.authManager().createUser(restoreUser);
+                }, "restore users of authority");
+                idsMap.put(restoreUser.id().toString(), user.id().toString());
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/AuthBackupRestoreManager.java`
+#### Snippet
+```java
+                restoreBelong.group(idsMap.get(restoreBelong.group().toString()));
+                retry(() -> {
+                     return client.authManager().createBelong(restoreBelong);
+                }, "restore belongs of authority");
+                count++;
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/TraverserManager.java`
+#### Snippet
+```java
+    public Iterator<Edge> iteratorEdges(Shard shard, int sizePerPage) {
+        return new GraphIterator<>(this.graphManager, sizePerPage, (page) -> {
+            return this.edges(shard, page, sizePerPage);
+        });
+    }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/TraverserManager.java`
+#### Snippet
+```java
+    public Iterator<Vertex> iteratorVertices(Shard shard, int sizePerPage) {
+        return new GraphIterator<>(this.graphManager, sizePerPage, (page) -> {
+            return this.vertices(shard, page, sizePerPage);
+        });
+    }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
 #### Snippet
 ```java
@@ -2288,30 +2288,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java
 ```
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `roles` are queried, but never updated
-in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/User.java`
-#### Snippet
-```java
-
-        @JsonProperty("roles")
-        private Map<String, Map<HugePermission, List<HugeResource>>> roles;
-
-        public Map<String, Map<HugePermission, List<HugeResource>>> roles() {
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `versions` are queried, but never updated
-in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/version/Versions.java`
-#### Snippet
-```java
-
-    @JsonProperty
-    private Map<String, String> versions;
-
-    public String get(String name) {
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `poolService` are queried, but never updated
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/graph/GraphService.java`
@@ -2408,31 +2384,31 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema
     public HugeConfig config() {
 ```
 
+### MismatchedCollectionQueryUpdate
+Contents of collection `roles` are queried, but never updated
+in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/User.java`
+#### Snippet
+```java
+
+        @JsonProperty("roles")
+        private Map<String, Map<HugePermission, List<HugeResource>>> roles;
+
+        public Map<String, Map<HugePermission, List<HugeResource>>> roles() {
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `versions` are queried, but never updated
+in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/version/Versions.java`
+#### Snippet
+```java
+
+    @JsonProperty
+    private Map<String, String> versions;
+
+    public String get(String name) {
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `builders` is accessed in both synchronized and unsynchronized contexts
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/flink/HugeGraphOutputFormat.java`
-#### Snippet
-```java
-    private final LoadOptions loadOptions;
-    private final InputStruct struct;
-    private Map<ElementBuilder, List<String>> builders;
-
-    public HugeGraphOutputFormat(InputStruct struct, String[] args) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `scheduler` is accessed in both synchronized and unsynchronized contexts
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/flink/HugeGraphOutputFormat.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = -4514164348993670086L;
-    private LoadContext loadContext;
-    private transient ScheduledExecutorService scheduler;
-    private transient ScheduledFuture<?> scheduledFuture;
-    private transient volatile boolean closed = false;
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `scheduledFuture` is accessed in both synchronized and unsynchronized contexts
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/flink/HugeGraphOutputFormat.java`
@@ -2458,27 +2434,39 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/flink/HugeGraphOu
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `taskTable` is accessed in both synchronized and unsynchronized contexts
-in `hugegraph-client/src/main/java/org/apache/hugegraph/util/TaskCache.java`
+Field `builders` is accessed in both synchronized and unsynchronized contexts
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/flink/HugeGraphOutputFormat.java`
 #### Snippet
 ```java
-    private static final Task FAKE_TASK = new Task();
+    private final LoadOptions loadOptions;
+    private final InputStruct struct;
+    private Map<ElementBuilder, List<String>> builders;
 
-    private Map<TaskAPI, Map<Long, Task>> taskTable;
-    private ScheduledExecutorService service;
-
+    public HugeGraphOutputFormat(InputStruct struct, String[] args) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `service` is accessed in both synchronized and unsynchronized contexts
-in `hugegraph-client/src/main/java/org/apache/hugegraph/util/TaskCache.java`
+Field `scheduler` is accessed in both synchronized and unsynchronized contexts
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/flink/HugeGraphOutputFormat.java`
 #### Snippet
 ```java
+    private static final long serialVersionUID = -4514164348993670086L;
+    private LoadContext loadContext;
+    private transient ScheduledExecutorService scheduler;
+    private transient ScheduledFuture<?> scheduledFuture;
+    private transient volatile boolean closed = false;
+```
 
-    private Map<TaskAPI, Map<Long, Task>> taskTable;
-    private ScheduledExecutorService service;
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `jobService` is accessed in both synchronized and unsynchronized contexts
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/load/FileUploadController.java`
+#### Snippet
+```java
+    private FileMappingService service;
+    @Autowired
+    private JobManagerService jobService;
 
-    private static final TaskCache INSTANCE = new TaskCache();
+    @GetMapping("token")
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2494,15 +2482,27 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/loa
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `jobService` is accessed in both synchronized and unsynchronized contexts
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/load/FileUploadController.java`
+Field `service` is accessed in both synchronized and unsynchronized contexts
+in `hugegraph-client/src/main/java/org/apache/hugegraph/util/TaskCache.java`
 #### Snippet
 ```java
-    private FileMappingService service;
-    @Autowired
-    private JobManagerService jobService;
 
-    @GetMapping("token")
+    private Map<TaskAPI, Map<Long, Task>> taskTable;
+    private ScheduledExecutorService service;
+
+    private static final TaskCache INSTANCE = new TaskCache();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `taskTable` is accessed in both synchronized and unsynchronized contexts
+in `hugegraph-client/src/main/java/org/apache/hugegraph/util/TaskCache.java`
+#### Snippet
+```java
+    private static final Task FAKE_TASK = new Task();
+
+    private Map<TaskAPI, Map<Long, Task>> taskTable;
+    private ScheduledExecutorService service;
+
 ```
 
 ## RuleId[ruleID=UseOfPropertiesAsHashtable]
@@ -2573,11 +2573,23 @@ Field initialization to `false` is redundant
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--dry-run"}, arity = 1,
-               description = "Dry run means that only parse but doesn't load")
-    public boolean dryRun = false;
+                             "mode, only full load is supported, any read " +
+                             "or parsing errors will cause load task stop")
+    public boolean failureMode = false;
 
-    @Parameter(names = {"--print-progress"}, arity = 1,
+    @Parameter(names = {"--batch-insert-threads"}, arity = 1,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
+#### Snippet
+```java
+    @Parameter(names = {"--clear-all-data"}, arity = 1,
+               description = "Whether to clear all old data before loading")
+    public boolean clearAllData = false;
+
+    @Parameter(names = {"--clear-timeout"}, arity = 1,
 ```
 
 ### RedundantFieldInitialization
@@ -2605,6 +2617,18 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOpti
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
+#### Snippet
+```java
+    @Parameter(names = {"--username"}, arity = 1,
+               description = "The username of graph for authentication")
+    public String username = null;
+
+    @Parameter(names = {"--protocol"}, arity = 1,
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
 #### Snippet
@@ -2621,47 +2645,11 @@ Field initialization to `false` is redundant
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--clear-all-data"}, arity = 1,
-               description = "Whether to clear all old data before loading")
-    public boolean clearAllData = false;
+    @Parameter(names = {"--dry-run"}, arity = 1,
+               description = "Dry run means that only parse but doesn't load")
+    public boolean dryRun = false;
 
-    @Parameter(names = {"--clear-timeout"}, arity = 1,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
-#### Snippet
-```java
-                             "mode, only full load is supported, any read " +
-                             "or parsing errors will cause load task stop")
-    public boolean failureMode = false;
-
-    @Parameter(names = {"--batch-insert-threads"}, arity = 1,
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
-#### Snippet
-```java
-    @Parameter(names = {"--username"}, arity = 1,
-               description = "The username of graph for authentication")
-    public String username = null;
-
-    @Parameter(names = {"--protocol"}, arity = 1,
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
-#### Snippet
-```java
-    @Parameter(names = {"--token"}, arity = 1,
-               description = "The token of graph for authentication")
-    public String token = null;
-
-    @Parameter(names = {"--clear-all-data"}, arity = 1,
+    @Parameter(names = {"--print-progress"}, arity = 1,
 ```
 
 ### RedundantFieldInitialization
@@ -2686,6 +2674,174 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOpti
     public String trustStoreToken = null;
 
     @Parameter(names = {"--token"}, arity = 1,
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadOptions.java`
+#### Snippet
+```java
+    @Parameter(names = {"--token"}, arity = 1,
+               description = "The token of graph for authentication")
+    public String token = null;
+
+    @Parameter(names = {"--clear-all-data"}, arity = 1,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/LoadParameter.java`
+#### Snippet
+```java
+    @MergeProperty
+    @JsonProperty("check_vertex")
+    private boolean checkVertex = false;
+
+    @MergeProperty
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/RetryManager.java`
+#### Snippet
+```java
+    private ExecutorService pool;
+    private final Queue<Future<?>> futures = new ConcurrentLinkedQueue<>();
+    private int retry = 0;
+
+    public RetryManager(ToolClient.ConnectionInfo info, String type) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/AuthRestoreConflictStrategy.java`
+#### Snippet
+```java
+
+    private int code;
+    private String name = null;
+
+    AuthRestoreConflictStrategy(int code, String name) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
+#### Snippet
+```java
+    private boolean clean;
+
+    private Map<String, Long> primaryKeyVLs = null;
+
+    public RestoreManager(ToolClient.ConnectionInfo info) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
+#### Snippet
+```java
+public class RestoreManager extends BackupRestoreBaseManager {
+
+    private GraphMode mode = null;
+    private boolean clean;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+                   description = "Whether to keep the local directory of " +
+                                 "graph data after restored")
+        public boolean keepData = false;
+
+        public long splitSize() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+                   description = "Whether the hugegraph-tools work " +
+                                 "to throw an exception")
+        public boolean throwMode = false;
+    }
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+                                 "cancel all uncompleted tasks firstly, " +
+                                 "and delete all completed tasks")
+        private boolean force = false;
+
+        public boolean force() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+        @Parameter(names = {"--all-properties"}, arity = 1,
+                   description = "All properties to be backup flag")
+        public boolean allProperties = false;
+
+        @Parameter(names = {"--properties"}, arity = 1,
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+                   description = "Download url prefix path of " +
+                                 "HugeGraph-Server and HugeGraph-Studio")
+        public String url = null;
+    }
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+                   description = "Whether to remove the directory of " +
+                                 "graph data after restored")
+        public boolean clean = false;
+
+        @ParametersDelegate
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+                   validateWith = TaskStatusValidator.class,
+                   description = "Status of task")
+        public String status = null;
+    }
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupRestoreBaseManager.java`
+#### Snippet
+```java
+    protected AtomicLong edgeCounter = new AtomicLong(0);
+
+    private long startTime = 0L;
+    protected static KeyLock locks = new KeyLock();
+    private String logDir;
 ```
 
 ### RedundantFieldInitialization
@@ -2741,11 +2897,11 @@ Field initialization to `false` is redundant
 in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/traverser/PathsRequest.java`
 #### Snippet
 ```java
-    public int limit = Traverser.DEFAULT_LIMIT;
-    @JsonProperty("with_vertex")
-    public boolean withVertex = false;
-
-    public static Builder builder() {
+    public int depth;
+    @JsonProperty("nearest")
+    public boolean nearest = false;
+    @JsonProperty("capacity")
+    public long capacity = Traverser.DEFAULT_CAPACITY;
 ```
 
 ### RedundantFieldInitialization
@@ -2753,11 +2909,11 @@ Field initialization to `false` is redundant
 in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/traverser/PathsRequest.java`
 #### Snippet
 ```java
-    public int depth;
-    @JsonProperty("nearest")
-    public boolean nearest = false;
-    @JsonProperty("capacity")
-    public long capacity = Traverser.DEFAULT_CAPACITY;
+    public int limit = Traverser.DEFAULT_LIMIT;
+    @JsonProperty("with_vertex")
+    public boolean withVertex = false;
+
+    public static Builder builder() {
 ```
 
 ### RedundantFieldInitialization
@@ -2772,175 +2928,7 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct
 
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/RetryManager.java`
-#### Snippet
-```java
-    private ExecutorService pool;
-    private final Queue<Future<?>> futures = new ConcurrentLinkedQueue<>();
-    private int retry = 0;
-
-    public RetryManager(ToolClient.ConnectionInfo info, String type) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/AuthRestoreConflictStrategy.java`
-#### Snippet
-```java
-
-    private int code;
-    private String name = null;
-
-    AuthRestoreConflictStrategy(int code, String name) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-                   validateWith = TaskStatusValidator.class,
-                   description = "Status of task")
-        public String status = null;
-    }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-                   description = "Whether to remove the directory of " +
-                                 "graph data after restored")
-        public boolean clean = false;
-
-        @ParametersDelegate
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-                                 "cancel all uncompleted tasks firstly, " +
-                                 "and delete all completed tasks")
-        private boolean force = false;
-
-        public boolean force() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-        @Parameter(names = {"--all-properties"}, arity = 1,
-                   description = "All properties to be backup flag")
-        public boolean allProperties = false;
-
-        @Parameter(names = {"--properties"}, arity = 1,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-                   description = "Whether to keep the local directory of " +
-                                 "graph data after restored")
-        public boolean keepData = false;
-
-        public long splitSize() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-                   description = "Whether the hugegraph-tools work " +
-                                 "to throw an exception")
-        public boolean throwMode = false;
-    }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-                   description = "Download url prefix path of " +
-                                 "HugeGraph-Server and HugeGraph-Studio")
-        public String url = null;
-    }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
-#### Snippet
-```java
-    private boolean clean;
-
-    private Map<String, Long> primaryKeyVLs = null;
-
-    public RestoreManager(ToolClient.ConnectionInfo info) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
-#### Snippet
-```java
-public class RestoreManager extends BackupRestoreBaseManager {
-
-    private GraphMode mode = null;
-    private boolean clean;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/LoadParameter.java`
-#### Snippet
-```java
-    @MergeProperty
-    @JsonProperty("check_vertex")
-    private boolean checkVertex = false;
-
-    @MergeProperty
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupRestoreBaseManager.java`
-#### Snippet
-```java
-    protected AtomicLong edgeCounter = new AtomicLong(0);
-
-    private long startTime = 0L;
-    protected static KeyLock locks = new KeyLock();
-    private String logDir;
-```
-
 ## RuleId[ruleID=PointlessBitwiseExpression]
-### PointlessBitwiseExpression
-`(-1) & 0xffffffffL` can be replaced with '0xffffffffL'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-    public static final int UINT8_MAX = ((byte) -1) & 0xff;
-    public static final int UINT16_MAX = ((short) -1) & 0xffff;
-    public static final long UINT32_MAX = (-1) & 0xffffffffL;
-
-    // NOTE: +1 to let code 0 represent length 1
-```
-
 ### PointlessBitwiseExpression
 `0x00 | positive | high3bits` can be replaced with 'positive \| high3bits'
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
@@ -2951,6 +2939,18 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/B
             this.writeUInt8(0x00 | positive | high3bits);
             this.writeUInt8((byte) val);
         } else if (~0x7ffffL <= val && val <= 0x7ffffL) {
+```
+
+### PointlessBitwiseExpression
+`(-1) & 0xffffffffL` can be replaced with '0xffffffffL'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+#### Snippet
+```java
+    public static final int UINT8_MAX = ((byte) -1) & 0xff;
+    public static final int UINT16_MAX = ((short) -1) & 0xffff;
+    public static final long UINT32_MAX = (-1) & 0xffffffffL;
+
+    // NOTE: +1 to let code 0 represent length 1
 ```
 
 ## RuleId[ruleID=HtmlWrongAttributeValue]
@@ -3016,6 +3016,31 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
         sb.append("\n");
 ```
 
+## RuleId[ruleID=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `hugegraph-client/src/main/java/org/apache/hugegraph/util/SplicingIdGenerator.java`
+#### Snippet
+```java
+    public static SplicingIdGenerator instance() {
+        if (instance == null) {
+            synchronized (SplicingIdGenerator.class) {
+                if (instance == null) {
+                    instance = new SplicingIdGenerator();
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/SplicingIdGenerator.java`
+#### Snippet
+```java
+    public static SplicingIdGenerator instance() {
+        if (instance == null) {
+            synchronized (SplicingIdGenerator.class) {
+                if (instance == null) {
+                    instance = new SplicingIdGenerator();
+```
+
 ## RuleId[ruleID=RedundantStringFormatCall]
 ### RedundantStringFormatCall
 Redundant call to `format()`
@@ -3043,6 +3068,18 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
 
 ## RuleId[ruleID=NonFinalFieldOfException]
 ### NonFinalFieldOfException
+Non-final field `status` of exception class
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/exception/ExternalException.java`
+#### Snippet
+```java
+public class ExternalException extends ParameterizedException {
+
+    private int status;
+
+    public ExternalException(String message, Object... args) {
+```
+
+### NonFinalFieldOfException
 Non-final field `ids` of exception class
 in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/NotAllCreatedException.java`
 #### Snippet
@@ -3055,18 +3092,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/NotAllCreatedE
 ```
 
 ### NonFinalFieldOfException
-Non-final field `message` of exception class
-in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
-#### Snippet
-```java
-    private int status = 0;
-    private String exception;
-    private String message;
-    private String cause;
-    private Object trace;
-```
-
-### NonFinalFieldOfException
 Non-final field `status` of exception class
 in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
 #### Snippet
@@ -3076,18 +3101,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerExceptio
     private int status = 0;
     private String exception;
     private String message;
-```
-
-### NonFinalFieldOfException
-Non-final field `exception` of exception class
-in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
-#### Snippet
-```java
-
-    private int status = 0;
-    private String exception;
-    private String message;
-    private String cause;
 ```
 
 ### NonFinalFieldOfException
@@ -3103,6 +3116,18 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerExceptio
 ```
 
 ### NonFinalFieldOfException
+Non-final field `message` of exception class
+in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
+#### Snippet
+```java
+    private int status = 0;
+    private String exception;
+    private String message;
+    private String cause;
+    private Object trace;
+```
+
+### NonFinalFieldOfException
 Non-final field `trace` of exception class
 in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
 #### Snippet
@@ -3115,40 +3140,15 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerExceptio
 ```
 
 ### NonFinalFieldOfException
-Non-final field `status` of exception class
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/exception/ExternalException.java`
+Non-final field `exception` of exception class
+in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
 #### Snippet
 ```java
-public class ExternalException extends ParameterizedException {
 
-    private int status;
-
-    public ExternalException(String message, Object... args) {
-```
-
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `hugegraph-client/src/main/java/org/apache/hugegraph/util/SplicingIdGenerator.java`
-#### Snippet
-```java
-    public static SplicingIdGenerator instance() {
-        if (instance == null) {
-            synchronized (SplicingIdGenerator.class) {
-                if (instance == null) {
-                    instance = new SplicingIdGenerator();
-```
-
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/SplicingIdGenerator.java`
-#### Snippet
-```java
-    public static SplicingIdGenerator instance() {
-        if (instance == null) {
-            synchronized (SplicingIdGenerator.class) {
-                if (instance == null) {
-                    instance = new SplicingIdGenerator();
+    private int status = 0;
+    private String exception;
+    private String message;
+    private String cause;
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -3202,18 +3202,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/line/Line.
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/jdbc/RowFetcher.java`
-#### Snippet
-```java
-            columns.add(metaData.getColumnName(i));
-        }
-        this.columns = columns.toArray(new String[]{});
-        return this.columns;
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/source/AbstractSource.java`
 #### Snippet
 ```java
@@ -3229,9 +3217,21 @@ Allocation of zero length array
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/jdbc/RowFetcher.java`
 #### Snippet
 ```java
+            columns.add(metaData.getColumnName(i));
+        }
+        this.columns = columns.toArray(new String[]{});
+        return this.columns;
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/jdbc/RowFetcher.java`
+#### Snippet
+```java
                 columns.add(result.getString("COLUMN_NAME"));
             }
-            this.primaryKeys = columns.toArray(new String[]{});
+            this.columns = columns.toArray(new String[]{});
         } catch (SQLException e) {
             this.close();
 ```
@@ -3243,7 +3243,7 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/jdbc/RowFe
 ```java
                 columns.add(result.getString("COLUMN_NAME"));
             }
-            this.columns = columns.toArray(new String[]{});
+            this.primaryKeys = columns.toArray(new String[]{});
         } catch (SQLException e) {
             this.close();
 ```
@@ -3302,11 +3302,11 @@ Double brace initialization
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/reuse/BytesDemo.java`
 #### Snippet
 ```java
-                                                 .property("date", "2017-03-24");
 
-        List<Vertex> vertices = new ArrayList<Vertex>() {{
-            add(peter);
-            add(lop);
+
+        List<Edge> edges = new ArrayList<Edge>() {{
+            add(peterCreateLop);
+        }};
 ```
 
 ### DoubleBraceInitialization
@@ -3314,11 +3314,11 @@ Double brace initialization
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/reuse/BytesDemo.java`
 #### Snippet
 ```java
+                                                 .property("date", "2017-03-24");
 
-
-        List<Edge> edges = new ArrayList<Edge>() {{
-            add(peterCreateLop);
-        }};
+        List<Vertex> vertices = new ArrayList<Vertex>() {{
+            add(peter);
+            add(lop);
 ```
 
 ## RuleId[ruleID=NullArgumentToVariableArgMethod]
@@ -3349,27 +3349,15 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/DataTypeUtil
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `c` initializer `0` is redundant
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/StringEncoding.java`
+The value `this.poolService.getOrCreate(conn.getId())` assigned to `client` is never used
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/license/LicenseService.java`
 #### Snippet
 ```java
-    public static String readAsciiString(byte[] array, int offset) {
-        StringBuilder sb = new StringBuilder();
-        int c = 0;
-        do {
-            c = 0xFF & array[offset++];
-```
-
-### UnusedAssignment
-Variable `type` initializer `0` is redundant
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct/HugeType.java`
-#### Snippet
-```java
-    MAX_TYPE(255, "~");
-
-    private byte type = 0;
-    private String name;
-
+        HugeClient client;
+        try {
+            client = this.poolService.getOrCreate(conn.getId());
+        } catch (Exception e) {
+            String msg = this.getMessage("graph-connection.client.unavailable",
 ```
 
 ### UnusedAssignment
@@ -3385,15 +3373,88 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/AuthRestoreConfl
 ```
 
 ### UnusedAssignment
-The value `this.poolService.getOrCreate(conn.getId())` assigned to `client` is never used
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/license/LicenseService.java`
+Variable `type` initializer `0` is redundant
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct/HugeType.java`
 #### Snippet
 ```java
-        HugeClient client;
+    MAX_TYPE(255, "~");
+
+    private byte type = 0;
+    private String name;
+
+```
+
+### UnusedAssignment
+Variable `c` initializer `0` is redundant
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/StringEncoding.java`
+#### Snippet
+```java
+    public static String readAsciiString(byte[] array, int offset) {
+        StringBuilder sb = new StringBuilder();
+        int c = 0;
+        do {
+            c = 0xFF & array[offset++];
+```
+
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+#### Snippet
+```java
+            int numPartitions, String tableName) throws IOException {
+        Optional<Connection> optionalConnection = getConnection();
+        TableDescriptor descriptor = optionalConnection.get()
+                                                       .getTable(TableName.valueOf(tableName))
+                                                       .getDescriptor();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+#### Snippet
+```java
+        Connection conn = null;
         try {
-            client = this.poolService.getOrCreate(conn.getId());
-        } catch (Exception e) {
-            String msg = this.getMessage("graph-connection.client.unavailable",
+            conn = ConnectionFactory.createConnection(baseConf.get());
+        } catch (IOException e) {
+            LOG.error("get hbase connection failed", e);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+#### Snippet
+```java
+
+        private Map<List<String>, Integer> getRangeMap(String tableName) throws IOException {
+            Connection conn = getConnection().get();
+            HRegionLocator locator =
+                    (HRegionLocator) conn.getRegionLocator(TableName.valueOf(tableName));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+#### Snippet
+```java
+
+    public void loadHfiles(String path, String tableName) throws Exception {
+        Connection conn = getConnection().get();
+        Table table = conn.getTable(TableName.valueOf(tableName));
+        Configuration conf = conn.getConfiguration();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBaseDirectLoader.java`
+#### Snippet
+```java
+            JavaPairRDD<ImmutableBytesWritable, KeyValue> repartitionedRdd =
+                    buildAndSerRdd.repartitionAndSortWithinPartitions(partitioner);
+            Configuration conf = sinkToHBase.getHBaseConfiguration().get();
+            Job job = Job.getInstance(conf);
+            HFileOutputFormat2.configureIncrementalLoadMap(job, tableDescriptor);
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -3407,54 +3468,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/line/Line.
             E.checkArgument(names.length == values.length,
                             "The length of names %s should be same as values %s",
                             Arrays.toString(names), Arrays.toString(values));
-```
-
-### ConstantValue
-Condition `leading != 0x80` is always `true`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-    public long readVLong() {
-        byte leading = this.read();
-        E.checkArgument(leading != 0x80,
-                        "Unexpected varlong with leading byte '0x%s'",
-                        Bytes.toHex(leading));
-```
-
-### ConstantValue
-Condition `(leading & 0x80) == 0` is always `true`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-        long value = leading & 0x7fL;
-        if (leading >= 0) {
-            assert (leading & 0x80) == 0;
-            return value;
-        }
-```
-
-### ConstantValue
-Condition `leading != 0x80` is always `true`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-    public int readVInt() {
-        byte leading = this.read();
-        E.checkArgument(leading != 0x80,
-                        "Unexpected varint with leading byte '0x%s'",
-                        Bytes.toHex(leading));
-```
-
-### ConstantValue
-Condition `(leading & 0x80) == 0` is always `true`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-        int value = leading & 0x7f;
-        if (leading >= 0) {
-            assert (leading & 0x80) == 0;
-            return value;
-        }
 ```
 
 ### ConstantValue
@@ -3505,65 +3518,52 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/query/
             }
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+### ConstantValue
+Condition `leading != 0x80` is always `true`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
 #### Snippet
 ```java
-        Connection conn = null;
-        try {
-            conn = ConnectionFactory.createConnection(baseConf.get());
-        } catch (IOException e) {
-            LOG.error("get hbase connection failed", e);
+    public int readVInt() {
+        byte leading = this.read();
+        E.checkArgument(leading != 0x80,
+                        "Unexpected varint with leading byte '0x%s'",
+                        Bytes.toHex(leading));
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+### ConstantValue
+Condition `(leading & 0x80) == 0` is always `true`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
 #### Snippet
 ```java
-
-    public void loadHfiles(String path, String tableName) throws Exception {
-        Connection conn = getConnection().get();
-        Table table = conn.getTable(TableName.valueOf(tableName));
-        Configuration conf = conn.getConfiguration();
+        int value = leading & 0x7f;
+        if (leading >= 0) {
+            assert (leading & 0x80) == 0;
+            return value;
+        }
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+### ConstantValue
+Condition `leading != 0x80` is always `true`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
 #### Snippet
 ```java
-            int numPartitions, String tableName) throws IOException {
-        Optional<Connection> optionalConnection = getConnection();
-        TableDescriptor descriptor = optionalConnection.get()
-                                                       .getTable(TableName.valueOf(tableName))
-                                                       .getDescriptor();
+    public long readVLong() {
+        byte leading = this.read();
+        E.checkArgument(leading != 0x80,
+                        "Unexpected varlong with leading byte '0x%s'",
+                        Bytes.toHex(leading));
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/util/SinkToHBase.java`
+### ConstantValue
+Condition `(leading & 0x80) == 0` is always `true`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
 #### Snippet
 ```java
-
-        private Map<List<String>, Integer> getRangeMap(String tableName) throws IOException {
-            Connection conn = getConnection().get();
-            HRegionLocator locator =
-                    (HRegionLocator) conn.getRegionLocator(TableName.valueOf(tableName));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/direct/loader/HBaseDirectLoader.java`
-#### Snippet
-```java
-            JavaPairRDD<ImmutableBytesWritable, KeyValue> repartitionedRdd =
-                    buildAndSerRdd.repartitionAndSortWithinPartitions(partitioner);
-            Configuration conf = sinkToHBase.getHBaseConfiguration().get();
-            Job job = Job.getInstance(conf);
-            HFileOutputFormat2.configureIncrementalLoadMap(job, tableDescriptor);
+        long value = leading & 0x7fL;
+        if (leading >= 0) {
+            assert (leading & 0x80) == 0;
+            return value;
+        }
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -3581,18 +3581,6 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `lowScore` may be 'static'
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-                groupedIndexes.sort(new Comparator<PropertyIndex>() {
-                    final int highScore = 2;
-                    final int lowScore = 1;
-                    @Override
-                    public int compare(PropertyIndex o1, PropertyIndex o2) {
-```
-
-### FieldMayBeStatic
 Field `highScore` may be 'static'
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
 #### Snippet
@@ -3602,6 +3590,18 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema
                     final int highScore = 2;
                     final int lowScore = 1;
                     @Override
+```
+
+### FieldMayBeStatic
+Field `lowScore` may be 'static'
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+                groupedIndexes.sort(new Comparator<PropertyIndex>() {
+                    final int highScore = 2;
+                    final int lowScore = 1;
+                    @Override
+                    public int compare(PropertyIndex o1, PropertyIndex o2) {
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -3618,18 +3618,6 @@ public final class LoadUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MappingUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/MappingUtil.java`
-#### Snippet
-```java
-
-@SuppressWarnings("deprecation")
-public final class MappingUtil {
-
-    private static final Set<String> ACCEPTABLE_VERSIONS = ImmutableSet.of(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MappingConverter` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/MappingConverter.java`
 #### Snippet
@@ -3642,15 +3630,15 @@ public final class MappingConverter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HugeClientHolder` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/HugeClientHolder.java`
+Class `MappingUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/MappingUtil.java`
 #### Snippet
 ```java
-import org.apache.hugegraph.util.E;
 
-public final class HugeClientHolder {
+@SuppressWarnings("deprecation")
+public final class MappingUtil {
 
-    public static HugeClient create(LoadOptions options) {
+    private static final Set<String> ACCEPTABLE_VERSIONS = ImmutableSet.of(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3678,6 +3666,18 @@ public final class Printer {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `HugeClientHolder` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/HugeClientHolder.java`
+#### Snippet
+```java
+import org.apache.hugegraph.util.E;
+
+public final class HugeClientHolder {
+
+    public static HugeClient create(LoadOptions options) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `DateUtil` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/DateUtil.java`
 #### Snippet
@@ -3702,18 +3702,6 @@ public final class DataTypeUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JDBCUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/jdbc/JDBCUtil.java`
-#### Snippet
-```java
-import org.postgresql.core.Utils;
-
-public final class JDBCUtil {
-
-    public static String escapeMysql(String value) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `JsonUtil` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/JsonUtil.java`
 #### Snippet
@@ -3726,6 +3714,18 @@ public final class JsonUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `JDBCUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/jdbc/JDBCUtil.java`
+#### Snippet
+```java
+import org.postgresql.core.Utils;
+
+public final class JDBCUtil {
+
+    public static String escapeMysql(String value) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Constants` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/constant/Constants.java`
 #### Snippet
@@ -3735,6 +3735,174 @@ import com.google.common.base.Charsets;
 public final class Constants {
 
     public static final int EXIT_CODE_NORM = 0;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SQLUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/SQLUtil.java`
+#### Snippet
+```java
+import org.apache.hugegraph.common.Constant;
+
+public final class SQLUtil {
+
+    public static String escapeLike(String text) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Ex` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/Ex.java`
+#### Snippet
+```java
+import org.apache.hugegraph.exception.InternalException;
+
+public final class Ex {
+
+    public static void check(boolean expression, String message,
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/FileUtil.java`
+#### Snippet
+```java
+import org.apache.hugegraph.exception.InternalException;
+
+public final class FileUtil {
+
+    public static int countLines(String path) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HubbleUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/HubbleUtil.java`
+#### Snippet
+```java
+import org.apache.commons.collections.CollectionUtils;
+
+public final class HubbleUtil {
+
+    public static final Pattern HOST_PATTERN = Pattern.compile(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PageUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/PageUtil.java`
+#### Snippet
+```java
+import com.google.common.collect.Lists;
+
+public final class PageUtil {
+
+    public static <T> IPage<T> page(List<T> entities, int pageNo, int pageSize) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EntityUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/EntityUtil.java`
+#### Snippet
+```java
+import org.apache.hugegraph.exception.InternalException;
+
+public final class EntityUtil {
+
+    @SuppressWarnings("unchecked")
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GremlinUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/GremlinUtil.java`
+#### Snippet
+```java
+import com.google.common.collect.ImmutableSet;
+
+public final class GremlinUtil {
+
+    private static final Set<String> LIMIT_SUFFIXES = ImmutableSet.of(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HugeClientUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/HugeClientUtil.java`
+#### Snippet
+```java
+import com.google.common.collect.ImmutableSet;
+
+public final class HugeClientUtil {
+
+    private static final String DEFAULT_PROTOCOL = "http";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Constant` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/common/Constant.java`
+#### Snippet
+```java
+import com.google.common.collect.ImmutableSet;
+
+public final class Constant {
+
+    public static final Charset CHARSET = UTF_8;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HubbleVersion` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/version/HubbleVersion.java`
+#### Snippet
+```java
+import org.apache.hugegraph.util.VersionUtil.Version;
+
+public final class HubbleVersion {
+
+    static {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Printer` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public class Printer {
+
+    public static void print(String content) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ToolUtil` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
+#### Snippet
+```java
+import com.beust.jcommander.JCommander;
+
+public final class ToolUtil {
+
+    public static void printOrThrow(Throwable e, boolean throwMode) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Constants` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/Constants.java`
+#### Snippet
+```java
+package org.apache.hugegraph.constant;
+
+public final class Constants {
+
+    public static final int EXIT_CODE_ERROR = -1;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SignFS64` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/SignFS64.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class SignFS64 {
+
+    static List<Integer> _MOD_PRIME_LIST_1 =
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3798,18 +3966,6 @@ public class ClientVersion {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SingleExample` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
-#### Snippet
-```java
-import org.apache.hugegraph.driver.SchemaManager;
-
-public class SingleExample {
-
-    public static void main(String[] args) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `BatchExample` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-client/src/main/java/org/apache/hugegraph/example/BatchExample.java`
 #### Snippet
@@ -3819,6 +3975,18 @@ import org.apache.hugegraph.driver.SchemaManager;
 public class BatchExample {
 
     public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SingleExample` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+#### Snippet
+```java
+import org.apache.hugegraph.driver.SchemaManager;
+
+public class SingleExample {
+
+    public static void main(String[] args) throws IOException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3846,18 +4014,6 @@ public class MovieExample {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Traverser` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/constant/Traverser.java`
-#### Snippet
-```java
-package org.apache.hugegraph.structure.constant;
-
-public class Traverser {
-
-    public static final long DEFAULT_CAPACITY = 10_000_000L;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `T` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/constant/T.java`
 #### Snippet
@@ -3870,15 +4026,15 @@ public class T {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LZ4Util` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/LZ4Util.java`
+Class `Traverser` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/constant/Traverser.java`
 #### Snippet
 ```java
-import java.io.IOException;
+package org.apache.hugegraph.structure.constant;
 
-public class LZ4Util {
+public class Traverser {
 
-    protected static final float DEFAULT_BUFFER_RATIO = 1.5f;
+    public static final long DEFAULT_CAPACITY = 10_000_000L;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3894,6 +4050,18 @@ public class SplicingIdGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `LZ4Util` has only 'static' members, and lacks a 'private' constructor
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/LZ4Util.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class LZ4Util {
+
+    protected static final float DEFAULT_BUFFER_RATIO = 1.5f;
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StringEncoding` has only 'static' members, and lacks a 'private' constructor
 in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/StringEncoding.java`
 #### Snippet
@@ -3903,174 +4071,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/S
 public final class StringEncoding {
 
     private static final MessageDigest DIGEST;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Printer` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public class Printer {
-
-    public static void print(String content) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ToolUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
-#### Snippet
-```java
-import com.beust.jcommander.JCommander;
-
-public final class ToolUtil {
-
-    public static void printOrThrow(Throwable e, boolean throwMode) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/Constants.java`
-#### Snippet
-```java
-package org.apache.hugegraph.constant;
-
-public final class Constants {
-
-    public static final int EXIT_CODE_ERROR = -1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SignFS64` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/SignFS64.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class SignFS64 {
-
-    static List<Integer> _MOD_PRIME_LIST_1 =
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Ex` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/Ex.java`
-#### Snippet
-```java
-import org.apache.hugegraph.exception.InternalException;
-
-public final class Ex {
-
-    public static void check(boolean expression, String message,
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SQLUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/SQLUtil.java`
-#### Snippet
-```java
-import org.apache.hugegraph.common.Constant;
-
-public final class SQLUtil {
-
-    public static String escapeLike(String text) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/FileUtil.java`
-#### Snippet
-```java
-import org.apache.hugegraph.exception.InternalException;
-
-public final class FileUtil {
-
-    public static int countLines(String path) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EntityUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/EntityUtil.java`
-#### Snippet
-```java
-import org.apache.hugegraph.exception.InternalException;
-
-public final class EntityUtil {
-
-    @SuppressWarnings("unchecked")
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PageUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/PageUtil.java`
-#### Snippet
-```java
-import com.google.common.collect.Lists;
-
-public final class PageUtil {
-
-    public static <T> IPage<T> page(List<T> entities, int pageNo, int pageSize) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HubbleUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/HubbleUtil.java`
-#### Snippet
-```java
-import org.apache.commons.collections.CollectionUtils;
-
-public final class HubbleUtil {
-
-    public static final Pattern HOST_PATTERN = Pattern.compile(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Constant` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/common/Constant.java`
-#### Snippet
-```java
-import com.google.common.collect.ImmutableSet;
-
-public final class Constant {
-
-    public static final Charset CHARSET = UTF_8;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GremlinUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/GremlinUtil.java`
-#### Snippet
-```java
-import com.google.common.collect.ImmutableSet;
-
-public final class GremlinUtil {
-
-    private static final Set<String> LIMIT_SUFFIXES = ImmutableSet.of(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HugeClientUtil` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/HugeClientUtil.java`
-#### Snippet
-```java
-import com.google.common.collect.ImmutableSet;
-
-public final class HugeClientUtil {
-
-    private static final String DEFAULT_PROTOCOL = "http";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HubbleVersion` has only 'static' members, and lacks a 'private' constructor
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/version/HubbleVersion.java`
-#### Snippet
-```java
-import org.apache.hugegraph.util.VersionUtil.Version;
-
-public final class HubbleVersion {
-
-    static {
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -4109,78 +4109,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBu
             E.checkArgument(false, "All non-null property keys %s of '%s' " +
                             "must be set, but missed keys %s",
                             requiredKeys, this.schemaLabel().name(), missed);
-```
-
-### DataFlowIssue
-The call to 'checkArgument' always fails, according to its method contracts
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct/DataType.java`
-#### Snippet
-```java
-        T value = (T) TABLE.get(clazz, code);
-        if (value == null) {
-            E.checkArgument(false, "Can't construct %s from code %s",
-                            clazz.getSimpleName(), code);
-        }
-```
-
-### DataFlowIssue
-The call to 'checkState' always fails, according to its method contracts
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/LocalDirectory.java`
-#### Snippet
-```java
-                             "failed: '%s'", file.getAbsolutePath());
-            } else {
-                E.checkState(false, "The directory does not exist: '%s'",
-                             file.getAbsolutePath());
-            }
-```
-
-### DataFlowIssue
-The call to 'checkArgument' always fails, according to its method contracts
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-            if (Bytes.contains(bytes, STRING_ENDING_BYTE)) {
-                // Not allow STRING_ENDING_BYTE exist in string index id
-                E.checkArgument(false,
-                                "The %s type index id can't contains " +
-                                "byte '0x%s', but got: 0x%s", type,
-```
-
-### DataFlowIssue
-The call to 'checkArgument' always fails, according to its method contracts
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
-#### Snippet
-```java
-                    "Invalid UTF8 bytes: " + value;
-            if (Bytes.contains(bytes, STRING_ENDING_BYTE)) {
-                E.checkArgument(false,
-                                "Can't contains byte '0x00' in string: '%s'",
-                                value);
-```
-
-### DataFlowIssue
-The call to 'checkState' always fails, according to its method contracts
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/HdfsDirectory.java`
-#### Snippet
-```java
-                                 "failed: '%s'", path.toString());
-                } else {
-                    E.checkState(false,
-                                 "The directory does not exist: '%s'",
-                                 path.toString());
-```
-
-### DataFlowIssue
-Dereference of `logDir.listFiles()` may produce `NullPointerException`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
-#### Snippet
-```java
-                        "The log directory '%s' not exists or is file",
-                        logDir);
-        for (File file : logDir.listFiles()) {
-            if (file.getName().endsWith(SHARDS_SUFFIX)) {
-                try {
 ```
 
 ### DataFlowIssue
@@ -4267,7 +4195,91 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/que
         }
 ```
 
+### DataFlowIssue
+The call to 'checkState' always fails, according to its method contracts
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/LocalDirectory.java`
+#### Snippet
+```java
+                             "failed: '%s'", file.getAbsolutePath());
+            } else {
+                E.checkState(false, "The directory does not exist: '%s'",
+                             file.getAbsolutePath());
+            }
+```
+
+### DataFlowIssue
+The call to 'checkState' always fails, according to its method contracts
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/HdfsDirectory.java`
+#### Snippet
+```java
+                                 "failed: '%s'", path.toString());
+                } else {
+                    E.checkState(false,
+                                 "The directory does not exist: '%s'",
+                                 path.toString());
+```
+
+### DataFlowIssue
+Dereference of `logDir.listFiles()` may produce `NullPointerException`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
+#### Snippet
+```java
+                        "The log directory '%s' not exists or is file",
+                        logDir);
+        for (File file : logDir.listFiles()) {
+            if (file.getName().endsWith(SHARDS_SUFFIX)) {
+                try {
+```
+
+### DataFlowIssue
+The call to 'checkArgument' always fails, according to its method contracts
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct/DataType.java`
+#### Snippet
+```java
+        T value = (T) TABLE.get(clazz, code);
+        if (value == null) {
+            E.checkArgument(false, "Can't construct %s from code %s",
+                            clazz.getSimpleName(), code);
+        }
+```
+
+### DataFlowIssue
+The call to 'checkArgument' always fails, according to its method contracts
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+#### Snippet
+```java
+            if (Bytes.contains(bytes, STRING_ENDING_BYTE)) {
+                // Not allow STRING_ENDING_BYTE exist in string index id
+                E.checkArgument(false,
+                                "The %s type index id can't contains " +
+                                "byte '0x%s', but got: 0x%s", type,
+```
+
+### DataFlowIssue
+The call to 'checkArgument' always fails, according to its method contracts
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+#### Snippet
+```java
+                    "Invalid UTF8 bytes: " + value;
+            if (Bytes.contains(bytes, STRING_ENDING_BYTE)) {
+                E.checkArgument(false,
+                                "Can't contains byte '0x00' in string: '%s'",
+                                value);
+```
+
 ## RuleId[ruleID=MethodOverloadsParentMethod]
+### MethodOverloadsParentMethod
+Method `remove()` overloads a compatible method of a superclass, when overriding might have been intended
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeClientPoolService.java`
+#### Snippet
+```java
+    }
+
+    public void remove(GraphConnection connection) {
+        HugeClient client = super.remove(connection.getId());
+        if (client == null) {
+```
+
 ### MethodOverloadsParentMethod
 Method `init()` overloads a compatible method of a superclass, when overriding might have been intended
 in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/DumpGraphManager.java`
@@ -4278,18 +4290,6 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/DumpGraphManager.
     public void init(SubCommands.DumpGraph dump) {
         assert dump.retry() > 0;
         this.retry(dump.retry());
-```
-
-### MethodOverloadsParentMethod
-Method `init()` overloads a compatible method of a superclass, when overriding might have been intended
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
-#### Snippet
-```java
-    }
-
-    public void init(SubCommands.Restore restore) {
-        super.init(restore);
-        this.ensureDirectoryExist(false);
 ```
 
 ### MethodOverloadsParentMethod
@@ -4305,15 +4305,15 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.jav
 ```
 
 ### MethodOverloadsParentMethod
-Method `remove()` overloads a compatible method of a superclass, when overriding might have been intended
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeClientPoolService.java`
+Method `init()` overloads a compatible method of a superclass, when overriding might have been intended
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
 #### Snippet
 ```java
     }
 
-    public void remove(GraphConnection connection) {
-        HugeClient client = super.remove(connection.getId());
-        if (client == null) {
+    public void init(SubCommands.Restore restore) {
+        super.init(restore);
+        this.ensureDirectoryExist(false);
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
@@ -4330,18 +4330,6 @@ public class VertexStructV1 extends ElementStructV1 {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'EdgeStructV1' is still used
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/struct/EdgeStructV1.java`
-#### Snippet
-```java
-
-@Deprecated
-public class EdgeStructV1 extends ElementStructV1 {
-
-    @JsonProperty("source")
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'ElementStructV1' is still used
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/struct/ElementStructV1.java`
 #### Snippet
@@ -4351,6 +4339,18 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/struct/ElementStr
 public abstract class ElementStructV1 implements Unique<String>, Checkable {
 
     @JsonProperty("label")
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'EdgeStructV1' is still used
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/struct/EdgeStructV1.java`
+#### Snippet
+```java
+
+@Deprecated
+public class EdgeStructV1 extends ElementStructV1 {
+
+    @JsonProperty("source")
 ```
 
 ### DeprecatedIsStillUsed
@@ -4454,27 +4454,15 @@ public class ComputerLoadOptions extends LoadOptions {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'schemaCache' in a Serializable class
+Non-serializable field 'oldProgress' in a Serializable class
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadContext.java`
 #### Snippet
 ```java
-
-    private final HugeClient client;
-    private final SchemaCache schemaCache;
-
-    public LoadContext(LoadOptions options) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'newProgress' in a Serializable class
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadContext.java`
-#### Snippet
-```java
+    private final LoadSummary summary;
     // The old progress just used to read
     private final LoadProgress oldProgress;
     private final LoadProgress newProgress;
     // Each input mapping corresponds to a FailLogger
-    private final Map<String, FailLogger> loggers;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -4490,15 +4478,27 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadCont
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'oldProgress' in a Serializable class
+Non-serializable field 'newProgress' in a Serializable class
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadContext.java`
 #### Snippet
 ```java
-    private final LoadSummary summary;
     // The old progress just used to read
     private final LoadProgress oldProgress;
     private final LoadProgress newProgress;
     // Each input mapping corresponds to a FailLogger
+    private final Map<String, FailLogger> loggers;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'schemaCache' in a Serializable class
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadContext.java`
+#### Snippet
+```java
+
+    private final HugeClient client;
+    private final SchemaCache schemaCache;
+
+    public LoadContext(LoadOptions options) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -4514,15 +4514,15 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/executor/LoadCont
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'trace' in a Serializable class
-in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
+Non-serializable field 'sslService' in a Serializable class
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeClientPoolService.java`
 #### Snippet
 ```java
-    private String message;
-    private String cause;
-    private Object trace;
+    private GraphConnectionService connService;
+    @Autowired
+    private SettingSSLService sslService;
 
-    public static ServerException fromResponse(Response response) {
+    @PreDestroy
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -4550,18 +4550,6 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeCl
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'sslService' in a Serializable class
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/HugeClientPoolService.java`
-#### Snippet
-```java
-    private GraphConnectionService connService;
-    @Autowired
-    private SettingSSLService sslService;
-
-    @PreDestroy
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'args' in a Serializable class
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/exception/IllegalGremlinException.java`
 #### Snippet
@@ -4585,19 +4573,19 @@ public class ParameterizedException extends RuntimeException {
     public ParameterizedException(String message, Object... args) {
 ```
 
-## RuleId[ruleID=SwitchStatementWithConfusingDeclaration]
-### SwitchStatementWithConfusingDeclaration
-Local variable `bytes` declared in one 'switch' branch and used in another
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'trace' in a Serializable class
+in `hugegraph-client/src/main/java/org/apache/hugegraph/exception/ServerException.java`
 #### Snippet
 ```java
-            case UUID:
-                // UUID Id
-                byte[] bytes = id.asBytes();
-                assert bytes.length == Id.UUID_LENGTH;
-                this.writeUInt8(0x7f); // 0b01111111 means UUID
+    private String message;
+    private String cause;
+    private Object trace;
+
+    public static ServerException fromResponse(Response response) {
 ```
 
+## RuleId[ruleID=SwitchStatementWithConfusingDeclaration]
 ### SwitchStatementWithConfusingDeclaration
 Local variable `backup` declared in one 'switch' branch and used in another
 in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/HugeGraphCommand.java`
@@ -4694,6 +4682,18 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/HugeGraphCommand.java
                                                      taskList.limit());
 ```
 
+### SwitchStatementWithConfusingDeclaration
+Local variable `bytes` declared in one 'switch' branch and used in another
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/BytesBuffer.java`
+#### Snippet
+```java
+            case UUID:
+                // UUID Id
+                byte[] bytes = id.asBytes();
+                assert bytes.length == Id.UUID_LENGTH;
+                this.writeUInt8(0x7f); // 0b01111111 means UUID
+```
+
 ## RuleId[ruleID=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `this.service`
@@ -4726,42 +4726,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
 #### Snippet
 ```java
-        int vLength = String.valueOf(vertexLoaded).length();
-        int eLength = String.valueOf(edgeLoaded).length();
-        System.out.print(vertexLoaded + SLASH + edgeLoaded +
-                         backward(vLength + 1 + eLength));
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
-#### Snippet
-```java
-        LOG.error(formatMsg, e);
-        // Print an empty line
-        System.err.println();
-        System.err.println(formatMsg);
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
-#### Snippet
-```java
-        // Print an empty line
-        System.err.println();
-        System.err.println(formatMsg);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
-#### Snippet
-```java
         long vertexLoaded = summary.vertexLoaded();
         long edgeLoaded = summary.edgeLoaded();
         System.out.println(vertexLoaded + SLASH + edgeLoaded);
@@ -4789,18 +4753,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java
         // Print an empty line
         System.err.println();
         System.err.println(formatMsg);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
-#### Snippet
-```java
-    private static void printAndLog(String message) {
-        LOG.info(message);
-        System.out.println(message);
     }
 
 ```
@@ -4843,86 +4795,230 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
 #### Snippet
 ```java
+    private static void printAndLog(String message) {
+        LOG.info(message);
+        System.out.println(message);
+    }
 
-        GremlinManager gremlin = hugeClient.gremlin();
-        System.out.println("==== Path ====");
-        ResultSet resultSet = gremlin.gremlin("g.V().outE().path()").execute();
-        Iterator<Result> results = resultSet.iterator();
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
 #### Snippet
 ```java
-        Iterator<Result> results = resultSet.iterator();
-        results.forEachRemaining(result -> {
-            System.out.println(result.getObject().getClass());
-            Object object = result.getObject();
-            if (object instanceof Vertex) {
+        int vLength = String.valueOf(vertexLoaded).length();
+        int eLength = String.valueOf(edgeLoaded).length();
+        System.out.print(vertexLoaded + SLASH + edgeLoaded +
+                         backward(vLength + 1 + eLength));
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
+#### Snippet
+```java
+        LOG.error(formatMsg, e);
+        // Print an empty line
+        System.err.println();
+        System.err.println(formatMsg);
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/Printer.java`
+#### Snippet
+```java
+        // Print an empty line
+        System.err.println();
+        System.err.println(formatMsg);
+    }
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
 #### Snippet
 ```java
-            Object object = result.getObject();
-            if (object instanceof Vertex) {
-                System.out.println(((Vertex) object).id());
-            } else if (object instanceof Edge) {
-                System.out.println(((Edge) object).id());
+
+    public static void print(String content, Object ... objects) {
+        System.out.println(String.format(content, objects));
+    }
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
 #### Snippet
 ```java
-                System.out.println(((Vertex) object).id());
-            } else if (object instanceof Edge) {
-                System.out.println(((Edge) object).id());
-            } else if (object instanceof Path) {
-                List<Object> elements = ((Path) object).objects();
+
+    public static void printInBackward(String message) {
+        System.out.print(message);
+        printInBackward(0L);
+    }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
 #### Snippet
 ```java
-                List<Object> elements = ((Path) object).objects();
-                elements.forEach(element -> {
-                    System.out.println(element.getClass());
-                    System.out.println(element);
-                });
+
+    public static void printSet(String name, Set<?> set) {
+        System.out.println(name + ": (");
+        for (Object object : set) {
+            System.out.println("\t" + object + ",");
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
 #### Snippet
 ```java
-                elements.forEach(element -> {
-                    System.out.println(element.getClass());
-                    System.out.println(element);
-                });
-            } else {
+        System.out.println(name + ": (");
+        for (Object object : set) {
+            System.out.println("\t" + object + ",");
+        }
+        System.out.println(")");
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
 #### Snippet
 ```java
-                });
-            } else {
-                System.out.println(object);
-            }
-        });
+            System.out.println("\t" + object + ",");
+        }
+        System.out.println(")");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+
+    public static void printList(String name, List<?> list) {
+        System.out.println(name + ": [");
+        for (Object object : list) {
+            System.out.println("\t" + object + ",");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+        System.out.println(name + ": [");
+        for (Object object : list) {
+            System.out.println("\t" + object + ",");
+        }
+        System.out.println("]");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+            System.out.println("\t" + object + ",");
+        }
+        System.out.println("]");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+
+    public static void printInBackward(long count) {
+        System.out.print(String.format("%d%s", count, backward(count)));
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+
+    public static void printKV(String key, Object value) {
+        System.out.println(key + ": " + value);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+
+    public static void print(String content) {
+        System.out.println(content);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+
+    public static void printMap(String name, Map<?, ?> map) {
+        System.out.println(name + ": {");
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            System.out.println("\t" + entry.getKey() + ": " +
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+        System.out.println(name + ": {");
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
+            System.out.println("\t" + entry.getKey() + ": " +
+                               entry.getValue() + ",");
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+#### Snippet
+```java
+                               entry.getValue() + ",");
+        }
+        System.out.println("}");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
+#### Snippet
+```java
+
+    public static void printExceptionStackIfNeeded(Throwable e) {
+        System.out.println("Type y(yes) to print exception stack[default n]?");
+        Scanner scan = new Scanner(System.in);
+        String inputInfomation = scan.nextLine();
 ```
 
 ### SystemOutErr
@@ -5047,170 +5143,86 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/example/BatchExample.jav
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
 
-    public static void printMap(String name, Map<?, ?> map) {
-        System.out.println(name + ": {");
-        for (Map.Entry<?, ?> entry : map.entrySet()) {
-            System.out.println("\t" + entry.getKey() + ": " +
+        GremlinManager gremlin = hugeClient.gremlin();
+        System.out.println("==== Path ====");
+        ResultSet resultSet = gremlin.gremlin("g.V().outE().path()").execute();
+        Iterator<Result> results = resultSet.iterator();
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
-        System.out.println(name + ": {");
-        for (Map.Entry<?, ?> entry : map.entrySet()) {
-            System.out.println("\t" + entry.getKey() + ": " +
-                               entry.getValue() + ",");
-        }
+        Iterator<Result> results = resultSet.iterator();
+        results.forEachRemaining(result -> {
+            System.out.println(result.getObject().getClass());
+            Object object = result.getObject();
+            if (object instanceof Vertex) {
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
-                               entry.getValue() + ",");
-        }
-        System.out.println("}");
-    }
-
+            Object object = result.getObject();
+            if (object instanceof Vertex) {
+                System.out.println(((Vertex) object).id());
+            } else if (object instanceof Edge) {
+                System.out.println(((Edge) object).id());
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
-
-    public static void printKV(String key, Object value) {
-        System.out.println(key + ": " + value);
-    }
-
+                System.out.println(((Vertex) object).id());
+            } else if (object instanceof Edge) {
+                System.out.println(((Edge) object).id());
+            } else if (object instanceof Path) {
+                List<Object> elements = ((Path) object).objects();
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
-
-    public static void printInBackward(String message) {
-        System.out.print(message);
-        printInBackward(0L);
-    }
+                List<Object> elements = ((Path) object).objects();
+                elements.forEach(element -> {
+                    System.out.println(element.getClass());
+                    System.out.println(element);
+                });
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
-
-    public static void print(String content, Object ... objects) {
-        System.out.println(String.format(content, objects));
-    }
-
+                elements.forEach(element -> {
+                    System.out.println(element.getClass());
+                    System.out.println(element);
+                });
+            } else {
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/example/SingleExample.java`
 #### Snippet
 ```java
-
-    public static void printSet(String name, Set<?> set) {
-        System.out.println(name + ": (");
-        for (Object object : set) {
-            System.out.println("\t" + object + ",");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-        System.out.println(name + ": (");
-        for (Object object : set) {
-            System.out.println("\t" + object + ",");
-        }
-        System.out.println(")");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-            System.out.println("\t" + object + ",");
-        }
-        System.out.println(")");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-
-    public static void print(String content) {
-        System.out.println(content);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-
-    public static void printInBackward(long count) {
-        System.out.print(String.format("%d%s", count, backward(count)));
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-
-    public static void printList(String name, List<?> list) {
-        System.out.println(name + ": [");
-        for (Object object : list) {
-            System.out.println("\t" + object + ",");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-        System.out.println(name + ": [");
-        for (Object object : list) {
-            System.out.println("\t" + object + ",");
-        }
-        System.out.println("]");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Printer.java`
-#### Snippet
-```java
-            System.out.println("\t" + object + ",");
-        }
-        System.out.println("]");
-    }
-
+                });
+            } else {
+                System.out.println(object);
+            }
+        });
 ```
 
 ### SystemOutErr
@@ -5237,18 +5249,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/reuse/
 
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
-#### Snippet
-```java
-
-    public static void printExceptionStackIfNeeded(Throwable e) {
-        System.out.println("Type y(yes) to print exception stack[default n]?");
-        Scanner scan = new Scanner(System.in);
-        String inputInfomation = scan.nextLine();
-```
-
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -5260,18 +5260,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/struct/ElementStr
             return key.replace(Constants.MINUS_STR + Constants.FAILURE,
                                Constants.EMPTY_STR);
         } else {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
-#### Snippet
-```java
-        }
-
-        String[] entSpa = entPlain.split("__");
-        if (entSpa.length != 3) {
-            return seqNum;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5308,6 +5296,18 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/util/GremlinUt
                 pattern = compile(regex.replaceAll("NUM", "[\\\\d]+"));
                 patterns.add(pattern);
             } else if (text.contains("()")) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/formatter/kgdumper/ComputeSign.java`
+#### Snippet
+```java
+        }
+
+        String[] entSpa = entPlain.split("__");
+        if (entSpa.length != 3) {
+            return seqNum;
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -5386,6 +5386,18 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/spark/HugeGraphSp
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
+#### Snippet
+```java
+        if (inputInfomation.equalsIgnoreCase(Constants.INPUT_YES) ||
+            inputInfomation.equalsIgnoreCase(Constants.INPUT_Y)) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/RetryManager.java`
 #### Snippet
 ```java
@@ -5406,18 +5418,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/reuse/
             e.printStackTrace();
         }
         return flag;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/util/ToolUtil.java`
-#### Snippet
-```java
-        if (inputInfomation.equalsIgnoreCase(Constants.INPUT_YES) ||
-            inputInfomation.equalsIgnoreCase(Constants.INPUT_Y)) {
-            e.printStackTrace();
-        }
-    }
 ```
 
 ## RuleId[ruleID=SamePackageImport]
@@ -5531,39 +5531,15 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/progress/InputIte
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `JobAPI()` of an abstract class should not be declared 'public'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/job/JobAPI.java`
+Constructor `ElementMapping()` of an abstract class should not be declared 'public'
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/mapping/ElementMapping.java`
 #### Snippet
 ```java
-    private static final String PATH = "graphs/%s/%s/%s";
+    private long batchSize;
 
-    public JobAPI(RestClient client, String graph) {
-        super(client);
-        this.path(String.format(PATH, graph, this.type(), this.jobType()));
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `API()` of an abstract class should not be declared 'public'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/API.java`
-#### Snippet
-```java
-    private String path;
-
-    public API(RestClient client) {
-        E.checkNotNull(client, "client");
-        this.client = client;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthAPI()` of an abstract class should not be declared 'public'
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
-#### Snippet
-```java
-    private static final String PATH = "graphs/%s/auth/%s";
-
-    public AuthAPI(RestClient client, String graph) {
-        super(client);
-        this.path(PATH, graph, this.type());
+    public ElementMapping() {
+        this.skip = false;
+        this.mappingFields = new HashMap<>();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -5591,6 +5567,54 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBu
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `Directory()` of an abstract class should not be declared 'public'
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Directory.java`
+#### Snippet
+```java
+    private final String directory;
+
+    public Directory(String directory) {
+        E.checkArgument(directory != null && !directory.isEmpty(),
+                        "Directory can't be null or empty");
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `API()` of an abstract class should not be declared 'public'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/API.java`
+#### Snippet
+```java
+    private String path;
+
+    public API(RestClient client) {
+        E.checkNotNull(client, "client");
+        this.client = client;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `JobAPI()` of an abstract class should not be declared 'public'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/job/JobAPI.java`
+#### Snippet
+```java
+    private static final String PATH = "graphs/%s/%s/%s";
+
+    public JobAPI(RestClient client, String graph) {
+        super(client);
+        this.path(String.format(PATH, graph, this.type(), this.jobType()));
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AuthAPI()` of an abstract class should not be declared 'public'
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
+#### Snippet
+```java
+    private static final String PATH = "graphs/%s/auth/%s";
+
+    public AuthAPI(RestClient client, String graph) {
+        super(client);
+        this.path(PATH, graph, this.type());
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `GraphAPI()` of an abstract class should not be declared 'public'
 in `hugegraph-client/src/main/java/org/apache/hugegraph/api/graph/GraphAPI.java`
 #### Snippet
@@ -5612,18 +5636,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/api/schema/SchemaElement
     public SchemaElementAPI(RestClient client, String graph) {
         super(client);
         this.path(PATH, graph, this.type());
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ElementMapping()` of an abstract class should not be declared 'public'
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/mapping/ElementMapping.java`
-#### Snippet
-```java
-    private long batchSize;
-
-    public ElementMapping() {
-        this.skip = false;
-        this.mappingFields = new HashMap<>();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -5674,18 +5686,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/schema/SchemaL
         this.nullableKeys = new ConcurrentSkipListSet<>();
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `Directory()` of an abstract class should not be declared 'public'
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/Directory.java`
-#### Snippet
-```java
-    private final String directory;
-
-    public Directory(String directory) {
-        E.checkArgument(directory != null && !directory.isEmpty(),
-                        "Directory can't be null or empty");
-```
-
 ## RuleId[ruleID=CaughtExceptionImmediatelyRethrown]
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
@@ -5701,11 +5701,11 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/DumpGraphManager.
 
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
 #### Snippet
 ```java
         try {
-            this.doRestore(types);
+            this.doBackup(types);
         } catch (Throwable e) {
             throw e;
         } finally {
@@ -5713,11 +5713,11 @@ in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.ja
 
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/RestoreManager.java`
 #### Snippet
 ```java
         try {
-            this.doBackup(types);
+            this.doRestore(types);
         } catch (Throwable e) {
             throw e;
         } finally {
@@ -5773,30 +5773,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/DataTypeUtil
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
-#### Snippet
-```java
-            return null;
-        } else if (id instanceof AuthElement) {
-            id = ((AuthElement) id).id();
-        }
-        return String.valueOf(id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
-#### Snippet
-```java
-            return null;
-        } else if (id instanceof AuthElement) {
-            id = ((AuthElement) id).id();
-        }
-        return String.valueOf(id);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `value`
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBuilder.java`
 #### Snippet
@@ -5806,6 +5782,114 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/builder/ElementBu
             value = this.convertPropertyValue(key, value);
         }
         element.property(key, value);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/handler/ExceptionAdvisor.java`
+#### Snippet
+```java
+        }
+        try {
+            message = this.messageSourceHandler.getMessage(message, strArgs);
+        } catch (Throwable e) {
+            log.error(e.getMessage(), e);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `status`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/algorithm/AsyncTaskService.java`
+#### Snippet
+```java
+        HugeClient client = this.getClient(connId);
+        if (status.isEmpty()) {
+            status = null;
+        }
+        List<Task> tasks = client.task().list(status);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `edgeId`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/graph/GraphController.java`
+#### Snippet
+```java
+                           @PathVariable("id") String edgeId,
+                           @RequestBody EdgeEntity entity) {
+        edgeId = UriUtils.decode(edgeId, Constant.CHARSET);
+        this.checkParamsValid(connId, entity, false);
+        this.checkIdSameAsBody(edgeId, entity);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `vertexId`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/graph/GraphController.java`
+#### Snippet
+```java
+                               @PathVariable("id") String vertexId,
+                               @RequestBody VertexEntity entity) {
+        vertexId = UriUtils.decode(vertexId, Constant.CHARSET);
+        this.checkParamsValid(connId, entity, false);
+        this.checkIdSameAsBody(vertexId, entity);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `directory`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/LocalDirectory.java`
+#### Snippet
+```java
+    public static LocalDirectory constructDir(String directory, String graph) {
+        if (directory == null || directory.isEmpty()) {
+            directory = "./" + graph;
+        }
+        return new LocalDirectory(directory);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `directory`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/HdfsDirectory.java`
+#### Snippet
+```java
+        if (directory == null || directory.isEmpty()) {
+            if (hdfsFs.endsWith("/")) {
+                directory = hdfsFs + graph;
+            } else {
+                directory = hdfsFs + "/" + graph;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `directory`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/HdfsDirectory.java`
+#### Snippet
+```java
+                directory = hdfsFs + graph;
+            } else {
+                directory = hdfsFs + "/" + graph;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `id`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
+#### Snippet
+```java
+            return null;
+        } else if (id instanceof AuthElement) {
+            id = ((AuthElement) id).id();
+        }
+        return String.valueOf(id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `id`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
+#### Snippet
+```java
+            return null;
+        } else if (id instanceof AuthElement) {
+            id = ((AuthElement) id).id();
+        }
+        return String.valueOf(id);
 ```
 
 ### AssignmentToMethodParameter
@@ -5845,30 +5929,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `username`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder.java`
-#### Snippet
-```java
-    public HugeClientBuilder configUser(String username, String password) {
-        if (username == null) {
-            username = "";
-        }
-        if (password == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `password`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder.java`
-#### Snippet
-```java
-        }
-        if (password == null) {
-            password = "";
-        }
-        this.username = username;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `maxConns`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder.java`
 #### Snippet
@@ -5893,15 +5953,27 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `group`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/Access.java`
+Assignment to method parameter `username`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder.java`
 #### Snippet
 ```java
-    public void group(Object group) {
-        if (group instanceof Group) {
-            group = ((Group) group).id();
+    public HugeClientBuilder configUser(String username, String password) {
+        if (username == null) {
+            username = "";
         }
-        this.group = group;
+        if (password == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `password`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/HugeClientBuilder.java`
+#### Snippet
+```java
+        }
+        if (password == null) {
+            password = "";
+        }
+        this.username = username;
 ```
 
 ### AssignmentToMethodParameter
@@ -5914,6 +5986,18 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/Access.ja
             target = ((Target) target).id();
         }
         this.target = target;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `group`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/Access.java`
+#### Snippet
+```java
+    public void group(Object group) {
+        if (group instanceof Group) {
+            group = ((Group) group).id();
+        }
+        this.group = group;
 ```
 
 ### AssignmentToMethodParameter
@@ -6001,90 +6085,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/reuse/
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `directory`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/LocalDirectory.java`
-#### Snippet
-```java
-    public static LocalDirectory constructDir(String directory, String graph) {
-        if (directory == null || directory.isEmpty()) {
-            directory = "./" + graph;
-        }
-        return new LocalDirectory(directory);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `directory`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/HdfsDirectory.java`
-#### Snippet
-```java
-        if (directory == null || directory.isEmpty()) {
-            if (hdfsFs.endsWith("/")) {
-                directory = hdfsFs + graph;
-            } else {
-                directory = hdfsFs + "/" + graph;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `directory`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/base/HdfsDirectory.java`
-#### Snippet
-```java
-                directory = hdfsFs + graph;
-            } else {
-                directory = hdfsFs + "/" + graph;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/handler/ExceptionAdvisor.java`
-#### Snippet
-```java
-        }
-        try {
-            message = this.messageSourceHandler.getMessage(message, strArgs);
-        } catch (Throwable e) {
-            log.error(e.getMessage(), e);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `status`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/algorithm/AsyncTaskService.java`
-#### Snippet
-```java
-        HugeClient client = this.getClient(connId);
-        if (status.isEmpty()) {
-            status = null;
-        }
-        List<Task> tasks = client.task().list(status);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `edgeId`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/graph/GraphController.java`
-#### Snippet
-```java
-                           @PathVariable("id") String edgeId,
-                           @RequestBody EdgeEntity entity) {
-        edgeId = UriUtils.decode(edgeId, Constant.CHARSET);
-        this.checkParamsValid(connId, entity, false);
-        this.checkIdSameAsBody(edgeId, entity);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `vertexId`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/controller/graph/GraphController.java`
-#### Snippet
-```java
-                               @PathVariable("id") String vertexId,
-                               @RequestBody VertexEntity entity) {
-        vertexId = UriUtils.decode(vertexId, Constant.CHARSET);
-        this.checkParamsValid(connId, entity, false);
-        this.checkIdSameAsBody(vertexId, entity);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `edge`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
 #### Snippet
@@ -6097,15 +6097,15 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `edge`
+Assignment to method parameter `vertex`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
 #### Snippet
 ```java
-            throw new InvalidOperationException("Not allowed to custom id for edge: '%s'", edge);
-        }
-        edge = this.edgeAPI.create(edge);
-        this.attachManager(edge);
-        return edge;
+
+    public Vertex addVertex(Vertex vertex) {
+        vertex = this.vertexAPI.create(vertex);
+        this.attachManager(vertex);
+        return vertex;
 ```
 
 ### AssignmentToMethodParameter
@@ -6121,18 +6121,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `edge`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
-#### Snippet
-```java
-
-    public Edge appendEdgeProperty(Edge edge) {
-        edge = this.edgeAPI.append(edge);
-        this.attachManager(edge);
-        return edge;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `vertex`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
 #### Snippet
@@ -6145,15 +6133,27 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `vertex`
+Assignment to method parameter `edge`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
+#### Snippet
+```java
+            throw new InvalidOperationException("Not allowed to custom id for edge: '%s'", edge);
+        }
+        edge = this.edgeAPI.create(edge);
+        this.attachManager(edge);
+        return edge;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `edge`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/driver/GraphManager.java`
 #### Snippet
 ```java
 
-    public Vertex addVertex(Vertex vertex) {
-        vertex = this.vertexAPI.create(vertex);
-        this.attachManager(vertex);
-        return vertex;
+    public Edge appendEdgeProperty(Edge edge) {
+        edge = this.edgeAPI.append(edge);
+        this.attachManager(edge);
+        return edge;
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -6167,18 +6167,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/util/ParquetUtil.
             return null;
         }
         Object object;
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/OrcFileLineFetcher.java`
-#### Snippet
-```java
-        // Read next line from current file
-        if (!this.recordReader.hasNext()) {
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -6207,18 +6195,6 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/FileR
 
 ### ReturnNull
 Return of `null`
-in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/FileLineFetcher.java`
-#### Snippet
-```java
-            String rawLine = this.reader.readLine();
-            if (rawLine == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
 in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/ParquetFileLineFetcher.java`
 #### Snippet
 ```java
@@ -6226,6 +6202,30 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/Parqu
         if (needFetchNext && !this.fetchNextPage()) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/OrcFileLineFetcher.java`
+#### Snippet
+```java
+        // Read next line from current file
+        if (!this.recordReader.hasNext()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/reader/file/FileLineFetcher.java`
+#### Snippet
+```java
+            String rawLine = this.reader.readLine();
+            if (rawLine == null) {
+                return null;
+            }
 
 ```
 
@@ -6267,14 +6267,182 @@ in `hugegraph-loader/src/main/java/org/apache/hugegraph/loader/progress/InputPro
 
 ### ReturnNull
 Return of `null`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/FileMapping.java`
 #### Snippet
 ```java
-    public static String formatEntityId(Object id) {
-        if (id == null) {
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/FileMapping.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/handler/MessageSourceHandler.java`
+#### Snippet
+```java
+        Cookie cookie = WebUtils.getCookie(this.request, Constant.COOKIE_USER);
+        if (cookie == null || cookie.getValue() == null) {
             return null;
-        } else if (id instanceof AuthElement) {
-            id = ((AuthElement) id).id();
+        }
+        String username = cookie.getValue();
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/license/LicenseService.java`
+#### Snippet
+```java
+        public String getMessage() {
+            if (this.enabled) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
+#### Snippet
+```java
+                                      HugeClient client) {
+        if (entity == null) {
+            return null;
+        }
+        return client.schema()
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
+#### Snippet
+```java
+    public static PropertyKeyEntity convert(PropertyKey propertyKey) {
+        if (propertyKey == null) {
+            return null;
+        }
+        return PropertyKeyEntity.builder()
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/EdgeLabelService.java`
+#### Snippet
+```java
+                                           List<IndexLabel> indexLabels) {
+        if (edgeLabel == null) {
+            return null;
+        }
+        Set<Property> properties = collectProperties(edgeLabel);
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/EdgeLabelService.java`
+#### Snippet
+```java
+                                     HugeClient client) {
+        if (entity == null) {
+            return null;
+        }
+        Frequency frequency = entity.isLinkMultiTimes() ? Frequency.MULTIPLE :
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/EdgeLabelService.java`
+#### Snippet
+```java
+                                     HugeClient client) {
+        if (entity == null) {
+            return null;
+        }
+        Set<String> properties = new HashSet<>();
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+                                       HugeClient client) {
+        if (entity == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+                                       HugeClient client) {
+        if (entity == null) {
+            return null;
+        }
+        Set<String> properties = new HashSet<>();
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
+#### Snippet
+```java
+                                          List<IndexLabel> indexLabels) {
+        if (vertexLabel == null) {
+            return null;
+        }
+        Set<Property> properties = collectProperties(vertexLabel);
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+        } catch (ServerException e) {
+            if (e.status() == Constant.STATUS_NOT_FOUND) {
+                return null;
+            }
+            throw e;
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
+#### Snippet
+```java
+    public static IndexLabel convert(PropertyIndex entity, HugeClient client) {
+        if (entity == null) {
+            return null;
+        }
+        boolean isVertex = entity.getOwnerType().isVertexLabel();
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/AuthRestoreConflictStrategy.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -6287,6 +6455,42 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
             return null;
         } else if (id instanceof AuthElement) {
             id = ((AuthElement) id).id();
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/auth/AuthAPI.java`
+#### Snippet
+```java
+    public static String formatEntityId(Object id) {
+        if (id == null) {
+            return null;
+        } else if (id instanceof AuthElement) {
+            id = ((AuthElement) id).id();
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
+#### Snippet
+```java
+
+    private String initPage() {
+        return BACKENDS_NO_PAGING.contains(this.backend) ? null : PAGE_NONE;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
+#### Snippet
+```java
+        public String status() {
+            if (this.status.status == null) {
+                return null;
+            }
+            return this.status.status.toUpperCase();
 ```
 
 ### ReturnNull
@@ -6354,11 +6558,11 @@ Return of `null`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/Target.java`
 #### Snippet
 ```java
-    public List<HugeResource> resources() {
-        if (this.resources == null) {
+    public HugeResource resource() {
+        if (this.resources == null || this.resources.size() != 1) {
             return null;
         }
-        return Collections.unmodifiableList(this.resources);
+        return this.resources.get(0);
 ```
 
 ### ReturnNull
@@ -6366,11 +6570,11 @@ Return of `null`
 in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/auth/Target.java`
 #### Snippet
 ```java
-    public HugeResource resource() {
-        if (this.resources == null || this.resources.size() != 1) {
+    public List<HugeResource> resources() {
+        if (this.resources == null) {
             return null;
         }
-        return this.resources.get(0);
+        return Collections.unmodifiableList(this.resources);
 ```
 
 ### ReturnNull
@@ -6395,18 +6599,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/structure/gremlin/Result
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct/DataType.java`
-#### Snippet
-```java
-    public <V> Number valueToNumber(V value) {
-        if (!(this.isNumber() && value instanceof Number)) {
-            return null;
-        }
-        if (this.clazz.isInstance(value)) {
 ```
 
 ### ReturnNull
@@ -6459,206 +6651,14 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct
 
 ### ReturnNull
 Return of `null`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/constant/AuthRestoreConflictStrategy.java`
+in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/struct/DataType.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/cmd/SubCommands.java`
-#### Snippet
-```java
-        public String status() {
-            if (this.status.status == null) {
-                return null;
-            }
-            return this.status.status.toUpperCase();
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-tools/src/main/java/org/apache/hugegraph/manager/BackupManager.java`
-#### Snippet
-```java
-
-    private String initPage() {
-        return BACKENDS_NO_PAGING.contains(this.backend) ? null : PAGE_NONE;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/FileMapping.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/FileMapping.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/handler/MessageSourceHandler.java`
-#### Snippet
-```java
-        Cookie cookie = WebUtils.getCookie(this.request, Constant.COOKIE_USER);
-        if (cookie == null || cookie.getValue() == null) {
+    public <V> Number valueToNumber(V value) {
+        if (!(this.isNumber() && value instanceof Number)) {
             return null;
         }
-        String username = cookie.getValue();
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/license/LicenseService.java`
-#### Snippet
-```java
-        public String getMessage() {
-            if (this.enabled) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
-#### Snippet
-```java
-    public static PropertyKeyEntity convert(PropertyKey propertyKey) {
-        if (propertyKey == null) {
-            return null;
-        }
-        return PropertyKeyEntity.builder()
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyKeyService.java`
-#### Snippet
-```java
-                                      HugeClient client) {
-        if (entity == null) {
-            return null;
-        }
-        return client.schema()
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-                                       HugeClient client) {
-        if (entity == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-                                          List<IndexLabel> indexLabels) {
-        if (vertexLabel == null) {
-            return null;
-        }
-        Set<Property> properties = collectProperties(vertexLabel);
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/VertexLabelService.java`
-#### Snippet
-```java
-                                       HugeClient client) {
-        if (entity == null) {
-            return null;
-        }
-        Set<String> properties = new HashSet<>();
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-    public static IndexLabel convert(PropertyIndex entity, HugeClient client) {
-        if (entity == null) {
-            return null;
-        }
-        boolean isVertex = entity.getOwnerType().isVertexLabel();
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/PropertyIndexService.java`
-#### Snippet
-```java
-        } catch (ServerException e) {
-            if (e.status() == Constant.STATUS_NOT_FOUND) {
-                return null;
-            }
-            throw e;
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/EdgeLabelService.java`
-#### Snippet
-```java
-                                     HugeClient client) {
-        if (entity == null) {
-            return null;
-        }
-        Frequency frequency = entity.isLinkMultiTimes() ? Frequency.MULTIPLE :
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/EdgeLabelService.java`
-#### Snippet
-```java
-                                     HugeClient client) {
-        if (entity == null) {
-            return null;
-        }
-        Set<String> properties = new HashSet<>();
-```
-
-### ReturnNull
-Return of `null`
-in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/service/schema/EdgeLabelService.java`
-#### Snippet
-```java
-                                           List<IndexLabel> indexLabels) {
-        if (edgeLabel == null) {
-            return null;
-        }
-        Set<Property> properties = collectProperties(edgeLabel);
+        if (this.clazz.isInstance(value)) {
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -6714,18 +6714,6 @@ in `hugegraph-client/src/main/java/org/apache/hugegraph/serializer/direct/util/B
 ## RuleId[ruleID=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `hugegraph-client/src/main/java/org/apache/hugegraph/api/task/TaskAPI.java`
-#### Snippet
-```java
-                    // Query every half second from cache to decrease waiting
-                    // time because restful query is executed per second
-                    Thread.sleep(QUERY_INTERVAL);
-                } catch (InterruptedException e) {
-                    // Ignore
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/LoadTask.java`
 #### Snippet
 ```java
@@ -6734,6 +6722,18 @@ in `hugegraph-hubble/hubble-be/src/main/java/org/apache/hugegraph/entity/load/Lo
                 Thread.sleep(1000);
             } catch (InterruptedException ignored) {
                 // pass
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `hugegraph-client/src/main/java/org/apache/hugegraph/api/task/TaskAPI.java`
+#### Snippet
+```java
+                    // Query every half second from cache to decrease waiting
+                    // time because restful query is executed per second
+                    Thread.sleep(QUERY_INTERVAL);
+                } catch (InterruptedException e) {
+                    // Ignore
 ```
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
