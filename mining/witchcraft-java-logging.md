@@ -29,18 +29,6 @@ in `witchcraft-logging-idea/src/main/java/com/palantir/witchcraft/java/logging/i
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'ALLOW'
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestLogFilter.java`
-#### Snippet
-```java
-    INSTANCE;
-
-    private static final Optional<Boolean> ALLOW = Optional.of(Boolean.TRUE);
-    private static final Optional<Boolean> BLOCK = Optional.of(Boolean.FALSE);
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'BLOCK'
 in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestLogFilter.java`
 #### Snippet
@@ -50,6 +38,18 @@ in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/loggi
     private static final Optional<Boolean> BLOCK = Optional.of(Boolean.FALSE);
 
     @Override
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'ALLOW'
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestLogFilter.java`
+#### Snippet
+```java
+    INSTANCE;
+
+    private static final Optional<Boolean> ALLOW = Optional.of(Boolean.TRUE);
+    private static final Optional<Boolean> BLOCK = Optional.of(Boolean.FALSE);
+
 ```
 
 ## RuleId[ruleID=OptionalIsPresent]
@@ -118,18 +118,6 @@ public abstract class TestReportFormattingPlugin implements Plugin<Project> {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
-#### Snippet
-```java
-    private final Supplier<T> supplier;
-
-    SupplierLogVisitor(Supplier<T> supplier) {
-        this.supplier = supplier;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super StringBuilder`
 in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
 #### Snippet
@@ -139,6 +127,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     static String withStringBuilder(Consumer<StringBuilder> function) {
         StringBuilder builder = REUSABLE_STRING_BUILDER.get();
         builder.setLength(0);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/SupplierLogVisitor.java`
+#### Snippet
+```java
+    private final Supplier<T> supplier;
+
+    SupplierLogVisitor(Supplier<T> supplier) {
+        this.supplier = supplier;
+    }
 ```
 
 ### BoundedWildcard
@@ -232,6 +232,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```java
     }
 
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
+```
+
+### BoundedWildcard
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
+#### Snippet
+```java
+    }
+
     private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
         return parseJson(logLine, clazz).flatMap(function);
     }
@@ -247,18 +259,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
         return parseJson(logLine, clazz).flatMap(function);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
 ```
 
 ### BoundedWildcard
