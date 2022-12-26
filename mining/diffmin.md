@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-25-19-14-25.222.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-26-00-10-25.794.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -90,18 +90,6 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/com/diffmin/patch/PatchGeneration.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    private boolean isRootOperation(Operation<?> operation, List<Operation> rootOperations) {
-        // assuming that insert, delete, and move root operations are correctly computed by
-        // gumtree-spoon-ast-diff
-```
-
-### BoundedWildcard
 Can generalize to `? extends Pair`
 in `src/main/java/com/diffmin/SpoonMapping.java`
 #### Snippet
@@ -111,6 +99,18 @@ in `src/main/java/com/diffmin/SpoonMapping.java`
     private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
         while (!matches.isEmpty()) {
             List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/com/diffmin/patch/PatchGeneration.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    private boolean isRootOperation(Operation<?> operation, List<Operation> rootOperations) {
+        // assuming that insert, delete, and move root operations are correctly computed by
+        // gumtree-spoon-ast-diff
 ```
 
 ### BoundedWildcard
