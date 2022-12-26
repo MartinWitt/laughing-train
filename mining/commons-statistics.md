@@ -41,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-26-14-10-52.111.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-26-14-27-12.209.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -90,7 +90,32 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
     private final double mu;
 ```
 
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
+#### Snippet
+```java
+            return lower;
+        }
+        return x < upper ? x : upper;
+    }
+
+```
+
 ## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
+#### Snippet
+```java
+        long m = median;
+        if (m == NO_MEDIAN) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return (int) m;
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
@@ -113,30 +138,5 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
             randomIntFunction = r = new SplittableRandom()::nextInt;
         }
         return r;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
-#### Snippet
-```java
-        long m = median;
-        if (m == NO_MEDIAN) {
-            median = m = inverseCumulativeProbability(0.5);
-        }
-        return (int) m;
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
-#### Snippet
-```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
 ```
 
