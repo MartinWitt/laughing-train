@@ -52,7 +52,7 @@ in `src/main/java/com/diffmin/Main.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-26-14-13-34.016.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-26-15-40-44.131.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -90,6 +90,18 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends Pair`
+in `src/main/java/com/diffmin/SpoonMapping.java`
+#### Snippet
+```java
+     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
+     */
+    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
+        while (!matches.isEmpty()) {
+            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
+```
+
+### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/com/diffmin/patch/PatchGeneration.java`
 #### Snippet
@@ -107,18 +119,6 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
 
-    private static void performMovement(
-            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
-        CtElement toBeDeleted = movePatch.getFirst();
-        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
     /** Apply the update patch. */
     private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
         CtElement prevNode = updatePatch.getFirst();
@@ -135,6 +135,30 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
     private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
         CtElement prevNode = updatePatch.getFirst();
         CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
 ```
 
 ### BoundedWildcard
@@ -178,35 +202,11 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
 
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `src/main/java/com/diffmin/SpoonMapping.java`
-#### Snippet
-```java
-     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
-     */
-    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
-        while (!matches.isEmpty()) {
-            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
+    private static void performMovement(
+            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
+        CtElement toBeDeleted = movePatch.getFirst();
+        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
