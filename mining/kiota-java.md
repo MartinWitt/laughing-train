@@ -44,7 +44,7 @@ def fixAscNames = { name ->
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `components/serialization/json/build.gradle`
+in `components/http/okHttp/build.gradle`
 #### Snippet
 ```java
 tasks.withType(Sign)*.enabled = mavenCentralPublishingEnabled.toBoolean()
@@ -56,7 +56,7 @@ def fixAscNames = { name ->
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `components/http/okHttp/build.gradle`
+in `components/serialization/json/build.gradle`
 #### Snippet
 ```java
 tasks.withType(Sign)*.enabled = mavenCentralPublishingEnabled.toBoolean()
