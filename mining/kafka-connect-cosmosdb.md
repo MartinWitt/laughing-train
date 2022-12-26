@@ -1,7 +1,7 @@
 # kafka-connect-cosmosdb 
  
 # Bad smells
-I found 55 bad smells with 10 repairable:
+I found 56 bad smells with 10 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnusedAssignment | 9 | false |
@@ -22,6 +22,7 @@ I found 55 bad smells with 10 repairable:
 | CodeBlock2Expr | 1 | true |
 | Convert2MethodRef | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryReturn | 1 | true |
 | ConstantValue | 1 | false |
 ## RuleId[ruleID=EmptyTryBlock]
@@ -35,6 +36,31 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
             try (CosmosClient unused = new com.azure.cosmos.CosmosClientBuilder()
                 .endpoint(endpoint)
                 .key(key)
+```
+
+## RuleId[ruleID=ConditionCoveredByFurtherCondition]
+### ConditionCoveredByFurtherCondition
+Condition 'exception != null' covered by subsequent condition 'exception instanceof CosmosException'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
+#### Snippet
+```java
+                itemResponse != null
+                        ? itemResponse.getStatusCode()
+                        : (exception != null && exception instanceof CosmosException ? ((CosmosException)exception).getStatusCode() : HttpConstants.StatusCodes.REQUEST_TIMEOUT);
+        int effectiveSubStatusCode =
+                itemResponse != null
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'exception != null' covered by subsequent condition 'exception instanceof CosmosException'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
+#### Snippet
+```java
+                itemResponse != null
+                        ? itemResponse.getSubStatusCode()
+                        : (exception != null && exception instanceof CosmosException ? ((CosmosException)exception).getSubStatusCode() : 0);
+
+        String errorMessage =
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -72,31 +98,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
     public static class CosmosClientBuilder {
         public static void createClient(String endpoint, String key) {
             try (CosmosClient unused = new com.azure.cosmos.CosmosClientBuilder()
-```
-
-## RuleId[ruleID=ConditionCoveredByFurtherCondition]
-### ConditionCoveredByFurtherCondition
-Condition 'exception != null' covered by subsequent condition 'exception instanceof CosmosException'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
-#### Snippet
-```java
-                itemResponse != null
-                        ? itemResponse.getStatusCode()
-                        : (exception != null && exception instanceof CosmosException ? ((CosmosException)exception).getStatusCode() : HttpConstants.StatusCodes.REQUEST_TIMEOUT);
-        int effectiveSubStatusCode =
-                itemResponse != null
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'exception != null' covered by subsequent condition 'exception instanceof CosmosException'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
-#### Snippet
-```java
-                itemResponse != null
-                        ? itemResponse.getSubStatusCode()
-                        : (exception != null && exception instanceof CosmosException ? ((CosmosException)exception).getSubStatusCode() : 0);
-
-        String errorMessage =
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -311,6 +312,19 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/JsonToStruct.java`
             case STRUCT:
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-26-13-23-47.390.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -453,11 +467,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-            // Wait till the items are drained by poll before stopping.
+        while (!running.get()) {
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.error("Interrupted! Failed to stop the task", e);            
+                logger.warn("Interrupted!", e);                
 ```
 
 ### BusyWait
@@ -465,11 +479,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-        while (!running.get()) {
+            // Wait till the items are drained by poll before stopping.
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.warn("Interrupted!", e);                
+                logger.error("Interrupted! Failed to stop the task", e);            
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -510,30 +524,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JsonNode`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
-#### Snippet
-```java
-    }
-
-    protected void handleCosmosDbChanges(List<JsonNode> docs)  {
-        for (JsonNode document : docs) {
-            // Blocks for each transfer till it is processed by the poll method.
-```
-
-### BoundedWildcard
-Can generalize to `? super SourceRecord`
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
-    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
-        Long bufferSize = config.getTaskBufferSize();
-        Long batchSize = config.getTaskBatchSize();
-```
-
-### BoundedWildcard
 Can generalize to `? extends ConfigValue`
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
@@ -555,6 +545,30 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
         Map<String, ConfigValue> configValues) {
 
         String topicMap = connectorConfigs.get(CosmosDBSinkConfig.COSMOS_CONTAINER_TOPIC_MAP_CONF);
+```
+
+### BoundedWildcard
+Can generalize to `? extends JsonNode`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+    }
+
+    protected void handleCosmosDbChanges(List<JsonNode> docs)  {
+        for (JsonNode document : docs) {
+            // Blocks for each transfer till it is processed by the poll method.
+```
+
+### BoundedWildcard
+Can generalize to `? super SourceRecord`
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("squid:S135") // while loop needs multiple breaks
+    private void fillRecords(List<SourceRecord> records, String topic) throws InterruptedException {
+        Long bufferSize = config.getTaskBufferSize();
+        Long batchSize = config.getTaskBatchSize();
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
