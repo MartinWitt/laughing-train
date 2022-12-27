@@ -9,8 +9,8 @@ I found 9 bad smells with 1 repairable:
 | SuspiciousNameCombination | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | ZeroLengthArrayInitialization | 1 | false |
-| ManualMinMaxCalculation | 1 | false |
 | ConstantMathCall | 1 | false |
+| ManualMinMaxCalculation | 1 | false |
 ## RuleId[ruleID=FunctionalExpressionCanBeFolded]
 ### FunctionalExpressionCanBeFolded
 Method reference can be replaced with qualifier
@@ -63,19 +63,6 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
 
 ```
 
-## RuleId[ruleID=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
-#### Snippet
-```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
-```
-
 ## RuleId[ruleID=ConstantMathCall]
 ### ConstantMathCall
 Constant call to `sqrt()` can be simplified
@@ -89,19 +76,20 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
     private final double mu;
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+## RuleId[ruleID=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
 #### Snippet
 ```java
-        double m = median;
-        if (Double.isNaN(m)) {
-            median = m = inverseCumulativeProbability(0.5);
+            return lower;
         }
-        return m;
+        return x < upper ? x : upper;
+    }
+
 ```
 
+## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractDiscreteDistribution.java`
@@ -112,6 +100,18 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
             median = m = inverseCumulativeProbability(0.5);
         }
         return (int) m;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+#### Snippet
+```java
+        double m = median;
+        if (Double.isNaN(m)) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return m;
 ```
 
 ### NestedAssignment
