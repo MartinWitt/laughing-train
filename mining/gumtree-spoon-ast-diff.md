@@ -86,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -98,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -246,6 +246,18 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	 * @return
+	 */
+	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
+		List<Operation> newOps = new ArrayList<>();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -259,38 +271,14 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 
 ### BoundedWildcard
 Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	 * @return
-	 */
-	public static List<Operation> replaceMove(MappingStore mapping, List<Operation> ops, boolean all) {
-		List<Operation> newOps = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ### BoundedWildcard
@@ -303,6 +291,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
 		return rootOperations.stream() //
 				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -324,9 +324,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -535,7 +535,7 @@ public class CtVirtualElement extends CtWrapper<String> {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-27-11-42-51.032.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-27-15-10-07.584.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -645,18 +645,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `label` initializer `null` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-		}
-
-		String label = null;
-		String nodeTypeName = getNodeType(element);
-
-```
-
-### UnusedAssignment
 Variable `nolabel` initializer `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -666,5 +654,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### UnusedAssignment
+Variable `label` initializer `null` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+		}
+
+		String label = null;
+		String nodeTypeName = getNodeType(element);
+
 ```
 
