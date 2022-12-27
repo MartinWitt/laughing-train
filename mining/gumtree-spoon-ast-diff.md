@@ -1,7 +1,7 @@
 # gumtree-spoon-ast-diff 
  
 # Bad smells
-I found 50 bad smells with 9 repairable:
+I found 51 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 9 | false |
@@ -17,8 +17,8 @@ I found 50 bad smells with 9 repairable:
 | UnusedAssignment | 2 | false |
 | DataFlowIssue | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| DeprecatedIsStillUsed | 1 | false |
 | CommentedOutCode | 1 | false |
+| DeprecatedIsStillUsed | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | EqualsBetweenInconvertibleTypes | 1 | false |
@@ -29,6 +29,7 @@ I found 50 bad smells with 9 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | Convert2Lambda | 1 | false |
 | AssignmentToMethodParameter | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
@@ -85,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -97,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -117,19 +118,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'getNode' is still used
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** use {@link #getSrcNode()} or {@link #getDstNode()} instead. */
-	@Deprecated
-	public CtElement getNode() {
-		return node;
-	}
-```
-
 ## RuleId[ruleID=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -140,6 +128,19 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
 		// System.setProperty("gumtree.match.bu.size","10");
 		// System.setProperty("gt.bum.szt", "1000");
+	}
+```
+
+## RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'getNode' is still used
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** use {@link #getSrcNode()} or {@link #getDstNode()} instead. */
+	@Deprecated
+	public CtElement getNode() {
+		return node;
 	}
 ```
 
@@ -245,18 +246,6 @@ in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-		clean();
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -269,39 +258,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	}
-
-	private String toDebugString(List<Operation> ops) {
-		String result = "";
-		for (Operation operation : ops) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Action`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
-	}
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
 
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
+	public ActionClassifier(MappingStore mappings, List<Action> actions) {
+		clean();
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### BoundedWildcard
@@ -321,11 +286,47 @@ Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
+	}
+
+	private String toDebugString(List<Operation> ops) {
+		String result = "";
+		for (Operation operation : ops) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
 
 	@Override
 	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
 			String nodeLabel) {
 		return operations.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	}
+
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -459,18 +460,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -479,6 +468,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 	private boolean includeComments = false;
 
 	public AstComparator() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ### RedundantFieldInitialization
@@ -529,6 +530,19 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 public class CtVirtualElement extends CtWrapper<String> {
 
 	protected Collection<?> children;
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-27-11-25-23.999.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -631,18 +645,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `label` initializer `null` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-		}
-
-		String label = null;
-		String nodeTypeName = getNodeType(element);
-
-```
-
-### UnusedAssignment
 Variable `nolabel` initializer `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -652,5 +654,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### UnusedAssignment
+Variable `label` initializer `null` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+		}
+
+		String label = null;
+		String nodeTypeName = getNodeType(element);
+
 ```
 
