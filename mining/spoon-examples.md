@@ -581,14 +581,14 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
+in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
 #### Snippet
 ```java
-
-	public void m(@Bound(min = 2d, max = 8d) int a) {
-		System.out.println("Great method!");
-	}
-
+				String docComment = element.getDocComment();
+				if (docComment == null || docComment.equals("")) {
+					System.out.println("undocumented element at " + element.getPosition());
+					undocumentedElements.add(element);
+				}
 ```
 
 ### SystemOutErr
@@ -605,26 +605,26 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessor.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/bound/src/Main.java`
 #### Snippet
 ```java
-				String docComment = element.getDocComment();
-				if (docComment == null || docComment.equals("")) {
-					System.out.println("undocumented element at " + element.getPosition());
-					undocumentedElements.add(element);
-				}
+
+	public void m(@Bound(min = 2d, max = 8d) int a) {
+		System.out.println("Great method!");
+	}
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
 #### Snippet
 ```java
-	  assertEquals(1, y.m());
-	  
-	  System.out.println("yes y.m()="+y.m());
-  }
-}
+			// Analyze
+			Map<CtMethod, List<CtLocalVariable>> localVariablesPerTestMethod = analyzer.analyze(ctClass);
+			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
+			if (!localVariablesPerTestMethod.isEmpty()) {
+				// Collect
 ```
 
 ### SystemOutErr
@@ -641,14 +641,14 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.java`
+in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 #### Snippet
 ```java
-			// Analyze
-			Map<CtMethod, List<CtLocalVariable>> localVariablesPerTestMethod = analyzer.analyze(ctClass);
-			localVariablesPerTestMethod.keySet().stream().forEach(key -> System.out.println("{"+ key.getParent(CtClass.class).getSimpleName() + "#" + key.getSimpleName() + "=["+ localVariablesPerTestMethod.get(key) +"]"));
-			if (!localVariablesPerTestMethod.isEmpty()) {
-				// Collect
+	  assertEquals(1, y.m());
+	  
+	  System.out.println("yes y.m()="+y.m());
+  }
+}
 ```
 
 ### SystemOutErr
@@ -958,18 +958,6 @@ import java.lang.annotation.Annotation;
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
-#### Snippet
-```java
-                        return true;
-                    }
-                } while ((current = current.getSuperclass()) != null);
-                return false;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 #### Snippet
 ```java
@@ -978,6 +966,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
 		while (-1 != (n = input.read(buffer))) {
 			output.write(buffer, 0, n);
 			count += n;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
+#### Snippet
+```java
+                        return true;
+                    }
+                } while ((current = current.getSuperclass()) != null);
+                return false;
+            }
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -1118,7 +1118,7 @@ class TestListener extends RunListener {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-28-07-43-07.414.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-28-12-48-44.503.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1135,7 +1135,7 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
 
-    public String getLastName() {
+    public String getFirstName() {
         return null;
     }
 
@@ -1147,7 +1147,7 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
 
-    public String getFirstName() {
+    public String getLastName() {
         return null;
     }
 
