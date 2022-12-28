@@ -41,7 +41,7 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-28-12-01-54.623.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-28-17-01-31.910.html`
 #### Snippet
 ```java
               <td>0</td>
