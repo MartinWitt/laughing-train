@@ -1,12 +1,13 @@
 # diffmin 
  
 # Bad smells
-I found 16 bad smells with 1 repairable:
+I found 17 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 10 | false |
 | SystemOutErr | 2 | false |
 | AssignmentToMethodParameter | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
@@ -46,6 +47,19 @@ in `src/main/java/com/diffmin/Main.java`
         System.out.println(SpoonUtil.prettyPrintModelWithSingleCompilationUnit(patchedCtModel));
         System.exit(0);
     }
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-28-19-58-54.300.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -88,18 +102,6 @@ in `src/main/java/com/diffmin/patch/PatchGeneration.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `src/main/java/com/diffmin/SpoonMapping.java`
-#### Snippet
-```java
-     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
-     */
-    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
-        while (!matches.isEmpty()) {
-            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
@@ -121,6 +123,30 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
     private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
         CtElement prevNode = updatePatch.getFirst();
         CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
 ```
 
 ### BoundedWildcard
@@ -172,27 +198,15 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
+Can generalize to `? extends Pair`
+in `src/main/java/com/diffmin/SpoonMapping.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
+     * @param matches Pairs of matched nodes, as computed by GumTree/gumtree-spoon-ast-diff.
+     */
+    private void inferAdditionalMappings(List<Pair<CtElement, CtElement>> matches) {
+        while (!matches.isEmpty()) {
+            List<Pair<CtElement, CtElement>> newMatches = new ArrayList<>();
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
