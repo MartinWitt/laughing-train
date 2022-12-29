@@ -17,8 +17,8 @@ I found 51 bad smells with 9 repairable:
 | UnusedAssignment | 2 | false |
 | DataFlowIssue | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| CommentedOutCode | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| CommentedOutCode | 1 | false |
 | KeySetIterationMayUseEntrySet | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | EqualsBetweenInconvertibleTypes | 1 | false |
@@ -86,11 +86,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -98,11 +98,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -118,19 +118,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		// 1000 OK
-		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
-		// System.setProperty("gumtree.match.bu.size","10");
-		// System.setProperty("gt.bum.szt", "1000");
-	}
-```
-
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'getNode' is still used
@@ -141,6 +128,19 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 	@Deprecated
 	public CtElement getNode() {
 		return node;
+	}
+```
+
+## RuleId[ruleID=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		// 1000 OK
+		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
+		// System.setProperty("gumtree.match.bu.size","10");
+		// System.setProperty("gt.bum.szt", "1000");
 	}
 ```
 
@@ -276,9 +276,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
+			String nodeLabel) {
+		return operations.stream()
 ```
 
 ### BoundedWildcard
@@ -291,6 +291,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
 		List<Operation> collect = actions.stream().map(action -> {
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operation`
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
+		return operations.stream() //
+				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
 ```
 
 ### BoundedWildcard
@@ -312,21 +324,9 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```java
 
 	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind,
-			String nodeLabel) {
-		return operations.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operation`
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean containsOperations(List<Operation> operations, OperationKind kind, String nodeKind) {
-		return operations.stream() //
-				.anyMatch(operation -> operation.getAction().getClass().getSimpleName().equals(kind.name()) //
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -460,18 +460,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -480,6 +468,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 	private boolean includeComments = false;
 
 	public AstComparator() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
 ### RedundantFieldInitialization
@@ -510,18 +510,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ## RuleId[ruleID=EqualsAndHashcode]
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
-#### Snippet
-```java
- * 
- */
-public class CtVirtualElement extends CtWrapper<String> {
-
-	protected Collection<?> children;
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 #### Snippet
 ```java
@@ -532,10 +520,22 @@ public class CtWrapper<L> extends CtElementImpl {
 	/**
 ```
 
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
+#### Snippet
+```java
+ * 
+ */
+public class CtVirtualElement extends CtWrapper<String> {
+
+	protected Collection<?> children;
+```
+
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-29-20-18-33.125.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-29-20-40-23.281.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -645,18 +645,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `nolabel` initializer `false` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private final TreeContext treeContext;
-	private final Stack<Tree> nodes = new Stack<>();
-	boolean nolabel = false;
-
-	TreeScanner(TreeContext treeContext, Tree root) {
-```
-
-### UnusedAssignment
 Variable `label` initializer `null` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -666,5 +654,17 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 		String label = null;
 		String nodeTypeName = getNodeType(element);
 
+```
+
+### UnusedAssignment
+Variable `nolabel` initializer `false` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private final TreeContext treeContext;
+	private final Stack<Tree> nodes = new Stack<>();
+	boolean nolabel = false;
+
+	TreeScanner(TreeContext treeContext, Tree root) {
 ```
 
