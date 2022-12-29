@@ -40,14 +40,38 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ## RuleId[ruleID=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/io/durabletask/samples/WebApplication.java`
+in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 #### Snippet
 ```java
-        server.start();
+                "FanOutFanIn_WordCount",
+                new NewOrchestrationInstanceOptions().setInput(listOfStrings));
+        System.out.printf("Started new orchestration instance: %s%n", instanceId);
 
-        System.out.println("Starting up Spring web API...");
-        SpringApplication.run(WebApplication.class, args);
-    }
+        // Block until the orchestration completes. Then print the final status, which includes the output.
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
+#### Snippet
+```java
+                Duration.ofSeconds(30),
+                true);
+        System.out.printf("Orchestration completed: %s%n", completedInstance);
+        System.out.printf("Output: %d%n", completedInstance.readOutputAs(int.class));
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
+#### Snippet
+```java
+                true);
+        System.out.printf("Orchestration completed: %s%n", completedInstance);
+        System.out.printf("Output: %d%n", completedInstance.readOutputAs(int.class));
+
+        // Shutdown the server and exit
 ```
 
 ### SystemOutErr
@@ -88,38 +112,14 @@ in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
+in `samples/src/main/java/io/durabletask/samples/WebApplication.java`
 #### Snippet
 ```java
-                "FanOutFanIn_WordCount",
-                new NewOrchestrationInstanceOptions().setInput(listOfStrings));
-        System.out.printf("Started new orchestration instance: %s%n", instanceId);
+        server.start();
 
-        // Block until the orchestration completes. Then print the final status, which includes the output.
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
-#### Snippet
-```java
-                Duration.ofSeconds(30),
-                true);
-        System.out.printf("Orchestration completed: %s%n", completedInstance);
-        System.out.printf("Output: %d%n", completedInstance.readOutputAs(int.class));
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
-#### Snippet
-```java
-                true);
-        System.out.printf("Orchestration completed: %s%n", completedInstance);
-        System.out.printf("Output: %d%n", completedInstance.readOutputAs(int.class));
-
-        // Shutdown the server and exit
+        System.out.println("Starting up Spring web API...");
+        SpringApplication.run(WebApplication.class, args);
+    }
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
@@ -137,15 +137,15 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `WebApplication` has only 'static' members, and lacks a 'private' constructor
-in `samples/src/main/java/io/durabletask/samples/WebApplication.java`
+Class `FanOutFanInPattern` has only 'static' members, and lacks a 'private' constructor
+in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 #### Snippet
 ```java
- 
-@SpringBootApplication
-public class WebApplication {
- 
-    public static void main(String[] args) throws InterruptedException {
+import java.util.stream.Collectors;
+
+class FanOutFanInPattern {
+
+    public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -161,15 +161,15 @@ final class ChainingPattern {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FanOutFanInPattern` has only 'static' members, and lacks a 'private' constructor
-in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
+Class `WebApplication` has only 'static' members, and lacks a 'private' constructor
+in `samples/src/main/java/io/durabletask/samples/WebApplication.java`
 #### Snippet
 ```java
-import java.util.stream.Collectors;
-
-class FanOutFanInPattern {
-
-    public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
+ 
+@SpringBootApplication
+public class WebApplication {
+ 
+    public static void main(String[] args) throws InterruptedException {
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -201,18 +201,6 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestratorResult.java`
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `readOutputAs` may produce `NullPointerException`
-in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
-#### Snippet
-```java
-                true);
-        System.out.printf("Orchestration completed: %s%n", completedInstance);
-        System.out.printf("Output: %s%n", completedInstance.readOutputAs(String.class));
-
-        // Shutdown the server and exit
-```
-
-### DataFlowIssue
-Method invocation `readOutputAs` may produce `NullPointerException`
 in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 #### Snippet
 ```java
@@ -224,15 +212,15 @@ in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 ```
 
 ### DataFlowIssue
-Argument `serializedInput` might be null
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+Method invocation `readOutputAs` may produce `NullPointerException`
+in `samples/src/main/java/io/durabletask/samples/ChainingPattern.java`
 #### Snippet
 ```java
-        if (input != null) {
-            String serializedInput = this.dataConverter.serialize(input);
-            builder.setInput(StringValue.of(serializedInput));
-        }
+                true);
+        System.out.printf("Orchestration completed: %s%n", completedInstance);
+        System.out.printf("Output: %s%n", completedInstance.readOutputAs(String.class));
 
+        // Shutdown the server and exit
 ```
 
 ### DataFlowIssue
@@ -255,6 +243,18 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
         if (eventPayload != null) {
             String serializedPayload = this.dataConverter.serialize(eventPayload);
             builder.setInput(StringValue.of(serializedPayload));
+        }
+
+```
+
+### DataFlowIssue
+Argument `serializedInput` might be null
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+        if (input != null) {
+            String serializedInput = this.dataConverter.serialize(input);
+            builder.setInput(StringValue.of(serializedInput));
         }
 
 ```
@@ -399,11 +399,11 @@ public class TaskFailedException extends RuntimeException {
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/OrchestrationMetadata.java`
+in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 #### Snippet
 ```java
-        // Note that the Java gRPC implementation converts null protobuf strings into empty Java strings
-        if (payload == null || payload.isEmpty()) {
+    static Instant getInstantFromTimestamp(Timestamp ts) {
+        if (ts == null) {
             return null;
         }
 
@@ -423,25 +423,13 @@ in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 
 ### ReturnNull
 Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
+in `client/src/main/java/com/microsoft/durabletask/OrchestrationMetadata.java`
 #### Snippet
 ```java
-    static Instant getInstantFromTimestamp(Timestamp ts) {
-        if (ts == null) {
+        // Note that the Java gRPC implementation converts null protobuf strings into empty Java strings
+        if (payload == null || payload.isEmpty()) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null) {
-                return null;
-            }
 
 ```
 
@@ -454,6 +442,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
 
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null) {
+                return null;
+            }
 
 ```
 
@@ -543,18 +543,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
-#### Snippet
-```java
-        @Override
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null || this.rawInput.length() == 0) {
-                return null;
-            }
-```
-
-### SizeReplaceableByIsEmpty
 `this.outstandingEvents.size() > 0` can be replaced with '!this.outstandingEvents.isEmpty()'
 in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
@@ -564,6 +552,18 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
             return this.outstandingEvents.size() > 0;
         }
 
+```
+
+### SizeReplaceableByIsEmpty
+`this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
+#### Snippet
+```java
+        @Override
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null || this.rawInput.length() == 0) {
+                return null;
+            }
 ```
 
 ## RuleId[ruleID=NonStaticFinalLogger]
@@ -632,15 +632,15 @@ in `samples/src/main/java/io/durabletask/samples/OrchestrationController.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+Can generalize to `? extends TaskActivityFactory`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
 #### Snippet
 ```java
-    }
 
-    CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
-        super(message, cause);
-        this.exceptions = exceptions;
+    public TaskActivityExecutor(
+            HashMap<String, TaskActivityFactory> activityFactories,
+            DataConverter dataConverter,
+            Logger logger) {
 ```
 
 ### BoundedWildcard
@@ -652,6 +652,18 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 
     CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
         super(message, cause, enableSuppression, writableStackTrace);
+        this.exceptions = exceptions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
+    CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
+        super(message, cause);
         this.exceptions = exceptions;
 ```
 
@@ -674,9 +686,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(List<Exception> exceptions) {
+    CompositeTaskFailedException(String message, List<Exception> exceptions) {
+        super(message);
         this.exceptions = exceptions;
-    }
 ```
 
 ### BoundedWildcard
@@ -686,33 +698,9 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(String message, List<Exception> exceptions) {
-        super(message);
+    CompositeTaskFailedException(List<Exception> exceptions) {
         this.exceptions = exceptions;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TaskActivityFactory`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-
-    public TaskActivityExecutor(
-            HashMap<String, TaskActivityFactory> activityFactories,
-            DataConverter dataConverter,
-            Logger logger) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Task`
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
-#### Snippet
-```java
-
-        @Override
-        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
-            Helpers.throwIfArgumentNull(tasks, "tasks");
-
+    }
 ```
 
 ### BoundedWildcard
@@ -727,7 +715,31 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 
 ```
 
+### BoundedWildcard
+Can generalize to `? extends Task`
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
+#### Snippet
+```java
+
+        @Override
+        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
+            Helpers.throwIfArgumentNull(tasks, "tasks");
+
+```
+
 ## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
+
+final class Helpers {
+    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
+
+    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
+```
+
 ### MissortedModifiers
 Missorted modifiers `static @Nonnull`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
@@ -750,17 +762,5 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
         if (argValue == null) {
             throw new IllegalArgumentException("The argument '" + argName + "' was null.");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-
-final class Helpers {
-    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
-
-    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
 ```
 
