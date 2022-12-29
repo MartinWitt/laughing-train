@@ -59,35 +59,35 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
 			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
 			arity = "0..1",
 			fallbackValue = ""
 	)
 	String output;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -143,18 +143,6 @@ public class StackTraceParser {
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-    public List<Location> getBlockLocations(StackTraceElement element) {
-        // Find the corresponding source code file
-        String path = element.getClassName().replace(".", "/") + ".java";
-        for (String dir : config.getSrcJavaDir()) {
-            if (new File(new File(dir), path).exists()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 #### Snippet
 ```java
@@ -165,17 +153,29 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 				continue;
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
 ```java
-            // the private ones
-            for (Method method : clazz.getDeclaredMethods()) {
-                if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
-                        && !isPrivateMethod(method)
-                        && !isIgnoredMethod(clazz, method)
+    public List<Location> getBlockLocations(StackTraceElement element) {
+        // Find the corresponding source code file
+        String path = element.getClassName().replace(".", "/") + ".java";
+        for (String dir : config.getSrcJavaDir()) {
+            if (new File(new File(dir), path).exists()) {
+```
+
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+#### Snippet
+```java
+
+		// Warn if system memory is lower than 4GiB
+		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
+				.getTotalPhysicalMemorySize();
+		if (memorySize < 4294967296L) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -191,15 +191,15 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
 #### Snippet
 ```java
-
-		// Warn if system memory is lower than 4GiB
-		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
-				.getTotalPhysicalMemorySize();
-		if (memorySize < 4294967296L) {
+            // the private ones
+            for (Method method : clazz.getDeclaredMethods()) {
+                if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
+                        && !isPrivateMethod(method)
+                        && !isIgnoredMethod(clazz, method)
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -254,90 +254,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
-#### Snippet
-```java
-        }
-
-        found = bestFit;
-    }
-}
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
-#### Snippet
-```java
-
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
-
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-
-        // Process the source code to find the block of the given stack-trace element
-        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
-        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
-        SpoonBlockLocationsFinder.found = null;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonBlockLocationsFinder.lineNumber` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-        // Process the source code to find the block of the given stack-trace element
-        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
-        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
-        SpoonBlockLocationsFinder.found = null;
-        launcher.process();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
-        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
-        SpoonBlockLocationsFinder.found = null;
-        launcher.process();
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
-#### Snippet
-```java
-
-        // Clean results
-        SpoonBlockLocationsFinder.found = null;
-
-        return locations;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
-#### Snippet
-```java
-	public void process(CtType<?> ctType) {
-		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
-		found = filterResult(result);
-	}
-
-```
-
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `EntryPoint.useOptionsFile` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
@@ -459,6 +375,90 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+#### Snippet
+```java
+
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
+
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
+#### Snippet
+```java
+        }
+
+        found = bestFit;
+    }
+}
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+
+        // Process the source code to find the block of the given stack-trace element
+        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
+        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
+        SpoonBlockLocationsFinder.found = null;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonBlockLocationsFinder.lineNumber` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+        // Process the source code to find the block of the given stack-trace element
+        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
+        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
+        SpoonBlockLocationsFinder.found = null;
+        launcher.process();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+        SpoonBlockLocationsFinder.fullyQualifiedClassName = element.getClassName();
+        SpoonBlockLocationsFinder.lineNumber = element.getLineNumber();
+        SpoonBlockLocationsFinder.found = null;
+        launcher.process();
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonBlockLocationsFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
+#### Snippet
+```java
+
+        // Clean results
+        SpoonBlockLocationsFinder.found = null;
+
+        return locations;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+#### Snippet
+```java
+	public void process(CtType<?> ctType) {
+		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
+		found = filterResult(result);
+	}
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 #### Snippet
@@ -557,18 +557,6 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--testRunnerJVMArgs"}, description = "JVM args for test-runner's test execution VMs.")
-	String testRunnerJVMArgs = null;
-
-	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
@@ -590,6 +578,18 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	double threshold = 0.0;
 
 	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--testRunnerJVMArgs"}, description = "JVM args for test-runner's test execution VMs.")
+	String testRunnerJVMArgs = null;
+
+	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
 ```
 
 ### RedundantFieldInitialization
@@ -620,7 +620,7 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-28-12-31-56.498.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-29-00-21-32.925.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -670,18 +670,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/c
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java`
-#### Snippet
-```java
-    @Override
-    public String[] getClasses() {
-        return getClassesLoc(new File(srcFolder)).toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/ClassloaderStrategy.java`
 #### Snippet
 ```java
@@ -690,6 +678,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/Classloa
         return urls.toArray(new URL[0]);
     }
 }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java`
+#### Snippet
+```java
+    @Override
+    public String[] getClasses() {
+        return getClassesLoc(new File(srcFolder)).toArray(new String[0]);
+    }
+
 ```
 
 ## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
