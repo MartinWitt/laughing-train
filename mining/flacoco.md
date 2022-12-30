@@ -1,7 +1,7 @@
 # flacoco 
  
 # Bad smells
-I found 72 bad smells with 7 repairable:
+I found 73 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | AssignmentToStaticFieldFromInstanceMethod | 21 | false |
@@ -16,14 +16,15 @@ I found 72 bad smells with 7 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
 | DataFlowIssue | 2 | false |
 | ReturnNull | 2 | false |
-| UnnecessaryToStringCall | 2 | true |
 | RegExpUnnecessaryNonCapturingGroup | 2 | false |
+| UnnecessaryToStringCall | 2 | true |
 | IgnoreResultOfCall | 2 | false |
 | SystemOutErr | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | UNUSED_IMPORT | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | KeySetIterationMayUseEntrySet | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnusedAssignment | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
 | UnnecessaryBoxing | 1 | false |
@@ -46,34 +47,34 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
 	Set<String> jacocoExcludes = new HashSet<>();
 
 	@CommandLine.ArgGroup(exclusive = false, multiplicity = "0..1", heading = "\nSetting any of these options will result in test detection being bypassed:\n")
 	Tests tests = new Tests();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
 
 ```
 
@@ -166,18 +167,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.junit` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
-#### Snippet
-```java
-        try {
-            for (Method method : clazz.getMethods()) {
-                if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
-                    testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
-                }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.junit.jupiter.api` is unnecessary, and can be replaced with an import
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
 #### Snippet
@@ -187,6 +176,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
                 if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null
                         && !isPrivateMethod(method)
                         && !isIgnoredMethod(clazz, method)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.junit` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
+#### Snippet
+```java
+        try {
+            for (Method method : clazz.getMethods()) {
+                if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
+                    testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
+                }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -386,18 +387,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
-#### Snippet
-```java
-
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
-
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `found` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
 #### Snippet
@@ -410,51 +399,15 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.jav
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-		for (Location location : original.keySet()) {
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.lineNumber` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-
-			// Launch processor to find the top-most CtStatement of the given line
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
 #### Snippet
 ```java
 
-			// Prepare for next key
-			SpoonLocalizedFaultFinder.found = null;
-		}
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
 
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -505,6 +458,54 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
         return locations;
 ```
 
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+		for (Location location : original.keySet()) {
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.lineNumber` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+
+			// Launch processor to find the top-most CtStatement of the given line
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+
+			// Prepare for next key
+			SpoonLocalizedFaultFinder.found = null;
+		}
+
+```
+
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
@@ -542,44 +543,7 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
 
 ```
 
-## RuleId[ruleID=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-		Map<Location, CtStatement> mapping = new HashMap<>();
-		Map<Location, Suspiciousness> original = flacocoResult.getDefaultSuspiciousnessMap();
-		for (Location location : original.keySet()) {
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-```
-
 ## RuleId[ruleID=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0.0` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
-	double threshold = 0.0;
-
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
-	boolean testRunnerVerbose = false;
-
-	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
-```
-
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
@@ -605,6 +569,30 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0.0` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
+	double threshold = 0.0;
+
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
+	boolean testRunnerVerbose = false;
+
+	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
@@ -614,6 +602,32 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	String testRunnerJVMArgs = null;
 
 	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
+```
+
+## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+		Map<Location, CtStatement> mapping = new HashMap<>();
+		Map<Location, Suspiciousness> original = flacocoResult.getDefaultSuspiciousnessMap();
+		for (Location location : original.keySet()) {
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-30-17-06-04.715.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -678,31 +692,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/Classloa
 }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
-#### Snippet
-```java
-
-                // check whether the parsed stack trace element corresponds to the original one
-                if (!("\tat " + element.toString()).equals(lines[i])) {
-                    throw new Exception("ERROR: Stack trace line could not be parsed to StackTraceElement:\n" +
-                            "\tOriginal stack trace line:\t" + lines[i] + "\n" +
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
-#### Snippet
-```java
-                    throw new Exception("ERROR: Stack trace line could not be parsed to StackTraceElement:\n" +
-                            "\tOriginal stack trace line:\t" + lines[i] + "\n" +
-                            "\tParsed StackTraceElement:\t" + "\tat " + element.toString());
-                }
-
-```
-
 ## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:(?:[\\d\\w]*\\.)*[\\d\\w]*)`
@@ -725,6 +714,31 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
     private static String LINE_SEPARATOR_REGEX = "\\r?\\n|\\r";
     private static String STACK_TRACE_LINE_REGEX = "^\\tat (?:((?:[\\d\\w]*\\.)*[\\d\\w]*)\\/)?((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\.([\\d\\w\\$]*)\\.([\\d\\w\\$]*)\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)$";
     private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
+
+```
+
+## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
+#### Snippet
+```java
+
+                // check whether the parsed stack trace element corresponds to the original one
+                if (!("\tat " + element.toString()).equals(lines[i])) {
+                    throw new Exception("ERROR: Stack trace line could not be parsed to StackTraceElement:\n" +
+                            "\tOriginal stack trace line:\t" + lines[i] + "\n" +
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
+#### Snippet
+```java
+                    throw new Exception("ERROR: Stack trace line could not be parsed to StackTraceElement:\n" +
+                            "\tOriginal stack trace line:\t" + lines[i] + "\n" +
+                            "\tParsed StackTraceElement:\t" + "\tat " + element.toString());
+                }
 
 ```
 
