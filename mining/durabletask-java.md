@@ -224,6 +224,18 @@ in `samples/src/main/java/io/durabletask/samples/FanOutFanInPattern.java`
 ```
 
 ### DataFlowIssue
+Argument `serializeOutput` might be null
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+#### Snippet
+```java
+                instanceId,
+                serializeOutput != null ? serializeOutput : "(null)"));
+        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
+        this.sidecarClient.terminateInstance(builder.build());
+    }
+```
+
+### DataFlowIssue
 Argument `serializedInput` might be null
 in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
@@ -245,18 +257,6 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
             builder.setInput(StringValue.of(serializedPayload));
         }
 
-```
-
-### DataFlowIssue
-Argument `serializeOutput` might be null
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
-#### Snippet
-```java
-                instanceId,
-                serializeOutput != null ? serializeOutput : "(null)"));
-        TerminateRequest.Builder builder = TerminateRequest.newBuilder().setInstanceId(instanceId).setOutput(StringValue.of(serializeOutput));
-        this.sidecarClient.terminateInstance(builder.build());
-    }
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -399,6 +399,30 @@ public class TaskFailedException extends RuntimeException {
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/OrchestrationMetadata.java`
 #### Snippet
 ```java
@@ -435,30 +459,6 @@ in `client/src/main/java/com/microsoft/durabletask/DataConverter.java`
 
 ### ReturnNull
 Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
-#### Snippet
-```java
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
 in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
 ```java
@@ -483,14 +483,14 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.rpcBaseUrl.length() == 0` can be replaced with 'this.rpcBaseUrl.isEmpty()'
-in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/DurableClientContext.java`
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
 #### Snippet
 ```java
-     */
-    public DurableTaskClient getClient() {
-        if (this.rpcBaseUrl == null || this.rpcBaseUrl.length() == 0) {
-            throw new IllegalStateException("The client context wasn't populated with an RPC base URL!");
+        // TODO: Input validation
+        String key = factory.getName();
+        if (key == null || key.length() == 0) {
+            throw new IllegalArgumentException("A non-empty task activity name is required.");
         }
 ```
 
@@ -507,14 +507,26 @@ in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.
 ```
 
 ### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcWorkerBuilder.java`
+`orchestratorName.length() == 0` can be replaced with 'orchestratorName.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
 #### Snippet
 ```java
-        // TODO: Input validation
-        String key = factory.getName();
-        if (key == null || key.length() == 0) {
-            throw new IllegalArgumentException("A non-empty task activity name is required.");
+            String orchestratorName,
+            NewOrchestrationInstanceOptions options) {
+        if (orchestratorName == null || orchestratorName.length() == 0) {
+            throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`this.rpcBaseUrl.length() == 0` can be replaced with 'this.rpcBaseUrl.isEmpty()'
+in `azurefunctions/src/main/java/com/microsoft/durabletask/azurefunctions/DurableClientContext.java`
+#### Snippet
+```java
+     */
+    public DurableTaskClient getClient() {
+        if (this.rpcBaseUrl == null || this.rpcBaseUrl.length() == 0) {
+            throw new IllegalStateException("The client context wasn't populated with an RPC base URL!");
         }
 ```
 
@@ -531,15 +543,15 @@ in `client/src/main/java/com/microsoft/durabletask/JacksonDataConverter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`orchestratorName.length() == 0` can be replaced with 'orchestratorName.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/DurableTaskGrpcClient.java`
+`this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
+in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
 #### Snippet
 ```java
-            String orchestratorName,
-            NewOrchestrationInstanceOptions options) {
-        if (orchestratorName == null || orchestratorName.length() == 0) {
-            throw new IllegalArgumentException("A non-empty orchestrator name must be specified.");
-        }
+        @Override
+        public <T> T getInput(Class<T> targetType) {
+            if (this.rawInput == null || this.rawInput.length() == 0) {
+                return null;
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -552,18 +564,6 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
             return this.outstandingEvents.size() > 0;
         }
 
-```
-
-### SizeReplaceableByIsEmpty
-`this.rawInput.length() == 0` can be replaced with 'this.rawInput.isEmpty()'
-in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.java`
-#### Snippet
-```java
-        @Override
-        public <T> T getInput(Class<T> targetType) {
-            if (this.rawInput == null || this.rawInput.length() == 0) {
-                return null;
-            }
 ```
 
 ## RuleId[ruleID=NonStaticFinalLogger]
@@ -632,15 +632,15 @@ in `samples/src/main/java/io/durabletask/samples/OrchestrationController.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+Can generalize to `? extends TaskActivityFactory`
+in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
 #### Snippet
 ```java
-    }
 
-    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.exceptions = exceptions;
+    public TaskActivityExecutor(
+            HashMap<String, TaskActivityFactory> activityFactories,
+            DataConverter dataConverter,
+            Logger logger) {
 ```
 
 ### BoundedWildcard
@@ -652,18 +652,6 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 
     CompositeTaskFailedException(String message, Throwable cause, List<Exception> exceptions) {
         super(message, cause);
-        this.exceptions = exceptions;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
-#### Snippet
-```java
-    }
-
-    CompositeTaskFailedException(String message, List<Exception> exceptions) {
-        super(message);
         this.exceptions = exceptions;
 ```
 
@@ -686,21 +674,33 @@ in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.
 ```java
     }
 
-    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
-        super(cause);
+    CompositeTaskFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, List<Exception> exceptions) {
+        super(message, cause, enableSuppression, writableStackTrace);
         this.exceptions = exceptions;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TaskActivityFactory`
-in `client/src/main/java/com/microsoft/durabletask/TaskActivityExecutor.java`
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
 #### Snippet
 ```java
+    }
 
-    public TaskActivityExecutor(
-            HashMap<String, TaskActivityFactory> activityFactories,
-            DataConverter dataConverter,
-            Logger logger) {
+    CompositeTaskFailedException(String message, List<Exception> exceptions) {
+        super(message);
+        this.exceptions = exceptions;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `client/src/main/java/com/microsoft/durabletask/CompositeTaskFailedException.java`
+#### Snippet
+```java
+    }
+
+    CompositeTaskFailedException(Throwable cause, List<Exception> exceptions) {
+        super(cause);
+        this.exceptions = exceptions;
 ```
 
 ### BoundedWildcard
@@ -710,7 +710,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
+        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
@@ -722,7 +722,7 @@ in `client/src/main/java/com/microsoft/durabletask/TaskOrchestrationExecutor.jav
 ```java
 
         @Override
-        public <V> Task<List<V>> allOf(List<Task<V>> tasks) {
+        public Task<Task<?>> anyOf(List<Task<?>> tasks) {
             Helpers.throwIfArgumentNull(tasks, "tasks");
 
 ```
@@ -741,18 +741,6 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
-#### Snippet
-```java
-
-final class Helpers {
-    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
-
-    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
-```
-
-### MissortedModifiers
 Missorted modifiers `static @Nonnull`
 in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
 #### Snippet
@@ -762,5 +750,17 @@ in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
     static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
         if (argValue == null) {
             throw new IllegalArgumentException("The argument '" + argName + "' was null.");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `client/src/main/java/com/microsoft/durabletask/Helpers.java`
+#### Snippet
+```java
+
+final class Helpers {
+    final static Duration maxDuration = Duration.ofSeconds(Long.MAX_VALUE, 999999999L);
+
+    static @Nonnull <V> V throwIfArgumentNull(@Nullable V argValue, String argName) {
 ```
 
