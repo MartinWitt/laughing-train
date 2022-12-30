@@ -1,7 +1,7 @@
 # quarkus-github-app 
  
 # Bad smells
-I found 216 bad smells with 110 repairable:
+I found 215 bad smells with 110 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryModifier | 106 | true |
@@ -15,12 +15,12 @@ I found 216 bad smells with 110 repairable:
 | Convert2MethodRef | 4 | false |
 | UnnecessaryFullyQualifiedName | 4 | false |
 | UtilityClassWithoutPrivateConstructor | 3 | true |
-| AbstractMethodCallInConstructor | 3 | false |
 | NonSerializableFieldInSerializableClass | 3 | false |
+| AbstractMethodCallInConstructor | 3 | false |
 | RedundantFieldInitialization | 3 | false |
 | DeprecatedIsStillUsed | 2 | false |
-| SimplifyOptionalCallChains | 2 | false |
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
+| SimplifyOptionalCallChains | 2 | false |
 | RedundantImplements | 2 | false |
 | SynchronizeOnThis | 2 | false |
 | ZeroLengthArrayInitialization | 2 | false |
@@ -31,11 +31,46 @@ I found 216 bad smells with 110 repairable:
 | UnnecessaryToStringCall | 1 | true |
 | AbstractClassNeverImplemented | 1 | false |
 | UnnecessarySuperQualifier | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/CommitComment.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/CheckSuite.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Rerequested {
+
+        String NAME = Actions.REREQUESTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/CheckSuite.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Requested {
+
+        String NAME = Actions.REQUESTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/CheckSuite.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Completed {
+
+        String NAME = Actions.COMPLETED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -47,14 +82,98 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/CommitComment.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/CommandOptions.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
 #### Snippet
 ```java
-    }
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Transferred {
 
-    public enum CommandScope {
+        String NAME = Actions.TRANSFERRED;
+```
 
-        ISSUES,
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Archived {
+
+        String NAME = Actions.ARCHIVED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unarchived {
+
+        String NAME = Actions.UNARCHIVED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Publicized {
+
+        String NAME = Actions.PUBLICIZED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Deleted {
+
+        String NAME = Actions.DELETED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Renamed {
+
+        String NAME = Actions.RENAMED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Privatized {
+
+        String NAME = Actions.PRIVATIZED;
 ```
 
 ### UnnecessaryModifier
@@ -83,43 +202,19 @@ in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airli
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/CheckSuite.java`
+in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/CommandOptions.java`
 #### Snippet
 ```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Rerequested {
+    }
 
-        String NAME = Actions.REREQUESTED;
+    public enum CommandScope {
+
+        ISSUES,
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/CheckSuite.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Completed {
-
-        String NAME = Actions.COMPLETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/CheckSuite.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Requested {
-
-        String NAME = Actions.REQUESTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -131,67 +226,7 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Privatized {
-
-        String NAME = Actions.PRIVATIZED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unarchived {
-
-        String NAME = Actions.UNARCHIVED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Transferred {
-
-        String NAME = Actions.TRANSFERRED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Renamed {
-
-        String NAME = Actions.RENAMED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Archived {
-
-        String NAME = Actions.ARCHIVED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -203,7 +238,31 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Published {
+
+        String NAME = Actions.PUBLISHED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Prereleased {
+
+        String NAME = Actions.PRERELEASED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -211,6 +270,186 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
     public @interface Created {
 
         String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unpublished {
+
+        String NAME = Actions.UNPUBLISHED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Released {
+
+        String NAME = Actions.RELEASED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unlocked {
+
+        String NAME = Actions.UNLOCKED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Pinned {
+
+        String NAME = Actions.PINNED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface CategoryChanged {
+
+        String NAME = Actions.CATEGORY_CHANGED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Labeled {
+
+        String NAME = Actions.LABELED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Answered {
+
+        String NAME = Actions.ANSWERED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Locked {
+
+        String NAME = Actions.LOCKED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Created {
+
+        String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unpinned {
+
+        String NAME = Actions.UNPINNED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unlabeled {
+
+        String NAME = Actions.UNLABELED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Transferred {
+
+        String NAME = Actions.TRANSFERRED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unanswered {
+
+        String NAME = Actions.UNANSWERED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Deleted {
+
+        String NAME = Actions.DELETED;
 ```
 
 ### UnnecessaryModifier
@@ -227,31 +466,7 @@ in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airli
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Queued {
-
-        String NAME = Actions.QUEUED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Requested {
-
-        String NAME = Actions.REQUESTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowRun.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -263,19 +478,139 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Repository.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowRun.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Publicized {
+    public @interface Requested {
 
-        String NAME = Actions.PUBLICIZED;
+        String NAME = Actions.REQUESTED;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Star.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Pinned {
+
+        String NAME = Actions.PINNED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unlabeled {
+
+        String NAME = Actions.UNLABELED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unpinned {
+
+        String NAME = Actions.UNPINNED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Milestoned {
+
+        String NAME = Actions.MILESTONED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unlocked {
+
+        String NAME = Actions.UNLOCKED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Labeled {
+
+        String NAME = Actions.LABELED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Reopened {
+
+        String NAME = Actions.REOPENED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Assigned {
+
+        String NAME = Actions.ASSIGNED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Unassigned {
+
+        String NAME = Actions.UNASSIGNED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -287,7 +622,79 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Star.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Star.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Opened {
+
+        String NAME = Actions.OPENED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Locked {
+
+        String NAME = Actions.LOCKED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Transferred {
+
+        String NAME = Actions.TRANSFERRED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Demilestoned {
+
+        String NAME = Actions.DEMILESTONED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Closed {
+
+        String NAME = Actions.CLOSED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/CheckRun.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Rerequested {
+
+        String NAME = Actions.REREQUESTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/CheckRun.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -323,474 +730,6 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/CheckRun.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/CheckRun.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/CheckRun.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Rerequested {
-
-        String NAME = Actions.REREQUESTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unassigned {
-
-        String NAME = Actions.UNASSIGNED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Reopened {
-
-        String NAME = Actions.REOPENED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Transferred {
-
-        String NAME = Actions.TRANSFERRED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Assigned {
-
-        String NAME = Actions.ASSIGNED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Edited {
-
-        String NAME = Actions.EDITED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unlocked {
-
-        String NAME = Actions.UNLOCKED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Pinned {
-
-        String NAME = Actions.PINNED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Labeled {
-
-        String NAME = Actions.LABELED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Closed {
-
-        String NAME = Actions.CLOSED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unpinned {
-
-        String NAME = Actions.UNPINNED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Opened {
-
-        String NAME = Actions.OPENED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Demilestoned {
-
-        String NAME = Actions.DEMILESTONED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unlabeled {
-
-        String NAME = Actions.UNLABELED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Deleted {
-
-        String NAME = Actions.DELETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Milestoned {
-
-        String NAME = Actions.MILESTONED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Issue.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Locked {
-
-        String NAME = Actions.LOCKED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Deployment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowRun.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Requested {
-
-        String NAME = Actions.REQUESTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowRun.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Completed {
-
-        String NAME = Actions.COMPLETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/IssueComment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/IssueComment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Deleted {
-
-        String NAME = Actions.DELETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/IssueComment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Edited {
-
-        String NAME = Actions.EDITED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Converted {
-
-        String NAME = Actions.CONVERTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Reordered {
-
-        String NAME = Actions.REORDERED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Edited {
-
-        String NAME = Actions.EDITED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Restored {
-
-        String NAME = Actions.RESTORED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Deleted {
-
-        String NAME = Actions.DELETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Archived {
-
-        String NAME = Actions.ARCHIVED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Suspend {
-
-        String NAME = Actions.SUSPEND;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unsuspend {
-
-        String NAME = Actions.UNSUSPEND;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Deleted {
-
-        String NAME = Actions.DELETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface NewPermissionsAccepted {
-
-        String NAME = Actions.NEW_PERMISSIONS_ACCEPTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReviewComment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Edited {
-
-        String NAME = Actions.EDITED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReviewComment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReviewComment.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Deleted {
-
-        String NAME = Actions.DELETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `events/src/main/java/io/quarkiverse/githubapp/event/InstallationRepositories.java`
 #### Snippet
 ```java
@@ -815,50 +754,14 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/InstallationRepositories
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReview.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/DeploymentStatus.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Submitted {
+    public @interface Created {
 
-        String NAME = Actions.SUBMITTED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReview.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Edited {
-
-        String NAME = Actions.EDITED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReview.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Dismissed {
-
-        String NAME = Actions.DISMISSED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Opened {
-
-        String NAME = Actions.OPENED;
+        String NAME = Actions.CREATED;
 ```
 
 ### UnnecessaryModifier
@@ -880,9 +783,9 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Labeled {
+    public @interface ReadyForReview {
 
-        String NAME = Actions.LABELED;
+        String NAME = Actions.READY_FOR_REVIEW;
 ```
 
 ### UnnecessaryModifier
@@ -892,9 +795,21 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Closed {
+    public @interface Unlabeled {
 
-        String NAME = Actions.CLOSED;
+        String NAME = Actions.UNLABELED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
 ```
 
 ### UnnecessaryModifier
@@ -907,18 +822,6 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
     public @interface Locked {
 
         String NAME = Actions.LOCKED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Synchronize {
-
-        String NAME = Actions.SYNCHRONIZE;
 ```
 
 ### UnnecessaryModifier
@@ -940,9 +843,9 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Edited {
+    public @interface Reopened {
 
-        String NAME = Actions.EDITED;
+        String NAME = Actions.REOPENED;
 ```
 
 ### UnnecessaryModifier
@@ -952,9 +855,9 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface ReviewRequested {
+    public @interface Closed {
 
-        String NAME = Actions.REVIEW_REQUESTED;
+        String NAME = Actions.CLOSED;
 ```
 
 ### UnnecessaryModifier
@@ -964,9 +867,9 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Unlocked {
+    public @interface Labeled {
 
-        String NAME = Actions.UNLOCKED;
+        String NAME = Actions.LABELED;
 ```
 
 ### UnnecessaryModifier
@@ -988,9 +891,9 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Unlabeled {
+    public @interface ReviewRequested {
 
-        String NAME = Actions.UNLABELED;
+        String NAME = Actions.REVIEW_REQUESTED;
 ```
 
 ### UnnecessaryModifier
@@ -1000,134 +903,14 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface ReadyForReview {
+    public @interface Opened {
 
-        String NAME = Actions.READY_FOR_REVIEW;
+        String NAME = Actions.OPENED;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Reopened {
-
-        String NAME = Actions.REOPENED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Prereleased {
-
-        String NAME = Actions.PRERELEASED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Released {
-
-        String NAME = Actions.RELEASED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Deleted {
-
-        String NAME = Actions.DELETED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unpublished {
-
-        String NAME = Actions.UNPUBLISHED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Published {
-
-        String NAME = Actions.PUBLISHED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Release.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Edited {
-
-        String NAME = Actions.EDITED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Created {
-
-        String NAME = Actions.CREATED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Unlabeled {
-
-        String NAME = Actions.UNLABELED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -1139,55 +922,19 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequest.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Labeled {
+    public @interface Synchronize {
 
-        String NAME = Actions.LABELED;
+        String NAME = Actions.SYNCHRONIZE;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Transferred {
-
-        String NAME = Actions.TRANSFERRED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface CategoryChanged {
-
-        String NAME = Actions.CATEGORY_CHANGED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
-#### Snippet
-```java
-    @Retention(RUNTIME)
-    @Qualifier
-    public @interface Answered {
-
-        String NAME = Actions.ANSWERED;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -1199,31 +946,103 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Pinned {
+    public @interface Unsuspend {
 
-        String NAME = Actions.PINNED;
+        String NAME = Actions.UNSUSPEND;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Unpinned {
+    public @interface Created {
 
-        String NAME = Actions.UNPINNED;
+        String NAME = Actions.CREATED;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Suspend {
+
+        String NAME = Actions.SUSPEND;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Installation.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface NewPermissionsAccepted {
+
+        String NAME = Actions.NEW_PERMISSIONS_ACCEPTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Star.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Deleted {
+
+        String NAME = Actions.DELETED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Star.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Created {
+
+        String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReview.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Submitted {
+
+        String NAME = Actions.SUBMITTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReview.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Dismissed {
+
+        String NAME = Actions.DISMISSED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReview.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -1235,31 +1054,103 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Unanswered {
+    public @interface Reordered {
 
-        String NAME = Actions.UNANSWERED;
+        String NAME = Actions.REORDERED;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Discussion.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Locked {
+    public @interface Restored {
 
-        String NAME = Actions.LOCKED;
+        String NAME = Actions.RESTORED;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/DeploymentStatus.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Archived {
+
+        String NAME = Actions.ARCHIVED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Created {
+
+        String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Deleted {
+
+        String NAME = Actions.DELETED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/ProjectsV2Item.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Converted {
+
+        String NAME = Actions.CONVERTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -1276,14 +1167,14 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
 ```java
     @Retention(RUNTIME)
     @Qualifier
-    public @interface Edited {
+    public @interface Deleted {
 
-        String NAME = Actions.EDITED;
+        String NAME = Actions.DELETED;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/IssueComment.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -1295,7 +1186,19 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
+in `events/src/main/java/io/quarkiverse/githubapp/event/IssueComment.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/IssueComment.java`
 #### Snippet
 ```java
     @Retention(RUNTIME)
@@ -1303,6 +1206,102 @@ in `events/src/main/java/io/quarkiverse/githubapp/event/Label.java`
     public @interface Created {
 
         String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/CommitComment.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Created {
+
+        String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Queued {
+
+        String NAME = Actions.QUEUED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Completed {
+
+        String NAME = Actions.COMPLETED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/WorkflowJob.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Requested {
+
+        String NAME = Actions.REQUESTED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/Deployment.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Created {
+
+        String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReviewComment.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Edited {
+
+        String NAME = Actions.EDITED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReviewComment.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Created {
+
+        String NAME = Actions.CREATED;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `events/src/main/java/io/quarkiverse/githubapp/event/PullRequestReviewComment.java`
+#### Snippet
+```java
+    @Retention(RUNTIME)
+    @Qualifier
+    public @interface Deleted {
+
+        String NAME = Actions.DELETED;
 ```
 
 ## RuleId[ruleID=EmptyTryBlock]
@@ -1320,15 +1319,15 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/smee/SmeeIoForwarder.
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `PrivateKeyUtil` has only 'static' members, and lacks a 'private' constructor
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/signing/PrivateKeyUtil.java`
+Class `GitHubAppCommandAirlineDotNames` has only 'static' members, and lacks a 'private' constructor
+in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/airline/deployment/GitHubAppCommandAirlineDotNames.java`
 #### Snippet
 ```java
- * Slightly adjusted version of code found here: https://stackoverflow.com/a/55339208 .
- */
-public class PrivateKeyUtil {
+import io.quarkiverse.githubapp.event.IssueComment;
 
-    private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
+class GitHubAppCommandAirlineDotNames {
+
+    static final DotName DEPENDENT = DotName.createSimple(Dependent.class.getName());
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1344,15 +1343,15 @@ public final class Reactions {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GitHubAppCommandAirlineDotNames` has only 'static' members, and lacks a 'private' constructor
-in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/airline/deployment/GitHubAppCommandAirlineDotNames.java`
+Class `PrivateKeyUtil` has only 'static' members, and lacks a 'private' constructor
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/signing/PrivateKeyUtil.java`
 #### Snippet
 ```java
-import io.quarkiverse.githubapp.event.IssueComment;
+ * Slightly adjusted version of code found here: https://stackoverflow.com/a/55339208 .
+ */
+public class PrivateKeyUtil {
 
-class GitHubAppCommandAirlineDotNames {
-
-    static final DotName DEPENDENT = DotName.createSimple(Dependent.class.getName());
+    private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
 ```
 
 ## RuleId[ruleID=SuspiciousSystemArraycopy]
@@ -1455,6 +1454,43 @@ in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProces
         // Add the qualifiers as beans
 ```
 
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'clientSpy' in a Serializable class
+in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GHObjectSpyDefaultAnswer.java`
+#### Snippet
+```java
+public final class GHObjectSpyDefaultAnswer implements Answer<Object>, Serializable {
+
+    private final GitHub clientSpy;
+    private final GHEventPayloadSpyDefaultAnswer callRealMethodAndSpy;
+    private final DefaultableMocking<? extends GHObject> ghObjectMocking;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'ghObjectMocking' in a Serializable class
+in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GHObjectSpyDefaultAnswer.java`
+#### Snippet
+```java
+    private final GitHub clientSpy;
+    private final GHEventPayloadSpyDefaultAnswer callRealMethodAndSpy;
+    private final DefaultableMocking<? extends GHObject> ghObjectMocking;
+
+    public GHObjectSpyDefaultAnswer(GitHub clientSpy,
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'clientSpy' in a Serializable class
+in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GHEventPayloadSpyDefaultAnswer.java`
+#### Snippet
+```java
+public final class GHEventPayloadSpyDefaultAnswer implements Answer<Object>, Serializable {
+
+    private final GitHub clientSpy;
+    private final Function<GHObject, DefaultableMocking<? extends GHObject>> defaultableMockingProvider;
+
+```
+
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
 ### AbstractMethodCallInConstructor
 Call to 'abstract' method `getCommandConfigs()` during object construction
@@ -1490,43 +1526,6 @@ in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airli
         this.commandTeamConfigs = getCommandTeamConfigs();
     }
 
-```
-
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'clientSpy' in a Serializable class
-in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GHEventPayloadSpyDefaultAnswer.java`
-#### Snippet
-```java
-public final class GHEventPayloadSpyDefaultAnswer implements Answer<Object>, Serializable {
-
-    private final GitHub clientSpy;
-    private final Function<GHObject, DefaultableMocking<? extends GHObject>> defaultableMockingProvider;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'ghObjectMocking' in a Serializable class
-in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GHObjectSpyDefaultAnswer.java`
-#### Snippet
-```java
-    private final GitHub clientSpy;
-    private final GHEventPayloadSpyDefaultAnswer callRealMethodAndSpy;
-    private final DefaultableMocking<? extends GHObject> ghObjectMocking;
-
-    public GHObjectSpyDefaultAnswer(GitHub clientSpy,
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'clientSpy' in a Serializable class
-in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GHObjectSpyDefaultAnswer.java`
-#### Snippet
-```java
-public final class GHObjectSpyDefaultAnswer implements Answer<Object>, Serializable {
-
-    private final GitHub clientSpy;
-    private final GHEventPayloadSpyDefaultAnswer callRealMethodAndSpy;
-    private final DefaultableMocking<? extends GHObject> ghObjectMocking;
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -1570,39 +1569,39 @@ public abstract class AbstractCommandDispatcher<C> {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/GitHubAppTestingCallback.java`
+Can generalize to `? super GeneratedBeanBuildItem`
+in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/airline/deployment/IndexedGeneratedBeansBuildProducer.java`
 #### Snippet
 ```java
-    private static final String ENABLED_KEY = "quarkiverse-github-app-testing.enabled";
+    private boolean empty = true;
 
-    public static void enable(Map<String, String> configProperties) {
-        configProperties.put(ENABLED_KEY, "true");
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/GitHubAppTestingCallback.java`
-#### Snippet
-```java
-    private static final String ENABLED_KEY = "quarkiverse-github-app-testing.enabled";
-
-    public static void enable(Map<String, String> configProperties) {
-        configProperties.put(ENABLED_KEY, "true");
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GitHubMockDefaultAnswer.java`
-#### Snippet
-```java
-    private final Function<String, GHRepository> repositoryMockProvider;
-
-    public GitHubMockDefaultAnswer(Answer<Object> delegate, Function<String, GHRepository> repositoryMockProvider) {
+    public IndexedGeneratedBeansBuildProducer(BuildProducer<GeneratedBeanBuildItem> delegate) {
         this.delegate = delegate;
-        this.repositoryMockProvider = repositoryMockProvider;
+        this.indexer = new Indexer();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/GitHubAppTestingCallback.java`
+#### Snippet
+```java
+    private static final String ENABLED_KEY = "quarkiverse-github-app-testing.enabled";
+
+    public static void enable(Map<String, String> configProperties) {
+        configProperties.put(ENABLED_KEY, "true");
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/GitHubAppTestingCallback.java`
+#### Snippet
+```java
+    private static final String ENABLED_KEY = "quarkiverse-github-app-testing.enabled";
+
+    public static void enable(Map<String, String> configProperties) {
+        configProperties.put(ENABLED_KEY, "true");
+    }
 ```
 
 ### BoundedWildcard
@@ -1618,15 +1617,15 @@ in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/GitHubMockCo
 ```
 
 ### BoundedWildcard
-Can generalize to `? super GeneratedBeanBuildItem`
-in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/airline/deployment/IndexedGeneratedBeansBuildProducer.java`
+Can generalize to `? super String`
+in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/GitHubMockDefaultAnswer.java`
 #### Snippet
 ```java
-    private boolean empty = true;
+    private final Function<String, GHRepository> repositoryMockProvider;
 
-    public IndexedGeneratedBeansBuildProducer(BuildProducer<GeneratedBeanBuildItem> delegate) {
+    public GitHubMockDefaultAnswer(Answer<Object> delegate, Function<String, GHRepository> repositoryMockProvider) {
         this.delegate = delegate;
-        this.indexer = new Indexer();
+        this.repositoryMockProvider = repositoryMockProvider;
 ```
 
 ### BoundedWildcard
@@ -1651,30 +1650,6 @@ in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/Defa
     public static <M> DefaultableMocking<M> create(Class<M> clazz, Object id, Consumer<MockSettings> mockSettingsContributor) {
         StubDetectingInvocationListener listener = new StubDetectingInvocationListener();
         MockSettings mockSettings = Mockito.withSettings().name(clazz.getSimpleName() + "#" + id)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/github/GitHubConfigFileProviderImpl.java`
-#### Snippet
-```java
-    @Override
-    public <T> Optional<T> fetchConfigFile(GHRepository repository, String ref, String path, ConfigFile.Source source,
-            Class<T> type) {
-        GHRepository configGHRepository = getConfigRepository(repository, source, path);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super AdditionalIndexedClassesBuildItem`
-in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/airline/deployment/GitHubAppCommandAirlineProcessor.java`
-#### Snippet
-```java
-
-    @BuildStep
-    public void indexAnnotations(BuildProducer<AdditionalIndexedClassesBuildItem> additionalIndexedClasses) {
-        // adding the *Options annotations
-        additionalIndexedClasses
 ```
 
 ### BoundedWildcard
@@ -1726,74 +1701,38 @@ in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/ai
 ```
 
 ### BoundedWildcard
-Can generalize to `? super BytecodeTransformerBuildItem`
-in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
-#### Snippet
-```java
-    @BuildStep
-    void removeCompatibilityBridgeMethodsFromGitHubApi(
-            BuildProducer<BytecodeTransformerBuildItem> bytecodeTransformers,
-            List<GitHubApiClassWithBridgeMethodsBuildItem> gitHubApiClassesWithBridgeMethods) {
-        for (GitHubApiClassWithBridgeMethodsBuildItem gitHubApiClassWithBridgeMethods : gitHubApiClassesWithBridgeMethods) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ReflectiveClassBuildItem`
-in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
-#### Snippet
-```java
-            IndexView index,
-            DispatchingConfiguration dispatchingConfiguration,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        for (Entry<DotName, TreeSet<EventDispatchingMethod>> eventDispatchingMethodsEntry : dispatchingConfiguration
-                .getMethods().entrySet()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super AdditionalBeanBuildItem`
-in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+Can generalize to `? super AdditionalIndexedClassesBuildItem`
+in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/airline/deployment/GitHubAppCommandAirlineProcessor.java`
 #### Snippet
 ```java
 
     @BuildStep
-    void additionalBeans(CombinedIndexBuildItem index, BuildProducer<AdditionalBeanBuildItem> additionalBeans) {
-        AdditionalBeanBuildItem.Builder additionalBeanBuildItemBuilder = new AdditionalBeanBuildItem.Builder().addBeanClasses(
-                GitHubService.class,
+    public void indexAnnotations(BuildProducer<AdditionalIndexedClassesBuildItem> additionalIndexedClasses) {
+        // adding the *Options annotations
+        additionalIndexedClasses
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RouteBuildItem`
-in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+Can generalize to `? extends T`
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/github/GitHubConfigFileProviderImpl.java`
 #### Snippet
 ```java
-            HttpRootPathBuildItem httpRootPath,
-            ShutdownContextBuildItem shutdownContext,
-            BuildProducer<RouteBuildItem> routes,
-            BuildProducer<NotFoundPageDisplayableEndpointBuildItem> displayableEndpoints) throws IOException {
-        if (launchMode.getLaunchMode() != LaunchMode.DEVELOPMENT) {
+    @Override
+    public <T> Optional<T> fetchConfigFile(GHRepository repository, String ref, String path, ConfigFile.Source source,
+            Class<T> type) {
+        GHRepository configGHRepository = getConfigRepository(repository, source, path);
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? super NotFoundPageDisplayableEndpointBuildItem`
+Can generalize to `? extends EventDefinition`
 in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
 #### Snippet
 ```java
-            ShutdownContextBuildItem shutdownContext,
-            BuildProducer<RouteBuildItem> routes,
-            BuildProducer<NotFoundPageDisplayableEndpointBuildItem> displayableEndpoints) throws IOException {
-        if (launchMode.getLaunchMode() != LaunchMode.DEVELOPMENT) {
-            return;
-```
 
-### BoundedWildcard
-Can generalize to `? super ReflectiveClassBuildItem`
-in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
-#### Snippet
-```java
-            LaunchModeBuildItem launchMode,
-            DispatchingConfiguration dispatchingConfiguration,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        String dispatcherClassName = GitHubEvent.class.getName() + "DispatcherImpl";
+    private static DispatchingConfiguration getDispatchingConfiguration(
+            IndexView index, Collection<EventDefinition> allEventDefinitions) {
+        DispatchingConfiguration configuration = new DispatchingConfiguration();
 
 ```
 
@@ -1822,18 +1761,6 @@ in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProces
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EventDefinition`
-in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
-#### Snippet
-```java
-
-    private static DispatchingConfiguration getDispatchingConfiguration(
-            IndexView index, Collection<EventDefinition> allEventDefinitions) {
-        DispatchingConfiguration configuration = new DispatchingConfiguration();
-
-```
-
-### BoundedWildcard
 Can generalize to `? super WebJarBuildItem`
 in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
 #### Snippet
@@ -1841,6 +1768,30 @@ in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProces
     @BuildStep
     void replayUiDeployment(LaunchModeBuildItem launchMode,
             BuildProducer<WebJarBuildItem> webJars) throws IOException {
+        if (launchMode.getLaunchMode() != LaunchMode.DEVELOPMENT) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super RouteBuildItem`
+in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+#### Snippet
+```java
+            HttpRootPathBuildItem httpRootPath,
+            ShutdownContextBuildItem shutdownContext,
+            BuildProducer<RouteBuildItem> routes,
+            BuildProducer<NotFoundPageDisplayableEndpointBuildItem> displayableEndpoints) throws IOException {
+        if (launchMode.getLaunchMode() != LaunchMode.DEVELOPMENT) {
+```
+
+### BoundedWildcard
+Can generalize to `? super NotFoundPageDisplayableEndpointBuildItem`
+in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+#### Snippet
+```java
+            ShutdownContextBuildItem shutdownContext,
+            BuildProducer<RouteBuildItem> routes,
+            BuildProducer<NotFoundPageDisplayableEndpointBuildItem> displayableEndpoints) throws IOException {
         if (launchMode.getLaunchMode() != LaunchMode.DEVELOPMENT) {
             return;
 ```
@@ -1869,19 +1820,55 @@ in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProces
         indexes.add(combinedIndex.getIndex());
 ```
 
-## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'appName'
-in `runtime/src/main/java/io/quarkiverse/githubapp/GitHubEvent.java`
+### BoundedWildcard
+Can generalize to `? super ReflectiveClassBuildItem`
+in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
 #### Snippet
 ```java
-    private final Long installationId;
-
-    private final Optional<String> appName;
-
-    private final String deliveryId;
+            IndexView index,
+            DispatchingConfiguration dispatchingConfiguration,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        for (Entry<DotName, TreeSet<EventDispatchingMethod>> eventDispatchingMethodsEntry : dispatchingConfiguration
+                .getMethods().entrySet()) {
 ```
 
+### BoundedWildcard
+Can generalize to `? super AdditionalBeanBuildItem`
+in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+#### Snippet
+```java
+
+    @BuildStep
+    void additionalBeans(CombinedIndexBuildItem index, BuildProducer<AdditionalBeanBuildItem> additionalBeans) {
+        AdditionalBeanBuildItem.Builder additionalBeanBuildItemBuilder = new AdditionalBeanBuildItem.Builder().addBeanClasses(
+                GitHubService.class,
+```
+
+### BoundedWildcard
+Can generalize to `? super ReflectiveClassBuildItem`
+in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+#### Snippet
+```java
+            LaunchModeBuildItem launchMode,
+            DispatchingConfiguration dispatchingConfiguration,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        String dispatcherClassName = GitHubEvent.class.getName() + "DispatcherImpl";
+
+```
+
+### BoundedWildcard
+Can generalize to `? super BytecodeTransformerBuildItem`
+in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProcessor.java`
+#### Snippet
+```java
+    @BuildStep
+    void removeCompatibilityBridgeMethodsFromGitHubApi(
+            BuildProducer<BytecodeTransformerBuildItem> bytecodeTransformers,
+            List<GitHubApiClassWithBridgeMethodsBuildItem> gitHubApiClassesWithBridgeMethods) {
+        for (GitHubApiClassWithBridgeMethodsBuildItem gitHubApiClassWithBridgeMethods : gitHubApiClassesWithBridgeMethods) {
+```
+
+## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'repository'
 in `runtime/src/main/java/io/quarkiverse/githubapp/GitHubEvent.java`
@@ -1895,15 +1882,15 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/GitHubEvent.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'webhookProxyUrl'
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRuntimeConfig.java`
+`Optional` used as type for field 'appName'
+in `runtime/src/main/java/io/quarkiverse/githubapp/GitHubEvent.java`
 #### Snippet
 ```java
-     */
-    @ConfigItem
-    Optional<String> webhookProxyUrl;
+    private final Long installationId;
 
-    /**
+    private final Optional<String> appName;
+
+    private final String deliveryId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1914,18 +1901,6 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRunti
      */
     @ConfigItem
     Optional<String> appName;
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'webhookSecret'
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRuntimeConfig.java`
-#### Snippet
-```java
-     */
-    @ConfigItem
-    Optional<String> webhookSecret;
 
     /**
 ```
@@ -1955,6 +1930,30 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRunti
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'webhookProxyUrl'
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRuntimeConfig.java`
+#### Snippet
+```java
+     */
+    @ConfigItem
+    Optional<String> webhookProxyUrl;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'webhookSecret'
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRuntimeConfig.java`
+#### Snippet
+```java
+     */
+    @ConfigItem
+    Optional<String> webhookSecret;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'appId'
 in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRuntimeConfig.java`
 #### Snippet
@@ -1964,44 +1963,6 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/GitHubAppRunti
     Optional<String> appId;
 
     /**
-```
-
-## RuleId[ruleID=SimplifyOptionalCallChains]
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/smee/SmeeIoForwarder.java`
-#### Snippet
-```java
-    SmeeIoForwarder(CheckedConfigProvider checkedConfigProvider, HttpConfiguration httpConfiguration,
-            ObjectMapper objectMapper) {
-        if (!checkedConfigProvider.webhookProxyUrl().isPresent()) {
-            this.eventSource = null;
-            return;
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/signing/PayloadSignatureChecker.java`
-#### Snippet
-```java
-
-    PayloadSignatureChecker(CheckedConfigProvider checkedConfigProvider) {
-        if (!checkedConfigProvider.webhookSecret().isPresent()) {
-            secretKeySpec = null;
-            sharedMac = null;
-```
-
-## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `docs/modules/ROOT/examples/command/airline/HelpCli.java`
-#### Snippet
-```java
-        @Override
-        public void run(GHEventPayload.IssueComment issueCommentPayload, GitHub gitHub) throws IOException {
-            super.run(issueCommentPayload); // <4>
-        }
-    }
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -2027,6 +1988,44 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/signing/PrivateKeyUti
             keyDataString = keyDataString.replaceAll("\\s+", "");
             return readPkcs8PrivateKey(Base64.getDecoder().decode(keyDataString));
         } else {
+```
+
+## RuleId[ruleID=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `docs/modules/ROOT/examples/command/airline/HelpCli.java`
+#### Snippet
+```java
+        @Override
+        public void run(GHEventPayload.IssueComment issueCommentPayload, GitHub gitHub) throws IOException {
+            super.run(issueCommentPayload); // <4>
+        }
+    }
+```
+
+## RuleId[ruleID=SimplifyOptionalCallChains]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/signing/PayloadSignatureChecker.java`
+#### Snippet
+```java
+
+    PayloadSignatureChecker(CheckedConfigProvider checkedConfigProvider) {
+        if (!checkedConfigProvider.webhookSecret().isPresent()) {
+            secretKeySpec = null;
+            sharedMac = null;
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/smee/SmeeIoForwarder.java`
+#### Snippet
+```java
+    SmeeIoForwarder(CheckedConfigProvider checkedConfigProvider, HttpConfiguration httpConfiguration,
+            ObjectMapper objectMapper) {
+        if (!checkedConfigProvider.webhookProxyUrl().isPresent()) {
+            this.eventSource = null;
+            return;
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -2238,6 +2237,18 @@ in `integration-tests/command-airline/src/main/java/io/quarkiverse/githubapp/it/
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `integration-tests/command-airline/src/main/java/io/quarkiverse/githubapp/it/command/airline/CompositionCli.java`
+#### Snippet
+```java
+
+        @Option(name = { "-v", "--verbose" }, description = "Enables verbose mode")
+        protected boolean verbose = false;
+    }
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `docs/modules/ROOT/examples/command/airline/CompositionCli.java`
 #### Snippet
 ```java
@@ -2258,18 +2269,6 @@ in `testing/src/main/java/io/quarkiverse/githubapp/testing/mockito/internal/Defa
         private boolean lastInvocationWasMocked = false;
 
         @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `integration-tests/command-airline/src/main/java/io/quarkiverse/githubapp/it/command/airline/CompositionCli.java`
-#### Snippet
-```java
-
-        @Option(name = { "-v", "--verbose" }, description = "Enables verbose mode")
-        protected boolean verbose = false;
-    }
-
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -2347,18 +2346,6 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/signing/PrivateKeyUti
 
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
-Redundant interface declaration `Serializable`
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/PrivateKeyConverter.java`
-#### Snippet
-```java
-
-@Priority(DEFAULT_QUARKUS_CONVERTER_PRIORITY)
-public class PrivateKeyConverter implements Converter<PrivateKey>, Serializable {
-
-    public PrivateKeyConverter() {
-```
-
-### RedundantImplements
 Redundant interface declaration `GitHubMockContext`
 in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/GitHubMockContextImpl.java`
 #### Snippet
@@ -2370,17 +2357,16 @@ public final class GitHubMockContextImpl implements GitHubMockContext, GitHubMoc
     final GitHubService service;
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2022-12-30-08-43-49.995.html`
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/PrivateKeyConverter.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+
+@Priority(DEFAULT_QUARKUS_CONVERTER_PRIORITY)
+public class PrivateKeyConverter implements Converter<PrivateKey>, Serializable {
+
+    public PrivateKeyConverter() {
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -2398,14 +2384,14 @@ in `testing/src/main/java/io/quarkiverse/githubapp/testing/internal/MockitoUtils
 
 ### ReturnNull
 Return of `null`
-in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/util/Reactions.java`
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/Routes.java`
 #### Snippet
 ```java
-                    + issueCommentPayload.getIssue().getNumber() + "#" + issueCommentPayload.getComment().getId());
-
+        JsonObject repository = body.getJsonObject("repository");
+        if (repository == null) {
             return null;
         }
-    }
+
 ```
 
 ### ReturnNull
@@ -2422,14 +2408,14 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/config/PrivateKeyConv
 
 ### ReturnNull
 Return of `null`
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/Routes.java`
+in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/util/Reactions.java`
 #### Snippet
 ```java
-        JsonObject repository = body.getJsonObject("repository");
-        if (repository == null) {
+                    + issueCommentPayload.getIssue().getNumber() + "#" + issueCommentPayload.getComment().getId());
+
             return null;
         }
-
+    }
 ```
 
 ### ReturnNull
@@ -2450,8 +2436,8 @@ Lock operations on 'this' may have unforeseen side-effects
 in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/github/GitHubService.java`
 #### Snippet
 ```java
-            return createInstallationClient(installationId);
-        } catch (IOException e1) {
+            return createInstallationGraphQLClient(installationId);
+        } catch (IOException | ExecutionException | InterruptedException e1) {
             synchronized (this) {
                 try {
                     // retry in a synchronized in case the token is invalidated in another thread
@@ -2462,8 +2448,8 @@ Lock operations on 'this' may have unforeseen side-effects
 in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/github/GitHubService.java`
 #### Snippet
 ```java
-            return createInstallationGraphQLClient(installationId);
-        } catch (IOException | ExecutionException | InterruptedException e1) {
+            return createInstallationClient(installationId);
+        } catch (IOException e1) {
             synchronized (this) {
                 try {
                     // retry in a synchronized in case the token is invalidated in another thread
@@ -2497,14 +2483,14 @@ in `command-airline/deployment/src/main/java/io/quarkiverse/githubapp/command/ai
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/Routes.java`
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/error/DefaultErrorHandler.java`
 #### Snippet
 ```java
-            String fileName = DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "-" + event + "-"
-                    + (!isBlank(action) ? action + "-" : "") + deliveryId + ".json";
-            Files.write(checkedConfigProvider.debug().payloadDirectory.get().resolve(fileName), bodyBytes);
+            Optional<String> context = PayloadHelper.getContext(payload);
+            if (context.isPresent()) {
+                errorMessage.append("› Context:    " + PayloadHelper.getContext(payload).get() + "\n");
+            }
         }
-
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2533,14 +2519,14 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/Routes.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/error/DefaultErrorHandler.java`
+in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/Routes.java`
 #### Snippet
 ```java
-            Optional<String> context = PayloadHelper.getContext(payload);
-            if (context.isPresent()) {
-                errorMessage.append("› Context:    " + PayloadHelper.getContext(payload).get() + "\n");
-            }
+            String fileName = DATE_TIME_FORMATTER.format(LocalDateTime.now()) + "-" + event + "-"
+                    + (!isBlank(action) ? action + "-" : "") + deliveryId + ".json";
+            Files.write(checkedConfigProvider.debug().payloadDirectory.get().resolve(fileName), bodyBytes);
         }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -2556,42 +2542,6 @@ in `deployment/src/main/java/io/quarkiverse/githubapp/deployment/GitHubAppProces
 ```
 
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/AbstractCommandDispatcher.java`
-#### Snippet
-```java
-            message.append("\n\nErrors:\n");
-            if (error != null) {
-                message.append("\n- " + error);
-            }
-            if (parseResult != null) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/AbstractCommandDispatcher.java`
-#### Snippet
-```java
-            if (parseResult != null) {
-                for (ParseException parseError : parseResult.getErrors()) {
-                    message.append("\n- " + parseError.getMessage());
-                }
-            }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/AbstractCommandDispatcher.java`
-#### Snippet
-```java
-
-                if (!help.isBlank()) {
-                    message.append("\n\nHelp:\n\n").append("```\n" + help.trim() + "\n```");
-                }
-            } catch (IOException e) {
-```
-
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
 in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/error/DefaultErrorHandler.java`
@@ -2650,5 +2600,41 @@ in `runtime/src/main/java/io/quarkiverse/githubapp/runtime/error/DefaultErrorHan
             errorMessage.append("› Redeliver:  " + String.format(REDELIVERY_URL, gitHubEvent.getAppName().get()) + "\n");
         }
 
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/AbstractCommandDispatcher.java`
+#### Snippet
+```java
+            message.append("\n\nErrors:\n");
+            if (error != null) {
+                message.append("\n- " + error);
+            }
+            if (parseResult != null) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/AbstractCommandDispatcher.java`
+#### Snippet
+```java
+            if (parseResult != null) {
+                for (ParseException parseError : parseResult.getErrors()) {
+                    message.append("\n- " + parseError.getMessage());
+                }
+            }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `command-airline/runtime/src/main/java/io/quarkiverse/githubapp/command/airline/runtime/AbstractCommandDispatcher.java`
+#### Snippet
+```java
+
+                if (!help.isBlank()) {
+                    message.append("\n\nHelp:\n\n").append("```\n" + help.trim() + "\n```");
+                }
+            } catch (IOException e) {
 ```
 
