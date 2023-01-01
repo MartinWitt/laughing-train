@@ -198,14 +198,14 @@ in `smoke-tests/apps/RoleNameOverrides/src/main/java/com/microsoft/applicationin
 
 ### EmptyStatementBody
 `while` statement has empty body
-in `smoke-tests/apps/Sampling/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SamplingTest.java`
+in `smoke-tests/apps/SamplingOverrides/src/main/java/com/microsoft/applicationinsights/smoketestapp/SamplingOverridesServlet.java`
 #### Snippet
 ```java
-    // super super low chance that number of sampled requests is less than 25
-    long start = System.nanoTime();
-    while (testing.mockedIngestion.getCountForType("RequestData") < 25
-        && NANOSECONDS.toSeconds(System.nanoTime() - start) < 10) {}
-    // wait ten more seconds before checking that we didn't receive too many
+    Statement statement = connection.createStatement();
+    ResultSet rs = statement.executeQuery("select count(*) from abc");
+    while (rs.next()) {}
+    rs.close();
+    statement.close();
 ```
 
 ### EmptyStatementBody
@@ -222,14 +222,14 @@ in `smoke-tests/apps/SamplingOverrides/src/main/java/com/microsoft/applicationin
 
 ### EmptyStatementBody
 `while` statement has empty body
-in `smoke-tests/apps/SamplingOverrides/src/main/java/com/microsoft/applicationinsights/smoketestapp/SamplingOverridesServlet.java`
+in `smoke-tests/apps/Sampling/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SamplingTest.java`
 #### Snippet
 ```java
-    Statement statement = connection.createStatement();
-    ResultSet rs = statement.executeQuery("select count(*) from abc");
-    while (rs.next()) {}
-    rs.close();
-    statement.close();
+    // super super low chance that number of sampled requests is less than 25
+    long start = System.nanoTime();
+    while (testing.mockedIngestion.getCountForType("RequestData") < 25
+        && NANOSECONDS.toSeconds(System.nanoTime() - start) < 10) {}
+    // wait ten more seconds before checking that we didn't receive too many
 ```
 
 ### EmptyStatementBody
@@ -250,7 +250,7 @@ in `smoke-tests/apps/SamplingOverridesBackCompat/src/main/java/com/microsoft/app
 #### Snippet
 ```java
     Statement statement = connection.createStatement();
-    ResultSet rs = statement.executeQuery("select * from abc");
+    ResultSet rs = statement.executeQuery("select count(*) from abc");
     while (rs.next()) {}
     rs.close();
     statement.close();
@@ -262,7 +262,7 @@ in `smoke-tests/apps/SamplingOverridesBackCompat/src/main/java/com/microsoft/app
 #### Snippet
 ```java
     Statement statement = connection.createStatement();
-    ResultSet rs = statement.executeQuery("select count(*) from abc");
+    ResultSet rs = statement.executeQuery("select * from abc");
     while (rs.next()) {}
     rs.close();
     statement.close();
@@ -567,11 +567,11 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
 #### Snippet
 ```java
-    StringBuilder sb = new StringBuilder();
-    for (Object val : values) {
-      if (sb.length() > 0) {
-        sb.append(separator);
-      }
+      for (Configuration.CustomInstrumentation customInstrumentation :
+          configuration.preview.customInstrumentation) {
+        if (sb.length() > 0) {
+          sb.append(';');
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -579,11 +579,11 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
 #### Snippet
 ```java
-      for (Configuration.CustomInstrumentation customInstrumentation :
-          configuration.preview.customInstrumentation) {
-        if (sb.length() > 0) {
-          sb.append(';');
-        }
+    StringBuilder sb = new StringBuilder();
+    for (Object val : values) {
+      if (sb.length() > 0) {
+        sb.append(separator);
+      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -771,6 +771,18 @@ public abstract class TelemetryDataPoint {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/DefaultConfiguration.java`
+#### Snippet
+```java
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setSamplingEnabled(boolean samplingEnabled);
+```
+
+### AbstractClassNeverImplemented
 Abstract class `DefaultConfiguration` has no concrete subclass
 in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/DefaultConfiguration.java`
 #### Snippet
@@ -783,15 +795,15 @@ public abstract class DefaultConfiguration {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/DefaultConfiguration.java`
+Abstract class `AlertingConfiguration` has no concrete subclass
+in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/AlertingConfiguration.java`
 #### Snippet
 ```java
+/** Contains the overall configuration of the entire alerting subsystem. */
+@AutoValue
+public abstract class AlertingConfiguration {
 
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setSamplingEnabled(boolean samplingEnabled);
+  public static AlertingConfiguration create(
 ```
 
 ### AbstractClassNeverImplemented
@@ -819,39 +831,15 @@ public abstract class AlertBreach {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AlertingConfiguration` has no concrete subclass
-in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/AlertingConfiguration.java`
+Abstract class `AlertConfiguration` has no concrete subclass
+in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/AlertConfiguration.java`
 #### Snippet
 ```java
-/** Contains the overall configuration of the entire alerting subsystem. */
-@AutoValue
-public abstract class AlertingConfiguration {
+@JsonSerialize(as = AlertConfiguration.class)
+@JsonDeserialize(builder = AlertConfiguration.Builder.class)
+public abstract class AlertConfiguration {
 
-  public static AlertingConfiguration create(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CollectionPlanConfiguration` has no concrete subclass
-in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/CollectionPlanConfiguration.java`
-#### Snippet
-```java
-
-@AutoValue
-public abstract class CollectionPlanConfiguration {
-
-  public abstract boolean isSingle();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/CollectionPlanConfiguration.java`
-#### Snippet
-```java
-
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract CollectionPlanConfiguration.Builder setSingle(boolean single);
+  @JsonProperty("type")
 ```
 
 ### AbstractClassNeverImplemented
@@ -867,15 +855,27 @@ in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicat
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AlertConfiguration` has no concrete subclass
-in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/AlertConfiguration.java`
+Abstract class `Builder` has no concrete subclass
+in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/CollectionPlanConfiguration.java`
 #### Snippet
 ```java
-@JsonSerialize(as = AlertConfiguration.class)
-@JsonDeserialize(builder = AlertConfiguration.Builder.class)
-public abstract class AlertConfiguration {
 
-  @JsonProperty("type")
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract CollectionPlanConfiguration.Builder setSingle(boolean single);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CollectionPlanConfiguration` has no concrete subclass
+in `agent/agent-profiler/agent-alerting-api/src/main/java/com/microsoft/applicationinsights/alerting/config/CollectionPlanConfiguration.java`
+#### Snippet
+```java
+
+@AutoValue
+public abstract class CollectionPlanConfiguration {
+
+  public abstract boolean isSingle();
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
@@ -916,6 +916,54 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
+#### Snippet
+```java
+
+  private static void setHttpHeaderConfiguration(
+      Map<String, String> properties, String propertyName, List<String> headers) {
+    if (!headers.isEmpty()) {
+      properties.put(propertyName, join(headers, ','));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
+#### Snippet
+```java
+
+  private static void setHttpHeaderConfiguration(
+      Map<String, String> properties, String propertyName, List<String> headers) {
+    if (!headers.isEmpty()) {
+      properties.put(propertyName, join(headers, ','));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
+#### Snippet
+```java
+  }
+
+  private static void enableInstrumentations(Configuration config, Map<String, String> properties) {
+    properties.put("otel.instrumentation.common.default-enabled", "false");
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
+#### Snippet
+```java
+  }
+
+  private static void enableInstrumentations(Configuration config, Map<String, String> properties) {
+    properties.put("otel.instrumentation.common.default-enabled", "false");
+
+```
+
+### BoundedWildcard
 Can generalize to `? super REQUEST`
 in `agent/agent-bootstrap/src/main/java/io/opentelemetry/instrumentation/api/instrumenter/InstrumenterBuilder.java`
 #### Snippet
@@ -925,54 +973,6 @@ in `agent/agent-bootstrap/src/main/java/io/opentelemetry/instrumentation/api/ins
       SpanLinksExtractor<REQUEST> spanLinksExtractor) {
     spanLinksExtractors.add(requireNonNull(spanLinksExtractor, "spanLinksExtractor"));
     return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
-#### Snippet
-```java
-  }
-
-  private static void enableInstrumentations(Configuration config, Map<String, String> properties) {
-    properties.put("otel.instrumentation.common.default-enabled", "false");
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
-#### Snippet
-```java
-  }
-
-  private static void enableInstrumentations(Configuration config, Map<String, String> properties) {
-    properties.put("otel.instrumentation.common.default-enabled", "false");
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
-#### Snippet
-```java
-
-  private static void setHttpHeaderConfiguration(
-      Map<String, String> properties, String propertyName, List<String> headers) {
-    if (!headers.isEmpty()) {
-      properties.put(propertyName, join(headers, ','));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/AiConfigCustomizer.java`
-#### Snippet
-```java
-
-  private static void setHttpHeaderConfiguration(
-      Map<String, String> properties, String propertyName, List<String> headers) {
-    if (!headers.isEmpty()) {
-      properties.put(propertyName, join(headers, ','));
 ```
 
 ### BoundedWildcard
@@ -1024,18 +1024,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MetricFilter`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/MetricFilter.java`
-#### Snippet
-```java
-  }
-
-  public static boolean shouldSkip(String metricName, List<MetricFilter> metricFilters) {
-    for (MetricFilter metricFilter : metricFilters) {
-      if (metricFilter.exclude(metricName)) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ParseConfigValue`
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
 #### Snippet
@@ -1045,6 +1033,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
       T builder, String[] tokens, Map<String, ParseConfigValue<T>> parsers) {
     for (int index = 0; index < tokens.length; index++) {
       if (tokens[index] != null && !tokens[index].isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends BlockBlobItem`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/upload/UploadService.java`
+#### Snippet
+```java
+  /** Report the success of an upload or throw an exception. */
+  protected Mono<UploadFinishArgs> reportUploadComplete(
+      UploadContext uploadContext, Response<BlockBlobItem> response) {
+    int statusCode = response.getStatusCode();
+    // Success 2xx
 ```
 
 ### BoundedWildcard
@@ -1060,15 +1060,15 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BlockBlobItem`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/upload/UploadService.java`
+Can generalize to `? extends MetricFilter`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/MetricFilter.java`
 #### Snippet
 ```java
-  /** Report the success of an upload or throw an exception. */
-  protected Mono<UploadFinishArgs> reportUploadComplete(
-      UploadContext uploadContext, Response<BlockBlobItem> response) {
-    int statusCode = response.getStatusCode();
-    // Success 2xx
+  }
+
+  public static boolean shouldSkip(String metricName, List<MetricFilter> metricFilters) {
+    for (MetricFilter metricFilter : metricFilters) {
+      if (metricFilter.exclude(metricName)) {
 ```
 
 ### BoundedWildcard
@@ -1093,6 +1093,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
       List<ExceptionDetailBuilder> exceptions,
       int stackSize) {
     if (exception == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AttributeKey`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/ProcessorUtil.java`
+#### Snippet
+```java
+
+  public static boolean spanHasAllFromAttributeKeys(
+      SpanData span, List<AttributeKey<?>> fromAttributes) {
+    if (fromAttributes.isEmpty()) {
+      return false;
 ```
 
 ### BoundedWildcard
@@ -1132,18 +1144,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AttributeKey`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/ProcessorUtil.java`
-#### Snippet
-```java
-
-  public static boolean spanHasAllFromAttributeKeys(
-      SpanData span, List<AttributeKey<?>> fromAttributes) {
-    if (fromAttributes.isEmpty()) {
-      return false;
-```
-
-### BoundedWildcard
 Can generalize to `? extends ProcessorAction`
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
 #### Snippet
@@ -1165,30 +1165,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
       List<List<String>> groupNames,
       String separator) {
     super(include, exclude);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/agent-bootstrap/src/main/java/com/microsoft/applicationinsights/agent/bootstrap/BytecodeUtil.java`
-#### Snippet
-```java
-  public static void copy(
-      @Nullable Map<String, String> source,
-      Map<String, String> target,
-      @Nullable String excludePrefix) {
-    if (source == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/agent-bootstrap/src/main/java/com/microsoft/applicationinsights/agent/bootstrap/BytecodeUtil.java`
-#### Snippet
-```java
-  public static void copy(
-      @Nullable Map<String, String> source,
-      Map<String, String> target,
-      @Nullable String excludePrefix) {
-    if (source == null) {
 ```
 
 ### BoundedWildcard
@@ -1228,42 +1204,6 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TelemetryItem`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/MetricDataMapper.java`
-#### Snippet
-```java
-  }
-
-  public void map(MetricData metricData, Consumer<TelemetryItem> consumer) {
-    if (EXCLUDED_METRIC_NAMES.contains(metricData.getName())) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? super AbstractTelemetryBuilder`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/MetricDataMapper.java`
-#### Snippet
-```java
-
-  public MetricDataMapper(
-      BiConsumer<AbstractTelemetryBuilder, Resource> telemetryInitializer,
-      boolean captureHttpServer4xxAsError) {
-    this.telemetryInitializer = telemetryInitializer;
-```
-
-### BoundedWildcard
-Can generalize to `? super Resource`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/MetricDataMapper.java`
-#### Snippet
-```java
-
-  public MetricDataMapper(
-      BiConsumer<AbstractTelemetryBuilder, Resource> telemetryInitializer,
-      boolean captureHttpServer4xxAsError) {
-    this.telemetryInitializer = telemetryInitializer;
-```
-
-### BoundedWildcard
 Can generalize to `? extends JmxMetric`
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/ConfigurationBuilder.java`
 #### Snippet
@@ -1276,6 +1216,30 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `agent/agent-bootstrap/src/main/java/com/microsoft/applicationinsights/agent/bootstrap/BytecodeUtil.java`
+#### Snippet
+```java
+  public static void copy(
+      @Nullable Map<String, String> source,
+      Map<String, String> target,
+      @Nullable String excludePrefix) {
+    if (source == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `agent/agent-bootstrap/src/main/java/com/microsoft/applicationinsights/agent/bootstrap/BytecodeUtil.java`
+#### Snippet
+```java
+  public static void copy(
+      @Nullable Map<String, String> source,
+      Map<String, String> target,
+      @Nullable String excludePrefix) {
+    if (source == null) {
+```
+
+### BoundedWildcard
 Can generalize to `? super AbstractTelemetryBuilder`
 in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/LogDataMapper.java`
 #### Snippet
@@ -1297,6 +1261,42 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
       BiConsumer<AbstractTelemetryBuilder, Resource> telemetryInitializer) {
 
     this.captureLoggingLevelAsCustomDimension = captureLoggingLevelAsCustomDimension;
+```
+
+### BoundedWildcard
+Can generalize to `? super AbstractTelemetryBuilder`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/MetricDataMapper.java`
+#### Snippet
+```java
+
+  public MetricDataMapper(
+      BiConsumer<AbstractTelemetryBuilder, Resource> telemetryInitializer,
+      boolean captureHttpServer4xxAsError) {
+    this.telemetryInitializer = telemetryInitializer;
+```
+
+### BoundedWildcard
+Can generalize to `? super Resource`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/MetricDataMapper.java`
+#### Snippet
+```java
+
+  public MetricDataMapper(
+      BiConsumer<AbstractTelemetryBuilder, Resource> telemetryInitializer,
+      boolean captureHttpServer4xxAsError) {
+    this.telemetryInitializer = telemetryInitializer;
+```
+
+### BoundedWildcard
+Can generalize to `? super TelemetryItem`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/MetricDataMapper.java`
+#### Snippet
+```java
+  }
+
+  public void map(MetricData metricData, Consumer<TelemetryItem> consumer) {
+    if (EXCLUDED_METRIC_NAMES.contains(metricData.getName())) {
+      return;
 ```
 
 ### BoundedWildcard
@@ -1384,6 +1384,54 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HttpRequest`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/quickpulse/QuickPulseDataSender.java`
+#### Snippet
+```java
+  private final ArrayBlockingQueue<HttpRequest> sendQueue;
+
+  QuickPulseDataSender(HttpPipeline httpPipeline, ArrayBlockingQueue<HttpRequest> sendQueue) {
+    this.httpPipeline = httpPipeline;
+    this.sendQueue = sendQueue;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/heartbeat/WebAppsHeartbeatProvider.java`
+#### Snippet
+```java
+
+  /** Populates the default Fields with the properties. */
+  private static void initializeDefaultFields(Set<String> defaultFields) {
+    defaultFields.add(WEBSITE_SITE_NAME);
+    defaultFields.add(WEBSITE_HOSTNAME);
+```
+
+### BoundedWildcard
+Can generalize to `? extends LinkData`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/SpanDataMapper.java`
+#### Snippet
+```java
+  }
+
+  private static void addLinks(AbstractTelemetryBuilder telemetryBuilder, List<LinkData> links) {
+    if (links.isEmpty()) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? super TelemetryItem`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/SpanDataMapper.java`
+#### Snippet
+```java
+      @Nullable String operationName,
+      long itemCount,
+      Consumer<TelemetryItem> consumer) {
+    for (EventData event : span.getEvents()) {
+      String instrumentationScopeName = span.getInstrumentationScopeInfo().getName();
+```
+
+### BoundedWildcard
 Can generalize to `? super AbstractTelemetryBuilder`
 in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/SpanDataMapper.java`
 #### Snippet
@@ -1429,54 +1477,6 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
       BiPredicate<EventData, String> eventSuppressor) {
     this.captureHttpServer4xxAsError = captureHttpServer4xxAsError;
     this.telemetryInitializer = telemetryInitializer;
-```
-
-### BoundedWildcard
-Can generalize to `? extends LinkData`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/SpanDataMapper.java`
-#### Snippet
-```java
-  }
-
-  private static void addLinks(AbstractTelemetryBuilder telemetryBuilder, List<LinkData> links) {
-    if (links.isEmpty()) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? super TelemetryItem`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/SpanDataMapper.java`
-#### Snippet
-```java
-      @Nullable String operationName,
-      long itemCount,
-      Consumer<TelemetryItem> consumer) {
-    for (EventData event : span.getEvents()) {
-      String instrumentationScopeName = span.getInstrumentationScopeInfo().getName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpRequest`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/quickpulse/QuickPulseDataSender.java`
-#### Snippet
-```java
-  private final ArrayBlockingQueue<HttpRequest> sendQueue;
-
-  QuickPulseDataSender(HttpPipeline httpPipeline, ArrayBlockingQueue<HttpRequest> sendQueue) {
-    this.httpPipeline = httpPipeline;
-    this.sendQueue = sendQueue;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/heartbeat/WebAppsHeartbeatProvider.java`
-#### Snippet
-```java
-
-  /** Populates the default Fields with the properties. */
-  private static void initializeDefaultFields(Set<String> defaultFields) {
-    defaultFields.add(WEBSITE_SITE_NAME);
-    defaultFields.add(WEBSITE_HOSTNAME);
 ```
 
 ### BoundedWildcard
@@ -1546,30 +1546,6 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/ut
 ```java
   }
 
-  public static void setBoolValueOrRemove(Map<String, String> map, String key, Boolean value) {
-    if (value == null) {
-      map.remove(key);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/util/MapUtil.java`
-#### Snippet
-```java
-  }
-
-  public static void setBoolValueOrRemove(Map<String, String> map, String key, Boolean value) {
-    if (value == null) {
-      map.remove(key);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/util/MapUtil.java`
-#### Snippet
-```java
-  }
-
   public static void setDateValueOrRemove(Map<String, String> map, String key, Date value) {
     if (value == null) {
       map.remove(key);
@@ -1583,6 +1559,30 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/ut
   }
 
   public static void setDateValueOrRemove(Map<String, String> map, String key, Date value) {
+    if (value == null) {
+      map.remove(key);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/util/MapUtil.java`
+#### Snippet
+```java
+  }
+
+  public static void setBoolValueOrRemove(Map<String, String> map, String key, Boolean value) {
+    if (value == null) {
+      map.remove(key);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/util/MapUtil.java`
+#### Snippet
+```java
+  }
+
+  public static void setBoolValueOrRemove(Map<String, String> map, String key, Boolean value) {
     if (value == null) {
       map.remove(key);
 ```
@@ -1720,6 +1720,18 @@ in `agent/agent-profiler/agent-alerting/src/main/java/com/microsoft/applicationi
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Envelope`
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServlet.java`
+#### Snippet
+```java
+
+  List<Envelope> waitForItems(
+      Predicate<Envelope> condition, int numItems, long timeout, TimeUnit timeUnit)
+      throws InterruptedException, TimeoutException {
+    Stopwatch stopwatch = Stopwatch.createStarted();
+```
+
+### BoundedWildcard
 Can generalize to `? super AlertBreach`
 in `agent/agent-profiler/agent-alerting/src/main/java/com/microsoft/applicationinsights/alerting/AlertingSubsystem.java`
 #### Snippet
@@ -1732,15 +1744,15 @@ in `agent/agent-profiler/agent-alerting/src/main/java/com/microsoft/applicationi
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Envelope`
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServlet.java`
+Can generalize to `? super RemoteDependencyData`
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
 #### Snippet
 ```java
+  }
 
-  List<Envelope> waitForItems(
-      Predicate<Envelope> condition, int numItems, long timeout, TimeUnit timeUnit)
-      throws InterruptedException, TimeoutException {
-    Stopwatch stopwatch = Stopwatch.createStarted();
+  protected Telemetry getTelemetry(int rddCount, Predicate<RemoteDependencyData> condition)
+      throws Exception {
+
 ```
 
 ### BoundedWildcard
@@ -1765,18 +1777,6 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
       String type, int numItems, @Nullable String operationId, Predicate<Envelope> condition)
       throws InterruptedException, ExecutionException, TimeoutException {
     List<Envelope> items =
-```
-
-### BoundedWildcard
-Can generalize to `? super RemoteDependencyData`
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-  }
-
-  protected Telemetry getTelemetry(int rddCount, Predicate<RemoteDependencyData> condition)
-      throws Exception {
-
 ```
 
 ### BoundedWildcard
@@ -1810,7 +1810,7 @@ in `smoke-tests/apps/ConnectionStringOverrides/src/smokeTest/java/com/microsoft/
 ```java
   }
 
-  private static void verifyHttpServerPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
+  private static void verifyHttpClientPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
     assertThat(metrics.size()).isEqualTo(1);
 
 ```
@@ -1822,7 +1822,7 @@ in `smoke-tests/apps/ConnectionStringOverrides/src/smokeTest/java/com/microsoft/
 ```java
   }
 
-  private static void verifyHttpClientPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
+  private static void verifyHttpServerPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
     assertThat(metrics.size()).isEqualTo(1);
 
 ```
@@ -1858,7 +1858,7 @@ in `smoke-tests/apps/gRPC/src/smokeTest/java/com/microsoft/applicationinsights/s
 ```java
   }
 
-  private static void verifyRpcServerDurationPreAggregatedMetrics(List<Envelope> metrics) {
+  private static void verifyRpcClientDurationPreAggregatedMetrics(List<Envelope> metrics) {
     assertThat(metrics.size()).isEqualTo(1);
 
 ```
@@ -1882,7 +1882,7 @@ in `smoke-tests/apps/gRPC/src/smokeTest/java/com/microsoft/applicationinsights/s
 ```java
   }
 
-  private static void verifyRpcClientDurationPreAggregatedMetrics(List<Envelope> metrics) {
+  private static void verifyRpcServerDurationPreAggregatedMetrics(List<Envelope> metrics) {
     assertThat(metrics.size()).isEqualTo(1);
 
 ```
@@ -1930,7 +1930,7 @@ in `smoke-tests/apps/InstrumentationKeyOverrides/src/smokeTest/java/com/microsof
 ```java
   }
 
-  private static void verifyHttpClientPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
+  private static void verifyHttpServerPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
     assertThat(metrics.size()).isEqualTo(1);
 
 ```
@@ -1942,37 +1942,13 @@ in `smoke-tests/apps/InstrumentationKeyOverrides/src/smokeTest/java/com/microsof
 ```java
   }
 
-  private static void verifyHttpServerPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
+  private static void verifyHttpClientPreAggregatedMetrics(List<Envelope> metrics, String iKey) {
     assertThat(metrics.size()).isEqualTo(1);
 
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Envelope`
-in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsControllerSpansEnabledTest.java`
-#### Snippet
-```java
-  }
-
-  private static Envelope getRequestEnvelope(List<Envelope> envelopes, String name) {
-    for (Envelope envelope : envelopes) {
-      RequestData rd = (RequestData) ((Data<?>) envelope.getData()).getBaseData();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Envelope`
-in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsControllerSpansEnabledTest.java`
-#### Snippet
-```java
-  }
-
-  private static Envelope getDependencyEnvelope(List<Envelope> envelopes, String name) {
-    for (Envelope envelope : envelopes) {
-      RemoteDependencyData rdd =
-```
-
-### BoundedWildcard
-Can generalize to `? extends Envelope`
 in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsTest.java`
 #### Snippet
 ```java
@@ -1993,6 +1969,30 @@ in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/sm
   private static Envelope getDependencyEnvelope(List<Envelope> envelopes, String name) {
     for (Envelope envelope : envelopes) {
       RemoteDependencyData rdd =
+```
+
+### BoundedWildcard
+Can generalize to `? extends Envelope`
+in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsControllerSpansEnabledTest.java`
+#### Snippet
+```java
+  }
+
+  private static Envelope getDependencyEnvelope(List<Envelope> envelopes, String name) {
+    for (Envelope envelope : envelopes) {
+      RemoteDependencyData rdd =
+```
+
+### BoundedWildcard
+Can generalize to `? extends Envelope`
+in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsControllerSpansEnabledTest.java`
+#### Snippet
+```java
+  }
+
+  private static Envelope getRequestEnvelope(List<Envelope> envelopes, String name) {
+    for (Envelope envelope : envelopes) {
+      RequestData rd = (RequestData) ((Data<?>) envelope.getData()).getBaseData();
 ```
 
 ### BoundedWildcard
@@ -2097,7 +2097,7 @@ in `smoke-tests/apps/RoleNameOverrides/src/smokeTest/java/com/microsoft/applicat
 #### Snippet
 ```java
 
-  private static void verifyHttpServerPreAggregatedMetrics(
+  private static void verifyHttpClientPreAggregatedMetrics(
       List<Envelope> metrics, String roleName) {
     assertThat(metrics.size()).isEqualTo(1);
 
@@ -2109,22 +2109,10 @@ in `smoke-tests/apps/RoleNameOverrides/src/smokeTest/java/com/microsoft/applicat
 #### Snippet
 ```java
 
-  private static void verifyHttpClientPreAggregatedMetrics(
+  private static void verifyHttpServerPreAggregatedMetrics(
       List<Envelope> metrics, String roleName) {
     assertThat(metrics.size()).isEqualTo(1);
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends Envelope`
-in `smoke-tests/apps/PreAggMetricsWithRoleNameOverridesAndSampling/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/PreAggMetricsWithRoleNameOverridesAndSamplingTest.java`
-#### Snippet
-```java
-
-  private static void verifyPreAggMetrics(
-      List<Envelope> metrics, String roleName, boolean isClient) {
-    for (Envelope envelope : metrics) {
-      validateTags(envelope, roleName);
 ```
 
 ### BoundedWildcard
@@ -2137,6 +2125,18 @@ in `smoke-tests/apps/PreAggMetricsWithRoleNameOverridesAndSampling/src/smokeTest
       List<Envelope> requestEnvelopes, String roleName) throws Exception {
     List<Envelope> messageEnvelopes =
         testing.mockedIngestion.getItemsEnvelopeDataType("MessageData");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Envelope`
+in `smoke-tests/apps/PreAggMetricsWithRoleNameOverridesAndSampling/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/PreAggMetricsWithRoleNameOverridesAndSamplingTest.java`
+#### Snippet
+```java
+
+  private static void verifyPreAggMetrics(
+      List<Envelope> metrics, String roleName, boolean isClient) {
+    for (Envelope envelope : metrics) {
+      validateTags(envelope, roleName);
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -2166,6 +2166,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
+#### Snippet
+```java
+  private static String agentVersion = "(unknown)";
+
+  @Nullable private static volatile Logger startupLogger;
+
+  public static RpConfiguration getRpConfiguration() {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `agent/agent-bootstrap/src/main/java/io/opentelemetry/instrumentation/api/instrumenter/InstrumenterBuilder.java`
 #### Snippet
 ```java
@@ -2190,30 +2202,6 @@ in `agent/agent-bootstrap/src/main/java/io/opentelemetry/instrumentation/api/ins
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
-#### Snippet
-```java
-  private static String agentVersion = "(unknown)";
-
-  @Nullable private static volatile Logger startupLogger;
-
-  public static RpConfiguration getRpConfiguration() {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
-#### Snippet
-```java
-
-  private final Object activeRecordingLock = new Object();
-  @Nullable private Recording activeRecording = null;
-  @Nullable private File activeRecordingFile = null;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
 #### Snippet
 ```java
@@ -2226,26 +2214,14 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/SecondEntryPoint.java`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
 #### Snippet
 ```java
 
-  @Nullable private static BatchLogRecordProcessor batchLogProcessor;
-  @Nullable private static BatchSpanProcessor batchSpanProcessor;
-  @Nullable private static MetricReader metricReader;
+  private final Object activeRecordingLock = new Object();
+  @Nullable private Recording activeRecording = null;
+  @Nullable private File activeRecordingFile = null;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/SecondEntryPoint.java`
-#### Snippet
-```java
-  @Nullable public static AgentLogExporter agentLogExporter;
-
-  @Nullable private static BatchLogRecordProcessor batchLogProcessor;
-  @Nullable private static BatchSpanProcessor batchSpanProcessor;
-  @Nullable private static MetricReader metricReader;
 ```
 
 ### NullableProblems
@@ -2265,23 +2241,35 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/SecondEntryPoint.java`
 #### Snippet
 ```java
+  @Nullable public static AgentLogExporter agentLogExporter;
+
+  @Nullable private static BatchLogRecordProcessor batchLogProcessor;
+  @Nullable private static BatchSpanProcessor batchSpanProcessor;
+  @Nullable private static MetricReader metricReader;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/SecondEntryPoint.java`
+#### Snippet
+```java
+
+  @Nullable private static BatchLogRecordProcessor batchLogProcessor;
+  @Nullable private static BatchSpanProcessor batchSpanProcessor;
+  @Nullable private static MetricReader metricReader;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/SecondEntryPoint.java`
+#### Snippet
+```java
   @Nullable private static BatchLogRecordProcessor batchLogProcessor;
   @Nullable private static BatchSpanProcessor batchSpanProcessor;
   @Nullable private static MetricReader metricReader;
 
   @Override
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/sampling/SamplingOverrides.java`
-#### Snippet
-```java
-    private final Attributes attributes;
-    private boolean initialized;
-    @Nullable private String value;
-
-    private LazyHttpUrl(Attributes attributes) {
 ```
 
 ### NullableProblems
@@ -2298,86 +2286,14 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/sampling/SamplingOverrides.java`
 #### Snippet
 ```java
-  private final Object batchItemProcessorInitLock = new Object();
-  @Nullable private volatile BatchItemProcessor generalBatchItemProcessor;
-  @Nullable private volatile BatchItemProcessor metricsBatchItemProcessor;
-  @Nullable private volatile BatchItemProcessor statsbeatBatchItemProcessor;
+    private final Attributes attributes;
+    private boolean initialized;
+    @Nullable private String value;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-  private final List<MetricFilter> metricFilters;
-
-  @Nullable private volatile QuickPulse quickPulse;
-
-  private final StatsbeatModule statsbeatModule;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-  @Nullable private static volatile TelemetryClient active;
-
-  @Nullable private volatile ConnectionString connectionString;
-  @Nullable private volatile StatsbeatConnectionString statsbeatConnectionString;
-  @Nullable private volatile String roleName;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-    @Nullable private StatsbeatConnectionString statsbeatConnectionString;
-    @Nullable private String roleName;
-    @Nullable private String roleInstance;
-    private int diskPersistenceMaxSizeMb;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-    @Nullable private Configuration.AadAuthentication aadAuthentication;
-    @Nullable private ConnectionString connectionString;
-    @Nullable private StatsbeatConnectionString statsbeatConnectionString;
-    @Nullable private String roleName;
-    @Nullable private String roleInstance;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-  private static final String STATSBEAT_FOLDER_NAME = "statsbeat";
-
-  @Nullable private static volatile TelemetryClient active;
-
-  @Nullable private volatile ConnectionString connectionString;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-
-  private final StatsbeatModule statsbeatModule;
-  @Nullable private final File tempDir;
-  private final int generalExportQueueCapacity;
-  private final int metricsExportQueueCapacity;
+    private LazyHttpUrl(Attributes attributes) {
 ```
 
 ### NullableProblems
@@ -2397,23 +2313,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
 #### Snippet
 ```java
-  @Nullable private volatile ConnectionString connectionString;
   @Nullable private volatile StatsbeatConnectionString statsbeatConnectionString;
   @Nullable private volatile String roleName;
   @Nullable private volatile String roleInstance;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-    private int metricsExportQueueCapacity;
-    @Nullable private Configuration.AadAuthentication aadAuthentication;
-    @Nullable private ConnectionString connectionString;
-    @Nullable private StatsbeatConnectionString statsbeatConnectionString;
-    @Nullable private String roleName;
+  // globalTags contain:
 ```
 
 ### NullableProblems
@@ -2422,10 +2326,34 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 #### Snippet
 ```java
 
+  private final Object batchItemProcessorInitLock = new Object();
+  @Nullable private volatile BatchItemProcessor generalBatchItemProcessor;
+  @Nullable private volatile BatchItemProcessor metricsBatchItemProcessor;
+  @Nullable private volatile BatchItemProcessor statsbeatBatchItemProcessor;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+  private final List<MetricFilter> metricFilters;
+
+  @Nullable private volatile QuickPulse quickPulse;
+
+  private final StatsbeatModule statsbeatModule;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
   @Nullable private volatile ConnectionString connectionString;
   @Nullable private volatile StatsbeatConnectionString statsbeatConnectionString;
   @Nullable private volatile String roleName;
   @Nullable private volatile String roleInstance;
+
 ```
 
 ### NullableProblems
@@ -2445,35 +2373,35 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
 #### Snippet
 ```java
-
-  private final Object batchItemProcessorInitLock = new Object();
-  @Nullable private volatile BatchItemProcessor generalBatchItemProcessor;
-  @Nullable private volatile BatchItemProcessor metricsBatchItemProcessor;
-  @Nullable private volatile BatchItemProcessor statsbeatBatchItemProcessor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-  @Nullable private volatile BatchItemProcessor generalBatchItemProcessor;
-  @Nullable private volatile BatchItemProcessor metricsBatchItemProcessor;
-  @Nullable private volatile BatchItemProcessor statsbeatBatchItemProcessor;
-
-  public static TelemetryClient.Builder builder() {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-    @Nullable private ConnectionString connectionString;
     @Nullable private StatsbeatConnectionString statsbeatConnectionString;
     @Nullable private String roleName;
     @Nullable private String roleInstance;
     private int diskPersistenceMaxSizeMb;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+  @Nullable private static volatile TelemetryClient active;
+
+  @Nullable private volatile ConnectionString connectionString;
+  @Nullable private volatile StatsbeatConnectionString statsbeatConnectionString;
+  @Nullable private volatile String roleName;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+    @Nullable private Configuration.AadAuthentication aadAuthentication;
+    @Nullable private ConnectionString connectionString;
+    @Nullable private StatsbeatConnectionString statsbeatConnectionString;
+    @Nullable private String roleName;
+    @Nullable private String roleInstance;
 ```
 
 ### NullableProblems
@@ -2493,11 +2421,83 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
 #### Snippet
 ```java
+
+  @Nullable private volatile ConnectionString connectionString;
   @Nullable private volatile StatsbeatConnectionString statsbeatConnectionString;
   @Nullable private volatile String roleName;
   @Nullable private volatile String roleInstance;
+```
 
-  // globalTags contain:
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+    @Nullable private ConnectionString connectionString;
+    @Nullable private StatsbeatConnectionString statsbeatConnectionString;
+    @Nullable private String roleName;
+    @Nullable private String roleInstance;
+    private int diskPersistenceMaxSizeMb;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+  private static final String STATSBEAT_FOLDER_NAME = "statsbeat";
+
+  @Nullable private static volatile TelemetryClient active;
+
+  @Nullable private volatile ConnectionString connectionString;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+    private int metricsExportQueueCapacity;
+    @Nullable private Configuration.AadAuthentication aadAuthentication;
+    @Nullable private ConnectionString connectionString;
+    @Nullable private StatsbeatConnectionString statsbeatConnectionString;
+    @Nullable private String roleName;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+  @Nullable private volatile BatchItemProcessor generalBatchItemProcessor;
+  @Nullable private volatile BatchItemProcessor metricsBatchItemProcessor;
+  @Nullable private volatile BatchItemProcessor statsbeatBatchItemProcessor;
+
+  public static TelemetryClient.Builder builder() {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+  private final Object batchItemProcessorInitLock = new Object();
+  @Nullable private volatile BatchItemProcessor generalBatchItemProcessor;
+  @Nullable private volatile BatchItemProcessor metricsBatchItemProcessor;
+  @Nullable private volatile BatchItemProcessor statsbeatBatchItemProcessor;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
+#### Snippet
+```java
+
+  private final StatsbeatModule statsbeatModule;
+  @Nullable private final File tempDir;
+  private final int generalExportQueueCapacity;
+  private final int metricsExportQueueCapacity;
 ```
 
 ### NullableProblems
@@ -2553,107 +2553,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-    @Nullable public final AttributeKey<String> fromAttribute;
-    @Nullable public final ExtractAttribute extractAttribute;
-    @Nullable public final MaskAttribute maskAttribute;
-
-    @JsonCreator
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-    // this config option existed in one GA release (3.4.0), and was then replaced by telemetryType
-    @Deprecated @Nullable public SamplingTelemetryType telemetryKind;
-
-    // this config option only existed in one BETA release (3.4.0-BETA)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-    // this config option only existed in one BETA release (3.4.0-BETA)
-    @Deprecated @Nullable public Boolean includingStandaloneTelemetry;
-
-    // not using include/exclude, because you can still get exclude with this by adding a second
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-  public static class SamplingOverride {
-    @Deprecated @Nullable public SpanKind spanKind;
-
-    // TODO (trask) make this required when moving out of preview
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-    // fixed percentage of requests
-    @Nullable public Double percentage;
-
-    // default is 5 requests per second (set in ConfigurationBuilder if neither percentage nor
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-  public static class ProcessorAction {
-    @Nullable public final AttributeKey<String> key;
-    public final ProcessorActionType action;
-    public final String value;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    // default is 5 requests per second (set in ConfigurationBuilder if neither percentage nor
-    // requestsPerSecond was configured)
-    @Nullable public Double requestsPerSecond;
-
-    // this config option only existed in one BETA release (3.4.0-BETA)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    public final ProcessorActionType action;
     public final String value;
     @Nullable public final AttributeKey<String> fromAttribute;
     @Nullable public final ExtractAttribute extractAttribute;
     @Nullable public final MaskAttribute maskAttribute;
-```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    public String cpuTriggeredSettings = "profile-without-env-data";
-    public String manualTriggeredSettings = "profile-without-env-data";
-    @Nullable public String serviceProfilerFrontEndPoint = null;
-    public boolean enableDiagnostics = false;
-    public boolean enableRequestTriggering = false;
 ```
 
 ### NullableProblems
@@ -2675,9 +2579,9 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```java
 
     // this config option only existed in one BETA release (3.4.0-BETA)
-    @Deprecated @Nullable public Double limitPerSecond;
-  }
+    @Deprecated @Nullable public Boolean includingStandaloneTelemetry;
 
+    // not using include/exclude, because you can still get exclude with this by adding a second
 ```
 
 ### NullableProblems
@@ -2685,11 +2589,23 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-    public final String value;
-    @Nullable public final AttributeKey<String> fromAttribute;
-    @Nullable public final ExtractAttribute extractAttribute;
-    @Nullable public final MaskAttribute maskAttribute;
+    public String cpuTriggeredSettings = "profile-without-env-data";
+    public String manualTriggeredSettings = "profile-without-env-data";
+    @Nullable public String serviceProfilerFrontEndPoint = null;
+    public boolean enableDiagnostics = false;
+    public boolean enableRequestTriggering = false;
+```
 
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+    // this config option existed in one GA release (3.4.0), and was then replaced by telemetryType
+    @Deprecated @Nullable public SamplingTelemetryType telemetryKind;
+
+    // this config option only existed in one BETA release (3.4.0-BETA)
 ```
 
 ### NullableProblems
@@ -2702,6 +2618,90 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
     @Nullable public SamplingTelemetryType telemetryType;
 
     // this config option existed in one GA release (3.4.0), and was then replaced by telemetryType
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+    @Nullable public final AttributeKey<String> fromAttribute;
+    @Nullable public final ExtractAttribute extractAttribute;
+    @Nullable public final MaskAttribute maskAttribute;
+
+    @JsonCreator
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+  public static class SamplingOverride {
+    @Deprecated @Nullable public SpanKind spanKind;
+
+    // TODO (trask) make this required when moving out of preview
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+    // this config option only existed in one BETA release (3.4.0-BETA)
+    @Deprecated @Nullable public Double limitPerSecond;
+  }
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+    // default is 5 requests per second (set in ConfigurationBuilder if neither percentage nor
+    // requestsPerSecond was configured)
+    @Nullable public Double requestsPerSecond;
+
+    // this config option only existed in one BETA release (3.4.0-BETA)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+  public static class ProcessorAction {
+    @Nullable public final AttributeKey<String> key;
+    public final ProcessorActionType action;
+    public final String value;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+    public final ProcessorActionType action;
+    public final String value;
+    @Nullable public final AttributeKey<String> fromAttribute;
+    @Nullable public final ExtractAttribute extractAttribute;
+    @Nullable public final MaskAttribute maskAttribute;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+    // fixed percentage of requests
+    @Nullable public Double percentage;
+
+    // default is 5 requests per second (set in ConfigurationBuilder if neither percentage nor
 ```
 
 ### NullableProblems
@@ -2757,11 +2757,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/schemav2/DataPoint.java`
 #### Snippet
 ```java
+  private DataPointType kind = DataPointType.Measurement;
   private double value;
   @Nullable private Integer count;
   @Nullable private Double min;
   @Nullable private Double max;
-  @Nullable private Double stdDev;
 ```
 
 ### NullableProblems
@@ -2793,11 +2793,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/internal/schemav2/DataPoint.java`
 #### Snippet
 ```java
-  private DataPointType kind = DataPointType.Measurement;
   private double value;
   @Nullable private Integer count;
   @Nullable private Double min;
   @Nullable private Double max;
+  @Nullable private Double stdDev;
 ```
 
 ### NullableProblems
@@ -2854,11 +2854,11 @@ Result of `File.mkdirs()` is ignored
 in `etw/java/src/main/java/com/microsoft/applicationinsights/agent/bootstrap/diagnostics/etw/DllFileUtils.java`
 #### Snippet
 ```java
-
-    if (!dllPath.exists()) {
-      dllPath.mkdirs();
+    if (!result.isDirectory()) {
+      // Noinspection ResultOfMethodCallIgnored
+      result.mkdirs();
     }
-
+    return result;
 ```
 
 ### IgnoreResultOfCall
@@ -2866,11 +2866,11 @@ Result of `File.mkdirs()` is ignored
 in `etw/java/src/main/java/com/microsoft/applicationinsights/agent/bootstrap/diagnostics/etw/DllFileUtils.java`
 #### Snippet
 ```java
-    if (!result.isDirectory()) {
-      // Noinspection ResultOfMethodCallIgnored
-      result.mkdirs();
+
+    if (!dllPath.exists()) {
+      dllPath.mkdirs();
     }
-    return result;
+
 ```
 
 ### IgnoreResultOfCall
@@ -3012,18 +3012,6 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/Mappings.java`
-#### Snippet
-```java
-  void map(Attributes attributes, AbstractTelemetryBuilder telemetryBuilder) {
-    attributes.forEach(
-        (attributeKey, value) -> {
-          map(telemetryBuilder, attributeKey, value);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/LogDataMapper.java`
 #### Snippet
 ```java
@@ -3044,6 +3032,18 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
                 (telemetryBuilder, key, value) -> {
                   telemetryBuilder.addProperty(
                       key.substring(LOG4J_MAP_MESSAGE_PREFIX.length()), String.valueOf(value));
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/Mappings.java`
+#### Snippet
+```java
+  void map(Attributes attributes, AbstractTelemetryBuilder telemetryBuilder) {
+    attributes.forEach(
+        (attributeKey, value) -> {
+          map(telemetryBuilder, attributeKey, value);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -3145,6 +3145,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `activeRecordingFile` is accessed in both synchronized and unsynchronized contexts
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
+#### Snippet
+```java
+  private final Object activeRecordingLock = new Object();
+  @Nullable private Recording activeRecording = null;
+  @Nullable private File activeRecordingFile = null;
+
+  private final RecordingConfiguration memoryRecordingConfiguration;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `activeRecording` is accessed in both synchronized and unsynchronized contexts
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
 #### Snippet
@@ -3166,18 +3178,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
   private RecordingOptions.Builder recordingOptionsBuilder;
 
   private final AlertConfiguration periodicConfig;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `activeRecordingFile` is accessed in both synchronized and unsynchronized contexts
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
-#### Snippet
-```java
-  private final Object activeRecordingLock = new Object();
-  @Nullable private Recording activeRecording = null;
-  @Nullable private File activeRecordingFile = null;
-
-  private final RecordingConfiguration memoryRecordingConfiguration;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3271,18 +3271,6 @@ Field initialization to `null` is redundant
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
 #### Snippet
 ```java
-
-  private final Object activeRecordingLock = new Object();
-  @Nullable private Recording activeRecording = null;
-  @Nullable private File activeRecordingFile = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
-#### Snippet
-```java
   private final Object activeRecordingLock = new Object();
   @Nullable private Recording activeRecording = null;
   @Nullable private File activeRecordingFile = null;
@@ -3291,15 +3279,15 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/perfcounter/GcPerformanceCounter.java`
+Field initialization to `null` is redundant
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
 #### Snippet
 ```java
 
-  private long currentTotalCount = 0;
-  private long currentTotalTime = 0;
+  private final Object activeRecordingLock = new Object();
+  @Nullable private Recording activeRecording = null;
+  @Nullable private File activeRecordingFile = null;
 
-  @Override
 ```
 
 ### RedundantFieldInitialization
@@ -3312,6 +3300,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
   private long currentTotalCount = 0;
   private long currentTotalTime = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/perfcounter/GcPerformanceCounter.java`
+#### Snippet
+```java
+
+  private long currentTotalCount = 0;
+  private long currentTotalTime = 0;
+
+  @Override
 ```
 
 ### RedundantFieldInitialization
@@ -3355,23 +3355,11 @@ Field initialization to `false` is redundant
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-    public int periodicRecordingDurationSeconds = 120;
-    public int periodicRecordingIntervalSeconds = 60 * 60;
-    public boolean enabled = false;
-    public String memoryTriggeredSettings = "profile-without-env-data";
-    public String cpuTriggeredSettings = "profile-without-env-data";
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    @Nullable public String serviceProfilerFrontEndPoint = null;
-    public boolean enableDiagnostics = false;
-    public boolean enableRequestTriggering = false;
-    public RequestTrigger[] requestTriggerEndpoints = {};
+    // disabled is used by customer to turn off non-essential Statsbeat, e.g. disk persistence
+    // operation status, optional network statsbeat, other endpoints except Breeze, etc.
+    public boolean disabled = false;
   }
+
 ```
 
 ### RedundantFieldInitialization
@@ -3384,6 +3372,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
     public boolean enableDiagnostics = false;
     public boolean enableRequestTriggering = false;
     public RequestTrigger[] requestTriggerEndpoints = {};
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+    @Nullable public String serviceProfilerFrontEndPoint = null;
+    public boolean enableDiagnostics = false;
+    public boolean enableRequestTriggering = false;
+    public RequestTrigger[] requestTriggerEndpoints = {};
+  }
 ```
 
 ### RedundantFieldInitialization
@@ -3403,11 +3403,11 @@ Field initialization to `false` is redundant
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-    // disabled is used by customer to turn off non-essential Statsbeat, e.g. disk persistence
-    // operation status, optional network statsbeat, other endpoints except Breeze, etc.
-    public boolean disabled = false;
-  }
-
+    public int periodicRecordingDurationSeconds = 120;
+    public int periodicRecordingIntervalSeconds = 60 * 60;
+    public boolean enabled = false;
+    public String memoryTriggeredSettings = "profile-without-env-data";
+    public String cpuTriggeredSettings = "profile-without-env-data";
 ```
 
 ### RedundantFieldInitialization
@@ -3523,11 +3523,11 @@ Field initialization to `0` is redundant
 in `agent/agent-profiler/agent-alerting/src/main/java/com/microsoft/applicationinsights/alerting/analysis/aggregations/BreachedRatio.java`
 #### Snippet
 ```java
+
   private static class BreachedCountBucket implements BucketData<Boolean> {
     int totalCount = 0;
     int breachedCount = 0;
 
-    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -3535,11 +3535,11 @@ Field initialization to `0` is redundant
 in `agent/agent-profiler/agent-alerting/src/main/java/com/microsoft/applicationinsights/alerting/analysis/aggregations/BreachedRatio.java`
 #### Snippet
 ```java
-
   private static class BreachedCountBucket implements BucketData<Boolean> {
     int totalCount = 0;
     int breachedCount = 0;
 
+    @Override
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -3646,6 +3646,18 @@ Double brace initialization
 in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
 #### Snippet
 ```java
+        };
+    Map<String, Double> metrics =
+        new HashMap<String, Double>() {
+          {
+            put("key", 1d);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+#### Snippet
+```java
 
     Map<String, String> properties =
         new HashMap<String, String>() {
@@ -3655,18 +3667,6 @@ in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsi
 
 ### DoubleBraceInitialization
 Double brace initialization
-in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
-#### Snippet
-```java
-        };
-    Map<String, Double> metrics =
-        new HashMap<String, Double>() {
-          {
-            put("key", 1d);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
 in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackExceptionServlet.java`
 #### Snippet
 ```java
@@ -3680,6 +3680,30 @@ in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsi
 ### DoubleBraceInitialization
 Double brace initialization
 in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackExceptionServlet.java`
+#### Snippet
+```java
+
+    Map<String, String> properties =
+        new HashMap<String, String>() {
+          {
+            put("key", "value");
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+#### Snippet
+```java
+        };
+    Map<String, Double> metrics =
+        new HashMap<String, Double>() {
+          {
+            put("key", 1d);
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
 #### Snippet
 ```java
 
@@ -3703,7 +3727,7 @@ in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsi
 
 ### DoubleBraceInitialization
 Double brace initialization
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackExceptionServlet.java`
 #### Snippet
 ```java
         };
@@ -3711,18 +3735,6 @@ in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsi
         new HashMap<String, Double>() {
           {
             put("key", 1d);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
-#### Snippet
-```java
-
-    Map<String, String> properties =
-        new HashMap<String, String>() {
-          {
-            put("key", "value");
 ```
 
 ### DoubleBraceInitialization
@@ -3735,18 +3747,6 @@ in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsi
         new HashMap<String, String>() {
           {
             put("key", "value");
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackExceptionServlet.java`
-#### Snippet
-```java
-        };
-    Map<String, Double> metrics =
-        new HashMap<String, Double>() {
-          {
-            put("key", 1d);
 ```
 
 ### DoubleBraceInitialization
@@ -3859,18 +3859,6 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UnusedAssignment
-The value `span.getSpanContext().getTraceFlags().asByte()` assigned to `traceflag` is never used
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
-#### Snippet
-```java
-          VirtualField.find(RequestTelemetryContext.class, Span.class).get(requestTelemetryContext);
-      if (span != null) {
-        traceflag = span.getSpanContext().getTraceFlags().asByte();
-      }
-    }
-```
-
-### UnusedAssignment
 The value `null` assigned to `tracestate` is never used
 in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
 #### Snippet
@@ -3895,13 +3883,13 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UnusedAssignment
-The value `span.getSpanContext().getTraceId()` assigned to `id` is never used
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/OperationContextInstrumentation.java`
+The value `span.getSpanContext().getTraceFlags().asByte()` assigned to `traceflag` is never used
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
 #### Snippet
 ```java
-      Span span = VirtualField.find(OperationContext.class, Span.class).get(operationContext);
+          VirtualField.find(RequestTelemetryContext.class, Span.class).get(requestTelemetryContext);
       if (span != null) {
-        id = span.getSpanContext().getTraceId();
+        traceflag = span.getSpanContext().getTraceFlags().asByte();
       }
     }
 ```
@@ -3919,17 +3907,15 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UnusedAssignment
-The value `AsyncOperationEndSupport.create(
-MethodSingletons.instrumenter(), Void.class, method.getReturnType())
-.asyncEnd(context, classAndMethod, returnValue, throwable)` assigned to `returnValue` is never used
-in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instrumentation/methods/ai/MethodInstrumentation.java`
+The value `span.getSpanContext().getTraceId()` assigned to `id` is never used
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/OperationContextInstrumentation.java`
 #### Snippet
 ```java
-      scope.close();
-
-      returnValue =
-          AsyncOperationEndSupport.create(
-                  MethodSingletons.instrumenter(), Void.class, method.getReturnType())
+      Span span = VirtualField.find(OperationContext.class, Span.class).get(operationContext);
+      if (span != null) {
+        id = span.getSpanContext().getTraceId();
+      }
+    }
 ```
 
 ### UnusedAssignment
@@ -3942,6 +3928,20 @@ in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instr
       scope = context.makeCurrent();
     }
 
+```
+
+### UnusedAssignment
+The value `AsyncOperationEndSupport.create(
+MethodSingletons.instrumenter(), Void.class, method.getReturnType())
+.asyncEnd(context, classAndMethod, returnValue, throwable)` assigned to `returnValue` is never used
+in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instrumentation/methods/ai/MethodInstrumentation.java`
+#### Snippet
+```java
+      scope.close();
+
+      returnValue =
+          AsyncOperationEndSupport.create(
+                  MethodSingletons.instrumenter(), Void.class, method.getReturnType())
 ```
 
 ### UnusedAssignment
@@ -4094,18 +4094,6 @@ in `agent/runtime-attach/src/main/java/com/microsoft/applicationinsights/attach/
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `SetIdAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/UserContextInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class SetIdAdvice {
-    @Advice.OnMethodEnter
-    public static void methodEnter(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `OtherMethodsAdvice` has only 'static' members, and lacks a 'private' constructor
 in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/UserContextInstrumentation.java`
 #### Snippet
@@ -4113,6 +4101,18 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
   public static class OtherMethodsAdvice {
+    @Advice.OnMethodEnter
+    public static void methodEnter(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SetIdAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/UserContextInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class SetIdAdvice {
     @Advice.OnMethodEnter
     public static void methodEnter(
 ```
@@ -4142,37 +4142,13 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GetRequestTelemetryContextAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/ThreadContextInstrumentation.java`
+Class `SetOperatingSystemVersionAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/DeviceContextInstrumentation.java`
 #### Snippet
 ```java
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetRequestTelemetryContextAdvice {
-    @Advice.OnMethodExit
-    public static void methodExit(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SetSourceAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class SetSourceAdvice {
-    @Advice.OnMethodEnter
-    public static void methodEnter(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GetIdAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetIdAdvice {
+  public static class SetOperatingSystemVersionAdvice {
     @Advice.OnMethodExit
     public static void methodExit(
 ```
@@ -4190,6 +4166,18 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `GetIdAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class GetIdAdvice {
+    @Advice.OnMethodExit
+    public static void methodExit(
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `OtherMethodsAdvice` has only 'static' members, and lacks a 'private' constructor
 in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryInstrumentation.java`
 #### Snippet
@@ -4197,6 +4185,18 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
   public static class OtherMethodsAdvice {
+    @Advice.OnMethodEnter
+    public static void methodEnter(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SetSourceAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class SetSourceAdvice {
     @Advice.OnMethodEnter
     public static void methodEnter(
 ```
@@ -4214,20 +4214,8 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SetOperatingSystemVersionAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/DeviceContextInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class SetOperatingSystemVersionAdvice {
-    @Advice.OnMethodExit
-    public static void methodExit(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `OtherMethodsAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/SessionContextInstrumentation.java`
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
 #### Snippet
 ```java
 
@@ -4238,13 +4226,25 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SetIdAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/SessionContextInstrumentation.java`
+Class `GetTracestateAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
 #### Snippet
 ```java
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class SetIdAdvice {
+  public static class GetTracestateAdvice {
+    @Advice.OnMethodExit
+    public static void methodExit(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetRequestTelemetryAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class GetRequestTelemetryAdvice {
     @Advice.OnMethodExit
     public static void methodExit(
 ```
@@ -4262,20 +4262,20 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GetTracestateAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
+Class `SetIdAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/SessionContextInstrumentation.java`
 #### Snippet
 ```java
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetTracestateAdvice {
+  public static class SetIdAdvice {
     @Advice.OnMethodExit
     public static void methodExit(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
 Class `OtherMethodsAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/SessionContextInstrumentation.java`
 #### Snippet
 ```java
 
@@ -4286,13 +4286,49 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GetRequestTelemetryAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
+Class `GetRequestTelemetryContextAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/ThreadContextInstrumentation.java`
 #### Snippet
 ```java
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetRequestTelemetryAdvice {
+  public static class GetRequestTelemetryContextAdvice {
+    @Advice.OnMethodExit
+    public static void methodExit(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OtherMethodsAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/BaseTelemetryInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class OtherMethodsAdvice {
+    @Advice.OnMethodEnter
+    public static void methodEnter(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetContextAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/BaseTelemetryInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class GetContextAdvice {
+    @Advice.OnMethodExit
+    public static void methodExit(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetPropertiesAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/BaseTelemetryInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class GetPropertiesAdvice {
     @Advice.OnMethodExit
     public static void methodExit(
 ```
@@ -4334,49 +4370,25 @@ in `agent/instrumentation/azure-functions/src/main/java/io/opentelemetry/javaage
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GetContextAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/BaseTelemetryInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetContextAdvice {
-    @Advice.OnMethodExit
-    public static void methodExit(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GetPropertiesAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/BaseTelemetryInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetPropertiesAdvice {
-    @Advice.OnMethodExit
-    public static void methodExit(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OtherMethodsAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/BaseTelemetryInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class OtherMethodsAdvice {
-    @Advice.OnMethodEnter
-    public static void methodEnter(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GetDeviceAdvice` has only 'static' members, and lacks a 'private' constructor
+Class `GetOperationAdvice` has only 'static' members, and lacks a 'private' constructor
 in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/TelemetryContextInstrumentation.java`
 #### Snippet
 ```java
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetDeviceAdvice {
+  public static class GetOperationAdvice {
+    @Advice.OnMethodExit
+    public static void methodExit(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetSessionAdvice` has only 'static' members, and lacks a 'private' constructor
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/TelemetryContextInstrumentation.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
+  public static class GetSessionAdvice {
     @Advice.OnMethodExit
     public static void methodExit(
 ```
@@ -4406,25 +4418,13 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GetOperationAdvice` has only 'static' members, and lacks a 'private' constructor
+Class `GetDeviceAdvice` has only 'static' members, and lacks a 'private' constructor
 in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/TelemetryContextInstrumentation.java`
 #### Snippet
 ```java
 
   @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetOperationAdvice {
-    @Advice.OnMethodExit
-    public static void methodExit(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GetSessionAdvice` has only 'static' members, and lacks a 'private' constructor
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/TelemetryContextInstrumentation.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({"unused", "PrivateConstructorForUtilityClass"})
-  public static class GetSessionAdvice {
+  public static class GetDeviceAdvice {
     @Advice.OnMethodExit
     public static void methodExit(
 ```
@@ -4647,66 +4647,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DataFlowIssue
-Method invocation `info` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
-#### Snippet
-```java
-  @Override
-  public void onStartupSuccess() {
-    startupLogger.info(
-        "Application Insights Java Agent {} started successfully (PID {}, JVM running for {} s)",
-        agentVersion,
-```
-
-### DataFlowIssue
-Method invocation `info` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
-#### Snippet
-```java
-    String javaVendor = System.getProperty("java.vendor");
-    String javaHome = System.getProperty("java.home");
-    startupLogger.info("Java version: {}, vendor: {}, home: {}", javaVersion, javaVendor, javaHome);
-
-    MDC.put(DiagnosticsHelper.MDC_PROP_OPERATION, "Startup");
-```
-
-### DataFlowIssue
-Method invocation `error` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
-#### Snippet
-```java
-    try (MDC.MDCCloseable ignored = STARTUP_FAILURE_ERROR.makeActive()) {
-      if (isFriendlyException) {
-        startupLogger.error(message);
-      } else {
-        startupLogger.error(message, t);
-```
-
-### DataFlowIssue
-Method invocation `error` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
-#### Snippet
-```java
-        startupLogger.error(message);
-      } else {
-        startupLogger.error(message, t);
-      }
-    }
-```
-
-### DataFlowIssue
-Method invocation `warn` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
-#### Snippet
-```java
-    String propValue = System.getProperty(tlsConnectionsToVirtualServersProp);
-    if ("false".equals(propValue)) {
-      startupLogger.warn(
-          "System property -Djsse.enableSNIExtension=false is detected. If you have connection issues with Application Insights, please remove this.");
-    }
-```
-
-### DataFlowIssue
 Method invocation `addTransformer` may produce `NullPointerException`
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
 #### Snippet
@@ -4875,6 +4815,66 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DataFlowIssue
+Method invocation `info` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
+#### Snippet
+```java
+  @Override
+  public void onStartupSuccess() {
+    startupLogger.info(
+        "Application Insights Java Agent {} started successfully (PID {}, JVM running for {} s)",
+        agentVersion,
+```
+
+### DataFlowIssue
+Method invocation `info` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
+#### Snippet
+```java
+    String javaVendor = System.getProperty("java.vendor");
+    String javaHome = System.getProperty("java.home");
+    startupLogger.info("Java version: {}, vendor: {}, home: {}", javaVersion, javaVendor, javaHome);
+
+    MDC.put(DiagnosticsHelper.MDC_PROP_OPERATION, "Startup");
+```
+
+### DataFlowIssue
+Method invocation `warn` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
+#### Snippet
+```java
+    String propValue = System.getProperty(tlsConnectionsToVirtualServersProp);
+    if ("false".equals(propValue)) {
+      startupLogger.warn(
+          "System property -Djsse.enableSNIExtension=false is detected. If you have connection issues with Application Insights, please remove this.");
+    }
+```
+
+### DataFlowIssue
+Method invocation `error` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
+#### Snippet
+```java
+    try (MDC.MDCCloseable ignored = STARTUP_FAILURE_ERROR.makeActive()) {
+      if (isFriendlyException) {
+        startupLogger.error(message);
+      } else {
+        startupLogger.error(message, t);
+```
+
+### DataFlowIssue
+Method invocation `error` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/init/FirstEntryPoint.java`
+#### Snippet
+```java
+        startupLogger.error(message);
+      } else {
+        startupLogger.error(message, t);
+      }
+    }
+```
+
+### DataFlowIssue
 Argument `activeRecording` might be null
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/Profiler.java`
 #### Snippet
@@ -4908,6 +4908,78 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
     return TelemetryClient.getActive().getConnectionString().getProfilerEndpoint();
   }
 
+```
+
+### DataFlowIssue
+Argument `arg` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+#### Snippet
+```java
+    parsers.put(
+        "cpu-threshold",
+        new ParseConfigValue<>(true, (config, arg) -> config.setThreshold(Float.parseFloat(arg))));
+    parsers.put(
+        "cpu-trigger-cooldown",
+```
+
+### DataFlowIssue
+Argument `arg` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+#### Snippet
+```java
+        "cpu-trigger-cooldown",
+        new ParseConfigValue<>(
+            true, (config, arg) -> config.setCooldownSeconds(Integer.parseInt(arg))));
+    parsers.put(
+        "cpu-trigger-profilingDuration",
+```
+
+### DataFlowIssue
+Argument `arg` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+#### Snippet
+```java
+        "cpu-trigger-profilingDuration",
+        new ParseConfigValue<>(
+            true, (config, arg) -> config.setProfileDurationSeconds(Integer.parseInt(arg))));
+    parsers.put(
+        "cpu-trigger-enabled",
+```
+
+### DataFlowIssue
+Argument `arg` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+#### Snippet
+```java
+    parsers.put(
+        "mode",
+        new ParseConfigValue<>(true, (config, arg) -> config.setMode(EngineMode.parse(arg))));
+    parsers.put(
+        "expiration",
+```
+
+### DataFlowIssue
+Argument `arg` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+#### Snippet
+```java
+        "expiration",
+        new ParseConfigValue<>(
+            true, (config, arg) -> config.setExpiration(parseBinaryDate(Long.parseLong(arg)))));
+    parsers.put(
+        "immediate-profiling-duration",
+```
+
+### DataFlowIssue
+Argument `arg` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+#### Snippet
+```java
+        new ParseConfigValue<>(
+            true,
+            (config, arg) -> config.setImmediateProfilingDurationSeconds(Integer.parseInt(arg))));
+    parsers.put(
+        "settings-moniker",
 ```
 
 ### DataFlowIssue
@@ -4971,75 +5043,15 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DataFlowIssue
-Argument `arg` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
+Method invocation `add` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
 #### Snippet
 ```java
-    parsers.put(
-        "mode",
-        new ParseConfigValue<>(true, (config, arg) -> config.setMode(EngineMode.parse(arg))));
-    parsers.put(
-        "expiration",
-```
 
-### DataFlowIssue
-Argument `arg` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
-#### Snippet
-```java
-        "expiration",
-        new ParseConfigValue<>(
-            true, (config, arg) -> config.setExpiration(parseBinaryDate(Long.parseLong(arg)))));
-    parsers.put(
-        "immediate-profiling-duration",
-```
+    if (quickPulse != null) {
+      quickPulse.add(telemetryItem);
+    }
 
-### DataFlowIssue
-Argument `arg` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
-#### Snippet
-```java
-        new ParseConfigValue<>(
-            true,
-            (config, arg) -> config.setImmediateProfilingDurationSeconds(Integer.parseInt(arg))));
-    parsers.put(
-        "settings-moniker",
-```
-
-### DataFlowIssue
-Argument `arg` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
-#### Snippet
-```java
-    parsers.put(
-        "cpu-threshold",
-        new ParseConfigValue<>(true, (config, arg) -> config.setThreshold(Float.parseFloat(arg))));
-    parsers.put(
-        "cpu-trigger-cooldown",
-```
-
-### DataFlowIssue
-Argument `arg` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
-#### Snippet
-```java
-        "cpu-trigger-cooldown",
-        new ParseConfigValue<>(
-            true, (config, arg) -> config.setCooldownSeconds(Integer.parseInt(arg))));
-    parsers.put(
-        "cpu-trigger-profilingDuration",
-```
-
-### DataFlowIssue
-Argument `arg` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/profiler/triggers/AlertConfigParser.java`
-#### Snippet
-```java
-        "cpu-trigger-profilingDuration",
-        new ParseConfigValue<>(
-            true, (config, arg) -> config.setProfileDurationSeconds(Integer.parseInt(arg))));
-    parsers.put(
-        "cpu-trigger-enabled",
 ```
 
 ### DataFlowIssue
@@ -5079,18 +5091,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/telemetry/TelemetryClient.java`
-#### Snippet
-```java
-
-    if (quickPulse != null) {
-      quickPulse.add(telemetryItem);
-    }
-
-```
-
-### DataFlowIssue
 Condition `existingAttributeValue instanceof String` is redundant and can be replaced with a null check
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AgentProcessor.java`
 #### Snippet
@@ -5103,87 +5103,15 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DataFlowIssue
-Argument `actionObj.key` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+Method invocation `logAvailableJmxMetrics` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/perfcounter/PerformanceCounterContainer.java`
 #### Snippet
 ```java
+          public void run() {
+            if (availableJmxMetricLogger != null) {
+              availableJmxMetricLogger.logAvailableJmxMetrics();
+            }
 
-    // Currently we only support String
-    String existingValue = existingAttributes.get(actionObj.key);
-    if (existingValue == null) {
-      return existingAttributes;
-```
-
-### DataFlowIssue
-Argument `actionObj.fromAttribute` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-    }
-
-    String fromAttributeValue = existingAttributes.get(actionObj.fromAttribute);
-    if (fromAttributeValue != null) {
-      AttributesBuilder builder = existingAttributes.toBuilder();
-```
-
-### DataFlowIssue
-Argument `actionObj.key` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-
-    // Currently we only support String
-    String existingValue = existingAttributes.get(actionObj.key);
-    if (existingValue == null) {
-      return existingAttributes;
-```
-
-### DataFlowIssue
-Dereference of `actionObj.extractAttribute` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-      return existingAttributes;
-    }
-    Matcher matcher = actionObj.extractAttribute.pattern.matcher(existingValue);
-    if (!matcher.matches()) {
-      return existingAttributes;
-```
-
-### DataFlowIssue
-Argument `actionObj.key` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-
-    // Currently we only support String
-    String existingValue = existingAttributes.get(actionObj.key);
-    if (existingValue == null) {
-      return existingAttributes;
-```
-
-### DataFlowIssue
-Dereference of `actionObj.maskAttribute` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-    }
-
-    Matcher matcher = actionObj.maskAttribute.pattern.matcher(existingValue);
-    String newValue = matcher.replaceAll(actionObj.maskAttribute.replace);
-    if (newValue.equals(existingValue)) {
-```
-
-### DataFlowIssue
-Argument `actionObj.key` might be null
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-
-    // Currently we only support String
-    String existingValue = existingAttributes.get(actionObj.key);
-    if (existingValue == null) {
-      return existingAttributes;
 ```
 
 ### DataFlowIssue
@@ -5235,15 +5163,87 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DataFlowIssue
-Method invocation `logAvailableJmxMetrics` may produce `NullPointerException`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/perfcounter/PerformanceCounterContainer.java`
+Argument `actionObj.key` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
 #### Snippet
 ```java
-          public void run() {
-            if (availableJmxMetricLogger != null) {
-              availableJmxMetricLogger.logAvailableJmxMetrics();
-            }
 
+    // Currently we only support String
+    String existingValue = existingAttributes.get(actionObj.key);
+    if (existingValue == null) {
+      return existingAttributes;
+```
+
+### DataFlowIssue
+Dereference of `actionObj.maskAttribute` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+    }
+
+    Matcher matcher = actionObj.maskAttribute.pattern.matcher(existingValue);
+    String newValue = matcher.replaceAll(actionObj.maskAttribute.replace);
+    if (newValue.equals(existingValue)) {
+```
+
+### DataFlowIssue
+Argument `actionObj.key` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+
+    // Currently we only support String
+    String existingValue = existingAttributes.get(actionObj.key);
+    if (existingValue == null) {
+      return existingAttributes;
+```
+
+### DataFlowIssue
+Argument `actionObj.fromAttribute` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+    }
+
+    String fromAttributeValue = existingAttributes.get(actionObj.fromAttribute);
+    if (fromAttributeValue != null) {
+      AttributesBuilder builder = existingAttributes.toBuilder();
+```
+
+### DataFlowIssue
+Argument `actionObj.key` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+
+    // Currently we only support String
+    String existingValue = existingAttributes.get(actionObj.key);
+    if (existingValue == null) {
+      return existingAttributes;
+```
+
+### DataFlowIssue
+Argument `actionObj.key` might be null
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+
+    // Currently we only support String
+    String existingValue = existingAttributes.get(actionObj.key);
+    if (existingValue == null) {
+      return existingAttributes;
+```
+
+### DataFlowIssue
+Dereference of `actionObj.extractAttribute` may produce `NullPointerException`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+      return existingAttributes;
+    }
+    Matcher matcher = actionObj.extractAttribute.pattern.matcher(existingValue);
+    if (!matcher.matches()) {
+      return existingAttributes;
 ```
 
 ### DataFlowIssue
@@ -5268,6 +5268,18 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
     if (!ingestionEndpoint.endsWith("/")) {
       ingestionEndpoint += "/";
     }
+```
+
+### DataFlowIssue
+Method invocation `endsWith` may produce `NullPointerException`
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+
+  protected String getAppContext() {
+    if (currentImageAppFileName.endsWith(".jar")) {
+      // spring boot jar
+      return "";
 ```
 
 ### DataFlowIssue
@@ -5331,6 +5343,18 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
 ```
 
 ### DataFlowIssue
+Method invocation `entrySet` may produce `NullPointerException`
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+  private String substitute(String environmentVariable) {
+    String envVar = environmentVariable;
+    for (Map.Entry<String, String> entry : hostnameEnvVars.entrySet()) {
+      envVar = envVar.replace("${" + entry.getKey() + "}", entry.getValue());
+    }
+```
+
+### DataFlowIssue
 Method invocation `put` may produce `NullPointerException`
 in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
 #### Snippet
@@ -5391,42 +5415,6 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
 ```
 
 ### DataFlowIssue
-Method invocation `entrySet` may produce `NullPointerException`
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-  private String substitute(String environmentVariable) {
-    String envVar = environmentVariable;
-    for (Map.Entry<String, String> entry : hostnameEnvVars.entrySet()) {
-      envVar = envVar.replace("${" + entry.getKey() + "}", entry.getValue());
-    }
-```
-
-### DataFlowIssue
-Method invocation `endsWith` may produce `NullPointerException`
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-
-  protected String getAppContext() {
-    if (currentImageAppFileName.endsWith(".jar")) {
-      // spring boot jar
-      return "";
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/AzureSdk/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/AzureSdkControllerSpansEnabledTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).isNull();
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    assertThat(telemetry.rdd2.getName()).isEqualTo("hello");
-```
-
-### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/Cassandra/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CassandraTest.java`
 #### Snippet
@@ -5448,6 +5436,18 @@ in `smoke-tests/apps/AzureSdk/src/smokeTest/java/com/microsoft/applicationinsigh
     assertThat(telemetry.rdd1.getSuccess()).isTrue();
 
     SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/AzureSdk/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/AzureSdkControllerSpansEnabledTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).isNull();
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    assertThat(telemetry.rdd2.getName()).isEqualTo("hello");
 ```
 
 ### DataFlowIssue
@@ -5488,6 +5488,18 @@ in `smoke-tests/apps/ConnectionStringOverrides/src/smokeTest/java/com/microsoft/
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/CustomInstrumentation/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CustomInstrumentationTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getName()).isEqualTo("TestController.run");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    assertThat(md.getMessage()).isEqualTo("hello");
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/HttpHeaders/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/HttpHeadersTest.java`
 #### Snippet
 ```java
@@ -5511,42 +5523,6 @@ in `smoke-tests/apps/HttpClients/src/smokeTest/java/com/microsoft/applicationins
 ```
 
 ### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/CustomInstrumentation/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CustomInstrumentationTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getName()).isEqualTo("TestController.run");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    assertThat(md.getMessage()).isEqualTo("hello");
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/gRPC/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/GrpcTest.java`
-#### Snippet
-```java
-    assertThat(rdd.getProperties())
-        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
-    assertThat(rdd.getSuccess()).isTrue();
-
-    // TODO (trask): verify rd2
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/gRPC/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/GrpcTest.java`
-#### Snippet
-```java
-    assertThat(rdd.getProperties())
-        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
-    assertThat(rdd.getSuccess()).isTrue();
-
-    // TODO (trask): verify rd2
-```
-
-### DataFlowIssue
 Method invocation `getHttpRequestTelemetry` may produce `NullPointerException`
 in `smoke-tests/apps/InheritedAttributes/src/main/java/com/microsoft/applicationinsights/smoketestapp/TracingFilter.java`
 #### Snippet
@@ -5560,7 +5536,79 @@ in `smoke-tests/apps/InheritedAttributes/src/main/java/com/microsoft/application
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
+in `smoke-tests/apps/gRPC/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/GrpcTest.java`
+#### Snippet
+```java
+    assertThat(rdd.getProperties())
+        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
+    assertThat(rdd.getSuccess()).isTrue();
+
+    // TODO (trask): verify rd2
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/gRPC/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/GrpcTest.java`
+#### Snippet
+```java
+    assertThat(rdd.getProperties())
+        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
+    assertThat(rdd.getSuccess()).isTrue();
+
+    // TODO (trask): verify rd2
+```
+
+### DataFlowIssue
+Method invocation `getSampleRate` may produce `NullPointerException`
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+#### Snippet
+```java
+
+    assertThat(rdEnvelope.getSampleRate()).isNull();
+    assertThat(pvdEnvelope1.getSampleRate()).isNull();
+    assertThat(pvdEnvelope2.getSampleRate()).isNull();
+    assertThat(pvdEnvelope3.getSampleRate()).isNull();
+```
+
+### DataFlowIssue
+Method invocation `getSampleRate` may produce `NullPointerException`
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+#### Snippet
+```java
+    assertThat(rdEnvelope.getSampleRate()).isNull();
+    assertThat(pvdEnvelope1.getSampleRate()).isNull();
+    assertThat(pvdEnvelope2.getSampleRate()).isNull();
+    assertThat(pvdEnvelope3.getSampleRate()).isNull();
+
+```
+
+### DataFlowIssue
+Method invocation `getSampleRate` may produce `NullPointerException`
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+#### Snippet
+```java
+    assertThat(pvdEnvelope1.getSampleRate()).isNull();
+    assertThat(pvdEnvelope2.getSampleRate()).isNull();
+    assertThat(pvdEnvelope3.getSampleRate()).isNull();
+
+    PageViewData pv1 = (PageViewData) ((Data<?>) pvdEnvelope1.getData()).getBaseData();
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).isNull();
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    assertThat(telemetry.rdd1.getDuration()).isEqualTo(expectedDuration);
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
 #### Snippet
 ```java
     assertThat(telemetry.rdd1.getTarget()).isNull();
@@ -5572,7 +5620,7 @@ in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicatio
 
 ### DataFlowIssue
 Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
+in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
 #### Snippet
 ```java
 
@@ -5584,7 +5632,7 @@ in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicatio
 
 ### DataFlowIssue
 Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
+in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
 #### Snippet
 ```java
     assertThat(rdEnvelope.getSampleRate()).isNull();
@@ -5596,7 +5644,7 @@ in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicatio
 
 ### DataFlowIssue
 Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
+in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
 #### Snippet
 ```java
     assertThat(pvdEnvelope1.getSampleRate()).isNull();
@@ -5620,18 +5668,6 @@ in `smoke-tests/apps/HttpPreaggregatedMetrics/src/smokeTest/java/com/microsoft/a
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/InstrumentationKeyOverrides/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/InstrumentationKeyOverridesTest.java`
-#### Snippet
-```java
-    assertThat(rdd.getData()).isEqualTo("https://mock.codes/200");
-    assertThat(rdd.getResultCode()).isEqualTo("200");
-    assertThat(rdd.getSuccess()).isTrue();
-
-    assertThat(md.getMessage()).isEqualTo("hello");
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcUnmaskedTest.java`
 #### Snippet
 ```java
@@ -5643,8 +5679,20 @@ in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/s
 ```
 
 ### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/InstrumentationKeyOverrides/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/InstrumentationKeyOverridesTest.java`
+#### Snippet
+```java
+    assertThat(rdd.getData()).isEqualTo("https://mock.codes/200");
+    assertThat(rdd.getResultCode()).isEqualTo("200");
+    assertThat(rdd.getSuccess()).isTrue();
+
+    assertThat(md.getMessage()).isEqualTo("hello");
+```
+
+### DataFlowIssue
 Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
 #### Snippet
 ```java
 
@@ -5656,7 +5704,7 @@ in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicatio
 
 ### DataFlowIssue
 Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
 #### Snippet
 ```java
     assertThat(rdEnvelope.getSampleRate()).isNull();
@@ -5668,7 +5716,7 @@ in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicatio
 
 ### DataFlowIssue
 Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
 #### Snippet
 ```java
     assertThat(pvdEnvelope1.getSampleRate()).isNull();
@@ -5680,7 +5728,7 @@ in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicatio
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter2xTest.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
 #### Snippet
 ```java
     assertThat(telemetry.rdd1.getTarget()).isNull();
@@ -5703,51 +5751,15 @@ in `smoke-tests/apps/Jedis/src/smokeTest/java/com/microsoft/applicationinsights/
 ```
 
 ### DataFlowIssue
-Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+Method invocation `close` may produce `NullPointerException`
+in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
 #### Snippet
 ```java
-
-    assertThat(rdEnvelope.getSampleRate()).isNull();
-    assertThat(pvdEnvelope1.getSampleRate()).isNull();
-    assertThat(pvdEnvelope2.getSampleRate()).isNull();
-    assertThat(pvdEnvelope3.getSampleRate()).isNull();
-```
-
-### DataFlowIssue
-Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
-#### Snippet
-```java
-    assertThat(rdEnvelope.getSampleRate()).isNull();
-    assertThat(pvdEnvelope1.getSampleRate()).isNull();
-    assertThat(pvdEnvelope2.getSampleRate()).isNull();
-    assertThat(pvdEnvelope3.getSampleRate()).isNull();
-
-```
-
-### DataFlowIssue
-Method invocation `getSampleRate` may produce `NullPointerException`
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
-#### Snippet
-```java
-    assertThat(pvdEnvelope1.getSampleRate()).isNull();
-    assertThat(pvdEnvelope2.getSampleRate()).isNull();
-    assertThat(pvdEnvelope3.getSampleRate()).isNull();
-
-    PageViewData pv1 = (PageViewData) ((Data<?>) pvdEnvelope1.getData()).getBaseData();
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).isNull();
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    assertThat(telemetry.rdd1.getDuration()).isEqualTo(expectedDuration);
+    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+    okhttp3.Response response = client.newCall(request).execute();
+    response.body().close();
+    response.code();
+  }
 ```
 
 ### DataFlowIssue
@@ -5763,15 +5775,63 @@ in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/sm
 ```
 
 ### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsTest.java`
 #### Snippet
 ```java
-    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-    okhttp3.Response response = client.newCall(request).execute();
-    response.body().close();
-    response.code();
-  }
+    assertThat(rdd1.getTarget()).isEqualTo("message");
+    assertThat(rdd1.getProperties()).isEmpty();
+    assertThat(rdd1.getSuccess()).isTrue();
+
+    assertThat(rd2.getName()).isEqualTo("message process");
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/Kafka/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/KafkaDisabledTest.java`
+#### Snippet
+```java
+    assertThat(rdd.getProperties())
+        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
+    assertThat(rdd.getSuccess()).isTrue();
+
+    // sleep a bit and make sure no kafka "requests" or dependencies are reported
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsControllerSpansEnabledTest.java`
+#### Snippet
+```java
+    assertThat(rdd1.getTarget()).isNull();
+    assertThat(rdd1.getProperties()).isEmpty();
+    assertThat(rdd1.getSuccess()).isTrue();
+
+    assertThat(rdd2.getName()).isEqualTo("message send");
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/Lettuce/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/LettuceTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| postgres");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    SmokeTestExtension.assertParentChild(
 ```
 
 ### DataFlowIssue
@@ -5792,6 +5852,18 @@ in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/s
 #### Snippet
 ```java
     assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| mysql");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
     assertThat(telemetry.rdd1.getProperties()).isEmpty();
     assertThat(telemetry.rdd1.getSuccess()).isTrue();
 
@@ -5827,42 +5899,6 @@ The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
 #### Snippet
 ```java
-    assertThat(telemetry.rdd1.getTarget()).isEqualTo("hsqldb | testdb");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
-#### Snippet
-```java
     assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| postgres");
     assertThat(telemetry.rdd1.getProperties()).isEmpty();
     assertThat(telemetry.rdd1.getSuccess()).isTrue();
@@ -5875,19 +5911,7 @@ The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
 #### Snippet
 ```java
-    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| postgres");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).isEqualTo("hsqldb | testdb");
+    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
     assertThat(telemetry.rdd1.getProperties()).isEmpty();
     assertThat(telemetry.rdd1.getSuccess()).isTrue();
 
@@ -5900,6 +5924,30 @@ in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/s
 #### Snippet
 ```java
     assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| mysql");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getTarget()).isEqualTo("hsqldb | testdb");
     assertThat(telemetry.rdd1.getProperties()).isEmpty();
     assertThat(telemetry.rdd1.getSuccess()).isTrue();
 
@@ -5923,59 +5971,11 @@ The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/Jdbc/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JdbcTest.java`
 #### Snippet
 ```java
-    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| mysql");
+    assertThat(telemetry.rdd1.getTarget()).isEqualTo("hsqldb | testdb");
     assertThat(telemetry.rdd1.getProperties()).isEmpty();
     assertThat(telemetry.rdd1.getSuccess()).isTrue();
 
     SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsControllerSpansEnabledTest.java`
-#### Snippet
-```java
-    assertThat(rdd1.getTarget()).isNull();
-    assertThat(rdd1.getProperties()).isEmpty();
-    assertThat(rdd1.getSuccess()).isTrue();
-
-    assertThat(rdd2.getName()).isEqualTo("message send");
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/JMS/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/JmsTest.java`
-#### Snippet
-```java
-    assertThat(rdd1.getTarget()).isEqualTo("message");
-    assertThat(rdd1.getProperties()).isEmpty();
-    assertThat(rdd1.getSuccess()).isTrue();
-
-    assertThat(rd2.getName()).isEqualTo("message process");
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/Lettuce/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/LettuceTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/Kafka/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/KafkaDisabledTest.java`
-#### Snippet
-```java
-    assertThat(rdd.getProperties())
-        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
-    assertThat(rdd.getSuccess()).isTrue();
-
-    // sleep a bit and make sure no kafka "requests" or dependencies are reported
 ```
 
 ### DataFlowIssue
@@ -6004,18 +6004,6 @@ in `smoke-tests/apps/Kafka/src/smokeTest/java/com/microsoft/applicationinsights/
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/MongoDB/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/MongoTest.java`
-#### Snippet
-```java
-    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| testdb");
-    assertThat(telemetry.rdd1.getProperties()).isEmpty();
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/MongoDB/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/MongoUnmaskedTest.java`
 #### Snippet
 ```java
@@ -6040,14 +6028,26 @@ in `smoke-tests/apps/NonDaemonThreads/src/main/java/com/microsoft/applicationins
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/NonDaemonThreads/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/NonDaemonThreadsTest.java`
+in `smoke-tests/apps/MongoDB/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/MongoTest.java`
 #### Snippet
 ```java
-    assertThat(rdd.getProperties())
-        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
-    assertThat(rdd.getSuccess()).isTrue();
+    assertThat(telemetry.rdd1.getTarget()).matches("dependency[0-9]+ \\| testdb");
+    assertThat(telemetry.rdd1.getProperties()).isEmpty();
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
 
-    assertThat(md.getMessage()).isEqualTo("done");
+    SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/OpenTelemetryApiSupport/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/OpenTelemetryApiSupportControllerSpansEnabledTest.java`
+#### Snippet
+```java
+    assertThat(telemetry.rdd1.getProperties()).containsEntry("myattr1", "myvalue1");
+    assertThat(telemetry.rdd1.getProperties()).containsEntry("myattr2", "myvalue2");
+    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+
+    // ideally want the properties below on rd, but can't get SERVER span yet
 ```
 
 ### DataFlowIssue
@@ -6064,14 +6064,14 @@ in `smoke-tests/apps/OpenTelemetryApiSupport/src/smokeTest/java/com/microsoft/ap
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/OpenTelemetryApiSupport/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/OpenTelemetryApiSupportControllerSpansEnabledTest.java`
+in `smoke-tests/apps/NonDaemonThreads/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/NonDaemonThreadsTest.java`
 #### Snippet
 ```java
-    assertThat(telemetry.rdd1.getProperties()).containsEntry("myattr1", "myvalue1");
-    assertThat(telemetry.rdd1.getProperties()).containsEntry("myattr2", "myvalue2");
-    assertThat(telemetry.rdd1.getSuccess()).isTrue();
+    assertThat(rdd.getProperties())
+        .containsExactly(entry("_MS.ProcessedByMetricExtractors", "True"));
+    assertThat(rdd.getSuccess()).isTrue();
 
-    // ideally want the properties below on rd, but can't get SERVER span yet
+    assertThat(md.getMessage()).isEqualTo("done");
 ```
 
 ### DataFlowIssue
@@ -6100,18 +6100,6 @@ in `smoke-tests/apps/SamplingOverrides/src/smokeTest/java/com/microsoft/applicat
 
 ### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
-in `smoke-tests/apps/RoleNameOverrides/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/RoleNameOverridesTest.java`
-#### Snippet
-```java
-    assertThat(rdd.getData()).isEqualTo("https://mock.codes/200");
-    assertThat(rdd.getResultCode()).isEqualTo("200");
-    assertThat(rdd.getSuccess()).isTrue();
-
-    assertThat(md.getMessage()).isEqualTo("hello");
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/SamplingOverridesBackCompat/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SamplingOverridesBackCompatTest.java`
 #### Snippet
 ```java
@@ -6120,6 +6108,18 @@ in `smoke-tests/apps/SamplingOverridesBackCompat/src/smokeTest/java/com/microsof
     assertThat(rdd.getSuccess()).isTrue();
 
     SmokeTestExtension.assertParentChild(
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails as an argument is out of bounds
+in `smoke-tests/apps/RoleNameOverrides/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/RoleNameOverridesTest.java`
+#### Snippet
+```java
+    assertThat(rdd.getData()).isEqualTo("https://mock.codes/200");
+    assertThat(rdd.getResultCode()).isEqualTo("200");
+    assertThat(rdd.getSuccess()).isTrue();
+
+    assertThat(md.getMessage()).isEqualTo("hello");
 ```
 
 ### DataFlowIssue
@@ -6135,18 +6135,6 @@ in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsi
 ```
 
 ### DataFlowIssue
-The call to 'isFalse' always fails as an argument is out of bounds
-in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SpringBootControllerSpansEnabledTest.java`
-#### Snippet
-```java
-    assertThat(rdd1.getTarget()).isNull();
-    assertThat(rdd1.getProperties()).isEmpty();
-    assertThat(rdd1.getSuccess()).isFalse();
-
-    SmokeTestExtension.assertParentChild(
-```
-
-### DataFlowIssue
 The call to 'isTrue' always fails as an argument is out of bounds
 in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SpringBootControllerSpansEnabledTest.java`
 #### Snippet
@@ -6156,6 +6144,18 @@ in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsi
     assertThat(rdd1.getSuccess()).isTrue();
 
     assertThat(rdd2.getName()).isEqualTo("GET /");
+```
+
+### DataFlowIssue
+The call to 'isFalse' always fails as an argument is out of bounds
+in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SpringBootControllerSpansEnabledTest.java`
+#### Snippet
+```java
+    assertThat(rdd1.getTarget()).isNull();
+    assertThat(rdd1.getProperties()).isEmpty();
+    assertThat(rdd1.getSuccess()).isFalse();
+
+    SmokeTestExtension.assertParentChild(
 ```
 
 ### DataFlowIssue
@@ -6214,7 +6214,7 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```java
     public static void methodExit(
         @Advice.This RequestTelemetryContext requestTelemetryContext,
-        @Advice.Return(readOnly = false) int traceflag) {
+        @Advice.Return(readOnly = false) Tracestate tracestate) {
       Span span =
           VirtualField.find(RequestTelemetryContext.class, Span.class).get(requestTelemetryContext);
 ```
@@ -6226,21 +6226,9 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```java
     public static void methodExit(
         @Advice.This RequestTelemetryContext requestTelemetryContext,
-        @Advice.Return(readOnly = false) Tracestate tracestate) {
+        @Advice.Return(readOnly = false) int traceflag) {
       Span span =
           VirtualField.find(RequestTelemetryContext.class, Span.class).get(requestTelemetryContext);
-```
-
-### ParameterCanBeLocal
-Parameter can be converted to a local variable
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/OperationContextInstrumentation.java`
-#### Snippet
-```java
-    public static void methodExit(
-        @Advice.This OperationContext operationContext,
-        @Advice.Return(readOnly = false) String id) {
-      Span span = VirtualField.find(OperationContext.class, Span.class).get(operationContext);
-      if (span != null) {
 ```
 
 ### ParameterCanBeLocal
@@ -6253,6 +6241,18 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
         @Advice.Return(readOnly = false) Map<String, String> properties) {
       if (!(telemetry instanceof RequestTelemetry)) {
         return;
+```
+
+### ParameterCanBeLocal
+Parameter can be converted to a local variable
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/OperationContextInstrumentation.java`
+#### Snippet
+```java
+    public static void methodExit(
+        @Advice.This OperationContext operationContext,
+        @Advice.Return(readOnly = false) String id) {
+      Span span = VirtualField.find(OperationContext.class, Span.class).get(operationContext);
+      if (span != null) {
 ```
 
 ### ParameterCanBeLocal
@@ -6293,6 +6293,30 @@ in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instr
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'DEPRECATED_ROLE_INSTANCE' is still used
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/AiSemanticAttributes.java`
+#### Snippet
+```java
+  // will not see it and then be incorrect
+  @Deprecated
+  public static final AttributeKey<String> DEPRECATED_ROLE_INSTANCE =
+      AttributeKey.stringKey("ai.preview.service_instance_id");
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DEPRECATED_INSTRUMENTATION_KEY' is still used
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/AiSemanticAttributes.java`
+#### Snippet
+```java
+  // will not see it and then be incorrect
+  @Deprecated
+  public static final AttributeKey<String> DEPRECATED_INSTRUMENTATION_KEY =
+      AttributeKey.stringKey("ai.preview.instrumentation_key");
+
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'DEPRECATED_ROLE_NAME' is still used
 in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/AiSemanticAttributes.java`
 #### Snippet
@@ -6317,27 +6341,51 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEPRECATED_INSTRUMENTATION_KEY' is still used
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/AiSemanticAttributes.java`
+Deprecated member 'reportingIntervalSeconds' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-  // will not see it and then be incorrect
-  @Deprecated
-  public static final AttributeKey<String> DEPRECATED_INSTRUMENTATION_KEY =
-      AttributeKey.stringKey("ai.preview.instrumentation_key");
+    // this is just here to detect if using this old undocumented setting in order to give a helpful
+    // error message
+    @Deprecated public int reportingIntervalSeconds = 60;
+  }
 
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEPRECATED_ROLE_INSTANCE' is still used
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/AiSemanticAttributes.java`
+Deprecated member 'ignoreRemoteParentNotSampled' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-  // will not see it and then be incorrect
-  @Deprecated
-  public static final AttributeKey<String> DEPRECATED_ROLE_INSTANCE =
-      AttributeKey.stringKey("ai.preview.service_instance_id");
+    public int metricIntervalSeconds = 60;
+    // this is just here to detect if using this old setting in order to give a helpful message
+    @Deprecated public Boolean ignoreRemoteParentNotSampled;
+    public boolean captureControllerSpans;
+    // this is just here to detect if using this old setting in order to give a helpful message
+```
 
+### DeprecatedIsStillUsed
+Deprecated member 'includingStandaloneTelemetry' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+    // this config option only existed in one BETA release (3.4.0-BETA)
+    @Deprecated @Nullable public Boolean includingStandaloneTelemetry;
+
+    // not using include/exclude, because you can still get exclude with this by adding a second
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SpanKind' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+  @Deprecated
+  public enum SpanKind {
+    @JsonProperty("server")
+    SERVER(io.opentelemetry.api.trace.SpanKind.SERVER),
 ```
 
 ### DeprecatedIsStillUsed
@@ -6365,18 +6413,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SpanKind' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-  @Deprecated
-  public enum SpanKind {
-    @JsonProperty("server")
-    SERVER(io.opentelemetry.api.trace.SpanKind.SERVER),
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'rabbitmq' is still used
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
@@ -6386,90 +6422,6 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
     public DisabledByDefaultInstrumentation rabbitmq = new DisabledByDefaultInstrumentation();
 
     public DisabledByDefaultInstrumentation springIntegration =
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'includingStandaloneTelemetry' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-    // this config option only existed in one BETA release (3.4.0-BETA)
-    @Deprecated @Nullable public Boolean includingStandaloneTelemetry;
-
-    // not using include/exclude, because you can still get exclude with this by adding a second
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'spanKind' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-  public static class SamplingOverride {
-    @Deprecated @Nullable public SpanKind spanKind;
-
-    // TODO (trask) make this required when moving out of preview
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'httpMethodInOperationName' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    public boolean captureControllerSpans;
-    // this is just here to detect if using this old setting in order to give a helpful message
-    @Deprecated public boolean httpMethodInOperationName;
-    public LiveMetrics liveMetrics = new LiveMetrics();
-    public LegacyRequestIdPropagation legacyRequestIdPropagation = new LegacyRequestIdPropagation();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'azureSdk' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    // this is just here to detect if using this old setting in order to give a helpful message
-    @Deprecated
-    public DisabledByDefaultInstrumentation azureSdk = new DisabledByDefaultInstrumentation();
-
-    public DisabledByDefaultInstrumentation grizzly = new DisabledByDefaultInstrumentation();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'openTelemetryApiSupport' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    public List<ProcessorConfig> processors = new ArrayList<>();
-    // this is just here to detect if using this old setting in order to give a helpful message
-    @Deprecated public boolean openTelemetryApiSupport;
-    public PreviewInstrumentation instrumentation = new PreviewInstrumentation();
-    // applies to perf counters, default custom metrics, jmx metrics, and micrometer metrics
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'instrumentationKeyOverrides' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public List<InstrumentationKeyOverride> instrumentationKeyOverrides = new ArrayList<>();
-
-    public int generalExportQueueCapacity = 2048;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ignoreRemoteParentNotSampled' is still used
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
-#### Snippet
-```java
-    public int metricIntervalSeconds = 60;
-    // this is just here to detect if using this old setting in order to give a helpful message
-    @Deprecated public Boolean ignoreRemoteParentNotSampled;
-    public boolean captureControllerSpans;
-    // this is just here to detect if using this old setting in order to give a helpful message
 ```
 
 ### DeprecatedIsStillUsed
@@ -6497,15 +6449,15 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'InstrumentationKeyOverride' is still used
+Deprecated member 'spanKind' is still used
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
 
-  @Deprecated
-  public static class InstrumentationKeyOverride {
-    public String httpPathPrefix;
-    public String instrumentationKey;
+  public static class SamplingOverride {
+    @Deprecated @Nullable public SpanKind spanKind;
+
+    // TODO (trask) make this required when moving out of preview
 ```
 
 ### DeprecatedIsStillUsed
@@ -6521,15 +6473,63 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'reportingIntervalSeconds' is still used
+Deprecated member 'httpMethodInOperationName' is still used
 in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
 #### Snippet
 ```java
-    // this is just here to detect if using this old undocumented setting in order to give a helpful
-    // error message
-    @Deprecated public int reportingIntervalSeconds = 60;
-  }
+    public boolean captureControllerSpans;
+    // this is just here to detect if using this old setting in order to give a helpful message
+    @Deprecated public boolean httpMethodInOperationName;
+    public LiveMetrics liveMetrics = new LiveMetrics();
+    public LegacyRequestIdPropagation legacyRequestIdPropagation = new LegacyRequestIdPropagation();
+```
 
+### DeprecatedIsStillUsed
+Deprecated member 'openTelemetryApiSupport' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+    public List<ProcessorConfig> processors = new ArrayList<>();
+    // this is just here to detect if using this old setting in order to give a helpful message
+    @Deprecated public boolean openTelemetryApiSupport;
+    public PreviewInstrumentation instrumentation = new PreviewInstrumentation();
+    // applies to perf counters, default custom metrics, jmx metrics, and micrometer metrics
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'azureSdk' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+    // this is just here to detect if using this old setting in order to give a helpful message
+    @Deprecated
+    public DisabledByDefaultInstrumentation azureSdk = new DisabledByDefaultInstrumentation();
+
+    public DisabledByDefaultInstrumentation grizzly = new DisabledByDefaultInstrumentation();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'InstrumentationKeyOverride' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+  @Deprecated
+  public static class InstrumentationKeyOverride {
+    public String httpPathPrefix;
+    public String instrumentationKey;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'instrumentationKeyOverrides' is still used
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/configuration/Configuration.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public List<InstrumentationKeyOverride> instrumentationKeyOverrides = new ArrayList<>();
+
+    public int generalExportQueueCapacity = 2048;
 ```
 
 ### DeprecatedIsStillUsed
@@ -6669,18 +6669,6 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackHttpRequestServlet.java`
-#### Snippet
-```java
-public class SimpleTrackHttpRequestServlet extends HttpServlet {
-
-  private final TelemetryClient client = new TelemetryClient();
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'client' in a Serializable class
 in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackTraceServlet.java`
 #### Snippet
 ```java
@@ -6693,10 +6681,10 @@ public class SimpleTrackTraceServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackDependencyServlet.java`
 #### Snippet
 ```java
-public class SimpleTrackEventServlet extends HttpServlet {
+public class SimpleTrackDependencyServlet extends HttpServlet {
 
   private final TelemetryClient client = new TelemetryClient();
 
@@ -6705,10 +6693,22 @@ public class SimpleTrackEventServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackDependencyServlet.java`
+in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackHttpRequestServlet.java`
 #### Snippet
 ```java
-public class SimpleTrackDependencyServlet extends HttpServlet {
+public class SimpleTrackHttpRequestServlet extends HttpServlet {
+
+  private final TelemetryClient client = new TelemetryClient();
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'client' in a Serializable class
+in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+#### Snippet
+```java
+public class SimpleTrackEventServlet extends HttpServlet {
 
   private final TelemetryClient client = new TelemetryClient();
 
@@ -6753,18 +6753,6 @@ public class SimpleTrackHttpRequestServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackTraceServlet.java`
-#### Snippet
-```java
-public class SimpleTrackTraceServlet extends HttpServlet {
-
-  private final TelemetryClient client = new TelemetryClient();
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'client' in a Serializable class
 in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
 #### Snippet
 ```java
@@ -6789,18 +6777,6 @@ public class SimpleTrackMetricServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackDependencyServlet.java`
-#### Snippet
-```java
-public class SimpleTrackDependencyServlet extends HttpServlet {
-
-  private final TelemetryClient client = new TelemetryClient();
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'client' in a Serializable class
 in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackPageViewServlet.java`
 #### Snippet
 ```java
@@ -6813,10 +6789,22 @@ public class SimpleTrackPageViewServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackExceptionServlet.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackDependencyServlet.java`
 #### Snippet
 ```java
-public class SimpleTrackExceptionServlet extends HttpServlet {
+public class SimpleTrackDependencyServlet extends HttpServlet {
+
+  private final TelemetryClient client = new TelemetryClient();
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'client' in a Serializable class
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackTraceServlet.java`
+#### Snippet
+```java
+public class SimpleTrackTraceServlet extends HttpServlet {
 
   private final TelemetryClient client = new TelemetryClient();
 
@@ -6849,10 +6837,10 @@ public class SimpleTrackAvailabilityServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackTraceServlet.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackExceptionServlet.java`
 #### Snippet
 ```java
-public class SimpleTrackTraceServlet extends HttpServlet {
+public class SimpleTrackExceptionServlet extends HttpServlet {
 
   private final TelemetryClient client = new TelemetryClient();
 
@@ -6873,22 +6861,10 @@ public class SimpleTrackHttpRequestServlet extends HttpServlet {
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackTraceServlet.java`
 #### Snippet
 ```java
-public class SimpleTrackEventServlet extends HttpServlet {
-
-  private final TelemetryClient client = new TelemetryClient();
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'client' in a Serializable class
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackPageViewServlet.java`
-#### Snippet
-```java
-public class SimpleTrackPageViewServlet extends HttpServlet {
+public class SimpleTrackTraceServlet extends HttpServlet {
 
   private final TelemetryClient client = new TelemetryClient();
 
@@ -6913,6 +6889,30 @@ in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/
 #### Snippet
 ```java
 public class SimpleTrackDependencyServlet extends HttpServlet {
+
+  private final TelemetryClient client = new TelemetryClient();
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'client' in a Serializable class
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackPageViewServlet.java`
+#### Snippet
+```java
+public class SimpleTrackPageViewServlet extends HttpServlet {
+
+  private final TelemetryClient client = new TelemetryClient();
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'client' in a Serializable class
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTrackEventServlet.java`
+#### Snippet
+```java
+public class SimpleTrackEventServlet extends HttpServlet {
 
   private final TelemetryClient client = new TelemetryClient();
 
@@ -7150,6 +7150,18 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `agent/agent/src/main/java/com/microsoft/applicationinsights/agent/StartupProfiler.java`
 #### Snippet
 ```java
+          Thread.sleep(50);
+        } catch (InterruptedException e) {
+          System.out.println("Startup profiler interrupted");
+          return;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/agent/src/main/java/com/microsoft/applicationinsights/agent/StartupProfiler.java`
+#### Snippet
+```java
     File folder = new File(tempDirectory, "applicationinsights");
     if (!folder.exists() && !folder.mkdirs()) {
       System.out.println("Failed to create directory: " + tempDirectory);
@@ -7179,18 +7191,6 @@ in `agent/agent/src/main/java/com/microsoft/applicationinsights/agent/StartupPro
       System.out.println("Error occurred when writing dump to " + dumpFile.getPath());
       e.printStackTrace();
       return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/agent/src/main/java/com/microsoft/applicationinsights/agent/StartupProfiler.java`
-#### Snippet
-```java
-          Thread.sleep(50);
-        } catch (InterruptedException e) {
-          System.out.println("Startup profiler interrupted");
-          return;
-        }
 ```
 
 ### SystemOutErr
@@ -7255,38 +7255,26 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
 #### Snippet
 ```java
-  @SuppressWarnings("SystemOut")
-  public void startServer() throws Exception {
-    System.out.println("Starting fake ingestion...");
-    server.start();
-  }
+            TimeUnit.SECONDS);
+      }
+      System.out.printf(
+          "Received request telemetry after %.3f seconds...%n",
+          receivedTelemetryTimer.elapsed(TimeUnit.MILLISECONDS) / 1000.0);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
 #### Snippet
 ```java
-  @SuppressWarnings("SystemOut")
-  public void stopServer() throws Exception {
-    System.out.println("Stopping fake ingestion...");
-    server.stop();
-    server.join();
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
-#### Snippet
-```java
-  public static void main(String[] args) throws Exception {
-    MockedAppInsightsIngestionServer i = new MockedAppInsightsIngestionServer();
-    System.out.println("Starting mocked ingestion on port " + DEFAULT_PORT);
-    Runtime.getRuntime()
-        .addShutdownHook(
+  private void prepareEnvironment(Environment environment) throws Exception {
+    System.out.println("Preparing environment...");
+    currentImageName = environment.value().getImageName();
+    currentImageAppDir = environment.value().getImageAppDir();
 ```
 
 ### SystemOutErr
@@ -7311,114 +7299,6 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
     System.out.printf(
         "App container (%s) started after %.3f seconds%n",
         container.getContainerId(), stopwatch.elapsed(TimeUnit.MILLISECONDS) / 1000.0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-  private void startDependencyContainers() {
-    if (dependencyContainer != null) {
-      System.out.println("Starting container: " + dependencyContainer.getDockerImageName());
-      String containerName = "dependency" + ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
-      dependencyContainer
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-      Stopwatch stopwatch = Stopwatch.createStarted();
-      dependencyContainer.start();
-      System.out.printf(
-          "Dependency container %s (%s) started after %.3f seconds%n",
-          dependencyContainer.getDockerImageName(),
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-    for (DependencyContainer dc : dependencyImages) {
-      String imageName = dc.imageName().isEmpty() ? dc.value() : dc.imageName();
-      System.out.println("Starting container: " + imageName);
-      String containerName = "dependency" + ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
-      String[] envVars = substitue(dc.environmentVariables());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-      Stopwatch stopwatch = Stopwatch.createStarted();
-      container.start();
-      System.out.printf(
-          "Dependency container %s (%s) started after %.3f seconds%n",
-          imageName, container.getContainerId(), stopwatch.elapsed(TimeUnit.MILLISECONDS) / 1000.0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-  public void testFailed(ExtensionContext context, Throwable cause) {
-    if (targetContainer != null) {
-      System.out.println("Test failure detected.");
-      System.out.println("Container logs:");
-      System.out.println(targetContainer.getLogs());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-    if (targetContainer != null) {
-      System.out.println("Test failure detected.");
-      System.out.println("Container logs:");
-      System.out.println(targetContainer.getLogs());
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-      System.out.println("Test failure detected.");
-      System.out.println("Container logs:");
-      System.out.println(targetContainer.getLogs());
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-  public void afterAll(ExtensionContext context) throws Exception {
-    if (allContainers != null) {
-      System.out.println("Stopping containers...");
-      for (GenericContainer<?> container : allContainers) {
-        container.stop();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
-            TimeUnit.SECONDS);
-      }
-      System.out.printf(
-          "Received request telemetry after %.3f seconds...%n",
-          receivedTelemetryTimer.elapsed(TimeUnit.MILLISECONDS) / 1000.0);
 ```
 
 ### SystemOutErr
@@ -7474,18 +7354,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
 #### Snippet
 ```java
-  public void afterEach(ExtensionContext context) {
-    mockedIngestion.resetData();
-    System.out.println("Mocked ingestion reset.");
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
-#### Snippet
-```java
       HttpHelper.getResponseCodeEnsuringSampled(contextRootUrl);
       waitForHealthCheckTelemetry(contextRootUrl);
       System.out.println("Clearing any RequestData from health check.");
@@ -7498,11 +7366,143 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
 #### Snippet
 ```java
+  private void startDependencyContainers() {
+    if (dependencyContainer != null) {
+      System.out.println("Starting container: " + dependencyContainer.getDockerImageName());
+      String containerName = "dependency" + ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
+      dependencyContainer
+```
 
-  private void prepareEnvironment(Environment environment) throws Exception {
-    System.out.println("Preparing environment...");
-    currentImageName = environment.value().getImageName();
-    currentImageAppDir = environment.value().getImageAppDir();
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+      Stopwatch stopwatch = Stopwatch.createStarted();
+      dependencyContainer.start();
+      System.out.printf(
+          "Dependency container %s (%s) started after %.3f seconds%n",
+          dependencyContainer.getDockerImageName(),
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+    for (DependencyContainer dc : dependencyImages) {
+      String imageName = dc.imageName().isEmpty() ? dc.value() : dc.imageName();
+      System.out.println("Starting container: " + imageName);
+      String containerName = "dependency" + ThreadLocalRandom.current().nextInt(Integer.MAX_VALUE);
+      String[] envVars = substitue(dc.environmentVariables());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+      Stopwatch stopwatch = Stopwatch.createStarted();
+      container.start();
+      System.out.printf(
+          "Dependency container %s (%s) started after %.3f seconds%n",
+          imageName, container.getContainerId(), stopwatch.elapsed(TimeUnit.MILLISECONDS) / 1000.0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+  public void afterEach(ExtensionContext context) {
+    mockedIngestion.resetData();
+    System.out.println("Mocked ingestion reset.");
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+  public void afterAll(ExtensionContext context) throws Exception {
+    if (allContainers != null) {
+      System.out.println("Stopping containers...");
+      for (GenericContainer<?> container : allContainers) {
+        container.stop();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+  public void testFailed(ExtensionContext context, Throwable cause) {
+    if (targetContainer != null) {
+      System.out.println("Test failure detected.");
+      System.out.println("Container logs:");
+      System.out.println(targetContainer.getLogs());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+    if (targetContainer != null) {
+      System.out.println("Test failure detected.");
+      System.out.println("Container logs:");
+      System.out.println(targetContainer.getLogs());
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/SmokeTestExtension.java`
+#### Snippet
+```java
+      System.out.println("Test failure detected.");
+      System.out.println("Container logs:");
+      System.out.println(targetContainer.getLogs());
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+#### Snippet
+```java
+  public static void main(String[] args) throws Exception {
+    MockedAppInsightsIngestionServer i = new MockedAppInsightsIngestionServer();
+    System.out.println("Starting mocked ingestion on port " + DEFAULT_PORT);
+    Runtime.getRuntime()
+        .addShutdownHook(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+#### Snippet
+```java
+  @SuppressWarnings("SystemOut")
+  public void startServer() throws Exception {
+    System.out.println("Starting fake ingestion...");
+    server.start();
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+#### Snippet
+```java
+  @SuppressWarnings("SystemOut")
+  public void stopServer() throws Exception {
+    System.out.println("Stopping fake ingestion...");
+    server.stop();
+    server.join();
 ```
 
 ### SystemOutErr
@@ -7614,30 +7614,6 @@ in `smoke-tests/apps/CoreAndFilter2x/src/main/java/com/microsoft/applicationinsi
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
-#### Snippet
-```java
-        sleepTime = Integer.parseInt(customSleepTime);
-      } catch (NumberFormatException e) {
-        System.err.printf("Invalid value for 'sleeptime': '%s'%n", customSleepTime);
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
-#### Snippet
-```java
-    }
-    try {
-      System.out.printf("Sleeping for %d seconds.%n", sleepTime);
-      TimeUnit.SECONDS.sleep(sleepTime);
-    } catch (InterruptedException ex) {
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SlowRequestCpuBoundServlet.java`
 #### Snippet
@@ -7675,7 +7651,7 @@ in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsi
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
 #### Snippet
 ```java
         sleepTime = Integer.parseInt(customSleepTime);
@@ -7687,7 +7663,7 @@ in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
 #### Snippet
 ```java
     }
@@ -7734,8 +7710,32 @@ in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
+#### Snippet
+```java
+        sleepTime = Integer.parseInt(customSleepTime);
+      } catch (NumberFormatException e) {
+        System.err.printf("Invalid value for 'sleeptime': '%s'%n", customSleepTime);
+      }
+    }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/main/java/com/microsoft/applicationinsights/smoketestapp/SimpleTestRequestSlowWithResponseTime.java`
+#### Snippet
+```java
+    }
+    try {
+      System.out.printf("Sleeping for %d seconds.%n", sleepTime);
+      TimeUnit.SECONDS.sleep(sleepTime);
+    } catch (InterruptedException ex) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
 #### Snippet
 ```java
     long max = expected + tolerance;
@@ -7759,7 +7759,7 @@ in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicatio
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
 #### Snippet
 ```java
     long max = expected + tolerance;
@@ -7956,6 +7956,18 @@ Qualifier `com.microsoft.applicationinsights.telemetry` is unnecessary and can b
 in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryClient.java`
 #### Snippet
 ```java
+   * Sends a TraceTelemetry record for display in Diagnostic Search.
+   *
+   * @param telemetry The {@link com.microsoft.applicationinsights.telemetry.Telemetry} instance.
+   */
+  public void trackTrace(TraceTelemetry telemetry) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.microsoft.applicationinsights.telemetry` is unnecessary and can be removed
+in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryClient.java`
+#### Snippet
+```java
    * This method is part of the Application Insights infrastructure. Do not call it directly.
    *
    * @param telemetry The {@link com.microsoft.applicationinsights.telemetry.Telemetry} instance.
@@ -7976,15 +7988,63 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryCl
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.microsoft.applicationinsights.telemetry` is unnecessary and can be removed
-in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryClient.java`
+Qualifier `okhttp3` is unnecessary, and can be replaced with an import
+in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
 #### Snippet
 ```java
-   * Sends a TraceTelemetry record for display in Diagnostic Search.
-   *
-   * @param telemetry The {@link com.microsoft.applicationinsights.telemetry.Telemetry} instance.
-   */
-  public void trackTrace(TraceTelemetry telemetry) {
+
+  private void okHttp3(String url) throws IOException {
+    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+    okhttp3.Response response = client.newCall(request).execute();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `okhttp3` is unnecessary, and can be replaced with an import
+in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
+#### Snippet
+```java
+
+  private void okHttp3(String url) throws IOException {
+    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+    okhttp3.Response response = client.newCall(request).execute();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `okhttp3` is unnecessary, and can be replaced with an import
+in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
+#### Snippet
+```java
+  private void okHttp3(String url) throws IOException {
+    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+    okhttp3.Response response = client.newCall(request).execute();
+    response.body().close();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `okhttp3` is unnecessary, and can be replaced with an import
+in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
+#### Snippet
+```java
+  private void okHttp3(String url) throws IOException {
+    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+    okhttp3.Response response = client.newCall(request).execute();
+    response.body().close();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `okhttp3` is unnecessary, and can be replaced with an import
+in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
+#### Snippet
+```java
+    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
+    okhttp3.Response response = client.newCall(request).execute();
+    response.body().close();
+    response.code();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8049,66 +8109,6 @@ in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `okhttp3` is unnecessary, and can be replaced with an import
-in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
-#### Snippet
-```java
-
-  private void okHttp3(String url) throws IOException {
-    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
-    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-    okhttp3.Response response = client.newCall(request).execute();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary, and can be replaced with an import
-in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
-#### Snippet
-```java
-
-  private void okHttp3(String url) throws IOException {
-    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
-    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-    okhttp3.Response response = client.newCall(request).execute();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary, and can be replaced with an import
-in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
-#### Snippet
-```java
-  private void okHttp3(String url) throws IOException {
-    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
-    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-    okhttp3.Response response = client.newCall(request).execute();
-    response.body().close();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary, and can be replaced with an import
-in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
-#### Snippet
-```java
-  private void okHttp3(String url) throws IOException {
-    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
-    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-    okhttp3.Response response = client.newCall(request).execute();
-    response.body().close();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary, and can be replaced with an import
-in `smoke-tests/apps/HttpClients/src/main/java/com/microsoft/applicationinsights/smoketestapp/HttpClientServlet.java`
-#### Snippet
-```java
-    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
-    okhttp3.Request request = new okhttp3.Request.Builder().url(url).build();
-    okhttp3.Response response = client.newCall(request).execute();
-    response.body().close();
-    response.code();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `okhttp3` is unnecessary, and can be replaced with an import
 in `smoke-tests/apps/NonDaemonThreads/src/main/java/com/microsoft/applicationinsights/smoketestapp/SpringBootApp.java`
 #### Snippet
 ```java
@@ -8168,49 +8168,49 @@ in `smoke-tests/apps/NonDaemonThreads/src/main/java/com/microsoft/applicationins
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.opentelemetry.instrumentation.annotations` is unnecessary, and can be replaced with an import
+Qualifier `io.opentelemetry.extension.annotations` is unnecessary, and can be replaced with an import
 in `smoke-tests/apps/OpenTelemetryApiSupport/src/main/java/com/microsoft/applicationinsights/smoketestapp/TestController.java`
 #### Snippet
 ```java
   }
 
-  @io.opentelemetry.instrumentation.annotations.WithSpan
-  private String underInstrumentationAnnotation(
-      @io.opentelemetry.instrumentation.annotations.SpanAttribute("message") String msg) {
+  @io.opentelemetry.extension.annotations.WithSpan
+  private String underExtensionAnnotation(
+      @io.opentelemetry.extension.annotations.SpanAttribute("message") String msg) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.opentelemetry.instrumentation.annotations` is unnecessary, and can be replaced with an import
+Qualifier `io.opentelemetry.extension.annotations` is unnecessary, and can be replaced with an import
 in `smoke-tests/apps/OpenTelemetryApiSupport/src/main/java/com/microsoft/applicationinsights/smoketestapp/TestController.java`
 #### Snippet
 ```java
-  @io.opentelemetry.instrumentation.annotations.WithSpan
-  private String underInstrumentationAnnotation(
-      @io.opentelemetry.instrumentation.annotations.SpanAttribute("message") String msg) {
+  @io.opentelemetry.extension.annotations.WithSpan
+  private String underExtensionAnnotation(
+      @io.opentelemetry.extension.annotations.SpanAttribute("message") String msg) {
     return "OK!";
   }
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.opentelemetry.extension.annotations` is unnecessary, and can be replaced with an import
+Qualifier `io.opentelemetry.instrumentation.annotations` is unnecessary, and can be replaced with an import
 in `smoke-tests/apps/OpenTelemetryApiSupport/src/main/java/com/microsoft/applicationinsights/smoketestapp/TestController.java`
 #### Snippet
 ```java
   }
 
-  @io.opentelemetry.extension.annotations.WithSpan
-  private String underExtensionAnnotation(
-      @io.opentelemetry.extension.annotations.SpanAttribute("message") String msg) {
+  @io.opentelemetry.instrumentation.annotations.WithSpan
+  private String underInstrumentationAnnotation(
+      @io.opentelemetry.instrumentation.annotations.SpanAttribute("message") String msg) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.opentelemetry.extension.annotations` is unnecessary, and can be replaced with an import
+Qualifier `io.opentelemetry.instrumentation.annotations` is unnecessary, and can be replaced with an import
 in `smoke-tests/apps/OpenTelemetryApiSupport/src/main/java/com/microsoft/applicationinsights/smoketestapp/TestController.java`
 #### Snippet
 ```java
-  @io.opentelemetry.extension.annotations.WithSpan
-  private String underExtensionAnnotation(
-      @io.opentelemetry.extension.annotations.SpanAttribute("message") String msg) {
+  @io.opentelemetry.instrumentation.annotations.WithSpan
+  private String underInstrumentationAnnotation(
+      @io.opentelemetry.instrumentation.annotations.SpanAttribute("message") String msg) {
     return "OK!";
   }
 ```
@@ -8387,30 +8387,6 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 ```
 
 ### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
-#### Snippet
-```java
-    List<Envelope> items =
-        waitForItems(
-            new Predicate<Envelope>() {
-              @Override
-              public boolean test(Envelope input) {
-```
-
-### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
-#### Snippet
-```java
-    List<Envelope> items =
-        waitForItems(
-            new Predicate<Envelope>() {
-              @Override
-              public boolean test(Envelope input) {
-```
-
-### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
 #### Snippet
@@ -8420,6 +8396,30 @@ in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoket
                 new Runnable() {
                   @Override
                   public void run() {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+#### Snippet
+```java
+    List<Envelope> items =
+        waitForItems(
+            new Predicate<Envelope>() {
+              @Override
+              public boolean test(Envelope input) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `smoke-tests/framework/src/main/java/com/microsoft/applicationinsights/smoketest/fakeingestion/MockedAppInsightsIngestionServer.java`
+#### Snippet
+```java
+    List<Envelope> items =
+        waitForItems(
+            new Predicate<Envelope>() {
+              @Override
+              public boolean test(Envelope input) {
 ```
 
 ### Convert2Lambda
@@ -8448,7 +8448,7 @@ in `smoke-tests/apps/Cassandra/src/main/java/com/microsoft/applicationinsights/s
 
 ### Convert2Lambda
 Anonymous new Predicate() can be replaced with lambda
-in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
+in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
 #### Snippet
 ```java
     List<Envelope> edList =
@@ -8472,7 +8472,7 @@ in `smoke-tests/apps/CoreAndFilter2x/src/smokeTest/java/com/microsoft/applicatio
 
 ### Convert2Lambda
 Anonymous new Predicate() can be replaced with lambda
-in `smoke-tests/apps/CoreAndFilter3xUsingOld3xAgent/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xUsingOld3xAgentTest.java`
+in `smoke-tests/apps/CoreAndFilter3x/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/CoreAndFilter3xTest.java`
 #### Snippet
 ```java
     List<Envelope> edList =
@@ -8520,6 +8520,18 @@ in `smoke-tests/apps/SamplingOverridesBackCompat/src/main/java/com/microsoft/app
 
 ### Convert2Lambda
 Anonymous new Predicate() can be replaced with lambda
+in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SpringBootControllerSpansEnabledTest.java`
+#### Snippet
+```java
+    List<Envelope> edList =
+        testing.mockedIngestion.waitForItems(
+            new Predicate<Envelope>() {
+              @Override
+              public boolean test(Envelope input) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
 in `smoke-tests/apps/SpringScheduling/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SpringSchedulingTest.java`
 #### Snippet
 ```java
@@ -8540,18 +8552,6 @@ in `smoke-tests/apps/SpringScheduling/src/smokeTest/java/com/microsoft/applicati
         new Predicate<Envelope>() {
           @Override
           public boolean test(Envelope input) {
-```
-
-### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `smoke-tests/apps/SpringBoot/src/smokeTest/java/com/microsoft/applicationinsights/smoketest/SpringBootControllerSpansEnabledTest.java`
-#### Snippet
-```java
-    List<Envelope> edList =
-        testing.mockedIngestion.waitForItems(
-            new Predicate<Envelope>() {
-              @Override
-              public boolean test(Envelope input) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -8676,18 +8676,6 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `connectionString`
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/classicsdk/BytecodeUtilImpl.java`
-#### Snippet
-```java
-      @Nullable String instrumentationKey) {
-    if (connectionString == null && instrumentationKey != null) {
-      connectionString = "InstrumentationKey=" + instrumentationKey;
-    }
-    if (connectionString != null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `message`
 in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/builders/MessageTelemetryBuilder.java`
 #### Snippet
@@ -8697,6 +8685,18 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
       message = "n/a";
     }
     data.setMessage(truncateTelemetry(message, MAX_MESSAGE_LENGTH, "Message.message"));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `connectionString`
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/classicsdk/BytecodeUtilImpl.java`
+#### Snippet
+```java
+      @Nullable String instrumentationKey) {
+    if (connectionString == null && instrumentationKey != null) {
+      connectionString = "InstrumentationKey=" + instrumentationKey;
+    }
+    if (connectionString != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -8753,30 +8753,6 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 #### Snippet
 ```java
 
-  private static long startingAtMinutes(String duration, int i, long runningTotalInHours) {
-    char c1 = duration.charAt(i++);
-    char c2 = duration.charAt(i++);
-    int minutes = 10 * charToInt(c1) + charToInt(c2);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/quickpulse/QuickPulseDataCollector.java`
-#### Snippet
-```java
-  private static long startingAtMinutes(String duration, int i, long runningTotalInHours) {
-    char c1 = duration.charAt(i++);
-    char c2 = duration.charAt(i++);
-    int minutes = 10 * charToInt(c1) + charToInt(c2);
-    // next char must be ':'
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/quickpulse/QuickPulseDataCollector.java`
-#### Snippet
-```java
-
   private static long startingAtHours(String duration, int i, long runningTotalInDays) {
     char c1 = duration.charAt(i++);
     char c2 = duration.charAt(i++);
@@ -8820,6 +8796,30 @@ in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/e
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/quickpulse/QuickPulseDataCollector.java`
+#### Snippet
+```java
+
+  private static long startingAtMinutes(String duration, int i, long runningTotalInHours) {
+    char c1 = duration.charAt(i++);
+    char c2 = duration.charAt(i++);
+    int minutes = 10 * charToInt(c1) + charToInt(c2);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `agent/azure-monitor-exporter/src/main/java/com/azure/monitor/opentelemetry/exporter/implementation/quickpulse/QuickPulseDataCollector.java`
+#### Snippet
+```java
+  private static long startingAtMinutes(String duration, int i, long runningTotalInHours) {
+    char c1 = duration.charAt(i++);
+    char c2 = duration.charAt(i++);
+    int minutes = 10 * charToInt(c1) + charToInt(c2);
+    // next char must be ':'
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `timestamp`
 in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/telemetry/RequestTelemetry.java`
 #### Snippet
@@ -8829,6 +8829,18 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/telemetry/R
       timestamp = new Date();
     }
     super.setTimestamp(timestamp);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/telemetry/ContextTagsMap.java`
+#### Snippet
+```java
+  private static String truncate(String value, int maxLength) {
+    if (value != null && value.length() > maxLength) {
+      value = value.substring(0, maxLength);
+    }
+    return value;
 ```
 
 ### AssignmentToMethodParameter
@@ -8856,18 +8868,6 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/telemetry/C
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/telemetry/ContextTagsMap.java`
-#### Snippet
-```java
-  private static String truncate(String value, int maxLength) {
-    if (value != null && value.length() > maxLength) {
-      value = value.substring(0, maxLength);
-    }
-    return value;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `telemetry`
 in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryClient.java`
 #### Snippet
@@ -8875,6 +8875,18 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryCl
 
     if (telemetry == null) {
       telemetry = new RemoteDependencyTelemetry("");
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryClient.java`
+#### Snippet
+```java
+
+    if (name == null || name.isEmpty()) {
+      name = "";
     }
 
 ```
@@ -8899,18 +8911,6 @@ in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryCl
 
     if (LocalStringsUtils.isNullOrEmpty(message)) {
       message = "";
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `classic-sdk/core/src/main/java/com/microsoft/applicationinsights/TelemetryClient.java`
-#### Snippet
-```java
-
-    if (name == null || name.isEmpty()) {
-      name = "";
     }
 
 ```
@@ -8976,18 +8976,6 @@ in `agent/agent-profiler/agent-alerting/src/main/java/com/microsoft/applicationi
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `requestTelemetryContext`
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/ThreadContextInstrumentation.java`
-#### Snippet
-```java
-        return;
-      }
-      requestTelemetryContext = new RequestTelemetryContext(0);
-      Context context = Java8BytecodeBridge.currentContext();
-      Span localRootSpan = LocalRootSpan.fromContextOrNull(context);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `id`
 in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryInstrumentation.java`
 #### Snippet
@@ -8995,18 +8983,6 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
       Span span = VirtualField.find(RequestTelemetry.class, Span.class).get(requestTelemetry);
       if (span != null) {
         id = span.getSpanContext().getSpanId();
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `traceflag`
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
-#### Snippet
-```java
-          VirtualField.find(RequestTelemetryContext.class, Span.class).get(requestTelemetryContext);
-      if (span != null) {
-        traceflag = span.getSpanContext().getTraceFlags().asByte();
       }
     }
 ```
@@ -9036,15 +9012,27 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/OperationContextInstrumentation.java`
+Assignment to method parameter `traceflag`
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/RequestTelemetryContextInstrumentation.java`
 #### Snippet
 ```java
-      Span span = VirtualField.find(OperationContext.class, Span.class).get(operationContext);
+          VirtualField.find(RequestTelemetryContext.class, Span.class).get(requestTelemetryContext);
       if (span != null) {
-        id = span.getSpanContext().getTraceId();
+        traceflag = span.getSpanContext().getTraceFlags().asByte();
       }
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `requestTelemetryContext`
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/ThreadContextInstrumentation.java`
+#### Snippet
+```java
+        return;
+      }
+      requestTelemetryContext = new RequestTelemetryContext(0);
+      Context context = Java8BytecodeBridge.currentContext();
+      Span localRootSpan = LocalRootSpan.fromContextOrNull(context);
 ```
 
 ### AssignmentToMethodParameter
@@ -9060,15 +9048,15 @@ in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelem
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `returnValue`
-in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instrumentation/methods/ai/MethodInstrumentation.java`
+Assignment to method parameter `id`
+in `agent/instrumentation/applicationinsights-web-2.3/src/main/java/io/opentelemetry/javaagent/instrumentation/applicationinsightsweb/OperationContextInstrumentation.java`
 #### Snippet
 ```java
-      scope.close();
-
-      returnValue =
-          AsyncOperationEndSupport.create(
-                  MethodSingletons.instrumenter(), Void.class, method.getReturnType())
+      Span span = VirtualField.find(OperationContext.class, Span.class).get(operationContext);
+      if (span != null) {
+        id = span.getSpanContext().getTraceId();
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -9105,6 +9093,18 @@ in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instr
       scope = context.makeCurrent();
     }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `returnValue`
+in `agent/instrumentation/methods/src/main/java/io/opentelemetry/javaagent/instrumentation/methods/ai/MethodInstrumentation.java`
+#### Snippet
+```java
+      scope.close();
+
+      returnValue =
+          AsyncOperationEndSupport.create(
+                  MethodSingletons.instrumenter(), Void.class, method.getReturnType())
 ```
 
 ### AssignmentToMethodParameter
@@ -9174,10 +9174,10 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 #### Snippet
 ```java
 
-    public String getResultCode() {
+    public String getTarget() {
       return null;
     }
-
+  }
 ```
 
 ### ReturnNull
@@ -9186,10 +9186,10 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 #### Snippet
 ```java
 
-    public String getTarget() {
+    public String getResultCode() {
       return null;
     }
-  }
+
 ```
 
 ### ReturnNull
@@ -9223,7 +9223,7 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 #### Snippet
 ```java
 
-  private static Attributes processUpdateAction(Attributes attributes, ProcessorAction actionObj) {
+  private static Attributes processDeleteAction(Attributes attributes, ProcessorAction actionObj) {
     Attributes existingAttributes = attributes;
 
     // Currently we only support String
@@ -9235,10 +9235,10 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 #### Snippet
 ```java
 
-  private static Attributes processExtractAction(Attributes attributes, ProcessorAction actionObj) {
+  private static Attributes processInsertAction(Attributes attributes, ProcessorAction actionObj) {
     Attributes existingAttributes = attributes;
 
-    // Currently we only support String
+    // Update from existing attribute
 ```
 
 ### UnnecessaryLocalVariable
@@ -9248,6 +9248,18 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 ```java
 
   private static Attributes processMaskAction(Attributes attributes, ProcessorAction actionObj) {
+    Attributes existingAttributes = attributes;
+
+    // Currently we only support String
+```
+
+### UnnecessaryLocalVariable
+Local variable `existingAttributes` is redundant
+in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
+#### Snippet
+```java
+
+  private static Attributes processUpdateAction(Attributes attributes, ProcessorAction actionObj) {
     Attributes existingAttributes = attributes;
 
     // Currently we only support String
@@ -9271,22 +9283,10 @@ in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/in
 #### Snippet
 ```java
 
-  private static Attributes processDeleteAction(Attributes attributes, ProcessorAction actionObj) {
+  private static Attributes processExtractAction(Attributes attributes, ProcessorAction actionObj) {
     Attributes existingAttributes = attributes;
 
     // Currently we only support String
-```
-
-### UnnecessaryLocalVariable
-Local variable `existingAttributes` is redundant
-in `agent/agent-tooling/src/main/java/com/microsoft/applicationinsights/agent/internal/processors/AttributeProcessor.java`
-#### Snippet
-```java
-
-  private static Attributes processInsertAction(Attributes attributes, ProcessorAction actionObj) {
-    Attributes existingAttributes = attributes;
-
-    // Update from existing attribute
 ```
 
 ## RuleId[ruleID=CopyConstructorMissesField]
