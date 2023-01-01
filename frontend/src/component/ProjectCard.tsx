@@ -1,8 +1,9 @@
-import {Button, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material";
+import { Button, Card, CardActionArea, CardContent, Stack, Typography } from "@mui/material";
 import React from "react";
 import Avatar from "react-avatar";
 import { useNavigate } from "react-router-dom";
 import { Project } from "../data/Project";
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 class ProjectCard extends React.Component<Project> {
 
@@ -27,9 +28,9 @@ function ProjectListItem(project: Project) {
       <CardActionArea>
         <CardContent sx={{}}>
           <Stack alignSelf="center" direction="row" spacing={5} alignItems="normal" justifyContent="space-evenly">
-            <Avatar githubHandle={urlToGitHubHandle(project.projectUrl)} size="100"/>
-            <Typography textAlign="center"  fontSize={40} variant="h5" component="div">{urlToGitHubHandle(project.projectUrl)}<br/>{project.projectName}</Typography>
-            <Button variant="contained" href={project.projectUrl}>To source code</Button>
+            <Avatar githubHandle={urlToGitHubHandle(project.projectUrl)} size="100" />
+            <Typography textAlign="center" fontSize={40} variant="h5" component="div">{urlToGitHubHandle(project.projectUrl)}<br />{project.projectName}</Typography>
+            <Button size="large" href={project.projectUrl} startIcon={<GitHubIcon />} >See on GitHub </Button>
           </Stack>
         </CardContent>
       </CardActionArea>
@@ -48,6 +49,6 @@ function urlToGitHubHandle(params: string) {
 }
 export default ProjectCard;
 
-function toLink(project: Project) : string{
+function toLink(project: Project): string {
   return "/resultview/" + project.projectName;
 }

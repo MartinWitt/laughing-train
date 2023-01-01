@@ -1,26 +1,34 @@
 import { Chip, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Project } from "../data/Project";
 
 function HashSelector(project : Project) {
   const navigate = useNavigate();
-  console.log(project);
-
+  const [selectedHash, setSelectedHash] = useState("")
   return (
     <div>
 
-      <Typography align="center" alignContent={"center"} variant="h2">Hash Selector</Typography>  
       <Typography align="center" alignContent={"center"}>Choose a hash to view the results</Typography> 
       <div><br/>
-        <Grid direction="row" container>
+        <Grid direction="row" container spacing={1} alignItems="stretch" justifyContent="flex-start" >
           {project.commitHashes.map((hash: string) => {
-            return <Chip label={hash} key={hash} onClick={() => navigate(toLink(project, hash))} />;
+            if (hash === selectedHash) {
+              return <Grid item key={hash}>  <Chip variant="outlined" label={hash} onClick={selectHashClick(hash)} sx={{justifyContent: "stretch", backgroundColor: "primary.main"}} /> </Grid>;
+            }
+            return <Grid item key={hash}>  <Chip label={hash} onClick={selectHashClick(hash)} sx={{justifyContent: "stretch", fontFamily: "monospace"}} /> </Grid>;
         })}
         </Grid>
             </div>
           </div>
         );
+
+  function selectHashClick(hash: string): React.MouseEventHandler<HTMLDivElement> | undefined {
+    return () => {
+      setSelectedHash(hash);
+      navigate(toLink(project, hash));
+    };
+  }
     }
 
 
