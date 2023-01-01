@@ -14,7 +14,6 @@ import io.vertx.core.Vertx;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -27,7 +26,6 @@ import javax.inject.Inject;
  */
 @ApplicationScoped
 public class DataBaseMigration {
-
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
