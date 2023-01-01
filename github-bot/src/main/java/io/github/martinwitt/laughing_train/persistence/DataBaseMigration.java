@@ -28,7 +28,6 @@ import javax.inject.Inject;
 @ApplicationScoped
 public class DataBaseMigration {
 
-    private static final Random RANDOM = new Random();
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
@@ -69,7 +68,7 @@ public class DataBaseMigration {
         createConfigsIfMissing();
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
-        removeBadSmellsWithWrongIdentifier();
+        // removeBadSmellsWithWrongIdentifier();
         removeDuplicatedProjects();
         removeBadSmellsWithoutProjectHash();
         logger.atInfo().log("Finished migrating database");
