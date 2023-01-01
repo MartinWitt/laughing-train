@@ -1,6 +1,6 @@
 # Laughing-Train
 
-Laughin-Train is a code refactoring tool using [Spoon](https://github.com/INRIA/spoon) and static analyzers to refactor Java code.
+Laughing-Train is a code refactoring tool using [Spoon](https://github.com/INRIA/spoon) and static analyzers to refactor Java code.
 This includes the analysis of the code, the refactoring of the code and the generation of pull requests on GitHub.
 For this, we leverage many existing tools and libraries, like quarkus, Hub4J, spoon, Qodana.
 
