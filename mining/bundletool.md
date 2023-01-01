@@ -243,6 +243,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkAsarCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link BuildSdkAsarCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    /** Sets the path to the input SDK bundle. Must have the extension ".asb". */
+    public abstract Builder setSdkBundlePath(Path sdkBundlePath);
+```
+
+### AbstractClassNeverImplemented
 Abstract class `BuildSdkAsarCommand` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkAsarCommand.java`
 #### Snippet
@@ -256,14 +268,14 @@ public abstract class BuildSdkAsarCommand {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkAsarCommand.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/CommandHelp.java`
 #### Snippet
 ```java
-  /** Builder for the {@link BuildSdkAsarCommand}. */
+
   @AutoValue.Builder
-  public abstract static class Builder {
-    /** Sets the path to the input SDK bundle. Must have the extension ".asb". */
-    public abstract Builder setSdkBundlePath(Path sdkBundlePath);
+  abstract static class Builder {
+    private final ImmutableSortedSet.Builder<FlagDescription> flagsBuilder =
+        ImmutableSortedSet.orderedBy(FLAG_ORDER);
 ```
 
 ### AbstractClassNeverImplemented
@@ -291,18 +303,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/CommandHelp.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CommandDescription` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/CommandHelp.java`
-#### Snippet
-```java
-  @AutoValue
-  @AutoValue.CopyAnnotations
-  abstract static class CommandDescription {
-    abstract String getShortDescription();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CommandHelp` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/commands/CommandHelp.java`
 #### Snippet
@@ -327,26 +327,14 @@ in `src/main/java/com/android/tools/build/bundletool/commands/CommandHelp.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
+Abstract class `CommandDescription` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/commands/CommandHelp.java`
 #### Snippet
 ```java
-
-  @AutoValue.Builder
-  abstract static class Builder {
-    private final ImmutableSortedSet.Builder<FlagDescription> flagsBuilder =
-        ImmutableSortedSet.orderedBy(FLAG_ORDER);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand.java`
-#### Snippet
-```java
-  /** Builder for the {@link InstallApksCommand}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setAdbPath(Path adbPath);
+  @AutoValue
+  @AutoValue.CopyAnnotations
+  abstract static class CommandDescription {
+    abstract String getShortDescription();
 
 ```
 
@@ -364,13 +352,13 @@ public abstract class InstallApksCommand {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/PrintDeviceTargetingConfigCommand.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand.java`
 #### Snippet
 ```java
-
+  /** Builder for the {@link InstallApksCommand}. */
   @AutoValue.Builder
-  abstract static class Builder {
-    abstract Builder setDeviceTargetingConfigurationPath(Path deviceTargetingConfigurationPath);
+  public abstract static class Builder {
+    public abstract Builder setAdbPath(Path adbPath);
 
 ```
 
@@ -387,14 +375,26 @@ public abstract class PrintDeviceTargetingConfigCommand {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Result` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/transparency/ApkSignatureVerifier.java`
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/PrintDeviceTargetingConfigCommand.java`
 #### Snippet
 ```java
-  /** Represents result of {@link ApkSignatureVerifier#verify}. */
-  @AutoValue
-  abstract static class Result {
-    abstract Optional<String> apkSigningKeyCertificateFingerprint();
+
+  @AutoValue.Builder
+  abstract static class Builder {
+    abstract Builder setDeviceTargetingConfigurationPath(Path deviceTargetingConfigurationPath);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/GetDeviceSpecCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link GetDeviceSpecCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setOutputPath(Path outputPath);
 
 ```
 
@@ -411,15 +411,39 @@ public abstract class GetDeviceSpecCommand {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/GetDeviceSpecCommand.java`
+Abstract class `Result` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/transparency/ApkSignatureVerifier.java`
 #### Snippet
 ```java
-  /** Builder for the {@link GetDeviceSpecCommand}. */
+  /** Represents result of {@link ApkSignatureVerifier#verify}. */
+  @AutoValue
+  abstract static class Result {
+    abstract Optional<String> apkSigningKeyCertificateFingerprint();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link AddTransparencyCommand}. */
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract Builder setOutputPath(Path outputPath);
 
+    /** Sets the mode to run the command against. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AddTransparencyCommand` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
+#### Snippet
+```java
+/** Command to add a Code Transparency File to Android App Bundle. */
+@AutoValue
+public abstract class AddTransparencyCommand {
+
+  public static final String COMMAND_NAME = "add-transparency";
 ```
 
 ### AbstractClassNeverImplemented
@@ -472,26 +496,14 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkApksComman
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
+in `src/main/java/com/android/tools/build/bundletool/model/KeystoreProperties.java`
 #### Snippet
 ```java
-  /** Builder for the {@link AddTransparencyCommand}. */
+  /** Builder of {@link KeystoreProperties} instances. */
   @AutoValue.Builder
   public abstract static class Builder {
-
-    /** Sets the mode to run the command against. */
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AddTransparencyCommand` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
-#### Snippet
-```java
-/** Command to add a Code Transparency File to Android App Bundle. */
-@AutoValue
-public abstract class AddTransparencyCommand {
-
-  public static final String COMMAND_NAME = "add-transparency";
+    /** Sets the path to the keystore. */
+    public abstract Builder setKeystorePath(Path keystorePath);
 ```
 
 ### AbstractClassNeverImplemented
@@ -507,15 +519,15 @@ public abstract class KeystoreProperties {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/KeystoreProperties.java`
+Abstract class `ApkOptimizations` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/optimizations/ApkOptimizations.java`
 #### Snippet
 ```java
-  /** Builder of {@link KeystoreProperties} instances. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    /** Sets the path to the keystore. */
-    public abstract Builder setKeystorePath(Path keystorePath);
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class ApkOptimizations {
+
+  /**
 ```
 
 ### AbstractClassNeverImplemented
@@ -531,27 +543,15 @@ in `src/main/java/com/android/tools/build/bundletool/optimizations/ApkOptimizati
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ApkOptimizations` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/optimizations/ApkOptimizations.java`
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/DumpCommand.java`
 #### Snippet
 ```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class ApkOptimizations {
-
-  /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BundletoolModule` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BundletoolModule.java`
-#### Snippet
-```java
-/** Dagger module command to all bundletool commands. */
-@Module
-public abstract class BundletoolModule {
-
-  @CommandScoped
+  /** Builder for the {@link DumpCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    /** Sets the path to the bundle. */
+    public abstract Builder setBundlePath(Path bundlePath);
 ```
 
 ### AbstractClassNeverImplemented
@@ -567,15 +567,15 @@ public abstract class DumpCommand {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/DumpCommand.java`
+Abstract class `BundletoolModule` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BundletoolModule.java`
 #### Snippet
 ```java
-  /** Builder for the {@link DumpCommand}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    /** Sets the path to the bundle. */
-    public abstract Builder setBundlePath(Path bundlePath);
+/** Dagger module command to all bundletool commands. */
+@Module
+public abstract class BundletoolModule {
+
+  @CommandScoped
 ```
 
 ### AbstractClassNeverImplemented
@@ -600,6 +600,30 @@ in `src/main/java/com/android/tools/build/bundletool/model/version/Version.java`
   abstract static class Builder {
     abstract Builder setFullVersion(String fullVersion);
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link BuildApksCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    /** Sets the path to the bundle. Must have the extension ".aab". */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BuildApksCommand` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+/** Command to generate APKs from an Android App Bundle. */
+@AutoValue
+public abstract class BuildApksCommand {
+
+  private static final int DEFAULT_THREAD_POOL_SIZE = 4;
 ```
 
 ### AbstractClassNeverImplemented
@@ -663,42 +687,6 @@ public abstract class AppBundleModule {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `PackagePathVersion` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-  /** Represents a Package with a path to a relevant file and a version code. */
-  @AutoValue
-  abstract static class PackagePathVersion {
-
-    public static PackagePathVersion create(Path path, String packageName, long versionCode) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-  /** Builder for the {@link InstallMultiApksCommand}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    abstract Builder setAdbPath(Path adbPath);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `InstallMultiApksCommand` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class InstallMultiApksCommand {
-  private static final Logger logger = Logger.getLogger(InstallMultiApksCommand.class.getName());
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/commands/ValidateBundleCommand.java`
 #### Snippet
@@ -723,6 +711,42 @@ public abstract class ValidateBundleCommand {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `InstallMultiApksCommand` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class InstallMultiApksCommand {
+  private static final Logger logger = Logger.getLogger(InstallMultiApksCommand.class.getName());
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link InstallMultiApksCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    abstract Builder setAdbPath(Path adbPath);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PackagePathVersion` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
+#### Snippet
+```java
+  /** Represents a Package with a path to a relevant file and a version code. */
+  @AutoValue
+  abstract static class PackagePathVersion {
+
+    public static PackagePathVersion create(Path path, String packageName, long versionCode) {
+```
+
+### AbstractClassNeverImplemented
 Abstract class `SupportedCountrySets` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/validation/CountrySetParityValidator.java`
 #### Snippet
@@ -732,18 +756,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/CountrySetParity
   public abstract static class SupportedCountrySets {
     public static CountrySetParityValidator.SupportedCountrySets create(
         ImmutableSet<String> countrySets, boolean hasFallback) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ApksigSigningConfiguration.java`
-#### Snippet
-```java
-  /** Builder of {@link ApksigSigningConfiguration} instances. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setSignerConfigs(ImmutableList<SignerConfig> signerConfigs);
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -759,38 +771,26 @@ public abstract class ApksigSigningConfiguration {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `BuildApksCommand` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ApksigSigningConfiguration.java`
 #### Snippet
 ```java
-/** Command to generate APKs from an Android App Bundle. */
-@AutoValue
-public abstract class BuildApksCommand {
+  /** Builder of {@link ApksigSigningConfiguration} instances. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setSignerConfigs(ImmutableList<SignerConfig> signerConfigs);
 
-  private static final int DEFAULT_THREAD_POOL_SIZE = 4;
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedSplashScreenLayout.java`
 #### Snippet
 ```java
-  /** Builder for the {@link BuildApksCommand}. */
+  /** Builder for FrameLayout object */
   @AutoValue.Builder
   public abstract static class Builder {
-
-    /** Sets the path to the bundle. Must have the extension ".aab". */
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ApplicationElementId` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class ApplicationElementId {
-    abstract String getType();
+    public abstract Builder setLayoutWidth(int width);
 
 ```
 
@@ -807,26 +807,14 @@ public abstract class ArchivedSplashScreenLayout {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedSplashScreenLayout.java`
+Abstract class `ApplicationElementId` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
 #### Snippet
 ```java
-  /** Builder for FrameLayout object */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setLayoutWidth(int width);
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ShardedSystemSplits.java`
-#### Snippet
-```java
-  /** Builder for the {@link ShardedSystemSplits} class. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setSystemImageSplit(ModuleSplit systemImageSplit);
+  @AutoValue
+  abstract static class ApplicationElementId {
+    abstract String getType();
 
 ```
 
@@ -840,6 +828,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/ShardedSystemSplits.j
 public abstract class ShardedSystemSplits {
   /** The APK that will end up on the system image. */
   public abstract ModuleSplit getSystemImageSplit();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ShardedSystemSplits.java`
+#### Snippet
+```java
+  /** Builder for the {@link ShardedSystemSplits} class. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setSystemImageSplit(ModuleSplit systemImageSplit);
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -891,14 +891,26 @@ in `src/main/java/com/android/tools/build/bundletool/validation/TextureCompressi
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ConvertOptions` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/androidtools/Aapt2Command.java`
+Abstract class `SigningConfiguration` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
 #### Snippet
 ```java
-  /** Options for 'aapt2 convert' command. */
-  @AutoValue
-  abstract class ConvertOptions {
-    public abstract boolean getForceSparseEncoding();
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class SigningConfiguration {
+
+  /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
+#### Snippet
+```java
+  /** Builder of {@link SigningConfiguration} instances. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setSignerConfig(SignerConfig signerConfig);
 
 ```
 
@@ -915,51 +927,15 @@ in `src/main/java/com/android/tools/build/bundletool/androidtools/Aapt2Command.j
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildBundleCommand.java`
+Abstract class `ConvertOptions` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/androidtools/Aapt2Command.java`
 #### Snippet
 ```java
-  /** Builder for the {@link BuildBundleCommand}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setOutputPath(Path outputPath);
+  /** Options for 'aapt2 convert' command. */
+  @AutoValue
+  abstract class ConvertOptions {
+    public abstract boolean getForceSparseEncoding();
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BuildBundleCommand` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildBundleCommand.java`
-#### Snippet
-```java
-/** Command responsible for building an App Bundle from App Bundle modules. */
-@AutoValue
-public abstract class BuildBundleCommand {
-
-  private static final Logger logger = Logger.getLogger(BuildBundleCommand.class.getName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
-#### Snippet
-```java
-  /** Builder of {@link SigningConfiguration} instances. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setSignerConfig(SignerConfig signerConfig);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SigningConfiguration` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
-#### Snippet
-```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class SigningConfiguration {
-
-  /**
 ```
 
 ### AbstractClassNeverImplemented
@@ -984,6 +960,30 @@ in `src/main/java/com/android/tools/build/bundletool/model/GeneratedApks.java`
   public abstract static class Builder {
 
     public abstract Builder setInstantApks(ImmutableList<ModuleSplit> instantApks);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BuildBundleCommand` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildBundleCommand.java`
+#### Snippet
+```java
+/** Command responsible for building an App Bundle from App Bundle modules. */
+@AutoValue
+public abstract class BuildBundleCommand {
+
+  private static final Logger logger = Logger.getLogger(BuildBundleCommand.class.getName());
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildBundleCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link BuildBundleCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setOutputPath(Path outputPath);
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -1012,42 +1012,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/SourceStamp.java`
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfigurationProvider.java`
-#### Snippet
-```java
-    /** Builder for {@link ApkDescription}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-      public abstract Builder setMinSdkVersionFromManifest(int minSdkVersionFromManifest);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ApkDescription` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfigurationProvider.java`
-#### Snippet
-```java
-  /** Description of an APK generated by bundletool. */
-  @AutoValue
-  public abstract class ApkDescription {
-
-    /** Minimum SDK version from Android manifest. */
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DeviceGroupsCondition` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/DeviceGroupsCondition.java`
-#### Snippet
-```java
-@Immutable
-@AutoValue
-public abstract class DeviceGroupsCondition {
-  public abstract ImmutableSet<String> getDeviceGroups();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/model/utils/CsvFormatter.java`
 #### Snippet
 ```java
@@ -1068,6 +1032,54 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/CsvFormatter.ja
 public abstract class CsvFormatter {
 
   private static final Joiner COMMA_JOINER = Joiner.on(",");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DeviceGroupsCondition` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/DeviceGroupsCondition.java`
+#### Snippet
+```java
+@Immutable
+@AutoValue
+public abstract class DeviceGroupsCondition {
+  public abstract ImmutableSet<String> getDeviceGroups();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ApkDescription` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfigurationProvider.java`
+#### Snippet
+```java
+  /** Description of an APK generated by bundletool. */
+  @AutoValue
+  public abstract class ApkDescription {
+
+    /** Minimum SDK version from Android manifest. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfigurationProvider.java`
+#### Snippet
+```java
+    /** Builder for {@link ApkDescription}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+      public abstract Builder setMinSdkVersionFromManifest(int minSdkVersionFromManifest);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ResourceTableEntry` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ResourceTableEntry.java`
+#### Snippet
+```java
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class ResourceTableEntry {
+
+  public static ResourceTableEntry create(Package pkg, Type type, Entry entry) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -1095,18 +1107,6 @@ public abstract class ExtractApksCommand {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SignerConfig` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/SignerConfig.java`
-#### Snippet
-```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class SignerConfig {
-
-  SignerConfig() {}
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/model/SignerConfig.java`
 #### Snippet
@@ -1119,15 +1119,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/SignerConfig.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ResourceTableEntry` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ResourceTableEntry.java`
+Abstract class `SignerConfig` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/SignerConfig.java`
 #### Snippet
 ```java
 @AutoValue
 @AutoValue.CopyAnnotations
-public abstract class ResourceTableEntry {
+public abstract class SignerConfig {
 
-  public static ResourceTableEntry create(Package pkg, Type type, Entry entry) {
+  SignerConfig() {}
 ```
 
 ### AbstractClassNeverImplemented
@@ -1167,18 +1167,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/ResourceId.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `SizeConfiguration` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/SizeConfiguration.java`
-#### Snippet
-```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class SizeConfiguration {
-  public abstract Optional<String> getAbi();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/model/SizeConfiguration.java`
 #### Snippet
@@ -1191,26 +1179,14 @@ in `src/main/java/com/android/tools/build/bundletool/model/SizeConfiguration.jav
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
+Abstract class `SizeConfiguration` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/SizeConfiguration.java`
 #### Snippet
 ```java
-    /** Builder for {@link FilePullParams}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-      public abstract Builder setPathOnDevice(String pathOnDevice);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
-#### Snippet
-```java
-    /** Builder for {@link InstallOptions}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-      public abstract Builder setAllowDowngrade(boolean allowDowngrade);
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class SizeConfiguration {
+  public abstract Optional<String> getAbi();
 
 ```
 
@@ -1239,15 +1215,27 @@ in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `InstallOptions` has no concrete subclass
+Abstract class `Builder` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
 #### Snippet
 ```java
-  @AutoValue
-  @AutoValue.CopyAnnotations
-  public abstract static class InstallOptions {
+    /** Builder for {@link InstallOptions}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+      public abstract Builder setAllowDowngrade(boolean allowDowngrade);
 
-    public abstract boolean getAllowDowngrade();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
+#### Snippet
+```java
+    /** Builder for {@link FilePullParams}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+      public abstract Builder setPathOnDevice(String pathOnDevice);
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -1260,6 +1248,18 @@ in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
   public abstract static class PushOptions {
     public abstract String getDestinationPath();
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `InstallOptions` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
+#### Snippet
+```java
+  @AutoValue
+  @AutoValue.CopyAnnotations
+  public abstract static class InstallOptions {
+
+    public abstract boolean getAllowDowngrade();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1287,15 +1287,27 @@ in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Inte
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `BundleMetadata` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/BundleMetadata.java`
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/AppBundle.java`
 #### Snippet
 ```java
-@AutoValue.CopyAnnotations
-@SuppressWarnings("Immutable")
-public abstract class BundleMetadata {
+  /** Builder for App Bundle object */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setModules(ImmutableMap<BundleModuleName, BundleModule> modules);
 
-  /** Namespaced directory where files used by BundleTool are stored. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AppBundle` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/AppBundle.java`
+#### Snippet
+```java
+@Immutable
+@AutoValue
+public abstract class AppBundle implements Bundle {
+
+  public static final ZipPath METADATA_DIRECTORY = ZipPath.create("BUNDLE-METADATA");
 ```
 
 ### AbstractClassNeverImplemented
@@ -1308,6 +1320,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/BundleMetadata.java`
   public abstract static class Builder {
 
     abstract ImmutableMap.Builder<ZipPath, ByteSource> fileContentMapBuilder();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BundleMetadata` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/BundleMetadata.java`
+#### Snippet
+```java
+@AutoValue.CopyAnnotations
+@SuppressWarnings("Immutable")
+public abstract class BundleMetadata {
+
+  /** Namespaced directory where files used by BundleTool are stored. */
 ```
 
 ### AbstractClassNeverImplemented
@@ -1335,26 +1359,14 @@ public abstract class Provider {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AppBundle` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/AppBundle.java`
-#### Snippet
-```java
-@Immutable
-@AutoValue
-public abstract class AppBundle implements Bundle {
-
-  public static final ZipPath METADATA_DIRECTORY = ZipPath.create("BUNDLE-METADATA");
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/AppBundle.java`
+in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Activity.java`
 #### Snippet
 ```java
-  /** Builder for App Bundle object */
+  /** Builder for Activity. */
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract Builder setModules(ImmutableMap<BundleModuleName, BundleModule> modules);
+    public abstract Builder setName(String name);
 
 ```
 
@@ -1371,18 +1383,6 @@ public abstract class Activity {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Activity.java`
-#### Snippet
-```java
-  /** Builder for Activity. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setName(String name);
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `BadgingInfo` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/device/BadgingInfoParser.java`
 #### Snippet
@@ -1392,30 +1392,6 @@ in `src/main/java/com/android/tools/build/bundletool/device/BadgingInfoParser.ja
   public abstract static class BadgingInfo {
     static BadgingInfo create(String packageName, long versionCode) {
       return new AutoValue_BadgingInfoParser_BadgingInfo(packageName, versionCode);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/splitters/ApkGenerationConfiguration.java`
-#### Snippet
-```java
-  /** Builder for the {@link ApkGenerationConfiguration}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setOptimizationDimensions(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ApkGenerationConfiguration` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/splitters/ApkGenerationConfiguration.java`
-#### Snippet
-```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class ApkGenerationConfiguration {
-
-  public abstract ImmutableSet<OptimizationDimension> getOptimizationDimensions();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1431,6 +1407,30 @@ public abstract class ZipPath implements Comparable<ZipPath> {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `ApkGenerationConfiguration` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/splitters/ApkGenerationConfiguration.java`
+#### Snippet
+```java
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class ApkGenerationConfiguration {
+
+  public abstract ImmutableSet<OptimizationDimension> getOptimizationDimensions();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/splitters/ApkGenerationConfiguration.java`
+#### Snippet
+```java
+  /** Builder for the {@link ApkGenerationConfiguration}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setOptimizationDimensions(
+```
+
+### AbstractClassNeverImplemented
 Abstract class `BundleModuleName` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/model/BundleModuleName.java`
 #### Snippet
@@ -1443,18 +1443,6 @@ public abstract class BundleModuleName implements Comparable<BundleModuleName> {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Receiver.java`
-#### Snippet
-```java
-  /** Builder for Receiever. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setName(String name);
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Receiver` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Receiver.java`
 #### Snippet
@@ -1463,6 +1451,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Rece
 @AutoValue.CopyAnnotations
 public abstract class Receiver {
   abstract Optional<String> getName();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Receiver.java`
+#### Snippet
+```java
+  /** Builder for Receiever. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setName(String name);
 
 ```
 
@@ -1527,6 +1527,30 @@ public abstract class GeneratedAssetSlices {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `ModuleSplit` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
+#### Snippet
+```java
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class ModuleSplit {
+
+  private static final Joiner MULTI_ABI_SUFFIX_JOINER = Joiner.on('.');
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
+#### Snippet
+```java
+  /** Builder for {@link ModuleSplit}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setModuleName(BundleModuleName moduleName);
+```
+
+### AbstractClassNeverImplemented
 Abstract class `TargetedDirectory` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetedDirectory.java`
 #### Snippet
@@ -1572,30 +1596,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/ApkModifier.java`
     public abstract static class Builder {
       public abstract Builder setVariantNumber(int variantNumber);
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ModuleSplit` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
-#### Snippet
-```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class ModuleSplit {
-
-  private static final Joiner MULTI_ABI_SUFFIX_JOINER = Joiner.on('.');
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
-#### Snippet
-```java
-  /** Builder for {@link ModuleSplit}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setModuleName(BundleModuleName moduleName);
 ```
 
 ### AbstractClassNeverImplemented
@@ -1659,6 +1659,30 @@ in `src/main/java/com/android/tools/build/bundletool/model/SdkBundle.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ModuleConditions.java`
+#### Snippet
+```java
+  /** Builder for {@link ModuleConditions}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    abstract ImmutableList.Builder<DeviceFeatureCondition> deviceFeatureConditionsBuilder();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ModuleConditions` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ModuleConditions.java`
+#### Snippet
+```java
+@AutoValue
+@AutoValue.CopyAnnotations
+public abstract class ModuleConditions {
+
+  public abstract ImmutableList<DeviceFeatureCondition> getDeviceFeatureConditions();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `CommandOptions` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/androidtools/CommandExecutor.java`
 #### Snippet
@@ -1683,27 +1707,15 @@ in `src/main/java/com/android/tools/build/bundletool/androidtools/CommandExecuto
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ModuleConditions` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ModuleConditions.java`
+Abstract class `ManifestDeliveryElement` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
 #### Snippet
 ```java
 @AutoValue
 @AutoValue.CopyAnnotations
-public abstract class ModuleConditions {
+public abstract class ManifestDeliveryElement {
 
-  public abstract ImmutableList<DeviceFeatureCondition> getDeviceFeatureConditions();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ModuleConditions.java`
-#### Snippet
-```java
-  /** Builder for {@link ModuleConditions}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    abstract ImmutableList.Builder<DeviceFeatureCondition> deviceFeatureConditionsBuilder();
+  private static final String VERSION_ATTRIBUTE_NAME = "version";
 ```
 
 ### AbstractClassNeverImplemented
@@ -1718,15 +1730,15 @@ public abstract class BuildSdkAsarModule {}
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ManifestDeliveryElement` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkBundleCommand.java`
 #### Snippet
 ```java
-@AutoValue
-@AutoValue.CopyAnnotations
-public abstract class ManifestDeliveryElement {
+  /** Builder for the {@link BuildSdkBundleCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setOutputPath(Path outputPath);
 
-  private static final String VERSION_ATTRIBUTE_NAME = "version";
 ```
 
 ### AbstractClassNeverImplemented
@@ -1739,18 +1751,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkBundleComm
 public abstract class BuildSdkBundleCommand {
 
   private static final Logger logger = Logger.getLogger(BuildBundleCommand.class.getName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkBundleCommand.java`
-#### Snippet
-```java
-  /** Builder for the {@link BuildSdkBundleCommand}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setOutputPath(Path outputPath);
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -1778,6 +1778,30 @@ public abstract class UserCountriesCondition {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Entry` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/io/ZipBuilder.java`
+#### Snippet
+```java
+  @AutoValue.CopyAnnotations
+  @SuppressWarnings("Immutable")
+  protected abstract static class Entry {
+    /** Absent for directory entries. */
+    public abstract Optional<ByteSource> getContent();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/io/ZipBuilder.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      public abstract Builder setContent(ByteSource byteSource);
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `BuildSdkApksModule` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkApksModule.java`
 #### Snippet
@@ -1802,54 +1826,6 @@ public abstract class DeviceFeatureCondition {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/io/ZipBuilder.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder {
-      public abstract Builder setContent(ByteSource byteSource);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Entry` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/io/ZipBuilder.java`
-#### Snippet
-```java
-  @AutoValue.CopyAnnotations
-  @SuppressWarnings("Immutable")
-  protected abstract static class Entry {
-    /** Absent for directory entries. */
-    public abstract Optional<ByteSource> getContent();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/GetSizeCommand.java`
-#### Snippet
-```java
-  /** Builder for the {@link GetSizeCommand}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setApksArchivePath(Path apksArchivePath);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GetSizeCommand` has no concrete subclass
-in `src/main/java/com/android/tools/build/bundletool/commands/GetSizeCommand.java`
-#### Snippet
-```java
-/** Gets over-the-wire sizes of APKS that are going to be served from the APK Set. */
-@AutoValue
-public abstract class GetSizeCommand implements GetSizeRequest {
-
-  public static final String COMMAND_NAME = "get-size";
-```
-
-### AbstractClassNeverImplemented
 Abstract class `EvaluateDeviceTargetingConfigCommand` has no concrete subclass
 in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTargetingConfigCommand.java`
 #### Snippet
@@ -1870,6 +1846,30 @@ in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTarg
   @AutoValue.Builder
   abstract static class Builder {
     abstract Builder setDeviceTargetingConfigurationPath(Path deviceTargetingConfigurationPath);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GetSizeCommand` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/GetSizeCommand.java`
+#### Snippet
+```java
+/** Gets over-the-wire sizes of APKS that are going to be served from the APK Set. */
+@AutoValue
+public abstract class GetSizeCommand implements GetSizeRequest {
+
+  public static final String COMMAND_NAME = "get-size";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/com/android/tools/build/bundletool/commands/GetSizeCommand.java`
+#### Snippet
+```java
+  /** Builder for the {@link GetSizeCommand}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setApksArchivePath(Path apksArchivePath);
 
 ```
 
@@ -1983,18 +1983,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/RuntimeEnabledSdkDependencyPreprocessor.java`
-#### Snippet
-```java
-
-  @Inject
-  RuntimeEnabledSdkDependencyPreprocessor(ImmutableMap<String, BundleModule> sdkBundleModules) {
-    this.sdkBundleModules = sdkBundleModules;
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends ZipPath`
 in `src/main/java/com/android/tools/build/bundletool/model/utils/files/FileUtils.java`
 #### Snippet
@@ -2016,6 +2004,30 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/files/FileUtils
   public static ImmutableList<Path> getDistinctParentPaths(Collection<Path> paths) {
     return paths.stream().map(Path::getParent).distinct().collect(toImmutableList());
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/RuntimeEnabledSdkDependencyPreprocessor.java`
+#### Snippet
+```java
+
+  @Inject
+  RuntimeEnabledSdkDependencyPreprocessor(ImmutableMap<String, BundleModule> sdkBundleModules) {
+    this.sdkBundleModules = sdkBundleModules;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `src/main/java/com/android/tools/build/bundletool/transparency/ApkSignatureVerifier.java`
+#### Snippet
+```java
+
+  /** Verifies signature of each APK and returns the public certificate of the app signing key. */
+  static Result verify(ImmutableList<Path> deviceSpecificApks) {
+    checkArgument(
+        !deviceSpecificApks.isEmpty(), "Expected non-empty list of device-specific APKs.");
 ```
 
 ### BoundedWildcard
@@ -2043,15 +2055,15 @@ in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Path`
-in `src/main/java/com/android/tools/build/bundletool/transparency/ApkSignatureVerifier.java`
+Can generalize to `? super ZipPath`
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/EmbeddedApkSigningPreprocessor.java`
 #### Snippet
 ```java
-
-  /** Verifies signature of each APK and returns the public certificate of the app signing key. */
-  static Result verify(ImmutableList<Path> deviceSpecificApks) {
-    checkArgument(
-        !deviceSpecificApks.isEmpty(), "Expected non-empty list of device-specific APKs.");
+      ModuleEntry moduleEntry,
+      ImmutableSet<ZipPath> unsignedEmbeddedApkPaths,
+      ImmutableSet.Builder<ZipPath> foundApkPaths) {
+    boolean shouldSign = unsignedEmbeddedApkPaths.contains(moduleEntry.getPath());
+    if (shouldSign) {
 ```
 
 ### BoundedWildcard
@@ -2067,15 +2079,15 @@ in `src/main/java/com/android/tools/build/bundletool/preprocessors/EmbeddedApkSi
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ZipPath`
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/EmbeddedApkSigningPreprocessor.java`
+Can generalize to `? extends Path`
+in `src/main/java/com/android/tools/build/bundletool/mergers/D8DexMerger.java`
 #### Snippet
 ```java
-      ModuleEntry moduleEntry,
-      ImmutableSet<ZipPath> unsignedEmbeddedApkPaths,
-      ImmutableSet.Builder<ZipPath> foundApkPaths) {
-    boolean shouldSign = unsignedEmbeddedApkPaths.contains(moduleEntry.getPath());
-    if (shouldSign) {
+  }
+
+  private static void validateInput(ImmutableList<Path> dexFiles, Path outputDir) {
+    checkDirectoryExistsAndEmpty(outputDir);
+    dexFiles.forEach(FilePreconditions::checkFileExistsAndReadable);
 ```
 
 ### BoundedWildcard
@@ -2088,18 +2100,6 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/D8DexMerger.java`
       ImmutableList<Path> dexFiles,
       Path outputDir,
       Optional<Path> mainDexListFile,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `src/main/java/com/android/tools/build/bundletool/mergers/D8DexMerger.java`
-#### Snippet
-```java
-  }
-
-  private static void validateInput(ImmutableList<Path> dexFiles, Path outputDir) {
-    checkDirectoryExistsAndEmpty(outputDir);
-    dexFiles.forEach(FilePreconditions::checkFileExistsAndReadable);
 ```
 
 ### BoundedWildcard
@@ -2211,18 +2211,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/CountrySetParity
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule.Builder`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
-#### Snippet
-```java
-  }
-
-  private static void checkModulesHaveManifest(Collection<BundleModule.Builder> bundleModules) {
-    ImmutableSet<String> modulesWithoutManifest =
-        bundleModules.stream()
-```
-
-### BoundedWildcard
 Can generalize to `? extends ZipPath`
 in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
 #### Snippet
@@ -2235,51 +2223,99 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModuleName`
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+Can generalize to `? extends BundleModule.Builder`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
 #### Snippet
 ```java
   }
 
-  private AndroidManifest merge(Map<BundleModuleName, AndroidManifest> manifests) {
-    AndroidManifest baseManifest = manifests.get(BASE_MODULE_NAME);
-    List<AndroidManifest> featureManifests =
+  private static void checkModulesHaveManifest(Collection<BundleModule.Builder> bundleModules) {
+    ImmutableSet<String> modulesWithoutManifest =
+        bundleModules.stream()
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AndroidManifest`
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/io/ZipFlingerBundleSerializer.java`
+#### Snippet
+```java
+  /** Does not consider special entries or metadata. */
+  static ImmutableListMultimap<BundleModule, ModuleEntry> getUnmodifiedModuleEntries(
+      ImmutableCollection<BundleModule> bundleModules) {
+    return bundleModules.stream()
+        .collect(
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/io/ZipFlingerBundleSerializer.java`
+#### Snippet
+```java
+  /** Does not consider special entries or metadata. */
+  static ImmutableListMultimap<BundleModule, ModuleEntry> getNewOrModifiedModuleEntries(
+      ImmutableCollection<BundleModule> bundleModules) {
+    return bundleModules.stream()
+        .collect(
+```
+
+### BoundedWildcard
+Can generalize to `? extends ResourceId`
+in `src/main/java/com/android/tools/build/bundletool/splitters/ResourceAnalyzer.java`
 #### Snippet
 ```java
   }
 
-  private AndroidManifest merge(Map<BundleModuleName, AndroidManifest> manifests) {
-    AndroidManifest baseManifest = manifests.get(BASE_MODULE_NAME);
-    List<AndroidManifest> featureManifests =
+  private ImmutableSet<ResourceId> transitiveClosure(ImmutableSet<ResourceId> anchorResources)
+      throws IOException {
+    Set<ResourceId> referencedResources = new HashSet<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ApplicationElementId`
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
 #### Snippet
 ```java
-      AndroidManifest manifest,
-      ImmutableSet<String> elementsToMerge,
-      ImmutableListMultimap.Builder<ApplicationElementId, XmlProtoElement> featureElementsBuilder) {
-    Optional<XmlProtoElement> manifestElement =
-        manifest
+
+  private static ImmutableList<String> getUniqueModuleNames(
+      ImmutableCollection<ModuleSplit> splits) {
+    return splits.stream()
+        .map(ModuleSplit::getModuleName)
 ```
 
 ### BoundedWildcard
-Can generalize to `? super XmlProtoElement`
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+Can generalize to `? extends ModuleEntry`
+in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
 #### Snippet
 ```java
-      AndroidManifest manifest,
-      ImmutableSet<String> elementsToMerge,
-      ImmutableListMultimap.Builder<ApplicationElementId, XmlProtoElement> featureElementsBuilder) {
-    Optional<XmlProtoElement> manifestElement =
-        manifest
+   */
+  private static ImmutableList<Path> writeModuleEntriesToIndexedFiles(
+      List<ModuleEntry> moduleEntries, Path toDirectory, String fileSuffix) throws IOException {
+    ImmutableList.Builder<Path> files = ImmutableList.builder();
+    for (int i = 0; i < moduleEntries.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ZipPath`
+in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
+#### Snippet
+```java
+
+  private static void mergeEntries(
+      Map<ZipPath, ModuleEntry> mergedEntriesByPath, ModuleSplit split, ModuleEntry entry) {
+    ModuleEntry existingEntry = mergedEntriesByPath.putIfAbsent(entry.getPath(), entry);
+    // Any conflicts of plain entries should be caught by bundle validations.
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImmutableList`
+in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
+#### Snippet
+```java
+   */
+  public ImmutableList<ModuleSplit> mergeApex(
+      ImmutableList<ImmutableList<ModuleSplit>> unfusedShards) {
+    return unfusedShards.stream().map(this::mergeSingleApexShard).collect(toImmutableList());
+  }
 ```
 
 ### BoundedWildcard
@@ -2307,27 +2343,75 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManife
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/io/ZipFlingerBundleSerializer.java`
+Can generalize to `? super ApplicationElementId`
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
 #### Snippet
 ```java
-  /** Does not consider special entries or metadata. */
-  static ImmutableListMultimap<BundleModule, ModuleEntry> getNewOrModifiedModuleEntries(
-      ImmutableCollection<BundleModule> bundleModules) {
-    return bundleModules.stream()
-        .collect(
+      AndroidManifest manifest,
+      ImmutableSet<String> elementsToMerge,
+      ImmutableListMultimap.Builder<ApplicationElementId, XmlProtoElement> featureElementsBuilder) {
+    Optional<XmlProtoElement> manifestElement =
+        manifest
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/io/ZipFlingerBundleSerializer.java`
+Can generalize to `? super XmlProtoElement`
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
 #### Snippet
 ```java
-  /** Does not consider special entries or metadata. */
-  static ImmutableListMultimap<BundleModule, ModuleEntry> getUnmodifiedModuleEntries(
-      ImmutableCollection<BundleModule> bundleModules) {
-    return bundleModules.stream()
-        .collect(
+      AndroidManifest manifest,
+      ImmutableSet<String> elementsToMerge,
+      ImmutableListMultimap.Builder<ApplicationElementId, XmlProtoElement> featureElementsBuilder) {
+    Optional<XmlProtoElement> manifestElement =
+        manifest
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModuleName`
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+#### Snippet
+```java
+  }
+
+  private AndroidManifest merge(Map<BundleModuleName, AndroidManifest> manifests) {
+    AndroidManifest baseManifest = manifests.get(BASE_MODULE_NAME);
+    List<AndroidManifest> featureManifests =
+```
+
+### BoundedWildcard
+Can generalize to `? extends AndroidManifest`
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+#### Snippet
+```java
+  }
+
+  private AndroidManifest merge(Map<BundleModuleName, AndroidManifest> manifests) {
+    AndroidManifest baseManifest = manifests.get(BASE_MODULE_NAME);
+    List<AndroidManifest> featureManifests =
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetedDirectory`
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
+#### Snippet
+```java
+   */
+  public static ImmutableSet<Integer> extractDeviceTiers(
+      ImmutableSet<TargetedDirectory> targetedDirectories) {
+    return targetedDirectories.stream()
+        .map(TargetingUtils::extractDeviceTier)
+```
+
+### BoundedWildcard
+Can generalize to `? extends TargetedDirectory`
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
+#### Snippet
+```java
+   */
+  public static ImmutableSet<String> extractCountrySets(
+      ImmutableSet<TargetedDirectory> targetedDirectories) {
+    return targetedDirectories.stream()
+        .map(TargetingUtils::extractCountrySet)
 ```
 
 ### BoundedWildcard
@@ -2415,111 +2499,15 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ModuleEntry`
-in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
+Can generalize to `? extends ByteSource`
+in `src/main/java/com/android/tools/build/bundletool/size/ApkCompressedSizeCalculator.java`
 #### Snippet
 ```java
+   * Given a list of {@link ByteSource} computes the GZIP size increments attributed to each stream.
    */
-  private static ImmutableList<Path> writeModuleEntriesToIndexedFiles(
-      List<ModuleEntry> moduleEntries, Path toDirectory, String fileSuffix) throws IOException {
-    ImmutableList.Builder<Path> files = ImmutableList.builder();
-    for (int i = 0; i < moduleEntries.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImmutableList`
-in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
-#### Snippet
-```java
-   */
-  public ImmutableList<ModuleSplit> mergeApex(
-      ImmutableList<ImmutableList<ModuleSplit>> unfusedShards) {
-    return unfusedShards.stream().map(this::mergeSingleApexShard).collect(toImmutableList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super ZipPath`
-in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
-#### Snippet
-```java
-
-  private static void mergeEntries(
-      Map<ZipPath, ModuleEntry> mergedEntriesByPath, ModuleSplit split, ModuleEntry entry) {
-    ModuleEntry existingEntry = mergedEntriesByPath.putIfAbsent(entry.getPath(), entry);
-    // Any conflicts of plain entries should be caught by bundle validations.
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShardMerger.java`
-#### Snippet
-```java
-
-  private static ImmutableList<String> getUniqueModuleNames(
-      ImmutableCollection<ModuleSplit> splits) {
-    return splits.stream()
-        .map(ModuleSplit::getModuleName)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResourceId`
-in `src/main/java/com/android/tools/build/bundletool/splitters/ResourceAnalyzer.java`
-#### Snippet
-```java
-  }
-
-  private ImmutableSet<ResourceId> transitiveClosure(ImmutableSet<ResourceId> anchorResources)
+  public ImmutableList<Long> calculateGZipSizeForEntries(List<ByteSource> byteSources)
       throws IOException {
-    Set<ResourceId> referencedResources = new HashSet<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super ElementWrapperT`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementOrBuilder.java`
-#### Snippet
-```java
-
-  /** Finds XML elements among the direct children that satisfies the given predicate. */
-  public final Stream<ElementWrapperT> getChildrenElements(Predicate<ElementWrapperT> predicate) {
-    return getChildren()
-        .filter(node -> node.isElement())
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetedDirectory`
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
-#### Snippet
-```java
-   */
-  public static ImmutableSet<Integer> extractDeviceTiers(
-      ImmutableSet<TargetedDirectory> targetedDirectories) {
-    return targetedDirectories.stream()
-        .map(TargetingUtils::extractDeviceTier)
-```
-
-### BoundedWildcard
-Can generalize to `? extends TargetedDirectory`
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
-#### Snippet
-```java
-   */
-  public static ImmutableSet<String> extractCountrySets(
-      ImmutableSet<TargetedDirectory> targetedDirectories) {
-    return targetedDirectories.stream()
-        .map(TargetingUtils::extractCountrySet)
-```
-
-### BoundedWildcard
-Can generalize to `? extends ZipFile`
-in `src/main/java/com/android/tools/build/bundletool/validation/BundleModulesValidator.java`
-#### Snippet
-```java
-
-  public ImmutableList<BundleModule> validate(
-      ImmutableList<ZipFile> moduleZips, BundleConfig bundleConfig) {
-    for (ZipFile moduleZip : moduleZips) {
-      new ValidatorRunner(MODULE_FILE_SUB_VALIDATORS).validateModuleZipFile(moduleZip);
+    ImmutableList.Builder<Long> gzipSizeIncrements = ImmutableList.builder();
 ```
 
 ### BoundedWildcard
@@ -2535,27 +2523,15 @@ in `src/main/java/com/android/tools/build/bundletool/size/ApkCompressedSizeCalcu
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ByteSource`
-in `src/main/java/com/android/tools/build/bundletool/size/ApkCompressedSizeCalculator.java`
+Can generalize to `? extends ZipFile`
+in `src/main/java/com/android/tools/build/bundletool/validation/BundleModulesValidator.java`
 #### Snippet
 ```java
-   * Given a list of {@link ByteSource} computes the GZIP size increments attributed to each stream.
-   */
-  public ImmutableList<Long> calculateGZipSizeForEntries(List<ByteSource> byteSources)
-      throws IOException {
-    ImmutableList.Builder<Long> gzipSizeIncrements = ImmutableList.builder();
-```
 
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/com/android/tools/build/bundletool/model/exceptions/InternalExceptionBuilder.java`
-#### Snippet
-```java
-  @Nullable protected String internalMessage;
-
-  InternalExceptionBuilder(ExceptionCreator<T> creator) {
-    this.creator = creator;
-  }
+  public ImmutableList<BundleModule> validate(
+      ImmutableList<ZipFile> moduleZips, BundleConfig bundleConfig) {
+    for (ZipFile moduleZip : moduleZips) {
+      new ValidatorRunner(MODULE_FILE_SUB_VALIDATORS).validateModuleZipFile(moduleZip);
 ```
 
 ### BoundedWildcard
@@ -2568,6 +2544,18 @@ in `src/main/java/com/android/tools/build/bundletool/validation/AppBundleValidat
   public static AppBundleValidator create(ImmutableList<SubValidator> extraSubValidators) {
     AppBundleValidator validator =
         new AppBundleValidator(
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/com/android/tools/build/bundletool/model/exceptions/InternalExceptionBuilder.java`
+#### Snippet
+```java
+  @Nullable protected String internalMessage;
+
+  InternalExceptionBuilder(ExceptionCreator<T> creator) {
+    this.creator = creator;
+  }
 ```
 
 ### BoundedWildcard
@@ -2607,27 +2595,15 @@ in `src/main/java/com/android/tools/build/bundletool/validation/SdkModulesFileVa
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PasswordProtection`
-in `src/main/java/com/android/tools/build/bundletool/model/Password.java`
-#### Snippet
-```java
-  private final Supplier<PasswordProtection> passwordSupplier;
-
-  public Password(Supplier<PasswordProtection> passwordSupplier) {
-    this.passwordSupplier = passwordSupplier;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleEntry`
-in `src/main/java/com/android/tools/build/bundletool/splitters/DexCompressionSplitter.java`
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSplitterFactory.java`
 #### Snippet
 ```java
 
-  private static ImmutableList<ModuleEntry> mergeAndSetCompression(
-      ImmutableSet<ModuleEntry> dexEntries, ModuleSplit moduleSplit, boolean forceUncompressed) {
-
-    ImmutableSet<ModuleEntry> nonDexEntries =
+      private ModuleSplit getDefaultAssetsSplit(
+          ModuleSplit inputSplit, ImmutableList<ModuleSplit> configSplits) {
+        ImmutableSet<ModuleEntry> claimedEntries =
+            configSplits.stream()
 ```
 
 ### BoundedWildcard
@@ -2691,51 +2667,27 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/CollectorUtils.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSplitterFactory.java`
+Can generalize to `? extends PasswordProtection`
+in `src/main/java/com/android/tools/build/bundletool/model/Password.java`
 #### Snippet
 ```java
+  private final Supplier<PasswordProtection> passwordSupplier;
 
-      private ModuleSplit getDefaultAssetsSplit(
-          ModuleSplit inputSplit, ImmutableList<ModuleSplit> configSplits) {
-        ImmutableSet<ModuleEntry> claimedEntries =
-            configSplits.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
-#### Snippet
-```java
-
-  @Override
-  public void installApks(ImmutableList<Path> apks, InstallOptions installOptions) {
-    ImmutableList<File> apkFiles = apks.stream().map(Path::toFile).collect(toImmutableList());
-    ImmutableList.Builder<String> extraArgs = ImmutableList.builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
-#### Snippet
-```java
+  public Password(Supplier<PasswordProtection> passwordSupplier) {
+    this.passwordSupplier = passwordSupplier;
   }
-
-  private void pushFilesToLocation(String splitsPath, ImmutableList<Path> files)
-      throws IOException, SyncException, TimeoutException, AdbCommandRejectedException {
-    for (Path path : files) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FilePullParams`
-in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
+Can generalize to `? extends ModuleEntry`
+in `src/main/java/com/android/tools/build/bundletool/splitters/DexCompressionSplitter.java`
 #### Snippet
 ```java
 
-  @Override
-  public void pull(ImmutableList<FilePullParams> files) {
-    files.forEach(file -> pullFile(file.getPathOnDevice(), file.getDestinationPath().toString()));
-  }
+  private static ImmutableList<ModuleEntry> mergeAndSetCompression(
+      ImmutableSet<ModuleEntry> dexEntries, ModuleSplit moduleSplit, boolean forceUncompressed) {
+
+    ImmutableSet<ModuleEntry> nonDexEntries =
 ```
 
 ### BoundedWildcard
@@ -2751,6 +2703,42 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/SplitApksGenerato
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends FilePullParams`
+in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
+#### Snippet
+```java
+
+  @Override
+  public void pull(ImmutableList<FilePullParams> files) {
+    files.forEach(file -> pullFile(file.getPathOnDevice(), file.getDestinationPath().toString()));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
+#### Snippet
+```java
+  }
+
+  private void pushFilesToLocation(String splitsPath, ImmutableList<Path> files)
+      throws IOException, SyncException, TimeoutException, AdbCommandRejectedException {
+    for (Path path : files) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
+#### Snippet
+```java
+
+  @Override
+  public void installApks(ImmutableList<Path> apks, InstallOptions installOptions) {
+    ImmutableList<File> apkFiles = apks.stream().map(Path::toFile).collect(toImmutableList());
+    ImmutableList.Builder<String> extraArgs = ImmutableList.builder();
+```
+
+### BoundedWildcard
 Can generalize to `? extends GeneratedApk`
 in `src/main/java/com/android/tools/build/bundletool/device/AbstractSizeAggregator.java`
 #### Snippet
@@ -2760,18 +2748,6 @@ in `src/main/java/com/android/tools/build/bundletool/device/AbstractSizeAggregat
   private long getCompressedSize(ImmutableList<GeneratedApk> apks) {
     return apks.stream().mapToLong(apk -> sizeByApkPaths.get(apk.getPath().toString())).sum();
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/validation/ResourceTableValidator.java`
-#### Snippet
-```java
-  }
-
-  private static void checkResourceIdsAreUnique(ImmutableList<BundleModule> modules) {
-    HashSet<ResourceId> usedResourceIds = newHashSet();
-    for (BundleModule module : modules) {
 ```
 
 ### BoundedWildcard
@@ -2796,6 +2772,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/AppBundle.java`
     public Builder setRawModules(Collection<BundleModule> bundleModules) {
       setModules(bundleModules.stream().collect(toImmutableMap(BundleModule::getName, identity())));
       return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/validation/ResourceTableValidator.java`
+#### Snippet
+```java
+  }
+
+  private static void checkResourceIdsAreUnique(ImmutableList<BundleModule> modules) {
+    HashSet<ResourceId> usedResourceIds = newHashSet();
+    for (BundleModule module : modules) {
 ```
 
 ### BoundedWildcard
@@ -2824,18 +2812,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/DeviceTierParity
 
 ### BoundedWildcard
 Can generalize to `? extends ModuleEntry`
-in `src/main/java/com/android/tools/build/bundletool/shards/BundleModule64BitNativeLibrariesRemover.java`
-#### Snippet
-```java
-
-  private static ImmutableCollection<ModuleEntry> filterEntries(
-      ImmutableCollection<ModuleEntry> entries,
-      ImmutableCollection<TargetedNativeDirectory> targeted64BitNativeDirectories) {
-    return entries.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleEntry`
 in `src/main/java/com/android/tools/build/bundletool/model/ModuleAbiSanitizer.java`
 #### Snippet
 ```java
@@ -2859,27 +2835,39 @@ in `src/main/java/com/android/tools/build/bundletool/model/GeneratedAssetSlices.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestValidator.java`
+Can generalize to `? extends ModuleEntry`
+in `src/main/java/com/android/tools/build/bundletool/shards/BundleModule64BitNativeLibrariesRemover.java`
 #### Snippet
 ```java
-  }
 
-  private static void validateMinSdk(ImmutableList<BundleModule> modules) {
-    int baseMinSdk =
-        modules.stream()
+  private static ImmutableCollection<ModuleEntry> filterEntries(
+      ImmutableCollection<ModuleEntry> entries,
+      ImmutableCollection<TargetedNativeDirectory> targeted64BitNativeDirectories) {
+    return entries.stream()
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestValidator.java`
+Can generalize to `? extends ModuleEntry`
+in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
 #### Snippet
 ```java
-  }
+  /** Filters out any entries not referenced in the given resource table. */
+  public static ImmutableList<ModuleEntry> filterResourceEntries(
+      ImmutableList<ModuleEntry> entries, ResourceTable resourceTable) {
+    ImmutableSet<ZipPath> referencedPaths = ResourcesUtils.getAllFileReferences(resourceTable);
+    return entries.stream()
+```
 
-  void validateTargetSandboxVersion(ImmutableList<BundleModule> modules) {
-    ImmutableList<Integer> targetSandboxVersion =
-        modules.stream()
+### BoundedWildcard
+Can generalize to `? extends TargetedDirectorySegment`
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetedDirectory.java`
+#### Snippet
+```java
+
+  private static void checkNoDuplicateDimensions(
+      ImmutableList<TargetedDirectorySegment> directorySegments, ZipPath directoryPath) {
+    Set<TargetingDimension> coveredDimensions = new HashSet<>();
+    for (TargetedDirectorySegment targetedDirectorySegment : directorySegments) {
 ```
 
 ### BoundedWildcard
@@ -2907,27 +2895,27 @@ in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestV
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TargetedDirectorySegment`
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetedDirectory.java`
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestValidator.java`
 #### Snippet
 ```java
+  }
 
-  private static void checkNoDuplicateDimensions(
-      ImmutableList<TargetedDirectorySegment> directorySegments, ZipPath directoryPath) {
-    Set<TargetingDimension> coveredDimensions = new HashSet<>();
-    for (TargetedDirectorySegment targetedDirectorySegment : directorySegments) {
+  void validateTargetSandboxVersion(ImmutableList<BundleModule> modules) {
+    ImmutableList<Integer> targetSandboxVersion =
+        modules.stream()
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ModuleEntry`
-in `src/main/java/com/android/tools/build/bundletool/model/ModuleSplit.java`
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestValidator.java`
 #### Snippet
 ```java
-  /** Filters out any entries not referenced in the given resource table. */
-  public static ImmutableList<ModuleEntry> filterResourceEntries(
-      ImmutableList<ModuleEntry> entries, ResourceTable resourceTable) {
-    ImmutableSet<ZipPath> referencedPaths = ResourcesUtils.getAllFileReferences(resourceTable);
-    return entries.stream()
+  }
+
+  private static void validateMinSdk(ImmutableList<BundleModule> modules) {
+    int baseMinSdk =
+        modules.stream()
 ```
 
 ### BoundedWildcard
@@ -2952,6 +2940,18 @@ in `src/main/java/com/android/tools/build/bundletool/shards/StandaloneApksGenera
       ImmutableList<BundleModule> modules, ApkOptimizations apkOptimizations) {
     // Generate a flat list of splits from all input modules.
     ImmutableList<ModuleSplit> splits =
+```
+
+### BoundedWildcard
+Can generalize to `? extends SubValidator`
+in `src/main/java/com/android/tools/build/bundletool/validation/ValidatorRunner.java`
+#### Snippet
+```java
+  private final ImmutableList<SubValidator> subValidators;
+
+  public ValidatorRunner(ImmutableList<SubValidator> subValidators) {
+    this.subValidators = subValidators;
+  }
 ```
 
 ### BoundedWildcard
@@ -3003,30 +3003,6 @@ in `src/main/java/com/android/tools/build/bundletool/shards/Sharder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SubValidator`
-in `src/main/java/com/android/tools/build/bundletool/validation/ValidatorRunner.java`
-#### Snippet
-```java
-  private final ImmutableList<SubValidator> subValidators;
-
-  public ValidatorRunner(ImmutableList<SubValidator> subValidators) {
-    this.subValidators = subValidators;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/io/Aapt2ResourceConverter.java`
-#### Snippet
-```java
-   */
-  public ImmutableList<ModuleSplit> convert(
-      Collection<ModuleSplit> allSplits, SerializationFilesManager filesManager) {
-    // Uncompress all resource entries we have in module splits and store them in uncompressed
-    // form inside special zip pack. This is done because we may have the same entry duplicated
-```
-
-### BoundedWildcard
 Can generalize to `? extends ModuleSplit`
 in `src/main/java/com/android/tools/build/bundletool/shards/SystemApksGenerator.java`
 #### Snippet
@@ -3048,66 +3024,6 @@ in `src/main/java/com/android/tools/build/bundletool/shards/SystemApksGenerator.
       ImmutableList<BundleModule> modules,
       ImmutableSet<BundleModuleName> modulesToFuse,
       ApkOptimizations apkOptimizations) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ZipPath`
-in `src/main/java/com/android/tools/build/bundletool/model/BundleModule.java`
-#### Snippet
-```java
-   * entries.
-   */
-  public Stream<ModuleEntry> findEntries(Predicate<ZipPath> pathPredicate) {
-    return getEntries().stream().filter(entry -> pathPredicate.test(entry.getPath()));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleEntry`
-in `src/main/java/com/android/tools/build/bundletool/model/BundleModule.java`
-#### Snippet
-```java
-     */
-    @CanIgnoreReturnValue
-    public Builder addEntries(Collection<ModuleEntry> entries) {
-      for (ModuleEntry entry : entries) {
-        addEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleEntry`
-in `src/main/java/com/android/tools/build/bundletool/model/BundleModule.java`
-#### Snippet
-```java
-     */
-    @CanIgnoreReturnValue
-    public Builder setRawEntries(Collection<ModuleEntry> entries) {
-      entries.forEach(
-          entry ->
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
-#### Snippet
-```java
-    private final SingleValueFlag<V> valueFlag;
-
-    KeyValueFlag(String name, SingleValueFlag<K> keyFlag, SingleValueFlag<V> valueFlag) {
-      super(name);
-      this.keyFlag = keyFlag;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
-#### Snippet
-```java
-    private final SingleValueFlag<V> valueFlag;
-
-    KeyValueFlag(String name, SingleValueFlag<K> keyFlag, SingleValueFlag<V> valueFlag) {
-      super(name);
-      this.keyFlag = keyFlag;
 ```
 
 ### BoundedWildcard
@@ -3147,6 +3063,30 @@ in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
+#### Snippet
+```java
+    private final SingleValueFlag<V> valueFlag;
+
+    KeyValueFlag(String name, SingleValueFlag<K> keyFlag, SingleValueFlag<V> valueFlag) {
+      super(name);
+      this.keyFlag = keyFlag;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
+#### Snippet
+```java
+    private final SingleValueFlag<V> valueFlag;
+
+    KeyValueFlag(String name, SingleValueFlag<K> keyFlag, SingleValueFlag<V> valueFlag) {
+      super(name);
+      this.keyFlag = keyFlag;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
 #### Snippet
@@ -3183,15 +3123,51 @@ in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/com/android/tools/build/bundletool/model/exceptions/UserExceptionBuilder.java`
+Can generalize to `? extends ModuleEntry`
+in `src/main/java/com/android/tools/build/bundletool/model/BundleModule.java`
 #### Snippet
 ```java
-  @Nullable private String userMessage;
+     */
+    @CanIgnoreReturnValue
+    public Builder addEntries(Collection<ModuleEntry> entries) {
+      for (ModuleEntry entry : entries) {
+        addEntry(entry);
+```
 
-  UserExceptionBuilder(ExceptionCreator<T> creator) {
-    this.creator = creator;
+### BoundedWildcard
+Can generalize to `? extends ModuleEntry`
+in `src/main/java/com/android/tools/build/bundletool/model/BundleModule.java`
+#### Snippet
+```java
+     */
+    @CanIgnoreReturnValue
+    public Builder setRawEntries(Collection<ModuleEntry> entries) {
+      entries.forEach(
+          entry ->
+```
+
+### BoundedWildcard
+Can generalize to `? super ZipPath`
+in `src/main/java/com/android/tools/build/bundletool/model/BundleModule.java`
+#### Snippet
+```java
+   * entries.
+   */
+  public Stream<ModuleEntry> findEntries(Predicate<ZipPath> pathPredicate) {
+    return getEntries().stream().filter(entry -> pathPredicate.test(entry.getPath()));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/io/Aapt2ResourceConverter.java`
+#### Snippet
+```java
+   */
+  public ImmutableList<ModuleSplit> convert(
+      Collection<ModuleSplit> allSplits, SerializationFilesManager filesManager) {
+    // Uncompress all resource entries we have in module splits and store them in uncompressed
+    // form inside special zip pack. This is done because we may have the same entry duplicated
 ```
 
 ### BoundedWildcard
@@ -3207,15 +3183,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/validation/ApexBundleValidator.java`
+Can generalize to `? extends T`
+in `src/main/java/com/android/tools/build/bundletool/model/exceptions/UserExceptionBuilder.java`
 #### Snippet
 ```java
+  @Nullable private String userMessage;
 
-  @Override
-  public void validateAllModules(ImmutableList<BundleModule> modules) {
-    long numberOfApexModules =
-        modules.stream().map(BundleModule::getApexConfig).filter(Optional::isPresent).count();
+  UserExceptionBuilder(ExceptionCreator<T> creator) {
+    this.creator = creator;
+  }
 ```
 
 ### BoundedWildcard
@@ -3231,15 +3207,15 @@ in `src/main/java/com/android/tools/build/bundletool/transparency/ApkTransparenc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/splitters/ScreenDensityResourcesSplitter.java`
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/validation/ApexBundleValidator.java`
 #### Snippet
 ```java
 
-  private ImmutableMultimap<ResourceId, ConfigValue> getClaimedConfigs(
-      Iterable<ModuleSplit> moduleSplits) {
-    ImmutableMultimap.Builder<ResourceId, ConfigValue> result = new ImmutableMultimap.Builder<>();
-    for (ModuleSplit moduleSplit : moduleSplits) {
+  @Override
+  public void validateAllModules(ImmutableList<BundleModule> modules) {
+    long numberOfApexModules =
+        modules.stream().map(BundleModule::getApexConfig).filter(Optional::isPresent).count();
 ```
 
 ### BoundedWildcard
@@ -3279,51 +3255,15 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/ScreenDensityReso
 ```
 
 ### BoundedWildcard
-Can generalize to `? super XmlProtoAttributeOrBuilder`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/splitters/ScreenDensityResourcesSplitter.java`
 #### Snippet
 ```java
 
-  private XmlProtoAttributeBuilder getOrCreateAttributeInternal(
-      Predicate<XmlProtoAttributeOrBuilder<?>> attributePredicate,
-      Supplier<XmlAttribute.Builder> attributeFactory) {
-    return getAttributes()
-```
-
-### BoundedWildcard
-Can generalize to `? super XmlAttribute`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
-#### Snippet
-```java
-
-  private XmlProtoElementBuilder removeAttributeInternal(
-      Predicate<XmlAttribute> attributePredicate) {
-    for (int i = 0; i < element.getAttributeCount(); i++) {
-      if (attributePredicate.test(element.getAttribute(i))) {
-```
-
-### BoundedWildcard
-Can generalize to `? super XmlProtoNodeBuilder`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
-#### Snippet
-```java
-
-  public XmlProtoElementBuilder modifyChildElements(
-      Function<XmlProtoNodeBuilder, XmlProtoNodeBuilder> mapper) {
-    ImmutableList<XmlNode> modifiedElements =
-        getChildren()
-```
-
-### BoundedWildcard
-Can generalize to `? super XmlProtoNodeBuilder`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
-#### Snippet
-```java
-
-  /** Removes XML elements among the direct children that satisfies the given predicate. */
-  public XmlProtoElementBuilder removeChildrenElementsIf(Predicate<XmlProtoNodeBuilder> filter) {
-    ImmutableList<XmlNode> keptChildren =
-        getChildren()
+  private ImmutableMultimap<ResourceId, ConfigValue> getClaimedConfigs(
+      Iterable<ModuleSplit> moduleSplits) {
+    ImmutableMultimap.Builder<ResourceId, ConfigValue> result = new ImmutableMultimap.Builder<>();
+    for (ModuleSplit moduleSplit : moduleSplits) {
 ```
 
 ### BoundedWildcard
@@ -3399,15 +3339,147 @@ in `src/main/java/com/android/tools/build/bundletool/validation/EntryClashValida
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
+Can generalize to `? super XmlAttribute`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
 #### Snippet
 ```java
 
-  private static boolean isAssetModule(
-      ImmutableMap<String, BundleModule> modulesByName, String moduleName) {
-    return modulesByName.containsKey(moduleName)
-        && modulesByName.get(moduleName).getModuleType().equals(ModuleType.ASSET_MODULE);
+  private XmlProtoElementBuilder removeAttributeInternal(
+      Predicate<XmlAttribute> attributePredicate) {
+    for (int i = 0; i < element.getAttributeCount(); i++) {
+      if (attributePredicate.test(element.getAttribute(i))) {
+```
+
+### BoundedWildcard
+Can generalize to `? super XmlProtoAttributeOrBuilder`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
+#### Snippet
+```java
+
+  private XmlProtoAttributeBuilder getOrCreateAttributeInternal(
+      Predicate<XmlProtoAttributeOrBuilder<?>> attributePredicate,
+      Supplier<XmlAttribute.Builder> attributeFactory) {
+    return getAttributes()
+```
+
+### BoundedWildcard
+Can generalize to `? super XmlProtoNodeBuilder`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
+#### Snippet
+```java
+
+  /** Removes XML elements among the direct children that satisfies the given predicate. */
+  public XmlProtoElementBuilder removeChildrenElementsIf(Predicate<XmlProtoNodeBuilder> filter) {
+    ImmutableList<XmlNode> keptChildren =
+        getChildren()
+```
+
+### BoundedWildcard
+Can generalize to `? super XmlProtoNodeBuilder`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementBuilder.java`
+#### Snippet
+```java
+
+  public XmlProtoElementBuilder modifyChildElements(
+      Function<XmlProtoNodeBuilder, XmlProtoNodeBuilder> mapper) {
+    ImmutableList<XmlNode> modifiedElements =
+        getChildren()
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
+#### Snippet
+```java
+  private static void mergeAndroidManifest(
+      Version bundletoolVersion,
+      ImmutableSet<BundleModule> bundleModulesToFuse,
+      BundleModule.Builder mergedBaseModule) {
+    HashMultimap<BundleModuleName, AndroidManifest> manifests =
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
+#### Snippet
+```java
+
+  private static ImmutableListMultimap<BundleModuleName, ModuleEntry> getDexEntries(
+      Set<BundleModule> bundleModulesToFuse) {
+    return bundleModulesToFuse.stream()
+        .collect(
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
+#### Snippet
+```java
+
+  private static ImmutableSet<ModuleEntry> getAllEntriesExceptDexAndSpecial(
+      Set<BundleModule> bundleModulesToFuse) {
+    Map<ZipPath, ModuleEntry> mergedEntriesByPath = new HashMap<>();
+    bundleModulesToFuse.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
+#### Snippet
+```java
+
+  private static Optional<ResourceTable> mergeResourceTable(
+      ImmutableSet<BundleModule> bundleModulesToFuse) {
+    if (bundleModulesToFuse.stream().noneMatch(module -> module.getResourceTable().isPresent())) {
+      return Optional.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/ThrowableUtils.java`
+#### Snippet
+```java
+   */
+  public static boolean anyInCausalChainOrSuppressedMatches(
+      Throwable baseThrowable, Predicate<Throwable> predicate) {
+    for (Throwable throwable : Throwables.getCausalChain(baseThrowable)) {
+      if (predicate.test(throwable)
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/ModuleDependenciesUtils.java`
+#### Snippet
+```java
+  public static void addModuleDependencies(
+      String moduleName,
+      Multimap<String, String> moduleDependenciesMap,
+      Set<String> dependencyModules) {
+    if (!moduleDependenciesMap.containsKey(moduleName)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/ModuleDependenciesUtils.java`
+#### Snippet
+```java
+      String moduleName,
+      Multimap<String, String> moduleDependenciesMap,
+      Set<String> dependencyModules) {
+    if (!moduleDependenciesMap.containsKey(moduleName)) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/ModuleDependenciesUtils.java`
+#### Snippet
+```java
+   * ("base", "base").
+   */
+  public static Multimap<String, String> buildAdjacencyMap(ImmutableList<BundleModule> modules) {
+    Multimap<String, String> moduleDependenciesMap = ArrayListMultimap.create();
+
 ```
 
 ### BoundedWildcard
@@ -3416,6 +3488,18 @@ in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependency
 #### Snippet
 ```java
   private static void checkInstantModuleDependencies(
+      Multimap<String, String> moduleDependenciesMap,
+      ImmutableMap<String, BundleModule> modulesByName) {
+    for (Entry<String, String> dependencyEntry : moduleDependenciesMap.entries()) {
+      String moduleName = dependencyEntry.getKey();
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
+#### Snippet
+```java
+  private static void checkMinSdkIsCompatibleWithDependencies(
       Multimap<String, String> moduleDependenciesMap,
       ImmutableMap<String, BundleModule> modulesByName) {
     for (Entry<String, String> dependencyEntry : moduleDependenciesMap.entries()) {
@@ -3463,6 +3547,18 @@ Can generalize to `? extends BundleModule`
 in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
 #### Snippet
 ```java
+
+  private static boolean isAssetModule(
+      ImmutableMap<String, BundleModule> modulesByName, String moduleName) {
+    return modulesByName.containsKey(moduleName)
+        && modulesByName.get(moduleName).getModuleType().equals(ModuleType.ASSET_MODULE);
+```
+
+### BoundedWildcard
+Can generalize to `? extends BundleModule`
+in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
+#### Snippet
+```java
   }
 
   private static void checkHasBaseModule(ImmutableList<BundleModule> modules) {
@@ -3480,174 +3576,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependency
       ImmutableMap<String, BundleModule> modulesByName) {
     for (Entry<String, String> dependencyEntry : moduleDependenciesMap.entries()) {
       String moduleName = dependencyEntry.getKey();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
-#### Snippet
-```java
-  private static void checkMinSdkIsCompatibleWithDependencies(
-      Multimap<String, String> moduleDependenciesMap,
-      ImmutableMap<String, BundleModule> modulesByName) {
-    for (Entry<String, String> dependencyEntry : moduleDependenciesMap.entries()) {
-      String moduleName = dependencyEntry.getKey();
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/ThrowableUtils.java`
-#### Snippet
-```java
-   */
-  public static boolean anyInCausalChainOrSuppressedMatches(
-      Throwable baseThrowable, Predicate<Throwable> predicate) {
-    for (Throwable throwable : Throwables.getCausalChain(baseThrowable)) {
-      if (predicate.test(throwable)
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
-#### Snippet
-```java
-  private static void mergeAndroidManifest(
-      Version bundletoolVersion,
-      ImmutableSet<BundleModule> bundleModulesToFuse,
-      BundleModule.Builder mergedBaseModule) {
-    HashMultimap<BundleModuleName, AndroidManifest> manifests =
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
-#### Snippet
-```java
-
-  private static ImmutableSet<ModuleEntry> getAllEntriesExceptDexAndSpecial(
-      Set<BundleModule> bundleModulesToFuse) {
-    Map<ZipPath, ModuleEntry> mergedEntriesByPath = new HashMap<>();
-    bundleModulesToFuse.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
-#### Snippet
-```java
-
-  private static Optional<ResourceTable> mergeResourceTable(
-      ImmutableSet<BundleModule> bundleModulesToFuse) {
-    if (bundleModulesToFuse.stream().noneMatch(module -> module.getResourceTable().isPresent())) {
-      return Optional.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/mergers/BundleModuleMerger.java`
-#### Snippet
-```java
-
-  private static ImmutableListMultimap<BundleModuleName, ModuleEntry> getDexEntries(
-      Set<BundleModule> bundleModulesToFuse) {
-    return bundleModulesToFuse.stream()
-        .collect(
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
-#### Snippet
-```java
-   */
-  private ModuleEntriesPack buildDeflateCompressedEntriesPack(
-      SerializationFilesManager filesManager, Collection<ModuleSplit> splits) {
-    ModuleEntriesPacker otherEntriesPacker =
-        new ModuleEntriesPacker(
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
-#### Snippet
-```java
-
-  private ModuleEntriesPack buildUncompressedEntriesPack(
-      Path outputPath, Collection<ModuleSplit> splits, ModuleEntriesPack compressedPack) {
-    ModuleEntriesPacker entriesPacker = new ModuleEntriesPacker(outputPath, /* namePrefix= */ "u_");
-    splits.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends P7ZipCommand`
-in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
-#### Snippet
-```java
-      Version bundletoolVersion,
-      ListeningExecutorService executorService,
-      Optional<P7ZipCommand> p7ZipCommand) {
-    super(apkListener, verbose);
-    this.aapt2ResourceConverter = aapt2ResourceConverterFactory;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
-#### Snippet
-```java
-  /** Builds pack with compressed entries using 7zip native tool. */
-  private ModuleEntriesPack build7ZipCompressedEntriesPack(
-      SerializationFilesManager filesManager, Collection<ModuleSplit> splits) {
-    checkState(
-        p7ZipCommand.isPresent(), "'p7ZipCommand' is required when 7zip compression is used.");
-```
-
-### BoundedWildcard
-Can generalize to `? extends BundleModule`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/ModuleDependenciesUtils.java`
-#### Snippet
-```java
-   * ("base", "base").
-   */
-  public static Multimap<String, String> buildAdjacencyMap(ImmutableList<BundleModule> modules) {
-    Multimap<String, String> moduleDependenciesMap = ArrayListMultimap.create();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/ModuleDependenciesUtils.java`
-#### Snippet
-```java
-  public static void addModuleDependencies(
-      String moduleName,
-      Multimap<String, String> moduleDependenciesMap,
-      Set<String> dependencyModules) {
-    if (!moduleDependenciesMap.containsKey(moduleName)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/ModuleDependenciesUtils.java`
-#### Snippet
-```java
-      String moduleName,
-      Multimap<String, String> moduleDependenciesMap,
-      Set<String> dependencyModules) {
-    if (!moduleDependenciesMap.containsKey(moduleName)) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleSplit`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/LocaleConfigXmlInjector.java`
-#### Snippet
-```java
-
-  private static ImmutableSet<String> getLocalesFromBaseModuleSplits(
-      ImmutableList<ModuleSplit> splits) {
-    // TODO("b/213543969"): Bundletool is infeasible to detect the set of languages a developer
-    // explicitly supports if the app has dependencies which themselves provide extra resources
 ```
 
 ### BoundedWildcard
@@ -3672,6 +3600,78 @@ in `src/main/java/com/android/tools/build/bundletool/validation/BundleValidation
   public static BundleModule expectBaseModule(ImmutableList<BundleModule> modules) {
     return modules.stream()
         .filter(BundleModule::isBaseModule)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
+#### Snippet
+```java
+  /** Builds pack with compressed entries using 7zip native tool. */
+  private ModuleEntriesPack build7ZipCompressedEntriesPack(
+      SerializationFilesManager filesManager, Collection<ModuleSplit> splits) {
+    checkState(
+        p7ZipCommand.isPresent(), "'p7ZipCommand' is required when 7zip compression is used.");
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
+#### Snippet
+```java
+   */
+  private ModuleEntriesPack buildDeflateCompressedEntriesPack(
+      SerializationFilesManager filesManager, Collection<ModuleSplit> splits) {
+    ModuleEntriesPacker otherEntriesPacker =
+        new ModuleEntriesPacker(
+```
+
+### BoundedWildcard
+Can generalize to `? extends P7ZipCommand`
+in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
+#### Snippet
+```java
+      Version bundletoolVersion,
+      ListeningExecutorService executorService,
+      Optional<P7ZipCommand> p7ZipCommand) {
+    super(apkListener, verbose);
+    this.aapt2ResourceConverter = aapt2ResourceConverterFactory;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
+#### Snippet
+```java
+
+  private ModuleEntriesPack buildUncompressedEntriesPack(
+      Path outputPath, Collection<ModuleSplit> splits, ModuleEntriesPack compressedPack) {
+    ModuleEntriesPacker entriesPacker = new ModuleEntriesPacker(outputPath, /* namePrefix= */ "u_");
+    splits.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleSplit`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/LocaleConfigXmlInjector.java`
+#### Snippet
+```java
+
+  private static ImmutableSet<String> getLocalesFromBaseModuleSplits(
+      ImmutableList<ModuleSplit> splits) {
+    // TODO("b/213543969"): Bundletool is infeasible to detect the set of languages a developer
+    // explicitly supports if the app has dependencies which themselves provide extra resources
+```
+
+### BoundedWildcard
+Can generalize to `? super ElementWrapperT`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlProtoElementOrBuilder.java`
+#### Snippet
+```java
+
+  /** Finds XML elements among the direct children that satisfies the given predicate. */
+  public final Stream<ElementWrapperT> getChildrenElements(Predicate<ElementWrapperT> predicate) {
+    return getChildren()
+        .filter(node -> node.isElement())
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
@@ -4107,54 +4107,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkApksComman
 ```
 
 ### ConstantValue
-Condition `!keyAlias.isPresent()` is always `true` when reached
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-      populateLineageFromFlags(builder, flags);
-      buildApksCommand.setSigningConfiguration(builder.build());
-    } else if (keystorePath.isPresent() && !keyAlias.isPresent()) {
-      throw InvalidCommandException.builder()
-          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
-```
-
-### ConstantValue
-Result of `keyAlias.isPresent()` is always 'false'
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-      populateLineageFromFlags(builder, flags);
-      buildApksCommand.setSigningConfiguration(builder.build());
-    } else if (keystorePath.isPresent() && !keyAlias.isPresent()) {
-      throw InvalidCommandException.builder()
-          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
-```
-
-### ConstantValue
-Condition `!keystorePath.isPresent()` is always `true`
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
-          .build();
-    } else if (!keystorePath.isPresent() && keyAlias.isPresent()) {
-      throw InvalidCommandException.builder()
-          .withInternalMessage("Flag --ks is required when --ks-key-alias is set.")
-```
-
-### ConstantValue
-Result of `keystorePath.isPresent()` is always 'false'
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
-          .build();
-    } else if (!keystorePath.isPresent() && keyAlias.isPresent()) {
-      throw InvalidCommandException.builder()
-          .withInternalMessage("Flag --ks is required when --ks-key-alias is set.")
-```
-
-### ConstantValue
 Condition `!oldestSignerPropertiesPath.isPresent()` is always `true` when reached
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
@@ -4202,6 +4154,54 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
           .withInternalMessage(
 ```
 
+### ConstantValue
+Condition `!keyAlias.isPresent()` is always `true` when reached
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+      populateLineageFromFlags(builder, flags);
+      buildApksCommand.setSigningConfiguration(builder.build());
+    } else if (keystorePath.isPresent() && !keyAlias.isPresent()) {
+      throw InvalidCommandException.builder()
+          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
+```
+
+### ConstantValue
+Result of `keyAlias.isPresent()` is always 'false'
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+      populateLineageFromFlags(builder, flags);
+      buildApksCommand.setSigningConfiguration(builder.build());
+    } else if (keystorePath.isPresent() && !keyAlias.isPresent()) {
+      throw InvalidCommandException.builder()
+          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
+```
+
+### ConstantValue
+Condition `!keystorePath.isPresent()` is always `true`
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
+          .build();
+    } else if (!keystorePath.isPresent() && keyAlias.isPresent()) {
+      throw InvalidCommandException.builder()
+          .withInternalMessage("Flag --ks is required when --ks-key-alias is set.")
+```
+
+### ConstantValue
+Result of `keystorePath.isPresent()` is always 'false'
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+          .withInternalMessage("Flag --ks-key-alias is required when --ks is set.")
+          .build();
+    } else if (!keystorePath.isPresent() && keyAlias.isPresent()) {
+      throw InvalidCommandException.builder()
+          .withInternalMessage("Flag --ks is required when --ks-key-alias is set.")
+```
+
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -4213,18 +4213,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/SplitsXmlInject
         .get();
   }
 }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/model/utils/ResourcesUtils.java`
-#### Snippet
-```java
-  /** Returns the smallest screen density from the ones given. */
-  public static DensityAlias getLowestDensity(ImmutableCollection<DensityAlias> densities) {
-    return densities.stream().min(comparing(DENSITY_ALIAS_TO_DPI_MAP::get)).get();
-  }
-
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4253,6 +4241,18 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksModule.ja
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/model/utils/ResourcesUtils.java`
+#### Snippet
+```java
+  /** Returns the smallest screen density from the ones given. */
+  public static DensityAlias getLowestDensity(ImmutableCollection<DensityAlias> densities) {
+    return densities.stream().min(comparing(DENSITY_ALIAS_TO_DPI_MAP::get)).get();
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator.java`
 #### Snippet
 ```java
@@ -4265,38 +4265,14 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkApksCommand.java`
-#### Snippet
-```java
-        out.printf(
-            "INFO: The APKs will be signed with the debug keystore found at '%s'.%n",
-            DebugKeystoreUtils.DEBUG_KEYSTORE_CACHE.getUnchecked(provider).get());
-        buildSdkApksCommand.setSigningConfiguration(debugConfig.get());
-      } else {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
 #### Snippet
 ```java
-      throws JoseException {
-    JsonWebSignature jws = createJwsCommon(payload, certificates);
-    jws.setKey(getSignerConfig().get().getPrivateKey());
-    return jws.getCompactSerialization();
+    FilePreconditions.checkFileHasExtension("AAB file", getOutputPath(), ".aab");
+    FilePreconditions.checkFileDoesNotExist(getOutputPath());
+    FilePreconditions.checkFileExistsAndReadable(getTransparencySignaturePath().get());
+    validateTransparencyKeyCertificate();
   }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
-#### Snippet
-```java
-                BundleMetadata.BUNDLETOOL_NAMESPACE,
-                BundleMetadata.TRANSPARENCY_SIGNED_FILE_NAME,
-                toBytes(createSignedJwt(jsonText, getSignerConfig().get().getCertificates())))
-            .build());
-    new AppBundleSerializer().writeToDisk(bundleBuilder.build(), getOutputPath());
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4328,10 +4304,22 @@ in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCom
 in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
 #### Snippet
 ```java
-    FilePreconditions.checkFileHasExtension("AAB file", getOutputPath(), ".aab");
-    FilePreconditions.checkFileDoesNotExist(getOutputPath());
-    FilePreconditions.checkFileExistsAndReadable(getTransparencySignaturePath().get());
-    validateTransparencyKeyCertificate();
+                BundleMetadata.BUNDLETOOL_NAMESPACE,
+                BundleMetadata.TRANSPARENCY_SIGNED_FILE_NAME,
+                toBytes(createSignedJwt(jsonText, getSignerConfig().get().getCertificates())))
+            .build());
+    new AppBundleSerializer().writeToDisk(bundleBuilder.build(), getOutputPath());
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCommand.java`
+#### Snippet
+```java
+      throws JoseException {
+    JsonWebSignature jws = createJwsCommon(payload, certificates);
+    jws.setKey(getSignerConfig().get().getPrivateKey());
+    return jws.getCompactSerialization();
   }
 ```
 
@@ -4373,6 +4361,18 @@ in `src/main/java/com/android/tools/build/bundletool/transparency/ConnectedDevic
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkApksCommand.java`
+#### Snippet
+```java
+        out.printf(
+            "INFO: The APKs will be signed with the debug keystore found at '%s'.%n",
+            DebugKeystoreUtils.DEBUG_KEYSTORE_CACHE.getUnchecked(provider).get());
+        buildSdkApksCommand.setSigningConfiguration(debugConfig.get());
+      } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
 ```java
@@ -4397,26 +4397,14 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+in `src/main/java/com/android/tools/build/bundletool/splitters/ResourceAnalyzer.java`
 #### Snippet
 ```java
-
-  private static String getNameAttribute(XmlProtoElement element) {
-    return element.getAndroidAttribute(AndroidManifest.NAME_RESOURCE_ID).get().getValueAsString();
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
-#### Snippet
-```java
-                    meta ->
-                        meta.getAndroidAttribute(AndroidManifest.NAME_RESOURCE_ID)
-                            .get()
-                            .getValueAsString(),
-                    Function.identity(),
+        ZipPath xmlResourcePath = ZipPath.create(fileRef.getPath());
+        try (InputStream is =
+            appBundle.getBaseModule().getEntry(xmlResourcePath).get().getContent().openStream()) {
+          XmlNode xmlRoot = XmlNode.parseFrom(is);
+          return findAllReferencedAppResources(xmlRoot);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4445,14 +4433,26 @@ in `src/main/java/com/android/tools/build/bundletool/io/ModuleEntriesPacker.java
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/splitters/ResourceAnalyzer.java`
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
 #### Snippet
 ```java
-        ZipPath xmlResourcePath = ZipPath.create(fileRef.getPath());
-        try (InputStream is =
-            appBundle.getBaseModule().getEntry(xmlResourcePath).get().getContent().openStream()) {
-          XmlNode xmlRoot = XmlNode.parseFrom(is);
-          return findAllReferencedAppResources(xmlRoot);
+
+  private static String getNameAttribute(XmlProtoElement element) {
+    return element.getAndroidAttribute(AndroidManifest.NAME_RESOURCE_ID).get().getValueAsString();
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+#### Snippet
+```java
+                    meta ->
+                        meta.getAndroidAttribute(AndroidManifest.NAME_RESOURCE_ID)
+                            .get()
+                            .getValueAsString(),
+                    Function.identity(),
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4469,18 +4469,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/BundleFilesValid
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/model/WearApkLocator.java`
-#### Snippet
-```java
-    }
-
-    return Optional.of(rawPathResId.get().getChildText().get().getText());
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `src/main/java/com/android/tools/build/bundletool/transparency/ApkModeTransparencyChecker.java`
 #### Snippet
 ```java
@@ -4489,6 +4477,18 @@ in `src/main/java/com/android/tools/build/bundletool/transparency/ApkModeTranspa
           extractAllApksFromZip(command.getApkZipPath().get(), tempDir));
     } catch (IOException e) {
       throw new UncheckedIOException("An error occurred when processing the file.", e);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/model/WearApkLocator.java`
+#### Snippet
+```java
+    }
+
+    return Optional.of(rawPathResId.get().getChildText().get().getText());
+  }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4520,18 +4520,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/ManifestEditor.java`
 in `src/main/java/com/android/tools/build/bundletool/validation/DeviceTierParityValidator.java`
 #### Snippet
 ```java
-                toImmutableSetMultimap(
-                    directory -> directory.getSubPathBaseName(TargetingDimension.DEVICE_TIER),
-                    directory -> extractDeviceTier(directory).get()));
-
-    for (String subpath : tiersPerDirectory.keySet()) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/validation/DeviceTierParityValidator.java`
-#### Snippet
-```java
   /** Validates that tiers used by a module are contiguous and start from 0. */
   private void validateContiguousTiers(BundleModule module, ImmutableSet<Integer> moduleTiers) {
     int minTier = moduleTiers.stream().min(naturalOrder()).get();
@@ -4541,14 +4529,14 @@ in `src/main/java/com/android/tools/build/bundletool/validation/DeviceTierParity
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestValidator.java`
+in `src/main/java/com/android/tools/build/bundletool/validation/DeviceTierParityValidator.java`
 #### Snippet
 ```java
-          .build();
-    }
-    ModuleDeliveryType instantDelivery = module.getInstantDeliveryType().get();
-    if (instantDelivery.equals(ALWAYS_INITIAL_INSTALL)
-        || instantDelivery.equals(CONDITIONAL_INITIAL_INSTALL)) {
+                toImmutableSetMultimap(
+                    directory -> directory.getSubPathBaseName(TargetingDimension.DEVICE_TIER),
+                    directory -> extractDeviceTier(directory).get()));
+
+    for (String subpath : tiersPerDirectory.keySet()) {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4565,14 +4553,14 @@ in `src/main/java/com/android/tools/build/bundletool/shards/StandaloneApexApksGe
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
+in `src/main/java/com/android/tools/build/bundletool/validation/AndroidManifestValidator.java`
 #### Snippet
 ```java
-      effectiveDpiRange = Range.all();
-    } else if (!lowestResourceDpi.isPresent()) {
-      effectiveDpiRange = Range.atMost(highestResourceDpi.get());
-    } else if (!highestResourceDpi.isPresent()) {
-      effectiveDpiRange = Range.atLeast(lowestResourceDpi.get());
+          .build();
+    }
+    ModuleDeliveryType instantDelivery = module.getInstantDeliveryType().get();
+    if (instantDelivery.equals(ALWAYS_INITIAL_INSTALL)
+        || instantDelivery.equals(CONDITIONAL_INITIAL_INSTALL)) {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4585,6 +4573,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensi
       return Range.atMost(highMidPoint.get());
     }
     if (!highMidPoint.isPresent()) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
+#### Snippet
+```java
+      effectiveDpiRange = Range.all();
+    } else if (!lowestResourceDpi.isPresent()) {
+      effectiveDpiRange = Range.atMost(highestResourceDpi.get());
+    } else if (!highestResourceDpi.isPresent()) {
+      effectiveDpiRange = Range.atLeast(lowestResourceDpi.get());
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4604,6 +4604,18 @@ in `src/main/java/com/android/tools/build/bundletool/shards/SystemApksGenerator.
 in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
 #### Snippet
 ```java
+        .collect(
+            toImmutableListMultimap(
+                activity -> activity.getAndroidAttribute(NAME_RESOURCE_ID).get().getValueAsString(),
+                identity()));
+  }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
+#### Snippet
+```java
                 element
                     .getAndroidAttribute(NAME_RESOURCE_ID)
                     .get()
@@ -4613,14 +4625,14 @@ in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
+in `src/main/java/com/android/tools/build/bundletool/sdkmodule/SdkModuleToAppBundleModuleConverter.java`
 #### Snippet
 ```java
-        .collect(
-            toImmutableListMultimap(
-                activity -> activity.getAndroidAttribute(NAME_RESOURCE_ID).get().getValueAsString(),
-                identity()));
-  }
+        new XmlPackageIdRemapper(sdkDependencyConfig.getResourcesPackageId());
+    this.dexAndResourceRepackager =
+        new DexAndResourceRepackager(sdkModule.getSdkModulesConfig().get(), sdkDependencyConfig);
+    this.androidResourceRenamer = new AndroidResourceRenamer(sdkModule.getSdkModulesConfig().get());
+    this.appBaseModuleManifest = appBaseModuleManifest;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4657,18 +4669,6 @@ in `src/main/java/com/android/tools/build/bundletool/sdkmodule/SdkModuleToAppBun
                 .setMinSdkVersion(appBaseModuleManifest.getMinSdkVersion().get())
                 .setHasCode(false)
                 .setSplitIdForFeatureSplit(sdkModuleName)
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/sdkmodule/SdkModuleToAppBundleModuleConverter.java`
-#### Snippet
-```java
-        new XmlPackageIdRemapper(sdkDependencyConfig.getResourcesPackageId());
-    this.dexAndResourceRepackager =
-        new DexAndResourceRepackager(sdkModule.getSdkModulesConfig().get(), sdkDependencyConfig);
-    this.androidResourceRenamer = new AndroidResourceRenamer(sdkModule.getSdkModulesConfig().get());
-    this.appBaseModuleManifest = appBaseModuleManifest;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4745,18 +4745,6 @@ in `src/main/java/com/android/tools/build/bundletool/io/ZipBuilder.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `src/main/java/com/android/tools/build/bundletool/splitters/AbiApexImagesSplitter.java`
-#### Snippet
-```java
-    }
-
-    List<TargetedApexImage> allTargetedImages = moduleSplit.getApexConfig().get().getImageList();
-
-    // A set of all MultiAbis (flattened for repeated values) for easy generation of alternatives.
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTargetingConfigCommand.java`
 #### Snippet
 ```java
@@ -4779,6 +4767,18 @@ in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTarg
     Device device = new DeviceAnalyzer(adb).getAndValidateDevice(getDeviceId());
 ```
 
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/android/tools/build/bundletool/splitters/AbiApexImagesSplitter.java`
+#### Snippet
+```java
+    }
+
+    List<TargetedApexImage> allTargetedImages = moduleSplit.getApexConfig().get().getImageList();
+
+    // A set of all MultiAbis (flattened for repeated values) for easy generation of alternatives.
+```
+
 ## RuleId[ruleID=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `builder()` tries to override a static method of a superclass
@@ -4795,18 +4795,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/exceptions/AdbOutputP
 ## RuleId[ruleID=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
-#### Snippet
-```java
-
-  private boolean matchModuleToDevice(BundleModule module) {
-    if (!this.deviceSpec.isPresent()) {
-      return false;
-    }
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
 in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator.java`
 #### Snippet
 ```java
@@ -4814,6 +4802,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator
     Optional<Path> adbOnPath = locateBinaryOnSystemPath(ADB_PATH_GLOB, systemEnvironmentProvider);
     if (adbOnPath.isPresent()) {
       return adbOnPath;
+    }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
+#### Snippet
+```java
+
+  private boolean matchModuleToDevice(BundleModule module) {
+    if (!this.deviceSpec.isPresent()) {
+      return false;
     }
 ```
 
@@ -4870,11 +4870,11 @@ Can be replaced with single expression in functional style
 in `src/main/java/com/android/tools/build/bundletool/model/ManifestEditor.java`
 #### Snippet
 ```java
-    Optional<XmlProtoAttribute> attribute =
-        from.getManifestElement().getAndroidAttribute(attrResourceId);
+            .getOptionalChildElement(APPLICATION_ELEMENT_NAME)
+            .flatMap(applicationElement -> applicationElement.getAndroidAttribute(attrResourceId));
     if (attribute.isPresent()) {
-      manifestElement.addAttribute(attribute.get().toBuilder());
-    }
+      manifestElement
+          .getOrCreateChildElement(APPLICATION_ELEMENT_NAME)
 ```
 
 ### OptionalIsPresent
@@ -4882,11 +4882,11 @@ Can be replaced with single expression in functional style
 in `src/main/java/com/android/tools/build/bundletool/model/ManifestEditor.java`
 #### Snippet
 ```java
-            .getOptionalChildElement(APPLICATION_ELEMENT_NAME)
-            .flatMap(applicationElement -> applicationElement.getAndroidAttribute(attrResourceId));
+    Optional<XmlProtoAttribute> attribute =
+        from.getManifestElement().getAndroidAttribute(attrResourceId);
     if (attribute.isPresent()) {
-      manifestElement
-          .getOrCreateChildElement(APPLICATION_ELEMENT_NAME)
+      manifestElement.addAttribute(attribute.get().toBuilder());
+    }
 ```
 
 ### OptionalIsPresent
@@ -4989,18 +4989,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
 
 ### Java8MapForEach
 Can be replaced with 'Map.forEach()'
-in `src/main/java/com/android/tools/build/bundletool/validation/RuntimeEnabledSdkConfigValidator.java`
-#### Snippet
-```java
-    runtimeEnabledSkdsPerResourcesPackageId
-        .entrySet()
-        .forEach(
-            sdksPerResourcesPackageId ->
-                validate(
-```
-
-### Java8MapForEach
-Can be replaced with 'Map.forEach()'
 in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSplitterFactory.java`
 #### Snippet
 ```java
@@ -5009,6 +4997,18 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSp
             .forEach(
                 entry -> {
                   ImmutableList<ModuleEntry> entries =
+```
+
+### Java8MapForEach
+Can be replaced with 'Map.forEach()'
+in `src/main/java/com/android/tools/build/bundletool/validation/RuntimeEnabledSdkConfigValidator.java`
+#### Snippet
+```java
+    runtimeEnabledSkdsPerResourcesPackageId
+        .entrySet()
+        .forEach(
+            sdksPerResourcesPackageId ->
+                validate(
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -5111,18 +5111,6 @@ public final class ModuleDependenciesUtils {
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `src/main/java/com/android/tools/build/bundletool/model/ModuleDeliveryType.java`
-#### Snippet
-```java
-  CONDITIONAL_INITIAL_INSTALL,
-  // Covers both on-demand and fast-follow modes.
-  NO_INITIAL_INSTALL;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
 ```java
@@ -5130,6 +5118,18 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
     UNCOMPRESSED_NATIVE_LIBRARIES,
     UNCOMPRESSED_DEX_FILES;
   }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/com/android/tools/build/bundletool/model/ModuleDeliveryType.java`
+#### Snippet
+```java
+  CONDITIONAL_INITIAL_INSTALL,
+  // Covers both on-demand and fast-follow modes.
+  NO_INITIAL_INSTALL;
+}
 
 ```
 
@@ -5183,18 +5183,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/ResourcesUtils.
 ```
 
 ### DataFlowIssue
-Argument `bundle.getRuntimeEnabledSdkDependencies().get(entry.getKey())` might be null
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/RuntimeEnabledSdkDependencyPreprocessor.java`
-#### Snippet
-```java
-                        new SdkModuleToAppBundleModuleConverter(
-                                entry.getValue(),
-                                bundle.getRuntimeEnabledSdkDependencies().get(entry.getKey()),
-                                bundle.getBaseModule().getAndroidManifest())
-                            .convert())
-```
-
-### DataFlowIssue
 Argument `USER_HOME.value()` might be null
 in `src/main/java/com/android/tools/build/bundletool/model/utils/files/FileUtils.java`
 #### Snippet
@@ -5204,6 +5192,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/files/FileUtils
               .replaceFirst(Matcher.quoteReplacement(USER_HOME.value()));
     }
     return Paths.get(path);
+```
+
+### DataFlowIssue
+Argument `bundle.getRuntimeEnabledSdkDependencies().get(entry.getKey())` might be null
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/RuntimeEnabledSdkDependencyPreprocessor.java`
+#### Snippet
+```java
+                        new SdkModuleToAppBundleModuleConverter(
+                                entry.getValue(),
+                                bundle.getRuntimeEnabledSdkDependencies().get(entry.getKey()),
+                                bundle.getBaseModule().getAndroidManifest())
+                            .convert())
 ```
 
 ### DataFlowIssue
@@ -5267,18 +5267,6 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/D8DexMerger.java`
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/GetSizeCsvUtils.java`
-#### Snippet
-```java
-            dimensions.stream()
-                .sorted(DIMENSIONS_COMPARATOR)
-                .map(dimension -> dimensionToTextMap.get(dimension).get().orElse("")),
-            Stream.of(sizeFormatter.format(minSize), sizeFormatter.format(maxSize)))
-        .collect(toImmutableList());
-```
-
-### DataFlowIssue
 Unboxing of `configurationSizes.getMinSizeConfigurationMap().get(sizeConfiguration)` may produce `NullPointerException`
 in `src/main/java/com/android/tools/build/bundletool/model/utils/GetSizeCsvUtils.java`
 #### Snippet
@@ -5303,27 +5291,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/GetSizeCsvUtils
 ```
 
 ### DataFlowIssue
-Method invocation `getVersionMajor` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+Method invocation `get` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/GetSizeCsvUtils.java`
 #### Snippet
 ```java
-                  appBundle.getRuntimeEnabledSdkDependencies().get(sdkPackageName);
-              SdkAsar sdkArchive = sdkArchives.get(sdkPackageName);
-              if (sdkDependencyFromAppBundle.getVersionMajor() != sdkArchive.getMajorVersion()) {
-                throw InvalidCommandException.builder()
-                    .withInternalMessage(
-```
-
-### DataFlowIssue
-Method invocation `getMajorVersion` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-                  appBundle.getRuntimeEnabledSdkDependencies().get(sdkPackageName);
-              SdkAsar sdkArchive = sdkArchives.get(sdkPackageName);
-              if (sdkDependencyFromAppBundle.getVersionMajor() != sdkArchive.getMajorVersion()) {
-                throw InvalidCommandException.builder()
-                    .withInternalMessage(
+            dimensions.stream()
+                .sorted(DIMENSIONS_COMPARATOR)
+                .map(dimension -> dimensionToTextMap.get(dimension).get().orElse("")),
+            Stream.of(sizeFormatter.format(minSize), sizeFormatter.format(maxSize)))
+        .collect(toImmutableList());
 ```
 
 ### DataFlowIssue
@@ -5351,27 +5327,27 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
 ```
 
 ### DataFlowIssue
-Unboxing of `oldToNewIndex.get(entry.getOverlayableItem().getOverlayableIdx())` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
+Method invocation `getVersionMajor` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
 ```java
-        for (Entry.Builder entry : type.getEntryBuilderList()) {
-          if (entry.hasOverlayableItem()) {
-            int newIdx = oldToNewIndex.get(entry.getOverlayableItem().getOverlayableIdx());
-            entry.getOverlayableItemBuilder().setOverlayableIdx(newIdx);
-          }
+                  appBundle.getRuntimeEnabledSdkDependencies().get(sdkPackageName);
+              SdkAsar sdkArchive = sdkArchives.get(sdkPackageName);
+              if (sdkDependencyFromAppBundle.getVersionMajor() != sdkArchive.getMajorVersion()) {
+                throw InvalidCommandException.builder()
+                    .withInternalMessage(
 ```
 
 ### DataFlowIssue
-Argument `value2` might be null
-in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
+Method invocation `getMajorVersion` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
 ```java
-        result.add(value1);
-      } else {
-        result.add(value2);
-      }
-    }
+                  appBundle.getRuntimeEnabledSdkDependencies().get(sdkPackageName);
+              SdkAsar sdkArchive = sdkArchives.get(sdkPackageName);
+              if (sdkDependencyFromAppBundle.getVersionMajor() != sdkArchive.getMajorVersion()) {
+                throw InvalidCommandException.builder()
+                    .withInternalMessage(
 ```
 
 ### DataFlowIssue
@@ -5399,27 +5375,27 @@ in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUt
 ```
 
 ### DataFlowIssue
-Method reference argument might be null
-in `src/main/java/com/android/tools/build/bundletool/transparency/BundleTransparencyCheckUtils.java`
+Argument `value2` might be null
+in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
 #### Snippet
 ```java
-        .collect(
-            toImmutableMap(
-                BundleTransparencyCheckUtils::getSource, codeRelatedFile -> codeRelatedFile));
-  }
-
+        result.add(value1);
+      } else {
+        result.add(value2);
+      }
+    }
 ```
 
 ### DataFlowIssue
-Method reference argument might be null
-in `src/main/java/com/android/tools/build/bundletool/transparency/BundleTransparencyCheckUtils.java`
+Unboxing of `oldToNewIndex.get(entry.getOverlayableItem().getOverlayableIdx())` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
 #### Snippet
 ```java
-        .collect(
-            toImmutableMap(
-                BundleTransparencyCheckUtils::getSource, codeRelatedFile -> codeRelatedFile));
-  }
-
+        for (Entry.Builder entry : type.getEntryBuilderList()) {
+          if (entry.hasOverlayableItem()) {
+            int newIdx = oldToNewIndex.get(entry.getOverlayableItem().getOverlayableIdx());
+            entry.getOverlayableItemBuilder().setOverlayableIdx(newIdx);
+          }
 ```
 
 ### DataFlowIssue
@@ -5444,6 +5420,30 @@ in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializerManager.jav
                                 entry.getValue(), variantNumberByVariantKey.get(entry.getKey())))));
 
     // After variant targeting of APKs are cleared, there might be duplicate APKs
+```
+
+### DataFlowIssue
+Method reference argument might be null
+in `src/main/java/com/android/tools/build/bundletool/transparency/BundleTransparencyCheckUtils.java`
+#### Snippet
+```java
+        .collect(
+            toImmutableMap(
+                BundleTransparencyCheckUtils::getSource, codeRelatedFile -> codeRelatedFile));
+  }
+
+```
+
+### DataFlowIssue
+Method reference argument might be null
+in `src/main/java/com/android/tools/build/bundletool/transparency/BundleTransparencyCheckUtils.java`
+#### Snippet
+```java
+        .collect(
+            toImmutableMap(
+                BundleTransparencyCheckUtils::getSource, codeRelatedFile -> codeRelatedFile));
+  }
+
 ```
 
 ### DataFlowIssue
@@ -5483,18 +5483,6 @@ in `src/main/java/com/android/tools/build/bundletool/device/ScreenDensityMatcher
 ```
 
 ### DataFlowIssue
-Method invocation `getDeviceSelectorsList` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/device/DeviceTargetingConfigEvaluator.java`
-#### Snippet
-```java
-      DeviceTier deviceTier, ImmutableMap<String, DeviceGroup> deviceGroupNameToDeviceGroup) {
-    return deviceTier.getDeviceGroupNamesList().stream()
-        .map(name -> deviceGroupNameToDeviceGroup.get(name).getDeviceSelectorsList())
-        .flatMap(List::stream)
-        .collect(toImmutableSet());
-```
-
-### DataFlowIssue
 Method reference argument might be null
 in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSplitterFactory.java`
 #### Snippet
@@ -5507,6 +5495,18 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSp
 ```
 
 ### DataFlowIssue
+Method invocation `getDeviceSelectorsList` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/device/DeviceTargetingConfigEvaluator.java`
+#### Snippet
+```java
+      DeviceTier deviceTier, ImmutableMap<String, DeviceGroup> deviceGroupNameToDeviceGroup) {
+    return deviceTier.getDeviceGroupNamesList().stream()
+        .map(name -> deviceGroupNameToDeviceGroup.get(name).getDeviceSelectorsList())
+        .flatMap(List::stream)
+        .collect(toImmutableSet());
+```
+
+### DataFlowIssue
 Argument `TextureCompressionUtils.TARGETING_TO_TEXTURE.get( Iterables.getOnlyElement(textureCompre...` might be null
 in `src/main/java/com/android/tools/build/bundletool/model/SizeConfiguration.java`
 #### Snippet
@@ -5515,6 +5515,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/SizeConfiguration.jav
     return Optional.of(
         TextureCompressionUtils.TARGETING_TO_TEXTURE.get(
             Iterables.getOnlyElement(textureCompressionFormatTargeting.getValueList()).getAlias()));
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `resolve` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/model/ZipPath.java`
+#### Snippet
+```java
+    checkNotNull(path, "Path cannot be null.");
+    checkState(!getNames().isEmpty(), "Root has not sibling.");
+    return getParent().resolve(path);
   }
 
 ```
@@ -5551,18 +5563,6 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/ApkGenerationConf
   public boolean shouldStripTargetingSuffix(OptimizationDimension dimension) {
     return getSuffixStrippings().containsKey(dimension)
         && getSuffixStrippings().get(dimension).getEnabled();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `resolve` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/model/ZipPath.java`
-#### Snippet
-```java
-    checkNotNull(path, "Path cannot be null.");
-    checkState(!getNames().isEmpty(), "Root has not sibling.");
-    return getParent().resolve(path);
   }
 
 ```
@@ -5619,18 +5619,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingGe
 ```
 
 ### DataFlowIssue
-Unboxing of `DENSITY_ALIAS_TO_DPI_MAP.get(desiredDensityAlias)` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
-#### Snippet
-```java
-    checkArgument(DENSITY_ALIAS_TO_DPI_MAP.containsKey(desiredDensityAlias));
-    return selectBestConfigValue(
-        values, DENSITY_ALIAS_TO_DPI_MAP.get(desiredDensityAlias), bundleVersion);
-  }
-
-```
-
-### DataFlowIssue
 Unboxing of `targetDpi` may produce `NullPointerException`
 in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
 #### Snippet
@@ -5638,6 +5626,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensi
         alternatives.stream().map(DENSITY_ALIAS_TO_DPI_MAP::get).collect(toImmutableSet());
 
     return getReachableConfigValues(getDpiRange(targetDpi, alternativeDpis), values, bundleVersion);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `DENSITY_ALIAS_TO_DPI_MAP.get(desiredDensityAlias)` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
+#### Snippet
+```java
+    checkArgument(DENSITY_ALIAS_TO_DPI_MAP.containsKey(desiredDensityAlias));
+    return selectBestConfigValue(
+        values, DENSITY_ALIAS_TO_DPI_MAP.get(desiredDensityAlias), bundleVersion);
   }
 
 ```
@@ -5667,15 +5667,15 @@ in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedApksGenerat
 ```
 
 ### DataFlowIssue
-Argument `fileContentStream` might be null
-in `src/main/java/com/android/tools/build/bundletool/io/ResourceReader.java`
+Unboxing of `conditionCounts.getOrDefault(conditionName, 0L)` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
 #### Snippet
 ```java
-  public ByteSource getResourceByteSource(String resourcePath) throws IOException {
-    try (InputStream fileContentStream = ResourceReader.class.getResourceAsStream(resourcePath)) {
-      return ByteSource.wrap(ByteStreams.toByteArray(fileContentStream));
-    }
-  }
+            .collect(groupingByDeterministic(XmlProtoElement::getName, counting()));
+    for (String conditionName : CONDITIONS_ALLOWED_ONLY_ONCE) {
+      if (conditionCounts.getOrDefault(conditionName, 0L) > 1) {
+        throw InvalidBundleException.builder()
+            .withUserMessage("Multiple '<dist:%s>' conditions are not supported.", conditionName)
 ```
 
 ### DataFlowIssue
@@ -5691,15 +5691,15 @@ in `src/main/java/com/android/tools/build/bundletool/io/ResourceReader.java`
 ```
 
 ### DataFlowIssue
-Unboxing of `conditionCounts.getOrDefault(conditionName, 0L)` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
+Argument `fileContentStream` might be null
+in `src/main/java/com/android/tools/build/bundletool/io/ResourceReader.java`
 #### Snippet
 ```java
-            .collect(groupingByDeterministic(XmlProtoElement::getName, counting()));
-    for (String conditionName : CONDITIONS_ALLOWED_ONLY_ONCE) {
-      if (conditionCounts.getOrDefault(conditionName, 0L) > 1) {
-        throw InvalidBundleException.builder()
-            .withUserMessage("Multiple '<dist:%s>' conditions are not supported.", conditionName)
+  public ByteSource getResourceByteSource(String resourcePath) throws IOException {
+    try (InputStream fileContentStream = ResourceReader.class.getResourceAsStream(resourcePath)) {
+      return ByteSource.wrap(ByteStreams.toByteArray(fileContentStream));
+    }
+  }
 ```
 
 ### DataFlowIssue
@@ -5712,18 +5712,6 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/SameTargetingMerger
     builder.setSparseEncoding(Boolean.valueOf(sparseEncoding));
 
     if (mergedManifest != null) {
-```
-
-### DataFlowIssue
-Method invocation `getModuleType` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
-#### Snippet
-```java
-      ImmutableMap<String, BundleModule> modulesByName, String moduleName) {
-    return modulesByName.containsKey(moduleName)
-        && modulesByName.get(moduleName).getModuleType().equals(ModuleType.ASSET_MODULE);
-  }
-}
 ```
 
 ### DataFlowIssue
@@ -5751,30 +5739,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependency
 ```
 
 ### DataFlowIssue
-Method invocation `getDeliveryType` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
-#### Snippet
-```java
-      String moduleName = dependencyEntry.getKey();
-      String moduleDep = dependencyEntry.getValue();
-      ModuleDeliveryType moduleDeliveryType = modulesByName.get(moduleName).getDeliveryType();
-      ModuleDeliveryType depDeliveryType = modulesByName.get(moduleDep).getDeliveryType();
-
-```
-
-### DataFlowIssue
-Method invocation `getDeliveryType` may produce `NullPointerException`
-in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
-#### Snippet
-```java
-      String moduleDep = dependencyEntry.getValue();
-      ModuleDeliveryType moduleDeliveryType = modulesByName.get(moduleName).getDeliveryType();
-      ModuleDeliveryType depDeliveryType = modulesByName.get(moduleDep).getDeliveryType();
-
-      // Conditional modules can only depend on always installed modules.
-```
-
-### DataFlowIssue
 Method invocation `getModuleType` may produce `NullPointerException`
 in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
 #### Snippet
@@ -5796,6 +5760,42 @@ in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependency
       int minSdkDep = moduleDep.getAndroidManifest().getEffectiveMinSdkVersion();
       if (module.getDeliveryType().equals(ModuleDeliveryType.ALWAYS_INITIAL_INSTALL)
           && minSdk != minSdkDep) {
+```
+
+### DataFlowIssue
+Method invocation `getModuleType` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
+#### Snippet
+```java
+      ImmutableMap<String, BundleModule> modulesByName, String moduleName) {
+    return modulesByName.containsKey(moduleName)
+        && modulesByName.get(moduleName).getModuleType().equals(ModuleType.ASSET_MODULE);
+  }
+}
+```
+
+### DataFlowIssue
+Method invocation `getDeliveryType` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
+#### Snippet
+```java
+      String moduleName = dependencyEntry.getKey();
+      String moduleDep = dependencyEntry.getValue();
+      ModuleDeliveryType moduleDeliveryType = modulesByName.get(moduleName).getDeliveryType();
+      ModuleDeliveryType depDeliveryType = modulesByName.get(moduleDep).getDeliveryType();
+
+```
+
+### DataFlowIssue
+Method invocation `getDeliveryType` may produce `NullPointerException`
+in `src/main/java/com/android/tools/build/bundletool/validation/ModuleDependencyValidator.java`
+#### Snippet
+```java
+      String moduleDep = dependencyEntry.getValue();
+      ModuleDeliveryType moduleDeliveryType = modulesByName.get(moduleName).getDeliveryType();
+      ModuleDeliveryType depDeliveryType = modulesByName.get(moduleDep).getDeliveryType();
+
+      // Conditional modules can only depend on always installed modules.
 ```
 
 ### DataFlowIssue
@@ -5935,6 +5935,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/xmlproto/XmlPro
 
 ## RuleId[ruleID=OptionalContainsCollection]
 ### OptionalContainsCollection
+'Optional' contains collection `ImmutableList`
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand.java`
+#### Snippet
+```java
+  public abstract Optional<String> getCountrySet();
+
+  public abstract Optional<ImmutableList<Path>> getAdditionalLocalTestingFiles();
+
+  abstract AdbServer getAdbServer();
+```
+
+### OptionalContainsCollection
 'Optional' contains collection `ImmutableSet`
 in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand.java`
 #### Snippet
@@ -5983,18 +5995,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `ImmutableList`
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand.java`
-#### Snippet
-```java
-  public abstract Optional<String> getCountrySet();
-
-  public abstract Optional<ImmutableList<Path>> getAdditionalLocalTestingFiles();
-
-  abstract AdbServer getAdbServer();
-```
-
-### OptionalContainsCollection
 'Optional' contains collection `ImmutableSet`
 in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand.java`
 #### Snippet
@@ -6019,18 +6019,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/GetDeviceSpecComma
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `ImmutableList`
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-        .ifPresent(timeoutMillis -> command.setTimeout(Duration.ofMillis(timeoutMillis)));
-
-    Optional<ImmutableList<Path>> apksPaths = APKS_ARCHIVES_FLAG.getValue(flags);
-    Optional<Path> apksArchiveZip = APKS_ARCHIVE_ZIP_FLAG.getValue(flags);
-    if (apksPaths.isPresent() == apksArchiveZip.isPresent()) {
-```
-
-### OptionalContainsCollection
 'Optional' contains collection `ImmutableSet`
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
@@ -6044,6 +6032,18 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
 
 ### OptionalContainsCollection
 'Optional' contains collection `ImmutableList`
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
+#### Snippet
+```java
+        .ifPresent(timeoutMillis -> command.setTimeout(Duration.ofMillis(timeoutMillis)));
+
+    Optional<ImmutableList<Path>> apksPaths = APKS_ARCHIVES_FLAG.getValue(flags);
+    Optional<Path> apksArchiveZip = APKS_ARCHIVE_ZIP_FLAG.getValue(flags);
+    if (apksPaths.isPresent() == apksArchiveZip.isPresent()) {
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `ImmutableList`
 in `src/main/java/com/android/tools/build/bundletool/model/utils/CsvFormatter.java`
 #### Snippet
 ```java
@@ -6052,18 +6052,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/CsvFormatter.ja
   public abstract Optional<ImmutableList<String>> getHeader();
 
   public abstract ImmutableList<ImmutableList<String>> getRows();
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `ImmutableSet`
-in `src/main/java/com/android/tools/build/bundletool/commands/ExtractApksCommand.java`
-#### Snippet
-```java
-
-    BuildApksResult toc = ResultUtils.readTableOfContents(getApksArchivePath());
-    Optional<ImmutableSet<String>> requestedModuleNames =
-        getModules().map(modules -> resolveRequestedModules(modules, toc));
-    DeviceSpec deviceSpec = applyDefaultsToDeviceSpec(getDeviceSpec(), toc);
 ```
 
 ### OptionalContainsCollection
@@ -6092,14 +6080,14 @@ in `src/main/java/com/android/tools/build/bundletool/commands/ExtractApksCommand
 
 ### OptionalContainsCollection
 'Optional' contains collection `ImmutableSet`
-in `src/main/java/com/android/tools/build/bundletool/device/ApkMatcher.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/ExtractApksCommand.java`
 #### Snippet
 ```java
-  private final ImmutableList<? extends TargetingDimensionMatcher<?>> apkMatchers;
 
-  private final Optional<ImmutableSet<String>> requestedModuleNames;
-  private final boolean matchInstant;
-  private final boolean includeInstallTimeAssetModules;
+    BuildApksResult toc = ResultUtils.readTableOfContents(getApksArchivePath());
+    Optional<ImmutableSet<String>> requestedModuleNames =
+        getModules().map(modules -> resolveRequestedModules(modules, toc));
+    DeviceSpec deviceSpec = applyDefaultsToDeviceSpec(getDeviceSpec(), toc);
 ```
 
 ### OptionalContainsCollection
@@ -6112,6 +6100,18 @@ in `src/main/java/com/android/tools/build/bundletool/device/ApkMatcher.java`
       Optional<ImmutableSet<String>> requestedModuleNames,
       boolean includeInstallTimeAssetModules,
       boolean matchInstant,
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `ImmutableSet`
+in `src/main/java/com/android/tools/build/bundletool/device/ApkMatcher.java`
+#### Snippet
+```java
+  private final ImmutableList<? extends TargetingDimensionMatcher<?>> apkMatchers;
+
+  private final Optional<ImmutableSet<String>> requestedModuleNames;
+  private final boolean matchInstant;
+  private final boolean includeInstallTimeAssetModules;
 ```
 
 ### OptionalContainsCollection
@@ -6139,18 +6139,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/manifestelements/Prov
 ```
 
 ### OptionalContainsCollection
-'Optional' contains collection `ImmutableMap`
-in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
-#### Snippet
-```java
-
-    @Override
-    public final Optional<ImmutableMap<K, V>> getValue(ParsedFlags flags) {
-      ImmutableList<String> rawValues = flags.getFlagValues(name);
-      if (rawValues.isEmpty()) {
-```
-
-### OptionalContainsCollection
 'Optional' contains collection `ImmutableList`
 in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
 #### Snippet
@@ -6158,6 +6146,18 @@ in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
 
     @Override
     public final Optional<ImmutableList<T>> getValue(ParsedFlags flags) {
+      ImmutableList<String> rawValues = flags.getFlagValues(name);
+      if (rawValues.isEmpty()) {
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `ImmutableMap`
+in `src/main/java/com/android/tools/build/bundletool/flags/Flag.java`
+#### Snippet
+```java
+
+    @Override
+    public final Optional<ImmutableMap<K, V>> getValue(ParsedFlags flags) {
       ImmutableList<String> rawValues = flags.getFlagValues(name);
       if (rawValues.isEmpty()) {
 ```
@@ -6435,18 +6435,6 @@ in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundle64Bi
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'deviceSpec'
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
-#### Snippet
-```java
-    private final ApkBuildMode apkBuildMode;
-    private final boolean enableUniversalAsFallbackForSplits;
-    private final Optional<DeviceSpec> deviceSpec;
-
-    private ApksToGenerate(
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'deviceSpec'
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
 #### Snippet
@@ -6459,18 +6447,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.j
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'deviceSpec'
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
-#### Snippet
-```java
-  private final BuildApksCommand command;
-  private final Version bundletoolVersion;
-  private final Optional<DeviceSpec> deviceSpec;
-  private final TempDirectory tempDir;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'deviceSpec'
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
 #### Snippet
@@ -6480,6 +6456,30 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.j
         Optional<DeviceSpec> deviceSpec) {
       this.appBundle = appBundle;
       this.apkBuildMode = apkBuildMode;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'deviceSpec'
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
+#### Snippet
+```java
+    private final ApkBuildMode apkBuildMode;
+    private final boolean enableUniversalAsFallbackForSplits;
+    private final Optional<DeviceSpec> deviceSpec;
+
+    private ApksToGenerate(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'deviceSpec'
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.java`
+#### Snippet
+```java
+  private final BuildApksCommand command;
+  private final Version bundletoolVersion;
+  private final Optional<DeviceSpec> deviceSpec;
+  private final TempDirectory tempDir;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6555,66 +6555,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/ConfigurationSi
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'installedPackage'
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-      DeviceSpec deviceSpec,
-      PackagePathVersion apksArchive,
-      Optional<InstalledPackageInfo> installedPackage,
-      TempDirectory tempDirectory) {
-    logger.info(String.format("Extracting package '%s'", apksArchive.getPackageName()));
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'signingConfigProvider'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
-#### Snippet
-```java
-  @Inject
-  ApkSigner(
-      @ApkSigningConfigProvider Optional<SigningConfigurationProvider> signingConfigProvider,
-      Optional<SourceStamp> sourceStampSigningConfig,
-      TempDirectory tempDirectory) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sourceStampSigningConfig'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
-#### Snippet
-```java
-  ApkSigner(
-      @ApkSigningConfigProvider Optional<SigningConfigurationProvider> signingConfigProvider,
-      Optional<SourceStamp> sourceStampSigningConfig,
-      TempDirectory tempDirectory) {
-    this.signingConfigProvider = signingConfigProvider;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'signingConfigProvider'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
-#### Snippet
-```java
-  private static final String SIGNER_CONFIG_NAME = "BNDLTOOL";
-
-  private final Optional<SigningConfigurationProvider> signingConfigProvider;
-  private final Optional<SourceStamp> sourceStampSigningConfig;
-  private final TempDirectory tempDirectory;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sourceStampSigningConfig'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
-#### Snippet
-```java
-
-  private final Optional<SigningConfigurationProvider> signingConfigProvider;
-  private final Optional<SourceStamp> sourceStampSigningConfig;
-  private final TempDirectory tempDirectory;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'iconAttribute'
 in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedResourcesHelper.java`
 #### Snippet
@@ -6687,6 +6627,66 @@ in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedResourcesHe
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'installedPackage'
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
+#### Snippet
+```java
+      DeviceSpec deviceSpec,
+      PackagePathVersion apksArchive,
+      Optional<InstalledPackageInfo> installedPackage,
+      TempDirectory tempDirectory) {
+    logger.info(String.format("Extracting package '%s'", apksArchive.getPackageName()));
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'sourceStampSigningConfig'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
+#### Snippet
+```java
+
+  private final Optional<SigningConfigurationProvider> signingConfigProvider;
+  private final Optional<SourceStamp> sourceStampSigningConfig;
+  private final TempDirectory tempDirectory;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'signingConfigProvider'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
+#### Snippet
+```java
+  @Inject
+  ApkSigner(
+      @ApkSigningConfigProvider Optional<SigningConfigurationProvider> signingConfigProvider,
+      Optional<SourceStamp> sourceStampSigningConfig,
+      TempDirectory tempDirectory) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'sourceStampSigningConfig'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
+#### Snippet
+```java
+  ApkSigner(
+      @ApkSigningConfigProvider Optional<SigningConfigurationProvider> signingConfigProvider,
+      Optional<SourceStamp> sourceStampSigningConfig,
+      TempDirectory tempDirectory) {
+    this.signingConfigProvider = signingConfigProvider;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'signingConfigProvider'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSigner.java`
+#### Snippet
+```java
+  private static final String SIGNER_CONFIG_NAME = "BNDLTOOL";
+
+  private final Optional<SigningConfigurationProvider> signingConfigProvider;
+  private final Optional<SourceStamp> sourceStampSigningConfig;
+  private final TempDirectory tempDirectory;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'disabledSinceVersion'
 in `src/main/java/com/android/tools/build/bundletool/model/version/VersionGuardedFeature.java`
 #### Snippet
@@ -6699,15 +6699,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/version/VersionGuarde
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'apexConfig'
-in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
+`Optional` used as type for field 'binaryArtProfileMetadata'
+in `src/main/java/com/android/tools/build/bundletool/splitters/BinaryArtProfilesInjector.java`
 #### Snippet
 ```java
-      BundleType bundleType,
-      Version bundletoolVersion,
-      Optional<ApexConfig> apexConfig,
-      ImmutableSet<ZipPath> nonModuleDirectories) {
-    Map<BundleModuleName, BundleModule.Builder> moduleBuilders = new HashMap<>();
+
+  private final Optional<ByteSource> binaryArtProfile;
+  private final Optional<ByteSource> binaryArtProfileMetadata;
+
+  public BinaryArtProfilesInjector(AppBundle appBundle) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6723,15 +6723,63 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/BinaryArtProfiles
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'binaryArtProfileMetadata'
-in `src/main/java/com/android/tools/build/bundletool/splitters/BinaryArtProfilesInjector.java`
+`Optional` used as type for parameter 'apexConfig'
+in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
+#### Snippet
+```java
+      BundleType bundleType,
+      Version bundletoolVersion,
+      Optional<ApexConfig> apexConfig,
+      ImmutableSet<ZipPath> nonModuleDirectories) {
+    Map<BundleModuleName, BundleModule.Builder> moduleBuilders = new HashMap<>();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'maxSdkVersion'
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/AlternativeVariantTargetingPopulator.java`
 #### Snippet
 ```java
 
-  private final Optional<ByteSource> binaryArtProfile;
-  private final Optional<ByteSource> binaryArtProfileMetadata;
+  public static GeneratedApks populateAlternativeVariantTargeting(
+      GeneratedApks generatedApks, Optional<Integer> maxSdkVersion) {
+    ImmutableList<ModuleSplit> standaloneApks =
+        new AbiAlternativesPopulator()
+```
 
-  public BinaryArtProfilesInjector(AppBundle appBundle) {
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'maxSdkVersion'
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/AlternativeVariantTargetingPopulator.java`
+#### Snippet
+```java
+    }
+
+    public SdkVersionAlternativesPopulator(Optional<Integer> maxSdkVersion) {
+      this.maxSdkVersion = maxSdkVersion;
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'maxSdkVersion'
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/AlternativeVariantTargetingPopulator.java`
+#### Snippet
+```java
+      extends AlternativeVariantTargetingPopulator<SdkVersion> {
+
+    private final Optional<Integer> maxSdkVersion;
+
+    public SdkVersionAlternativesPopulator() {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'apkListener'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializer.java`
+#### Snippet
+```java
+  private final boolean verbose;
+
+  ApkSerializer(Optional<ApkListener> apkListener, boolean verbose) {
+    this.apkListener = apkListener.orElse(ApkListener.NO_OP);
+    this.verbose = verbose;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6759,54 +6807,6 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShard
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'apkListener'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializer.java`
-#### Snippet
-```java
-  private final boolean verbose;
-
-  ApkSerializer(Optional<ApkListener> apkListener, boolean verbose) {
-    this.apkListener = apkListener.orElse(ApkListener.NO_OP);
-    this.verbose = verbose;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maxSdkVersion'
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/AlternativeVariantTargetingPopulator.java`
-#### Snippet
-```java
-
-  public static GeneratedApks populateAlternativeVariantTargeting(
-      GeneratedApks generatedApks, Optional<Integer> maxSdkVersion) {
-    ImmutableList<ModuleSplit> standaloneApks =
-        new AbiAlternativesPopulator()
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'maxSdkVersion'
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/AlternativeVariantTargetingPopulator.java`
-#### Snippet
-```java
-      extends AlternativeVariantTargetingPopulator<SdkVersion> {
-
-    private final Optional<Integer> maxSdkVersion;
-
-    public SdkVersionAlternativesPopulator() {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maxSdkVersion'
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/AlternativeVariantTargetingPopulator.java`
-#### Snippet
-```java
-    }
-
-    public SdkVersionAlternativesPopulator(Optional<Integer> maxSdkVersion) {
-      this.maxSdkVersion = maxSdkVersion;
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'location'
 in `src/main/java/com/android/tools/build/bundletool/model/ModuleEntry.java`
 #### Snippet
@@ -6816,18 +6816,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/ModuleEntry.java`
     public abstract Builder setFileLocation(Optional<ModuleEntryLocationInZipSource> location);
 
     public abstract Builder setFileLocation(ModuleEntryLocationInZipSource location);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'deviceSpec'
-in `src/main/java/com/android/tools/build/bundletool/shards/ModuleSplitterForShards.java`
-#### Snippet
-```java
-  @Inject
-  public ModuleSplitterForShards(
-      Version bundleVersion, BundleConfig bundleConfig, Optional<DeviceSpec> deviceSpec) {
-    this.bundleVersion = bundleVersion;
-    this.bundleConfig = bundleConfig;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6843,27 +6831,15 @@ in `src/main/java/com/android/tools/build/bundletool/shards/ModuleSplitterForSha
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'mainDexListFile'
-in `src/main/java/com/android/tools/build/bundletool/mergers/DexMerger.java`
+`Optional` used as type for parameter 'deviceSpec'
+in `src/main/java/com/android/tools/build/bundletool/shards/ModuleSplitterForShards.java`
 #### Snippet
 ```java
-      ImmutableList<Path> dexFiles,
-      Path outputDir,
-      Optional<Path> mainDexListFile,
-      Optional<Path> proguardMap,
-      boolean isDebuggable,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'proguardMap'
-in `src/main/java/com/android/tools/build/bundletool/mergers/DexMerger.java`
-#### Snippet
-```java
-      Path outputDir,
-      Optional<Path> mainDexListFile,
-      Optional<Path> proguardMap,
-      boolean isDebuggable,
-      int minSdkVersion);
+  @Inject
+  public ModuleSplitterForShards(
+      Version bundleVersion, BundleConfig bundleConfig, Optional<DeviceSpec> deviceSpec) {
+    this.bundleVersion = bundleVersion;
+    this.bundleConfig = bundleConfig;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -6915,6 +6891,30 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/AssetSlicesGenera
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'mainDexListFile'
+in `src/main/java/com/android/tools/build/bundletool/mergers/DexMerger.java`
+#### Snippet
+```java
+      ImmutableList<Path> dexFiles,
+      Path outputDir,
+      Optional<Path> mainDexListFile,
+      Optional<Path> proguardMap,
+      boolean isDebuggable,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'proguardMap'
+in `src/main/java/com/android/tools/build/bundletool/mergers/DexMerger.java`
+#### Snippet
+```java
+      Path outputDir,
+      Optional<Path> mainDexListFile,
+      Optional<Path> proguardMap,
+      boolean isDebuggable,
+      int minSdkVersion);
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'defaultTextureCompressionFormat'
 in `src/main/java/com/android/tools/build/bundletool/validation/TextureCompressionFormatParityValidator.java`
 #### Snippet
@@ -6927,63 +6927,27 @@ in `src/main/java/com/android/tools/build/bundletool/validation/TextureCompressi
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'resourceConfigPath'
-in `src/main/java/com/android/tools/build/bundletool/androidtools/Aapt2Command.java`
+`Optional` used as type for parameter 'apkModifier'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializerManager.java`
 #### Snippet
 ```java
-      public abstract Builder setCollapseResourceNames(boolean value);
-
-      public abstract Builder setResourceConfigPath(Optional<Path> resourceConfigPath);
-
-      public abstract Builder setDeduplicateResourceEntries(boolean value);
+  public ApkSerializerManager(
+      Bundle bundle,
+      Optional<ApkModifier> apkModifier,
+      @FirstVariantNumber Optional<Integer> firstVariantNumber,
+      @VerboseLogs boolean verbose,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'minimumV3RotationApiVersion'
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
+`Optional` used as type for parameter 'firstVariantNumber'
+in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializerManager.java`
 #### Snippet
 ```java
-
-    public abstract Builder setMinimumV3RotationApiVersion(
-        Optional<Integer> minimumV3RotationApiVersion);
-
-    public abstract Builder setRotationMinSdkVersion(Optional<Integer> rotationMinSdkVersion);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalKeystorePassword'
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
-#### Snippet
-```java
-      Path keystorePath,
-      String keyAlias,
-      Optional<Password> optionalKeystorePassword,
-      Optional<Password> optionalKeyPassword) {
-    SignerConfig signerConfig =
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalKeyPassword'
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
-#### Snippet
-```java
-      String keyAlias,
-      Optional<Password> optionalKeystorePassword,
-      Optional<Password> optionalKeyPassword) {
-    SignerConfig signerConfig =
-        SignerConfig.extractFromKeystore(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'rotationMinSdkVersion'
-in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
-#### Snippet
-```java
-        Optional<Integer> minimumV3RotationApiVersion);
-
-    public abstract Builder setRotationMinSdkVersion(Optional<Integer> rotationMinSdkVersion);
-
-    public abstract Builder setSigningCertificateLineage(
+      Bundle bundle,
+      Optional<ApkModifier> apkModifier,
+      @FirstVariantNumber Optional<Integer> firstVariantNumber,
+      @VerboseLogs boolean verbose,
+      ApkBuildMode apkBuildMode,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7035,27 +6999,63 @@ in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializerManager.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'apkModifier'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializerManager.java`
+`Optional` used as type for parameter 'minimumV3RotationApiVersion'
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
 #### Snippet
 ```java
-  public ApkSerializerManager(
-      Bundle bundle,
-      Optional<ApkModifier> apkModifier,
-      @FirstVariantNumber Optional<Integer> firstVariantNumber,
-      @VerboseLogs boolean verbose,
+
+    public abstract Builder setMinimumV3RotationApiVersion(
+        Optional<Integer> minimumV3RotationApiVersion);
+
+    public abstract Builder setRotationMinSdkVersion(Optional<Integer> rotationMinSdkVersion);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'firstVariantNumber'
-in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializerManager.java`
+`Optional` used as type for parameter 'optionalKeystorePassword'
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
 #### Snippet
 ```java
-      Bundle bundle,
-      Optional<ApkModifier> apkModifier,
-      @FirstVariantNumber Optional<Integer> firstVariantNumber,
-      @VerboseLogs boolean verbose,
-      ApkBuildMode apkBuildMode,
+      Path keystorePath,
+      String keyAlias,
+      Optional<Password> optionalKeystorePassword,
+      Optional<Password> optionalKeyPassword) {
+    SignerConfig signerConfig =
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optionalKeyPassword'
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
+#### Snippet
+```java
+      String keyAlias,
+      Optional<Password> optionalKeystorePassword,
+      Optional<Password> optionalKeyPassword) {
+    SignerConfig signerConfig =
+        SignerConfig.extractFromKeystore(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'rotationMinSdkVersion'
+in `src/main/java/com/android/tools/build/bundletool/model/SigningConfiguration.java`
+#### Snippet
+```java
+        Optional<Integer> minimumV3RotationApiVersion);
+
+    public abstract Builder setRotationMinSdkVersion(Optional<Integer> rotationMinSdkVersion);
+
+    public abstract Builder setSigningCertificateLineage(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'resourceConfigPath'
+in `src/main/java/com/android/tools/build/bundletool/androidtools/Aapt2Command.java`
+#### Snippet
+```java
+      public abstract Builder setCollapseResourceNames(boolean value);
+
+      public abstract Builder setResourceConfigPath(Optional<Path> resourceConfigPath);
+
+      public abstract Builder setDeduplicateResourceEntries(boolean value);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7071,6 +7071,18 @@ in `src/main/java/com/android/tools/build/bundletool/io/ApkDescriptionHelper.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'targetingDimensionToRemove'
+in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSplitterFactory.java`
+#### Snippet
+```java
+      Function<T, ApkTargeting> targetingSetter,
+      Predicate<ApkTargeting> hasTargeting,
+      Optional<TargetingDimension> targetingDimensionToRemove) {
+    return new ModuleSplitSplitter() {
+
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'pinSpec'
 in `src/main/java/com/android/tools/build/bundletool/splitters/PinSpecInjector.java`
 #### Snippet
@@ -7080,6 +7092,18 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/PinSpecInjector.j
   private final Optional<ModuleEntry> pinSpec;
 
   public PinSpecInjector(BundleModule module) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'packageName'
+in `src/main/java/com/android/tools/build/bundletool/device/LocalTestingPathResolver.java`
+#### Snippet
+```java
+  private LocalTestingPathResolver() {}
+
+  public static String resolveLocalTestingPath(String localTestPath, Optional<String> packageName) {
+    // There are two different flows, depending on if the path is absolute or not...
+    if (localTestPath.startsWith("/")) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7107,15 +7131,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/SignerConfig.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'packageName'
-in `src/main/java/com/android/tools/build/bundletool/device/LocalTestingPathResolver.java`
+`Optional`> used as type for parameter 'requestedModuleNames'
+in `src/main/java/com/android/tools/build/bundletool/device/ApkMatcher.java`
 #### Snippet
 ```java
-  private LocalTestingPathResolver() {}
-
-  public static String resolveLocalTestingPath(String localTestPath, Optional<String> packageName) {
-    // There are two different flows, depending on if the path is absolute or not...
-    if (localTestPath.startsWith("/")) {
+  public ApkMatcher(
+      DeviceSpec deviceSpec,
+      Optional<ImmutableSet<String>> requestedModuleNames,
+      boolean includeInstallTimeAssetModules,
+      boolean matchInstant,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7131,39 +7155,15 @@ in `src/main/java/com/android/tools/build/bundletool/device/ApkMatcher.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'requestedModuleNames'
-in `src/main/java/com/android/tools/build/bundletool/device/ApkMatcher.java`
-#### Snippet
-```java
-  public ApkMatcher(
-      DeviceSpec deviceSpec,
-      Optional<ImmutableSet<String>> requestedModuleNames,
-      boolean includeInstallTimeAssetModules,
-      boolean matchInstant,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'targetingDimensionToRemove'
-in `src/main/java/com/android/tools/build/bundletool/splitters/AssetsDimensionSplitterFactory.java`
-#### Snippet
-```java
-      Function<T, ApkTargeting> targetingSetter,
-      Predicate<ApkTargeting> hasTargeting,
-      Optional<TargetingDimension> targetingDimensionToRemove) {
-    return new ModuleSplitSplitter() {
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'runAsPackageName'
-in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
+`Optional` used as type for field 'stampSource'
+in `src/main/java/com/android/tools/build/bundletool/splitters/SplitApksGenerator.java`
 #### Snippet
 ```java
 
-  public abstract void removeRemotePath(
-      String remoteFilePath, Optional<String> runAsPackageName, Duration timeout)
-      throws IOException;
-
+  private final Version bundletoolVersion;
+  private final Optional<SourceStamp> stampSource;
+  private final VariantTargetingGenerator variantTargetingGenerator;
+  private final AppBundle appBundle;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7179,15 +7179,15 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/SplitApksGenerato
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'stampSource'
-in `src/main/java/com/android/tools/build/bundletool/splitters/SplitApksGenerator.java`
+`Optional` used as type for parameter 'runAsPackageName'
+in `src/main/java/com/android/tools/build/bundletool/device/Device.java`
 #### Snippet
 ```java
 
-  private final Version bundletoolVersion;
-  private final Optional<SourceStamp> stampSource;
-  private final VariantTargetingGenerator variantTargetingGenerator;
-  private final AppBundle appBundle;
+  public abstract void removeRemotePath(
+      String remoteFilePath, Optional<String> runAsPackageName, Duration timeout)
+      throws IOException;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7207,11 +7207,11 @@ in `src/main/java/com/android/tools/build/bundletool/device/DeviceAnalyzer.java`
 in `src/main/java/com/android/tools/build/bundletool/device/DeviceAnalyzer.java`
 #### Snippet
 ```java
+  }
 
-  /** Gets and validates the connected device. */
-  public Device getAndValidateDevice(Optional<String> deviceId) throws TimeoutException {
-    Device device =
-        getTargetDevice(deviceId)
+  public DeviceSpec getDeviceSpec(Optional<String> deviceId) {
+    try {
+      Device device = getAndValidateDevice(deviceId);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7219,11 +7219,11 @@ in `src/main/java/com/android/tools/build/bundletool/device/DeviceAnalyzer.java`
 in `src/main/java/com/android/tools/build/bundletool/device/DeviceAnalyzer.java`
 #### Snippet
 ```java
-  }
 
-  public DeviceSpec getDeviceSpec(Optional<String> deviceId) {
-    try {
-      Device device = getAndValidateDevice(deviceId);
+  /** Gets and validates the connected device. */
+  public Device getAndValidateDevice(Optional<String> deviceId) throws TimeoutException {
+    Device device =
+        getTargetDevice(deviceId)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7251,15 +7251,15 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/NativeLibrariesHe
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'stampSource'
+`Optional` used as type for field 'stampSource'
 in `src/main/java/com/android/tools/build/bundletool/splitters/ModuleSplitter.java`
 #### Snippet
 ```java
-      VariantTargeting variantTargeting,
-      ImmutableSet<String> allModuleNames,
-      Optional<String> stampSource,
-      StampType stampType) {
-    return new ModuleSplitter(
+  private final ApkGenerationConfiguration apkGenerationConfiguration;
+  private final VariantTargeting variantTargeting;
+  private final Optional<String> stampSource;
+  private final StampType stampType;
+  private final AppBundle appBundle;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7275,15 +7275,15 @@ in `src/main/java/com/android/tools/build/bundletool/splitters/ModuleSplitter.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'stampSource'
+`Optional` used as type for parameter 'stampSource'
 in `src/main/java/com/android/tools/build/bundletool/splitters/ModuleSplitter.java`
 #### Snippet
 ```java
-  private final ApkGenerationConfiguration apkGenerationConfiguration;
-  private final VariantTargeting variantTargeting;
-  private final Optional<String> stampSource;
-  private final StampType stampType;
-  private final AppBundle appBundle;
+      VariantTargeting variantTargeting,
+      ImmutableSet<String> allModuleNames,
+      Optional<String> stampSource,
+      StampType stampType) {
+    return new ModuleSplitter(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7335,18 +7335,6 @@ public class Sharder {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'customAppStorePackageName'
-in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedApksGenerator.java`
-#### Snippet
-```java
-
-  public ModuleSplit generateArchivedApk(
-      AppBundle appBundle, Optional<String> customAppStorePackageName) throws IOException {
-    validateRequest(appBundle);
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'deviceSpec'
 in `src/main/java/com/android/tools/build/bundletool/shards/SystemApksGenerator.java`
 #### Snippet
@@ -7368,6 +7356,18 @@ in `src/main/java/com/android/tools/build/bundletool/shards/SystemApksGenerator.
       Optional<DeviceSpec> deviceSpec,
       AppBundle appBundle) {
     this.moduleSplitter = moduleSplitter;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'customAppStorePackageName'
+in `src/main/java/com/android/tools/build/bundletool/archive/ArchivedApksGenerator.java`
+#### Snippet
+```java
+
+  public ModuleSplit generateArchivedApk(
+      AppBundle appBundle, Optional<String> customAppStorePackageName) throws IOException {
+    validateRequest(appBundle);
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7395,6 +7395,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'fastFollowElement'
+in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
+#### Snippet
+```java
+  }
+
+  private static void validateFastFollowElement(Optional<XmlProtoElement> fastFollowElement) {
+    Optional<XmlProtoElement> offendingChild =
+        fastFollowElement.flatMap(element -> element.getChildrenElements().findAny());
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'installTimeElement'
 in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
 #### Snippet
@@ -7419,27 +7431,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryEleme
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'fastFollowElement'
-in `src/main/java/com/android/tools/build/bundletool/model/ManifestDeliveryElement.java`
+`Optional` used as type for parameter 'version'
+in `src/main/java/com/android/tools/build/bundletool/model/DeviceFeatureCondition.java`
 #### Snippet
 ```java
   }
 
-  private static void validateFastFollowElement(Optional<XmlProtoElement> fastFollowElement) {
-    Optional<XmlProtoElement> offendingChild =
-        fastFollowElement.flatMap(element -> element.getChildrenElements().findAny());
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'p7ZipCommand'
-in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
-#### Snippet
-```java
-  private final ListeningExecutorService executorService;
-  private final boolean use7ZipCompression;
-  private final Optional<P7ZipCommand> p7ZipCommand;
-
-  @Inject
+  public static DeviceFeatureCondition create(String featureName, Optional<Integer> version) {
+    return new AutoValue_DeviceFeatureCondition(featureName, version);
+  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7467,15 +7467,15 @@ in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'version'
-in `src/main/java/com/android/tools/build/bundletool/model/DeviceFeatureCondition.java`
+`Optional` used as type for field 'p7ZipCommand'
+in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
 #### Snippet
 ```java
-  }
+  private final ListeningExecutorService executorService;
+  private final boolean use7ZipCompression;
+  private final Optional<P7ZipCommand> p7ZipCommand;
 
-  public static DeviceFeatureCondition create(String featureName, Optional<Integer> version) {
-    return new AutoValue_DeviceFeatureCondition(featureName, version);
-  }
+  @Inject
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7491,18 +7491,6 @@ in `src/main/java/com/android/tools/build/bundletool/preprocessors/LocalRuntimeE
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'id'
-in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTargetingConfigCommand.java`
-#### Snippet
-```java
-    abstract Builder setAdbServer(AdbServer adbServer);
-
-    abstract Builder setDeviceId(Optional<String> id);
-
-    abstract Builder setCountryCode(String countryCode);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'selectedTier'
 in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTargetingConfigCommand.java`
 #### Snippet
@@ -7512,6 +7500,18 @@ in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTarg
   private void printTier(Optional<DeviceTier> selectedTier, PrintStream out) {
     if (selectedTier.isPresent()) {
       out.println("Tier: " + selectedTier.get().getLevel());
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'id'
+in `src/main/java/com/android/tools/build/bundletool/commands/EvaluateDeviceTargetingConfigCommand.java`
+#### Snippet
+```java
+    abstract Builder setAdbServer(AdbServer adbServer);
+
+    abstract Builder setDeviceId(Optional<String> id);
+
+    abstract Builder setCountryCode(String countryCode);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -7577,26 +7577,14 @@ in `src/main/java/com/android/tools/build/bundletool/commands/InstallApksCommand
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/android/tools/build/bundletool/commands/PrintDeviceTargetingConfigCommand.java`
-#### Snippet
-```java
-
-  public static PrintDeviceTargetingConfigCommand fromFlags(ParsedFlags flags) {
-    return fromFlags(flags, System.out);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
 #### Snippet
 ```java
-        break;
-      default:
-        System.err.printf("Error: Unrecognized command '%s'.%n%n%n", commandName);
-        help();
-        runtime.exit(1);
+            VersionCommand.help());
+
+    System.out.println("Synopsis: bundletool <command> ...");
+    System.out.println();
+    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
 ```
 
 ### SystemOutErr
@@ -7604,11 +7592,47 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
 #### Snippet
 ```java
-    }
 
-    commandHelp.printDetails(System.out);
+    System.out.println("Synopsis: bundletool <command> ...");
+    System.out.println();
+    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
+    System.out.println();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
+#### Snippet
+```java
+    System.out.println("Synopsis: bundletool <command> ...");
+    System.out.println();
+    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
+    System.out.println();
+    commandHelps.forEach(commandHelp -> commandHelp.printSummary(System.out));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
+#### Snippet
+```java
+    System.out.println();
+    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
+    System.out.println();
+    commandHelps.forEach(commandHelp -> commandHelp.printSummary(System.out));
   }
-}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
+#### Snippet
+```java
+    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
+    System.out.println();
+    commandHelps.forEach(commandHelp -> commandHelp.printSummary(System.out));
+  }
+
 ```
 
 ### SystemOutErr
@@ -7684,15 +7708,15 @@ in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
+Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
 #### Snippet
 ```java
-            VersionCommand.help());
-
-    System.out.println("Synopsis: bundletool <command> ...");
-    System.out.println();
-    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
+        break;
+      default:
+        System.err.printf("Error: Unrecognized command '%s'.%n%n%n", commandName);
+        help();
+        runtime.exit(1);
 ```
 
 ### SystemOutErr
@@ -7700,45 +7724,21 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
 #### Snippet
 ```java
+    }
 
-    System.out.println("Synopsis: bundletool <command> ...");
-    System.out.println();
-    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
-    System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
-#### Snippet
-```java
-    System.out.println("Synopsis: bundletool <command> ...");
-    System.out.println();
-    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
-    System.out.println();
-    commandHelps.forEach(commandHelp -> commandHelp.printSummary(System.out));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
-#### Snippet
-```java
-    System.out.println();
-    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
-    System.out.println();
-    commandHelps.forEach(commandHelp -> commandHelp.printSummary(System.out));
+    commandHelp.printDetails(System.out);
   }
+}
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/android/tools/build/bundletool/BundleToolMain.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/PrintDeviceTargetingConfigCommand.java`
 #### Snippet
 ```java
-    System.out.println("Use 'bundletool help <command>' to learn more about the given command.");
-    System.out.println();
-    commandHelps.forEach(commandHelp -> commandHelp.printSummary(System.out));
+
+  public static PrintDeviceTargetingConfigCommand fromFlags(ParsedFlags flags) {
+    return fromFlags(flags, System.out);
   }
 
 ```
@@ -7751,6 +7751,18 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkApksComman
 
   public static BuildSdkApksCommand fromFlags(ParsedFlags flags) {
     return fromFlags(flags, System.out, DEFAULT_PROVIDER);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/com/android/tools/build/bundletool/commands/DumpCommand.java`
+#### Snippet
+```java
+
+  public static Builder builder() {
+    return new AutoValue_DumpCommand.Builder().setOutputStream(System.out);
   }
 
 ```
@@ -7781,12 +7793,12 @@ in `src/main/java/com/android/tools/build/bundletool/androidtools/DefaultCommand
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/android/tools/build/bundletool/commands/DumpCommand.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
 ```java
 
-  public static Builder builder() {
-    return new AutoValue_DumpCommand.Builder().setOutputStream(System.out);
+  public static BuildApksCommand fromFlags(ParsedFlags flags, AdbServer adbServer) {
+    return fromFlags(flags, System.out, DEFAULT_PROVIDER, adbServer);
   }
 
 ```
@@ -7889,18 +7901,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/ValidateBundleComm
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-
-  public static BuildApksCommand fromFlags(ParsedFlags flags, AdbServer adbServer) {
-    return fromFlags(flags, System.out, DEFAULT_PROVIDER, adbServer);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/io/ApkSerializer.java`
 #### Snippet
 ```java
@@ -7940,11 +7940,11 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
 #### Snippet
 ```java
-          path.toFile().getAbsolutePath(),
-          joinUnixPaths(splitsPath, path.getFileName().toString()));
-      System.err.printf(
-          "Pushed \"%s\"%n", joinUnixPaths(splitsPath, path.getFileName().toString()));
-    }
+
+    RemoteCommandExecutor commandExecutor =
+        new RemoteCommandExecutor(this, pushOptions.getTimeout().toMillis(), System.err);
+    DdmPreferences.setTimeOut((int) pushOptions.getTimeout().toMillis());
+    try {
 ```
 
 ### SystemOutErr
@@ -7952,11 +7952,11 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/com/android/tools/build/bundletool/device/DdmlibDevice.java`
 #### Snippet
 ```java
-
-    RemoteCommandExecutor commandExecutor =
-        new RemoteCommandExecutor(this, pushOptions.getTimeout().toMillis(), System.err);
-    DdmPreferences.setTimeOut((int) pushOptions.getTimeout().toMillis());
-    try {
+          path.toFile().getAbsolutePath(),
+          joinUnixPaths(splitsPath, path.getFileName().toString()));
+      System.err.printf(
+          "Pushed \"%s\"%n", joinUnixPaths(splitsPath, path.getFileName().toString()));
+    }
 ```
 
 ### SystemOutErr
@@ -8009,18 +8009,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/GetSizeCommand.jav
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator.java`
-#### Snippet
-```java
-          // returns
-          //    Path("/hello")
-          Path target = outputDir.resolve(pathStr.replaceFirst("^/", ""));
-          // Ensure all parent directories exist.
-          Files.createDirectories(target.getParent());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator.java`
 #### Snippet
@@ -8030,6 +8018,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator
       (file, attrs) -> file.getFileName().toString().matches("aapt2(\\.exe)?");
 
   private final FileSystem fileSystem;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/android/tools/build/bundletool/model/utils/SdkToolsLocator.java`
+#### Snippet
+```java
+          // returns
+          //    Path("/hello")
+          Path target = outputDir.resolve(pathStr.replaceFirst("^/", ""));
+          // Ensure all parent directories exist.
+          Files.createDirectories(target.getParent());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -8288,18 +8288,6 @@ in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfu
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `modules`
-in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  public static ImmutableList<BundleModule> sanitize(ImmutableList<BundleModule> modules) {
-    modules =
-        modules.stream()
-            .map(module -> new ClassesDexSanitizer().applyMutation(module))
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `split`
 in `src/main/java/com/android/tools/build/bundletool/shards/SuffixStripper.java`
 #### Snippet
@@ -8333,6 +8321,18 @@ in `src/main/java/com/android/tools/build/bundletool/shards/SuffixStripper.java`
     split = setTargetingByDefaultSuffix(split, suffixStripping.getDefaultSuffix());
 
     return split;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `modules`
+in `src/main/java/com/android/tools/build/bundletool/model/utils/BundleParser.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  public static ImmutableList<BundleModule> sanitize(ImmutableList<BundleModule> modules) {
+    modules =
+        modules.stream()
+            .map(module -> new ClassesDexSanitizer().applyMutation(module))
 ```
 
 ### AssignmentToMethodParameter
@@ -8510,18 +8510,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/SizeFormatter.j
 
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
-'nullOutputStream()' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/utils/GZipUtils.java`
-#### Snippet
-```java
-      throws IOException {
-    CountingOutputStream countingOutputStream =
-        new CountingOutputStream(ByteStreams.nullOutputStream());
-    try (GZIPOutputStream compressedStream = new GZIPOutputStream(countingOutputStream)) {
-      ByteStreams.copy(stream, compressedStream);
-```
-
-### UnstableApiUsage
 'com.google.common.io.MoreFiles' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/model/utils/GZipUtils.java`
 #### Snippet
@@ -8546,6 +8534,18 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/GZipUtils.java`
 ```
 
 ### UnstableApiUsage
+'nullOutputStream()' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/utils/GZipUtils.java`
+#### Snippet
+```java
+      throws IOException {
+    CountingOutputStream countingOutputStream =
+        new CountingOutputStream(ByteStreams.nullOutputStream());
+    try (GZIPOutputStream compressedStream = new GZIPOutputStream(countingOutputStream)) {
+      ByteStreams.copy(stream, compressedStream);
+```
+
+### UnstableApiUsage
 'com.google.common.io.MoreFiles' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildSdkAsarManager.java`
 #### Snippet
@@ -8687,66 +8687,6 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksManager.j
       MoreFiles.deleteRecursively(command.getOutputFile(), RecursiveDeleteOption.ALLOW_INSECURE);
     }
 
-```
-
-### UnstableApiUsage
-'com.google.common.hash.Hashing' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
-#### Snippet
-```java
-  private static ZipPath obfuscateZipPath(
-      ZipPath oldZipPath, ImmutableMap<String, String> resourceNameMapping) {
-    HashCode hashCode = Hashing.sha256().hashString(oldZipPath.toString(), StandardCharsets.UTF_8);
-    String encodedString =
-        Base64.getUrlEncoder()
-```
-
-### UnstableApiUsage
-'sha256()' is declared in unstable class 'com.google.common.hash.Hashing' marked with @Beta
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
-#### Snippet
-```java
-  private static ZipPath obfuscateZipPath(
-      ZipPath oldZipPath, ImmutableMap<String, String> resourceNameMapping) {
-    HashCode hashCode = Hashing.sha256().hashString(oldZipPath.toString(), StandardCharsets.UTF_8);
-    String encodedString =
-        Base64.getUrlEncoder()
-```
-
-### UnstableApiUsage
-'com.google.common.hash.Hashing' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  String hashFilePath(String stringPath) {
-    HashCode hashCode = Hashing.sha256().hashString(stringPath, StandardCharsets.UTF_8);
-    return Base64.getUrlEncoder()
-        .encodeToString(Arrays.copyOf(hashCode.asBytes(), RESOURCE_NAME_LENGTH));
-```
-
-### UnstableApiUsage
-'sha256()' is declared in unstable class 'com.google.common.hash.Hashing' marked with @Beta
-in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  String hashFilePath(String stringPath) {
-    HashCode hashCode = Hashing.sha256().hashString(stringPath, StandardCharsets.UTF_8);
-    return Base64.getUrlEncoder()
-        .encodeToString(Arrays.copyOf(hashCode.asBytes(), RESOURCE_NAME_LENGTH));
-```
-
-### UnstableApiUsage
-Overridden method 'sizeIfKnown()' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/utils/ZipUtils.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> sizeIfKnown() {
-      return entry.getSize() == -1 ? Optional.absent() : Optional.of(entry.getSize());
-    }
 ```
 
 ### UnstableApiUsage
@@ -8774,15 +8714,51 @@ in `src/main/java/com/android/tools/build/bundletool/commands/GetDeviceSpecComma
 ```
 
 ### UnstableApiUsage
-'lexicographical(java.util.Comparator)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/utils/TargetingNormalizer.java`
+'com.google.common.hash.Hashing' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
 #### Snippet
 ```java
+  private static ZipPath obfuscateZipPath(
+      ZipPath oldZipPath, ImmutableMap<String, String> resourceNameMapping) {
+    HashCode hashCode = Hashing.sha256().hashString(oldZipPath.toString(), StandardCharsets.UTF_8);
+    String encodedString =
+        Base64.getUrlEncoder()
+```
 
-  private static final Comparator<MultiAbi> MULTI_ABI_COMPARATOR =
-      comparing(MultiAbi::getAbiList, lexicographical(comparing(Abi::getAlias)));
+### UnstableApiUsage
+'sha256()' is declared in unstable class 'com.google.common.hash.Hashing' marked with @Beta
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
+#### Snippet
+```java
+  private static ZipPath obfuscateZipPath(
+      ZipPath oldZipPath, ImmutableMap<String, String> resourceNameMapping) {
+    HashCode hashCode = Hashing.sha256().hashString(oldZipPath.toString(), StandardCharsets.UTF_8);
+    String encodedString =
+        Base64.getUrlEncoder()
+```
 
-  private static final Comparator<Sanitizer> SANITIZER_COMPARATOR = comparing(Sanitizer::getAlias);
+### UnstableApiUsage
+'com.google.common.hash.Hashing' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  String hashFilePath(String stringPath) {
+    HashCode hashCode = Hashing.sha256().hashString(stringPath, StandardCharsets.UTF_8);
+    return Base64.getUrlEncoder()
+        .encodeToString(Arrays.copyOf(hashCode.asBytes(), RESOURCE_NAME_LENGTH));
+```
+
+### UnstableApiUsage
+'sha256()' is declared in unstable class 'com.google.common.hash.Hashing' marked with @Beta
+in `src/main/java/com/android/tools/build/bundletool/preprocessors/AppBundleObfuscationPreprocessor.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  String hashFilePath(String stringPath) {
+    HashCode hashCode = Hashing.sha256().hashString(stringPath, StandardCharsets.UTF_8);
+    return Base64.getUrlEncoder()
+        .encodeToString(Arrays.copyOf(hashCode.asBytes(), RESOURCE_NAME_LENGTH));
 ```
 
 ### UnstableApiUsage
@@ -8795,6 +8771,30 @@ in `src/main/java/com/android/tools/build/bundletool/commands/AddTransparencyCom
     return CharSource.wrap(content).asByteSource(Charset.defaultCharset());
   }
 
+```
+
+### UnstableApiUsage
+Overridden method 'sizeIfKnown()' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/utils/ZipUtils.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> sizeIfKnown() {
+      return entry.getSize() == -1 ? Optional.absent() : Optional.of(entry.getSize());
+    }
+```
+
+### UnstableApiUsage
+'lexicographical(java.util.Comparator)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/utils/TargetingNormalizer.java`
+#### Snippet
+```java
+
+  private static final Comparator<MultiAbi> MULTI_ABI_COMPARATOR =
+      comparing(MultiAbi::getAbiList, lexicographical(comparing(Abi::getAlias)));
+
+  private static final Comparator<Sanitizer> SANITIZER_COMPARATOR = comparing(Sanitizer::getAlias);
 ```
 
 ### UnstableApiUsage
@@ -8991,66 +8991,6 @@ in `src/main/java/com/android/tools/build/bundletool/androidtools/DefaultCommand
 ```
 
 ### UnstableApiUsage
-'getNameWithoutExtension(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-      Path withApexExtension =
-          path.resolveSibling(
-              com.google.common.io.Files.getNameWithoutExtension(path.toString()) + ".apex");
-      Files.move(path, withApexExtension);
-      newPaths.add(withApexExtension);
-```
-
-### UnstableApiUsage
-'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-        .values()
-        .stream()
-        .flatMap(Streams::stream)
-        .collect(toImmutableList());
-  }
-```
-
-### UnstableApiUsage
-'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
-#### Snippet
-```java
-              .flatMap(
-                  apksArchivePath ->
-                      stream(
-                          apksWithPackageName(apksArchivePath, deviceSpec, aapt2CommandSupplier)))
-              .filter(apks -> shouldInstall(apks, existingPackages))
-```
-
-### UnstableApiUsage
-'com.google.common.io.MoreFiles' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-      if (command.getOutputFormat().equals(APK_SET)) {
-        if (!APK_SET_ARCHIVE_EXTENSION.equals(
-            MoreFiles.getFileExtension(command.getOutputFile()))) {
-          throw InvalidCommandException.builder()
-              .withInternalMessage(
-```
-
-### UnstableApiUsage
-'getFileExtension(java.nio.file.Path)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
-in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
-#### Snippet
-```java
-      if (command.getOutputFormat().equals(APK_SET)) {
-        if (!APK_SET_ARCHIVE_EXTENSION.equals(
-            MoreFiles.getFileExtension(command.getOutputFile()))) {
-          throw InvalidCommandException.builder()
-              .withInternalMessage(
-```
-
-### UnstableApiUsage
 'com.google.common.io.Closer' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
@@ -9123,6 +9063,30 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
 ```
 
 ### UnstableApiUsage
+'com.google.common.io.MoreFiles' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+      if (command.getOutputFormat().equals(APK_SET)) {
+        if (!APK_SET_ARCHIVE_EXTENSION.equals(
+            MoreFiles.getFileExtension(command.getOutputFile()))) {
+          throw InvalidCommandException.builder()
+              .withInternalMessage(
+```
+
+### UnstableApiUsage
+'getFileExtension(java.nio.file.Path)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
+in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
+#### Snippet
+```java
+      if (command.getOutputFormat().equals(APK_SET)) {
+        if (!APK_SET_ARCHIVE_EXTENSION.equals(
+            MoreFiles.getFileExtension(command.getOutputFile()))) {
+          throw InvalidCommandException.builder()
+              .withInternalMessage(
+```
+
+### UnstableApiUsage
 'com.google.common.io.Closer' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.java`
 #### Snippet
@@ -9172,50 +9136,50 @@ in `src/main/java/com/android/tools/build/bundletool/commands/BuildApksCommand.j
 
 ### UnstableApiUsage
 'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
 #### Snippet
 ```java
-            .getElement()
-            .getOptionalChildElement(AndroidManifest.APPLICATION_ELEMENT_NAME);
-    stream(manifestElement)
-        .flatMap(application -> application.getChildrenElements())
-        .filter(child -> elementsToMerge.contains(child.getName()))
+              .flatMap(
+                  apksArchivePath ->
+                      stream(
+                          apksWithPackageName(apksArchivePath, deviceSpec, aapt2CommandSupplier)))
+              .filter(apks -> shouldInstall(apks, existingPackages))
+```
+
+### UnstableApiUsage
+'getNameWithoutExtension(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
+#### Snippet
+```java
+      Path withApexExtension =
+          path.resolveSibling(
+              com.google.common.io.Files.getNameWithoutExtension(path.toString()) + ".apex");
+      Files.move(path, withApexExtension);
+      newPaths.add(withApexExtension);
 ```
 
 ### UnstableApiUsage
 'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+in `src/main/java/com/android/tools/build/bundletool/commands/InstallMultiApksCommand.java`
 #### Snippet
 ```java
-    applicationElement.modifyChildElements(
-        child ->
-            stream(getCorrespondingElementFromMergedElements(child, mergedElements))
-                .peek(replacedElements::add)
-                .map(element -> XmlProtoNodeBuilder.createElementNode(element.toBuilder()))
+        .values()
+        .stream()
+        .flatMap(Streams::stream)
+        .collect(toImmutableList());
+  }
 ```
 
 ### UnstableApiUsage
-'mapWithIndex(java.util.stream.Stream, com.google.common.collect.Streams.FunctionWithIndex)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
+'getNameWithoutExtension(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/validation/MandatoryFilesPresenceValidator.java`
 #### Snippet
 ```java
-      ImmutableList<T> list, Function<T, R> valueFn) {
-    Map<Integer, T> map =
-        Streams.mapWithIndex(
-                list.stream(),
-                (value, i) -> new AbstractMap.SimpleEntry<>(Ints.checkedCast(i), value))
-```
+        moduleFile,
+        /* moduleBaseDir= */ ZipPath.create(""),
+        /* moduleName= */ Files.getNameWithoutExtension(moduleFile.getName()));
+  }
 
-### UnstableApiUsage
-'com.google.common.collect.Streams.FunctionWithIndex' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
-#### Snippet
-```java
-        Streams.mapWithIndex(
-                list.stream(),
-                (value, i) -> new AbstractMap.SimpleEntry<>(Ints.checkedCast(i), value))
-            .collect(toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
-    return ImmutableMap.copyOf(Maps.transformValues(map, valueFn::apply));
 ```
 
 ### UnstableApiUsage
@@ -9250,18 +9214,6 @@ in `src/main/java/com/android/tools/build/bundletool/mergers/ModuleSplitsToShard
 ```
 
 ### UnstableApiUsage
-'getNameWithoutExtension(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/validation/MandatoryFilesPresenceValidator.java`
-#### Snippet
-```java
-        moduleFile,
-        /* moduleBaseDir= */ ZipPath.create(""),
-        /* moduleName= */ Files.getNameWithoutExtension(moduleFile.getName()));
-  }
-
-```
-
-### UnstableApiUsage
 'com.google.common.hash.Hashing' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/sdkmodule/AndroidResourceRenamer.java`
 #### Snippet
@@ -9283,6 +9235,54 @@ in `src/main/java/com/android/tools/build/bundletool/sdkmodule/AndroidResourceRe
               .hash(Hashing.farmHashFingerprint64())
               .toString();
     } catch (IOException e) {
+```
+
+### UnstableApiUsage
+'stream(java.util.Optional)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+#### Snippet
+```java
+    applicationElement.modifyChildElements(
+        child ->
+            stream(getCorrespondingElementFromMergedElements(child, mergedElements))
+                .peek(replacedElements::add)
+                .map(element -> XmlProtoNodeBuilder.createElementNode(element.toBuilder()))
+```
+
+### UnstableApiUsage
+'stream(java.util.Optional)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/mergers/FusingAndroidManifestMerger.java`
+#### Snippet
+```java
+            .getElement()
+            .getOptionalChildElement(AndroidManifest.APPLICATION_ELEMENT_NAME);
+    stream(manifestElement)
+        .flatMap(application -> application.getChildrenElements())
+        .filter(child -> elementsToMerge.contains(child.getName()))
+```
+
+### UnstableApiUsage
+'stream(java.util.Optional)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
+#### Snippet
+```java
+    return targetedDirectories.stream()
+        .map(TargetingUtils::extractDeviceTier)
+        .flatMap(Streams::stream)
+        .collect(toImmutableSet());
+  }
+```
+
+### UnstableApiUsage
+'stream(java.util.Optional)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
+#### Snippet
+```java
+    return targetedDirectories.stream()
+        .map(TargetingUtils::extractCountrySet)
+        .flatMap(Streams::stream)
+        .collect(toImmutableSet());
+  }
 ```
 
 ### UnstableApiUsage
@@ -9334,27 +9334,27 @@ in `src/main/java/com/android/tools/build/bundletool/model/ModuleEntry.java`
 ```
 
 ### UnstableApiUsage
-'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
+'mapWithIndex(java.util.stream.Stream, com.google.common.collect.Streams.FunctionWithIndex)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
 #### Snippet
 ```java
-    return targetedDirectories.stream()
-        .map(TargetingUtils::extractDeviceTier)
-        .flatMap(Streams::stream)
-        .collect(toImmutableSet());
-  }
+      ImmutableList<T> list, Function<T, R> valueFn) {
+    Map<Integer, T> map =
+        Streams.mapWithIndex(
+                list.stream(),
+                (value, i) -> new AbstractMap.SimpleEntry<>(Ints.checkedCast(i), value))
 ```
 
 ### UnstableApiUsage
-'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingUtils.java`
+'com.google.common.collect.Streams.FunctionWithIndex' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/mergers/ResourceTableMerger.java`
 #### Snippet
 ```java
-    return targetedDirectories.stream()
-        .map(TargetingUtils::extractCountrySet)
-        .flatMap(Streams::stream)
-        .collect(toImmutableSet());
-  }
+        Streams.mapWithIndex(
+                list.stream(),
+                (value, i) -> new AbstractMap.SimpleEntry<>(Ints.checkedCast(i), value))
+            .collect(toImmutableMap(Map.Entry::getKey, Map.Entry::getValue));
+    return ImmutableMap.copyOf(Maps.transformValues(map, valueFn::apply));
 ```
 
 ### UnstableApiUsage
@@ -9562,6 +9562,42 @@ in `src/main/java/com/android/tools/build/bundletool/model/ZipPath.java`
 ```
 
 ### UnstableApiUsage
+'emptiesFirst(java.util.Comparator)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
+#### Snippet
+```java
+
+  private static final Comparator<VariantTargeting> SDK_COMPARATOR =
+      comparing(TargetingComparators::getMinSdk, emptiesFirst(Ordering.natural()));
+
+  private static final Comparator<VariantTargeting> SCREEN_DENSITY_COMPARATOR =
+```
+
+### UnstableApiUsage
+'emptiesFirst(java.util.Comparator)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
+#### Snippet
+```java
+
+  private static final Comparator<VariantTargeting> SCREEN_DENSITY_COMPARATOR =
+      comparing(TargetingComparators::getScreenDensity, emptiesFirst(Ordering.natural()));
+
+  private static final Comparator<VariantTargeting> TEXTURE_COMPRESSION_FORMAT_COMPARATOR =
+```
+
+### UnstableApiUsage
+'lexicographical(java.util.Comparator)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
+#### Snippet
+```java
+  public static final Comparator<ImmutableSet<AbiAlias>> MULTI_ABI_ALIAS_COMPARATOR =
+      comparing(
+          TargetingComparators::sortMultiAbi, Comparators.lexicographical(ARCHITECTURE_ORDERING));
+
+  @VisibleForTesting
+```
+
+### UnstableApiUsage
 'falseFirst()' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
 #### Snippet
@@ -9598,87 +9634,15 @@ in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingCo
 ```
 
 ### UnstableApiUsage
-'emptiesFirst(java.util.Comparator)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
+'falseFirst()' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
 #### Snippet
 ```java
-
-  private static final Comparator<VariantTargeting> SCREEN_DENSITY_COMPARATOR =
-      comparing(TargetingComparators::getScreenDensity, emptiesFirst(Ordering.natural()));
-
-  private static final Comparator<VariantTargeting> TEXTURE_COMPRESSION_FORMAT_COMPARATOR =
-```
-
-### UnstableApiUsage
-'emptiesFirst(java.util.Comparator)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
-#### Snippet
-```java
-
-  private static final Comparator<VariantTargeting> SDK_COMPARATOR =
-      comparing(TargetingComparators::getMinSdk, emptiesFirst(Ordering.natural()));
-
-  private static final Comparator<VariantTargeting> SCREEN_DENSITY_COMPARATOR =
-```
-
-### UnstableApiUsage
-'lexicographical(java.util.Comparator)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/TargetingComparators.java`
-#### Snippet
-```java
-  public static final Comparator<ImmutableSet<AbiAlias>> MULTI_ABI_ALIAS_COMPARATOR =
-      comparing(
-          TargetingComparators::sortMultiAbi, Comparators.lexicographical(ARCHITECTURE_ORDERING));
-
-  @VisibleForTesting
-```
-
-### UnstableApiUsage
-'sizeIfKnown()' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
-#### Snippet
-```java
-          boolean smallEntry =
-              content
-                  .sizeIfKnown()
-                  .transform(size -> size < LARGE_ENTRY_SIZE_THRESHOLD_BYTES)
-                  .or(false);
-```
-
-### UnstableApiUsage
-'inCompletionOrder(java.lang.Iterable\>)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
-#### Snippet
-```java
-          }
-        }
-        for (Future<Source> source : Futures.inCompletionOrder(largeSources.build())) {
-          archive.add(Futures.getUnchecked(source));
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.io.MoreFiles' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
-#### Snippet
-```java
-        FileUtils.createDirectories(tempDirectory);
-        for (Entry<String, ByteSource> content : entries.entrySet()) {
-          content.getValue().copyTo(MoreFiles.asByteSink(tempDirectory.resolve(content.getKey())));
-        }
-        p7ZipCommand.compress(outputZip, tempDirectory);
-```
-
-### UnstableApiUsage
-'asByteSink(java.nio.file.Path, java.nio.file.OpenOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
-in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
-#### Snippet
-```java
-        FileUtils.createDirectories(tempDirectory);
-        for (Entry<String, ByteSource> content : entries.entrySet()) {
-          content.getValue().copyTo(MoreFiles.asByteSink(tempDirectory.resolve(content.getKey())));
-        }
-        p7ZipCommand.compress(outputZip, tempDirectory);
+    if (PREFER_EXPLICIT_DPI_OVER_DEFAULT_CONFIG.enabledForVersion(bundleVersion)) {
+      compositeComparator =
+          compositeComparator.thenComparing(ScreenDensitySelector::isExplicitDpi, falseFirst());
+    }
+    return compositeComparator;
 ```
 
 ### UnstableApiUsage
@@ -9691,18 +9655,6 @@ in `src/main/java/com/android/tools/build/bundletool/validation/SdkBundleMandato
     String moduleName = Files.getNameWithoutExtension(zipFile.getName());
 
     if (zipFile.getEntry(moduleManifestPath.toString()) == null) {
-```
-
-### UnstableApiUsage
-'falseFirst()' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/targeting/ScreenDensitySelector.java`
-#### Snippet
-```java
-    if (PREFER_EXPLICIT_DPI_OVER_DEFAULT_CONFIG.enabledForVersion(bundleVersion)) {
-      compositeComparator =
-          compositeComparator.thenComparing(ScreenDensitySelector::isExplicitDpi, falseFirst());
-    }
-    return compositeComparator;
 ```
 
 ### UnstableApiUsage
@@ -9754,6 +9706,54 @@ in `src/main/java/com/android/tools/build/bundletool/io/TempDirectory.java`
 ```
 
 ### UnstableApiUsage
+'com.google.common.io.MoreFiles' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
+#### Snippet
+```java
+        FileUtils.createDirectories(tempDirectory);
+        for (Entry<String, ByteSource> content : entries.entrySet()) {
+          content.getValue().copyTo(MoreFiles.asByteSink(tempDirectory.resolve(content.getKey())));
+        }
+        p7ZipCommand.compress(outputZip, tempDirectory);
+```
+
+### UnstableApiUsage
+'asByteSink(java.nio.file.Path, java.nio.file.OpenOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
+in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
+#### Snippet
+```java
+        FileUtils.createDirectories(tempDirectory);
+        for (Entry<String, ByteSource> content : entries.entrySet()) {
+          content.getValue().copyTo(MoreFiles.asByteSink(tempDirectory.resolve(content.getKey())));
+        }
+        p7ZipCommand.compress(outputZip, tempDirectory);
+```
+
+### UnstableApiUsage
+'sizeIfKnown()' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
+#### Snippet
+```java
+          boolean smallEntry =
+              content
+                  .sizeIfKnown()
+                  .transform(size -> size < LARGE_ENTRY_SIZE_THRESHOLD_BYTES)
+                  .or(false);
+```
+
+### UnstableApiUsage
+'inCompletionOrder(java.lang.Iterable\>)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/io/Zipper.java`
+#### Snippet
+```java
+          }
+        }
+        for (Future<Source> source : Futures.inCompletionOrder(largeSources.build())) {
+          archive.add(Futures.getUnchecked(source));
+        }
+```
+
+### UnstableApiUsage
 'stream(java.util.Optional)' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/io/Aapt2ResourceConverter.java`
 #### Snippet
@@ -9763,42 +9763,6 @@ in `src/main/java/com/android/tools/build/bundletool/io/Aapt2ResourceConverter.j
                   stream(resourceTableEntry),
                   resourceEntriesStream,
                   otherEntriesStream)
-```
-
-### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
-#### Snippet
-```java
-    int dotIndex = sdkVersion.indexOf('.');
-    String codename = dotIndex != -1 ? sdkVersion.substring(0, dotIndex) : sdkVersion;
-    return Ints.tryParse(codename) == null;
-  }
-
-```
-
-### UnstableApiUsage
-'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
-#### Snippet
-```java
-
-  private ImmutableList<XmlProtoElement> getActivities() {
-    return stream(getManifestElement().getOptionalChildElement(APPLICATION_ELEMENT_NAME))
-        .flatMap(app -> app.getChildrenElements(ACTIVITY_ELEMENT_NAME))
-        .collect(toImmutableList());
-```
-
-### UnstableApiUsage
-'stream(java.util.Optional)' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
-#### Snippet
-```java
-   */
-  public boolean hasExplicitlyDefinedNativeActivities() {
-    return stream(getManifestElement().getOptionalChildElement(APPLICATION_ELEMENT_NAME))
-        .flatMap(app -> app.getChildrenElements(ACTIVITY_ELEMENT_NAME))
-        .flatMap(activity -> activity.getChildrenElements(META_DATA_ELEMENT_NAME))
 ```
 
 ### UnstableApiUsage
@@ -9818,11 +9782,47 @@ in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
 in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
 #### Snippet
 ```java
+
+  private ImmutableList<XmlProtoElement> getActivities() {
+    return stream(getManifestElement().getOptionalChildElement(APPLICATION_ELEMENT_NAME))
+        .flatMap(app -> app.getChildrenElements(ACTIVITY_ELEMENT_NAME))
+        .collect(toImmutableList());
+```
+
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
+#### Snippet
+```java
+    int dotIndex = sdkVersion.indexOf('.');
+    String codename = dotIndex != -1 ? sdkVersion.substring(0, dotIndex) : sdkVersion;
+    return Ints.tryParse(codename) == null;
+  }
+
+```
+
+### UnstableApiUsage
+'stream(java.util.Optional)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
+#### Snippet
+```java
             PROVIDER_ELEMENT_NAME,
             RECEIVER_ELEMENT_NAME);
     return stream(getManifestElement().getOptionalChildElement(APPLICATION_ELEMENT_NAME))
         .flatMap(app -> app.getChildrenElements())
         .anyMatch(component -> componentNames.contains(component.getName()));
+```
+
+### UnstableApiUsage
+'stream(java.util.Optional)' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/model/AndroidManifest.java`
+#### Snippet
+```java
+   */
+  public boolean hasExplicitlyDefinedNativeActivities() {
+    return stream(getManifestElement().getOptionalChildElement(APPLICATION_ELEMENT_NAME))
+        .flatMap(app -> app.getChildrenElements(ACTIVITY_ELEMENT_NAME))
+        .flatMap(activity -> activity.getChildrenElements(META_DATA_ELEMENT_NAME))
 ```
 
 ### UnstableApiUsage
@@ -9970,18 +9970,6 @@ in `src/main/java/com/android/tools/build/bundletool/model/utils/ThrowableUtils.
 ```
 
 ### UnstableApiUsage
-'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
-in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
-#### Snippet
-```java
-      // Serialize and sign final APKs.
-      ImmutableList<ListenableFuture<ApkDescription>> apkDescriptions =
-          Streams.zip(
-                  splitsByRelativePath.keySet().stream(),
-                  binarySplits.stream(),
-```
-
-### UnstableApiUsage
 'com.google.common.hash.Hashing' is marked unstable with @Beta
 in `src/main/java/com/android/tools/build/bundletool/io/ZipBuilder.java`
 #### Snippet
@@ -10018,27 +10006,15 @@ in `src/main/java/com/android/tools/build/bundletool/device/SessionIdParser.java
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.Closeables' is marked unstable with @Beta
-in `src/main/java/com/android/tools/build/bundletool/io/SerializationFilesManager.java`
+'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
+in `src/main/java/com/android/tools/build/bundletool/io/ModuleSplitSerializer.java`
 #### Snippet
 ```java
-  public void close() throws IOException {
-    for (ZipFile zipFile : openedBinaryApks.values()) {
-      Closeables.close(zipFile, /* swallowIOException= */ true);
-    }
-    tempDirectory.close();
-```
-
-### UnstableApiUsage
-'close(java.io.Closeable, boolean)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
-in `src/main/java/com/android/tools/build/bundletool/io/SerializationFilesManager.java`
-#### Snippet
-```java
-  public void close() throws IOException {
-    for (ZipFile zipFile : openedBinaryApks.values()) {
-      Closeables.close(zipFile, /* swallowIOException= */ true);
-    }
-    tempDirectory.close();
+      // Serialize and sign final APKs.
+      ImmutableList<ListenableFuture<ApkDescription>> apkDescriptions =
+          Streams.zip(
+                  splitsByRelativePath.keySet().stream(),
+                  binarySplits.stream(),
 ```
 
 ### UnstableApiUsage
@@ -10063,5 +10039,29 @@ in `src/main/java/com/android/tools/build/bundletool/io/SerializationFilesManage
       Closeables.close(opened.getValue(), /* swallowIOException= */ true);
       Files.delete(opened.getKey());
     }
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closeables' is marked unstable with @Beta
+in `src/main/java/com/android/tools/build/bundletool/io/SerializationFilesManager.java`
+#### Snippet
+```java
+  public void close() throws IOException {
+    for (ZipFile zipFile : openedBinaryApks.values()) {
+      Closeables.close(zipFile, /* swallowIOException= */ true);
+    }
+    tempDirectory.close();
+```
+
+### UnstableApiUsage
+'close(java.io.Closeable, boolean)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
+in `src/main/java/com/android/tools/build/bundletool/io/SerializationFilesManager.java`
+#### Snippet
+```java
+  public void close() throws IOException {
+    for (ZipFile zipFile : openedBinaryApks.values()) {
+      Closeables.close(zipFile, /* swallowIOException= */ true);
+    }
+    tempDirectory.close();
 ```
 
