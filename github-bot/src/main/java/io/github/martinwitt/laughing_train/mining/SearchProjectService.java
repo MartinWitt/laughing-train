@@ -106,7 +106,7 @@ public class SearchProjectService {
                     .org(getRandomOrgName())
                     .sort(Sort.UPDATED)
                     .list()
-                    .withPageSize(30)
+                    .withPageSize(50)
                     .iterator()
                     .nextPage();
             return repos.get(random.nextInt(repos.size()));

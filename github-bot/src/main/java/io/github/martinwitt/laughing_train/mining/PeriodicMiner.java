@@ -61,7 +61,7 @@ public class PeriodicMiner {
     }
 
     private Uni<Project> getRandomProject() {
-        if (random.nextInt(5) >= 3) {
+        if (random.nextBoolean()) {
             return searchProjectService.searchProjectOnGithub();
         } else {
             return getKnownProject();
