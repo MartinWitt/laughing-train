@@ -82,7 +82,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printModuleInfo(CtModule ctModule) {
+	public String printPackageInfo(CtPackage ctPackage) {
 		return null;
 	}
 
@@ -94,7 +94,7 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
 	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
+	public String printModuleInfo(CtModule ctModule) {
 		return null;
 	}
 
