@@ -48,13 +48,9 @@ public class ProjectRepositoryImpl implements ProjectRepository, PanacheMongoRep
         if (list.isEmpty()) {
             persist(projectDaoConverter.convertToDao(project));
         } else {
-            logger.atInfo().log("Project already exists, updating %s", project);
             var dao = projectDaoConverter.convertToDao(project);
             dao.id = list.get(0).id;
             update(dao);
-            logger.atInfo().log(
-                    "Project updated %s",
-                    find("projectUrl", project.getProjectUrl()).firstResult());
         }
         return project;
     }
