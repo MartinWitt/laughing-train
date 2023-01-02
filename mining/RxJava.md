@@ -199,10 +199,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
 #### Snippet
 ```java
-            long emitted = this.emitted;
+            AtomicReference<SwitchMapSingleObserver<R>> inner = this.inner;
 
             for (;;) {
 
@@ -211,10 +211,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
 #### Snippet
 ```java
-            AtomicReference<SwitchMapSingleObserver<R>> inner = this.inner;
+            long emitted = this.emitted;
 
             for (;;) {
 
@@ -247,10 +247,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
 #### Snippet
 ```java
-            boolean syncFused = this.syncFused;
+            AtomicThrowable errors = this.errors;
 
             for (;;) {
 
@@ -259,10 +259,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
 #### Snippet
 ```java
-            AtomicThrowable errors = this.errors;
+            boolean syncFused = this.syncFused;
 
             for (;;) {
 
@@ -403,18 +403,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetry
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
-#### Snippet
-```java
-            final Subscriber<? super U> child = this.downstream;
-            int missed = 1;
-            for (;;) {
-                if (checkTerminate()) {
-                    return;
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapMaybe.java`
 #### Snippet
 ```java
@@ -442,7 +430,7 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
 #### Snippet
 ```java
-            final AtomicReference<T> q = queue;
+            final SpscLinkedArrayQueue<T> q = queue;
 
             for (;;) {
                 long r = get();
@@ -454,11 +442,23 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
 #### Snippet
 ```java
-            final SpscLinkedArrayQueue<T> q = queue;
+            final AtomicReference<T> q = queue;
 
             for (;;) {
                 long r = get();
                 long e = 0L;
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
+#### Snippet
+```java
+            final Subscriber<? super U> child = this.downstream;
+            int missed = 1;
+            for (;;) {
+                if (checkTerminate()) {
+                    return;
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -478,8 +478,8 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
 #### Snippet
 ```java
-        void drain() {
-            if (wip.getAndIncrement() == 0) {
+            if (getAndIncrement() == 0) {
+
                 for (;;) {
                     if (cancelled) {
                         return;
@@ -490,8 +490,8 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
 #### Snippet
 ```java
-            if (getAndIncrement() == 0) {
-
+        void drain() {
+            if (wip.getAndIncrement() == 0) {
                 for (;;) {
                     if (cancelled) {
                         return;
@@ -610,35 +610,35 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
 #### Snippet
 ```java
+            int missed = 1;
+
+            for (;;) {
+
+                if (cancelled) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
+#### Snippet
+```java
+            int missed = 1;
+
+            for (;;) {
+
+                if (cancelled) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
+#### Snippet
+```java
             long polled = consumed;
 
             for (;;) {
 
                 long r = requested.get();
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
-#### Snippet
-```java
-            int missed = 1;
-
-            for (;;) {
-
-                if (cancelled) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
-#### Snippet
-```java
-            int missed = 1;
-
-            for (;;) {
-
-                if (cancelled) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -835,18 +835,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
-#### Snippet
-```java
-            final long time = this.time;
-
-            for (;;) {
-
-                for (;;) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
 #### Snippet
 ```java
@@ -855,6 +843,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepla
             for (;;) {
                 // if the upstream has completed, no more requesting is possible
                 if (isDisposed()) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+#### Snippet
+```java
+            final long time = this.time;
+
+            for (;;) {
+
+                for (;;) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -898,10 +898,10 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
 #### Snippet
 ```java
-            final Observer<? super T> a = downstream;
+            int missed = 1;
 
             for (;;) {
-                if (checkTerminated(done, q.isEmpty(), a)) {
+                if (disposed) {
                     return;
 ```
 
@@ -910,10 +910,10 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
 #### Snippet
 ```java
-            int missed = 1;
+            final Observer<? super T> a = downstream;
 
             for (;;) {
-                if (disposed) {
+                if (checkTerminated(done, q.isEmpty(), a)) {
                     return;
 ```
 
@@ -931,18 +931,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
-#### Snippet
-```java
-            Observer<? super T> downstream = this.downstream;
-
-            for (;;) {
-
-                for (;;) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
 ```java
@@ -955,10 +943,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
 #### Snippet
 ```java
-            final SpscLinkedArrayQueue<T> q2 = observer2.queue;
+            Observer<? super T> downstream = this.downstream;
 
             for (;;) {
 
@@ -972,6 +960,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```java
 
             int missed = 1;
+            for (;;) {
+
+                for (;;) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
+#### Snippet
+```java
+            final SpscLinkedArrayQueue<T> q2 = observer2.queue;
+
             for (;;) {
 
                 for (;;) {
@@ -1186,11 +1186,11 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
 #### Snippet
 ```java
-        final boolean failFast = !delayError;
-
+        boolean failFast = !this.delayError;
+        boolean canBeError = true;
         for (;;) {
+            for (;;) {
 
-            if (disposed) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -1198,11 +1198,11 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
 #### Snippet
 ```java
-        boolean failFast = !this.delayError;
-        boolean canBeError = true;
-        for (;;) {
-            for (;;) {
+        final boolean failFast = !delayError;
 
+        for (;;) {
+
+            if (disposed) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -1291,14 +1291,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ExecutorScheduler.jav
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NewThreadHolder` has only 'static' members, and lacks a 'private' constructor
+Class `SingleHolder` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 #### Snippet
 ```java
-    }
+    static final Scheduler NEW_THREAD;
 
-    static final class NewThreadHolder {
-        static final Scheduler DEFAULT = new NewThreadScheduler();
+    static final class SingleHolder {
+        static final Scheduler DEFAULT = new SingleScheduler();
     }
 ```
 
@@ -1327,14 +1327,14 @@ in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SingleHolder` has only 'static' members, and lacks a 'private' constructor
+Class `NewThreadHolder` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 #### Snippet
 ```java
-    static final Scheduler NEW_THREAD;
+    }
 
-    static final class SingleHolder {
-        static final Scheduler DEFAULT = new SingleScheduler();
+    static final class NewThreadHolder {
+        static final Scheduler DEFAULT = new NewThreadScheduler();
     }
 ```
 
@@ -1412,18 +1412,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroup
 ```
 
 ### DataFlowIssue
-Dereference of `otherIterable` may produce `NullPointerException`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
-#### Snippet
-```java
-
-            try {
-                for (Publisher<?> p : otherIterable) {
-                    if (n == others.length) {
-                        others = Arrays.copyOf(others, n + (n >> 1));
-```
-
-### DataFlowIssue
 Method invocation `size` may produce `NullPointerException`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
 #### Snippet
@@ -1433,6 +1421,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
             if (b.size() + 1 == size) {
                 bs.poll();
 
+```
+
+### DataFlowIssue
+Dereference of `otherIterable` may produce `NullPointerException`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+#### Snippet
+```java
+
+            try {
+                for (Publisher<?> p : otherIterable) {
+                    if (n == others.length) {
+                        others = Arrays.copyOf(others, n + (n >> 1));
 ```
 
 ### DataFlowIssue
@@ -1589,19 +1589,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 
         while (cdl.getCount() != 0) { }
     }
-}
-```
 
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
-#### Snippet
-```java
-            public Object call() {
-                int c = count;
-                while (items < c) { }
-                return 1;
-            }
 ```
 
 ### EmptyStatementBody
@@ -1625,7 +1613,19 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 
         while (cdl.getCount() != 0) { }
     }
+}
+```
 
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
+#### Snippet
+```java
+            public Object call() {
+                int c = count;
+                while (items < c) { }
+                return 1;
+            }
 ```
 
 ### EmptyStatementBody
@@ -1645,18 +1645,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/PerfAsyncConsumer.java`
 in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 #### Snippet
 ```java
-
-        if (input.size == 1) {
-            while (o.latch.getCount() != 0) { }
-        } else {
-            o.latch.await();
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
         Flowable.merge(ob, ob).subscribe(o);
         if (input.size == 1) {
             while (o.latch.getCount() != 0) { }
@@ -1669,19 +1657,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 #### Snippet
 ```java
-        Flowable.merge(os).subscribe(o);
-        if (input.size == 1) {
-            while (o.latch.getCount() != 0) { }
-        } else {
-            o.latch.await();
-```
 
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-        Flowable.merge(os).subscribe(o);
         if (input.size == 1) {
             while (o.latch.getCount() != 0) { }
         } else {
@@ -1694,6 +1670,30 @@ in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 #### Snippet
 ```java
         Flowable.merge(input.observables).subscribe(o);
+        if (input.size == 1) {
+            while (o.latch.getCount() != 0) { }
+        } else {
+            o.latch.await();
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+        Flowable.merge(os).subscribe(o);
+        if (input.size == 1) {
+            while (o.latch.getCount() != 0) { }
+        } else {
+            o.latch.await();
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+        Flowable.merge(os).subscribe(o);
         if (input.size == 1) {
             while (o.latch.getCount() != 0) { }
         } else {
@@ -2052,18 +2052,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
-#### Snippet
-```java
-        final Subscriber<? super Flowable<T>> downstream;
-
-        final SpscLinkedArrayQueue<UnicastProcessor<T>> queue;
-
-        final long size;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'window' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
 #### Snippet
@@ -2073,6 +2061,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
         UnicastProcessor<T> window;
 
         WindowSkipSubscriber(Subscriber<? super Flowable<T>> actual, long size, long skip, int bufferSize) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+#### Snippet
+```java
+        final Subscriber<? super Flowable<T>> downstream;
+
+        final SpscLinkedArrayQueue<UnicastProcessor<T>> queue;
+
+        final long size;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2148,18 +2148,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCo
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-        volatile boolean done;
-
-        final SpscLinkedArrayQueue<C> queue;
-
-        volatile boolean cancelled;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'subscribers' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
@@ -2169,6 +2157,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
         final CompositeDisposable subscribers;
 
         final AtomicLong requested;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+#### Snippet
+```java
+        volatile boolean done;
+
+        final SpscLinkedArrayQueue<C> queue;
+
+        volatile boolean cancelled;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2316,6 +2316,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundary.java`
+#### Snippet
+```java
+        final AtomicInteger windows;
+
+        final MpscLinkedQueue<Object> queue;
+
+        final AtomicThrowable errors;
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'window' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundary.java`
 #### Snippet
@@ -2341,18 +2353,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundary.java`
-#### Snippet
-```java
-        final AtomicInteger windows;
-
-        final MpscLinkedQueue<Object> queue;
-
-        final AtomicThrowable errors;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
 #### Snippet
 ```java
@@ -2361,6 +2361,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableG
         final SpscLinkedArrayQueue<T> queue;
         final GroupByObserver<?, K, T> parent;
         final boolean delayError;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'index' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
+         * Guarded by the emitter loop.
+         */
+        Object index;
+        /**
+         * Keeps the sum of all requested amounts.
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'value' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
+
+        private static final long serialVersionUID = 245354315435971818L;
+        final Object value;
+        final long index;
+
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2400,44 +2424,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'value' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
-#### Snippet
-```java
-
-        private static final long serialVersionUID = 245354315435971818L;
-        final Object value;
-        final long index;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'index' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
-#### Snippet
-```java
-         * Guarded by the emitter loop.
-         */
-        Object index;
-        /**
-         * Keeps the sum of all requested amounts.
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'observers' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
-#### Snippet
-```java
-        final ObservableSource<? extends T> first;
-        final ObservableSource<? extends T> second;
-        final EqualObserver<T>[] observers;
-
-        volatile boolean cancelled;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'observers' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
 #### Snippet
 ```java
         final ObservableSource<? extends T> first;
@@ -2472,15 +2460,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+Non-serializable field 'observers' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
 #### Snippet
 ```java
-        final Observer<? super R> downstream;
+        final ObservableSource<? extends T> first;
+        final ObservableSource<? extends T> second;
+        final EqualObserver<T>[] observers;
 
-        final SpscLinkedArrayQueue<Object> queue;
-
-        final CompositeDisposable disposables;
+        volatile boolean cancelled;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2505,6 +2493,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
         final DebounceTimedObserver<T> parent;
 
         final AtomicBoolean once = new AtomicBoolean();
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+        final Observer<? super R> downstream;
+
+        final SpscLinkedArrayQueue<Object> queue;
+
+        final CompositeDisposable disposables;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2560,7 +2560,7 @@ Non-serializable field 'window' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
 #### Snippet
 ```java
-        long count;
+        final Scheduler scheduler;
 
         UnicastSubject<T> window;
 
@@ -2572,7 +2572,7 @@ Non-serializable field 'window' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
 #### Snippet
 ```java
-        final Scheduler scheduler;
+        long count;
 
         UnicastSubject<T> window;
 
@@ -2628,18 +2628,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZ
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'node' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCache.java`
-#### Snippet
-```java
-        final ObservableCache<T> parent;
-
-        Node<T> node;
-
-        int offset;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'parent' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCache.java`
 #### Snippet
@@ -2652,15 +2640,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
+Non-serializable field 'node' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCache.java`
 #### Snippet
 ```java
-        final Observer<? super R> downstream;
+        final ObservableCache<T> parent;
 
-        final SpscLinkedArrayQueue<Object> queue;
+        Node<T> node;
 
-        final CompositeDisposable disposables;
+        int offset;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2673,6 +2661,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJ
         final CompositeDisposable disposables;
 
         final Map<Integer, TLeft> lefts;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
+#### Snippet
+```java
+        final Observer<? super R> downstream;
+
+        final SpscLinkedArrayQueue<Object> queue;
+
+        final CompositeDisposable disposables;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2724,18 +2724,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-        final AtomicInteger windows;
-
-        final MpscLinkedQueue<Object> queue;
-
-        final AtomicThrowable errors;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'boundaryObserver' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
 #### Snippet
@@ -2745,6 +2733,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
         final WindowBoundaryInnerObserver<T, B> boundaryObserver;
 
         final AtomicReference<Disposable> upstream;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+        final AtomicInteger windows;
+
+        final MpscLinkedQueue<Object> queue;
+
+        final AtomicThrowable errors;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2764,11 +2764,11 @@ Non-serializable field 'parent' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
 #### Snippet
 ```java
-        final Observer<? super T> downstream;
+        private static final long serialVersionUID = -4552101107598366241L;
 
-        final ObservableRefCount<T> parent;
+        final ObservableRefCount<?> parent;
 
-        final RefConnection connection;
+        Disposable timer;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2776,11 +2776,11 @@ Non-serializable field 'parent' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
 #### Snippet
 ```java
-        private static final long serialVersionUID = -4552101107598366241L;
+        final Observer<? super T> downstream;
 
-        final ObservableRefCount<?> parent;
+        final ObservableRefCount<T> parent;
 
-        Disposable timer;
+        final RefConnection connection;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2832,30 +2832,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ExecutorScheduler.jav
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'parent' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-        final Observer<? super T> downstream;
-        /** The subject state. */
-        final PublishSubject<T> parent;
-
-        /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'parent' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-        private static final long serialVersionUID = 5629876084736248016L;
-
-        final AsyncSubject<T> parent;
-
-        AsyncDisposable(Observer<? super T> actual, AsyncSubject<T> parent) {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'value' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
@@ -2881,6 +2857,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'parent' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+        final Observer<? super T> downstream;
+        /** The subject state. */
+        final PublishSubject<T> parent;
+
+        /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'parent' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+        private static final long serialVersionUID = 5629876084736248016L;
+
+        final AsyncSubject<T> parent;
+
+        AsyncDisposable(Observer<? super T> actual, AsyncSubject<T> parent) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'parent' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
 #### Snippet
 ```java
@@ -2889,6 +2889,30 @@ in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
         final MulticastProcessor<T> parent;
 
         long emitted;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'queue' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+        boolean next;
+        boolean emitting;
+        AppendOnlyLinkedArrayList<Object> queue;
+
+        boolean fastPath;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'state' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+
+        final Subscriber<? super T> downstream;
+        final BehaviorProcessor<T> state;
+
+        boolean next;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2905,26 +2929,14 @@ in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'state' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 #### Snippet
 ```java
+        private static final long serialVersionUID = 466549804534799122L;
+        final Observer<? super T> downstream;
+        final ReplaySubject<T> state;
 
-        final Subscriber<? super T> downstream;
-        final BehaviorProcessor<T> state;
-
-        boolean next;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'queue' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
-        boolean next;
-        boolean emitting;
-        AppendOnlyLinkedArrayList<Object> queue;
-
-        boolean fastPath;
+        Object index;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2940,18 +2952,6 @@ in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'state' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-        private static final long serialVersionUID = 466549804534799122L;
-        final Observer<? super T> downstream;
-        final ReplaySubject<T> state;
-
-        Object index;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'parent' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
 #### Snippet
@@ -2964,18 +2964,6 @@ in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'state' in a Serializable class
-in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
-#### Snippet
-```java
-        private static final long serialVersionUID = 466549804534799122L;
-        final Subscriber<? super T> downstream;
-        final ReplayProcessor<T> state;
-
-        Object index;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'index' in a Serializable class
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
@@ -2985,6 +2973,18 @@ in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
         Object index;
 
         final AtomicLong requested;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'state' in a Serializable class
+in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
+#### Snippet
+```java
+        private static final long serialVersionUID = 466549804534799122L;
+        final Subscriber<? super T> downstream;
+        final ReplayProcessor<T> state;
+
+        Object index;
 ```
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
@@ -3295,24 +3295,24 @@ in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
 
 ### NumberEquality
 Number objects are compared using `==`, not 'equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
-#### Snippet
-```java
-            int j = -1;
-            for (int i = 0; i < n; i++) {
-                if (a[i] == ps) {
-                    j = i;
-                    break;
-```
-
-### NumberEquality
-Number objects are compared using `==`, not 'equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 #### Snippet
 ```java
             int j = -1;
             for (int i = 0; i < len; i++) {
                 if (a[i] == rs) {
+                    j = i;
+                    break;
+```
+
+### NumberEquality
+Number objects are compared using `==`, not 'equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
+#### Snippet
+```java
+            int j = -1;
+            for (int i = 0; i < n; i++) {
+                if (a[i] == ps) {
                     j = i;
                     break;
 ```
@@ -3416,18 +3416,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeFromCompletionStage.ja
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleFlattenStreamAsFlowable.java`
-#### Snippet
-```java
-    final Function<? super T, ? extends Stream<? extends R>> mapper;
-
-    public SingleFlattenStreamAsFlowable(Single<T> source, Function<? super T, ? extends Stream<? extends R>> mapper) {
-        this.source = source;
-        this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelFlatMapStream.java`
 #### Snippet
 ```java
@@ -3436,6 +3424,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelFlatMapStream.java`
             ParallelFlowable<T> source,
             Function<? super T, ? extends Stream<? extends R>> mapper,
             int prefetch) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleFlattenStreamAsFlowable.java`
+#### Snippet
+```java
+    final Function<? super T, ? extends Stream<? extends R>> mapper;
+
+    public SingleFlattenStreamAsFlowable(Single<T> source, Function<? super T, ? extends Stream<? extends R>> mapper) {
+        this.source = source;
+        this.mapper = mapper;
 ```
 
 ### BoundedWildcard
@@ -3512,18 +3512,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollec
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapTryOptional.java`
-#### Snippet
-```java
-
-    public ParallelMapTryOptional(
-            ParallelFlowable<T> source,
-            Function<? super T, Optional<? extends R>> mapper,
-            BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleMapOptional.java`
 #### Snippet
 ```java
@@ -3536,24 +3524,24 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleMapOptional.java`
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapTryOptional.java`
+#### Snippet
+```java
+
+    public ParallelMapTryOptional(
+            ParallelFlowable<T> source,
+            Function<? super T, Optional<? extends R>> mapper,
+            BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeFlattenStreamAsObservable.java`
 #### Snippet
 ```java
     final Function<? super T, ? extends Stream<? extends R>> mapper;
 
     public MaybeFlattenStreamAsObservable(Maybe<T> source, Function<? super T, ? extends Stream<? extends R>> mapper) {
-        this.source = source;
-        this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
-#### Snippet
-```java
-    final Function<? super T, Optional<? extends R>> mapper;
-
-    public ObservableMapOptional(Observable<T> source, Function<? super T, Optional<? extends R>> mapper) {
         this.source = source;
         this.mapper = mapper;
 ```
@@ -3619,6 +3607,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableCollectWithCollecto
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
+#### Snippet
+```java
+    final Function<? super T, Optional<? extends R>> mapper;
+
+    public ObservableMapOptional(Observable<T> source, Function<? super T, Optional<? extends R>> mapper) {
+        this.source = source;
+        this.mapper = mapper;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFromStream.java`
+#### Snippet
+```java
+    final Stream<T> stream;
+
+    public ObservableFromStream(Stream<T> stream) {
+        this.stream = stream;
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? super A`
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
 #### Snippet
@@ -3640,18 +3652,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
         ParallelCollectorInnerSubscriber(ParallelCollectorSubscriber<T, A, R> parent, A container, BiConsumer<A, T> accumulator, BinaryOperator<A> combiner) {
             this.parent = parent;
             this.accumulator = accumulator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFromStream.java`
-#### Snippet
-```java
-    final Stream<T> stream;
-
-    public ObservableFromStream(Stream<T> stream) {
-        this.stream = stream;
-    }
 ```
 
 ### BoundedWildcard
@@ -3728,14 +3728,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeFlattenStreamAsFlowabl
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableCollectWithCollector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapOptional.java`
 #### Snippet
 ```java
-    final Collector<? super T, A, R> collector;
+    final Function<? super T, Optional<? extends R>> mapper;
 
-    public FlowableCollectWithCollector(Flowable<T> source, Collector<? super T, A, R> collector) {
+    public ParallelMapOptional(ParallelFlowable<T> source, Function<? super T, Optional<? extends R>> mapper) {
         this.source = source;
-        this.collector = collector;
+        this.mapper = mapper;
 ```
 
 ### BoundedWildcard
@@ -3788,14 +3788,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableCollectWithCollecto
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapOptional.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableCollectWithCollector.java`
 #### Snippet
 ```java
-    final Function<? super T, Optional<? extends R>> mapper;
+    final Collector<? super T, A, R> collector;
 
-    public ParallelMapOptional(ParallelFlowable<T> source, Function<? super T, Optional<? extends R>> mapper) {
+    public FlowableCollectWithCollector(Flowable<T> source, Collector<? super T, A, R> collector) {
         this.source = source;
-        this.mapper = mapper;
+        this.collector = collector;
 ```
 
 ### BoundedWildcard
@@ -3812,18 +3812,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableFromStream.java`
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFlatMapStream.java`
-#### Snippet
-```java
-    final Function<? super T, ? extends Stream<? extends R>> mapper;
-
-    public ObservableFlatMapStream(Observable<T> source, Function<? super T, ? extends Stream<? extends R>> mapper) {
-        this.source = source;
-        this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleFlattenStreamAsObservable.java`
 #### Snippet
 ```java
@@ -3835,27 +3823,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleFlattenStreamAsObserv
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Scheduler`
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFlatMapStream.java`
 #### Snippet
 ```java
-     */
-    @NonNull
-    static Scheduler callRequireNonNull(@NonNull Supplier<Scheduler> s) {
-        try {
-            return Objects.requireNonNull(s.get(), "Scheduler Supplier result can't be null");
-```
+    final Function<? super T, ? extends Stream<? extends R>> mapper;
 
-### BoundedWildcard
-Can generalize to `? super @NonNull MaybeObserver`
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("rawtypes")
-    public static void setOnMaybeSubscribe(@Nullable BiFunction<? super Maybe, @NonNull MaybeObserver, @NonNull ? extends MaybeObserver> onMaybeSubscribe) {
-        if (lockdown) {
-            throw new IllegalStateException("Plugins can't be changed anymore");
+    public ObservableFlatMapStream(Observable<T> source, Function<? super T, ? extends Stream<? extends R>> mapper) {
+        this.source = source;
+        this.mapper = mapper;
 ```
 
 ### BoundedWildcard
@@ -3871,15 +3847,27 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableFlatMapStream.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Subscription`
-in `src/main/java/io/reactivex/rxjava3/internal/util/EndConsumerHelper.java`
+Can generalize to `? super @NonNull MaybeObserver`
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
 #### Snippet
 ```java
-     * @return true if successful, false if the content of the AtomicReference was non null
      */
-    public static boolean setOnce(AtomicReference<Subscription> upstream, Subscription next, Class<?> subscriber) {
-        Objects.requireNonNull(next, "next is null");
-        if (!upstream.compareAndSet(null, next)) {
+    @SuppressWarnings("rawtypes")
+    public static void setOnMaybeSubscribe(@Nullable BiFunction<? super Maybe, @NonNull MaybeObserver, @NonNull ? extends MaybeObserver> onMaybeSubscribe) {
+        if (lockdown) {
+            throw new IllegalStateException("Plugins can't be changed anymore");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Scheduler`
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+     */
+    @NonNull
+    static Scheduler callRequireNonNull(@NonNull Supplier<Scheduler> s) {
+        try {
+            return Objects.requireNonNull(s.get(), "Scheduler Supplier result can't be null");
 ```
 
 ### BoundedWildcard
@@ -3890,6 +3878,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/util/EndConsumerHelper.java`
      * @return true if successful, false if the content of the AtomicReference was non null
      */
     public static boolean setOnce(AtomicReference<Disposable> upstream, Disposable next, Class<?> observer) {
+        Objects.requireNonNull(next, "next is null");
+        if (!upstream.compareAndSet(null, next)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Subscription`
+in `src/main/java/io/reactivex/rxjava3/internal/util/EndConsumerHelper.java`
+#### Snippet
+```java
+     * @return true if successful, false if the content of the AtomicReference was non null
+     */
+    public static boolean setOnce(AtomicReference<Subscription> upstream, Subscription next, Class<?> subscriber) {
         Objects.requireNonNull(next, "next is null");
         if (!upstream.compareAndSet(null, next)) {
 ```
@@ -4028,6 +4028,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeInterva
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @BackpressureSupport(BackpressureKind.FULL)
+    public final <@NonNull T> Flowable<T> startWith(@NonNull SingleSource<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return Flowable.concat(Single.wrap(other).toFlowable(), toFlowable());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
+#### Snippet
+```java
+    @BackpressureSupport(BackpressureKind.FULL)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final <@NonNull T> Flowable<T> startWith(@NonNull Publisher<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return this.<T>toFlowable().startWith(other);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
+#### Snippet
+```java
+    @NonNull
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final <@NonNull T> Observable<T> andThen(@NonNull ObservableSource<T> next) {
+        Objects.requireNonNull(next, "next is null");
+        return RxJavaPlugins.onAssembly(new CompletableAndThenObservable<>(this, next));
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @BackpressureSupport(BackpressureKind.FULL)
+    public final <@NonNull T> Flowable<T> startWith(@NonNull MaybeSource<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return Flowable.concat(Maybe.wrap(other).toFlowable(), toFlowable());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
+#### Snippet
+```java
+    @BackpressureSupport(BackpressureKind.FULL)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final <@NonNull T> Flowable<T> andThen(@NonNull Publisher<T> next) {
+        Objects.requireNonNull(next, "next is null");
+        return RxJavaPlugins.onAssembly(new CompletableAndThenPublisher<>(this, next));
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSubscribeOn.java`
 #### Snippet
 ```java
@@ -4048,66 +4108,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilPu
     public MaybeTakeUntilPublisher(MaybeSource<T> source, Publisher<U> other) {
         super(source);
         this.other = other;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
-#### Snippet
-```java
-    @NonNull
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final <@NonNull T> Observable<T> andThen(@NonNull ObservableSource<T> next) {
-        Objects.requireNonNull(next, "next is null");
-        return RxJavaPlugins.onAssembly(new CompletableAndThenObservable<>(this, next));
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
-#### Snippet
-```java
-    @BackpressureSupport(BackpressureKind.FULL)
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final <@NonNull T> Flowable<T> andThen(@NonNull Publisher<T> next) {
-        Objects.requireNonNull(next, "next is null");
-        return RxJavaPlugins.onAssembly(new CompletableAndThenPublisher<>(this, next));
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
-#### Snippet
-```java
-    @BackpressureSupport(BackpressureKind.FULL)
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final <@NonNull T> Flowable<T> startWith(@NonNull Publisher<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return this.<T>toFlowable().startWith(other);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @BackpressureSupport(BackpressureKind.FULL)
-    public final <@NonNull T> Flowable<T> startWith(@NonNull MaybeSource<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return Flowable.concat(Maybe.wrap(other).toFlowable(), toFlowable());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @BackpressureSupport(BackpressureKind.FULL)
-    public final <@NonNull T> Flowable<T> startWith(@NonNull SingleSource<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return Flowable.concat(Single.wrap(other).toFlowable(), toFlowable());
 ```
 
 ### BoundedWildcard
@@ -4139,11 +4139,11 @@ Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
 #### Snippet
 ```java
-        final MaybeSource<T> source;
+    final CompletableSource other;
 
-        OtherObserver(MaybeObserver<? super T> actual, MaybeSource<T> source) {
-            this.downstream = actual;
-            this.source = source;
+    public MaybeDelayWithCompletable(MaybeSource<T> source, CompletableSource other) {
+        this.source = source;
+        this.other = other;
 ```
 
 ### BoundedWildcard
@@ -4151,11 +4151,11 @@ Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
 #### Snippet
 ```java
-    final CompletableSource other;
+        final MaybeSource<T> source;
 
-    public MaybeDelayWithCompletable(MaybeSource<T> source, CompletableSource other) {
-        this.source = source;
-        this.other = other;
+        OtherObserver(MaybeObserver<? super T> actual, MaybeSource<T> source) {
+            this.downstream = actual;
+            this.source = source;
 ```
 
 ### BoundedWildcard
@@ -4184,18 +4184,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObs
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSinglePublisher.java`
-#### Snippet
-```java
-    final boolean delayErrors;
-
-    public FlowableSwitchMapSinglePublisher(Publisher<T> source,
-            Function<? super T, ? extends SingleSource<? extends R>> mapper,
-            boolean delayErrors) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybePublisher.java`
 #### Snippet
 ```java
@@ -4204,6 +4192,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
     public FlowableConcatMapMaybePublisher(Publisher<T> source,
             Function<? super T, ? extends MaybeSource<? extends R>> mapper,
                     ErrorMode errorMode, int prefetch) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSinglePublisher.java`
+#### Snippet
+```java
+    final boolean delayErrors;
+
+    public FlowableSwitchMapSinglePublisher(Publisher<T> source,
+            Function<? super T, ? extends SingleSource<? extends R>> mapper,
+            boolean delayErrors) {
 ```
 
 ### BoundedWildcard
@@ -4256,18 +4256,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
-#### Snippet
-```java
-    final boolean delayErrors;
-
-    public FlowableSwitchMapMaybe(Flowable<T> source,
-            Function<? super T, ? extends MaybeSource<? extends R>> mapper,
-            boolean delayErrors) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
 #### Snippet
 ```java
@@ -4280,14 +4268,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
 #### Snippet
 ```java
     final boolean delayErrors;
 
-    public FlowableSwitchMapCompletable(Flowable<T> source,
-            Function<? super T, ? extends CompletableSource> mapper, boolean delayErrors) {
-        this.source = source;
+    public FlowableSwitchMapMaybe(Flowable<T> source,
+            Function<? super T, ? extends MaybeSource<? extends R>> mapper,
+            boolean delayErrors) {
 ```
 
 ### BoundedWildcard
@@ -4300,6 +4288,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
     public FlowableConcatMapSinglePublisher(Publisher<T> source,
             Function<? super T, ? extends SingleSource<? extends R>> mapper,
                     ErrorMode errorMode, int prefetch) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapCompletable.java`
+#### Snippet
+```java
+    final boolean delayErrors;
+
+    public FlowableSwitchMapCompletable(Flowable<T> source,
+            Function<? super T, ? extends CompletableSource> mapper, boolean delayErrors) {
+        this.source = source;
 ```
 
 ### BoundedWildcard
@@ -4340,18 +4340,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSingle.java`
-#### Snippet
-```java
-    final boolean delayErrors;
-
-    public FlowableSwitchMapSingle(Flowable<T> source,
-            Function<? super T, ? extends SingleSource<? extends R>> mapper,
-            boolean delayErrors) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapCompletablePublisher.java`
 #### Snippet
 ```java
@@ -4376,6 +4364,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSingle.java`
+#### Snippet
+```java
+    final boolean delayErrors;
+
+    public FlowableSwitchMapSingle(Flowable<T> source,
+            Function<? super T, ? extends SingleSource<? extends R>> mapper,
+            boolean delayErrors) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapCompletable.java`
 #### Snippet
 ```java
@@ -4384,66 +4384,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
     public ObservableSwitchMapCompletable(Observable<T> source,
             Function<? super T, ? extends CompletableSource> mapper, boolean delayErrors) {
         this.source = source;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-    final SingleSource<? extends T> other;
-
-    public SingleTimeout(SingleSource<T> source, long timeout, TimeUnit unit, Scheduler scheduler,
-                         SingleSource<? extends T> other) {
-        this.source = source;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
-#### Snippet
-```java
-    final int prefetch;
-
-    public FlowableConcatMapSingle(Flowable<T> source,
-            Function<? super T, ? extends SingleSource<? extends R>> mapper,
-                    ErrorMode errorMode, int prefetch) {
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
-#### Snippet
-```java
-            final ConcatMapSingleSubscriber<?, R> parent;
-
-            ConcatMapSingleObserver(ConcatMapSingleSubscriber<?, R> parent) {
-                this.parent = parent;
-            }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFromUnsafeSource.java`
-#### Snippet
-```java
-    final SingleSource<T> source;
-
-    public SingleFromUnsafeSource(SingleSource<T> source) {
-        this.source = source;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
-#### Snippet
-```java
-    final int prefetch;
-
-    public ObservableConcatMapSingle(ObservableSource<T> source,
-            Function<? super T, ? extends SingleSource<? extends R>> mapper,
-                    ErrorMode errorMode, int prefetch) {
 ```
 
 ### BoundedWildcard
@@ -4460,13 +4400,73 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
 #### Snippet
 ```java
     final int prefetch;
 
-    public ObservableConcatMapMaybe(Observable<T> source,
-            Function<? super T, ? extends MaybeSource<? extends R>> mapper,
+    public ObservableConcatMapSingle(ObservableSource<T> source,
+            Function<? super T, ? extends SingleSource<? extends R>> mapper,
+                    ErrorMode errorMode, int prefetch) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
+#### Snippet
+```java
+    final SingleSource<? extends T> other;
+
+    public SingleTimeout(SingleSource<T> source, long timeout, TimeUnit unit, Scheduler scheduler,
+                         SingleSource<? extends T> other) {
+        this.source = source;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFromUnsafeSource.java`
+#### Snippet
+```java
+    final SingleSource<T> source;
+
+    public SingleFromUnsafeSource(SingleSource<T> source) {
+        this.source = source;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
+#### Snippet
+```java
+    final Action onFinally;
+
+    public SingleDoFinally(SingleSource<T> source, Action onFinally) {
+        this.source = source;
+        this.onFinally = onFinally;
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
+#### Snippet
+```java
+            final ConcatMapSingleSubscriber<?, R> parent;
+
+            ConcatMapSingleObserver(ConcatMapSingleSubscriber<?, R> parent) {
+                this.parent = parent;
+            }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
+#### Snippet
+```java
+    final int prefetch;
+
+    public FlowableConcatMapSingle(Flowable<T> source,
+            Function<? super T, ? extends SingleSource<? extends R>> mapper,
                     ErrorMode errorMode, int prefetch) {
 ```
 
@@ -4484,14 +4484,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapMaybe.java`
 #### Snippet
 ```java
-    final Action onFinally;
+    final int prefetch;
 
-    public SingleDoFinally(SingleSource<T> source, Action onFinally) {
-        this.source = source;
-        this.onFinally = onFinally;
+    public ObservableConcatMapMaybe(Observable<T> source,
+            Function<? super T, ? extends MaybeSource<? extends R>> mapper,
+                    ErrorMode errorMode, int prefetch) {
 ```
 
 ### BoundedWildcard
@@ -4508,18 +4508,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapCompletable.java`
-#### Snippet
-```java
-    final Function<? super T, ? extends CompletableSource> mapper;
-
-    public SingleFlatMapCompletable(SingleSource<T> source, Function<? super T, ? extends CompletableSource> mapper) {
-        this.source = source;
-        this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
 #### Snippet
 ```java
@@ -4528,6 +4516,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.ja
     public SingleDetach(SingleSource<T> source) {
         this.source = source;
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapCompletable.java`
+#### Snippet
+```java
+    final Function<? super T, ? extends CompletableSource> mapper;
+
+    public SingleFlatMapCompletable(SingleSource<T> source, Function<? super T, ? extends CompletableSource> mapper) {
+        this.source = source;
+        this.mapper = mapper;
 ```
 
 ### BoundedWildcard
@@ -4547,11 +4547,11 @@ Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithObservable.java`
 #### Snippet
 ```java
-        boolean done;
+    final ObservableSource<U> other;
 
-        OtherSubscriber(SingleObserver<? super T> actual, SingleSource<T> source) {
-            this.downstream = actual;
-            this.source = source;
+    public SingleDelayWithObservable(SingleSource<T> source, ObservableSource<U> other) {
+        this.source = source;
+        this.other = other;
 ```
 
 ### BoundedWildcard
@@ -4559,11 +4559,11 @@ Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithObservable.java`
 #### Snippet
 ```java
-    final ObservableSource<U> other;
+        boolean done;
 
-    public SingleDelayWithObservable(SingleSource<T> source, ObservableSource<U> other) {
-        this.source = source;
-        this.other = other;
+        OtherSubscriber(SingleObserver<? super T> actual, SingleSource<T> source) {
+            this.downstream = actual;
+            this.source = source;
 ```
 
 ### BoundedWildcard
@@ -4583,11 +4583,11 @@ Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithSingle.java`
 #### Snippet
 ```java
-    final SingleSource<U> other;
+        final SingleSource<T> source;
 
-    public SingleDelayWithSingle(SingleSource<T> source, SingleSource<U> other) {
-        this.source = source;
-        this.other = other;
+        OtherObserver(SingleObserver<? super T> actual, SingleSource<T> source) {
+            this.downstream = actual;
+            this.source = source;
 ```
 
 ### BoundedWildcard
@@ -4595,11 +4595,11 @@ Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithSingle.java`
 #### Snippet
 ```java
-        final SingleSource<T> source;
+    final SingleSource<U> other;
 
-        OtherObserver(SingleObserver<? super T> actual, SingleSource<T> source) {
-            this.downstream = actual;
-            this.source = source;
+    public SingleDelayWithSingle(SingleSource<T> source, SingleSource<U> other) {
+        this.source = source;
+        this.other = other;
 ```
 
 ### BoundedWildcard
@@ -4612,18 +4612,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn
     public SingleObserveOn(SingleSource<T> source, Scheduler scheduler) {
         this.source = source;
         this.scheduler = scheduler;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableFlowable.java`
-#### Snippet
-```java
-    final Function<? super T, ? extends Iterable<? extends R>> mapper;
-
-    public SingleFlatMapIterableFlowable(SingleSource<T> source,
-            Function<? super T, ? extends Iterable<? extends R>> mapper) {
-        this.source = source;
 ```
 
 ### BoundedWildcard
@@ -4648,6 +4636,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnLifec
     public SingleDoOnLifecycle(Single<T> upstream, Consumer<? super Disposable> onSubscribe,
             Action onDispose) {
         this.source = upstream;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableFlowable.java`
+#### Snippet
+```java
+    final Function<? super T, ? extends Iterable<? extends R>> mapper;
+
+    public SingleFlatMapIterableFlowable(SingleSource<T> source,
+            Function<? super T, ? extends Iterable<? extends R>> mapper) {
+        this.source = source;
 ```
 
 ### BoundedWildcard
@@ -4688,6 +4688,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleOnErrorCo
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+#### Snippet
+```java
+    final Function<? super Throwable, ? extends SingleSource<? extends R>> onErrorMapper;
+
+    public SingleFlatMapNotification(SingleSource<T> source,
+            Function<? super T, ? extends SingleSource<? extends R>> onSuccessMapper,
+            Function<? super Throwable, ? extends SingleSource<? extends R>> onErrorMapper) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithPublisher.java`
 #### Snippet
 ```java
@@ -4712,18 +4724,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
-#### Snippet
-```java
-    final Function<? super Throwable, ? extends SingleSource<? extends R>> onErrorMapper;
-
-    public SingleFlatMapNotification(SingleSource<T> source,
-            Function<? super T, ? extends SingleSource<? extends R>> onSuccessMapper,
-            Function<? super Throwable, ? extends SingleSource<? extends R>> onErrorMapper) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUnsubscribeOn.java`
 #### Snippet
 ```java
@@ -4736,14 +4736,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUnsubscri
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
 #### Snippet
 ```java
-    final BiFunction<? super T, ? super U, ? extends R> resultSelector;
+    final CompletableSource other;
 
-    public SingleFlatMapBiSelector(SingleSource<T> source,
-            Function<? super T, ? extends SingleSource<? extends U>> mapper,
-            BiFunction<? super T, ? super U, ? extends R> resultSelector) {
+    public SingleDelayWithCompletable(SingleSource<T> source, CompletableSource other) {
+        this.source = source;
+        this.other = other;
 ```
 
 ### BoundedWildcard
@@ -4760,14 +4760,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
 #### Snippet
 ```java
-    final CompletableSource other;
+    final BiFunction<? super T, ? super U, ? extends R> resultSelector;
 
-    public SingleDelayWithCompletable(SingleSource<T> source, CompletableSource other) {
-        this.source = source;
-        this.other = other;
+    public SingleFlatMapBiSelector(SingleSource<T> source,
+            Function<? super T, ? extends SingleSource<? extends U>> mapper,
+            BiFunction<? super T, ? super U, ? extends R> resultSelector) {
 ```
 
 ### BoundedWildcard
@@ -4808,18 +4808,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTe
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleLift.java`
-#### Snippet
-```java
-    final SingleOperator<? extends R, ? super T> onLift;
-
-    public SingleLift(SingleSource<T> source, SingleOperator<? extends R, ? super T> onLift) {
-        this.source = source;
-        this.onLift = onLift;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
 #### Snippet
 ```java
@@ -4828,6 +4816,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispo
     public SingleDoOnDispose(SingleSource<T> source, Action onDispose) {
         this.source = source;
         this.onDispose = onDispose;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleLift.java`
+#### Snippet
+```java
+    final SingleOperator<? extends R, ? super T> onLift;
+
+    public SingleLift(SingleSource<T> source, SingleOperator<? extends R, ? super T> onLift) {
+        this.source = source;
+        this.onLift = onLift;
 ```
 
 ### BoundedWildcard
@@ -4951,6 +4951,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
+#### Snippet
+```java
+        Subscription upstream;
+
+        ReduceSubscriber(Subscriber<? super T> actual, BiFunction<T, T, T> reducer) {
+            super(actual);
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
+#### Snippet
+```java
+        Subscription upstream;
+
+        ReduceSubscriber(Subscriber<? super T> actual, BiFunction<T, T, T> reducer) {
+            super(actual);
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
+#### Snippet
+```java
+        Subscription upstream;
+
+        ReduceSubscriber(Subscriber<? super T> actual, BiFunction<T, T, T> reducer) {
+            super(actual);
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
 Can generalize to `? extends R`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScanSeed.java`
 #### Snippet
@@ -5000,18 +5036,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableEleme
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableIterable.java`
-#### Snippet
-```java
-    final int bufferSize;
-
-    public BlockingFlowableIterable(Flowable<T> source, int bufferSize) {
-        this.source = source;
-        this.bufferSize = bufferSize;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEagerPublisher.java`
 #### Snippet
 ```java
@@ -5023,51 +5047,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConca
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
-#### Snippet
-```java
-        Subscription upstream;
-
-        ReduceSubscriber(Subscriber<? super T> actual, BiFunction<T, T, T> reducer) {
-            super(actual);
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
-#### Snippet
-```java
-        Subscription upstream;
-
-        ReduceSubscriber(Subscriber<? super T> actual, BiFunction<T, T, T> reducer) {
-            super(actual);
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableIterable.java`
 #### Snippet
 ```java
-        Subscription upstream;
+    final int bufferSize;
 
-        ReduceSubscriber(Subscriber<? super T> actual, BiFunction<T, T, T> reducer) {
-            super(actual);
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
-#### Snippet
-```java
-            final AtomicBoolean once;
-
-            WindowEndSubscriberIntercept(WindowBoundaryMainSubscriber<T, ?, V> parent, UnicastProcessor<T> window) {
-                this.parent = parent;
-                this.window = window;
+    public BlockingFlowableIterable(Flowable<T> source, int bufferSize) {
+        this.source = source;
+        this.bufferSize = bufferSize;
 ```
 
 ### BoundedWildcard
@@ -5095,6 +5083,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
+#### Snippet
+```java
+            final AtomicBoolean once;
+
+            WindowEndSubscriberIntercept(WindowBoundaryMainSubscriber<T, ?, V> parent, UnicastProcessor<T> window) {
+                this.parent = parent;
+                this.window = window;
+```
+
+### BoundedWildcard
 Can generalize to `? super B`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
 #### Snippet
@@ -5104,30 +5104,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
             WindowStartSubscriber(WindowBoundaryMainSubscriber<?, B, ?> parent) {
                 this.parent = parent;
             }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinct.java`
-#### Snippet
-```java
-        final Function<? super T, K> keySelector;
-
-        DistinctSubscriber(Subscriber<? super T> actual, Function<? super T, K> keySelector, Collection<? super K> collection) {
-            super(actual);
-            this.keySelector = keySelector;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinct.java`
-#### Snippet
-```java
-    final Supplier<? extends Collection<? super K>> collectionSupplier;
-
-    public FlowableDistinct(Flowable<T> source, Function<? super T, K> keySelector, Supplier<? extends Collection<? super K>> collectionSupplier) {
-        super(source);
-        this.keySelector = keySelector;
 ```
 
 ### BoundedWildcard
@@ -5164,6 +5140,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduc
         ReduceSubscriber(MaybeObserver<? super T> actual, BiFunction<T, T, T> reducer) {
             this.downstream = actual;
             this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinct.java`
+#### Snippet
+```java
+        final Function<? super T, K> keySelector;
+
+        DistinctSubscriber(Subscriber<? super T> actual, Function<? super T, K> keySelector, Collection<? super K> collection) {
+            super(actual);
+            this.keySelector = keySelector;
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinct.java`
+#### Snippet
+```java
+    final Supplier<? extends Collection<? super K>> collectionSupplier;
+
+    public FlowableDistinct(Flowable<T> source, Function<? super T, K> keySelector, Supplier<? extends Collection<? super K>> collectionSupplier) {
+        super(source);
+        this.keySelector = keySelector;
 ```
 
 ### BoundedWildcard
@@ -5203,6 +5203,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepea
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
+#### Snippet
+```java
+    final Supplier<U> bufferSupplier;
+
+    public FlowableBufferExactBoundary(Flowable<T> source, Publisher<B> boundary, Supplier<U> bufferSupplier) {
+        super(source);
+        this.boundary = boundary;
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScan.java`
 #### Snippet
@@ -5239,15 +5251,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScan.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAllSingle.java`
 #### Snippet
 ```java
-    final Supplier<U> bufferSupplier;
+    final Predicate<? super T> predicate;
 
-    public FlowableBufferExactBoundary(Flowable<T> source, Publisher<B> boundary, Supplier<U> bufferSupplier) {
-        super(source);
-        this.boundary = boundary;
+    public FlowableAllSingle(Flowable<T> source, Predicate<? super T> predicate) {
+        this.source = source;
+        this.predicate = predicate;
 ```
 
 ### BoundedWildcard
@@ -5288,26 +5300,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduc
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAllSingle.java`
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 #### Snippet
 ```java
-    final Predicate<? super T> predicate;
-
-    public FlowableAllSingle(Flowable<T> source, Predicate<? super T> predicate) {
-        this.source = source;
-        this.predicate = predicate;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastMaybe.java`
-#### Snippet
-```java
-    final Publisher<T> source;
-
-    public FlowableLastMaybe(Publisher<T> source) {
-        this.source = source;
-    }
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @BackpressureSupport(BackpressureKind.FULL)
+    public final Flowable<T> startWith(@NonNull MaybeSource<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return Flowable.concat(Maybe.wrap(other).toFlowable(), toFlowable());
 ```
 
 ### BoundedWildcard
@@ -5320,6 +5320,18 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
     public final Flowable<T> startWith(@NonNull SingleSource<T> other) {
         Objects.requireNonNull(other, "other is null");
         return Flowable.concat(Single.wrap(other).toFlowable(), toFlowable());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+#### Snippet
+```java
+    @BackpressureSupport(BackpressureKind.FULL)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Flowable<T> startWith(@NonNull Publisher<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return toFlowable().startWith(other);
 ```
 
 ### BoundedWildcard
@@ -5336,26 +5348,14 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastMaybe.java`
 #### Snippet
 ```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @BackpressureSupport(BackpressureKind.FULL)
-    public final Flowable<T> startWith(@NonNull MaybeSource<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return Flowable.concat(Maybe.wrap(other).toFlowable(), toFlowable());
-```
+    final Publisher<T> source;
 
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
-#### Snippet
-```java
-    @BackpressureSupport(BackpressureKind.FULL)
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final Flowable<T> startWith(@NonNull Publisher<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return toFlowable().startWith(other);
+    public FlowableLastMaybe(Publisher<T> source) {
+        this.source = source;
+    }
 ```
 
 ### BoundedWildcard
@@ -5383,63 +5383,39 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroup
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-    @NonNull
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final Single<T> onErrorReturn(@NonNull Function<Throwable, ? extends T> itemSupplier) {
-        Objects.requireNonNull(itemSupplier, "itemSupplier is null");
-        return RxJavaPlugins.onAssembly(new SingleOnErrorReturn<>(this, itemSupplier, null));
+
+        BufferExactUnboundedSubscriber(
+                Subscriber<? super U> actual, Supplier<U> bufferSupplier,
+                long timespan, TimeUnit unit, Scheduler scheduler) {
+            super(actual, new MpscLinkedQueue<>());
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-    @NonNull
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final <@NonNull U> Maybe<U> ofType(@NonNull Class<U> clazz) {
-        Objects.requireNonNull(clazz, "clazz is null");
-        return filter(Functions.isInstanceOf(clazz)).cast(clazz);
+    final boolean restartTimerOnMaxSize;
+
+    public FlowableBufferTimed(Flowable<T> source, long timespan, long timeskip, TimeUnit unit, Scheduler scheduler, Supplier<U> bufferSupplier, int maxSize,
+            boolean restartTimerOnMaxSize) {
+        super(source);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @BackpressureSupport(BackpressureKind.FULL)
-    public final Flowable<T> startWith(@NonNull MaybeSource<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return Flowable.concat(Maybe.wrap(other).toFlowable(), toFlowable());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
-#### Snippet
-```java
-    @BackpressureSupport(BackpressureKind.FULL)
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final Flowable<T> startWith(@NonNull Publisher<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return toFlowable().startWith(other);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @BackpressureSupport(BackpressureKind.FULL)
-    public final Flowable<T> startWith(@NonNull SingleSource<T> other) {
-        Objects.requireNonNull(other, "other is null");
-        return Flowable.concat(Single.wrap(other).toFlowable(), toFlowable());
+        BufferExactBoundedSubscriber(
+                Subscriber<? super U> actual,
+                Supplier<U> bufferSupplier,
+                long timespan, TimeUnit unit, int maxSize,
+                boolean restartOnMaxSize, Worker w) {
 ```
 
 ### BoundedWildcard
@@ -5491,39 +5467,63 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableInter
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
 #### Snippet
 ```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @BackpressureSupport(BackpressureKind.FULL)
+    public final Flowable<T> startWith(@NonNull SingleSource<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return Flowable.concat(Single.wrap(other).toFlowable(), toFlowable());
+```
 
-        BufferExactUnboundedSubscriber(
-                Subscriber<? super U> actual, Supplier<U> bufferSupplier,
-                long timespan, TimeUnit unit, Scheduler scheduler) {
-            super(actual, new MpscLinkedQueue<>());
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @BackpressureSupport(BackpressureKind.FULL)
+    public final Flowable<T> startWith(@NonNull MaybeSource<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return Flowable.concat(Maybe.wrap(other).toFlowable(), toFlowable());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+    @BackpressureSupport(BackpressureKind.FULL)
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Flowable<T> startWith(@NonNull Publisher<T> other) {
+        Objects.requireNonNull(other, "other is null");
+        return toFlowable().startWith(other);
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+    @NonNull
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Single<T> onErrorReturn(@NonNull Function<Throwable, ? extends T> itemSupplier) {
+        Objects.requireNonNull(itemSupplier, "itemSupplier is null");
+        return RxJavaPlugins.onAssembly(new SingleOnErrorReturn<>(this, itemSupplier, null));
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
 #### Snippet
 ```java
-    final boolean restartTimerOnMaxSize;
-
-    public FlowableBufferTimed(Flowable<T> source, long timespan, long timeskip, TimeUnit unit, Scheduler scheduler, Supplier<U> bufferSupplier, int maxSize,
-            boolean restartTimerOnMaxSize) {
-        super(source);
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-        BufferExactBoundedSubscriber(
-                Subscriber<? super U> actual,
-                Supplier<U> bufferSupplier,
-                long timespan, TimeUnit unit, int maxSize,
-                boolean restartOnMaxSize, Worker w) {
+    @NonNull
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final <@NonNull U> Maybe<U> ofType(@NonNull Class<U> clazz) {
+        Objects.requireNonNull(clazz, "clazz is null");
+        return filter(Functions.isInstanceOf(clazz)).cast(clazz);
 ```
 
 ### BoundedWildcard
@@ -5556,6 +5556,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDisti
 #### Snippet
 ```java
 
+        DistinctUntilChangedSubscriber(Subscriber<? super T> actual,
+                Function<? super T, K> keySelector,
+                BiPredicate<? super K, ? super K> comparer) {
+            super(actual);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+#### Snippet
+```java
+
         DistinctUntilChangedConditionalSubscriber(ConditionalSubscriber<? super T> actual,
                 Function<? super T, K> keySelector,
                 BiPredicate<? super K, ? super K> comparer) {
@@ -5575,63 +5587,483 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDisti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
 #### Snippet
 ```java
+        final Class<U> clazz;
 
-        DistinctUntilChangedSubscriber(Subscriber<? super T> actual,
-                Function<? super T, K> keySelector,
-                BiPredicate<? super K, ? super K> comparer) {
-            super(actual);
-```
-
-### BoundedWildcard
-Can generalize to `? super U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFrom.java`
-#### Snippet
-```java
-        private final WithLatestFromSubscriber<T, U, R> wlf;
-
-        FlowableWithLatestSubscriber(WithLatestFromSubscriber<T, U, R> wlf) {
-            this.wlf = wlf;
+        CastToClass(Class<U> clazz) {
+            this.clazz = clazz;
         }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZipIterable.java`
+Can generalize to `? super T1`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
 #### Snippet
 ```java
-        boolean done;
+        final Function4<T1, T2, T3, T4, R> f;
 
-        ZipIterableSubscriber(Subscriber<? super V> actual, Iterator<U> iterator,
-                BiFunction<? super T, ? super U, ? extends V> zipper) {
-            this.downstream = actual;
+        Array4Func(Function4<T1, T2, T3, T4, R> f) {
+            this.f = f;
+        }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowSubscribeIntercept.java`
+Can generalize to `? super T2`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
 #### Snippet
 ```java
-    final AtomicBoolean once;
+        final Function4<T1, T2, T3, T4, R> f;
 
-    FlowableWindowSubscribeIntercept(FlowableProcessor<T> source) {
-        this.window = source;
-        this.once = new AtomicBoolean();
+        Array4Func(Function4<T1, T2, T3, T4, R> f) {
+            this.f = f;
+        }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMapPublisher.java`
+Can generalize to `? super T3`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
 #### Snippet
 ```java
+        final Function4<T1, T2, T3, T4, R> f;
 
-    final Function<? super T, ? extends U> mapper;
-    public FlowableMapPublisher(Publisher<T> source, Function<? super T, ? extends U> mapper) {
-        this.source = source;
-        this.mapper = mapper;
+        Array4Func(Function4<T1, T2, T3, T4, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T4`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function4<T1, T2, T3, T4, R> f;
+
+        Array4Func(Function4<T1, T2, T3, T4, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function4<T1, T2, T3, T4, R> f;
+
+        Array4Func(Function4<T1, T2, T3, T4, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T3`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T4`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T5`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T6`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T7`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+
+        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        private final Function5<T1, T2, T3, T4, T5, R> f;
+
+        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        private final Function5<T1, T2, T3, T4, T5, R> f;
+
+        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T3`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        private final Function5<T1, T2, T3, T4, T5, R> f;
+
+        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T4`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        private final Function5<T1, T2, T3, T4, T5, R> f;
+
+        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T5`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        private final Function5<T1, T2, T3, T4, T5, R> f;
+
+        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        private final Function5<T1, T2, T3, T4, T5, R> f;
+
+        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function3<T1, T2, T3, R> f;
+
+        Array3Func(Function3<T1, T2, T3, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function3<T1, T2, T3, R> f;
+
+        Array3Func(Function3<T1, T2, T3, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T3`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function3<T1, T2, T3, R> f;
+
+        Array3Func(Function3<T1, T2, T3, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function3<T1, T2, T3, R> f;
+
+        Array3Func(Function3<T1, T2, T3, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T3`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T4`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T5`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T6`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T7`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T8`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
+
+        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T3`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T4`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T5`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? super T6`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+
+        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
+            this.f = f;
+        }
 ```
 
 ### BoundedWildcard
@@ -5692,18 +6124,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
         Array9Func(Function9<T1, T2, T3, T4, T5, T6, T7, T8, T9, R> f) {
             this.f = f;
         }
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToList.java`
-#### Snippet
-```java
-    final Supplier<U> collectionSupplier;
-
-    public FlowableToList(Flowable<T> source, Supplier<U> collectionSupplier) {
-        super(source);
-        this.collectionSupplier = collectionSupplier;
 ```
 
 ### BoundedWildcard
@@ -5767,483 +6187,63 @@ in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T1`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZipIterable.java`
 #### Snippet
 ```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+        boolean done;
 
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
+        ZipIterableSubscriber(Subscriber<? super V> actual, Iterator<U> iterator,
+                BiFunction<? super T, ? super U, ? extends V> zipper) {
+            this.downstream = actual;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T2`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+Can generalize to `? super U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFrom.java`
 #### Snippet
 ```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
+        private final WithLatestFromSubscriber<T, U, R> wlf;
 
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T3`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
-
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T4`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
-
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T5`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
-
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T6`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
-
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T7`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
-
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function7<T1, T2, T3, T4, T5, T6, T7, R> f;
-
-        Array7Func(Function7<T1, T2, T3, T4, T5, T6, T7, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function3<T1, T2, T3, R> f;
-
-        Array3Func(Function3<T1, T2, T3, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function3<T1, T2, T3, R> f;
-
-        Array3Func(Function3<T1, T2, T3, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T3`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function3<T1, T2, T3, R> f;
-
-        Array3Func(Function3<T1, T2, T3, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function3<T1, T2, T3, R> f;
-
-        Array3Func(Function3<T1, T2, T3, R> f) {
-            this.f = f;
+        FlowableWithLatestSubscriber(WithLatestFromSubscriber<T, U, R> wlf) {
+            this.wlf = wlf;
         }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToList.java`
 #### Snippet
 ```java
-        final Class<U> clazz;
+    final Supplier<U> collectionSupplier;
 
-        CastToClass(Class<U> clazz) {
-            this.clazz = clazz;
-        }
+    public FlowableToList(Flowable<T> source, Supplier<U> collectionSupplier) {
+        super(source);
+        this.collectionSupplier = collectionSupplier;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T1`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMapPublisher.java`
 #### Snippet
 ```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
 
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
+    final Function<? super T, ? extends U> mapper;
+    public FlowableMapPublisher(Publisher<T> source, Function<? super T, ? extends U> mapper) {
+        this.source = source;
+        this.mapper = mapper;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T2`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowSubscribeIntercept.java`
 #### Snippet
 ```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
+    final AtomicBoolean once;
 
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T3`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
-
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T4`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
-
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T5`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
-
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T6`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
-
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function6<T1, T2, T3, T4, T5, T6, R> f;
-
-        Array6Func(Function6<T1, T2, T3, T4, T5, T6, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function4<T1, T2, T3, T4, R> f;
-
-        Array4Func(Function4<T1, T2, T3, T4, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function4<T1, T2, T3, T4, R> f;
-
-        Array4Func(Function4<T1, T2, T3, T4, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T3`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function4<T1, T2, T3, T4, R> f;
-
-        Array4Func(Function4<T1, T2, T3, T4, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T4`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function4<T1, T2, T3, T4, R> f;
-
-        Array4Func(Function4<T1, T2, T3, T4, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function4<T1, T2, T3, T4, R> f;
-
-        Array4Func(Function4<T1, T2, T3, T4, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T3`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T4`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T5`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T6`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T7`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T8`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        final Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f;
-
-        Array8Func(Function8<T1, T2, T3, T4, T5, T6, T7, T8, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        private final Function5<T1, T2, T3, T4, T5, R> f;
-
-        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        private final Function5<T1, T2, T3, T4, T5, R> f;
-
-        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T3`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        private final Function5<T1, T2, T3, T4, T5, R> f;
-
-        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T4`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        private final Function5<T1, T2, T3, T4, T5, R> f;
-
-        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super T5`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        private final Function5<T1, T2, T3, T4, T5, R> f;
-
-        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
-            this.f = f;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        private final Function5<T1, T2, T3, T4, T5, R> f;
-
-        Array5Func(Function5<T1, T2, T3, T4, T5, R> f) {
-            this.f = f;
-        }
+    FlowableWindowSubscribeIntercept(FlowableProcessor<T> source) {
+        this.window = source;
+        this.once = new AtomicBoolean();
 ```
 
 ### BoundedWildcard
@@ -6271,18 +6271,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGener
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
-#### Snippet
-```java
-        volatile boolean done;
-
-        WithLatestFromSubscriber(Subscriber<? super R> actual, Function<? super Object[], R> combiner, int n) {
-            this.downstream = actual;
-            this.combiner = combiner;
-```
-
-### BoundedWildcard
 Can generalize to `? extends C`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
 #### Snippet
@@ -6290,18 +6278,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
         int index;
 
         PublisherBufferExactSubscriber(Subscriber<? super C> actual, int size, Supplier<C> bufferSupplier) {
-            this.downstream = actual;
-            this.size = size;
-```
-
-### BoundedWildcard
-Can generalize to `? extends C`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
-#### Snippet
-```java
-
-        PublisherBufferSkipSubscriber(Subscriber<? super C> actual, int size, int skip,
-                Supplier<C> bufferSupplier) {
             this.downstream = actual;
             this.size = size;
 ```
@@ -6331,6 +6307,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends C`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
+#### Snippet
+```java
+
+        PublisherBufferSkipSubscriber(Subscriber<? super C> actual, int size, int skip,
+                Supplier<C> bufferSupplier) {
+            this.downstream = actual;
+            this.size = size;
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduce.java`
 #### Snippet
@@ -6367,15 +6355,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBac
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
 #### Snippet
 ```java
-    final boolean emitLast;
+        volatile boolean done;
 
-    public FlowableSamplePublisher(Publisher<T> source, Publisher<?> other, boolean emitLast) {
-        this.source = source;
-        this.other = other;
+        WithLatestFromSubscriber(Subscriber<? super R> actual, Function<? super Object[], R> combiner, int n) {
+            this.downstream = actual;
+            this.combiner = combiner;
 ```
 
 ### BoundedWildcard
@@ -6388,6 +6376,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastS
     public FlowableLastSingle(Publisher<T> source, T defaultItem) {
         this.source = source;
         this.defaultItem = defaultItem;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+#### Snippet
+```java
+    final boolean emitLast;
+
+    public FlowableSamplePublisher(Publisher<T> source, Publisher<?> other, boolean emitLast) {
+        this.source = source;
+        this.other = other;
 ```
 
 ### BoundedWildcard
@@ -6463,42 +6463,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilte
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduceWith.java`
-#### Snippet
-```java
-
-        BackpressureReduceWithSubscriber(@NonNull Subscriber<? super R> downstream,
-                                         @NonNull Supplier<R> supplier,
-                                         @NonNull BiFunction<R, ? super T, R> reducer) {
-            super(downstream);
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduceWith.java`
-#### Snippet
-```java
-        BackpressureReduceWithSubscriber(@NonNull Subscriber<? super R> downstream,
-                                         @NonNull Supplier<R> supplier,
-                                         @NonNull BiFunction<R, ? super T, R> reducer) {
-            super(downstream);
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduceWith.java`
-#### Snippet
-```java
-        BackpressureReduceWithSubscriber(@NonNull Subscriber<? super R> downstream,
-                                         @NonNull Supplier<R> supplier,
-                                         @NonNull BiFunction<R, ? super T, R> reducer) {
-            super(downstream);
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
 #### Snippet
@@ -6508,18 +6472,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.j
     public ParallelMap(ParallelFlowable<T> source, Function<? super T, ? extends R> mapper) {
         this.source = source;
         this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
-#### Snippet
-```java
-    final BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler;
-
-    public ParallelDoOnNextTry(ParallelFlowable<T> source, Consumer<? super T> onNext,
-            BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler) {
-        this.source = source;
 ```
 
 ### BoundedWildcard
@@ -6536,14 +6488,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelSorte
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelConcatMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
+#### Snippet
+```java
+    final BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler;
+
+    public ParallelDoOnNextTry(ParallelFlowable<T> source, Consumer<? super T> onNext,
+            BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler) {
+        this.source = source;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduceWith.java`
 #### Snippet
 ```java
 
-    public ParallelConcatMap(
-            ParallelFlowable<T> source,
-            Function<? super T, ? extends Publisher<? extends R>> mapper,
-                    int prefetch, ErrorMode errorMode) {
+        BackpressureReduceWithSubscriber(@NonNull Subscriber<? super R> downstream,
+                                         @NonNull Supplier<R> supplier,
+                                         @NonNull BiFunction<R, ? super T, R> reducer) {
+            super(downstream);
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduceWith.java`
+#### Snippet
+```java
+        BackpressureReduceWithSubscriber(@NonNull Subscriber<? super R> downstream,
+                                         @NonNull Supplier<R> supplier,
+                                         @NonNull BiFunction<R, ? super T, R> reducer) {
+            super(downstream);
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureReduceWith.java`
+#### Snippet
+```java
+        BackpressureReduceWithSubscriber(@NonNull Subscriber<? super R> downstream,
+                                         @NonNull Supplier<R> supplier,
+                                         @NonNull BiFunction<R, ? super T, R> reducer) {
+            super(downstream);
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
+#### Snippet
+```java
+    final BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler;
+
+    public ParallelFilterTry(ParallelFlowable<T> source, Predicate<? super T> predicate,
+            BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler) {
+        this.source = source;
 ```
 
 ### BoundedWildcard
@@ -6560,50 +6560,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelConcatMap.java`
 #### Snippet
 ```java
-    final BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler;
 
-    public ParallelFilterTry(ParallelFlowable<T> source, Predicate<? super T> predicate,
-            BiFunction<? super Long, ? super Throwable, ParallelFailureHandling> errorHandler) {
-        this.source = source;
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
-#### Snippet
-```java
-        boolean done;
-
-        ParallelReduceSubscriber(Subscriber<? super R> subscriber, R initialValue, BiFunction<R, ? super T, R> reducer) {
-            super(subscriber);
-            this.accumulator = initialValue;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
-#### Snippet
-```java
-        boolean done;
-
-        ParallelReduceSubscriber(Subscriber<? super R> subscriber, R initialValue, BiFunction<R, ? super T, R> reducer) {
-            super(subscriber);
-            this.accumulator = initialValue;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
-#### Snippet
-```java
-    final BiFunction<R, ? super T, R> reducer;
-
-    public ParallelReduce(ParallelFlowable<? extends T> source, Supplier<R> initialSupplier, BiFunction<R, ? super T, R> reducer) {
-        this.source = source;
-        this.initialSupplier = initialSupplier;
+    public ParallelConcatMap(
+            ParallelFlowable<T> source,
+            Function<? super T, ? extends Publisher<? extends R>> mapper,
+                    int prefetch, ErrorMode errorMode) {
 ```
 
 ### BoundedWildcard
@@ -6628,6 +6592,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableA
     public ObservableAllSingle(ObservableSource<T> source, Predicate<? super T> predicate) {
         this.source = source;
         this.predicate = predicate;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
+#### Snippet
+```java
+    final BiFunction<R, ? super T, R> reducer;
+
+    public ParallelReduce(ParallelFlowable<? extends T> source, Supplier<R> initialSupplier, BiFunction<R, ? super T, R> reducer) {
+        this.source = source;
+        this.initialSupplier = initialSupplier;
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
+#### Snippet
+```java
+        boolean done;
+
+        ParallelReduceSubscriber(Subscriber<? super R> subscriber, R initialValue, BiFunction<R, ? super T, R> reducer) {
+            super(subscriber);
+            this.accumulator = initialValue;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
+#### Snippet
+```java
+        boolean done;
+
+        ParallelReduceSubscriber(Subscriber<? super R> subscriber, R initialValue, BiFunction<R, ? super T, R> reducer) {
+            super(subscriber);
+            this.accumulator = initialValue;
 ```
 
 ### BoundedWildcard
@@ -6656,6 +6656,90 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTr
 
 ### BoundedWildcard
 Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        boolean done;
+
+        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
+            this.parent = parent;
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        boolean done;
+
+        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
+            this.parent = parent;
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        boolean done;
+
+        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
+            this.parent = parent;
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        boolean done;
+
+        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
+            this.parent = parent;
+            this.reducer = reducer;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        final AtomicThrowable error = new AtomicThrowable();
+
+        ParallelReduceFullMainSubscriber(Subscriber<? super T> subscriber, int n, BiFunction<T, T, T> reducer) {
+            super(subscriber);
+            @SuppressWarnings("unchecked")
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        final AtomicThrowable error = new AtomicThrowable();
+
+        ParallelReduceFullMainSubscriber(Subscriber<? super T> subscriber, int n, BiFunction<T, T, T> reducer) {
+            super(subscriber);
+            @SuppressWarnings("unchecked")
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+        final AtomicThrowable error = new AtomicThrowable();
+
+        ParallelReduceFullMainSubscriber(Subscriber<? super T> subscriber, int n, BiFunction<T, T, T> reducer) {
+            super(subscriber);
+            @SuppressWarnings("unchecked")
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithMaybe.java`
 #### Snippet
 ```java
@@ -6679,90 +6763,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableG
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        boolean done;
-
-        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
-            this.parent = parent;
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        boolean done;
-
-        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
-            this.parent = parent;
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        boolean done;
-
-        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
-            this.parent = parent;
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        boolean done;
-
-        ParallelReduceFullInnerSubscriber(ParallelReduceFullMainSubscriber<T> parent, BiFunction<T, T, T> reducer) {
-            this.parent = parent;
-            this.reducer = reducer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        final AtomicThrowable error = new AtomicThrowable();
-
-        ParallelReduceFullMainSubscriber(Subscriber<? super T> subscriber, int n, BiFunction<T, T, T> reducer) {
-            super(subscriber);
-            @SuppressWarnings("unchecked")
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        final AtomicThrowable error = new AtomicThrowable();
-
-        ParallelReduceFullMainSubscriber(Subscriber<? super T> subscriber, int n, BiFunction<T, T, T> reducer) {
-            super(subscriber);
-            @SuppressWarnings("unchecked")
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
-#### Snippet
-```java
-        final AtomicThrowable error = new AtomicThrowable();
-
-        ParallelReduceFullMainSubscriber(Subscriber<? super T> subscriber, int n, BiFunction<T, T, T> reducer) {
-            super(subscriber);
-            @SuppressWarnings("unchecked")
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastMaybe.java`
 #### Snippet
@@ -6772,6 +6772,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableL
     public ObservableLastMaybe(ObservableSource<T> source) {
         this.source = source;
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
+    }
+
+    private FlowableReplay(Publisher<T> onSubscribe, Flowable<T> source,
+            final AtomicReference<ReplaySubscriber<T>> current,
+            final Supplier<? extends ReplayBuffer<T>> bufferFactory) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
+
+        @Override
+        public void replay(InnerSubscription<T> output) {
+            synchronized (output) {
+                if (output.emitting) {
 ```
 
 ### BoundedWildcard
@@ -6823,6 +6847,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends S`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGenerate.java`
+#### Snippet
+```java
+    final Consumer<? super S> disposeState;
+
+    public ObservableGenerate(Supplier<S> stateSupplier, BiFunction<S, Emitter<T>, S> generator,
+            Consumer<? super S> disposeState) {
+        this.stateSupplier = stateSupplier;
+```
+
+### BoundedWildcard
 Can generalize to `? extends B`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
 #### Snippet
@@ -6832,18 +6868,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
                 ObservableSource<B> open, Function<? super B, ? extends ObservableSource<V>> closingIndicator, int bufferSize) {
             this.downstream = downstream;
             this.queue = new MpscLinkedQueue<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-            final AtomicBoolean once;
-
-            WindowEndObserverIntercept(WindowBoundaryMainObserver<T, ?, V> parent, UnicastSubject<T> window) {
-                this.parent = parent;
-                this.window = window;
 ```
 
 ### BoundedWildcard
@@ -6872,6 +6896,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+            final AtomicBoolean once;
+
+            WindowEndObserverIntercept(WindowBoundaryMainObserver<T, ?, V> parent, UnicastSubject<T> window) {
+                this.parent = parent;
+                this.window = window;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableMostRecent.java`
 #### Snippet
 ```java
@@ -6880,42 +6916,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObs
     public BlockingObservableMostRecent(ObservableSource<T> source, T initialValue) {
         this.source = source;
         this.initialValue = initialValue;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
-#### Snippet
-```java
-
-        @Override
-        public void replay(InnerSubscription<T> output) {
-            synchronized (output) {
-                if (output.emitting) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
-#### Snippet
-```java
-    }
-
-    private FlowableReplay(Publisher<T> onSubscribe, Flowable<T> source,
-            final AtomicReference<ReplaySubscriber<T>> current,
-            final Supplier<? extends ReplayBuffer<T>> bufferFactory) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends S`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGenerate.java`
-#### Snippet
-```java
-    final Consumer<? super S> disposeState;
-
-    public ObservableGenerate(Supplier<S> stateSupplier, BiFunction<S, Emitter<T>, S> generator,
-            Consumer<? super S> disposeState) {
-        this.stateSupplier = stateSupplier;
 ```
 
 ### BoundedWildcard
@@ -6955,30 +6955,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
-#### Snippet
-```java
-    final T defaultItem;
-
-    public ObservableLastSingle(ObservableSource<T> source, T defaultItem) {
-        this.source = source;
-        this.defaultItem = defaultItem;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
-#### Snippet
-```java
-    final BiFunction<R, ? super T, R> reducer;
-
-    public ObservableReduceSeedSingle(ObservableSource<T> source, R seed, BiFunction<R, ? super T, R> reducer) {
-        this.source = source;
-        this.seed = seed;
-```
-
-### BoundedWildcard
 Can generalize to `? super R`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
 #### Snippet
@@ -7004,6 +6980,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
+#### Snippet
+```java
+    final BiFunction<R, ? super T, R> reducer;
+
+    public ObservableReduceSeedSingle(ObservableSource<T> source, R seed, BiFunction<R, ? super T, R> reducer) {
+        this.source = source;
+        this.seed = seed;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
 #### Snippet
 ```java
@@ -7012,6 +7000,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableA
     public ObservableAnySingle(ObservableSource<T> source, Predicate<? super T> predicate) {
         this.source = source;
         this.predicate = predicate;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
+#### Snippet
+```java
+    final T defaultItem;
+
+    public ObservableLastSingle(ObservableSource<T> source, T defaultItem) {
+        this.source = source;
+        this.defaultItem = defaultItem;
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+#### Snippet
+```java
+    final Supplier<U> bufferSupplier;
+
+    public ObservableBufferExactBoundary(ObservableSource<T> source, ObservableSource<B> boundary, Supplier<U> bufferSupplier) {
+        super(source);
+        this.boundary = boundary;
 ```
 
 ### BoundedWildcard
@@ -7039,27 +7051,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZ
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+Can generalize to `? super U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
 #### Snippet
 ```java
-    final Supplier<U> bufferSupplier;
+        private final WithLatestFromObserver<T, U, R> parent;
 
-    public ObservableBufferExactBoundary(ObservableSource<T> source, ObservableSource<B> boundary, Supplier<U> bufferSupplier) {
-        super(source);
-        this.boundary = boundary;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
-#### Snippet
-```java
-            final MergeWithObserver<T> parent;
-
-            OtherObserver(MergeWithObserver<T> parent) {
-                this.parent = parent;
-            }
+        WithLatestFromOtherObserver(WithLatestFromObserver<T, U, R> parent) {
+            this.parent = parent;
+        }
 ```
 
 ### BoundedWildcard
@@ -7087,6 +7087,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
+#### Snippet
+```java
+            final MergeWithObserver<T> parent;
+
+            OtherObserver(MergeWithObserver<T> parent) {
+                this.parent = parent;
+            }
+```
+
+### BoundedWildcard
 Can generalize to `? super Throwable`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
 #### Snippet
@@ -7111,15 +7123,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 ```
 
 ### BoundedWildcard
-Can generalize to `? super U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBuffer.java`
 #### Snippet
 ```java
-        private final WithLatestFromObserver<T, U, R> parent;
+        Disposable upstream;
 
-        WithLatestFromOtherObserver(WithLatestFromObserver<T, U, R> parent) {
-            this.parent = parent;
-        }
+        BufferExactObserver(Observer<? super U> actual, int count, Supplier<U> bufferSupplier) {
+            this.downstream = actual;
+            this.count = count;
 ```
 
 ### BoundedWildcard
@@ -7130,18 +7142,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
         long index;
 
         BufferSkipObserver(Observer<? super U> actual, int count, int skip, Supplier<U> bufferSupplier) {
-            this.downstream = actual;
-            this.count = count;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBuffer.java`
-#### Snippet
-```java
-        Disposable upstream;
-
-        BufferExactObserver(Observer<? super U> actual, int count, Supplier<U> bufferSupplier) {
             this.downstream = actual;
             this.count = count;
 ```
@@ -7291,18 +7291,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableI
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScanSeed.java`
-#### Snippet
-```java
-    final Supplier<R> seedSupplier;
-
-    public ObservableScanSeed(ObservableSource<T> source, Supplier<R> seedSupplier, BiFunction<R, ? super T, R> accumulator) {
-        super(source);
-        this.accumulator = accumulator;
-```
-
-### BoundedWildcard
 Can generalize to `? super R`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScanSeed.java`
 #### Snippet
@@ -7327,6 +7315,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScanSeed.java`
+#### Snippet
+```java
+    final Supplier<R> seedSupplier;
+
+    public ObservableScanSeed(ObservableSource<T> source, Supplier<R> seedSupplier, BiFunction<R, ? super T, R> accumulator) {
+        super(source);
+        this.accumulator = accumulator;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
 #### Snippet
@@ -7343,11 +7343,11 @@ Can generalize to `? extends U`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
+    final boolean restartTimerOnMaxSize;
 
-        BufferExactUnboundedObserver(
-                Observer<? super U> actual, Supplier<U> bufferSupplier,
-                long timespan, TimeUnit unit, Scheduler scheduler) {
-            super(actual, new MpscLinkedQueue<>());
+    public ObservableBufferTimed(ObservableSource<T> source, long timespan, long timeskip, TimeUnit unit, Scheduler scheduler, Supplier<U> bufferSupplier, int maxSize,
+                                 boolean restartTimerOnMaxSize) {
+        super(source);
 ```
 
 ### BoundedWildcard
@@ -7367,11 +7367,11 @@ Can generalize to `? extends U`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-    final boolean restartTimerOnMaxSize;
 
-    public ObservableBufferTimed(ObservableSource<T> source, long timespan, long timeskip, TimeUnit unit, Scheduler scheduler, Supplier<U> bufferSupplier, int maxSize,
-                                 boolean restartTimerOnMaxSize) {
-        super(source);
+        BufferExactUnboundedObserver(
+                Observer<? super U> actual, Supplier<U> bufferSupplier,
+                long timespan, TimeUnit unit, Scheduler scheduler) {
+            super(actual, new MpscLinkedQueue<>());
 ```
 
 ### BoundedWildcard
@@ -7495,18 +7495,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerPoolFactory.java`
-#### Snippet
-```java
-    }
-
-    static boolean getBooleanProperty(boolean enabled, String key, boolean defaultNotFound, boolean defaultNotEnabled, Function<String, String> propertyAccessor) {
-        if (enabled) {
-            try {
-```
-
-### BoundedWildcard
 Can generalize to `? super ScheduledAction`
 in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerWhen.java`
 #### Snippet
@@ -7519,15 +7507,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerWhen.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Disposable`
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/DisposableHelper.java`
+Can generalize to `? super String`
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerPoolFactory.java`
 #### Snippet
 ```java
-     * @return true if successful, false otherwise
-     */
-    public static boolean trySet(AtomicReference<Disposable> field, Disposable d) {
-        if (!field.compareAndSet(null, d)) {
-            if (field.get() == DISPOSED) {
+    }
+
+    static boolean getBooleanProperty(boolean enabled, String key, boolean defaultNotFound, boolean defaultNotEnabled, Function<String, String> propertyAccessor) {
+        if (enabled) {
+            try {
 ```
 
 ### BoundedWildcard
@@ -7543,6 +7531,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/DisposableHelper.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Disposable`
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/DisposableHelper.java`
+#### Snippet
+```java
+     * @return true if successful, false otherwise
+     */
+    public static boolean trySet(AtomicReference<Disposable> field, Disposable d) {
+        if (!field.compareAndSet(null, d)) {
+            if (field.get() == DISPOSED) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Disposable`
 in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
 #### Snippet
@@ -7552,30 +7552,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposa
     void dispose(List<Disposable> set) {
         if (set == null) {
             return;
-```
-
-### BoundedWildcard
-Can generalize to `? super Subscription`
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/SubscriptionHelper.java`
-#### Snippet
-```java
-     * @return true if the operation succeeded, false if the target field was not null.
-     */
-    public static boolean setOnce(AtomicReference<Subscription> field, Subscription s) {
-        Objects.requireNonNull(s, "s is null");
-        if (!field.compareAndSet(null, s)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Subscription`
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/SubscriptionHelper.java`
-#### Snippet
-```java
-     * @param n the request amount, positive (verified)
-     */
-    public static void deferredRequest(AtomicReference<Subscription> field, AtomicLong requested, long n) {
-        Subscription s = field.get();
-        if (s != null) {
 ```
 
 ### BoundedWildcard
@@ -7600,6 +7576,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
         public void replay(InnerDisposable<T> output) {
             if (output.getAndIncrement() != 0) {
                 return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Subscription`
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/SubscriptionHelper.java`
+#### Snippet
+```java
+     * @param n the request amount, positive (verified)
+     */
+    public static void deferredRequest(AtomicReference<Subscription> field, AtomicLong requested, long n) {
+        Subscription s = field.get();
+        if (s != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Subscription`
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/SubscriptionHelper.java`
+#### Snippet
+```java
+     * @return true if the operation succeeded, false if the target field was not null.
+     */
+    public static boolean setOnce(AtomicReference<Subscription> field, Subscription s) {
+        Objects.requireNonNull(s, "s is null");
+        if (!field.compareAndSet(null, s)) {
 ```
 
 ### BoundedWildcard
@@ -7667,8 +7667,8 @@ Can generalize to `? super T`
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
+
         @Override
-        @SuppressWarnings("unchecked")
         public void replay(ReplaySubscription<T> rs) {
             if (rs.getAndIncrement() != 0) {
                 return;
@@ -7691,83 +7691,11 @@ Can generalize to `? super T`
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
-
         @Override
+        @SuppressWarnings("unchecked")
         public void replay(ReplaySubscription<T> rs) {
             if (rs.getAndIncrement() != 0) {
                 return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @NonNull
-    public final <@NonNull B, @NonNull U extends Collection<? super T>> Observable<U> buffer(@NonNull ObservableSource<B> boundaryIndicator, @NonNull Supplier<U> bufferSupplier) {
-        Objects.requireNonNull(boundaryIndicator, "boundaryIndicator is null");
-        Objects.requireNonNull(bufferSupplier, "bufferSupplier is null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-            long timespan, @NonNull TimeUnit unit,
-            @NonNull Scheduler scheduler, int count,
-            @NonNull Supplier<U> bufferSupplier,
-            boolean restartTimerOnMaxSize) {
-        Objects.requireNonNull(unit, "unit is null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @NonNull
-    public final <@NonNull U> Observable<U> cast(@NonNull Class<U> clazz) {
-        Objects.requireNonNull(clazz, "clazz is null");
-        return map(Functions.castFunction(clazz));
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.CUSTOM)
-    @NonNull
-    public final <@NonNull U extends Collection<? super T>> Observable<U> buffer(long timespan, long timeskip, @NonNull TimeUnit unit, @NonNull Scheduler scheduler, @NonNull Supplier<U> bufferSupplier) {
-        Objects.requireNonNull(unit, "unit is null");
-        Objects.requireNonNull(scheduler, "scheduler is null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @NonNull
-    public final <@NonNull U extends Collection<? super T>> Observable<U> buffer(int count, int skip, @NonNull Supplier<U> bufferSupplier) {
-        ObjectHelper.verifyPositive(count, "count");
-        ObjectHelper.verifyPositive(skip, "skip");
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-    public final <@NonNull R> Observable<R> flatMap(
-            @NonNull Function<? super T, ? extends ObservableSource<? extends R>> onNextMapper,
-            @NonNull Function<Throwable, ? extends ObservableSource<? extends R>> onErrorMapper,
-            @NonNull Supplier<? extends ObservableSource<? extends R>> onCompleteSupplier,
-            int maxConcurrency) {
 ```
 
 ### BoundedWildcard
@@ -7808,7 +7736,43 @@ in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 
 ### BoundedWildcard
 Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @NonNull
+    public final <@NonNull U> Observable<U> cast(@NonNull Class<U> clazz) {
+        Objects.requireNonNull(clazz, "clazz is null");
+        return map(Functions.castFunction(clazz));
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.CUSTOM)
+    @NonNull
+    public final <@NonNull U extends Collection<? super T>> Observable<U> buffer(long timespan, long timeskip, @NonNull TimeUnit unit, @NonNull Scheduler scheduler, @NonNull Supplier<U> bufferSupplier) {
+        Objects.requireNonNull(unit, "unit is null");
+        Objects.requireNonNull(scheduler, "scheduler is null");
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @NonNull
+    public final <@NonNull B, @NonNull U extends Collection<? super T>> Observable<U> buffer(@NonNull ObservableSource<B> boundaryIndicator, @NonNull Supplier<U> bufferSupplier) {
+        Objects.requireNonNull(boundaryIndicator, "boundaryIndicator is null");
+        Objects.requireNonNull(bufferSupplier, "bufferSupplier is null");
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
             long timespan, @NonNull TimeUnit unit,
@@ -7819,39 +7783,27 @@ in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @BackpressureSupport(BackpressureKind.FULL)
-    public static <@NonNull T> Flowable<T> fromSingle(@NonNull SingleSource<T> source) {
-        Objects.requireNonNull(source, "source is null");
-        return RxJavaPlugins.onAssembly(new SingleToFlowable<>(source));
-```
-
-### BoundedWildcard
 Can generalize to `? extends U`
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
     @SchedulerSupport(SchedulerSupport.NONE)
     @NonNull
-    public final <@NonNull U extends Collection<? super T>> Single<U> toList(@NonNull Supplier<U> collectionSupplier) {
-        Objects.requireNonNull(collectionSupplier, "collectionSupplier is null");
-        return RxJavaPlugins.onAssembly(new FlowableToListSingle<>(this, collectionSupplier));
+    public final <@NonNull U extends Collection<? super T>> Observable<U> buffer(int count, int skip, @NonNull Supplier<U> bufferSupplier) {
+        ObjectHelper.verifyPositive(count, "count");
+        ObjectHelper.verifyPositive(skip, "skip");
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`>
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+Can generalize to `? super Throwable`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
-            @NonNull Function<? super T, ? extends K> keySelector,
-            @NonNull Function<? super T, ? extends V> valueSelector,
-            @NonNull Supplier<Map<K, Collection<V>>> mapSupplier
-            ) {
-        return toMultimap(keySelector, valueSelector, mapSupplier, ArrayListSupplier.asFunction());
+    public final <@NonNull R> Observable<R> flatMap(
+            @NonNull Function<? super T, ? extends ObservableSource<? extends R>> onNextMapper,
+            @NonNull Function<Throwable, ? extends ObservableSource<? extends R>> onErrorMapper,
+            @NonNull Supplier<? extends ObservableSource<? extends R>> onCompleteSupplier,
+            int maxConcurrency) {
 ```
 
 ### BoundedWildcard
@@ -7883,11 +7835,23 @@ Can generalize to `? extends U`
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
+            long timespan, @NonNull TimeUnit unit,
+            @NonNull Scheduler scheduler, int count,
+            @NonNull Supplier<U> bufferSupplier,
+            boolean restartTimerOnMaxSize) {
+        Objects.requireNonNull(unit, "unit is null");
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+    @BackpressureSupport(BackpressureKind.PASS_THROUGH)
     @SchedulerSupport(SchedulerSupport.NONE)
-    @NonNull
-    public final <@NonNull B, @NonNull U extends Collection<? super T>> Flowable<U> buffer(@NonNull Publisher<B> boundaryIndicator, @NonNull Supplier<U> bufferSupplier) {
-        Objects.requireNonNull(boundaryIndicator, "boundaryIndicator is null");
-        Objects.requireNonNull(bufferSupplier, "bufferSupplier is null");
+    public final <@NonNull U> Flowable<U> cast(@NonNull Class<U> clazz) {
+        Objects.requireNonNull(clazz, "clazz is null");
+        return map(Functions.castFunction(clazz));
 ```
 
 ### BoundedWildcard
@@ -7907,6 +7871,42 @@ Can generalize to `? extends U`
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @NonNull
+    public final <@NonNull U extends Collection<? super T>> Single<U> toList(@NonNull Supplier<U> collectionSupplier) {
+        Objects.requireNonNull(collectionSupplier, "collectionSupplier is null");
+        return RxJavaPlugins.onAssembly(new FlowableToListSingle<>(this, collectionSupplier));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`>
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+            @NonNull Function<? super T, ? extends K> keySelector,
+            @NonNull Function<? super T, ? extends V> valueSelector,
+            @NonNull Supplier<Map<K, Collection<V>>> mapSupplier
+            ) {
+        return toMultimap(keySelector, valueSelector, mapSupplier, ArrayListSupplier.asFunction());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @BackpressureSupport(BackpressureKind.FULL)
+    public static <@NonNull T> Flowable<T> fromSingle(@NonNull SingleSource<T> source) {
+        Objects.requireNonNull(source, "source is null");
+        return RxJavaPlugins.onAssembly(new SingleToFlowable<>(source));
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
     @BackpressureSupport(BackpressureKind.FULL)
     @SchedulerSupport(SchedulerSupport.NONE)
     public final <@NonNull U extends Collection<? super T>> Flowable<U> buffer(int count, int skip, @NonNull Supplier<U> bufferSupplier) {
@@ -7919,11 +7919,11 @@ Can generalize to `? extends U`
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
-    @BackpressureSupport(BackpressureKind.PASS_THROUGH)
     @SchedulerSupport(SchedulerSupport.NONE)
-    public final <@NonNull U> Flowable<U> cast(@NonNull Class<U> clazz) {
-        Objects.requireNonNull(clazz, "clazz is null");
-        return map(Functions.castFunction(clazz));
+    @NonNull
+    public final <@NonNull B, @NonNull U extends Collection<? super T>> Flowable<U> buffer(@NonNull Publisher<B> boundaryIndicator, @NonNull Supplier<U> bufferSupplier) {
+        Objects.requireNonNull(boundaryIndicator, "boundaryIndicator is null");
+        Objects.requireNonNull(bufferSupplier, "bufferSupplier is null");
 ```
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
@@ -8000,66 +8000,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombi
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `disconnectedEarly` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-            DisposableHelper.replace(this, t);
-            synchronized (parent) {
-                if (disconnectedEarly) {
-                    parent.source.reset();
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `connection` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-    void timeout(RefConnection rc) {
-        synchronized (this) {
-            if (rc.subscriberCount == 0 && rc == connection) {
-                connection = null;
-                Disposable connectionObject = rc.get();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `connection` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-        synchronized (this) {
-            if (rc.subscriberCount == 0 && rc == connection) {
-                connection = null;
-                Disposable connectionObject = rc.get();
-                DisposableHelper.dispose(rc);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `connection` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-        SequentialDisposable sd;
-        synchronized (this) {
-            if (connection == null || connection != rc) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `connection` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-        SequentialDisposable sd;
-        synchronized (this) {
-            if (connection == null || connection != rc) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `connection` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
 #### Snippet
@@ -8108,6 +8048,114 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCo
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `connection` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+    void timeout(RefConnection rc) {
+        synchronized (this) {
+            if (rc.subscriberCount == 0 && rc == connection) {
+                connection = null;
+                Disposable connectionObject = rc.get();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `connection` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+        synchronized (this) {
+            if (rc.subscriberCount == 0 && rc == connection) {
+                connection = null;
+                Disposable connectionObject = rc.get();
+                DisposableHelper.dispose(rc);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disconnectedEarly` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+            DisposableHelper.replace(this, t);
+            synchronized (parent) {
+                if (disconnectedEarly) {
+                    parent.source.reset();
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `connection` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+        SequentialDisposable sd;
+        synchronized (this) {
+            if (connection == null || connection != rc) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `connection` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+        SequentialDisposable sd;
+        synchronized (this) {
+            if (connection == null || connection != rc) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+#### Snippet
+```java
+        public void onNext(T t) {
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+#### Snippet
+```java
+            index = idx + 1;
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+#### Snippet
+```java
+            }
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+#### Snippet
+```java
+                    return;
+                }
+                queue.offer(buffers.remove(idx));
+            }
+            if (makeDone) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `buffers` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
@@ -8148,42 +8196,6 @@ Non-private field `buffers` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
-            }
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-                    return;
-                }
-                queue.offer(buffers.remove(idx));
-            }
-            if (makeDone) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-            index = idx + 1;
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
                 subscribers.dispose();
                 synchronized (this) {
                     buffers = null;
@@ -8192,14 +8204,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
 #### Snippet
 ```java
         public void onNext(T t) {
             synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
+                U b = buffer;
+                if (b == null) {
                     return;
 ```
 
@@ -8232,18 +8244,6 @@ Non-private field `buffer` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
 #### Snippet
 ```java
-        public void onNext(T t) {
-            synchronized (this) {
-                U b = buffer;
-                if (b == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
-#### Snippet
-```java
             U b;
             synchronized (this) {
                 b = buffer;
@@ -8261,186 +8261,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
                 buffer = next;
             }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `cancelled` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-            synchronized (this) {
-                if (cancelled) {
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            U b;
-            synchronized (this) {
-                b = buffer;
-                if (b == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-                }
-
-                buffer = null;
-                producerIndex++;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `producerIndex` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-                buffer = null;
-                producerIndex++;
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-            synchronized (this) {
-                buffer = b;
-                consumerIndex++;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `consumerIndex` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            synchronized (this) {
-                buffer = b;
-                consumerIndex++;
-            }
-            if (restartTimerOnMaxSize) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            U b;
-            synchronized (this) {
-                b = buffer;
-                buffer = null;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            synchronized (this) {
-                b = buffer;
-                buffer = null;
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            DisposableHelper.dispose(timer);
-            synchronized (this) {
-                buffer = null;
-            }
-            downstream.onError(t);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-        public void onNext(T t) {
-            synchronized (this) {
-                U b = buffer;
-                if (b != null) {
-                    b.add(t);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-            synchronized (this) {
-                current = buffer;
-                if (current == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-                    return;
-                }
-                buffer = next;
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            U b;
-            synchronized (this) {
-                b = buffer;
-                if (b == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-                    return;
-                }
-                buffer = null;
-            }
-            queue.offer(b);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-        public void onError(Throwable t) {
-            synchronized (this) {
-                buffer = null;
-            }
-            downstream.onError(t);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8504,6 +8324,186 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            U b;
+            synchronized (this) {
+                b = buffer;
+                if (b == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+                }
+
+                buffer = null;
+                producerIndex++;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `producerIndex` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+                buffer = null;
+                producerIndex++;
+            }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+            synchronized (this) {
+                buffer = b;
+                consumerIndex++;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `consumerIndex` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            synchronized (this) {
+                buffer = b;
+                consumerIndex++;
+            }
+            if (restartTimerOnMaxSize) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            U b;
+            synchronized (this) {
+                b = buffer;
+                if (b == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+                    return;
+                }
+                buffer = null;
+            }
+            queue.offer(b);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            DisposableHelper.dispose(timer);
+            synchronized (this) {
+                buffer = null;
+            }
+            downstream.onError(t);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+        public void onError(Throwable t) {
+            synchronized (this) {
+                buffer = null;
+            }
+            downstream.onError(t);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `cancelled` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+            synchronized (this) {
+                if (cancelled) {
+                    return;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+            synchronized (this) {
+                current = buffer;
+                if (current == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+                    return;
+                }
+                buffer = next;
+            }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            U b;
+            synchronized (this) {
+                b = buffer;
+                buffer = null;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            synchronized (this) {
+                b = buffer;
+                buffer = null;
+            }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+        public void onNext(T t) {
+            synchronized (this) {
+                U b = buffer;
+                if (b != null) {
+                    b.add(t);
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `sources` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
@@ -8525,18 +8525,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
                         wip--;
                         continue;
                     }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `sources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-                if (maxConcurrency != Integer.MAX_VALUE) {
-                    synchronized (this) {
-                        nSources = sources.size();
-                    }
-                }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8600,123 +8588,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.latest` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+Non-private field `sources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
 ```java
-            boolean cancelOthers = false;
-            synchronized (this) {
-                Object[] latest = this.latest;
-                if (latest == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `complete` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-
-                cancelOthers = latest[index] == null;
-                if (cancelOthers || ++complete == latest.length) {
-                    done = true;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-                cancelOthers = latest[index] == null;
-                if (cancelOthers || ++complete == latest.length) {
-                    done = true;
-                }
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.latest` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-                if (delayError) {
+                if (maxConcurrency != Integer.MAX_VALUE) {
                     synchronized (this) {
-                        Object[] latest = this.latest;
-                        if (latest == null) {
-                            return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `complete` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-                        }
-                        cancelOthers = latest[index] == null;
-                        if (cancelOthers || ++complete == latest.length) {
-                            done = true;
-                        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-                        cancelOthers = latest[index] == null;
-                        if (cancelOthers || ++complete == latest.length) {
-                            done = true;
-                        }
+                        nSources = sources.size();
                     }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.latest` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-            boolean shouldDrain = false;
-            synchronized (this) {
-                Object[] latest = this.latest;
-                if (latest == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `active` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
                 }
-                Object o = latest[index];
-                int a = active;
-                if (o == null) {
-                    active = ++a;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `active` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-                int a = active;
-                if (o == null) {
-                    active = ++a;
-                }
-                latest[index] = item;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `latest` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-        void clear(SpscLinkedArrayQueue<?> q) {
-            synchronized (this) {
-                latest = null;
-            }
-            q.clear();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8780,15 +8660,135 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `latest` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+        void clear(SpscLinkedArrayQueue<?> q) {
+            synchronized (this) {
+                latest = null;
+            }
+            q.clear();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.latest` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+            boolean cancelOthers = false;
+            synchronized (this) {
+                Object[] latest = this.latest;
+                if (latest == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `complete` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+
+                cancelOthers = latest[index] == null;
+                if (cancelOthers || ++complete == latest.length) {
+                    done = true;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+                cancelOthers = latest[index] == null;
+                if (cancelOthers || ++complete == latest.length) {
+                    done = true;
+                }
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.latest` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+            boolean shouldDrain = false;
+            synchronized (this) {
+                Object[] latest = this.latest;
+                if (latest == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `active` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+                }
+                Object o = latest[index];
+                int a = active;
+                if (o == null) {
+                    active = ++a;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `active` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+                int a = active;
+                if (o == null) {
+                    active = ++a;
+                }
+                latest[index] = item;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.latest` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+                if (delayError) {
+                    synchronized (this) {
+                        Object[] latest = this.latest;
+                        if (latest == null) {
+                            return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `complete` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+                        }
+                        cancelOthers = latest[index] == null;
+                        if (cancelOthers || ++complete == latest.length) {
+                            done = true;
+                        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+                        cancelOthers = latest[index] == null;
+                        if (cancelOthers || ++complete == latest.length) {
+                            done = true;
+                        }
+                    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `buffers` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
-                observers.dispose();
-                synchronized (this) {
-                    buffers = null;
-                }
-                if (getAndIncrement() != 0) {
+            index = idx + 1;
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+                    return;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8808,47 +8808,11 @@ Non-private field `buffers` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
-            }
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-                    return;
+                observers.dispose();
+                synchronized (this) {
+                    buffers = null;
                 }
-                queue.offer(buffers.remove(idx));
-            }
-            if (makeDone) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-        public void onNext(T t) {
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-                    return;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffers` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-            index = idx + 1;
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-                    return;
+                if (getAndIncrement() != 0) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8873,6 +8837,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
                 buffers = null;
             }
             done = true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+        public void onNext(T t) {
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+            }
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+                    return;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffers` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+                    return;
+                }
+                queue.offer(buffers.remove(idx));
+            }
+            if (makeDone) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8920,7 +8920,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
                 b = buffer;
                 buffer = null;
             }
-
+            if (b != null) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8928,11 +8928,11 @@ Non-private field `buffer` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-        public void onError(Throwable t) {
+            U b;
             synchronized (this) {
+                b = buffer;
                 buffer = null;
             }
-            downstream.onError(t);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8940,47 +8940,11 @@ Non-private field `buffer` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-                w.dispose();
-                synchronized (this) {
-                    buffer = null;
-                }
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-        public void onError(Throwable t) {
             synchronized (this) {
+                b = buffer;
                 buffer = null;
             }
-            downstream.onError(t);
-```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `cancelled` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-
-            synchronized (this) {
-                if (cancelled) {
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-        public void onNext(T t) {
-            synchronized (this) {
-                U b = buffer;
-                if (b == null) {
-                    return;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9029,6 +8993,54 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
                 buffer = next;
             }
 
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+                w.dispose();
+                synchronized (this) {
+                    buffer = null;
+                }
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `cancelled` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+
+            synchronized (this) {
+                if (cancelled) {
+                    return;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+        public void onError(Throwable t) {
+            synchronized (this) {
+                buffer = null;
+            }
+            downstream.onError(t);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `buffer` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+        public void onError(Throwable t) {
+            synchronized (this) {
+                buffer = null;
+            }
+            downstream.onError(t);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9096,35 +9108,35 @@ Non-private field `buffer` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-            U b;
+        public void onNext(T t) {
             synchronized (this) {
-                b = buffer;
-                buffer = null;
-            }
+                U b = buffer;
+                if (b == null) {
+                    return;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `buffer` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-            synchronized (this) {
-                b = buffer;
-                buffer = null;
-            }
-            if (b != null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disconnectedEarly` accessed in synchronized context
+Non-private field `connection` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
 #### Snippet
 ```java
-            DisposableHelper.replace(this, t);
-            synchronized (parent) {
-                if (disconnectedEarly) {
-                    parent.source.reset();
-                }
+        SequentialDisposable sd;
+        synchronized (this) {
+            if (connection == null || connection != rc) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `connection` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+#### Snippet
+```java
+        SequentialDisposable sd;
+        synchronized (this) {
+            if (connection == null || connection != rc) {
+                return;
+            }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9156,11 +9168,11 @@ Non-private field `connection` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
 #### Snippet
 ```java
-        SequentialDisposable sd;
+    void terminated(RefConnection rc) {
         synchronized (this) {
-            if (connection == null || connection != rc) {
-                return;
-            }
+            if (connection == rc) {
+                if (rc.timer != null) {
+                    rc.timer.dispose();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9168,11 +9180,23 @@ Non-private field `connection` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
 #### Snippet
 ```java
-        SequentialDisposable sd;
-        synchronized (this) {
-            if (connection == null || connection != rc) {
-                return;
-            }
+                }
+                if (--rc.subscriberCount == 0) {
+                    connection = null;
+                    source.reset();
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disconnectedEarly` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+#### Snippet
+```java
+            DisposableHelper.replace(this, t);
+            synchronized (parent) {
+                if (disconnectedEarly) {
+                    parent.source.reset();
+                }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9200,30 +9224,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `connection` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
-#### Snippet
-```java
-    void terminated(RefConnection rc) {
-        synchronized (this) {
-            if (connection == rc) {
-                if (rc.timer != null) {
-                    rc.timer.dispose();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `connection` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
-#### Snippet
-```java
-                }
-                if (--rc.subscriberCount == 0) {
-                    connection = null;
-                    source.reset();
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `disposed` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
 #### Snippet
@@ -9257,78 +9257,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposa
             resources = null;
         }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disposed` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-        List<Disposable> set;
-        synchronized (this) {
-            if (disposed) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disposed` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-                return;
-            }
-            disposed = true;
-            set = resources;
-            resources = null;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `resources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-            }
-            disposed = true;
-            set = resources;
-            resources = null;
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `resources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-            disposed = true;
-            set = resources;
-            resources = null;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disposed` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-        }
-        synchronized (this) {
-            if (disposed) {
-                return false;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `resources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-            }
-
-            List<Disposable> set = resources;
-            if (set == null || !set.remove(d)) {
-                return false;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9404,27 +9332,87 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposa
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+Non-private field `disposed` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+        List<Disposable> set;
+        synchronized (this) {
+            if (disposed) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disposed` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+                return;
+            }
+            disposed = true;
+            set = resources;
+            resources = null;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `resources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+            }
+            disposed = true;
+            set = resources;
+            resources = null;
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `resources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+            disposed = true;
+            set = resources;
+            resources = null;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disposed` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
 #### Snippet
 ```java
         }
         synchronized (this) {
-            if (done) {
-                return;
+            if (disposed) {
+                return false;
             }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
+Non-private field `resources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+            }
+
+            List<Disposable> set = resources;
+            if (set == null || !set.remove(d)) {
+                return false;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-                return;
-            }
-            done = true;
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
+            AppendOnlyLinkedArrayList<Object> q;
+            synchronized (this) {
+                q = queue;
+                if (q == null) {
+                    emitting = false;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9432,47 +9420,23 @@ Non-private field `emitting` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-            }
-            done = true;
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
+                q = queue;
                 if (q == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-            done = true;
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(4);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(4);
-                    queue = q;
+                    emitting = false;
+                    return;
                 }
-                q.add(NotificationLite.complete());
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
+Non-private field `queue` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-                return;
+                    return;
+                }
+                queue = null;
             }
-            emitting = true;
-        }
-        actual.onComplete();
+            q.forEachWhile(this);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9552,66 +9516,6 @@ Non-private field `done` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-        }
-        synchronized (this) {
-            if (done) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-                return;
-            }
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-            }
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(4);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(4);
-                    queue = q;
-                }
-                q.add(NotificationLite.next(t));
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-                return;
-            }
-            emitting = true;
-        }
-        actual.onNext(t);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
         if (!done) {
             synchronized (this) {
                 if (done) {
@@ -9668,51 +9572,171 @@ in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
+Non-private field `done` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-            AppendOnlyLinkedArrayList<Object> q;
-            synchronized (this) {
-                q = queue;
-                if (q == null) {
-                    emitting = false;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-                q = queue;
-                if (q == null) {
-                    emitting = false;
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-                    return;
-                }
-                queue = null;
+        }
+        synchronized (this) {
+            if (done) {
+                return;
             }
-            q.forEachWhile(this);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+                return;
+            }
+            done = true;
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+            }
+            done = true;
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+            done = true;
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(4);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(4);
+                    queue = q;
+                }
+                q.add(NotificationLite.complete());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+                return;
+            }
+            emitting = true;
+        }
+        actual.onComplete();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+                return;
+            }
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+            }
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(4);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(4);
+                    queue = q;
+                }
+                q.add(NotificationLite.next(t));
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+                return;
+            }
+            emitting = true;
+        }
+        actual.onNext(t);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `cancelled` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 #### Snippet
 ```java
-                AppendOnlyLinkedArrayList<Object> q;
-                synchronized (this) {
-                    q = queue;
-                    if (q == null) {
-                        emitting = false;
+            Object o;
+            synchronized (this) {
+                if (cancelled) {
+                    return;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `next` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+                    return;
+                }
+                if (next) {
+                    return;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `index` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+
+                lock.lock();
+                index = s.index;
+                o = s.value.get();
+                lock.unlock();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9720,22 +9744,22 @@ Non-private field `emitting` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 #### Snippet
 ```java
-                    q = queue;
-                    if (q == null) {
-                        emitting = false;
-                        return;
-                    }
+                lock.unlock();
+
+                emitting = o != null;
+                next = true;
+            }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
+Non-private field `next` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 #### Snippet
 ```java
-                        return;
-                    }
-                    queue = null;
-                }
+
+                emitting = o != null;
+                next = true;
+            }
 
 ```
 
@@ -9812,39 +9836,15 @@ in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `cancelled` accessed in synchronized context
+Non-private field `queue` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 #### Snippet
 ```java
-            Object o;
-            synchronized (this) {
-                if (cancelled) {
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `next` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-                    return;
-                }
-                if (next) {
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `index` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-
-                lock.lock();
-                index = s.index;
-                o = s.value.get();
-                lock.unlock();
+                AppendOnlyLinkedArrayList<Object> q;
+                synchronized (this) {
+                    q = queue;
+                    if (q == null) {
+                        emitting = false;
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9852,22 +9852,22 @@ Non-private field `emitting` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 #### Snippet
 ```java
-                lock.unlock();
-
-                emitting = o != null;
-                next = true;
-            }
+                    q = queue;
+                    if (q == null) {
+                        emitting = false;
+                        return;
+                    }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `next` accessed in synchronized context
+Non-private field `queue` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 #### Snippet
 ```java
-
-                emitting = o != null;
-                next = true;
-            }
+                        return;
+                    }
+                    queue = null;
+                }
 
 ```
 
@@ -9904,66 +9904,6 @@ in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
                 }
                 queue = null;
             }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
-#### Snippet
-```java
-        }
-        synchronized (this) {
-            if (done) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
-#### Snippet
-```java
-                return;
-            }
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
-#### Snippet
-```java
-            }
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(QUEUE_LINK_SIZE);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
-#### Snippet
-```java
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(QUEUE_LINK_SIZE);
-                    queue = q;
-                }
-                q.add(NotificationLite.next(t));
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
-#### Snippet
-```java
-                return;
-            }
-            emitting = true;
-        }
 
 ```
 
@@ -10124,6 +10064,66 @@ in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
+#### Snippet
+```java
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
+#### Snippet
+```java
+                return;
+            }
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
+#### Snippet
+```java
+            }
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(QUEUE_LINK_SIZE);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
+#### Snippet
+```java
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(QUEUE_LINK_SIZE);
+                    queue = q;
+                }
+                q.add(NotificationLite.next(t));
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
+#### Snippet
+```java
+                return;
+            }
+            emitting = true;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `queue` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
 #### Snippet
@@ -10157,78 +10157,6 @@ in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
                 queue = null;
             }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-        }
-        synchronized (this) {
-            if (done) {
-                return;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-                return;
-            }
-            done = true;
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-            }
-            done = true;
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-            done = true;
-            if (emitting) {
-                AppendOnlyLinkedArrayList<Object> q = queue;
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(4);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `queue` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-                if (q == null) {
-                    q = new AppendOnlyLinkedArrayList<>(4);
-                    queue = q;
-                }
-                q.add(NotificationLite.complete());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-                return;
-            }
-            emitting = true;
-        }
-        actual.onComplete();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -10356,6 +10284,78 @@ Non-private field `done` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
 #### Snippet
 ```java
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+                return;
+            }
+            done = true;
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+            }
+            done = true;
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+            done = true;
+            if (emitting) {
+                AppendOnlyLinkedArrayList<Object> q = queue;
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(4);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `queue` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+                if (q == null) {
+                    q = new AppendOnlyLinkedArrayList<>(4);
+                    queue = q;
+                }
+                q.add(NotificationLite.complete());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+                return;
+            }
+            emitting = true;
+        }
+        actual.onComplete();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
         boolean reportError;
         synchronized (this) {
             if (done) {
@@ -10428,66 +10428,6 @@ Non-private field `cancelled` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 #### Snippet
 ```java
-            Object o;
-            synchronized (this) {
-                if (cancelled) {
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `next` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
-                    return;
-                }
-                if (next) {
-                    return;
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `index` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
-                Lock readLock = s.readLock;
-                readLock.lock();
-                index = s.index;
-                o = s.value.get();
-                readLock.unlock();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `emitting` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
-                readLock.unlock();
-
-                emitting = o != null;
-                next = true;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `next` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
-
-                emitting = o != null;
-                next = true;
-            }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `cancelled` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
             if (!fastPath) {
                 synchronized (this) {
                     if (cancelled) {
@@ -10553,6 +10493,66 @@ in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
                     next = true;
                 }
                 fastPath = true;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `cancelled` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+            Object o;
+            synchronized (this) {
+                if (cancelled) {
+                    return;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `next` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+                    return;
+                }
+                if (next) {
+                    return;
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `index` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+                Lock readLock = s.readLock;
+                readLock.lock();
+                index = s.index;
+                o = s.value.get();
+                readLock.unlock();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `emitting` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+                readLock.unlock();
+
+                emitting = o != null;
+                next = true;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `next` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+
+                emitting = o != null;
+                next = true;
+            }
+
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -10636,7 +10636,19 @@ in `src/main/java/io/reactivex/rxjava3/subscribers/SerializedSubscriber.java`
                     q = new AppendOnlyLinkedArrayList<>(QUEUE_LINK_SIZE);
                     queue = q;
                 }
-                q.add(NotificationLite.next(t));
+                q.add(NotificationLite.complete());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `done` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/subscribers/SerializedSubscriber.java`
+#### Snippet
+```java
+                return;
+            }
+            done = true;
+            emitting = true;
+        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -10644,8 +10656,8 @@ Non-private field `emitting` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subscribers/SerializedSubscriber.java`
 #### Snippet
 ```java
-                return;
             }
+            done = true;
             emitting = true;
         }
 
@@ -10696,19 +10708,7 @@ in `src/main/java/io/reactivex/rxjava3/subscribers/SerializedSubscriber.java`
                     q = new AppendOnlyLinkedArrayList<>(QUEUE_LINK_SIZE);
                     queue = q;
                 }
-                q.add(NotificationLite.complete());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `done` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/subscribers/SerializedSubscriber.java`
-#### Snippet
-```java
-                return;
-            }
-            done = true;
-            emitting = true;
-        }
+                q.add(NotificationLite.next(t));
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -10716,8 +10716,8 @@ Non-private field `emitting` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/subscribers/SerializedSubscriber.java`
 #### Snippet
 ```java
+                return;
             }
-            done = true;
             emitting = true;
         }
 
@@ -10872,42 +10872,6 @@ Non-private field `disposed` accessed in synchronized context
 in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
 #### Snippet
 ```java
-        if (!disposed) {
-            synchronized (this) {
-                if (!disposed) {
-                    OpenHashSet<Disposable> set = resources;
-                    if (set == null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `resources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
-            synchronized (this) {
-                if (!disposed) {
-                    OpenHashSet<Disposable> set = resources;
-                    if (set == null) {
-                        set = new OpenHashSet<>();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `resources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
-                    if (set == null) {
-                        set = new OpenHashSet<>();
-                        resources = set;
-                    }
-                    set.add(disposable);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disposed` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
         OpenHashSet<Disposable> set;
         synchronized (this) {
             if (disposed) {
@@ -10949,30 +10913,6 @@ in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
             resources = null;
         }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `disposed` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
-        }
-        synchronized (this) {
-            if (disposed) {
-                return 0;
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `resources` accessed in synchronized context
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
-                return 0;
-            }
-            OpenHashSet<Disposable> set = resources;
-            return set != null ? set.size() : 0;
-        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -11047,19 +10987,67 @@ in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
 
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `Observable.subscribe()` is ignored
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disposed` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
 #### Snippet
 ```java
-        final CountDownLatch cdl = new CountDownLatch(1);
-
-        observable.subscribe(this, Functions.emptyConsumer(), new Action() {
-            @Override
-            public void run() {
+        if (!disposed) {
+            synchronized (this) {
+                if (!disposed) {
+                    OpenHashSet<Disposable> set = resources;
+                    if (set == null) {
 ```
 
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `resources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
+#### Snippet
+```java
+            synchronized (this) {
+                if (!disposed) {
+                    OpenHashSet<Disposable> set = resources;
+                    if (set == null) {
+                        set = new OpenHashSet<>();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `resources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
+#### Snippet
+```java
+                    if (set == null) {
+                        set = new OpenHashSet<>();
+                        resources = set;
+                    }
+                    set.add(disposable);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `disposed` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
+#### Snippet
+```java
+        }
+        synchronized (this) {
+            if (disposed) {
+                return 0;
+            }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `resources` accessed in synchronized context
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
+#### Snippet
+```java
+                return 0;
+            }
+            OpenHashSet<Disposable> set = resources;
+            return set != null ? set.size() : 0;
+        }
+```
+
+## RuleId[ruleID=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `Flowable.subscribe()` is ignored
 in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
@@ -11068,6 +11056,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
         final CountDownLatch cdl = new CountDownLatch(1);
 
         flowable.subscribe(this, Functions.emptyConsumer(), new Action() {
+            @Override
+            public void run() {
+```
+
+### IgnoreResultOfCall
+Result of `Observable.subscribe()` is ignored
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
+#### Snippet
+```java
+        final CountDownLatch cdl = new CountDownLatch(1);
+
+        observable.subscribe(this, Functions.emptyConsumer(), new Action() {
             @Override
             public void run() {
 ```
@@ -11246,7 +11246,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowa
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenRangePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableAsyncPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11270,12 +11270,12 @@ in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/PublishProcessorPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenRangePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -11294,12 +11294,12 @@ in `src/jmh/java/io/reactivex/rxjava3/core/EachTypeFlatMapPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableAsyncPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/PublishProcessorPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -11318,7 +11318,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/JustAsyncPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/StrictPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/ToFlowablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11330,12 +11330,12 @@ in `src/jmh/java/io/reactivex/rxjava3/core/StrictPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/BlockingPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/StrictPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -11366,6 +11366,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/BlockingPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
 #### Snippet
 ```java
@@ -11378,12 +11390,12 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/ToFlowablePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -11402,18 +11414,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlatMapJustPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/ReducePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1, jvmArgsAppend = { "-XX:MaxInlineLevel=20" })
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
 #### Snippet
 ```java
@@ -11422,6 +11422,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/ReducePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1, jvmArgsAppend = { "-XX:MaxInlineLevel=20" })
 ```
 
 ### DefaultAnnotationParam
@@ -11450,18 +11462,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/CallableAsyncPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableSyncPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/core/ObservableFlatMapPerf.java`
 #### Snippet
 ```java
@@ -11474,31 +11474,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/ObservableFlatMapPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableSyncPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11522,7 +11498,31 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapSinglePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapCompletablePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11570,43 +11570,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapCompletablePerf.jav
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11630,6 +11594,18 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.j
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
 #### Snippet
 ```java
@@ -11642,7 +11618,19 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11702,55 +11690,19 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11774,7 +11726,43 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -11794,6 +11782,18 @@ in `src/jmh/java/io/reactivex/rxjava3/parallel/ParallelPerf.java`
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(value = 1, jvmArgsAppend = { "-XX:MaxInlineLevel=20" })
 @OutputTimeUnit(TimeUnit.SECONDS)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
 ```
 
 ## RuleId[ruleID=UnnecessarySuperQualifier]
@@ -11823,15 +11823,51 @@ in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
 ```java
- * providing the asynchronous boundary the code is running and either routes the exception to the global
- * {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} handler or the current thread's
- * {@link java.lang.Thread.UncaughtExceptionHandler#uncaughtException(Thread, Throwable)} handler.</li>
- * </ul>
- * From the {@code Observable}'s perspective, an {@code Observer} is the end consumer thus it is the {@code Observer}'s
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.processors.PublishProcessor.create().subscribeWith(new MyRx2Subscriber());
+            }
+        }, "Publish+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
+                    @Override
+                    public Object apply(Integer v) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
+                    @Override
+                    public Object apply(Integer v) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.processors.PublishProcessor.create();
+            }
+        }, "Publish", "Rx2Flowable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11853,93 +11889,9 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10);
-            }
-        }, "range", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10);
-            }
-        }, "range", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
+                return io.reactivex.rxjava3.core.Flowable.fromCallable(new Callable<Object>() {
                     @Override
-                    public Object apply(Integer v) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.empty();
-            }
-        }, "empty", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.subjects.AsyncSubject.create();
-            }
-        }, "Async", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+subscribeOn+observeOn+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+subscribeOn+observeOn+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+subscribeOn+observeOn+consumer", "Rx2Observable");
+                    public Object call() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11961,357 +11913,9 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Observable.fromCallable(new Callable<Object>() {
-                    @Override
-                    public Object call() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.subjects.UnicastSubject.create();
-            }
-        }, "Unicast", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.processors.ReplayProcessor.create();
-            }
-        }, "Replay", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.just(1).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "just+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.subjects.ReplaySubject.create().subscribeWith(new MyRx2Observer());
-            }
-        }, "Replay+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
-                    @Override
-                    public Object apply(Integer v) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.just(1);
-            }
-        }, "just", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.just(1).subscribeWith(new MyRx2Observer());
-            }
-        }, "just+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.processors.AsyncProcessor.create().subscribeWith(new MyRx2Subscriber());
-            }
-        }, "Async+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.subjects.BehaviorSubject.create().subscribeWith(new MyRx2Observer());
-            }
-        }, "Behavior+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+observeOn+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+observeOn+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
                 return io.reactivex.rxjava3.core.Flowable.range(1, 10).map(new Function<Integer, Object>() {
                     @Override
                     public Object apply(Integer v) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+subscribeOn+observeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+subscribeOn+observeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+subscribeOn+observeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+observeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+observeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.subjects.ReplaySubject.create();
-            }
-        }, "Replay", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+subscribeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
-            }
-        }, "range+subscribeOn+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.processors.ReplayProcessor.create().subscribeWith(new MyRx2Subscriber());
-            }
-        }, "Replay+consumer", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.subjects.AsyncSubject.create().subscribeWith(new MyRx2Observer());
-            }
-        }, "Async+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.observers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return new io.reactivex.rxjava3.observers.TestObserver<>();
-            }
-        }, "test-consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.reactivestreams` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-    static final class MyRx2Subscriber implements FlowableSubscriber<Object> {
-
-        org.reactivestreams.Subscription upstream;
-
-        @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.fromCallable(new Callable<Object>() {
-                    @Override
-                    public Object call() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.processors.PublishProcessor.create();
-            }
-        }, "Publish", "Rx2Flowable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+subscribeOn+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
-            }
-        }, "range+subscribeOn+consumer", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.processors.PublishProcessor.create().subscribeWith(new MyRx2Subscriber());
-            }
-        }, "Publish+consumer", "Rx2Flowable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12333,9 +11937,9 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.subjects.BehaviorSubject.create();
+                return io.reactivex.rxjava3.subjects.BehaviorSubject.create().subscribeWith(new MyRx2Observer());
             }
-        }, "Behavior", "Rx2Observable");
+        }, "Behavior+consumer", "Rx2Observable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12343,47 +11947,23 @@ Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
 ```java
-    }
-
-    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
-    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
-
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.just(1).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "just+consumer", "Rx2Flowable");
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
 ```java
-    }
-
-    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
-    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-
-    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
-    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
-
-        Disposable upstream;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-
-    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
-    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
-
-        Disposable upstream;
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.processors.ReplayProcessor.create().subscribeWith(new MyRx2Subscriber());
+            }
+        }, "Replay+consumer", "Rx2Flowable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12395,7 +11975,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
             public Object call() {
                 return io.reactivex.rxjava3.core.Flowable.empty();
             }
-        }, "empty", "Rx2Flowable", 10000000);
+        }, "empty", "Rx2Flowable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12405,21 +11985,9 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Observable.just(1);
-            }
-        }, "just", "Rx2Observable");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.processors.UnicastProcessor.create().subscribeWith(new MyRx2Subscriber());
-            }
-        }, "Unicast+consumer", "Rx2Flowable");
+                return io.reactivex.rxjava3.core.Observable.fromCallable(new Callable<Object>() {
+                    @Override
+                    public Object call() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12435,6 +12003,30 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.processors.UnicastProcessor.create();
+            }
+        }, "Unicast", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.just(1);
+            }
+        }, "just", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
@@ -12447,15 +12039,171 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.observers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return new io.reactivex.rxjava3.observers.TestObserver<>();
+            }
+        }, "test-consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.processors.UnicastProcessor.create();
+                return io.reactivex.rxjava3.processors.UnicastProcessor.create().subscribeWith(new MyRx2Subscriber());
             }
-        }, "Unicast", "Rx2Flowable");
+        }, "Unicast+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.processors.BehaviorProcessor.create().subscribeWith(new MyRx2Subscriber());
+            }
+        }, "Behavior+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.just(1).subscribeWith(new MyRx2Observer());
+            }
+        }, "just+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+    }
+
+    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
+    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+    }
+
+    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
+    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+
+    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
+    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
+
+        Disposable upstream;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+
+    static final class MyRx2Observer implements io.reactivex.rxjava3.core.Observer<Object>, io.reactivex.rxjava3.core.SingleObserver<Object>,
+    io.reactivex.rxjava3.core.MaybeObserver<Object>, io.reactivex.rxjava3.core.CompletableObserver {
+
+        Disposable upstream;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.subjects.UnicastSubject.create();
+            }
+        }, "Unicast", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10);
+            }
+        }, "range", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.processors` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.processors.ReplayProcessor.create();
+            }
+        }, "Replay", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.subjects.UnicastSubject.create().subscribeWith(new MyRx2Observer());
+            }
+        }, "Unicast+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeWith(new MyRx2Observer());
+            }
+        }, "range+consumer", "Rx2Observable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12477,9 +12225,21 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeWith(new MyRx2Observer());
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
             }
-        }, "range+consumer", "Rx2Observable");
+        }, "range+subscribeOn+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
+            }
+        }, "range+subscribeOn+consumer", "Rx2Observable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12489,9 +12249,93 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeWith(new MyRx2Subscriber());
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
             }
-        }, "range+consumer", "Rx2Flowable");
+        }, "range+subscribeOn+observeOn+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
+            }
+        }, "range+subscribeOn+observeOn+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
+            }
+        }, "range+subscribeOn+observeOn+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.subjects.BehaviorSubject.create();
+            }
+        }, "Behavior", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.empty();
+            }
+        }, "empty", "Rx2Flowable", 10000000);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.subjects.AsyncSubject.create();
+            }
+        }, "Async", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
+            }
+        }, "range+observeOn+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Observer());
+            }
+        }, "range+observeOn+consumer", "Rx2Observable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12501,9 +12345,69 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.processors.BehaviorProcessor.create().subscribeWith(new MyRx2Subscriber());
+                return io.reactivex.rxjava3.processors.AsyncProcessor.create().subscribeWith(new MyRx2Subscriber());
             }
-        }, "Behavior+consumer", "Rx2Flowable");
+        }, "Async+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.reactivestreams` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+    static final class MyRx2Subscriber implements FlowableSubscriber<Object> {
+
+        org.reactivestreams.Subscription upstream;
+
+        @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.subjects.AsyncSubject.create().subscribeWith(new MyRx2Observer());
+            }
+        }, "Async+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+subscribeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+subscribeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.just(1);
+            }
+        }, "just", "Rx2Flowable");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12519,15 +12423,111 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+observeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+observeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.subjects.UnicastSubject.create().subscribeWith(new MyRx2Observer());
+                return io.reactivex.rxjava3.subjects.ReplaySubject.create().subscribeWith(new MyRx2Observer());
             }
-        }, "Unicast+consumer", "Rx2Observable");
+        }, "Replay+consumer", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+subscribeOn+observeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+subscribeOn+observeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.schedulers` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10).subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).observeOn(io.reactivex.rxjava3.schedulers.Schedulers.computation()).subscribeWith(new MyRx2Subscriber());
+            }
+        }, "range+subscribeOn+observeOn+consumer", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10);
+            }
+        }, "range", "Rx2Flowable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subjects` is unnecessary, and can be replaced with an import
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.subjects.ReplaySubject.create();
+            }
+        }, "Replay", "Rx2Observable");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+#### Snippet
+```java
+ * providing the asynchronous boundary the code is running and either routes the exception to the global
+ * {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} handler or the current thread's
+ * {@link java.lang.Thread.UncaughtExceptionHandler#uncaughtException(Thread, Throwable)} handler.</li>
+ * </ul>
+ * From the {@code Observable}'s perspective, an {@code Observer} is the end consumer thus it is the {@code Observer}'s
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12655,35 +12655,11 @@ Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 #### Snippet
 ```java
-     *  <dd>The returned {@code Flowable} honors the backpressure of the downstream consumer and
-     *  expects the {@code Publisher} to honor backpressure as well. If the sources {@code Publisher}
-     *  violates this, a {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException} is signaled.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-     *  <dd>{@code concat} does not operate by default on a particular {@link Scheduler}.</dd>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
-#### Snippet
-```java
-     *  <dd>Backpressure is honored towards the downstream and the outer {@code Publisher} is
-     *  expected to support backpressure. Violating this assumption, the operator will
-     *  signal {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException}.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-     *  <dd>This method does not operate by default on a particular {@link Scheduler}.</dd>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
-#### Snippet
-```java
-     *  <dd>Backpressure is honored towards the downstream and the outer {@code Publisher} is
-     *  expected to support backpressure. Violating this assumption, the operator will
-     *  signal {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException}.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-     *  <dd>This method does not operate by default on a particular {@link Scheduler}.</dd>
+     * <p>
+     * If the {@code Maybe} emits an error, it is wrapped into an
+     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
+     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
+     * <dl>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12715,11 +12691,23 @@ Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 #### Snippet
 ```java
-     *  except when the downstream has disposed this {@code Maybe} source.
-     *  In this latter case, the {@code Throwable} is delivered to the global error handler via
-     *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *  </dd>
-     * </dl>
+     *  <dd>Backpressure is honored towards the downstream and the outer {@code Publisher} is
+     *  expected to support backpressure. Violating this assumption, the operator will
+     *  signal {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException}.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>This method does not operate by default on a particular {@link Scheduler}.</dd>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+#### Snippet
+```java
+     *  <dd>Backpressure is honored towards the downstream and the outer {@code Publisher} is
+     *  expected to support backpressure. Violating this assumption, the operator will
+     *  signal {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException}.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>This method does not operate by default on a particular {@link Scheduler}.</dd>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12732,6 +12720,42 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
      * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
      * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
      * <dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+#### Snippet
+```java
+     *   except if the {@code MaybeObserver} disposed the subscription in the meantime. In this latter case,
+     *   the exception is forwarded to the global error handler via
+     *   {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} wrapped into a
+     *   {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *   Fatal exceptions are rethrown and usually will end up in the executing thread's
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+#### Snippet
+```java
+     *   the exception is forwarded to the global error handler via
+     *   {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} wrapped into a
+     *   {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *   Fatal exceptions are rethrown and usually will end up in the executing thread's
+     *   {@link java.lang.Thread.UncaughtExceptionHandler#uncaughtException(Thread, Throwable)} handler.</dd>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+#### Snippet
+```java
+     *   {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *   Fatal exceptions are rethrown and usually will end up in the executing thread's
+     *   {@link java.lang.Thread.UncaughtExceptionHandler#uncaughtException(Thread, Throwable)} handler.</dd>
+     * </dl>
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12783,51 +12807,15 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
-#### Snippet
-```java
-     *   except if the {@code MaybeObserver} disposed the subscription in the meantime. In this latter case,
-     *   the exception is forwarded to the global error handler via
-     *   {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} wrapped into a
-     *   {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *   Fatal exceptions are rethrown and usually will end up in the executing thread's
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 #### Snippet
 ```java
-     *   the exception is forwarded to the global error handler via
-     *   {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} wrapped into a
-     *   {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *   Fatal exceptions are rethrown and usually will end up in the executing thread's
-     *   {@link java.lang.Thread.UncaughtExceptionHandler#uncaughtException(Thread, Throwable)} handler.</dd>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
-#### Snippet
-```java
-     *   {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *   Fatal exceptions are rethrown and usually will end up in the executing thread's
-     *   {@link java.lang.Thread.UncaughtExceptionHandler#uncaughtException(Thread, Throwable)} handler.</dd>
+     *  except when the downstream has disposed this {@code Maybe} source.
+     *  In this latter case, the {@code Throwable} is delivered to the global error handler via
+     *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *  </dd>
      * </dl>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
-#### Snippet
-```java
-     * <p>
-     * If the {@code Maybe} emits an error, it is wrapped into an
-     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
-     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
-     * <dl>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12844,26 +12832,14 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 #### Snippet
 ```java
-     *  <dd>Backpressure is honored towards the downstream and the outer {@code Publisher} is
-     *  expected to support backpressure. Violating this assumption, the operator will
-     *  signal {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException}.</dd>
+     *  <dd>The returned {@code Flowable} honors the backpressure of the downstream consumer and
+     *  expects the {@code Publisher} to honor backpressure as well. If the sources {@code Publisher}
+     *  violates this, a {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException} is signaled.</dd>
      *  <dt><b>Scheduler:</b></dt>
-     *  <dd>This method does not operate by default on a particular {@link Scheduler}.</dd>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
-#### Snippet
-```java
-     * <p>
-     * If the {@code Single} emits an error, it is wrapped into an
-     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
-     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
-     * <dl>
+     *  <dd>{@code concat} does not operate by default on a particular {@link Scheduler}.</dd>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12888,6 +12864,30 @@ in `src/main/java/io/reactivex/rxjava3/core/Single.java`
      *   {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
      *   </dd>
      * </dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+     *  <dd>Backpressure is honored towards the downstream and the outer {@code Publisher} is
+     *  expected to support backpressure. Violating this assumption, the operator will
+     *  signal {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException}.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+     *  <dd>This method does not operate by default on a particular {@link Scheduler}.</dd>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+     * <p>
+     * If the {@code Single} emits an error, it is wrapped into an
+     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
+     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
+     * <dl>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12964,42 +12964,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObs
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
-#### Snippet
-```java
-
-    /**
-     * Creates the given number of {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances
-     * that are possibly backed by distinct threads
-     * and calls the specified {@code Consumer} with them.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
-#### Snippet
-```java
-/**
- * Allows retrieving multiple workers from the implementing
- * {@link io.reactivex.rxjava3.core.Scheduler} in a way that when asking for
- * at most the parallelism level of the Scheduler, those
- * {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances will be running
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
-#### Snippet
-```java
- * {@link io.reactivex.rxjava3.core.Scheduler} in a way that when asking for
- * at most the parallelism level of the Scheduler, those
- * {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances will be running
- * with different backing threads.
- * <p>History: 2.1.8 - experimental
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerWhen.java`
 #### Snippet
 ```java
@@ -13032,6 +12996,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerWhen.java`
  * Generally each {@link Observable} uses its own {@link io.reactivex.rxjava3.core.Scheduler.Worker Worker}. This means
  * that this will essentially limit the number of concurrent subscribes. The
  * danger comes from using operators like
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
+#### Snippet
+```java
+/**
+ * Allows retrieving multiple workers from the implementing
+ * {@link io.reactivex.rxjava3.core.Scheduler} in a way that when asking for
+ * at most the parallelism level of the Scheduler, those
+ * {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances will be running
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
+#### Snippet
+```java
+ * {@link io.reactivex.rxjava3.core.Scheduler} in a way that when asking for
+ * at most the parallelism level of the Scheduler, those
+ * {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances will be running
+ * with different backing threads.
+ * <p>History: 2.1.8 - experimental
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
+#### Snippet
+```java
+
+    /**
+     * Creates the given number of {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances
+     * that are possibly backed by distinct threads
+     * and calls the specified {@code Consumer} with them.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13119,30 +13119,6 @@ in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
- * <p>
- * When this {@code AsyncSubject} is terminated via {@link #onError(Throwable)}, the
- * last observed item (if any) is cleared and late {@link io.reactivex.rxjava3.core.Observer}s only receive
- * the {@code onError} event.
- * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
- *  if one or more {@code Observer}s dispose their respective {@code Disposable}s, the
- *  {@code Throwable} is delivered to the global error handler via
- *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} (multiple times if multiple {@code Observer}s
- *  cancel at once).
- *  If there were no {@code Observer}s subscribed to this {@code AsyncSubject} when the {@code onError()}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
 #### Snippet
@@ -13188,6 +13164,42 @@ in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
  *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)}.
  *  If there were no {@code Observer}s subscribed to this {@code UnicastSubject} when the {@code onError()}
  *  was called, the global error handler is not invoked.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+ * <p>
+ * When this {@code AsyncSubject} is terminated via {@link #onError(Throwable)}, the
+ * last observed item (if any) is cleared and late {@link io.reactivex.rxjava3.core.Observer}s only receive
+ * the {@code onError} event.
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+ *  if one or more {@code Observer}s dispose their respective {@code Disposable}s, the
+ *  {@code Throwable} is delivered to the global error handler via
+ *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} (multiple times if multiple {@code Observer}s
+ *  cancel at once).
+ *  If there were no {@code Observer}s subscribed to this {@code AsyncSubject} when the {@code onError()}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.functions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/flowables/ConnectableFlowable.java`
+#### Snippet
+```java
+     * {@link Flowable} to its {@link Subscriber}s.
+     * <p>
+     * To disconnect from a synchronous source, use the {@link #connect(io.reactivex.rxjava3.functions.Consumer)} method.
+     * <dl>
+     *  <dt><b>Scheduler:</b></dt>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13263,18 +13275,6 @@ in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.disposables` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/observers/ResourceCompletableObserver.java`
-#### Snippet
-```java
- * in {@code onError()} and {@code onComplete()} explicitly.
- *
- * <p>Use {@link #add(Disposable)} to associate resources (as {@link io.reactivex.rxjava3.disposables.Disposable Disposable}s)
- * with this {@code ResourceCompletableObserver} that will be cleaned up when {@link #dispose()} is called.
- * Removing previously associated resources is not possible but one can create a
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/observers/DisposableObserver.java`
 #### Snippet
@@ -13287,15 +13287,15 @@ in `src/main/java/io/reactivex/rxjava3/observers/DisposableObserver.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.functions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/flowables/ConnectableFlowable.java`
+Qualifier `io.reactivex.rxjava3.disposables` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/observers/ResourceCompletableObserver.java`
 #### Snippet
 ```java
-     * {@link Flowable} to its {@link Subscriber}s.
-     * <p>
-     * To disconnect from a synchronous source, use the {@link #connect(io.reactivex.rxjava3.functions.Consumer)} method.
-     * <dl>
-     *  <dt><b>Scheduler:</b></dt>
+ * in {@code onError()} and {@code onComplete()} explicitly.
+ *
+ * <p>Use {@link #add(Disposable)} to associate resources (as {@link io.reactivex.rxjava3.disposables.Disposable Disposable}s)
+ * with this {@code ResourceCompletableObserver} that will be cleaned up when {@link #dispose()} is called.
+ * Removing previously associated resources is not possible but one can create a
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13372,14 +13372,14 @@ in `src/main/java/io/reactivex/rxjava3/observers/ResourceMaybeObserver.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
 #### Snippet
 ```java
- *  if one or more {@code Subscriber}s dispose their respective {@code Subscription}s, the
+ *  if the single {@code Subscriber}s cancels its respective {@code Subscription}s, the
  *  {@code Throwable} is delivered to the global error handler via
- *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} (multiple times if multiple {@code Subscriber}s
- *  cancel at once).
- *  If there were no {@code Subscriber}s subscribed to this {@code AsyncProcessor} when the {@code onError()}
+ *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)}.
+ *  If there were no {@code Subscriber}s subscribed to this {@code UnicastProcessor} when the {@code onError()}
+ *  was called, the global error handler is not invoked.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13408,14 +13408,14 @@ in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
- *  if the single {@code Subscriber}s cancels its respective {@code Subscription}s, the
+ *  if one or more {@code Subscriber}s dispose their respective {@code Subscription}s, the
  *  {@code Throwable} is delivered to the global error handler via
- *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)}.
- *  If there were no {@code Subscriber}s subscribed to this {@code UnicastProcessor} when the {@code onError()}
- *  was called, the global error handler is not invoked.
+ *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} (multiple times if multiple {@code Subscriber}s
+ *  cancel at once).
+ *  If there were no {@code Subscriber}s subscribed to this {@code AsyncProcessor} when the {@code onError()}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13483,42 +13483,6 @@ Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 #### Snippet
 ```java
-     * calls to it.
-     * <p>
-     * The tasks scheduled by the returned {@code Scheduler} and its {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker}
-     * can be optionally interrupted.
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-     * it is recommended to rephrase the flow to utilize backpressure as the means to limit outstanding work.
-     * <p>
-     * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker} instances, although
-     * not disposing a worker that has timed/delayed tasks not cancelled by other means may leak resources and/or
-     * execute those tasks "unexpectedly".
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-     * @param executor
-     *          the executor to wrap
-     * @param interruptibleWorker if {@code true}, the tasks submitted to the {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker} will
-     * be interrupted when the task is disposed.
-     * @param fair if {@code true}, tasks submitted to the {@code Scheduler} or {@code Worker} will be executed by the underlying {@code Executor} one after the other, still
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
      * before posting the actual task to the given executor.
      * <p>
      * Tasks submitted to the {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker} of this {@code Scheduler} are also not interruptible. Use the
@@ -13534,42 +13498,6 @@ in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
      * it is recommended to rephrase the flow to utilize backpressure as the means to limit outstanding work.
      * <p>
      * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker} instances, although
-     * not disposing a worker that has timed/delayed tasks not cancelled by other means may leak resources and/or
-     * execute those tasks "unexpectedly".
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-
-    /**
-     * Returns a default, shared {@link Scheduler} instance whose {@link io.reactivex.rxjava3.core.Scheduler.Worker}
-     * instances queue work and execute them in a FIFO manner on one of the participating threads.
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-     * </ul>
-     * <p>
-     * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
-     * <p>
-     * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances, although
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-     * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
-     * <p>
-     * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances, although
      * not disposing a worker that has timed/delayed tasks not cancelled by other means may leak resources and/or
      * execute those tasks "unexpectedly".
 ```
@@ -13627,11 +13555,47 @@ Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 #### Snippet
 ```java
-     * methods, thus an unbounded number of worker threads may be created that can
-     * result in system slowdowns or {@link OutOfMemoryError}. Therefore, for casual uses or when implementing an operator,
-     * the Worker instances must be disposed via {@link io.reactivex.rxjava3.core.Scheduler.Worker#dispose()}.
+     * calls to it.
      * <p>
-     * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
+     * The tasks scheduled by the returned {@code Scheduler} and its {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker}
+     * can be optionally interrupted.
+     * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+     * it is recommended to rephrase the flow to utilize backpressure as the means to limit outstanding work.
+     * <p>
+     * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker} instances, although
+     * not disposing a worker that has timed/delayed tasks not cancelled by other means may leak resources and/or
+     * execute those tasks "unexpectedly".
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+     * @param executor
+     *          the executor to wrap
+     * @param interruptibleWorker if {@code true}, the tasks submitted to the {@link io.reactivex.rxjava3.core.Scheduler.Worker Scheduler.Worker} will
+     * be interrupted when the task is disposed.
+     * @param fair if {@code true}, tasks submitted to the {@code Scheduler} or {@code Worker} will be executed by the underlying {@code Executor} one after the other, still
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+
+    /**
+     * Returns a default, shared {@link Scheduler} instance whose {@link io.reactivex.rxjava3.core.Scheduler.Worker}
+     * instances queue work and execute them in a FIFO manner on one of the participating threads.
+     * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13639,11 +13603,23 @@ Qualifier `java.lang` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 #### Snippet
 ```java
-     * the Worker instances must be disposed via {@link io.reactivex.rxjava3.core.Scheduler.Worker#dispose()}.
+     * </ul>
      * <p>
      * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
      * <p>
-     * You can control certain properties of this standard scheduler via system properties that have to be set
+     * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances, although
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+     * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
+     * <p>
+     * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances, although
+     * not disposing a worker that has timed/delayed tasks not cancelled by other means may leak resources and/or
+     * execute those tasks "unexpectedly".
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13680,6 +13656,30 @@ in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
      * This type of scheduler is less sensitive to leaking {@link io.reactivex.rxjava3.core.Scheduler.Worker} instances, although
      * not disposing a worker that has timed/delayed tasks not cancelled by other means may leak resources and/or
      * execute those tasks "unexpectedly".
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.core` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+     * methods, thus an unbounded number of worker threads may be created that can
+     * result in system slowdowns or {@link OutOfMemoryError}. Therefore, for casual uses or when implementing an operator,
+     * the Worker instances must be disposed via {@link io.reactivex.rxjava3.core.Scheduler.Worker#dispose()}.
+     * <p>
+     * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+     * the Worker instances must be disposed via {@link io.reactivex.rxjava3.core.Scheduler.Worker#dispose()}.
+     * <p>
+     * Unhandled errors will be delivered to the scheduler Thread's {@link java.lang.Thread.UncaughtExceptionHandler}.
+     * <p>
+     * You can control certain properties of this standard scheduler via system properties that have to be set
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13755,42 +13755,6 @@ in `src/main/java/io/reactivex/rxjava3/parallel/ParallelFlowable.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-     * <p>
-     * By default, {@code distinct()} uses an internal {@link HashSet} per {@link Observer} to remember
-     * previously seen items and uses {@link java.util.Set#add(Object)} returning {@code false} as the
-     * indicator for duplicates.
-     * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-     * to {@link OutOfMemoryError}.
-     * <p>
-     * Customizing the retention policy can happen only by providing a custom {@link java.util.Collection} implementation
-     * to the {@link #distinct(Function, Supplier)} overload.
-     * <dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-     *  except when the downstream has canceled the resulting {@code Observable} source.
-     *  In this latter case, the {@code Throwable} is delivered to the global error handler via
-     *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *  </dd>
-     * </dl>
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
@@ -13812,6 +13776,30 @@ in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
      * To emit the items of an {@link Iterable} sequence (such as a {@link java.util.List}), use {@link #fromIterable(Iterable)}.
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.observers` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
+#### Snippet
+```java
+ *            the type of the items emitted by the {@code Observable}
+ * @see Flowable
+ * @see io.reactivex.rxjava3.observers.DisposableObserver
+ */
+public abstract class Observable<@NonNull T> implements ObservableSource<T> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
+#### Snippet
+```java
+     *  except when the downstream has canceled the resulting {@code Observable} source.
+     *  In this latter case, the {@code Throwable} is delivered to the global error handler via
+     *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *  </dd>
+     * </dl>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13839,156 +13827,12 @@ in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.observers` is unnecessary and can be removed
+Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
- *            the type of the items emitted by the {@code Observable}
- * @see Flowable
- * @see io.reactivex.rxjava3.observers.DisposableObserver
- */
-public abstract class Observable<@NonNull T> implements ObservableSource<T> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  <dd>This operator does not support backpressure as it uses time to control data flow.
-     *  If the downstream is not ready to receive items, a
-     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
-     *  will be signaled.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  <dd>This operator does not support backpressure as it uses time to control data flow.
-     *  If the downstream is not ready to receive items, a
-     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
-     *  will be signaled.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
      * <p>
-     * If the {@code Flowable} emits an error, it is wrapped into an
-     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
-     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
-     * <dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  <dd>This operator does not support backpressure as it uses time to control data flow.
-     *  If the downstream is not ready to receive items, a
-     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
-     *  will be signaled.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     * <p>
-     * If the {@code Flowable} emits an error, it is wrapped into an
-     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
-     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
-     * Using the overloads {@link #blockingSubscribe(Consumer, Consumer)}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     * Use {@link #fromArray(Object...)} to emit an arbitrary number of items that are known upfront.
-     * <p>
-     * To emit the items of an {@link Iterable} sequence (such as a {@link java.util.List}), use {@link #fromIterable(Iterable)}.
-     * <dl>
-     *  <dt><b>Backpressure:</b></dt>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  all of them terminate in some fashion. At this point, if there was only one failure, the respective
-     *  {@link Throwable} is emitted to the downstream. If there was more than one failure, the
-     *  operator combines all {@code Throwable}s into a {@link io.reactivex.rxjava3.exceptions.CompositeException CompositeException}
-     *  and signals that to the downstream.
-     *  If any inactivated (switched out) {@code CompletableSource}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     * <p>
-     * If the {@code Flowable} emits an error, it is wrapped into an
-     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
-     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
-     * <dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *   except when the downstream has canceled this {@code Flowable} source.
-     *   In this latter case, the {@code Throwable} is delivered to the global error handler via
-     *   {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *   </dd>
-     * </dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  <dd>This operator does not support backpressure as it uses time to control data flow.
-     *  If the downstream is not ready to receive items, a
-     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
-     *  will be signaled.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     * a meaningful comparison between items as the default Java implementation only considers reference equivalence.
-     * <p>
-     * By default, {@code distinct()} uses an internal {@link java.util.HashSet} per {@link Subscriber} to remember
-     * previously seen items and uses {@link java.util.Set#add(Object)} returning {@code false} as the
-     * indicator for duplicates.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     * <p>
-     * By default, {@code distinct()} uses an internal {@link java.util.HashSet} per {@link Subscriber} to remember
+     * By default, {@code distinct()} uses an internal {@link HashSet} per {@link Observer} to remember
      * previously seen items and uses {@link java.util.Set#add(Object)} returning {@code false} as the
      * indicator for duplicates.
      * <p>
@@ -13996,7 +13840,7 @@ in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
      * to {@link OutOfMemoryError}.
@@ -14011,18 +13855,6 @@ Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
-     *  <dd>This operator does not support backpressure as it uses time to control data flow.
-     *  If the downstream is not ready to receive items, a
-     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
-     *  will be signaled.</dd>
-     *  <dt><b>Scheduler:</b></dt>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
      * <p>
      * If the {@code Flowable} emits an error, it is wrapped into an
      * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
@@ -14035,11 +13867,11 @@ Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
-     * <p>
-     * If the {@code Flowable} emits an error, it is wrapped into an
-     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
-     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
-     * Using the overloads {@link #blockingSubscribe(Consumer, Consumer)}
+     *  except when the downstream has canceled the resulting {@code Flowable} source.
+     *  In this latter case, the {@code Throwable} is delivered to the global error handler via
+     *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *  </dd>
+     * </dl>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14095,11 +13927,263 @@ Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
+     * <p>
+     * If the {@code Flowable} emits an error, it is wrapped into an
+     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
+     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
+     * <dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *   except when the downstream has canceled this {@code Flowable} source.
+     *   In this latter case, the {@code Throwable} is delivered to the global error handler via
+     *   {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *   </dd>
+     * </dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
      *  except when the downstream has canceled the resulting {@code Flowable} source.
      *  In this latter case, the {@code Throwable} is delivered to the global error handler via
      *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
      *  </dd>
      * </dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  (i.e., inactive or switched out) {@code onError} from this {@code Flowable} or from any of
+     *  the inner {@code MaybeSource}s will be forwarded to the global error handler via
+     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
+     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
+     * </dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  the inner {@code MaybeSource}s will be forwarded to the global error handler via
+     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
+     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
+     * </dl>
+     * <p>History: 2.1.11 - experimental
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * a meaningful comparison between items as the default Java implementation only considers reference equivalence.
+     * <p>
+     * By default, {@code distinct()} uses an internal {@link java.util.HashSet} per {@link Subscriber} to remember
+     * previously seen items and uses {@link java.util.Set#add(Object)} returning {@code false} as the
+     * indicator for duplicates.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * <p>
+     * By default, {@code distinct()} uses an internal {@link java.util.HashSet} per {@link Subscriber} to remember
+     * previously seen items and uses {@link java.util.Set#add(Object)} returning {@code false} as the
+     * indicator for duplicates.
+     * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * to {@link OutOfMemoryError}.
+     * <p>
+     * Customizing the retention policy can happen only by providing a custom {@link java.util.Collection} implementation
+     * to the {@link #distinct(Function, Supplier)} overload.
+     * <dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  <dd>This operator does not support backpressure as it uses time to control data flow.
+     *  If the downstream is not ready to receive items, a
+     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
+     *  will be signaled.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  (i.e., inactive or switched out) {@code onError} from this {@code Flowable} or from any of
+     *  the inner {@code SingleSource}s will be forwarded to the global error handler via
+     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
+     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
+     * </dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  the inner {@code SingleSource}s will be forwarded to the global error handler via
+     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
+     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
+     * </dl>
+     * <p>History: 2.1.11 - experimental
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *   except when the downstream has canceled this {@code Flowable} source.
+     *   In this latter case, the {@code Throwable} is delivered to the global error handler via
+     *   {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
+     *   </dd>
+     * </dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  <dd>This operator does not support backpressure as it uses time to control data flow.
+     *  If the downstream is not ready to receive items, a
+     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
+     *  will be signaled.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * <p>
+     * If the {@code Flowable} emits an error, it is wrapped into an
+     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
+     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
+     * Using the overloads {@link #blockingSubscribe(Consumer, Consumer)}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  <dd>This operator does not support backpressure as it uses time to control data flow.
+     *  If the downstream is not ready to receive items, a
+     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
+     *  will be signaled.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * <p>
+     * If the {@code Flowable} emits an error, it is wrapped into an
+     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
+     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
+     * <dl>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.subscribers` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+ * @see Observable
+ * @see ParallelFlowable
+ * @see io.reactivex.rxjava3.subscribers.DisposableSubscriber
+ */
+public abstract class Flowable<@NonNull T> implements Publisher<T> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * <p>
+     * If the {@code Flowable} emits an error, it is wrapped into an
+     * {@link io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException OnErrorNotImplementedException}
+     * and routed to the {@link RxJavaPlugins#onError(Throwable)} handler.
+     * Using the overloads {@link #blockingSubscribe(Consumer, Consumer)}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  all of them terminate in some fashion. At this point, if there was only one failure, the respective
+     *  {@link Throwable} is emitted to the downstream. If there was more than one failure, the
+     *  operator combines all {@code Throwable}s into a {@link io.reactivex.rxjava3.exceptions.CompositeException CompositeException}
+     *  and signals that to the downstream.
+     *  If any inactivated (switched out) {@code CompletableSource}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  <dd>This operator does not support backpressure as it uses time to control data flow.
+     *  If the downstream is not ready to receive items, a
+     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
+     *  will be signaled.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  <dd>This operator does not support backpressure as it uses time to control data flow.
+     *  If the downstream is not ready to receive items, a
+     *  {@link io.reactivex.rxjava3.exceptions.MissingBackpressureException MissingBackpressureException}
+     *  will be signaled.</dd>
+     *  <dt><b>Scheduler:</b></dt>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     *  every inner {@code CompletableSource}s and the main {@code Flowable} terminates in some fashion.
+     *  If they fail concurrently, the operator may combine the {@code Throwable}s into a
+     *  {@link io.reactivex.rxjava3.exceptions.CompositeException CompositeException}
+     *  and signal it to the downstream instead. If any inactivated (switched out) {@code CompletableSource}
+     *  signals an {@code onError} late, the {@code Throwable}s will be signaled to the global error handler via
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14139,99 +14223,15 @@ in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.subscribers` is unnecessary and can be removed
+Qualifier `java.util` is unnecessary and can be removed
 in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
 #### Snippet
 ```java
- * @see Observable
- * @see ParallelFlowable
- * @see io.reactivex.rxjava3.subscribers.DisposableSubscriber
- */
-public abstract class Flowable<@NonNull T> implements Publisher<T> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  (i.e., inactive or switched out) {@code onError} from this {@code Flowable} or from any of
-     *  the inner {@code SingleSource}s will be forwarded to the global error handler via
-     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
-     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
-     * </dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  the inner {@code SingleSource}s will be forwarded to the global error handler via
-     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
-     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
-     * </dl>
-     * <p>History: 2.1.11 - experimental
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  except when the downstream has canceled the resulting {@code Flowable} source.
-     *  In this latter case, the {@code Throwable} is delivered to the global error handler via
-     *  {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *  </dd>
-     * </dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.plugins` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  (i.e., inactive or switched out) {@code onError} from this {@code Flowable} or from any of
-     *  the inner {@code MaybeSource}s will be forwarded to the global error handler via
-     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
-     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
-     * </dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  the inner {@code MaybeSource}s will be forwarded to the global error handler via
-     *  {@link io.reactivex.rxjava3.plugins.RxJavaPlugins#onError(Throwable)} as
-     *  {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}</dd>
-     * </dl>
-     * <p>History: 2.1.11 - experimental
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *   except when the downstream has canceled this {@code Flowable} source.
-     *   In this latter case, the {@code Throwable} is delivered to the global error handler via
-     *   {@link RxJavaPlugins#onError(Throwable)} as an {@link io.reactivex.rxjava3.exceptions.UndeliverableException UndeliverableException}.
-     *   </dd>
-     * </dl>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.reactivex.rxjava3.exceptions` is unnecessary and can be removed
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-     *  every inner {@code CompletableSource}s and the main {@code Flowable} terminates in some fashion.
-     *  If they fail concurrently, the operator may combine the {@code Throwable}s into a
-     *  {@link io.reactivex.rxjava3.exceptions.CompositeException CompositeException}
-     *  and signal it to the downstream instead. If any inactivated (switched out) {@code CompletableSource}
-     *  signals an {@code onError} late, the {@code Throwable}s will be signaled to the global error handler via
+     * Use {@link #fromArray(Object...)} to emit an arbitrary number of items that are known upfront.
+     * <p>
+     * To emit the items of an {@link Iterable} sequence (such as a {@link java.util.List}), use {@link #fromIterable(Iterable)}.
+     * <dl>
+     *  <dt><b>Backpressure:</b></dt>
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -14286,18 +14286,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConca
 ## RuleId[ruleID=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/jmh/java/io/reactivex/rxjava3/core/LatchedSingleObserver.java`
-#### Snippet
-```java
-    @Override
-    public void onError(Throwable e) {
-        e.printStackTrace();
-        cdl.countDown();
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/jmh/java/io/reactivex/rxjava3/core/PerfConsumer.java`
 #### Snippet
 ```java
@@ -14306,6 +14294,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/PerfConsumer.java`
         t.printStackTrace();
     }
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/jmh/java/io/reactivex/rxjava3/core/LatchedSingleObserver.java`
+#### Snippet
+```java
+    @Override
+    public void onError(Throwable e) {
+        e.printStackTrace();
+        cdl.countDown();
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -14454,18 +14454,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscri
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BlockingBaseSubscriber()` of an abstract class should not be declared 'public'
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BlockingBaseSubscriber.java`
-#### Snippet
-```java
-    volatile boolean cancelled;
-
-    public BlockingBaseSubscriber() {
-        super(1);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `BasicFuseableConditionalSubscriber()` of an abstract class should not be declared 'public'
 in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
 #### Snippet
@@ -14474,6 +14462,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditi
      */
     public BasicFuseableConditionalSubscriber(ConditionalSubscriber<? super R> downstream) {
         this.downstream = downstream;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BlockingBaseSubscriber()` of an abstract class should not be declared 'public'
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BlockingBaseSubscriber.java`
+#### Snippet
+```java
+    volatile boolean cancelled;
+
+    public BlockingBaseSubscriber() {
+        super(1);
     }
 ```
 
@@ -14581,7 +14581,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 ```java
         final CountDownLatch cdl = new CountDownLatch(1);
 
-        observable.subscribe(this, Functions.emptyConsumer(), new Action() {
+        flowable.subscribe(this, Functions.emptyConsumer(), new Action() {
             @Override
             public void run() {
 ```
@@ -14593,7 +14593,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 ```java
         final CountDownLatch cdl = new CountDownLatch(1);
 
-        flowable.subscribe(this, Functions.emptyConsumer(), new Action() {
+        observable.subscribe(this, Functions.emptyConsumer(), new Action() {
             @Override
             public void run() {
 ```
@@ -14660,30 +14660,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 
 ### Anonymous2MethodRef
 Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapSinglePerf.java`
 #### Snippet
 ```java
@@ -14708,6 +14684,30 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapSinglePerf.java`
 
 ### Anonymous2MethodRef
 Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapSinglePerf.java`
 #### Snippet
 ```java
@@ -14728,342 +14728,6 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapSinglePerf.java`
         observableDedicated = source.concatMapSingle(new Function<Integer, Single<? extends Integer>>() {
             @Override
             public Single<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        Flowable<Integer> fsource = Flowable.fromArray(values);
-
-        flowFlatMapFlowable1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapIterable1 = fsource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        Observable<Integer> osource = Observable.fromArray(values);
-
-        obsFlatMapObservable1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapSingle1 = osource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapMaybe1 = osource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapIterable1 = osource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Anonymous2MethodRef
-Anonymous new Function\>() can be replaced with method reference
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
 ```
 
 ### Anonymous2MethodRef
@@ -15270,6 +14934,342 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
             public Object call() {
 ```
 
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        Flowable<Integer> fsource = Flowable.fromArray(values);
+
+        flowFlatMapFlowable1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
+            @Override
+            public SingleSource<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapIterable1 = fsource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
+            @Override
+            public SingleSource<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        Observable<Integer> osource = Observable.fromArray(values);
+
+        obsFlatMapObservable1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapSingle1 = osource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
+            @Override
+            public SingleSource<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapMaybe1 = osource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Anonymous2MethodRef
+Anonymous new Function\>() can be replaced with method reference
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapIterable1 = osource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `buffer` is accessed in both synchronized and unsynchronized contexts
@@ -15324,18 +15324,6 @@ Field `buffer` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-        final Worker w;
-
-        U buffer;
-
-        Disposable timer;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `buffer` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
         Disposable upstream;
 
         U buffer;
@@ -15343,7 +15331,31 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
         final AtomicReference<Disposable> timer = new AtomicReference<>();
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `buffer` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+        final Worker w;
+
+        U buffer;
+
+        Disposable timer;
+```
+
 ## RuleId[ruleID=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorFlatMapPerf.java`
+#### Snippet
+```java
+    @Benchmark
+    public void flatMapIntPassthruSync(Input input) {
+        input.flowable.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
 in `src/jmh/java/io/reactivex/rxjava3/core/OperatorFlatMapPerf.java`
@@ -15366,18 +15378,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/OperatorFlatMapPerf.java`
         input.flowable.flatMap(new Function<Integer, Publisher<Integer>>() {
             @Override
             public Publisher<Integer> apply(Integer i) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorFlatMapPerf.java`
-#### Snippet
-```java
-    @Benchmark
-    public void flatMapIntPassthruSync(Input input) {
-        input.flowable.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
 ```
 
 ### Convert2Lambda
@@ -15465,78 +15465,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/EachTypeFlatMapPerf.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
-#### Snippet
-```java
-    public void setup() {
-
-        flowable = Flowable.range(1, 1000 * 1000).takeUntil(Flowable.fromCallable(new Callable<Object>() {
-            @Override
-            public Object call() {
-```
-
-### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
-#### Snippet
-```java
-        }).subscribeOn(Schedulers.single()));
-
-        observable = Observable.range(1, 1000 * 1000).takeUntil(Observable.fromCallable(new Callable<Object>() {
-            @Override
-            public Object call() {
-```
-
-### Convert2Lambda
-Anonymous new Action() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
-#### Snippet
-```java
-        final CountDownLatch cdl = new CountDownLatch(1);
-
-        observable.subscribe(this, Functions.emptyConsumer(), new Action() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Action() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
-#### Snippet
-```java
-        final CountDownLatch cdl = new CountDownLatch(1);
-
-        flowable.subscribe(this, Functions.emptyConsumer(), new Action() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
-#### Snippet
-```java
-        final Iterable<Integer> singletonList = Collections.singletonList(1);
-
-        flowable = Flowable.fromArray(array).flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
-#### Snippet
-```java
-        });
-
-        observable = Observable.fromArray(array).flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
 Anonymous new BiFunction() can be replaced with lambda
 in `src/jmh/java/io/reactivex/rxjava3/core/ToFlowablePerf.java`
 #### Snippet
@@ -15573,131 +15501,59 @@ in `src/jmh/java/io/reactivex/rxjava3/core/ToFlowablePerf.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/FlatMapJustPerf.java`
+Anonymous new Action() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 #### Snippet
 ```java
-        Integer[] array = new Integer[times];
+        final CountDownLatch cdl = new CountDownLatch(1);
 
-        flowable = Flowable.fromArray(array).flatMap(new Function<Integer, Publisher<Integer>>() {
+        flowable.subscribe(this, Functions.emptyConsumer(), new Action() {
             @Override
-            public Publisher<Integer> apply(Integer v) {
+            public void run() {
 ```
 
 ### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/FlatMapJustPerf.java`
+Anonymous new Action() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 #### Snippet
 ```java
-        });
+        final CountDownLatch cdl = new CountDownLatch(1);
 
-        observable = Observable.fromArray(array).flatMap(new Function<Integer, Observable<Integer>>() {
+        observable.subscribe(this, Functions.emptyConsumer(), new Action() {
             @Override
-            public Observable<Integer> apply(Integer v) {
+            public void run() {
 ```
 
 ### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
+Anonymous new Callable() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 #### Snippet
 ```java
-        range = Flowable.range(1, times);
+    public void setup() {
 
-        rangeFlatMapJust = range.flatMap(new Function<Integer, Publisher<Integer>>() {
+        flowable = Flowable.range(1, 1000 * 1000).takeUntil(Flowable.fromCallable(new Callable<Object>() {
             @Override
-            public Publisher<Integer> apply(Integer v) {
+            public Object call() {
 ```
 
 ### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
+Anonymous new Callable() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 #### Snippet
 ```java
-        });
+        }).subscribeOn(Schedulers.single()));
 
-        rangeFlatMap = range.flatMap(new Function<Integer, Publisher<Integer>>() {
+        observable = Observable.range(1, 1000 * 1000).takeUntil(Observable.fromCallable(new Callable<Object>() {
             @Override
-            public Publisher<Integer> apply(Integer v) {
+            public Object call() {
 ```
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
 #### Snippet
 ```java
-        rangeObservable = Observable.range(1, times);
-
-        rangeObservableFlatMapJust = rangeObservable.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
-#### Snippet
-```java
-        });
-
-        rangeObservableFlatMap = rangeObservable.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-    @Benchmark
-    public void merge1SyncStreamOfN(final InputMillion input) throws InterruptedException {
-        Flowable<Flowable<Integer>> os = Flowable.just(1).map(new Function<Integer, Flowable<Integer>>() {
-            @Override
-            public Flowable<Integer> apply(Integer i) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-    @Benchmark
-    public void mergeNAsyncStreamsOfN(final InputThousand input) throws InterruptedException {
-        Flowable<Flowable<Integer>> os = input.flowable.map(new Function<Integer, Flowable<Integer>>() {
-            @Override
-            public Flowable<Integer> apply(Integer i) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-    @Benchmark
-    public void mergeNSyncStreamsOfN(final InputThousand input) throws InterruptedException {
-        Flowable<Flowable<Integer>> os = input.flowable.map(new Function<Integer, Flowable<Integer>>() {
-            @Override
-            public Flowable<Integer> apply(Integer i) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-    public void oneStreamOfNthatMergesIn1(final InputMillion input) throws InterruptedException {
-        Flowable<Flowable<Integer>> os = Flowable.range(1, input.size)
-                .map(new Function<Integer, Flowable<Integer>>() {
-                    @Override
-                    public Flowable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
-#### Snippet
-```java
-        final Iterable<Integer> list = Arrays.asList(arrayInner);
+        final Iterable<Integer> singletonList = Collections.singletonList(1);
 
         flowable = Flowable.fromArray(array).flatMapIterable(new Function<Integer, Iterable<Integer>>() {
             @Override
@@ -15706,7 +15562,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
 #### Snippet
 ```java
         });
@@ -15714,30 +15570,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
         observable = Observable.fromArray(array).flatMapIterable(new Function<Integer, Iterable<Integer>>() {
             @Override
             public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/CallableAsyncPerf.java`
-#### Snippet
-```java
-        Scheduler s2 = new SingleScheduler();
-
-        Callable<Integer> c = new Callable<Integer>() {
-            @Override
-            public Integer call() {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/ObservableFlatMapPerf.java`
-#### Snippet
-```java
-        final Observable<Integer> inner = Observable.fromArray(innerArray);
-
-        source = outer.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer t) {
 ```
 
 ### Convert2Lambda
@@ -15850,36 +15682,12 @@ in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
 in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
 #### Snippet
 ```java
         });
 
         maybeFlatMapObservable = Maybe.just(1).flatMapObservable(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
             @Override
             public Observable<? extends Integer> apply(Integer v) {
 ```
@@ -15898,18 +15706,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
 in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
 #### Snippet
 ```java
@@ -15922,38 +15718,170 @@ in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlatMapJustPerf.java`
 #### Snippet
 ```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+        Integer[] array = new Integer[times];
 
-        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+        flowable = Flowable.fromArray(array).flatMap(new Function<Integer, Publisher<Integer>>() {
             @Override
-            public Publisher<? extends Integer> apply(Integer v) {
+            public Publisher<Integer> apply(Integer v) {
 ```
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlatMapJustPerf.java`
 #### Snippet
 ```java
         });
 
-        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+        observable = Observable.fromArray(array).flatMap(new Function<Integer, Observable<Integer>>() {
             @Override
-            public Publisher<? extends Integer> apply(Integer v) {
+            public Observable<Integer> apply(Integer v) {
 ```
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
+#### Snippet
+```java
+        range = Flowable.range(1, times);
+
+        rangeFlatMapJust = range.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
 #### Snippet
 ```java
         });
 
-        flowableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+        rangeFlatMap = range.flatMap(new Function<Integer, Publisher<Integer>>() {
             @Override
-            public Maybe<? extends Integer> apply(Integer v) {
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
+#### Snippet
+```java
+        rangeObservable = Observable.range(1, times);
+
+        rangeObservableFlatMapJust = rangeObservable.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
+#### Snippet
+```java
+        });
+
+        rangeObservableFlatMap = rangeObservable.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
+#### Snippet
+```java
+        final Iterable<Integer> list = Arrays.asList(arrayInner);
+
+        flowable = Flowable.fromArray(array).flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
+#### Snippet
+```java
+        });
+
+        observable = Observable.fromArray(array).flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Callable() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/CallableAsyncPerf.java`
+#### Snippet
+```java
+        Scheduler s2 = new SingleScheduler();
+
+        Callable<Integer> c = new Callable<Integer>() {
+            @Override
+            public Integer call() {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+    @Benchmark
+    public void merge1SyncStreamOfN(final InputMillion input) throws InterruptedException {
+        Flowable<Flowable<Integer>> os = Flowable.just(1).map(new Function<Integer, Flowable<Integer>>() {
+            @Override
+            public Flowable<Integer> apply(Integer i) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+    @Benchmark
+    public void mergeNSyncStreamsOfN(final InputThousand input) throws InterruptedException {
+        Flowable<Flowable<Integer>> os = input.flowable.map(new Function<Integer, Flowable<Integer>>() {
+            @Override
+            public Flowable<Integer> apply(Integer i) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+    @Benchmark
+    public void mergeNAsyncStreamsOfN(final InputThousand input) throws InterruptedException {
+        Flowable<Flowable<Integer>> os = input.flowable.map(new Function<Integer, Flowable<Integer>>() {
+            @Override
+            public Flowable<Integer> apply(Integer i) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+    public void oneStreamOfNthatMergesIn1(final InputMillion input) throws InterruptedException {
+        Flowable<Flowable<Integer>> os = Flowable.range(1, input.size)
+                .map(new Function<Integer, Flowable<Integer>>() {
+                    @Override
+                    public Flowable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/ObservableFlatMapPerf.java`
+#### Snippet
+```java
+        final Observable<Integer> inner = Observable.fromArray(innerArray);
+
+        source = outer.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer t) {
 ```
 
 ### Convert2Lambda
@@ -15994,6 +15922,42 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapSinglePerf.java`
 
 ### Convert2Lambda
 Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapCompletablePerf.java`
 #### Snippet
 ```java
@@ -16026,6 +15990,42 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapCompletablePerf.j
         observableDedicated = source.concatMapCompletable(new Function<Integer, Completable>() {
             @Override
             public Completable apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
 ```
 
 ### Convert2Lambda
@@ -16134,1026 +16134,6 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapCompletablePerf.jav
         flowableDedicated = source.concatMapCompletable(new Function<Integer, Completable>() {
             @Override
             public Completable apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.switchMapCompletable(new Function<Integer, Completable>() {
-            @Override
-            public Completable apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        Flowable<Integer> fsource = Flowable.fromArray(values);
-
-        flowFlatMapFlowable1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapFlowable0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybe0 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapCompletable0 = fsource.flatMapCompletable(new Function<Integer, CompletableSource>() {
-            @Override
-            public CompletableSource apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapIterable1 = fsource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapIterable0 = fsource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybe0 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapCompletable0 = fsource.flatMapCompletable(new Function<Integer, CompletableSource>() {
-            @Override
-            public CompletableSource apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        // ooooooooooooooooooooooooo
-
-        flowFlatMapSingleAsFlow1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybeAsFlow1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.switchMapCompletable(new Function<Integer, Completable>() {
-            @Override
-            public Completable apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapMaybeAsFlow0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapCompletableAsFlow0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapIterableAsFlow1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        flowFlatMapIterableAsFlow0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        Observable<Integer> osource = Observable.fromArray(values);
-
-        obsFlatMapObservable1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapObservable0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapSingle1 = osource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapMaybe1 = osource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapMaybe0 = osource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
-            @Override
-            public MaybeSource<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapCompletable0 = osource.flatMapCompletable(new Function<Integer, CompletableSource>() {
-            @Override
-            public CompletableSource apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapIterable1 = osource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapIterable0 = osource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
-            @Override
-            public Iterable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        // ooooooooooooooooooooooooo
-
-        obsFlatMapSingleAsObs1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapMaybeAsObs1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapMaybeAsObs0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapCompletableAsObs0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapIterableAsObs1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
-#### Snippet
-```java
-        });
-
-        obsFlatMapIterableAsObs0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
-            @Override
-            public Observable<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        concatMapToFlowableEmpty = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        concatMapToObservableEmpty = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.flatMapCompletable(new Function<Integer, Completable>() {
-            @Override
-            public Completable apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.flatMapCompletable(new Function<Integer, Completable>() {
-            @Override
-            public Completable apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        Observable<Integer> source = Observable.fromArray(sourceArray);
-
-        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        observableConvert = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
-            @Override
-            public Observable<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
-#### Snippet
-```java
-        });
-
-        observableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
-            @Override
-            public Single<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(sourceArray);
-
-        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
-            @Override
-            public Publisher<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
-#### Snippet
-```java
-        });
-
-        flowableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
-            @Override
-            public Maybe<? extends Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/parallel/ParallelPerf.java`
-#### Snippet
-```java
-        Flowable<Integer> source = Flowable.fromArray(ints);
-
-        flatMap = source.flatMap(new Function<Integer, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function, Publisher\>() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/parallel/ParallelPerf.java`
-#### Snippet
-```java
-            }
-        })
-        .flatMap(new Function<GroupedFlowable<Integer, Integer>, Publisher<Integer>>() {
-            @Override
-            public Publisher<Integer> apply(GroupedFlowable<Integer, Integer> g) {
 ```
 
 ### Convert2Lambda
@@ -17721,6 +16701,54 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```
 
 ### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
+                    @Override
+                    public Object apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
+                    @Override
+                    public Object apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+                        return v;
+                    }
+                }).filter(new Predicate<Object>() {
+                    @Override
+                    public boolean test(Object v) {
+```
+
+### Convert2Lambda
+Anonymous new Callable() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.fromCallable(new Callable<Object>() {
+                    @Override
+                    public Object call() {
+```
+
+### Convert2Lambda
 Anonymous new Callable() can be replaced with lambda
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
@@ -17739,57 +16767,9 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
-                    @Override
-                    public Object apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-                        return v;
-                    }
-                }).filter(new Predicate<Object>() {
-                    @Override
-                    public boolean test(Object v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10).map(new Function<Integer, Object>() {
-                    @Override
-                    public Object apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Function() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
                 return io.reactivex.rxjava3.core.Flowable.range(1, 10).map(new Function<Integer, Object>() {
                     @Override
                     public Object apply(Integer v) {
-```
-
-### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.fromCallable(new Callable<Object>() {
-                    @Override
-                    public Object call() {
 ```
 
 ### Convert2Lambda
@@ -17814,6 +16794,1026 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
                 }).filter(new Predicate<Object>() {
                     @Override
                     public boolean test(Object v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.switchMapCompletable(new Function<Integer, Completable>() {
+            @Override
+            public Completable apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.flatMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.switchMapCompletable(new Function<Integer, Completable>() {
+            @Override
+            public Completable apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        concatMapToFlowableEmpty = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        concatMapToObservableEmpty = source.concatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.concatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.concatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.switchMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.switchMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.flatMapCompletable(new Function<Integer, Completable>() {
+            @Override
+            public Completable apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.switchMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.switchMapSingle(new Function<Integer, Single<? extends Integer>>() {
+            @Override
+            public Single<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.flatMapCompletable(new Function<Integer, Completable>() {
+            @Override
+            public Completable apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(sourceArray);
+
+        flowablePlain = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableConvert = source.flatMap(new Function<Integer, Publisher<? extends Integer>>() {
+            @Override
+            public Publisher<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        flowableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        Observable<Integer> source = Observable.fromArray(sourceArray);
+
+        observablePlain = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableConvert = source.flatMap(new Function<Integer, Observable<? extends Integer>>() {
+            @Override
+            public Observable<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
+#### Snippet
+```java
+        });
+
+        observableDedicated = source.flatMapMaybe(new Function<Integer, Maybe<? extends Integer>>() {
+            @Override
+            public Maybe<? extends Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/parallel/ParallelPerf.java`
+#### Snippet
+```java
+        Flowable<Integer> source = Flowable.fromArray(ints);
+
+        flatMap = source.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function, Publisher\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/parallel/ParallelPerf.java`
+#### Snippet
+```java
+            }
+        })
+        .flatMap(new Function<GroupedFlowable<Integer, Integer>, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(GroupedFlowable<Integer, Integer> g) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        Flowable<Integer> fsource = Flowable.fromArray(values);
+
+        flowFlatMapFlowable1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapFlowable0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
+            @Override
+            public SingleSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybe0 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapCompletable0 = fsource.flatMapCompletable(new Function<Integer, CompletableSource>() {
+            @Override
+            public CompletableSource apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapIterable1 = fsource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapIterable0 = fsource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapSingle1 = fsource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
+            @Override
+            public SingleSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybe1 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybe0 = fsource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapCompletable0 = fsource.flatMapCompletable(new Function<Integer, CompletableSource>() {
+            @Override
+            public CompletableSource apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        // ooooooooooooooooooooooooo
+
+        flowFlatMapSingleAsFlow1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybeAsFlow1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapMaybeAsFlow0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapCompletableAsFlow0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapIterableAsFlow1 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        flowFlatMapIterableAsFlow0 = fsource.flatMap(new Function<Integer, Publisher<Integer>>() {
+            @Override
+            public Publisher<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        Observable<Integer> osource = Observable.fromArray(values);
+
+        obsFlatMapObservable1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapObservable0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapSingle1 = osource.flatMapSingle(new Function<Integer, SingleSource<Integer>>() {
+            @Override
+            public SingleSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapMaybe1 = osource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapMaybe0 = osource.flatMapMaybe(new Function<Integer, MaybeSource<Integer>>() {
+            @Override
+            public MaybeSource<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapCompletable0 = osource.flatMapCompletable(new Function<Integer, CompletableSource>() {
+            @Override
+            public CompletableSource apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapIterable1 = osource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapIterable0 = osource.flatMapIterable(new Function<Integer, Iterable<Integer>>() {
+            @Override
+            public Iterable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        // ooooooooooooooooooooooooo
+
+        obsFlatMapSingleAsObs1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapMaybeAsObs1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapMaybeAsObs0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapCompletableAsObs0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapIterableAsObs1 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
+```
+
+### Convert2Lambda
+Anonymous new Function\>() can be replaced with lambda
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+#### Snippet
+```java
+        });
+
+        obsFlatMapIterableAsObs0 = osource.flatMap(new Function<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> apply(Integer v) {
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -18083,18 +18083,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
-#### Snippet
-```java
-        public boolean tryOnError(Throwable t) {
-            if (t == null) {
-                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-            }
-            if (get() != DisposableHelper.DISPOSED) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `e`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
 #### Snippet
@@ -18104,6 +18092,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTermi
                 e = new CompositeException(e, ex);
             }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
+#### Snippet
+```java
+        public boolean tryOnError(Throwable t) {
+            if (t == null) {
+                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+            }
+            if (get() != DisposableHelper.DISPOSED) {
 ```
 
 ### AssignmentToMethodParameter
@@ -18243,11 +18243,11 @@ Assignment to method parameter `e`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
 #### Snippet
 ```java
-        public final void onError(Throwable e) {
+        public final boolean tryOnError(Throwable e) {
             if (e == null) {
-                e = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+                e = ExceptionHelper.createNullPointerException("tryOnError called with a null Throwable.");
             }
-            if (!signalError(e)) {
+            return signalError(e);
 ```
 
 ### AssignmentToMethodParameter
@@ -18255,11 +18255,11 @@ Assignment to method parameter `e`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
 #### Snippet
 ```java
-        public final boolean tryOnError(Throwable e) {
+        public final void onError(Throwable e) {
             if (e == null) {
-                e = ExceptionHelper.createNullPointerException("tryOnError called with a null Throwable.");
+                e = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
             }
-            return signalError(e);
+            if (!signalError(e)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -18303,11 +18303,11 @@ Assignment to method parameter `emitted`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
 #### Snippet
 ```java
-            // so that other groups can proceed
-            while (queue.poll() != null) {
+        void replenishParent(long emitted, boolean polled) {
+            if (polled) {
                 emitted++;
             }
-
+            if (emitted != 0L) {
 ```
 
 ### AssignmentToMethodParameter
@@ -18315,11 +18315,11 @@ Assignment to method parameter `emitted`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
 #### Snippet
 ```java
-        void replenishParent(long emitted, boolean polled) {
-            if (polled) {
+            // so that other groups can proceed
+            while (queue.poll() != null) {
                 emitted++;
             }
-            if (emitted != 0L) {
+
 ```
 
 ### AssignmentToMethodParameter
@@ -18564,11 +18564,11 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnN
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `subscribers`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelConcatMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
 #### Snippet
 ```java
     @Override
-    public void subscribe(Subscriber<? super R>[] subscribers) {
+    public void subscribe(Subscriber<? super T>[] subscribers) {
         subscribers = RxJavaPlugins.onSubscribe(this, subscribers);
 
         if (!validate(subscribers)) {
@@ -18588,19 +18588,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `subscribers`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
-#### Snippet
-```java
-    @Override
-    public void subscribe(Subscriber<? super T>[] subscribers) {
-        subscribers = RxJavaPlugins.onSubscribe(this, subscribers);
-
-        if (!validate(subscribers)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `subscribers`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelConcatMap.java`
 #### Snippet
 ```java
     @Override
@@ -18613,6 +18601,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduc
 ### AssignmentToMethodParameter
 Assignment to method parameter `subscribers`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFlatMap.java`
+#### Snippet
+```java
+    @Override
+    public void subscribe(Subscriber<? super R>[] subscribers) {
+        subscribers = RxJavaPlugins.onSubscribe(this, subscribers);
+
+        if (!validate(subscribers)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `subscribers`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduce.java`
 #### Snippet
 ```java
     @Override
@@ -18659,15 +18659,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduc
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+Assignment to method parameter `n`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
 #### Snippet
 ```java
-                    } catch (Throwable e) {
-                        Exceptions.throwIfFatal(e);
-                        t = new CompositeException(t, e);
-                    }
-                }
+            while (n > 0) {
+                head = head.get();
+                n--;
+                size--;
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -18683,15 +18683,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepla
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+Assignment to method parameter `t`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
 #### Snippet
 ```java
-            while (n > 0) {
-                head = head.get();
-                n--;
-                size--;
-            }
+                    } catch (Throwable e) {
+                        Exceptions.throwIfFatal(e);
+                        t = new CompositeException(t, e);
+                    }
+                }
 ```
 
 ### AssignmentToMethodParameter
@@ -18759,11 +18759,11 @@ Assignment to method parameter `t`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
 #### Snippet
 ```java
-            }
+        public boolean tryOnError(Throwable t) {
             if (t == null) {
                 t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
             }
-            if (errors.tryAddThrowable(t)) {
+            if (!isDisposed()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -18771,11 +18771,11 @@ Assignment to method parameter `t`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
 #### Snippet
 ```java
-        public boolean tryOnError(Throwable t) {
+            }
             if (t == null) {
                 t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
             }
-            if (!isDisposed()) {
+            if (errors.tryAddThrowable(t)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -18843,11 +18843,11 @@ Assignment to method parameter `n`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
 ```java
-                Node m = new Node(null);
-                m.lazySet(n.get());
-                n = m;
+            while (n > 0) {
+                head = head.get();
+                n--;
+                size--;
             }
-            set(n);
 ```
 
 ### AssignmentToMethodParameter
@@ -18855,11 +18855,11 @@ Assignment to method parameter `n`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
 ```java
-            while (n > 0) {
-                head = head.get();
-                n--;
-                size--;
+                Node m = new Node(null);
+                m.lazySet(n.get());
+                n = m;
             }
+            set(n);
 ```
 
 ### AssignmentToMethodParameter
@@ -18872,54 +18872,6 @@ in `src/main/java/io/reactivex/rxjava3/observers/SafeObserver.java`
             t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-            } else {
-                if (array.length < s) {
-                    array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
-                }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-            } else {
-                if (array.length < s) {
-                    array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
-                }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `h`
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-                }
-                s++;
-                h = next;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-
-            if (array.length < s) {
-                array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
-            }
-            for (int i = 0; i < s; i++) {
 ```
 
 ### AssignmentToMethodParameter
@@ -18944,6 +18896,54 @@ in `src/main/java/io/reactivex/rxjava3/schedulers/TestScheduler.java`
                 run = RxJavaPlugins.onSchedule(run);
             }
             final TimedRunnable timedAction = new TimedRunnable(this, time + unit.toNanos(delayTime), run, counter++);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+            } else {
+                if (array.length < s) {
+                    array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
+                }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+
+            if (array.length < s) {
+                array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
+            }
+            for (int i = 0; i < s; i++) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+            } else {
+                if (array.length < s) {
+                    array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
+                }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `h`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+                }
+                s++;
+                h = next;
+            }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -18975,18 +18975,6 @@ Assignment to method parameter `array`
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
-
-            if (array.length < s) {
-                array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
-            }
-            for (int i = 0; i < s; i++) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `array`
-in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
-#### Snippet
-```java
             } else {
                 if (array.length < s) {
                     array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
@@ -19004,6 +18992,18 @@ in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
                 array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
             }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `array`
+in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
+#### Snippet
+```java
+
+            if (array.length < s) {
+                array = (T[])Array.newInstance(array.getClass().getComponentType(), s);
+            }
+            for (int i = 0; i < s; i++) {
 ```
 
 ### AssignmentToMethodParameter
@@ -19056,18 +19056,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreat
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `dq`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
-#### Snippet
-```java
-
-        void clear(Deque<T> dq) {
-            synchronized (dq) {
-                dq.clear();
-            }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `dq`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
 #### Snippet
@@ -19089,6 +19077,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBac
                     synchronized (dq) {
                         empty = dq.isEmpty();
                     }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `dq`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
+#### Snippet
+```java
+
+        void clear(Deque<T> dq) {
+            synchronized (dq) {
+                dq.clear();
+            }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -19324,18 +19324,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
-#### Snippet
-```java
-                    return curr;
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFromStream.java`
 #### Snippet
 ```java
@@ -19356,6 +19344,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFromStream.java`
                     return null;
                 }
             }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
+#### Snippet
+```java
+                    return curr;
+                }
+                return null;
+            }
+        }
 ```
 
 ### ReturnNull
@@ -19708,6 +19708,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+#### Snippet
+```java
+                T v = qs.poll();
+                if (v == null) {
+                    return null;
+                }
+                K key = keySelector.apply(v);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+#### Snippet
+```java
+                T v = qs.poll();
+                if (v == null) {
+                    return null;
+                }
+                K key = keySelector.apply(v);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
+#### Snippet
+```java
+        @Override
+        public Object get() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromArray.java`
 #### Snippet
 ```java
@@ -19716,30 +19752,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromA
                 return null;
             }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
-#### Snippet
-```java
-                T v = qs.poll();
-                if (v == null) {
-                    return null;
-                }
-                K key = keySelector.apply(v);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
-#### Snippet
-```java
-                T v = qs.poll();
-                if (v == null) {
-                    return null;
-                }
-                K key = keySelector.apply(v);
 ```
 
 ### ReturnNull
@@ -19776,18 +19788,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableEmpty
         return null; // null scalar is interpreted as being empty
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/reactivex/rxjava3/internal/functions/Functions.java`
-#### Snippet
-```java
-        @Override
-        public Object get() {
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -19996,18 +19996,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ScheduledRunnable.jav
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ArrayCompositeDisposable.java`
-#### Snippet
-```java
-            if (o == DisposableHelper.DISPOSED) {
-                resource.dispose();
-                return null;
-            }
-            if (compareAndSet(index, o, resource)) {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/io/reactivex/rxjava3/internal/disposables/EmptyDisposable.java`
 #### Snippet
 ```java
@@ -20016,6 +20004,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/EmptyDisposable.java
         return null; // always empty
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ArrayCompositeDisposable.java`
+#### Snippet
+```java
+            if (o == DisposableHelper.DISPOSED) {
+                resource.dispose();
+                return null;
+            }
+            if (compareAndSet(index, o, resource)) {
 ```
 
 ### ReturnNull
@@ -20104,30 +20104,6 @@ in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public Throwable getThrowable() {
-        return subscribers.get() == TERMINATED ? error : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public T getValue() {
-        return subscribers.get() == TERMINATED ? value : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
 #### Snippet
 ```java
@@ -20152,12 +20128,24 @@ in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
 #### Snippet
 ```java
-            return error;
-        }
-        return null;
+    @CheckReturnValue
+    public Throwable getThrowable() {
+        return subscribers.get() == TERMINATED ? error : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public T getValue() {
+        return subscribers.get() == TERMINATED ? value : null;
     }
 
 ```
@@ -20176,14 +20164,14 @@ in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 #### Snippet
 ```java
-        Object o = value.get();
-        if (NotificationLite.isComplete(o) || NotificationLite.isError(o)) {
-            return null;
+            return error;
         }
-        return NotificationLite.getValue(o);
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -20196,6 +20184,18 @@ in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+        Object o = value.get();
+        if (NotificationLite.isComplete(o) || NotificationLite.isError(o)) {
+            return null;
+        }
+        return NotificationLite.getValue(o);
 ```
 
 ### ReturnNull
@@ -20236,24 +20236,12 @@ in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
 #### Snippet
 ```java
-    @CheckReturnValue
-    public T getValue() {
-        return subscribers.get() == TERMINATED ? value : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public Throwable getThrowable() {
-        return subscribers.get() == TERMINATED ? error : null;
+            return error;
+        }
+        return null;
     }
 
 ```
@@ -20284,25 +20272,25 @@ in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
-            return error;
-        }
-        return null;
+    @CheckReturnValue
+    public T getValue() {
+        return subscribers.get() == TERMINATED ? value : null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
-            long limit = scheduler.now(unit) - maxAge;
-            if (h.time < limit) {
-                return null;
-            }
+    @CheckReturnValue
+    public Throwable getThrowable() {
+        return subscribers.get() == TERMINATED ? error : null;
+    }
 
 ```
 
@@ -20316,6 +20304,18 @@ in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
                 return null;
             }
             if (NotificationLite.isComplete(v) || NotificationLite.isError(v)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+            long limit = scheduler.now(unit) - maxAge;
+            if (h.time < limit) {
+                return null;
+            }
+
 ```
 
 ### ReturnNull
@@ -20395,11 +20395,11 @@ Return of `null`
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
-            int s = size;
-            if (s == 0) {
+            long limit = scheduler.now(unit) - maxAge;
+            if (h.time < limit) {
                 return null;
             }
-            return buffer.get(s - 1);
+
 ```
 
 ### ReturnNull
@@ -20407,11 +20407,11 @@ Return of `null`
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
-            long limit = scheduler.now(unit) - maxAge;
-            if (h.time < limit) {
+            int s = size;
+            if (s == 0) {
                 return null;
             }
-
+            return buffer.get(s - 1);
 ```
 
 ## RuleId[ruleID=ArrayEquality]
@@ -20452,18 +20452,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCache
 ```
 
 ### ArrayEquality
-Array objects are compared using `!=`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
-#### Snippet
-```java
-        void disposeAll() {
-            InnerSubscriber<?, ?>[] a = subscribers.getAndSet(CANCELLED);
-            if (a != CANCELLED) {
-                for (InnerSubscriber<?, ?> inner : a) {
-                    inner.dispose();
-```
-
-### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
 #### Snippet
@@ -20476,15 +20464,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 ```
 
 ### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublishMulticast.java`
+Array objects are compared using `!=`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
 #### Snippet
 ```java
-            for (;;) {
-                MulticastSubscription<T>[] current = subscribers.get();
-                if (current == TERMINATED) {
-                    return false;
-                }
+        void disposeAll() {
+            InnerSubscriber<?, ?>[] a = subscribers.getAndSet(CANCELLED);
+            if (a != CANCELLED) {
+                for (InnerSubscriber<?, ?> inner : a) {
+                    inner.dispose();
 ```
 
 ### ArrayEquality
@@ -20497,6 +20485,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePubli
                         if (subscribersChange || freshArray != array) {
                             array = freshArray;
                             continue outer;
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublishMulticast.java`
+#### Snippet
+```java
+            for (;;) {
+                MulticastSubscription<T>[] current = subscribers.get();
+                if (current == TERMINATED) {
+                    return false;
+                }
 ```
 
 ### ArrayEquality
@@ -20516,11 +20516,11 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
 #### Snippet
 ```java
-        @Override
-        public boolean isDisposed() {
-            return subscribers.get() == TERMINATED;
-        }
-
+                // if this subscriber-to-source reached a terminal state by receiving
+                // an onError or onComplete, just refuse to add the new producer
+                if (c == TERMINATED) {
+                    return false;
+                }
 ```
 
 ### ArrayEquality
@@ -20528,18 +20528,6 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
 #### Snippet
 ```java
-                // if this subscriber-to-source reached a terminal state by receiving
-                // an onError or onComplete, just refuse to add the new producer
-                if (c == TERMINATED) {
-                    return false;
-                }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
-#### Snippet
-```java
         @Override
         public boolean isDisposed() {
             return subscribers.get() == TERMINATED;
@@ -20557,6 +20545,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepla
                 if (c == TERMINATED) {
                     return false;
                 }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
+        @Override
+        public boolean isDisposed() {
+            return subscribers.get() == TERMINATED;
+        }
+
 ```
 
 ### ArrayEquality
@@ -20633,366 +20633,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-    public void onError(Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
-        if (subscribers.get() == TERMINATED) {
-            RxJavaPlugins.onError(t);
-            return;
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-        for (;;) {
-            PublishDisposable<T>[] a = subscribers.get();
-            if (a == TERMINATED) {
-                return false;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public boolean hasComplete() {
-        return subscribers.get() == TERMINATED && error == null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-        for (;;) {
-            PublishDisposable<T>[] a = subscribers.get();
-            if (a == TERMINATED || a == EMPTY) {
-                return;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-        for (;;) {
-            PublishDisposable<T>[] a = subscribers.get();
-            if (a == TERMINATED || a == EMPTY) {
-                return;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-    @Override
-    public void onComplete() {
-        if (subscribers.get() == TERMINATED) {
-            return;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (subscribers.get() == TERMINATED) {
-            d.dispose();
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public boolean hasThrowable() {
-        return subscribers.get() == TERMINATED && error != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public Throwable getThrowable() {
-        if (subscribers.get() == TERMINATED) {
-            return error;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
-#### Snippet
-```java
-    @Nullable
-    public T getValue() {
-        if (observers.get() == TERMINATED) {
-            return value;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
-#### Snippet
-```java
-     */
-    public boolean hasThrowable() {
-        return observers.get() == TERMINATED && error != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
-#### Snippet
-```java
-     */
-    public boolean hasValue() {
-        return observers.get() == TERMINATED && value != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
-#### Snippet
-```java
-        for (;;) {
-            SingleDisposable<T>[] a = observers.get();
-            if (a == TERMINATED) {
-                return false;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
-#### Snippet
-```java
-    @Override
-    public void onSubscribe(@NonNull Disposable d) {
-        if (observers.get() == TERMINATED) {
-            d.dispose();
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
-#### Snippet
-```java
-    @Nullable
-    public Throwable getThrowable() {
-        if (observers.get() == TERMINATED) {
-            return error;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @Override
-    public void onComplete() {
-        if (subscribers.get() == TERMINATED) {
-            return;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public Throwable getThrowable() {
-        return subscribers.get() == TERMINATED ? error : null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public boolean hasValue() {
-        return subscribers.get() == TERMINATED && value != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public boolean hasComplete() {
-        return subscribers.get() == TERMINATED && error == null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public T getValue() {
-        return subscribers.get() == TERMINATED ? value : null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-        for (;;) {
-            AsyncDisposable<T>[] a = subscribers.get();
-            if (a == TERMINATED) {
-                return false;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public boolean hasThrowable() {
-        return subscribers.get() == TERMINATED && error != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    public void onError(Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
-        if (subscribers.get() == TERMINATED) {
-            RxJavaPlugins.onError(t);
-            return;
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    public void onNext(T t) {
-        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
-        if (subscribers.get() == TERMINATED) {
-            return;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (subscribers.get() == TERMINATED) {
-            d.dispose();
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (observers.get() == TERMINATED) {
-            d.dispose();
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-    @Nullable
-    public Throwable getThrowable() {
-        if (observers.get() == TERMINATED) {
-            return error;
-        }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-     */
-    public boolean hasComplete() {
-        return observers.get() == TERMINATED && error == null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-     */
-    public boolean hasThrowable() {
-        return observers.get() == TERMINATED && error != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-        for (;;) {
-            CompletableDisposable[] a = observers.get();
-            if (a == TERMINATED) {
-                return false;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
 ```java
@@ -21017,6 +20657,378 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+    @Override
+    public void onComplete() {
+        if (subscribers.get() == TERMINATED) {
+            return;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+        for (;;) {
+            PublishDisposable<T>[] a = subscribers.get();
+            if (a == TERMINATED) {
+                return false;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public Throwable getThrowable() {
+        if (subscribers.get() == TERMINATED) {
+            return error;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (subscribers.get() == TERMINATED) {
+            d.dispose();
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+        for (;;) {
+            PublishDisposable<T>[] a = subscribers.get();
+            if (a == TERMINATED || a == EMPTY) {
+                return;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+        for (;;) {
+            PublishDisposable<T>[] a = subscribers.get();
+            if (a == TERMINATED || a == EMPTY) {
+                return;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public boolean hasThrowable() {
+        return subscribers.get() == TERMINATED && error != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+    public void onError(Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+        if (subscribers.get() == TERMINATED) {
+            RxJavaPlugins.onError(t);
+            return;
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public boolean hasComplete() {
+        return subscribers.get() == TERMINATED && error == null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
+#### Snippet
+```java
+    @Override
+    public void onSubscribe(@NonNull Disposable d) {
+        if (observers.get() == TERMINATED) {
+            d.dispose();
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
+#### Snippet
+```java
+     */
+    public boolean hasValue() {
+        return observers.get() == TERMINATED && value != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
+#### Snippet
+```java
+    @Nullable
+    public T getValue() {
+        if (observers.get() == TERMINATED) {
+            return value;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
+#### Snippet
+```java
+    @Nullable
+    public Throwable getThrowable() {
+        if (observers.get() == TERMINATED) {
+            return error;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
+#### Snippet
+```java
+     */
+    public boolean hasThrowable() {
+        return observers.get() == TERMINATED && error != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/SingleSubject.java`
+#### Snippet
+```java
+        for (;;) {
+            SingleDisposable<T>[] a = observers.get();
+            if (a == TERMINATED) {
+                return false;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
+#### Snippet
+```java
+     */
+    public boolean hasThrowable() {
+        return observers.get() == TERMINATED && error != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
+#### Snippet
+```java
+     */
+    public boolean hasComplete() {
+        return observers.get() == TERMINATED && error == null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
+#### Snippet
+```java
+        for (;;) {
+            CompletableDisposable[] a = observers.get();
+            if (a == TERMINATED) {
+                return false;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
+#### Snippet
+```java
+    @Nullable
+    public Throwable getThrowable() {
+        if (observers.get() == TERMINATED) {
+            return error;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
+#### Snippet
+```java
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (observers.get() == TERMINATED) {
+            d.dispose();
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public boolean hasValue() {
+        return subscribers.get() == TERMINATED && value != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public Throwable getThrowable() {
+        return subscribers.get() == TERMINATED ? error : null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+        for (;;) {
+            AsyncDisposable<T>[] a = subscribers.get();
+            if (a == TERMINATED) {
+                return false;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @Override
+    public void onComplete() {
+        if (subscribers.get() == TERMINATED) {
+            return;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public boolean hasThrowable() {
+        return subscribers.get() == TERMINATED && error != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (subscribers.get() == TERMINATED) {
+            d.dispose();
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public T getValue() {
+        return subscribers.get() == TERMINATED ? value : null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    public void onNext(T t) {
+        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
+        if (subscribers.get() == TERMINATED) {
+            return;
+        }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public boolean hasComplete() {
+        return subscribers.get() == TERMINATED && error == null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    public void onError(Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+        if (subscribers.get() == TERMINATED) {
+            RxJavaPlugins.onError(t);
+            return;
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
+#### Snippet
+```java
+     */
+    public boolean hasThrowable() {
+        return observers.get() == TERMINATED && error != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 #### Snippet
 ```java
@@ -21032,10 +21044,22 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 #### Snippet
 ```java
+     */
+    public boolean hasValue() {
+        return observers.get() == TERMINATED && value != null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
+#### Snippet
+```java
     @Nullable
-    public Throwable getThrowable() {
+    public T getValue() {
         if (observers.get() == TERMINATED) {
-            return error;
+            return value;
         }
 ```
 
@@ -21068,35 +21092,11 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 #### Snippet
 ```java
-     */
-    public boolean hasValue() {
-        return observers.get() == TERMINATED && value != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
-#### Snippet
-```java
     @Nullable
-    public T getValue() {
+    public Throwable getThrowable() {
         if (observers.get() == TERMINATED) {
-            return value;
+            return error;
         }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
-#### Snippet
-```java
-     */
-    public boolean hasThrowable() {
-        return observers.get() == TERMINATED && error != null;
-    }
-
 ```
 
 ### ArrayEquality
@@ -21173,12 +21173,24 @@ in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
+#### Snippet
+```java
+        for (;;) {
+            BehaviorSubscription<T>[] a = subscribers.get();
+            if (a == TERMINATED) {
+                return false;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
     @CheckReturnValue
-    public boolean hasValue() {
-        return subscribers.get() == TERMINATED && value != null;
+    public boolean hasComplete() {
+        return subscribers.get() == TERMINATED && error == null;
     }
 
 ```
@@ -21188,11 +21200,11 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
-    public void onNext(@NonNull T t) {
-        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
+    public void onError(@NonNull Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
         if (subscribers.get() == TERMINATED) {
+            RxJavaPlugins.onError(t);
             return;
-        }
 ```
 
 ### ArrayEquality
@@ -21224,23 +21236,11 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
-    @CheckReturnValue
-    public Throwable getThrowable() {
-        return subscribers.get() == TERMINATED ? error : null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
-#### Snippet
-```java
-    public void onError(@NonNull Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+    public void onNext(@NonNull T t) {
+        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
         if (subscribers.get() == TERMINATED) {
-            RxJavaPlugins.onError(t);
             return;
+        }
 ```
 
 ### ArrayEquality
@@ -21253,6 +21253,18 @@ in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
             if (a == TERMINATED) {
                 return false;
             }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public boolean hasThrowable() {
+        return subscribers.get() == TERMINATED && error != null;
+    }
+
 ```
 
 ### ArrayEquality
@@ -21273,8 +21285,8 @@ in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
     @CheckReturnValue
-    public boolean hasThrowable() {
-        return subscribers.get() == TERMINATED && error != null;
+    public boolean hasValue() {
+        return subscribers.get() == TERMINATED && value != null;
     }
 
 ```
@@ -21285,58 +21297,10 @@ in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
 #### Snippet
 ```java
     @CheckReturnValue
-    public boolean hasComplete() {
-        return subscribers.get() == TERMINATED && error == null;
+    public Throwable getThrowable() {
+        return subscribers.get() == TERMINATED ? error : null;
     }
 
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
-#### Snippet
-```java
-        for (;;) {
-            BehaviorSubscription<T>[] a = subscribers.get();
-            if (a == TERMINATED) {
-                return false;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-        for (;;) {
-            ReplayDisposable<T>[] a = observers.get();
-            if (a == TERMINATED) {
-                return false;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-        for (;;) {
-            ReplayDisposable<T>[] a = observers.get();
-            if (a == TERMINATED || a == EMPTY) {
-                return;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
-#### Snippet
-```java
-        for (;;) {
-            ReplayDisposable<T>[] a = observers.get();
-            if (a == TERMINATED || a == EMPTY) {
-                return;
-            }
 ```
 
 ### ArrayEquality
@@ -21353,23 +21317,11 @@ in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    public boolean hasThrowable() {
-        return subscribers.get() == TERMINATED && error != null;
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 #### Snippet
 ```java
         for (;;) {
-            PublishSubscription<T>[] a = subscribers.get();
+            ReplayDisposable<T>[] a = observers.get();
             if (a == TERMINATED || a == EMPTY) {
                 return;
             }
@@ -21377,13 +21329,25 @@ in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 #### Snippet
 ```java
         for (;;) {
-            PublishSubscription<T>[] a = subscribers.get();
+            ReplayDisposable<T>[] a = observers.get();
             if (a == TERMINATED || a == EMPTY) {
                 return;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+        for (;;) {
+            ReplayDisposable<T>[] a = observers.get();
+            if (a == TERMINATED) {
+                return false;
             }
 ```
 
@@ -21404,10 +21368,10 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
 #### Snippet
 ```java
-    @Override
-    public void onSubscribe(@NonNull Subscription s) {
+    public void onError(@NonNull Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
         if (subscribers.get() == TERMINATED) {
-            s.cancel();
+            RxJavaPlugins.onError(t);
             return;
 ```
 
@@ -21416,10 +21380,22 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
 #### Snippet
 ```java
-    public void onError(@NonNull Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+    @CheckReturnValue
+    public boolean hasComplete() {
+        return subscribers.get() == TERMINATED && error == null;
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
+#### Snippet
+```java
+    @Override
+    public void onSubscribe(@NonNull Subscription s) {
         if (subscribers.get() == TERMINATED) {
-            RxJavaPlugins.onError(t);
+            s.cancel();
             return;
 ```
 
@@ -21440,9 +21416,33 @@ Array objects are compared using `==`, not 'Arrays.equals()'
 in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
 #### Snippet
 ```java
+        for (;;) {
+            PublishSubscription<T>[] a = subscribers.get();
+            if (a == TERMINATED || a == EMPTY) {
+                return;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
+#### Snippet
+```java
+        for (;;) {
+            PublishSubscription<T>[] a = subscribers.get();
+            if (a == TERMINATED || a == EMPTY) {
+                return;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
+#### Snippet
+```java
     @CheckReturnValue
-    public boolean hasComplete() {
-        return subscribers.get() == TERMINATED && error == null;
+    public boolean hasThrowable() {
+        return subscribers.get() == TERMINATED && error != null;
     }
 
 ```
@@ -21478,32 +21478,32 @@ in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 ```java
         for (;;) {
             ReplaySubscription<T>[] a = subscribers.get();
-            if (a == TERMINATED || a == EMPTY) {
-                return;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
-#### Snippet
-```java
-        for (;;) {
-            ReplaySubscription<T>[] a = subscribers.get();
-            if (a == TERMINATED || a == EMPTY) {
-                return;
-            }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
-#### Snippet
-```java
-        for (;;) {
-            ReplaySubscription<T>[] a = subscribers.get();
             if (a == TERMINATED) {
                 return false;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
+#### Snippet
+```java
+        for (;;) {
+            ReplaySubscription<T>[] a = subscribers.get();
+            if (a == TERMINATED || a == EMPTY) {
+                return;
+            }
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
+#### Snippet
+```java
+        for (;;) {
+            ReplaySubscription<T>[] a = subscribers.get();
+            if (a == TERMINATED || a == EMPTY) {
+                return;
             }
 ```
 
@@ -21648,7 +21648,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreat
 
             int missed = 1;
             final Subscriber<? super T> a = downstream;
-            final AtomicReference<T> q = queue;
+            final SpscLinkedArrayQueue<T> q = queue;
 
 ```
 
@@ -21660,7 +21660,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreat
 
             int missed = 1;
             final Subscriber<? super T> a = downstream;
-            final SpscLinkedArrayQueue<T> q = queue;
+            final AtomicReference<T> q = queue;
 
 ```
 
@@ -21981,11 +21981,11 @@ Local variable `b` is redundant
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
-                return array;
-            }
-            List<T> b = buffer;
 
-            if (array.length < s) {
+            int missed = 1;
+            final List<T> b = buffer;
+            final Subscriber<? super T> a = rs.downstream;
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -21993,11 +21993,11 @@ Local variable `b` is redundant
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
+                return array;
+            }
+            List<T> b = buffer;
 
-            int missed = 1;
-            final List<T> b = buffer;
-            final Subscriber<? super T> a = rs.downstream;
-
+            if (array.length < s) {
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
@@ -22069,9 +22069,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.
 #### Snippet
 ```java
         @Override
-        public void innerClose(boolean isLeft, LeftRightEndSubscriber index) {
+        public void innerValue(boolean isLeft, Object o) {
             synchronized (this) {
-                queue.offer(isLeft ? LEFT_CLOSE : RIGHT_CLOSE, index);
+                queue.offer(isLeft ? LEFT_VALUE : RIGHT_VALUE, o);
             }
 ```
 
@@ -22081,10 +22081,34 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.
 #### Snippet
 ```java
         @Override
-        public void innerValue(boolean isLeft, Object o) {
+        public void innerClose(boolean isLeft, LeftRightEndSubscriber index) {
             synchronized (this) {
-                queue.offer(isLeft ? LEFT_VALUE : RIGHT_VALUE, o);
+                queue.offer(isLeft ? LEFT_CLOSE : RIGHT_CLOSE, index);
             }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+
+    void terminated(RefConnection rc) {
+        synchronized (this) {
+            if (connection == rc) {
+                if (rc.timer != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+#### Snippet
+```java
+
+        boolean connect = false;
+        synchronized (this) {
+            conn = connection;
+            if (conn == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22113,26 +22137,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCo
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
-
-    void terminated(RefConnection rc) {
-        synchronized (this) {
-            if (connection == rc) {
-                if (rc.timer != null) {
+        @Override
+        public void onNext(T t) {
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
 ```
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
+            long idx = index;
+            index = idx + 1;
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+```
 
-        boolean connect = false;
-        synchronized (this) {
-            conn = connection;
-            if (conn == null) {
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+#### Snippet
+```java
+                SubscriptionHelper.cancel(upstream);
+            }
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22164,59 +22200,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
-                SubscriptionHelper.cancel(upstream);
-            }
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-            long idx = index;
-            index = idx + 1;
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
             if (errors.tryAddThrowableOrReport(t)) {
                 subscribers.dispose();
                 synchronized (this) {
                     buffers = null;
                 }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-        @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
-#### Snippet
-```java
-        public void onComplete() {
-            U b;
-            synchronized (this) {
-                b = buffer;
-                if (b == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22236,7 +22224,7 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
 #### Snippet
 ```java
-
+        public void onComplete() {
             U b;
             synchronized (this) {
                 b = buffer;
@@ -22245,14 +22233,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
 #### Snippet
 ```java
-        public void onComplete() {
+
             U b;
             synchronized (this) {
                 b = buffer;
-                buffer = null;
+                if (b == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22272,59 +22260,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-        public void onError(Throwable t) {
-            DisposableHelper.dispose(timer);
+        @Override
+        public void dispose() {
             synchronized (this) {
                 buffer = null;
             }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-        @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                U b = buffer;
-                if (b != null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-        @Override
-        public void onError(Throwable t) {
-            synchronized (this) {
-                buffer = null;
-            }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-        public void onComplete() {
-            List<U> bs;
-            synchronized (this) {
-                bs = new ArrayList<>(buffers);
-                buffers.clear();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-            }
-
-            synchronized (this) {
-                if (cancelled) {
-                    return;
 ```
 
 ### SynchronizeOnThis
@@ -22356,11 +22296,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-            U current;
-
+        public void onError(Throwable t) {
+            DisposableHelper.dispose(timer);
             synchronized (this) {
-                current = buffer;
-                if (current == null) {
+                buffer = null;
+            }
 ```
 
 ### SynchronizeOnThis
@@ -22368,11 +22308,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-            DisposableHelper.dispose(timer);
-            U b;
+        @Override
+        public void onError(Throwable t) {
             synchronized (this) {
-                b = buffer;
-                if (b == null) {
+                buffer = null;
+            }
 ```
 
 ### SynchronizeOnThis
@@ -22392,6 +22332,30 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
+        public void onComplete() {
+            U b;
+            synchronized (this) {
+                b = buffer;
+                buffer = null;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+        @Override
+        public void onNext(T t) {
+            synchronized (this) {
+                U b = buffer;
+                if (b != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
             U current;
 
             synchronized (this) {
@@ -22404,11 +22368,35 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
 #### Snippet
 ```java
-        @Override
-        public void dispose() {
+        public void onComplete() {
+            List<U> bs;
             synchronized (this) {
-                buffer = null;
+                bs = new ArrayList<>(buffers);
+                buffers.clear();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            DisposableHelper.dispose(timer);
+            U b;
+            synchronized (this) {
+                b = buffer;
+                if (b == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
             }
+
+            synchronized (this) {
+                if (cancelled) {
+                    return;
 ```
 
 ### SynchronizeOnThis
@@ -22421,6 +22409,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
                 synchronized (BufferSkipBoundedSubscriber.this) {
                     buffers.remove(buffer);
                 }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+            U current;
+
+            synchronized (this) {
+                current = buffer;
+                if (current == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22464,18 +22464,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
 ```java
-                int nSources = 0;
-                if (maxConcurrency != Integer.MAX_VALUE) {
-                    synchronized (this) {
-                        nSources = sources.size();
-                    }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
                     if (tryEmitScalar(((Supplier<? extends U>)p)) && maxConcurrency != Integer.MAX_VALUE) {
                         boolean empty = false;
                         synchronized (this) {
@@ -22497,6 +22485,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+#### Snippet
+```java
+                int nSources = 0;
+                if (maxConcurrency != Integer.MAX_VALUE) {
+                    synchronized (this) {
+                        nSources = sources.size();
+                    }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+#### Snippet
+```java
+        @Override
+        public void onNext(T t) {
+            synchronized (this) {
+                U b = buffer;
+                if (b == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+#### Snippet
+```java
+
+            U b;
+            synchronized (this) {
+                b = buffer;
+                if (b == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+#### Snippet
+```java
+        public void onComplete() {
+            U b;
+            synchronized (this) {
+                b = buffer;
+                if (b == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+
+        void clear(SpscLinkedArrayQueue<?> q) {
+            synchronized (this) {
+                latest = null;
+            }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
 #### Snippet
 ```java
@@ -22505,18 +22553,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
             synchronized (this) {
                 Object[] latest = this.latest;
                 if (latest == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-                boolean cancelOthers = true;
-                if (delayError) {
-                    synchronized (this) {
-                        Object[] latest = this.latest;
-                        if (latest == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22536,11 +22572,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
 #### Snippet
 ```java
-
-        void clear(SpscLinkedArrayQueue<?> q) {
-            synchronized (this) {
-                latest = null;
-            }
+                boolean cancelOthers = true;
+                if (delayError) {
+                    synchronized (this) {
+                        Object[] latest = this.latest;
+                        if (latest == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22569,50 +22605,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableG
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
-#### Snippet
-```java
-        @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                U b = buffer;
-                if (b == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
-#### Snippet
-```java
-
-            U b;
-            synchronized (this) {
-                b = buffer;
-                if (b == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
-#### Snippet
-```java
-        public void onComplete() {
-            U b;
-            synchronized (this) {
-                b = buffer;
-                if (b == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
-                cancelled = true;
-                observers.dispose();
-                synchronized (this) {
-                    buffers = null;
-                }
+            long idx = index;
+            index = idx + 1;
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22632,35 +22632,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
-                DisposableHelper.dispose(upstream);
-            }
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-        @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-            long idx = index;
-            index = idx + 1;
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-                if (bufs == null) {
+                cancelled = true;
+                observers.dispose();
+                synchronized (this) {
+                    buffers = null;
+                }
 ```
 
 ### SynchronizeOnThis
@@ -22677,50 +22653,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-        @Override
-        public void onError(Throwable t) {
-            synchronized (this) {
-                buffer = null;
-            }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-            }
-
-            synchronized (this) {
-                if (cancelled) {
-                    return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-            @Override
-            public void run() {
-                synchronized (BufferSkipBoundedObserver.this) {
-                    buffers.remove(b);
-                }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
         @Override
         public void onNext(T t) {
             synchronized (this) {
-                U b = buffer;
-                if (b == null) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+                DisposableHelper.dispose(upstream);
+            }
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+                if (bufs == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
+#### Snippet
+```java
+        @Override
+        public void innerValue(boolean isLeft, Object o) {
+            synchronized (this) {
+                queue.offer(isLeft ? LEFT_VALUE : RIGHT_VALUE, o);
+            }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
+#### Snippet
+```java
+        @Override
+        public void innerClose(boolean isLeft, LeftRightEndObserver index) {
+            synchronized (this) {
+                queue.offer(isLeft ? LEFT_CLOSE : RIGHT_CLOSE, index);
+            }
 ```
 
 ### SynchronizeOnThis
@@ -22728,23 +22704,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-            U current;
 
+        void clear() {
             synchronized (this) {
-                current = buffer;
-                if (current == null || producerIndex != consumerIndex) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-        public void onComplete() {
-            List<U> bs;
-            synchronized (this) {
-                bs = new ArrayList<>(buffers);
                 buffers.clear();
+            }
 ```
 
 ### SynchronizeOnThis
@@ -22764,11 +22728,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
+            U current;
 
-            U b;
             synchronized (this) {
-                b = buffer;
-                buffer = null;
+                current = buffer;
+                if (current == null || producerIndex != consumerIndex) {
 ```
 
 ### SynchronizeOnThis
@@ -22789,30 +22753,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 #### Snippet
 ```java
         @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                for (U b : buffers) {
-                    b.add(t);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-                upstream.dispose();
-                w.dispose();
-                synchronized (this) {
-                    buffer = null;
-                }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
-#### Snippet
-```java
-        @Override
         public void onError(Throwable t) {
             synchronized (this) {
                 buffer = null;
@@ -22824,10 +22764,22 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-
-        void clear() {
+        @Override
+        public void onNext(T t) {
             synchronized (this) {
-                buffers.clear();
+                for (U b : buffers) {
+                    b.add(t);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+        @Override
+        public void onError(Throwable t) {
+            synchronized (this) {
+                buffer = null;
             }
 ```
 
@@ -22869,38 +22821,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-        @Override
-        public void innerClose(boolean isLeft, LeftRightEndObserver index) {
+
+            U b;
             synchronized (this) {
-                queue.offer(isLeft ? LEFT_CLOSE : RIGHT_CLOSE, index);
-            }
+                b = buffer;
+                buffer = null;
 ```
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
-        @Override
-        public void innerValue(boolean isLeft, Object o) {
-            synchronized (this) {
-                queue.offer(isLeft ? LEFT_VALUE : RIGHT_VALUE, o);
-            }
+                upstream.dispose();
+                w.dispose();
+                synchronized (this) {
+                    buffer = null;
+                }
 ```
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
+            @Override
+            public void run() {
+                synchronized (BufferSkipBoundedObserver.this) {
+                    buffers.remove(b);
+                }
+```
 
-    void timeout(RefConnection rc) {
-        synchronized (this) {
-            if (rc.subscriberCount == 0 && rc == connection) {
-                connection = null;
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+            }
+
+            synchronized (this) {
+                if (cancelled) {
+                    return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+        public void onComplete() {
+            List<U> bs;
+            synchronized (this) {
+                bs = new ArrayList<>(buffers);
+                buffers.clear();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+        @Override
+        public void onNext(T t) {
+            synchronized (this) {
+                U b = buffer;
+                if (b == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22921,10 +22909,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 #### Snippet
 ```java
 
-        boolean connect = false;
+    void timeout(RefConnection rc) {
         synchronized (this) {
-            conn = connection;
-            if (conn == null) {
+            if (rc.subscriberCount == 0 && rc == connection) {
+                connection = null;
 ```
 
 ### SynchronizeOnThis
@@ -22941,14 +22929,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
 #### Snippet
 ```java
-        }
-        List<Disposable> set;
+
+        boolean connect = false;
         synchronized (this) {
-            if (disposed) {
-                return;
+            conn = connection;
+            if (conn == null) {
 ```
 
 ### SynchronizeOnThis
@@ -22961,18 +22949,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposa
         synchronized (this) {
             if (disposed) {
                 return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
-#### Snippet
-```java
-            return false;
-        }
-        synchronized (this) {
-            if (disposed) {
-                return false;
 ```
 
 ### SynchronizeOnThis
@@ -23001,14 +22977,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposa
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+        }
+        List<Disposable> set;
+        synchronized (this) {
+            if (disposed) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/internal/disposables/ListCompositeDisposable.java`
+#### Snippet
+```java
+            return false;
+        }
+        synchronized (this) {
+            if (disposed) {
+                return false;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-            return;
-        }
-        synchronized (this) {
-            if (done) {
-                return;
+        for (;;) {
+            AppendOnlyLinkedArrayList<Object> q;
+            synchronized (this) {
+                q = queue;
+                if (q == null) {
 ```
 
 ### SynchronizeOnThis
@@ -23028,18 +23028,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-            return;
-        }
-        synchronized (this) {
-            if (done) {
-                return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
         boolean cancel;
         if (!done) {
             synchronized (this) {
@@ -23052,11 +23040,47 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
-        for (;;) {
-            AppendOnlyLinkedArrayList<Object> q;
+            return;
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
+#### Snippet
+```java
+            return;
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+            }
+            Object o;
             synchronized (this) {
-                q = queue;
-                if (q == null) {
+                if (cancelled) {
+                    return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+            }
+            if (!fastPath) {
+                synchronized (this) {
+                    if (cancelled) {
+                        return;
 ```
 
 ### SynchronizeOnThis
@@ -23073,30 +23097,6 @@ in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-            }
-            if (!fastPath) {
-                synchronized (this) {
-                    if (cancelled) {
-                        return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-            }
-            Object o;
-            synchronized (this) {
-                if (cancelled) {
-                    return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
 #### Snippet
 ```java
@@ -23105,18 +23105,6 @@ in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
             synchronized (this) {
                 q = queue;
                 if (q == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
-#### Snippet
-```java
-            return;
-        }
-        synchronized (this) {
-            if (done) {
-                return;
 ```
 
 ### SynchronizeOnThis
@@ -23145,6 +23133,18 @@ in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/observers/SerializedObserver.java`
+#### Snippet
+```java
+            return;
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
 #### Snippet
 ```java
@@ -23153,18 +23153,6 @@ in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
             synchronized (this) {
                 q = queue;
                 if (q == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-            return;
-        }
-        synchronized (this) {
-            if (done) {
-                return;
 ```
 
 ### SynchronizeOnThis
@@ -23196,6 +23184,18 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
 #### Snippet
 ```java
+            return;
+        }
+        synchronized (this) {
+            if (done) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
         }
         boolean reportError;
         synchronized (this) {
@@ -23209,10 +23209,10 @@ in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 #### Snippet
 ```java
             }
-            Object o;
-            synchronized (this) {
-                if (cancelled) {
-                    return;
+            if (!fastPath) {
+                synchronized (this) {
+                    if (cancelled) {
+                        return;
 ```
 
 ### SynchronizeOnThis
@@ -23221,10 +23221,10 @@ in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 #### Snippet
 ```java
             }
-            if (!fastPath) {
-                synchronized (this) {
-                    if (cancelled) {
-                        return;
+            Object o;
+            synchronized (this) {
+                if (cancelled) {
+                    return;
 ```
 
 ### SynchronizeOnThis
@@ -23304,35 +23304,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
 #### Snippet
 ```java
-        Objects.requireNonNull(disposable, "disposable is null");
-        if (!disposed) {
-            synchronized (this) {
-                if (!disposed) {
-                    OpenHashSet<Disposable> set = resources;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
         }
         OpenHashSet<Disposable> set;
         synchronized (this) {
             if (disposed) {
                 return;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
-#### Snippet
-```java
-            return 0;
-        }
-        synchronized (this) {
-            if (disposed) {
-                return 0;
 ```
 
 ### SynchronizeOnThis
@@ -23357,6 +23333,30 @@ in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
         synchronized (this) {
             if (disposed) {
                 return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
+#### Snippet
+```java
+        Objects.requireNonNull(disposable, "disposable is null");
+        if (!disposed) {
+            synchronized (this) {
+                if (!disposed) {
+                    OpenHashSet<Disposable> set = resources;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/io/reactivex/rxjava3/disposables/CompositeDisposable.java`
+#### Snippet
+```java
+            return 0;
+        }
+        synchronized (this) {
+            if (disposed) {
+                return 0;
 ```
 
 ## RuleId[ruleID=BusyWait]
