@@ -43,6 +43,10 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class PullRequest {
 
+    private PullRequest() {
+        // UtilityClass
+    }
+
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     public static void refactorRepoQodana(
@@ -297,10 +301,6 @@ public class PullRequest {
             }
         }
         return sb.toString();
-    }
-       
-    private PullRequest() {
-        // UtilityClass
     }
 
 }

@@ -30,4 +30,14 @@ public class UtilityClassWithoutPrivateConstructorTest {
                 TransformationTestUtils.transform(new UtilityClassWithoutPrivateConstructor(result), resourcePath, dir);
         TransformationTestUtils.compareContentWithoutWhiteSpaces(copy, resourcePath);
     }
+
+    @Test
+    void utilityClassWithoutPrivateConstructorLaughingTrain3(@TempDir File dir) throws IOException {
+        Position position = new Position(12, 0, 14, 0, 419, 12);
+        AnalyzerResult result = new TestAnalyzerResult("ImportHelper.java", position);
+        String resourcePath = "projects/refactorings/UtilityClassWithoutPrivateConstructor/ImportHelper.java";
+        var copy =
+                TransformationTestUtils.transform(new UtilityClassWithoutPrivateConstructor(result), resourcePath, dir);
+        TransformationTestUtils.compareContentWithoutWhiteSpaces(copy, resourcePath);
+    }
 }
