@@ -11,6 +11,10 @@ import spoon.reflect.visitor.CtAbstractImportVisitor;
 
 public class ImportHelper {
 
+    private ImportHelper() {
+        // UtilityClass
+    }
+
     public static void addImport(CtImport ctImport, CtCompilationUnit uni) {
         List<CtImport> imports = uni.getImports();
         if (!imports.contains(ctImport)) {
