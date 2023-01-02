@@ -13,6 +13,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonStrictComparisonC
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ParameterNameDiffersFromOverriddenParameter;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.PointlessBooleanExpression;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ProtectedMemberInFinalClass;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.RedundantArrayCreation;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.SizeReplaceableByIsEmpty;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ToArrayCallWithZeroLengthArrayArgument;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterfaceModifier;
@@ -48,7 +49,8 @@ public enum QodanaRules implements AnalyzerRule {
     UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
     UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
             "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new),
-    CODE_BLOCK_2_EXPR("CodeBlock2Expr", CodeBlock2Expr::new);
+    CODE_BLOCK_2_EXPR("CodeBlock2Expr", CodeBlock2Expr::new),
+    REDUNDANT_ARRAY_CREATION("RedundantArrayCreation", RedundantArrayCreation::new);
 
     private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
