@@ -18,6 +18,7 @@ import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
+import xyz.keksdose.spoon.code_solver.spoon.NewLineAnnotation;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
@@ -45,7 +46,7 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         if (!isSameType(type, Path.of(result.filePath()))) {
             return;
         }
-        List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
+        List<CtConstructor<?>> constructors = getConstructors(type);
         if (type instanceof CtClass<?> clazz) {
             if (allConstructorsAreImplicit(constructors)) {
                 createConstructor(clazz);
@@ -72,6 +73,17 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         }
     }
 
+    /**
+     * Returns all constructors of a type, but only if they are declared in the type itself and not in an inner type.
+     * @param type  the type to get the constructors from.
+     * @return  a list of constructors never null.
+     */
+    private List<CtConstructor<?>> getConstructors(CtType<?> type) {
+        List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
+        constructors.removeIf(constructor -> !constructor.getDeclaringType().equals(type));
+        return constructors;
+    }
+
     private boolean singlePublicEmptyConstructor(CtType<?> type) {
         List<CtConstructor<?>> constructors = type.getElements(new TypeFilter<>(CtConstructor.class));
         return constructors.size() == 1
@@ -93,7 +105,16 @@ public class UtilityClassWithoutPrivateConstructor extends AbstractRefactoring {
         CtComment comment = createBodyComment(factory);
         body.addStatement(comment);
         newConstructor.setBody(body);
+        moveToTheTop(clazz);
         return newConstructor;
+    }
+
+    private void moveToTheTop(CtClass<?> clazz) {
+        var insertedConstructor =
+                clazz.getTypeMembers().get(clazz.getTypeMembers().size() - 1);
+        clazz.removeTypeMember(insertedConstructor);
+        clazz.addTypeMemberAt(0, insertedConstructor);
+        insertedConstructor.addAnnotation(new NewLineAnnotation<>());
     }
 
     private CtComment createBodyComment(Factory factory) {
