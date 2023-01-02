@@ -40,7 +40,7 @@ public class BadSmell implements AnalyzerResult {
                         projectName,
                         result.ruleID().ruleID(),
                         commitHash,
-                        result.position().hashCode());
+                        positionToString(result.position()));
     }
 
     /** (non-Javadoc)
@@ -147,5 +147,16 @@ public class BadSmell implements AnalyzerResult {
      */
     public String getCommitHash() {
         return commitHash;
+    }
+
+    private static String positionToString(Position position) {
+        return "sl:%s-el:%s-sc:%s-ec:%s-co:%s-cl:%s"
+                .formatted(
+                        position.startLine(),
+                        position.endLine(),
+                        position.startColumn(),
+                        position.endColumn(),
+                        position.charOffset(),
+                        position.charLength());
     }
 }
