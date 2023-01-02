@@ -66,7 +66,7 @@ export default function BadSmellList(project: Project) {
 function SelectionBox({ label, addFunction }: { label: string; addFunction: (label: string) => void; }) {
   return (<Box>
     <FormControlLabel control={<Checkbox  />}
-      defaultChecked onClick={e => { addFunction(label); }} label={label}  />
+      defaultChecked onClick={() => { addFunction(label); }} label={label}  />
   </Box>)
 }
 
