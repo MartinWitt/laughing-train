@@ -1,10 +1,9 @@
 package io.github.martinwitt.laughing_train.api.graphql.dto;
 
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import org.eclipse.microprofile.graphql.Name;
 
-import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
-
-@Name("ProjectConfig")
+@Name("ProjectConfigInput")
 public class ProjectConfigGraphQLDtoInput {
 
     private String sourceFolder;
