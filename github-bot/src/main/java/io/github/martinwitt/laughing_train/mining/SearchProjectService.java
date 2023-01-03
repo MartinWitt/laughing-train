@@ -122,7 +122,9 @@ public class SearchProjectService {
     }
 
     private String getRandomOrgName() {
-        return orgs.get(random.nextInt(orgs.size()));
+        String org = orgs.get(random.nextInt(orgs.size()));
+        logger.atInfo().log("Searching for project in org %s", org);
+        return org;
     }
 
     @Readiness
