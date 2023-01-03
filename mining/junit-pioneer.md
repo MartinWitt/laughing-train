@@ -61,18 +61,6 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
-#### Snippet
-```java
-
-	private void storeStdOut(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
-	}
-
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
@@ -80,6 +68,18 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 
 	private void storeStdErr(ExtensionContext context) {
 		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+#### Snippet
+```java
+
+	private void storeStdOut(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_OUT_KEY, System.out); //NOSONAR never writing to System.out, only storing it
 	}
 
 ```
@@ -187,18 +187,6 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
-#### Snippet
-```java
-	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
-			boolean findRepeated, boolean findAllEnclosing) {
-		if (!type.isPresent())
-			return Stream.empty();
-
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.java`
 #### Snippet
 ```java
@@ -219,6 +207,18 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.jav
 				&& !AnnotationSupport.findAnnotation(testMethod, DisableIfAllArguments.class).isPresent()
 				&& AnnotationSupport.findRepeatableAnnotations(testMethod, DisableIfArgument.class).isEmpty()) {
 			throw new ExtensionConfigurationException(
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
+#### Snippet
+```java
+	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
+			boolean findRepeated, boolean findAllEnclosing) {
+		if (!type.isPresent())
+			return Stream.empty();
+
 ```
 
 ### SimplifyOptionalCallChains
@@ -300,10 +300,10 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
 
-/**
- * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
- *
- * Once Pioneer baselines against Java 17, this will be a record.
+	/**
+	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
+	 *
+	 * @return IssueId the test belongs to
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -312,10 +312,10 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 #### Snippet
 ```java
 
-	/**
-	 * Returns the value of the {@link org.junitpioneer.jupiter.Issue} annotation.
-	 *
-	 * @return IssueId the test belongs to
+/**
+ * Represents the execution result of test method, which is annotated with {@link org.junitpioneer.jupiter.Issue}.
+ *
+ * Once Pioneer baselines against Java 17, this will be a record.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -473,6 +473,30 @@ Can generalize to `? extends K`
 in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 #### Snippet
 ```java
+	}
+
+	private void setEntries(Map<K, V> entriesToSet) {
+		entriesToSet.forEach(this::setEntry);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void setEntries(Map<K, V> entriesToSet) {
+		entriesToSet.forEach(this::setEntry);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
 		}
 
 		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
@@ -501,30 +525,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 
 	private void clearEntries(Collection<K> entriesToClear) {
 		entriesToClear.forEach(this::clearEntry);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void setEntries(Map<K, V> entriesToSet) {
-		entriesToSet.forEach(this::setEntry);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void setEntries(Map<K, V> entriesToSet) {
-		entriesToSet.forEach(this::setEntry);
 	}
 ```
 
@@ -565,6 +565,18 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends N`
+in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+#### Snippet
+```java
+	}
+
+	private Stream<N> asStream(Range<N> range) {
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? extends ReentrantLock`
 in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
@@ -586,18 +598,6 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
 			ExtensionContext extensionContext) {
 		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends N`
-in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
-#### Snippet
-```java
-	}
-
-	private Stream<N> asStream(Range<N> range) {
-		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
-	}
 ```
 
 ### BoundedWildcard
