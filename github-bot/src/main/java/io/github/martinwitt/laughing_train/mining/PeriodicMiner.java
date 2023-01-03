@@ -11,6 +11,7 @@ import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
+import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
@@ -18,7 +19,9 @@ import io.vertx.mutiny.core.eventbus.EventBus;
 import io.vertx.mutiny.core.eventbus.Message;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import javax.enterprise.context.ApplicationScoped;
@@ -55,6 +58,7 @@ public class PeriodicMiner {
     private final MeterRegistry registry;
 
     private final Random random = new Random();
+    private Queue<Project> queue = new ArrayDeque<>();
 
     public PeriodicMiner(MeterRegistry registry) {
         this.registry = registry;
@@ -78,9 +82,13 @@ public class PeriodicMiner {
     }
 
     private void mineRandomRepo() {
-        getRandomProject()
+        Uni.createFrom()
+                .item(queue.poll())
+                .onItem()
+                .ifNull()
+                .switchTo(getRandomProject())
                 .ifNoItem()
-                .after(Duration.ofSeconds(30))
+                .after(Duration.ofSeconds(180))
                 .fail()
                 .onItem()
                 .transformToUni(this::checkoutProject)
@@ -208,5 +216,10 @@ public class PeriodicMiner {
                 logger.atSevere().withCause(e).log("Error while creating mining file");
             }
         }
+    }
+
+    @ConsumeEvent(ServiceAddresses.REMINE_REQUEST)
+    public void addToQueue(Project project) {
+        queue.add(project);
     }
 }
