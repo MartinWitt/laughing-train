@@ -109,7 +109,7 @@ public class PeriodicMiner {
                         },
                         e -> {
                             registry.counter("qodana.failure").increment();
-                            logger.atInfo().log("Failed mining " + e.getMessage());
+                            logger.atSevere().withCause(e).log("Failed mining");
                             mineRandomRepo();
                         });
     }
