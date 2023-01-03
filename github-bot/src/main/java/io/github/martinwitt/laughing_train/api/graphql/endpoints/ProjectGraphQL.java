@@ -1,8 +1,11 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDto;
+import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDtoInput;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectConfigService;
@@ -10,7 +13,6 @@ import io.quarkus.security.Authenticated;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import org.apache.commons.lang3.NotImplementedException;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -20,6 +22,8 @@ import org.eclipse.microprofile.graphql.Query;
 @GraphQLApi
 @RequestScoped
 public class ProjectGraphQL {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     @Inject
     ProjectConfigService projectConfigService;
@@ -58,9 +62,12 @@ public class ProjectGraphQL {
     @Authenticated
     @Description("Adds a project to the database")
     public ProjectGraphQLDto addProject(String projectUrl, String projectName) {
+        logger.atInfo().log("Adding project %s with url %s", projectName, projectUrl);
         if (!projectRepository.existsByProjectUrl(projectUrl)) {
+            logger.atInfo().log("Project does not exist yet, creating it");
             return mapToDto(projectRepository.create(new Project(projectUrl, projectName)));
         } else {
+            logger.atInfo().log("Project %s already exists", projectName);
             throw new RuntimeException("Project already exists");
         }
     }
@@ -89,13 +96,29 @@ public class ProjectGraphQL {
                 .map(ProjectConfigGraphQLDto::new)
                 .orElseThrow();
     }
-    // Disable for now
-    // @Mutation
+
+    @Mutation
     @Authenticated
     @Description("Sets the project config for a project")
-    public ProjectConfigGraphQLDto setProjectConfig(ProjectConfigGraphQLDto projectConfig) {
-        // TODO: implement
-        throw new NotImplementedException();
+    public ProjectConfigGraphQLDto setProjectConfig(ProjectConfigGraphQLDtoInput projectConfig) {
+        var existingConfig = projectConfigRepository.findByProjectUrl(projectConfig.getProjectUrl()).stream()
+                .findFirst();
+        if (existingConfig.isPresent()) {
+            var config = createConfigFromInput(projectConfig);
+            projectConfigRepository.deleteByProjectUrl(projectConfig.getProjectUrl());
+            projectConfigRepository.create(config);
+            return new ProjectConfigGraphQLDto(config);
+        } else {
+            var config = createConfigFromInput(projectConfig);
+            projectConfigRepository.create(config);
+            return new ProjectConfigGraphQLDto(config);
+        }
+    }
+
+    private ProjectConfig createConfigFromInput(ProjectConfigGraphQLDtoInput projectConfig) {
+        var config = ProjectConfig.ofProjectUrl(projectConfig.getProjectUrl());
+        config.setSourceFolder(config.getSourceFolder());
+        return config;
     }
 
     private ProjectGraphQLDto mapToDto(Project project) {

@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.mining;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
@@ -26,6 +27,9 @@ import org.kohsuke.github.GitHub;
  */
 @ApplicationScoped
 public class SearchProjectService {
+
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
     @SuppressWarnings("NullAway")
     @ConfigProperty(name = "mining.github.search.orgs")
     List<String> orgs;
@@ -54,8 +58,9 @@ public class SearchProjectService {
                 .onItem()
                 .ifNull()
                 .failWith(() -> new RuntimeException("No project found on github"))
-                .invoke(project -> registry.counter("mining.github.search", "status", "success")
-                        .increment())
+                .invoke(project -> logger.atInfo().log(
+                        "Found project %s on github now starting mining it",
+                        project.getUrl().toString()))
                 .flatMap(this::getProjectIfExisting)
                 .invoke(this::persistProject)
                 .invoke(this::persistProjectConfigIfMissing);
