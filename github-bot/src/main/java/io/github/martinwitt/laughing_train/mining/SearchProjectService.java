@@ -5,7 +5,6 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.logging.Log;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
@@ -41,11 +40,6 @@ public class SearchProjectService {
     ProjectConfigRepository projectConfigRepository;
 
     private final Random random = new Random();
-    private final MeterRegistry registry;
-
-    public SearchProjectService(MeterRegistry registry) {
-        this.registry = registry;
-    }
 
     /**
      * Searches for a random project on github and returns it as a {@link Uni} of {@link Project}.
@@ -59,22 +53,21 @@ public class SearchProjectService {
                 .ifNull()
                 .failWith(() -> new RuntimeException("No project found on github"))
                 .invoke(project -> logger.atInfo().log(
-                        "Found project %s on github now starting mining it",
-                        project.getUrl().toString()))
-                .flatMap(this::getProjectIfExisting)
+                        "Found project %s on github now starting mining it", project.getHttpTransportUrl()))
+                .flatMap(this::getProject)
                 .invoke(this::persistProject)
                 .invoke(this::persistProjectConfigIfMissing);
     }
     /**
-     * This searches for the repository in the database and returns it if it exists.
+     * This searches for the repository in the database and returns it if it exists. If it does not exist, it is created.
      * @param ghRepo  the repository to search for
      * @return the repository if it exists, null otherwise
      */
-    private Uni<Project> getProjectIfExisting(GHRepository ghRepo) {
+    private Uni<Project> getProject(GHRepository ghRepo) {
         return Uni.createFrom()
                 .item(projectRepository.findByProjectName(ghRepo.getName()))
-                .<Project>flatMap(v -> v.isEmpty()
-                        ? Uni.createFrom().nothing()
+                .flatMap(v -> v.isEmpty()
+                        ? Uni.createFrom().item(toProject(ghRepo))
                         : Uni.createFrom().item(v.get(0)));
     }
 
@@ -125,6 +118,10 @@ public class SearchProjectService {
         String org = orgs.get(random.nextInt(orgs.size()));
         logger.atInfo().log("Searching for project in org %s", org);
         return org;
+    }
+
+    private Project toProject(GHRepository ghRepo) {
+        return new Project(ghRepo.getName(), ghRepo.getHttpTransportUrl());
     }
 
     @Readiness
