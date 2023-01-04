@@ -156,7 +156,9 @@ public class PeriodicMiner {
             String commitHash = project.project().commitHash();
             var list = projectRepository.findByProjectName(name);
             if (list.isEmpty()) {
-                projectRepository.create(new Project(name, project.project().url()));
+                Project newProject = new Project(name, project.project().url());
+                newProject.addCommitHash(commitHash);
+                projectRepository.create(newProject);
             } else {
                 logger.atInfo().log("Updating commit hash for %s", name);
                 var oldProject = list.get(0);
