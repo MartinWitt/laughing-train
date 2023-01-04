@@ -88,18 +88,6 @@ public abstract class CheckSigningKeyTask extends DefaultTask {
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
-#### Snippet
-```java
-            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
-            // the value from the task provider, which will fail if the task has not yet been created.
-            project.afterEvaluate(_ignored -> {
-                publication.artifact(project.getTasks().named("distTar"));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
@@ -108,6 +96,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.j
         project.getTasks().withType(Jar.class).named("jar").configure(jar -> {
             jar.getManifest().attributes(Collections.singletonMap("Implementation-Version", project.getVersion()));
         });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+#### Snippet
+```java
+            public void execute(Task _ignored) {
+                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
+                        () -> {
+                            task.getLogger().lifecycle("Printing output to avoid hitting Circle context deadline");
+                        },
 ```
 
 ### CodeBlock2Expr
@@ -136,50 +136,26 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishGradlePlugi
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
 #### Snippet
 ```java
-            public void execute(Task _ignored) {
-                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
-                        () -> {
-                            task.getLogger().lifecycle("Printing output to avoid hitting Circle context deadline");
-                        },
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
-#### Snippet
-```java
-                .configure(distTar -> distTar.setCompression(Compression.GZIP));
-
-        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
-            createStartScripts.doLast(new FixWindowsStartScripts());
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-                                + "*before* this plugin is evaluated"));
-
-        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
-            project.getTasks().named("publish").configure(publish -> {
-                publish.dependsOn(sonatypeFinishingTask);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-
-        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
-            project.getTasks().named("publish").configure(publish -> {
-                publish.dependsOn(sonatypeFinishingTask);
+            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
+            // the value from the task provider, which will fail if the task has not yet been created.
+            project.afterEvaluate(_ignored -> {
+                publication.artifact(project.getTasks().named("distTar"));
             });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+
+    private void disableOtherPublicationsFromPublishingToSonatype() {
+        project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
+            publishTask.onlyIf(_ignored -> {
+                if (publishTask.getRepository().getName().equals("sonatype")) {
 ```
 
 ### CodeBlock2Expr
@@ -211,10 +187,34 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
 #### Snippet
 ```java
+                                + "*before* this plugin is evaluated"));
 
-    private void disableOtherPublicationsFromPublishingToSonatype() {
-        project.getTasks().withType(PublishToMavenRepository.class).configureEach(publishTask -> {
-            publishTask.onlyIf(_ignored -> {
-                if (publishTask.getRepository().getName().equals("sonatype")) {
+        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
+            project.getTasks().named("publish").configure(publish -> {
+                publish.dependsOn(sonatypeFinishingTask);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+
+        rootPlugin.sonatypeFinishingTask().ifPresent(sonatypeFinishingTask -> {
+            project.getTasks().named("publish").configure(publish -> {
+                publish.dependsOn(sonatypeFinishingTask);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+#### Snippet
+```java
+                .configure(distTar -> distTar.setCompression(Compression.GZIP));
+
+        project.getTasks().withType(CreateStartScripts.class).configureEach(createStartScripts -> {
+            createStartScripts.doLast(new FixWindowsStartScripts());
+        });
 ```
 
