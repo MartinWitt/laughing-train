@@ -248,30 +248,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMet
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
-        PythonSetup.Builder builder = PythonSetup.builder()
-                .pythonPackage(rootPackage)
-                .putOptions("name", config.packageName().get())
-                .putOptions("version", config.packageVersion().get())
-                .putOptions("python_requires", ">=3.8")
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
-                .pythonPackage(rootPackage)
-                .putOptions("name", config.packageName().get())
-                .putOptions("version", config.packageVersion().get())
-                .putOptions("python_requires", ">=3.8")
-                .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
     private PythonFile buildPyTypedFile() {
         return PythonFile.builder()
                 .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
@@ -313,6 +289,30 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
                         .packageVersion(config.packageVersion().get())
                         .addInstallDependencies("requests")
                         .addInstallDependencies(String.format(
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+        PythonSetup.Builder builder = PythonSetup.builder()
+                .pythonPackage(rootPackage)
+                .putOptions("name", config.packageName().get())
+                .putOptions("version", config.packageVersion().get())
+                .putOptions("python_requires", ">=3.8")
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                .pythonPackage(rootPackage)
+                .putOptions("name", config.packageName().get())
+                .putOptions("version", config.packageVersion().get())
+                .putOptions("python_requires", ">=3.8")
+                .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
