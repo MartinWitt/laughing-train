@@ -1,12 +1,13 @@
 # diffmin 
  
 # Bad smells
-I found 16 bad smells with 1 repairable:
+I found 17 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 10 | false |
 | SystemOutErr | 2 | false |
 | AssignmentToMethodParameter | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
@@ -46,6 +47,19 @@ in `src/main/java/com/diffmin/Main.java`
         System.out.println(SpoonUtil.prettyPrintModelWithSingleCompilationUnit(patchedCtModel));
         System.exit(0);
     }
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-18-37-20.835.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -104,18 +118,6 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
-
-    private static void performMovement(
-            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
-        CtElement toBeDeleted = movePatch.getFirst();
-        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
     /** Apply all the patches generated. */
     public static void applyPatch(
             List<CtElement> deletePatches,
@@ -145,6 +147,18 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
             List<Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>>> movePatches) {
         deletePatches.forEach(PatchApplication::performDeletion);
         updatePatches.forEach(PatchApplication::performUpdating);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    private static void performMovement(
+            Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
+        CtElement toBeDeleted = movePatch.getFirst();
+        ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
 ```
 
 ### BoundedWildcard
