@@ -148,9 +148,7 @@ public class DataBaseMigration {
         badSmellRepository
                 .getAll()
                 .filter(v -> v.getProjectUrl().endsWith(".git"))
-                .forEach(badSmell -> {
-                    badSmellRepository.deleteByIdentifier(badSmell.getIdentifier());
-                });
+                .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
         projectRepository.getAll().stream()
                 .filter(v -> v.getProjectUrl().endsWith(".git"))
                 .forEach(project -> {
