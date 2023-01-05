@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-14-49-59.022.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-16-46-20.320.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -116,6 +116,19 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
+## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
+```
+
 ## RuleId[ruleID=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
@@ -141,32 +154,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
       return ARCH_X64;
 ```
 
-## RuleId[ruleID=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
-```
-
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends LatLng`
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-   * @return Next offset to begin filling from
-   */
-  private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
-    assert arr.length >= (original.size() * 2) + offset;
-
-```
-
 ### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -176,6 +164,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
    */
   public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
     checkResolution(res);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends LatLng`
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+   * @return Next offset to begin filling from
+   */
+  private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
+    assert arr.length >= (original.size() * 2) + offset;
 
 ```
 
