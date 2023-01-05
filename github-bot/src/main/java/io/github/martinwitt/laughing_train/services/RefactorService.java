@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
@@ -71,7 +72,7 @@ public class RefactorService {
     @Inject
     ProjectConfigService projectConfigService;
 
-    public Uni<String> refactor(List<? extends BadSmell> badSmells) {
+    public Uni<String> refactor(Collection<? extends BadSmell> badSmells) {
         logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
         var badSmellByAnalyzer = badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
         for (var entry : badSmellByAnalyzer.entrySet()) {
