@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
@@ -121,7 +122,11 @@ public class SearchProjectService {
     }
 
     private Project toProject(GHRepository ghRepo) {
-        return new Project(ghRepo.getName(), ghRepo.getHttpTransportUrl());
+        @Var String ghRepoUrl = ghRepo.getUrl().toString();
+        if (ghRepoUrl.endsWith(".git")) {
+            ghRepoUrl = ghRepoUrl.substring(0, ghRepoUrl.length() - 4);
+        }
+        return new Project(ghRepo.getName(), ghRepoUrl);
     }
 
     @Readiness
