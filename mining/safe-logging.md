@@ -23,54 +23,6 @@ public class Assertions extends org.assertj.core.api.Assertions {
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                .addModifiers(Modifier.FINAL)
-                .addSuperinterface(BRIDGE_NAME)
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Marker.class), MARKER_FIELD)
-                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Marker.class), MARKER_FIELD)
-                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
-                        .build())
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
-                        .build())
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
-                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
-                        .build())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                        .build())
-                .addMethod(MethodSpec.constructorBuilder()
-                        .addParameter(ParameterSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
-                                .build())
-                        .addStatement(
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.logging.log4j` is unnecessary, and can be replaced with an import
 in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
 #### Snippet
@@ -115,6 +67,54 @@ in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerG
                         .addParameter(
                                 ParameterSpec.builder(ClassName.get(org.apache.logging.log4j.Logger.class), DELEGATE)
                                         .build())
+                        .addStatement(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
+#### Snippet
+```java
+                .addModifiers(Modifier.FINAL)
+                .addSuperinterface(BRIDGE_NAME)
+                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Marker.class), MARKER_FIELD)
+                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
+#### Snippet
+```java
+                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Marker.class), MARKER_FIELD)
+                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
+                        .build())
+                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
+#### Snippet
+```java
+                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
+                        .build())
+                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
+                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
+                        .build())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
+in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
+#### Snippet
+```java
+                        .build())
+                .addMethod(MethodSpec.constructorBuilder()
+                        .addParameter(ParameterSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
+                                .build())
                         .addStatement(
 ```
 
