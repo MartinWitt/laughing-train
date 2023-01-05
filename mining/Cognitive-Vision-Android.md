@@ -4,9 +4,9 @@
 I found 3 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=GroovyUnusedAssignment] | 3 | false |
+| GroovyUnusedAssignment | 3 | false |
 ## RuleId[ruleID=GroovyUnusedAssignment]
-### RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
 Assignment is not used
 in `ClientLibrary/lib/build.gradle`
 #### Snippet
@@ -18,7 +18,7 @@ group = "com.microsoft.projectoxford"
 archivesBaseName = "vision"
 ```
 
-### RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
 Assignment is not used
 in `ClientLibrary/lib/build.gradle`
 #### Snippet
@@ -30,7 +30,7 @@ archivesBaseName = "vision"
 version = "1.0.394"
 ```
 
-### RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
 Assignment is not used
 in `ClientLibrary/lib/build.gradle`
 #### Snippet
