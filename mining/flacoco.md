@@ -47,11 +47,23 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
-			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
-			arity = "0..1",
-			fallbackValue = ""
-	)
 	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
 ```
 
 ### DefaultAnnotationParam
@@ -71,23 +83,11 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
+			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
+			arity = "0..1",
+			fallbackValue = ""
+	)
 	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
@@ -255,15 +255,15 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
 #### Snippet
 ```java
+        }
 
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
-
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
+        found = bestFit;
+    }
+}
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -288,6 +288,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 		EntryPoint.coverageDetail = ParserOptions.CoverageTransformerDetail.DETAIL_COMPRESSED;
 		EntryPoint.workingDirectory = new File(config.getWorkspace());
 		EntryPoint.verbose = config.isTestRunnerVerbose();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+#### Snippet
+```java
+
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
+
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -387,66 +399,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
-#### Snippet
-```java
-        }
-
-        found = bestFit;
-    }
-}
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-		for (Location location : original.keySet()) {
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.lineNumber` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-			// Compute location information
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
-			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
-			SpoonLocalizedFaultFinder.found = null;
-
-			// Launch processor to find the top-most CtStatement of the given line
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
-#### Snippet
-```java
-
-			// Prepare for next key
-			SpoonLocalizedFaultFinder.found = null;
-		}
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `SpoonBlockLocationsFinder.fullyQualifiedClassName` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
@@ -506,6 +458,54 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.jav
 
 ```
 
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.fullyQualifiedClassName` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+		for (Location location : original.keySet()) {
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.lineNumber` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+			// Compute location information
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+			SpoonLocalizedFaultFinder.fullyQualifiedClassName = location.getClassName();
+			SpoonLocalizedFaultFinder.lineNumber = location.getLineNumber();
+			SpoonLocalizedFaultFinder.found = null;
+
+			// Launch processor to find the top-most CtStatement of the given line
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `SpoonLocalizedFaultFinder.found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
+#### Snippet
+```java
+
+			// Prepare for next key
+			SpoonLocalizedFaultFinder.found = null;
+		}
+
+```
+
 ## RuleId[ruleID=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
@@ -550,18 +550,6 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
 
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-	boolean includeZeros = false;
-
-	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
 	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
 	boolean testRunnerVerbose = false;
 
@@ -578,6 +566,18 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	double threshold = 0.0;
 
 	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
+	boolean coverTest = false;
+
+	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
 ```
 
 ### RedundantFieldInitialization
@@ -598,10 +598,10 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
 
-	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
-	boolean coverTest = false;
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+	boolean includeZeros = false;
 
-	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
+	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -620,7 +620,7 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-12-47-36.610.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-16-21-12.421.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -670,18 +670,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/c
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java`
-#### Snippet
-```java
-    @Override
-    public String[] getClasses() {
-        return getClassesLoc(new File(srcFolder)).toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/ClassloaderStrategy.java`
 #### Snippet
 ```java
@@ -690,6 +678,18 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/Classloa
         return urls.toArray(new URL[0]);
     }
 }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/classes/impl/SourceFolderFinder.java`
+#### Snippet
+```java
+    @Override
+    public String[] getClasses() {
+        return getClassesLoc(new File(srcFolder)).toArray(new String[0]);
+    }
+
 ```
 
 ## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
