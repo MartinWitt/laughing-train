@@ -9,6 +9,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.quarkus.logging.Log;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import javax.enterprise.context.ApplicationScoped;
@@ -115,6 +116,20 @@ public class SearchProjectService {
         }
     }
 
+    public static void main(String[] args) throws IOException {
+        GitHub github = GitHub.connectAnonymously();
+        var repos = github.searchRepositories()
+                .q("language:java")
+                .org("xtext")
+                .sort(Sort.UPDATED)
+                .list()
+                .withPageSize(50)
+                .iterator()
+                .nextPage();
+        var repo = repos.get(0);
+        int a = 3;
+    }
+
     private String getRandomOrgName() {
         String org = orgs.get(random.nextInt(orgs.size()));
         logger.atInfo().log("Searching for project in org %s", org);
@@ -122,7 +137,7 @@ public class SearchProjectService {
     }
 
     private Project toProject(GHRepository ghRepo) {
-        @Var String ghRepoUrl = ghRepo.getUrl().toString();
+        @Var String ghRepoUrl = ghRepo.getHtmlUrl().toString();
         if (ghRepoUrl.endsWith(".git")) {
             ghRepoUrl = ghRepoUrl.substring(0, ghRepoUrl.length() - 4);
         }
