@@ -67,6 +67,7 @@ public class DataBaseMigration {
         removeProjectsWithOutHashes();
         removeDuplicatedProjects();
         removeBadSmellsWithoutProjectHash();
+        removeBadSmellsWithWrongProjectUrl();
         logger.atInfo().log("Finished migrating database");
     }
 
@@ -138,5 +139,21 @@ public class DataBaseMigration {
                         .hasNext())
                 .map(BadSmell::getIdentifier)
                 .forEach(badSmellRepository::deleteByIdentifier);
+    }
+
+    /**
+     * Fixes some fuckup with the project urls.
+     */
+    private void removeBadSmellsWithWrongProjectUrl() {
+        badSmellRepository
+                .getAll()
+                .filter(v -> v.getProjectUrl().endsWith(".git"))
+                .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
+        projectRepository.getAll().stream()
+                .filter(v -> v.getProjectUrl().endsWith(".git"))
+                .forEach(project -> {
+                    projectConfigRepository.deleteByProjectUrl(project.getProjectUrl());
+                    projectRepository.deleteByProjectUrl(project.getProjectUrl());
+                });
     }
 }
