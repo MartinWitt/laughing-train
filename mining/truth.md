@@ -1,53 +1,55 @@
 # truth 
  
 # Bad smells
-I found 353 bad smells with 3 repairable:
+I found 355 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=DataFlowIssue] | 76 | false |
-| RuleId[ruleID=BoundedWildcard] | 30 | false |
-| RuleId[ruleID=AbstractClassNeverImplemented] | 28 | false |
-| RuleId[ruleID=OptionalUsedAsFieldOrParameterType] | 26 | false |
-| RuleId[ruleID=AssignmentToMethodParameter] | 25 | false |
-| RuleId[ruleID=OptionalGetWithoutIsPresent] | 23 | false |
-| RuleId[ruleID=IgnoreResultOfCall] | 21 | false |
-| RuleId[ruleID=RedundantFieldInitialization] | 17 | false |
-| RuleId[ruleID=OptionalAssignedToNull] | 15 | false |
-| RuleId[ruleID=NullableProblems] | 12 | false |
-| RuleId[ruleID=UnstableApiUsage] | 8 | false |
-| RuleId[ruleID=DeprecatedIsStillUsed] | 5 | false |
-| RuleId[ruleID=KeySetIterationMayUseEntrySet] | 5 | false |
-| RuleId[ruleID=UnnecessaryUnboxing] | 5 | false |
-| RuleId[ruleID=UnnecessarySemicolon] | 4 | false |
-| RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod] | 4 | false |
-| RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern] | 4 | false |
-| RuleId[ruleID=Anonymous2MethodRef] | 4 | false |
-| RuleId[ruleID=ZeroLengthArrayInitialization] | 4 | false |
-| RuleId[ruleID=StaticPseudoFunctionalStyleMethod] | 3 | false |
-| RuleId[ruleID=UnnecessaryFullyQualifiedName] | 3 | false |
-| RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment] | 3 | false |
-| RuleId[ruleID=EqualsWhichDoesntCheckParameterClass] | 3 | false |
-| RuleId[ruleID=UnnecessaryModifier] | 2 | true |
-| RuleId[ruleID=DuplicateBranchesInSwitch] | 2 | false |
-| RuleId[ruleID=NonShortCircuitBoolean] | 2 | false |
-| RuleId[ruleID=EmptyMethod] | 2 | false |
-| RuleId[ruleID=TypeParameterExtendsObject] | 2 | false |
-| RuleId[ruleID=ConstantValue] | 2 | false |
-| RuleId[ruleID=OptionalIsPresent] | 1 | false |
-| RuleId[ruleID=Convert2MethodRef] | 1 | false |
-| RuleId[ruleID=FinalPrivateMethod] | 1 | false |
-| RuleId[ruleID=StringBufferReplaceableByString] | 1 | false |
-| RuleId[ruleID=UnnecessaryToStringCall] | 1 | true |
-| RuleId[ruleID=FinalStaticMethod] | 1 | false |
-| RuleId[ruleID=WrongPackageStatement] | 1 | false |
-| RuleId[ruleID=UnnecessaryInitCause] | 1 | false |
-| RuleId[ruleID=RedundantMethodOverride] | 1 | false |
-| RuleId[ruleID=ClassNameSameAsAncestorName] | 1 | false |
-| RuleId[ruleID=ReturnNull] | 1 | false |
-| RuleId[ruleID=InstanceofCatchParameter] | 1 | false |
-| RuleId[ruleID=NonExceptionNameEndsWithException] | 1 | false |
+| DataFlowIssue | 76 | false |
+| BoundedWildcard | 30 | false |
+| AbstractClassNeverImplemented | 28 | false |
+| OptionalUsedAsFieldOrParameterType | 26 | false |
+| AssignmentToMethodParameter | 25 | false |
+| OptionalGetWithoutIsPresent | 23 | false |
+| IgnoreResultOfCall | 21 | false |
+| RedundantFieldInitialization | 17 | false |
+| OptionalAssignedToNull | 15 | false |
+| NullableProblems | 12 | false |
+| UnstableApiUsage | 8 | false |
+| DeprecatedIsStillUsed | 5 | false |
+| KeySetIterationMayUseEntrySet | 5 | false |
+| UnnecessaryUnboxing | 5 | false |
+| UnnecessarySemicolon | 4 | false |
+| NonSynchronizedMethodOverridesSynchronizedMethod | 4 | false |
+| DynamicRegexReplaceableByCompiledPattern | 4 | false |
+| Anonymous2MethodRef | 4 | false |
+| ZeroLengthArrayInitialization | 4 | false |
+| StaticPseudoFunctionalStyleMethod | 3 | false |
+| UnnecessaryFullyQualifiedName | 3 | false |
+| ReplaceAssignmentWithOperatorAssignment | 3 | false |
+| EqualsWhichDoesntCheckParameterClass | 3 | false |
+| UnnecessaryModifier | 2 | true |
+| DuplicateBranchesInSwitch | 2 | false |
+| NonShortCircuitBoolean | 2 | false |
+| EmptyMethod | 2 | false |
+| TypeParameterExtendsObject | 2 | false |
+| ConstantValue | 2 | false |
+| OptionalIsPresent | 1 | false |
+| Convert2MethodRef | 1 | false |
+| FinalPrivateMethod | 1 | false |
+| StringBufferReplaceableByString | 1 | false |
+| FinalStaticMethod | 1 | false |
+| UnnecessaryToStringCall | 1 | true |
+| WrongPackageStatement | 1 | false |
+| UnnecessaryInitCause | 1 | false |
+| ClassNameSameAsAncestorName | 1 | false |
+| RedundantMethodOverride | 1 | false |
+| UNUSED_IMPORT | 1 | false |
+| ReturnNull | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
+| InstanceofCatchParameter | 1 | false |
+| NonExceptionNameEndsWithException | 1 | false |
 ## RuleId[ruleID=OptionalIsPresent]
-### RuleId[ruleID=OptionalIsPresent]
+### OptionalIsPresent
 Can be replaced with single expression in functional style
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
 #### Snippet
@@ -60,7 +62,7 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryModifier]
-### RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MultimapWithProtoValuesFluentAssertion.java`
 #### Snippet
@@ -72,7 +74,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Mult
   /**
 ```
 
-### RuleId[ruleID=UnnecessaryModifier]
+### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MultimapWithProtoValuesFluentAssertion.java`
 #### Snippet
@@ -85,31 +87,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Mult
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
-### RuleId[ruleID=UnnecessarySemicolon]
-Unnecessary semicolon `;`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/SubScopeId.java`
-#### Snippet
-```java
-  enum Kind {
-    FIELD_DESCRIPTOR,
-    UNKNOWN_FIELD_DESCRIPTOR;
-  }
-
-```
-
-### RuleId[ruleID=UnnecessarySemicolon]
-Unnecessary semicolon `;`
-in `core/src/main/java/com/google/common/truth/Expect.java`
-#### Snippet
-```java
-    BEFORE,
-    DURING,
-    AFTER;
-  }
-}
-```
-
-### RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
 #### Snippet
@@ -121,7 +99,31 @@ in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
 
 ```
 
-### RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `core/src/main/java/com/google/common/truth/Expect.java`
+#### Snippet
+```java
+    BEFORE,
+    DURING,
+    AFTER;
+  }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/SubScopeId.java`
+#### Snippet
+```java
+  enum Kind {
+    FIELD_DESCRIPTOR,
+    UNKNOWN_FIELD_DESCRIPTOR;
+  }
+
+```
+
+### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 #### Snippet
@@ -134,163 +136,7 @@ in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/ObjectArraySubject.java`
-#### Snippet
-```java
-
-  public IterableSubject asList() {
-    return checkNoNeedToDisplayBothValues("asList()").that(Arrays.asList(actual));
-  }
-}
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `length` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/StringSubject.java`
-#### Snippet
-```java
-      String subject = actual;
-      for (int subjectOffset = 0;
-          subjectOffset <= subject.length() - string.length();
-          subjectOffset++) {
-        if (subject.regionMatches(
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `length` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/StringSubject.java`
-#### Snippet
-```java
-  public void hasLength(int expectedLength) {
-    checkArgument(expectedLength >= 0, "expectedLength(%s) must be >= 0", expectedLength);
-    check("length()").that(actual.length()).isEqualTo(expectedLength);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/ClassSubject.java`
-#### Snippet
-```java
-   */
-  public void isAssignableTo(Class<?> clazz) {
-    if (!clazz.isAssignableFrom(actual)) {
-      failWithActual("expected to be assignable to", clazz.getName());
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `count` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultisetSubject.java`
-#### Snippet
-```java
-  public final void hasCount(@Nullable Object element, int expectedCount) {
-    checkArgument(expectedCount >= 0, "expectedCount(%s) must be >= 0", expectedCount);
-    int actualCount = ((Multiset<?>) actual).count(element);
-    check("count(%s)", element).that(actualCount).isEqualTo(expectedCount);
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `compareTo` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-   */
-  public final void isAtMost(T other) {
-    if (actual.compareTo(other) > 0) {
-      failWithActual("expected to be at most", other);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-  /** Checks that the subject is <i>not</i> in {@code range}. */
-  public final void isNotIn(Range<T> range) {
-    if (range.contains(actual)) {
-      failWithActual("expected not to be in range", range);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `compareTo` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-   */
-  public final void isLessThan(T other) {
-    if (actual.compareTo(other) >= 0) {
-      failWithActual("expected to be less than", other);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `compareTo` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-   */
-  public final void isAtLeast(T other) {
-    if (actual.compareTo(other) < 0) {
-      failWithActual("expected to be at least", other);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `compareTo` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-   */
-  public final void isGreaterThan(T other) {
-    if (actual.compareTo(other) <= 0) {
-      failWithActual("expected to be greater than", other);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-  /** Checks that the subject is in {@code range}. */
-  public final void isIn(Range<T> range) {
-    if (!range.contains(actual)) {
-      failWithActual("expected to be in range", range);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `compareTo` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-   */
-  public void isEquivalentAccordingToCompareTo(T expected) {
-    if (actual.compareTo(expected) != 0) {
-      failWithActual("expected value that sorts equal to", expected);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/PrimitiveByteArraySubject.java`
-#### Snippet
-```java
-
-  public IterableSubject asList() {
-    return checkNoNeedToDisplayBothValues("asList()").that(Bytes.asList(actual));
-  }
-}
-```
-
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Argument `actual` might be null
 in `core/src/main/java/com/google/common/truth/PrimitiveLongArraySubject.java`
 #### Snippet
@@ -302,187 +148,7 @@ in `core/src/main/java/com/google/common/truth/PrimitiveLongArraySubject.java`
 }
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Casting `(Object)value` to `NativeNumber` will produce `ClassCastException` for any non-null value
-in `core/src/main/java/com/google/common/truth/super/com/google/common/truth/Platform.java`
-#### Snippet
-```java
-  private static String toLocaleString(double value) {
-    // Recieve a double as a parameter so that "(Object) value" does not box it.
-    return ((NativeNumber) (Object) value).toLocaleString("en-US", JavaLikeOptions.INSTANCE);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `actual` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
-#### Snippet
-```java
-  private @Nullable Throwable rootCause() {
-    for (Step step : steps) {
-      if (!step.isCheckCall() && step.subject.actual() instanceof Throwable) {
-        return (Throwable) step.subject.actual();
-      }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `actual` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
-#### Snippet
-```java
-
-      if (rootSubject == null) {
-        if (step.subject.actual() instanceof Throwable) {
-          /*
-           * We'll already include the Throwable as a cause of the AssertionError (see rootCause()),
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Dereference of `rootSubject` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
-#### Snippet
-```java
-            fact(
-                // TODO(cpovirk): Use inferDescription() here when appropriate? But it can be long.
-                rootSubject.subject.typeDescription() + " was",
-                rootSubject.subject.actualCustomStringRepresentationForPackageMembersToCall()))
-        : ImmutableList.<Fact>of();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `typeDescription` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
-#### Snippet
-```java
-            fact(
-                // TODO(cpovirk): Use inferDescription() here when appropriate? But it can be long.
-                rootSubject.subject.typeDescription() + " was",
-                rootSubject.subject.actualCustomStringRepresentationForPackageMembersToCall()))
-        : ImmutableList.<Fact>of();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `typeDescription` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
-#### Snippet
-```java
-
-      if (description == null) {
-        description = step.subject.typeDescription();
-      }
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  public final Ordered containsExactlyEntriesIn(Map<?, ?> expectedMap) {
-    if (expectedMap.isEmpty()) {
-      if (actual.isEmpty()) {
-        return IN_ORDER;
-      } else {
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-      // We're using the fact that Sets.intersection keeps the order of the first set.
-      List<?> expectedKeyOrder =
-          Lists.newArrayList(Sets.intersection(expectedMap.keySet(), actual.keySet()));
-      List<?> actualKeyOrder =
-          Lists.newArrayList(Sets.intersection(actual.keySet(), expectedMap.keySet()));
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  /** Fails if the map is not empty. */
-  public final void isEmpty() {
-    if (!actual.isEmpty()) {
-      failWithActual(simpleFact("expected to be empty"));
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `size` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  public final void hasSize(int expectedSize) {
-    checkArgument(expectedSize >= 0, "expectedSize (%s) must be >= 0", expectedSize);
-    check("size()").that(actual.size()).isEqualTo(expectedSize);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `entrySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  public final void doesNotContainEntry(@Nullable Object key, @Nullable Object value) {
-    checkNoNeedToDisplayBothValues("entrySet()")
-        .that(actual.entrySet())
-        .doesNotContain(immutableEntry(key, value));
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  /** Fails if the map contains the given key. */
-  public final void doesNotContainKey(@Nullable Object key) {
-    check("keySet()").that(actual.keySet()).doesNotContain(key);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  /** Fails if the map does not contain the given key. */
-  public final void containsKey(@Nullable Object key) {
-    check("keySet()").that(actual.keySet()).contains(key);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `entrySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  public final void containsEntry(@Nullable Object key, @Nullable Object value) {
-    Map.Entry<Object, Object> entry = immutableEntry(key, value);
-    if (!actual.entrySet().contains(entry)) {
-      List<Object> keyList = singletonList(key);
-      List<Object> valueList = singletonList(value);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
-#### Snippet
-```java
-  /** Fails if the map is empty. */
-  public final void isNotEmpty() {
-    if (actual.isEmpty()) {
-      failWithoutActual(simpleFact("expected not to be empty"));
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Argument `actual` might be null
 in `core/src/main/java/com/google/common/truth/PrimitiveIntArraySubject.java`
 #### Snippet
@@ -494,331 +160,7 @@ in `core/src/main/java/com/google/common/truth/PrimitiveIntArraySubject.java`
 }
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/PrimitiveCharArraySubject.java`
-#### Snippet
-```java
-
-  public IterableSubject asList() {
-    return checkNoNeedToDisplayBothValues("asList()").that(Chars.asList(actual));
-  }
-}
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `containsEntry` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  public final void containsEntry(@Nullable Object key, @Nullable Object value) {
-    // TODO(kak): Can we share any of this logic w/ MapSubject.containsEntry()?
-    if (!actual.containsEntry(key, value)) {
-      Map.Entry<Object, Object> entry = immutableEntry(key, value);
-      List<Map.Entry<Object, Object>> entryList = ImmutableList.of(entry);
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `entries` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  @CanIgnoreReturnValue
-  public final Ordered containsExactly() {
-    return check().about(iterableEntries()).that(actual.entries()).containsExactly();
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `size` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  public final void hasSize(int expectedSize) {
-    checkArgument(expectedSize >= 0, "expectedSize(%s) must be >= 0", expectedSize);
-    check("size()").that(actual.size()).isEqualTo(expectedSize);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-      // We use the fact that Sets.intersection's result has the same order as the first parameter
-      boolean keysInOrder =
-          Lists.newArrayList(Sets.intersection(actual.keySet(), expectedMultimap.keySet()))
-              .equals(Lists.newArrayList(expectedMultimap.keySet()));
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `entries` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  public final void doesNotContainEntry(@Nullable Object key, @Nullable Object value) {
-    checkNoNeedToDisplayBothValues("entries()")
-        .that(actual.entries())
-        .doesNotContain(immutableEntry(key, value));
-  }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  /** Fails if the multimap contains the given key. */
-  public final void doesNotContainKey(@Nullable Object key) {
-    check("keySet()").that(actual.keySet()).doesNotContain(key);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `keySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  /** Fails if the multimap does not contain the given key. */
-  public final void containsKey(@Nullable Object key) {
-    check("keySet()").that(actual.keySet()).contains(key);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  /** Fails if the multimap is empty. */
-  public final void isNotEmpty() {
-    if (actual.isEmpty()) {
-      failWithoutActual(simpleFact("expected not to be empty"));
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-    checkNotNull(expectedMultimap, "expectedMultimap");
-    ListMultimap<?, ?> missing = difference(expectedMultimap, actual);
-    ListMultimap<?, ?> extra = difference(actual, expectedMultimap);
-
-    // TODO(kak): Possible enhancement: Include "[1 copy]" if the element does appear in
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `get` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-   */
-  public IterableSubject valuesForKey(@Nullable Object key) {
-    return check("valuesForKey(%s)", key).that(((Multimap<Object, Object>) actual).get(key));
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
-#### Snippet
-```java
-  /** Fails if the multimap is not empty. */
-  public final void isEmpty() {
-    if (!actual.isEmpty()) {
-      failWithActual(simpleFact("expected to be empty"));
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getMessage` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ThrowableSubject.java`
-#### Snippet
-```java
-                  + " about individual facts by using ExpectFailure.assertThat.)");
-    }
-    return check.that(actual.getMessage());
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/PrimitiveShortArraySubject.java`
-#### Snippet
-```java
-
-  public IterableSubject asList() {
-    return checkNoNeedToDisplayBothValues("asList()").that(Shorts.asList(actual));
-  }
-}
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `cellSet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  public void containsCell(Cell<?, ?, ?> cell) {
-    checkNotNull(cell);
-    checkNoNeedToDisplayBothValues("cellSet()").that(actual.cellSet()).contains(cell);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `contains` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table does not contain a mapping for the given row key and column key. */
-  public void contains(@Nullable Object rowKey, @Nullable Object columnKey) {
-    if (!actual.contains(rowKey, columnKey)) {
-      fail("contains mapping for row/column", rowKey, columnKey);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `rowKeySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table does not contain the given row key. */
-  public void containsRow(@Nullable Object rowKey) {
-    check("rowKeySet()").that(actual.rowKeySet()).contains(rowKey);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `cellSet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  public void doesNotContainCell(Cell<?, ?, ?> cell) {
-    checkNotNull(cell);
-    checkNoNeedToDisplayBothValues("cellSet()").that(actual.cellSet()).doesNotContain(cell);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table is not empty. */
-  public void isEmpty() {
-    if (!actual.isEmpty()) {
-      failWithActual(simpleFact("expected to be empty"));
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `columnKeySet` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table does not contain the given column key. */
-  public void containsColumn(@Nullable Object columnKey) {
-    check("columnKeySet()").that(actual.columnKeySet()).contains(columnKey);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isEmpty` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table is empty. */
-  public void isNotEmpty() {
-    if (actual.isEmpty()) {
-      failWithoutActual(simpleFact("expected not to be empty"));
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `values` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table does not contain the given value. */
-  public void containsValue(@Nullable Object value) {
-    check("values()").that(actual.values()).contains(value);
-  }
-}
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `contains` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  /** Fails if the table contains a mapping for the given row key and column key. */
-  public void doesNotContain(@Nullable Object rowKey, @Nullable Object columnKey) {
-    if (actual.contains(rowKey, columnKey)) {
-      fail("does not contain mapping for row/column", rowKey, columnKey);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `size` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/TableSubject.java`
-#### Snippet
-```java
-  public final void hasSize(int expectedSize) {
-    checkArgument(expectedSize >= 0, "expectedSize(%s) must be >= 0", expectedSize);
-    check("size()").that(actual.size()).isEqualTo(expectedSize);
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getSerializedSize` may produce `NullPointerException`
-in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
-#### Snippet
-```java
-   */
-  public IntegerSubject serializedSize() {
-    return check("getSerializedSize()").that(actual.getSerializedSize());
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `isInitialized` may produce `NullPointerException`
-in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
-#### Snippet
-```java
-   */
-  public void hasAllRequiredFields() {
-    if (!actual.isInitialized()) {
-      // MessageLite doesn't support reflection so this is the best we can do.
-      failWithoutActual(
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `getClass` may produce `NullPointerException`
-in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
-#### Snippet
-```java
-          String.format(
-              "# %s@%s",
-              messageLite.getClass().getName(), Integer.toHexString(messageLite.hashCode()));
-      if (trimmedSubjectString.startsWith(objectToString)) {
-        subjectString = trimmedSubjectString.replaceFirst(Pattern.quote(objectToString), "").trim();
-```
-
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Argument `actual` might be null
 in `core/src/main/java/com/google/common/truth/PrimitiveFloatArraySubject.java`
 #### Snippet
@@ -830,31 +172,7 @@ in `core/src/main/java/com/google/common/truth/PrimitiveFloatArraySubject.java`
 
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/PrimitiveBooleanArraySubject.java`
-#### Snippet
-```java
-
-  public IterableSubject asList() {
-    return checkNoNeedToDisplayBothValues("asList()").that(Booleans.asList(actual));
-  }
-}
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/PrimitiveDoubleArraySubject.java`
-#### Snippet
-```java
-    return checkNoNeedToDisplayBothValues("asList()")
-        .about(iterablesWithCustomDoubleToString())
-        .that(Doubles.asList(actual));
-  }
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
 Method invocation `compareTo` may produce `NullPointerException`
 in `core/src/main/java/com/google/common/truth/BigDecimalSubject.java`
 #### Snippet
@@ -866,31 +184,247 @@ in `core/src/main/java/com/google/common/truth/BigDecimalSubject.java`
     }
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Unboxing of `actualFieldIndex` may produce `NullPointerException`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/PrimitiveBooleanArraySubject.java`
 #### Snippet
 ```java
-            .setProtoPrinter(protoPrinter);
-    if (actual != null) {
-      pairResultBuilder.setActual(actual).setActualFieldIndex(actualFieldIndex);
-    }
-    if (expected != null) {
+
+  public IterableSubject asList() {
+    return checkNoNeedToDisplayBothValues("asList()").that(Booleans.asList(actual));
+  }
+}
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Unboxing of `expectedFieldIndex` may produce `NullPointerException`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/ClassSubject.java`
 #### Snippet
 ```java
+   */
+  public void isAssignableTo(Class<?> clazz) {
+    if (!clazz.isAssignableFrom(actual)) {
+      failWithActual("expected to be assignable to", clazz.getName());
     }
-    if (expected != null) {
-      pairResultBuilder.setExpected(expected).setExpectedFieldIndex(expectedFieldIndex);
-    }
-    if (comparison.breakdown().isPresent()) {
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `cellSet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  public void containsCell(Cell<?, ?, ?> cell) {
+    checkNotNull(cell);
+    checkNoNeedToDisplayBothValues("cellSet()").that(actual.cellSet()).contains(cell);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table is not empty. */
+  public void isEmpty() {
+    if (!actual.isEmpty()) {
+      failWithActual(simpleFact("expected to be empty"));
+    }
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  public final void hasSize(int expectedSize) {
+    checkArgument(expectedSize >= 0, "expectedSize(%s) must be >= 0", expectedSize);
+    check("size()").that(actual.size()).isEqualTo(expectedSize);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `contains` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table does not contain a mapping for the given row key and column key. */
+  public void contains(@Nullable Object rowKey, @Nullable Object columnKey) {
+    if (!actual.contains(rowKey, columnKey)) {
+      fail("contains mapping for row/column", rowKey, columnKey);
+    }
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table is empty. */
+  public void isNotEmpty() {
+    if (actual.isEmpty()) {
+      failWithoutActual(simpleFact("expected not to be empty"));
+    }
+```
+
+### DataFlowIssue
+Method invocation `cellSet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  public void doesNotContainCell(Cell<?, ?, ?> cell) {
+    checkNotNull(cell);
+    checkNoNeedToDisplayBothValues("cellSet()").that(actual.cellSet()).doesNotContain(cell);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `rowKeySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table does not contain the given row key. */
+  public void containsRow(@Nullable Object rowKey) {
+    check("rowKeySet()").that(actual.rowKeySet()).contains(rowKey);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `values` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table does not contain the given value. */
+  public void containsValue(@Nullable Object value) {
+    check("values()").that(actual.values()).contains(value);
+  }
+}
+```
+
+### DataFlowIssue
+Method invocation `columnKeySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table does not contain the given column key. */
+  public void containsColumn(@Nullable Object columnKey) {
+    check("columnKeySet()").that(actual.columnKeySet()).contains(columnKey);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `contains` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/TableSubject.java`
+#### Snippet
+```java
+  /** Fails if the table contains a mapping for the given row key and column key. */
+  public void doesNotContain(@Nullable Object rowKey, @Nullable Object columnKey) {
+    if (actual.contains(rowKey, columnKey)) {
+      fail("does not contain mapping for row/column", rowKey, columnKey);
+    }
+```
+
+### DataFlowIssue
+Casting `(Object)value` to `NativeNumber` will produce `ClassCastException` for any non-null value
+in `core/src/main/java/com/google/common/truth/super/com/google/common/truth/Platform.java`
+#### Snippet
+```java
+  private static String toLocaleString(double value) {
+    // Recieve a double as a parameter so that "(Object) value" does not box it.
+    return ((NativeNumber) (Object) value).toLocaleString("en-US", JavaLikeOptions.INSTANCE);
+  }
+
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/PrimitiveCharArraySubject.java`
+#### Snippet
+```java
+
+  public IterableSubject asList() {
+    return checkNoNeedToDisplayBothValues("asList()").that(Chars.asList(actual));
+  }
+}
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/ObjectArraySubject.java`
+#### Snippet
+```java
+
+  public IterableSubject asList() {
+    return checkNoNeedToDisplayBothValues("asList()").that(Arrays.asList(actual));
+  }
+}
+```
+
+### DataFlowIssue
+Method invocation `actual` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+
+      if (rootSubject == null) {
+        if (step.subject.actual() instanceof Throwable) {
+          /*
+           * We'll already include the Throwable as a cause of the AssertionError (see rootCause()),
+```
+
+### DataFlowIssue
+Dereference of `rootSubject` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+            fact(
+                // TODO(cpovirk): Use inferDescription() here when appropriate? But it can be long.
+                rootSubject.subject.typeDescription() + " was",
+                rootSubject.subject.actualCustomStringRepresentationForPackageMembersToCall()))
+        : ImmutableList.<Fact>of();
+```
+
+### DataFlowIssue
+Method invocation `typeDescription` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+            fact(
+                // TODO(cpovirk): Use inferDescription() here when appropriate? But it can be long.
+                rootSubject.subject.typeDescription() + " was",
+                rootSubject.subject.actualCustomStringRepresentationForPackageMembersToCall()))
+        : ImmutableList.<Fact>of();
+```
+
+### DataFlowIssue
+Method invocation `actual` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+  private @Nullable Throwable rootCause() {
+    for (Step step : steps) {
+      if (!step.isCheckCall() && step.subject.actual() instanceof Throwable) {
+        return (Throwable) step.subject.actual();
+      }
+```
+
+### DataFlowIssue
+Method invocation `typeDescription` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+
+      if (description == null) {
+        description = step.subject.typeDescription();
+      }
+    }
+```
+
+### DataFlowIssue
 Method invocation `getDefaultInstanceForType` may produce `NullPointerException`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -902,139 +436,235 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
 
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `iterator` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+### DataFlowIssue
+Unboxing of `actualFieldIndex` may produce `NullPointerException`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
 ```java
-
-  private void pairwiseCheck(String expectedFact, PairwiseChecker checker) {
-    Iterator<?> iterator = actual.iterator();
-    if (iterator.hasNext()) {
-      Object prev = iterator.next();
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `this.actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-  @CanIgnoreReturnValue
-  public final Ordered containsAtLeastElementsIn(Iterable<?> expectedIterable) {
-    List<?> actual = Lists.newLinkedList(this.actual);
-    final Collection<?> expected = iterableToCollection(expectedIterable);
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-  /** Fails if the subject is not empty. */
-  public final void isEmpty() {
-    if (!Iterables.isEmpty(actual)) {
-      failWithActual(simpleFact("expected to be empty"));
+            .setProtoPrinter(protoPrinter);
+    if (actual != null) {
+      pairResultBuilder.setActual(actual).setActualFieldIndex(actualFieldIndex);
     }
+    if (expected != null) {
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+### DataFlowIssue
+Unboxing of `expectedFieldIndex` may produce `NullPointerException`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
 ```java
-  public final void containsNoDuplicates() {
-    List<Multiset.Entry<?>> duplicates = newArrayList();
-    for (Multiset.Entry<?> entry : LinkedHashMultiset.create(actual).entrySet()) {
-      if (entry.getCount() > 1) {
-        duplicates.add(entry);
+    }
+    if (expected != null) {
+      pairResultBuilder.setExpected(expected).setExpectedFieldIndex(expectedFieldIndex);
+    }
+    if (comparison.breakdown().isPresent()) {
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
 #### Snippet
 ```java
-  /** Checks (with a side-effect failure) that the subject contains the supplied item. */
-  public final void contains(@Nullable Object element) {
-    if (!Iterables.contains(actual, element)) {
-      List<Object> elementList = newArrayList(element);
-      if (hasMatchingToStringPair(actual, elementList)) {
+  /** Fails if the map contains the given key. */
+  public final void doesNotContainKey(@Nullable Object key) {
+    check("keySet()").that(actual.keySet()).doesNotContain(key);
+  }
+
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
 #### Snippet
 ```java
-  /** Fails if the subject is empty. */
+  /** Fails if the map is empty. */
   public final void isNotEmpty() {
-    if (Iterables.isEmpty(actual)) {
+    if (actual.isEmpty()) {
       failWithoutActual(simpleFact("expected not to be empty"));
     }
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+### DataFlowIssue
+Method invocation `entrySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
 #### Snippet
 ```java
-  /** Checks (with a side-effect failure) that the subject does not contain the supplied item. */
-  public final void doesNotContain(@Nullable Object element) {
-    if (Iterables.contains(actual, element)) {
-      failWithActual("expected not to contain", element);
-    }
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `iterator` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-  private Ordered containsExactlyElementsIn(
-      final Iterable<?> required, boolean addElementsInWarning) {
-    Iterator<?> actualIter = actual.iterator();
-    Iterator<?> requiredIter = required.iterator();
-
-```
-
-### RuleId[ruleID=DataFlowIssue]
-Argument `actual` might be null
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-  public final void hasSize(int expectedSize) {
-    checkArgument(expectedSize >= 0, "expectedSize(%s) must be >= 0", expectedSize);
-    int actualSize = size(actual);
-    check("size()").that(actualSize).isEqualTo(expectedSize);
+  public final void doesNotContainEntry(@Nullable Object key, @Nullable Object value) {
+    checkNoNeedToDisplayBothValues("entrySet()")
+        .that(actual.entrySet())
+        .doesNotContain(immutableEntry(key, value));
   }
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `actualValue` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
 #### Snippet
 ```java
-    private void pushDescriptorAndMaybeProcessMethodCall(String desc, Invocation invocation) {
-      if (invocation != null && invocation.isOnSubjectInstance()) {
-        actualValueAtLocation.put(labelsSeen.build(), invocation.receiver().actualValue());
-      }
+  /** Fails if the map does not contain the given key. */
+  public final void containsKey(@Nullable Object key) {
+    check("keySet()").that(actual.keySet()).contains(key);
+  }
 
 ```
 
-### RuleId[ruleID=DataFlowIssue]
-Method invocation `actualValue` may produce `NullPointerException`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
 #### Snippet
 ```java
-        return subjectFor(type, actualValue());
-      } else if (isOnSubjectInstance()) {
-        return subjectFor(type, receiver().actualValue());
-      } else if (BORING_NAMES.contains(name())) {
-        /*
+  public final void hasSize(int expectedSize) {
+    checkArgument(expectedSize >= 0, "expectedSize (%s) must be >= 0", expectedSize);
+    check("size()").that(actual.size()).isEqualTo(expectedSize);
+  }
+
 ```
 
-### RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
+#### Snippet
+```java
+  /** Fails if the map is not empty. */
+  public final void isEmpty() {
+    if (!actual.isEmpty()) {
+      failWithActual(simpleFact("expected to be empty"));
+    }
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
+#### Snippet
+```java
+  public final Ordered containsExactlyEntriesIn(Map<?, ?> expectedMap) {
+    if (expectedMap.isEmpty()) {
+      if (actual.isEmpty()) {
+        return IN_ORDER;
+      } else {
+```
+
+### DataFlowIssue
+Method invocation `entrySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
+#### Snippet
+```java
+  public final void containsEntry(@Nullable Object key, @Nullable Object value) {
+    Map.Entry<Object, Object> entry = immutableEntry(key, value);
+    if (!actual.entrySet().contains(entry)) {
+      List<Object> keyList = singletonList(key);
+      List<Object> valueList = singletonList(value);
+```
+
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
+#### Snippet
+```java
+      // We're using the fact that Sets.intersection keeps the order of the first set.
+      List<?> expectedKeyOrder =
+          Lists.newArrayList(Sets.intersection(expectedMap.keySet(), actual.keySet()));
+      List<?> actualKeyOrder =
+          Lists.newArrayList(Sets.intersection(actual.keySet(), expectedMap.keySet()));
+```
+
+### DataFlowIssue
+Method invocation `compareTo` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+   */
+  public final void isAtLeast(T other) {
+    if (actual.compareTo(other) < 0) {
+      failWithActual("expected to be at least", other);
+    }
+```
+
+### DataFlowIssue
+Method invocation `compareTo` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+   */
+  public final void isAtMost(T other) {
+    if (actual.compareTo(other) > 0) {
+      failWithActual("expected to be at most", other);
+    }
+```
+
+### DataFlowIssue
+Method invocation `compareTo` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+   */
+  public void isEquivalentAccordingToCompareTo(T expected) {
+    if (actual.compareTo(expected) != 0) {
+      failWithActual("expected value that sorts equal to", expected);
+    }
+```
+
+### DataFlowIssue
+Method invocation `compareTo` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+   */
+  public final void isGreaterThan(T other) {
+    if (actual.compareTo(other) <= 0) {
+      failWithActual("expected to be greater than", other);
+    }
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+  /** Checks that the subject is <i>not</i> in {@code range}. */
+  public final void isNotIn(Range<T> range) {
+    if (range.contains(actual)) {
+      failWithActual("expected not to be in range", range);
+    }
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+  /** Checks that the subject is in {@code range}. */
+  public final void isIn(Range<T> range) {
+    if (!range.contains(actual)) {
+      failWithActual("expected to be in range", range);
+    }
+```
+
+### DataFlowIssue
+Method invocation `compareTo` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+   */
+  public final void isLessThan(T other) {
+    if (actual.compareTo(other) >= 0) {
+      failWithActual("expected to be less than", other);
+    }
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/PrimitiveDoubleArraySubject.java`
+#### Snippet
+```java
+    return checkNoNeedToDisplayBothValues("asList()")
+        .about(iterablesWithCustomDoubleToString())
+        .that(Doubles.asList(actual));
+  }
+
+```
+
+### DataFlowIssue
 Argument `stream` might be null
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -1046,8 +676,380 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
       /*
 ```
 
+### DataFlowIssue
+Method invocation `actualValue` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+        return subjectFor(type, actualValue());
+      } else if (isOnSubjectInstance()) {
+        return subjectFor(type, receiver().actualValue());
+      } else if (BORING_NAMES.contains(name())) {
+        /*
+```
+
+### DataFlowIssue
+Method invocation `actualValue` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+    private void pushDescriptorAndMaybeProcessMethodCall(String desc, Invocation invocation) {
+      if (invocation != null && invocation.isOnSubjectInstance()) {
+        actualValueAtLocation.put(labelsSeen.build(), invocation.receiver().actualValue());
+      }
+
+```
+
+### DataFlowIssue
+Method invocation `count` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultisetSubject.java`
+#### Snippet
+```java
+  public final void hasCount(@Nullable Object element, int expectedCount) {
+    checkArgument(expectedCount >= 0, "expectedCount(%s) must be >= 0", expectedCount);
+    int actualCount = ((Multiset<?>) actual).count(element);
+    check("count(%s)", element).that(actualCount).isEqualTo(expectedCount);
+  }
+```
+
+### DataFlowIssue
+Method invocation `length` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/StringSubject.java`
+#### Snippet
+```java
+      String subject = actual;
+      for (int subjectOffset = 0;
+          subjectOffset <= subject.length() - string.length();
+          subjectOffset++) {
+        if (subject.regionMatches(
+```
+
+### DataFlowIssue
+Method invocation `length` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/StringSubject.java`
+#### Snippet
+```java
+  public void hasLength(int expectedLength) {
+    checkArgument(expectedLength >= 0, "expectedLength(%s) must be >= 0", expectedLength);
+    check("length()").that(actual.length()).isEqualTo(expectedLength);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `entries` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  public final void doesNotContainEntry(@Nullable Object key, @Nullable Object value) {
+    checkNoNeedToDisplayBothValues("entries()")
+        .that(actual.entries())
+        .doesNotContain(immutableEntry(key, value));
+  }
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  /** Fails if the multimap is empty. */
+  public final void isNotEmpty() {
+    if (actual.isEmpty()) {
+      failWithoutActual(simpleFact("expected not to be empty"));
+    }
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+   */
+  public IterableSubject valuesForKey(@Nullable Object key) {
+    return check("valuesForKey(%s)", key).that(((Multimap<Object, Object>) actual).get(key));
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+      // We use the fact that Sets.intersection's result has the same order as the first parameter
+      boolean keysInOrder =
+          Lists.newArrayList(Sets.intersection(actual.keySet(), expectedMultimap.keySet()))
+              .equals(Lists.newArrayList(expectedMultimap.keySet()));
+
+```
+
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  /** Fails if the multimap does not contain the given key. */
+  public final void containsKey(@Nullable Object key) {
+    check("keySet()").that(actual.keySet()).contains(key);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `containsEntry` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  public final void containsEntry(@Nullable Object key, @Nullable Object value) {
+    // TODO(kak): Can we share any of this logic w/ MapSubject.containsEntry()?
+    if (!actual.containsEntry(key, value)) {
+      Map.Entry<Object, Object> entry = immutableEntry(key, value);
+      List<Map.Entry<Object, Object>> entryList = ImmutableList.of(entry);
+```
+
+### DataFlowIssue
+Method invocation `entries` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  @CanIgnoreReturnValue
+  public final Ordered containsExactly() {
+    return check().about(iterableEntries()).that(actual.entries()).containsExactly();
+  }
+
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+    checkNotNull(expectedMultimap, "expectedMultimap");
+    ListMultimap<?, ?> missing = difference(expectedMultimap, actual);
+    ListMultimap<?, ?> extra = difference(actual, expectedMultimap);
+
+    // TODO(kak): Possible enhancement: Include "[1 copy]" if the element does appear in
+```
+
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  /** Fails if the multimap contains the given key. */
+  public final void doesNotContainKey(@Nullable Object key) {
+    check("keySet()").that(actual.keySet()).doesNotContain(key);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  public final void hasSize(int expectedSize) {
+    checkArgument(expectedSize >= 0, "expectedSize(%s) must be >= 0", expectedSize);
+    check("size()").that(actual.size()).isEqualTo(expectedSize);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/MultimapSubject.java`
+#### Snippet
+```java
+  /** Fails if the multimap is not empty. */
+  public final void isEmpty() {
+    if (!actual.isEmpty()) {
+      failWithActual(simpleFact("expected to be empty"));
+    }
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/PrimitiveByteArraySubject.java`
+#### Snippet
+```java
+
+  public IterableSubject asList() {
+    return checkNoNeedToDisplayBothValues("asList()").that(Bytes.asList(actual));
+  }
+}
+```
+
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/ThrowableSubject.java`
+#### Snippet
+```java
+                  + " about individual facts by using ExpectFailure.assertThat.)");
+    }
+    return check.that(actual.getMessage());
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `isInitialized` may produce `NullPointerException`
+in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
+#### Snippet
+```java
+   */
+  public void hasAllRequiredFields() {
+    if (!actual.isInitialized()) {
+      // MessageLite doesn't support reflection so this is the best we can do.
+      failWithoutActual(
+```
+
+### DataFlowIssue
+Method invocation `getSerializedSize` may produce `NullPointerException`
+in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
+#### Snippet
+```java
+   */
+  public IntegerSubject serializedSize() {
+    return check("getSerializedSize()").that(actual.getSerializedSize());
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getClass` may produce `NullPointerException`
+in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
+#### Snippet
+```java
+          String.format(
+              "# %s@%s",
+              messageLite.getClass().getName(), Integer.toHexString(messageLite.hashCode()));
+      if (trimmedSubjectString.startsWith(objectToString)) {
+        subjectString = trimmedSubjectString.replaceFirst(Pattern.quote(objectToString), "").trim();
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/PrimitiveShortArraySubject.java`
+#### Snippet
+```java
+
+  public IterableSubject asList() {
+    return checkNoNeedToDisplayBothValues("asList()").that(Shorts.asList(actual));
+  }
+}
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  public final void hasSize(int expectedSize) {
+    checkArgument(expectedSize >= 0, "expectedSize(%s) must be >= 0", expectedSize);
+    int actualSize = size(actual);
+    check("size()").that(actualSize).isEqualTo(expectedSize);
+  }
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  /** Fails if the subject is not empty. */
+  public final void isEmpty() {
+    if (!Iterables.isEmpty(actual)) {
+      failWithActual(simpleFact("expected to be empty"));
+    }
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  /** Checks (with a side-effect failure) that the subject does not contain the supplied item. */
+  public final void doesNotContain(@Nullable Object element) {
+    if (Iterables.contains(actual, element)) {
+      failWithActual("expected not to contain", element);
+    }
+```
+
+### DataFlowIssue
+Method invocation `iterator` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+
+  private void pairwiseCheck(String expectedFact, PairwiseChecker checker) {
+    Iterator<?> iterator = actual.iterator();
+    if (iterator.hasNext()) {
+      Object prev = iterator.next();
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  public final void containsNoDuplicates() {
+    List<Multiset.Entry<?>> duplicates = newArrayList();
+    for (Multiset.Entry<?> entry : LinkedHashMultiset.create(actual).entrySet()) {
+      if (entry.getCount() > 1) {
+        duplicates.add(entry);
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  /** Checks (with a side-effect failure) that the subject contains the supplied item. */
+  public final void contains(@Nullable Object element) {
+    if (!Iterables.contains(actual, element)) {
+      List<Object> elementList = newArrayList(element);
+      if (hasMatchingToStringPair(actual, elementList)) {
+```
+
+### DataFlowIssue
+Method invocation `iterator` may produce `NullPointerException`
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  private Ordered containsExactlyElementsIn(
+      final Iterable<?> required, boolean addElementsInWarning) {
+    Iterator<?> actualIter = actual.iterator();
+    Iterator<?> requiredIter = required.iterator();
+
+```
+
+### DataFlowIssue
+Argument `this.actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  @CanIgnoreReturnValue
+  public final Ordered containsAtLeastElementsIn(Iterable<?> expectedIterable) {
+    List<?> actual = Lists.newLinkedList(this.actual);
+    final Collection<?> expected = iterableToCollection(expectedIterable);
+
+```
+
+### DataFlowIssue
+Argument `actual` might be null
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  /** Fails if the subject is empty. */
+  public final void isNotEmpty() {
+    if (Iterables.isEmpty(actual)) {
+      failWithoutActual(simpleFact("expected not to be empty"));
+    }
+```
+
 ## RuleId[ruleID=DeprecatedIsStillUsed]
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'isEquivalentAccordingToCompareTo' is still used
 in `core/src/main/java/com/google/common/truth/IntegerSubject.java`
 #### Snippet
@@ -1059,19 +1061,7 @@ in `core/src/main/java/com/google/common/truth/IntegerSubject.java`
   }
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
-Deprecated member 'isNotEqualTo' is still used
-in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
-#### Snippet
-```java
-  // TODO(cpovirk): Consider @DoNotCall or other static analysis. (See isEqualTo(Builder).)
-  @Deprecated
-  public void isNotEqualTo(MessageLite.@Nullable Builder builder) {
-    isNotEqualTo((Object) builder);
-  }
-```
-
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'isNotEqualTo' is still used
 in `extensions/java8/src/main/java/com/google/common/truth/StreamSubject.java`
 #### Snippet
@@ -1083,7 +1073,19 @@ in `extensions/java8/src/main/java/com/google/common/truth/StreamSubject.java`
         "StreamSubject.isNotEqualTo() is not supported because Streams do not have well-defined"
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'isNotEqualTo' is still used
+in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
+#### Snippet
+```java
+  // TODO(cpovirk): Consider @DoNotCall or other static analysis. (See isEqualTo(Builder).)
+  @Deprecated
+  public void isNotEqualTo(MessageLite.@Nullable Builder builder) {
+    isNotEqualTo((Object) builder);
+  }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'isNotIn' is still used
 in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 #### Snippet
@@ -1095,7 +1097,7 @@ in `core/src/main/java/com/google/common/truth/IterableSubject.java`
       failWithActual("expected not to be any of", iterable);
 ```
 
-### RuleId[ruleID=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
 Deprecated member 'isNoneOf' is still used
 in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 #### Snippet
@@ -1108,7 +1110,7 @@ in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
-### RuleId[ruleID=Convert2MethodRef]
+### Convert2MethodRef
 Lambda can be replaced with method reference
 in `extensions/java8/src/main/java/com/google/common/truth/StreamSubject.java`
 #### Snippet
@@ -1121,19 +1123,7 @@ in `extensions/java8/src/main/java/com/google/common/truth/StreamSubject.java`
 ```
 
 ## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
-### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
-Pseudo functional style code
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-
-    Iterable<Multiset.Entry<?>> entrySet() {
-      return transform(contents.entrySet(), unwrapKey);
-    }
-
-```
-
-### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -1145,7 +1135,7 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
           return input;
 ```
 
-### RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
+### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -1157,20 +1147,20 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
 
 ```
 
-## RuleId[ruleID=KeySetIterationMayUseEntrySet]
-### RuleId[ruleID=KeySetIterationMayUseEntrySet]
-Iteration over `knownFieldValues.keySet()` may be replaced with 'entrySet()' iteration
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldNumberTree.java`
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
 #### Snippet
 ```java
-    // Known fields.
-    Map<FieldDescriptor, Object> knownFieldValues = message.getAllFields();
-    for (FieldDescriptor field : knownFieldValues.keySet()) {
-      SubScopeId subScopeId = SubScopeId.of(field);
-      FieldNumberTree childTree = new FieldNumberTree();
+
+    Iterable<Multiset.Entry<?>> entrySet() {
+      return transform(contents.entrySet(), unwrapKey);
+    }
+
 ```
 
-### RuleId[ruleID=KeySetIterationMayUseEntrySet]
+## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
 Iteration over `other.children.keySet()` may be replaced with 'entrySet()' iteration
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldNumberTree.java`
 #### Snippet
@@ -1182,7 +1172,19 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Fiel
       if (!this.children.containsKey(subScopeId)) {
 ```
 
-### RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `knownFieldValues.keySet()` may be replaced with 'entrySet()' iteration
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldNumberTree.java`
+#### Snippet
+```java
+    // Known fields.
+    Map<FieldDescriptor, Object> knownFieldValues = message.getAllFields();
+    for (FieldDescriptor field : knownFieldValues.keySet()) {
+      SubScopeId subScopeId = SubScopeId.of(field);
+      FieldNumberTree childTree = new FieldNumberTree();
+```
+
+### KeySetIterationMayUseEntrySet
 Iteration over `pairing.pairedKeysToExpectedValues.keySet()` may be replaced with 'entrySet()' iteration
 in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 #### Snippet
@@ -1194,7 +1196,7 @@ in `core/src/main/java/com/google/common/truth/IterableSubject.java`
         List<A> extras = pairing.pairedKeysToActualValues.get(key);
 ```
 
-### RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
 Iteration over `pairing.pairedKeysToExpectedValues.keySet()` may be replaced with 'entrySet()' iteration
 in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 #### Snippet
@@ -1206,7 +1208,7 @@ in `core/src/main/java/com/google/common/truth/IterableSubject.java`
         List<A> extras = pairing.pairedKeysToActualValues.get(key);
 ```
 
-### RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
 Iteration over `pairing.pairedKeysToExpectedValues.keySet()` may be replaced with 'entrySet()' iteration
 in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 #### Snippet
@@ -1219,7 +1221,20 @@ in `core/src/main/java/com/google/common/truth/IterableSubject.java`
 ```
 
 ## RuleId[ruleID=DuplicateBranchesInSwitch]
-### RuleId[ruleID=DuplicateBranchesInSwitch]
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+        case Opcodes.FCMPL:
+        case Opcodes.FCMPG:
+          pop(2);
+          push(InferredType.INT);
+          break;
+
+```
+
+### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -1234,21 +1249,8 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
         default:
 ```
 
-### RuleId[ruleID=DuplicateBranchesInSwitch]
-Duplicate branch in 'switch'
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-        case Opcodes.FCMPL:
-        case Opcodes.FCMPG:
-          pop(2);
-          push(InferredType.INT);
-          break;
-
-```
-
 ## RuleId[ruleID=FinalPrivateMethod]
-### RuleId[ruleID=FinalPrivateMethod]
+### FinalPrivateMethod
 'private' method declared `final`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
 #### Snippet
@@ -1261,19 +1263,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Iter
 ```
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
-Unsynchronized method `getCause()` overrides synchronized method
-in `core/src/main/java/com/google/common/truth/AssertionErrorWithFacts.java`
-#### Snippet
-```java
-  @Override
-  @SuppressWarnings("UnsynchronizedOverridesSynchronized")
-  public Throwable getCause() {
-    return cause;
-  }
-```
-
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `getCause()` overrides synchronized method
 in `core/src/main/java/com/google/common/truth/Platform.java`
 #### Snippet
@@ -1285,7 +1275,19 @@ in `core/src/main/java/com/google/common/truth/Platform.java`
     }
 ```
 
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `getCause()` overrides synchronized method
+in `core/src/main/java/com/google/common/truth/AssertionErrorWithFacts.java`
+#### Snippet
+```java
+  @Override
+  @SuppressWarnings("UnsynchronizedOverridesSynchronized")
+  public Throwable getCause() {
+    return cause;
+  }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `getCause()` overrides synchronized method
 in `core/src/main/java/com/google/common/truth/Truth.java`
 #### Snippet
@@ -1297,7 +1299,7 @@ in `core/src/main/java/com/google/common/truth/Truth.java`
     }
 ```
 
-### RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
+### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `fillInStackTrace()` overrides synchronized method
 in `core/src/main/java/com/google/common/truth/ThrowableSubject.java`
 #### Snippet
@@ -1310,7 +1312,7 @@ in `core/src/main/java/com/google/common/truth/ThrowableSubject.java`
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
-### RuleId[ruleID=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
 `StringBuilder header` can be replaced with 'String'
 in `core/src/main/java/com/google/common/truth/DiffUtils.java`
 #### Snippet
@@ -1323,7 +1325,7 @@ in `core/src/main/java/com/google/common/truth/DiffUtils.java`
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
-### RuleId[ruleID=NonShortCircuitBoolean]
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `seenDerivation |= step.descriptionUpdate != null && step.valuesAreSimila...`
 in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
 #### Snippet
@@ -1337,7 +1339,7 @@ in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
       }
 ```
 
-### RuleId[ruleID=NonShortCircuitBoolean]
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `seenNewlineInValue |= fact.value.contains("\n")`
 in `core/src/main/java/com/google/common/truth/Fact.java`
 #### Snippet
@@ -1349,21 +1351,8 @@ in `core/src/main/java/com/google/common/truth/Fact.java`
     }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### RuleId[ruleID=UnnecessaryToStringCall]
-Unnecessary `toString()` call
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeImpl.java`
-#### Snippet
-```java
-      return create(
-          FieldScopeLogic.none(),
-          Functions.constant(String.format("FieldScopes.fromSetFields(%s)", messages.toString())));
-    }
-
-```
-
 ## RuleId[ruleID=FinalStaticMethod]
-### RuleId[ruleID=FinalStaticMethod]
+### FinalStaticMethod
 'static' method declared `final`
 in `core/src/main/java/com/google/common/truth/TruthJUnit.java`
 #### Snippet
@@ -1375,8 +1364,21 @@ in `core/src/main/java/com/google/common/truth/TruthJUnit.java`
   }
 ```
 
+## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeImpl.java`
+#### Snippet
+```java
+      return create(
+          FieldScopeLogic.none(),
+          Functions.constant(String.format("FieldScopes.fromSetFields(%s)", messages.toString())));
+    }
+
+```
+
 ## RuleId[ruleID=WrongPackageStatement]
-### RuleId[ruleID=WrongPackageStatement]
+### WrongPackageStatement
 Package name 'com.google.common.truth' does not correspond to the file path 'com.google.common.truth.super.com.google.common.truth'
 in `core/src/main/java/com/google/common/truth/super/com/google/common/truth/Platform.java`
 #### Snippet
@@ -1388,585 +1390,8 @@ package com.google.common.truth;
 import static java.lang.Double.parseDouble;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends V`
-in `core/src/main/java/com/google/common/truth/GraphMatching.java`
-#### Snippet
-```java
-    }
-
-    private HopcroftKarp(Multimap<U, V> graph) {
-      this.graph = graph;
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends U`
-in `core/src/main/java/com/google/common/truth/GraphMatching.java`
-#### Snippet
-```java
-     *     absent value if the BFS was exhausted without finding any free RHS vertex
-     */
-    private Optional<Integer> breadthFirstSearch(BiMap<U, V> matching, Map<U, Integer> layers) {
-      Queue<U> queue = new ArrayDeque<>();
-      Optional<Integer> freeRhsVertexLayer = Optional.absent();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super U`
-in `core/src/main/java/com/google/common/truth/GraphMatching.java`
-#### Snippet
-```java
-     *     absent value if the BFS was exhausted without finding any free RHS vertex
-     */
-    private Optional<Integer> breadthFirstSearch(BiMap<U, V> matching, Map<U, Integer> layers) {
-      Queue<U> queue = new ArrayDeque<>();
-      Optional<Integer> freeRhsVertexLayer = Optional.absent();
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super V`
-in `core/src/main/java/com/google/common/truth/GraphMatching.java`
-#### Snippet
-```java
-    @CanIgnoreReturnValue
-    private boolean depthFirstSearch(
-        BiMap<U, V> matching, Map<U, Integer> layers, int freeRhsVertexLayer, U lhs) {
-      // Note that this differs from the method described in the text of the wikipedia article (at
-      // time of writing) in two ways. Firstly, we proceed from a free LHS vertex to a free RHS
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-
-  /** Checks that the subject is <i>not</i> in {@code range}. */
-  public final void isNotIn(Range<T> range) {
-    if (range.contains(actual)) {
-      failWithActual("expected not to be in range", range);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super T`
-in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
-#### Snippet
-```java
-
-  /** Checks that the subject is in {@code range}. */
-  public final void isIn(Range<T> range) {
-    if (!range.contains(actual)) {
-      failWithActual("expected to be in range", range);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldScopeLogic`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
-#### Snippet
-```java
-
-    @Override
-    IntersectionFieldScopeLogic newLogicOfSameType(List<FieldScopeLogic> newElements) {
-      checkArgument(newElements.size() == 2, "Expected 2 elements: %s", newElements);
-      return new IntersectionFieldScopeLogic(newElements.get(0), newElements.get(1));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldScopeLogic`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
-#### Snippet
-```java
-
-    @Override
-    UnionFieldScopeLogic newLogicOfSameType(List<FieldScopeLogic> newElements) {
-      checkArgument(newElements.size() == 2, "Expected 2 elements: %s", newElements);
-      return new UnionFieldScopeLogic(newElements.get(0), newElements.get(1));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends FieldScopeLogic`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
-#### Snippet
-```java
-
-    @Override
-    NegationFieldScopeLogic newLogicOfSameType(List<FieldScopeLogic> newElements) {
-      checkArgument(newElements.size() == 1, "Expected 1 element: %s", newElements);
-      return new NegationFieldScopeLogic(newElements.get(0));
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-  }
-
-  static <T> Collection<T> iterableToCollection(Iterable<T> iterable) {
-    if (iterable instanceof Collection) {
-      // Should be safe to assume that any Iterable implementing Collection isn't a one-shot
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-  }
-
-  static <T> List<T> iterableToList(Iterable<T> iterable) {
-    if (iterable instanceof List) {
-      return (List<T>) iterable;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-  }
-
-  private static <T> NonHashingMultiset<T> countDuplicatesToMultiset(Iterable<T> items) {
-    // We use avoid hashing in case the elements don't have a proper
-    // .hashCode() method (e.g., MessageSet from old versions of protobuf).
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-  }
-
-  static <T> int countOf(T t, Iterable<T> items) {
-    int count = 0;
-    for (T item : items) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Number`
-in `core/src/main/java/com/google/common/truth/PrimitiveFloatArraySubject.java`
-#### Snippet
-```java
-
-    FloatArrayAsIterable(
-        Correspondence<? super Float, Number> correspondence, IterableSubject subject) {
-      super(subject, correspondence);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Number`
-in `core/src/main/java/com/google/common/truth/PrimitiveDoubleArraySubject.java`
-#### Snippet
-```java
-
-    DoubleArrayAsIterable(
-        Correspondence<? super Double, Number> correspondence, IterableSubject subject) {
-      super(subject, correspondence);
-    }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SingularField`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-
-      @CanIgnoreReturnValue
-      final Builder addAllSingularFields(int fieldNumber, Iterable<SingularField> singularFields) {
-        singularFieldsBuilder().putAll(fieldNumber, singularFields);
-        return this;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends SingularField`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-
-    @CanIgnoreReturnValue
-    final Builder addAllSingularFields(int fieldNumber, Iterable<SingularField> singularFields) {
-      singularFieldsBuilder().putAll(fieldNumber, singularFields);
-      return this;
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super A`
-in `core/src/main/java/com/google/common/truth/Correspondence.java`
-#### Snippet
-```java
-   */
-  public static <A, E> Correspondence<A, E> transforming(
-      Function<A, ?> actualTransform, Function<E, ?> expectedTransform, String description) {
-    return new Transforming<>(actualTransform, expectedTransform, description);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super E`
-in `core/src/main/java/com/google/common/truth/Correspondence.java`
-#### Snippet
-```java
-   */
-  public static <A, E> Correspondence<A, E> transforming(
-      Function<A, ?> actualTransform, Function<E, ?> expectedTransform, String description) {
-    return new Transforming<>(actualTransform, expectedTransform, description);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super A`
-in `core/src/main/java/com/google/common/truth/Correspondence.java`
-#### Snippet
-```java
-   */
-  public static <A, E> Correspondence<A, E> transforming(
-      Function<A, ? extends E> actualTransform, String description) {
-    return new Transforming<>(actualTransform, identity(), description);
-  }
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Correspondence`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      double x,
-      double y,
-      Optional<Correspondence<Number, Number>> correspondence
-      ) {
-    if (correspondence.isPresent()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Correspondence`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      float x,
-      float y,
-      Optional<Correspondence<Number, Number>> correspondence
-      ) {
-    if (correspondence.isPresent()) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Multiset.Entry`
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-  }
-
-  private static boolean containsEmptyOrLong(Iterable<Multiset.Entry<?>> entries) {
-    int totalLength = 0;
-    for (Multiset.Entry<?> entry : entries) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends T`
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-     * that all the given indexes really are valid indexes into the list.
-     */
-    private <T> List<T> findNotIndexed(List<T> list, Set<Integer> indexes) {
-      if (indexes.size() == list.size()) {
-        // If there are as many distinct valid indexes are there are elements in the list then every
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Multiset.Entry`
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-  }
-
-  private static boolean hasMultiple(Iterable<Multiset.Entry<?>> entries) {
-    int totalCount = 0;
-    for (Multiset.Entry<?> entry : entries) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends Label`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-
-    private static ImmutableSet<Integer> lineNumbers(
-        ImmutableList<Label> labels, ImmutableSetMultimap<Label, Integer> lineNumbersAtLabel) {
-      for (Label label : labels.reverse()) {
-        if (lineNumbersAtLabel.containsKey(label)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Label`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-
-    private static ImmutableSet<Integer> lineNumbers(
-        ImmutableList<Label> labels, ImmutableSetMultimap<Label, Integer> lineNumbersAtLabel) {
-      for (Label label : labels.reverse()) {
-        if (lineNumbersAtLabel.containsKey(label)) {
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super Integer`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-        String name,
-        String methodDescriptor,
-        ImmutableSetMultimap.Builder<Integer, StackEntry> actualValueAtLine) {
-      super(Opcodes.ASM8);
-      localVariableSlots = createInitialLocalVariableSlots(access, owner, name, methodDescriptor);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? super StackEntry`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-        String name,
-        String methodDescriptor,
-        ImmutableSetMultimap.Builder<Integer, StackEntry> actualValueAtLine) {
-      super(Opcodes.ASM8);
-      localVariableSlots = createInitialLocalVariableSlots(access, owner, name, methodDescriptor);
-```
-
-### RuleId[ruleID=BoundedWildcard]
-Can generalize to `? extends StackEntry`
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-
-    private ImmutableList<StackEntry> appendArrayToList(
-        ImmutableList<StackEntry> list, int size, Object[] array) {
-      ImmutableList.Builder<StackEntry> builder = ImmutableList.builder();
-      builder.addAll(list);
-```
-
 ## RuleId[ruleID=AbstractClassNeverImplemented]
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `SubScopeId` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/SubScopeId.java`
-#### Snippet
-```java
-
-@AutoOneOf(SubScopeId.Kind.class)
-abstract class SubScopeId {
-  enum Kind {
-    FIELD_DESCRIPTOR,
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `WithResultCode` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
-   * provided enum instead of any child states.
-   */
-  abstract static class WithResultCode extends RecursableDiffEntity {
-    enum Result {
-      /** No differences. The expected case. */
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `WithoutResultCode` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
-   * children. If it has no children, it is considered both matched and ignored.
-   */
-  abstract static class WithoutResultCode extends RecursableDiffEntity {
-
-    private Boolean isMatched = null;
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `RecursableDiffEntity` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
- * children depends on the implementation - see {@link DiffResult} for concrete instances.
- */
-abstract class RecursableDiffEntity {
-
-  // Lazily-initialized return values for the recursive properties of the entity.
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Entry` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class Entry<V> {
-    abstract FieldScopeLogic fieldScopeLogic();
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UnknownFieldDescriptor` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/UnknownFieldDescriptor.java`
-#### Snippet
-```java
-/** Convenience class encapsulating type information for unknown fields. */
-@AutoValue
-abstract class UnknownFieldDescriptor {
-
-  enum Type {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `FieldScope` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScope.java`
-#### Snippet
-```java
- * FieldMask}s, directly in production code.
- */
-public abstract class FieldScope {
-
-  /**
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `UnknownFieldSetDiff` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-  /** Structural summary of the difference between two unknown field sets. */
-  @AutoValue
-  abstract static class UnknownFieldSetDiff extends RecursableDiffEntity.WithoutResultCode {
-    /** The {@link UnknownFieldSet} being tested. */
-    abstract Optional<UnknownFieldSet> actual();
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `SingularField` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract static class SingularField extends RecursableDiffEntity.WithResultCode
-      implements ProtoPrintable {
-    /** The type information for this field. May be absent if result code is {@code IGNORED}. */
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `DiffResult` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class DiffResult extends RecursableDiffEntity.WithoutResultCode {
-
-  /**
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `RepeatedField` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract static class RepeatedField extends RecursableDiffEntity.WithoutResultCode {
-
-    /**
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Builder` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-
-  @AutoValue.Builder
-  abstract static class Builder {
-    abstract Builder setActual(Message actual);
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Builder` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-
-      @AutoValue.Builder
-      abstract static class Builder {
-        abstract Builder setResult(Result result);
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Builder` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder {
-      abstract Builder setFieldDescriptor(FieldDescriptor fieldDescriptor);
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Builder` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-    /** Builder for {@link SingularField}. */
-    @AutoValue.Builder
-    abstract static class Builder {
-      abstract Builder setResult(Result result);
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Builder` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder {
-      abstract Builder setActual(UnknownFieldSet actual);
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `PairResult` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-     */
-    @AutoValue
-    abstract static class PairResult extends RecursableDiffEntity.WithResultCode
-        implements ProtoPrintable {
-      /** The {@link FieldDescriptor} describing the repeated field for this pair. */
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `FieldScopeImpl` has no concrete subclass
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeImpl.java`
-#### Snippet
-```java
- */
-@AutoValue
-abstract class FieldScopeImpl extends FieldScope {
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
 #### Snippet
@@ -1978,7 +1403,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Flue
 
 ```
 
-### RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
 Abstract class `FluentEqualityConfig` has no concrete subclass
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
 #### Snippet
@@ -1990,67 +1415,199 @@ abstract class FluentEqualityConfig implements FieldScopeLogicContainer<FluentEq
   private static final FluentEqualityConfig DEFAULT_INSTANCE =
 ```
 
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `Invocation` has no concrete subclass
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+### AbstractClassNeverImplemented
+Abstract class `FieldScopeImpl` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeImpl.java`
 #### Snippet
 ```java
-  @CopyAnnotations
-  @GwtIncompatible
-  abstract static class Invocation {
-    static Builder builder(String name) {
-      return new AutoValue_ActualValueInference_Invocation.Builder().setName(name);
+ */
+@AutoValue
+abstract class FieldScopeImpl extends FieldScope {
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
 ```
 
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `FrameInfo` has no concrete subclass
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-  @CopyAnnotations
-  @GwtIncompatible
-  abstract static class FrameInfo {
-
-    static FrameInfo create(ImmutableList<StackEntry> locals, ImmutableList<StackEntry> stack) {
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `SubjectEntry` has no concrete subclass
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-  @CopyAnnotations
-  @GwtIncompatible
-  abstract static class SubjectEntry extends StackEntry {
-    @Override
-    abstract StackEntry actualValue();
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
 ```java
 
     @AutoValue.Builder
     abstract static class Builder {
-      abstract Builder setReceiver(StackEntry receiver);
+      abstract Builder setFieldDescriptor(FieldDescriptor fieldDescriptor);
 
 ```
 
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `DescribedEntry` has no concrete subclass
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
 ```java
-  @CopyAnnotations
-  @GwtIncompatible
-  abstract static class DescribedEntry extends StackEntry {
-    @Override
-    abstract String description();
+
+      @AutoValue.Builder
+      abstract static class Builder {
+        abstract Builder setResult(Result result);
+
 ```
 
-### RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `RepeatedField` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract static class RepeatedField extends RecursableDiffEntity.WithoutResultCode {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+
+  @AutoValue.Builder
+  abstract static class Builder {
+    abstract Builder setActual(Message actual);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DiffResult` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+ */
+@AutoValue
+abstract class DiffResult extends RecursableDiffEntity.WithoutResultCode {
+
+  /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SingularField` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract static class SingularField extends RecursableDiffEntity.WithResultCode
+      implements ProtoPrintable {
+    /** The type information for this field. May be absent if result code is {@code IGNORED}. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+    /** Builder for {@link SingularField}. */
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract Builder setResult(Result result);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract Builder setActual(UnknownFieldSet actual);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `UnknownFieldSetDiff` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+  /** Structural summary of the difference between two unknown field sets. */
+  @AutoValue
+  abstract static class UnknownFieldSetDiff extends RecursableDiffEntity.WithoutResultCode {
+    /** The {@link UnknownFieldSet} being tested. */
+    abstract Optional<UnknownFieldSet> actual();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PairResult` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+     */
+    @AutoValue
+    abstract static class PairResult extends RecursableDiffEntity.WithResultCode
+        implements ProtoPrintable {
+      /** The {@link FieldDescriptor} describing the repeated field for this pair. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `FieldScope` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScope.java`
+#### Snippet
+```java
+ * FieldMask}s, directly in production code.
+ */
+public abstract class FieldScope {
+
+  /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `WithResultCode` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+   * provided enum instead of any child states.
+   */
+  abstract static class WithResultCode extends RecursableDiffEntity {
+    enum Result {
+      /** No differences. The expected case. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `WithoutResultCode` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+   * children. If it has no children, it is considered both matched and ignored.
+   */
+  abstract static class WithoutResultCode extends RecursableDiffEntity {
+
+    private Boolean isMatched = null;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RecursableDiffEntity` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+ * children depends on the implementation - see {@link DiffResult} for concrete instances.
+ */
+abstract class RecursableDiffEntity {
+
+  // Lazily-initialized return values for the recursive properties of the entity.
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Entry` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class Entry<V> {
+    abstract FieldScopeLogic fieldScopeLogic();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `OpaqueEntry` has no concrete subclass
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -2062,19 +1619,7 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
     public final String toString() {
 ```
 
-### RuleId[ruleID=AbstractClassNeverImplemented]
-Abstract class `StackEntry` has no concrete subclass
-in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
-#### Snippet
-```java
-   * special case, whether {@linkplain SubjectEntry the value is a Truth subject}.
-   */
-  abstract static class StackEntry {
-    abstract InferredType type();
-
-```
-
-### RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
 Abstract class `InferredType` has no concrete subclass
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -2086,92 +1631,465 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
     static final String UNINITIALIZED_PREFIX = "UNINIT@";
 ```
 
-## RuleId[ruleID=NullableProblems]
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
+### AbstractClassNeverImplemented
+Abstract class `FrameInfo` has no concrete subclass
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
 ```java
-  private boolean inRuleContext = false;
-  private boolean failureExpected = false;
-  private @Nullable AssertionError failure = null;
+  @CopyAnnotations
+  @GwtIncompatible
+  abstract static class FrameInfo {
 
-  /**
+    static FrameInfo create(ImmutableList<StackEntry> locals, ImmutableList<StackEntry> stack) {
 ```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/AssertionErrorWithFacts.java`
+### AbstractClassNeverImplemented
+Abstract class `DescribedEntry` has no concrete subclass
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
 ```java
-
-  /** Separate cause field, in case initCause() fails. */
-  private final @Nullable Throwable cause;
-
-  AssertionErrorWithFacts(
+  @CopyAnnotations
+  @GwtIncompatible
+  abstract static class DescribedEntry extends StackEntry {
+    @Override
+    abstract String description();
 ```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+### AbstractClassNeverImplemented
+Abstract class `StackEntry` has no concrete subclass
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
 ```java
-     * but it might try to look at facts initialized by a subclass, which aren't ready yet.
+   * special case, whether {@linkplain SubjectEntry the value is a Truth subject}.
+   */
+  abstract static class StackEntry {
+    abstract InferredType type();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Invocation` has no concrete subclass
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+  @CopyAnnotations
+  @GwtIncompatible
+  abstract static class Invocation {
+    static Builder builder(String name) {
+      return new AutoValue_ActualValueInference_Invocation.Builder().setName(name);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SubjectEntry` has no concrete subclass
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+  @CopyAnnotations
+  @GwtIncompatible
+  abstract static class SubjectEntry extends StackEntry {
+    @Override
+    abstract StackEntry actualValue();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract Builder setReceiver(StackEntry receiver);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `UnknownFieldDescriptor` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/UnknownFieldDescriptor.java`
+#### Snippet
+```java
+/** Convenience class encapsulating type information for unknown fields. */
+@AutoValue
+abstract class UnknownFieldDescriptor {
+
+  enum Type {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SubScopeId` has no concrete subclass
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/SubScopeId.java`
+#### Snippet
+```java
+
+@AutoOneOf(SubScopeId.Kind.class)
+abstract class SubScopeId {
+  enum Kind {
+    FIELD_DESCRIPTOR,
+```
+
+## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super Number`
+in `core/src/main/java/com/google/common/truth/PrimitiveFloatArraySubject.java`
+#### Snippet
+```java
+
+    FloatArrayAsIterable(
+        Correspondence<? super Float, Number> correspondence, IterableSubject subject) {
+      super(subject, correspondence);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super A`
+in `core/src/main/java/com/google/common/truth/Correspondence.java`
+#### Snippet
+```java
+   */
+  public static <A, E> Correspondence<A, E> transforming(
+      Function<A, ?> actualTransform, Function<E, ?> expectedTransform, String description) {
+    return new Transforming<>(actualTransform, expectedTransform, description);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super E`
+in `core/src/main/java/com/google/common/truth/Correspondence.java`
+#### Snippet
+```java
+   */
+  public static <A, E> Correspondence<A, E> transforming(
+      Function<A, ?> actualTransform, Function<E, ?> expectedTransform, String description) {
+    return new Transforming<>(actualTransform, expectedTransform, description);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super A`
+in `core/src/main/java/com/google/common/truth/Correspondence.java`
+#### Snippet
+```java
+   */
+  public static <A, E> Correspondence<A, E> transforming(
+      Function<A, ? extends E> actualTransform, String description) {
+    return new Transforming<>(actualTransform, identity(), description);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/com/google/common/truth/GraphMatching.java`
+#### Snippet
+```java
+    }
+
+    private HopcroftKarp(Multimap<U, V> graph) {
+      this.graph = graph;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends U`
+in `core/src/main/java/com/google/common/truth/GraphMatching.java`
+#### Snippet
+```java
+     *     absent value if the BFS was exhausted without finding any free RHS vertex
      */
-    final @Nullable Subject subject;
-
-    final @Nullable Function<String, String> descriptionUpdate;
+    private Optional<Integer> breadthFirstSearch(BiMap<U, V> matching, Map<U, Integer> layers) {
+      Queue<U> queue = new ArrayDeque<>();
+      Optional<Integer> freeRhsVertexLayer = Optional.absent();
 ```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+### BoundedWildcard
+Can generalize to `? super U`
+in `core/src/main/java/com/google/common/truth/GraphMatching.java`
+#### Snippet
+```java
+     *     absent value if the BFS was exhausted without finding any free RHS vertex
+     */
+    private Optional<Integer> breadthFirstSearch(BiMap<U, V> matching, Map<U, Integer> layers) {
+      Queue<U> queue = new ArrayDeque<>();
+      Optional<Integer> freeRhsVertexLayer = Optional.absent();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `core/src/main/java/com/google/common/truth/GraphMatching.java`
+#### Snippet
+```java
+    @CanIgnoreReturnValue
+    private boolean depthFirstSearch(
+        BiMap<U, V> matching, Map<U, Integer> layers, int freeRhsVertexLayer, U lhs) {
+      // Note that this differs from the method described in the text of the wikipedia article (at
+      // time of writing) in two ways. Firstly, we proceed from a free LHS vertex to a free RHS
+```
+
+### BoundedWildcard
+Can generalize to `? extends SingularField`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
 ```java
 
-    // Present only when descriptionUpdate is.
-    final @Nullable OldAndNewValuesAreSimilar valuesAreSimilar;
-
-    private Step(
+    @CanIgnoreReturnValue
+    final Builder addAllSingularFields(int fieldNumber, Iterable<SingularField> singularFields) {
+      singularFieldsBuilder().putAll(fieldNumber, singularFields);
+      return this;
 ```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
-#### Snippet
-```java
-    final @Nullable Subject subject;
-
-    final @Nullable Function<String, String> descriptionUpdate;
-
-    // Present only when descriptionUpdate is.
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/Fact.java`
+### BoundedWildcard
+Can generalize to `? extends SingularField`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
 ```java
 
-  final String key;
-  final @Nullable String value;
-
-  private Fact(String key, @Nullable String value) {
+      @CanIgnoreReturnValue
+      final Builder addAllSingularFields(int fieldNumber, Iterable<SingularField> singularFields) {
+        singularFieldsBuilder().putAll(fieldNumber, singularFields);
+        return this;
 ```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/MapSubject.java`
+### BoundedWildcard
+Can generalize to `? extends Correspondence`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
 ```java
-    private final Map<?, ?> expectedMap;
-    private final boolean allowUnexpected;
-    private final @Nullable Correspondence<?, ?> correspondence;
-
-    MapInOrder(
+      float x,
+      float y,
+      Optional<Correspondence<Number, Number>> correspondence
+      ) {
+    if (correspondence.isPresent()) {
 ```
 
-### RuleId[ruleID=NullableProblems]
+### BoundedWildcard
+Can generalize to `? extends Correspondence`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+      double x,
+      double y,
+      Optional<Correspondence<Number, Number>> correspondence
+      ) {
+    if (correspondence.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+
+  /** Checks that the subject is <i>not</i> in {@code range}. */
+  public final void isNotIn(Range<T> range) {
+    if (range.contains(actual)) {
+      failWithActual("expected not to be in range", range);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `core/src/main/java/com/google/common/truth/ComparableSubject.java`
+#### Snippet
+```java
+
+  /** Checks that the subject is in {@code range}. */
+  public final void isIn(Range<T> range) {
+    if (!range.contains(actual)) {
+      failWithActual("expected to be in range", range);
+```
+
+### BoundedWildcard
+Can generalize to `? super Number`
+in `core/src/main/java/com/google/common/truth/PrimitiveDoubleArraySubject.java`
+#### Snippet
+```java
+
+    DoubleArrayAsIterable(
+        Correspondence<? super Double, Number> correspondence, IterableSubject subject) {
+      super(subject, correspondence);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Label`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+
+    private static ImmutableSet<Integer> lineNumbers(
+        ImmutableList<Label> labels, ImmutableSetMultimap<Label, Integer> lineNumbersAtLabel) {
+      for (Label label : labels.reverse()) {
+        if (lineNumbersAtLabel.containsKey(label)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Label`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+
+    private static ImmutableSet<Integer> lineNumbers(
+        ImmutableList<Label> labels, ImmutableSetMultimap<Label, Integer> lineNumbersAtLabel) {
+      for (Label label : labels.reverse()) {
+        if (lineNumbersAtLabel.containsKey(label)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends StackEntry`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+
+    private ImmutableList<StackEntry> appendArrayToList(
+        ImmutableList<StackEntry> list, int size, Object[] array) {
+      ImmutableList.Builder<StackEntry> builder = ImmutableList.builder();
+      builder.addAll(list);
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+        String name,
+        String methodDescriptor,
+        ImmutableSetMultimap.Builder<Integer, StackEntry> actualValueAtLine) {
+      super(Opcodes.ASM9);
+      localVariableSlots = createInitialLocalVariableSlots(access, owner, name, methodDescriptor);
+```
+
+### BoundedWildcard
+Can generalize to `? super StackEntry`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+        String name,
+        String methodDescriptor,
+        ImmutableSetMultimap.Builder<Integer, StackEntry> actualValueAtLine) {
+      super(Opcodes.ASM9);
+      localVariableSlots = createInitialLocalVariableSlots(access, owner, name, methodDescriptor);
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldScopeLogic`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
+#### Snippet
+```java
+
+    @Override
+    UnionFieldScopeLogic newLogicOfSameType(List<FieldScopeLogic> newElements) {
+      checkArgument(newElements.size() == 2, "Expected 2 elements: %s", newElements);
+      return new UnionFieldScopeLogic(newElements.get(0), newElements.get(1));
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldScopeLogic`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
+#### Snippet
+```java
+
+    @Override
+    IntersectionFieldScopeLogic newLogicOfSameType(List<FieldScopeLogic> newElements) {
+      checkArgument(newElements.size() == 2, "Expected 2 elements: %s", newElements);
+      return new IntersectionFieldScopeLogic(newElements.get(0), newElements.get(1));
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldScopeLogic`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
+#### Snippet
+```java
+
+    @Override
+    NegationFieldScopeLogic newLogicOfSameType(List<FieldScopeLogic> newElements) {
+      checkArgument(newElements.size() == 1, "Expected 1 element: %s", newElements);
+      return new NegationFieldScopeLogic(newElements.get(0));
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+     * that all the given indexes really are valid indexes into the list.
+     */
+    private <T> List<T> findNotIndexed(List<T> list, Set<Integer> indexes) {
+      if (indexes.size() == list.size()) {
+        // If there are as many distinct valid indexes are there are elements in the list then every
+```
+
+### BoundedWildcard
+Can generalize to `? extends Multiset.Entry`
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  }
+
+  private static boolean containsEmptyOrLong(Iterable<Multiset.Entry<?>> entries) {
+    int totalLength = 0;
+    for (Multiset.Entry<?> entry : entries) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Multiset.Entry`
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+  }
+
+  private static boolean hasMultiple(Iterable<Multiset.Entry<?>> entries) {
+    int totalCount = 0;
+    for (Multiset.Entry<?> entry : entries) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
+#### Snippet
+```java
+  }
+
+  static <T> Collection<T> iterableToCollection(Iterable<T> iterable) {
+    if (iterable instanceof Collection) {
+      // Should be safe to assume that any Iterable implementing Collection isn't a one-shot
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
+#### Snippet
+```java
+  }
+
+  private static <T> NonHashingMultiset<T> countDuplicatesToMultiset(Iterable<T> items) {
+    // We use avoid hashing in case the elements don't have a proper
+    // .hashCode() method (e.g., MessageSet from old versions of protobuf).
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
+#### Snippet
+```java
+  }
+
+  static <T> int countOf(T t, Iterable<T> items) {
+    int count = 0;
+    for (T item : items) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
+#### Snippet
+```java
+  }
+
+  static <T> List<T> iterableToList(Iterable<T> iterable) {
+    if (iterable instanceof List) {
+      return (List<T>) iterable;
+```
+
+## RuleId[ruleID=NullableProblems]
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
 in `core/src/main/java/com/google/common/truth/Platform.java`
 #### Snippet
@@ -2183,31 +2101,7 @@ in `core/src/main/java/com/google/common/truth/Platform.java`
     PlatformComparisonFailure(
 ```
 
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/Truth.java`
-#### Snippet
-```java
-  static final class SimpleAssertionError extends AssertionError {
-    /** Separate cause field, in case initCause() fails. */
-    private final @Nullable Throwable cause;
-
-    private SimpleAssertionError(String message, @Nullable Throwable cause) {
-```
-
-### RuleId[ruleID=NullableProblems]
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `core/src/main/java/com/google/common/truth/Subject.java`
-#### Snippet
-```java
-        new ComparisonResult(ImmutableList.<Fact>of());
-
-    private final @Nullable ImmutableList<Fact> facts;
-
-    private ComparisonResult(ImmutableList<Fact> facts) {
-```
-
-### RuleId[ruleID=NullableProblems]
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -2219,7 +2113,115 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
   /**
 ```
 
-### RuleId[ruleID=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/Subject.java`
+#### Snippet
+```java
+        new ComparisonResult(ImmutableList.<Fact>of());
+
+    private final @Nullable ImmutableList<Fact> facts;
+
+    private ComparisonResult(ImmutableList<Fact> facts) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/AssertionErrorWithFacts.java`
+#### Snippet
+```java
+
+  /** Separate cause field, in case initCause() fails. */
+  private final @Nullable Throwable cause;
+
+  AssertionErrorWithFacts(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+    final @Nullable Subject subject;
+
+    final @Nullable Function<String, String> descriptionUpdate;
+
+    // Present only when descriptionUpdate is.
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+
+    // Present only when descriptionUpdate is.
+    final @Nullable OldAndNewValuesAreSimilar valuesAreSimilar;
+
+    private Step(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/FailureMetadata.java`
+#### Snippet
+```java
+     * but it might try to look at facts initialized by a subclass, which aren't ready yet.
+     */
+    final @Nullable Subject subject;
+
+    final @Nullable Function<String, String> descriptionUpdate;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/MapSubject.java`
+#### Snippet
+```java
+    private final Map<?, ?> expectedMap;
+    private final boolean allowUnexpected;
+    private final @Nullable Correspondence<?, ?> correspondence;
+
+    MapInOrder(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
+#### Snippet
+```java
+  private boolean inRuleContext = false;
+  private boolean failureExpected = false;
+  private @Nullable AssertionError failure = null;
+
+  /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/Fact.java`
+#### Snippet
+```java
+
+  final String key;
+  final @Nullable String value;
+
+  private Fact(String key, @Nullable String value) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `core/src/main/java/com/google/common/truth/Truth.java`
+#### Snippet
+```java
+  static final class SimpleAssertionError extends AssertionError {
+    /** Separate cause field, in case initCause() fails. */
+    private final @Nullable Throwable cause;
+
+    private SimpleAssertionError(String message, @Nullable Throwable cause) {
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
 #### Snippet
@@ -2232,7 +2234,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Iter
 ```
 
 ## RuleId[ruleID=UnnecessaryInitCause]
-### RuleId[ruleID=UnnecessaryInitCause]
+### UnnecessaryInitCause
 Unnecessary `Throwable.initCause()` call
 in `core/src/main/java/com/google/common/truth/Platform.java`
 #### Snippet
@@ -2245,187 +2247,7 @@ in `core/src/main/java/com/google/common/truth/Platform.java`
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setUnknownFields()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      UnknownFieldSetDiff diff =
-          diffUnknowns(actual.getUnknownFields(), expected.getUnknownFields(), config);
-      builder.setUnknownFields(diff);
-    }
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setActualFieldIndex()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-            .setProtoPrinter(protoPrinter);
-    if (actual != null) {
-      pairResultBuilder.setActual(actual).setActualFieldIndex(actualFieldIndex);
-    }
-    if (expected != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setExpectedFieldIndex()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (expected != null) {
-      pairResultBuilder.setExpected(expected).setExpectedFieldIndex(expectedFieldIndex);
-    }
-    if (comparison.breakdown().isPresent()) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setBreakdown()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (comparison.breakdown().isPresent()) {
-      pairResultBuilder.setBreakdown(comparison.breakdown().get());
-    }
-    return pairResultBuilder.build();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setActual()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-            .setProtoPrinter(protoPrinter);
-    if (actual != null) {
-      singularFieldBuilder.setActual(actual);
-    }
-    if (expected != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setExpected()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (expected != null) {
-      singularFieldBuilder.setExpected(expected);
-    }
-    if (unknownsBreakdown != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setUnknownsBreakdown()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (unknownsBreakdown != null) {
-      singularFieldBuilder.setUnknownsBreakdown(unknownsBreakdown);
-    }
-    return singularFieldBuilder.build();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setActual()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-            .setProtoPrinter(protoPrinter);
-    if (actual != null) {
-      singularFieldBuilder.setActual(actual);
-    }
-    if (expected != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setExpected()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (expected != null) {
-      singularFieldBuilder.setExpected(expected);
-    }
-    if (breakdown != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setBreakdown()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (breakdown != null) {
-      singularFieldBuilder.setBreakdown(breakdown);
-    }
-    return singularFieldBuilder.build();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setActual()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-            .setProtoPrinter(protoPrinter);
-    if (actual != null) {
-      singularFieldBuilder.setActual(actual);
-    }
-    if (expected != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setExpected()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (expected != null) {
-      singularFieldBuilder.setExpected(expected);
-    }
-    return singularFieldBuilder.build();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setActual()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-            .setProtoPrinter(protoPrinter);
-    if (actual != null) {
-      singularFieldBuilder.setActual(actual);
-    }
-    if (expected != null) {
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setExpected()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    }
-    if (expected != null) {
-      singularFieldBuilder.setExpected(expected);
-    }
-    return singularFieldBuilder.build();
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
-Result of `Builder.setUnknownFields()` is ignored
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      UnknownFieldSetDiff diff =
-          diffUnknowns(actual.getUnknownFields(), expected.getUnknownFields(), config);
-      builder.setUnknownFields(diff);
-    }
-
-```
-
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `Builder.setCompareFieldsScope()` is ignored
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
 #### Snippet
@@ -2437,7 +2259,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Flue
     }
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `Builder.setUseTypeRegistry()` is ignored
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
 #### Snippet
@@ -2449,7 +2271,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Flue
       return this;
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `Builder.setUseExtensionRegistry()` is ignored
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
 #### Snippet
@@ -2461,7 +2283,187 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Flue
     }
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `Builder.setActual()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+            .setProtoPrinter(protoPrinter);
+    if (actual != null) {
+      singularFieldBuilder.setActual(actual);
+    }
+    if (expected != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setExpected()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (expected != null) {
+      singularFieldBuilder.setExpected(expected);
+    }
+    return singularFieldBuilder.build();
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setActual()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+            .setProtoPrinter(protoPrinter);
+    if (actual != null) {
+      singularFieldBuilder.setActual(actual);
+    }
+    if (expected != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setExpected()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (expected != null) {
+      singularFieldBuilder.setExpected(expected);
+    }
+    if (breakdown != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setBreakdown()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (breakdown != null) {
+      singularFieldBuilder.setBreakdown(breakdown);
+    }
+    return singularFieldBuilder.build();
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setActual()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+            .setProtoPrinter(protoPrinter);
+    if (actual != null) {
+      singularFieldBuilder.setActual(actual);
+    }
+    if (expected != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setExpected()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (expected != null) {
+      singularFieldBuilder.setExpected(expected);
+    }
+    return singularFieldBuilder.build();
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setUnknownFields()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+      UnknownFieldSetDiff diff =
+          diffUnknowns(actual.getUnknownFields(), expected.getUnknownFields(), config);
+      builder.setUnknownFields(diff);
+    }
+
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setActualFieldIndex()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+            .setProtoPrinter(protoPrinter);
+    if (actual != null) {
+      pairResultBuilder.setActual(actual).setActualFieldIndex(actualFieldIndex);
+    }
+    if (expected != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setExpectedFieldIndex()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (expected != null) {
+      pairResultBuilder.setExpected(expected).setExpectedFieldIndex(expectedFieldIndex);
+    }
+    if (comparison.breakdown().isPresent()) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setBreakdown()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (comparison.breakdown().isPresent()) {
+      pairResultBuilder.setBreakdown(comparison.breakdown().get());
+    }
+    return pairResultBuilder.build();
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setUnknownFields()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+      UnknownFieldSetDiff diff =
+          diffUnknowns(actual.getUnknownFields(), expected.getUnknownFields(), config);
+      builder.setUnknownFields(diff);
+    }
+
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setActual()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+            .setProtoPrinter(protoPrinter);
+    if (actual != null) {
+      singularFieldBuilder.setActual(actual);
+    }
+    if (expected != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setExpected()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (expected != null) {
+      singularFieldBuilder.setExpected(expected);
+    }
+    if (unknownsBreakdown != null) {
+```
+
+### IgnoreResultOfCall
+Result of `Builder.setUnknownsBreakdown()` is ignored
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    }
+    if (unknownsBreakdown != null) {
+      singularFieldBuilder.setUnknownsBreakdown(unknownsBreakdown);
+    }
+    return singularFieldBuilder.build();
+```
+
+### IgnoreResultOfCall
 Result of `Builder.setActualValue()` is ignored
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -2473,7 +2475,7 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
             invocation.setBoxingInput(
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `Builder.setBoxingInput()` is ignored
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -2485,7 +2487,7 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
                 getOperandFromTop(0).type() == InferredType.TOP
 ```
 
-### RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
 Result of `Builder.setReceiver()` is ignored
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -2498,55 +2500,7 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 ```
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'actual'
-in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
-#### Snippet
-```java
-
-  GuavaOptionalSubject(
-      FailureMetadata metadata, @Nullable Optional<?> actual, @Nullable String typeDescription) {
-    super(metadata, actual, typeDescription);
-    this.actual = actual;
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'actual'
-in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
-#### Snippet
-```java
- */
-public final class GuavaOptionalSubject extends Subject {
-  private final Optional<?> actual;
-
-  GuavaOptionalSubject(
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalDouble` used as type for field 'actual'
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
-#### Snippet
-```java
-public final class OptionalDoubleSubject extends Subject {
-
-  private final OptionalDouble actual;
-
-  OptionalDoubleSubject(
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalDouble` used as type for parameter 'subject'
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
-#### Snippet
-```java
-  OptionalDoubleSubject(
-      FailureMetadata failureMetadata,
-      @Nullable OptionalDouble subject,
-      @Nullable String typeDescription) {
-    super(failureMetadata, subject, typeDescription);
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
 `OptionalLong` used as type for parameter 'subject'
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.java`
 #### Snippet
@@ -2558,7 +2512,7 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.j
     super(failureMetadata, subject, typeDescription);
 ```
 
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
 `OptionalLong` used as type for field 'actual'
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.java`
 #### Snippet
@@ -2570,235 +2524,31 @@ public final class OptionalLongSubject extends Subject {
   OptionalLongSubject(
 ```
 
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalInt` used as type for field 'actual'
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for field 'actual'
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
 #### Snippet
 ```java
- */
-public final class OptionalIntSubject extends Subject {
-  private final OptionalInt actual;
+public final class OptionalDoubleSubject extends Subject {
 
-  OptionalIntSubject(
+  private final OptionalDouble actual;
+
+  OptionalDoubleSubject(
 ```
 
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalInt` used as type for parameter 'subject'
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for parameter 'subject'
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
 #### Snippet
 ```java
-  OptionalIntSubject(
+  OptionalDoubleSubject(
       FailureMetadata failureMetadata,
-      @Nullable OptionalInt subject,
+      @Nullable OptionalDouble subject,
       @Nullable String typeDescription) {
     super(failureMetadata, subject, typeDescription);
 ```
 
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'actual'
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
-#### Snippet
-```java
- */
-public final class OptionalSubject extends Subject {
-  private final Optional<?> actual;
-
-  OptionalSubject(
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'subject'
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
-#### Snippet
-```java
-  OptionalSubject(
-      FailureMetadata failureMetadata,
-      @Nullable Optional<?> subject,
-      @Nullable String typeDescription) {
-    super(failureMetadata, subject, typeDescription);
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'descriptor'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScope.java`
-#### Snippet
-```java
-   *     if present. Used to pretty-print raw field numbers.
-   */
-  abstract String usingCorrespondenceString(Optional<Descriptor> descriptor);
-}
-
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'actual'
-in `core/src/main/java/com/google/common/truth/Truth.java`
-#### Snippet
-```java
-  }
-
-  public static GuavaOptionalSubject assertThat(@Nullable Optional<?> actual) {
-    return assert_().that(actual);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'optDescriptor'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeUtil.java`
-#### Snippet
-```java
-   */
-  private static String resolveFieldNumbers(
-      Optional<Descriptor> optDescriptor, String fmt, Iterable<Integer> fieldNumbers) {
-    if (optDescriptor.isPresent()) {
-      Descriptor descriptor = optDescriptor.get();
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'homogeneousTypeToDisplay'
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-
-    DuplicateGroupedAndTyped(
-        NonHashingMultiset<?> valuesAndMaybeTypes, Optional<String> homogeneousTypeToDisplay) {
-      this.valuesAndMaybeTypes = valuesAndMaybeTypes;
-      this.homogeneousTypeToDisplay = homogeneousTypeToDisplay;
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'homogeneousTypeToDisplay'
-in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
-#### Snippet
-```java
-  static final class DuplicateGroupedAndTyped {
-    final NonHashingMultiset<?> valuesAndMaybeTypes;
-    final Optional<String> homogeneousTypeToDisplay;
-
-    DuplicateGroupedAndTyped(
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalDouble` used as type for parameter 'target'
-in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
-#### Snippet
-```java
-  }
-
-  public static OptionalDoubleSubject assertThat(@Nullable OptionalDouble target) {
-    return assertAbout(OptionalDoubleSubject.optionalDoubles()).that(target);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalInt` used as type for parameter 'target'
-in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
-#### Snippet
-```java
-  }
-
-  public static OptionalIntSubject assertThat(@Nullable OptionalInt target) {
-    return assertAbout(OptionalIntSubject.optionalInts()).that(target);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`OptionalLong` used as type for parameter 'target'
-in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
-#### Snippet
-```java
-  }
-
-  public static OptionalLongSubject assertThat(@Nullable OptionalLong target) {
-    return assertAbout(OptionalLongSubject.optionalLongs()).that(target);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'target'
-in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
-#### Snippet
-```java
- */
-public final class Truth8 {
-  public static OptionalSubject assertThat(@Nullable Optional<?> target) {
-    return assertAbout(OptionalSubject.optionals()).that(target);
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'actual'
-in `core/src/main/java/com/google/common/truth/StandardSubjectBuilder.java`
-#### Snippet
-```java
-  }
-
-  public final GuavaOptionalSubject that(@Nullable Optional<?> actual) {
-    return new GuavaOptionalSubject(metadata(), actual, "optional");
-  }
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'fieldIndex'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-      }
-
-      private static String indexed(String fieldPrefix, Optional<Integer> fieldIndex) {
-        String index = fieldIndex.isPresent() ? fieldIndex.get().toString() : "?";
-        return fieldPrefix + "[" + index + "]";
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional`> used as type for parameter 'correspondence'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      double x,
-      double y,
-      Optional<Correspondence<Number, Number>> correspondence
-      ) {
-    if (correspondence.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional`> used as type for parameter 'correspondence'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      float x,
-      float y,
-      Optional<Correspondence<Number, Number>> correspondence
-      ) {
-    if (correspondence.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for field 'pairer'
-in `core/src/main/java/com/google/common/truth/IterableSubject.java`
-#### Snippet
-```java
-    private final IterableSubject subject;
-    private final Correspondence<? super A, ? super E> correspondence;
-    private final Optional<Pairer> pairer;
-
-    UsingCorrespondence(
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
-`Optional` used as type for parameter 'optDescriptor'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
-#### Snippet
-```java
-
-  final <M extends Message> Correspondence<M, M> toCorrespondence(
-      final Optional<Descriptor> optDescriptor) {
-    checkState(hasExpectedMessages(), "withExpectedMessages() not called");
-    return Correspondence.from(
-```
-
-### RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'descriptor'
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
 #### Snippet
@@ -2810,44 +2560,260 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Flue
   }
 ```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optDescriptor'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FluentEqualityConfig.java`
+#### Snippet
+```java
+
+  final <M extends Message> Correspondence<M, M> toCorrespondence(
+      final Optional<Descriptor> optDescriptor) {
+    checkState(hasExpectedMessages(), "withExpectedMessages() not called");
+    return Correspondence.from(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'actual'
+in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
+#### Snippet
+```java
+ */
+public final class GuavaOptionalSubject extends Subject {
+  private final Optional<?> actual;
+
+  GuavaOptionalSubject(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
+in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
+#### Snippet
+```java
+
+  GuavaOptionalSubject(
+      FailureMetadata metadata, @Nullable Optional<?> actual, @Nullable String typeDescription) {
+    super(metadata, actual, typeDescription);
+    this.actual = actual;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'fieldIndex'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+      }
+
+      private static String indexed(String fieldPrefix, Optional<Integer> fieldIndex) {
+        String index = fieldIndex.isPresent() ? fieldIndex.get().toString() : "?";
+        return fieldPrefix + "[" + index + "]";
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optDescriptor'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeUtil.java`
+#### Snippet
+```java
+   */
+  private static String resolveFieldNumbers(
+      Optional<Descriptor> optDescriptor, String fmt, Iterable<Integer> fieldNumbers) {
+    if (optDescriptor.isPresent()) {
+      Descriptor descriptor = optDescriptor.get();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'descriptor'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScope.java`
+#### Snippet
+```java
+   *     if present. Used to pretty-print raw field numbers.
+   */
+  abstract String usingCorrespondenceString(Optional<Descriptor> descriptor);
+}
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'subject'
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
+#### Snippet
+```java
+  OptionalSubject(
+      FailureMetadata failureMetadata,
+      @Nullable Optional<?> subject,
+      @Nullable String typeDescription) {
+    super(failureMetadata, subject, typeDescription);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'actual'
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
+#### Snippet
+```java
+ */
+public final class OptionalSubject extends Subject {
+  private final Optional<?> actual;
+
+  OptionalSubject(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'correspondence'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+      float x,
+      float y,
+      Optional<Correspondence<Number, Number>> correspondence
+      ) {
+    if (correspondence.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for parameter 'correspondence'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+      double x,
+      double y,
+      Optional<Correspondence<Number, Number>> correspondence
+      ) {
+    if (correspondence.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
+in `core/src/main/java/com/google/common/truth/StandardSubjectBuilder.java`
+#### Snippet
+```java
+  }
+
+  public final GuavaOptionalSubject that(@Nullable Optional<?> actual) {
+    return new GuavaOptionalSubject(metadata(), actual, "optional");
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for parameter 'target'
+in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
+#### Snippet
+```java
+  }
+
+  public static OptionalDoubleSubject assertThat(@Nullable OptionalDouble target) {
+    return assertAbout(OptionalDoubleSubject.optionalDoubles()).that(target);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'target'
+in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
+#### Snippet
+```java
+ */
+public final class Truth8 {
+  public static OptionalSubject assertThat(@Nullable Optional<?> target) {
+    return assertAbout(OptionalSubject.optionals()).that(target);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'target'
+in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
+#### Snippet
+```java
+  }
+
+  public static OptionalLongSubject assertThat(@Nullable OptionalLong target) {
+    return assertAbout(OptionalLongSubject.optionalLongs()).that(target);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'target'
+in `extensions/java8/src/main/java/com/google/common/truth/Truth8.java`
+#### Snippet
+```java
+  }
+
+  public static OptionalIntSubject assertThat(@Nullable OptionalInt target) {
+    return assertAbout(OptionalIntSubject.optionalInts()).that(target);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for field 'actual'
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+#### Snippet
+```java
+ */
+public final class OptionalIntSubject extends Subject {
+  private final OptionalInt actual;
+
+  OptionalIntSubject(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'subject'
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+#### Snippet
+```java
+  OptionalIntSubject(
+      FailureMetadata failureMetadata,
+      @Nullable OptionalInt subject,
+      @Nullable String typeDescription) {
+    super(failureMetadata, subject, typeDescription);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
+in `core/src/main/java/com/google/common/truth/Truth.java`
+#### Snippet
+```java
+  }
+
+  public static GuavaOptionalSubject assertThat(@Nullable Optional<?> actual) {
+    return assert_().that(actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'pairer'
+in `core/src/main/java/com/google/common/truth/IterableSubject.java`
+#### Snippet
+```java
+    private final IterableSubject subject;
+    private final Correspondence<? super A, ? super E> correspondence;
+    private final Optional<Pairer> pairer;
+
+    UsingCorrespondence(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'homogeneousTypeToDisplay'
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
+#### Snippet
+```java
+
+    DuplicateGroupedAndTyped(
+        NonHashingMultiset<?> valuesAndMaybeTypes, Optional<String> homogeneousTypeToDisplay) {
+      this.valuesAndMaybeTypes = valuesAndMaybeTypes;
+      this.homogeneousTypeToDisplay = homogeneousTypeToDisplay;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'homogeneousTypeToDisplay'
+in `core/src/main/java/com/google/common/truth/SubjectUtils.java`
+#### Snippet
+```java
+  static final class DuplicateGroupedAndTyped {
+    final NonHashingMultiset<?> valuesAndMaybeTypes;
+    final Optional<String> homogeneousTypeToDisplay;
+
+    DuplicateGroupedAndTyped(
+```
+
 ## RuleId[ruleID=UnnecessaryUnboxing]
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `core/src/main/java/com/google/common/truth/FloatSubject.java`
-#### Snippet
-```java
-  /** Asserts that the subject is zero (i.e. it is either {@code 0.0f} or {@code -0.0f}). */
-  public final void isZero() {
-    if (actual == null || actual.floatValue() != 0.0f) {
-      failWithActual(simpleFact("expected zero"));
-    }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `core/src/main/java/com/google/common/truth/FloatSubject.java`
-#### Snippet
-```java
-    if (actual == null) {
-      failWithActual(simpleFact("expected a float other than zero"));
-    } else if (actual.floatValue() == 0.0f) {
-      failWithActual(simpleFact("expected not to be zero"));
-    }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
-Unnecessary unboxing
-in `core/src/main/java/com/google/common/truth/DoubleSubject.java`
-#### Snippet
-```java
-    if (actual == null) {
-      failWithActual(simpleFact("expected a double other than zero"));
-    } else if (actual.doubleValue() == 0.0) {
-      failWithActual(simpleFact("expected not to be zero"));
-    }
-```
-
-### RuleId[ruleID=UnnecessaryUnboxing]
+### UnnecessaryUnboxing
 Unnecessary unboxing
 in `core/src/main/java/com/google/common/truth/DoubleSubject.java`
 #### Snippet
@@ -2859,7 +2825,19 @@ in `core/src/main/java/com/google/common/truth/DoubleSubject.java`
     }
 ```
 
-### RuleId[ruleID=UnnecessaryUnboxing]
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `core/src/main/java/com/google/common/truth/DoubleSubject.java`
+#### Snippet
+```java
+    if (actual == null) {
+      failWithActual(simpleFact("expected a double other than zero"));
+    } else if (actual.doubleValue() == 0.0) {
+      failWithActual(simpleFact("expected not to be zero"));
+    }
+```
+
+### UnnecessaryUnboxing
 Unnecessary unboxing
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -2871,21 +2849,32 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
       return ((Number) o).longValue();
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RuleId[ruleID=RedundantMethodOverride]
-Method `isEqualTo()` only delegates to its super method
-in `core/src/main/java/com/google/common/truth/BigDecimalSubject.java`
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `core/src/main/java/com/google/common/truth/FloatSubject.java`
 #### Snippet
 ```java
-   */
-  @Override // To express more specific javadoc
-  public void isEqualTo(@Nullable Object expected) {
-    super.isEqualTo(expected);
-  }
+  /** Asserts that the subject is zero (i.e. it is either {@code 0.0f} or {@code -0.0f}). */
+  public final void isZero() {
+    if (actual == null || actual.floatValue() != 0.0f) {
+      failWithActual(simpleFact("expected zero"));
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `core/src/main/java/com/google/common/truth/FloatSubject.java`
+#### Snippet
+```java
+    if (actual == null) {
+      failWithActual(simpleFact("expected a float other than zero"));
+    } else if (actual.floatValue() == 0.0f) {
+      failWithActual(simpleFact("expected not to be zero"));
+    }
 ```
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
-### RuleId[ruleID=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
 Class name `Factory` is the same as one of its superclass' names
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoSubjectBuilder.java`
 #### Snippet
@@ -2897,80 +2886,21 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
 
 ```
 
-## RuleId[ruleID=OptionalAssignedToNull]
-### RuleId[ruleID=OptionalAssignedToNull]
-Optional value is compared with null
-in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
-#### Snippet
-```java
-  /** Fails if the {@link Optional}{@code <T>} is present or the subject is null. */
-  public void isAbsent() {
-    if (actual == null) {
-      failWithActual(simpleFact("expected absent optional"));
-    } else if (actual.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalAssignedToNull]
-Optional value is compared with null
-in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
-#### Snippet
-```java
-  /** Fails if the {@link Optional}{@code <T>} is absent or the subject is null. */
-  public void isPresent() {
-    if (actual == null) {
-      failWithActual(simpleFact("expected present optional"));
-    } else if (!actual.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalAssignedToNull]
-Optional value is compared with null
-in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
-#### Snippet
-```java
-      throw new NullPointerException("Optional cannot have a null value.");
-    }
-    if (actual == null) {
-      failWithActual("expected an optional with value", expected);
-    } else if (!actual.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalAssignedToNull]
-Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
+## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `isEqualTo()` only delegates to its super method
+in `core/src/main/java/com/google/common/truth/BigDecimalSubject.java`
 #### Snippet
 ```java
    */
-  public void hasValue(double expected) {
-    if (actual == null) {
-      failWithActual("expected an optional with value", expected);
-    } else if (!actual.isPresent()) {
+  @Override // To express more specific javadoc
+  public void isEqualTo(@Nullable Object expected) {
+    super.isEqualTo(expected);
+  }
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
-Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
-#### Snippet
-```java
-  /** Fails if the {@link OptionalDouble} is present or the subject is null. */
-  public void isEmpty() {
-    if (actual == null) {
-      failWithActual(simpleFact("expected empty optional"));
-    } else if (actual.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalAssignedToNull]
-Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
-#### Snippet
-```java
-  /** Fails if the {@link OptionalDouble} is empty or the subject is null. */
-  public void isPresent() {
-    if (actual == null) {
-      failWithActual(simpleFact("expected present optional"));
-    } else if (!actual.isPresent()) {
-```
-
-### RuleId[ruleID=OptionalAssignedToNull]
+## RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.java`
 #### Snippet
@@ -2982,7 +2912,7 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.j
     } else if (!actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.java`
 #### Snippet
@@ -2994,7 +2924,7 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.j
     } else if (actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.java`
 #### Snippet
@@ -3006,45 +2936,45 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalLongSubject.j
     } else if (!actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
 #### Snippet
 ```java
-  /** Fails if the {@link OptionalInt} is present or the subject is null. */
+  /** Fails if the {@link OptionalDouble} is present or the subject is null. */
   public void isEmpty() {
     if (actual == null) {
       failWithActual(simpleFact("expected empty optional"));
     } else if (actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
 #### Snippet
 ```java
-  /** Fails if the {@link OptionalInt} is empty or the subject is null. */
+  /** Fails if the {@link OptionalDouble} is empty or the subject is null. */
   public void isPresent() {
     if (actual == null) {
       failWithActual(simpleFact("expected present optional"));
     } else if (!actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalDoubleSubject.java`
 #### Snippet
 ```java
    */
-  public void hasValue(int expected) {
+  public void hasValue(double expected) {
     if (actual == null) {
       failWithActual("expected an optional with value", expected);
     } else if (!actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
+in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
 #### Snippet
 ```java
       throw new NullPointerException("Optional cannot have a null value.");
@@ -3054,19 +2984,31 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
     } else if (!actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
-in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
+in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
+#### Snippet
+```java
+  /** Fails if the {@link Optional}{@code <T>} is absent or the subject is null. */
+  public void isPresent() {
+    if (actual == null) {
+      failWithActual(simpleFact("expected present optional"));
+    } else if (!actual.isPresent()) {
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `core/src/main/java/com/google/common/truth/GuavaOptionalSubject.java`
 #### Snippet
 ```java
   /** Fails if the {@link Optional}{@code <T>} is present or the subject is null. */
-  public void isEmpty() {
+  public void isAbsent() {
     if (actual == null) {
-      failWithActual(simpleFact("expected empty optional"));
+      failWithActual(simpleFact("expected absent optional"));
     } else if (actual.isPresent()) {
 ```
 
-### RuleId[ruleID=OptionalAssignedToNull]
+### OptionalAssignedToNull
 Optional value is compared with null
 in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
 #### Snippet
@@ -3078,44 +3020,68 @@ in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
     } else if (!actual.isPresent()) {
 ```
 
+### OptionalAssignedToNull
+Optional value is compared with null
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
+#### Snippet
+```java
+  /** Fails if the {@link Optional}{@code <T>} is present or the subject is null. */
+  public void isEmpty() {
+    if (actual == null) {
+      failWithActual(simpleFact("expected empty optional"));
+    } else if (actual.isPresent()) {
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalSubject.java`
+#### Snippet
+```java
+      throw new NullPointerException("Optional cannot have a null value.");
+    }
+    if (actual == null) {
+      failWithActual("expected an optional with value", expected);
+    } else if (!actual.isPresent()) {
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+#### Snippet
+```java
+  /** Fails if the {@link OptionalInt} is empty or the subject is null. */
+  public void isPresent() {
+    if (actual == null) {
+      failWithActual(simpleFact("expected present optional"));
+    } else if (!actual.isPresent()) {
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+#### Snippet
+```java
+  /** Fails if the {@link OptionalInt} is present or the subject is null. */
+  public void isEmpty() {
+    if (actual == null) {
+      failWithActual(simpleFact("expected empty optional"));
+    } else if (actual.isPresent()) {
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `extensions/java8/src/main/java/com/google/common/truth/OptionalIntSubject.java`
+#### Snippet
+```java
+   */
+  public void hasValue(int expected) {
+    if (actual == null) {
+      failWithActual("expected an optional with value", expected);
+    } else if (!actual.isPresent()) {
+```
+
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/com/google/common/truth/Expect.java`
-#### Snippet
-```java
-    private static void appendIndented(int countLength, StringBuilder builder, String toAppend) {
-      int indent = countLength + 4; // "  " and ". "
-      builder.append(toAppend.replace("\n", "\n" + repeat(" ", indent)));
-    }
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/com/google/common/truth/Expect.java`
-#### Snippet
-```java
-      String s = Throwables.getStackTraceAsString(e);
-      // Force single line reluctant matching
-      return s.replaceFirst("(?s)^.*?__EXCEPTION_MARKER__.*?Caused by:\\s+", "");
-    }
-
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/com/google/common/truth/Fact.java`
-#### Snippet
-```java
-    // We don't want to indent with \t\t because it would be very far for people with 8-space tabs.
-    // Let's compromise and indent by 4 spaces, which is different than both 2- and 8-space tabs.
-    return "    " + value.replaceAll("\n", "\n    ");
-  }
-}
-```
-
-### RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -3127,20 +3093,44 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
         (subjectClass.endsWith("Subject") && !subjectClass.equals("Subject"))
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
-Qualifier `java.util` is unnecessary and can be removed
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MapWithProtoValuesFluentAssertion.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/com/google/common/truth/Expect.java`
 #### Snippet
 ```java
- * <p>The <b>keys</b> of these maps are treated as ordinary objects, and keys which happen to be
- * protocol buffers are not given special treatment. They are compared with {@link Object#equals}
- * and {@link Object#hashCode()} as documented by the {@link java.util.Map} interface.
- *
- * <p>Methods may be chained in any order, but the chain should terminate with a method that doesn't
+      String s = Throwables.getStackTraceAsString(e);
+      // Force single line reluctant matching
+      return s.replaceFirst("(?s)^.*?__EXCEPTION_MARKER__.*?Caused by:\\s+", "");
+    }
+
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/com/google/common/truth/Expect.java`
+#### Snippet
+```java
+    private static void appendIndented(int countLength, StringBuilder builder, String toAppend) {
+      int indent = countLength + 4; // "  " and ". "
+      builder.append(toAppend.replace("\n", "\n" + repeat(" ", indent)));
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/com/google/common/truth/Fact.java`
+#### Snippet
+```java
+    // We don't want to indent with \t\t because it would be very far for people with 8-space tabs.
+    // Let's compromise and indent by 4 spaces, which is different than both 2- and 8-space tabs.
+    return "    " + value.replaceAll("\n", "\n    ");
+  }
+}
+```
+
+## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `com.google.re2j` is unnecessary and can be removed
 in `extensions/re2j/src/main/java/com/google/common/truth/extensions/re2j/Re2jSubjects.java`
 #### Snippet
@@ -3152,7 +3142,7 @@ in `extensions/re2j/src/main/java/com/google/common/truth/extensions/re2j/Re2jSu
    * @see #re2jString
 ```
 
-### RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
 Qualifier `com.google.re2j` is unnecessary and can be removed
 in `extensions/re2j/src/main/java/com/google/common/truth/extensions/re2j/Re2jSubjects.java`
 #### Snippet
@@ -3164,8 +3154,33 @@ in `extensions/re2j/src/main/java/com/google/common/truth/extensions/re2j/Re2jSu
    * <p>This subject does not replace Truth's built-in {@link com.google.common.truth.StringSubject}
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MapWithProtoValuesFluentAssertion.java`
+#### Snippet
+```java
+ * <p>The <b>keys</b> of these maps are treated as ordinary objects, and keys which happen to be
+ * protocol buffers are not given special treatment. They are compared with {@link Object#equals}
+ * and {@link Object#hashCode()} as documented by the {@link java.util.Map} interface.
+ *
+ * <p>Methods may be chained in any order, but the chain should terminate with a method that doesn't
+```
+
+## RuleId[ruleID=UNUSED_IMPORT]
+### UNUSED_IMPORT
+Unused import `import org.objectweb.asm.Opcodes;`
+in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
+#### Snippet
+```java
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSetMultimap;
+import org.objectweb.asm.Opcodes;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import java.io.IOException;
+```
+
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
 `c = (char) (c >>> 4)` could be simplified to 'c \>\>\>= 4'
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -3177,7 +3192,7 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
     c = (char) (c >>> 4);
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
 `c = (char) (c >>> 4)` could be simplified to 'c \>\>\>= 4'
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -3189,7 +3204,7 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
     c = (char) (c >>> 4);
 ```
 
-### RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
 `c = (char) (c >>> 4)` could be simplified to 'c \>\>\>= 4'
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -3202,19 +3217,7 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
-### RuleId[ruleID=Anonymous2MethodRef]
-Anonymous new FailureStrategy() can be replaced with method reference
-in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
-#### Snippet
-```java
-public final class ExpectFailure implements Platform.JUnitTestRule {
-  private final FailureStrategy strategy =
-      new FailureStrategy() {
-        @Override
-        public void fail(AssertionError failure) {
-```
-
-### RuleId[ruleID=Anonymous2MethodRef]
+### Anonymous2MethodRef
 Anonymous new Subject.Factory() can be replaced with method reference
 in `extensions/re2j/src/main/java/com/google/common/truth/extensions/re2j/Re2jSubjects.java`
 #### Snippet
@@ -3226,7 +3229,7 @@ in `extensions/re2j/src/main/java/com/google/common/truth/extensions/re2j/Re2jSu
           public Re2jStringSubject createSubject(FailureMetadata failureMetadata, String target) {
 ```
 
-### RuleId[ruleID=Anonymous2MethodRef]
+### Anonymous2MethodRef
 Anonymous new Factory\>() can be replaced with method reference
 in `core/src/main/java/com/google/common/truth/PrimitiveFloatArraySubject.java`
 #### Snippet
@@ -3238,7 +3241,19 @@ in `core/src/main/java/com/google/common/truth/PrimitiveFloatArraySubject.java`
       public IterableSubject createSubject(FailureMetadata metadata, Iterable<?> actual) {
 ```
 
-### RuleId[ruleID=Anonymous2MethodRef]
+### Anonymous2MethodRef
+Anonymous new FailureStrategy() can be replaced with method reference
+in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
+#### Snippet
+```java
+public final class ExpectFailure implements Platform.JUnitTestRule {
+  private final FailureStrategy strategy =
+      new FailureStrategy() {
+        @Override
+        public void fail(AssertionError failure) {
+```
+
+### Anonymous2MethodRef
 Anonymous new Factory\>() can be replaced with method reference
 in `core/src/main/java/com/google/common/truth/PrimitiveDoubleArraySubject.java`
 #### Snippet
@@ -3251,7 +3266,7 @@ in `core/src/main/java/com/google/common/truth/PrimitiveDoubleArraySubject.java`
 ```
 
 ## RuleId[ruleID=EmptyMethod]
-### RuleId[ruleID=EmptyMethod]
+### EmptyMethod
 The method is empty
 in `core/src/main/java/com/google/common/truth/super/com/google/common/truth/Platform.java`
 #### Snippet
@@ -3263,7 +3278,7 @@ in `core/src/main/java/com/google/common/truth/super/com/google/common/truth/Pla
   }
 ```
 
-### RuleId[ruleID=EmptyMethod]
+### EmptyMethod
 All implementations of this method are empty
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScope.java`
 #### Snippet
@@ -3276,127 +3291,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Fiel
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
-#### Snippet
-```java
-  private boolean inRuleContext = false;
-  private boolean failureExpected = false;
-  private @Nullable AssertionError failure = null;
-
-  /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
-#### Snippet
-```java
-
-  private boolean inRuleContext = false;
-  private boolean failureExpected = false;
-  private @Nullable AssertionError failure = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `false` is redundant
-in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
-#### Snippet
-```java
-      };
-
-  private boolean inRuleContext = false;
-  private boolean failureExpected = false;
-  private @Nullable AssertionError failure = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-  private final List<String> reducedUnifiedDiff = new ArrayList<>();
-  private int offsetHead = 0;
-  private int offsetTail = 0;
-
-  private List<String> diff(
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-  private final List<Integer> unifiedDiffContentId = new ArrayList<>();
-  private final List<String> reducedUnifiedDiff = new ArrayList<>();
-  private int offsetHead = 0;
-  private int offsetTail = 0;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
-
-    private Boolean isMatched = null;
-    private Boolean isIgnored = null;
-
-    @Override
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
-  // inheritance, than to duplicate the @Memoized methods for every subclass.
-
-  private Boolean isAnyChildIgnored = null;
-  private Boolean isAnyChildMatched = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
-
-  private Boolean isAnyChildIgnored = null;
-  private Boolean isAnyChildMatched = null;
-
-  // Only extended by inner classes.
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
-#### Snippet
-```java
-  abstract static class WithoutResultCode extends RecursableDiffEntity {
-
-    private Boolean isMatched = null;
-    private Boolean isIgnored = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `0` is redundant
-in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
-#### Snippet
-```java
-  private StackTraceElementWrapper lastStackFrameElementWrapper = null;
-  private StackFrameType currentStreakType = null;
-  private int currentStreakLength = 0;
-
-  /**
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 #### Snippet
@@ -3408,7 +3303,7 @@ in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
   private int currentStreakLength = 0;
 ```
 
-### RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 #### Snippet
@@ -3420,43 +3315,19 @@ in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 
 ```
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `core/src/main/java/com/google/common/truth/Subject.java`
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 #### Snippet
 ```java
-  private final FailureMetadata metadata;
-  private final Object actual;
-  private String customName = null;
-  private final @Nullable String typeDescriptionOverride;
+  private StackTraceElementWrapper lastStackFrameElementWrapper = null;
+  private StackFrameType currentStreakType = null;
+  private int currentStreakLength = 0;
 
+  /**
 ```
 
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `core/src/main/java/com/google/common/truth/Correspondence.java`
-#### Snippet
-```java
-
-    private final String argumentLabel;
-    private StoredException firstCompareException = null;
-    private StoredException firstPairingException = null;
-    private StoredException firstFormatDiffException = null;
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
-Field initialization to `null` is redundant
-in `core/src/main/java/com/google/common/truth/Correspondence.java`
-#### Snippet
-```java
-    private final String argumentLabel;
-    private StoredException firstCompareException = null;
-    private StoredException firstPairingException = null;
-    private StoredException firstFormatDiffException = null;
-
-```
-
-### RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `core/src/main/java/com/google/common/truth/Correspondence.java`
 #### Snippet
@@ -3468,7 +3339,127 @@ in `core/src/main/java/com/google/common/truth/Correspondence.java`
     static ExceptionStore forIterable() {
 ```
 
-### RuleId[ruleID=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/com/google/common/truth/Correspondence.java`
+#### Snippet
+```java
+
+    private final String argumentLabel;
+    private StoredException firstCompareException = null;
+    private StoredException firstPairingException = null;
+    private StoredException firstFormatDiffException = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/com/google/common/truth/Correspondence.java`
+#### Snippet
+```java
+    private final String argumentLabel;
+    private StoredException firstCompareException = null;
+    private StoredException firstPairingException = null;
+    private StoredException firstFormatDiffException = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/com/google/common/truth/Subject.java`
+#### Snippet
+```java
+  private final FailureMetadata metadata;
+  private final Object actual;
+  private String customName = null;
+  private final @Nullable String typeDescriptionOverride;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
+#### Snippet
+```java
+      };
+
+  private boolean inRuleContext = false;
+  private boolean failureExpected = false;
+  private @Nullable AssertionError failure = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
+#### Snippet
+```java
+  private boolean inRuleContext = false;
+  private boolean failureExpected = false;
+  private @Nullable AssertionError failure = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/com/google/common/truth/ExpectFailure.java`
+#### Snippet
+```java
+
+  private boolean inRuleContext = false;
+  private boolean failureExpected = false;
+  private @Nullable AssertionError failure = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+
+    private Boolean isMatched = null;
+    private Boolean isIgnored = null;
+
+    @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+
+  private Boolean isAnyChildIgnored = null;
+  private Boolean isAnyChildMatched = null;
+
+  // Only extended by inner classes.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+  // inheritance, than to duplicate the @Memoized methods for every subclass.
+
+  private Boolean isAnyChildIgnored = null;
+  private Boolean isAnyChildMatched = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/RecursableDiffEntity.java`
+#### Snippet
+```java
+  abstract static class WithoutResultCode extends RecursableDiffEntity {
+
+    private Boolean isMatched = null;
+    private Boolean isIgnored = null;
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -3480,80 +3471,32 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
     private final ArrayList<StackEntry> operandStack = new ArrayList<>();
 ```
 
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+  private final List<String> reducedUnifiedDiff = new ArrayList<>();
+  private int offsetHead = 0;
+  private int offsetTail = 0;
+
+  private List<String> diff(
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+  private final List<Integer> unifiedDiffContentId = new ArrayList<>();
+  private final List<String> reducedUnifiedDiff = new ArrayList<>();
+  private int offsetHead = 0;
+  private int offsetTail = 0;
+
+```
+
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `originalLines`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-      List<String> originalLines, List<String> revisedLines, int contextSize) {
-    reduceEqualLinesFromHeadAndTail(originalLines, revisedLines, contextSize);
-    originalLines = originalLines.subList(offsetHead, originalLines.size() - offsetTail);
-    revisedLines = revisedLines.subList(offsetHead, revisedLines.size() - offsetTail);
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `revisedLines`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-    reduceEqualLinesFromHeadAndTail(originalLines, revisedLines, contextSize);
-    originalLines = originalLines.subList(offsetHead, originalLines.size() - offsetTail);
-    revisedLines = revisedLines.subList(offsetHead, revisedLines.size() - offsetTail);
-
-    original = new int[originalLines.size() + 1];
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `i`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-        unifiedDiffType.add(' ');
-        unifiedDiffContentId.add(original[i]);
-        i--;
-        j--;
-      } else if (j > 0 && (i == 0 || lcs[i][j - 1] >= lcs[i - 1][j])) {
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `j`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-        unifiedDiffContentId.add(original[i]);
-        i--;
-        j--;
-      } else if (j > 0 && (i == 0 || lcs[i][j - 1] >= lcs[i - 1][j])) {
-        unifiedDiffType.add('+');
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `j`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-        unifiedDiffType.add('+');
-        unifiedDiffContentId.add(revised[j]);
-        j--;
-      } else if (i > 0 && (j == 0 || lcs[i][j - 1] < lcs[i - 1][j])) {
-        unifiedDiffType.add('-');
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `i`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-        unifiedDiffType.add('-');
-        unifiedDiffContentId.add(original[i]);
-        i--;
-      }
-    }
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `subclass`
 in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 #### Snippet
@@ -3565,43 +3508,7 @@ in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
         return true;
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `c`
-in `core/src/main/java/com/google/common/truth/Subject.java`
-#### Snippet
-```java
-    r[1] = 'u';
-    r[5] = HEX_DIGITS[c & 0xF];
-    c = (char) (c >>> 4);
-    r[4] = HEX_DIGITS[c & 0xF];
-    c = (char) (c >>> 4);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `c`
-in `core/src/main/java/com/google/common/truth/Subject.java`
-#### Snippet
-```java
-    c = (char) (c >>> 4);
-    r[4] = HEX_DIGITS[c & 0xF];
-    c = (char) (c >>> 4);
-    r[3] = HEX_DIGITS[c & 0xF];
-    c = (char) (c >>> 4);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `c`
-in `core/src/main/java/com/google/common/truth/Subject.java`
-#### Snippet
-```java
-    c = (char) (c >>> 4);
-    r[3] = HEX_DIGITS[c & 0xF];
-    c = (char) (c >>> 4);
-    r[2] = HEX_DIGITS[c & 0xF];
-    return r;
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `expected`
 in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
 #### Snippet
@@ -3613,7 +3520,7 @@ in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
     }
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `actual`
 in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
 #### Snippet
@@ -3625,7 +3532,7 @@ in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `expected`
 in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
 #### Snippet
@@ -3637,7 +3544,7 @@ in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
     }
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `actual`
 in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
 #### Snippet
@@ -3649,7 +3556,43 @@ in `core/src/main/java/com/google/common/truth/ComparisonFailures.java`
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `c`
+in `core/src/main/java/com/google/common/truth/Subject.java`
+#### Snippet
+```java
+    r[1] = 'u';
+    r[5] = HEX_DIGITS[c & 0xF];
+    c = (char) (c >>> 4);
+    r[4] = HEX_DIGITS[c & 0xF];
+    c = (char) (c >>> 4);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `c`
+in `core/src/main/java/com/google/common/truth/Subject.java`
+#### Snippet
+```java
+    c = (char) (c >>> 4);
+    r[4] = HEX_DIGITS[c & 0xF];
+    c = (char) (c >>> 4);
+    r[3] = HEX_DIGITS[c & 0xF];
+    c = (char) (c >>> 4);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `c`
+in `core/src/main/java/com/google/common/truth/Subject.java`
+#### Snippet
+```java
+    c = (char) (c >>> 4);
+    r[3] = HEX_DIGITS[c & 0xF];
+    c = (char) (c >>> 4);
+    r[2] = HEX_DIGITS[c & 0xF];
+    return r;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `fieldPrefix`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
@@ -3661,7 +3604,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Diff
         pairResult.printContentsForRepeatedField(
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `fieldPrefix`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
@@ -3673,31 +3616,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Diff
         case ADDED:
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `actual`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    @Nullable UnknownFieldSetDiff unknownsBreakdown = null;
-    if (result.build() == Result.MATCHED || excludeNonRecursive) {
-      actual = firstNonNull(actual, UnknownFieldSet.getDefaultInstance());
-      expected = firstNonNull(expected, UnknownFieldSet.getDefaultInstance());
-
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
-Assignment to method parameter `expected`
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-    if (result.build() == Result.MATCHED || excludeNonRecursive) {
-      actual = firstNonNull(actual, UnknownFieldSet.getDefaultInstance());
-      expected = firstNonNull(expected, UnknownFieldSet.getDefaultInstance());
-
-      unknownsBreakdown = diffUnknowns(actual, expected, config);
-```
-
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `actual`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -3709,7 +3628,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `expected`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -3721,7 +3640,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
     // If actual or expected is missing here, we know our result so long as it's not ignored.
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `actual`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -3733,7 +3652,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `expected`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -3745,7 +3664,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
       breakdown = diffMessages(actual, expected, config);
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `actual`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -3757,7 +3676,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
 
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
 Assignment to method parameter `expected`
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -3769,7 +3688,31 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
     // If actual or expected is missing here, we know our result.
 ```
 
-### RuleId[ruleID=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `actual`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    @Nullable UnknownFieldSetDiff unknownsBreakdown = null;
+    if (result.build() == Result.MATCHED || excludeNonRecursive) {
+      actual = firstNonNull(actual, UnknownFieldSet.getDefaultInstance());
+      expected = firstNonNull(expected, UnknownFieldSet.getDefaultInstance());
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expected`
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+    if (result.build() == Result.MATCHED || excludeNonRecursive) {
+      actual = firstNonNull(actual, UnknownFieldSet.getDefaultInstance());
+      expected = firstNonNull(expected, UnknownFieldSet.getDefaultInstance());
+
+      unknownsBreakdown = diffUnknowns(actual, expected, config);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `countToRemove`
 in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
 #### Snippet
@@ -3781,8 +3724,80 @@ in `core/src/main/java/com/google/common/truth/ActualValueInference.java`
       checkState(
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+        unifiedDiffType.add(' ');
+        unifiedDiffContentId.add(original[i]);
+        i--;
+        j--;
+      } else if (j > 0 && (i == 0 || lcs[i][j - 1] >= lcs[i - 1][j])) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `j`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+        unifiedDiffContentId.add(original[i]);
+        i--;
+        j--;
+      } else if (j > 0 && (i == 0 || lcs[i][j - 1] >= lcs[i - 1][j])) {
+        unifiedDiffType.add('+');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `j`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+        unifiedDiffType.add('+');
+        unifiedDiffContentId.add(revised[j]);
+        j--;
+      } else if (i > 0 && (j == 0 || lcs[i][j - 1] < lcs[i - 1][j])) {
+        unifiedDiffType.add('-');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+        unifiedDiffType.add('-');
+        unifiedDiffContentId.add(original[i]);
+        i--;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `originalLines`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+      List<String> originalLines, List<String> revisedLines, int contextSize) {
+    reduceEqualLinesFromHeadAndTail(originalLines, revisedLines, contextSize);
+    originalLines = originalLines.subList(offsetHead, originalLines.size() - offsetTail);
+    revisedLines = revisedLines.subList(offsetHead, revisedLines.size() - offsetTail);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `revisedLines`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+    reduceEqualLinesFromHeadAndTail(originalLines, revisedLines, contextSize);
+    originalLines = originalLines.subList(offsetHead, originalLines.size() - offsetTail);
+    revisedLines = revisedLines.subList(offsetHead, revisedLines.size() - offsetTail);
+
+    original = new int[originalLines.size() + 1];
+```
+
 ## RuleId[ruleID=ReturnNull]
-### RuleId[ruleID=ReturnNull]
+### ReturnNull
 Return of `null`
 in `core/src/main/java/com/google/common/truth/Platform.java`
 #### Snippet
@@ -3794,8 +3809,21 @@ in `core/src/main/java/com/google/common/truth/Platform.java`
           });
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-07-14-08.879.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=InstanceofCatchParameter]
-### RuleId[ruleID=InstanceofCatchParameter]
+### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
 in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 #### Snippet
@@ -3808,7 +3836,7 @@ in `core/src/main/java/com/google/common/truth/StackTraceCleaner.java`
 ```
 
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
-### RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `core/src/main/java/com/google/common/truth/Platform.java`
 #### Snippet
@@ -3820,31 +3848,7 @@ in `core/src/main/java/com/google/common/truth/Platform.java`
       throw new RuntimeException(e);
 ```
 
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `core/src/main/java/com/google/common/truth/Truth.java`
-#### Snippet
-```java
-    static SimpleAssertionError createWithNoStack(String message, @Nullable Throwable cause) {
-      SimpleAssertionError error = create(message, cause);
-      error.setStackTrace(new StackTraceElement[0]);
-      return error;
-    }
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
-Allocation of zero length array
-in `core/src/main/java/com/google/common/truth/ThrowableSubject.java`
-#### Snippet
-```java
-                @Override
-                public Throwable fillInStackTrace() {
-                  setStackTrace(new StackTraceElement[0]); // for old versions of Android
-                  return this;
-                }
-```
-
-### RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `core/src/main/java/com/google/common/truth/Subject.java`
 #### Snippet
@@ -3856,57 +3860,32 @@ in `core/src/main/java/com/google/common/truth/Subject.java`
 
 ```
 
-## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `core/src/main/java/com/google/common/truth/Truth.java`
 #### Snippet
 ```java
-    @Override
-    @Deprecated
-    public boolean equals(Object o) {
-      return subject.equals(o);
+    static SimpleAssertionError createWithNoStack(String message, @Nullable Throwable cause) {
+      SimpleAssertionError error = create(message, cause);
+      error.setStackTrace(new StackTraceElement[0]);
+      return error;
     }
 ```
 
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MapWithProtoValuesSubject.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `core/src/main/java/com/google/common/truth/ThrowableSubject.java`
 #### Snippet
 ```java
-    @Override
-    @Deprecated
-    public boolean equals(Object o) {
-      return subject.equals(o);
-    }
-```
-
-### RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
-`equals()` should check the class of its parameter
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MultimapWithProtoValuesSubject.java`
-#### Snippet
-```java
-    @Override
-    @Deprecated
-    public boolean equals(Object o) {
-      return subject.equals(o);
-    }
+                @Override
+                public Throwable fillInStackTrace() {
+                  setStackTrace(new StackTraceElement[0]); // for old versions of Android
+                  return this;
+                }
 ```
 
 ## RuleId[ruleID=TypeParameterExtendsObject]
-### RuleId[ruleID=TypeParameterExtendsObject]
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
-#### Snippet
-```java
-    UsingCorrespondence(
-        IterableOfProtosSubject<M> subject,
-        @Nullable Function<? super M, ? extends Object> keyFunction) {
-      this.subject = checkNotNull(subject);
-      this.keyFunction = keyFunction;
-```
-
-### RuleId[ruleID=TypeParameterExtendsObject]
+### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
 #### Snippet
@@ -3918,8 +3897,57 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Iter
     UsingCorrespondence(
 ```
 
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
+#### Snippet
+```java
+    UsingCorrespondence(
+        IterableOfProtosSubject<M> subject,
+        @Nullable Function<? super M, ? extends Object> keyFunction) {
+      this.subject = checkNotNull(subject);
+      this.keyFunction = keyFunction;
+```
+
+## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MapWithProtoValuesSubject.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public boolean equals(Object o) {
+      return subject.equals(o);
+    }
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/MultimapWithProtoValuesSubject.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public boolean equals(Object o) {
+      return subject.equals(o);
+    }
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/IterableOfProtosSubject.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated
+    public boolean equals(Object o) {
+      return subject.equals(o);
+    }
+```
+
 ## RuleId[ruleID=NonExceptionNameEndsWithException]
-### RuleId[ruleID=NonExceptionNameEndsWithException]
+### NonExceptionNameEndsWithException
 Non-exception class name `StoredException` ends with 'Exception'
 in `core/src/main/java/com/google/common/truth/Correspondence.java`
 #### Snippet
@@ -3931,297 +3959,8 @@ in `core/src/main/java/com/google/common/truth/Correspondence.java`
     private static final Joiner ARGUMENT_JOINER = Joiner.on(", ").useForNull("null");
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            if (isMessage()) {
-              sb.append("\n");
-              printMessage((Message) actual().get(), sb);
-            } else {
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-              printMessage((Message) actual().get(), sb);
-            } else {
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-              sb.append("\n");
-            }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            } else {
-              sb.append(" ");
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-              sb.append("\n");
-            }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            return;
-          case MATCHED:
-            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
-              sb.append("matched: ").append(indexed(fieldPrefix, actualFieldIndex()));
-            } else {
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            return;
-          case MATCHED:
-            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
-              sb.append("matched: ").append(indexed(fieldPrefix, actualFieldIndex()));
-            } else {
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            } else {
-              sb.append(" ");
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-              sb.append("\n");
-            }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            } else {
-              sb.append(" ");
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-              sb.append("\n");
-            }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-          case MODIFIED:
-            sb.append("modified: ");
-            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
-              sb.append(indexed(fieldPrefix, actualFieldIndex()));
-            } else {
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-          case MODIFIED:
-            sb.append("modified: ");
-            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
-              sb.append(indexed(fieldPrefix, actualFieldIndex()));
-            } else {
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            } else {
-              sb.append(" ");
-              printFieldValue(fieldDescriptor(), expected().get(), sb);
-              sb.append(" -> ");
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-              printFieldValue(fieldDescriptor(), expected().get(), sb);
-              sb.append(" -> ");
-              printFieldValue(fieldDescriptor(), actual().get(), sb);
-            }
-            return;
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            if (isMessage()) {
-              sb.append("\n");
-              printMessage((Message) expected().get(), sb);
-            } else {
-              printFieldValue(fieldDescriptor(), expected().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-              printMessage((Message) expected().get(), sb);
-            } else {
-              printFieldValue(fieldDescriptor(), expected().get(), sb);
-              sb.append("\n");
-            }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-        case ADDED:
-          sb.append("added: ").append(fieldPrefix).append(": ");
-          if (actual().get() instanceof Message) {
-            sb.append("\n");
-            printMessage((Message) actual().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            printMessage((Message) actual().get(), sb);
-          } else {
-            printFieldValue(subScopeId().get(), actual().get(), sb);
-            sb.append("\n");
-          }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-          } else {
-            sb.append(": ");
-            printFieldValue(subScopeId().get(), actualOrExpected(), sb);
-            sb.append("\n");
-          }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-          } else {
-            sb.append(": ");
-            printFieldValue(subScopeId().get(), expected().get(), sb);
-            sb.append(" -> ");
-            printFieldValue(subScopeId().get(), actual().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-          } else {
-            sb.append(": ");
-            printFieldValue(subScopeId().get(), expected().get(), sb);
-            sb.append(" -> ");
-            printFieldValue(subScopeId().get(), actual().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            printFieldValue(subScopeId().get(), expected().get(), sb);
-            sb.append(" -> ");
-            printFieldValue(subScopeId().get(), actual().get(), sb);
-            sb.append("\n");
-          }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-        case REMOVED:
-          sb.append("deleted: ").append(fieldPrefix).append(": ");
-          if (expected().get() instanceof Message) {
-            sb.append("\n");
-            printMessage((Message) expected().get(), sb);
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-            printMessage((Message) expected().get(), sb);
-          } else {
-            printFieldValue(subScopeId().get(), expected().get(), sb);
-            sb.append("\n");
-          }
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
-#### Snippet
-```java
-    @Memoized
-    Object actualOrExpected() {
-      return actual().or(expected()).get();
-    }
-
-```
-
-### RuleId[ruleID=OptionalGetWithoutIsPresent]
-`Optional.get()` without 'isPresent()' check
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-        // Move all prior elements to actualNotInOrder.
-        while (!actualIndices.isEmpty()
-            && actualIndices.getFirst() < matchingResult.actualFieldIndex().get()) {
-          actualNotInOrder.add(actualIndices.removeFirst());
-        }
-```
-
 ## RuleId[ruleID=ConstantValue]
-### RuleId[ruleID=ConstantValue]
-Condition `i > 0` is always `true`
-in `core/src/main/java/com/google/common/truth/DiffUtils.java`
-#### Snippet
-```java
-        unifiedDiffContentId.add(revised[j]);
-        j--;
-      } else if (i > 0 && (j == 0 || lcs[i][j - 1] < lcs[i - 1][j])) {
-        unifiedDiffType.add('-');
-        unifiedDiffContentId.add(original[i]);
-```
-
-### RuleId[ruleID=ConstantValue]
+### ConstantValue
 Value `expected` is always 'null'
 in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/LiteProtoSubject.java`
 #### Snippet
@@ -4233,56 +3972,297 @@ in `extensions/liteproto/src/main/java/com/google/common/truth/extensions/proto/
         failWithoutActual(
 ```
 
+### ConstantValue
+Condition `i > 0` is always `true`
+in `core/src/main/java/com/google/common/truth/DiffUtils.java`
+#### Snippet
+```java
+        unifiedDiffContentId.add(revised[j]);
+        j--;
+      } else if (i > 0 && (j == 0 || lcs[i][j - 1] < lcs[i - 1][j])) {
+        unifiedDiffType.add('-');
+        unifiedDiffContentId.add(original[i]);
+```
+
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+    @Memoized
+    Object actualOrExpected() {
+      return actual().or(expected()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            if (isMessage()) {
+              sb.append("\n");
+              printMessage((Message) actual().get(), sb);
+            } else {
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+              printMessage((Message) actual().get(), sb);
+            } else {
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+              sb.append("\n");
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            } else {
+              sb.append(" ");
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+              sb.append("\n");
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            return;
+          case MATCHED:
+            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
+              sb.append("matched: ").append(indexed(fieldPrefix, actualFieldIndex()));
+            } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            return;
+          case MATCHED:
+            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
+              sb.append("matched: ").append(indexed(fieldPrefix, actualFieldIndex()));
+            } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            } else {
+              sb.append(" ");
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+              sb.append("\n");
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            } else {
+              sb.append(" ");
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+              sb.append("\n");
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+          case MODIFIED:
+            sb.append("modified: ");
+            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
+              sb.append(indexed(fieldPrefix, actualFieldIndex()));
+            } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+          case MODIFIED:
+            sb.append("modified: ");
+            if (actualFieldIndex().get().equals(expectedFieldIndex().get())) {
+              sb.append(indexed(fieldPrefix, actualFieldIndex()));
+            } else {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            } else {
+              sb.append(" ");
+              printFieldValue(fieldDescriptor(), expected().get(), sb);
+              sb.append(" -> ");
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+              printFieldValue(fieldDescriptor(), expected().get(), sb);
+              sb.append(" -> ");
+              printFieldValue(fieldDescriptor(), actual().get(), sb);
+            }
+            return;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            if (isMessage()) {
+              sb.append("\n");
+              printMessage((Message) expected().get(), sb);
+            } else {
+              printFieldValue(fieldDescriptor(), expected().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+              printMessage((Message) expected().get(), sb);
+            } else {
+              printFieldValue(fieldDescriptor(), expected().get(), sb);
+              sb.append("\n");
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+        case ADDED:
+          sb.append("added: ").append(fieldPrefix).append(": ");
+          if (actual().get() instanceof Message) {
+            sb.append("\n");
+            printMessage((Message) actual().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            printMessage((Message) actual().get(), sb);
+          } else {
+            printFieldValue(subScopeId().get(), actual().get(), sb);
+            sb.append("\n");
+          }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+          } else {
+            sb.append(": ");
+            printFieldValue(subScopeId().get(), actualOrExpected(), sb);
+            sb.append("\n");
+          }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+          } else {
+            sb.append(": ");
+            printFieldValue(subScopeId().get(), expected().get(), sb);
+            sb.append(" -> ");
+            printFieldValue(subScopeId().get(), actual().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+          } else {
+            sb.append(": ");
+            printFieldValue(subScopeId().get(), expected().get(), sb);
+            sb.append(" -> ");
+            printFieldValue(subScopeId().get(), actual().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            printFieldValue(subScopeId().get(), expected().get(), sb);
+            sb.append(" -> ");
+            printFieldValue(subScopeId().get(), actual().get(), sb);
+            sb.append("\n");
+          }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+        case REMOVED:
+          sb.append("deleted: ").append(fieldPrefix).append(": ");
+          if (expected().get() instanceof Message) {
+            sb.append("\n");
+            printMessage((Message) expected().get(), sb);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
+#### Snippet
+```java
+            printMessage((Message) expected().get(), sb);
+          } else {
+            printFieldValue(subScopeId().get(), expected().get(), sb);
+            sb.append("\n");
+          }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+        // Move all prior elements to actualNotInOrder.
+        while (!actualIndices.isEmpty()
+            && actualIndices.getFirst() < matchingResult.actualFieldIndex().get()) {
+          actualNotInOrder.add(actualIndices.removeFirst());
+        }
+```
+
 ## RuleId[ruleID=UnstableApiUsage]
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
-#### Snippet
-```java
- * An immutable map of {@link FieldScopeLogic} to an arbitrary value type.
- *
- * <p>This is the field-path based analog to {@link com.google.common.collect.RangeMap}. Setting a
- * value {@code v} for a {@link FieldScopeLogic} {@code l} on the {@code FieldScopeLogicMap} means
- * that, for any field path {@code f} contained in {@code l}, the value mapped to {@code f} is
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
-#### Snippet
-```java
- * {@code v}. This overrides any previous {FieldScopeLogic -> value} pairs/mappings.
- *
- * <p>Unlike {@link com.google.common.collect.RangeMap}, this class does not support analysis of its
- * internals, only {@link #get} operations, and it is not performant. All {@code get} and {@code
- * with} operations are O(N), where N = number of mappings, so this class is intended only for small
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'builderWithExpectedSize(int)' is marked unstable with @Beta
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
-#### Snippet
-```java
-  public FieldScopeLogicMap<V> subScope(Descriptor rootDescriptor, SubScopeId subScopeId) {
-    ImmutableList.Builder<Entry<V>> newEntries =
-        ImmutableList.builderWithExpectedSize(entries.size());
-    for (Entry<V> entry : entries) {
-      newEntries.add(
-```
-
-### RuleId[ruleID=UnstableApiUsage]
-'builderWithExpectedSize(int)' is marked unstable with @Beta
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
-#### Snippet
-```java
-    final FieldScopeLogic subScopeImpl(Descriptor rootDescriptor, SubScopeId subScopeId) {
-      ImmutableList.Builder<FieldScopeLogic> builder =
-          ImmutableList.builderWithExpectedSize(elements.size());
-      for (FieldScopeLogic elem : elements) {
-        builder.add(elem.subScope(rootDescriptor, subScopeId));
-```
-
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'builderWithExpectedSize(int)' is marked unstable with @Beta
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/DiffResult.java`
 #### Snippet
@@ -4294,19 +4274,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Diff
     Set<Integer> fieldNumbers = Sets.union(singularFields().keySet(), repeatedFields().keySet());
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
-'builderWithExpectedSize(int)' is marked unstable with @Beta
-in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
-#### Snippet
-```java
-      FluentEqualityConfig config) {
-    int maxSize = Math.max(actualValues.size(), expectedValues.size());
-    ImmutableList.Builder<SingularField> builder = ImmutableList.builderWithExpectedSize(maxSize);
-    for (int i = 0; i < maxSize; i++) {
-      @Nullable Object actual = actualValues.size() > i ? actualValues.get(i) : null;
-```
-
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'builderWithExpectedSize(int)' is marked unstable with @Beta
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -4318,7 +4286,7 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
       @Nullable Object actual = actualList.size() > i ? actualList.get(i) : null;
 ```
 
-### RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
 'builderWithExpectedSize(int)' is marked unstable with @Beta
 in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
 #### Snippet
@@ -4328,5 +4296,65 @@ in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/Prot
         ImmutableList.builderWithExpectedSize(actualAndExpectedKeys.size());
     for (Object key : actualAndExpectedKeys) {
       @Nullable Object actualValue = actualMap.get(key);
+```
+
+### UnstableApiUsage
+'builderWithExpectedSize(int)' is marked unstable with @Beta
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/ProtoTruthMessageDifferencer.java`
+#### Snippet
+```java
+      FluentEqualityConfig config) {
+    int maxSize = Math.max(actualValues.size(), expectedValues.size());
+    ImmutableList.Builder<SingularField> builder = ImmutableList.builderWithExpectedSize(maxSize);
+    for (int i = 0; i < maxSize; i++) {
+      @Nullable Object actual = actualValues.size() > i ? actualValues.get(i) : null;
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
+#### Snippet
+```java
+ * An immutable map of {@link FieldScopeLogic} to an arbitrary value type.
+ *
+ * <p>This is the field-path based analog to {@link com.google.common.collect.RangeMap}. Setting a
+ * value {@code v} for a {@link FieldScopeLogic} {@code l} on the {@code FieldScopeLogicMap} means
+ * that, for any field path {@code f} contained in {@code l}, the value mapped to {@code f} is
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
+#### Snippet
+```java
+ * {@code v}. This overrides any previous {FieldScopeLogic -> value} pairs/mappings.
+ *
+ * <p>Unlike {@link com.google.common.collect.RangeMap}, this class does not support analysis of its
+ * internals, only {@link #get} operations, and it is not performant. All {@code get} and {@code
+ * with} operations are O(N), where N = number of mappings, so this class is intended only for small
+```
+
+### UnstableApiUsage
+'builderWithExpectedSize(int)' is marked unstable with @Beta
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogicMap.java`
+#### Snippet
+```java
+  public FieldScopeLogicMap<V> subScope(Descriptor rootDescriptor, SubScopeId subScopeId) {
+    ImmutableList.Builder<Entry<V>> newEntries =
+        ImmutableList.builderWithExpectedSize(entries.size());
+    for (Entry<V> entry : entries) {
+      newEntries.add(
+```
+
+### UnstableApiUsage
+'builderWithExpectedSize(int)' is marked unstable with @Beta
+in `extensions/proto/src/main/java/com/google/common/truth/extensions/proto/FieldScopeLogic.java`
+#### Snippet
+```java
+    final FieldScopeLogic subScopeImpl(Descriptor rootDescriptor, SubScopeId subScopeId) {
+      ImmutableList.Builder<FieldScopeLogic> builder =
+          ImmutableList.builderWithExpectedSize(elements.size());
+      for (FieldScopeLogic elem : elements) {
+        builder.add(elem.subScope(rootDescriptor, subScopeId));
 ```
 
