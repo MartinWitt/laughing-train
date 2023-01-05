@@ -91,18 +91,6 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `batchSize` is accessed in both synchronized and unsynchronized contexts
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
-#### Snippet
-```java
-  private ArrayList<byte[]> buffer = new ArrayList<>();
-  private int batchCount = 0;
-  private long batchSize = 0;
-  private String label;
-  private String database;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `batchCount` is accessed in both synchronized and unsynchronized contexts
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
@@ -139,15 +127,15 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `schedule` is accessed in both synchronized and unsynchronized contexts
-in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
+Field `batchSize` is accessed in both synchronized and unsynchronized contexts
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
-  private final DorisStreamLoader streamLoader;
-
-  private ScheduledExecutorService schedule;
-  private ScheduledFuture<?> scheduledFuture;
-
+  private ArrayList<byte[]> buffer = new ArrayList<>();
+  private int batchCount = 0;
+  private long batchSize = 0;
+  private String label;
+  private String database;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -160,6 +148,18 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
   private ScheduledFuture<?> scheduledFuture;
 
   private transient Counter totalFlushBytes;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `schedule` is accessed in both synchronized and unsynchronized contexts
+in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/internal/DorisSinkWriter.java`
+#### Snippet
+```java
+  private final DorisStreamLoader streamLoader;
+
+  private ScheduledExecutorService schedule;
+  private ScheduledFuture<?> scheduledFuture;
+
 ```
 
 ## RuleId[ruleID=RedundantFieldInitialization]
@@ -180,11 +180,11 @@ Field initialization to `0` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
+
   private ArrayList<byte[]> buffer = new ArrayList<>();
   private int batchCount = 0;
   private long batchSize = 0;
   private String label;
-  private String database;
 ```
 
 ### RedundantFieldInitialization
@@ -192,11 +192,11 @@ Field initialization to `0` is redundant
 in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris/src/main/java/org/apache/streampark/flink/connector/doris/bean/DorisSinkBufferEntry.java`
 #### Snippet
 ```java
-
   private ArrayList<byte[]> buffer = new ArrayList<>();
   private int batchCount = 0;
   private long batchSize = 0;
   private String label;
+  private String database;
 ```
 
 ### RedundantFieldInitialization
@@ -252,48 +252,12 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/DevelopmentMode.java`
-#### Snippet
-```java
-import java.io.Serializable;
-
-public enum DevelopmentMode implements Serializable {
-
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Semantic.java`
 #### Snippet
 ```java
 import java.io.Serializable;
 
 public enum Semantic implements Serializable {
-
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
-#### Snippet
-```java
- * @since: 1.2.3
- */
-public enum ClusterState implements Serializable {
-    /**
-     * The cluster was just created but not started
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/StorageType.java`
-#### Snippet
-```java
-import java.io.Serializable;
-
-public enum StorageType implements Serializable {
 
     /**
 ```
@@ -312,12 +276,48 @@ public enum ResolveOrder implements Serializable {
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterState.java`
+#### Snippet
+```java
+ * @since: 1.2.3
+ */
+public enum ClusterState implements Serializable {
+    /**
+     * The cluster was just created but not started
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/DevelopmentMode.java`
+#### Snippet
+```java
+import java.io.Serializable;
+
+public enum DevelopmentMode implements Serializable {
+
+    /**
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
 in `streampark-common/src/main/scala/org/apache/streampark/common/enums/FlinkK8sRestExposedType.java`
 #### Snippet
 ```java
  * kubernetes.rest-service.exposed.type
  */
 public enum FlinkK8sRestExposedType implements Serializable {
+
+    /**
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/StorageType.java`
+#### Snippet
+```java
+import java.io.Serializable;
+
+public enum StorageType implements Serializable {
 
     /**
 ```
@@ -361,7 +361,7 @@ public enum ExecutionMode implements Serializable {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-04-13-45-23.407.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-05-08-42-37.022.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -387,7 +387,7 @@ in `streampark-flink/streampark-flink-connector/streampark-flink-connector-doris
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/DevelopmentMode.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Semantic.java`
 #### Snippet
 ```java
             }
@@ -399,7 +399,7 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Developm
 
 ### ReturnNull
 Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/Semantic.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
 #### Snippet
 ```java
             }
@@ -423,7 +423,7 @@ in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ClusterS
 
 ### ReturnNull
 Return of `null`
-in `streampark-common/src/main/scala/org/apache/streampark/common/enums/ResolveOrder.java`
+in `streampark-common/src/main/scala/org/apache/streampark/common/enums/DevelopmentMode.java`
 #### Snippet
 ```java
             }
