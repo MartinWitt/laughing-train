@@ -57,7 +57,7 @@ public class DataBaseMigration {
         vertx.setPeriodic(
                 TimeUnit.MINUTES.toMillis(2),
                 TimeUnit.MINUTES.toMillis(10),
-                id -> vertx.executeBlocking(v -> migrateDataBase()));
+                id -> vertx.executeBlocking(unused -> migrateDataBase()));
     }
 
     private void migrateDataBase() {
@@ -109,6 +109,7 @@ public class DataBaseMigration {
                     project.removeCommitHash(commitHash);
                 }
             }
+            projectRepository.deleteByProjectUrl(project.getProjectUrl());
             projectRepository.save(project);
         }
     }
@@ -147,13 +148,14 @@ public class DataBaseMigration {
     private void removeBadSmellsWithWrongProjectUrl() {
         badSmellRepository
                 .getAll()
-                .filter(v -> v.getProjectUrl().endsWith(".git"))
+                .filter(v -> v.getProjectUrl().contains(".git"))
                 .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
         projectRepository.getAll().stream()
-                .filter(v -> v.getProjectUrl().endsWith(".git"))
+                .filter(v -> v.getProjectUrl().contains(".git"))
                 .forEach(project -> {
                     projectConfigRepository.deleteByProjectUrl(project.getProjectUrl());
-                    projectRepository.deleteByProjectUrl(project.getProjectUrl());
+                    var deleted = projectRepository.deleteByProjectUrl(project.getProjectUrl());
+                    logger.atInfo().log("Deleted %d project %s", deleted, project.getProjectUrl());
                 });
     }
 }
