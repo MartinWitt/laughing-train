@@ -1,11 +1,15 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.services.RefactorService;
 import io.quarkus.security.Authenticated;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import org.eclipse.microprofile.graphql.Description;
@@ -36,10 +40,12 @@ public class RefactorGraphQL {
     @Description("Refactoring the given bad smells")
     @Authenticated
     public String refactor(List<String> badSmellIdentifier) {
-        badSmellIdentifier.stream().map(badSmellRepository::findByIdentifier).forEach(badSmell -> {
-            logger.atInfo().log("Refactoring %s", badSmell);
-            refactorService.refactor(badSmell);
-        });
+        Set<BadSmell> badSmellsToRefactor = badSmellIdentifier.stream()
+                .map(badSmellRepository::findByIdentifier)
+                .collect(Collectors.flatMapping(Collection::stream, Collectors.toSet()));
+        logger.atInfo().log("Refactoring %s", badSmellsToRefactor);
+        refactorService.refactor(badSmellsToRefactor);
+
         return "Refactoring done";
     }
 }
