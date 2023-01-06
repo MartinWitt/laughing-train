@@ -1,7 +1,7 @@
 # incubator-celeborn 
  
 # Bad smells
-I found 248 bad smells with 31 repairable:
+I found 250 bad smells with 32 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RedundantFieldInitialization | 39 | false |
@@ -15,9 +15,9 @@ I found 248 bad smells with 31 repairable:
 | UnusedAssignment | 9 | false |
 | DataFlowIssue | 8 | false |
 | BoundedWildcard | 8 | false |
+| EmptyMethod | 8 | false |
 | UnstableApiUsage | 8 | false |
 | IgnoreResultOfCall | 7 | false |
-| EmptyMethod | 7 | false |
 | IOResource | 6 | false |
 | UnnecessaryToStringCall | 5 | true |
 | NonProtectedConstructorInAbstractClass | 5 | true |
@@ -26,11 +26,11 @@ I found 248 bad smells with 31 repairable:
 | SizeReplaceableByIsEmpty | 4 | true |
 | Convert2Lambda | 4 | false |
 | ThreadStartInConstruction | 4 | false |
+| InnerClassMayBeStatic | 3 | true |
 | UNUSED_IMPORT | 3 | false |
 | SynchronizationOnLocalVariableOrMethodParameter | 3 | false |
 | FieldMayBeStatic | 2 | false |
 | KeySetIterationMayUseEntrySet | 2 | false |
-| InnerClassMayBeStatic | 2 | true |
 | RedundantSuppression | 2 | false |
 | OptionalUsedAsFieldOrParameterType | 2 | false |
 | SystemOutErr | 2 | false |
@@ -38,8 +38,8 @@ I found 248 bad smells with 31 repairable:
 | InstanceofCatchParameter | 2 | false |
 | ZeroLengthArrayInitialization | 2 | false |
 | MethodOverloadsParentMethod | 1 | false |
-| SwitchStatementWithConfusingDeclaration | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
+| SwitchStatementWithConfusingDeclaration | 1 | false |
 | NullableProblems | 1 | false |
 | AnonymousHasLambdaAlternative | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
@@ -77,6 +77,30 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileW
 ```
 
 ### IOResource
+'RandomAccessFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `common/src/main/java/org/apache/celeborn/common/network/buffer/FileSegmentManagedBuffer.java`
+#### Snippet
+```java
+    FileChannel channel = null;
+    try {
+      channel = new RandomAccessFile(file, "r").getChannel();
+      // Just copy the buffer if it's sufficiently small, as memory mapping has a high overhead.
+      if (length < conf.memoryMapBytes()) {
+```
+
+### IOResource
+'FileOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
+#### Snippet
+```java
+      hdfsIndexOutput = StorageManager.hadoopFs().create(new Path(indexFilePath));
+    } else {
+      indexFileChannel = new FileOutputStream(indexFilePath).getChannel();
+    }
+
+```
+
+### IOResource
 'FileInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
@@ -98,30 +122,6 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/Parti
         sortedFileChannel = new FileOutputStream(sortedFilePath).getChannel();
       }
     }
-```
-
-### IOResource
-'FileOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
-#### Snippet
-```java
-      hdfsIndexOutput = StorageManager.hadoopFs().create(new Path(indexFilePath));
-    } else {
-      indexFileChannel = new FileOutputStream(indexFilePath).getChannel();
-    }
-
-```
-
-### IOResource
-'RandomAccessFile' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `common/src/main/java/org/apache/celeborn/common/network/buffer/FileSegmentManagedBuffer.java`
-#### Snippet
-```java
-    FileChannel channel = null;
-    try {
-      channel = new RandomAccessFile(file, "r").getChannel();
-      // Just copy the buffer if it's sufficiently small, as memory mapping has a high overhead.
-      if (length < conf.memoryMapBytes()) {
 ```
 
 ## RuleId[ruleID=FieldMayBeStatic]
@@ -151,6 +151,18 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `ShuffleBlockInfoUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/util/ShuffleBlockInfoUtils.java`
+#### Snippet
+```java
+import java.util.Map;
+
+public class ShuffleBlockInfoUtils {
+
+  public static class ShuffleBlockInfo {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `PackedPartitionId` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/org/apache/celeborn/common/util/PackedPartitionId.java`
 #### Snippet
@@ -163,15 +175,15 @@ public class PackedPartitionId {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ShuffleBlockInfoUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/util/ShuffleBlockInfoUtils.java`
+Class `TransportModuleConstants` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/protocol/TransportModuleConstants.java`
 #### Snippet
 ```java
-import java.util.Map;
+package org.apache.celeborn.common.protocol;
 
-public class ShuffleBlockInfoUtils {
-
-  public static class ShuffleBlockInfo {
+public class TransportModuleConstants {
+  public static final String PUSH_MODULE = "push";
+  public static final String REPLICATE_MODULE = "replicate";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -187,39 +199,39 @@ public class LevelDBProvider {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `JavaUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
+Class `StringArrays` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/Encoders.java`
 #### Snippet
 ```java
- * Utils, just accessible within this package.
- */
-public class JavaUtils {
-  private static final Logger logger = LoggerFactory.getLogger(JavaUtils.class);
 
+  /** String arrays are encoded with the number of strings followed by per-String encoding. */
+  public static class StringArrays {
+    public static int encodedLength(String[] strings) {
+      int totalLength = 4;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HAHelper` has only 'static' members, and lacks a 'private' constructor
-in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/HAHelper.java`
+Class `IntArrays` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/Encoders.java`
 #### Snippet
 ```java
-import org.apache.celeborn.service.deploy.master.clustermeta.ResourceProtos;
 
-public class HAHelper {
-
-  public static boolean checkShouldProcess(
+  /** Int arrays are encoded with their length followed by ints. */
+  public static class IntArrays {
+    public static int encodedLength(int[] ints) {
+      return 4 + 4 * ints.length;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Platform` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+Class `Strings` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/Encoders.java`
 #### Snippet
 ```java
-import sun.misc.Unsafe;
 
-public final class Platform {
-
-  private static final Unsafe _UNSAFE;
+  /** Strings are encoded with their length followed by UTF-8 bytes. */
+  public static class Strings {
+    public static int encodedLength(String s) {
+      return 4 + s.getBytes(StandardCharsets.UTF_8).length;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -247,6 +259,42 @@ public class NettyUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `HAHelper` has only 'static' members, and lacks a 'private' constructor
+in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/HAHelper.java`
+#### Snippet
+```java
+import org.apache.celeborn.service.deploy.master.clustermeta.ResourceProtos;
+
+public class HAHelper {
+
+  public static boolean checkShouldProcess(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Platform` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+import sun.misc.Unsafe;
+
+public final class Platform {
+
+  private static final Unsafe _UNSAFE;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JavaUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
+#### Snippet
+```java
+ * Utils, just accessible within this package.
+ */
+public class JavaUtils {
+  private static final Logger logger = LoggerFactory.getLogger(JavaUtils.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `SlotsAllocator` has only 'static' members, and lacks a 'private' constructor
 in `master/src/main/java/org/apache/celeborn/service/deploy/master/SlotsAllocator.java`
 #### Snippet
@@ -258,114 +306,17 @@ public class SlotsAllocator {
     DiskInfo diskInfo;
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `IntArrays` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/Encoders.java`
-#### Snippet
-```java
-
-  /** Int arrays are encoded with their length followed by ints. */
-  public static class IntArrays {
-    public static int encodedLength(int[] ints) {
-      return 4 + 4 * ints.length;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringArrays` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/Encoders.java`
-#### Snippet
-```java
-
-  /** String arrays are encoded with the number of strings followed by per-String encoding. */
-  public static class StringArrays {
-    public static int encodedLength(String[] strings) {
-      int totalLength = 4;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Strings` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/Encoders.java`
-#### Snippet
-```java
-
-  /** Strings are encoded with their length followed by UTF-8 bytes. */
-  public static class Strings {
-    public static int encodedLength(String s) {
-      return 4 + s.getBytes(StandardCharsets.UTF_8).length;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TransportModuleConstants` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/org/apache/celeborn/common/protocol/TransportModuleConstants.java`
-#### Snippet
-```java
-package org.apache.celeborn.common.protocol;
-
-public class TransportModuleConstants {
-  public static final String PUSH_MODULE = "push";
-  public static final String REPLICATE_MODULE = "replicate";
-```
-
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `common/src/main/java/org/apache/celeborn/common/protocol/ShuffleMode.java`
-#### Snippet
-```java
-public enum ShuffleMode {
-  HASH,
-  SORT;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `common/src/main/java/org/apache/celeborn/common/protocol/SlotsAssignPolicy.java`
-#### Snippet
-```java
-public enum SlotsAssignPolicy {
-  ROUNDROBIN,
-  LOADAWARE;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `common/src/main/java/org/apache/celeborn/common/protocol/CompressionCodec.java`
-#### Snippet
-```java
-public enum CompressionCodec {
-  LZ4,
-  ZSTD;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClient.java`
-#### Snippet
-```java
-      PartitionLocation location,
-      BooleanSupplier closeCallBack)
-      throws IOException;;
-
-  public abstract Optional<PartitionLocation> regionStart(
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Dereference of `dbFile.listFiles()` may produce `NullPointerException`
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/LevelDBProvider.java`
+Method invocation `contains` may produce `NullPointerException`
+in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
 #### Snippet
 ```java
-              e);
-          if (dbFile.isDirectory()) {
-            for (File f : dbFile.listFiles()) {
-              if (!f.delete()) {
-                logger.warn("error deleting {}", f.getPath());
+      }
+      for (int i = startMapIndex; i < endMapIndex; i++) {
+        if (bitmap.contains(i)) {
+          return false;
+        }
 ```
 
 ### DataFlowIssue
@@ -381,37 +332,37 @@ in `common/src/main/java/org/apache/celeborn/common/meta/FileManagedBuffers.java
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
+Dereference of `dbFile.listFiles()` may produce `NullPointerException`
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/LevelDBProvider.java`
 #### Snippet
 ```java
-        } else if (bodySize > 0) {
-          if (curMsg.needCopyOut()) {
-            buf = decodeBodyCopyOut(buf, ctx);
-          } else {
-            buf = decodeBody(buf, ctx);
+              e);
+          if (dbFile.isDirectory()) {
+            for (File f : dbFile.listFiles()) {
+              if (!f.delete()) {
+                logger.warn("error deleting {}", f.getPath());
 ```
 
 ### DataFlowIssue
-Method invocation `contains` may produce `NullPointerException`
-in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
+Method invocation `getMessage` may produce `NullPointerException`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 #### Snippet
 ```java
+        throw (IOException) currentException;
+      } else {
+        throw new IOException(currentException.getMessage(), currentException);
       }
-      for (int i = startMapIndex; i < endMapIndex; i++) {
-        if (bitmap.contains(i)) {
-          return false;
-        }
+    }
 ```
 
 ### DataFlowIssue
-Dereference of `throwable` may produce `NullPointerException`
-in `common/src/main/java/org/apache/celeborn/common/haclient/RssHARetryClient.java`
+Method invocation `get` may produce `NullPointerException`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 #### Snippet
 ```java
-
-    LOG.error("Send rpc with failure, has tried {}, max try {}!", numTries, maxRetries, throwable);
-    throw throwable;
+                    conf.registerShuffleRpcAskTimeout(),
+                    ClassTag$.MODULE$.apply(PbRegisterShuffleResponse.class)));
+    return partitionLocationMap.get(partitionId);
   }
 
 ```
@@ -429,27 +380,76 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/memory/Memory
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
+Dereference of `throwable` may produce `NullPointerException`
+in `common/src/main/java/org/apache/celeborn/common/haclient/RssHARetryClient.java`
 #### Snippet
 ```java
-                    conf.registerShuffleRpcAskTimeout(),
-                    ClassTag$.MODULE$.apply(PbRegisterShuffleResponse.class)));
-    return partitionLocationMap.get(partitionId);
+
+    LOG.error("Send rpc with failure, has tried {}, max try {}!", numTries, maxRetries, throwable);
+    throw throwable;
   }
 
 ```
 
 ### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
+Variable is already assigned to this value
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
 #### Snippet
 ```java
-        throw (IOException) currentException;
-      } else {
-        throw new IOException(currentException.getMessage(), currentException);
-      }
-    }
+        } else if (bodySize > 0) {
+          if (curMsg.needCopyOut()) {
+            buf = decodeBodyCopyOut(buf, ctx);
+          } else {
+            buf = decodeBody(buf, ctx);
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClient.java`
+#### Snippet
+```java
+      PartitionLocation location,
+      BooleanSupplier closeCallBack)
+      throws IOException;;
+
+  public abstract Optional<PartitionLocation> regionStart(
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `common/src/main/java/org/apache/celeborn/common/protocol/SlotsAssignPolicy.java`
+#### Snippet
+```java
+public enum SlotsAssignPolicy {
+  ROUNDROBIN,
+  LOADAWARE;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `common/src/main/java/org/apache/celeborn/common/protocol/ShuffleMode.java`
+#### Snippet
+```java
+public enum ShuffleMode {
+  HASH,
+  SORT;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `common/src/main/java/org/apache/celeborn/common/protocol/CompressionCodec.java`
+#### Snippet
+```java
+public enum CompressionCodec {
+  LZ4,
+  ZSTD;
+}
+
 ```
 
 ## RuleId[ruleID=MethodOverloadsParentMethod]
@@ -467,18 +467,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/protocol/Message.jav
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
-Iteration over `workerToAllocatedSlots.keySet()` may be replaced with 'entrySet()' iteration
-in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/HAMasterMetaManager.java`
-#### Snippet
-```java
-              .setShuffleKey(shuffleKey)
-              .setHostName(hostName);
-      for (String workerUniqueId : workerToAllocatedSlots.keySet()) {
-        builder.putWorkerAllocations(
-            workerUniqueId,
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `sortedShuffleFiles.keySet()` may be replaced with 'entrySet()' iteration
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
@@ -490,19 +478,19 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/Parti
         sortedFilesDb.put(
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`sortedChunkOffset.size() == 0` can be replaced with 'sortedChunkOffset.isEmpty()'
-in `common/src/main/java/org/apache/celeborn/common/util/ShuffleBlockInfoUtils.java`
+### KeySetIterationMayUseEntrySet
+Iteration over `workerToAllocatedSlots.keySet()` may be replaced with 'entrySet()' iteration
+in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/HAMasterMetaManager.java`
 #### Snippet
 ```java
-      if (blockInfos != null) {
-        for (ShuffleBlockInfo info : blockInfos) {
-          if (sortedChunkOffset.size() == 0) {
-            sortedChunkOffset.add(info.offset);
-          }
+              .setShuffleKey(shuffleKey)
+              .setHostName(hostName);
+      for (String workerUniqueId : workerToAllocatedSlots.keySet()) {
+        builder.putWorkerAllocations(
+            workerUniqueId,
 ```
 
+## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `results.size() > 0` can be replaced with '!results.isEmpty()'
 in `client/src/main/java/org/apache/celeborn/client/read/WorkerPartitionReader.java`
@@ -513,6 +501,18 @@ in `client/src/main/java/org/apache/celeborn/client/read/WorkerPartitionReader.j
     if (results.size() > 0) {
       results.forEach(ReferenceCounted::release);
     }
+```
+
+### SizeReplaceableByIsEmpty
+`sortedChunkOffset.size() == 0` can be replaced with 'sortedChunkOffset.isEmpty()'
+in `common/src/main/java/org/apache/celeborn/common/util/ShuffleBlockInfoUtils.java`
+#### Snippet
+```java
+      if (blockInfos != null) {
+        for (ShuffleBlockInfo info : blockInfos) {
+          if (sortedChunkOffset.size() == 0) {
+            sortedChunkOffset.add(info.offset);
+          }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -583,7 +583,7 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 ```java
               attemptId,
               location.getUniqueId());
-          logger.debug("regionFinish location:{}", location.toString());
+          logger.debug("regionStart location:{}", location.toString());
           TransportClient client =
               dataClientFactory.createClient(location.getHost(), location.getPushPort());
 ```
@@ -595,7 +595,7 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 ```java
               attemptId,
               location.getUniqueId());
-          logger.debug("regionStart location:{}", location.toString());
+          logger.debug("regionFinish location:{}", location.toString());
           TransportClient client =
               dataClientFactory.createClient(location.getHost(), location.getPushPort());
 ```
@@ -625,17 +625,16 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/ChannelsLimit
 
 ```
 
-## RuleId[ruleID=SwitchStatementWithConfusingDeclaration]
-### SwitchStatementWithConfusingDeclaration
-Local variable `time` declared in one 'switch' branch and used in another
-in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/MetaHandler.java`
+### InnerClassMayBeStatic
+Inner class `StreamState` may be 'static'
+in `common/src/main/java/org/apache/celeborn/common/network/server/BufferStreamManager.java`
 #### Snippet
 ```java
-          appId = request.getAppHeartbeatRequest().getAppId();
-          LOG.debug("Handle app heartbeat for {}", appId);
-          long time = request.getAppHeartbeatRequest().getTime();
-          long totalWritten = request.getAppHeartbeatRequest().getTotalWritten();
-          long fileCount = request.getAppHeartbeatRequest().getFileCount();
+  protected final ConcurrentHashMap<Long, StreamState> streams;
+
+  protected class StreamState {
+    private Channel associatedChannel;
+    private int bufferSize;
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -651,7 +650,32 @@ public abstract class ConfigProvider {
   public abstract String get(String name);
 ```
 
+## RuleId[ruleID=SwitchStatementWithConfusingDeclaration]
+### SwitchStatementWithConfusingDeclaration
+Local variable `time` declared in one 'switch' branch and used in another
+in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/MetaHandler.java`
+#### Snippet
+```java
+          appId = request.getAppHeartbeatRequest().getAppId();
+          LOG.debug("Handle app heartbeat for {}", appId);
+          long time = request.getAppHeartbeatRequest().getTime();
+          long totalWritten = request.getAppHeartbeatRequest().getTotalWritten();
+          long fileCount = request.getAppHeartbeatRequest().getFileCount();
+```
+
 ## RuleId[ruleID=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `client/src/main/java/org/apache/celeborn/client/write/DataPusher.java`
+#### Snippet
+```java
+      CelebornConf conf,
+      ShuffleClient client,
+      Consumer<Integer> afterPush,
+      LongAdder[] mapStatusLengths)
+      throws IOException {
+```
+
 ### BoundedWildcard
 Can generalize to `? extends List`
 in `common/src/main/java/org/apache/celeborn/common/util/ShuffleBlockInfoUtils.java`
@@ -662,6 +686,42 @@ in `common/src/main/java/org/apache/celeborn/common/util/ShuffleBlockInfoUtils.j
       Map<Integer, List<ShuffleBlockInfo>> indexMap) {
     List<Long> sortedChunkOffset = new ArrayList<>();
     ShuffleBlockInfo lastBlock = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super SingleFileSnapshotInfo`
+in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/StateMachine.java`
+#### Snippet
+```java
+
+        private boolean filePatternMatches(
+            Pattern pattern, List<SingleFileSnapshotInfo> result, Path filePath) {
+          Matcher md5Matcher = pattern.matcher(filePath.getFileName().toString());
+          if (md5Matcher.matches()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PartitionLocation`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
+#### Snippet
+```java
+
+  private boolean waitRevivedLocation(
+      ConcurrentHashMap<Integer, PartitionLocation> map, int partitionId, int epoch) {
+    PartitionLocation currentLocation = map.get(partitionId);
+    if (currentLocation != null && currentLocation.getEpoch() > epoch) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataBatches.DataBatch`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
+#### Snippet
+```java
+      int mapId,
+      int attemptId,
+      ArrayList<DataBatches.DataBatch> batches,
+      StatusCode cause,
+      Integer oldGroupedBatchId) {
 ```
 
 ### BoundedWildcard
@@ -689,18 +749,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameD
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `client/src/main/java/org/apache/celeborn/client/write/DataPusher.java`
-#### Snippet
-```java
-      CelebornConf conf,
-      ShuffleClient client,
-      Consumer<Integer> afterPush,
-      LongAdder[] mapStatusLengths)
-      throws IOException {
-```
-
-### BoundedWildcard
 Can generalize to `? extends C`
 in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
 #### Snippet
@@ -710,42 +758,6 @@ in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
     private Ctor(Constructor<C> constructor, Class<? extends C> constructed) {
       super(null, "newInstance");
       this.ctor = constructor;
-```
-
-### BoundedWildcard
-Can generalize to `? super SingleFileSnapshotInfo`
-in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/ha/StateMachine.java`
-#### Snippet
-```java
-
-        private boolean filePatternMatches(
-            Pattern pattern, List<SingleFileSnapshotInfo> result, Path filePath) {
-          Matcher md5Matcher = pattern.matcher(filePath.getFileName().toString());
-          if (md5Matcher.matches()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataBatches.DataBatch`
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
-#### Snippet
-```java
-      int mapId,
-      int attemptId,
-      ArrayList<DataBatches.DataBatch> batches,
-      StatusCode cause,
-      Integer oldGroupedBatchId) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PartitionLocation`
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
-#### Snippet
-```java
-
-  private boolean waitRevivedLocation(
-      ConcurrentHashMap<Integer, PartitionLocation> map, int partitionId, int epoch) {
-    PartitionLocation currentLocation = map.get(partitionId);
-    if (currentLocation != null && currentLocation.getEpoch() > epoch) {
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -816,6 +828,30 @@ Non-private field `flushBuffer` accessed in synchronized context
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
 #### Snippet
 ```java
+  public void flushOnMemoryPressure() throws IOException {
+    synchronized (this) {
+      if (flushBuffer != null && flushBuffer.readableBytes() != 0) {
+        flush(false);
+        takeBuffer();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `flushBuffer` accessed in synchronized context
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+  public void flushOnMemoryPressure() throws IOException {
+    synchronized (this) {
+      if (flushBuffer != null && flushBuffer.readableBytes() != 0) {
+        flush(false);
+        takeBuffer();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `flushBuffer` accessed in synchronized context
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
 
   protected synchronized void returnBuffer() {
     if (flushBuffer != null) {
@@ -877,6 +913,18 @@ in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStr
 #### Snippet
 ```java
   @Override
+  public synchronized void mark(int readLimit) {
+    in.mark(readLimit);
+    mark = left;
+  }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `in` accessed in synchronized context
+in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
+#### Snippet
+```java
+  @Override
   public synchronized void reset() throws IOException {
     if (!in.markSupported()) {
       throw new IOException("Mark not supported");
@@ -893,42 +941,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStr
     in.reset();
     left = mark;
   }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `in` accessed in synchronized context
-in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
-#### Snippet
-```java
-  @Override
-  public synchronized void mark(int readLimit) {
-    in.mark(readLimit);
-    mark = left;
-  }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `flushBuffer` accessed in synchronized context
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-  public void flushOnMemoryPressure() throws IOException {
-    synchronized (this) {
-      if (flushBuffer != null && flushBuffer.readableBytes() != 0) {
-        flush(false);
-        takeBuffer();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `flushBuffer` accessed in synchronized context
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-  public void flushOnMemoryPressure() throws IOException {
-    synchronized (this) {
-      if (flushBuffer != null && flushBuffer.readableBytes() != 0) {
-        flush(false);
-        takeBuffer();
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -957,30 +969,6 @@ in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
-#### Snippet
-```java
-        File sortedFile = new File(this.sortedFilePath);
-        if (sortedFile.exists()) {
-          sortedFile.delete();
-        }
-        File indexFile = new File(this.indexFilePath);
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
-#### Snippet
-```java
-        File indexFile = new File(this.indexFilePath);
-        if (indexFile.exists()) {
-          indexFile.delete();
-        }
-      } else {
-```
-
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `common/src/main/java/org/apache/celeborn/common/meta/FileInfo.java`
@@ -1039,6 +1027,30 @@ in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/h
       tempFile.delete();
       LOG.warn("Failed to complete snapshot: {}.", snapshotFile, e);
       return RaftLog.INVALID_LOG_INDEX;
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
+#### Snippet
+```java
+        File sortedFile = new File(this.sortedFilePath);
+        if (sortedFile.exists()) {
+          sortedFile.delete();
+        }
+        File indexFile = new File(this.indexFilePath);
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
+#### Snippet
+```java
+        File indexFile = new File(this.indexFilePath);
+        if (indexFile.exists()) {
+          indexFile.delete();
+        }
+      } else {
 ```
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
@@ -1119,12 +1131,12 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/Reduc
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/PushMergedData.java`
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/RpcResponse.java`
 #### Snippet
 ```java
-          && Arrays.equals(partitionUniqueIds, o.partitionUniqueIds)
-          && Arrays.equals(batchOffsets, o.batchOffsets)
-          && super.equals(o);
+    if (other instanceof RpcResponse) {
+      RpcResponse o = (RpcResponse) other;
+      return requestId == o.requestId && super.equals(o);
     }
     return false;
 ```
@@ -1143,35 +1155,23 @@ in `common/src/main/java/org/apache/celeborn/common/network/protocol/OneWayMessa
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/RpcRequest.java`
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/RegionStart.java`
 #### Snippet
 ```java
-    if (other instanceof RpcRequest) {
-      RpcRequest o = (RpcRequest) other;
-      return requestId == o.requestId && super.equals(o);
+          && currentRegionIndex == o.currentRegionIndex
+          && isBroadcast == o.isBroadcast
+          && super.equals(o);
     }
     return false;
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/RpcResponse.java`
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/PushMergedData.java`
 #### Snippet
 ```java
-    if (other instanceof RpcResponse) {
-      RpcResponse o = (RpcResponse) other;
-      return requestId == o.requestId && super.equals(o);
-    }
-    return false;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/PushDataHandShake.java`
-#### Snippet
-```java
-          && numPartitions == o.numPartitions
-          && bufferSize == o.bufferSize
+          && Arrays.equals(partitionUniqueIds, o.partitionUniqueIds)
+          && Arrays.equals(batchOffsets, o.batchOffsets)
           && super.equals(o);
     }
     return false;
@@ -1191,11 +1191,11 @@ in `common/src/main/java/org/apache/celeborn/common/network/protocol/RegionFinis
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/RegionStart.java`
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/PushData.java`
 #### Snippet
 ```java
-          && currentRegionIndex == o.currentRegionIndex
-          && isBroadcast == o.isBroadcast
+          && shuffleKey.equals(o.shuffleKey)
+          && partitionUniqueId.equals((o.partitionUniqueId))
           && super.equals(o);
     }
     return false;
@@ -1215,11 +1215,23 @@ in `common/src/main/java/org/apache/celeborn/common/network/protocol/ChunkFetchS
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/PushData.java`
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/RpcRequest.java`
 #### Snippet
 ```java
-          && shuffleKey.equals(o.shuffleKey)
-          && partitionUniqueId.equals((o.partitionUniqueId))
+    if (other instanceof RpcRequest) {
+      RpcRequest o = (RpcRequest) other;
+      return requestId == o.requestId && super.equals(o);
+    }
+    return false;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/PushDataHandShake.java`
+#### Snippet
+```java
+          && numPartitions == o.numPartitions
+          && bufferSize == o.bufferSize
           && super.equals(o);
     }
     return false;
@@ -1327,30 +1339,6 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileW
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `RequestMessage()` of an abstract class should not be declared 'public'
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/RequestMessage.java`
-#### Snippet
-```java
-  }
-
-  public RequestMessage(ManagedBuffer buffer) {
-    super(buffer);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RequestMessage()` of an abstract class should not be declared 'public'
-in `common/src/main/java/org/apache/celeborn/common/network/protocol/RequestMessage.java`
-#### Snippet
-```java
-/** Messages from the client to the server. */
-public abstract class RequestMessage extends Message {
-  public RequestMessage() {
-    super();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `ResponseMessage()` of an abstract class should not be declared 'public'
 in `common/src/main/java/org/apache/celeborn/common/network/protocol/ResponseMessage.java`
 #### Snippet
@@ -1374,76 +1362,40 @@ public abstract class ResponseMessage extends Message {
   }
 ```
 
+### NonProtectedConstructorInAbstractClass
+Constructor `RequestMessage()` of an abstract class should not be declared 'public'
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/RequestMessage.java`
+#### Snippet
+```java
+  }
+
+  public RequestMessage(ManagedBuffer buffer) {
+    super(buffer);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RequestMessage()` of an abstract class should not be declared 'public'
+in `common/src/main/java/org/apache/celeborn/common/network/protocol/RequestMessage.java`
+#### Snippet
+```java
+/** Messages from the client to the server. */
+public abstract class RequestMessage extends Message {
+  public RequestMessage() {
+    super();
+  }
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `destroyHook` is accessed in both synchronized and unsynchronized contexts
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-  private final PartitionType partitionType;
-  private final boolean rangeReadFilter;
-  private Runnable destroyHook;
-  protected boolean deleted = false;
-  private RoaringBitmap mapIdBitMap = null;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `bytesFlushed` is accessed in both synchronized and unsynchronized contexts
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+Field `totalSize` is accessed in both synchronized and unsynchronized contexts
+in `client/src/main/java/org/apache/celeborn/client/write/DataBatches.java`
 #### Snippet
 ```java
 
-  protected final AtomicInteger numPendingWrites = new AtomicInteger();
-  protected long bytesFlushed;
-
-  public final Flusher flusher;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `channel` is accessed in both synchronized and unsynchronized contexts
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-
-  protected final FileInfo fileInfo;
-  private FileChannel channel;
-  private volatile boolean closed;
-  private volatile boolean destroyed;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mapIdBitMap` is accessed in both synchronized and unsynchronized contexts
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-  private Runnable destroyHook;
-  protected boolean deleted = false;
-  private RoaringBitmap mapIdBitMap = null;
-  protected final FlushNotifier notifier = new FlushNotifier();
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `flushBuffer` is accessed in both synchronized and unsynchronized contexts
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-  public final Flusher flusher;
-  private final int flushWorkerIndex;
-  protected CompositeByteBuf flushBuffer;
-
-  private final long writerCloseTimeoutMs;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `left` is accessed in both synchronized and unsynchronized contexts
-in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
-#### Snippet
-```java
-public final class LimitedInputStream extends FilterInputStream {
-  private final boolean closeWrappedStream;
-  private long left;
-  private long mark = -1;
+public class DataBatches {
+  private int totalSize = 0;
+  private ArrayList<DataBatch> batches = new ArrayList<>();
 
 ```
 
@@ -1460,26 +1412,74 @@ public class DataBatches {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `totalSize` is accessed in both synchronized and unsynchronized contexts
-in `client/src/main/java/org/apache/celeborn/client/write/DataBatches.java`
+Field `destroyHook` is accessed in both synchronized and unsynchronized contexts
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+  private final PartitionType partitionType;
+  private final boolean rangeReadFilter;
+  private Runnable destroyHook;
+  protected boolean deleted = false;
+  private RoaringBitmap mapIdBitMap = null;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `channel` is accessed in both synchronized and unsynchronized contexts
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
 #### Snippet
 ```java
 
-public class DataBatches {
-  private int totalSize = 0;
-  private ArrayList<DataBatch> batches = new ArrayList<>();
+  protected final FileInfo fileInfo;
+  private FileChannel channel;
+  private volatile boolean closed;
+  private volatile boolean destroyed;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `flushBuffer` is accessed in both synchronized and unsynchronized contexts
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+  public final Flusher flusher;
+  private final int flushWorkerIndex;
+  protected CompositeByteBuf flushBuffer;
+
+  private final long writerCloseTimeoutMs;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mapIdBitMap` is accessed in both synchronized and unsynchronized contexts
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+  private Runnable destroyHook;
+  protected boolean deleted = false;
+  private RoaringBitmap mapIdBitMap = null;
+  protected final FlushNotifier notifier = new FlushNotifier();
 
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `workerGroup` is accessed in both synchronized and unsynchronized contexts
-in `common/src/main/java/org/apache/celeborn/common/network/client/TransportClientFactory.java`
+Field `bytesFlushed` is accessed in both synchronized and unsynchronized contexts
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
 #### Snippet
 ```java
 
-  private final Class<? extends Channel> socketChannelClass;
-  private EventLoopGroup workerGroup;
-  private PooledByteBufAllocator pooledAllocator;
+  protected final AtomicInteger numPendingWrites = new AtomicInteger();
+  protected long bytesFlushed;
+
+  public final Flusher flusher;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `left` is accessed in both synchronized and unsynchronized contexts
+in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
+#### Snippet
+```java
+public final class LimitedInputStream extends FilterInputStream {
+  private final boolean closeWrappedStream;
+  private long left;
+  private long mark = -1;
 
 ```
 
@@ -1495,7 +1495,31 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
   private int congestionAvoidanceFlag = 0;
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `workerGroup` is accessed in both synchronized and unsynchronized contexts
+in `common/src/main/java/org/apache/celeborn/common/network/client/TransportClientFactory.java`
+#### Snippet
+```java
+
+  private final Class<? extends Channel> socketChannelClass;
+  private EventLoopGroup workerGroup;
+  private PooledByteBufAllocator pooledAllocator;
+
+```
+
 ## RuleId[ruleID=Convert2Lambda]
+### Convert2Lambda
+Anonymous new Thread.UncaughtExceptionHandler() can be replaced with lambda
+in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+#### Snippet
+```java
+              "Dfs-fetch-thread" + location.getStorageInfo().getFilePath());
+      fetchThread.setUncaughtExceptionHandler(
+          new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+```
+
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
 in `common/src/main/java/org/apache/celeborn/common/util/ShutdownHookManager.java`
@@ -1530,18 +1554,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameD
         new Function<Integer, Supplier<ByteBuf>>() {
           @Override
           public Supplier<ByteBuf> apply(Integer size) {
-```
-
-### Convert2Lambda
-Anonymous new Thread.UncaughtExceptionHandler() can be replaced with lambda
-in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
-#### Snippet
-```java
-              "Dfs-fetch-thread" + location.getStorageInfo().getFilePath());
-      fetchThread.setUncaughtExceptionHandler(
-          new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -1579,6 +1591,18 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/BaseMessageHa
   public void exceptionCaught(Throwable cause, TransportClient client) {}
 }
 
+```
+
+### EmptyMethod
+The method is empty
+in `common/src/main/java/org/apache/celeborn/common/network/server/BufferStreamManager.java`
+#### Snippet
+```java
+  }
+
+  public void addCredit(int numCredit, long streamId) {}
+
+  public void connectionTerminated(Channel channel) {
 ```
 
 ### EmptyMethod
@@ -1645,26 +1669,38 @@ in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoder.java`
+in `client/src/main/java/org/apache/celeborn/client/write/DataBatches.java`
 #### Snippet
 ```java
-  private final LinkedList<ByteBuf> buffers = new LinkedList<>();
 
-  private long totalSize = 0;
-  private long nextFrameSize = UNKNOWN_FRAME_SIZE;
+public class DataBatches {
+  private int totalSize = 0;
+  private ArrayList<DataBatch> batches = new ArrayList<>();
 
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `common/src/main/java/org/apache/celeborn/common/meta/FileManagedBuffers.java`
+in `client/src/main/java/org/apache/celeborn/client/read/WorkerPartitionReader.java`
 #### Snippet
 ```java
-  private final TransportConf conf;
+  private final AtomicReference<IOException> exception = new AtomicReference<>();
+  private final int fetchMaxReqsInFlight;
+  private boolean closed = false;
 
-  private volatile boolean fullyRead = false;
+  // for test
+```
 
-  public FileManagedBuffers(FileInfo fileInfo, TransportConf conf) {
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+  private final boolean rangeReadFilter;
+  private Runnable destroyHook;
+  protected boolean deleted = false;
+  private RoaringBitmap mapIdBitMap = null;
+  protected final FlushNotifier notifier = new FlushNotifier();
 ```
 
 ### RedundantFieldInitialization
@@ -1693,14 +1729,122 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileW
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClient.java`
 #### Snippet
 ```java
-  private final boolean rangeReadFilter;
-  private Runnable destroyHook;
-  protected boolean deleted = false;
-  private RoaringBitmap mapIdBitMap = null;
-  protected final FlushNotifier notifier = new FlushNotifier();
+public abstract class ShuffleClient {
+  private static volatile ShuffleClient _instance;
+  private static volatile boolean initialized = false;
+  private static volatile FileSystem hdfsFs;
+  private static Logger logger = LoggerFactory.getLogger(ShuffleClient.class);
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+#### Snippet
+```java
+  private Thread fetchThread;
+  private FSDataInputStream hdfsInputStream;
+  private int numChunks = 0;
+  private int returnedChunks = 0;
+  private int currentChunkIndex = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+#### Snippet
+```java
+  private int numChunks = 0;
+  private int returnedChunks = 0;
+  private int currentChunkIndex = 0;
+
+  public DfsPartitionReader(
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+#### Snippet
+```java
+  private final LinkedBlockingQueue<ByteBuf> results;
+  private final AtomicReference<IOException> exception = new AtomicReference<>();
+  private volatile boolean closed = false;
+  private Thread fetchThread;
+  private FSDataInputStream hdfsInputStream;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+#### Snippet
+```java
+  private FSDataInputStream hdfsInputStream;
+  private int numChunks = 0;
+  private int returnedChunks = 0;
+  private int currentChunkIndex = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
+#### Snippet
+```java
+    private PartitionReader currentReader;
+    private final int fetchChunkMaxRetry;
+    private int fetchChunkRetryCnt = 0;
+    int retryWaitMs;
+    private int fileIndex;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/reflect/DynMethods.java`
+#### Snippet
+```java
+    private final String name;
+    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private UnboundMethod method = null;
+
+    public Builder(String methodName) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/reflect/DynFields.java`
+#### Snippet
+```java
+  public static class Builder {
+    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private UnboundField<?> field = null;
+    private final Set<String> candidates = new HashSet<>();
+    private boolean defaultAlwaysNull = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/org/apache/celeborn/reflect/DynFields.java`
+#### Snippet
+```java
+    private UnboundField<?> field = null;
+    private final Set<String> candidates = new HashSet<>();
+    private boolean defaultAlwaysNull = false;
+
+    private Builder() {}
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
+#### Snippet
+```java
+  private static final String RECOVERY_SORTED_FILES_FILE_NAME = "sortedFiles.ldb";
+  private File recoverFile;
+  private volatile boolean shutdown = false;
+  private final ConcurrentHashMap<String, Set<String>> sortedShuffleFiles =
+      new ConcurrentHashMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1740,18 +1884,6 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/Parti
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
-#### Snippet
-```java
-  private static final String RECOVERY_SORTED_FILES_FILE_NAME = "sortedFiles.ldb";
-  private File recoverFile;
-  private volatile boolean shutdown = false;
-  private final ConcurrentHashMap<String, Set<String>> sortedShuffleFiles =
-      new ConcurrentHashMap<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
@@ -1764,39 +1896,15 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/Parti
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
+Field initialization to `false` is redundant
+in `common/src/main/java/org/apache/celeborn/common/meta/FileManagedBuffers.java`
 #### Snippet
 ```java
-  private Message.Type curType = Message.Type.UNKNOWN_TYPE;
-  private ByteBuf headerBuf = Unpooled.buffer(HEADER_SIZE, HEADER_SIZE);
-  private CompositeByteBuf bodyBuf = null;
-  private ByteBuf externalBuf = null;
-  private final ByteBuf msgBuf = Unpooled.buffer(8);
-```
+  private final TransportConf conf;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
-#### Snippet
-```java
-  private ByteBuf headerBuf = Unpooled.buffer(HEADER_SIZE, HEADER_SIZE);
-  private CompositeByteBuf bodyBuf = null;
-  private ByteBuf externalBuf = null;
-  private final ByteBuf msgBuf = Unpooled.buffer(8);
-  private Message curMsg = null;
-```
+  private volatile boolean fullyRead = false;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
-#### Snippet
-```java
-  private ByteBuf externalBuf = null;
-  private final ByteBuf msgBuf = Unpooled.buffer(8);
-  private Message curMsg = null;
-
-  public TransportFrameDecoderWithBufferSupplier() {
+  public FileManagedBuffers(FileInfo fileInfo, TransportConf conf) {
 ```
 
 ### RedundantFieldInitialization
@@ -1812,54 +1920,6 @@ in `master/src/main/java/org/apache/celeborn/service/deploy/master/clustermeta/A
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
-#### Snippet
-```java
-    private PartitionReader currentReader;
-    private final int fetchChunkMaxRetry;
-    private int fetchChunkRetryCnt = 0;
-    int retryWaitMs;
-    private int fileIndex;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `client/src/main/java/org/apache/celeborn/client/read/WorkerPartitionReader.java`
-#### Snippet
-```java
-  private final AtomicReference<IOException> exception = new AtomicReference<>();
-  private final int fetchMaxReqsInFlight;
-  private boolean closed = false;
-
-  // for test
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `master/src/main/java/org/apache/celeborn/service/deploy/master/SlotsAllocator.java`
-#### Snippet
-```java
-  private static final Logger logger = LoggerFactory.getLogger(SlotsAllocator.class);
-  private static final Random rand = new Random();
-  private static boolean initialized = false;
-  private static double[] taskAllocationRatio = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `master/src/main/java/org/apache/celeborn/service/deploy/master/SlotsAllocator.java`
-#### Snippet
-```java
-  private static final Random rand = new Random();
-  private static boolean initialized = false;
-  private static double[] taskAllocationRatio = null;
-
-  public static Map<WorkerInfo, Tuple2<List<PartitionLocation>, List<PartitionLocation>>>
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `common/src/main/java/org/apache/celeborn/common/protocol/StorageInfo.java`
 #### Snippet
@@ -1872,147 +1932,15 @@ in `common/src/main/java/org/apache/celeborn/common/protocol/StorageInfo.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/reflect/DynFields.java`
-#### Snippet
-```java
-  public static class Builder {
-    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    private UnboundField<?> field = null;
-    private final Set<String> candidates = new HashSet<>();
-    private boolean defaultAlwaysNull = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/org/apache/celeborn/reflect/DynFields.java`
-#### Snippet
-```java
-    private UnboundField<?> field = null;
-    private final Set<String> candidates = new HashSet<>();
-    private boolean defaultAlwaysNull = false;
-
-    private Builder() {}
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/org/apache/celeborn/reflect/DynClasses.java`
-#### Snippet
-```java
-    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    private Class<?> foundClass = null;
-    private boolean nullOk = false;
-    private final Set<String> classNames = new LinkedHashSet<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/reflect/DynClasses.java`
-#### Snippet
-```java
-  public static class Builder {
-    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    private Class<?> foundClass = null;
-    private boolean nullOk = false;
-    private final Set<String> classNames = new LinkedHashSet<>();
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `client/src/main/java/org/apache/celeborn/client/write/DataBatches.java`
+in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 #### Snippet
 ```java
+  private int maxInFlight;
+  private final AtomicInteger currentMaxReqsInFlight;
+  private int congestionAvoidanceFlag = 0;
+  private final int pushBufferMaxSize;
 
-public class DataBatches {
-  private int totalSize = 0;
-  private ArrayList<DataBatch> batches = new ArrayList<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClient.java`
-#### Snippet
-```java
-public abstract class ShuffleClient {
-  private static volatile ShuffleClient _instance;
-  private static volatile boolean initialized = false;
-  private static volatile FileSystem hdfsFs;
-  private static Logger logger = LoggerFactory.getLogger(ShuffleClient.class);
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/reflect/DynMethods.java`
-#### Snippet
-```java
-    private final String name;
-    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    private UnboundMethod method = null;
-
-    public Builder(String methodName) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/server/ChunkStreamManager.java`
-#### Snippet
-```java
-    // Used to keep track of the index of the buffer that the user has retrieved, just to ensure
-    // that the caller only requests each chunk one at a time, in order.
-    int curChunk = 0;
-
-    // Used to keep track of the number of chunks being transferred and not finished yet.
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/server/ChunkStreamManager.java`
-#### Snippet
-```java
-
-    // Used to keep track of the number of chunks being transferred and not finished yet.
-    volatile long chunksBeingTransferred = 0L;
-
-    StreamState(FileManagedBuffers buffers, Channel channel) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
-#### Snippet
-```java
-    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-    private Ctor ctor = null;
-    private Map<String, Throwable> problems = new HashMap<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
-#### Snippet
-```java
-public class MemoryManager {
-  private static final Logger logger = LoggerFactory.getLogger(MemoryManager.class);
-  private static volatile MemoryManager _INSTANCE = null;
-  private long maxDirectorMemory = 0;
-  private final long pausePushDataThreshold;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
-#### Snippet
-```java
-  private static final Logger logger = LoggerFactory.getLogger(MemoryManager.class);
-  private static volatile MemoryManager _INSTANCE = null;
-  private long maxDirectorMemory = 0;
-  private final long pausePushDataThreshold;
-  private final long pauseReplicateThreshold;
 ```
 
 ### RedundantFieldInitialization
@@ -2032,11 +1960,11 @@ Field initialization to `null` is redundant
 in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
 #### Snippet
 ```java
-      ThreadUtils.newDaemonSingleThreadExecutor("memory-manager-actor");
-
-  private AtomicLong nettyMemoryCounter = null;
-  private final AtomicLong sortMemoryCounter = new AtomicLong(0);
-  private final AtomicLong diskBufferCounter = new AtomicLong(0);
+public class MemoryManager {
+  private static final Logger logger = LoggerFactory.getLogger(MemoryManager.class);
+  private static volatile MemoryManager _INSTANCE = null;
+  private long maxDirectorMemory = 0;
+  private final long pausePushDataThreshold;
 ```
 
 ### RedundantFieldInitialization
@@ -2053,186 +1981,162 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/memory/Memory
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
 #### Snippet
 ```java
-  private int numChunks = 0;
-  private int returnedChunks = 0;
-  private int currentChunkIndex = 0;
-
-  public DfsPartitionReader(
+  private static final Logger logger = LoggerFactory.getLogger(MemoryManager.class);
+  private static volatile MemoryManager _INSTANCE = null;
+  private long maxDirectorMemory = 0;
+  private final long pausePushDataThreshold;
+  private final long pauseReplicateThreshold;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
 #### Snippet
 ```java
-  private Thread fetchThread;
-  private FSDataInputStream hdfsInputStream;
-  private int numChunks = 0;
-  private int returnedChunks = 0;
-  private int currentChunkIndex = 0;
+      ThreadUtils.newDaemonSingleThreadExecutor("memory-manager-actor");
+
+  private AtomicLong nettyMemoryCounter = null;
+  private final AtomicLong sortMemoryCounter = new AtomicLong(0);
+  private final AtomicLong diskBufferCounter = new AtomicLong(0);
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/reflect/DynClasses.java`
 #### Snippet
 ```java
-  private FSDataInputStream hdfsInputStream;
-  private int numChunks = 0;
-  private int returnedChunks = 0;
-  private int currentChunkIndex = 0;
-
+  public static class Builder {
+    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private Class<?> foundClass = null;
+    private boolean nullOk = false;
+    private final Set<String> classNames = new LinkedHashSet<>();
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+in `common/src/main/java/org/apache/celeborn/reflect/DynClasses.java`
 #### Snippet
 ```java
-  private final LinkedBlockingQueue<ByteBuf> results;
-  private final AtomicReference<IOException> exception = new AtomicReference<>();
-  private volatile boolean closed = false;
-  private Thread fetchThread;
-  private FSDataInputStream hdfsInputStream;
+    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private Class<?> foundClass = null;
+    private boolean nullOk = false;
+    private final Set<String> classNames = new LinkedHashSet<>();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/server/ChunkStreamManager.java`
+#### Snippet
+```java
+
+    // Used to keep track of the number of chunks being transferred and not finished yet.
+    volatile long chunksBeingTransferred = 0L;
+
+    StreamState(FileManagedBuffers buffers, Channel channel) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
+in `common/src/main/java/org/apache/celeborn/common/network/server/ChunkStreamManager.java`
 #### Snippet
 ```java
-  private int maxInFlight;
-  private final AtomicInteger currentMaxReqsInFlight;
-  private int congestionAvoidanceFlag = 0;
-  private final int pushBufferMaxSize;
+    // Used to keep track of the index of the buffer that the user has retrieved, just to ensure
+    // that the caller only requests each chunk one at a time, in order.
+    int curChunk = 0;
+
+    // Used to keep track of the number of chunks being transferred and not finished yet.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoder.java`
+#### Snippet
+```java
+  private final LinkedList<ByteBuf> buffers = new LinkedList<>();
+
+  private long totalSize = 0;
+  private long nextFrameSize = UNKNOWN_FRAME_SIZE;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
+#### Snippet
+```java
+  private ByteBuf externalBuf = null;
+  private final ByteBuf msgBuf = Unpooled.buffer(8);
+  private Message curMsg = null;
+
+  public TransportFrameDecoderWithBufferSupplier() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
+#### Snippet
+```java
+  private ByteBuf headerBuf = Unpooled.buffer(HEADER_SIZE, HEADER_SIZE);
+  private CompositeByteBuf bodyBuf = null;
+  private ByteBuf externalBuf = null;
+  private final ByteBuf msgBuf = Unpooled.buffer(8);
+  private Message curMsg = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
+#### Snippet
+```java
+  private Message.Type curType = Message.Type.UNKNOWN_TYPE;
+  private ByteBuf headerBuf = Unpooled.buffer(HEADER_SIZE, HEADER_SIZE);
+  private CompositeByteBuf bodyBuf = null;
+  private ByteBuf externalBuf = null;
+  private final ByteBuf msgBuf = Unpooled.buffer(8);
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `master/src/main/java/org/apache/celeborn/service/deploy/master/SlotsAllocator.java`
+#### Snippet
+```java
+  private static final Random rand = new Random();
+  private static boolean initialized = false;
+  private static double[] taskAllocationRatio = null;
+
+  public static Map<WorkerInfo, Tuple2<List<PartitionLocation>, List<PartitionLocation>>>
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `master/src/main/java/org/apache/celeborn/service/deploy/master/SlotsAllocator.java`
+#### Snippet
+```java
+  private static final Logger logger = LoggerFactory.getLogger(SlotsAllocator.class);
+  private static final Random rand = new Random();
+  private static boolean initialized = false;
+  private static double[] taskAllocationRatio = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
+#### Snippet
+```java
+    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
+    private Ctor ctor = null;
+    private Map<String, Throwable> problems = new HashMap<>();
 
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
-#### Snippet
-```java
-      return -1;
-    }
-    len = (int) Math.min(len, left);
-    int result = in.read(b, off, len);
-    if (result != -1) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
-#### Snippet
-```java
-  @Override
-  public long skip(long n) throws IOException {
-    n = Math.min(n, left);
-    long skipped = in.skip(n);
-    left -= skipped;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
-        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
-        length -= size;
-        srcOffset += size;
-        dstOffset += size;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcOffset`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
-        length -= size;
-        srcOffset += size;
-        dstOffset += size;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `dstOffset`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-        length -= size;
-        srcOffset += size;
-        dstOffset += size;
-      }
-    } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcOffset`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-      }
-    } else {
-      srcOffset += length;
-      dstOffset += length;
-      while (length > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `dstOffset`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-    } else {
-      srcOffset += length;
-      dstOffset += length;
-      while (length > 0) {
-        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcOffset`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-      while (length > 0) {
-        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
-        srcOffset -= size;
-        dstOffset -= size;
-        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `dstOffset`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
-        srcOffset -= size;
-        dstOffset -= size;
-        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
-        length -= size;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
-#### Snippet
-```java
-        dstOffset -= size;
-        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
-        length -= size;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `client/src/main/java/org/apache/celeborn/client/compress/Compressor.java`
 #### Snippet
@@ -2278,18 +2182,6 @@ in `client/src/main/java/org/apache/celeborn/client/compress/Compressor.java`
     buf[off++] = (byte) (i >>> 24);
   }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buf`
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
-#### Snippet
-```java
-    if (remaining >= buf.readableBytes()) {
-      next = buf;
-      buf = null;
-    } else {
-      next = buf.retain().readSlice(remaining);
 ```
 
 ### AssignmentToMethodParameter
@@ -2317,15 +2209,27 @@ in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `numCores`
-in `common/src/main/java/org/apache/celeborn/common/network/util/NettyUtils.java`
+Assignment to method parameter `n`
+in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
 #### Snippet
 ```java
-      boolean allowDirectBufs, boolean allowCache, int numCores) {
-    if (numCores == 0) {
-      numCores = Runtime.getRuntime().availableProcessors();
+  @Override
+  public long skip(long n) throws IOException {
+    n = Math.min(n, left);
+    long skipped = in.skip(n);
+    left -= skipped;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `common/src/main/java/org/apache/celeborn/common/network/util/LimitedInputStream.java`
+#### Snippet
+```java
+      return -1;
     }
-    return new PooledByteBufAllocator(
+    len = (int) Math.min(len, left);
+    int result = in.read(b, off, len);
+    if (result != -1) {
 ```
 
 ### AssignmentToMethodParameter
@@ -2338,6 +2242,126 @@ in `common/src/main/java/org/apache/celeborn/common/protocol/PartitionSplitMode.
       value = 0;
     }
     this.value = (byte) value;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `numCores`
+in `common/src/main/java/org/apache/celeborn/common/network/util/NettyUtils.java`
+#### Snippet
+```java
+      boolean allowDirectBufs, boolean allowCache, int numCores) {
+    if (numCores == 0) {
+      numCores = Runtime.getRuntime().availableProcessors();
+    }
+    return new PooledByteBufAllocator(
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
+        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
+        length -= size;
+        srcOffset += size;
+        dstOffset += size;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcOffset`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
+        length -= size;
+        srcOffset += size;
+        dstOffset += size;
+      }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `dstOffset`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+        length -= size;
+        srcOffset += size;
+        dstOffset += size;
+      }
+    } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcOffset`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+      }
+    } else {
+      srcOffset += length;
+      dstOffset += length;
+      while (length > 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `dstOffset`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+    } else {
+      srcOffset += length;
+      dstOffset += length;
+      while (length > 0) {
+        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcOffset`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+      while (length > 0) {
+        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
+        srcOffset -= size;
+        dstOffset -= size;
+        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `dstOffset`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+        long size = Math.min(length, UNSAFE_COPY_THRESHOLD);
+        srcOffset -= size;
+        dstOffset -= size;
+        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
+        length -= size;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
+#### Snippet
+```java
+        dstOffset -= size;
+        _UNSAFE.copyMemory(src, srcOffset, dst, dstOffset, size);
+        length -= size;
+      }
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buf`
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoderWithBufferSupplier.java`
+#### Snippet
+```java
+    if (remaining >= buf.readableBytes()) {
+      next = buf;
+      buf = null;
+    } else {
+      next = buf.retain().readSlice(remaining);
 ```
 
 ## RuleId[ruleID=UnnecessaryContinue]
@@ -2359,11 +2383,11 @@ Synchronization on local variable `sorting`
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
 ```java
-    String indexFilePath = Utils.getIndexFilePath(fileInfo.getFilePath());
-
-    synchronized (sorting) {
-      if (sorted.contains(fileId)) {
-        return resolve(
+        closeFiles();
+        Set<String> sorting = sortingShuffleFiles.get(shuffleKey);
+        synchronized (sorting) {
+          sorting.remove(fileId);
+        }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -2371,11 +2395,11 @@ Synchronization on local variable `sorting`
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
 ```java
-        closeFiles();
-        Set<String> sorting = sortingShuffleFiles.get(shuffleKey);
-        synchronized (sorting) {
-          sorting.remove(fileId);
-        }
+    String indexFilePath = Utils.getIndexFilePath(fileInfo.getFilePath());
+
+    synchronized (sorting) {
+      if (sorted.contains(fileId)) {
+        return resolve(
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -2393,18 +2417,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/client/TransportClie
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
-#### Snippet
-```java
-        return newInstanceChecked(args);
-      } catch (Exception e) {
-        if (e instanceof RuntimeException) {
-          throw (RuntimeException) e;
-        }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
 in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 #### Snippet
 ```java
@@ -2415,19 +2427,19 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
         }
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoder.java`
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `common/src/main/java/org/apache/celeborn/reflect/DynConstructors.java`
 #### Snippet
 ```java
-    long frameSize = decodeFrameSize();
-    if (frameSize == UNKNOWN_FRAME_SIZE || totalSize < frameSize) {
-      return null;
-    }
-
+        return newInstanceChecked(args);
+      } catch (Exception e) {
+        if (e instanceof RuntimeException) {
+          throw (RuntimeException) e;
+        }
 ```
 
+## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
@@ -2474,18 +2486,6 @@ in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
           return null;
         }
         currentLocation = locations[fileIndex];
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/org/apache/celeborn/common/haclient/RssHARetryClient.java`
-#### Snippet
-```java
-      return new Tuple2<>(requestId.split(SPLITER)[0], Long.valueOf(requestId.split(SPLITER)[1]));
-    } else {
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -2560,6 +2560,30 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
   }
 ```
 
+### ReturnNull
+Return of `null`
+in `common/src/main/java/org/apache/celeborn/common/haclient/RssHARetryClient.java`
+#### Snippet
+```java
+      return new Tuple2<>(requestId.split(SPLITER)[0], Long.valueOf(requestId.split(SPLITER)[1]));
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/org/apache/celeborn/common/network/util/TransportFrameDecoder.java`
+#### Snippet
+```java
+    long frameSize = decodeFrameSize();
+    if (frameSize == UNKNOWN_FRAME_SIZE || totalSize < frameSize) {
+      return null;
+    }
+
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `isIOException` is redundant
@@ -2576,18 +2600,6 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
-#### Snippet
-```java
-      return files;
-    } else {
-      return new File[0];
-    }
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
 #### Snippet
 ```java
@@ -2598,55 +2610,19 @@ in `client/src/main/java/org/apache/celeborn/client/ShuffleClientImpl.java`
           attemptNumber,
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
+#### Snippet
+```java
+      return files;
+    } else {
+      return new File[0];
+    }
+  }
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-    final int numBytes = data.readableBytes();
-    MemoryManager.instance().incrementDiskBuffer(numBytes);
-    synchronized (this) {
-      if (closed) {
-        String msg = "FileWriter has already closed!, fileName " + fileInfo.getFilePath();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-      closed = true;
-
-      synchronized (this) {
-        if (flushBuffer.readableBytes() > 0) {
-          flush(true);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
-#### Snippet
-```java
-
-  public void flushOnMemoryPressure() throws IOException {
-    synchronized (this) {
-      if (flushBuffer != null && flushBuffer.readableBytes() != 0) {
-        flush(false);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/org/apache/celeborn/common/network/server/TransportChannelHandler.java`
-#### Snippet
-```java
-    if (evt instanceof IdleStateEvent) {
-      IdleStateEvent e = (IdleStateEvent) evt;
-      synchronized (this) {
-        boolean isActuallyOverdue =
-            System.nanoTime() - responseHandler.getTimeOfLastRequestNs() > requestTimeoutNs;
-```
-
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `client/src/main/java/org/apache/celeborn/client/read/WorkerPartitionReader.java`
@@ -2672,15 +2648,51 @@ in `client/src/main/java/org/apache/celeborn/client/read/WorkerPartitionReader.j
 ```
 
 ### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+    final int numBytes = data.readableBytes();
+    MemoryManager.instance().incrementDiskBuffer(numBytes);
+    synchronized (this) {
+      if (closed) {
+        String msg = "FileWriter has already closed!, fileName " + fileInfo.getFilePath();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+
+  public void flushOnMemoryPressure() throws IOException {
+    synchronized (this) {
+      if (flushBuffer != null && flushBuffer.readableBytes() != 0) {
+        flush(false);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+#### Snippet
+```java
+      closed = true;
+
+      synchronized (this) {
+        if (flushBuffer.readableBytes() > 0) {
+          flush(true);
+```
+
+### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `client/src/main/java/org/apache/celeborn/client/ShuffleClient.java`
 #### Snippet
 ```java
-      String driverHost, int port, CelebornConf conf, UserIdentifier userIdentifier) {
-    if (null == _instance || !initialized) {
+  public static FileSystem getHdfsFs(CelebornConf conf) {
+    if (null == hdfsFs) {
       synchronized (ShuffleClient.class) {
-        if (null == _instance) {
-          // During the execution of Spark tasks, each task may be interrupted due to speculative
+        if (null == hdfsFs) {
+          Configuration hdfsConfiguration = new Configuration();
 ```
 
 ### SynchronizeOnThis
@@ -2700,11 +2712,23 @@ Lock operations on a class may have unforeseen side-effects
 in `client/src/main/java/org/apache/celeborn/client/ShuffleClient.java`
 #### Snippet
 ```java
-  public static FileSystem getHdfsFs(CelebornConf conf) {
-    if (null == hdfsFs) {
+      String driverHost, int port, CelebornConf conf, UserIdentifier userIdentifier) {
+    if (null == _instance || !initialized) {
       synchronized (ShuffleClient.class) {
-        if (null == hdfsFs) {
-          Configuration hdfsConfiguration = new Configuration();
+        if (null == _instance) {
+          // During the execution of Spark tasks, each task may be interrupted due to speculative
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `common/src/main/java/org/apache/celeborn/common/network/server/TransportChannelHandler.java`
+#### Snippet
+```java
+    if (evt instanceof IdleStateEvent) {
+      IdleStateEvent e = (IdleStateEvent) evt;
+      synchronized (this) {
+        boolean isActuallyOverdue =
+            System.nanoTime() - responseHandler.getTimeOfLastRequestNs() > requestTimeoutNs;
 ```
 
 ### SynchronizeOnThis
@@ -2735,14 +2759,26 @@ in `common/src/main/java/org/apache/celeborn/common/protocol/StorageInfo.java`
 ## RuleId[ruleID=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+#### Snippet
+```java
+                  while (!closed && currentChunkIndex < numChunks) {
+                    while (results.size() >= fetchMaxReqsInFlight) {
+                      Thread.sleep(50);
+                    }
+                    long offset = chunkOffsets.get(currentChunkIndex);
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
 ```java
-      if (sorting.contains(fileId)) {
-        try {
-          Thread.sleep(50);
-          if (System.currentTimeMillis() - sortStartTime > sortTimeout) {
-            logger.error("Sorting file {} timeout after {}ms", fileId, sortTimeout);
+                  memoryManager.reserveSortMemory(reservedMemoryPerPartition);
+                  while (!memoryManager.sortMemoryReady()) {
+                    Thread.sleep(20);
+                  }
+                  fileSorterExecutors.submit(
 ```
 
 ### BusyWait
@@ -2762,11 +2798,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
 #### Snippet
 ```java
-                  memoryManager.reserveSortMemory(reservedMemoryPerPartition);
-                  while (!memoryManager.sortMemoryReady()) {
-                    Thread.sleep(20);
-                  }
-                  fileSorterExecutors.submit(
+      if (sorting.contains(fileId)) {
+        try {
+          Thread.sleep(50);
+          if (System.currentTimeMillis() - sortStartTime > sortTimeout) {
+            logger.error("Sorting file {} timeout after {}ms", fileId, sortTimeout);
 ```
 
 ### BusyWait
@@ -2781,43 +2817,20 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/memory/ReadBu
               logger.info("Buffer dispatcher is closing");
 ```
 
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java`
+## RuleId[ruleID=NonExceptionNameEndsWithException]
+### NonExceptionNameEndsWithException
+Non-exception class name `RunnableWithException` ends with 'Exception'
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
 #### Snippet
 ```java
-                  while (!closed && currentChunkIndex < numChunks) {
-                    while (results.size() >= fetchMaxReqsInFlight) {
-                      Thread.sleep(50);
-                    }
-                    long offset = chunkOffsets.get(currentChunkIndex);
+
+  @FunctionalInterface
+  public interface RunnableWithException<R extends IOException> {
+    void run() throws R;
+  }
 ```
 
 ## RuleId[ruleID=ThreadStartInConstruction]
-### ThreadStartInConstruction
-Call to `start()` during object construction
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
-#### Snippet
-```java
-              }
-            });
-    fileSorterSchedulerThread.start();
-  }
-
-```
-
-### ThreadStartInConstruction
-Call to `start()` during object construction
-in `common/src/main/java/org/apache/celeborn/common/network/server/memory/ReadBufferDispatcher.java`
-#### Snippet
-```java
-    this.memoryManager = memoryManager;
-    this.setName("Read-Buffer-Dispatcher");
-    this.start();
-  }
-
-```
-
 ### ThreadStartInConstruction
 Call to `start()` during object construction
 in `client/src/main/java/org/apache/celeborn/client/write/DataPusher.java`
@@ -2842,7 +2855,43 @@ in `client/src/main/java/org/apache/celeborn/client/read/DfsPartitionReader.java
     }
 ```
 
+### ThreadStartInConstruction
+Call to `start()` during object construction
+in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/PartitionFilesSorter.java`
+#### Snippet
+```java
+              }
+            });
+    fileSorterSchedulerThread.start();
+  }
+
+```
+
+### ThreadStartInConstruction
+Call to `start()` during object construction
+in `common/src/main/java/org/apache/celeborn/common/network/server/memory/ReadBufferDispatcher.java`
+#### Snippet
+```java
+    this.memoryManager = memoryManager;
+    this.setName("Read-Buffer-Dispatcher");
+    this.start();
+  }
+
+```
+
 ## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+The value changed at `off++` is never used
+in `client/src/main/java/org/apache/celeborn/client/compress/Compressor.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (i >>> 8);
+    buf[off++] = (byte) (i >>> 16);
+    buf[off++] = (byte) (i >>> 24);
+  }
+
+```
+
 ### UnusedAssignment
 Variable `splitThreshold` initializer `0` is redundant
 in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
@@ -2853,30 +2902,6 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileW
   private long splitThreshold = 0;
   private final PartitionSplitMode splitMode;
   private final PartitionType partitionType;
-```
-
-### UnusedAssignment
-Variable `exitCode` initializer `-1` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
-#### Snippet
-```java
-    ProcessBuilder builder = new ProcessBuilder("rm", "-rf", file.getAbsolutePath());
-    Process process = null;
-    int exitCode = -1;
-
-    try {
-```
-
-### UnusedAssignment
-Variable `fileInCanonicalDir` initializer `null` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
-#### Snippet
-```java
-  private static boolean isSymlink(File file) throws IOException {
-    Preconditions.checkNotNull(file);
-    File fileInCanonicalDir = null;
-    if (file.getParent() == null) {
-      fileInCanonicalDir = file;
 ```
 
 ### UnusedAssignment
@@ -2904,15 +2929,15 @@ in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/Parti
 ```
 
 ### UnusedAssignment
-The value changed at `off++` is never used
-in `client/src/main/java/org/apache/celeborn/client/compress/Compressor.java`
+Variable `maxMemMethod` initializer `null` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (i >>> 8);
-    buf[off++] = (byte) (i >>> 16);
-    buf[off++] = (byte) (i >>> 24);
-  }
+        };
 
+    Method maxMemMethod = null;
+    for (String[] provider : providers) {
+      String clazz = provider[0];
 ```
 
 ### UnusedAssignment
@@ -2928,18 +2953,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/memory/Memory
 ```
 
 ### UnusedAssignment
-Variable `maxMemMethod` initializer `null` is redundant
-in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
-#### Snippet
-```java
-        };
-
-    Method maxMemMethod = null;
-    for (String[] provider : providers) {
-      String clazz = provider[0];
-```
-
-### UnusedAssignment
 Variable `readBufferThreshold` initializer `0` is redundant
 in `common/src/main/java/org/apache/celeborn/common/network/server/memory/MemoryManager.java`
 #### Snippet
@@ -2951,17 +2964,28 @@ in `common/src/main/java/org/apache/celeborn/common/network/server/memory/Memory
 
 ```
 
-## RuleId[ruleID=NonExceptionNameEndsWithException]
-### NonExceptionNameEndsWithException
-Non-exception class name `RunnableWithException` ends with 'Exception'
-in `worker/src/main/java/org/apache/celeborn/service/deploy/worker/storage/FileWriter.java`
+### UnusedAssignment
+Variable `fileInCanonicalDir` initializer `null` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
 #### Snippet
 ```java
+  private static boolean isSymlink(File file) throws IOException {
+    Preconditions.checkNotNull(file);
+    File fileInCanonicalDir = null;
+    if (file.getParent() == null) {
+      fileInCanonicalDir = file;
+```
 
-  @FunctionalInterface
-  public interface RunnableWithException<R extends IOException> {
-    void run() throws R;
-  }
+### UnusedAssignment
+Variable `exitCode` initializer `-1` is redundant
+in `common/src/main/java/org/apache/celeborn/common/network/util/JavaUtils.java`
+#### Snippet
+```java
+    ProcessBuilder builder = new ProcessBuilder("rm", "-rf", file.getAbsolutePath());
+    Process process = null;
+    int exitCode = -1;
+
+    try {
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -2978,6 +3002,54 @@ in `common/src/main/java/org/apache/celeborn/common/unsafe/Platform.java`
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
+### UnstableApiUsage
+'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
+in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
+#### Snippet
+```java
+                fetchChunkRetryCnt,
+                fetchChunkMaxRetry);
+            Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
+          }
+        }
+```
+
+### UnstableApiUsage
+'sleepUninterruptibly(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.Uninterruptibles' marked with @Beta
+in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
+#### Snippet
+```java
+                fetchChunkRetryCnt,
+                fetchChunkMaxRetry);
+            Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
+          }
+        }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
+in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
+#### Snippet
+```java
+            } else {
+              logger.warn("Fetch chunk failed {}/{} times", fetchChunkRetryCnt, fetchChunkMaxRetry);
+              Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
+              currentReader = createReaderWithRetry(currentReader.getLocation());
+            }
+```
+
+### UnstableApiUsage
+'sleepUninterruptibly(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.Uninterruptibles' marked with @Beta
+in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
+#### Snippet
+```java
+            } else {
+              logger.warn("Fetch chunk failed {}/{} times", fetchChunkRetryCnt, fetchChunkMaxRetry);
+              Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
+              currentReader = createReaderWithRetry(currentReader.getLocation());
+            }
+```
+
 ### UnstableApiUsage
 'com.google.common.io.ByteStreams' is marked unstable with @Beta
 in `common/src/main/java/org/apache/celeborn/common/network/buffer/FileSegmentManagedBuffer.java`
@@ -3000,54 +3072,6 @@ in `common/src/main/java/org/apache/celeborn/common/network/buffer/FileSegmentMa
       ByteStreams.skipFully(is, offset);
       InputStream r = new LimitedInputStream(is, length);
       shouldClose = false;
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
-in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
-#### Snippet
-```java
-            } else {
-              logger.warn("Fetch chunk failed {}/{} times", fetchChunkRetryCnt, fetchChunkMaxRetry);
-              Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
-              currentReader = createReaderWithRetry(currentReader.getLocation());
-            }
-```
-
-### UnstableApiUsage
-'sleepUninterruptibly(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.Uninterruptibles' marked with @Beta
-in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
-#### Snippet
-```java
-            } else {
-              logger.warn("Fetch chunk failed {}/{} times", fetchChunkRetryCnt, fetchChunkMaxRetry);
-              Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
-              currentReader = createReaderWithRetry(currentReader.getLocation());
-            }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
-in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
-#### Snippet
-```java
-                fetchChunkRetryCnt,
-                fetchChunkMaxRetry);
-            Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
-          }
-        }
-```
-
-### UnstableApiUsage
-'sleepUninterruptibly(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.Uninterruptibles' marked with @Beta
-in `client/src/main/java/org/apache/celeborn/client/read/RssInputStream.java`
-#### Snippet
-```java
-                fetchChunkRetryCnt,
-                fetchChunkMaxRetry);
-            Uninterruptibles.sleepUninterruptibly(retryWaitMs, TimeUnit.MILLISECONDS);
-          }
-        }
 ```
 
 ### UnstableApiUsage
