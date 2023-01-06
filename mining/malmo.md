@@ -4,9 +4,9 @@
 I found 2 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| RuleId[ruleID=GroovyUnusedAssignment] | 2 | false |
+| GroovyUnusedAssignment | 2 | false |
 ## RuleId[ruleID=GroovyUnusedAssignment]
-### RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
 Assignment is not used
 in `Minecraft/build.gradle`
 #### Snippet
@@ -18,7 +18,7 @@ archivesBaseName = "MalmoMod"
 
 ```
 
-### RuleId[ruleID=GroovyUnusedAssignment]
+### GroovyUnusedAssignment
 Assignment is not used
 in `Minecraft/build.gradle`
 #### Snippet
