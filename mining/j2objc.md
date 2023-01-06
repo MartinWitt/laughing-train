@@ -189,30 +189,6 @@ Assignment to static field `protoReference` from instance context
 in `protobuf/tests/MemoryBenchmarks.java`
 #### Snippet
 ```java
-          builder.addInt(123);
-        }
-        protoReference = builder.build();
-      }
-    });
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `protoReference` from instance context
-in `protobuf/tests/MemoryBenchmarks.java`
-#### Snippet
-```java
-          ints.add(i);
-        }
-        protoReference = MessageWithExtensions.newBuilder()
-            .setExtension(SizeTest.repeatedIntExt, ints)
-            .build();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `protoReference` from instance context
-in `protobuf/tests/MemoryBenchmarks.java`
-#### Snippet
-```java
     testMemUsage(new Runnable() {
       public void run() {
         protoReference = MessageWithExtensions.newBuilder()
@@ -237,6 +213,30 @@ Assignment to static field `protoReference` from instance context
 in `protobuf/tests/MemoryBenchmarks.java`
 #### Snippet
 ```java
+    testMemUsage(new Runnable() {
+      public void run() {
+        protoReference = SingleMessage.newBuilder().setMsg(NoFields.newBuilder().build()).build();
+      }
+    });
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `protoReference` from instance context
+in `protobuf/tests/MemoryBenchmarks.java`
+#### Snippet
+```java
+          ints.add(i);
+        }
+        protoReference = MessageWithExtensions.newBuilder()
+            .setExtension(SizeTest.repeatedIntExt, ints)
+            .build();
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `protoReference` from instance context
+in `protobuf/tests/MemoryBenchmarks.java`
+#### Snippet
+```java
           builder.addMsg(NoFields.newBuilder().build());
         }
         protoReference = builder.build();
@@ -249,26 +249,14 @@ Assignment to static field `protoReference` from instance context
 in `protobuf/tests/MemoryBenchmarks.java`
 #### Snippet
 ```java
-    testMemUsage(new Runnable() {
-      public void run() {
-        protoReference = SingleMessage.newBuilder().setMsg(NoFields.newBuilder().build()).build();
+          builder.addInt(123);
+        }
+        protoReference = builder.build();
       }
     });
 ```
 
 ## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (12 lines)
-in `protobuf/tests/EnumsTest.java`
-#### Snippet
-```java
-  // TODO(kstanger): This fails with native ObjC because it doesn't sign-extend
-  // when writing the negative enum value.
-  /*public void testSerialization() throws Exception {
-    EnumMsg msg = getFilledMessage();
-
-```
-
 ### CommentedOutCode
 Commented out code (3 lines)
 in `protobuf/tests/EnumsTest.java`
@@ -279,6 +267,18 @@ in `protobuf/tests/EnumsTest.java`
     //assertFalse(msg.hasExtension(EnumFields.enumFe));
     //assertEquals(0, msg.getExtensionCount(EnumFields.enumRe));
     //assertEquals(0, msg.getExtensionCount(EnumFields.enumPe));
+```
+
+### CommentedOutCode
+Commented out code (12 lines)
+in `protobuf/tests/EnumsTest.java`
+#### Snippet
+```java
+  // TODO(kstanger): This fails with native ObjC because it doesn't sign-extend
+  // when writing the negative enum value.
+  /*public void testSerialization() throws Exception {
+    EnumMsg msg = getFilledMessage();
+
 ```
 
 ### CommentedOutCode
@@ -306,6 +306,30 @@ in `protobuf/tests/Proto3OptionalTest.java`
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+  }
+
+  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
+  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+
+  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
+  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
 in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
@@ -364,30 +388,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.
   private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
   private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
       "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-  }
-
-  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
-  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-
-  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
-  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
 ```
 
 ### RegExpRedundantEscape
@@ -527,18 +527,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/ClassFileConverter
 ```
 
 ### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavadocConverter.java`
-#### Snippet
-```java
-    int linePos = pos(node);
-    for (String line : lines) {
-      if (line.length() > 0) {
-        linePos = source.indexOf(line, linePos);
-        int endPos = linePos + line.length();
-```
-
-### SizeReplaceableByIsEmpty
 `fieldMetadata.size() > 0` can be replaced with '!fieldMetadata.isEmpty()'
 in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
 #### Snippet
@@ -560,6 +548,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
       if (methodMetadata.size() > 0) {
         StringBuilder sb = new StringBuilder("static J2ObjcMethodInfo methods[] = {\n");
         for (String metadata : methodMetadata) {
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavadocConverter.java`
+#### Snippet
+```java
+    int linePos = pos(node);
+    for (String line : lines) {
+      if (line.length() > 0) {
+        linePos = source.indexOf(line, linePos);
+        int endPos = linePos + line.length();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -587,18 +587,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.j
 ```
 
 ### SizeReplaceableByIsEmpty
-`type.length() == 0` can be replaced with 'type.isEmpty()'
-in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
-#### Snippet
-```java
-      return "[" + buildTypeSignature(type.substring(0, type.length() - 2));
-    }
-    if (type.length() == 0) {
-      return "";
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `word.length() > 0` can be replaced with '!word.isEmpty()'
 in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
 #### Snippet
@@ -608,6 +596,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
     if (word.length() > 0 && Character.isDigit(word.codePointAt(0))) {
       // Identifiers must not start with a digit
       objcWord.append("_");
+```
+
+### SizeReplaceableByIsEmpty
+`type.length() == 0` can be replaced with 'type.isEmpty()'
+in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
+#### Snippet
+```java
+      return "[" + buildTypeSignature(type.substring(0, type.length() - 2));
+    }
+    if (type.length() == 0) {
+      return "";
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -859,6 +859,18 @@ Can generalize to `? extends T`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildList.java`
 #### Snippet
 ```java
+  }
+
+  void replaceAll(List<T> other) {
+    clear();
+    addAll(other);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildList.java`
+#### Snippet
+```java
     }
 
     public ArrayListImpl(ArrayListImpl<T> list) {
@@ -879,27 +891,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildList.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildList.java`
-#### Snippet
-```java
-  }
-
-  void replaceAll(List<T> other) {
-    clear();
-    addAll(other);
-```
-
-### BoundedWildcard
 Can generalize to `? extends VariableElement`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/AnnotationRewriter.java`
 #### Snippet
 ```java
-  private void addMemberProperties(
-      AnnotationTypeDeclaration node, List<AnnotationTypeMemberDeclaration> members,
+  private MethodDeclaration createDescriptionMethod(TypeElement type,
+      List<AnnotationTypeMemberDeclaration> members,
       Map<ExecutableElement, VariableElement> fieldElements) {
-    if (members.isEmpty()) {
-      return;
+    ExecutableElement descriptionElement = GeneratedExecutableElement.newMethodWithSelector(
+        "description", typeUtil.getJavaString().asType(), type);
 ```
 
 ### BoundedWildcard
@@ -919,11 +919,11 @@ Can generalize to `? extends VariableElement`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/AnnotationRewriter.java`
 #### Snippet
 ```java
-  private MethodDeclaration createDescriptionMethod(TypeElement type,
-      List<AnnotationTypeMemberDeclaration> members,
+  private void addMemberProperties(
+      AnnotationTypeDeclaration node, List<AnnotationTypeMemberDeclaration> members,
       Map<ExecutableElement, VariableElement> fieldElements) {
-    ExecutableElement descriptionElement = GeneratedExecutableElement.newMethodWithSelector(
-        "description", typeUtil.getJavaString().asType(), type);
+    if (members.isEmpty()) {
+      return;
 ```
 
 ### BoundedWildcard
@@ -963,18 +963,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Import`
-in `translator/src/main/java/com/google/devtools/j2objc/types/Import.java`
-#### Snippet
-```java
-
-  public static void addImports(
-      TypeMirror type, Collection<Import> imports, TranslationEnvironment env) {
-    if (type instanceof PointerType) {
-      addImports(((PointerType) type).getPointeeType(), imports, env);
-```
-
-### BoundedWildcard
 Can generalize to `? extends VariableElement`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
@@ -996,6 +984,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolv
   private void addSafeVars(Set<VariableElement> vars) {
     if (scope != null && vars != null) {
       for (VariableElement var : vars) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Import`
+in `translator/src/main/java/com/google/devtools/j2objc/types/Import.java`
+#### Snippet
+```java
+
+  public static void addImports(
+      TypeMirror type, Collection<Import> imports, TranslationEnvironment env) {
+    if (type instanceof PointerType) {
+      addImports(((PointerType) type).getPointeeType(), imports, env);
 ```
 
 ### BoundedWildcard
@@ -1047,6 +1047,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/DefaultMethodS
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ProcessingContext`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
+#### Snippet
+```java
+
+  private void collectGeneratedInputs(
+      File dir, String currentRelativePath, List<ProcessingContext> inputs) {
+    assert dir.exists() && dir.isDirectory();
+    for (File f : dir.listFiles()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends JavaFileObject`
 in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 #### Snippet
@@ -1071,18 +1083,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ProcessingContext`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
-#### Snippet
-```java
-
-  private void collectGeneratedInputs(
-      File dir, String currentRelativePath, List<ProcessingContext> inputs) {
-    assert dir.exists() && dir.isDirectory();
-    for (File f : dir.listFiles()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Expression`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/ComplexExpressionExtractor.java`
 #### Snippet
@@ -1092,18 +1092,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/ComplexExpress
   private void handleNode(Expression node, Collection<Expression> children) {
     if (node.getParent() instanceof Statement) {
       return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProcessingContext`
-in `translator/src/main/java/com/google/devtools/j2objc/pipeline/InputFilePreprocessor.java`
-#### Snippet
-```java
-  }
-
-  public void processInputs(Iterable<ProcessingContext> inputs) {
-    for (ProcessingContext input : inputs) {
-      if (input.getFile().getUnitName().endsWith(".java")) {
 ```
 
 ### BoundedWildcard
@@ -1128,6 +1116,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.jav
   private String printTagFragments(List<TreeNode> fragments) {
     if (fragments.isEmpty()) {
       return "";
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProcessingContext`
+in `translator/src/main/java/com/google/devtools/j2objc/pipeline/InputFilePreprocessor.java`
+#### Snippet
+```java
+  }
+
+  public void processInputs(Iterable<ProcessingContext> inputs) {
+    for (ProcessingContext input : inputs) {
+      if (input.getFile().getUnitName().endsWith(".java")) {
 ```
 
 ### BoundedWildcard
@@ -1161,21 +1161,9 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/PropertyGenerator.ja
 ```java
   }
 
-  private void processOtherAttributes(Set<String> attributes) {
-    // Remove default attributes.
-    attributes.remove("readwrite");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `translator/src/main/java/com/google/devtools/j2objc/gen/PropertyGenerator.java`
-#### Snippet
-```java
-  }
-
-  private void processAccessorAttributes(Set<String> attributes) {
-    // Add default getter/setter here, as each fragment needs its own attributes
-    // to support its unique accessors.
+  private void processNullabilityAttributes(Set<String> attributes) {
+    if (options.nullability() && !varElement.asType().getKind().isPrimitive()) {
+      if (ElementUtil.hasNullableAnnotation(varElement)) {
 ```
 
 ### BoundedWildcard
@@ -1197,9 +1185,21 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/PropertyGenerator.ja
 ```java
   }
 
-  private void processNullabilityAttributes(Set<String> attributes) {
-    if (options.nullability() && !varElement.asType().getKind().isPrimitive()) {
-      if (ElementUtil.hasNullableAnnotation(varElement)) {
+  private void processAccessorAttributes(Set<String> attributes) {
+    // Add default getter/setter here, as each fragment needs its own attributes
+    // to support its unique accessors.
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `translator/src/main/java/com/google/devtools/j2objc/gen/PropertyGenerator.java`
+#### Snippet
+```java
+  }
+
+  private void processOtherAttributes(Set<String> attributes) {
+    // Remove default attributes.
+    attributes.remove("readwrite");
 ```
 
 ### BoundedWildcard
@@ -1263,18 +1263,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReference
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Edge`
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
-#### Snippet
-```java
-  }
-
-  private boolean shouldAddCycle(List<Edge> cycle) {
-    if (restrictToList == null) {
-      return true;
-```
-
-### BoundedWildcard
 Can generalize to `? extends VariableElement`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaRewriter.java`
 #### Snippet
@@ -1299,15 +1287,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaRewriter
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expression`
-in `translator/src/main/java/com/google/devtools/j2objc/gen/StatementGenerator.java`
+Can generalize to `? extends Edge`
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
 #### Snippet
 ```java
   }
 
-  private void printMethodInvocationNameAndArgs(String selector, List<Expression> args) {
-    String[] selParts = selector.split(":");
-    if (args.isEmpty()) {
+  private boolean shouldAddCycle(List<Edge> cycle) {
+    if (restrictToList == null) {
+      return true;
 ```
 
 ### BoundedWildcard
@@ -1324,14 +1312,14 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/SignatureASTPrinter.
 
 ### BoundedWildcard
 Can generalize to `? extends Expression`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
+in `translator/src/main/java/com/google/devtools/j2objc/gen/StatementGenerator.java`
 #### Snippet
 ```java
   }
 
-  private CStringLiteral getStrcatTypesCString(List<Expression> operands) {
-    StringBuilder typeArg = new StringBuilder();
-    for (Expression expr : operands) {
+  private void printMethodInvocationNameAndArgs(String selector, List<Expression> args) {
+    String[] selParts = selector.split(":");
+    if (args.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -1347,6 +1335,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewrit
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Expression`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
+#### Snippet
+```java
+  }
+
+  private CStringLiteral getStrcatTypesCString(List<Expression> operands) {
+    StringBuilder typeArg = new StringBuilder();
+    for (Expression expr : operands) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends TypeMirror`
 in `translator/src/main/java/com/google/devtools/j2objc/types/ImplementationImportCollector.java`
 #### Snippet
@@ -1359,27 +1359,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/ImplementationImpo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expression`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/ArrayRewriter.java`
+Can generalize to `? extends T`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
 
-  private MethodInvocation newMultiDimensionArrayInvocation(
-      ArrayType arrayType, List<Expression> dimensions, boolean retainedResult) {
-    assert dimensions.size() > 1;
-    TypeMirror componentType = arrayType;
+  @SuppressWarnings("unchecked")
+  public static <T extends TreeNode> void copyList(List<T> fromList, List<T> toList) {
+    for (T elem : fromList) {
+      toList.add((T) elem.copy());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expression`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/ArrayRewriter.java`
+Can generalize to `? super T`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
 
-  private MethodInvocation newInitializedArrayInvocation(
-      ArrayType arrayType, List<Expression> elements, boolean retainedResult) {
-    TypeMirror componentType = arrayType.getComponentType();
-    TypeElement iosArrayElement = typeUtil.getIosArray(componentType);
+  @SuppressWarnings("unchecked")
+  public static <T extends TreeNode> void copyList(List<T> fromList, List<T> toList) {
+    for (T elem : fromList) {
+      toList.add((T) elem.copy());
 ```
 
 ### BoundedWildcard
@@ -1407,27 +1407,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
+Can generalize to `? extends Expression`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/ArrayRewriter.java`
 #### Snippet
 ```java
 
-  @SuppressWarnings("unchecked")
-  public static <T extends TreeNode> void copyList(List<T> fromList, List<T> toList) {
-    for (T elem : fromList) {
-      toList.add((T) elem.copy());
+  private MethodInvocation newMultiDimensionArrayInvocation(
+      ArrayType arrayType, List<Expression> dimensions, boolean retainedResult) {
+    assert dimensions.size() > 1;
+    TypeMirror componentType = arrayType;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
+Can generalize to `? extends Expression`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/ArrayRewriter.java`
 #### Snippet
 ```java
 
-  @SuppressWarnings("unchecked")
-  public static <T extends TreeNode> void copyList(List<T> fromList, List<T> toList) {
-    for (T elem : fromList) {
-      toList.add((T) elem.copy());
+  private MethodInvocation newInitializedArrayInvocation(
+      ArrayType arrayType, List<Expression> elements, boolean retainedResult) {
+    TypeMirror componentType = arrayType.getComponentType();
+    TypeElement iosArrayElement = typeUtil.getIosArray(componentType);
 ```
 
 ### BoundedWildcard
@@ -1484,23 +1484,11 @@ Result of `File.delete()` is ignored
 in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 #### Snippet
 ```java
-          deleteTempDir(f);
-        } else {
-          f.delete();
-        }
-      }
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
-#### Snippet
-```java
-        }
-      }
-      dir.delete();
-    }
-  }
+  public static File createTempDir(String dirname) throws IOException {
+    File tmpDirectory = File.createTempFile(dirname, ".tmp");
+    tmpDirectory.delete();
+    if (!tmpDirectory.mkdir()) {
+      throw new IOException("Could not create tmp directory: " + tmpDirectory.getPath());
 ```
 
 ### IgnoreResultOfCall
@@ -1532,11 +1520,23 @@ Result of `File.delete()` is ignored
 in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 #### Snippet
 ```java
-  public static File createTempDir(String dirname) throws IOException {
-    File tmpDirectory = File.createTempFile(dirname, ".tmp");
-    tmpDirectory.delete();
-    if (!tmpDirectory.mkdir()) {
-      throw new IOException("Could not create tmp directory: " + tmpDirectory.getPath());
+          deleteTempDir(f);
+        } else {
+          f.delete();
+        }
+      }
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
+#### Snippet
+```java
+        }
+      }
+      dir.delete();
+    }
+  }
 ```
 
 ## RuleId[ruleID=UnnecessaryUnboxing]
@@ -1569,47 +1569,11 @@ Unnecessary unboxing
 in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
 ```java
-
-  private void checkGetExtensions(TypicalDataOrBuilder data) {
-    assertEquals(123, ((Integer) data.getExtension(Typical.myPrimitiveExtension)).intValue());
-    Object msg = data.getExtension(Typical.myExtension);
-    assertTrue(msg instanceof TypicalDataMessage);
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-    assertEquals(3, data.getExtensionCount(Typical.myRepeatedPrimitiveExtension));
-    assertEquals(2,
-        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 1)).intValue());
-    assertEquals(3,
-        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 2)).intValue());
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 1)).intValue());
-    assertEquals(3,
-        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 2)).intValue());
-    assertEquals(2, data.getExtensionCount(Typical.myRepeatedExtension));
-    result = data.getExtension(Typical.myRepeatedExtension, 1);
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-    result = data.getExtension(Typical.myBoolExtension);
-    assertEquals(Boolean.TRUE, result);
-    assertEquals(456, ((Integer) data.getExtension(MsgWithNestedExtensions.intExt)).intValue());
-  }
-
+    assertEquals(3, list.size());
+    builder.setRepeatedInt32(1, 4);
+    assertEquals(4, list.get(1).intValue());
+    builder.clearRepeatedInt32();
+    assertEquals(3, list.size());
 ```
 
 ### UnnecessaryUnboxing
@@ -1646,18 +1610,6 @@ in `protobuf/tests/CompatibilityTest.java`
     assertEquals(3.4, ((Double) result).doubleValue(), 0.0001);
   }
 
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-    assertEquals(3, list.size());
-    builder.setRepeatedInt32(1, 4);
-    assertEquals(4, list.get(1).intValue());
-    builder.clearRepeatedInt32();
-    assertEquals(3, list.size());
 ```
 
 ### UnnecessaryUnboxing
@@ -1722,14 +1674,86 @@ in `protobuf/tests/CompatibilityTest.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `protobuf/tests/CompatibilityTest.java`
+#### Snippet
+```java
+
+  private void checkGetExtensions(TypicalDataOrBuilder data) {
+    assertEquals(123, ((Integer) data.getExtension(Typical.myPrimitiveExtension)).intValue());
+    Object msg = data.getExtension(Typical.myExtension);
+    assertTrue(msg instanceof TypicalDataMessage);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protobuf/tests/CompatibilityTest.java`
+#### Snippet
+```java
+    assertEquals(3, data.getExtensionCount(Typical.myRepeatedPrimitiveExtension));
+    assertEquals(2,
+        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 1)).intValue());
+    assertEquals(3,
+        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 2)).intValue());
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protobuf/tests/CompatibilityTest.java`
+#### Snippet
+```java
+        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 1)).intValue());
+    assertEquals(3,
+        ((Integer) data.getExtension(Typical.myRepeatedPrimitiveExtension, 2)).intValue());
+    assertEquals(2, data.getExtensionCount(Typical.myRepeatedExtension));
+    result = data.getExtension(Typical.myRepeatedExtension, 1);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protobuf/tests/CompatibilityTest.java`
+#### Snippet
+```java
+    result = data.getExtension(Typical.myBoolExtension);
+    assertEquals(Boolean.TRUE, result);
+    assertEquals(456, ((Integer) data.getExtension(MsgWithNestedExtensions.intExt)).intValue());
+  }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
 ```java
 
-  public static String generate(Double value) {
-    double d = ((Double) value).doubleValue();
-    if (Double.isNaN(d)) {
+  public static String generate(Float value) {
+    float f = value.floatValue();
+    if (Float.isNaN(f)) {
       return "NAN";
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
+#### Snippet
+```java
+
+  public static String generate(Long value) {
+    if (value.longValue() == Long.MIN_VALUE) {
+      return "((jlong) 0x8000000000000000LL)";
+    } else {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
+#### Snippet
+```java
+
+  public static String generate(Integer value) {
+    if (value.intValue() == Integer.MIN_VALUE) {
+      return "((jint) 0x80000000)";
+    } else {
 ```
 
 ### UnnecessaryUnboxing
@@ -1762,34 +1786,10 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.jav
 #### Snippet
 ```java
 
-  public static String generate(Long value) {
-    if (value.longValue() == Long.MIN_VALUE) {
-      return "((jlong) 0x8000000000000000LL)";
-    } else {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
-#### Snippet
-```java
-
-  public static String generate(Float value) {
-    float f = value.floatValue();
-    if (Float.isNaN(f)) {
+  public static String generate(Double value) {
+    double d = ((Double) value).doubleValue();
+    if (Double.isNaN(d)) {
       return "NAN";
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
-#### Snippet
-```java
-
-  public static String generate(Integer value) {
-    if (value.intValue() == Integer.MIN_VALUE) {
-      return "((jint) 0x80000000)";
-    } else {
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
@@ -1943,18 +1943,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/CaptureInfo.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
-#### Snippet
-```java
-      ImmutableSet.Builder<String> builder = ImmutableSet.builder();
-      String line;
-      while ((line = lines.readLine()) != null) {
-        if (line.startsWith("#")) {
-          continue;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 #### Snippet
 ```java
@@ -1963,6 +1951,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
       while ((n = inputStream.read(buf)) > 0) {
         outputStream.write(buf, 0, n);
       }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+#### Snippet
+```java
+      ImmutableSet.Builder<String> builder = ImmutableSet.builder();
+      String line;
+      while ((line = lines.readLine()) != null) {
+        if (line.startsWith("#")) {
+          continue;
 ```
 
 ### NestedAssignment
@@ -2007,18 +2007,6 @@ Statement lambda can be replaced with expression lambda
 in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
 #### Snippet
 ```java
-    });
-    if (ElementUtil.isLocal(creationElement)) {
-      onExitScope(creationElement, () -> {
-        addCaptureArgs(creationElement, node.getCreationCaptureArgs());
-      });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
-#### Snippet
-```java
     TypeElement typeElement = (TypeElement) node.getExecutableElement().getEnclosingElement();
     if (node.getExpression() == null) {
       whenNeedsOuterParam(typeElement, () -> {
@@ -2035,6 +2023,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReference
     if (ElementUtil.isLocal(typeElement)) {
       onExitScope(typeElement, () -> {
         addCaptureArgs(typeElement, node.getCaptureArgs());
+      });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
+#### Snippet
+```java
+    });
+    if (ElementUtil.isLocal(creationElement)) {
+      onExitScope(creationElement, () -> {
+        addCaptureArgs(creationElement, node.getCreationCaptureArgs());
       });
 ```
 
@@ -2502,11 +2502,11 @@ Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
 #### Snippet
 ```java
+  // or @implementation block.
   private boolean isOuter = false;
   private String headerCode = null;
   private String implementationCode = null;
   private List<TypeMirror> implementationImportTypes = new ArrayList<>();
-
 ```
 
 ### RedundantFieldInitialization
@@ -2514,11 +2514,11 @@ Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
 #### Snippet
 ```java
-  // or @implementation block.
   private boolean isOuter = false;
   private String headerCode = null;
   private String implementationCode = null;
   private List<TypeMirror> implementationImportTypes = new ArrayList<>();
+
 ```
 
 ### RedundantFieldInitialization
@@ -2534,18 +2534,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.ja
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildLink.java`
-#### Snippet
-```java
-  private final Class<T> childType;
-  private final TreeNode parent;
-  private T child = null;
-
-  public ChildLink(Class<T> childType, TreeNode parent) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/CompilationUnit.java`
 #### Snippet
@@ -2555,6 +2543,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/CompilationUnit.java
   private boolean hasIncompleteImplementation = false;
   private boolean hasNullabilityAnnotations = false;
   private final ChildLink<PackageDeclaration> packageDeclaration =
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/CompilationUnit.java`
+#### Snippet
+```java
+  private final String source;
+  private final int[] newlines;
+  private boolean hasIncompleteProtocol = false;
+  private boolean hasIncompleteImplementation = false;
+  private boolean hasNullabilityAnnotations = false;
 ```
 
 ### RedundantFieldInitialization
@@ -2570,15 +2570,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/CompilationUnit.java
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/CompilationUnit.java`
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildLink.java`
 #### Snippet
 ```java
-  private final String source;
-  private final int[] newlines;
-  private boolean hasIncompleteProtocol = false;
-  private boolean hasIncompleteImplementation = false;
-  private boolean hasNullabilityAnnotations = false;
+  private final Class<T> childType;
+  private final TreeNode parent;
+  private T child = null;
+
+  public ChildLink(Class<T> childType, TreeNode parent) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildList.java`
+#### Snippet
+```java
+   */
+  private static class ArrayListImpl<T> extends ArrayList<T> {
+    private int count = 0;
+
+    public ArrayListImpl() {
 ```
 
 ### RedundantFieldInitialization
@@ -2595,18 +2607,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ConstructorInvocatio
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ChildList.java`
-#### Snippet
-```java
-   */
-  private static class ArrayListImpl<T> extends ArrayList<T> {
-    private int count = 0;
-
-    public ArrayListImpl() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/util/TimeTracker.java`
 #### Snippet
 ```java
@@ -2615,6 +2615,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TimeTracker.java`
     int currentLevel = 0;
     List<String> entries = Lists.newArrayList();
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
+#### Snippet
+```java
+  private boolean includeGeneratedSources = false;
+
+  private List<String> inputMappingFiles = null;
+  private File outputMappingFile = null;
+  private final Map<String, String> map = Maps.newHashMap();
 ```
 
 ### RedundantFieldInitialization
@@ -2630,6 +2642,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
+#### Snippet
+```java
+
+  private List<String> inputMappingFiles = null;
+  private File outputMappingFile = null;
+  private final Map<String, String> map = Maps.newHashMap();
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
 #### Snippet
@@ -2639,30 +2663,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
   private boolean includeGeneratedSources = false;
 
   private List<String> inputMappingFiles = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
-#### Snippet
-```java
-  private boolean includeGeneratedSources = false;
-
-  private List<String> inputMappingFiles = null;
-  private File outputMappingFile = null;
-  private final Map<String, String> map = Maps.newHashMap();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/util/HeaderMap.java`
-#### Snippet
-```java
-
-  private List<String> inputMappingFiles = null;
-  private File outputMappingFile = null;
-  private final Map<String, String> map = Maps.newHashMap();
-
 ```
 
 ### RedundantFieldInitialization
@@ -2703,30 +2703,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/BodyDeclaration.java`
-#### Snippet
-```java
-  private int modifiers = 0;
-  // True if this node can be declared in the implementation and not the header.
-  private boolean hasPrivateDeclaration = false;
-  protected ChildLink<Javadoc> javadoc = ChildLink.create(Javadoc.class, this);
-  protected ChildList<Annotation> annotations = ChildList.create(Annotation.class, this);
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/BodyDeclaration.java`
-#### Snippet
-```java
-public abstract class BodyDeclaration extends TreeNode {
-
-  private int modifiers = 0;
-  // True if this node can be declared in the implementation and not the header.
-  private boolean hasPrivateDeclaration = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchCase.java`
 #### Snippet
 ```java
@@ -2762,30 +2738,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolv
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
-#### Snippet
-```java
-  // are safe given that the expression is true or false.
-  private Set<VariableElement> safeVarsTrue = null;
-  private Set<VariableElement> safeVarsFalse = null;
-  // Identifies the node from which safeVarsTrue and safeVarsFalse have been
-  // assigned.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
-#### Snippet
-```java
-    // Saves unsafe vars to be applied the next time this scope becomes the top
-    // of the stack.
-    private Map<VariableElement, Boolean> mergedVars = null;
-
-    private Scope(Scope next, Kind kind, String label) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
@@ -2802,6 +2754,30 @@ Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
 ```java
+    // Saves unsafe vars to be applied the next time this scope becomes the top
+    // of the stack.
+    private Map<VariableElement, Boolean> mergedVars = null;
+
+    private Scope(Scope next, Kind kind, String label) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
+#### Snippet
+```java
+  // are safe given that the expression is true or false.
+  private Set<VariableElement> safeVarsTrue = null;
+  private Set<VariableElement> safeVarsFalse = null;
+  // Identifies the node from which safeVarsTrue and safeVarsFalse have been
+  // assigned.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
+#### Snippet
+```java
   // Scope is added to the stack when entering conditionally executed code such
   // as if-statements, loops, conditional operators (&&, ||).
   private Scope scope = null;
@@ -2811,26 +2787,26 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolv
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/InitializationNormalizer.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/BodyDeclaration.java`
 #### Snippet
 ```java
-    private final List<Statement> initStatements;
-    private final List<Statement> classInitStatements;
-    private int constInitIdx = 0;
+public abstract class BodyDeclaration extends TreeNode {
 
-    private TypeNormalizer(AbstractTypeDeclaration node) {
+  private int modifiers = 0;
+  // True if this node can be declared in the implementation and not the header.
+  private boolean hasPrivateDeclaration = false;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ClassInstanceCreation.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/BodyDeclaration.java`
 #### Snippet
 ```java
-  // Indicates that this expression leaves the created object with a retain
-  // count of 1. (i.e. does not call autorelease)
-  private boolean hasRetainedResult = false;
-  private final ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private final ChildList<Expression> captureArgs = ChildList.create(Expression.class, this);
+  private int modifiers = 0;
+  // True if this node can be declared in the implementation and not the header.
+  private boolean hasPrivateDeclaration = false;
+  protected ChildLink<Javadoc> javadoc = ChildLink.create(Javadoc.class, this);
+  protected ChildList<Annotation> annotations = ChildList.create(Annotation.class, this);
 ```
 
 ### RedundantFieldInitialization
@@ -2846,27 +2822,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ClassInstanceCreatio
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/PostfixExpression.java`
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ClassInstanceCreation.java`
 #### Snippet
 ```java
-  }
-
-  private Operator operator = null;
-  private ChildLink<Expression> operand = ChildLink.create(Expression.class, this);
-
+  // Indicates that this expression leaves the created object with a retain
+  // count of 1. (i.e. does not call autorelease)
+  private boolean hasRetainedResult = false;
+  private final ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private final ChildList<Expression> captureArgs = ChildList.create(Expression.class, this);
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionDeclaration.java`
+Field initialization to `0` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/translate/InitializationNormalizer.java`
 #### Snippet
 ```java
-      ChildList.create(SingleVariableDeclaration.class, this);
-  private final ChildLink<Block> body = ChildLink.create(Block.class, this);
-  private String jniSignature = null;
+    private final List<Statement> initStatements;
+    private final List<Statement> classInitStatements;
+    private int constInitIdx = 0;
 
-  public FunctionDeclaration(FunctionDeclaration other) {
+    private TypeNormalizer(AbstractTypeDeclaration node) {
 ```
 
 ### RedundantFieldInitialization
@@ -2895,6 +2871,30 @@ public class FunctionDeclaration extends BodyDeclaration {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionDeclaration.java`
+#### Snippet
+```java
+      ChildList.create(SingleVariableDeclaration.class, this);
+  private final ChildLink<Block> body = ChildLink.create(Block.class, this);
+  private String jniSignature = null;
+
+  public FunctionDeclaration(FunctionDeclaration other) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/PostfixExpression.java`
+#### Snippet
+```java
+  }
+
+  private Operator operator = null;
+  private ChildLink<Expression> operand = ChildLink.create(Expression.class, this);
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NumberLiteral.java`
 #### Snippet
 ```java
@@ -2910,11 +2910,11 @@ Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedVariableElement.java`
 #### Snippet
 ```java
+
   private final TypeMirror type;
   private boolean nonnull = false;
   private boolean isWeak = false;
   private String typeQualifiers;
-
 ```
 
 ### RedundantFieldInitialization
@@ -2922,11 +2922,11 @@ Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedVariableElement.java`
 #### Snippet
 ```java
-
   private final TypeMirror type;
   private boolean nonnull = false;
   private boolean isWeak = false;
   private String typeQualifiers;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3007,10 +3007,10 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.jav
 #### Snippet
 ```java
 
-  // True with a <style> tag is in a Javadoc comment, but not the closing </style>.
-  boolean spanningStyleTag = false;
+  // True when a <pre> tag is in a Javadoc comment, but not the closing </pre>.
+  boolean spanningPreTag = false;
 
-  // All escapes are defined at "http://dev.w3.org/html5/html-author/charref".
+  // True with a <style> tag is in a Javadoc comment, but not the closing </style>.
 ```
 
 ### RedundantFieldInitialization
@@ -3019,10 +3019,10 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.jav
 #### Snippet
 ```java
 
-  // True when a <pre> tag is in a Javadoc comment, but not the closing </pre>.
-  boolean spanningPreTag = false;
-
   // True with a <style> tag is in a Javadoc comment, but not the closing </style>.
+  boolean spanningStyleTag = false;
+
+  // All escapes are defined at "http://dev.w3.org/html5/html-author/charref".
 ```
 
 ### RedundantFieldInitialization
@@ -3102,6 +3102,42 @@ Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
 #### Snippet
 ```java
+  private boolean hasIncompleteImplementation = false;
+  private boolean hasNullabilityAnnotations = false;
+  private boolean hasWeakFields = false;
+  private final Options options;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
+#### Snippet
+```java
+  private State state = State.ACTIVE;
+  private boolean hasIncompleteProtocol = false;
+  private boolean hasIncompleteImplementation = false;
+  private boolean hasNullabilityAnnotations = false;
+  private boolean hasWeakFields = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
+#### Snippet
+```java
+  private String outputPath;
+  private int numUnits = 0;
+  private int receivedUnits = 0;
+  // It is useful for the generated code to be consistent. Therefore, the
+  // ordering of generated code within this unit should be consistent. For this
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
+#### Snippet
+```java
   private boolean hasIncompleteProtocol = false;
   private boolean hasIncompleteImplementation = false;
   private boolean hasNullabilityAnnotations = false;
@@ -3126,30 +3162,6 @@ Field initialization to `0` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
 #### Snippet
 ```java
-  private String outputPath;
-  private int numUnits = 0;
-  private int receivedUnits = 0;
-  // It is useful for the generated code to be consistent. Therefore, the
-  // ordering of generated code within this unit should be consistent. For this
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
-#### Snippet
-```java
-  private State state = State.ACTIVE;
-  private boolean hasIncompleteProtocol = false;
-  private boolean hasIncompleteImplementation = false;
-  private boolean hasNullabilityAnnotations = false;
-  private boolean hasWeakFields = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
-#### Snippet
-```java
 
   private String outputPath;
   private int numUnits = 0;
@@ -3159,25 +3171,25 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
 ```java
-  private boolean hasIncompleteImplementation = false;
-  private boolean hasNullabilityAnnotations = false;
-  private boolean hasWeakFields = false;
-  private final Options options;
+  private List<VariableAccess> orderedAccesses = Lists.newArrayList();
+  private TreeNode currentTopNode = null;
+  private boolean hasModification = false;
 
+  public UnsequencedExpressionRewriter(CompilationUnit unit) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/AnnotationTypeMemberDeclaration.java`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
 ```java
-public final class AnnotationTypeMemberDeclaration extends BodyDeclaration {
-
-  private ExecutableElement element = null;
-  private ChildLink<Expression> defaultValue = ChildLink.create(Expression.class, this);
+  private int count = 1;
+  private List<VariableAccess> orderedAccesses = Lists.newArrayList();
+  private TreeNode currentTopNode = null;
+  private boolean hasModification = false;
 
 ```
 
@@ -3195,26 +3207,14 @@ public class UnsequencedExpressionRewriter extends UnitTreeVisitor {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/AnnotationTypeMemberDeclaration.java`
 #### Snippet
 ```java
-  private int count = 1;
-  private List<VariableAccess> orderedAccesses = Lists.newArrayList();
-  private TreeNode currentTopNode = null;
-  private boolean hasModification = false;
+public final class AnnotationTypeMemberDeclaration extends BodyDeclaration {
 
-```
+  private ExecutableElement element = null;
+  private ChildLink<Expression> defaultValue = ChildLink.create(Expression.class, this);
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
-#### Snippet
-```java
-  private List<VariableAccess> orderedAccesses = Lists.newArrayList();
-  private TreeNode currentTopNode = null;
-  private boolean hasModification = false;
-
-  public UnsequencedExpressionRewriter(CompilationUnit unit) {
 ```
 
 ### RedundantFieldInitialization
@@ -3234,6 +3234,18 @@ Field initialization to `false` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/types/FunctionElement.java`
 #### Snippet
 ```java
+  private List<TypeMirror> parameterTypes = new ArrayList<>();
+  private boolean isVarargs = false;
+  private boolean isMacro = false;
+
+  public FunctionElement(
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/types/FunctionElement.java`
+#### Snippet
+```java
   private final TypeElement declaringClass;
   private List<TypeMirror> parameterTypes = new ArrayList<>();
   private boolean isVarargs = false;
@@ -3242,15 +3254,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/FunctionElement.ja
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/types/FunctionElement.java`
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
 #### Snippet
 ```java
-  private List<TypeMirror> parameterTypes = new ArrayList<>();
-  private boolean isVarargs = false;
-  private boolean isMacro = false;
 
-  public FunctionElement(
+  private String code = null;
+  private TypeMirror typeMirror = null;
+  private List<TypeMirror> importTypes = Lists.newArrayList();
+
 ```
 
 ### RedundantFieldInitialization
@@ -3267,18 +3279,6 @@ public class NativeExpression extends Expression {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
-#### Snippet
-```java
-
-  private String code = null;
-  private TypeMirror typeMirror = null;
-  private List<TypeMirror> importTypes = Lists.newArrayList();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/PackageDeclaration.java`
 #### Snippet
 ```java
@@ -3287,18 +3287,6 @@ public class PackageDeclaration extends TreeNode {
   private PackageElement packageElement = null;
   private ChildLink<Javadoc> javadoc = ChildLink.create(Javadoc.class, this);
   private ChildList<Annotation> annotations = ChildList.create(Annotation.class, this);
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
-#### Snippet
-```java
-
-  private final CaptureInfo captureInfo;
-  private Scope topScope = null;
-
-  public OuterReferenceResolver(CompilationUnit unit) {
 ```
 
 ### RedundantFieldInitialization
@@ -3311,6 +3299,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReference
     private int constructorCount = 0;
     private int constructorsNotNeedingSuperOuterScope = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
+#### Snippet
+```java
+
+  private final CaptureInfo captureInfo;
+  private Scope topScope = null;
+
+  public OuterReferenceResolver(CompilationUnit unit) {
 ```
 
 ### RedundantFieldInitialization
@@ -3350,30 +3350,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclaration.
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/EnumDeclaration.java`
-#### Snippet
-```java
-
-  // DeadCodeEliminator will set this field if this enum is marked as unused
-  private boolean stripSuperInterfaces = false;
-
-  private ChildList<EnumConstantDeclaration> enumConstants =
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
-#### Snippet
-```java
-  private boolean isConstructor = false;
-  private boolean hasDeclaration = true;
-  private boolean isUnavailable = false;
-  private ChildList<SingleVariableDeclaration> parameters =
-      ChildList.create(SingleVariableDeclaration.class, this);
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
 #### Snippet
@@ -3410,15 +3386,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.ja
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperFieldAccess.java`
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
 #### Snippet
 ```java
-public class SuperFieldAccess extends Expression {
+  private boolean isConstructor = false;
+  private boolean hasDeclaration = true;
+  private boolean isUnavailable = false;
+  private ChildList<SingleVariableDeclaration> parameters =
+      ChildList.create(SingleVariableDeclaration.class, this);
+```
 
-  private VariableElement variableElement = null;
-  private ChildLink<Name> qualifier = ChildLink.create(Name.class, this);
-  private TypeMirror typeMirror = null;
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/EnumDeclaration.java`
+#### Snippet
+```java
+
+  // DeadCodeEliminator will set this field if this enum is marked as unused
+  private boolean stripSuperInterfaces = false;
+
+  private ChildList<EnumConstantDeclaration> enumConstants =
 ```
 
 ### RedundantFieldInitialization
@@ -3435,14 +3423,14 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperFieldAccess.jav
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/pipeline/GenerationBatch.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperFieldAccess.java`
 #### Snippet
 ```java
-  private final List<ProcessingContext> inputs = Lists.newArrayList();
+public class SuperFieldAccess extends Expression {
 
-  private GenerationUnit globalCombinedUnit = null;
-
-  public GenerationBatch(Options options){
+  private VariableElement variableElement = null;
+  private ChildLink<Name> qualifier = ChildLink.create(Name.class, this);
+  private TypeMirror typeMirror = null;
 ```
 
 ### RedundantFieldInitialization
@@ -3455,6 +3443,18 @@ public class ThisExpression extends Expression {
   private TypeMirror typeMirror = null;
   private ChildLink<Name> qualifier = ChildLink.create(Name.class, this);
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/pipeline/GenerationBatch.java`
+#### Snippet
+```java
+  private final List<ProcessingContext> inputs = Lists.newArrayList();
+
+  private GenerationUnit globalCombinedUnit = null;
+
+  public GenerationBatch(Options options){
 ```
 
 ### RedundantFieldInitialization
@@ -3482,18 +3482,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/PrefixExpression.jav
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
-#### Snippet
-```java
-  private final LinkedList<Set<VariableElement>> retainedLocalCandidateStack = new LinkedList<>();
-  private Set<VariableElement> retainedLocalCandidates = new HashSet<>();
-  private boolean maybeRetainMethodReturn = false;
-
-  public OperatorRewriter(CompilationUnit unit) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
 #### Snippet
@@ -3503,6 +3491,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewrit
   private int rwCount = 0;
 
   // Gets the target object for a call to the RetainedWith wrapper.
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
+#### Snippet
+```java
+  private final LinkedList<Set<VariableElement>> retainedLocalCandidateStack = new LinkedList<>();
+  private Set<VariableElement> retainedLocalCandidates = new HashSet<>();
+  private boolean maybeRetainMethodReturn = false;
+
+  public OperatorRewriter(CompilationUnit unit) {
 ```
 
 ### RedundantFieldInitialization
@@ -3527,6 +3527,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodInvocation.jav
   private TypeMirror varargsType = null;
   private final ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
   private final ChildList<Expression> arguments = ChildList.create(Expression.class, this);
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
+#### Snippet
+```java
+  private List<String> classPathEntries = new ArrayList<>();
+  private File outputDirectory = new File(".");
+  private File headerOutputDirectory = null;
+  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
+  private Charset charset = Charset.forName(fileEncoding);
 ```
 
 ### RedundantFieldInitialization
@@ -3566,15 +3578,363 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionInvocation.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
 ```java
-  private List<String> classPathEntries = new ArrayList<>();
-  private File outputDirectory = new File(".");
-  private File headerOutputDirectory = null;
-  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
-  private Charset charset = Charset.forName(fileEncoding);
+  private boolean extractUnsequencedModifications = true;
+  private boolean docCommentsEnabled = false;
+  private boolean staticAccessorMethods = false;
+  private boolean classProperties = false;
+  private String processors = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
+  private boolean warningsAsErrors = false;
+  private boolean deprecatedDeclarations = false;
+  private HeaderMap headerMap = new HeaderMap();
+  private boolean stripGwtIncompatible = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean translateBootclasspath = false;
+  private boolean translateClassfiles = false;
+  private String annotationsJar = null;
+  private CombinedOutput globalCombinedOutput = null;
+  private String bootclasspath = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean staticAccessorMethods = false;
+  private boolean classProperties = false;
+  private String processors = null;
+  private boolean disallowInheritedConstructors = true;
+  private boolean nullability = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean strictFieldLoad = false;
+  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
+  private boolean warningsAsErrors = false;
+  private boolean deprecatedDeclarations = false;
+  private HeaderMap headerMap = new HeaderMap();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean segmentedHeaders = true;
+  private boolean jsniWarnings = true;
+  private boolean buildClosure = false;
+  private EnumSet<MetadataSupport> includedMetadata =
+      EnumSet.of(
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private MemoryManagementOption memoryManagementOption = null;
+  private boolean strictFieldAssign = false;
+  private boolean strictFieldLoad = false;
+  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
+  private boolean warningsAsErrors = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean docCommentsEnabled = false;
+  private boolean staticAccessorMethods = false;
+  private boolean classProperties = false;
+  private String processors = null;
+  private boolean disallowInheritedConstructors = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private final List<String> entryClasses = new ArrayList<>();
+
+  private SourceVersion sourceVersion = null;
+
+  private File proGuardUsageFile = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean emitKytheMappings = false;
+  private boolean emitSourceHeaders = true;
+  private boolean injectLogSites = false;
+  private boolean allVersions = false;
+  private boolean asObjCGenericDecl = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private String annotationsJar = null;
+  private CombinedOutput globalCombinedOutput = null;
+  private String bootclasspath = null;
+  private boolean emitKytheMappings = false;
+  private boolean emitSourceHeaders = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean defaultNonnull = false;
+  private TimingLevel timingLevel = TimingLevel.NONE;
+  private boolean dumpAST = false;
+  private String lintArgument = null;
+  private boolean reportJavadocWarnings = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean deprecatedDeclarations = false;
+  private HeaderMap headerMap = new HeaderMap();
+  private boolean stripGwtIncompatible = false;
+  private boolean segmentedHeaders = true;
+  private boolean jsniWarnings = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+
+    private final List<String> sourceFiles = new ArrayList<>();
+    private boolean printArgs = false;
+
+    private void processArgs(String[] args) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private OutputLanguageOption language = OutputLanguageOption.OBJECTIVE_C;
+  private MemoryManagementOption memoryManagementOption = null;
+  private boolean strictFieldAssign = false;
+  private boolean strictFieldLoad = false;
+  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean disallowInheritedConstructors = true;
+  private boolean nullability = false;
+  private boolean defaultNonnull = false;
+  private TimingLevel timingLevel = TimingLevel.NONE;
+  private boolean dumpAST = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private String lintArgument = null;
+  private boolean reportJavadocWarnings = false;
+  private boolean translateBootclasspath = false;
+  private boolean translateClassfiles = false;
+  private String annotationsJar = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private TimingLevel timingLevel = TimingLevel.NONE;
+  private boolean dumpAST = false;
+  private String lintArgument = null;
+  private boolean reportJavadocWarnings = false;
+  private boolean translateBootclasspath = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean translateClassfiles = false;
+  private String annotationsJar = null;
+  private CombinedOutput globalCombinedOutput = null;
+  private String bootclasspath = null;
+  private boolean emitKytheMappings = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean emitWrapperMethods = true;
+  private boolean extractUnsequencedModifications = true;
+  private boolean docCommentsEnabled = false;
+  private boolean staticAccessorMethods = false;
+  private boolean classProperties = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private List<String> processorPathEntries = new ArrayList<>();
+  private OutputLanguageOption language = OutputLanguageOption.OBJECTIVE_C;
+  private MemoryManagementOption memoryManagementOption = null;
+  private boolean strictFieldAssign = false;
+  private boolean strictFieldLoad = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean injectLogSites = false;
+  private boolean allVersions = false;
+  private boolean asObjCGenericDecl = false;
+
+  private Mappings mappings = new Mappings();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean emitSourceHeaders = true;
+  private boolean injectLogSites = false;
+  private boolean allVersions = false;
+  private boolean asObjCGenericDecl = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private String processors = null;
+  private boolean disallowInheritedConstructors = true;
+  private boolean nullability = false;
+  private boolean defaultNonnull = false;
+  private TimingLevel timingLevel = TimingLevel.NONE;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private CombinedOutput globalCombinedOutput = null;
+  private String bootclasspath = null;
+  private boolean emitKytheMappings = false;
+  private boolean emitSourceHeaders = true;
+  private boolean injectLogSites = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private SourceVersion sourceVersion = null;
+
+  private File proGuardUsageFile = null;
+
+  private static String fileHeader;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean reportJavadocWarnings = false;
+  private boolean translateBootclasspath = false;
+  private boolean translateClassfiles = false;
+  private String annotationsJar = null;
+  private CombinedOutput globalCombinedOutput = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private boolean dumpAST = false;
+  private String lintArgument = null;
+  private boolean reportJavadocWarnings = false;
+  private boolean translateBootclasspath = false;
+  private boolean translateClassfiles = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+
+  private static final Logger logger = Logger.getLogger("com.google.devtools.j2objc");
+  private boolean logLevelSet = false;
+
+  static {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/util/PackageInfoLookup.java`
+#### Snippet
+```java
+
+    private boolean isEmpty = true;
+    private String objectiveCName = null;
+    private boolean parametersAreNonnullByDefault = false;
+    private ReflectionSupport.Level reflectionSupportLevel;
 ```
 
 ### RedundantFieldInitialization
@@ -3587,18 +3947,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/PackageInfoLookup.j
     private boolean parametersAreNonnullByDefault = false;
     private ReflectionSupport.Level reflectionSupportLevel;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/util/PackageInfoLookup.java`
-#### Snippet
-```java
-
-    private boolean isEmpty = true;
-    private String objectiveCName = null;
-    private boolean parametersAreNonnullByDefault = false;
-    private ReflectionSupport.Level reflectionSupportLevel;
 ```
 
 ### RedundantFieldInitialization
@@ -3627,350 +3975,14 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/GeneratedSourceMappi
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/InfixExpression.java`
 #### Snippet
 ```java
-  private boolean staticAccessorMethods = false;
-  private boolean classProperties = false;
-  private String processors = null;
-  private boolean disallowInheritedConstructors = true;
-  private boolean nullability = false;
-```
+  // now.
+  private TypeMirror typeMirror = null;
+  private Operator operator = null;
+  private ChildList<Expression> operands = ChildList.create(Expression.class, this);
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private String annotationsJar = null;
-  private CombinedOutput globalCombinedOutput = null;
-  private String bootclasspath = null;
-  private boolean emitKytheMappings = false;
-  private boolean emitSourceHeaders = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean translateClassfiles = false;
-  private String annotationsJar = null;
-  private CombinedOutput globalCombinedOutput = null;
-  private String bootclasspath = null;
-  private boolean emitKytheMappings = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean reportJavadocWarnings = false;
-  private boolean translateBootclasspath = false;
-  private boolean translateClassfiles = false;
-  private String annotationsJar = null;
-  private CombinedOutput globalCombinedOutput = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean deprecatedDeclarations = false;
-  private HeaderMap headerMap = new HeaderMap();
-  private boolean stripGwtIncompatible = false;
-  private boolean segmentedHeaders = true;
-  private boolean jsniWarnings = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean emitSourceHeaders = true;
-  private boolean injectLogSites = false;
-  private boolean allVersions = false;
-  private boolean asObjCGenericDecl = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean emitWrapperMethods = true;
-  private boolean extractUnsequencedModifications = true;
-  private boolean docCommentsEnabled = false;
-  private boolean staticAccessorMethods = false;
-  private boolean classProperties = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean docCommentsEnabled = false;
-  private boolean staticAccessorMethods = false;
-  private boolean classProperties = false;
-  private String processors = null;
-  private boolean disallowInheritedConstructors = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean translateBootclasspath = false;
-  private boolean translateClassfiles = false;
-  private String annotationsJar = null;
-  private CombinedOutput globalCombinedOutput = null;
-  private String bootclasspath = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private String lintArgument = null;
-  private boolean reportJavadocWarnings = false;
-  private boolean translateBootclasspath = false;
-  private boolean translateClassfiles = false;
-  private String annotationsJar = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private String processors = null;
-  private boolean disallowInheritedConstructors = true;
-  private boolean nullability = false;
-  private boolean defaultNonnull = false;
-  private TimingLevel timingLevel = TimingLevel.NONE;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private List<String> processorPathEntries = new ArrayList<>();
-  private OutputLanguageOption language = OutputLanguageOption.OBJECTIVE_C;
-  private MemoryManagementOption memoryManagementOption = null;
-  private boolean strictFieldAssign = false;
-  private boolean strictFieldLoad = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private SourceVersion sourceVersion = null;
-
-  private File proGuardUsageFile = null;
-
-  private static String fileHeader;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private TimingLevel timingLevel = TimingLevel.NONE;
-  private boolean dumpAST = false;
-  private String lintArgument = null;
-  private boolean reportJavadocWarnings = false;
-  private boolean translateBootclasspath = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean extractUnsequencedModifications = true;
-  private boolean docCommentsEnabled = false;
-  private boolean staticAccessorMethods = false;
-  private boolean classProperties = false;
-  private String processors = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private CombinedOutput globalCombinedOutput = null;
-  private String bootclasspath = null;
-  private boolean emitKytheMappings = false;
-  private boolean emitSourceHeaders = true;
-  private boolean injectLogSites = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private MemoryManagementOption memoryManagementOption = null;
-  private boolean strictFieldAssign = false;
-  private boolean strictFieldLoad = false;
-  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
-  private boolean warningsAsErrors = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean injectLogSites = false;
-  private boolean allVersions = false;
-  private boolean asObjCGenericDecl = false;
-
-  private Mappings mappings = new Mappings();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private OutputLanguageOption language = OutputLanguageOption.OBJECTIVE_C;
-  private MemoryManagementOption memoryManagementOption = null;
-  private boolean strictFieldAssign = false;
-  private boolean strictFieldLoad = false;
-  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-
-  private static final Logger logger = Logger.getLogger("com.google.devtools.j2objc");
-  private boolean logLevelSet = false;
-
-  static {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean emitKytheMappings = false;
-  private boolean emitSourceHeaders = true;
-  private boolean injectLogSites = false;
-  private boolean allVersions = false;
-  private boolean asObjCGenericDecl = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-
-    private final List<String> sourceFiles = new ArrayList<>();
-    private boolean printArgs = false;
-
-    private void processArgs(String[] args) throws IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean dumpAST = false;
-  private String lintArgument = null;
-  private boolean reportJavadocWarnings = false;
-  private boolean translateBootclasspath = false;
-  private boolean translateClassfiles = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean defaultNonnull = false;
-  private TimingLevel timingLevel = TimingLevel.NONE;
-  private boolean dumpAST = false;
-  private String lintArgument = null;
-  private boolean reportJavadocWarnings = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean disallowInheritedConstructors = true;
-  private boolean nullability = false;
-  private boolean defaultNonnull = false;
-  private TimingLevel timingLevel = TimingLevel.NONE;
-  private boolean dumpAST = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private final List<String> entryClasses = new ArrayList<>();
-
-  private SourceVersion sourceVersion = null;
-
-  private File proGuardUsageFile = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
-  private boolean warningsAsErrors = false;
-  private boolean deprecatedDeclarations = false;
-  private HeaderMap headerMap = new HeaderMap();
-  private boolean stripGwtIncompatible = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean strictFieldLoad = false;
-  private EmitLineDirectivesOption emitLineDirectives = EmitLineDirectivesOption.NONE;
-  private boolean warningsAsErrors = false;
-  private boolean deprecatedDeclarations = false;
-  private HeaderMap headerMap = new HeaderMap();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private boolean segmentedHeaders = true;
-  private boolean jsniWarnings = true;
-  private boolean buildClosure = false;
-  private EnumSet<MetadataSupport> includedMetadata =
-      EnumSet.of(
 ```
 
 ### RedundantFieldInitialization
@@ -3986,30 +3998,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/InfixExpression.java
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/InfixExpression.java`
-#### Snippet
-```java
-  // now.
-  private TypeMirror typeMirror = null;
-  private Operator operator = null;
-  private ChildList<Expression> operands = ChildList.create(Expression.class, this);
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
-#### Snippet
-```java
-  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
-  private boolean printReferenceGraph = false;
-  private SourceVersion sourceVersion = null;
-  private final ExternalAnnotations externalAnnotations = new ExternalAnnotations();
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
 #### Snippet
@@ -4019,6 +4007,18 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
   private boolean printReferenceGraph = false;
   private SourceVersion sourceVersion = null;
   private final ExternalAnnotations externalAnnotations = new ExternalAnnotations();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
+#### Snippet
+```java
+  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
+  private boolean printReferenceGraph = false;
+  private SourceVersion sourceVersion = null;
+  private final ExternalAnnotations externalAnnotations = new ExternalAnnotations();
+
 ```
 
 ### RedundantFieldInitialization
@@ -4034,39 +4034,15 @@ public abstract class Annotation extends Expression {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
-#### Snippet
-```java
-  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
-  private boolean treatWarningsAsErrors = false;
-  private boolean useClassHierarchyAnalyzer = false;
-  private File treeShakerRoots;
-  private File outputFile = new File("tree-shaker-report.txt");
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
-#### Snippet
-```java
-  private List<String> sourceFiles = Lists.newArrayList();
-  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
-  private boolean treatWarningsAsErrors = false;
-  private boolean useClassHierarchyAnalyzer = false;
-  private File treeShakerRoots;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-  // The default source version number if not passed with -source is determined from the system
-  // properties of the running java version after parsing the argument list.
-  private SourceVersion sourceVersion = null;
 
-  public List<String> getSourceFiles() {
+    private final Statement lonelyStatement;
+    private List<Statement> delegate = null;
+
+    public LonelyStatementList(Statement stmt) {
 ```
 
 ### RedundantFieldInitialization
@@ -4082,27 +4058,39 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/Block.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
+Field initialization to `false` is redundant
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
 #### Snippet
 ```java
+  private List<String> sourceFiles = Lists.newArrayList();
+  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
+  private boolean treatWarningsAsErrors = false;
+  private boolean useClassHierarchyAnalyzer = false;
+  private File treeShakerRoots;
+```
 
-    private final Statement lonelyStatement;
-    private List<Statement> delegate = null;
-
-    public LonelyStatementList(Statement stmt) {
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+#### Snippet
+```java
+  private String fileEncoding = System.getProperty("file.encoding", "UTF-8");
+  private boolean treatWarningsAsErrors = false;
+  private boolean useClassHierarchyAnalyzer = false;
+  private File treeShakerRoots;
+  private File outputFile = new File("tree-shaker-report.txt");
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
 #### Snippet
 ```java
+  // The default source version number if not passed with -source is determined from the system
+  // properties of the running java version after parsing the argument list.
+  private SourceVersion sourceVersion = null;
 
-  private TypeMirror typeMirror = null;
-  private TypeElement typeElement = null;
-  private List<TypeMirror> targetTypes = new ArrayList<>();
-  private ExecutablePair descriptor = ExecutablePair.NULL;
+  public List<String> getSourceFiles() {
 ```
 
 ### RedundantFieldInitialization
@@ -4118,6 +4106,18 @@ public abstract class FunctionalExpression extends Expression {
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
+#### Snippet
+```java
+
+  private TypeMirror typeMirror = null;
+  private TypeElement typeElement = null;
+  private List<TypeMirror> targetTypes = new ArrayList<>();
+  private ExecutablePair descriptor = ExecutablePair.NULL;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/util/ErrorUtil.java`
 #### Snippet
@@ -4130,18 +4130,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ErrorUtil.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/util/ErrorUtil.java`
-#### Snippet
-```java
-public class ErrorUtil implements DiagnosticListener<JavaFileObject> {
-
-  private static int errorCount = 0;
-  private static int warningCount = 0;
-  private static PrintStream errorStream = System.err;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/util/ErrorUtil.java`
 #### Snippet
@@ -4151,6 +4139,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ErrorUtil.java`
   private static Pattern pathAndLinePattern = null;
 
   public static void reset() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/util/ErrorUtil.java`
+#### Snippet
+```java
+public class ErrorUtil implements DiagnosticListener<JavaFileObject> {
+
+  private static int errorCount = 0;
+  private static int warningCount = 0;
+  private static PrintStream errorStream = System.err;
 ```
 
 ### RedundantFieldInitialization
@@ -4190,6 +4190,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeNode.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/DebugASTPrinter.java`
+#### Snippet
+```java
+public class DebugASTPrinter extends TreeVisitor {
+  protected SourceBuilder sb = new SourceBuilder(false);
+  private boolean inIfStatement = false;
+
+  public static String toString(TreeNode node) {
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
 #### Snippet
@@ -4211,18 +4223,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.j
     private MethodInfo currentMethod = null;
     private Map<ExecutableElement, MethodInfo> infoMap = new HashMap<>();
     private Set<ExecutableElement> invocations = new HashSet<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/DebugASTPrinter.java`
-#### Snippet
-```java
-public class DebugASTPrinter extends TreeVisitor {
-  protected SourceBuilder sb = new SourceBuilder(false);
-  private boolean inIfStatement = false;
-
-  public static String toString(TreeNode node) {
 ```
 
 ## RuleId[ruleID=RedundantStringFormatCall]
@@ -4397,18 +4397,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.jav
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `implementationCode` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
-#### Snippet
-```java
-  private boolean isOuter = false;
-  private String headerCode = null;
-  private String implementationCode = null;
-  private List<TypeMirror> implementationImportTypes = new ArrayList<>();
-
-```
-
-### UnusedAssignment
 Variable `headerCode` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
 #### Snippet
@@ -4418,6 +4406,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.ja
   private String headerCode = null;
   private String implementationCode = null;
   private List<TypeMirror> implementationImportTypes = new ArrayList<>();
+```
+
+### UnusedAssignment
+Variable `implementationCode` initializer `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
+#### Snippet
+```java
+  private boolean isOuter = false;
+  private String headerCode = null;
+  private String implementationCode = null;
+  private List<TypeMirror> implementationImportTypes = new ArrayList<>();
+
 ```
 
 ### UnusedAssignment
@@ -4457,6 +4457,30 @@ public class FunctionDeclaration extends BodyDeclaration {
 ```
 
 ### UnusedAssignment
+Variable `newNode` initializer `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+            ? env.elementUtilities().getPackageElement(pkgName.toString())
+            : env.defaultPackage();
+    PackageDeclaration newNode = null;
+    if (pkg == null) {
+      // Synthetic package, create from name.
+```
+
+### UnusedAssignment
+Variable `startPos` initializer `0` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+    // the first and last closing pattern, resulting in a single comment node.
+    String source = unit.getSource();
+    int startPos = 0;
+    int endPos = 0;
+    while ((startPos = source.indexOf(delim, endPos)) > -1) {
+```
+
+### UnusedAssignment
 Variable `pkgName` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 #### Snippet
@@ -4478,30 +4502,6 @@ public class NativeStatement extends Statement {
   private String code = null;
 
   public NativeStatement(NativeStatement other) {
-```
-
-### UnusedAssignment
-Variable `startPos` initializer `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-    // the first and last closing pattern, resulting in a single comment node.
-    String source = unit.getSource();
-    int startPos = 0;
-    int endPos = 0;
-    while ((startPos = source.indexOf(delim, endPos)) > -1) {
-```
-
-### UnusedAssignment
-Variable `newNode` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-            ? env.elementUtilities().getPackageElement(pkgName.toString())
-            : env.defaultPackage();
-    PackageDeclaration newNode = null;
-    if (pkg == null) {
-      // Synthetic package, create from name.
 ```
 
 ### UnusedAssignment
@@ -4553,18 +4553,6 @@ in `protobuf/tests/CompatibilityTest.java`
 ```
 
 ### UnusedAssignment
-Variable `code` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
-#### Snippet
-```java
-public class NativeExpression extends Expression {
-
-  private String code = null;
-  private TypeMirror typeMirror = null;
-  private List<TypeMirror> importTypes = Lists.newArrayList();
-```
-
-### UnusedAssignment
 Variable `typeMirror` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
 #### Snippet
@@ -4574,6 +4562,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.jav
   private TypeMirror typeMirror = null;
   private List<TypeMirror> importTypes = Lists.newArrayList();
 
+```
+
+### UnusedAssignment
+Variable `code` initializer `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
+#### Snippet
+```java
+public class NativeExpression extends Expression {
+
+  private String code = null;
+  private TypeMirror typeMirror = null;
+  private List<TypeMirror> importTypes = Lists.newArrayList();
 ```
 
 ### UnusedAssignment
@@ -4601,18 +4601,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionInvocation.j
 ```
 
 ### UnusedAssignment
-Variable `level` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
-#### Snippet
-```java
-    }
-    PackageElement packageElement = ElementUtil.getPackage(type);
-    ReflectionSupport.Level level = null;
-    while (type != null) {
-      level = getReflectionSupportLevel(ElementUtil.getAnnotation(type, ReflectionSupport.class));
-```
-
-### UnusedAssignment
 Variable `astInterfaces` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
 #### Snippet
@@ -4622,6 +4610,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.jav
     List<? extends TypeMirror> astInterfaces = null;
     if (node instanceof TypeDeclaration) {
       astInterfaces = ((TypeDeclaration) node).getSuperInterfaceTypeMirrors();
+```
+
+### UnusedAssignment
+Variable `level` initializer `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
+#### Snippet
+```java
+    }
+    PackageElement packageElement = ElementUtil.getPackage(type);
+    ReflectionSupport.Level level = null;
+    while (type != null) {
+      level = getReflectionSupportLevel(ElementUtil.getAnnotation(type, ReflectionSupport.class));
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -4662,6 +4662,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
 ```
 
 ### ConstantValue
+Value `child` is always 'null'
+in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
+#### Snippet
+```java
+      if (child instanceof com.strobel.decompiler.languages.java.ast.Expression) {
+        offset = ((com.strobel.decompiler.languages.java.ast.Expression) child).getOffset();
+      } else if (child instanceof com.strobel.decompiler.languages.java.ast.Statement) {
+        offset = ((com.strobel.decompiler.languages.java.ast.Statement) child).getOffset();
+      }
+```
+
+### ConstantValue
 Value `target` is always 'null'
 in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
 #### Snippet
@@ -4683,18 +4695,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.j
     if (target instanceof MemberReferenceExpression) {
       TypeMirror type = resolve(methodDef.getDeclaringType());
       List<Expression> args = node.getArguments().stream()
-```
-
-### ConstantValue
-Value `child` is always 'null'
-in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
-#### Snippet
-```java
-      if (child instanceof com.strobel.decompiler.languages.java.ast.Expression) {
-        offset = ((com.strobel.decompiler.languages.java.ast.Expression) child).getOffset();
-      } else if (child instanceof com.strobel.decompiler.languages.java.ast.Statement) {
-        offset = ((com.strobel.decompiler.languages.java.ast.Statement) child).getOffset();
-      }
 ```
 
 ### ConstantValue
@@ -4722,18 +4722,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 ```
 
 ### ConstantValue
-Condition `result` is always `true` when reached
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-      }
-    }
-    if (classType != null && result) {
-      result = visitTypeHierarchyObjcOrder(classType, visitor);
-    }
-```
-
-### ConstantValue
 Value `result` is always 'true'
 in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 #### Snippet
@@ -4743,6 +4731,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
       return result;
     }
     if (type.getKind() == TypeKind.DECLARED) {
+```
+
+### ConstantValue
+Condition `result` is always `true` when reached
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+      }
+    }
+    if (classType != null && result) {
+      result = visitTypeHierarchyObjcOrder(classType, visitor);
+    }
 ```
 
 ### ConstantValue
@@ -4932,18 +4932,6 @@ String concatenation as argument to `StringBuilder.append()` call
 in `translator/src/main/java/com/google/devtools/j2objc/gen/TypeImplementationGenerator.java`
 #### Snippet
 ```java
-      VariableElement var = iter.next().getVariableElement();
-      String paramType = nameTable.getJniType(var.asType());
-      sb.append(paramType + ' ' + nameTable.getVariableBaseName(var));
-      if (iter.hasNext()) {
-        sb.append(", ");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `translator/src/main/java/com/google/devtools/j2objc/gen/TypeImplementationGenerator.java`
-#### Snippet
-```java
     }
     StringBuilder sb = new StringBuilder();
     sb.append("{\nif (self == [" + typeName + " class]) {\n");
@@ -4961,6 +4949,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/TypeImplementationGe
     sb.append("J2OBJC_SET_INITIALIZED(" + typeName + ")\n");
     sb.append("}\n}");
     print("\n+ (void)initialize " + reindent(sb.toString()) + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `translator/src/main/java/com/google/devtools/j2objc/gen/TypeImplementationGenerator.java`
+#### Snippet
+```java
+      VariableElement var = iter.next().getVariableElement();
+      String paramType = nameTable.getJniType(var.asType());
+      sb.append(paramType + ' ' + nameTable.getVariableBaseName(var));
+      if (iter.hasNext()) {
+        sb.append(", ");
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -4982,11 +4982,11 @@ Field `type` may be 'static'
 in `translator/src/main/java/com/google/devtools/j2objc/gen/KytheIndexingMetadata.java`
 #### Snippet
 ```java
-  }
 
-  private final String type = "kythe0";
-  private final List<AnchorAnchorMetadata> meta = new ArrayList<>();
-
+  static class AnchorAnchorMetadata {
+    private final String type = "anchor_anchor";
+    private final int sourceBegin;
+    private final int sourceEnd;
 ```
 
 ### FieldMayBeStatic
@@ -4994,11 +4994,11 @@ Field `type` may be 'static'
 in `translator/src/main/java/com/google/devtools/j2objc/gen/KytheIndexingMetadata.java`
 #### Snippet
 ```java
+  }
 
-  static class AnchorAnchorMetadata {
-    private final String type = "anchor_anchor";
-    private final int sourceBegin;
-    private final int sourceEnd;
+  private final String type = "kythe0";
+  private final List<AnchorAnchorMetadata> meta = new ArrayList<>();
+
 ```
 
 ### FieldMayBeStatic
@@ -5175,18 +5175,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Rewriter.java`
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
-#### Snippet
-```java
-      EnhancedForStatement node, TypeMirror expressionType, VariableElement loopVariable) {
-    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
-    List<? extends TypeMirror> typeArgs = iterableType.getTypeArguments();
-    assert typeArgs.size() == 1 && typeUtil.isBoxedType(typeArgs.get(0));
-    VariableElement boxVariable = GeneratedVariableElement.newLocalVar(
-```
-
-### DataFlowIssue
 Argument `iterableType` might be null
 in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
 #### Snippet
@@ -5208,6 +5196,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRew
     DeclaredType iteratorType = (DeclaredType) iteratorMethod.type().getReturnType();
     ExecutablePair hasNextMethod = typeUtil.findMethod(iteratorType, "hasNext");
     ExecutablePair nextMethod = typeUtil.findMethod(iteratorType, "next");
+```
+
+### DataFlowIssue
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
+#### Snippet
+```java
+      EnhancedForStatement node, TypeMirror expressionType, VariableElement loopVariable) {
+    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
+    List<? extends TypeMirror> typeArgs = iterableType.getTypeArguments();
+    assert typeArgs.size() == 1 && typeUtil.isBoxedType(typeArgs.get(0));
+    VariableElement boxVariable = GeneratedVariableElement.newLocalVar(
 ```
 
 ### DataFlowIssue
@@ -5331,15 +5331,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `asType` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
+Method invocation `getKind` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/Autoboxer.java`
 #### Snippet
 ```java
-      if (exec.getParameters().size() == 0) {
-        ExecutableType execType = typeUtil
-            .asMemberOf((DeclaredType) superClass.asType(), exec);
-        superCall = new SuperConstructorInvocation()
-            .setExecutablePair(new ExecutablePair(exec, execType));
+    if (expr != null) {
+      TypeMirror returnType = TreeUtil.getOwningReturnType(node);
+      boolean returnsPrimitive = returnType.getKind().isPrimitive();
+      boolean exprIsPrimitive = expr.getTypeMirror().getKind().isPrimitive();
+      if (returnsPrimitive && !exprIsPrimitive) {
 ```
 
 ### DataFlowIssue
@@ -5355,27 +5355,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Autoboxer.java
 ```
 
 ### DataFlowIssue
-Method invocation `getKind` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/Autoboxer.java`
+Method invocation `asType` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
 #### Snippet
 ```java
-    if (expr != null) {
-      TypeMirror returnType = TreeUtil.getOwningReturnType(node);
-      boolean returnsPrimitive = returnType.getKind().isPrimitive();
-      boolean exprIsPrimitive = expr.getTypeMirror().getKind().isPrimitive();
-      if (returnsPrimitive && !exprIsPrimitive) {
-```
-
-### DataFlowIssue
-Method invocation `getSourceFilePath` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
-#### Snippet
-```java
-              .convertCompilationUnit(options, env, ast);
-          processDiagnostics(env.diagnostics());
-          handler.handleParsedUnit(unit.getSourceFilePath(), unit);
-        }
-      }
+      if (exec.getParameters().size() == 0) {
+        ExecutableType execType = typeUtil
+            .asMemberOf((DeclaredType) superClass.asType(), exec);
+        superCall = new SuperConstructorInvocation()
+            .setExecutablePair(new ExecutablePair(exec, execType));
 ```
 
 ### DataFlowIssue
@@ -5391,15 +5379,99 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getSourceFilePath` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
+#### Snippet
+```java
+              .convertCompilationUnit(options, env, ast);
+          processDiagnostics(env.diagnostics());
+          handler.handleParsedUnit(unit.getSourceFilePath(), unit);
+        }
+      }
+```
+
+### DataFlowIssue
+Argument `asTypeElement(t)` might be null
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+        return getName(((ArrayType) t).getComponentType()) + "[]";
+      case DECLARED:
+        return ElementUtil.getName(asTypeElement(t));
+      case TYPEVAR:
+        return ElementUtil.getName(((TypeVariable) t).asElement());
+```
+
+### DataFlowIssue
+Method invocation `isClass` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+    }
+    TypeMirror first = supertypes.get(0);
+    if (getDeclaredTypeKind(first).isClass()) {
+      return (DeclaredType) first;
+    }
+```
+
+### DataFlowIssue
+Method invocation `getQualifiedName` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+        return "[" + getQualifiedName(((ArrayType) t).getComponentType());
+      case DECLARED:
+        return asTypeElement(t).getQualifiedName().toString();
+      case BOOLEAN:
+      case BYTE:
+```
+
+### DataFlowIssue
+Casting `rawValue` to `List` may produce `ClassCastException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    Object rawValue = msg.getField(stringStringField);
+    assertTrue(rawValue instanceof List);
+    List<?> list = (List<?>) rawValue;
+    assertEquals(2, list.size());
+    Object rawEntry = list.get(0);
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    assertTrue(rawValue instanceof List);
+    List<?> list = (List<?>) rawValue;
+    assertEquals(2, list.size());
+    Object rawEntry = list.get(0);
+    assertTrue(rawEntry instanceof MapEntry);
+```
+
+### DataFlowIssue
 Method invocation `getKey` may produce `NullPointerException`
 in `protobuf/tests/MapsTest.java`
 #### Snippet
 ```java
     assertTrue(rawEntry instanceof MapEntry);
     MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
+    assertEquals("duck", entry.getKey());
+    assertEquals("quack", entry.getValue());
+
+```
+
+### DataFlowIssue
+Method invocation `getKey` may produce `NullPointerException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    assertTrue(rawEntry instanceof MapEntry);
+    entry = (MapEntry<?, ?>) rawEntry;
     assertEquals("cat", entry.getKey());
     assertEquals("meow", entry.getValue());
-  }
+
 ```
 
 ### DataFlowIssue
@@ -5499,51 +5571,15 @@ in `protobuf/tests/MapsTest.java`
 ```
 
 ### DataFlowIssue
-Casting `rawValue` to `List` may produce `ClassCastException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    Object rawValue = msg.getField(stringStringField);
-    assertTrue(rawValue instanceof List);
-    List<?> list = (List<?>) rawValue;
-    assertEquals(2, list.size());
-    Object rawEntry = list.get(0);
-```
-
-### DataFlowIssue
-Method invocation `size` may produce `NullPointerException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    assertTrue(rawValue instanceof List);
-    List<?> list = (List<?>) rawValue;
-    assertEquals(2, list.size());
-    Object rawEntry = list.get(0);
-    assertTrue(rawEntry instanceof MapEntry);
-```
-
-### DataFlowIssue
 Method invocation `getKey` may produce `NullPointerException`
 in `protobuf/tests/MapsTest.java`
 #### Snippet
 ```java
     assertTrue(rawEntry instanceof MapEntry);
     MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
-    assertEquals("duck", entry.getKey());
-    assertEquals("quack", entry.getValue());
-
-```
-
-### DataFlowIssue
-Method invocation `getKey` may produce `NullPointerException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    assertTrue(rawEntry instanceof MapEntry);
-    entry = (MapEntry<?, ?>) rawEntry;
     assertEquals("cat", entry.getKey());
     assertEquals("meow", entry.getValue());
-
+  }
 ```
 
 ### DataFlowIssue
@@ -5556,42 +5592,6 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameUtil.java`
         sb.append(ElementUtil.getName(TypeUtil.asTypeElement(type)));
         List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
         if (!typeArguments.isEmpty()) {
-```
-
-### DataFlowIssue
-Method invocation `isClass` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-    }
-    TypeMirror first = supertypes.get(0);
-    if (getDeclaredTypeKind(first).isClass()) {
-      return (DeclaredType) first;
-    }
-```
-
-### DataFlowIssue
-Method invocation `getQualifiedName` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-        return "[" + getQualifiedName(((ArrayType) t).getComponentType());
-      case DECLARED:
-        return asTypeElement(t).getQualifiedName().toString();
-      case BOOLEAN:
-      case BYTE:
-```
-
-### DataFlowIssue
-Argument `asTypeElement(t)` might be null
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-        return getName(((ArrayType) t).getComponentType()) + "[]";
-      case DECLARED:
-        return ElementUtil.getName(asTypeElement(t));
-      case TYPEVAR:
-        return ElementUtil.getName(((TypeVariable) t).asElement());
 ```
 
 ### DataFlowIssue
@@ -5631,18 +5631,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Rewriter.java`
 ```
 
 ### DataFlowIssue
-Casting `result` to `List` may produce `ClassCastException`
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-    Object result = data.getExtension(Typical.myRepeatedPrimitiveExtension);
-    assertTrue(result instanceof List);
-    assertTrue(((List) result).get(0) instanceof Integer);
-    assertEquals(3, data.getExtensionCount(Typical.myRepeatedPrimitiveExtension));
-    assertEquals(2,
-```
-
-### DataFlowIssue
 Casting `result` to `Float` may produce `ClassCastException`
 in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
@@ -5667,27 +5655,27 @@ in `protobuf/tests/CompatibilityTest.java`
 ```
 
 ### DataFlowIssue
-Method invocation `addMember` may produce `NullPointerException`
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
+Casting `result` to `List` may produce `ClassCastException`
+in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
 ```java
-      clinit.addReferencedTypes(typeId);
-    }
-    context.currentTypeInfoScope.peek().addMember(clinit.build());
-    TypeInfo ti = context.currentTypeInfoScope.pop().build();
-    context.currentTypeNameScope.pop();
+    Object result = data.getExtension(Typical.myRepeatedPrimitiveExtension);
+    assertTrue(result instanceof List);
+    assertTrue(((List) result).get(0) instanceof Integer);
+    assertEquals(3, data.getExtensionCount(Typical.myRepeatedPrimitiveExtension));
+    assertEquals(2,
 ```
 
 ### DataFlowIssue
-Method invocation `addInvokedMethods` may produce `NullPointerException`
+Method invocation `add` may produce `NullPointerException`
 in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
 #### Snippet
 ```java
-    int declTypeId = getTypeId(declTypeName);
-    context.memberScope.peek()
-            .addInvokedMethods(com.google.devtools.treeshaker.MethodInvocation.newBuilder()
-                .setMethod(methodName)
-                .setEnclosingType(declTypeId)
+  private void addReferencedTypeName(String typeName) {
+    int typeId = getTypeId(typeName);
+    context.referencedTypesScope.peek().add(typeId);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -5707,6 +5695,18 @@ Method invocation `addMember` may produce `NullPointerException`
 in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
 #### Snippet
 ```java
+      clinit.addReferencedTypes(typeId);
+    }
+    context.currentTypeInfoScope.peek().addMember(clinit.build());
+    TypeInfo ti = context.currentTypeInfoScope.pop().build();
+    context.currentTypeNameScope.pop();
+```
+
+### DataFlowIssue
+Method invocation `addMember` may produce `NullPointerException`
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
+#### Snippet
+```java
       member.addReferencedTypes(typeId);
     }
     context.currentTypeInfoScope.peek().addMember(member.build());
@@ -5715,15 +5715,15 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java
 ```
 
 ### DataFlowIssue
-Method invocation `add` may produce `NullPointerException`
+Method invocation `addInvokedMethods` may produce `NullPointerException`
 in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
 #### Snippet
 ```java
-  private void addReferencedTypeName(String typeName) {
-    int typeId = getTypeId(typeName);
-    context.referencedTypesScope.peek().add(typeId);
-  }
-
+    int declTypeId = getTypeId(declTypeName);
+    context.memberScope.peek()
+            .addInvokedMethods(com.google.devtools.treeshaker.MethodInvocation.newBuilder()
+                .setMethod(methodName)
+                .setEnclosingType(declTypeId)
 ```
 
 ### DataFlowIssue
@@ -5739,18 +5739,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReference
 ```
 
 ### DataFlowIssue
-Method invocation `getTypeParameters` may produce `NullPointerException`
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java`
-#### Snippet
-```java
-  private static boolean isRawType(TypeMirror type) {
-    return TypeUtil.isDeclaredType(type)
-        && !TypeUtil.asTypeElement(type).getTypeParameters().isEmpty()
-        && ((DeclaredType) type).getTypeArguments().isEmpty();
-  }
-```
-
-### DataFlowIssue
 Method invocation `isClass` may produce `NullPointerException`
 in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java`
 #### Snippet
@@ -5760,6 +5748,18 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java
               && TypeUtil.getDeclaredTypeKind(supertype).isClass()) {
             superclasses.put(node, supertypeNode);
           }
+```
+
+### DataFlowIssue
+Method invocation `getTypeParameters` may produce `NullPointerException`
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java`
+#### Snippet
+```java
+  private static boolean isRawType(TypeMirror type) {
+    return TypeUtil.isDeclaredType(type)
+        && !TypeUtil.asTypeElement(type).getTypeParameters().isEmpty()
+        && ((DeclaredType) type).getTypeArguments().isEmpty();
+  }
 ```
 
 ### DataFlowIssue
@@ -5787,6 +5787,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getType` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/util/PackageInfoLookup.java`
+#### Snippet
+```java
+    PackageDataBuilder builder = new PackageDataBuilder();
+    ClassFile classFile = ClassFile.create(file);
+    TypeDeclaration typeDecl = classFile.getType();
+    for (Annotation annotation : typeDecl.getAnnotations()) {
+      String signature = annotation.getType().toTypeReference().getErasedSignature();
+```
+
+### DataFlowIssue
 Dereference of `expectedBytes` may produce `NullPointerException`
 in `protobuf/tests/OneofTest.java`
 #### Snippet
@@ -5808,18 +5820,6 @@ in `protobuf/tests/OneofTest.java`
     ByteArrayInputStream in = new ByteArrayInputStream(getBytes(groupCase));
     OneofMsg.Builder builder = OneofMsg.newBuilder().mergeFrom(in, registry);
     checkFields(builder, groupCase);
-```
-
-### DataFlowIssue
-Method invocation `getType` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/util/PackageInfoLookup.java`
-#### Snippet
-```java
-    PackageDataBuilder builder = new PackageDataBuilder();
-    ClassFile classFile = ClassFile.create(file);
-    TypeDeclaration typeDecl = classFile.getType();
-    for (Annotation annotation : typeDecl.getAnnotations()) {
-      String signature = annotation.getType().toTypeReference().getErasedSignature();
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -6026,9 +6026,9 @@ Unnecessary `toString()` call
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
 ```java
-      return "((jlong) 0x8000000000000000LL)";
+      return "__FLT_MIN__";
     } else {
-      return value.toString() + "LL";
+      return value.toString() + "f";
     }
   }
 ```
@@ -6038,9 +6038,9 @@ Unnecessary `toString()` call
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
 ```java
-      return "__FLT_MIN__";
+      return "((jlong) 0x8000000000000000LL)";
     } else {
-      return value.toString() + "f";
+      return value.toString() + "LL";
     }
   }
 ```
@@ -6087,18 +6087,6 @@ Assignment to for-loop parameter `i`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
 ```java
-              "Unexpected conditional node type: " + topConditional.getClass().toString());
-        }
-        i = j - 1;
-      } else {
-        VariableElement newVar = GeneratedVariableElement.newLocalVar(
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
-#### Snippet
-```java
         expressions.subList(0, i).clear();
         extractOrderedAccesses(stmtList, currentTopNode, unsequencedAccesses);
         i = 0;
@@ -6128,6 +6116,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExp
         i = 0;
       }
     }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
+#### Snippet
+```java
+              "Unexpected conditional node type: " + topConditional.getClass().toString());
+        }
+        i = j - 1;
+      } else {
+        VariableElement newVar = GeneratedVariableElement.newLocalVar(
 ```
 
 ## RuleId[ruleID=SetReplaceableByEnumSet]
@@ -6235,6 +6235,30 @@ Unnecessary boxing
 in `protobuf/tests/MapsTest.java`
 #### Snippet
 ```java
+    assertTrue(entry.getValue() instanceof Integer);
+    assertEquals(Boolean.TRUE, entry.getKey());
+    assertEquals(Integer.valueOf(0), entry.getValue());
+    entry = (MapEntry<?, ?>) msg.getRepeatedField(boolEnumField, 1);
+    assertTrue(entry.getKey() instanceof Boolean);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    assertTrue(entry.getValue() instanceof Integer);
+    assertEquals(Boolean.FALSE, entry.getKey());
+    assertEquals(Integer.valueOf(2), entry.getValue());
+
+    MapMsg.Builder builder = msg.toBuilder();
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
     MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
     assertEquals("triangle", entry.getKey());
     assertEquals(Integer.valueOf(3), entry.getValue());
@@ -6280,26 +6304,26 @@ in `protobuf/tests/MapsTest.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `protobuf/tests/MapsTest.java`
+in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
 ```java
-    assertTrue(entry.getValue() instanceof Integer);
-    assertEquals(Boolean.TRUE, entry.getKey());
-    assertEquals(Integer.valueOf(0), entry.getValue());
-    entry = (MapEntry<?, ?>) msg.getRepeatedField(boolEnumField, 1);
-    assertTrue(entry.getKey() instanceof Boolean);
+    assertEquals(TypicalData.EnumType.VALUE9, data.getMyEnumType());
+    assertTrue(data.getMyBool());
+    assertEquals(new Float(43.8), data.getMyFloat());
+    assertEquals(new Double(44.5), data.getMyDouble());
+    assertEquals("bar", data.getMyString());
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `protobuf/tests/MapsTest.java`
+in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
 ```java
-    assertTrue(entry.getValue() instanceof Integer);
-    assertEquals(Boolean.FALSE, entry.getKey());
-    assertEquals(Integer.valueOf(2), entry.getValue());
-
-    MapMsg.Builder builder = msg.toBuilder();
+    assertTrue(data.getMyBool());
+    assertEquals(new Float(43.8), data.getMyFloat());
+    assertEquals(new Double(44.5), data.getMyDouble());
+    assertEquals("bar", data.getMyString());
+    assertEquals(24, data.getMyUint());
 ```
 
 ### UnnecessaryBoxing
@@ -6388,26 +6412,74 @@ in `protobuf/tests/CompatibilityTest.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `protobuf/tests/CompatibilityTest.java`
+in `protobuf/tests/PerformanceBenchmarks.java`
 #### Snippet
 ```java
-    assertEquals(TypicalData.EnumType.VALUE9, data.getMyEnumType());
-    assertTrue(data.getMyBool());
-    assertEquals(new Float(43.8), data.getMyFloat());
-    assertEquals(new Double(44.5), data.getMyDouble());
-    assertEquals("bar", data.getMyString());
+    List<FieldDescriptor> fields = getRepeatedFieldDescriptors();
+    List<Object> values = new ArrayList<Object>();
+    values.add(Integer.valueOf(1));
+    values.add(Long.valueOf(2));
+    values.add(Integer.valueOf(3));
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `protobuf/tests/CompatibilityTest.java`
+in `protobuf/tests/PerformanceBenchmarks.java`
 #### Snippet
 ```java
-    assertTrue(data.getMyBool());
-    assertEquals(new Float(43.8), data.getMyFloat());
-    assertEquals(new Double(44.5), data.getMyDouble());
-    assertEquals("bar", data.getMyString());
-    assertEquals(24, data.getMyUint());
+    List<Object> values = new ArrayList<Object>();
+    values.add(Integer.valueOf(1));
+    values.add(Long.valueOf(2));
+    values.add(Integer.valueOf(3));
+    values.add(Long.valueOf(4));
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `protobuf/tests/PerformanceBenchmarks.java`
+#### Snippet
+```java
+    values.add(Integer.valueOf(1));
+    values.add(Long.valueOf(2));
+    values.add(Integer.valueOf(3));
+    values.add(Long.valueOf(4));
+    values.add(Boolean.TRUE);
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `protobuf/tests/PerformanceBenchmarks.java`
+#### Snippet
+```java
+    values.add(Long.valueOf(2));
+    values.add(Integer.valueOf(3));
+    values.add(Long.valueOf(4));
+    values.add(Boolean.TRUE);
+    values.add(Float.valueOf(5.6f));
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `protobuf/tests/PerformanceBenchmarks.java`
+#### Snippet
+```java
+    values.add(Long.valueOf(4));
+    values.add(Boolean.TRUE);
+    values.add(Float.valueOf(5.6f));
+    values.add(Double.valueOf(7.8));
+    values.add("foo");
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `protobuf/tests/PerformanceBenchmarks.java`
+#### Snippet
+```java
+    values.add(Boolean.TRUE);
+    values.add(Float.valueOf(5.6f));
+    values.add(Double.valueOf(7.8));
+    values.add("foo");
+    values.add(ByteString.copyFrom("bar".getBytes()));
 ```
 
 ### UnnecessaryBoxing
@@ -6482,78 +6554,6 @@ in `protobuf/tests/PerformanceBenchmarks.java`
       TypicalData.Builder builder = TypicalData.newBuilder();
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protobuf/tests/PerformanceBenchmarks.java`
-#### Snippet
-```java
-    List<FieldDescriptor> fields = getRepeatedFieldDescriptors();
-    List<Object> values = new ArrayList<Object>();
-    values.add(Integer.valueOf(1));
-    values.add(Long.valueOf(2));
-    values.add(Integer.valueOf(3));
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protobuf/tests/PerformanceBenchmarks.java`
-#### Snippet
-```java
-    List<Object> values = new ArrayList<Object>();
-    values.add(Integer.valueOf(1));
-    values.add(Long.valueOf(2));
-    values.add(Integer.valueOf(3));
-    values.add(Long.valueOf(4));
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protobuf/tests/PerformanceBenchmarks.java`
-#### Snippet
-```java
-    values.add(Integer.valueOf(1));
-    values.add(Long.valueOf(2));
-    values.add(Integer.valueOf(3));
-    values.add(Long.valueOf(4));
-    values.add(Boolean.TRUE);
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protobuf/tests/PerformanceBenchmarks.java`
-#### Snippet
-```java
-    values.add(Long.valueOf(2));
-    values.add(Integer.valueOf(3));
-    values.add(Long.valueOf(4));
-    values.add(Boolean.TRUE);
-    values.add(Float.valueOf(5.6f));
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protobuf/tests/PerformanceBenchmarks.java`
-#### Snippet
-```java
-    values.add(Long.valueOf(4));
-    values.add(Boolean.TRUE);
-    values.add(Float.valueOf(5.6f));
-    values.add(Double.valueOf(7.8));
-    values.add("foo");
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protobuf/tests/PerformanceBenchmarks.java`
-#### Snippet
-```java
-    values.add(Boolean.TRUE);
-    values.add(Float.valueOf(5.6f));
-    values.add(Double.valueOf(7.8));
-    values.add("foo");
-    values.add(ByteString.copyFrom("bar".getBytes()));
-```
-
 ## RuleId[ruleID=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -6621,18 +6621,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `translator/src/main/java/com/google/devtools/j2objc/pipeline/TranslationProcessor.java`
 #### Snippet
 ```java
-    ticker.pop();
-    ticker.tick("Source generation");
-    ticker.printResults(System.out);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/pipeline/TranslationProcessor.java`
-#### Snippet
-```java
     String unitName = input.getOriginalSourcePath();
     if (logger.isLoggable(Level.INFO)) {
       System.out.println("translating " + unitName);
@@ -6654,6 +6642,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/pipeline/TranslationProc
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `translator/src/main/java/com/google/devtools/j2objc/pipeline/TranslationProcessor.java`
+#### Snippet
+```java
+    ticker.pop();
+    ticker.tick("Source generation");
+    ticker.printResults(System.out);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `translator/src/main/java/com/google/devtools/j2objc/J2ObjC.java`
 #### Snippet
 ```java
@@ -6662,6 +6662,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/J2ObjC.java`
       System.out.printf("j2objc execution time: %d ms\n", System.currentTimeMillis() - startTime);
     }
 
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
+#### Snippet
+```java
+    int nErrors = ErrorUtil.errorCount();
+    if (nErrors > 0) {
+      System.err.println("Failed with " + nErrors + " errors:");
+      for (String error : ErrorUtil.getErrorMessages()) {
+        System.err.println("error: " + error);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
+#### Snippet
+```java
+      System.err.println("Failed with " + nErrors + " errors:");
+      for (String error : ErrorUtil.getErrorMessages()) {
+        System.err.println("error: " + error);
+      }
+      System.exit(nErrors);
 ```
 
 ### SystemOutErr
@@ -6690,102 +6714,6 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
-#### Snippet
-```java
-    int nErrors = ErrorUtil.errorCount();
-    if (nErrors > 0) {
-      System.err.println("Failed with " + nErrors + " errors:");
-      for (String error : ErrorUtil.getErrorMessages()) {
-        System.err.println("error: " + error);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/CycleFinder.java`
-#### Snippet
-```java
-      System.err.println("Failed with " + nErrors + " errors:");
-      for (String error : ErrorUtil.getErrorMessages()) {
-        System.err.println("error: " + error);
-      }
-      System.exit(nErrors);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-
-  public static void help(boolean errorExit) {
-    System.err.println(helpMessage);
-    // javac exits with 2, but any non-zero value works.
-    System.exit(errorExit ? 2 : 0);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-
-  public static void usage(String invalidUseMsg) {
-    System.err.println("j2objc: " + invalidUseMsg);
-    System.err.println(usageMessage);
-    System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  public static void usage(String invalidUseMsg) {
-    System.err.println("j2objc: " + invalidUseMsg);
-    System.err.println(usageMessage);
-    System.exit(1);
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-      }
-      if (printArgs) {
-        System.err.print("j2objc ");
-        System.err.println(String.join(" ", args));
-      }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-      if (printArgs) {
-        System.err.print("j2objc ");
-        System.err.println(String.join(" ", args));
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-
-  public static void version() {
-    System.err.println("j2objc " + Version.jarVersion(Options.class));
-    System.exit(0);
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
 ```java
@@ -6810,13 +6738,97 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
 ```java
 
   public static void version() {
-    System.err.println("cycle_finder " + Version.jarVersion(Options.class));
+    System.err.println("j2objc " + Version.jarVersion(Options.class));
     System.exit(0);
+  }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+
+  public static void help(boolean errorExit) {
+    System.err.println(helpMessage);
+    // javac exits with 2, but any non-zero value works.
+    System.exit(errorExit ? 2 : 0);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+      }
+      if (printArgs) {
+        System.err.print("j2objc ");
+        System.err.println(String.join(" ", args));
+      }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+      if (printArgs) {
+        System.err.print("j2objc ");
+        System.err.println(String.join(" ", args));
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+
+  public static void usage(String invalidUseMsg) {
+    System.err.println("j2objc: " + invalidUseMsg);
+    System.err.println(usageMessage);
+    System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  public static void usage(String invalidUseMsg) {
+    System.err.println("j2objc: " + invalidUseMsg);
+    System.err.println(usageMessage);
+    System.exit(1);
+  }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
+#### Snippet
+```java
+
+  public static void usage(String invalidUseMsg) {
+    System.err.println("cycle_finder: " + invalidUseMsg);
+    System.err.println(usageMessage);
+    System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
+#### Snippet
+```java
+  public static void usage(String invalidUseMsg) {
+    System.err.println("cycle_finder: " + invalidUseMsg);
+    System.err.println(usageMessage);
+    System.exit(1);
   }
 ```
 
@@ -6850,69 +6862,9 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
 #### Snippet
 ```java
 
-  public static void usage(String invalidUseMsg) {
-    System.err.println("cycle_finder: " + invalidUseMsg);
-    System.err.println(usageMessage);
-    System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
-#### Snippet
-```java
-  public static void usage(String invalidUseMsg) {
-    System.err.println("cycle_finder: " + invalidUseMsg);
-    System.err.println(usageMessage);
-    System.exit(1);
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
-#### Snippet
-```java
-
-  public static void usage(String invalidUseMsg) {
-    System.err.println("tree_shaker: " + invalidUseMsg);
-    System.err.println(usageMessage);
-    System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
-#### Snippet
-```java
-  public static void usage(String invalidUseMsg) {
-    System.err.println("tree_shaker: " + invalidUseMsg);
-    System.err.println(usageMessage);
-    System.exit(1);
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
-#### Snippet
-```java
-
-    if (printArgs) {
-      System.err.print("tree_shaker ");
-      System.err.println(String.join(" ", args));
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
-#### Snippet
-```java
-    if (printArgs) {
-      System.err.print("tree_shaker ");
-      System.err.println(String.join(" ", args));
-    }
+  public static void version() {
+    System.err.println("cycle_finder " + Version.jarVersion(Options.class));
+    System.exit(0);
   }
 ```
 
@@ -6926,6 +6878,30 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
       System.err.println("unable to access tool properties: " + e);
       System.exit(1);
     }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+#### Snippet
+```java
+
+    if (printArgs) {
+      System.err.print("tree_shaker ");
+      System.err.println(String.join(" ", args));
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+#### Snippet
+```java
+    if (printArgs) {
+      System.err.print("tree_shaker ");
+      System.err.println(String.join(" ", args));
+    }
+  }
 ```
 
 ### SystemOutErr
@@ -6950,6 +6926,30 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
     System.err.println(helpMessage);
     // javac exits with 2, but any non-zero value works.
     System.exit(errorExit ? 2 : 0);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+#### Snippet
+```java
+
+  public static void usage(String invalidUseMsg) {
+    System.err.println("tree_shaker: " + invalidUseMsg);
+    System.err.println(usageMessage);
+    System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+#### Snippet
+```java
+  public static void usage(String invalidUseMsg) {
+    System.err.println("tree_shaker: " + invalidUseMsg);
+    System.err.println(usageMessage);
+    System.exit(1);
+  }
 ```
 
 ### SystemOutErr
@@ -7019,54 +7019,6 @@ in `protobuf/tests/ByteStringTest.java`
 #### Snippet
 ```java
 
-  public void testIterator() throws Exception {
-    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
-    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
-    Iterator<Byte> i1 = s1.iterator();
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `protobuf/tests/ByteStringTest.java`
-#### Snippet
-```java
-  public void testIterator() throws Exception {
-    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
-    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
-    Iterator<Byte> i1 = s1.iterator();
-    Iterator<Byte> i2 = s2.iterator();
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `protobuf/tests/ByteStringTest.java`
-#### Snippet
-```java
-
-  public void testToString() throws Exception {
-    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
-    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
-    assertEquals("foo", s1.toString("UTF-8"));
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `protobuf/tests/ByteStringTest.java`
-#### Snippet
-```java
-  public void testToString() throws Exception {
-    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
-    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
-    assertEquals("foo", s1.toString("UTF-8"));
-    assertEquals("你好", s2.toString("UTF-8"));
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `protobuf/tests/ByteStringTest.java`
-#### Snippet
-```java
-
   public void testFastEnumeration() throws Exception {
     byte[] buf1 = "foo".getBytes("UTF-8");
     byte[] buf2 = "你好".getBytes("UTF-8");
@@ -7121,6 +7073,54 @@ in `protobuf/tests/ByteStringTest.java`
     assertTrue(s2.equals(s1));
 ```
 
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `protobuf/tests/ByteStringTest.java`
+#### Snippet
+```java
+
+  public void testToString() throws Exception {
+    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
+    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
+    assertEquals("foo", s1.toString("UTF-8"));
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `protobuf/tests/ByteStringTest.java`
+#### Snippet
+```java
+  public void testToString() throws Exception {
+    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
+    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
+    assertEquals("foo", s1.toString("UTF-8"));
+    assertEquals("你好", s2.toString("UTF-8"));
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `protobuf/tests/ByteStringTest.java`
+#### Snippet
+```java
+
+  public void testIterator() throws Exception {
+    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
+    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
+    Iterator<Byte> i1 = s1.iterator();
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `protobuf/tests/ByteStringTest.java`
+#### Snippet
+```java
+  public void testIterator() throws Exception {
+    ByteString s1 = ByteString.copyFrom("foo".getBytes("UTF-8"));
+    ByteString s2 = ByteString.copyFrom("你好".getBytes("UTF-8"));
+    Iterator<Byte> i1 = s1.iterator();
+    Iterator<Byte> i2 = s2.iterator();
+```
+
 ## RuleId[ruleID=ExcessiveRangeCheck]
 ### ExcessiveRangeCheck
 Can be replaced with 'components.size() != 2'
@@ -7148,18 +7148,6 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/RapidTypeAnalyser.j
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
-Condition 'constantValue != null' covered by subsequent condition 'constantValue instanceof String'
-in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
-#### Snippet
-```java
-  public static boolean isStringConstant(VariableElement element) {
-    Object constantValue = element.getConstantValue();
-    return constantValue != null && constantValue instanceof String
-        && UnicodeUtils.hasValidCppCharacters((String) constantValue);
-  }
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'name.isEmpty()' covered by subsequent condition '!name.contains(...)'
 in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
@@ -7169,6 +7157,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
     if (name.isEmpty() || !name.contains(".")) {
       return null;
     }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'constantValue != null' covered by subsequent condition 'constantValue instanceof String'
+in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
+#### Snippet
+```java
+  public static boolean isStringConstant(VariableElement element) {
+    Object constantValue = element.getConstantValue();
+    return constantValue != null && constantValue instanceof String
+        && UnicodeUtils.hasValidCppCharacters((String) constantValue);
+  }
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -7184,18 +7184,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.jav
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
-#### Snippet
-```java
-    Set<String> attributes = new HashSet<>();
-    if (attributesStr != null) {
-      attributes.addAll(Arrays.asList(attributesStr.split(",\\s*")));
-      attributes.remove(""); // Clear any empty strings.
-    }
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `translator/src/main/java/com/google/devtools/j2objc/util/PackagePrefixes.java`
@@ -7233,15 +7221,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/PackagePrefixes.jav
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
 ```java
-
-  private String escapeDocText(String text) {
-    return skipStyleTag(escapeCodeText(text.replace("@", "@@").replace("/*", "/\\*")));
-  }
-
+    Set<String> attributes = new HashSet<>();
+    if (attributesStr != null) {
+      attributes.addAll(Arrays.asList(attributesStr.split(",\\s*")));
+      attributes.remove(""); // Clear any empty strings.
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7258,14 +7246,14 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.jav
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
+in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
 #### Snippet
 ```java
 
-  public static String fixNumberToken(String token, TypeKind kind) {
-    token = token.replace("_", "");  // Remove any embedded underscores.
-    assert kind.isPrimitive();
-    switch (kind) {
+  private String escapeDocText(String text) {
+    return skipStyleTag(escapeCodeText(text.replace("@", "@@").replace("/*", "/\\*")));
+  }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7278,6 +7266,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.jav
       String[] substrings = s.split("\\?\\?");
       StringBuilder buffer = new StringBuilder(substrings[0]);
       for (int i = 1; i < substrings.length; i++) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
+#### Snippet
+```java
+
+  public static String fixNumberToken(String token, TypeKind kind) {
+    token = token.replace("_", "");  // Remove any embedded underscores.
+    assert kind.isPrimitive();
+    switch (kind) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7402,18 +7402,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.j
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.devtools.j2objc.ast` is unnecessary and can be removed
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
-#### Snippet
-```java
-      if (ErrorUtil.errorCount() == 0) {
-        for (CompilationUnitTree ast : units) {
-          com.google.devtools.j2objc.ast.CompilationUnit unit = TreeConverter
-              .convertCompilationUnit(options, env, ast);
-          processDiagnostics(env.diagnostics());
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.sun.tools.javac.parser` is unnecessary, and can be replaced with an import
 in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
 #### Snippet
@@ -7435,6 +7423,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java
         Types.instance(((com.sun.tools.javac.api.BasicJavacTask) env.task()).getContext());
     return newNode
         .setTypeMirror(targets.iterator().next())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.devtools.j2objc.ast` is unnecessary and can be removed
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
+#### Snippet
+```java
+      if (ErrorUtil.errorCount() == 0) {
+        for (CompilationUnitTree ast : units) {
+          com.google.devtools.j2objc.ast.CompilationUnit unit = TreeConverter
+              .convertCompilationUnit(options, env, ast);
+          processDiagnostics(env.diagnostics());
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7539,10 +7539,10 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MemoryFileObject.j
 #### Snippet
 ```java
   @Override
-  public InputStream openInputStream() throws IOException {
+  public Writer openWriter() throws IOException {
     throw new java.lang.UnsupportedOperationException();
   }
-
+}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7563,25 +7563,13 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MemoryFileObject.j
 #### Snippet
 ```java
   @Override
-  public Writer openWriter() throws IOException {
+  public InputStream openInputStream() throws IOException {
     throw new java.lang.UnsupportedOperationException();
   }
-}
+
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `Name()` of an abstract class should not be declared 'public'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/Name.java`
-#### Snippet
-```java
-  }
-
-  public Name(Element element) {
-    this.element = element;
-  }
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `Name()` of an abstract class should not be declared 'public'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/Name.java`
@@ -7604,6 +7592,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/Name.java`
   public Name() {}
 
   public Name(Name other) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Name()` of an abstract class should not be declared 'public'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/Name.java`
+#### Snippet
+```java
+  }
+
+  public Name(Element element) {
+    this.element = element;
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -7683,18 +7683,6 @@ Constructor `MethodReference()` of an abstract class should not be declared 'pub
 in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodReference.java`
 #### Snippet
 ```java
-  protected final ChildList<Type> typeArguments = ChildList.create(Type.class, this);
-
-  public MethodReference() {}
-
-  public MethodReference(MethodReference other) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MethodReference()` of an abstract class should not be declared 'public'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodReference.java`
-#### Snippet
-```java
   public MethodReference() {}
 
   public MethodReference(MethodReference other) {
@@ -7703,15 +7691,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodReference.java
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `VariableDeclaration()` of an abstract class should not be declared 'public'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclaration.java`
+Constructor `MethodReference()` of an abstract class should not be declared 'public'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodReference.java`
 #### Snippet
 ```java
-  protected ChildLink<Expression> initializer = ChildLink.create(Expression.class, this);
+  protected final ChildList<Type> typeArguments = ChildList.create(Type.class, this);
 
-  public VariableDeclaration() {}
+  public MethodReference() {}
 
-  public VariableDeclaration(VariableDeclaration other) {
+  public MethodReference(MethodReference other) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -7724,6 +7712,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclaration.
   public VariableDeclaration(VariableDeclaration other) {
     super(other);
     variableElement = other.getVariableElement();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `VariableDeclaration()` of an abstract class should not be declared 'public'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclaration.java`
+#### Snippet
+```java
+  protected ChildLink<Expression> initializer = ChildLink.create(Expression.class, this);
+
+  public VariableDeclaration() {}
+
+  public VariableDeclaration(VariableDeclaration other) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -7767,18 +7767,6 @@ Constructor `FunctionalExpression()` of an abstract class should not be declared
 in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
 #### Snippet
 ```java
-  protected ChildList<Expression> lambdaCaptureArgs = ChildList.create(Expression.class, this);
-
-  public FunctionalExpression() {
-  }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `FunctionalExpression()` of an abstract class should not be declared 'public'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
-#### Snippet
-```java
   }
 
   public FunctionalExpression(FunctionalExpression other) {
@@ -7787,15 +7775,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTypeDeclaration()` of an abstract class should not be declared 'public'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/AbstractTypeDeclaration.java`
+Constructor `FunctionalExpression()` of an abstract class should not be declared 'public'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
 #### Snippet
 ```java
-  AbstractTypeDeclaration() {}
+  protected ChildList<Expression> lambdaCaptureArgs = ChildList.create(Expression.class, this);
 
-  public AbstractTypeDeclaration(AbstractTypeDeclaration other) {
-    super(other);
-    typeElement = other.getTypeElement();
+  public FunctionalExpression() {
+  }
+
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -7808,6 +7796,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/AbstractTypeDeclarat
   public AbstractTypeDeclaration(TypeElement typeElement) {
     super(typeElement);
     this.typeElement = typeElement;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractTypeDeclaration()` of an abstract class should not be declared 'public'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/AbstractTypeDeclaration.java`
+#### Snippet
+```java
+  AbstractTypeDeclaration() {}
+
+  public AbstractTypeDeclaration(AbstractTypeDeclaration other) {
+    super(other);
+    typeElement = other.getTypeElement();
 ```
 
 ## RuleId[ruleID=Java8MapApi]
@@ -7829,35 +7829,11 @@ Anonymous new Runnable() can be replaced with lambda
 in `protobuf/tests/MemoryBenchmarks.java`
 #### Snippet
 ```java
-  private static void memUsageRepeatedInts(final int numInts) {
-    System.out.println("*** memUsageRepeatedInts - " + numInts + " ***");
-    testMemUsage(new Runnable() {
-      public void run() {
-        SingleRepeatedInt.Builder builder = SingleRepeatedInt.newBuilder();
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `protobuf/tests/MemoryBenchmarks.java`
-#### Snippet
-```java
   private static void memUsageRepeatedMessages(final int numMessages) {
     System.out.println("*** memUsageRepeatedMessages - " + numMessages + " ***");
     testMemUsage(new Runnable() {
       public void run() {
         SingleRepeatedMessage.Builder builder = SingleRepeatedMessage.newBuilder();
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `protobuf/tests/MemoryBenchmarks.java`
-#### Snippet
-```java
-  private static void memUsageIntExtension() {
-    System.out.println("*** memUsageIntExtension ***");
-    testMemUsage(new Runnable() {
-      public void run() {
-        protoReference = MessageWithExtensions.newBuilder()
 ```
 
 ### Convert2Lambda
@@ -7877,11 +7853,35 @@ Anonymous new Runnable() can be replaced with lambda
 in `protobuf/tests/MemoryBenchmarks.java`
 #### Snippet
 ```java
+  private static void memUsageRepeatedInts(final int numInts) {
+    System.out.println("*** memUsageRepeatedInts - " + numInts + " ***");
+    testMemUsage(new Runnable() {
+      public void run() {
+        SingleRepeatedInt.Builder builder = SingleRepeatedInt.newBuilder();
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `protobuf/tests/MemoryBenchmarks.java`
+#### Snippet
+```java
   private static void memUsageRepeatedIntExtension(final int numInts) {
     System.out.println("*** memUsageRepeatedIntExtension - " + numInts + " ***");
     testMemUsage(new Runnable() {
       public void run() {
         List<Integer> ints = new ArrayList<Integer>(numInts);
+```
+
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `protobuf/tests/MemoryBenchmarks.java`
+#### Snippet
+```java
+  private static void memUsageIntExtension() {
+    System.out.println("*** memUsageIntExtension ***");
+    testMemUsage(new Runnable() {
+      public void run() {
+        protoReference = MessageWithExtensions.newBuilder()
 ```
 
 ### Convert2Lambda
@@ -8006,18 +8006,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-
-  public String getSignatureName(TypeMirror t) {
-    t = erasure(t);
-    switch (t.getKind()) {
-      case ARRAY:
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `type`
 in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 #### Snippet
@@ -8027,6 +8015,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
       type = javacTypes.unboxedType(type);
       t = type.getKind();
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+
+  public String getSignatureName(TypeMirror t) {
+    t = erasure(t);
+    switch (t.getKind()) {
+      case ARRAY:
 ```
 
 ### AssignmentToMethodParameter
@@ -8114,18 +8114,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/ObjectiveCHeaderGene
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
-#### Snippet
-```java
-        return true;
-      }
-      node = parent;
-    }
-    return false;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `stmtList`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
@@ -8142,11 +8130,11 @@ Assignment to method parameter `node`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
 ```java
-    while (node != currentTopNode) {
-      ancestors.add(node);
+    TreeNode topConditional = null;
+    while (node != limit) {
       node = node.getParent();
-    }
-    return ancestors;
+      if (isConditional(node)) {
+        topConditional = node;
 ```
 
 ### AssignmentToMethodParameter
@@ -8154,11 +8142,23 @@ Assignment to method parameter `node`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
 ```java
-    TreeNode topConditional = null;
-    while (node != limit) {
+        return true;
+      }
+      node = parent;
+    }
+    return false;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
+#### Snippet
+```java
+    while (node != currentTopNode) {
+      ancestors.add(node);
       node = node.getParent();
-      if (isConditional(node)) {
-        topConditional = node;
+    }
+    return ancestors;
 ```
 
 ### AssignmentToMethodParameter
@@ -8198,15 +8198,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReference
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `token`
-in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
+Assignment to method parameter `i`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaRewriter.java`
 #### Snippet
 ```java
+    while (true) {
+      sb.append((char) ('a' + (i % 26)));
+      i = i / 26;
+      if (i == 0) {
+        break;
+```
 
-  public static String fixNumberToken(String token, TypeKind kind) {
-    token = token.replace("_", "");  // Remove any embedded underscores.
-    assert kind.isPrimitive();
-    switch (kind) {
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaRewriter.java`
+#### Snippet
+```java
+        break;
+      }
+      i--;
+    }
+    return sb.reverse().toString();
 ```
 
 ### AssignmentToMethodParameter
@@ -8274,6 +8286,18 @@ Assignment to method parameter `token`
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
 ```java
+
+  public static String fixNumberToken(String token, TypeKind kind) {
+    token = token.replace("_", "");  // Remove any embedded underscores.
+    assert kind.isPrimitive();
+    switch (kind) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `token`
+in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
+#### Snippet
+```java
     // necessary, since the format was verified by the parser.
     if (token.matches(FLOATING_POINT_SUFFIX_REGEX)) {
       token = token.substring(0, token.length() - 1);  // strip suffix
@@ -8330,63 +8354,15 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaRewriter.java`
+Assignment to method parameter `type`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
 #### Snippet
 ```java
-    while (true) {
-      sb.append((char) ('a' + (i % 26)));
-      i = i / 26;
-      if (i == 0) {
-        break;
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaRewriter.java`
-#### Snippet
-```java
-        break;
-      }
-      i--;
-    }
-    return sb.reverse().toString();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
-#### Snippet
-```java
-        return offset + 1;
-      case '[':
-        offset = getType(type, offset + 1, result);
-        result.append("[]");
-        return offset;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
-#### Snippet
-```java
-      default:
-        StringBuilder argTypes = new StringBuilder();
-        offset = getArgTypes(type, offset, argTypes);
-        offset = getType(type, offset, result);
-        result.append(argTypes);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
-#### Snippet
-```java
-        StringBuilder argTypes = new StringBuilder();
-        offset = getArgTypes(type, offset, argTypes);
-        offset = getType(type, offset, result);
-        result.append(argTypes);
-        return offset;
+  private FunctionInvocation createCastCheck(TypeMirror type, Expression expr) {
+    type = typeUtil.erasure(type);
+    TypeMirror idType = TypeUtil.ID_TYPE;
+    if (TypeUtil.isInterface(type) || isObjectArray(type)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -8426,6 +8402,42 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
+#### Snippet
+```java
+        return offset + 1;
+      case '[':
+        offset = getType(type, offset + 1, result);
+        result.append("[]");
+        return offset;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
+#### Snippet
+```java
+      default:
+        StringBuilder argTypes = new StringBuilder();
+        offset = getArgTypes(type, offset, argTypes);
+        offset = getType(type, offset, result);
+        result.append(argTypes);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
+#### Snippet
+```java
+        StringBuilder argTypes = new StringBuilder();
+        offset = getArgTypes(type, offset, argTypes);
+        offset = getType(type, offset, result);
+        result.append(argTypes);
+        return offset;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `type`
 in `translator/src/main/java/com/google/devtools/j2objc/util/CaptureInfo.java`
 #### Snippet
@@ -8438,27 +8450,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/CaptureInfo.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
-#### Snippet
-```java
-
-  private FunctionInvocation createCastCheck(TypeMirror type, Expression expr) {
-    type = typeUtil.erasure(type);
-    TypeMirror idType = TypeUtil.ID_TYPE;
-    if (TypeUtil.isInterface(type) || isObjectArray(type)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `element`
+Assignment to method parameter `method`
 in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
 #### Snippet
 ```java
-   */
-  public String getFullName(TypeElement element) {
-    element = typeUtil.getObjcClass(element);
-    String fullName = fullNameCache.get(element);
-    if (fullName == null) {
+    }
+    if (ElementUtil.isInstanceMethod(method)) {
+      method = elementUtil.getOriginalMethod(method);
+    }
+    selector = getRenamedMethodName(method);
 ```
 
 ### AssignmentToMethodParameter
@@ -8483,30 +8483,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
       name += "Arg";
     }
     return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `method`
-in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
-#### Snippet
-```java
-    }
-    if (ElementUtil.isInstanceMethod(method)) {
-      method = elementUtil.getOriginalMethod(method);
-    }
-    selector = getRenamedMethodName(method);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
-#### Snippet
-```java
-    int arrayDimensions = 0;
-    while (TypeUtil.isArray(type)) {
-      type = ((ArrayType) type).getComponentType();
-      arrayDimensions++;
-    }
 ```
 
 ### AssignmentToMethodParameter
@@ -8547,6 +8523,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `type`
+in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+#### Snippet
+```java
+    int arrayDimensions = 0;
+    while (TypeUtil.isArray(type)) {
+      type = ((ArrayType) type).getComponentType();
+      arrayDimensions++;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `element`
+in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+#### Snippet
+```java
+   */
+  public String getFullName(TypeElement element) {
+    element = typeUtil.getObjcClass(element);
+    String fullName = fullNameCache.get(element);
+    if (fullName == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
 in `tree_shaker/src/main/java/com/google/devtools/treeshaker/RapidTypeAnalyser.java`
 #### Snippet
 ```java
@@ -8574,11 +8574,11 @@ Assignment to method parameter `node`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-        return type.cast(node);
-      }
-      node = node.getParent();
+  public static Expression trimParentheses(Expression node) {
+    while (node instanceof ParenthesizedExpression) {
+      node = ((ParenthesizedExpression) node).getExpression();
     }
-    return null;
+    return node;
 ```
 
 ### AssignmentToMethodParameter
@@ -8586,11 +8586,11 @@ Assignment to method parameter `node`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-  public static Expression trimParentheses(Expression node) {
-    while (node instanceof ParenthesizedExpression) {
-      node = ((ParenthesizedExpression) node).getExpression();
+        return type.cast(node);
+      }
+      node = node.getParent();
     }
-    return node;
+    return null;
 ```
 
 ### AssignmentToMethodParameter
@@ -8618,15 +8618,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `receiver`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
+Assignment to method parameter `node`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
 #### Snippet
 ```java
-    if (!ElementUtil.isStatic(element)) {
-      if (receiver == null) {
-        receiver = new ThisExpression(TreeUtil.getEnclosingTypeElement(node).asType());
-      }
-      funcArgs.add(0, TreeUtil.remove(receiver));
+
+    while (parent instanceof ParenthesizedExpression) {
+      node = (Expression) parent;
+      parent = node.getParent();
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -8642,30 +8642,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
+Assignment to method parameter `receiver`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
 #### Snippet
 ```java
-
-    while (parent instanceof ParenthesizedExpression) {
-      node = (Expression) parent;
-      parent = node.getParent();
-    }
+    if (!ElementUtil.isStatic(element)) {
+      if (receiver == null) {
+        receiver = new ThisExpression(TreeUtil.getEnclosingTypeElement(node).asType());
+      }
+      funcArgs.add(0, TreeUtil.remove(receiver));
 ```
 
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ArrayAccess.java`
-#### Snippet
-```java
-    Expression arrayNode = array.get();
-    TypeMirror arrayType = arrayNode != null ? arrayNode.getTypeMirror() : null;
-    return arrayType != null ? ((ArrayType) arrayType).getComponentType() : null;
-  }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/LogSiteInjector.java`
@@ -8680,26 +8668,14 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/LogSiteInjecto
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/DestructorGenerator.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ArrayAccess.java`
 #### Snippet
 ```java
-    if (ElementUtil.isStatic(var) || varType.getKind().isPrimitive()
-        || ElementUtil.isWeakReference(var)) {
-      return null;
-    }
-    boolean isVolatile = ElementUtil.isVolatile(var);
-```
+    Expression arrayNode = array.get();
+    TypeMirror arrayType = arrayNode != null ? arrayNode.getTypeMirror() : null;
+    return arrayType != null ? ((ArrayType) arrayType).getComponentType() : null;
+  }
 
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/DestructorGenerator.java`
-#### Snippet
-```java
-    }
-    if (funcName == null) {
-      return null;
-    }
-    TypeMirror voidType = typeUtil.getVoid();
 ```
 
 ### ReturnNull
@@ -8724,6 +8700,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/DestructorGene
     return size == 0 ? null : onDeallocMethodDeclarations.get(0);
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/DestructorGenerator.java`
+#### Snippet
+```java
+    if (ElementUtil.isStatic(var) || varType.getKind().isPrimitive()
+        || ElementUtil.isWeakReference(var)) {
+      return null;
+    }
+    boolean isVolatile = ElementUtil.isVolatile(var);
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/DestructorGenerator.java`
+#### Snippet
+```java
+    }
+    if (funcName == null) {
+      return null;
+    }
+    TypeMirror voidType = typeUtil.getVoid();
 ```
 
 ### ReturnNull
@@ -8776,18 +8776,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/CastExpression.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavadocConverter.java`
-#### Snippet
-```java
-    DocCommentTree docComment = docTrees.getDocCommentTree(path);
-    if (docComment == null) {
-      return null; // Declaration does not have a javadoc comment.
-    }
-    JavadocConverter converter =
-```
-
-### ReturnNull
-Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
 #### Snippet
 ```java
@@ -8796,18 +8784,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
       return null;
     }
     type = typeUtil.erasure(type);
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
-#### Snippet
-```java
-          TreeUtil.getRuntimeAnnotationsList(decl.getAnnotations());
-      if (runtimeAnnotations.isEmpty()) {
-        return null;
-      }
-      return addAnnotationsFunction(createAnnotations(runtimeAnnotations));
 ```
 
 ### ReturnNull
@@ -8827,11 +8803,11 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
 #### Snippet
 ```java
-      Element enclosing = type.getEnclosingElement();
-      return ElementUtil.isExecutableElement(enclosing)
-          ? nameTable.getMethodSelector((ExecutableElement) enclosing) : null;
-    }
-
+          TreeUtil.getRuntimeAnnotationsList(decl.getAnnotations());
+      if (runtimeAnnotations.isEmpty()) {
+        return null;
+      }
+      return addAnnotationsFunction(createAnnotations(runtimeAnnotations));
 ```
 
 ### ReturnNull
@@ -8860,10 +8836,34 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
 
 ### ReturnNull
 Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
+#### Snippet
+```java
+      Element enclosing = type.getEnclosingElement();
+      return ElementUtil.isExecutableElement(enclosing)
+          ? nameTable.getMethodSelector((ExecutableElement) enclosing) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavadocConverter.java`
+#### Snippet
+```java
+    DocCommentTree docComment = docTrees.getDocCommentTree(path);
+    if (docComment == null) {
+      return null; // Declaration does not have a javadoc comment.
+    }
+    JavadocConverter converter =
+```
+
+### ReturnNull
+Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
 ```java
-      return ((LabeledStatement) parent).getLabel().getIdentifier();
+      curScope = curScope.next;
     }
     return null;
   }
@@ -8875,7 +8875,7 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
 ```java
-      curScope = curScope.next;
+      return ((LabeledStatement) parent).getLabel().getIdentifier();
     }
     return null;
   }
@@ -8932,35 +8932,11 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
+in `translator/src/main/java/com/google/devtools/j2objc/util/PackagePrefixes.java`
 #### Snippet
 ```java
-      }
     }
-    return null;
-  }
-}
-```
 
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
-#### Snippet
-```java
-      getter = ElementUtil.findMethod(declaringClass, prefix + NameTable.capitalize(propertyName));
-    }
-    return getter != null && isStatic == isStatic(getter) ? getter : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
-#### Snippet
-```java
-      return ((GeneratedExecutableElement) e).getSelector();
-    }
     return null;
   }
 
@@ -8983,9 +8959,9 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
 ```java
-
-  public static String getHeader(TypeElement e) {
-    return e instanceof GeneratedTypeElement ? ((GeneratedTypeElement) e).getHeader() : null;
+        "set" + NameTable.capitalize(propertyName),
+        TypeUtil.getQualifiedName(type));
+    return setter != null && isStatic == isStatic(setter) ? setter : null;
   }
 
 ```
@@ -8995,9 +8971,9 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
 ```java
-  public static String getTypeQualifiers(VariableElement element) {
-    return element instanceof GeneratedVariableElement
-        ? ((GeneratedVariableElement) element).getTypeQualifiers() : null;
+      }
+    }
+    return null;
   }
 
 ```
@@ -9031,11 +9007,35 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
 ```java
-        "set" + NameTable.capitalize(propertyName),
-        TypeUtil.getQualifiedName(type));
-    return setter != null && isStatic == isStatic(setter) ? setter : null;
+  public static String getTypeQualifiers(VariableElement element) {
+    return element instanceof GeneratedVariableElement
+        ? ((GeneratedVariableElement) element).getTypeQualifiers() : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
+#### Snippet
+```java
+      return ((GeneratedExecutableElement) e).getSelector();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -9055,33 +9055,21 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
+
+  public static String getHeader(TypeElement e) {
+    return e instanceof GeneratedTypeElement ? ((GeneratedTypeElement) e).getHeader() : null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
+in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
 ```java
-    // Procyon only adds comment nodes to report decompilation errors.
-    ErrorUtil.error(node.getContent());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/PackagePrefixes.java`
-#### Snippet
-```java
+      getter = ElementUtil.findMethod(declaringClass, prefix + NameTable.capitalize(propertyName));
     }
-
-    return null;
+    return getter != null && isStatic == isStatic(getter) ? getter : null;
   }
 
 ```
@@ -9094,18 +9082,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ClassInstanceCreatio
   public TypeMirror getTypeMirror() {
     Type typeNode = type.get();
     return typeNode != null ? typeNode.getTypeMirror() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/PostfixExpression.java`
-#### Snippet
-```java
-  public TypeMirror getTypeMirror() {
-    Expression operandNode = operand.get();
-    return operand != null ? operandNode.getTypeMirror() : null;
   }
 
 ```
@@ -9136,12 +9112,24 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclarationE
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
 #### Snippet
 ```java
-      }
-    }
+    // Procyon only adds comment nodes to report decompilation errors.
+    ErrorUtil.error(node.getContent());
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/PostfixExpression.java`
+#### Snippet
+```java
+  public TypeMirror getTypeMirror() {
+    Expression operandNode = operand.get();
+    return operand != null ? operandNode.getTypeMirror() : null;
   }
 
 ```
@@ -9156,6 +9144,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
       return null;
     } else if (c < 0x20 || (c >= 0x7F && c < 0xA0)) {
       // Invalid C++ Unicode number, convert to UTF-8 sequence.
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -9175,18 +9175,6 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranchPruner.java`
 #### Snippet
 ```java
-   */
-  private Boolean getReplaceableValue(Expression expr) {
-    return TranslationUtil.hasSideEffect(expr) ? null : getKnownValue(expr);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranchPruner.java`
-#### Snippet
-```java
   private Statement getSideEffects(Expression expr) {
     Expression sideEffectsExpr = extractSideEffects(expr);
     return sideEffectsExpr == null ? null : new ExpressionStatement(sideEffectsExpr);
@@ -9199,23 +9187,11 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranchPruner.java`
 #### Snippet
 ```java
-            }
-          }
-          return null;
-        }
-      case PARENTHESIZED_EXPRESSION:
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranchPruner.java`
-#### Snippet
-```java
-        return getKnownValue(((ParenthesizedExpression) expr).getExpression());
-      default:
-        return null;
-    }
+   */
+  private Boolean getReplaceableValue(Expression expr) {
+    return TranslationUtil.hasSideEffect(expr) ? null : getKnownValue(expr);
   }
+
 ```
 
 ### ReturnNull
@@ -9256,6 +9232,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranch
 
 ### ReturnNull
 Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranchPruner.java`
+#### Snippet
+```java
+            }
+          }
+          return null;
+        }
+      case PARENTHESIZED_EXPRESSION:
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/ConstantBranchPruner.java`
+#### Snippet
+```java
+        return getKnownValue(((ParenthesizedExpression) expr).getExpression());
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedVariableElement.java`
 #### Snippet
 ```java
@@ -9264,6 +9264,102 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedVariableE
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+  private TreeNode convert(Tree node, TreePath parent) {
+    if (node == null) {
+      return null;
+    }
+    TreeNode newNode = convertInner(node, parent).setPosition(getPosition(node));
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+  private TreeNode getAssociatedJavaDoc(Tree node, TreePath path) {
+    Comment comment = convertAssociatedComment(node, path);
+    return comment != null && comment.isDocComment() ? comment : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+    DocCommentTable docComments = ((JCCompilationUnit) unit).docComments;
+    if (!docCommentsEnabled || docComments == null || !docComments.hasComment((JCTree) node)) {
+      return null;
+    }
+    com.sun.tools.javac.parser.Tokens.Comment javacComment = docComments.getComment((JCTree) node);
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+    } catch (Throwable e) {
+      ErrorUtil.fatalError(e, sourceFilePath);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+        return expression.getRightOperand();
+      } else {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+        return ((MemberSelectTree) node).getIdentifier().toString();
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
+#### Snippet
+```java
+      ErrorUtil.fatalError(e, path);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
+#### Snippet
+```java
+    } catch (IOException e) {
+      ErrorUtil.error(e.getMessage());
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -9295,18 +9391,6 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 #### Snippet
 ```java
-      ErrorUtil.fatalError(e, path);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
-#### Snippet
-```java
       if (!it.hasNext()) {
         processDiagnostics(parserEnv.diagnostics());
         return null;
@@ -9328,30 +9412,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
-#### Snippet
-```java
-    } catch (IOException e) {
-      ErrorUtil.error(e.getMessage());
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/Assignment.java`
-#### Snippet
-```java
-  public TypeMirror getTypeMirror() {
-    Expression leftHandSideNode = leftHandSide.get();
-    return leftHandSideNode != null ? leftHandSideNode.getTypeMirror() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedTypeElement.java`
 #### Snippet
 ```java
@@ -9364,11 +9424,11 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedTypeEleme
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedElement.java`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 #### Snippet
 ```java
-  @Override
-  public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
+      return asTypeElement(((IntersectionType) t).getBounds().iterator().next());
+    }
     return null;
   }
 
@@ -9379,7 +9439,43 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 #### Snippet
 ```java
-      return new ExecutablePair(methodElem, asMemberOf(type, methodElem));
+      case "Z": return getBoolean();
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+  public PrimitiveType unboxedType(TypeMirror t) {
+    if (isGeneratedType(t)) {
+      return null;
+    }
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+      return javacTypes.unboxedType(t);
+    } catch (IllegalArgumentException e) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
+#### Snippet
+```java
+      }
     }
     return null;
   }
@@ -9415,23 +9511,11 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 #### Snippet
 ```java
-  public PrimitiveType unboxedType(TypeMirror t) {
-    if (isGeneratedType(t)) {
-      return null;
+      return new ExecutablePair(methodElem, asMemberOf(type, methodElem));
     }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-      return javacTypes.unboxedType(t);
-    } catch (IllegalArgumentException e) {
-      return null;
-    }
+    return null;
   }
+
 ```
 
 ### ReturnNull
@@ -9463,42 +9547,6 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 #### Snippet
 ```java
-      case "Z": return getBoolean();
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-      return asTypeElement(((IntersectionType) t).getBounds().iterator().next());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
-#### Snippet
-```java
 
   public static TypeParameterElement asTypeParameterElement(TypeMirror t) {
     return isTypeVariable(t) ? (TypeParameterElement) ((TypeVariable) t).asElement() : null;
@@ -9508,91 +9556,19 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-  private TreeNode getAssociatedJavaDoc(Tree node, TreePath path) {
-    Comment comment = convertAssociatedComment(node, path);
-    return comment != null && comment.isDocComment() ? comment : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-        return expression.getRightOperand();
-      } else {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-    DocCommentTable docComments = ((JCCompilationUnit) unit).docComments;
-    if (!docCommentsEnabled || docComments == null || !docComments.hasComment((JCTree) node)) {
-      return null;
-    }
-    com.sun.tools.javac.parser.Tokens.Comment javacComment = docComments.getComment((JCTree) node);
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-    } catch (Throwable e) {
-      ErrorUtil.fatalError(e, sourceFilePath);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-  private TreeNode convert(Tree node, TreePath parent) {
-    if (node == null) {
-      return null;
-    }
-    TreeNode newNode = convertInner(node, parent).setPosition(getPosition(node));
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-        return ((MemberSelectTree) node).getIdentifier().toString();
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/QualifiedName.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/Assignment.java`
 #### Snippet
 ```java
   public TypeMirror getTypeMirror() {
-    SimpleName nameNode = name.get();
-    return nameNode != null ? nameNode.getTypeMirror() : null;
+    Expression leftHandSideNode = leftHandSide.get();
+    return leftHandSideNode != null ? leftHandSideNode.getTypeMirror() : null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/types/AbstractTypeMirror.java`
+in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedElement.java`
 #### Snippet
 ```java
   @Override
@@ -9604,7 +9580,7 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/AbstractTypeMirror
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/FieldAccess.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/QualifiedName.java`
 #### Snippet
 ```java
   public TypeMirror getTypeMirror() {
@@ -9640,11 +9616,11 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Rewriter.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/ClassFile.java`
+in `translator/src/main/java/com/google/devtools/j2objc/types/AbstractTypeMirror.java`
 #### Snippet
 ```java
-      }
-    }
+  @Override
+  public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
     return null;
   }
 
@@ -9688,12 +9664,24 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ClassFile.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/pipeline/BuildClosureQueue.java`
+in `translator/src/main/java/com/google/devtools/j2objc/util/ClassFile.java`
 #### Snippet
 ```java
       }
     }
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/FieldAccess.java`
+#### Snippet
+```java
+  public TypeMirror getTypeMirror() {
+    SimpleName nameNode = name.get();
+    return nameNode != null ? nameNode.getTypeMirror() : null;
   }
 
 ```
@@ -9724,12 +9712,12 @@ in `translator/src/main/java/com/google/devtools/j2objc/pipeline/BuildClosureQue
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/PropertyAnnotation.java`
+in `translator/src/main/java/com/google/devtools/j2objc/pipeline/BuildClosureQueue.java`
 #### Snippet
 ```java
-    String prefix = key + '=';
-    String attribute = getAttribute(prefix);
-    return attribute != null ? attribute.substring(prefix.length()) : null;
+      }
+    }
+    return null;
   }
 
 ```
@@ -9742,6 +9730,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/PropertyAnnotation.j
       }
     }
     return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/PropertyAnnotation.java`
+#### Snippet
+```java
+    String prefix = key + '=';
+    String attribute = getAttribute(prefix);
+    return attribute != null ? attribute.substring(prefix.length()) : null;
   }
 
 ```
@@ -9820,6 +9820,54 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java
 
 ### ReturnNull
 Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
+#### Snippet
+```java
+      return TreeUtil.getVariableElement(ie.getLeftOperand());
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
+#### Snippet
+```java
+      }
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
+#### Snippet
+```java
+      return invocation;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
+#### Snippet
+```java
+    return name != null
+        ? name
+        : (executableElement != null ? Name.newName(null, executableElement) : null);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
 #### Snippet
 ```java
@@ -9844,12 +9892,12 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/TreeShaker.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
+in `translator/src/main/java/com/google/devtools/j2objc/util/CaptureInfo.java`
 #### Snippet
 ```java
-    return name != null
-        ? name
-        : (executableElement != null ? Name.newName(null, executableElement) : null);
+  public VariableElement getReceiverField(TypeElement type) {
+    Capture capture = receiverCaptures.get(type);
+    return capture != null ? capture.field : null;
   }
 
 ```
@@ -9868,18 +9916,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/CaptureInfo.java`
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/CaptureInfo.java`
-#### Snippet
-```java
-  public VariableElement getReceiverField(TypeElement type) {
-    Capture capture = receiverCaptures.get(type);
-    return capture != null ? capture.field : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/pipeline/GenerationBatch.java`
 #### Snippet
 ```java
@@ -9888,78 +9924,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/pipeline/GenerationBatch
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
-#### Snippet
-```java
-      }
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
-#### Snippet
-```java
-      return TreeUtil.getVariableElement(ie.getLeftOperand());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/CastResolver.java`
-#### Snippet
-```java
-      return invocation;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/LabelRewriter.java`
-#### Snippet
-```java
-      return ((WhileStatement) s).getBody();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
-#### Snippet
-```java
-          return literalValue;
-        } else {
-          return null;
-        }
-      case BOOLEAN_LITERAL:
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
-#### Snippet
-```java
-        return ((NumberLiteral) expr).getValue().toString();
-      default:
-        return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -10036,22 +10000,34 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewrit
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
 #### Snippet
 ```java
-      return selector;
-    }
-    return null;
-  }
-
+          return literalValue;
+        } else {
+          return null;
+        }
+      case BOOLEAN_LITERAL:
 ```
 
 ### ReturnNull
 Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OperatorRewriter.java`
 #### Snippet
 ```java
-      return value;
+        return ((NumberLiteral) expr).getValue().toString();
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/LabelRewriter.java`
+#### Snippet
+```java
+      return ((WhileStatement) s).getBody();
     }
     return null;
   }
@@ -10076,6 +10052,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 #### Snippet
 ```java
       }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+#### Snippet
+```java
+      return selector;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
+#### Snippet
+```java
+      return value;
     }
     return null;
   }
@@ -10135,8 +10135,8 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/gen/SignatureGenerator.java`
 #### Snippet
 ```java
-  public String createMethodTypeSignature(ExecutableElement method) {
-    if (!hasGenericSignature(method)) {
+  public String createClassSignature(TypeElement type) {
+    if (!hasGenericSignature(type)) {
       return null;
     }
     StringBuilder sb = new StringBuilder();
@@ -10147,8 +10147,8 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/gen/SignatureGenerator.java`
 #### Snippet
 ```java
-  public String createClassSignature(TypeElement type) {
-    if (!hasGenericSignature(type)) {
+  public String createMethodTypeSignature(ExecutableElement method) {
+    if (!hasGenericSignature(method)) {
       return null;
     }
     StringBuilder sb = new StringBuilder();
@@ -10159,9 +10159,9 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-      return ((FunctionDeclaration) enclosingNode).getReturnType().getTypeMirror();
-    }
-    return null;
+  public static VariableElement getVariableElement(Name node) {
+    Element element = node.getElement();
+    return element != null && ElementUtil.isVariable(element) ? (VariableElement) element : null;
   }
 
 ```
@@ -10183,7 +10183,7 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-      node = node.getParent();
+      return ((VariableDeclaration) node).getVariableElement();
     }
     return null;
   }
@@ -10195,19 +10195,7 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-  public static VariableElement getVariableElement(Name node) {
-    Element element = node.getElement();
-    return element != null && ElementUtil.isVariable(element) ? (VariableElement) element : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
-#### Snippet
-```java
-      node = node.getParent();
+      }
     }
     return null;
   }
@@ -10231,7 +10219,31 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 #### Snippet
 ```java
-      return ((VariableDeclaration) node).getVariableElement();
+      node = node.getParent();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
+#### Snippet
+```java
+      return ((FunctionDeclaration) enclosingNode).getReturnType().getTypeMirror();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
+#### Snippet
+```java
+      node = node.getParent();
     }
     return null;
   }
@@ -10248,18 +10260,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
         return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -10303,30 +10303,6 @@ Return of `null`
 in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
 #### Snippet
 ```java
-          return TreeUtil.remove(node);
-        }
-        return null;
-      }
-      default:
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
-#### Snippet
-```java
-      }
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
-#### Snippet
-```java
       AnnotationMirror reflectionSupport) {
     if (reflectionSupport == null) {
       return null;
@@ -10344,6 +10320,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.jav
         ? ReflectionSupport.Level.valueOf(level.getSimpleName().toString()) : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
+#### Snippet
+```java
+          return TreeUtil.remove(node);
+        }
+        return null;
+      }
+      default:
+```
+
+### ReturnNull
+Return of `null`
+in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.java`
+#### Snippet
+```java
+      }
+      default:
+        return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -10384,18 +10384,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.j
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `dataAsMsg` is redundant
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-  public void testMergeFromOtherMessage() throws Exception {
-    TypicalData data = TypicalData.newBuilder().setMyInt(123).build();
-    Message dataAsMsg = data;
-    TypicalData.Builder builder1 = TypicalData.newBuilder().mergeFrom(dataAsMsg);
-    TypicalData.Builder builder2 = TypicalData.newBuilder().mergeFrom(data);
-```
-
-### UnnecessaryLocalVariable
 Local variable `data` is redundant
 in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
@@ -10417,6 +10405,18 @@ in `protobuf/tests/CompatibilityTest.java`
     MessageLite messageLite = data;
     MessageLite.Builder builderLite = messageLite.newBuilderForType();
     messageLite.writeTo(new ByteArrayOutputStream());
+```
+
+### UnnecessaryLocalVariable
+Local variable `dataAsMsg` is redundant
+in `protobuf/tests/CompatibilityTest.java`
+#### Snippet
+```java
+  public void testMergeFromOtherMessage() throws Exception {
+    TypicalData data = TypicalData.newBuilder().setMyInt(123).build();
+    Message dataAsMsg = data;
+    TypicalData.Builder builder1 = TypicalData.newBuilder().mergeFrom(dataAsMsg);
+    TypicalData.Builder builder2 = TypicalData.newBuilder().mergeFrom(data);
 ```
 
 ### UnnecessaryLocalVariable
