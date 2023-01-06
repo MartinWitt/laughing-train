@@ -165,18 +165,6 @@ in `core/src/main/java/google/registry/reporting/spec11/PublishSpec11ReportActio
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `defaultMap.keySet()` may be replaced with 'entrySet()' iteration
-in `util/src/main/java/google/registry/util/YamlUtils.java`
-#### Snippet
-```java
-  private static Map<String, Object> mergeMaps(
-      Map<String, Object> defaultMap, Map<String, Object> customMap) {
-    for (String key : defaultMap.keySet()) {
-      if (!customMap.containsKey(key)) {
-        continue;
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `replacements.keySet()` may be replaced with 'entrySet()' iteration
 in `prober/src/main/java/google/registry/monitoring/blackbox/message/EppMessage.java`
 #### Snippet
@@ -186,6 +174,18 @@ in `prober/src/main/java/google/registry/monitoring/blackbox/message/EppMessage.
       for (String key : replacements.keySet()) {
         NodeList nodes = (NodeList) xpath.evaluate(key, xmlDoc, XPathConstants.NODESET);
         for (int i = 0; i < nodes.getLength(); i++) {
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `defaultMap.keySet()` may be replaced with 'entrySet()' iteration
+in `util/src/main/java/google/registry/util/YamlUtils.java`
+#### Snippet
+```java
+  private static Map<String, Object> mergeMaps(
+      Map<String, Object> defaultMap, Map<String, Object> customMap) {
+    for (String key : defaultMap.keySet()) {
+      if (!customMap.containsKey(key)) {
+        continue;
 ```
 
 ## RuleId[ruleID=StaticPseudoFunctionalStyleMethod]
@@ -228,18 +228,6 @@ in `core/src/main/java/google/registry/persistence/transaction/QueryComposer.jav
 
 ## RuleId[ruleID=OctalLiteral]
 ### OctalLiteral
-Octal integer `07777777`
-in `util/src/main/java/google/registry/util/PosixTarHeader.java`
-#### Snippet
-```java
-     */
-    public Builder setUid(int uid) {
-      checkArgument(0 <= uid && uid <= 07777777,
-          "Tar uid out of range: %s", uid);
-      setField("uid", 108, 8, String.format("%07o", uid));
-```
-
-### OctalLiteral
 Octal integer `077777777777L`
 in `util/src/main/java/google/registry/util/PosixTarHeader.java`
 #### Snippet
@@ -257,10 +245,10 @@ in `util/src/main/java/google/registry/util/PosixTarHeader.java`
 #### Snippet
 ```java
      */
-    public Builder setMode(int mode) {
-      checkArgument(0 <= mode && mode <= 07777777,
-          "Tar mode out of range: %s", mode);
-      setField("mode", 100, 8, String.format("%07o", mode));
+    public Builder setGid(int gid) {
+      checkArgument(0 <= gid && gid <= 07777777,
+          "Tar gid out of range: %s", gid);
+      setField("gid", 116, 8, String.format("%07o", gid));
 ```
 
 ### OctalLiteral
@@ -269,10 +257,10 @@ in `util/src/main/java/google/registry/util/PosixTarHeader.java`
 #### Snippet
 ```java
      */
-    public Builder setGid(int gid) {
-      checkArgument(0 <= gid && gid <= 07777777,
-          "Tar gid out of range: %s", gid);
-      setField("gid", 116, 8, String.format("%07o", gid));
+    public Builder setMode(int mode) {
+      checkArgument(0 <= mode && mode <= 07777777,
+          "Tar mode out of range: %s", mode);
+      setField("mode", 100, 8, String.format("%07o", mode));
 ```
 
 ### OctalLiteral
@@ -285,6 +273,18 @@ in `util/src/main/java/google/registry/util/PosixTarHeader.java`
     private static final int DEFAULT_MODE = 0640;
     private static final int DEFAULT_UID = 0;
     private static final int DEFAULT_GID = 0;
+```
+
+### OctalLiteral
+Octal integer `07777777`
+in `util/src/main/java/google/registry/util/PosixTarHeader.java`
+#### Snippet
+```java
+     */
+    public Builder setUid(int uid) {
+      checkArgument(0 <= uid && uid <= 07777777,
+          "Tar uid out of range: %s", uid);
+      setField("uid", 108, 8, String.format("%07o", uid));
 ```
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
@@ -438,15 +438,15 @@ in `core/src/main/java/google/registry/reporting/icann/IcannReportingUploadActio
 ```
 
 ### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `util/src/main/java/google/registry/util/HexDumper.java`
+`results.size() > 0` can be replaced with '!results.isEmpty()'
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
 #### Snippet
 ```java
-  @Override
-  public void flush() throws IOException {
-    if (line.length() > 0) {
-      upstream.write(line.toString());
-      line = new StringBuilder();
+    public Optional<T> first() {
+      List<T> results = buildQuery().setMaxResults(1).getResultList();
+      return results.size() > 0 ? Optional.of(detach(results.get(0))) : Optional.empty();
+    }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -462,15 +462,15 @@ in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionMan
 ```
 
 ### SizeReplaceableByIsEmpty
-`results.size() > 0` can be replaced with '!results.isEmpty()'
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `util/src/main/java/google/registry/util/HexDumper.java`
 #### Snippet
 ```java
-    public Optional<T> first() {
-      List<T> results = buildQuery().setMaxResults(1).getResultList();
-      return results.size() > 0 ? Optional.of(detach(results.get(0))) : Optional.empty();
-    }
-
+  @Override
+  public void flush() throws IOException {
+    if (line.length() > 0) {
+      upstream.write(line.toString());
+      line = new StringBuilder();
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -575,18 +575,6 @@ in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends RegistrarPoc`
-in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
-#### Snippet
-```java
-
-  public static ImmutableList<RegistrarPoc.Builder> getRegistrarContactBuilders(
-      ImmutableSet<RegistrarPoc> existingContacts, @Nullable Map<String, ?> args) {
-    if (args == null) {
-      return ImmutableList.of();
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 #### Snippet
@@ -600,14 +588,62 @@ in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 
 ### BoundedWildcard
 Can generalize to `? extends RegistrarPoc`
-in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
+in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 #### Snippet
 ```java
 
-  private Map<String, Object> expandRegistrarWithContacts(
-      Iterable<RegistrarPoc> contacts, Registrar registrar) {
-    ImmutableSet<Map<String, Object>> expandedContacts =
-        Streams.stream(contacts)
+  public static ImmutableList<RegistrarPoc.Builder> getRegistrarContactBuilders(
+      ImmutableSet<RegistrarPoc> existingContacts, @Nullable Map<String, ?> args) {
+    if (args == null) {
+      return ImmutableList.of();
+```
+
+### BoundedWildcard
+Can generalize to `? super Type`
+in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
+#### Snippet
+```java
+   */
+  private static void ensurePhoneNumberNotRemovedForContactTypes(
+      Multimap<Type, RegistrarPoc> oldContactsByType,
+      Multimap<Type, RegistrarPoc> newContactsByType,
+      Type... types) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RegistrarPoc`
+in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
+#### Snippet
+```java
+   */
+  private static void ensurePhoneNumberNotRemovedForContactTypes(
+      Multimap<Type, RegistrarPoc> oldContactsByType,
+      Multimap<Type, RegistrarPoc> newContactsByType,
+      Type... types) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Type`
+in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
+#### Snippet
+```java
+  private static void ensurePhoneNumberNotRemovedForContactTypes(
+      Multimap<Type, RegistrarPoc> oldContactsByType,
+      Multimap<Type, RegistrarPoc> newContactsByType,
+      Type... types) {
+    for (Type type : types) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RegistrarPoc`
+in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
+#### Snippet
+```java
+  private static void ensurePhoneNumberNotRemovedForContactTypes(
+      Multimap<Type, RegistrarPoc> oldContactsByType,
+      Multimap<Type, RegistrarPoc> newContactsByType,
+      Type... types) {
+    for (Type type : types) {
 ```
 
 ### BoundedWildcard
@@ -623,51 +659,15 @@ in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsActi
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Type`
-in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
-#### Snippet
-```java
-   */
-  private static void ensurePhoneNumberNotRemovedForContactTypes(
-      Multimap<Type, RegistrarPoc> oldContactsByType,
-      Multimap<Type, RegistrarPoc> newContactsByType,
-      Type... types) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends RegistrarPoc`
 in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
 #### Snippet
 ```java
-   */
-  private static void ensurePhoneNumberNotRemovedForContactTypes(
-      Multimap<Type, RegistrarPoc> oldContactsByType,
-      Multimap<Type, RegistrarPoc> newContactsByType,
-      Type... types) {
-```
 
-### BoundedWildcard
-Can generalize to `? super Type`
-in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
-#### Snippet
-```java
-  private static void ensurePhoneNumberNotRemovedForContactTypes(
-      Multimap<Type, RegistrarPoc> oldContactsByType,
-      Multimap<Type, RegistrarPoc> newContactsByType,
-      Type... types) {
-    for (Type type : types) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RegistrarPoc`
-in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
-#### Snippet
-```java
-  private static void ensurePhoneNumberNotRemovedForContactTypes(
-      Multimap<Type, RegistrarPoc> oldContactsByType,
-      Multimap<Type, RegistrarPoc> newContactsByType,
-      Type... types) {
-    for (Type type : types) {
+  private Map<String, Object> expandRegistrarWithContacts(
+      Iterable<RegistrarPoc> contacts, Registrar registrar) {
+    ImmutableSet<Map<String, Object>> expandedContacts =
+        Streams.stream(contacts)
 ```
 
 ### BoundedWildcard
@@ -680,30 +680,6 @@ in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
   void mutateZone(ImmutableMap<String, ImmutableSet<ResourceRecordSet>> desiredRecords) {
     logger.atInfo().log("Updating DNS records for hostname(s) %s.", desiredRecords.keySet());
     // Fetch all existing records for names that this writer is trying to modify
-```
-
-### BoundedWildcard
-Can generalize to `? extends InternetAddress`
-in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
-#### Snippet
-```java
-      @Config("dnsUpdateFailEmailBodyText") String dnsUpdateFailEmailBodyText,
-      @Config("dnsUpdateFailRegistryName") String dnsUpdateFailRegistryName,
-      @Config("registrySupportEmail") Lazy<InternetAddress> registrySupportEmail,
-      @Config("registryCcEmail") Lazy<InternetAddress> registryCcEmail,
-      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
-```
-
-### BoundedWildcard
-Can generalize to `? extends InternetAddress`
-in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
-#### Snippet
-```java
-      @Config("dnsUpdateFailRegistryName") String dnsUpdateFailRegistryName,
-      @Config("registrySupportEmail") Lazy<InternetAddress> registrySupportEmail,
-      @Config("registryCcEmail") Lazy<InternetAddress> registryCcEmail,
-      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
-      @Header(APP_ENGINE_RETRY_HEADER) Optional<Integer> appEngineRetryCount,
 ```
 
 ### BoundedWildcard
@@ -731,30 +707,6 @@ in `core/src/main/java/google/registry/rde/PgpUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PGPPublicKey`
-in `core/src/main/java/google/registry/rde/RydeEncryption.java`
-#### Snippet
-```java
-      @WillNotClose OutputStream os,
-      boolean withIntegrityPacket,
-      Collection<PGPPublicKey> receiverKeys) {
-    try {
-      PGPEncryptedDataGenerator encryptor =
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `core/src/main/java/google/registry/ui/forms/FormField.java`
-#### Snippet
-```java
-      }
-
-      private void checkRangeContains(Range<Integer> range, int value, String message) {
-        if (!range.contains(value)) {
-          throw new FormFieldException(
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `core/src/main/java/google/registry/ui/forms/FormField.java`
 #### Snippet
@@ -776,6 +728,30 @@ in `core/src/main/java/google/registry/ui/forms/FormField.java`
       SplitToSetFunction(FormField<String, O> itemField, Splitter splitter) {
         this.itemField = itemField;
         this.splitter = splitter;
+```
+
+### BoundedWildcard
+Can generalize to `? extends O`
+in `core/src/main/java/google/registry/ui/forms/FormField.java`
+#### Snippet
+```java
+      private final FormField<I, O> itemField;
+
+      ToListFunction(FormField<I, O> itemField) {
+        this.itemField = itemField;
+      }
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `core/src/main/java/google/registry/ui/forms/FormField.java`
+#### Snippet
+```java
+      }
+
+      private void checkRangeContains(Range<Integer> range, int value, String message) {
+        if (!range.contains(value)) {
+          throw new FormFieldException(
 ```
 
 ### BoundedWildcard
@@ -815,15 +791,39 @@ in `core/src/main/java/google/registry/ui/forms/FormField.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends O`
-in `core/src/main/java/google/registry/ui/forms/FormField.java`
+Can generalize to `? extends InternetAddress`
+in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
 #### Snippet
 ```java
-      private final FormField<I, O> itemField;
+      @Config("dnsUpdateFailEmailBodyText") String dnsUpdateFailEmailBodyText,
+      @Config("dnsUpdateFailRegistryName") String dnsUpdateFailRegistryName,
+      @Config("registrySupportEmail") Lazy<InternetAddress> registrySupportEmail,
+      @Config("registryCcEmail") Lazy<InternetAddress> registryCcEmail,
+      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
+```
 
-      ToListFunction(FormField<I, O> itemField) {
-        this.itemField = itemField;
-      }
+### BoundedWildcard
+Can generalize to `? extends InternetAddress`
+in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
+#### Snippet
+```java
+      @Config("dnsUpdateFailRegistryName") String dnsUpdateFailRegistryName,
+      @Config("registrySupportEmail") Lazy<InternetAddress> registrySupportEmail,
+      @Config("registryCcEmail") Lazy<InternetAddress> registryCcEmail,
+      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
+      @Header(APP_ENGINE_RETRY_HEADER) Optional<Integer> appEngineRetryCount,
+```
+
+### BoundedWildcard
+Can generalize to `? extends PGPPublicKey`
+in `core/src/main/java/google/registry/rde/RydeEncryption.java`
+#### Snippet
+```java
+      @WillNotClose OutputStream os,
+      boolean withIntegrityPacket,
+      Collection<PGPPublicKey> receiverKeys) {
+    try {
+      PGPEncryptedDataGenerator encryptor =
 ```
 
 ### BoundedWildcard
@@ -851,18 +851,6 @@ in `core/src/main/java/google/registry/beam/spec11/SafeBrowsingTransforms.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PendingDeposit`
-in `core/src/main/java/google/registry/beam/rde/RdeIO.java`
-#### Snippet
-```java
-    @ProcessElement
-    public void processElement(
-        @Element KV<PendingDeposit, Integer> input, PipelineOptions options) {
-      tm().transact(
-              () -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends KV`
 in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
 #### Snippet
@@ -875,18 +863,6 @@ in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DomainNameInfo`
-in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
-#### Snippet
-```java
-                  @ProcessElement
-                  public void processElement(
-                      @Element KV<String, String> input, OutputReceiver<DomainNameInfo> output) {
-                    Domain domain =
-                        tm().transact(
-```
-
-### BoundedWildcard
 Can generalize to `? extends KV`
 in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
 #### Snippet
@@ -896,6 +872,18 @@ in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
       PCollection<KV<DomainNameInfo, ThreatMatch>> threatMatches, Spec11PipelineOptions options) {
     threatMatches
         .apply(
+```
+
+### BoundedWildcard
+Can generalize to `? super DomainNameInfo`
+in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
+#### Snippet
+```java
+                  @ProcessElement
+                  public void processElement(
+                      @Element KV<String, String> input, OutputReceiver<DomainNameInfo> output) {
+                    Domain domain =
+                        tm().transact(
 ```
 
 ### BoundedWildcard
@@ -935,6 +923,18 @@ in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends PendingDeposit`
+in `core/src/main/java/google/registry/beam/rde/RdeIO.java`
+#### Snippet
+```java
+    @ProcessElement
+    public void processElement(
+        @Element KV<PendingDeposit, Integer> input, PipelineOptions options) {
+      tm().transact(
+              () -> {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Domain`
 in `core/src/main/java/google/registry/rdap/RdapDomainSearchAction.java`
 #### Snippet
@@ -947,18 +947,6 @@ in `core/src/main/java/google/registry/rdap/RdapDomainSearchAction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Host`
-in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
-#### Snippet
-```java
-  /** Output JSON for a list of hosts. */
-  private NameserverSearchResponse makeSearchResults(
-      List<Host> hosts,
-      IncompletenessWarningType incompletenessWarningType,
-      int numHostsRetrieved,
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
 #### Snippet
@@ -968,6 +956,18 @@ in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
       List<T> queryResult, int querySizeLimit) {
     // If we are including deleted resources, we need to check that we're authorized for each one.
     List<T> resources = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Host`
+in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
+#### Snippet
+```java
+  /** Output JSON for a list of hosts. */
+  private NameserverSearchResponse makeSearchResults(
+      List<Host> hosts,
+      IncompletenessWarningType incompletenessWarningType,
+      int numHostsRetrieved,
 ```
 
 ### BoundedWildcard
@@ -1043,18 +1043,6 @@ in `core/src/main/java/google/registry/batch/CheckPackagesComplianceAction.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BillingEvent.OneTime`
-in `core/src/main/java/google/registry/batch/ExpandRecurringBillingEventsAction.java`
-#### Snippet
-```java
-   */
-  private static ImmutableSet<DateTime> getExistingBillingTimes(
-      Iterable<BillingEvent.OneTime> oneTimesForDomain,
-      final BillingEvent.Recurring recurringEvent) {
-    return Streams.stream(oneTimesForDomain)
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `core/src/main/java/google/registry/batch/DeleteProberDataAction.java`
 #### Snippet
@@ -1091,6 +1079,30 @@ in `core/src/main/java/google/registry/flows/ExtensionManager.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends BillingEvent.OneTime`
+in `core/src/main/java/google/registry/batch/ExpandRecurringBillingEventsAction.java`
+#### Snippet
+```java
+   */
+  private static ImmutableSet<DateTime> getExistingBillingTimes(
+      Iterable<BillingEvent.OneTime> oneTimesForDomain,
+      final BillingEvent.Recurring recurringEvent) {
+    return Streams.stream(oneTimesForDomain)
+```
+
+### BoundedWildcard
+Can generalize to `? extends InetAddress`
+in `core/src/main/java/google/registry/flows/TlsCredentials.java`
+#### Snippet
+```java
+  /** Registrar IP address is not in stored allow list. */
+  public static class BadRegistrarIpAddressException extends AuthenticationErrorException {
+    BadRegistrarIpAddressException(Optional<InetAddress> clientInetAddr) {
+      super(
+          clientInetAddr.isPresent()
+```
+
+### BoundedWildcard
 Can generalize to `? extends AuthInfo`
 in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
 #### Snippet
@@ -1100,18 +1112,6 @@ in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
   public static void verifyOptionalAuthInfo(Optional<AuthInfo> authInfo, Domain domain)
       throws EppException {
     if (authInfo.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
-#### Snippet
-```java
-
-  public static <R extends EppResource> R verifyExistence(
-      Class<R> clazz, String targetId, Optional<R> resource) throws ResourceDoesNotExistException {
-    return resource.orElseThrow(() -> new ResourceDoesNotExistException(clazz, targetId));
-  }
 ```
 
 ### BoundedWildcard
@@ -1127,15 +1127,15 @@ in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InetAddress`
-in `core/src/main/java/google/registry/flows/TlsCredentials.java`
+Can generalize to `? extends R`
+in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
 #### Snippet
 ```java
-  /** Registrar IP address is not in stored allow list. */
-  public static class BadRegistrarIpAddressException extends AuthenticationErrorException {
-    BadRegistrarIpAddressException(Optional<InetAddress> clientInetAddr) {
-      super(
-          clientInetAddr.isPresent()
+
+  public static <R extends EppResource> R verifyExistence(
+      Class<R> clazz, String targetId, Optional<R> resource) throws ResourceDoesNotExistException {
+    return resource.orElseThrow(() -> new ResourceDoesNotExistException(clazz, targetId));
+  }
 ```
 
 ### BoundedWildcard
@@ -1215,11 +1215,11 @@ Can generalize to `? super T`
 in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
 #### Snippet
 ```java
-    private final SerializableFunction<T, Object> jpaConverter;
 
-    SqlBatchWriter(String type, SerializableFunction<T, Object> jpaConverter) {
-      counter = Metrics.counter("SQL_WRITE", type);
-      this.jpaConverter = jpaConverter;
+      @ProcessElement
+      public void processElement(OutputReceiver<T> outputReceiver) {
+        tm().transactNoRetry(
+                () -> {
 ```
 
 ### BoundedWildcard
@@ -1239,11 +1239,11 @@ Can generalize to `? super T`
 in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
 #### Snippet
 ```java
+    private final SerializableFunction<T, Object> jpaConverter;
 
-      @ProcessElement
-      public void processElement(OutputReceiver<T> outputReceiver) {
-        tm().transactNoRetry(
-                () -> {
+    SqlBatchWriter(String type, SerializableFunction<T, Object> jpaConverter) {
+      counter = Metrics.counter("SQL_WRITE", type);
+      this.jpaConverter = jpaConverter;
 ```
 
 ### BoundedWildcard
@@ -1308,14 +1308,14 @@ in `core/src/main/java/google/registry/flows/domain/DomainTransferRequestFlow.ja
 
 ### BoundedWildcard
 Can generalize to `? extends AllocationToken`
-in `core/src/main/java/google/registry/flows/domain/DomainPricingLogic.java`
+in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 #### Snippet
 ```java
-  /** Returns the domain create cost with allocation-token-related discounts applied. */
-  private Money getDomainCreateCostWithDiscount(
-      DomainPrices domainPrices, int years, Optional<AllocationToken> allocationToken)
-      throws EppException {
-    if (allocationToken.isPresent()
+      int years,
+      HistoryEntryId domainHistoryId,
+      Optional<AllocationToken> allocationToken,
+      DateTime now) {
+    return new BillingEvent.OneTime.Builder()
 ```
 
 ### BoundedWildcard
@@ -1332,14 +1332,14 @@ in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 
 ### BoundedWildcard
 Can generalize to `? extends AllocationToken`
-in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
+in `core/src/main/java/google/registry/flows/domain/DomainPricingLogic.java`
 #### Snippet
 ```java
-      int years,
-      HistoryEntryId domainHistoryId,
-      Optional<AllocationToken> allocationToken,
-      DateTime now) {
-    return new BillingEvent.OneTime.Builder()
+  /** Returns the domain create cost with allocation-token-related discounts applied. */
+  private Money getDomainCreateCostWithDiscount(
+      DomainPrices domainPrices, int years, Optional<AllocationToken> allocationToken)
+      throws EppException {
+    if (allocationToken.isPresent()
 ```
 
 ### BoundedWildcard
@@ -1431,18 +1431,6 @@ Can generalize to `? extends AllocationToken`
 in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
 #### Snippet
 ```java
-      DateTime now,
-      String domainLabel,
-      Optional<AllocationToken> allocationToken,
-      boolean isAnchorTenant,
-      boolean isValidReservedCreate,
-```
-
-### BoundedWildcard
-Can generalize to `? extends AllocationToken`
-in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
-#### Snippet
-```java
       FeesAndCredits feesAndCredits,
       HistoryEntryId domainHistoryId,
       Optional<AllocationToken> allocationToken,
@@ -1460,6 +1448,18 @@ in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
       Optional<AllocationToken> allocationToken,
       FeesAndCredits feesAndCredits) {
     if (isAnchorTenant) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AllocationToken`
+in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
+#### Snippet
+```java
+      DateTime now,
+      String domainLabel,
+      Optional<AllocationToken> allocationToken,
+      boolean isAnchorTenant,
+      boolean isValidReservedCreate,
 ```
 
 ### BoundedWildcard
@@ -1487,18 +1487,6 @@ in `core/src/main/java/google/registry/model/OteAccountBuilder.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super HistoryEntry.Type`
-in `core/src/main/java/google/registry/model/OteStats.java`
-#### Snippet
-```java
-    StatType(
-        int requirement,
-        Predicate<HistoryEntry.Type> typeFilter,
-        Predicate<EppInput> eppInputFilter) {
-      this.requirement = requirement;
-```
-
-### BoundedWildcard
 Can generalize to `? extends EppInput`
 in `core/src/main/java/google/registry/model/OteStats.java`
 #### Snippet
@@ -1511,27 +1499,15 @@ in `core/src/main/java/google/registry/model/OteStats.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Domain`
-in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
+Can generalize to `? super HistoryEntry.Type`
+in `core/src/main/java/google/registry/model/OteStats.java`
 #### Snippet
 ```java
-
-  private ImmutableMap<String, BillingEvent.Recurring> loadRecurrencesForDomains(
-      ImmutableMap<String, Domain> domainObjs) {
-    return tm().transact(
-            () -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends VKey`
-in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
-#### Snippet
-```java
-      FeeCheckCommandExtension<?, ?> feeCheck,
-      ImmutableMap<String, InternetDomainName> domainNames,
-      ImmutableMap<String, VKey<Domain>> existingDomains) {
-    ImmutableList<String> restoreCheckDomains;
-    if (feeCheck instanceof FeeCheckCommandExtensionV06) {
+    StatType(
+        int requirement,
+        Predicate<HistoryEntry.Type> typeFilter,
+        Predicate<EppInput> eppInputFilter) {
+      this.requirement = requirement;
 ```
 
 ### BoundedWildcard
@@ -1547,6 +1523,30 @@ in `core/src/main/java/google/registry/model/tld/label/DomainLabelMetrics.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends VKey`
+in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
+#### Snippet
+```java
+      FeeCheckCommandExtension<?, ?> feeCheck,
+      ImmutableMap<String, InternetDomainName> domainNames,
+      ImmutableMap<String, VKey<Domain>> existingDomains) {
+    ImmutableList<String> restoreCheckDomains;
+    if (feeCheck instanceof FeeCheckCommandExtensionV06) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Domain`
+in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
+#### Snippet
+```java
+
+  private ImmutableMap<String, BillingEvent.Recurring> loadRecurrencesForDomains(
+      ImmutableMap<String, Domain> domainObjs) {
+    return tm().transact(
+            () -> {
+```
+
+### BoundedWildcard
 Can generalize to `? extends BigDecimal`
 in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
 #### Snippet
@@ -1556,6 +1556,54 @@ in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
     public Builder setLabelsToPrices(Map<String, BigDecimal> labelsToPrices) {
       getInstance().labelsToPrices = ImmutableMap.copyOf(labelsToPrices);
       return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Domain`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+      FeeQueryResponseExtensionItem.Builder<?, ?> builder,
+      InternetDomainName domainName,
+      Optional<Domain> domain,
+      @Nullable CurrencyUnit topLevelCurrency,
+      DateTime currentDate,
+```
+
+### BoundedWildcard
+Can generalize to `? extends DesignatedContact`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+
+  static void validateRequiredContactsPresent(
+      @Nullable VKey<Contact> registrant, Set<DesignatedContact> contacts)
+      throws RequiredParameterMissingException {
+    if (registrant == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DesignatedContact`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+
+  static ImmutableSet<ForeignKeyedDesignatedContact> loadForeignKeyedDesignatedContacts(
+      ImmutableSet<DesignatedContact> contacts) {
+    ImmutableSet.Builder<ForeignKeyedDesignatedContact> builder = new ImmutableSet.Builder<>();
+    for (DesignatedContact contact : contacts) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Fee`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+  }
+
+  private static ImmutableMap<FeeType, Money> buildFeeMap(List<Fee> fees, CurrencyUnit currency)
+      throws ParameterValuePolicyErrorException {
+    ImmutableMultimap.Builder<FeeType, Money> mapBuilder =
 ```
 
 ### BoundedWildcard
@@ -1571,15 +1619,15 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DesignatedContact`
+Can generalize to `? extends DomainDsData`
 in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 #### Snippet
 ```java
 
-  static void validateRequiredContactsPresent(
-      @Nullable VKey<Contact> registrant, Set<DesignatedContact> contacts)
-      throws RequiredParameterMissingException {
-    if (registrant == null) {
+  /** Check that the DS data that will be set on a domain is valid. */
+  static void validateDsData(Set<DomainDsData> dsData) throws EppException {
+    if (dsData != null) {
+      if (dsData.size() > MAX_DS_RECORDS_PER_DOMAIN) {
 ```
 
 ### BoundedWildcard
@@ -1619,6 +1667,30 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DesignatedContact`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+  }
+
+  static void validateNoDuplicateContacts(Set<DesignatedContact> contacts)
+      throws ParameterValuePolicyErrorException {
+    ImmutableMultimap<Type, VKey<Contact>> contactsByType =
+```
+
+### BoundedWildcard
+Can generalize to `? extends AllocationToken`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+  /** Returns whether a given domain create request is for a valid reserved domain. */
+  public static boolean isValidReservedCreate(
+      InternetDomainName domainName, Optional<AllocationToken> token) {
+    // If the domain is reserved for specific use, then check if the allocation token exists and
+    // is for this domain.
+```
+
+### BoundedWildcard
 Can generalize to `? extends AllocationToken`
 in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 #### Snippet
@@ -1643,15 +1715,15 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AllocationToken`
+Can generalize to `? super ResponseExtension`
 in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 #### Snippet
 ```java
-  /** Returns whether a given domain create request is for a valid reserved domain. */
-  public static boolean isValidReservedCreate(
-      InternetDomainName domainName, Optional<AllocationToken> token) {
-    // If the domain is reserved for specific use, then check if the allocation token exists and
-    // is for this domain.
+   */
+  static void addSecDnsExtensionIfPresent(
+      ImmutableList.Builder<ResponseExtension> extensions, ImmutableSet<DomainDsData> dsData) {
+    if (!dsData.isEmpty()) {
+      extensions.add(SecDnsInfoExtension.create(dsData));
 ```
 
 ### BoundedWildcard
@@ -1667,75 +1739,15 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DomainDsData`
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+Can generalize to `? extends Cursor`
+in `core/src/main/java/google/registry/model/common/Cursor.java`
 #### Snippet
 ```java
-
-  /** Check that the DS data that will be set on a domain is valid. */
-  static void validateDsData(Set<DomainDsData> dsData) throws EppException {
-    if (dsData != null) {
-      if (dsData.size() > MAX_DS_RECORDS_PER_DOMAIN) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DesignatedContact`
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-  }
-
-  static void validateNoDuplicateContacts(Set<DesignatedContact> contacts)
-      throws ParameterValuePolicyErrorException {
-    ImmutableMultimap<Type, VKey<Contact>> contactsByType =
-```
-
-### BoundedWildcard
-Can generalize to `? super ResponseExtension`
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
+   * Returns the current time for a given cursor, or {@code START_OF_TIME} if the cursor is null.
    */
-  static void addSecDnsExtensionIfPresent(
-      ImmutableList.Builder<ResponseExtension> extensions, ImmutableSet<DomainDsData> dsData) {
-    if (!dsData.isEmpty()) {
-      extensions.add(SecDnsInfoExtension.create(dsData));
-```
-
-### BoundedWildcard
-Can generalize to `? extends DesignatedContact`
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-
-  static ImmutableSet<ForeignKeyedDesignatedContact> loadForeignKeyedDesignatedContacts(
-      ImmutableSet<DesignatedContact> contacts) {
-    ImmutableSet.Builder<ForeignKeyedDesignatedContact> builder = new ImmutableSet.Builder<>();
-    for (DesignatedContact contact : contacts) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Fee`
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
+  public static DateTime getCursorTimeOrStartOfTime(Optional<Cursor> cursor) {
+    return cursor.map(Cursor::getCursorTime).orElse(START_OF_TIME);
   }
-
-  private static ImmutableMap<FeeType, Money> buildFeeMap(List<Fee> fees, CurrencyUnit currency)
-      throws ParameterValuePolicyErrorException {
-    ImmutableMultimap.Builder<FeeType, Money> mapBuilder =
-```
-
-### BoundedWildcard
-Can generalize to `? extends Domain`
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-      FeeQueryResponseExtensionItem.Builder<?, ?> builder,
-      InternetDomainName domainName,
-      Optional<Domain> domain,
-      @Nullable CurrencyUnit topLevelCurrency,
-      DateTime currentDate,
 ```
 
 ### BoundedWildcard
@@ -1748,18 +1760,6 @@ in `core/src/main/java/google/registry/model/host/HostBase.java`
     public B addInetAddresses(ImmutableSet<InetAddress> inetAddresses) {
       return setInetAddresses(
           ImmutableSet.copyOf(union(getInstance().getInetAddresses(), inetAddresses)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Cursor`
-in `core/src/main/java/google/registry/model/common/Cursor.java`
-#### Snippet
-```java
-   * Returns the current time for a given cursor, or {@code START_OF_TIME} if the cursor is null.
-   */
-  public static DateTime getCursorTimeOrStartOfTime(Optional<Cursor> cursor) {
-    return cursor.map(Cursor::getCursorTime).orElse(START_OF_TIME);
-  }
 ```
 
 ### BoundedWildcard
@@ -1823,15 +1823,15 @@ in `core/src/main/java/google/registry/model/domain/fee12/FeeCheckResponseExtens
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DesignatedContact`
+Can generalize to `? extends VKey`
 in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 #### Snippet
 ```java
     }
 
-    public B addContacts(ImmutableSet<DesignatedContact> contacts) {
-      return setContacts(ImmutableSet.copyOf(Sets.union(getInstance().getContacts(), contacts)));
-    }
+    public B addNameservers(ImmutableSet<VKey<Host>> nameservers) {
+      return setNameservers(
+          ImmutableSet.copyOf(Sets.union(getInstance().getNameservers(), nameservers)));
 ```
 
 ### BoundedWildcard
@@ -1847,15 +1847,15 @@ in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends VKey`
+Can generalize to `? extends DesignatedContact`
 in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 #### Snippet
 ```java
     }
 
-    public B addNameservers(ImmutableSet<VKey<Host>> nameservers) {
-      return setNameservers(
-          ImmutableSet.copyOf(Sets.union(getInstance().getNameservers(), nameservers)));
+    public B addContacts(ImmutableSet<DesignatedContact> contacts) {
+      return setContacts(ImmutableSet.copyOf(Sets.union(getInstance().getContacts(), contacts)));
+    }
 ```
 
 ### BoundedWildcard
@@ -1883,6 +1883,18 @@ in `core/src/main/java/google/registry/model/transfer/DomainTransferData.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ContactCheck`
+in `core/src/main/java/google/registry/model/eppoutput/CheckData.java`
+#### Snippet
+```java
+  @XmlRootElement(name = "chkData", namespace = "urn:ietf:params:xml:ns:contact-1.0")
+  public static class ContactCheckData extends CheckData {
+    public static ContactCheckData create(ImmutableList<ContactCheck> checks) {
+      return init(new ContactCheckData(), checks);
+    }
+```
+
+### BoundedWildcard
 Can generalize to `? extends HostCheck`
 in `core/src/main/java/google/registry/model/eppoutput/CheckData.java`
 #### Snippet
@@ -1903,18 +1915,6 @@ in `core/src/main/java/google/registry/model/eppoutput/CheckData.java`
   public static class DomainCheckData extends CheckData {
     public static DomainCheckData create(ImmutableList<DomainCheck> checks) {
       return init(new DomainCheckData(), checks);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ContactCheck`
-in `core/src/main/java/google/registry/model/eppoutput/CheckData.java`
-#### Snippet
-```java
-  @XmlRootElement(name = "chkData", namespace = "urn:ietf:params:xml:ns:contact-1.0")
-  public static class ContactCheckData extends CheckData {
-    public static ContactCheckData create(ImmutableList<ContactCheck> checks) {
-      return init(new ContactCheckData(), checks);
     }
 ```
 
@@ -1979,6 +1979,30 @@ in `core/src/main/java/google/registry/model/registrar/Registrar.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
+#### Snippet
+```java
+
+  private void populateAddRemoveLists(
+      Set<String> targetSet, Set<String> oldSet, Set<String> addSet, Set<String> removeSet) {
+    addSet.addAll(Sets.difference(targetSet, oldSet));
+    removeSet.addAll(Sets.difference(oldSet, targetSet));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
+#### Snippet
+```java
+
+  private void populateAddRemoveLists(
+      Set<String> targetSet, Set<String> oldSet, Set<String> addSet, Set<String> removeSet) {
+    addSet.addAll(Sets.difference(targetSet, oldSet));
+    removeSet.addAll(Sets.difference(oldSet, targetSet));
+```
+
+### BoundedWildcard
 Can generalize to `? extends VKey`
 in `core/src/main/java/google/registry/tools/DeleteAllocationTokensCommand.java`
 #### Snippet
@@ -1995,18 +2019,6 @@ Can generalize to `? extends RegistrarPoc`
 in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
 #### Snippet
 ```java
-
-  private void unsetOtherWhoisAbuseFlags(
-      ImmutableSet<RegistrarPoc> contacts, @Nullable String emailAddressNotToChange) {
-    for (RegistrarPoc contact : contacts) {
-      if (!contact.getEmailAddress().equals(emailAddressNotToChange)
-```
-
-### BoundedWildcard
-Can generalize to `? extends RegistrarPoc`
-in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
-#### Snippet
-```java
   }
 
   private void listContacts(Set<RegistrarPoc> contacts) throws IOException {
@@ -2015,39 +2027,15 @@ in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
+Can generalize to `? extends RegistrarPoc`
+in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
 #### Snippet
 ```java
 
-  private void populateAddRemoveLists(
-      Set<String> targetSet, Set<String> oldSet, Set<String> addSet, Set<String> removeSet) {
-    addSet.addAll(Sets.difference(targetSet, oldSet));
-    removeSet.addAll(Sets.difference(oldSet, targetSet));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
-#### Snippet
-```java
-
-  private void populateAddRemoveLists(
-      Set<String> targetSet, Set<String> oldSet, Set<String> addSet, Set<String> removeSet) {
-    addSet.addAll(Sets.difference(targetSet, oldSet));
-    removeSet.addAll(Sets.difference(oldSet, targetSet));
-```
-
-### BoundedWildcard
-Can generalize to `? extends DsRecord`
-in `core/src/main/java/google/registry/tools/DsRecord.java`
-#### Snippet
-```java
-  }
-
-  public static SoyListData convertToSoy(List<DsRecord> dsRecords) {
-    return new SoyListData(dsRecords.stream().map(DsRecord::toSoyData).collect(toImmutableList()));
-  }
+  private void unsetOtherWhoisAbuseFlags(
+      ImmutableSet<RegistrarPoc> contacts, @Nullable String emailAddressNotToChange) {
+    for (RegistrarPoc contact : contacts) {
+      if (!contact.getEmailAddress().equals(emailAddressNotToChange)
 ```
 
 ### BoundedWildcard
@@ -2063,15 +2051,15 @@ in `core/src/main/java/google/registry/tools/AuthModule.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Cursor`
-in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
+Can generalize to `? extends DsRecord`
+in `core/src/main/java/google/registry/tools/DsRecord.java`
 #### Snippet
 ```java
   }
 
-  private static String renderLine(String name, Optional<Cursor> cursor) {
-    return String.format(
-        OUTPUT_FMT,
+  public static SoyListData convertToSoy(List<DsRecord> dsRecords) {
+    return new SoyListData(dsRecords.stream().map(DsRecord::toSoyData).collect(toImmutableList()));
+  }
 ```
 
 ### BoundedWildcard
@@ -2123,6 +2111,18 @@ in `core/src/main/java/google/registry/tools/GetAllocationTokenCommand.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Cursor`
+in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
+#### Snippet
+```java
+  }
+
+  private static String renderLine(String name, Optional<Cursor> cursor) {
+    return String.format(
+        OUTPUT_FMT,
+```
+
+### BoundedWildcard
 Can generalize to `? extends V`
 in `core/src/main/java/google/registry/tools/params/TransitionListParameter.java`
 #### Snippet
@@ -2159,18 +2159,6 @@ in `core/src/main/java/google/registry/tools/server/GenerateZoneFilesAction.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends VKey`
-in `core/src/main/java/google/registry/whois/DomainWhoisResponse.java`
-#### Snippet
-```java
-    /** Emit the contact entry of the given type. */
-    DomainEmitter emitContact(
-        String contactType, Optional<VKey<Contact>> contact, boolean preferUnicode) {
-      if (!contact.isPresent()) {
-        return this;
-```
-
-### BoundedWildcard
 Can generalize to `? extends GracePeriod`
 in `core/src/main/java/google/registry/whois/DomainWhoisResponse.java`
 #### Snippet
@@ -2180,6 +2168,18 @@ in `core/src/main/java/google/registry/whois/DomainWhoisResponse.java`
         Set<StatusValue> statusValues, Set<GracePeriod> gracePeriods) {
       ImmutableSet.Builder<EppEnum> combinedStatuses = new ImmutableSet.Builder<>();
       combinedStatuses.addAll(statusValues);
+```
+
+### BoundedWildcard
+Can generalize to `? extends VKey`
+in `core/src/main/java/google/registry/whois/DomainWhoisResponse.java`
+#### Snippet
+```java
+    /** Emit the contact entry of the given type. */
+    DomainEmitter emitContact(
+        String contactType, Optional<VKey<Contact>> contact, boolean preferUnicode) {
+      if (!contact.isPresent()) {
+        return this;
 ```
 
 ### BoundedWildcard
@@ -2204,6 +2204,30 @@ in `core/src/main/java/google/registry/module/tools/ToolsRequestHandler.java`
       Provider<ToolsRequestComponent.Builder> componentBuilderProvider,
       RequestAuthenticator requestAuthenticator) {
     super(componentBuilderProvider, requestAuthenticator);
+```
+
+### BoundedWildcard
+Can generalize to `? extends RegistrarPoc`
+in `core/src/main/java/google/registry/export/sheet/SyncRegistrarsSheet.java`
+#### Snippet
+```java
+
+  private static String convertContacts(
+      Iterable<RegistrarPoc> contacts, Predicate<RegistrarPoc> filter) {
+    StringBuilder result = new StringBuilder();
+    boolean first = true;
+```
+
+### BoundedWildcard
+Can generalize to `? super RegistrarPoc`
+in `core/src/main/java/google/registry/export/sheet/SyncRegistrarsSheet.java`
+#### Snippet
+```java
+
+  private static String convertContacts(
+      Iterable<RegistrarPoc> contacts, Predicate<RegistrarPoc> filter) {
+    StringBuilder result = new StringBuilder();
+    boolean first = true;
 ```
 
 ### BoundedWildcard
@@ -2279,66 +2303,6 @@ in `core/src/main/java/google/registry/keyring/KeyringModule.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RegistrarPoc`
-in `core/src/main/java/google/registry/export/sheet/SyncRegistrarsSheet.java`
-#### Snippet
-```java
-
-  private static String convertContacts(
-      Iterable<RegistrarPoc> contacts, Predicate<RegistrarPoc> filter) {
-    StringBuilder result = new StringBuilder();
-    boolean first = true;
-```
-
-### BoundedWildcard
-Can generalize to `? super RegistrarPoc`
-in `core/src/main/java/google/registry/export/sheet/SyncRegistrarsSheet.java`
-#### Snippet
-```java
-
-  private static String convertContacts(
-      Iterable<RegistrarPoc> contacts, Predicate<RegistrarPoc> filter) {
-    StringBuilder result = new StringBuilder();
-    boolean first = true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Route`
-in `core/src/main/java/google/registry/request/RouterDisplayHelper.java`
-#### Snippet
-```java
-  }
-
-  private static String formatRoutes(Iterable<Route> routes) {
-
-    // Use the column header length as a minimum.
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
-#### Snippet
-```java
-   * Don't include aliases, since then we'd wind up returning the same field twice.
-   */
-  private ImmutableList<String> getAllAvailableFields(ImmutableSet<T> objects) {
-    ImmutableList.Builder<String> fields = new ImmutableList.Builder<>();
-    for (T object : objects) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
-#### Snippet
-```java
-   */
-  private ImmutableTable<T, String, String>
-      extractData(ImmutableSet<String> fields, ImmutableSet<T> objects) {
-    ImmutableTable.Builder<T, String, String> builder = new ImmutableTable.Builder<>();
-    for (T object : objects) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `core/src/main/java/google/registry/whois/WhoisResponseImpl.java`
 #### Snippet
@@ -2360,6 +2324,42 @@ in `core/src/main/java/google/registry/whois/WhoisResponseImpl.java`
     <T> E emitSet(String title, Set<T> values, Function<T, String> transform) {
       return emitList(title, values.stream().map(transform).sorted().collect(toImmutableList()));
     }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Route`
+in `core/src/main/java/google/registry/request/RouterDisplayHelper.java`
+#### Snippet
+```java
+  }
+
+  private static String formatRoutes(Iterable<Route> routes) {
+
+    // Use the column header length as a minimum.
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
+#### Snippet
+```java
+   */
+  private ImmutableTable<T, String, String>
+      extractData(ImmutableSet<String> fields, ImmutableSet<T> objects) {
+    ImmutableTable.Builder<T, String, String> builder = new ImmutableTable.Builder<>();
+    for (T object : objects) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
+#### Snippet
+```java
+   * Don't include aliases, since then we'd wind up returning the same field twice.
+   */
+  private ImmutableList<String> getAllAvailableFields(ImmutableSet<T> objects) {
+    ImmutableList.Builder<String> fields = new ImmutableList.Builder<>();
+    for (T object : objects) {
 ```
 
 ### BoundedWildcard
@@ -2388,6 +2388,18 @@ in `core/src/main/java/google/registry/request/auth/AuthenticatedRegistrarAccess
 
 ### BoundedWildcard
 Can generalize to `? extends RegistrarThreatMatches`
+in `core/src/main/java/google/registry/reporting/spec11/PublishSpec11ReportAction.java`
+#### Snippet
+```java
+
+  private ImmutableMap<String, ImmutableSet<ThreatMatch>> groupByKeyAndFlatMap(
+      ImmutableSet<RegistrarThreatMatches> registrarThreatMatches) {
+    // Group by email address then flat-map all of the ThreatMatch objects together
+    return ImmutableMap.copyOf(
+```
+
+### BoundedWildcard
+Can generalize to `? extends RegistrarThreatMatches`
 in `core/src/main/java/google/registry/reporting/spec11/Spec11EmailUtils.java`
 #### Snippet
 ```java
@@ -2399,15 +2411,15 @@ in `core/src/main/java/google/registry/reporting/spec11/Spec11EmailUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RegistrarThreatMatches`
-in `core/src/main/java/google/registry/reporting/spec11/PublishSpec11ReportAction.java`
+Can generalize to `? extends LanguageValidator`
+in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 #### Snippet
 ```java
-
-  private ImmutableMap<String, ImmutableSet<ThreatMatch>> groupByKeyAndFlatMap(
-      ImmutableSet<RegistrarThreatMatches> registrarThreatMatches) {
-    // Group by email address then flat-map all of the ThreatMatch objects together
-    return ImmutableMap.copyOf(
+      URI policy,
+      ImmutableRangeSet<Integer> validCodepoints,
+      Optional<LanguageValidator> languageValidator) {
+    this.name = name;
+    this.url = checkNotNull(url, "%s missing '# URL: http://foo.example/page' line", name);
 ```
 
 ### BoundedWildcard
@@ -2435,18 +2447,6 @@ in `core/src/main/java/google/registry/reporting/icann/IcannReportingStager.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Registry`
-in `core/src/main/java/google/registry/reporting/icann/IcannReportingUploadAction.java`
-#### Snippet
-```java
-   */
-  private ImmutableMap<Cursor, String> defaultNullCursorsToNextMonthAndAddToMap(
-      Map<VKey<? extends Cursor>, Registry> keyMap,
-      CursorType type,
-      Map<VKey<? extends Cursor>, Cursor> cursorMap) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `core/src/main/java/google/registry/reporting/icann/IcannReportingUploadAction.java`
 #### Snippet
@@ -2471,15 +2471,15 @@ in `core/src/main/java/google/registry/reporting/icann/IcannReportingUploadActio
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends LanguageValidator`
-in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
+Can generalize to `? extends Registry`
+in `core/src/main/java/google/registry/reporting/icann/IcannReportingUploadAction.java`
 #### Snippet
 ```java
-      URI policy,
-      ImmutableRangeSet<Integer> validCodepoints,
-      Optional<LanguageValidator> languageValidator) {
-    this.name = name;
-    this.url = checkNotNull(url, "%s missing '# URL: http://foo.example/page' line", name);
+   */
+  private ImmutableMap<Cursor, String> defaultNullCursorsToNextMonthAndAddToMap(
+      Map<VKey<? extends Cursor>, Registry> keyMap,
+      CursorType type,
+      Map<VKey<? extends Cursor>, Cursor> cursorMap) {
 ```
 
 ### BoundedWildcard
@@ -2492,18 +2492,6 @@ in `core/src/main/java/google/registry/persistence/VKey.java`
   public static <T> VKey<T> create(Class<T> kind, Serializable key) {
     checkArgumentNotNull(kind, "kind must not be null");
     checkArgumentNotNull(key, "key must not be null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `core/src/main/java/google/registry/persistence/converter/TimedTransitionPropertyConverterBase.java`
-#### Snippet
-```java
-
-  @Override
-  protected TimedTransitionProperty<V> convertMapToDerivedType(Map<DateTime, V> map) {
-    return TimedTransitionProperty.fromValueMap(ImmutableSortedMap.copyOf(map));
-  }
 ```
 
 ### BoundedWildcard
@@ -2528,6 +2516,30 @@ in `core/src/main/java/google/registry/persistence/converter/StringMapConverterB
   private Map.Entry<String, String> convertToDatabaseMapEntry(Map.Entry<K, V> entry) {
     return Maps.immutableEntry(
         convertKeyToString(entry.getKey()), convertValueToString(entry.getValue()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `core/src/main/java/google/registry/persistence/converter/TimedTransitionPropertyConverterBase.java`
+#### Snippet
+```java
+
+  @Override
+  protected TimedTransitionProperty<V> convertMapToDerivedType(Map<DateTime, V> map) {
+    return TimedTransitionProperty.fromValueMap(ImmutableSortedMap.copyOf(map));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends JpaTransactionManager`
+in `core/src/main/java/google/registry/persistence/transaction/TransactionManagerFactory.java`
+#### Snippet
+```java
+   * org.apache.beam.sdk.harness.JvmInitializer}.
+   */
+  public static void setJpaTmOnBeamWorker(Supplier<JpaTransactionManager> jpaTmSupplier) {
+    checkArgumentNotNull(jpaTmSupplier, "jpaTmSupplier");
+    jpaTm = Suppliers.memoize(jpaTmSupplier::get);
 ```
 
 ### BoundedWildcard
@@ -2555,42 +2567,6 @@ in `core/src/main/java/google/registry/persistence/transaction/TransactionManage
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends JpaTransactionManager`
-in `core/src/main/java/google/registry/persistence/transaction/TransactionManagerFactory.java`
-#### Snippet
-```java
-   * org.apache.beam.sdk.harness.JvmInitializer}.
-   */
-  public static void setJpaTmOnBeamWorker(Supplier<JpaTransactionManager> jpaTmSupplier) {
-    checkArgumentNotNull(jpaTmSupplier, "jpaTmSupplier");
-    jpaTm = Suppliers.memoize(jpaTmSupplier::get);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
-#### Snippet
-```java
-  /** Configures JPA with the credential from the Secret Manager. */
-  private static void setSqlCredential(
-      SqlCredentialStore credentialStore, SqlUser sqlUser, Map<String, String> overrides) {
-    try {
-      SqlCredential credential = credentialStore.getCredential(sqlUser);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
-#### Snippet
-```java
-  /** Configures JPA with the credential from the Secret Manager. */
-  private static void setSqlCredential(
-      SqlCredentialStore credentialStore, SqlUser sqlUser, Map<String, String> overrides) {
-    try {
-      SqlCredential credential = credentialStore.getCredential(sqlUser);
-```
-
-### BoundedWildcard
 Can generalize to `? extends Provider`
 in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 #### Snippet
@@ -2615,615 +2591,27 @@ in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FlowDocumentation`
-in `docs/src/main/java/google/registry/documentation/MarkdownDocumentationFormatter.java`
+Can generalize to `? super String`
+in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 #### Snippet
 ```java
-
-  /** Returns a string of HTML representing the provided flow documentation objects. */
-  public static String generateMarkdownOutput(Iterable<FlowDocumentation> flowDocs) {
-    StringBuilder output = new StringBuilder();
-    output.append(MARKDOWN_HEADER);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `util/src/main/java/google/registry/util/ComparingInvocationHandler.java`
-#### Snippet
-```java
-   */
-  public ComparingInvocationHandler(
-      Class<T> interfaceClass, T actualImplementation, T secondImplementation) {
-    this.actualImplementation = actualImplementation;
-    this.secondImplementation = secondImplementation;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-    TypedQuery<T> delegate;
-
-    public DetachingTypedQuery(TypedQuery<T> delegate) {
-      this.delegate = delegate;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> Optional<T> loadByKeyIfPresent(VKey<T> key) {
-    checkArgumentNotNull(key, "key must be specified");
-    assertInTransaction();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> ImmutableList<T> loadAllOf(Class<T> clazz) {
-    return loadAllOfStream(clazz).collect(toImmutableList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> ImmutableList<T> loadByEntities(Iterable<T> entities) {
-    return Streams.stream(entities).map(this::loadByEntity).collect(toImmutableList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> ImmutableList<T> loadByEntitiesIfPresent(Iterable<T> entities) {
-    return Streams.stream(entities)
-        .filter(this::exists)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> Stream<T> loadAllOfStream(Class<T> clazz) {
-    checkArgumentNotNull(clazz, "clazz must be specified");
-    assertInTransaction();
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `util/src/main/java/google/registry/util/Retrier.java`
-#### Snippet
-```java
-
-  private <V> V callWithRetry(
-      Callable<V> callable, FailureReporter failureReporter, Predicate<Throwable> isRetryable) {
-    int failures = 0;
-    while (true) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends A`
-in `util/src/main/java/google/registry/util/Concurrent.java`
-#### Snippet
-```java
-   */
-  public static <A, B> ImmutableList<B> transform(
-      Collection<A> items,
-      int maxThreadCount,
-      final Function<A, B> funk) {
-```
-
-### BoundedWildcard
-Can generalize to `? super A`
-in `util/src/main/java/google/registry/util/Concurrent.java`
-#### Snippet
-```java
-      Collection<A> items,
-      int maxThreadCount,
-      final Function<A, B> funk) {
-    checkNotNull(funk);
-    checkNotNull(items);
-```
-
-### BoundedWildcard
-Can generalize to `? extends B`
-in `util/src/main/java/google/registry/util/Concurrent.java`
-#### Snippet
-```java
-      Collection<A> items,
-      int maxThreadCount,
-      final Function<A, B> funk) {
-    checkNotNull(funk);
-    checkNotNull(items);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-
-  /** Defensive copy helper for {@link List}. */
-  public static <V> ImmutableList<V> nullToEmptyImmutableCopy(@Nullable List<V> data) {
-    return data == null ? ImmutableList.of() : ImmutableList.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-  /** Defensive copy helper for {@link Set}. */
-  public static <V extends Comparable<V>> ImmutableSortedSet<V> nullToEmptyImmutableSortedCopy(
-      @Nullable Set<V> data) {
-    return data == null ? ImmutableSortedSet.of() : ImmutableSortedSet.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-
-  /** Defensive copy helper for {@link Set}. */
-  public static <V> ImmutableSet<V> nullToEmptyImmutableCopy(@Nullable Set<V> data) {
-    return data == null ? ImmutableSet.of() : ImmutableSet.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-
-  /** Defensive copy helper for {@link Map}. */
-  public static <K, V> ImmutableMap<K, V> nullToEmptyImmutableCopy(@Nullable Map<K, V> data) {
-    return data == null ? ImmutableMap.of() : ImmutableMap.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-
-  /** Defensive copy helper for {@link Map}. */
-  public static <K, V> ImmutableMap<K, V> nullToEmptyImmutableCopy(@Nullable Map<K, V> data) {
-    return data == null ? ImmutableMap.of() : ImmutableMap.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-
-  /** Defensive copy helper for {@link Set}. */
-  public static <V> ImmutableSet<V> nullSafeImmutableCopy(@Nullable Set<V> data) {
-    return data == null ? null : ImmutableSet.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-  /** Defensive copy helper for {@link SortedMap}. */
-  public static <K, V> ImmutableSortedMap<K, V> nullToEmptyImmutableCopy(
-      @Nullable SortedMap<K, V> data) {
-    return data == null ? ImmutableSortedMap.of() : ImmutableSortedMap.copyOfSorted(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-
-  /** Defensive copy helper for {@link List}. */
-  public static <V> ImmutableList<V> nullSafeImmutableCopy(@Nullable List<V> data) {
-    return data == null ? null : ImmutableList.copyOf(data);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-  /** Copy an {@link ImmutableSet} and add members. */
-  @SafeVarargs
-  public static <T> ImmutableSet<T> union(Set<T> set, T... newMembers) {
-    return Sets.union(set, ImmutableSet.copyOf(newMembers)).immutableCopy();
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends FixedLengthFrameDecoder`
-in `proxy/src/main/java/google/registry/proxy/HealthCheckProtocolModule.java`
-#### Snippet
-```java
-  @HealthCheckProtocol
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      Provider<FixedLengthFrameDecoder> fixedLengthFrameDecoderProvider,
-      Provider<HealthCheckHandler> healthCheckHandlerProvider) {
-    return ImmutableList.of(fixedLengthFrameDecoderProvider, healthCheckHandlerProvider);
-```
-
-### BoundedWildcard
-Can generalize to `? extends HealthCheckHandler`
-in `proxy/src/main/java/google/registry/proxy/HealthCheckProtocolModule.java`
-#### Snippet
-```java
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      Provider<FixedLengthFrameDecoder> fixedLengthFrameDecoderProvider,
-      Provider<HealthCheckHandler> healthCheckHandlerProvider) {
-    return ImmutableList.of(fixedLengthFrameDecoderProvider, healthCheckHandlerProvider);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SslServerInitializer`
-in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
-#### Snippet
-```java
-  static ImmutableList<Provider<? extends ChannelHandler>> providerHttpsWhoisHandlerProviders(
-      @HttpsWhoisProtocol
-          Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
-      Provider<HttpServerCodec> httpServerCodecProvider,
-      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpServerExpectContinueHandler`
-in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
-#### Snippet
-```java
-          Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
-      Provider<HttpServerCodec> httpServerCodecProvider,
-      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
-      @HttpsWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
-    return ImmutableList.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends WebWhoisRedirectHandler`
-in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
-#### Snippet
-```java
-      Provider<HttpServerCodec> httpServerCodecProvider,
-      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
-      @HttpsWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
-    return ImmutableList.of(
-        sslServerInitializerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpServerExpectContinueHandler`
-in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
-#### Snippet
-```java
-  static ImmutableList<Provider<? extends ChannelHandler>> providerHttpWhoisHandlerProviders(
-      Provider<HttpServerCodec> httpServerCodecProvider,
-      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
-      @HttpWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
-    return ImmutableList.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends WebWhoisRedirectHandler`
-in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
-#### Snippet
-```java
-      Provider<HttpServerCodec> httpServerCodecProvider,
-      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
-      @HttpWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
-    return ImmutableList.of(
-        httpServerCodecProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Provider`
-in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
-#### Snippet
-```java
-    private static void addHandlers(
-        ChannelPipeline channelPipeline,
-        ImmutableList<Provider<? extends ChannelHandler>> handlerProviders) {
-      for (Provider<? extends ChannelHandler> handlerProvider : handlerProviders) {
-        channelPipeline.addLast(handlerProvider.get());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyProtocolHandler`
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-  @WhoisProtocol
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
-      @WhoisProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReadTimeoutHandler`
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
-      @WhoisProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
-      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends LineBasedFrameDecoder`
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
-      @WhoisProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
-      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FrontendMetricsHandler`
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
-      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<WhoisQuotaHandler> whoisQuotaHandlerProvider,
-      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends WhoisQuotaHandler`
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<WhoisQuotaHandler> whoisQuotaHandlerProvider,
-      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
-    return ImmutableList.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends FullHttpRequestRelayHandler`
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<WhoisQuotaHandler> whoisQuotaHandlerProvider,
-      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
-    return ImmutableList.of(
-        proxyProtocolHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends SslClientInitializer`
-in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
-#### Snippet
-```java
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      @HttpsRelayProtocol
-          Provider<SslClientInitializer<NioSocketChannel>> sslClientInitializerProvider,
-      Provider<HttpClientCodec> httpClientCodecProvider,
-      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpObjectAggregator`
-in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
-#### Snippet
-```java
-          Provider<SslClientInitializer<NioSocketChannel>> sslClientInitializerProvider,
-      Provider<HttpClientCodec> httpClientCodecProvider,
-      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
-      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
-      Provider<LoggingHandler> loggingHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends BackendMetricsHandler`
-in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
-#### Snippet
-```java
-      Provider<HttpClientCodec> httpClientCodecProvider,
-      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
-      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
-      Provider<LoggingHandler> loggingHandlerProvider,
-      Provider<FullHttpResponseRelayHandler> relayHandlerProvider) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends LoggingHandler`
-in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
-#### Snippet
-```java
-      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
-      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
-      Provider<LoggingHandler> loggingHandlerProvider,
-      Provider<FullHttpResponseRelayHandler> relayHandlerProvider) {
-    return ImmutableList.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends FullHttpResponseRelayHandler`
-in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
-#### Snippet
-```java
-      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
-      Provider<LoggingHandler> loggingHandlerProvider,
-      Provider<FullHttpResponseRelayHandler> relayHandlerProvider) {
-    return ImmutableList.of(
-        sslClientInitializerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProxyProtocolHandler`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-  @EppProtocol
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
-      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
-      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends SslServerInitializer`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
-      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
-      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
-      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReadTimeoutHandler`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
-      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
-      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
-      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends LengthFieldBasedFrameDecoder`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
-      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
-      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
-      Provider<EppServiceHandler> eppServiceHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends LengthFieldPrepender`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
-      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
-      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
-      Provider<EppServiceHandler> eppServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends EppServiceHandler`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
-      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
-      Provider<EppServiceHandler> eppServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FrontendMetricsHandler`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
-      Provider<EppServiceHandler> eppServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
-      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EppQuotaHandler`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      Provider<EppServiceHandler> eppServiceHandlerProvider,
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
-      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
-    return ImmutableList.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends FullHttpRequestRelayHandler`
-in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
-#### Snippet
-```java
-      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
-      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
-      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
-    return ImmutableList.of(
-        proxyProtocolHandlerProvider,
+  /** Configures JPA with the credential from the Secret Manager. */
+  private static void setSqlCredential(
+      SqlCredentialStore credentialStore, SqlUser sqlUser, Map<String, String> overrides) {
+    try {
+      SqlCredential credential = credentialStore.getCredential(sqlUser);
 ```
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `proxy/src/main/java/google/registry/proxy/metric/MetricParameters.java`
+in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 #### Snippet
 ```java
-
-  MetricParameters(
-      Map<String, String> envVarMap, Function<String, HttpURLConnection> connectionFactory) {
-    this.envVarMap = envVarMap;
-    this.connectionFactory = connectionFactory;
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpURLConnection`
-in `proxy/src/main/java/google/registry/proxy/metric/MetricParameters.java`
-#### Snippet
-```java
-
-  MetricParameters(
-      Map<String, String> envVarMap, Function<String, HttpURLConnection> connectionFactory) {
-    this.envVarMap = envVarMap;
-    this.connectionFactory = connectionFactory;
+  /** Configures JPA with the credential from the Secret Manager. */
+  private static void setSqlCredential(
+      SqlCredentialStore credentialStore, SqlUser sqlUser, Map<String, String> overrides) {
+    try {
+      SqlCredential credential = credentialStore.getCredential(sqlUser);
 ```
 
 ### BoundedWildcard
@@ -3248,6 +2636,138 @@ in `prober/src/main/java/google/registry/monitoring/blackbox/module/CertificateM
       @LocalSecrets Provider<ImmutableList<X509Certificate>> certificatesProvider,
       @LocalSecrets Duration duration) {
     return memoizeWithExpiration(
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+  static Supplier<PrivateKey> providePrivateKeySupplier(
+      Mode mode,
+      @PemFile Lazy<Supplier<PrivateKey>> pemPrivateKeySupplier,
+      @P12File Lazy<Supplier<PrivateKey>> p12PrivateKeySupplier,
+      @SelfSigned Lazy<Supplier<PrivateKey>> selfSignedPrivateKeySupplier) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+      Mode mode,
+      @PemFile Lazy<Supplier<PrivateKey>> pemPrivateKeySupplier,
+      @P12File Lazy<Supplier<PrivateKey>> p12PrivateKeySupplier,
+      @SelfSigned Lazy<Supplier<PrivateKey>> selfSignedPrivateKeySupplier) {
+    switch (mode) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+      @PemFile Lazy<Supplier<PrivateKey>> pemPrivateKeySupplier,
+      @P12File Lazy<Supplier<PrivateKey>> p12PrivateKeySupplier,
+      @SelfSigned Lazy<Supplier<PrivateKey>> selfSignedPrivateKeySupplier) {
+    switch (mode) {
+      case PEM_FILE:
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`>
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+  static Supplier<ImmutableList<X509Certificate>> provideCertificatesSupplier(
+      Mode mode,
+      @PemFile Lazy<Supplier<ImmutableList<X509Certificate>>> pemCertificatesSupplier,
+      @P12File Lazy<Supplier<ImmutableList<X509Certificate>>> p12CertificatesSupplier,
+      @SelfSigned Lazy<Supplier<ImmutableList<X509Certificate>>> selfSignedCertificatesSupplier) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`>
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+      Mode mode,
+      @PemFile Lazy<Supplier<ImmutableList<X509Certificate>>> pemCertificatesSupplier,
+      @P12File Lazy<Supplier<ImmutableList<X509Certificate>>> p12CertificatesSupplier,
+      @SelfSigned Lazy<Supplier<ImmutableList<X509Certificate>>> selfSignedCertificatesSupplier) {
+    switch (mode) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`>
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+      @PemFile Lazy<Supplier<ImmutableList<X509Certificate>>> pemCertificatesSupplier,
+      @P12File Lazy<Supplier<ImmutableList<X509Certificate>>> p12CertificatesSupplier,
+      @SelfSigned Lazy<Supplier<ImmutableList<X509Certificate>>> selfSignedCertificatesSupplier) {
+    switch (mode) {
+      case PEM_FILE:
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImmutableList`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+  @PemFile
+  static Supplier<ImmutableList<X509Certificate>> providePemCertificatesSupplier(
+      @PemFile Provider<ImmutableList<X509Certificate>> certificatesProvider,
+      @Named("remoteCertCachingDuration") Duration cachingDuration) {
+    return memoizeWithExpiration(certificatesProvider::get, cachingDuration.getSeconds(), SECONDS);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+   */
+  private static <T, E> ImmutableList<E> filterAndConvert(
+      ImmutableList<Object> objects, Class<T> clazz, Function<T, E> converter) {
+    return objects.stream()
+        .filter(clazz::isInstance)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+   */
+  private static <T, E> ImmutableList<E> filterAndConvert(
+      ImmutableList<Object> objects, Class<T> clazz, Function<T, E> converter) {
+    return objects.stream()
+        .filter(clazz::isInstance)
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+   */
+  private static <T, E> ImmutableList<E> filterAndConvert(
+      ImmutableList<Object> objects, Class<T> clazz, Function<T, E> converter) {
+    return objects.stream()
+        .filter(clazz::isInstance)
+```
+
+### BoundedWildcard
+Can generalize to `? extends PrivateKey`
+in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+#### Snippet
+```java
+  @PemFile
+  static Supplier<PrivateKey> providePemPrivateKeySupplier(
+      @PemFile Provider<PrivateKey> privateKeyProvider,
+      @Named("remoteCertCachingDuration") Duration cachingDuration) {
+    return memoizeWithExpiration(privateKeyProvider::get, cachingDuration.getSeconds(), SECONDS);
 ```
 
 ### BoundedWildcard
@@ -3371,15 +2891,27 @@ in `prober/src/main/java/google/registry/monitoring/blackbox/message/EppResponse
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CloudTasksClient`
-in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
+Can generalize to `? extends PrivateKey`
+in `networking/src/main/java/google/registry/networking/handler/SslServerInitializer.java`
 #### Snippet
 ```java
-    private final Supplier<CloudTasksClient> clientSupplier;
+      boolean validateClientCert,
+      SslProvider sslProvider,
+      Supplier<PrivateKey> privateKeySupplier,
+      Supplier<ImmutableList<X509Certificate>> certificatesSupplier) {
+    logger.atInfo().log("Server SSL Provider: %s", sslProvider);
+```
 
-    public GcpCloudTasksClient(Supplier<CloudTasksClient> clientSupplier) {
-      this.clientSupplier = clientSupplier;
-    }
+### BoundedWildcard
+Can generalize to `? extends ImmutableList`
+in `networking/src/main/java/google/registry/networking/handler/SslServerInitializer.java`
+#### Snippet
+```java
+      SslProvider sslProvider,
+      Supplier<PrivateKey> privateKeySupplier,
+      Supplier<ImmutableList<X509Certificate>> certificatesSupplier) {
+    logger.atInfo().log("Server SSL Provider: %s", sslProvider);
+    checkArgument(
 ```
 
 ### BoundedWildcard
@@ -3455,135 +2987,99 @@ in `prober/src/main/java/google/registry/monitoring/blackbox/module/EppModule.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends FixedLengthFrameDecoder`
+in `proxy/src/main/java/google/registry/proxy/HealthCheckProtocolModule.java`
 #### Snippet
 ```java
-  static Supplier<PrivateKey> providePrivateKeySupplier(
-      Mode mode,
-      @PemFile Lazy<Supplier<PrivateKey>> pemPrivateKeySupplier,
-      @P12File Lazy<Supplier<PrivateKey>> p12PrivateKeySupplier,
-      @SelfSigned Lazy<Supplier<PrivateKey>> selfSignedPrivateKeySupplier) {
+  @HealthCheckProtocol
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      Provider<FixedLengthFrameDecoder> fixedLengthFrameDecoderProvider,
+      Provider<HealthCheckHandler> healthCheckHandlerProvider) {
+    return ImmutableList.of(fixedLengthFrameDecoderProvider, healthCheckHandlerProvider);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends HealthCheckHandler`
+in `proxy/src/main/java/google/registry/proxy/HealthCheckProtocolModule.java`
 #### Snippet
 ```java
-      Mode mode,
-      @PemFile Lazy<Supplier<PrivateKey>> pemPrivateKeySupplier,
-      @P12File Lazy<Supplier<PrivateKey>> p12PrivateKeySupplier,
-      @SelfSigned Lazy<Supplier<PrivateKey>> selfSignedPrivateKeySupplier) {
-    switch (mode) {
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      Provider<FixedLengthFrameDecoder> fixedLengthFrameDecoderProvider,
+      Provider<HealthCheckHandler> healthCheckHandlerProvider) {
+    return ImmutableList.of(fixedLengthFrameDecoderProvider, healthCheckHandlerProvider);
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends Provider`
+in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
 #### Snippet
 ```java
-      @PemFile Lazy<Supplier<PrivateKey>> pemPrivateKeySupplier,
-      @P12File Lazy<Supplier<PrivateKey>> p12PrivateKeySupplier,
-      @SelfSigned Lazy<Supplier<PrivateKey>> selfSignedPrivateKeySupplier) {
-    switch (mode) {
-      case PEM_FILE:
+    private static void addHandlers(
+        ChannelPipeline channelPipeline,
+        ImmutableList<Provider<? extends ChannelHandler>> handlerProviders) {
+      for (Provider<? extends ChannelHandler> handlerProvider : handlerProviders) {
+        channelPipeline.addLast(handlerProvider.get());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PrivateKey`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends HttpServerExpectContinueHandler`
+in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
 #### Snippet
 ```java
-  @PemFile
-  static Supplier<PrivateKey> providePemPrivateKeySupplier(
-      @PemFile Provider<PrivateKey> privateKeyProvider,
-      @Named("remoteCertCachingDuration") Duration cachingDuration) {
-    return memoizeWithExpiration(privateKeyProvider::get, cachingDuration.getSeconds(), SECONDS);
+  static ImmutableList<Provider<? extends ChannelHandler>> providerHttpWhoisHandlerProviders(
+      Provider<HttpServerCodec> httpServerCodecProvider,
+      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
+      @HttpWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
+    return ImmutableList.of(
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ImmutableList`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends WebWhoisRedirectHandler`
+in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
 #### Snippet
 ```java
-  @PemFile
-  static Supplier<ImmutableList<X509Certificate>> providePemCertificatesSupplier(
-      @PemFile Provider<ImmutableList<X509Certificate>> certificatesProvider,
-      @Named("remoteCertCachingDuration") Duration cachingDuration) {
-    return memoizeWithExpiration(certificatesProvider::get, cachingDuration.getSeconds(), SECONDS);
+      Provider<HttpServerCodec> httpServerCodecProvider,
+      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
+      @HttpWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
+    return ImmutableList.of(
+        httpServerCodecProvider,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends SslServerInitializer`
+in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
 #### Snippet
 ```java
-   */
-  private static <T, E> ImmutableList<E> filterAndConvert(
-      ImmutableList<Object> objects, Class<T> clazz, Function<T, E> converter) {
-    return objects.stream()
-        .filter(clazz::isInstance)
+  static ImmutableList<Provider<? extends ChannelHandler>> providerHttpsWhoisHandlerProviders(
+      @HttpsWhoisProtocol
+          Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
+      Provider<HttpServerCodec> httpServerCodecProvider,
+      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends HttpServerExpectContinueHandler`
+in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
 #### Snippet
 ```java
-   */
-  private static <T, E> ImmutableList<E> filterAndConvert(
-      ImmutableList<Object> objects, Class<T> clazz, Function<T, E> converter) {
-    return objects.stream()
-        .filter(clazz::isInstance)
+          Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
+      Provider<HttpServerCodec> httpServerCodecProvider,
+      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
+      @HttpsWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
+    return ImmutableList.of(
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends E`
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
+Can generalize to `? extends WebWhoisRedirectHandler`
+in `proxy/src/main/java/google/registry/proxy/WebWhoisProtocolsModule.java`
 #### Snippet
 ```java
-   */
-  private static <T, E> ImmutableList<E> filterAndConvert(
-      ImmutableList<Object> objects, Class<T> clazz, Function<T, E> converter) {
-    return objects.stream()
-        .filter(clazz::isInstance)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`>
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
-#### Snippet
-```java
-  static Supplier<ImmutableList<X509Certificate>> provideCertificatesSupplier(
-      Mode mode,
-      @PemFile Lazy<Supplier<ImmutableList<X509Certificate>>> pemCertificatesSupplier,
-      @P12File Lazy<Supplier<ImmutableList<X509Certificate>>> p12CertificatesSupplier,
-      @SelfSigned Lazy<Supplier<ImmutableList<X509Certificate>>> selfSignedCertificatesSupplier) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`>
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
-#### Snippet
-```java
-      Mode mode,
-      @PemFile Lazy<Supplier<ImmutableList<X509Certificate>>> pemCertificatesSupplier,
-      @P12File Lazy<Supplier<ImmutableList<X509Certificate>>> p12CertificatesSupplier,
-      @SelfSigned Lazy<Supplier<ImmutableList<X509Certificate>>> selfSignedCertificatesSupplier) {
-    switch (mode) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`>
-in `networking/src/main/java/google/registry/networking/module/CertificateSupplierModule.java`
-#### Snippet
-```java
-      @PemFile Lazy<Supplier<ImmutableList<X509Certificate>>> pemCertificatesSupplier,
-      @P12File Lazy<Supplier<ImmutableList<X509Certificate>>> p12CertificatesSupplier,
-      @SelfSigned Lazy<Supplier<ImmutableList<X509Certificate>>> selfSignedCertificatesSupplier) {
-    switch (mode) {
-      case PEM_FILE:
+      Provider<HttpServerCodec> httpServerCodecProvider,
+      Provider<HttpServerExpectContinueHandler> httpServerExpectContinueHandlerProvider,
+      @HttpsWhoisProtocol Provider<WebWhoisRedirectHandler> webWhoisRedirectHandlerProvides) {
+    return ImmutableList.of(
+        sslServerInitializerProvider,
 ```
 
 ### BoundedWildcard
@@ -3635,30 +3131,546 @@ in `networking/src/main/java/google/registry/networking/handler/SslClientInitial
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PrivateKey`
-in `networking/src/main/java/google/registry/networking/handler/SslServerInitializer.java`
+Can generalize to `? extends SslClientInitializer`
+in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
 #### Snippet
 ```java
-      boolean validateClientCert,
-      SslProvider sslProvider,
-      Supplier<PrivateKey> privateKeySupplier,
-      Supplier<ImmutableList<X509Certificate>> certificatesSupplier) {
-    logger.atInfo().log("Server SSL Provider: %s", sslProvider);
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      @HttpsRelayProtocol
+          Provider<SslClientInitializer<NioSocketChannel>> sslClientInitializerProvider,
+      Provider<HttpClientCodec> httpClientCodecProvider,
+      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ImmutableList`
-in `networking/src/main/java/google/registry/networking/handler/SslServerInitializer.java`
+Can generalize to `? extends HttpObjectAggregator`
+in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
 #### Snippet
 ```java
-      SslProvider sslProvider,
-      Supplier<PrivateKey> privateKeySupplier,
-      Supplier<ImmutableList<X509Certificate>> certificatesSupplier) {
-    logger.atInfo().log("Server SSL Provider: %s", sslProvider);
-    checkArgument(
+          Provider<SslClientInitializer<NioSocketChannel>> sslClientInitializerProvider,
+      Provider<HttpClientCodec> httpClientCodecProvider,
+      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
+      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
+      Provider<LoggingHandler> loggingHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends BackendMetricsHandler`
+in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
+#### Snippet
+```java
+      Provider<HttpClientCodec> httpClientCodecProvider,
+      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
+      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
+      Provider<LoggingHandler> loggingHandlerProvider,
+      Provider<FullHttpResponseRelayHandler> relayHandlerProvider) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LoggingHandler`
+in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
+#### Snippet
+```java
+      Provider<HttpObjectAggregator> httpObjectAggregatorProvider,
+      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
+      Provider<LoggingHandler> loggingHandlerProvider,
+      Provider<FullHttpResponseRelayHandler> relayHandlerProvider) {
+    return ImmutableList.of(
+```
+
+### BoundedWildcard
+Can generalize to `? extends FullHttpResponseRelayHandler`
+in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
+#### Snippet
+```java
+      Provider<BackendMetricsHandler> backendMetricsHandlerProvider,
+      Provider<LoggingHandler> loggingHandlerProvider,
+      Provider<FullHttpResponseRelayHandler> relayHandlerProvider) {
+    return ImmutableList.of(
+        sslClientInitializerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> Stream<T> loadAllOfStream(Class<T> clazz) {
+    checkArgumentNotNull(clazz, "clazz must be specified");
+    assertInTransaction();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> ImmutableList<T> loadAllOf(Class<T> clazz) {
+    return loadAllOfStream(clazz).collect(toImmutableList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> ImmutableList<T> loadByEntities(Iterable<T> entities) {
+    return Streams.stream(entities).map(this::loadByEntity).collect(toImmutableList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+    TypedQuery<T> delegate;
+
+    public DetachingTypedQuery(TypedQuery<T> delegate) {
+      this.delegate = delegate;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> Optional<T> loadByKeyIfPresent(VKey<T> key) {
+    checkArgumentNotNull(key, "key must be specified");
+    assertInTransaction();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> ImmutableList<T> loadByEntitiesIfPresent(Iterable<T> entities) {
+    return Streams.stream(entities)
+        .filter(this::exists)
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyProtocolHandler`
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+  @WhoisProtocol
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
+      @WhoisProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ReadTimeoutHandler`
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
+      @WhoisProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
+      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends LineBasedFrameDecoder`
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
+      @WhoisProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
+      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends FrontendMetricsHandler`
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+      Provider<LineBasedFrameDecoder> lineBasedFrameDecoderProvider,
+      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<WhoisQuotaHandler> whoisQuotaHandlerProvider,
+      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends WhoisQuotaHandler`
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+      Provider<WhoisServiceHandler> whoisServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<WhoisQuotaHandler> whoisQuotaHandlerProvider,
+      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
+    return ImmutableList.of(
+```
+
+### BoundedWildcard
+Can generalize to `? extends FullHttpRequestRelayHandler`
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<WhoisQuotaHandler> whoisQuotaHandlerProvider,
+      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
+    return ImmutableList.of(
+        proxyProtocolHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `proxy/src/main/java/google/registry/proxy/metric/MetricParameters.java`
+#### Snippet
+```java
+
+  MetricParameters(
+      Map<String, String> envVarMap, Function<String, HttpURLConnection> connectionFactory) {
+    this.envVarMap = envVarMap;
+    this.connectionFactory = connectionFactory;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HttpURLConnection`
+in `proxy/src/main/java/google/registry/proxy/metric/MetricParameters.java`
+#### Snippet
+```java
+
+  MetricParameters(
+      Map<String, String> envVarMap, Function<String, HttpURLConnection> connectionFactory) {
+    this.envVarMap = envVarMap;
+    this.connectionFactory = connectionFactory;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProxyProtocolHandler`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+  @EppProtocol
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
+      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
+      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends SslServerInitializer`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+  static ImmutableList<Provider<? extends ChannelHandler>> provideHandlerProviders(
+      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
+      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
+      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends ReadTimeoutHandler`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      Provider<ProxyProtocolHandler> proxyProtocolHandlerProvider,
+      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
+      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
+      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends LengthFieldBasedFrameDecoder`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      @EppProtocol Provider<SslServerInitializer<NioSocketChannel>> sslServerInitializerProvider,
+      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
+      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
+      Provider<EppServiceHandler> eppServiceHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends LengthFieldPrepender`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      @EppProtocol Provider<ReadTimeoutHandler> readTimeoutHandlerProvider,
+      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
+      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
+      Provider<EppServiceHandler> eppServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends EppServiceHandler`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      Provider<LengthFieldBasedFrameDecoder> lengthFieldBasedFrameDecoderProvider,
+      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
+      Provider<EppServiceHandler> eppServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends FrontendMetricsHandler`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      Provider<LengthFieldPrepender> lengthFieldPrependerProvider,
+      Provider<EppServiceHandler> eppServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
+      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends EppQuotaHandler`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      Provider<EppServiceHandler> eppServiceHandlerProvider,
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
+      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
+    return ImmutableList.of(
+```
+
+### BoundedWildcard
+Can generalize to `? extends FullHttpRequestRelayHandler`
+in `proxy/src/main/java/google/registry/proxy/EppProtocolModule.java`
+#### Snippet
+```java
+      Provider<FrontendMetricsHandler> frontendMetricsHandlerProvider,
+      Provider<EppQuotaHandler> eppQuotaHandlerProvider,
+      Provider<FullHttpRequestRelayHandler> relayHandlerProvider) {
+    return ImmutableList.of(
+        proxyProtocolHandlerProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `util/src/main/java/google/registry/util/ComparingInvocationHandler.java`
+#### Snippet
+```java
+   */
+  public ComparingInvocationHandler(
+      Class<T> interfaceClass, T actualImplementation, T secondImplementation) {
+    this.actualImplementation = actualImplementation;
+    this.secondImplementation = secondImplementation;
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `util/src/main/java/google/registry/util/Retrier.java`
+#### Snippet
+```java
+
+  private <V> V callWithRetry(
+      Callable<V> callable, FailureReporter failureReporter, Predicate<Throwable> isRetryable) {
+    int failures = 0;
+    while (true) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+
+  /** Defensive copy helper for {@link List}. */
+  public static <V> ImmutableList<V> nullToEmptyImmutableCopy(@Nullable List<V> data) {
+    return data == null ? ImmutableList.of() : ImmutableList.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+
+  /** Defensive copy helper for {@link Set}. */
+  public static <V> ImmutableSet<V> nullToEmptyImmutableCopy(@Nullable Set<V> data) {
+    return data == null ? ImmutableSet.of() : ImmutableSet.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+
+  /** Defensive copy helper for {@link Map}. */
+  public static <K, V> ImmutableMap<K, V> nullToEmptyImmutableCopy(@Nullable Map<K, V> data) {
+    return data == null ? ImmutableMap.of() : ImmutableMap.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+
+  /** Defensive copy helper for {@link Map}. */
+  public static <K, V> ImmutableMap<K, V> nullToEmptyImmutableCopy(@Nullable Map<K, V> data) {
+    return data == null ? ImmutableMap.of() : ImmutableMap.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+
+  /** Defensive copy helper for {@link List}. */
+  public static <V> ImmutableList<V> nullSafeImmutableCopy(@Nullable List<V> data) {
+    return data == null ? null : ImmutableList.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+  /** Defensive copy helper for {@link Set}. */
+  public static <V extends Comparable<V>> ImmutableSortedSet<V> nullToEmptyImmutableSortedCopy(
+      @Nullable Set<V> data) {
+    return data == null ? ImmutableSortedSet.of() : ImmutableSortedSet.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+  /** Copy an {@link ImmutableSet} and add members. */
+  @SafeVarargs
+  public static <T> ImmutableSet<T> union(Set<T> set, T... newMembers) {
+    return Sets.union(set, ImmutableSet.copyOf(newMembers)).immutableCopy();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+  /** Defensive copy helper for {@link SortedMap}. */
+  public static <K, V> ImmutableSortedMap<K, V> nullToEmptyImmutableCopy(
+      @Nullable SortedMap<K, V> data) {
+    return data == null ? ImmutableSortedMap.of() : ImmutableSortedMap.copyOfSorted(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+
+  /** Defensive copy helper for {@link Set}. */
+  public static <V> ImmutableSet<V> nullSafeImmutableCopy(@Nullable Set<V> data) {
+    return data == null ? null : ImmutableSet.copyOf(data);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends A`
+in `util/src/main/java/google/registry/util/Concurrent.java`
+#### Snippet
+```java
+   */
+  public static <A, B> ImmutableList<B> transform(
+      Collection<A> items,
+      int maxThreadCount,
+      final Function<A, B> funk) {
+```
+
+### BoundedWildcard
+Can generalize to `? super A`
+in `util/src/main/java/google/registry/util/Concurrent.java`
+#### Snippet
+```java
+      Collection<A> items,
+      int maxThreadCount,
+      final Function<A, B> funk) {
+    checkNotNull(funk);
+    checkNotNull(items);
+```
+
+### BoundedWildcard
+Can generalize to `? extends B`
+in `util/src/main/java/google/registry/util/Concurrent.java`
+#### Snippet
+```java
+      Collection<A> items,
+      int maxThreadCount,
+      final Function<A, B> funk) {
+    checkNotNull(funk);
+    checkNotNull(items);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CloudTasksClient`
+in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
+#### Snippet
+```java
+    private final Supplier<CloudTasksClient> clientSupplier;
+
+    public GcpCloudTasksClient(Supplier<CloudTasksClient> clientSupplier) {
+      this.clientSupplier = clientSupplier;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlowDocumentation`
+in `docs/src/main/java/google/registry/documentation/MarkdownDocumentationFormatter.java`
+#### Snippet
+```java
+
+  /** Returns a string of HTML representing the provided flow documentation objects. */
+  public static String generateMarkdownOutput(Iterable<FlowDocumentation> flowDocs) {
+    StringBuilder output = new StringBuilder();
+    output.append(MARKDOWN_HEADER);
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `DateTimeUtils` has no concrete subclass
+in `common/src/main/java/google/registry/util/DateTimeUtils.java`
+#### Snippet
+```java
+
+/** Utilities methods and constants related to Joda {@link DateTime} objects. */
+public abstract class DateTimeUtils {
+
+  /** The start of the epoch, in a convenient constant. */
+```
+
 ### AbstractClassNeverImplemented
 Abstract class `DnsModule` has no concrete subclass
 in `core/src/main/java/google/registry/dns/DnsModule.java`
@@ -3693,18 +3705,6 @@ in `core/src/main/java/google/registry/dns/writer/dnsupdate/DnsUpdateWriterModul
 public abstract class DnsUpdateWriterModule {
 
   @Provides
-```
-
-### AbstractClassNeverImplemented
-Abstract class `PendingDeposit` has no concrete subclass
-in `core/src/main/java/google/registry/rde/PendingDeposit.java`
-#### Snippet
-```java
- */
-@AutoValue
-public abstract class PendingDeposit implements Serializable {
-
-  private static final long serialVersionUID = 3141095605225904433L;
 ```
 
 ### AbstractClassNeverImplemented
@@ -3756,6 +3756,18 @@ in `core/src/main/java/google/registry/rde/RdeFragmenter.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `PendingDeposit` has no concrete subclass
+in `core/src/main/java/google/registry/rde/PendingDeposit.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class PendingDeposit implements Serializable {
+
+  private static final long serialVersionUID = 3141095605225904433L;
+```
+
+### AbstractClassNeverImplemented
 Abstract class `RdeModule` has no concrete subclass
 in `core/src/main/java/google/registry/rde/RdeModule.java`
 #### Snippet
@@ -3768,27 +3780,15 @@ public abstract class RdeModule {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
+Abstract class `XjcObject` has no concrete subclass
+in `core/src/main/java/google/registry/xjc/XjcObject.java`
 #### Snippet
 ```java
+/** The superclass for XML classes generated by JAXB that provides marshalling and validation. */
+@XmlTransient
+public abstract class XjcObject {
 
-    @AutoValue.Builder
-    abstract static class Builder {
-      abstract ImmutableSet.Builder<TaskHandle> tasksToKeepBuilder();
-      abstract ImmutableSet.Builder<String> pausedTldsBuilder();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RefreshItem` has no concrete subclass
-in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
-#### Snippet
-```java
-  /** Container for items we pull out of the DNS pull queue and process for fanout. */
-  @AutoValue
-  abstract static class RefreshItem implements Comparable<RefreshItem> {
-    static RefreshItem create(TargetType type, String name, DateTime creationTime) {
-      return new AutoValue_ReadDnsQueueAction_RefreshItem(type, name, creationTime);
+  /**
 ```
 
 ### AbstractClassNeverImplemented
@@ -3804,15 +3804,27 @@ in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `XjcObject` has no concrete subclass
-in `core/src/main/java/google/registry/xjc/XjcObject.java`
+Abstract class `RefreshItem` has no concrete subclass
+in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
 #### Snippet
 ```java
-/** The superclass for XML classes generated by JAXB that provides marshalling and validation. */
-@XmlTransient
-public abstract class XjcObject {
+  /** Container for items we pull out of the DNS pull queue and process for fanout. */
+  @AutoValue
+  abstract static class RefreshItem implements Comparable<RefreshItem> {
+    static RefreshItem create(TargetType type, String name, DateTime creationTime) {
+      return new AutoValue_ReadDnsQueueAction_RefreshItem(type, name, creationTime);
+```
 
-  /**
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract ImmutableSet.Builder<TaskHandle> tasksToKeepBuilder();
+      abstract ImmutableSet.Builder<String> pausedTldsBuilder();
 ```
 
 ### AbstractClassNeverImplemented
@@ -3840,6 +3852,18 @@ public abstract class ThreatMatch implements Serializable {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `BillingEvent` has no concrete subclass
+in `core/src/main/java/google/registry/beam/invoicing/BillingEvent.java`
+#### Snippet
+```java
+ */
+@AutoValue
+public abstract class BillingEvent implements Serializable {
+
+  private static final long serialVersionUID = -3593088371541450077L;
+```
+
+### AbstractClassNeverImplemented
 Abstract class `InvoiceGroupingKey` has no concrete subclass
 in `core/src/main/java/google/registry/beam/invoicing/BillingEvent.java`
 #### Snippet
@@ -3852,15 +3876,15 @@ in `core/src/main/java/google/registry/beam/invoicing/BillingEvent.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `BillingEvent` has no concrete subclass
-in `core/src/main/java/google/registry/beam/invoicing/BillingEvent.java`
+Abstract class `EmailAndThreatMatch` has no concrete subclass
+in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
 #### Snippet
 ```java
- */
-@AutoValue
-public abstract class BillingEvent implements Serializable {
 
-  private static final long serialVersionUID = -3593088371541450077L;
+  @AutoValue
+  abstract static class EmailAndThreatMatch implements Serializable {
+
+    abstract String email();
 ```
 
 ### AbstractClassNeverImplemented
@@ -3888,18 +3912,6 @@ in `core/src/main/java/google/registry/beam/rde/RdeIO.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `EmailAndThreatMatch` has no concrete subclass
-in `core/src/main/java/google/registry/beam/spec11/Spec11Pipeline.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class EmailAndThreatMatch implements Serializable {
-
-    abstract String email();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `RdapResultSet` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapResultSet.java`
 #### Snippet
@@ -3909,18 +3921,6 @@ in `core/src/main/java/google/registry/rdap/RdapResultSet.java`
 abstract class RdapResultSet<T extends EppResource> {
 
   static <S extends EppResource> RdapResultSet<S> create(List<S> resources) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapMetrics.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder {
-      abstract Builder setEndpointType(EndpointType endpointType);
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -3936,6 +3936,18 @@ in `core/src/main/java/google/registry/rdap/RdapMetrics.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapMetrics.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract Builder setEndpointType(EndpointType endpointType);
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `Port43WhoisServer` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 #### Snippet
@@ -3948,15 +3960,39 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `EventWithoutActor` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+#### Snippet
+```java
+  @RestrictJsonNames("asEventActor[]")
+  @AutoValue
+  abstract static class EventWithoutActor extends EventBase {
+
+    static Builder builder() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Event` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+#### Snippet
+```java
+  @RestrictJsonNames("events[]")
+  @AutoValue
+  abstract static class Event extends EventBase {
+    @JsonableElement abstract Optional<String> eventActor();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 #### Snippet
 ```java
 
-    @AutoValue.Builder
-    abstract static class Builder extends EventBase.Builder<Builder> {
-      abstract Builder setEventActor(String eventActor);
-      abstract Event build();
+
+    abstract static class Builder<B extends Builder<?>> {
+      abstract B setEventAction(EventAction eventAction);
+      abstract B setEventDate(DateTime eventDate);
 ```
 
 ### AbstractClassNeverImplemented
@@ -3978,21 +4014,9 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```java
 
     @AutoValue.Builder
-    abstract static class Builder extends NoticeOrRemark.Builder<Builder> {
-      abstract Builder setType(Notice.Type type);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends NoticeOrRemark.Builder<Builder> {
-      abstract Builder setType(Remark.Type type);
-
+    abstract static class Builder {
+      abstract Builder setHref(String href);
+      abstract Builder setRel(String rel);
 ```
 
 ### AbstractClassNeverImplemented
@@ -4008,27 +4032,15 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Event` has no concrete subclass
+Abstract class `EventBase` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 #### Snippet
 ```java
-  @RestrictJsonNames("events[]")
-  @AutoValue
-  abstract static class Event extends EventBase {
-    @JsonableElement abstract Optional<String> eventActor();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Remark` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
-#### Snippet
-```java
-  @AutoValue
-  @RestrictJsonNames("remarks[]")
-  abstract static class Remark extends NoticeOrRemark {
-
-    /**
+   * versions - one with and one without.
+   */
+  private abstract static class EventBase extends AbstractJsonableObject {
+    @JsonableElement abstract EventAction eventAction();
+    @JsonableElement abstract DateTime eventDate();
 ```
 
 ### AbstractClassNeverImplemented
@@ -4041,18 +4053,6 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
     abstract static class Builder<B extends Builder<?>> {
       abstract B setTitle(String title);
       abstract B setDescription(ImmutableList<String> description);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `EventWithoutActor` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
-#### Snippet
-```java
-  @RestrictJsonNames("asEventActor[]")
-  @AutoValue
-  abstract static class EventWithoutActor extends EventBase {
-
-    static Builder builder() {
 ```
 
 ### AbstractClassNeverImplemented
@@ -4074,9 +4074,21 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```java
 
     @AutoValue.Builder
-    abstract static class Builder {
-      abstract Builder setHref(String href);
-      abstract Builder setRel(String rel);
+    abstract static class Builder extends NoticeOrRemark.Builder<Builder> {
+      abstract Builder setType(Notice.Type type);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder extends EventBase.Builder<Builder> {
+      abstract Builder setEventActor(String eventActor);
+      abstract Event build();
 ```
 
 ### AbstractClassNeverImplemented
@@ -4092,6 +4104,30 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Remark` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+#### Snippet
+```java
+  @AutoValue
+  @RestrictJsonNames("remarks[]")
+  abstract static class Remark extends NoticeOrRemark {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder extends NoticeOrRemark.Builder<Builder> {
+      abstract Builder setType(Remark.Type type);
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `Notice` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 #### Snippet
@@ -4104,51 +4140,51 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `EventBase` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
-#### Snippet
-```java
-   * versions - one with and one without.
-   */
-  private abstract static class EventBase extends AbstractJsonableObject {
-    @JsonableElement abstract EventAction eventAction();
-    @JsonableElement abstract DateTime eventDate();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 #### Snippet
 ```java
 
+    @AutoValue.Builder
+    abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
+      abstract ImmutableList.Builder<RdapDomain> domainSearchResultsBuilder();
 
-    abstract static class Builder<B extends Builder<?>> {
-      abstract B setEventAction(EventAction eventAction);
-      abstract B setEventDate(DateTime eventDate);
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `NameserverSearchResponse` has no concrete subclass
+Abstract class `EntitySearchResponse` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 #### Snippet
 ```java
 
   @AutoValue
-  abstract static class NameserverSearchResponse extends BaseSearchResponse {
+  abstract static class EntitySearchResponse extends BaseSearchResponse {
 
-    @JsonableElement public abstract ImmutableList<RdapNameserver> nameserverSearchResults();
+    @JsonableElement public abstract ImmutableList<RdapEntity> entitySearchResults();
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `BaseSearchResponse` has no concrete subclass
+Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 #### Snippet
 ```java
 
-  /** Responding To Searches defined in 8 of RFC 9083. */
-  abstract static class BaseSearchResponse extends ReplyPayloadBase {
-    abstract IncompletenessWarningType incompletenessWarningType();
-    abstract ImmutableMap<String, URI> navigationLinks();
+    @AutoValue.Builder
+    abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
+      abstract ImmutableList.Builder<RdapEntity> entitySearchResultsBuilder();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DomainSearchResponse` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class DomainSearchResponse extends BaseSearchResponse {
+
+    @JsonableElement abstract ImmutableList<RdapDomain> domainSearchResults();
 ```
 
 ### AbstractClassNeverImplemented
@@ -4183,56 +4219,32 @@ in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 
     @AutoValue.Builder
     abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
-      abstract ImmutableList.Builder<RdapEntity> entitySearchResultsBuilder();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
       abstract ImmutableList.Builder<RdapNameserver> nameserverSearchResultsBuilder();
 
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `EntitySearchResponse` has no concrete subclass
+Abstract class `NameserverSearchResponse` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 #### Snippet
 ```java
 
   @AutoValue
-  abstract static class EntitySearchResponse extends BaseSearchResponse {
+  abstract static class NameserverSearchResponse extends BaseSearchResponse {
 
-    @JsonableElement public abstract ImmutableList<RdapEntity> entitySearchResults();
+    @JsonableElement public abstract ImmutableList<RdapNameserver> nameserverSearchResults();
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `DomainSearchResponse` has no concrete subclass
+Abstract class `BaseSearchResponse` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 #### Snippet
 ```java
 
-  @AutoValue
-  abstract static class DomainSearchResponse extends BaseSearchResponse {
-
-    @JsonableElement abstract ImmutableList<RdapDomain> domainSearchResults();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
-      abstract ImmutableList.Builder<RdapDomain> domainSearchResultsBuilder();
-
+  /** Responding To Searches defined in 8 of RFC 9083. */
+  abstract static class BaseSearchResponse extends ReplyPayloadBase {
+    abstract IncompletenessWarningType incompletenessWarningType();
+    abstract ImmutableMap<String, URI> navigationLinks();
 ```
 
 ### AbstractClassNeverImplemented
@@ -4245,66 +4257,6 @@ in `core/src/main/java/google/registry/rdap/RdapAuthorization.java`
 public abstract class RdapAuthorization extends ImmutableObject {
 
   enum Role {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RdapNamedObjectBase` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-   * <p>Not part of the spec, but seems convenient.
-   */
-  private abstract static class RdapNamedObjectBase extends RdapObjectBase {
-
-    @JsonableElement abstract String ldhName();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `HelpResponse` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-  @RestrictJsonNames({})
-  @AutoValue
-  abstract static class HelpResponse extends ReplyPayloadBase {
-    @JsonableElement("notices[]") abstract Optional<Notice> helpNotice();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends RdapEntity.Builder<Builder> {
-      abstract RdapContactEntity build();
-    }
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends RdapEntity.Builder<Builder> {
-      abstract RdapRegistrarEntity build();
-    }
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-    @JsonableElement abstract ImmutableList<EventWithoutActor> asEventActor();
-
-    private abstract static class Builder<B extends Builder<B>> extends RdapObjectBase.Builder<B> {
-      abstract B setVcardArray(VcardArray vcardArray);
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -4327,8 +4279,152 @@ in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 
     @AutoValue.Builder
     abstract static class Builder extends RdapNamedObjectBase.Builder<Builder> {
+      abstract ImmutableList.Builder<RdapNameserver> nameserversBuilder();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RdapContactEntity` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract static class RdapContactEntity extends RdapEntity {
+
+    static Builder builder() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder extends RdapEntity.Builder<Builder> {
+      abstract RdapRegistrarEntity build();
+    }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Vcard` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+  @RestrictJsonNames({})
+  @AutoValue
+  abstract static class Vcard implements Jsonable {
+    abstract String property();
+    abstract ImmutableMap<String, ImmutableList<String>> parameters();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RdapRegistrarEntity` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract static class RdapRegistrarEntity extends RdapEntity {
+
+    static Builder builder() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+    }
+
+    abstract static class Builder<B extends Builder<?>> extends RdapObjectBase.Builder<B> {
+      abstract B setLdhName(String ldhName);
+    }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RdapObjectBase` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+   * <p>Not part of the spec, but seems convenient.
+   */
+  private abstract static class RdapObjectBase extends ReplyPayloadBase {
+    @JsonableElement final ObjectClassName objectClassName;
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RdapEntity` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+   */
+  @RestrictJsonNames({"entities[]", "entitySearchResults[]"})
+  abstract static class RdapEntity extends RdapObjectBase {
+
+    /** Role values specified in RFC 9083 § 10.2.4. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RdapNamedObjectBase` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+   * <p>Not part of the spec, but seems convenient.
+   */
+  private abstract static class RdapNamedObjectBase extends RdapObjectBase {
+
+    @JsonableElement abstract String ldhName();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ErrorResponse` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+  @RestrictJsonNames({})
+  @AutoValue
+  abstract static class ErrorResponse extends ReplyPayloadBase {
+
+    @JsonableElement final LanguageIdentifier lang = LanguageIdentifier.EN;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder {
+      abstract Builder setZoneSigned(boolean zoneSigned);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder extends RdapNamedObjectBase.Builder<Builder> {
       abstract ImmutableList.Builder<String> ipv6Builder();
       abstract ImmutableList.Builder<String> ipv4Builder();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+    @JsonableElement abstract ImmutableList<EventWithoutActor> asEventActor();
+
+    private abstract static class Builder<B extends Builder<B>> extends RdapObjectBase.Builder<B> {
+      abstract B setVcardArray(VcardArray vcardArray);
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -4356,18 +4452,6 @@ in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Vcard` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-  @RestrictJsonNames({})
-  @AutoValue
-  abstract static class Vcard implements Jsonable {
-    abstract String property();
-    abstract ImmutableMap<String, ImmutableList<String>> parameters();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `VcardArray` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 #### Snippet
@@ -4377,18 +4461,6 @@ in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
   abstract static class VcardArray implements Jsonable {
 
     private static final String VCARD_VERSION_NUMBER = "4.0";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RdapEntity` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-   */
-  @RestrictJsonNames({"entities[]", "entitySearchResults[]"})
-  abstract static class RdapEntity extends RdapObjectBase {
-
-    /** Role values specified in RFC 9083 § 10.2.4. */
 ```
 
 ### AbstractClassNeverImplemented
@@ -4404,102 +4476,6 @@ in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends RdapNamedObjectBase.Builder<Builder> {
-      abstract ImmutableList.Builder<RdapNameserver> nameserversBuilder();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-    }
-
-    abstract static class Builder<B extends Builder<?>> extends RdapObjectBase.Builder<B> {
-      abstract B setLdhName(String ldhName);
-    }
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RdapContactEntity` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract static class RdapContactEntity extends RdapEntity {
-
-    static Builder builder() {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RdapNameserver` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-  @RestrictJsonNames({"nameservers[]", "nameserverSearchResults[]"})
-  @AutoValue
-  abstract static class RdapNameserver extends RdapNamedObjectBase {
-
-    @JsonableElement Optional<IpAddresses> ipAddresses() {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ErrorResponse` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-  @RestrictJsonNames({})
-  @AutoValue
-  abstract static class ErrorResponse extends ReplyPayloadBase {
-
-    @JsonableElement final LanguageIdentifier lang = LanguageIdentifier.EN;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RdapObjectBase` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-   * <p>Not part of the spec, but seems convenient.
-   */
-  private abstract static class RdapObjectBase extends ReplyPayloadBase {
-    @JsonableElement final ObjectClassName objectClassName;
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder {
-      abstract Builder setZoneSigned(boolean zoneSigned);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RdapRegistrarEntity` has no concrete subclass
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract static class RdapRegistrarEntity extends RdapEntity {
-
-    static Builder builder() {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `DsData` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 #### Snippet
@@ -4512,6 +4488,18 @@ in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `HelpResponse` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+  @RestrictJsonNames({})
+  @AutoValue
+  abstract static class HelpResponse extends ReplyPayloadBase {
+    @JsonableElement("notices[]") abstract Optional<Notice> helpNotice();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `TopLevelReplyObject` has no concrete subclass
 in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 #### Snippet
@@ -4521,6 +4509,30 @@ in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
   abstract static class TopLevelReplyObject extends AbstractJsonableObject {
     @JsonableElement("rdapConformance")
     static final RdapConformance RDAP_CONFORMANCE = RdapConformance.INSTANCE;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder extends RdapEntity.Builder<Builder> {
+      abstract RdapContactEntity build();
+    }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RdapNameserver` has no concrete subclass
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
+  @RestrictJsonNames({"nameservers[]", "nameserverSearchResults[]"})
+  @AutoValue
+  abstract static class RdapNameserver extends RdapNamedObjectBase {
+
+    @JsonableElement Optional<IpAddresses> ipAddresses() {
 ```
 
 ### AbstractClassNeverImplemented
@@ -4548,18 +4560,6 @@ in `core/src/main/java/google/registry/batch/ExpandRecurringBillingEventsAction.
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/FlowMetadata.java`
-#### Snippet
-```java
-  /** Builder for {@link FlowMetadata} */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setSuperuser(boolean isSuperuser);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `FlowMetadata` has no concrete subclass
 in `core/src/main/java/google/registry/flows/FlowMetadata.java`
 #### Snippet
@@ -4573,50 +4573,14 @@ public abstract class FlowMetadata extends ImmutableObject {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
+in `core/src/main/java/google/registry/flows/FlowMetadata.java`
 #### Snippet
 ```java
+  /** Builder for {@link FlowMetadata} */
+  @AutoValue.Builder
+  public abstract static class Builder {
 
-    @AutoValue.Builder
-    public abstract static class Builder<R, T> {
-
-      abstract Builder<R, T> name(String name);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Read` has no concrete subclass
-in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class Read<R, T> extends PTransform<PBegin, PCollection<T>> {
-
-    public static final String DEFAULT_NAME = "RegistryJpaIO.Read";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Write` has no concrete subclass
-in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class Write<T> extends PTransform<PCollection<T>, PCollection<Void>> {
-
-    public static final String DEFAULT_NAME = "RegistryJpaIO.Write";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder<T> {
-
-      abstract Builder<T> name(String name);
+    public abstract Builder setSuperuser(boolean isSuperuser);
 ```
 
 ### AbstractClassNeverImplemented
@@ -4629,18 +4593,6 @@ in `core/src/main/java/google/registry/flows/custom/CustomLogicModule.java`
 public abstract class CustomLogicModule {
 
   @Provides
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/EntityChanges.java`
-#### Snippet
-```java
-  /** Builder for {@link EntityChanges}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setSaves(ImmutableSet<ImmutableObject> entitiesToSave);
 ```
 
 ### AbstractClassNeverImplemented
@@ -4657,14 +4609,62 @@ public abstract class EntityChanges {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/EntityChanges.java`
 #### Snippet
 ```java
-    /** Builder for {@link AfterValidationParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
+  /** Builder for {@link EntityChanges}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
 
-      public abstract Builder setExistingDomain(Domain existingDomain);
+    public abstract Builder setSaves(ImmutableSet<ImmutableObject> entitiesToSave);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder<T> {
+
+      abstract Builder<T> name(String name);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    public abstract static class Builder<R, T> {
+
+      abstract Builder<R, T> name(String name);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Write` has no concrete subclass
+in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class Write<T> extends PTransform<PCollection<T>, PCollection<Void>> {
+
+    public static final String DEFAULT_NAME = "RegistryJpaIO.Write";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Read` has no concrete subclass
+in `core/src/main/java/google/registry/beam/common/RegistryJpaIO.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class Read<R, T> extends PTransform<PBegin, PCollection<T>> {
+
+    public static final String DEFAULT_NAME = "RegistryJpaIO.Read";
 ```
 
 ### AbstractClassNeverImplemented
@@ -4680,6 +4680,30 @@ in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link AfterValidationParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setExistingDomain(Domain existingDomain);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AfterValidationParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
+  @AutoValue
+  public abstract static class AfterValidationParameters extends ImmutableObject {
+
+    public abstract Domain existingDomain();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `BeforeSaveParameters` has no concrete subclass
 in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.java`
 #### Snippet
@@ -4692,195 +4716,15 @@ in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AfterValidationParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainUpdateFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
-  @AutoValue
-  public abstract static class AfterValidationParameters extends ImmutableObject {
-
-    public abstract Domain existingDomain();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeResponseReturnData}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setResData(DomainInfoData resData);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeResponseParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setDomain(Domain domain);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AfterValidationParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
-  @AutoValue
-  public abstract static class AfterValidationParameters extends ImmutableObject {
-
-    public abstract Domain domain();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link AfterValidationParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setDomain(Domain domain);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeResponseParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
-  @AutoValue
-  public abstract static class BeforeResponseParameters extends ImmutableObject {
-
-    public abstract Domain domain();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeResponseReturnData` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class BeforeResponseReturnData extends ImmutableObject {
-
-    public abstract DomainInfoData resData();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link AfterValidationParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setDomainNames(ImmutableMap<String, InternetDomainName> domainNames);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AfterValidationParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
-  @AutoValue
-  public abstract static class AfterValidationParameters extends ImmutableObject {
-
-    public abstract ImmutableMap<String, InternetDomainName> domainNames();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeResponseReturnData` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class BeforeResponseReturnData extends ImmutableObject {
-
-    public abstract ImmutableList<DomainCheck> domainChecks();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeResponseParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
-  @AutoValue
-  public abstract static class BeforeResponseParameters extends ImmutableObject {
-
-    public abstract ImmutableList<DomainCheck> domainChecks();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeResponseParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setDomainChecks(ImmutableList<DomainCheck> domainChecks);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeResponseReturnData}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setDomainChecks(ImmutableList<DomainCheck> domainChecks);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeSaveParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #beforeSave}. */
-  @AutoValue
-  public abstract static class BeforeSaveParameters extends ImmutableObject {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
 #### Snippet
 ```java
-    /** Builder for {@link AfterValidationParameters}. */
+    /** Builder for {@link BeforeSaveParameters}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
-      public abstract Builder setDomainName(InternetDomainName domainName);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AfterValidationParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
-  @AutoValue
-  public abstract static class AfterValidationParameters extends ImmutableObject {
-
-    /** The parsed domain name of the domain that is requested to be created. */
+      public abstract Builder setNewDomain(Domain newDomain);
 ```
 
 ### AbstractClassNeverImplemented
@@ -4912,11 +4756,11 @@ Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
 #### Snippet
 ```java
-    /** Builder for {@link BeforeSaveParameters}. */
+    /** Builder for {@link DomainCreateFlowCustomLogic.BeforeResponseReturnData}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
-      public abstract Builder setNewDomain(Domain newDomain);
+      public abstract BeforeResponseReturnData.Builder setResData(ResponseData resData);
 ```
 
 ### AbstractClassNeverImplemented
@@ -4932,128 +4776,68 @@ in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
+Abstract class `AfterValidationParameters` has no concrete subclass
 in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
 #### Snippet
 ```java
-    /** Builder for {@link DomainCreateFlowCustomLogic.BeforeResponseReturnData}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
+  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
+  @AutoValue
+  public abstract static class AfterValidationParameters extends ImmutableObject {
 
-      public abstract BeforeResponseReturnData.Builder setResData(ResponseData resData);
+    /** The parsed domain name of the domain that is requested to be created. */
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeResponseReturnData}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setResultCode(Result.Code resultCode);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeSaveParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setExistingDomain(Domain existingDomain);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
 #### Snippet
 ```java
     /** Builder for {@link AfterValidationParameters}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
-      public abstract Builder setExistingDomain(Domain existingDomain);
+      public abstract Builder setDomainName(InternetDomainName domainName);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeSaveParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #beforeSave}. */
+  @AutoValue
+  public abstract static class BeforeSaveParameters extends ImmutableObject {
+
+    /**
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
 #### Snippet
 ```java
     /** Builder for {@link BeforeResponseParameters}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
-      public abstract Builder setResultCode(Result.Code resultCode);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeResponseParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
-  @AutoValue
-  public abstract static class BeforeResponseParameters extends ImmutableObject {
-
-    public abstract Result.Code resultCode();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeSaveParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class BeforeSaveParameters extends ImmutableObject {
-
-    public abstract Domain existingDomain();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeResponseReturnData` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class BeforeResponseReturnData extends ImmutableObject {
-
-    public abstract Result.Code resultCode();
+      public abstract Builder setDomain(Domain domain);
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `AfterValidationParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
 #### Snippet
 ```java
   /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
   @AutoValue
   public abstract static class AfterValidationParameters extends ImmutableObject {
 
-    public abstract Domain existingDomain();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AfterValidationParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
-  @AutoValue
-  public abstract static class AfterValidationParameters extends ImmutableObject {
-
-    public abstract Domain existingDomain();
+    public abstract Domain domain();
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `BeforeResponseParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
 #### Snippet
 ```java
   /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
@@ -5065,110 +4849,38 @@ in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.j
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
 #### Snippet
 ```java
     /** Builder for {@link AfterValidationParameters}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
-      public abstract Builder setExistingDomain(Domain existingDomain);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeResponseReturnData}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setResData(ResponseData resData);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link BeforeSaveParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setExistingDomain(Domain existingDomain);
+      public abstract Builder setDomain(Domain domain);
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `BeforeResponseReturnData` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
 #### Snippet
 ```java
    */
   @AutoValue
   public abstract static class BeforeResponseReturnData extends ImmutableObject {
 
-    public abstract ResponseData resData();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BeforeSaveParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  public abstract static class BeforeSaveParameters extends ImmutableObject {
-
-    public abstract Domain existingDomain();
+    public abstract DomainInfoData resData();
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+in `core/src/main/java/google/registry/flows/custom/DomainInfoFlowCustomLogic.java`
 #### Snippet
 ```java
-    /** Builder for {@link BeforeResponseParameters}. */
+    /** Builder for {@link BeforeResponseReturnData}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
-      public abstract BeforeResponseParameters.Builder setDomain(Domain domain);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link CreatePriceParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link UpdatePriceParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RenewPriceParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #customizeRenewPrice} . */
-  @AutoValue
-  public abstract static class RenewPriceParameters extends ImmutableObject {
-
-    public abstract FeesAndCredits feesAndCredits();
+      public abstract Builder setResData(DomainInfoData resData);
 ```
 
 ### AbstractClassNeverImplemented
@@ -5179,54 +4891,6 @@ in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.jav
   /** A class to encapsulate parameters for a call to {@link #customizeUpdatePrice} . */
   @AutoValue
   public abstract static class UpdatePriceParameters extends ImmutableObject {
-
-    public abstract FeesAndCredits feesAndCredits();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-    /** Builder for {@link RestorePriceParameters}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-
-      public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RestorePriceParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #customizeRestorePrice} . */
-  @AutoValue
-  public abstract static class RestorePriceParameters extends ImmutableObject {
-
-    public abstract FeesAndCredits feesAndCredits();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CreatePriceParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #customizeCreatePrice} . */
-  @AutoValue
-  public abstract static class CreatePriceParameters extends ImmutableObject {
-
-    public abstract FeesAndCredits feesAndCredits();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TransferPriceParameters` has no concrete subclass
-in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
-#### Snippet
-```java
-  /** A class to encapsulate parameters for a call to {@link #customizeTransferPrice} . */
-  @AutoValue
-  public abstract static class TransferPriceParameters extends ImmutableObject {
 
     public abstract FeesAndCredits feesAndCredits();
 ```
@@ -5248,11 +4912,263 @@ Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
 #### Snippet
 ```java
+    /** Builder for {@link UpdatePriceParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CreatePriceParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #customizeCreatePrice} . */
+  @AutoValue
+  public abstract static class CreatePriceParameters extends ImmutableObject {
+
+    public abstract FeesAndCredits feesAndCredits();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
     /** Builder for {@link RenewPriceParameters}. */
     @AutoValue.Builder
     public abstract static class Builder {
 
       public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RenewPriceParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #customizeRenewPrice} . */
+  @AutoValue
+  public abstract static class RenewPriceParameters extends ImmutableObject {
+
+    public abstract FeesAndCredits feesAndCredits();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RestorePriceParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #customizeRestorePrice} . */
+  @AutoValue
+  public abstract static class RestorePriceParameters extends ImmutableObject {
+
+    public abstract FeesAndCredits feesAndCredits();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link RestorePriceParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `TransferPriceParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #customizeTransferPrice} . */
+  @AutoValue
+  public abstract static class TransferPriceParameters extends ImmutableObject {
+
+    public abstract FeesAndCredits feesAndCredits();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainPricingCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link CreatePriceParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setFeesAndCredits(FeesAndCredits feesAndCredits);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link AfterValidationParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setExistingDomain(Domain existingDomain);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeResponseReturnData` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class BeforeResponseReturnData extends ImmutableObject {
+
+    public abstract Result.Code resultCode();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AfterValidationParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
+  @AutoValue
+  public abstract static class AfterValidationParameters extends ImmutableObject {
+
+    public abstract Domain existingDomain();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeResponseParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
+  @AutoValue
+  public abstract static class BeforeResponseParameters extends ImmutableObject {
+
+    public abstract Result.Code resultCode();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeSaveParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class BeforeSaveParameters extends ImmutableObject {
+
+    public abstract Domain existingDomain();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeResponseParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setResultCode(Result.Code resultCode);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeSaveParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setExistingDomain(Domain existingDomain);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeResponseReturnData}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setResultCode(Result.Code resultCode);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link AfterValidationParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setDomainNames(ImmutableMap<String, InternetDomainName> domainNames);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeResponseReturnData}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setDomainChecks(ImmutableList<DomainCheck> domainChecks);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeResponseParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setDomainChecks(ImmutableList<DomainCheck> domainChecks);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AfterValidationParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
+  @AutoValue
+  public abstract static class AfterValidationParameters extends ImmutableObject {
+
+    public abstract ImmutableMap<String, InternetDomainName> domainNames();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeResponseParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
+  @AutoValue
+  public abstract static class BeforeResponseParameters extends ImmutableObject {
+
+    public abstract ImmutableList<DomainCheck> domainChecks();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeResponseReturnData` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainCheckFlowCustomLogic.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class BeforeResponseReturnData extends ImmutableObject {
+
+    public abstract ImmutableList<DomainCheck> domainChecks();
 ```
 
 ### AbstractClassNeverImplemented
@@ -5265,6 +5181,102 @@ in `core/src/main/java/google/registry/flows/domain/token/AllocationTokenDomainC
 public abstract class AllocationTokenDomainCheckResults {
 
   public abstract Optional<AllocationToken> token();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeResponseReturnData}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setResData(ResponseData resData);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeResponseReturnData` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class BeforeResponseReturnData extends ImmutableObject {
+
+    public abstract ResponseData resData();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link AfterValidationParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setExistingDomain(Domain existingDomain);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeSaveParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  public abstract static class BeforeSaveParameters extends ImmutableObject {
+
+    public abstract Domain existingDomain();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeSaveParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract Builder setExistingDomain(Domain existingDomain);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AfterValidationParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #afterValidation}. */
+  @AutoValue
+  public abstract static class AfterValidationParameters extends ImmutableObject {
+
+    public abstract Domain existingDomain();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+    /** Builder for {@link BeforeResponseParameters}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+
+      public abstract BeforeResponseParameters.Builder setDomain(Domain domain);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BeforeResponseParameters` has no concrete subclass
+in `core/src/main/java/google/registry/flows/custom/DomainRenewFlowCustomLogic.java`
+#### Snippet
+```java
+  /** A class to encapsulate parameters for a call to {@link #beforeResponse}. */
+  @AutoValue
+  public abstract static class BeforeResponseParameters extends ImmutableObject {
+
+    public abstract Domain domain();
 ```
 
 ### AbstractClassNeverImplemented
@@ -5364,18 +5376,6 @@ public abstract class HostInfoData implements ResponseData {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/model/domain/DomainInfoData.java`
-#### Snippet
-```java
-  /** Builder for {@link DomainInfoData}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setDomainName(String domainName);
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `DomainInfoData` has no concrete subclass
 in `core/src/main/java/google/registry/model/domain/DomainInfoData.java`
 #### Snippet
@@ -5385,6 +5385,18 @@ in `core/src/main/java/google/registry/model/domain/DomainInfoData.java`
 public abstract class DomainInfoData implements ResponseData {
 
   @XmlElement(name = "name")
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/model/domain/DomainInfoData.java`
+#### Snippet
+```java
+  /** Builder for {@link DomainInfoData}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setDomainName(String domainName);
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -5400,18 +5412,6 @@ in `core/src/main/java/google/registry/model/server/Lock.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/model/contact/ContactInfoData.java`
-#### Snippet
-```java
-  /** Builder for {@link ContactInfoData}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setContactId(String contactId);
-    public abstract Builder setRepoId(String repoId);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ContactInfoData` has no concrete subclass
 in `core/src/main/java/google/registry/model/contact/ContactInfoData.java`
 #### Snippet
@@ -5421,6 +5421,18 @@ in `core/src/main/java/google/registry/model/contact/ContactInfoData.java`
 public abstract class ContactInfoData implements ResponseData {
 
   @XmlElement(name = "id")
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/model/contact/ContactInfoData.java`
+#### Snippet
+```java
+  /** Builder for {@link ContactInfoData}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setContactId(String contactId);
+    public abstract Builder setRepoId(String repoId);
 ```
 
 ### AbstractClassNeverImplemented
@@ -5448,18 +5460,6 @@ public abstract class AppEngineAdminApiModule {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `DsRecord` has no concrete subclass
-in `core/src/main/java/google/registry/tools/DsRecord.java`
-#### Snippet
-```java
-
-@AutoValue
-abstract class DsRecord {
-  private static final Splitter SPLITTER = Splitter.on(CharMatcher.whitespace()).omitEmptyStrings();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `LocalCredentialModule` has no concrete subclass
 in `core/src/main/java/google/registry/tools/AuthModule.java`
 #### Snippet
@@ -5469,6 +5469,18 @@ in `core/src/main/java/google/registry/tools/AuthModule.java`
   abstract static class LocalCredentialModule {
     @Binds
     @DefaultCredential
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DsRecord` has no concrete subclass
+in `core/src/main/java/google/registry/tools/DsRecord.java`
+#### Snippet
+```java
+
+@AutoValue
+abstract class DsRecord {
+  private static final Splitter SPLITTER = Splitter.on(CharMatcher.whitespace()).omitEmptyStrings();
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -5508,18 +5520,6 @@ public abstract class CloudTasksUtilsModule {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `WhoisMetric` has no concrete subclass
-in `core/src/main/java/google/registry/whois/WhoisMetrics.java`
-#### Snippet
-```java
-  /** A value class for recording attributes of a WHOIS metric. */
-  @AutoValue
-  public abstract static class WhoisMetric {
-
-    public abstract Optional<String> commandName();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/whois/WhoisMetrics.java`
 #### Snippet
@@ -5532,6 +5532,18 @@ in `core/src/main/java/google/registry/whois/WhoisMetrics.java`
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `WhoisMetric` has no concrete subclass
+in `core/src/main/java/google/registry/whois/WhoisMetrics.java`
+#### Snippet
+```java
+  /** A value class for recording attributes of a WHOIS metric. */
+  @AutoValue
+  public abstract static class WhoisMetric {
+
+    public abstract Optional<String> commandName();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `GroupsModule` has no concrete subclass
 in `core/src/main/java/google/registry/groups/GroupsModule.java`
 #### Snippet
@@ -5541,30 +5553,6 @@ in `core/src/main/java/google/registry/groups/GroupsModule.java`
 public abstract class GroupsModule {
 
   @Binds
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CredentialModule` has no concrete subclass
-in `core/src/main/java/google/registry/config/CredentialModule.java`
-#### Snippet
-```java
-/** Dagger module that provides all {@link GoogleCredentials} used in the application. */
-@Module
-public abstract class CredentialModule {
-
-  /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/module/pubapi/PubApiRequestComponent.java`
-#### Snippet
-```java
-
-  @Subcomponent.Builder
-  abstract class Builder implements RequestComponentBuilder<PubApiRequestComponent> {
-    @Override public abstract Builder requestModule(RequestModule requestModule);
-    @Override public abstract PubApiRequestComponent build();
 ```
 
 ### AbstractClassNeverImplemented
@@ -5581,6 +5569,18 @@ in `core/src/main/java/google/registry/module/tools/ToolsRequestComponent.java`
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/module/pubapi/PubApiRequestComponent.java`
+#### Snippet
+```java
+
+  @Subcomponent.Builder
+  abstract class Builder implements RequestComponentBuilder<PubApiRequestComponent> {
+    @Override public abstract Builder requestModule(RequestModule requestModule);
+    @Override public abstract PubApiRequestComponent build();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
 in `core/src/main/java/google/registry/module/backend/BackendRequestComponent.java`
 #### Snippet
 ```java
@@ -5589,6 +5589,18 @@ in `core/src/main/java/google/registry/module/backend/BackendRequestComponent.ja
   abstract class Builder implements RequestComponentBuilder<BackendRequestComponent> {
 
     @Override
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CredentialModule` has no concrete subclass
+in `core/src/main/java/google/registry/config/CredentialModule.java`
+#### Snippet
+```java
+/** Dagger module that provides all {@link GoogleCredentials} used in the application. */
+@Module
+public abstract class CredentialModule {
+
+  /**
 ```
 
 ### AbstractClassNeverImplemented
@@ -5664,18 +5676,6 @@ public abstract class AuthResult {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `UserAuthInfo` has no concrete subclass
-in `core/src/main/java/google/registry/request/auth/UserAuthInfo.java`
-#### Snippet
-```java
-/** Extra information provided by the authentication mechanism about the user. */
-@AutoValue
-public abstract class UserAuthInfo {
-
-  /** User object from the AppEngine Users API. */
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AuthSettings` has no concrete subclass
 in `core/src/main/java/google/registry/request/auth/RequestAuthenticator.java`
 #### Snippet
@@ -5685,6 +5685,18 @@ in `core/src/main/java/google/registry/request/auth/RequestAuthenticator.java`
   public abstract static class AuthSettings {
 
     public abstract ImmutableList<AuthMethod> methods();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `UserAuthInfo` has no concrete subclass
+in `core/src/main/java/google/registry/request/auth/UserAuthInfo.java`
+#### Snippet
+```java
+/** Extra information provided by the authentication mechanism about the user. */
+@AutoValue
+public abstract class UserAuthInfo {
+
+  /** User object from the AppEngine Users API. */
 ```
 
 ### AbstractClassNeverImplemented
@@ -5748,6 +5760,42 @@ public abstract class SecretManagerModule {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `EppMetric` has no concrete subclass
+in `core/src/main/java/google/registry/monitoring/whitebox/EppMetric.java`
+#### Snippet
+```java
+/** A value class for recording attributes of an EPP metric. */
+@AutoValue
+public abstract class EppMetric {
+
+  public abstract DateTime getStartTimestamp();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `VKeyConverter` has no concrete subclass
+in `core/src/main/java/google/registry/persistence/converter/VKeyConverter.java`
+#### Snippet
+```java
+ * <p>Typically the converted type is {@link String} or {@link Long}.
+ */
+public abstract class VKeyConverter<T, C extends Serializable>
+    implements AttributeConverter<VKey<? extends T>, C> {
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `core/src/main/java/google/registry/monitoring/whitebox/EppMetric.java`
+#### Snippet
+```java
+  /** A builder to create instances of {@link EppMetric}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    /** Builder-only clock to support automatic recording of endTimestamp on {@link #build()}. */
+```
+
+### AbstractClassNeverImplemented
 Abstract class `CheckApiMetric` has no concrete subclass
 in `core/src/main/java/google/registry/monitoring/whitebox/CheckApiMetric.java`
 #### Snippet
@@ -5772,231 +5820,15 @@ in `core/src/main/java/google/registry/monitoring/whitebox/CheckApiMetric.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `VKeyConverter` has no concrete subclass
-in `core/src/main/java/google/registry/persistence/converter/VKeyConverter.java`
-#### Snippet
-```java
- * <p>Typically the converted type is {@link String} or {@link Long}.
- */
-public abstract class VKeyConverter<T, C extends Serializable>
-    implements AttributeConverter<VKey<? extends T>, C> {
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `EppMetric` has no concrete subclass
-in `core/src/main/java/google/registry/monitoring/whitebox/EppMetric.java`
-#### Snippet
-```java
-/** A value class for recording attributes of an EPP metric. */
-@AutoValue
-public abstract class EppMetric {
-
-  public abstract DateTime getStartTimestamp();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `core/src/main/java/google/registry/monitoring/whitebox/EppMetric.java`
+in `prober/src/main/java/google/registry/monitoring/blackbox/ProbingStep.java`
 #### Snippet
 ```java
-  /** A builder to create instances of {@link EppMetric}. */
+  /** Standard {@link AutoValue.Builder} for {@link ProbingStep}. */
   @AutoValue.Builder
   public abstract static class Builder {
 
-    /** Builder-only clock to support automatic recording of endTimestamp on {@link #build()}. */
-```
-
-### AbstractClassNeverImplemented
-Abstract class `PersistenceModule` has no concrete subclass
-in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
-#### Snippet
-```java
-/** Dagger module class for the persistence layer. */
-@Module
-public abstract class PersistenceModule {
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `UtilsModule` has no concrete subclass
-in `util/src/main/java/google/registry/util/UtilsModule.java`
-#### Snippet
-```java
-/** Dagger module to provide instances of various utils classes. */
-@Module
-public abstract class UtilsModule {
-
-  @Binds
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/Protocol.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    public abstract static class Builder extends Protocol.Builder<Builder, FrontendProtocol> {
-      public abstract Builder relayProtocol(BackendProtocol value);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/Protocol.java`
-#### Snippet
-```java
-   * @param <P> type of the concrete subtype of {@link Protocol}.
-   */
-  abstract class Builder<B extends Builder<B, P>, P extends Protocol> {
-
-    public abstract B name(String value);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BackendProtocol` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/Protocol.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract class BackendProtocol implements Protocol {
-    /** The hostname that the proxy connects to. */
-    public abstract String host();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/Protocol.java`
-#### Snippet
-```java
-    /** Builder of {@link BackendProtocol}. */
-    @AutoValue.Builder
-    public abstract static class Builder extends Protocol.Builder<Builder, BackendProtocol> {
-      public abstract Builder host(String value);
-    }
-```
-
-### AbstractClassNeverImplemented
-Abstract class `FrontendProtocol` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/Protocol.java`
-#### Snippet
-```java
-   */
-  @AutoValue
-  abstract class FrontendProtocol implements Protocol {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `QuotaRebate` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/quota/QuotaManager.java`
-#### Snippet
-```java
-  /** Value class representing a quota rebate. */
-  @AutoValue
-  public abstract static class QuotaRebate {
-    public static QuotaRebate create(QuotaResponse response) {
-      return new AutoValue_QuotaManager_QuotaRebate(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `QuotaResponse` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/quota/QuotaManager.java`
-#### Snippet
-```java
-  /** Value class representing a quota response. */
-  @AutoValue
-  public abstract static class QuotaResponse {
-    public static QuotaResponse create(
-        boolean success, String userId, DateTime grantedTokenRefillTime) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `QuotaRequest` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/quota/QuotaManager.java`
-#### Snippet
-```java
-  /** Value class representing a quota request. */
-  @AutoValue
-  public abstract static class QuotaRequest {
-
-    public static QuotaRequest create(String userId) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TimestampedInteger` has no concrete subclass
-in `proxy/src/main/java/google/registry/proxy/quota/TokenStore.java`
-#### Snippet
-```java
-  /** Value class representing a timestamped integer. */
-  @AutoValue
-  abstract static class TimestampedInteger {
-
-    static TimestampedInteger create(int value, DateTime timestamp) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `util/src/main/java/google/registry/util/EmailMessage.java`
-#### Snippet
-```java
-    /** Builder for {@link Attachment}. */
-    @AutoValue.Builder
-    public abstract static class Builder {
-      public abstract Builder setContentType(MediaType contentType);
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `EmailMessage` has no concrete subclass
-in `util/src/main/java/google/registry/util/EmailMessage.java`
-#### Snippet
-```java
-/** Value class representing the content and metadata of an email. */
-@AutoValue
-public abstract class EmailMessage {
-
-  public static Builder newBuilder() {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `util/src/main/java/google/registry/util/EmailMessage.java`
-#### Snippet
-```java
-  /** Builder for {@link EmailMessage}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setSubject(String subject);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Attachment` has no concrete subclass
-in `util/src/main/java/google/registry/util/EmailMessage.java`
-#### Snippet
-```java
-  /** An attachment to the email, if one exists. */
-  @AutoValue
-  public abstract static class Attachment {
-    public static Builder newBuilder() {
-      return new AutoValue_EmailMessage_Attachment.Builder();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DateTimeUtils` has no concrete subclass
-in `common/src/main/java/google/registry/util/DateTimeUtils.java`
-#### Snippet
-```java
-
-/** Utilities methods and constants related to Joda {@link DateTime} objects. */
-public abstract class DateTimeUtils {
-
-  /** The start of the epoch, in a convenient constant. */
+    public abstract Builder setDuration(Duration value);
 ```
 
 ### AbstractClassNeverImplemented
@@ -6012,15 +5844,15 @@ public abstract class ProbingStep {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `prober/src/main/java/google/registry/monitoring/blackbox/ProbingStep.java`
+Abstract class `PersistenceModule` has no concrete subclass
+in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 #### Snippet
 ```java
-  /** Standard {@link AutoValue.Builder} for {@link ProbingStep}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
+/** Dagger module class for the persistence layer. */
+@Module
+public abstract class PersistenceModule {
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    public abstract Builder setDuration(Duration value);
 ```
 
 ### AbstractClassNeverImplemented
@@ -6069,6 +5901,174 @@ in `prober/src/main/java/google/registry/monitoring/blackbox/connection/ProbingA
 public abstract class ProbingAction implements Callable<ChannelFuture> {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/Protocol.java`
+#### Snippet
+```java
+    /** Builder of {@link BackendProtocol}. */
+    @AutoValue.Builder
+    public abstract static class Builder extends Protocol.Builder<Builder, BackendProtocol> {
+      public abstract Builder host(String value);
+    }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/Protocol.java`
+#### Snippet
+```java
+   * @param <P> type of the concrete subtype of {@link Protocol}.
+   */
+  abstract class Builder<B extends Builder<B, P>, P extends Protocol> {
+
+    public abstract B name(String value);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/Protocol.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    public abstract static class Builder extends Protocol.Builder<Builder, FrontendProtocol> {
+      public abstract Builder relayProtocol(BackendProtocol value);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BackendProtocol` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/Protocol.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract class BackendProtocol implements Protocol {
+    /** The hostname that the proxy connects to. */
+    public abstract String host();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `FrontendProtocol` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/Protocol.java`
+#### Snippet
+```java
+   */
+  @AutoValue
+  abstract class FrontendProtocol implements Protocol {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `QuotaResponse` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/quota/QuotaManager.java`
+#### Snippet
+```java
+  /** Value class representing a quota response. */
+  @AutoValue
+  public abstract static class QuotaResponse {
+    public static QuotaResponse create(
+        boolean success, String userId, DateTime grantedTokenRefillTime) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `QuotaRequest` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/quota/QuotaManager.java`
+#### Snippet
+```java
+  /** Value class representing a quota request. */
+  @AutoValue
+  public abstract static class QuotaRequest {
+
+    public static QuotaRequest create(String userId) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `QuotaRebate` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/quota/QuotaManager.java`
+#### Snippet
+```java
+  /** Value class representing a quota rebate. */
+  @AutoValue
+  public abstract static class QuotaRebate {
+    public static QuotaRebate create(QuotaResponse response) {
+      return new AutoValue_QuotaManager_QuotaRebate(
+```
+
+### AbstractClassNeverImplemented
+Abstract class `TimestampedInteger` has no concrete subclass
+in `proxy/src/main/java/google/registry/proxy/quota/TokenStore.java`
+#### Snippet
+```java
+  /** Value class representing a timestamped integer. */
+  @AutoValue
+  abstract static class TimestampedInteger {
+
+    static TimestampedInteger create(int value, DateTime timestamp) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `UtilsModule` has no concrete subclass
+in `util/src/main/java/google/registry/util/UtilsModule.java`
+#### Snippet
+```java
+/** Dagger module to provide instances of various utils classes. */
+@Module
+public abstract class UtilsModule {
+
+  @Binds
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `util/src/main/java/google/registry/util/EmailMessage.java`
+#### Snippet
+```java
+    /** Builder for {@link Attachment}. */
+    @AutoValue.Builder
+    public abstract static class Builder {
+      public abstract Builder setContentType(MediaType contentType);
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Attachment` has no concrete subclass
+in `util/src/main/java/google/registry/util/EmailMessage.java`
+#### Snippet
+```java
+  /** An attachment to the email, if one exists. */
+  @AutoValue
+  public abstract static class Attachment {
+    public static Builder newBuilder() {
+      return new AutoValue_EmailMessage_Attachment.Builder();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `EmailMessage` has no concrete subclass
+in `util/src/main/java/google/registry/util/EmailMessage.java`
+#### Snippet
+```java
+/** Value class representing the content and metadata of an email. */
+@AutoValue
+public abstract class EmailMessage {
+
+  public static Builder newBuilder() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `util/src/main/java/google/registry/util/EmailMessage.java`
+#### Snippet
+```java
+  /** Builder for {@link EmailMessage}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setSubject(String subject);
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -6209,18 +6209,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `util/src/main/java/google/registry/util/DiffUtils.java`
 #### Snippet
 ```java
-    final Object a;
-
-    @Nullable
-    final Object b;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `util/src/main/java/google/registry/util/DiffUtils.java`
-#### Snippet
-```java
    */
   private static class DiffPair {
     @Nullable
@@ -6229,15 +6217,15 @@ in `util/src/main/java/google/registry/util/DiffUtils.java`
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `util/src/main/java/google/registry/util/CircularList.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `util/src/main/java/google/registry/util/DiffUtils.java`
 #### Snippet
 ```java
+    final Object a;
 
-    /** Necessary to instantiate each {@code C} object from {@code value}. */
-    protected abstract C create(T value);
+    @Nullable
+    final Object b;
 
-    /** Sets current {@code C} to element added and points previous {@code C} to this one. */
 ```
 
 ### NullableProblems
@@ -6250,6 +6238,18 @@ in `util/src/main/java/google/registry/util/CircularList.java`
     public AbstractBuilder<T, C> add(T value) {
       C c = create(value);
       if (current == null) {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `util/src/main/java/google/registry/util/CircularList.java`
+#### Snippet
+```java
+
+    /** Necessary to instantiate each {@code C} object from {@code value}. */
+    protected abstract C create(T value);
+
+    /** Sets current {@code C} to element added and points previous {@code C} to this one. */
 ```
 
 ## RuleId[ruleID=RedundantMethodOverride]
@@ -6286,18 +6286,6 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 
     @AutoValue.Builder
     abstract static class Builder extends EventBase.Builder<Builder> {
-      abstract Builder setEventActor(String eventActor);
-      abstract Event build();
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends EventBase.Builder<Builder> {
       abstract EventWithoutActor build();
     }
 ```
@@ -6321,8 +6309,32 @@ in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
 ```java
 
     @AutoValue.Builder
+    abstract static class Builder extends EventBase.Builder<Builder> {
+      abstract Builder setEventActor(String eventActor);
+      abstract Event build();
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/rdap/RdapDataStructures.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
     abstract static class Builder extends NoticeOrRemark.Builder<Builder> {
       abstract Builder setType(Remark.Type type);
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
+#### Snippet
+```java
+
+    @AutoValue.Builder
+    abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
+      abstract ImmutableList.Builder<RdapDomain> domainSearchResultsBuilder();
 
 ```
 
@@ -6352,30 +6364,6 @@ in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/rdap/RdapSearchResults.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends BaseSearchResponse.Builder<Builder> {
-      abstract ImmutableList.Builder<RdapDomain> domainSearchResultsBuilder();
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    abstract static class Builder extends RdapEntity.Builder<Builder> {
-      abstract RdapContactEntity build();
-    }
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 #### Snippet
 ```java
@@ -6391,11 +6379,11 @@ Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 #### Snippet
 ```java
-    }
 
-    abstract static class Builder<B extends Builder<?>> extends RdapObjectBase.Builder<B> {
-      abstract B setLdhName(String ldhName);
-    }
+    @AutoValue.Builder
+    abstract static class Builder extends RdapNamedObjectBase.Builder<Builder> {
+      abstract ImmutableList.Builder<String> ipv6Builder();
+      abstract ImmutableList.Builder<String> ipv4Builder();
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6427,11 +6415,23 @@ Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
 #### Snippet
 ```java
+    }
+
+    abstract static class Builder<B extends Builder<?>> extends RdapObjectBase.Builder<B> {
+      abstract B setLdhName(String ldhName);
+    }
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/rdap/RdapObjectClasses.java`
+#### Snippet
+```java
 
     @AutoValue.Builder
-    abstract static class Builder extends RdapNamedObjectBase.Builder<Builder> {
-      abstract ImmutableList.Builder<String> ipv6Builder();
-      abstract ImmutableList.Builder<String> ipv4Builder();
+    abstract static class Builder extends RdapEntity.Builder<Builder> {
+      abstract RdapContactEntity build();
+    }
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6448,6 +6448,18 @@ in `core/src/main/java/google/registry/flows/domain/FeesAndCredits.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/tld/label/DomainLabelEntry.java`
+#### Snippet
+```java
+
+  /** A generic builder base. */
+  public abstract static class Builder<T extends DomainLabelEntry<?, ?>, B extends Builder<T, ?>>
+      extends GenericBuilder<T, B> {
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/model/tld/label/BaseDomainLabelList.java`
 #### Snippet
 ```java
@@ -6460,14 +6472,26 @@ in `core/src/main/java/google/registry/model/tld/label/BaseDomainLabelList.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/tld/label/DomainLabelEntry.java`
+in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
 #### Snippet
 ```java
 
-  /** A generic builder base. */
-  public abstract static class Builder<T extends DomainLabelEntry<?, ?>, B extends Builder<T, ?>>
-      extends GenericBuilder<T, B> {
+    /** A builder for constructing {@link ReservedListEntry} objects, since they are immutable. */
+    private static class Builder
+        extends DomainLabelEntry.Builder<ReservedListEntry, ReservedListEntry.Builder> {
 
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
+#### Snippet
+```java
+   * A builder for constructing {@link ReservedList} objects, since they are immutable.
+   */
+  public static class Builder extends BaseDomainLabelList.Builder<ReservedList, Builder> {
+
+    public Builder() {}
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6508,25 +6532,13 @@ in `core/src/main/java/google/registry/model/mark/MarkPhoneNumber.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
-#### Snippet
-```java
-   * A builder for constructing {@link ReservedList} objects, since they are immutable.
-   */
-  public static class Builder extends BaseDomainLabelList.Builder<ReservedList, Builder> {
-
-    public Builder() {}
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
+in `core/src/main/java/google/registry/model/mark/MarkAddress.java`
 #### Snippet
 ```java
 
-    /** A builder for constructing {@link ReservedListEntry} objects, since they are immutable. */
-    private static class Builder
-        extends DomainLabelEntry.Builder<ReservedListEntry, ReservedListEntry.Builder> {
+  /** Builder for {@link MarkAddress}. */
+  public static class Builder extends Address.Builder<MarkAddress> {}
+}
 
 ```
 
@@ -6544,14 +6556,14 @@ in `core/src/main/java/google/registry/model/host/HostHistory.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/mark/MarkAddress.java`
+in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
 #### Snippet
 ```java
 
-  /** Builder for {@link MarkAddress}. */
-  public static class Builder extends Address.Builder<MarkAddress> {}
-}
+  /** A builder for constructing {@link PremiumList} objects, since they are immutable. */
+  public static class Builder extends BaseDomainLabelList.Builder<PremiumList, Builder> {
 
+    public Builder() {}
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6568,14 +6580,14 @@ in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
+in `core/src/main/java/google/registry/model/poll/MessageQueueInfo.java`
 #### Snippet
 ```java
 
-  /** A builder for constructing {@link PremiumList} objects, since they are immutable. */
-  public static class Builder extends BaseDomainLabelList.Builder<PremiumList, Builder> {
-
-    public Builder() {}
+  /** A builder for constructing a {@link MessageQueueInfo}, since it's immutable. */
+  public static class Builder extends Buildable.Builder<MessageQueueInfo> {
+    public Builder setQueueDate(DateTime queueDate) {
+      getInstance().queueDate = queueDate;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6588,18 +6600,6 @@ in `core/src/main/java/google/registry/model/tld/Registry.java`
   public static class Builder extends Buildable.Builder<Registry> {
     public Builder() {}
 
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/poll/MessageQueueInfo.java`
-#### Snippet
-```java
-
-  /** A builder for constructing a {@link MessageQueueInfo}, since it's immutable. */
-  public static class Builder extends Buildable.Builder<MessageQueueInfo> {
-    public Builder setQueueDate(DateTime queueDate) {
-      getInstance().queueDate = queueDate;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6652,14 +6652,14 @@ in `core/src/main/java/google/registry/model/domain/DomainCommand.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/domain/DomainHistory.java`
+in `core/src/main/java/google/registry/model/EppResource.java`
 #### Snippet
 ```java
-  }
 
-  public static class Builder extends HistoryEntry.Builder<DomainHistory, DomainHistory.Builder> {
+  /** Abstract builder for {@link EppResource} types. */
+  public abstract static class Builder<T extends EppResource, B extends Builder<T, B>>
+      extends GenericBuilder<T, B> {
 
-    public Builder() {}
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6676,14 +6676,50 @@ in `core/src/main/java/google/registry/model/domain/fee/FeeTransformResponseExte
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/domain/fee/FeeCheckResponseExtensionItem.java`
+in `core/src/main/java/google/registry/model/poll/PollMessage.java`
 #### Snippet
 ```java
 
-  /** Abstract builder for {@link FeeCheckResponseExtensionItem}. */
-  public abstract static class Builder<T extends FeeCheckResponseExtensionItem>
-      extends FeeQueryResponseExtensionItem.Builder<T, Builder<T>> {
+  /** Builder for {@link PollMessage} because it is immutable. */
+  public abstract static class Builder<T extends PollMessage, B extends Builder<?, ?>>
+      extends GenericBuilder<T, B> {
 
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/poll/PollMessage.java`
+#### Snippet
+```java
+
+    /** A builder for {@link OneTime} since it is immutable. */
+    public static class Builder extends PollMessage.Builder<OneTime, Builder> {
+
+      public Builder() {}
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/poll/PollMessage.java`
+#### Snippet
+```java
+
+    /** A builder for {@link Autorenew} since it is immutable. */
+    public static class Builder extends PollMessage.Builder<Autorenew, Builder> {
+
+      public Builder() {}
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/domain/DomainHistory.java`
+#### Snippet
+```java
+  }
+
+  public static class Builder extends HistoryEntry.Builder<DomainHistory, DomainHistory.Builder> {
+
+    public Builder() {}
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6736,42 +6772,6 @@ in `core/src/main/java/google/registry/model/domain/fee11/FeeDeleteResponseExten
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/poll/PollMessage.java`
-#### Snippet
-```java
-
-    /** A builder for {@link OneTime} since it is immutable. */
-    public static class Builder extends PollMessage.Builder<OneTime, Builder> {
-
-      public Builder() {}
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/poll/PollMessage.java`
-#### Snippet
-```java
-
-  /** Builder for {@link PollMessage} because it is immutable. */
-  public abstract static class Builder<T extends PollMessage, B extends Builder<?, ?>>
-      extends GenericBuilder<T, B> {
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/poll/PollMessage.java`
-#### Snippet
-```java
-
-    /** A builder for {@link Autorenew} since it is immutable. */
-    public static class Builder extends PollMessage.Builder<Autorenew, Builder> {
-
-      public Builder() {}
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/model/domain/fee11/FeeCheckResponseExtensionItemV11.java`
 #### Snippet
 ```java
@@ -6796,13 +6796,13 @@ in `core/src/main/java/google/registry/model/domain/fee12/FeeDeleteResponseExten
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/EppResource.java`
+in `core/src/main/java/google/registry/model/domain/fee/FeeCheckResponseExtensionItem.java`
 #### Snippet
 ```java
 
-  /** Abstract builder for {@link EppResource} types. */
-  public abstract static class Builder<T extends EppResource, B extends Builder<T, B>>
-      extends GenericBuilder<T, B> {
+  /** Abstract builder for {@link FeeCheckResponseExtensionItem}. */
+  public abstract static class Builder<T extends FeeCheckResponseExtensionItem>
+      extends FeeQueryResponseExtensionItem.Builder<T, Builder<T>> {
 
 ```
 
@@ -6820,18 +6820,6 @@ in `core/src/main/java/google/registry/model/domain/launch/LaunchExtension.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/domain/token/PackagePromotion.java`
-#### Snippet
-```java
-
-  /** A builder for constructing {@link PackagePromotion} objects, since they are immutable. */
-  public static class Builder extends Buildable.Builder<PackagePromotion> {
-    public Builder() {}
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/model/domain/fee12/FeeCheckResponseExtensionItemCommandV12.java`
 #### Snippet
 ```java
@@ -6839,6 +6827,18 @@ in `core/src/main/java/google/registry/model/domain/fee12/FeeCheckResponseExtens
   /** Builder for {@link FeeCheckResponseExtensionItemCommandV12}. */
   public static class Builder
       extends GenericBuilder<FeeCheckResponseExtensionItemCommandV12, Builder> {
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/domain/token/PackagePromotion.java`
+#### Snippet
+```java
+
+  /** A builder for constructing {@link PackagePromotion} objects, since they are immutable. */
+  public static class Builder extends Buildable.Builder<PackagePromotion> {
+    public Builder() {}
 
 ```
 
@@ -6856,18 +6856,6 @@ in `core/src/main/java/google/registry/model/domain/fee12/FeeCheckResponseExtens
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/contact/ContactPhoneNumber.java`
-#### Snippet
-```java
-
-  /** Builder for {@link ContactPhoneNumber}. */
-  public static class Builder extends PhoneNumber.Builder<ContactPhoneNumber> {}
-}
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/model/domain/token/AllocationToken.java`
 #### Snippet
 ```java
@@ -6876,6 +6864,18 @@ in `core/src/main/java/google/registry/model/domain/token/AllocationToken.java`
   public static class Builder extends Buildable.Builder<AllocationToken> {
 
     public Builder() {}
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/contact/ContactPhoneNumber.java`
+#### Snippet
+```java
+
+  /** Builder for {@link ContactPhoneNumber}. */
+  public static class Builder extends PhoneNumber.Builder<ContactPhoneNumber> {}
+}
+
 ```
 
 ### ClassNameSameAsAncestorName
@@ -6928,6 +6928,18 @@ in `core/src/main/java/google/registry/model/contact/ContactBase.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/contact/Disclose.java`
+#### Snippet
+```java
+
+  /** A builder for {@link Disclose} since it is immutable. */
+  public static class Builder extends Buildable.Builder<Disclose> {
+    public Builder setNames(ImmutableList<PostalInfoChoice> names) {
+      getInstance().name = names;
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/model/contact/PostalInfo.java`
 #### Snippet
 ```java
@@ -6948,30 +6960,6 @@ in `core/src/main/java/google/registry/model/console/UserRoles.java`
   public static class Builder extends Buildable.Builder<UserRoles> {
 
     public Builder() {}
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/console/User.java`
-#### Snippet
-```java
-
-  /** Builder for constructing immutable {@link User} objects. */
-  public static class Builder extends Buildable.Builder<User> {
-
-    public Builder() {}
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/contact/Disclose.java`
-#### Snippet
-```java
-
-  /** A builder for {@link Disclose} since it is immutable. */
-  public static class Builder extends Buildable.Builder<Disclose> {
-    public Builder setNames(ImmutableList<PostalInfoChoice> names) {
-      getInstance().name = names;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7000,14 +6988,14 @@ in `core/src/main/java/google/registry/model/contact/Contact.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/domain/fee/FeeQueryResponseExtensionItem.java`
+in `core/src/main/java/google/registry/model/console/User.java`
 #### Snippet
 ```java
-  /** Abstract builder for {@link FeeQueryResponseExtensionItem}. */
-  public abstract static class
-      Builder<T extends FeeQueryResponseExtensionItem, B extends Builder<?, ?>>
-          extends GenericBuilder<T, B> {
 
+  /** Builder for constructing immutable {@link User} objects. */
+  public static class Builder extends Buildable.Builder<User> {
+
+    public Builder() {}
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7028,10 +7016,10 @@ in `core/src/main/java/google/registry/model/transfer/TransferResponse.java`
 #### Snippet
 ```java
 
-    /** Builder for {@link ContactTransferResponse}. */
+    /** Builder for {@link DomainTransferResponse}. */
     public static class Builder
-        extends BaseTransferObject.Builder<ContactTransferResponse, Builder> {
-      public Builder setContactId(String contactId) {
+        extends BaseTransferObject.Builder<DomainTransferResponse, Builder> {
+      public Builder setDomainName(String domainName) {
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7040,10 +7028,22 @@ in `core/src/main/java/google/registry/model/transfer/TransferResponse.java`
 #### Snippet
 ```java
 
-    /** Builder for {@link DomainTransferResponse}. */
+    /** Builder for {@link ContactTransferResponse}. */
     public static class Builder
-        extends BaseTransferObject.Builder<DomainTransferResponse, Builder> {
-      public Builder setDomainName(String domainName) {
+        extends BaseTransferObject.Builder<ContactTransferResponse, Builder> {
+      public Builder setContactId(String contactId) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/domain/fee/FeeQueryResponseExtensionItem.java`
+#### Snippet
+```java
+  /** Abstract builder for {@link FeeQueryResponseExtensionItem}. */
+  public abstract static class
+      Builder<T extends FeeQueryResponseExtensionItem, B extends Builder<?, ?>>
+          extends GenericBuilder<T, B> {
+
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7108,13 +7108,13 @@ in `core/src/main/java/google/registry/model/transfer/TransferData.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
+in `core/src/main/java/google/registry/model/transfer/BaseTransferObject.java`
 #### Snippet
 ```java
 
-  /** A builder for constructing a {@link RegistrarPoc}, since it is immutable. */
-  public static class Builder extends Buildable.Builder<RegistrarPoc> {
-    public Builder() {}
+  /** Base class for builders of {@link BaseTransferObject} subclasses. */
+  public abstract static class Builder<T extends BaseTransferObject, B extends Builder<?, ?>>
+      extends GenericBuilder<T, B> {
 
 ```
 
@@ -7132,13 +7132,13 @@ in `core/src/main/java/google/registry/model/reporting/Spec11ThreatMatch.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/transfer/BaseTransferObject.java`
+in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
 #### Snippet
 ```java
 
-  /** Base class for builders of {@link BaseTransferObject} subclasses. */
-  public abstract static class Builder<T extends BaseTransferObject, B extends Builder<?, ?>>
-      extends GenericBuilder<T, B> {
+  /** A builder for constructing a {@link RegistrarPoc}, since it is immutable. */
+  public static class Builder extends Buildable.Builder<RegistrarPoc> {
+    public Builder() {}
 
 ```
 
@@ -7156,18 +7156,6 @@ in `core/src/main/java/google/registry/model/eppcommon/PhoneNumber.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/reporting/DomainTransactionRecord.java`
-#### Snippet
-```java
-
-  /** A builder for {@link DomainTransactionRecord} since it is immutable. */
-  public static class Builder extends Buildable.Builder<DomainTransactionRecord> {
-
-    public Builder() {}
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
 in `core/src/main/java/google/registry/model/billing/BillingEvent.java`
 #### Snippet
 ```java
@@ -7176,6 +7164,18 @@ in `core/src/main/java/google/registry/model/billing/BillingEvent.java`
     public static class Builder extends BillingEvent.Builder<OneTime, Builder> {
 
       public Builder() {}
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `core/src/main/java/google/registry/model/billing/BillingEvent.java`
+#### Snippet
+```java
+
+  /** An abstract builder for {@link BillingEvent}. */
+  public abstract static class Builder<T extends BillingEvent, B extends Builder<?, ?>>
+      extends GenericBuilder<T, B> {
+
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7204,14 +7204,14 @@ in `core/src/main/java/google/registry/model/billing/BillingEvent.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `core/src/main/java/google/registry/model/billing/BillingEvent.java`
+in `core/src/main/java/google/registry/model/reporting/DomainTransactionRecord.java`
 #### Snippet
 ```java
 
-  /** An abstract builder for {@link BillingEvent}. */
-  public abstract static class Builder<T extends BillingEvent, B extends Builder<?, ?>>
-      extends GenericBuilder<T, B> {
+  /** A builder for {@link DomainTransactionRecord} since it is immutable. */
+  public static class Builder extends Buildable.Builder<DomainTransactionRecord> {
 
+    public Builder() {}
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7243,11 +7243,11 @@ Class name `Builder` is the same as one of its superclass' names
 in `proxy/src/main/java/google/registry/proxy/Protocol.java`
 #### Snippet
 ```java
-
+    /** Builder of {@link BackendProtocol}. */
     @AutoValue.Builder
-    public abstract static class Builder extends Protocol.Builder<Builder, FrontendProtocol> {
-      public abstract Builder relayProtocol(BackendProtocol value);
-
+    public abstract static class Builder extends Protocol.Builder<Builder, BackendProtocol> {
+      public abstract Builder host(String value);
+    }
 ```
 
 ### ClassNameSameAsAncestorName
@@ -7255,11 +7255,11 @@ Class name `Builder` is the same as one of its superclass' names
 in `proxy/src/main/java/google/registry/proxy/Protocol.java`
 #### Snippet
 ```java
-    /** Builder of {@link BackendProtocol}. */
+
     @AutoValue.Builder
-    public abstract static class Builder extends Protocol.Builder<Builder, BackendProtocol> {
-      public abstract Builder host(String value);
-    }
+    public abstract static class Builder extends Protocol.Builder<Builder, FrontendProtocol> {
+      public abstract Builder relayProtocol(BackendProtocol value);
+
 ```
 
 ## RuleId[ruleID=IntegerMultiplicationImplicitCastToLong]
@@ -7533,25 +7533,13 @@ final class ExecuteEppCommand extends MutatingEppToolCommand {
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `contactTypeNames` are queried, but never updated
-in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
-#### Snippet
-```java
-      description = "Type of communications for this contact; separate multiple with commas."
-          + " Allowed values are ABUSE, ADMIN, BILLING, LEGAL, MARKETING, TECH, WHOIS.")
-  private List<String> contactTypeNames;
-
-  @Nullable
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `addTechs` are queried, but never updated
+Contents of collection `removeNameservers` are queried, but never updated
 in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
 #### Snippet
 ```java
-
-  @Parameter(names = "--add_techs", description = "Techs to add. Cannot be set if --techs is set.")
-  private List<String> addTechs = new ArrayList<>();
+      converter = NameserversParameter.class,
+      validateWith = NameserversParameter.class)
+  private Set<String> removeNameservers = new HashSet<>();
 
   @Parameter(
 ```
@@ -7566,18 +7554,6 @@ in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
   private List<String> addAdmins = new ArrayList<>();
 
   @Parameter(names = "--add_techs", description = "Techs to add. Cannot be set if --techs is set.")
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `addStatuses` are queried, but never updated
-in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
-#### Snippet
-```java
-    description = "Statuses to add. Cannot be set if --statuses is set."
-  )
-  private List<String> addStatuses = new ArrayList<>();
-
-  @Parameter(
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -7605,18 +7581,6 @@ in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `addNameservers` are queried, but never updated
-in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
-#### Snippet
-```java
-      converter = NameserversParameter.class,
-      validateWith = NameserversParameter.class)
-  private Set<String> addNameservers = new HashSet<>();
-
-  // TODO(b/184067241): enforce only one of each type of contact
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `removeAdmins` are queried, but never updated
 in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
 #### Snippet
@@ -7629,15 +7593,51 @@ in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `removeNameservers` are queried, but never updated
+Contents of collection `addNameservers` are queried, but never updated
 in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
 #### Snippet
 ```java
       converter = NameserversParameter.class,
       validateWith = NameserversParameter.class)
-  private Set<String> removeNameservers = new HashSet<>();
+  private Set<String> addNameservers = new HashSet<>();
+
+  // TODO(b/184067241): enforce only one of each type of contact
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `addStatuses` are queried, but never updated
+in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
+#### Snippet
+```java
+    description = "Statuses to add. Cannot be set if --statuses is set."
+  )
+  private List<String> addStatuses = new ArrayList<>();
 
   @Parameter(
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `addTechs` are queried, but never updated
+in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
+#### Snippet
+```java
+
+  @Parameter(names = "--add_techs", description = "Techs to add. Cannot be set if --techs is set.")
+  private List<String> addTechs = new ArrayList<>();
+
+  @Parameter(
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `contactTypeNames` are queried, but never updated
+in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
+#### Snippet
+```java
+      description = "Type of communications for this contact; separate multiple with commas."
+          + " Allowed values are ABUSE, ADMIN, BILLING, LEGAL, MARKETING, TECH, WHOIS.")
+  private List<String> contactTypeNames;
+
+  @Nullable
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -8248,18 +8248,6 @@ Field initialization to `0` is redundant
 in `core/src/main/java/google/registry/rde/RdeFragmenter.java`
 #### Snippet
 ```java
-  long cacheHits = 0;
-  long resourcesNotFound = 0;
-  long resourcesFound = 0;
-
-  public RdeFragmenter(
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/google/registry/rde/RdeFragmenter.java`
-#### Snippet
-```java
   private final RdeMarshaller marshaller;
 
   long cacheHits = 0;
@@ -8277,6 +8265,18 @@ in `core/src/main/java/google/registry/rde/RdeFragmenter.java`
   long resourcesNotFound = 0;
   long resourcesFound = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/google/registry/rde/RdeFragmenter.java`
+#### Snippet
+```java
+  long cacheHits = 0;
+  long resourcesNotFound = 0;
+  long resourcesFound = 0;
+
+  public RdeFragmenter(
 ```
 
 ### RedundantFieldInitialization
@@ -8404,30 +8404,6 @@ Field initialization to `false` is redundant
 in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
 #### Snippet
 ```java
-   * Whether this contact is publicly visible in WHOIS registrar query results as an Admin contact.
-   */
-  boolean visibleInWhoisAsAdmin = false;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
-#### Snippet
-```java
-   * console. This will be set to false on contact creation and when the user sets a password.
-   */
-  boolean allowedToSetRegistryLockPassword = false;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
-#### Snippet
-```java
    * results as registrar abuse contact info.
    */
   boolean visibleInDomainWhoisAsAbuse = false;
@@ -8449,14 +8425,26 @@ in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/main/java/google/registry/tools/DeleteDomainCommand.java`
+in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
 #### Snippet
 ```java
-      names = {"--registrar_request"},
-      description = "Whether the change was requested by a registrar.")
-  private boolean requestedByRegistrar = false;
+   * console. This will be set to false on contact creation and when the user sets a password.
+   */
+  boolean allowedToSetRegistryLockPassword = false;
 
-  @Override
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/google/registry/model/registrar/RegistrarPoc.java`
+#### Snippet
+```java
+   * Whether this contact is publicly visible in WHOIS registrar query results as an Admin contact.
+   */
+  boolean visibleInWhoisAsAdmin = false;
+
+  /**
 ```
 
 ### RedundantFieldInitialization
@@ -8473,14 +8461,14 @@ in `core/src/main/java/google/registry/tools/DeleteDomainCommand.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/main/java/google/registry/model/registrar/Registrar.java`
+in `core/src/main/java/google/registry/tools/DeleteDomainCommand.java`
 #### Snippet
 ```java
+      names = {"--registrar_request"},
+      description = "Whether the change was requested by a registrar.")
+  private boolean requestedByRegistrar = false;
 
-  /** Whether or not registry lock is allowed for this registrar. */
-  boolean registryLockAllowed = false;
-
-  public String getRegistrarId() {
+  @Override
 ```
 
 ### RedundantFieldInitialization
@@ -8493,6 +8481,18 @@ in `core/src/main/java/google/registry/tools/LoginCommand.java`
   private int port = 0;
 
   @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/google/registry/model/registrar/Registrar.java`
+#### Snippet
+```java
+
+  /** Whether or not registry lock is allowed for this registrar. */
+  boolean registryLockAllowed = false;
+
+  public String getRegistrarId() {
 ```
 
 ### RedundantFieldInitialization
@@ -8544,18 +8544,6 @@ in `core/src/main/java/google/registry/tools/EncryptEscrowDepositCommand.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/google/registry/tools/GetSqlCredentialCommand.java`
-#### Snippet
-```java
-      description = "Name of output file for key data.",
-      validateWith = PathParameter.OutputFile.class)
-  private Path outputPath = null;
-
-  @Inject
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
 #### Snippet
@@ -8565,6 +8553,18 @@ in `core/src/main/java/google/registry/tools/UpdateDomainCommand.java`
   boolean clearDsRecords = false;
 
   @Nullable
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/google/registry/tools/GetSqlCredentialCommand.java`
+#### Snippet
+```java
+      description = "Name of output file for key data.",
+      validateWith = PathParameter.OutputFile.class)
+  private Path outputPath = null;
+
+  @Inject
 ```
 
 ### RedundantFieldInitialization
@@ -8629,18 +8629,6 @@ in `core/src/main/java/google/registry/tools/DeleteHostCommand.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
-#### Snippet
-```java
-      names = "--escrow_enabled",
-      description = "Filter TLDs to only include those with RDE escrow enabled; defaults to false.")
-  private boolean filterEscrowEnabled = false;
-
-  private static final String OUTPUT_FMT = "%-20s   %-24s   %-24s";
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `core/src/main/java/google/registry/tools/ShellCommand.java`
 #### Snippet
 ```java
@@ -8661,6 +8649,18 @@ in `core/src/main/java/google/registry/tools/ShellCommand.java`
   boolean encapsulateOutput = false;
 
   public ShellCommand(CommandRunner runner) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
+#### Snippet
+```java
+      names = "--escrow_enabled",
+      description = "Filter TLDs to only include those with RDE escrow enabled; defaults to false.")
+  private boolean filterEscrowEnabled = false;
+
+  private static final String OUTPUT_FMT = "%-20s   %-24s   %-24s";
 ```
 
 ### RedundantFieldInitialization
@@ -8749,62 +8749,38 @@ in `core/src/main/java/google/registry/monitoring/whitebox/EppMetric.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
+in `prober/src/main/java/google/registry/monitoring/blackbox/ProbingSequence.java`
 #### Snippet
 ```java
-      names = {"-s", "--start_postgresql"},
-      description = "If specified, start PostgreSQL in a Docker container.")
-  boolean startPostgresql = false;
+   * {@link Builder}.
+   */
+  private boolean lastStep = false;
 
-  @Parameter(
+  /** {@link ProbingSequence} object that represents first step in the sequence. */
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
+in `proxy/src/main/java/google/registry/proxy/handler/ProxyProtocolHandler.java`
 #### Snippet
 ```java
-  @VisibleForTesting public static final int POSTGRESQL_PORT = 5432;
 
-  protected PostgreSQLContainer<?> postgresContainer = null;
+  private boolean finished = false;
+  private String proxyHeader = null;
 
-  @Parameter(
+  @Inject
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `docs/src/main/java/google/registry/documentation/FlowDocumentationTool.java`
+in `proxy/src/main/java/google/registry/proxy/handler/ProxyProtocolHandler.java`
 #### Snippet
 ```java
-      description = "print this help",
-      help = true)
-  private boolean displayHelp = false;
+  private static final byte[] HEADER_PREFIX = "PROXY".getBytes(US_ASCII);
 
-  /** Parses command line flags and then runs the documentation tool. */
-```
+  private boolean finished = false;
+  private String proxyHeader = null;
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
-#### Snippet
-```java
-      names = {"-s", "--start_postgresql"},
-      description = "If specified, start PostgreSQL in a Docker container.")
-  boolean startPostgresql = false;
-
-  @Parameter(
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
-#### Snippet
-```java
-  public static final int POSTGRESQL_PORT = 5432;
-
-  private PostgreSQLContainer<?> postgresContainer = null;
-
-  @Parameter(
 ```
 
 ### RedundantFieldInitialization
@@ -8844,39 +8820,63 @@ in `util/src/main/java/google/registry/util/PosixTarHeader.java`
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
+#### Snippet
+```java
+      names = {"-s", "--start_postgresql"},
+      description = "If specified, start PostgreSQL in a Docker container.")
+  boolean startPostgresql = false;
+
+  @Parameter(
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `proxy/src/main/java/google/registry/proxy/handler/ProxyProtocolHandler.java`
+in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
 #### Snippet
 ```java
+  public static final int POSTGRESQL_PORT = 5432;
 
-  private boolean finished = false;
-  private String proxyHeader = null;
+  private PostgreSQLContainer<?> postgresContainer = null;
 
-  @Inject
+  @Parameter(
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `proxy/src/main/java/google/registry/proxy/handler/ProxyProtocolHandler.java`
+in `docs/src/main/java/google/registry/documentation/FlowDocumentationTool.java`
 #### Snippet
 ```java
-  private static final byte[] HEADER_PREFIX = "PROXY".getBytes(US_ASCII);
+      description = "print this help",
+      help = true)
+  private boolean displayHelp = false;
 
-  private boolean finished = false;
-  private String proxyHeader = null;
-
+  /** Parses command line flags and then runs the documentation tool. */
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `prober/src/main/java/google/registry/monitoring/blackbox/ProbingSequence.java`
+in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
 #### Snippet
 ```java
-   * {@link Builder}.
-   */
-  private boolean lastStep = false;
+      names = {"-s", "--start_postgresql"},
+      description = "If specified, start PostgreSQL in a Docker container.")
+  boolean startPostgresql = false;
 
-  /** {@link ProbingSequence} object that represents first step in the sequence. */
+  @Parameter(
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
+#### Snippet
+```java
+  @VisibleForTesting public static final int POSTGRESQL_PORT = 5432;
+
+  protected PostgreSQLContainer<?> postgresContainer = null;
+
+  @Parameter(
 ```
 
 ## RuleId[ruleID=GroovyUnusedAssignment]
@@ -8960,6 +8960,18 @@ in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsActi
 in `core/src/main/java/google/registry/tmch/TmchCertificateAuthority.java`
 #### Snippet
 ```java
+      if (e.getCause() instanceof GeneralSecurityException) {
+        throw (GeneralSecurityException) e.getCause();
+      } else if (e instanceof RuntimeException) {
+        throw (RuntimeException) e;
+      }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `core/src/main/java/google/registry/tmch/TmchCertificateAuthority.java`
+#### Snippet
+```java
       return root;
     } catch (Exception e) {
       if (e instanceof GeneralSecurityException) {
@@ -8974,18 +8986,6 @@ in `core/src/main/java/google/registry/tmch/TmchCertificateAuthority.java`
 ```java
       if (e instanceof GeneralSecurityException) {
         throw (GeneralSecurityException) e;
-      } else if (e instanceof RuntimeException) {
-        throw (RuntimeException) e;
-      }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `core/src/main/java/google/registry/tmch/TmchCertificateAuthority.java`
-#### Snippet
-```java
-      if (e.getCause() instanceof GeneralSecurityException) {
-        throw (GeneralSecurityException) e.getCause();
       } else if (e instanceof RuntimeException) {
         throw (RuntimeException) e;
       }
@@ -9163,14 +9163,14 @@ in `core/src/main/java/google/registry/persistence/transaction/CriteriaQueryBuil
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `util/src/main/java/google/registry/util/UrlConnectionException.java`
+in `networking/src/main/java/google/registry/networking/handler/SslServerInitializer.java`
 #### Snippet
 ```java
-      responseCode = connection.getResponseCode();
-    } catch (IOException e) {
-      resultContent = new byte[] {};
-      responseCode = 0;
-    }
+        SslContextBuilder.forServer(
+                privateKeySupplier.get(),
+                certificatesSupplier.get().toArray(new X509Certificate[0]))
+            .sslProvider(sslProvider)
+            .trustManager(InsecureTrustManagerFactory.INSTANCE)
 ```
 
 ### ZeroLengthArrayInitialization
@@ -9199,14 +9199,14 @@ in `networking/src/main/java/google/registry/networking/handler/SslClientInitial
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `networking/src/main/java/google/registry/networking/handler/SslServerInitializer.java`
+in `util/src/main/java/google/registry/util/UrlConnectionException.java`
 #### Snippet
 ```java
-        SslContextBuilder.forServer(
-                privateKeySupplier.get(),
-                certificatesSupplier.get().toArray(new X509Certificate[0]))
-            .sslProvider(sslProvider)
-            .trustManager(InsecureTrustManagerFactory.INSTANCE)
+      responseCode = connection.getResponseCode();
+    } catch (IOException e) {
+      resultContent = new byte[] {};
+      responseCode = 0;
+    }
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -9291,8 +9291,8 @@ in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverte
 ```java
   @Override
   @Nullable
-  public byte[] convertToDatabaseColumn(@Nullable BloomFilter<String> entity) {
-    if (entity == null) {
+  public BloomFilter<String> convertToEntityAttribute(@Nullable byte[] columnValue) {
+    if (columnValue == null) {
       return null;
 ```
 
@@ -9303,8 +9303,8 @@ in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverte
 ```java
   @Override
   @Nullable
-  public BloomFilter<String> convertToEntityAttribute(@Nullable byte[] columnValue) {
-    if (columnValue == null) {
+  public byte[] convertToDatabaseColumn(@Nullable BloomFilter<String> entity) {
+    if (entity == null) {
       return null;
 ```
 
@@ -9396,18 +9396,6 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleOteSetupAction
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/ui/server/registrar/RegistryLockPostAction.java`
-#### Snippet
-```java
-      return verifyPasswordAndGetEmailLegacyUser(userAuthInfo.appEngineUser().get(), postInput);
-    } else {
-      return verifyPasswordAndGetEmailConsoleUser(userAuthInfo.consoleUser().get(), postInput);
-    }
-  }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `core/src/main/java/google/registry/ui/server/registrar/RegistryLockVerifyAction.java`
 #### Snippet
 ```java
@@ -9416,6 +9404,18 @@ in `core/src/main/java/google/registry/ui/server/registrar/RegistryLockVerifyAct
       boolean isAdmin = authResult.userAuthInfo().get().isUserAdmin();
       final RegistryLock resultLock;
       if (isLock) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/main/java/google/registry/ui/server/registrar/RegistryLockPostAction.java`
+#### Snippet
+```java
+      return verifyPasswordAndGetEmailLegacyUser(userAuthInfo.appEngineUser().get(), postInput);
+    } else {
+      return verifyPasswordAndGetEmailConsoleUser(userAuthInfo.consoleUser().get(), postInput);
+    }
+  }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9440,6 +9440,30 @@ in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
     String countryCode = COUNTRY_CODE_FIELD.extractUntyped(args).get();
     builder.setCountryCode(countryCode);
     streetField
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+            + toEmailLine(referralEmail, "referralEmail")
+            + toEmailLine(driveId, "driveId")
+            + String.format("Gave user %s web access to the registrar\n", consoleUserEmail.get());
+    sendEmailUtils.sendEmail(
+        String.format("Registrar %s created in %s", clientId.get(), environment), body);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+            + String.format("Gave user %s web access to the registrar\n", consoleUserEmail.get());
+    sendEmailUtils.sendEmail(
+        String.format("Registrar %s created in %s", clientId.get(), environment), body);
+  }
+}
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9576,30 +9600,6 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreat
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-            + toEmailLine(referralEmail, "referralEmail")
-            + toEmailLine(driveId, "driveId")
-            + String.format("Gave user %s web access to the registrar\n", consoleUserEmail.get());
-    sendEmailUtils.sendEmail(
-        String.format("Registrar %s created in %s", clientId.get(), environment), body);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-            + String.format("Gave user %s web access to the registrar\n", consoleUserEmail.get());
-    sendEmailUtils.sendEmail(
-        String.format("Registrar %s created in %s", clientId.get(), environment), body);
-  }
-}
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsAction.java`
 #### Snippet
 ```java
@@ -9663,11 +9663,11 @@ in `core/src/main/java/google/registry/rdap/RdapDomainSearchAction.java`
 in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
 #### Snippet
 ```java
-      InetAddress inetAddress;
-      try {
-        inetAddress = InetAddresses.forString(ipParam.get());
-      } catch (IllegalArgumentException e) {
-        throw new BadRequestException("Invalid value of ip parameter");
+      builder
+          .nameserverSearchResultsBuilder()
+          .add(rdapJsonFormatter.createRdapNameserver(host.get(), OutputDataType.FULL));
+    }
+    return builder.build();
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9687,11 +9687,11 @@ in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
 in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
 #### Snippet
 ```java
-      builder
-          .nameserverSearchResultsBuilder()
-          .add(rdapJsonFormatter.createRdapNameserver(host.get(), OutputDataType.FULL));
-    }
-    return builder.build();
+      InetAddress inetAddress;
+      try {
+        inetAddress = InetAddresses.forString(ipParam.get());
+      } catch (IllegalArgumentException e) {
+        throw new BadRequestException("Invalid value of ip parameter");
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9711,11 +9711,11 @@ in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
 in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 #### Snippet
 ```java
-    }
-    if (rdapResultSetMaxSize < contacts.size() + registrars.size()) {
-      builder.setNextPageUri(createNavigationUri(newCursor.get()));
-      builder.setIncompletenessWarningType(IncompletenessWarningType.TRUNCATED);
-      return builder.build();
+                      partialStringQuery.matches(registrar.getRegistrarName())
+                          && ((cursorType != CursorType.REGISTRAR)
+                              || (registrar.getRegistrarName().compareTo(cursorQueryString.get())
+                                  > 0))
+                          && shouldBeVisible(registrar))
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9723,11 +9723,11 @@ in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 #### Snippet
 ```java
-      results =
-          searchByHandle(
-              recordWildcardType(RdapSearchPattern.createFromUnicodeString(handleParam.get())),
-              cursorType,
-              cursorQueryString,
+    }
+    if (rdapResultSetMaxSize < contacts.size() + registrars.size()) {
+      builder.setNextPageUri(createNavigationUri(newCursor.get()));
+      builder.setIncompletenessWarningType(IncompletenessWarningType.TRUNCATED);
+      return builder.build();
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9747,11 +9747,11 @@ in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 #### Snippet
 ```java
-                      partialStringQuery.matches(registrar.getRegistrarName())
-                          && ((cursorType != CursorType.REGISTRAR)
-                              || (registrar.getRegistrarName().compareTo(cursorQueryString.get())
-                                  > 0))
-                          && shouldBeVisible(registrar))
+      results =
+          searchByHandle(
+              recordWildcardType(RdapSearchPattern.createFromUnicodeString(handleParam.get())),
+              cursorType,
+              cursorQueryString,
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9831,35 +9831,23 @@ in `core/src/main/java/google/registry/model/ForeignKeyUtils.java`
 in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 #### Snippet
 ```java
-  /** Check if the registrar running the flow has access to the TLD in question. */
-  public static void checkAllowedAccessToTld(String registrarId, String tld) throws EppException {
-    if (!Registrar.loadByRegistrarIdCached(registrarId).get().getAllowedTlds().contains(tld)) {
-      throw new DomainFlowUtils.NotAuthorizedForTldException(tld);
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-      String domainName, DateTime priceTime, String registrarId) throws EppException {
-    if (isDomainPremium(domainName, priceTime)) {
-      if (Registrar.loadByRegistrarIdCached(registrarId).get().getBlockPremiumNames()) {
-        throw new PremiumNameBlockedException();
-      }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
     }
     if (!Registrar.loadByRegistrarIdCached(registrarId)
         .get()
         .getBillingAccountMap()
         .containsKey(registry.getCurrency())) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+  /** Check if the registrar running the flow has access to the TLD in question. */
+  public static void checkAllowedAccessToTld(String registrarId, String tld) throws EppException {
+    if (!Registrar.loadByRegistrarIdCached(registrarId).get().getAllowedTlds().contains(tld)) {
+      throw new DomainFlowUtils.NotAuthorizedForTldException(tld);
+    }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9876,14 +9864,14 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/tools/CreateOrUpdateTldCommand.java`
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 #### Snippet
 ```java
-        }
-        builder.setTldStateTransitions(
-            newTldStateTransitions.put(getTldStateTransitionToAdd().get()).build());
+      String domainName, DateTime priceTime, String registrarId) throws EppException {
+    if (isDomainPremium(domainName, priceTime)) {
+      if (Registrar.loadByRegistrarIdCached(registrarId).get().getBlockPremiumNames()) {
+        throw new PremiumNameBlockedException();
       }
-
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9896,6 +9884,18 @@ in `core/src/main/java/google/registry/tools/RenewDomainCommand.java`
       Domain domain = domainOptional.get();
 
       SoyMapData soyMapData =
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/main/java/google/registry/tools/CreateOrUpdateTldCommand.java`
+#### Snippet
+```java
+        }
+        builder.setTldStateTransitions(
+            newTldStateTransitions.put(getTldStateTransitionToAdd().get()).build());
+      }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -9936,18 +9936,6 @@ in `core/src/main/java/google/registry/tools/DsRecord.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-    DateTime now = clock.nowUtc();
-    for (String domainName : mainParameters) {
-      Domain domain = loadByForeignKey(Domain.class, domainName, now).get();
-      DateTime previousTime = domain.getRegistrationExpirationTime();
-      DateTime newTime = leapSafeSubtractYears(previousTime, period);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `core/src/main/java/google/registry/tools/DeleteReservedListCommand.java`
 #### Snippet
 ```java
@@ -9956,6 +9944,18 @@ in `core/src/main/java/google/registry/tools/DeleteReservedListCommand.java`
     ReservedList existing = ReservedList.get(name).get();
     ReservedListDao.delete(existing);
     return String.format("Deleted reserved list: %s", name);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+    DateTime now = clock.nowUtc();
+    for (String domainName : mainParameters) {
+      Domain domain = loadByForeignKey(Domain.class, domainName, now).get();
+      DateTime previousTime = domain.getRegistrationExpirationTime();
+      DateTime newTime = leapSafeSubtractYears(previousTime, period);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10000,7 +10000,7 @@ in `core/src/main/java/google/registry/request/auth/UserAuthInfo.java`
 #### Snippet
 ```java
     return appEngineUser()
-        .map(User::getEmail)
+        .map(User::getNickname)
         .orElseGet(() -> consoleUser().get().getEmailAddress());
   }
 
@@ -10012,7 +10012,7 @@ in `core/src/main/java/google/registry/request/auth/UserAuthInfo.java`
 #### Snippet
 ```java
     return appEngineUser()
-        .map(User::getNickname)
+        .map(User::getEmail)
         .orElseGet(() -> consoleUser().get().getEmailAddress());
   }
 
@@ -10032,18 +10032,6 @@ in `core/src/main/java/google/registry/request/auth/AuthenticatedRegistrarAccess
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `docs/src/main/java/google/registry/documentation/FlowDocumentation.java`
-#### Snippet
-```java
-                .filter(anno -> anno.getAnnotationType().toString().equals(CODE_ANNOTATION_NAME))
-                .findFirst()
-                .get();
-        // The annotation should have one element whose value converts to an EppResult.Code.
-        AnnotationValue value =
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `util/src/main/java/google/registry/util/YamlUtils.java`
 #### Snippet
 ```java
@@ -10052,6 +10040,18 @@ in `util/src/main/java/google/registry/util/YamlUtils.java`
     Map<String, Object> yamlMap = loadAsMap(yaml, defaultYaml).get();
     Optional<Map<String, Object>> customMap = loadAsMap(yaml, customYaml);
     if (customMap.isPresent()) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `docs/src/main/java/google/registry/documentation/FlowDocumentation.java`
+#### Snippet
+```java
+                .filter(anno -> anno.getAnnotationType().toString().equals(CODE_ANNOTATION_NAME))
+                .findFirst()
+                .get();
+        // The annotation should have one element whose value converts to an EppResult.Code.
+        AnnotationValue value =
 ```
 
 ## RuleId[ruleID=ConstantValue]
@@ -10144,8 +10144,8 @@ Condition `e instanceof RuntimeException` is always `true`
 in `core/src/main/java/google/registry/tmch/TmchCertificateAuthority.java`
 #### Snippet
 ```java
-      if (e instanceof GeneralSecurityException) {
-        throw (GeneralSecurityException) e;
+      if (e.getCause() instanceof GeneralSecurityException) {
+        throw (GeneralSecurityException) e.getCause();
       } else if (e instanceof RuntimeException) {
         throw (RuntimeException) e;
       }
@@ -10156,8 +10156,8 @@ Condition `e instanceof RuntimeException` is always `true`
 in `core/src/main/java/google/registry/tmch/TmchCertificateAuthority.java`
 #### Snippet
 ```java
-      if (e.getCause() instanceof GeneralSecurityException) {
-        throw (GeneralSecurityException) e.getCause();
+      if (e instanceof GeneralSecurityException) {
+        throw (GeneralSecurityException) e;
       } else if (e instanceof RuntimeException) {
         throw (RuntimeException) e;
       }
@@ -10185,6 +10185,18 @@ in `core/src/main/java/google/registry/model/domain/DomainBase.java`
         getInstance().currentPackageToken = currentPackageToken;
         return thisCastToDerived();
       }
+```
+
+### ConstantValue
+Condition `fullReplacement != null` is always `true`
+in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
+#### Snippet
+```java
+      List<String> itemsToAdd,
+      List<String> itemsToRemove) {
+    if (fullReplacement != null) {
+      return ImmutableSet.copyOf(fullReplacement);
+    }
 ```
 
 ### ConstantValue
@@ -10224,30 +10236,6 @@ in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
 ```
 
 ### ConstantValue
-Condition `fullReplacement != null` is always `true`
-in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
-#### Snippet
-```java
-      List<String> itemsToAdd,
-      List<String> itemsToRemove) {
-    if (fullReplacement != null) {
-      return ImmutableSet.copyOf(fullReplacement);
-    }
-```
-
-### ConstantValue
-Condition `value == null` is always `false`
-in `core/src/main/java/google/registry/tools/params/IntervalParameter.java`
-#### Snippet
-```java
-    // Interval.parse(null) creates an interval with both start and end times set to now.
-    // Do something a little more reasonable.
-    if (value == null) {
-      throw new NullPointerException();
-    }
-```
-
-### ConstantValue
 Condition `oldEntity != null` is always `true`
 in `core/src/main/java/google/registry/tools/MutatingCommand.java`
 #### Snippet
@@ -10272,6 +10260,18 @@ in `core/src/main/java/google/registry/tools/MutatingCommand.java`
 ```
 
 ### ConstantValue
+Condition `value == null` is always `false`
+in `core/src/main/java/google/registry/tools/params/IntervalParameter.java`
+#### Snippet
+```java
+    // Interval.parse(null) creates an interval with both start and end times set to now.
+    // Do something a little more reasonable.
+    if (value == null) {
+      throw new NullPointerException();
+    }
+```
+
+### ConstantValue
 Condition `registrar == null` is always `false`
 in `core/src/main/java/google/registry/tools/server/CreateGroupsAction.java`
 #### Snippet
@@ -10280,66 +10280,6 @@ in `core/src/main/java/google/registry/tools/server/CreateGroupsAction.java`
     final Registrar registrar = initAndLoadRegistrar();
     if (registrar == null) {
       return;
-    }
-```
-
-### ConstantValue
-Condition `a == null` is always `false`
-in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static boolean compare(PublicKeyPacket a, PublicKeyPacket b) {
-    if (a == null || b == null) {
-      return a == null && b == null;
-    }
-```
-
-### ConstantValue
-Condition `a == null || b == null` is always `false`
-in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static boolean compare(PublicKeyPacket a, PublicKeyPacket b) {
-    if (a == null || b == null) {
-      return a == null && b == null;
-    }
-```
-
-### ConstantValue
-Condition `b == null` is always `false` when reached
-in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static boolean compare(PublicKeyPacket a, PublicKeyPacket b) {
-    if (a == null || b == null) {
-      return a == null && b == null;
-    }
-```
-
-### ConstantValue
-Condition `a == null` is always `false`
-in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static String stringify(PGPKeyPair a) {
-    if (a == null) {
-      return "null";
-    }
-```
-
-### ConstantValue
-Condition `a == null` is always `false`
-in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  static String stringify(PGPPublicKey a) {
-    if (a == null) {
-      return "null";
     }
 ```
 
@@ -10392,6 +10332,66 @@ in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
 ```
 
 ### ConstantValue
+Condition `a == null` is always `false`
+in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static String stringify(PGPPublicKey a) {
+    if (a == null) {
+      return "null";
+    }
+```
+
+### ConstantValue
+Condition `a == null` is always `false`
+in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static String stringify(PGPKeyPair a) {
+    if (a == null) {
+      return "null";
+    }
+```
+
+### ConstantValue
+Condition `a == null` is always `false`
+in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static boolean compare(PublicKeyPacket a, PublicKeyPacket b) {
+    if (a == null || b == null) {
+      return a == null && b == null;
+    }
+```
+
+### ConstantValue
+Condition `a == null || b == null` is always `false`
+in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static boolean compare(PublicKeyPacket a, PublicKeyPacket b) {
+    if (a == null || b == null) {
+      return a == null && b == null;
+    }
+```
+
+### ConstantValue
+Condition `b == null` is always `false` when reached
+in `core/src/main/java/google/registry/keyring/api/ComparatorKeyring.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  static boolean compare(PublicKeyPacket a, PublicKeyPacket b) {
+    if (a == null || b == null) {
+      return a == null && b == null;
+    }
+```
+
+### ConstantValue
 Condition `authorizedScopes == null` is always `false`
 in `core/src/main/java/google/registry/request/auth/OAuthAuthenticationMechanism.java`
 #### Snippet
@@ -10401,18 +10401,6 @@ in `core/src/main/java/google/registry/request/auth/OAuthAuthenticationMechanism
     if ((currentUser == null) || (oauthClientId == null) || (authorizedScopes == null)) {
       return AuthResult.create(NONE);
     }
-```
-
-### ConstantValue
-Condition `outputFileName == null` is always `false`
-in `docs/src/main/java/google/registry/documentation/FlowDocumentationTool.java`
-#### Snippet
-```java
-      System.out.println(output);
-    } else {
-      if (outputFileName == null) {
-        outputFileName = "doclet.md";
-      }
 ```
 
 ### ConstantValue
@@ -10449,6 +10437,18 @@ in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
         path != null && !path.isEmpty() && path.charAt(0) == '/',
         "The path must start with a '/'.");
     checkArgument(
+```
+
+### ConstantValue
+Condition `outputFileName == null` is always `false`
+in `docs/src/main/java/google/registry/documentation/FlowDocumentationTool.java`
+#### Snippet
+```java
+      System.out.println(output);
+    } else {
+      if (outputFileName == null) {
+        outputFileName = "doclet.md";
+      }
 ```
 
 ## RuleId[ruleID=MethodOverridesStaticMethod]
@@ -10528,18 +10528,6 @@ in `core/src/main/java/google/registry/model/domain/packagetoken/PackageTokenRes
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `NomulusPostgreSql` has only 'static' members, and lacks a 'private' constructor
-in `db/src/main/java/google/registry/persistence/NomulusPostgreSql.java`
-#### Snippet
-```java
-
-/** Information about Nomulus' Cloud SQL PostgreSql instance. */
-public class NomulusPostgreSql {
-
-  /** The current PostgreSql version in Cloud SQL. */
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ConsoleConfigModule` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/ui/ConsoleDebug.java`
 #### Snippet
@@ -10564,18 +10552,6 @@ public final class RegistrarConsoleModule {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `VoidDnsWriterModule` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/dns/writer/VoidDnsWriterModule.java`
-#### Snippet
-```java
-/** Dagger module that disables DNS updates. */
-@Module
-public final class VoidDnsWriterModule {
-
-  @Provides
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `RegistrarFormFields` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 #### Snippet
@@ -10585,6 +10561,18 @@ in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 public final class RegistrarFormFields {
 
   public static final Pattern BASE64_PATTERN = Pattern.compile("[+/a-zA-Z0-9]*");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VoidDnsWriterModule` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/dns/writer/VoidDnsWriterModule.java`
+#### Snippet
+```java
+/** Dagger module that disables DNS updates. */
+@Module
+public final class VoidDnsWriterModule {
+
+  @Provides
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10768,18 +10756,6 @@ public class BatchModule {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GroupsApiModule` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/batch/cannedscript/GroupsApiChecker.java`
-#### Snippet
-```java
-
-  @Module
-  static class GroupsApiModule {
-    @Provides
-    static Directory provideDirectory(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GroupsApiChecker` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/batch/cannedscript/GroupsApiChecker.java`
 #### Snippet
@@ -10789,6 +10765,18 @@ in `core/src/main/java/google/registry/batch/cannedscript/GroupsApiChecker.java`
 public class GroupsApiChecker {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GroupsApiModule` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/batch/cannedscript/GroupsApiChecker.java`
+#### Snippet
+```java
+
+  @Module
+  static class GroupsApiModule {
+    @Provides
+    static Directory provideDirectory(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11008,18 +10996,6 @@ public class UserDao {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProtocolDefinition` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/model/eppcommon/ProtocolDefinition.java`
-#### Snippet
-```java
-
-/** Constants that define the EPP protocol version we support. */
-public class ProtocolDefinition {
-  public static final String VERSION = "1.0";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EppXmlTransformer` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/model/eppcommon/EppXmlTransformer.java`
 #### Snippet
@@ -11029,6 +11005,18 @@ in `core/src/main/java/google/registry/model/eppcommon/EppXmlTransformer.java`
 public class EppXmlTransformer  {
 
   // Hardcoded XML schemas, ordered with respect to dependency.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProtocolDefinition` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/model/eppcommon/ProtocolDefinition.java`
+#### Snippet
+```java
+
+/** Constants that define the EPP protocol version we support. */
+public class ProtocolDefinition {
+  public static final String VERSION = "1.0";
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11068,18 +11056,6 @@ public class RegistryToolDataflowModule {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RequestFactoryModule` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/tools/RequestFactoryModule.java`
-#### Snippet
-```java
- */
-@Module
-class RequestFactoryModule {
-
-  static final int REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AuthModule` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/tools/AuthModule.java`
 #### Snippet
@@ -11089,6 +11065,18 @@ in `core/src/main/java/google/registry/tools/AuthModule.java`
 public class AuthModule {
 
   private static final File DATA_STORE_DIR =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RequestFactoryModule` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/tools/RequestFactoryModule.java`
+#### Snippet
+```java
+ */
+@Module
+class RequestFactoryModule {
+
+  static final int REQUEST_TIMEOUT_MS = 10 * 60 * 1000;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11140,18 +11128,6 @@ public final class DriveModule {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SheetModule` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/export/sheet/SheetModule.java`
-#### Snippet
-```java
-/** Dagger module for the sheet package. */
-@Module
-public final class SheetModule {
-
-  @Provides
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SheetsServiceModule` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/export/sheet/SheetsServiceModule.java`
 #### Snippet
@@ -11159,6 +11135,18 @@ in `core/src/main/java/google/registry/export/sheet/SheetsServiceModule.java`
 /** Dagger module for {@link Sheets}. */
 @Module
 public final class SheetsServiceModule {
+
+  @Provides
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SheetModule` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/export/sheet/SheetModule.java`
+#### Snippet
+```java
+/** Dagger module for the sheet package. */
+@Module
+public final class SheetModule {
 
   @Provides
 ```
@@ -11272,27 +11260,15 @@ public class RouterDisplayHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GsonModule` has only 'static' members, and lacks a 'private' constructor
+Class `UrlFetchServiceModule` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/request/Modules.java`
 #### Snippet
 ```java
-  /** Dagger module that causes the Google GSON parser to be used for Google APIs requests. */
+  /** Dagger module for {@link URLFetchService}. */
   @Module
-  public static final class GsonModule {
-    @Provides
-    static JsonFactory provideJsonFactory() {
-```
+  public static final class UrlFetchServiceModule {
+    private static final URLFetchService fetchService = URLFetchServiceFactory.getURLFetchService();
 
-### UtilityClassWithoutPrivateConstructor
-Class `UrlConnectionServiceModule` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/request/Modules.java`
-#### Snippet
-```java
-  /** Dagger module for {@link UrlConnectionService}. */
-  @Module
-  public static final class UrlConnectionServiceModule {
-    @Provides
-    static UrlConnectionService provideUrlConnectionService() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11308,15 +11284,15 @@ in `core/src/main/java/google/registry/request/Modules.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NetHttpTransportModule` has only 'static' members, and lacks a 'private' constructor
+Class `GsonModule` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/request/Modules.java`
 #### Snippet
 ```java
-   */
+  /** Dagger module that causes the Google GSON parser to be used for Google APIs requests. */
   @Module
-  public static final class NetHttpTransportModule {
-
+  public static final class GsonModule {
     @Provides
+    static JsonFactory provideJsonFactory() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11332,15 +11308,27 @@ in `core/src/main/java/google/registry/request/Modules.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `UrlFetchServiceModule` has only 'static' members, and lacks a 'private' constructor
+Class `UrlConnectionServiceModule` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/request/Modules.java`
 #### Snippet
 ```java
-  /** Dagger module for {@link URLFetchService}. */
+  /** Dagger module for {@link UrlConnectionService}. */
   @Module
-  public static final class UrlFetchServiceModule {
-    private static final URLFetchService fetchService = URLFetchServiceFactory.getURLFetchService();
+  public static final class UrlConnectionServiceModule {
+    @Provides
+    static UrlConnectionService provideUrlConnectionService() {
+```
 
+### UtilityClassWithoutPrivateConstructor
+Class `NetHttpTransportModule` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/request/Modules.java`
+#### Snippet
+```java
+   */
+  @Module
+  public static final class NetHttpTransportModule {
+
+    @Provides
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11368,6 +11356,18 @@ public final class LoadTestModule {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `JsonResponseHelper` has only 'static' members, and lacks a 'private' constructor
+in `core/src/main/java/google/registry/security/JsonResponseHelper.java`
+#### Snippet
+```java
+ * @see JsonHttp
+ */
+public final class JsonResponseHelper {
+
+  /** Possible results of an RPC operation. */
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `JsonHttp` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/google/registry/security/JsonHttp.java`
 #### Snippet
@@ -11389,18 +11389,6 @@ in `core/src/main/java/google/registry/reporting/ReportingModule.java`
 public class ReportingModule {
 
   public static final String BEAM_QUEUE = "beam-reporting";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JsonResponseHelper` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/google/registry/security/JsonResponseHelper.java`
-#### Snippet
-```java
- * @see JsonHttp
- */
-public final class JsonResponseHelper {
-
-  /** Possible results of an RPC operation. */
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11488,15 +11476,99 @@ public class DummyJpaTransactionManager {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DevTool` has only 'static' members, and lacks a 'private' constructor
-in `core/src/nonprod/java/google/registry/tools/DevTool.java`
+Class `NomulusPostgreSql` has only 'static' members, and lacks a 'private' constructor
+in `db/src/main/java/google/registry/persistence/NomulusPostgreSql.java`
 #### Snippet
 ```java
 
-/** Entry point of Nomulus development commands. */
-public class DevTool {
+/** Information about Nomulus' Cloud SQL PostgreSql instance. */
+public class NomulusPostgreSql {
 
-  /**
+  /** The current PostgreSql version in Cloud SQL. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Prober` has only 'static' members, and lacks a 'private' constructor
+in `prober/src/main/java/google/registry/monitoring/blackbox/Prober.java`
+#### Snippet
+```java
+ * Dagger.
+ */
+public class Prober {
+
+  /** Main Dagger Component */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CertificateModule` has only 'static' members, and lacks a 'private' constructor
+in `prober/src/main/java/google/registry/monitoring/blackbox/module/CertificateModule.java`
+#### Snippet
+```java
+ */
+@Module
+public class CertificateModule {
+
+  /** {@link Qualifier} to identify components provided from Local Secrets. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EppModule` has only 'static' members, and lacks a 'private' constructor
+in `prober/src/main/java/google/registry/monitoring/blackbox/module/EppModule.java`
+#### Snippet
+```java
+ */
+@Module
+public class EppModule {
+
+  private static final int EPP_PORT = 700;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HealthCheckProtocolModule` has only 'static' members, and lacks a 'private' constructor
+in `proxy/src/main/java/google/registry/proxy/HealthCheckProtocolModule.java`
+#### Snippet
+```java
+ */
+@Module
+public class HealthCheckProtocolModule {
+
+  /** Dagger qualifier to provide health check protocol related handlers and other bindings. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MetricsModule` has only 'static' members, and lacks a 'private' constructor
+in `proxy/src/main/java/google/registry/proxy/MetricsModule.java`
+#### Snippet
+```java
+/** Module that provides necessary bindings to instantiate a {@link MetricReporter} */
+@Module
+public class MetricsModule {
+
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HttpsRelayProtocolModule` has only 'static' members, and lacks a 'private' constructor
+in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
+#### Snippet
+```java
+ */
+@Module
+public class HttpsRelayProtocolModule {
+
+  /** Dagger qualifier to provide https relay protocol related handlers and other bindings. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `WhoisProtocolModule` has only 'static' members, and lacks a 'private' constructor
+in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
+#### Snippet
+```java
+/** A module that provides the {@link FrontendProtocol} used for whois protocol. */
+@Module
+public class WhoisProtocolModule {
+
+  /** Dagger qualifier to provide whois protocol related handlers and other bindings. */
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11632,51 +11704,15 @@ public class CollectionUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HealthCheckProtocolModule` has only 'static' members, and lacks a 'private' constructor
-in `proxy/src/main/java/google/registry/proxy/HealthCheckProtocolModule.java`
+Class `DevTool` has only 'static' members, and lacks a 'private' constructor
+in `core/src/nonprod/java/google/registry/tools/DevTool.java`
 #### Snippet
 ```java
- */
-@Module
-public class HealthCheckProtocolModule {
 
-  /** Dagger qualifier to provide health check protocol related handlers and other bindings. */
-```
+/** Entry point of Nomulus development commands. */
+public class DevTool {
 
-### UtilityClassWithoutPrivateConstructor
-Class `MetricsModule` has only 'static' members, and lacks a 'private' constructor
-in `proxy/src/main/java/google/registry/proxy/MetricsModule.java`
-#### Snippet
-```java
-/** Module that provides necessary bindings to instantiate a {@link MetricReporter} */
-@Module
-public class MetricsModule {
-
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `WhoisProtocolModule` has only 'static' members, and lacks a 'private' constructor
-in `proxy/src/main/java/google/registry/proxy/WhoisProtocolModule.java`
-#### Snippet
-```java
-/** A module that provides the {@link FrontendProtocol} used for whois protocol. */
-@Module
-public class WhoisProtocolModule {
-
-  /** Dagger qualifier to provide whois protocol related handlers and other bindings. */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HttpsRelayProtocolModule` has only 'static' members, and lacks a 'private' constructor
-in `proxy/src/main/java/google/registry/proxy/HttpsRelayProtocolModule.java`
-#### Snippet
-```java
- */
-@Module
-public class HttpsRelayProtocolModule {
-
-  /** Dagger qualifier to provide https relay protocol related handlers and other bindings. */
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -11701,42 +11737,6 @@ in `common/src/testing/java/google/registry/testing/SystemInfo.java`
 public final class SystemInfo {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Prober` has only 'static' members, and lacks a 'private' constructor
-in `prober/src/main/java/google/registry/monitoring/blackbox/Prober.java`
-#### Snippet
-```java
- * Dagger.
- */
-public class Prober {
-
-  /** Main Dagger Component */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CertificateModule` has only 'static' members, and lacks a 'private' constructor
-in `prober/src/main/java/google/registry/monitoring/blackbox/module/CertificateModule.java`
-#### Snippet
-```java
- */
-@Module
-public class CertificateModule {
-
-  /** {@link Qualifier} to identify components provided from Local Secrets. */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EppModule` has only 'static' members, and lacks a 'private' constructor
-in `prober/src/main/java/google/registry/monitoring/blackbox/module/EppModule.java`
-#### Snippet
-```java
- */
-@Module
-public class EppModule {
-
-  private static final int EPP_PORT = 700;
 ```
 
 ## RuleId[ruleID=UnnecessarySemicolon]
@@ -11946,15 +11946,15 @@ in `core/src/main/java/google/registry/model/OteAccountBuilder.java`
 ```
 
 ### DataFlowIssue
-Argument `parsedDomains.get(domainName)` might be null
-in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
+Method invocation `map` may produce `NullPointerException`
+in `core/src/main/java/google/registry/model/tld/label/PremiumListDao.java`
 #### Snippet
 ```java
-      Optional<String> message =
-          getMessageForCheck(
-              parsedDomains.get(domainName),
-              existingDomains,
-              domainCheckResults,
+    RevisionIdAndLabel revisionIdAndLabel =
+        RevisionIdAndLabel.create(loadedList.getRevisionId(), label);
+    return premiumEntryCache.get(revisionIdAndLabel).map(loadedList::convertAmountToMoney);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -11970,15 +11970,15 @@ in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
 ```
 
 ### DataFlowIssue
-Method invocation `map` may produce `NullPointerException`
-in `core/src/main/java/google/registry/model/tld/label/PremiumListDao.java`
+Argument `parsedDomains.get(domainName)` might be null
+in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
 #### Snippet
 ```java
-    RevisionIdAndLabel revisionIdAndLabel =
-        RevisionIdAndLabel.create(loadedList.getRevisionId(), label);
-    return premiumEntryCache.get(revisionIdAndLabel).map(loadedList::convertAmountToMoney);
-  }
-
+      Optional<String> message =
+          getMessageForCheck(
+              parsedDomains.get(domainName),
+              existingDomains,
+              domainCheckResults,
 ```
 
 ### DataFlowIssue
@@ -11994,18 +11994,6 @@ in `core/src/main/java/google/registry/model/ForeignKeyUtils.java`
 ```
 
 ### DataFlowIssue
-Argument `entry` might be null
-in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
-#### Snippet
-```java
-      if (rl.getReservedListEntries().containsKey(label)) {
-        ReservedListEntry entry = rl.getReservedListEntries().get(label);
-        entriesBuilder.add(entry);
-        metricMatchesBuilder.add(
-            MetricsReservedListMatch.create(rl.getName(), entry.reservationType));
-```
-
-### DataFlowIssue
 Argument `comment` might be null
 in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
 #### Snippet
@@ -12015,6 +12003,18 @@ in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
           .setComment(comment)
           .build();
     }
+```
+
+### DataFlowIssue
+Argument `entry` might be null
+in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
+#### Snippet
+```java
+      if (rl.getReservedListEntries().containsKey(label)) {
+        ReservedListEntry entry = rl.getReservedListEntries().get(label);
+        entriesBuilder.add(entry);
+        metricMatchesBuilder.add(
+            MetricsReservedListMatch.create(rl.getName(), entry.reservationType));
 ```
 
 ### DataFlowIssue
@@ -12054,18 +12054,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 ```
 
 ### DataFlowIssue
-Method invocation `firstKey` may produce `NullPointerException`
-in `core/src/main/java/google/registry/model/common/TimedTransitionProperty.java`
-#### Snippet
-```java
-        !nullToEmpty(transitionMap).isEmpty(), "%s map cannot be null or empty.", mapName);
-    checkArgument(
-        transitionMap.firstKey().equals(START_OF_TIME),
-        "%s map must start at START_OF_TIME.",
-        mapName);
-```
-
-### DataFlowIssue
 Method invocation `getValue` may produce `NullPointerException`
 in `core/src/main/java/google/registry/model/common/TimedTransitionProperty.java`
 #### Snippet
@@ -12087,6 +12075,18 @@ in `core/src/main/java/google/registry/model/common/TimedTransitionProperty.java
         newTransitions.firstEntry().getValue() == initialValue, badInitialValueErrorMessage);
     return fromValueMap(newTransitions);
   }
+```
+
+### DataFlowIssue
+Method invocation `firstKey` may produce `NullPointerException`
+in `core/src/main/java/google/registry/model/common/TimedTransitionProperty.java`
+#### Snippet
+```java
+        !nullToEmpty(transitionMap).isEmpty(), "%s map cannot be null or empty.", mapName);
+    checkArgument(
+        transitionMap.firstKey().equals(START_OF_TIME),
+        "%s map must start at START_OF_TIME.",
+        mapName);
 ```
 
 ### DataFlowIssue
@@ -12219,42 +12219,6 @@ in `core/src/main/java/google/registry/tools/DeletePremiumListCommand.java`
     PremiumListDao.delete(premiumList);
     return String.format("Deleted premium list '%s'.\n", premiumList.getName());
   }
-```
-
-### DataFlowIssue
-Argument `allowedNameservers` might be null
-in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
-#### Snippet
-```java
-        "allowed nameservers",
-        oldRegistry.getAllowedFullyQualifiedHostNames(),
-        allowedNameservers,
-        allowedNameserversAdd,
-        allowedNameserversRemove);
-```
-
-### DataFlowIssue
-Argument `allowedNameserversAdd` might be null
-in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
-#### Snippet
-```java
-        oldRegistry.getAllowedFullyQualifiedHostNames(),
-        allowedNameservers,
-        allowedNameserversAdd,
-        allowedNameserversRemove);
-  }
-```
-
-### DataFlowIssue
-Argument `allowedNameserversRemove` might be null
-in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
-#### Snippet
-```java
-        allowedNameservers,
-        allowedNameserversAdd,
-        allowedNameserversRemove);
-  }
-
 ```
 
 ### DataFlowIssue
@@ -12414,6 +12378,42 @@ in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
 ```
 
 ### DataFlowIssue
+Argument `allowedNameservers` might be null
+in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
+#### Snippet
+```java
+        "allowed nameservers",
+        oldRegistry.getAllowedFullyQualifiedHostNames(),
+        allowedNameservers,
+        allowedNameserversAdd,
+        allowedNameserversRemove);
+```
+
+### DataFlowIssue
+Argument `allowedNameserversAdd` might be null
+in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
+#### Snippet
+```java
+        oldRegistry.getAllowedFullyQualifiedHostNames(),
+        allowedNameservers,
+        allowedNameserversAdd,
+        allowedNameserversRemove);
+  }
+```
+
+### DataFlowIssue
+Argument `allowedNameserversRemove` might be null
+in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
+#### Snippet
+```java
+        allowedNameservers,
+        allowedNameserversAdd,
+        allowedNameserversRemove);
+  }
+
+```
+
+### DataFlowIssue
 Argument `reservedListNames` might be null
 in `core/src/main/java/google/registry/tools/UpdateTldCommand.java`
 #### Snippet
@@ -12550,9 +12550,69 @@ Passing `null` argument to parameter annotated as @NotNull
 in `core/src/main/java/google/registry/request/HttpException.java`
 #### Snippet
 ```java
-  public static final class UnsupportedMediaTypeException extends HttpException {
-    public UnsupportedMediaTypeException(String message) {
-      super(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, message, null);
+
+    public NotModifiedException(String message) {
+      super(HttpServletResponse.SC_NOT_MODIFIED, message, null);
+    }
+
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/request/HttpException.java`
+#### Snippet
+```java
+  public static final class MethodNotAllowedException extends HttpException {
+    public MethodNotAllowedException() {
+      super(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed", null);
+    }
+
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/request/HttpException.java`
+#### Snippet
+```java
+  public static final class ForbiddenException extends HttpException {
+    public ForbiddenException(String message) {
+      super(HttpServletResponse.SC_FORBIDDEN, message, null);
+    }
+
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/request/HttpException.java`
+#### Snippet
+```java
+  public static final class ConflictException extends HttpException {
+    public ConflictException(String message) {
+      super(HttpServletResponse.SC_CONFLICT, message, null);
+    }
+
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/request/HttpException.java`
+#### Snippet
+```java
+  public static final class UnprocessableEntityException extends HttpException {
+    public UnprocessableEntityException(String message) {
+      super(SC_UNPROCESSABLE_ENTITY, message, null);
+    }
+
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/request/HttpException.java`
+#### Snippet
+```java
+
+    public NotFoundException(String message) {
+      super(HttpServletResponse.SC_NOT_FOUND, message, null);
     }
 
 ```
@@ -12565,6 +12625,18 @@ in `core/src/main/java/google/registry/request/HttpException.java`
   public static final class BadRequestException extends HttpException {
     public BadRequestException(String message) {
       this(message, null);
+    }
+
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/request/HttpException.java`
+#### Snippet
+```java
+  public static final class UnsupportedMediaTypeException extends HttpException {
+    public UnsupportedMediaTypeException(String message) {
+      super(HttpServletResponse.SC_UNSUPPORTED_MEDIA_TYPE, message, null);
     }
 
 ```
@@ -12598,9 +12670,9 @@ Passing `null` argument to parameter annotated as @NotNull
 in `core/src/main/java/google/registry/request/HttpException.java`
 #### Snippet
 ```java
-
-    public NotFoundException(String message) {
-      super(HttpServletResponse.SC_NOT_FOUND, message, null);
+  public static final class NotImplementedException extends HttpException {
+    public NotImplementedException(String message) {
+      super(HttpServletResponse.SC_NOT_IMPLEMENTED, message, null);
     }
 
 ```
@@ -12618,90 +12690,6 @@ in `core/src/main/java/google/registry/request/HttpException.java`
 ```
 
 ### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/request/HttpException.java`
-#### Snippet
-```java
-  public static final class MethodNotAllowedException extends HttpException {
-    public MethodNotAllowedException() {
-      super(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed", null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/request/HttpException.java`
-#### Snippet
-```java
-  public static final class NotImplementedException extends HttpException {
-    public NotImplementedException(String message) {
-      super(HttpServletResponse.SC_NOT_IMPLEMENTED, message, null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/request/HttpException.java`
-#### Snippet
-```java
-  public static final class UnprocessableEntityException extends HttpException {
-    public UnprocessableEntityException(String message) {
-      super(SC_UNPROCESSABLE_ENTITY, message, null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/request/HttpException.java`
-#### Snippet
-```java
-
-    public NotModifiedException(String message) {
-      super(HttpServletResponse.SC_NOT_MODIFIED, message, null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/request/HttpException.java`
-#### Snippet
-```java
-  public static final class ForbiddenException extends HttpException {
-    public ForbiddenException(String message) {
-      super(HttpServletResponse.SC_FORBIDDEN, message, null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/request/HttpException.java`
-#### Snippet
-```java
-  public static final class ConflictException extends HttpException {
-    public ConflictException(String message) {
-      super(HttpServletResponse.SC_CONFLICT, message, null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `core/src/main/java/google/registry/reporting/icann/IcannReportingStagingAction.java`
-#### Snippet
-```java
-                    IcannReportingUploadAction.PATH,
-                    Service.BACKEND.toString(),
-                    null,
-                    Duration.standardMinutes(2)));
-            return null;
-```
-
-### DataFlowIssue
 Unboxing of `AppEngineTimeLimiter.create() .callWithTimeout( new LockingCallable(callable...` may produce `NullPointerException`
 in `core/src/main/java/google/registry/request/lock/LockHandlerImpl.java`
 #### Snippet
@@ -12715,6 +12703,18 @@ in `core/src/main/java/google/registry/request/lock/LockHandlerImpl.java`
               TimeUnit.MILLISECONDS);
     } catch (ExecutionException | UncheckedExecutionException e) {
       // Unwrap the execution exception and throw its root cause.
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `core/src/main/java/google/registry/reporting/icann/IcannReportingStagingAction.java`
+#### Snippet
+```java
+                    IcannReportingUploadAction.PATH,
+                    Service.BACKEND.toString(),
+                    null,
+                    Duration.standardMinutes(2)));
+            return null;
 ```
 
 ### DataFlowIssue
@@ -12766,6 +12766,126 @@ in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 ```
 
 ### DataFlowIssue
+Argument `outboundProtocol` might be null
+in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
+#### Snippet
+```java
+                .attr(PROTOCOL_KEY, outboundProtocol);
+
+        connectOutboundChannel(bootstrap, inboundProtocol, outboundProtocol, inboundChannel);
+        // If the inbound connection is closed, close its outbound relay connection as well. There
+        // is no way to recover from an inbound connection termination, as the connection can only
+```
+
+### DataFlowIssue
+Method invocation `handlerProviders` may produce `NullPointerException`
+in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
+#### Snippet
+```java
+                      protected void initChannel(NioSocketChannel outboundChannel) {
+                        addHandlers(
+                            outboundChannel.pipeline(), outboundProtocol.handlerProviders());
+                      }
+                    })
+```
+
+### DataFlowIssue
+Argument `detach(results.get(0))` might be null
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+    public Optional<T> first() {
+      List<T> results = buildQuery().setMaxResults(1).getResultList();
+      return results.size() > 0 ? Optional.of(detach(results.get(0))) : Optional.empty();
+    }
+
+```
+
+### DataFlowIssue
+Argument `pair.a` might be null
+in `util/src/main/java/google/registry/util/DiffUtils.java`
+#### Snippet
+```java
+          && ((DiffPair) value).b instanceof Set) {
+        DiffPair pair = ((DiffPair) value);
+        String prettyLineDiff = prettyPrintSetDiff((Set<?>) pair.a, (Set<?>) pair.b) + "\n";
+        output = newPath + (prettyLineDiff.startsWith("\n") ? ":" : ": ") + prettyLineDiff;
+      } else {
+```
+
+### DataFlowIssue
+Argument `pair.b` might be null
+in `util/src/main/java/google/registry/util/DiffUtils.java`
+#### Snippet
+```java
+          && ((DiffPair) value).b instanceof Set) {
+        DiffPair pair = ((DiffPair) value);
+        String prettyLineDiff = prettyPrintSetDiff((Set<?>) pair.a, (Set<?>) pair.b) + "\n";
+        output = newPath + (prettyLineDiff.startsWith("\n") ? ":" : ": ") + prettyLineDiff;
+      } else {
+```
+
+### DataFlowIssue
+Method invocation `isPresent` may produce `NullPointerException`
+in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
+#### Snippet
+```java
+  public static <T> T checkArgumentPresent(@Nullable Optional<T> reference) {
+    checkArgumentNotNull(reference);
+    checkArgument(reference.isPresent());
+    return reference.get();
+  }
+```
+
+### DataFlowIssue
+Method invocation `isPresent` may produce `NullPointerException`
+in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
+#### Snippet
+```java
+      @Nullable Optional<T> reference, @Nullable Object errorMessage) {
+    checkArgumentNotNull(reference, errorMessage);
+    checkArgument(reference.isPresent(), errorMessage);
+    return reference.get();
+  }
+```
+
+### DataFlowIssue
+Method invocation `isPresent` may produce `NullPointerException`
+in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
+#### Snippet
+```java
+      @Nullable Object... errorMessageArgs) {
+    checkArgumentNotNull(reference, errorMessageTemplate, errorMessageArgs);
+    checkArgument(reference.isPresent(), errorMessageTemplate, errorMessageArgs);
+    return reference.get();
+  }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `util/src/main/java/google/registry/util/YamlUtils.java`
+#### Snippet
+```java
+    Optional<Map<String, Object>> customMap = loadAsMap(yaml, customYaml);
+    if (customMap.isPresent()) {
+      yamlMap = mergeMaps(yamlMap, customMap.get());
+      logger.atFine().log("Successfully loaded environment configuration YAML file.");
+    } else {
+```
+
+### DataFlowIssue
+Unboxing of `hasCommandCache.get(cmd)` may produce `NullPointerException`
+in `common/src/testing/java/google/registry/testing/SystemInfo.java`
+#### Snippet
+```java
+   */
+  public static boolean hasCommand(String cmd) throws ExecutionException {
+    return hasCommandCache.get(cmd);
+  }
+
+```
+
+### DataFlowIssue
 Method invocation `append` may produce `NullPointerException`
 in `core/src/nonprod/java/google/registry/tools/GenerateSqlErDiagramCommand.java`
 #### Snippet
@@ -12813,139 +12933,7 @@ in `core/src/nonprod/java/google/registry/tools/GenerateSqlErDiagramCommand.java
                   + "svgPanZoom('#erDiagram', {"
 ```
 
-### DataFlowIssue
-Argument `pair.a` might be null
-in `util/src/main/java/google/registry/util/DiffUtils.java`
-#### Snippet
-```java
-          && ((DiffPair) value).b instanceof Set) {
-        DiffPair pair = ((DiffPair) value);
-        String prettyLineDiff = prettyPrintSetDiff((Set<?>) pair.a, (Set<?>) pair.b) + "\n";
-        output = newPath + (prettyLineDiff.startsWith("\n") ? ":" : ": ") + prettyLineDiff;
-      } else {
-```
-
-### DataFlowIssue
-Argument `pair.b` might be null
-in `util/src/main/java/google/registry/util/DiffUtils.java`
-#### Snippet
-```java
-          && ((DiffPair) value).b instanceof Set) {
-        DiffPair pair = ((DiffPair) value);
-        String prettyLineDiff = prettyPrintSetDiff((Set<?>) pair.a, (Set<?>) pair.b) + "\n";
-        output = newPath + (prettyLineDiff.startsWith("\n") ? ":" : ": ") + prettyLineDiff;
-      } else {
-```
-
-### DataFlowIssue
-Argument `detach(results.get(0))` might be null
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-    public Optional<T> first() {
-      List<T> results = buildQuery().setMaxResults(1).getResultList();
-      return results.size() > 0 ? Optional.of(detach(results.get(0))) : Optional.empty();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `isPresent` may produce `NullPointerException`
-in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
-#### Snippet
-```java
-      @Nullable Optional<T> reference, @Nullable Object errorMessage) {
-    checkArgumentNotNull(reference, errorMessage);
-    checkArgument(reference.isPresent(), errorMessage);
-    return reference.get();
-  }
-```
-
-### DataFlowIssue
-Method invocation `isPresent` may produce `NullPointerException`
-in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
-#### Snippet
-```java
-      @Nullable Object... errorMessageArgs) {
-    checkArgumentNotNull(reference, errorMessageTemplate, errorMessageArgs);
-    checkArgument(reference.isPresent(), errorMessageTemplate, errorMessageArgs);
-    return reference.get();
-  }
-```
-
-### DataFlowIssue
-Method invocation `isPresent` may produce `NullPointerException`
-in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
-#### Snippet
-```java
-  public static <T> T checkArgumentPresent(@Nullable Optional<T> reference) {
-    checkArgumentNotNull(reference);
-    checkArgument(reference.isPresent());
-    return reference.get();
-  }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `util/src/main/java/google/registry/util/YamlUtils.java`
-#### Snippet
-```java
-    Optional<Map<String, Object>> customMap = loadAsMap(yaml, customYaml);
-    if (customMap.isPresent()) {
-      yamlMap = mergeMaps(yamlMap, customMap.get());
-      logger.atFine().log("Successfully loaded environment configuration YAML file.");
-    } else {
-```
-
-### DataFlowIssue
-Method invocation `handlerProviders` may produce `NullPointerException`
-in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
-#### Snippet
-```java
-                      protected void initChannel(NioSocketChannel outboundChannel) {
-                        addHandlers(
-                            outboundChannel.pipeline(), outboundProtocol.handlerProviders());
-                      }
-                    })
-```
-
-### DataFlowIssue
-Argument `outboundProtocol` might be null
-in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
-#### Snippet
-```java
-                .attr(PROTOCOL_KEY, outboundProtocol);
-
-        connectOutboundChannel(bootstrap, inboundProtocol, outboundProtocol, inboundChannel);
-        // If the inbound connection is closed, close its outbound relay connection as well. There
-        // is no way to recover from an inbound connection termination, as the connection can only
-```
-
-### DataFlowIssue
-Unboxing of `hasCommandCache.get(cmd)` may produce `NullPointerException`
-in `common/src/testing/java/google/registry/testing/SystemInfo.java`
-#### Snippet
-```java
-   */
-  public static boolean hasCommand(String cmd) throws ExecutionException {
-    return hasCommandCache.get(cmd);
-  }
-
-```
-
 ## RuleId[ruleID=MissingSerialAnnotation]
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `common/src/testing/java/google/registry/testing/FakeClock.java`
-#### Snippet
-```java
-public final class FakeClock implements Clock {
-
-  private static final long serialVersionUID = 675054721685304599L;
-
-  // Clock isn't a thread synchronization primitive, but tests involving
-```
-
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
 in `common/src/testing/java/google/registry/testing/FakeSleeper.java`
@@ -12956,6 +12944,18 @@ public final class FakeSleeper implements Sleeper, Serializable {
   private static final long serialVersionUID = -8975804222581077291L;
 
   private final FakeClock clock;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `common/src/testing/java/google/registry/testing/FakeClock.java`
+#### Snippet
+```java
+public final class FakeClock implements Clock {
+
+  private static final long serialVersionUID = 675054721685304599L;
+
+  // Clock isn't a thread synchronization primitive, but tests involving
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -13343,11 +13343,11 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 #### Snippet
 ```java
-      registrantContact = null;
-    }
-    HashSet<DesignatedContact.Type> contactsDiscovered = new HashSet<>();
-    for (DesignatedContact contact : contacts) {
-      checkArgument(
+   */
+  public ImmutableSet<GracePeriodStatus> getGracePeriodStatuses() {
+    Set<GracePeriodStatus> gracePeriodStatuses = new HashSet<>();
+    for (GracePeriod gracePeriod : getGracePeriods()) {
+      gracePeriodStatuses.add(gracePeriod.getType());
 ```
 
 ### SetReplaceableByEnumSet
@@ -13355,11 +13355,11 @@ in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 #### Snippet
 ```java
-   */
-  public ImmutableSet<GracePeriodStatus> getGracePeriodStatuses() {
-    Set<GracePeriodStatus> gracePeriodStatuses = new HashSet<>();
-    for (GracePeriod gracePeriod : getGracePeriods()) {
-      gracePeriodStatuses.add(gracePeriod.getType());
+      registrantContact = null;
+    }
+    HashSet<DesignatedContact.Type> contactsDiscovered = new HashSet<>();
+    for (DesignatedContact contact : contacts) {
+      checkArgument(
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
@@ -13560,27 +13560,15 @@ in `util/src/main/java/google/registry/util/CidrAddressBlock.java`
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'clientId'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleOteSetupAction.java`
+`Optional` used as type for parameter 'bcc'
+in `core/src/main/java/google/registry/ui/server/SendEmailUtils.java`
 #### Snippet
 ```java
-  @Inject
-  @Parameter("clientId")
-  Optional<String> clientId;
-
-  @Inject
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'paramClientId'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleUiAction.java`
-#### Snippet
-```java
-  @Inject
-  @Parameter(PARAM_CLIENT_ID)
-  Optional<String> paramClientId;
-
-  @Inject
+      final String subject,
+      String body,
+      Optional<String> bcc,
+      ImmutableList<String> additionalAddresses) {
+    try {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -13603,6 +13591,30 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleOteSetupAction
   @Inject
   @Parameter("email")
   Optional<String> email;
+
+  @Inject
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'clientId'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleOteSetupAction.java`
+#### Snippet
+```java
+  @Inject
+  @Parameter("clientId")
+  Optional<String> clientId;
+
+  @Inject
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'paramClientId'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleUiAction.java`
+#### Snippet
+```java
+  @Inject
+  @Parameter(PARAM_CLIENT_ID)
+  Optional<String> paramClientId;
 
   @Inject
 ```
@@ -13632,18 +13644,6 @@ in `core/src/main/java/google/registry/ui/server/registrar/RegistryLockGetAction
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'bcc'
-in `core/src/main/java/google/registry/ui/server/SendEmailUtils.java`
-#### Snippet
-```java
-      final String subject,
-      String body,
-      Optional<String> bcc,
-      ImmutableList<String> additionalAddresses) {
-    try {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'rootUrl'
 in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriterModule.java`
 #### Snippet
@@ -13668,99 +13668,15 @@ in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriterModule.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
+`Optional` used as type for field 'referralEmail'
 in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
 #### Snippet
 ```java
-  }
-
-  private static String toEmailLine(Optional<?> value, String name) {
-    return String.format("    %s: %s\n", name, value.orElse(null));
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'countryCode'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("state") Optional<String> optionalState;
-  @Inject @Parameter("zip") Optional<String> optionalZip;
-  @Inject @Parameter("countryCode") Optional<String> countryCode;
-
-  @Inject @Parameter("password") Optional<String> optionalPassword;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'city'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("street2") Optional<String> optionalStreet2;
-  @Inject @Parameter("street3") Optional<String> optionalStreet3;
-  @Inject @Parameter("city") Optional<String> city;
-  @Inject @Parameter("state") Optional<String> optionalState;
-  @Inject @Parameter("zip") Optional<String> optionalZip;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalStreet2'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  // Address fields, some of which are required and others are optional.
-  @Inject @Parameter("street1") Optional<String> street1;
-  @Inject @Parameter("street2") Optional<String> optionalStreet2;
-  @Inject @Parameter("street3") Optional<String> optionalStreet3;
-  @Inject @Parameter("city") Optional<String> city;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'street1'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-
-  // Address fields, some of which are required and others are optional.
-  @Inject @Parameter("street1") Optional<String> street1;
-  @Inject @Parameter("street2") Optional<String> optionalStreet2;
-  @Inject @Parameter("street3") Optional<String> optionalStreet3;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalPasscode'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-
-  @Inject @Parameter("password") Optional<String> optionalPassword;
-  @Inject @Parameter("passcode") Optional<String> optionalPasscode;
-
-  @Inject ConsoleRegistrarCreatorAction() {}
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  }
-
-  private static void checkPresent(Optional<?> value, String name) {
-    checkState(value.isPresent(), "Missing value for %s", name);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalStreet3'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("street1") Optional<String> street1;
-  @Inject @Parameter("street2") Optional<String> optionalStreet2;
-  @Inject @Parameter("street3") Optional<String> optionalStreet3;
-  @Inject @Parameter("city") Optional<String> city;
-  @Inject @Parameter("state") Optional<String> optionalState;
+  @Inject @Parameter("billingAccount") Optional<String> billingAccount;
+  @Inject @Parameter("ianaId") Optional<Integer> ianaId;
+  @Inject @Parameter("referralEmail") Optional<String> referralEmail;
+  @Inject @Parameter("driveId") Optional<String> driveId;
+  @Inject @Parameter("consoleUserEmail") Optional<String> consoleUserEmail;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -13776,39 +13692,15 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreat
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'clientId'
+`Optional` used as type for field 'ianaId'
 in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
 #### Snippet
 ```java
-  @Inject @Named("base58StringGenerator") StringGenerator passwordGenerator;
-  @Inject @Named("digitOnlyStringGenerator") StringGenerator passcodeGenerator;
-  @Inject @Parameter("clientId") Optional<String> clientId;
   @Inject @Parameter("name") Optional<String> name;
   @Inject @Parameter("billingAccount") Optional<String> billingAccount;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalPassword'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("countryCode") Optional<String> countryCode;
-
-  @Inject @Parameter("password") Optional<String> optionalPassword;
-  @Inject @Parameter("passcode") Optional<String> optionalPasscode;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'optionalZip'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("city") Optional<String> city;
-  @Inject @Parameter("state") Optional<String> optionalState;
-  @Inject @Parameter("zip") Optional<String> optionalZip;
-  @Inject @Parameter("countryCode") Optional<String> countryCode;
-
+  @Inject @Parameter("ianaId") Optional<Integer> ianaId;
+  @Inject @Parameter("referralEmail") Optional<String> referralEmail;
+  @Inject @Parameter("driveId") Optional<String> driveId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -13824,30 +13716,6 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreat
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'billingAccount'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("clientId") Optional<String> clientId;
-  @Inject @Parameter("name") Optional<String> name;
-  @Inject @Parameter("billingAccount") Optional<String> billingAccount;
-  @Inject @Parameter("ianaId") Optional<Integer> ianaId;
-  @Inject @Parameter("referralEmail") Optional<String> referralEmail;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'referralEmail'
-in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
-#### Snippet
-```java
-  @Inject @Parameter("billingAccount") Optional<String> billingAccount;
-  @Inject @Parameter("ianaId") Optional<Integer> ianaId;
-  @Inject @Parameter("referralEmail") Optional<String> referralEmail;
-  @Inject @Parameter("driveId") Optional<String> driveId;
-  @Inject @Parameter("consoleUserEmail") Optional<String> consoleUserEmail;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'name'
 in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
 #### Snippet
@@ -13860,15 +13728,75 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreat
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'ianaId'
+`Optional` used as type for field 'clientId'
 in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
 #### Snippet
 ```java
+  @Inject @Named("base58StringGenerator") StringGenerator passwordGenerator;
+  @Inject @Named("digitOnlyStringGenerator") StringGenerator passcodeGenerator;
+  @Inject @Parameter("clientId") Optional<String> clientId;
   @Inject @Parameter("name") Optional<String> name;
   @Inject @Parameter("billingAccount") Optional<String> billingAccount;
-  @Inject @Parameter("ianaId") Optional<Integer> ianaId;
-  @Inject @Parameter("referralEmail") Optional<String> referralEmail;
-  @Inject @Parameter("driveId") Optional<String> driveId;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'street1'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+
+  // Address fields, some of which are required and others are optional.
+  @Inject @Parameter("street1") Optional<String> street1;
+  @Inject @Parameter("street2") Optional<String> optionalStreet2;
+  @Inject @Parameter("street3") Optional<String> optionalStreet3;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalStreet2'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  // Address fields, some of which are required and others are optional.
+  @Inject @Parameter("street1") Optional<String> street1;
+  @Inject @Parameter("street2") Optional<String> optionalStreet2;
+  @Inject @Parameter("street3") Optional<String> optionalStreet3;
+  @Inject @Parameter("city") Optional<String> city;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalPasscode'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+
+  @Inject @Parameter("password") Optional<String> optionalPassword;
+  @Inject @Parameter("passcode") Optional<String> optionalPasscode;
+
+  @Inject ConsoleRegistrarCreatorAction() {}
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'city'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  @Inject @Parameter("street2") Optional<String> optionalStreet2;
+  @Inject @Parameter("street3") Optional<String> optionalStreet3;
+  @Inject @Parameter("city") Optional<String> city;
+  @Inject @Parameter("state") Optional<String> optionalState;
+  @Inject @Parameter("zip") Optional<String> optionalZip;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalPassword'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  @Inject @Parameter("countryCode") Optional<String> countryCode;
+
+  @Inject @Parameter("password") Optional<String> optionalPassword;
+  @Inject @Parameter("passcode") Optional<String> optionalPasscode;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -13884,15 +13812,75 @@ in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreat
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'prefix'
-in `core/src/main/java/google/registry/rde/BrdaCopyAction.java`
+`Optional` used as type for field 'optionalStreet3'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
 #### Snippet
 ```java
-  @Inject @Parameter(RequestParameters.PARAM_TLD) String tld;
-  @Inject @Parameter(RdeModule.PARAM_WATERMARK) DateTime watermark;
-  @Inject @Parameter(RdeModule.PARAM_PREFIX) Optional<String> prefix;
-  @Inject @Key("brdaReceiverKey") PGPPublicKey receiverKey;
-  @Inject @Key("brdaSigningKey") PGPKeyPair signingKey;
+  @Inject @Parameter("street1") Optional<String> street1;
+  @Inject @Parameter("street2") Optional<String> optionalStreet2;
+  @Inject @Parameter("street3") Optional<String> optionalStreet3;
+  @Inject @Parameter("city") Optional<String> city;
+  @Inject @Parameter("state") Optional<String> optionalState;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'countryCode'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  @Inject @Parameter("state") Optional<String> optionalState;
+  @Inject @Parameter("zip") Optional<String> optionalZip;
+  @Inject @Parameter("countryCode") Optional<String> countryCode;
+
+  @Inject @Parameter("password") Optional<String> optionalPassword;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'optionalZip'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  @Inject @Parameter("city") Optional<String> city;
+  @Inject @Parameter("state") Optional<String> optionalState;
+  @Inject @Parameter("zip") Optional<String> optionalZip;
+  @Inject @Parameter("countryCode") Optional<String> countryCode;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  }
+
+  private static String toEmailLine(Optional<?> value, String name) {
+    return String.format("    %s: %s\n", name, value.orElse(null));
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  }
+
+  private static void checkPresent(Optional<?> value, String name) {
+    checkState(value.isPresent(), "Missing value for %s", name);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'billingAccount'
+in `core/src/main/java/google/registry/ui/server/registrar/ConsoleRegistrarCreatorAction.java`
+#### Snippet
+```java
+  @Inject @Parameter("clientId") Optional<String> clientId;
+  @Inject @Parameter("name") Optional<String> name;
+  @Inject @Parameter("billingAccount") Optional<String> billingAccount;
+  @Inject @Parameter("ianaId") Optional<Integer> ianaId;
+  @Inject @Parameter("referralEmail") Optional<String> referralEmail;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -13908,27 +13896,15 @@ in `core/src/main/java/google/registry/ui/server/registrar/RegistrarSettingsActi
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'appEngineRetryCount'
-in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
+`Optional` used as type for field 'prefix'
+in `core/src/main/java/google/registry/rde/BrdaCopyAction.java`
 #### Snippet
 ```java
-      @Config("registryCcEmail") Lazy<InternetAddress> registryCcEmail,
-      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
-      @Header(APP_ENGINE_RETRY_HEADER) Optional<Integer> appEngineRetryCount,
-      @Header(CLOUD_TASKS_RETRY_HEADER) Optional<Integer> cloudTasksRetryCount,
-      DnsQueue dnsQueue,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cloudTasksRetryCount'
-in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
-#### Snippet
-```java
-      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
-      @Header(APP_ENGINE_RETRY_HEADER) Optional<Integer> appEngineRetryCount,
-      @Header(CLOUD_TASKS_RETRY_HEADER) Optional<Integer> cloudTasksRetryCount,
-      DnsQueue dnsQueue,
-      DnsWriterProxy dnsWriterProxy,
+  @Inject @Parameter(RequestParameters.PARAM_TLD) String tld;
+  @Inject @Parameter(RdeModule.PARAM_WATERMARK) DateTime watermark;
+  @Inject @Parameter(RdeModule.PARAM_PREFIX) Optional<String> prefix;
+  @Inject @Key("brdaReceiverKey") PGPPublicKey receiverKey;
+  @Inject @Key("brdaSigningKey") PGPKeyPair signingKey;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -13956,27 +13932,51 @@ in `core/src/main/java/google/registry/rde/RdeStagingAction.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'jitterSeconds'
-in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
+`Optional` used as type for field 'errorMessage'
+in `core/src/main/java/google/registry/ui/forms/FormField.java`
 #### Snippet
 ```java
-      @Config("dnsTldUpdateBatchSize") int tldUpdateBatchSize,
-      @Config("readDnsQueueActionRuntime") Duration requestedMaximumDuration,
-      @Parameter(PARAM_JITTER_SECONDS) Optional<Integer> jitterSeconds,
-      Clock clock,
+    private static final class MatchesFunction<O> implements Function<O, O> {
+      private final Pattern pattern;
+      private final Optional<String> errorMessage;
+
+      MatchesFunction(Pattern pattern, Optional<String> errorMessage) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'errorMessage'
+in `core/src/main/java/google/registry/ui/forms/FormField.java`
+#### Snippet
+```java
+      private final Optional<String> errorMessage;
+
+      MatchesFunction(Pattern pattern, Optional<String> errorMessage) {
+        this.pattern = pattern;
+        this.errorMessage = errorMessage;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'appEngineRetryCount'
+in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
+#### Snippet
+```java
+      @Config("registryCcEmail") Lazy<InternetAddress> registryCcEmail,
+      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
+      @Header(APP_ENGINE_RETRY_HEADER) Optional<Integer> appEngineRetryCount,
+      @Header(CLOUD_TASKS_RETRY_HEADER) Optional<Integer> cloudTasksRetryCount,
       DnsQueue dnsQueue,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'jitterSeconds'
-in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
+`Optional` used as type for parameter 'cloudTasksRetryCount'
+in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
 #### Snippet
 ```java
-  private final int tldUpdateBatchSize;
-  private final Duration requestedMaximumDuration;
-  private final Optional<Integer> jitterSeconds;
-  private final Clock clock;
-  private final DnsQueue dnsQueue;
+      @Config("gSuiteOutgoingEmailAddress") InternetAddress gSuiteOutgoingEmailAddress,
+      @Header(APP_ENGINE_RETRY_HEADER) Optional<Integer> appEngineRetryCount,
+      @Header(CLOUD_TASKS_RETRY_HEADER) Optional<Integer> cloudTasksRetryCount,
+      DnsQueue dnsQueue,
+      DnsWriterProxy dnsWriterProxy,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14004,27 +14004,27 @@ in `core/src/main/java/google/registry/rde/RdeReportAction.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'errorMessage'
-in `core/src/main/java/google/registry/ui/forms/FormField.java`
+`Optional` used as type for parameter 'jitterSeconds'
+in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
 #### Snippet
 ```java
-      private final Optional<String> errorMessage;
-
-      MatchesFunction(Pattern pattern, Optional<String> errorMessage) {
-        this.pattern = pattern;
-        this.errorMessage = errorMessage;
+      @Config("dnsTldUpdateBatchSize") int tldUpdateBatchSize,
+      @Config("readDnsQueueActionRuntime") Duration requestedMaximumDuration,
+      @Parameter(PARAM_JITTER_SECONDS) Optional<Integer> jitterSeconds,
+      Clock clock,
+      DnsQueue dnsQueue,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'errorMessage'
-in `core/src/main/java/google/registry/ui/forms/FormField.java`
+`Optional` used as type for field 'jitterSeconds'
+in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
 #### Snippet
 ```java
-    private static final class MatchesFunction<O> implements Function<O, O> {
-      private final Pattern pattern;
-      private final Optional<String> errorMessage;
-
-      MatchesFunction(Pattern pattern, Optional<String> errorMessage) {
+  private final int tldUpdateBatchSize;
+  private final Duration requestedMaximumDuration;
+  private final Optional<Integer> jitterSeconds;
+  private final Clock clock;
+  private final DnsQueue dnsQueue;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14112,39 +14112,39 @@ in `core/src/main/java/google/registry/rdap/RdapDomainSearchAction.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'ipParam'
-in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
+`Optional` used as type for parameter 'cursorField'
+in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
 #### Snippet
 ```java
-
-  @Inject @Parameter("name") Optional<String> nameParam;
-  @Inject @Parameter("ip") Optional<String> ipParam;
-  @Inject public RdapNameserverSearchAction() {
-    super("nameserver search", EndpointType.NAMESERVERS);
+      String filterField,
+      String queryString,
+      Optional<String> cursorField,
+      Optional<String> cursorString,
+      DeletedItemHandling deletedItemHandling) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'nameParam'
-in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
+`Optional` used as type for parameter 'cursorString'
+in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
 #### Snippet
 ```java
-  public static final String PATH = "/rdap/nameservers";
-
-  @Inject @Parameter("name") Optional<String> nameParam;
-  @Inject @Parameter("ip") Optional<String> ipParam;
-  @Inject public RdapNameserverSearchAction() {
+      String queryString,
+      Optional<String> cursorField,
+      Optional<String> cursorString,
+      DeletedItemHandling deletedItemHandling) {
+    if (queryString.length() < RdapSearchPattern.MIN_INITIAL_STRING_LENGTH) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'marksdbDnlLoginAndPassword'
-in `core/src/main/java/google/registry/tmch/TmchDnlAction.java`
+`Optional` used as type for field 'cursorString'
+in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
 #### Snippet
 ```java
+  @Inject @Parameter("registrar") Optional<String> registrarParam;
 
-  @Inject Marksdb marksdb;
-  @Inject @Key("marksdbDnlLoginAndPassword") Optional<String> marksdbDnlLoginAndPassword;
-  @Inject TmchDnlAction() {}
+  protected Optional<String> cursorString;
 
+  RdapSearchActionBase(String humanReadableObjectTypeName, EndpointType endpointType) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14157,6 +14157,30 @@ in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
   @Inject @Parameter("registrar") Optional<String> registrarParam;
 
   protected Optional<String> cursorString;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'cursorTokenParam'
+in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
+#### Snippet
+```java
+  @Inject @RequestUrl String requestUrl;
+  @Inject @ParameterMap ImmutableListMultimap<String, String> parameterMap;
+  @Inject @Parameter("cursor") Optional<String> cursorTokenParam;
+  @Inject @Parameter("registrar") Optional<String> registrarParam;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'cursorString'
+in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
+#### Snippet
+```java
+      String filterField,
+      RdapSearchPattern partialStringQuery,
+      Optional<String> cursorString,
+      DeletedItemHandling deletedItemHandling) {
+    replicaTm().assertInTransaction();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14184,74 +14208,38 @@ in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'cursorTokenParam'
-in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
+`Optional` used as type for field 'nameParam'
+in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
 #### Snippet
 ```java
-  @Inject @RequestUrl String requestUrl;
-  @Inject @ParameterMap ImmutableListMultimap<String, String> parameterMap;
-  @Inject @Parameter("cursor") Optional<String> cursorTokenParam;
-  @Inject @Parameter("registrar") Optional<String> registrarParam;
+  public static final String PATH = "/rdap/nameservers";
 
+  @Inject @Parameter("name") Optional<String> nameParam;
+  @Inject @Parameter("ip") Optional<String> ipParam;
+  @Inject public RdapNameserverSearchAction() {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'cursorString'
-in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
+`Optional` used as type for field 'ipParam'
+in `core/src/main/java/google/registry/rdap/RdapNameserverSearchAction.java`
 #### Snippet
 ```java
-  @Inject @Parameter("registrar") Optional<String> registrarParam;
 
-  protected Optional<String> cursorString;
-
-  RdapSearchActionBase(String humanReadableObjectTypeName, EndpointType endpointType) {
+  @Inject @Parameter("name") Optional<String> nameParam;
+  @Inject @Parameter("ip") Optional<String> ipParam;
+  @Inject public RdapNameserverSearchAction() {
+    super("nameserver search", EndpointType.NAMESERVERS);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cursorField'
-in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
-#### Snippet
-```java
-      String filterField,
-      String queryString,
-      Optional<String> cursorField,
-      Optional<String> cursorString,
-      DeletedItemHandling deletedItemHandling) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cursorString'
-in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
-#### Snippet
-```java
-      String queryString,
-      Optional<String> cursorField,
-      Optional<String> cursorString,
-      DeletedItemHandling deletedItemHandling) {
-    if (queryString.length() < RdapSearchPattern.MIN_INITIAL_STRING_LENGTH) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cursorString'
-in `core/src/main/java/google/registry/rdap/RdapSearchActionBase.java`
-#### Snippet
-```java
-      String filterField,
-      RdapSearchPattern partialStringQuery,
-      Optional<String> cursorString,
-      DeletedItemHandling deletedItemHandling) {
-    replicaTm().assertInTransaction();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'marksdbSmdrlLoginAndPassword'
-in `core/src/main/java/google/registry/tmch/TmchSmdrlAction.java`
+`Optional` used as type for field 'marksdbDnlLoginAndPassword'
+in `core/src/main/java/google/registry/tmch/TmchDnlAction.java`
 #### Snippet
 ```java
 
   @Inject Marksdb marksdb;
-  @Inject @Key("marksdbSmdrlLoginAndPassword") Optional<String> marksdbSmdrlLoginAndPassword;
-  @Inject TmchSmdrlAction() {}
+  @Inject @Key("marksdbDnlLoginAndPassword") Optional<String> marksdbDnlLoginAndPassword;
+  @Inject TmchDnlAction() {}
 
 ```
 
@@ -14280,39 +14268,39 @@ in `core/src/main/java/google/registry/tmch/LordnRequestInitializer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'loginAndPassword'
-in `core/src/main/java/google/registry/tmch/Marksdb.java`
-#### Snippet
-```java
-  }
-
-  byte[] fetch(URL url, Optional<String> loginAndPassword)
-      throws IOException, GeneralSecurityException {
-    HttpURLConnection connection = urlConnectionService.createConnection(url);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'loginAndPassword'
-in `core/src/main/java/google/registry/tmch/Marksdb.java`
+`Optional` used as type for field 'marksdbSmdrlLoginAndPassword'
+in `core/src/main/java/google/registry/tmch/TmchSmdrlAction.java`
 #### Snippet
 ```java
 
-  ImmutableList<String> fetchSignedCsv(
-      Optional<String> loginAndPassword, String csvPath, String sigPath)
-      throws IOException, GeneralSecurityException, PGPException {
-    checkArgument(
+  @Inject Marksdb marksdb;
+  @Inject @Key("marksdbSmdrlLoginAndPassword") Optional<String> marksdbSmdrlLoginAndPassword;
+  @Inject TmchSmdrlAction() {}
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'fnParam'
+`Optional` used as type for field 'handleParam'
 in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 #### Snippet
 ```java
-public class RdapEntitySearchAction extends RdapSearchActionBase {
 
   @Inject @Parameter("fn") Optional<String> fnParam;
   @Inject @Parameter("handle") Optional<String> handleParam;
   @Inject @Parameter("subtype") Optional<String> subtypeParam;
+  @Inject public RdapEntitySearchAction() {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'cursorQueryString'
+in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
+#### Snippet
+```java
+      final RdapSearchPattern partialStringQuery,
+      CursorType cursorType,
+      Optional<String> cursorQueryString,
+      Subtype subtype) {
+    // Don't allow wildcard suffixes when searching for entities.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14340,27 +14328,39 @@ in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cursorQueryString'
+`Optional` used as type for field 'fnParam'
 in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
 #### Snippet
 ```java
-      final RdapSearchPattern partialStringQuery,
-      CursorType cursorType,
-      Optional<String> cursorQueryString,
-      Subtype subtype) {
-    // Don't allow wildcard suffixes when searching for entities.
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'handleParam'
-in `core/src/main/java/google/registry/rdap/RdapEntitySearchAction.java`
-#### Snippet
-```java
+public class RdapEntitySearchAction extends RdapSearchActionBase {
 
   @Inject @Parameter("fn") Optional<String> fnParam;
   @Inject @Parameter("handle") Optional<String> handleParam;
   @Inject @Parameter("subtype") Optional<String> subtypeParam;
-  @Inject public RdapEntitySearchAction() {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'loginAndPassword'
+in `core/src/main/java/google/registry/tmch/Marksdb.java`
+#### Snippet
+```java
+
+  ImmutableList<String> fetchSignedCsv(
+      Optional<String> loginAndPassword, String csvPath, String sigPath)
+      throws IOException, GeneralSecurityException, PGPException {
+    checkArgument(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'loginAndPassword'
+in `core/src/main/java/google/registry/tmch/Marksdb.java`
+#### Snippet
+```java
+  }
+
+  byte[] fetch(URL url, Optional<String> loginAndPassword)
+      throws IOException, GeneralSecurityException {
+    HttpURLConnection connection = urlConnectionService.createConnection(url);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14412,63 +14412,15 @@ in `core/src/main/java/google/registry/batch/ExpandRecurringBillingEventsAction.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'authInfo'
-in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
-#### Snippet
-```java
-
-  /** Check that the given AuthInfo is either missing or else is valid for the given resource. */
-  public static void verifyOptionalAuthInfo(Optional<AuthInfo> authInfo, Domain domain)
-      throws EppException {
-    if (authInfo.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'authInfo'
-in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
-#### Snippet
-```java
-
-  /** Check that the given AuthInfo is present for a resource being transferred. */
-  public static void verifyAuthInfoPresentForResourceTransfer(Optional<AuthInfo> authInfo)
-      throws EppException {
-    if (!authInfo.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'resource'
-in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
-#### Snippet
-```java
-
-  public static <R extends EppResource> R verifyExistence(
-      Class<R> clazz, String targetId, Optional<R> resource) throws ResourceDoesNotExistException {
-    return resource.orElseThrow(() -> new ResourceDoesNotExistException(clazz, targetId));
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'authInfo'
-in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
-#### Snippet
-```java
-
-  /** Check that the given AuthInfo is either missing or else is valid for the given resource. */
-  public static void verifyOptionalAuthInfo(Optional<AuthInfo> authInfo, Contact contact)
-      throws EppException {
-    if (authInfo.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'clientInetAddr'
+`Optional` used as type for field 'clientCertificateHash'
 in `core/src/main/java/google/registry/flows/TlsCredentials.java`
 #### Snippet
 ```java
-  /** Registrar IP address is not in stored allow list. */
-  public static class BadRegistrarIpAddressException extends AuthenticationErrorException {
-    BadRegistrarIpAddressException(Optional<InetAddress> clientInetAddr) {
-      super(
-          clientInetAddr.isPresent()
+
+  private final boolean requireSslCertificates;
+  private final Optional<String> clientCertificateHash;
+  private final Optional<InetAddress> clientInetAddr;
+  private final CertificateChecker certificateChecker;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14496,15 +14448,15 @@ in `core/src/main/java/google/registry/flows/TlsCredentials.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'clientCertificateHash'
+`Optional` used as type for parameter 'clientInetAddr'
 in `core/src/main/java/google/registry/flows/TlsCredentials.java`
 #### Snippet
 ```java
-
-  private final boolean requireSslCertificates;
-  private final Optional<String> clientCertificateHash;
-  private final Optional<InetAddress> clientInetAddr;
-  private final CertificateChecker certificateChecker;
+  /** Registrar IP address is not in stored allow list. */
+  public static class BadRegistrarIpAddressException extends AuthenticationErrorException {
+    BadRegistrarIpAddressException(Optional<InetAddress> clientInetAddr) {
+      super(
+          clientInetAddr.isPresent()
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14517,6 +14469,54 @@ in `core/src/main/java/google/registry/flows/TlsCredentials.java`
   private final Optional<InetAddress> clientInetAddr;
   private final CertificateChecker certificateChecker;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'authInfo'
+in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
+#### Snippet
+```java
+
+  /** Check that the given AuthInfo is present for a resource being transferred. */
+  public static void verifyAuthInfoPresentForResourceTransfer(Optional<AuthInfo> authInfo)
+      throws EppException {
+    if (!authInfo.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'authInfo'
+in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
+#### Snippet
+```java
+
+  /** Check that the given AuthInfo is either missing or else is valid for the given resource. */
+  public static void verifyOptionalAuthInfo(Optional<AuthInfo> authInfo, Domain domain)
+      throws EppException {
+    if (authInfo.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'authInfo'
+in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
+#### Snippet
+```java
+
+  /** Check that the given AuthInfo is either missing or else is valid for the given resource. */
+  public static void verifyOptionalAuthInfo(Optional<AuthInfo> authInfo, Contact contact)
+      throws EppException {
+    if (authInfo.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'resource'
+in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
+#### Snippet
+```java
+
+  public static <R extends EppResource> R verifyExistence(
+      Class<R> clazz, String targetId, Optional<R> resource) throws ResourceDoesNotExistException {
+    return resource.orElseThrow(() -> new ResourceDoesNotExistException(clazz, targetId));
+  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14592,6 +14592,18 @@ in `core/src/main/java/google/registry/flows/custom/CustomLogicModule.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/domain/DomainRestoreRequestFlow.java`
+#### Snippet
+```java
+  @Inject ExtensionManager extensionManager;
+  @Inject EppInput eppInput;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'feeUpdate'
 in `core/src/main/java/google/registry/flows/domain/DomainRestoreRequestFlow.java`
 #### Snippet
@@ -14613,42 +14625,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainRestoreRequestFlow.jav
       Optional<FeeUpdateCommandExtension> feeUpdate,
       boolean isExpired) {
     ImmutableList.Builder<Fee> fees = new ImmutableList.Builder<>();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/domain/DomainRestoreRequestFlow.java`
-#### Snippet
-```java
-  @Inject ExtensionManager extensionManager;
-  @Inject EppInput eppInput;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/domain/DomainTransferRejectFlow.java`
-#### Snippet
-```java
-
-  @Inject ExtensionManager extensionManager;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/domain/DomainTransferRequestFlow.java`
-#### Snippet
-```java
-  @Inject ExtensionManager extensionManager;
-  @Inject EppInput eppInput;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String gainingClientId;
-  @Inject @TargetId String targetId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14688,6 +14664,18 @@ in `core/src/main/java/google/registry/flows/domain/DomainTransferRequestFlow.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/domain/DomainTransferRequestFlow.java`
+#### Snippet
+```java
+  @Inject ExtensionManager extensionManager;
+  @Inject EppInput eppInput;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @RegistrarId String gainingClientId;
+  @Inject @TargetId String targetId;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'superuserExtension'
 in `core/src/main/java/google/registry/flows/domain/DomainTransferRequestFlow.java`
 #### Snippet
@@ -14697,6 +14685,18 @@ in `core/src/main/java/google/registry/flows/domain/DomainTransferRequestFlow.ja
       Period period, Optional<DomainTransferRequestSuperuserExtension> superuserExtension)
       throws EppException {
     verifyUnitIsYears(period);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/domain/DomainTransferRejectFlow.java`
+#### Snippet
+```java
+
+  @Inject ExtensionManager extensionManager;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14721,54 +14721,6 @@ in `core/src/main/java/google/registry/flows/custom/DomainCreateFlowCustomLogic.
       public abstract Builder setSignedMarkId(Optional<String> signedMarkId);
 
       public abstract AfterValidationParameters build();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationToken'
-in `core/src/main/java/google/registry/flows/domain/DomainPricingLogic.java`
-#### Snippet
-```java
-      int years,
-      boolean isAnchorTenant,
-      Optional<AllocationToken> allocationToken)
-      throws EppException {
-    CurrencyUnit currency = registry.getCurrency();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationToken'
-in `core/src/main/java/google/registry/flows/domain/DomainPricingLogic.java`
-#### Snippet
-```java
-  /** Returns the domain create cost with allocation-token-related discounts applied. */
-  private Money getDomainCreateCostWithDiscount(
-      DomainPrices domainPrices, int years, Optional<AllocationToken> allocationToken)
-      throws EppException {
-    if (allocationToken.isPresent()
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/domain/DomainTransferCancelFlow.java`
-#### Snippet
-```java
-
-  @Inject ExtensionManager extensionManager;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
-#### Snippet
-```java
-
-  @Inject ExtensionManager extensionManager;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14808,6 +14760,18 @@ in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationToken'
+in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
+#### Snippet
+```java
+      int years,
+      HistoryEntryId domainHistoryId,
+      Optional<AllocationToken> allocationToken,
+      DateTime now) {
+    return new BillingEvent.OneTime.Builder()
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'feeRenew'
 in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 #### Snippet
@@ -14820,15 +14784,27 @@ in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationToken'
-in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/domain/DomainTransferCancelFlow.java`
 #### Snippet
 ```java
-      int years,
-      HistoryEntryId domainHistoryId,
-      Optional<AllocationToken> allocationToken,
-      DateTime now) {
-    return new BillingEvent.OneTime.Builder()
+
+  @Inject ExtensionManager extensionManager;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
+#### Snippet
+```java
+
+  @Inject ExtensionManager extensionManager;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14845,14 +14821,26 @@ in `core/src/main/java/google/registry/flows/domain/DomainInfoFlow.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'allocationToken'
-in `core/src/main/java/google/registry/flows/domain/token/AllocationTokenDomainCheckResults.java`
+in `core/src/main/java/google/registry/flows/domain/DomainPricingLogic.java`
 #### Snippet
 ```java
+  /** Returns the domain create cost with allocation-token-related discounts applied. */
+  private Money getDomainCreateCostWithDiscount(
+      DomainPrices domainPrices, int years, Optional<AllocationToken> allocationToken)
+      throws EppException {
+    if (allocationToken.isPresent()
+```
 
-  public static AllocationTokenDomainCheckResults create(
-      Optional<AllocationToken> allocationToken,
-      ImmutableMap<InternetDomainName, String> domainCheckResults) {
-    return new AutoValue_AllocationTokenDomainCheckResults(allocationToken, domainCheckResults);
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationToken'
+in `core/src/main/java/google/registry/flows/domain/DomainPricingLogic.java`
+#### Snippet
+```java
+      int years,
+      boolean isAnchorTenant,
+      Optional<AllocationToken> allocationToken)
+      throws EppException {
+    CurrencyUnit currency = registry.getCurrency();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14865,6 +14853,18 @@ in `core/src/main/java/google/registry/flows/domain/DomainUpdateFlow.java`
   @Inject Optional<AuthInfo> authInfo;
   @Inject @RegistrarId String registrarId;
   @Inject @TargetId String targetId;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationToken'
+in `core/src/main/java/google/registry/flows/domain/token/AllocationTokenDomainCheckResults.java`
+#### Snippet
+```java
+
+  public static AllocationTokenDomainCheckResults create(
+      Optional<AllocationToken> allocationToken,
+      ImmutableMap<InternetDomainName, String> domainCheckResults) {
+    return new AutoValue_AllocationTokenDomainCheckResults(allocationToken, domainCheckResults);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -14905,18 +14905,6 @@ in `core/src/main/java/google/registry/flows/contact/ContactDeleteFlow.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/contact/ContactTransferQueryFlow.java`
-#### Snippet
-```java
-
-  @Inject ExtensionManager extensionManager;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
 in `core/src/main/java/google/registry/flows/domain/DomainDeleteFlow.java`
 #### Snippet
 ```java
@@ -14929,7 +14917,7 @@ in `core/src/main/java/google/registry/flows/domain/DomainDeleteFlow.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/contact/ContactTransferRejectFlow.java`
+in `core/src/main/java/google/registry/flows/contact/ContactTransferQueryFlow.java`
 #### Snippet
 ```java
 
@@ -14953,26 +14941,14 @@ in `core/src/main/java/google/registry/flows/contact/ContactUpdateFlow.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/contact/ContactInfoFlow.java`
+in `core/src/main/java/google/registry/flows/contact/ContactTransferRejectFlow.java`
 #### Snippet
 ```java
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @Superuser boolean isSuperuser;
-  @Inject EppResponse.Builder responseBuilder;
-```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/contact/ContactTransferApproveFlow.java`
-#### Snippet
-```java
+  @Inject ExtensionManager extensionManager;
+  @Inject Optional<AuthInfo> authInfo;
   @Inject @RegistrarId String registrarId;
   @Inject @TargetId String targetId;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject ContactHistory.Builder historyBuilder;
-  @Inject EppResponse.Builder responseBuilder;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15025,6 +15001,42 @@ in `core/src/main/java/google/registry/flows/domain/token/AllocationTokenFlowUti
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/contact/ContactTransferApproveFlow.java`
+#### Snippet
+```java
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject ContactHistory.Builder historyBuilder;
+  @Inject EppResponse.Builder responseBuilder;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/contact/ContactInfoFlow.java`
+#### Snippet
+```java
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @Superuser boolean isSuperuser;
+  @Inject EppResponse.Builder responseBuilder;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
+in `core/src/main/java/google/registry/flows/contact/ContactTransferCancelFlow.java`
+#### Snippet
+```java
+  @Inject ResourceCommand resourceCommand;
+  @Inject ExtensionManager extensionManager;
+  @Inject Optional<AuthInfo> authInfo;
+  @Inject @RegistrarId String registrarId;
+  @Inject @TargetId String targetId;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'authInfo'
 in `core/src/main/java/google/registry/flows/contact/ContactTransferRequestFlow.java`
 #### Snippet
 ```java
@@ -15052,18 +15064,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
 in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
 #### Snippet
 ```java
-      DateTime now,
-      String domainLabel,
-      Optional<AllocationToken> allocationToken,
-      boolean isAnchorTenant,
-      boolean isValidReservedCreate,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationToken'
-in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
-#### Snippet
-```java
       FeesAndCredits feesAndCredits,
       HistoryEntryId domainHistoryId,
       Optional<AllocationToken> allocationToken,
@@ -15084,15 +15084,15 @@ in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'authInfo'
-in `core/src/main/java/google/registry/flows/contact/ContactTransferCancelFlow.java`
+`Optional` used as type for parameter 'allocationToken'
+in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
 #### Snippet
 ```java
-  @Inject ResourceCommand resourceCommand;
-  @Inject ExtensionManager extensionManager;
-  @Inject Optional<AuthInfo> authInfo;
-  @Inject @RegistrarId String registrarId;
-  @Inject @TargetId String targetId;
+      DateTime now,
+      String domainLabel,
+      Optional<AllocationToken> allocationToken,
+      boolean isAnchorTenant,
+      boolean isValidReservedCreate,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15117,6 +15117,18 @@ in `core/src/main/java/google/registry/model/OteStats.java`
     private final Optional<Predicate<EppInput>> eppInputFilter;
 
     StatType(int requirement, Predicate<HistoryEntry.Type> typeFilter) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'expiry'
+in `core/src/main/java/google/registry/model/tld/label/PremiumListDao.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  public static void setPremiumListCacheForTest(Optional<Duration> expiry) {
+    Duration effectiveExpiry = expiry.orElse(getDomainLabelListCacheDuration());
+    premiumListCache = createPremiumListCache(effectiveExpiry);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15145,18 +15157,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainCheckFlow.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'expiry'
-in `core/src/main/java/google/registry/model/tld/label/PremiumListDao.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  public static void setPremiumListCacheForTest(Optional<Duration> expiry) {
-    Duration effectiveExpiry = expiry.orElse(getDomainLabelListCacheDuration());
-    premiumListCache = createPremiumListCache(effectiveExpiry);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'expiry'
 in `core/src/main/java/google/registry/model/ForeignKeyUtils.java`
 #### Snippet
 ```java
@@ -15177,6 +15177,66 @@ in `core/src/main/java/google/registry/model/tmch/ClaimsListDao.java`
   public static void setCacheForTest(Optional<Duration> expiry) {
     Duration effectiveExpiry = expiry.orElse(getClaimsListCacheDuration());
     CACHE = createCache(effectiveExpiry);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'domain'
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+      FeeQueryResponseExtensionItem.Builder<?, ?> builder,
+      InternetDomainName domainName,
+      Optional<Domain> domain,
+      @Nullable CurrencyUnit topLevelCurrency,
+      DateTime currentDate,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationToken'
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+      DateTime currentDate,
+      DomainPricingLogic pricingLogic,
+      Optional<AllocationToken> allocationToken,
+      boolean isAvailable,
+      @Nullable Recurring recurringBillingEvent)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'secDnsCreate'
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+  /** Validate the secDNS extension, if present. */
+  static Optional<SecDnsCreateExtension> validateSecDnsExtension(
+      Optional<SecDnsCreateExtension> secDnsCreate) throws EppException {
+    if (!secDnsCreate.isPresent()) {
+      return Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'feeCommand'
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+   */
+  public static void validateFeesAckedIfPresent(
+      final Optional<? extends FeeTransformCommandExtension> feeCommand,
+      FeesAndCredits feesAndCredits)
+      throws EppException {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'token'
+in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
+#### Snippet
+```java
+  /** Returns whether a given domain create request is for a valid reserved domain. */
+  public static boolean isValidReservedCreate(
+      InternetDomainName domainName, Optional<AllocationToken> token) {
+    // If the domain is reserved for specific use, then check if the allocation token exists and
+    // is for this domain.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15204,30 +15264,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'token'
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-  /** Returns whether a given domain create request is for a valid reserved domain. */
-  public static boolean isValidReservedCreate(
-      InternetDomainName domainName, Optional<AllocationToken> token) {
-    // If the domain is reserved for specific use, then check if the allocation token exists and
-    // is for this domain.
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'feeCommand'
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-   */
-  public static void validateFeesAckedIfPresent(
-      final Optional<? extends FeeTransformCommandExtension> feeCommand,
-      FeesAndCredits feesAndCredits)
-      throws EppException {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'feeCommand'
 in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
 #### Snippet
@@ -15237,42 +15273,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
       final Optional<? extends FeeTransformCommandExtension> feeCommand,
       FeesAndCredits feesAndCredits)
       throws EppException {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'secDnsCreate'
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-  /** Validate the secDNS extension, if present. */
-  static Optional<SecDnsCreateExtension> validateSecDnsExtension(
-      Optional<SecDnsCreateExtension> secDnsCreate) throws EppException {
-    if (!secDnsCreate.isPresent()) {
-      return Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'domain'
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-      FeeQueryResponseExtensionItem.Builder<?, ?> builder,
-      InternetDomainName domainName,
-      Optional<Domain> domain,
-      @Nullable CurrencyUnit topLevelCurrency,
-      DateTime currentDate,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationToken'
-in `core/src/main/java/google/registry/flows/domain/DomainFlowUtils.java`
-#### Snippet
-```java
-      DateTime currentDate,
-      DomainPricingLogic pricingLogic,
-      Optional<AllocationToken> allocationToken,
-      boolean isAvailable,
-      @Nullable Recurring recurringBillingEvent)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15336,13 +15336,13 @@ in `core/src/main/java/google/registry/model/domain/DomainBase.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'lordnUsername'
+`Optional` used as type for field 'driveFolderId'
 in `core/src/main/java/google/registry/tools/CreateOrUpdateTldCommand.java`
 #### Snippet
 ```java
       converter = OptionalStringParameter.class,
       validateWith = OptionalStringParameter.class)
-  Optional<String> lordnUsername;
+  Optional<String> driveFolderId;
 
   @Nullable
 ```
@@ -15360,13 +15360,13 @@ in `core/src/main/java/google/registry/tools/CreateOrUpdateTldCommand.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'driveFolderId'
+`Optional` used as type for field 'lordnUsername'
 in `core/src/main/java/google/registry/tools/CreateOrUpdateTldCommand.java`
 #### Snippet
 ```java
       converter = OptionalStringParameter.class,
       validateWith = OptionalStringParameter.class)
-  Optional<String> driveFolderId;
+  Optional<String> lordnUsername;
 
   @Nullable
 ```
@@ -15420,6 +15420,30 @@ in `core/src/main/java/google/registry/tools/RegistrarPocCommand.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'fax'
+in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java`
+#### Snippet
+```java
+      converter = OptionalPhoneNumberParameter.class,
+      validateWith = OptionalPhoneNumberParameter.class)
+  Optional<String> fax;
+
+  @Nullable
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'phone'
+in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java`
+#### Snippet
+```java
+      converter = OptionalPhoneNumberParameter.class,
+      validateWith = OptionalPhoneNumberParameter.class)
+  Optional<String> phone;
+
+  @Nullable
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'poNumber'
 in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java`
 #### Snippet
@@ -15444,18 +15468,6 @@ in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'phone'
-in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java`
-#### Snippet
-```java
-      converter = OptionalPhoneNumberParameter.class,
-      validateWith = OptionalPhoneNumberParameter.class)
-  Optional<String> phone;
-
-  @Nullable
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'driveFolderId'
 in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java`
 #### Snippet
@@ -15463,18 +15475,6 @@ in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java
       converter = OptionalStringParameter.class,
       validateWith = OptionalStringParameter.class)
   Optional<String> driveFolderId;
-
-  @Nullable
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'fax'
-in `core/src/main/java/google/registry/tools/CreateOrUpdateRegistrarCommand.java`
-#### Snippet
-```java
-      converter = OptionalPhoneNumberParameter.class,
-      validateWith = OptionalPhoneNumberParameter.class)
-  Optional<String> fax;
 
   @Nullable
 ```
@@ -15532,18 +15532,6 @@ in `core/src/main/java/google/registry/tools/server/CreateGroupsAction.java`
 in `core/src/main/java/google/registry/tools/DomainLockUtils.java`
 #### Snippet
 ```java
-   */
-  public RegistryLock administrativelyApplyUnlock(
-      String domainName, String registrarId, boolean isAdmin, Optional<Duration> relockDuration) {
-    RegistryLock lock =
-        tm().transact(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'relockDuration'
-in `core/src/main/java/google/registry/tools/DomainLockUtils.java`
-#### Snippet
-```java
 
   private RegistryLock.Builder createUnlockBuilder(
       String domainName, String registrarId, boolean isAdmin, Optional<Duration> relockDuration) {
@@ -15557,22 +15545,22 @@ in `core/src/main/java/google/registry/tools/DomainLockUtils.java`
 #### Snippet
 ```java
    */
+  public RegistryLock administrativelyApplyUnlock(
+      String domainName, String registrarId, boolean isAdmin, Optional<Duration> relockDuration) {
+    RegistryLock lock =
+        tm().transact(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'relockDuration'
+in `core/src/main/java/google/registry/tools/DomainLockUtils.java`
+#### Snippet
+```java
+   */
   public RegistryLock saveNewRegistryUnlockRequest(
       String domainName, String registrarId, boolean isAdmin, Optional<Duration> relockDuration) {
     return tm().transact(
             () ->
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'contact'
-in `core/src/main/java/google/registry/whois/DomainWhoisResponse.java`
-#### Snippet
-```java
-    /** Emit the contact entry of the given type. */
-    DomainEmitter emitContact(
-        String contactType, Optional<VKey<Contact>> contact, boolean preferUnicode) {
-      if (!contact.isPresent()) {
-        return this;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15600,15 +15588,27 @@ in `core/src/main/java/google/registry/export/sheet/SyncRegistrarsSheetAction.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'fullFieldNames'
+`Optional`> used as type for parameter 'contact'
+in `core/src/main/java/google/registry/whois/DomainWhoisResponse.java`
+#### Snippet
+```java
+    /** Emit the contact entry of the given type. */
+    DomainEmitter emitContact(
+        String contactType, Optional<VKey<Contact>> contact, boolean preferUnicode) {
+      if (!contact.isPresent()) {
+        return this;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'printHeaderRow'
 in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
 #### Snippet
 ```java
+  @Inject JsonResponse response;
   @Inject @Parameter("fields") Optional<String> fields;
   @Inject @Parameter("printHeaderRow") Optional<Boolean> printHeaderRow;
   @Inject @Parameter("fullFieldNames") Optional<Boolean> fullFieldNames;
 
-  /** Returns the set of objects to list, in the desired listing order. */
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15624,15 +15624,15 @@ in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'printHeaderRow'
+`Optional` used as type for field 'fullFieldNames'
 in `core/src/main/java/google/registry/tools/server/ListObjectsAction.java`
 #### Snippet
 ```java
-  @Inject JsonResponse response;
   @Inject @Parameter("fields") Optional<String> fields;
   @Inject @Parameter("printHeaderRow") Optional<Boolean> printHeaderRow;
   @Inject @Parameter("fullFieldNames") Optional<Boolean> fullFieldNames;
 
+  /** Returns the set of objects to list, in the desired listing order. */
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15676,6 +15676,18 @@ in `core/src/main/java/google/registry/reporting/icann/IcannReportingStagingActi
 in `core/src/main/java/google/registry/request/auth/AuthenticatedRegistrarAccessor.java`
 #### Snippet
 ```java
+      AuthResult authResult,
+      @Config("registryAdminClientId") String registryAdminRegistrarId,
+      @Config("gSuiteSupportGroupEmailAddress") Optional<String> gSuiteSupportGroupEmailAddress,
+      Lazy<GroupsConnection> lazyGroupsConnection) {
+    this.isAdmin = userIsAdmin(authResult, gSuiteSupportGroupEmailAddress, lazyGroupsConnection);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'gSuiteSupportGroupEmailAddress'
+in `core/src/main/java/google/registry/request/auth/AuthenticatedRegistrarAccessor.java`
+#### Snippet
+```java
       Lazy<GroupsConnection> lazyGroupsConnection,
       String userEmail,
       Optional<String> gSuiteSupportGroupEmailAddress) {
@@ -15696,27 +15708,15 @@ in `core/src/main/java/google/registry/request/auth/AuthenticatedRegistrarAccess
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'gSuiteSupportGroupEmailAddress'
-in `core/src/main/java/google/registry/request/auth/AuthenticatedRegistrarAccessor.java`
-#### Snippet
-```java
-      AuthResult authResult,
-      @Config("registryAdminClientId") String registryAdminRegistrarId,
-      @Config("gSuiteSupportGroupEmailAddress") Optional<String> gSuiteSupportGroupEmailAddress,
-      Lazy<GroupsConnection> lazyGroupsConnection) {
-    this.isAdmin = userIsAdmin(authResult, gSuiteSupportGroupEmailAddress, lazyGroupsConnection);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'languageValidator'
 in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 #### Snippet
 ```java
-      URI policy,
-      ImmutableRangeSet<Integer> validCodepoints,
-      Optional<LanguageValidator> languageValidator) {
-    this.name = name;
-    this.url = checkNotNull(url, "%s missing '# URL: http://foo.example/page' line", name);
+  /** Creates an IDN table given the lines from text file. */
+  static IdnTable createFrom(
+      String language, Iterable<String> data, Optional<LanguageValidator> languageValidator) {
+    ImmutableRangeSet.Builder<Integer> rangeSet = new ImmutableRangeSet.Builder<>();
+    URI url = null;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15736,11 +15736,11 @@ in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 #### Snippet
 ```java
-  /** Creates an IDN table given the lines from text file. */
-  static IdnTable createFrom(
-      String language, Iterable<String> data, Optional<LanguageValidator> languageValidator) {
-    ImmutableRangeSet.Builder<Integer> rangeSet = new ImmutableRangeSet.Builder<>();
-    URI url = null;
+      URI policy,
+      ImmutableRangeSet<Integer> validCodepoints,
+      Optional<LanguageValidator> languageValidator) {
+    this.name = name;
+    this.url = checkNotNull(url, "%s missing '# URL: http://foo.example/page' line", name);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15792,18 +15792,6 @@ in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'replicaInstanceConnectionName'
-in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
-#### Snippet
-```java
-      @BeamPipelineCloudSqlConfigs ImmutableMap<String, String> beamCloudSqlConfigs,
-      @Config("cloudSqlReplicaInstanceConnectionName")
-          Optional<String> replicaInstanceConnectionName,
-      Clock clock) {
-    HashMap<String, String> overrides = Maps.newHashMap(beamCloudSqlConfigs);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'instanceConnectionNameOverride'
 in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
 #### Snippet
@@ -15825,6 +15813,30 @@ in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
           Optional<Provider<TransactionIsolationLevel>> isolationOverride,
       @PartialCloudSqlConfigs ImmutableMap<String, String> cloudSqlConfigs) {
     HashMap<String, String> overrides = Maps.newHashMap(cloudSqlConfigs);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'replicaInstanceConnectionName'
+in `core/src/main/java/google/registry/persistence/PersistenceModule.java`
+#### Snippet
+```java
+      @BeamPipelineCloudSqlConfigs ImmutableMap<String, String> beamCloudSqlConfigs,
+      @Config("cloudSqlReplicaInstanceConnectionName")
+          Optional<String> replicaInstanceConnectionName,
+      Clock clock) {
+    HashMap<String, String> overrides = Maps.newHashMap(beamCloudSqlConfigs);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'reference'
+in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
+#### Snippet
+```java
+
+  /** Checks if the provided Optional is present, returns its value if so, and throws IAE if not. */
+  public static <T> T checkArgumentPresent(@Nullable Optional<T> reference) {
+    checkArgumentNotNull(reference);
+    checkArgument(reference.isPresent());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15852,15 +15864,15 @@ in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'reference'
-in `util/src/main/java/google/registry/util/PreconditionsUtils.java`
+`Optional` used as type for parameter 'jitterSeconds'
+in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
 #### Snippet
 ```java
-
-  /** Checks if the provided Optional is present, returns its value if so, and throws IAE if not. */
-  public static <T> T checkArgumentPresent(@Nullable Optional<T> reference) {
-    checkArgumentNotNull(reference);
-    checkArgument(reference.isPresent());
+      String service,
+      Multimap<String, String> params,
+      Optional<Integer> jitterSeconds) {
+    return createTaskWithJitter(path, HttpMethod.POST, service, params, jitterSeconds);
+  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -15873,18 +15885,6 @@ in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
       Optional<Integer> jitterSeconds) {
     if (!jitterSeconds.isPresent() || jitterSeconds.get() <= 0) {
       return createTask(path, method, service, params);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'jitterSeconds'
-in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
-#### Snippet
-```java
-      String service,
-      Multimap<String, String> params,
-      Optional<Integer> jitterSeconds) {
-    return createTaskWithJitter(path, HttpMethod.POST, service, params, jitterSeconds);
-  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -16001,6 +16001,18 @@ Uses of `System.err` should probably be replaced with more robust logging
 in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
 #### Snippet
 ```java
+      return canonicalizeHostname(rawLabel.replaceAll(" ", ""));
+    } catch (Exception e) {
+      System.err.printf("Error canonicalizing %s: %s\n", rawLabel, e.getMessage());
+      return "";
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
+#### Snippet
+```java
       if (canonical.startsWith(DomainNameUtils.ACE_PREFIX)
           && Idn.toUnicode(canonical).equals(canonical)) {
         System.err.println("Bad IDN: " + label);
@@ -16018,18 +16030,6 @@ in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
     System.out.println(Joiner.on('\n').join(labels));
   }
 
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
-#### Snippet
-```java
-      return canonicalizeHostname(rawLabel.replaceAll(" ", ""));
-    } catch (Exception e) {
-      System.err.printf("Error canonicalizing %s: %s\n", rawLabel, e.getMessage());
-      return "";
-    }
 ```
 
 ### SystemOutErr
@@ -16286,6 +16286,18 @@ in `core/src/main/java/google/registry/tools/CountDomainsCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/GhostrydeCommand.java`
+#### Snippet
+```java
+        InputStream ghostDecoder = Ghostryde.decoder(in, rdeStagingDecryptionKey.get())) {
+      if (output == null) {
+        ByteStreams.copy(ghostDecoder, System.out);
+      } else {
+        Path outFile =
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/google/registry/tools/GetReservedListCommand.java`
 #### Snippet
 ```java
@@ -16502,18 +16514,6 @@ in `core/src/main/java/google/registry/tools/ValidateEscrowDepositCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/GhostrydeCommand.java`
-#### Snippet
-```java
-        InputStream ghostDecoder = Ghostryde.decoder(in, rdeStagingDecryptionKey.get())) {
-      if (output == null) {
-        ByteStreams.copy(ghostDecoder, System.out);
-      } else {
-        Path outFile =
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/google/registry/tools/CreateDomainCommand.java`
 #### Snippet
 ```java
@@ -16534,6 +16534,30 @@ in `core/src/main/java/google/registry/tools/GetEppResourceCommand.java`
     System.out.println(
         resource.isPresent()
             ? String.format(
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/GetSqlCredentialCommand.java`
+#### Snippet
+```java
+      credential = store.getCredential(sqlUser);
+    } catch (SecretManagerException e) {
+      System.out.println(e.getMessage());
+      return;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/GetSqlCredentialCommand.java`
+#### Snippet
+```java
+
+    if (outputPath == null) {
+      System.out.print(outputText);
+      return;
+    }
 ```
 
 ### SystemOutErr
@@ -16586,30 +16610,6 @@ in `core/src/main/java/google/registry/tools/VerifyOteCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/GetSqlCredentialCommand.java`
-#### Snippet
-```java
-      credential = store.getCredential(sqlUser);
-    } catch (SecretManagerException e) {
-      System.out.println(e.getMessage());
-      return;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/GetSqlCredentialCommand.java`
-#### Snippet
-```java
-
-    if (outputPath == null) {
-      System.out.print(outputText);
-      return;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/google/registry/tools/DeleteAllocationTokensCommand.java`
 #### Snippet
 ```java
@@ -16646,6 +16646,18 @@ in `core/src/main/java/google/registry/tools/SaveSqlCredentialCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/GetKeyringSecretCommand.java`
+#### Snippet
+```java
+  @Override
+  public void run() throws Exception {
+    OutputStream out = outputPath != null ? new FileOutputStream(outputPath.toFile()) : System.out;
+    Security.addProvider(new BouncyCastleProvider());
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/google/registry/tools/GetHistoryEntriesCommand.java`
 #### Snippet
 ```java
@@ -16666,18 +16678,6 @@ in `core/src/main/java/google/registry/tools/UpdateAllocationTokensCommand.java`
     System.out.printf(
         "%s tokens: %s\n",
         dryRun ? "Would update" : "Updated",
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/GetKeyringSecretCommand.java`
-#### Snippet
-```java
-  @Override
-  public void run() throws Exception {
-    OutputStream out = outputPath != null ? new FileOutputStream(outputPath.toFile()) : System.out;
-    Security.addProvider(new BouncyCastleProvider());
-
 ```
 
 ### SystemOutErr
@@ -16729,78 +16729,6 @@ in `core/src/main/java/google/registry/tools/ConvertIdnCommand.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-            && domainsExpiringTooSoon.isEmpty());
-    if (foundInvalidDomains) {
-      System.err.print("Found domains that cannot be unrenewed for the following reasons:\n\n");
-    }
-    if (!domainsNonexistent.isEmpty()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-    }
-    if (!domainsNonexistent.isEmpty()) {
-      System.err.printf("Domains that don't exist: %s\n\n", domainsNonexistent);
-    }
-    if (!domainsDeleting.isEmpty()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-    }
-    if (!domainsDeleting.isEmpty()) {
-      System.err.printf("Domains that are deleted or pending delete: %s\n\n", domainsDeleting);
-    }
-    if (!domainsWithDisallowedStatuses.isEmpty()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-    }
-    if (!domainsWithDisallowedStatuses.isEmpty()) {
-      System.err.printf("Domains with disallowed statuses: %s\n\n", domainsWithDisallowedStatuses);
-    }
-    if (!domainsExpiringTooSoon.isEmpty()) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-    }
-    if (!domainsExpiringTooSoon.isEmpty()) {
-      System.err.printf("Domains expiring too soon: %s\n\n", domainsExpiringTooSoon);
-    }
-    checkArgument(!foundInvalidDomains, "Aborting because some domains cannot be unrenewed");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
-#### Snippet
-```java
-    for (String domainName : mainParameters) {
-      tm().transact(() -> unrenewDomain(domainName));
-      System.out.printf("Unrenewed %s\n", domainName);
-    }
-    return "Successfully unrenewed all domains.";
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `core/src/main/java/google/registry/tools/GetRoutingMapCommand.java`
 #### Snippet
@@ -16834,102 +16762,6 @@ in `core/src/main/java/google/registry/tools/HashCertificateCommand.java`
       System.out.println(getCertificateHash(loadCertificate(Paths.get(mainParameters.get(0)))));
     }
   }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
-#### Snippet
-```java
-    if (!cursorKeys.isEmpty()) {
-      String header = String.format(OUTPUT_FMT, "TLD", "Cursor Time", "Last Update Time");
-      System.out.printf("%s\n%s\n", header, Strings.repeat("-", header.length()));
-      cursorKeys.entrySet().stream()
-          .map(e -> renderLine(e.getKey(), Optional.ofNullable(cursors.get(e.getValue()))))
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
-#### Snippet
-```java
-          .map(e -> renderLine(e.getKey(), Optional.ofNullable(cursors.get(e.getValue()))))
-          .sorted()
-          .forEach(System.out::println);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ShellCommand.java`
-#### Snippet
-```java
-     */
-    private static void emitSuccess() {
-      System.out.println(SUCCESS);
-      System.out.flush();
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ShellCommand.java`
-#### Snippet
-```java
-    private static void emitSuccess() {
-      System.out.println(SUCCESS);
-      System.out.flush();
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ShellCommand.java`
-#### Snippet
-```java
-
-    private void encapsulatedRun(String[] args) throws Exception {
-      PrintStream orgOut = System.out;
-      PrintStream orgErr = System.err;
-      try (PrintStream newOut =
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ShellCommand.java`
-#### Snippet
-```java
-    private void encapsulatedRun(String[] args) throws Exception {
-      PrintStream orgOut = System.out;
-      PrintStream orgErr = System.err;
-      try (PrintStream newOut =
-              new PrintStream(new EncapsulatingOutputStream(System.out, "out: "));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ShellCommand.java`
-#### Snippet
-```java
-      PrintStream orgErr = System.err;
-      try (PrintStream newOut =
-              new PrintStream(new EncapsulatingOutputStream(System.out, "out: "));
-          PrintStream newErr =
-              new PrintStream(new EncapsulatingOutputStream(System.out, "err: "))) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/ShellCommand.java`
-#### Snippet
-```java
-              new PrintStream(new EncapsulatingOutputStream(System.out, "out: "));
-          PrintStream newErr =
-              new PrintStream(new EncapsulatingOutputStream(System.out, "err: "))) {
-        System.setOut(newOut);
-        System.setErr(newErr);
 ```
 
 ### SystemOutErr
@@ -17030,14 +16862,146 @@ in `core/src/main/java/google/registry/tools/ShellCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `core/src/main/java/google/registry/tools/GetRegistrarCommand.java`
+in `core/src/main/java/google/registry/tools/ShellCommand.java`
 #### Snippet
 ```java
-              "Registrar with id %s does not exist",
-              clientId);
-      System.out.println(registrar);
+
+    private void encapsulatedRun(String[] args) throws Exception {
+      PrintStream orgOut = System.out;
+      PrintStream orgErr = System.err;
+      try (PrintStream newOut =
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ShellCommand.java`
+#### Snippet
+```java
+    private void encapsulatedRun(String[] args) throws Exception {
+      PrintStream orgOut = System.out;
+      PrintStream orgErr = System.err;
+      try (PrintStream newOut =
+              new PrintStream(new EncapsulatingOutputStream(System.out, "out: "));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ShellCommand.java`
+#### Snippet
+```java
+      PrintStream orgErr = System.err;
+      try (PrintStream newOut =
+              new PrintStream(new EncapsulatingOutputStream(System.out, "out: "));
+          PrintStream newErr =
+              new PrintStream(new EncapsulatingOutputStream(System.out, "err: "))) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ShellCommand.java`
+#### Snippet
+```java
+              new PrintStream(new EncapsulatingOutputStream(System.out, "out: "));
+          PrintStream newErr =
+              new PrintStream(new EncapsulatingOutputStream(System.out, "err: "))) {
+        System.setOut(newOut);
+        System.setErr(newErr);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ShellCommand.java`
+#### Snippet
+```java
+     */
+    private static void emitSuccess() {
+      System.out.println(SUCCESS);
+      System.out.flush();
     }
-  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ShellCommand.java`
+#### Snippet
+```java
+    private static void emitSuccess() {
+      System.out.println(SUCCESS);
+      System.out.flush();
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+            && domainsExpiringTooSoon.isEmpty());
+    if (foundInvalidDomains) {
+      System.err.print("Found domains that cannot be unrenewed for the following reasons:\n\n");
+    }
+    if (!domainsNonexistent.isEmpty()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+    }
+    if (!domainsNonexistent.isEmpty()) {
+      System.err.printf("Domains that don't exist: %s\n\n", domainsNonexistent);
+    }
+    if (!domainsDeleting.isEmpty()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+    }
+    if (!domainsDeleting.isEmpty()) {
+      System.err.printf("Domains that are deleted or pending delete: %s\n\n", domainsDeleting);
+    }
+    if (!domainsWithDisallowedStatuses.isEmpty()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+    }
+    if (!domainsWithDisallowedStatuses.isEmpty()) {
+      System.err.printf("Domains with disallowed statuses: %s\n\n", domainsWithDisallowedStatuses);
+    }
+    if (!domainsExpiringTooSoon.isEmpty()) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+    }
+    if (!domainsExpiringTooSoon.isEmpty()) {
+      System.err.printf("Domains expiring too soon: %s\n\n", domainsExpiringTooSoon);
+    }
+    checkArgument(!foundInvalidDomains, "Aborting because some domains cannot be unrenewed");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/UnrenewDomainCommand.java`
+#### Snippet
+```java
+    for (String domainName : mainParameters) {
+      tm().transact(() -> unrenewDomain(domainName));
+      System.out.printf("Unrenewed %s\n", domainName);
+    }
+    return "Successfully unrenewed all domains.";
 ```
 
 ### SystemOutErr
@@ -17050,6 +17014,18 @@ in `core/src/main/java/google/registry/tools/GenerateLordnCommand.java`
     System.out.printf("%s[%s] ", domain.getDomainName(), status);
   }
 }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/GetRegistrarCommand.java`
+#### Snippet
+```java
+              "Registrar with id %s does not exist",
+              clientId);
+      System.out.println(registrar);
+    }
+  }
 ```
 
 ### SystemOutErr
@@ -17144,6 +17120,30 @@ in `core/src/main/java/google/registry/tools/GetAllocationTokenCommand.java`
         System.out.printf("ERROR: Token %s does not exist.\n", token);
       }
       System.out.println();
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
+#### Snippet
+```java
+    if (!cursorKeys.isEmpty()) {
+      String header = String.format(OUTPUT_FMT, "TLD", "Cursor Time", "Last Update Time");
+      System.out.printf("%s\n%s\n", header, Strings.repeat("-", header.length()));
+      cursorKeys.entrySet().stream()
+          .map(e -> renderLine(e.getKey(), Optional.ofNullable(cursors.get(e.getValue()))))
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `core/src/main/java/google/registry/tools/ListCursorsCommand.java`
+#### Snippet
+```java
+          .map(e -> renderLine(e.getKey(), Optional.ofNullable(cursors.get(e.getValue()))))
+          .sorted()
+          .forEach(System.out::println);
     }
   }
 ```
@@ -17246,42 +17246,6 @@ in `core/src/main/java/google/registry/tools/javascrap/CreateCancellationsForOne
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
-#### Snippet
-```java
-      // Complain if the user has also specified either --db_host or --db_port.
-      if (databaseHost != null || databasePort != null) {
-        System.err.println(DB_OPTIONS_CLASH);
-        // TODO: it would be nice to exit(1) here, but this breaks testability.
-        return false;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
-#### Snippet
-```java
-      databasePort = postgresContainer.getMappedPort(POSTGRESQL_PORT);
-    } else if (databaseHost == null) {
-      System.err.println(
-          "You must specify either --start_postgresql to start a PostgreSQL database in a\n"
-              + "docker instance, or specify --db_host (and, optionally, --db_port) to identify\n"
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `docs/src/main/java/google/registry/documentation/FlowDocumentationTool.java`
-#### Snippet
-```java
-    String output = docGenerator.generateMarkdown();
-    if (outputFileName.equals("-")) {
-      System.out.println(output);
-    } else {
-      if (outputFileName == null) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
 #### Snippet
 ```java
@@ -17314,6 +17278,42 @@ in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
         System.err.println("Error writing sql file: " + e);
         e.printStackTrace();
         System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `docs/src/main/java/google/registry/documentation/FlowDocumentationTool.java`
+#### Snippet
+```java
+    String output = docGenerator.generateMarkdown();
+    if (outputFileName.equals("-")) {
+      System.out.println(output);
+    } else {
+      if (outputFileName == null) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
+#### Snippet
+```java
+      // Complain if the user has also specified either --db_host or --db_port.
+      if (databaseHost != null || databasePort != null) {
+        System.err.println(DB_OPTIONS_CLASH);
+        // TODO: it would be nice to exit(1) here, but this breaks testability.
+        return false;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `core/src/nonprod/java/google/registry/tools/PostgresqlCommand.java`
+#### Snippet
+```java
+      databasePort = postgresContainer.getMappedPort(POSTGRESQL_PORT);
+    } else if (databaseHost == null) {
+      System.err.println(
+          "You must specify either --start_postgresql to start a PostgreSQL database in a\n"
+              + "docker instance, or specify --db_host (and, optionally, --db_port) to identify\n"
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -17367,18 +17367,6 @@ in `core/src/main/java/google/registry/xml/XmlTransformer.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/google/registry/batch/DeleteExpiredDomainsAction.java`
-#### Snippet
-```java
-                          true,
-                          deleteXmlTmpl
-                              .replace("%DOMAIN%", transDomain.getDomainName())
-                              .getBytes(UTF_8)));
-                });
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `core/src/main/java/google/registry/rdap/RdapJsonFormatter.java`
 #### Snippet
 ```java
@@ -17399,6 +17387,18 @@ in `core/src/main/java/google/registry/rdap/RdapJsonFormatter.java`
             .replace("%repoIdValue%", resourceVkey.getKey().toString());
     Iterable<HistoryEntry> historyEntries =
         replicaTm()
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/google/registry/batch/DeleteExpiredDomainsAction.java`
+#### Snippet
+```java
+                          true,
+                          deleteXmlTmpl
+                              .replace("%DOMAIN%", transDomain.getDomainName())
+                              .getBytes(UTF_8)));
+                });
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17466,6 +17466,18 @@ in `core/src/main/java/google/registry/model/ForeignKeyUtils.java`
 in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
 #### Snippet
 ```java
+  private String canonicalize(String rawLabel) {
+    try {
+      return canonicalizeHostname(rawLabel.replaceAll(" ", ""));
+    } catch (Exception e) {
+      System.err.printf("Error canonicalizing %s: %s\n", rawLabel, e.getMessage());
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
+#### Snippet
+```java
       if (!canonical.startsWith("xn--")) {
         // Using both "" and "-" to canonicalize labels.
         labels.add(canonicalize(label.replaceAll(" ", "")));
@@ -17507,18 +17519,6 @@ in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
         labels.add(canonicalize(label.replaceAll("_", "-")));
       }
     }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/google/registry/tools/CanonicalizeLabelsCommand.java`
-#### Snippet
-```java
-  private String canonicalize(String rawLabel) {
-    try {
-      return canonicalizeHostname(rawLabel.replaceAll(" ", ""));
-    } catch (Exception e) {
-      System.err.printf("Error canonicalizing %s: %s\n", rawLabel, e.getMessage());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17574,11 +17574,11 @@ in `core/src/main/java/google/registry/whois/WhoisMetrics.java`
 in `core/src/main/java/google/registry/whois/WhoisResponseImpl.java`
 #### Snippet
 ```java
-    /** Returns raw text that should be appended to the end of ALL WHOIS responses. */
-    E emitFooter(String disclaimer) {
-      stringBuilder.append(disclaimer.replaceAll("\r?\n", "\r\n").trim()).append("\r\n");
-      return thisCastToDerived();
+    /** Remove ASCII control characters like {@code \n} which could be used to forge output. */
+    private String cleanse(String value) {
+      return value.replaceAll("[\\x00-\\x1f]", " ");
     }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17586,11 +17586,11 @@ in `core/src/main/java/google/registry/whois/WhoisResponseImpl.java`
 in `core/src/main/java/google/registry/whois/WhoisResponseImpl.java`
 #### Snippet
 ```java
-    /** Remove ASCII control characters like {@code \n} which could be used to forge output. */
-    private String cleanse(String value) {
-      return value.replaceAll("[\\x00-\\x1f]", " ");
+    /** Returns raw text that should be appended to the end of ALL WHOIS responses. */
+    E emitFooter(String disclaimer) {
+      stringBuilder.append(disclaimer.replaceAll("\r?\n", "\r\n").trim()).append("\r\n");
+      return thisCastToDerived();
     }
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17786,15 +17786,15 @@ in `core/src/main/java/google/registry/monitoring/whitebox/EppMetric.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `docs/src/main/java/google/registry/documentation/FlowDocumentation.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `proxy/src/main/java/google/registry/proxy/ProxyConfig.java`
 #### Snippet
 ```java
-          String.format(
-              "%s/%s.java",
-              JavadocWrapper.SOURCE_PATH, getQualifiedName().replaceAll("\\.", "\\/"));
-      String unusedClassFileContent;
-      try {
+            ProxyConfig.class,
+            String.format(
+                CUSTOM_CONFIG_FORMATTER, Ascii.toLowerCase(env.name()).replace("_", "-")));
+    return getConfigSettings(defaultYaml, customYaml, ProxyConfig.class);
+  }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -17805,6 +17805,18 @@ in `util/src/main/java/google/registry/util/RegistrarUtils.java`
    */
   public static String normalizeRegistrarId(String registrarId) {
     return Ascii.toLowerCase(registrarId).replaceAll("[^a-z0-9\\-]", "");
+  }
+}
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `util/src/main/java/google/registry/util/AppEngineServiceUtilsImpl.java`
+#### Snippet
+```java
+      return hostname;
+    }
+    return matcher.group(1).replace(".", "-dot-") + ".appspot.com";
   }
 }
 ```
@@ -17822,40 +17834,40 @@ in `util/src/main/java/google/registry/util/AppEngineServiceUtilsImpl.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `util/src/main/java/google/registry/util/AppEngineServiceUtilsImpl.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `docs/src/main/java/google/registry/documentation/FlowDocumentation.java`
 #### Snippet
 ```java
-      return hostname;
-    }
-    return matcher.group(1).replace(".", "-dot-") + ".appspot.com";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `proxy/src/main/java/google/registry/proxy/ProxyConfig.java`
-#### Snippet
-```java
-            ProxyConfig.class,
-            String.format(
-                CUSTOM_CONFIG_FORMATTER, Ascii.toLowerCase(env.name()).replace("_", "-")));
-    return getConfigSettings(defaultYaml, customYaml, ProxyConfig.class);
-  }
+          String.format(
+              "%s/%s.java",
+              JavadocWrapper.SOURCE_PATH, getQualifiedName().replaceAll("\\.", "\\/"));
+      String unusedClassFileContent;
+      try {
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `core/src/main/java/google/registry/ui/package-info.java`
+in `core/src/main/java/google/registry/ui/server/package-info.java`
 #### Snippet
 ```java
 // limitations under the License.
 
 @javax.annotation.ParametersAreNonnullByDefault
-package google.registry.ui;
+package google.registry.ui.server;
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary, and can be replaced with an import
+in `common/src/main/java/google/registry/util/SystemSleeper.java`
+#### Snippet
+```java
+  public void sleepUninterruptibly(ReadableDuration duration) {
+    checkArgument(duration.getMillis() >= 0);
+    Uninterruptibles.sleepUninterruptibly(java.time.Duration.ofMillis(duration.getMillis()));
+  }
+}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -17872,13 +17884,13 @@ package google.registry.ui.forms;
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `core/src/main/java/google/registry/ui/server/package-info.java`
+in `core/src/main/java/google/registry/ui/package-info.java`
 #### Snippet
 ```java
 // limitations under the License.
 
 @javax.annotation.ParametersAreNonnullByDefault
-package google.registry.ui.server;
+package google.registry.ui;
 
 ```
 
@@ -17919,18 +17931,6 @@ package google.registry.xjc;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.xml.bind.annotation` is unnecessary and can be removed
-in `core/src/main/java/google/registry/xjc/XjcObject.java`
-#### Snippet
-```java
-   * Validates and streams {@code this} as formatted XML bytes with XML declaration.
-   *
-   * <p>This object must be annotated with {@link javax.xml.bind.annotation.XmlRootElement},
-   * otherwise you should call {@link #toString()}. This method will verify that your object
-   * strictly conforms to the schema defined in {@link XjcXmlTransformer}. Because the output is
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.jcraft.jsch` is unnecessary and can be removed
 in `core/src/main/java/google/registry/rde/JSchSshSession.java`
 #### Snippet
@@ -17955,6 +17955,18 @@ in `core/src/main/java/google/registry/rde/JSchSshSession.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.xml.bind.annotation` is unnecessary and can be removed
+in `core/src/main/java/google/registry/xjc/XjcObject.java`
+#### Snippet
+```java
+   * Validates and streams {@code this} as formatted XML bytes with XML declaration.
+   *
+   * <p>This object must be annotated with {@link javax.xml.bind.annotation.XmlRootElement},
+   * otherwise you should call {@link #toString()}. This method will verify that your object
+   * strictly conforms to the schema defined in {@link XjcXmlTransformer}. Because the output is
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
 in `core/src/main/java/google/registry/xml/package-info.java`
 #### Snippet
@@ -17964,6 +17976,30 @@ in `core/src/main/java/google/registry/xml/package-info.java`
 @javax.annotation.ParametersAreNonnullByDefault
 package google.registry.xml;
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `core/src/main/java/google/registry/rde/RdeUploadUrl.java`
+#### Snippet
+```java
+  }
+
+  /** @see java.net.URI#compareTo(java.net.URI) */
+  @Override
+  public int compareTo(RdeUploadUrl rhs) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `core/src/main/java/google/registry/rde/RdeUploadUrl.java`
+#### Snippet
+```java
+  }
+
+  /** @see java.net.URI#compareTo(java.net.URI) */
+  @Override
+  public int compareTo(RdeUploadUrl rhs) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18012,30 +18048,6 @@ in `core/src/main/java/google/registry/rde/RdeUploadUrl.java`
  * @see java.net.URI
  * @see RdeUploadAction
  */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `core/src/main/java/google/registry/rde/RdeUploadUrl.java`
-#### Snippet
-```java
-  }
-
-  /** @see java.net.URI#compareTo(java.net.URI) */
-  @Override
-  public int compareTo(RdeUploadUrl rhs) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `core/src/main/java/google/registry/rde/RdeUploadUrl.java`
-#### Snippet
-```java
-  }
-
-  /** @see java.net.URI#compareTo(java.net.URI) */
-  @Override
-  public int compareTo(RdeUploadUrl rhs) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18327,66 +18339,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainTransferApproveFlow.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.model.eppoutput` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
-#### Snippet
-```java
-   * A hook that runs before the response is returned.
-   *
-   * <p>This takes the {@link google.registry.model.eppoutput.Result.Code} and
-   * {@link ResponseExtension}s as input and returns them, potentially with modifications.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
-#### Snippet
-```java
- *
- * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
- * @error {@link google.registry.flows.ResourceFlowUtils.BadAuthInfoForResourceException}
- * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
- * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
-#### Snippet
-```java
- * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
- * @error {@link google.registry.flows.ResourceFlowUtils.BadAuthInfoForResourceException}
- * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
- * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
- * @error {@link google.registry.flows.exceptions.NotAuthorizedToViewTransferException}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows.exceptions` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
-#### Snippet
-```java
- * @error {@link google.registry.flows.ResourceFlowUtils.BadAuthInfoForResourceException}
- * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
- * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
- * @error {@link google.registry.flows.exceptions.NotAuthorizedToViewTransferException}
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows.exceptions` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
-#### Snippet
-```java
- * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
- * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
- * @error {@link google.registry.flows.exceptions.NotAuthorizedToViewTransferException}
- */
-@ReportingSpec(ActivityReportField.DOMAIN_TRANSFER_QUERY)
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `google.registry.flows.domain.token` is unnecessary and can be removed
 in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 #### Snippet
@@ -18483,6 +18435,66 @@ in `core/src/main/java/google/registry/flows/domain/DomainRenewFlow.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.model.eppoutput` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/custom/DomainDeleteFlowCustomLogic.java`
+#### Snippet
+```java
+   * A hook that runs before the response is returned.
+   *
+   * <p>This takes the {@link google.registry.model.eppoutput.Result.Code} and
+   * {@link ResponseExtension}s as input and returns them, potentially with modifications.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
+#### Snippet
+```java
+ *
+ * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
+ * @error {@link google.registry.flows.ResourceFlowUtils.BadAuthInfoForResourceException}
+ * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
+ * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
+#### Snippet
+```java
+ * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
+ * @error {@link google.registry.flows.ResourceFlowUtils.BadAuthInfoForResourceException}
+ * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
+ * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
+ * @error {@link google.registry.flows.exceptions.NotAuthorizedToViewTransferException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows.exceptions` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
+#### Snippet
+```java
+ * @error {@link google.registry.flows.ResourceFlowUtils.BadAuthInfoForResourceException}
+ * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
+ * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
+ * @error {@link google.registry.flows.exceptions.NotAuthorizedToViewTransferException}
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows.exceptions` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/domain/DomainTransferQueryFlow.java`
+#### Snippet
+```java
+ * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
+ * @error {@link google.registry.flows.exceptions.NoTransferHistoryToQueryException}
+ * @error {@link google.registry.flows.exceptions.NotAuthorizedToViewTransferException}
+ */
+@ReportingSpec(ActivityReportField.DOMAIN_TRANSFER_QUERY)
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `google.registry.flows` is unnecessary and can be removed
 in `core/src/main/java/google/registry/flows/domain/DomainUpdateFlow.java`
 #### Snippet
@@ -18492,6 +18504,18 @@ in `core/src/main/java/google/registry/flows/domain/DomainUpdateFlow.java`
  * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
  * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
  * @error {@link google.registry.flows.ResourceFlowUtils.AddRemoveSameValueException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/domain/DomainDeleteFlow.java`
+#### Snippet
+```java
+ * An EPP flow that deletes a domain.
+ *
+ * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
+ * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
+ * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18519,18 +18543,6 @@ in `core/src/main/java/google/registry/flows/contact/ContactTransferQueryFlow.ja
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/domain/DomainDeleteFlow.java`
-#### Snippet
-```java
- * An EPP flow that deletes a domain.
- *
- * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
- * @error {@link google.registry.flows.FlowUtils.NotLoggedInException}
- * @error {@link google.registry.flows.ResourceFlowUtils.ResourceDoesNotExistException}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `google.registry.flows.exceptions` is unnecessary and can be removed
 in `core/src/main/java/google/registry/flows/contact/ContactUpdateFlow.java`
 #### Snippet
@@ -18540,6 +18552,54 @@ in `core/src/main/java/google/registry/flows/contact/ContactUpdateFlow.java`
  * @error {@link google.registry.flows.exceptions.ResourceHasClientUpdateProhibitedException}
  * @error {@link google.registry.flows.exceptions.ResourceStatusProhibitsOperationException}
  * @error {@link ContactFlowUtils.BadInternationalizedPostalInfoException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
+#### Snippet
+```java
+ * An EPP flow for login.
+ *
+ * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
+ * @error {@link google.registry.flows.EppException.UnimplementedObjectServiceException}
+ * @error {@link google.registry.flows.EppException.UnimplementedProtocolVersionException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
+#### Snippet
+```java
+ *
+ * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
+ * @error {@link google.registry.flows.EppException.UnimplementedObjectServiceException}
+ * @error {@link google.registry.flows.EppException.UnimplementedProtocolVersionException}
+ * @error {@link google.registry.flows.TlsCredentials.BadRegistrarCertificateException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
+#### Snippet
+```java
+ * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
+ * @error {@link google.registry.flows.EppException.UnimplementedObjectServiceException}
+ * @error {@link google.registry.flows.EppException.UnimplementedProtocolVersionException}
+ * @error {@link google.registry.flows.TlsCredentials.BadRegistrarCertificateException}
+ * @error {@link google.registry.flows.TlsCredentials.BadRegistrarIpAddressException}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `google.registry.flows` is unnecessary and can be removed
+in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
+#### Snippet
+```java
+ * @error {@link google.registry.flows.TlsCredentials.BadRegistrarIpAddressException}
+ * @error {@link google.registry.flows.TlsCredentials.MissingRegistrarCertificateException}
+ * @error {@link google.registry.flows.TransportCredentials.BadRegistrarPasswordException}
+ * @error {@link LoginFlow.AlreadyLoggedInException}
+ * @error {@link BadRegistrarIdException}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18663,54 +18723,6 @@ in `core/src/main/java/google/registry/flows/domain/DomainCreateFlow.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
-#### Snippet
-```java
- * An EPP flow for login.
- *
- * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
- * @error {@link google.registry.flows.EppException.UnimplementedObjectServiceException}
- * @error {@link google.registry.flows.EppException.UnimplementedProtocolVersionException}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
-#### Snippet
-```java
- *
- * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
- * @error {@link google.registry.flows.EppException.UnimplementedObjectServiceException}
- * @error {@link google.registry.flows.EppException.UnimplementedProtocolVersionException}
- * @error {@link google.registry.flows.TlsCredentials.BadRegistrarCertificateException}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
-#### Snippet
-```java
- * @error {@link google.registry.flows.EppException.UnimplementedExtensionException}
- * @error {@link google.registry.flows.EppException.UnimplementedObjectServiceException}
- * @error {@link google.registry.flows.EppException.UnimplementedProtocolVersionException}
- * @error {@link google.registry.flows.TlsCredentials.BadRegistrarCertificateException}
- * @error {@link google.registry.flows.TlsCredentials.BadRegistrarIpAddressException}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `google.registry.flows` is unnecessary and can be removed
-in `core/src/main/java/google/registry/flows/session/LoginFlow.java`
-#### Snippet
-```java
- * @error {@link google.registry.flows.TlsCredentials.BadRegistrarIpAddressException}
- * @error {@link google.registry.flows.TlsCredentials.MissingRegistrarCertificateException}
- * @error {@link google.registry.flows.TransportCredentials.BadRegistrarPasswordException}
- * @error {@link LoginFlow.AlreadyLoggedInException}
- * @error {@link BadRegistrarIdException}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
 in `core/src/main/java/google/registry/model/tld/label/package-info.java`
 #### Snippet
@@ -18723,15 +18735,15 @@ package google.registry.model.tld.label;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.persistence` is unnecessary and can be removed
-in `core/src/main/java/google/registry/model/host/Host.java`
+Qualifier `javax.persistence` is unnecessary, and can be replaced with an import
+in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
 #### Snippet
 ```java
- * A persistable Host resource including mutable and non-mutable fields.
- *
- * <p>The {@link javax.persistence.Id} of the Host is the repoId.
- */
-@Entity(name = "Host")
+   * reservation type.
+   */
+  @javax.persistence.Entity(name = "ReservedEntry")
+  public static class ReservedListEntry extends DomainLabelEntry<ReservationType, ReservedListEntry>
+      implements Buildable, Serializable {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18747,15 +18759,15 @@ public final class ReservedList
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.persistence` is unnecessary, and can be replaced with an import
-in `core/src/main/java/google/registry/model/tld/label/ReservedList.java`
+Qualifier `javax.persistence` is unnecessary and can be removed
+in `core/src/main/java/google/registry/model/host/Host.java`
 #### Snippet
 ```java
-   * reservation type.
-   */
-  @javax.persistence.Entity(name = "ReservedEntry")
-  public static class ReservedListEntry extends DomainLabelEntry<ReservationType, ReservedListEntry>
-      implements Buildable, Serializable {
+ * A persistable Host resource including mutable and non-mutable fields.
+ *
+ * <p>The {@link javax.persistence.Id} of the Host is the repoId.
+ */
+@Entity(name = "Host")
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -18891,6 +18903,18 @@ package google.registry.export.sheet;
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
+in `core/src/main/java/google/registry/module/pubapi/package-info.java`
+#### Snippet
+```java
+// limitations under the License.
+
+@javax.annotation.ParametersAreNonnullByDefault
+package google.registry.module.pubapi;
+
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.time` is unnecessary, and can be replaced with an import
 in `core/src/main/java/google/registry/module/ServletBase.java`
 #### Snippet
@@ -18912,18 +18936,6 @@ in `core/src/main/java/google/registry/module/ServletBase.java`
                       .awaitTerminated(java.time.Duration.ofSeconds(10));
                   logger.atInfo().log("Shut down MetricReporter.");
                 } catch (TimeoutException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.annotation` is unnecessary, and can be replaced with an import
-in `core/src/main/java/google/registry/module/pubapi/package-info.java`
-#### Snippet
-```java
-// limitations under the License.
-
-@javax.annotation.ParametersAreNonnullByDefault
-package google.registry.module.pubapi;
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19071,6 +19083,42 @@ public class DateTimeConverter implements AttributeConverter<DateTime, Timestamp
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `io.netty.bootstrap` is unnecessary and can be removed
+in `prober/src/main/java/google/registry/monitoring/blackbox/ProberModule.java`
+#### Snippet
+```java
+  /**
+   * {@link Provides} one global {@link Channel} class that is used to construct a {@link
+   * io.netty.bootstrap.Bootstrap}.
+   */
+  @Provides
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary, and can be replaced with an import
+in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
+#### Snippet
+```java
+      MetricReporter metricReporter = proxyComponent.metricReporter();
+      try {
+        metricReporter.startAsync().awaitRunning(java.time.Duration.ofSeconds(10));
+        logger.atInfo().log("Started up MetricReporter.");
+      } catch (TimeoutException timeoutException) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary, and can be replaced with an import
+in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
+#### Snippet
+```java
+                  () -> {
+                    try {
+                      metricReporter.stopAsync().awaitTerminated(java.time.Duration.ofSeconds(10));
+                      logger.atInfo().log("Shut down MetricReporter.");
+                    } catch (TimeoutException timeoutException) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `google.registry.util` is unnecessary and can be removed
 in `util/src/main/java/google/registry/util/TransportEmailSender.java`
 #### Snippet
@@ -19101,7 +19149,7 @@ in `util/src/main/java/google/registry/util/ImprovedOutputStream.java`
 ```java
   }
 
-  /** @see java.io.FilterOutputStream#write(byte[], int, int) */
+  /** @see java.io.FilterOutputStream#write(int) */
   @Override
   @OverridingMethodsMustInvokeSuper
 ```
@@ -19113,7 +19161,7 @@ in `util/src/main/java/google/registry/util/ImprovedOutputStream.java`
 ```java
   }
 
-  /** @see java.io.FilterOutputStream#write(int) */
+  /** @see java.io.FilterOutputStream#write(byte[], int, int) */
   @Override
   @OverridingMethodsMustInvokeSuper
 ```
@@ -19131,15 +19179,15 @@ in `util/src/main/java/google/registry/util/ImprovedOutputStream.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `util/src/main/java/google/registry/util/TeeOutputStream.java`
+Qualifier `javax.mail` is unnecessary and can be removed
+in `util/src/main/java/google/registry/util/SendEmailService.java`
 #### Snippet
 ```java
-  }
 
-  /** @see java.io.OutputStream#write(byte[], int, int) */
-  @Override
-  public void write(byte[] b, int off, int len) throws IOException {
+  /**
+   * Converts the provided message content into a {@link javax.mail.Message} and sends it with retry
+   * on transient failures.
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -19155,63 +19203,15 @@ in `util/src/main/java/google/registry/util/TeeOutputStream.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.mail` is unnecessary and can be removed
-in `util/src/main/java/google/registry/util/SendEmailService.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `util/src/main/java/google/registry/util/TeeOutputStream.java`
 #### Snippet
 ```java
-
-  /**
-   * Converts the provided message content into a {@link javax.mail.Message} and sends it with retry
-   * on transient failures.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
-#### Snippet
-```java
-      MetricReporter metricReporter = proxyComponent.metricReporter();
-      try {
-        metricReporter.startAsync().awaitRunning(java.time.Duration.ofSeconds(10));
-        logger.atInfo().log("Started up MetricReporter.");
-      } catch (TimeoutException timeoutException) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `proxy/src/main/java/google/registry/proxy/ProxyServer.java`
-#### Snippet
-```java
-                  () -> {
-                    try {
-                      metricReporter.stopAsync().awaitTerminated(java.time.Duration.ofSeconds(10));
-                      logger.atInfo().log("Shut down MetricReporter.");
-                    } catch (TimeoutException timeoutException) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary, and can be replaced with an import
-in `common/src/main/java/google/registry/util/SystemSleeper.java`
-#### Snippet
-```java
-  public void sleepUninterruptibly(ReadableDuration duration) {
-    checkArgument(duration.getMillis() >= 0);
-    Uninterruptibles.sleepUninterruptibly(java.time.Duration.ofMillis(duration.getMillis()));
   }
-}
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `io.netty.bootstrap` is unnecessary and can be removed
-in `prober/src/main/java/google/registry/monitoring/blackbox/ProberModule.java`
-#### Snippet
-```java
-  /**
-   * {@link Provides} one global {@link Channel} class that is used to construct a {@link
-   * io.netty.bootstrap.Bootstrap}.
-   */
-  @Provides
+  /** @see java.io.OutputStream#write(byte[], int, int) */
+  @Override
+  public void write(byte[] b, int off, int len) throws IOException {
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -19253,13 +19253,13 @@ in `core/src/nonprod/java/google/registry/tools/GenerateSqlSchemaCommand.java`
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `RequiredParameterMissingException()` of an abstract class should not be declared 'public'
+Constructor `UnimplementedOptionException()` of an abstract class should not be declared 'public'
 in `core/src/main/java/google/registry/flows/EppException.java`
 #### Snippet
 ```java
-  @EppResultCode(Code.REQUIRED_PARAMETER_MISSING)
-  public abstract static class RequiredParameterMissingException extends EppException {
-    public RequiredParameterMissingException(String message) {
+  @EppResultCode(Code.UNIMPLEMENTED_OPTION)
+  public abstract static class UnimplementedOptionException extends EppException {
+    public UnimplementedOptionException(String message) {
       super(message);
     }
 ```
@@ -19277,50 +19277,14 @@ in `core/src/main/java/google/registry/flows/EppException.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SyntaxErrorException()` of an abstract class should not be declared 'public'
+Constructor `AuthorizationErrorException()` of an abstract class should not be declared 'public'
 in `core/src/main/java/google/registry/flows/EppException.java`
 #### Snippet
 ```java
-  @EppResultCode(Code.SYNTAX_ERROR)
-  public abstract static class SyntaxErrorException extends EppException {
-    public SyntaxErrorException(String message) {
+  @EppResultCode(Code.AUTHORIZATION_ERROR)
+  public abstract static class AuthorizationErrorException extends EppException {
+    public AuthorizationErrorException(String message) {
       super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ObjectAlreadyExistsException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.OBJECT_EXISTS)
-  public abstract static class ObjectAlreadyExistsException extends EppException {
-    public ObjectAlreadyExistsException(String message) {
-      super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthenticationErrorException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.AUTHENTICATION_ERROR)
-  public abstract static class AuthenticationErrorException extends EppException {
-    public AuthenticationErrorException(String message) {
-      super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ObjectNotPendingTransferException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.OBJECT_NOT_PENDING_TRANSFER)
-  public abstract static class ObjectNotPendingTransferException extends EppException {
-    public ObjectNotPendingTransferException(String id) {
-      super(String.format("Object with given ID (%s) does not have a pending transfer.", id));
     }
 ```
 
@@ -19337,50 +19301,26 @@ in `core/src/main/java/google/registry/flows/EppException.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AuthenticationErrorClosingConnectionException()` of an abstract class should not be declared 'public'
+Constructor `ObjectNotPendingTransferException()` of an abstract class should not be declared 'public'
 in `core/src/main/java/google/registry/flows/EppException.java`
 #### Snippet
 ```java
-  @EppResultCode(Code.AUTHENTICATION_ERROR_CLOSING_CONNECTION)
-  public abstract static class AuthenticationErrorClosingConnectionException extends EppException {
-    public AuthenticationErrorClosingConnectionException(String message) {
-      super(message);
+  @EppResultCode(Code.OBJECT_NOT_PENDING_TRANSFER)
+  public abstract static class ObjectNotPendingTransferException extends EppException {
+    public ObjectNotPendingTransferException(String id) {
+      super(String.format("Object with given ID (%s) does not have a pending transfer.", id));
     }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `UnimplementedOptionException()` of an abstract class should not be declared 'public'
+Constructor `RequiredParameterMissingException()` of an abstract class should not be declared 'public'
 in `core/src/main/java/google/registry/flows/EppException.java`
 #### Snippet
 ```java
-  @EppResultCode(Code.UNIMPLEMENTED_OPTION)
-  public abstract static class UnimplementedOptionException extends EppException {
-    public UnimplementedOptionException(String message) {
+  @EppResultCode(Code.REQUIRED_PARAMETER_MISSING)
+  public abstract static class RequiredParameterMissingException extends EppException {
+    public RequiredParameterMissingException(String message) {
       super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AssociationProhibitsOperationException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.ASSOCIATION_PROHIBITS_OPERATION)
-  public abstract static class AssociationProhibitsOperationException extends EppException {
-    public AssociationProhibitsOperationException(String message) {
-      super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ObjectPendingTransferException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.OBJECT_PENDING_TRANSFER)
-  public abstract static class ObjectPendingTransferException extends EppException {
-    public ObjectPendingTransferException(String id) {
-      super(String.format("Object with given ID (%s) already has a pending transfer.", id));
     }
 ```
 
@@ -19392,30 +19332,6 @@ in `core/src/main/java/google/registry/flows/EppException.java`
   @EppResultCode(Code.COMMAND_USE_ERROR)
   public abstract static class CommandUseErrorException extends EppException {
     public CommandUseErrorException(String message) {
-      super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthorizationErrorException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.AUTHORIZATION_ERROR)
-  public abstract static class AuthorizationErrorException extends EppException {
-    public AuthorizationErrorException(String message) {
-      super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ParameterValueRangeErrorException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.PARAMETER_VALUE_RANGE_ERROR)
-  public abstract static class ParameterValueRangeErrorException extends EppException {
-    public ParameterValueRangeErrorException(String message) {
       super(message);
     }
 ```
@@ -19433,6 +19349,54 @@ in `core/src/main/java/google/registry/flows/EppException.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `SyntaxErrorException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.SYNTAX_ERROR)
+  public abstract static class SyntaxErrorException extends EppException {
+    public SyntaxErrorException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ParameterValueRangeErrorException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.PARAMETER_VALUE_RANGE_ERROR)
+  public abstract static class ParameterValueRangeErrorException extends EppException {
+    public ParameterValueRangeErrorException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AssociationProhibitsOperationException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.ASSOCIATION_PROHIBITS_OPERATION)
+  public abstract static class AssociationProhibitsOperationException extends EppException {
+    public AssociationProhibitsOperationException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ObjectAlreadyExistsException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.OBJECT_EXISTS)
+  public abstract static class ObjectAlreadyExistsException extends EppException {
+    public ObjectAlreadyExistsException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `ParameterValueSyntaxErrorException()` of an abstract class should not be declared 'public'
 in `core/src/main/java/google/registry/flows/EppException.java`
 #### Snippet
@@ -19440,18 +19404,6 @@ in `core/src/main/java/google/registry/flows/EppException.java`
   @EppResultCode(Code.PARAMETER_VALUE_SYNTAX_ERROR)
   public abstract static class ParameterValueSyntaxErrorException extends EppException {
     public ParameterValueSyntaxErrorException(String message) {
-      super(message);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `StatusProhibitsOperationException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/flows/EppException.java`
-#### Snippet
-```java
-  @EppResultCode(Code.STATUS_PROHIBITS_OPERATION)
-  public abstract static class StatusProhibitsOperationException extends EppException {
-    public StatusProhibitsOperationException(String message) {
       super(message);
     }
 ```
@@ -19469,8 +19421,56 @@ in `core/src/main/java/google/registry/flows/EppException.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `ObjectPendingTransferException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.OBJECT_PENDING_TRANSFER)
+  public abstract static class ObjectPendingTransferException extends EppException {
+    public ObjectPendingTransferException(String id) {
+      super(String.format("Object with given ID (%s) already has a pending transfer.", id));
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `StatusProhibitsOperationException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.STATUS_PROHIBITS_OPERATION)
+  public abstract static class StatusProhibitsOperationException extends EppException {
+    public StatusProhibitsOperationException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AuthenticationErrorException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.AUTHENTICATION_ERROR)
+  public abstract static class AuthenticationErrorException extends EppException {
+    public AuthenticationErrorException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AuthenticationErrorClosingConnectionException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/google/registry/flows/EppException.java`
+#### Snippet
+```java
+  @EppResultCode(Code.AUTHENTICATION_ERROR_CLOSING_CONNECTION)
+  public abstract static class AuthenticationErrorClosingConnectionException extends EppException {
+    public AuthenticationErrorClosingConnectionException(String message) {
+      super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `Builder()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/model/tld/label/BaseDomainLabelList.java`
+in `core/src/main/java/google/registry/model/tld/label/DomainLabelEntry.java`
 #### Snippet
 ```java
       extends GenericBuilder<T, B> {
@@ -19482,7 +19482,7 @@ in `core/src/main/java/google/registry/model/tld/label/BaseDomainLabelList.java`
 
 ### NonProtectedConstructorInAbstractClass
 Constructor `Builder()` of an abstract class should not be declared 'public'
-in `core/src/main/java/google/registry/model/tld/label/DomainLabelEntry.java`
+in `core/src/main/java/google/registry/model/tld/label/BaseDomainLabelList.java`
 #### Snippet
 ```java
       extends GenericBuilder<T, B> {
@@ -19509,10 +19509,10 @@ Constructor `KeyValueMapParameter()` of an abstract class should not be declared
 in `core/src/main/java/google/registry/tools/params/KeyValueMapParameter.java`
 #### Snippet
 ```java
-  }
+    extends ParameterConverterValidator<ImmutableMap<K, V>> {
 
-  public KeyValueMapParameter() {
-    super("Not formatted correctly.");
+  public KeyValueMapParameter(String messageForInvalid) {
+    super(messageForInvalid);
   }
 ```
 
@@ -19521,10 +19521,10 @@ Constructor `KeyValueMapParameter()` of an abstract class should not be declared
 in `core/src/main/java/google/registry/tools/params/KeyValueMapParameter.java`
 #### Snippet
 ```java
-    extends ParameterConverterValidator<ImmutableMap<K, V>> {
+  }
 
-  public KeyValueMapParameter(String messageForInvalid) {
-    super(messageForInvalid);
+  public KeyValueMapParameter() {
+    super("Not formatted correctly.");
   }
 ```
 
@@ -19843,18 +19843,6 @@ in `core/src/main/java/google/registry/bigquery/BigqueryConnection.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `typeElement`
-in `docs/src/main/java/google/registry/documentation/FlowDocumentation.java`
-#### Snippet
-```java
-          return typeElement;
-        }
-        typeElement = superClassTypeElement;
-      }
-      // Failure; we reached the root without finding a subclass of EppException.
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `token`
 in `prober/src/main/java/google/registry/monitoring/blackbox/ProbingSequence.java`
 #### Snippet
@@ -19876,6 +19864,18 @@ in `util/src/main/java/google/registry/util/CloudTasksUtils.java`
         path = String.format("%s?%s", path, encodedParams);
       } else {
         requestBuilder
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `typeElement`
+in `docs/src/main/java/google/registry/documentation/FlowDocumentation.java`
+#### Snippet
+```java
+          return typeElement;
+        }
+        typeElement = superClassTypeElement;
+      }
+      // Failure; we reached the root without finding a subclass of EppException.
 ```
 
 ## RuleId[ruleID=UnnecessaryContinue]
@@ -19906,18 +19906,6 @@ in `core/src/main/java/google/registry/ui/forms/FormFields.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/dns/DnsWriterProxy.java`
-#### Snippet
-```java
-      logger.atWarning().log(
-          "Loaded potentially stale DNS writer %s which is not active on TLD %s.", className, tld);
-      return null;
-    }
-    DnsWriter dnsWriter = dnsWriters.get(className);
-```
-
-### ReturnNull
-Return of `null`
 in `core/src/main/java/google/registry/ui/server/SendEmailUtils.java`
 #### Snippet
 ```java
@@ -19930,14 +19918,14 @@ in `core/src/main/java/google/registry/ui/server/SendEmailUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
+in `core/src/main/java/google/registry/dns/DnsWriterProxy.java`
 #### Snippet
 ```java
-  private static CidrAddressBlock parseCidr(String input) {
-    try {
-      return input != null ? CidrAddressBlock.create(input) : null;
-    } catch (IllegalArgumentException e) {
-      throw new FormFieldException("Not a valid CIDR notation IP-address block.", e);
+      logger.atWarning().log(
+          "Loaded potentially stale DNS writer %s which is not active on TLD %s.", className, tld);
+      return null;
+    }
+    DnsWriter dnsWriter = dnsWriters.get(className);
 ```
 
 ### ReturnNull
@@ -19954,14 +19942,14 @@ in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
+in `core/src/main/java/google/registry/ui/server/RegistrarFormFields.java`
 #### Snippet
 ```java
-          String.format(
-              "Could not parse email contact %s to send DNS failure notification", email));
-      return null;
-    }
-  }
+  private static CidrAddressBlock parseCidr(String input) {
+    try {
+      return input != null ? CidrAddressBlock.create(input) : null;
+    } catch (IllegalArgumentException e) {
+      throw new FormFieldException("Not a valid CIDR notation IP-address block.", e);
 ```
 
 ### ReturnNull
@@ -19971,7 +19959,7 @@ in `core/src/main/java/google/registry/ui/forms/FormField.java`
 ```java
           (Function<O, String>)
               ((Function<String, String>)
-                  input -> input != null ? input.toUpperCase(Locale.ENGLISH) : null);
+                  input -> input != null ? input.toLowerCase(Locale.ENGLISH) : null);
       return transform(String.class, funk);
     }
 ```
@@ -20019,9 +20007,21 @@ in `core/src/main/java/google/registry/ui/forms/FormField.java`
 ```java
           (Function<O, String>)
               ((Function<String, String>)
-                  input -> input != null ? input.toLowerCase(Locale.ENGLISH) : null);
+                  input -> input != null ? input.toUpperCase(Locale.ENGLISH) : null);
       return transform(String.class, funk);
     }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/dns/PublishDnsUpdatesAction.java`
+#### Snippet
+```java
+          String.format(
+              "Could not parse email contact %s to send DNS failure notification", email));
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -20038,18 +20038,6 @@ in `core/src/main/java/google/registry/batch/WipeOutCloudSqlAction.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
-#### Snippet
-```java
-                    return new ResourceDoesNotExistException(resourceClass, targetId);
-                  }
-                  return isLinked(key, now) ? new ResourceToDeleteIsReferencedException() : null;
-                });
-    if (failfastException != null) {
-```
-
-### ReturnNull
-Return of `null`
 in `core/src/main/java/google/registry/flows/TlsCredentials.java`
 #### Snippet
 ```java
@@ -20062,26 +20050,14 @@ in `core/src/main/java/google/registry/flows/TlsCredentials.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
+in `core/src/main/java/google/registry/flows/ResourceFlowUtils.java`
 #### Snippet
 ```java
-      return resourceCommand != null && innerCommand instanceof Transfer
-          ? transferFlows.get(resourceCommand.getClass(), ((Transfer) innerCommand).getTransferOp())
-          : null;
-    }};
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
-#### Snippet
-```java
-    Class<? extends Flow> get(
-        EppInput eppInput, InnerCommand innerCommand, ResourceCommand resourceCommand) {
-      return resourceCommand == null ? null : resourceCrudFlows.get(resourceCommand.getClass());
-    }};
-
+                    return new ResourceDoesNotExistException(resourceClass, targetId);
+                  }
+                  return isLinked(key, now) ? new ResourceToDeleteIsReferencedException() : null;
+                });
+    if (failfastException != null) {
 ```
 
 ### ReturnNull
@@ -20113,11 +20089,11 @@ Return of `null`
 in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
 #### Snippet
 ```java
+    Class<? extends Flow> get(
         EppInput eppInput, InnerCommand innerCommand, ResourceCommand resourceCommand) {
-      if (!(innerCommand instanceof Poll)) {
-        return null;
-      }
-      switch (((Poll) innerCommand).getPollOp()) {
+      return resourceCommand == null ? null : resourceCrudFlows.get(resourceCommand.getClass());
+    }};
+
 ```
 
 ### ReturnNull
@@ -20125,9 +20101,9 @@ Return of `null`
 in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
 #### Snippet
 ```java
-    Class<? extends Flow> get(
-        EppInput eppInput, InnerCommand innerCommand, ResourceCommand resourceCommand) {
-      return eppInput.getCommandWrapper() instanceof Hello ? HelloFlow.class : null;
+      return resourceCommand != null && innerCommand instanceof Transfer
+          ? transferFlows.get(resourceCommand.getClass(), ((Transfer) innerCommand).getTransferOp())
+          : null;
     }};
 
 ```
@@ -20170,6 +20146,30 @@ in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
 
 ### ReturnNull
 Return of `null`
+in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
+#### Snippet
+```java
+    Class<? extends Flow> get(
+        EppInput eppInput, InnerCommand innerCommand, ResourceCommand resourceCommand) {
+      return eppInput.getCommandWrapper() instanceof Hello ? HelloFlow.class : null;
+    }};
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/flows/picker/FlowPicker.java`
+#### Snippet
+```java
+        EppInput eppInput, InnerCommand innerCommand, ResourceCommand resourceCommand) {
+      if (!(innerCommand instanceof Poll)) {
+        return null;
+      }
+      switch (((Poll) innerCommand).getPollOp()) {
+```
+
+### ReturnNull
+Return of `null`
 in `core/src/main/java/google/registry/model/EppResourceUtils.java`
 #### Snippet
 ```java
@@ -20206,18 +20206,6 @@ in `core/src/main/java/google/registry/model/EppResourceUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/model/ModelUtils.java`
-#### Snippet
-```java
-        || (obj instanceof Map && ((Map<?, ?>) obj).isEmpty())
-        || (obj.getClass().isArray() && Array.getLength(obj) == 0)) {
-      return null;
-    }
-    Predicate<Object> immutableObjectOrNull = or(isNull(), instanceOf(ImmutableObject.class));
-```
-
-### ReturnNull
-Return of `null`
 in `core/src/main/java/google/registry/model/ImmutableObject.java`
 #### Snippet
 ```java
@@ -20230,14 +20218,14 @@ in `core/src/main/java/google/registry/model/ImmutableObject.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/model/domain/DomainCommand.java`
+in `core/src/main/java/google/registry/model/ModelUtils.java`
 #### Snippet
 ```java
-      Set<ForeignKeyedDesignatedContact> contacts, DateTime now) throws InvalidReferencesException {
-    if (contacts == null) {
+        || (obj instanceof Map && ((Map<?, ?>) obj).isEmpty())
+        || (obj.getClass().isArray() && Array.getLength(obj) == 0)) {
       return null;
     }
-    ImmutableSet.Builder<String> foreignKeys = new ImmutableSet.Builder<>();
+    Predicate<Object> immutableObjectOrNull = or(isNull(), instanceOf(ImmutableObject.class));
 ```
 
 ### ReturnNull
@@ -20250,6 +20238,18 @@ in `core/src/main/java/google/registry/model/domain/DomainCommand.java`
       return null;
     }
     return ImmutableSet.copyOf(loadByForeignKeysCached(hostNames, Host.class, now).values());
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/model/domain/DomainCommand.java`
+#### Snippet
+```java
+      Set<ForeignKeyedDesignatedContact> contacts, DateTime now) throws InvalidReferencesException {
+    if (contacts == null) {
+      return null;
+    }
+    ImmutableSet.Builder<String> foreignKeys = new ImmutableSet.Builder<>();
 ```
 
 ### ReturnNull
@@ -20438,10 +20438,10 @@ in `core/src/main/java/google/registry/persistence/converter/LocalDateConverter.
 #### Snippet
 ```java
   @Override
-  public Date convertToDatabaseColumn(LocalDate attribute) {
-    return attribute == null ? null : DateTimeUtils.toSqlDate(attribute);
+  public LocalDate convertToEntityAttribute(Date dbData) {
+    return dbData == null ? null : DateTimeUtils.toLocalDate(dbData);
   }
-
+}
 ```
 
 ### ReturnNull
@@ -20450,10 +20450,82 @@ in `core/src/main/java/google/registry/persistence/converter/LocalDateConverter.
 #### Snippet
 ```java
   @Override
-  public LocalDate convertToEntityAttribute(Date dbData) {
-    return dbData == null ? null : DateTimeUtils.toLocalDate(dbData);
+  public Date convertToDatabaseColumn(LocalDate attribute) {
+    return attribute == null ? null : DateTimeUtils.toSqlDate(attribute);
   }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/StringCollectionDescriptor.java`
+#### Snippet
+```java
+  public <X> StringCollection wrap(X value, WrapperOptions options) {
+    if (value == null) {
+      return null;
+    }
+    if (value instanceof Array) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/StringCollectionDescriptor.java`
+#### Snippet
+```java
+  public <X> X unwrap(StringCollection value, Class<X> type, WrapperOptions options) {
+    if (value == null) {
+      return null;
+    }
+    if (Collection.class.isAssignableFrom(type)) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/StringSetConverterBase.java`
+#### Snippet
+```java
+  public StringCollection convertToDatabaseColumn(Set<T> attribute) {
+    return attribute == null
+        ? null
+        : StringCollection.create(attribute.stream().map(this::toString).collect(toImmutableSet()));
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/StringSetConverterBase.java`
+#### Snippet
+```java
+  public Set<T> convertToEntityAttribute(StringCollection dbData) {
+    return dbData == null || dbData.getCollection() == null
+        ? null
+        : dbData.getCollection().stream().map(this::fromString).collect(toImmutableSet());
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/IntervalDescriptor.java`
+#### Snippet
+```java
+  public <X> X unwrap(PGInterval value, Class<X> type, WrapperOptions options) {
+    if (value == null) {
+      return null;
+    }
+    if (PGInterval.class.isAssignableFrom(type)) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/IntervalDescriptor.java`
+#### Snippet
+```java
+  public <X> PGInterval wrap(X value, WrapperOptions options) {
+    if (value == null) {
+      return null;
+    }
+    if (value instanceof PGInterval) {
 ```
 
 ### ReturnNull
@@ -20482,30 +20554,6 @@ in `core/src/main/java/google/registry/persistence/converter/StringMapConverterB
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/StringSetConverterBase.java`
-#### Snippet
-```java
-  public Set<T> convertToEntityAttribute(StringCollection dbData) {
-    return dbData == null || dbData.getCollection() == null
-        ? null
-        : dbData.getCollection().stream().map(this::fromString).collect(toImmutableSet());
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/StringSetConverterBase.java`
-#### Snippet
-```java
-  public StringCollection convertToDatabaseColumn(Set<T> attribute) {
-    return attribute == null
-        ? null
-        : StringCollection.create(attribute.stream().map(this::toString).collect(toImmutableSet()));
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `core/src/main/java/google/registry/privileges/secretmanager/SecretManagerClientImpl.java`
 #### Snippet
 ```java
@@ -20514,66 +20562,6 @@ in `core/src/main/java/google/registry/privileges/secretmanager/SecretManagerCli
           return null;
         });
   }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/IntervalDescriptor.java`
-#### Snippet
-```java
-  public <X> PGInterval wrap(X value, WrapperOptions options) {
-    if (value == null) {
-      return null;
-    }
-    if (value instanceof PGInterval) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/IntervalDescriptor.java`
-#### Snippet
-```java
-  public <X> X unwrap(PGInterval value, Class<X> type, WrapperOptions options) {
-    if (value == null) {
-      return null;
-    }
-    if (PGInterval.class.isAssignableFrom(type)) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/StringCollectionDescriptor.java`
-#### Snippet
-```java
-  public <X> X unwrap(StringCollection value, Class<X> type, WrapperOptions options) {
-    if (value == null) {
-      return null;
-    }
-    if (Collection.class.isAssignableFrom(type)) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/StringCollectionDescriptor.java`
-#### Snippet
-```java
-  public <X> StringCollection wrap(X value, WrapperOptions options) {
-    if (value == null) {
-      return null;
-    }
-    if (value instanceof Array) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/converter/StringMapDescriptor.java`
-#### Snippet
-```java
-      private Map<String, String> getStringMap(X value) {
-        if (value == null) {
-          return null;
-        }
-        if (value instanceof StringMap) {
 ```
 
 ### ReturnNull
@@ -20593,6 +20581,18 @@ Return of `null`
 in `core/src/main/java/google/registry/persistence/converter/StringMapDescriptor.java`
 #### Snippet
 ```java
+      private Map<String, String> getStringMap(X value) {
+        if (value == null) {
+          return null;
+        }
+        if (value instanceof StringMap) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/converter/StringMapDescriptor.java`
+#### Snippet
+```java
   public <X> StringMap wrap(X value, WrapperOptions options) {
     if (value == null) {
       return null;
@@ -20602,50 +20602,14 @@ in `core/src/main/java/google/registry/persistence/converter/StringMapDescriptor
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+in `prober/src/main/java/google/registry/monitoring/blackbox/message/EppMessage.java`
 #### Snippet
 ```java
-        () -> {
-          work.run();
-          return null;
-        });
+    } catch (XPathExpressionException e) {
+      logger.atSevere().withCause(e).log("Bad expression: %s", expression);
+      return null;
+    }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
-#### Snippet
-```java
-        () -> {
-          work.run();
-          return null;
-        });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-  /** Defensive copy helper for {@link Set}. */
-  public static <V> ImmutableSet<V> nullSafeImmutableCopy(@Nullable Set<V> data) {
-    return data == null ? null : ImmutableSet.copyOf(data);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `util/src/main/java/google/registry/util/CollectionUtils.java`
-#### Snippet
-```java
-  /** Defensive copy helper for {@link List}. */
-  public static <V> ImmutableList<V> nullSafeImmutableCopy(@Nullable List<V> data) {
-    return data == null ? null : ImmutableList.copyOf(data);
-  }
-
 ```
 
 ### ReturnNull
@@ -20662,14 +20626,50 @@ in `proxy/src/main/java/google/registry/proxy/handler/ProxyProtocolHandler.java`
 
 ### ReturnNull
 Return of `null`
-in `prober/src/main/java/google/registry/monitoring/blackbox/message/EppMessage.java`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
 #### Snippet
 ```java
-    } catch (XPathExpressionException e) {
-      logger.atSevere().withCause(e).log("Bad expression: %s", expression);
-      return null;
-    }
+        () -> {
+          work.run();
+          return null;
+        });
   }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/google/registry/persistence/transaction/JpaTransactionManagerImpl.java`
+#### Snippet
+```java
+        () -> {
+          work.run();
+          return null;
+        });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+  /** Defensive copy helper for {@link List}. */
+  public static <V> ImmutableList<V> nullSafeImmutableCopy(@Nullable List<V> data) {
+    return data == null ? null : ImmutableList.copyOf(data);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `util/src/main/java/google/registry/util/CollectionUtils.java`
+#### Snippet
+```java
+  /** Defensive copy helper for {@link Set}. */
+  public static <V> ImmutableSet<V> nullSafeImmutableCopy(@Nullable Set<V> data) {
+    return data == null ? null : ImmutableSet.copyOf(data);
+  }
+
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -20714,6 +20714,66 @@ in `common/src/testing/java/google/registry/testing/truth/TextDiffSubject.java`
 ## RuleId[ruleID=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/dns/DnsQueue.java`
+#### Snippet
+```java
+  // "If you generate more than 10 LeaseTasks requests per second, only the first 10 requests will
+  // return results. The others will return no results."
+  private static final RateLimiter rateLimiter = RateLimiter.create(9);
+
+  @Inject
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/dns/DnsQueue.java`
+#### Snippet
+```java
+  // "If you generate more than 10 LeaseTasks requests per second, only the first 10 requests will
+  // return results. The others will return no results."
+  private static final RateLimiter rateLimiter = RateLimiter.create(9);
+
+  @Inject
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `core/src/main/java/google/registry/dns/DnsQueue.java`
+#### Snippet
+```java
+  // "If you generate more than 10 LeaseTasks requests per second, only the first 10 requests will
+  // return results. The others will return no results."
+  private static final RateLimiter rateLimiter = RateLimiter.create(9);
+
+  @Inject
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/dns/DnsQueue.java`
+#### Snippet
+```java
+ * Methods for manipulating the queue used for DNS write tasks.
+ *
+ * <p>This includes a {@link RateLimiter} to limit the {@link Queue#leaseTasks} call rate to 9 QPS,
+ * to stay under the 10 QPS limit for this function.
+ *
+```
+
+### UnstableApiUsage
+'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `core/src/main/java/google/registry/dns/DnsQueue.java`
+#### Snippet
+```java
+  public List<TaskHandle> leaseTasks(Duration leaseDuration) {
+    try {
+      rateLimiter.acquire();
+      int numTasks = queue.fetchStatistics().getNumTasks();
+      logger.at((numTasks >= leaseTasksBatchSize) ? Level.WARNING : Level.INFO).log(
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriterModule.java`
 #### Snippet
 ```java
@@ -20749,66 +20809,6 @@ in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriterModule.
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/dns/DnsQueue.java`
-#### Snippet
-```java
-  // "If you generate more than 10 LeaseTasks requests per second, only the first 10 requests will
-  // return results. The others will return no results."
-  private static final RateLimiter rateLimiter = RateLimiter.create(9);
-
-  @Inject
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/dns/DnsQueue.java`
-#### Snippet
-```java
-  // "If you generate more than 10 LeaseTasks requests per second, only the first 10 requests will
-  // return results. The others will return no results."
-  private static final RateLimiter rateLimiter = RateLimiter.create(9);
-
-  @Inject
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `core/src/main/java/google/registry/dns/DnsQueue.java`
-#### Snippet
-```java
-  // "If you generate more than 10 LeaseTasks requests per second, only the first 10 requests will
-  // return results. The others will return no results."
-  private static final RateLimiter rateLimiter = RateLimiter.create(9);
-
-  @Inject
-```
-
-### UnstableApiUsage
-'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `core/src/main/java/google/registry/dns/DnsQueue.java`
-#### Snippet
-```java
-  public List<TaskHandle> leaseTasks(Duration leaseDuration) {
-    try {
-      rateLimiter.acquire();
-      int numTasks = queue.fetchStatistics().getNumTasks();
-      logger.at((numTasks >= leaseTasksBatchSize) ? Level.WARNING : Level.INFO).log(
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/dns/DnsQueue.java`
-#### Snippet
-```java
- * Methods for manipulating the queue used for DNS write tasks.
- *
- * <p>This includes a {@link RateLimiter} to limit the {@link Queue#leaseTasks} call rate to 9 QPS,
- * to stay under the 10 QPS limit for this function.
- *
-```
-
-### UnstableApiUsage
 'readFully(java.io.InputStream, byte\[\], int, int)' is marked unstable with @Beta
 in `core/src/main/java/google/registry/rde/RydeTar.java`
 #### Snippet
@@ -20833,18 +20833,6 @@ in `core/src/main/java/google/registry/rde/RydeTar.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
-#### Snippet
-```java
-
-  private final Clock clock;
-  private final RateLimiter rateLimiter;
-  private final int numThreads;
-  // TODO(shikhman): This uses @Named("transientFailureRetries") which may not be tuned for this
-```
-
-### UnstableApiUsage
 'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
 in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
 #### Snippet
@@ -20854,18 +20842,6 @@ in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
     return ImmutableMap.copyOf(
         Concurrent.transform(
             domainNames,
-```
-
-### UnstableApiUsage
-'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
-#### Snippet
-```java
-            .setDeletions(ImmutableList.copyOf(Sets.difference(deletions, intersection)));
-
-    rateLimiter.acquire();
-    try {
-      dnsConnection.changes().create(projectId, zoneName, change).execute();
 ```
 
 ### UnstableApiUsage
@@ -20885,83 +20861,35 @@ in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
 in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
 #### Snippet
 ```java
+            .setDeletions(ImmutableList.copyOf(Sets.difference(deletions, intersection)));
+
+    rateLimiter.acquire();
+    try {
+      dnsConnection.changes().create(projectId, zoneName, change).execute();
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
+#### Snippet
+```java
+
+  private final Clock clock;
+  private final RateLimiter rateLimiter;
+  private final int numThreads;
+  // TODO(shikhman): This uses @Named("transientFailureRetries") which may not be tuned for this
+```
+
+### UnstableApiUsage
+'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `core/src/main/java/google/registry/dns/writer/clouddns/CloudDnsWriter.java`
+#### Snippet
+```java
           dnsConnection.resourceRecordSets().list(projectId, zoneName).setName(domainName);
 
       rateLimiter.acquire();
       return listRecordsRequest.execute().getRrsets();
     } catch (IOException e) {
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `core/src/main/java/google/registry/rde/Ghostryde.java`
-#### Snippet
-```java
-
-    // We use a Closer to handle the stream .close, to make sure it's done correctly.
-    Closer closer = Closer.create();
-    InputStream decryptionLayer =
-        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `core/src/main/java/google/registry/rde/Ghostryde.java`
-#### Snippet
-```java
-
-    // We use a Closer to handle the stream .close, to make sure it's done correctly.
-    Closer closer = Closer.create();
-    InputStream decryptionLayer =
-        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
-```
-
-### UnstableApiUsage
-'create()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `core/src/main/java/google/registry/rde/Ghostryde.java`
-#### Snippet
-```java
-
-    // We use a Closer to handle the stream .close, to make sure it's done correctly.
-    Closer closer = Closer.create();
-    InputStream decryptionLayer =
-        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `core/src/main/java/google/registry/rde/Ghostryde.java`
-#### Snippet
-```java
-    Closer closer = Closer.create();
-    InputStream decryptionLayer =
-        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
-    InputStream decompressor = closer.register(openDecompressor(decryptionLayer));
-    InputStream fileLayer = closer.register(openPgpFileReader(decompressor));
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `core/src/main/java/google/registry/rde/Ghostryde.java`
-#### Snippet
-```java
-    InputStream decryptionLayer =
-        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
-    InputStream decompressor = closer.register(openDecompressor(decryptionLayer));
-    InputStream fileLayer = closer.register(openPgpFileReader(decompressor));
-
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `core/src/main/java/google/registry/rde/Ghostryde.java`
-#### Snippet
-```java
-        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
-    InputStream decompressor = closer.register(openDecompressor(decryptionLayer));
-    InputStream fileLayer = closer.register(openPgpFileReader(decompressor));
-
-    return new ImprovedInputStream("GhostryderDecoder", fileLayer) {
 ```
 
 ### UnstableApiUsage
@@ -21061,6 +20989,78 @@ in `core/src/main/java/google/registry/rde/Ghostryde.java`
 ```
 
 ### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `core/src/main/java/google/registry/rde/Ghostryde.java`
+#### Snippet
+```java
+
+    // We use a Closer to handle the stream .close, to make sure it's done correctly.
+    Closer closer = Closer.create();
+    InputStream decryptionLayer =
+        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `core/src/main/java/google/registry/rde/Ghostryde.java`
+#### Snippet
+```java
+
+    // We use a Closer to handle the stream .close, to make sure it's done correctly.
+    Closer closer = Closer.create();
+    InputStream decryptionLayer =
+        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
+```
+
+### UnstableApiUsage
+'create()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `core/src/main/java/google/registry/rde/Ghostryde.java`
+#### Snippet
+```java
+
+    // We use a Closer to handle the stream .close, to make sure it's done correctly.
+    Closer closer = Closer.create();
+    InputStream decryptionLayer =
+        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `core/src/main/java/google/registry/rde/Ghostryde.java`
+#### Snippet
+```java
+    Closer closer = Closer.create();
+    InputStream decryptionLayer =
+        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
+    InputStream decompressor = closer.register(openDecompressor(decryptionLayer));
+    InputStream fileLayer = closer.register(openPgpFileReader(decompressor));
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `core/src/main/java/google/registry/rde/Ghostryde.java`
+#### Snippet
+```java
+    InputStream decryptionLayer =
+        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
+    InputStream decompressor = closer.register(openDecompressor(decryptionLayer));
+    InputStream fileLayer = closer.register(openPgpFileReader(decompressor));
+
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `core/src/main/java/google/registry/rde/Ghostryde.java`
+#### Snippet
+```java
+        closer.register(openDecryptor(input, GHOSTRYDE_USE_INTEGRITY_PACKET, decryptionKey));
+    InputStream decompressor = closer.register(openDecompressor(decryptionLayer));
+    InputStream fileLayer = closer.register(openPgpFileReader(decompressor));
+
+    return new ImprovedInputStream("GhostryderDecoder", fileLayer) {
+```
+
+### UnstableApiUsage
 'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
 in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
 #### Snippet
@@ -21070,6 +21070,54 @@ in `core/src/main/java/google/registry/dns/ReadDnsQueueAction.java`
         Map<String, String> params = ImmutableMap.copyOf(task.extractParams());
         DateTime creationTime = DateTime.parse(params.get(DNS_TARGET_CREATE_TIME_PARAM));
         String tld = params.get(PARAM_TLD);
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `core/src/main/java/google/registry/rde/RydeEncoder.java`
+#### Snippet
+```java
+    }
+    // Close all the streams we opened
+    closer.close();
+    isClosed = true;
+    try {
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `core/src/main/java/google/registry/rde/RydeEncoder.java`
+#### Snippet
+```java
+  private final RydePgpSigningOutputStream signer;
+  // We use a Closer to handle the stream .close, to make sure it's done correctly.
+  private final Closer closer = Closer.create();
+  private boolean isClosed = false;
+
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `core/src/main/java/google/registry/rde/RydeEncoder.java`
+#### Snippet
+```java
+  private final RydePgpSigningOutputStream signer;
+  // We use a Closer to handle the stream .close, to make sure it's done correctly.
+  private final Closer closer = Closer.create();
+  private boolean isClosed = false;
+
+```
+
+### UnstableApiUsage
+'create()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `core/src/main/java/google/registry/rde/RydeEncoder.java`
+#### Snippet
+```java
+  private final RydePgpSigningOutputStream signer;
+  // We use a Closer to handle the stream .close, to make sure it's done correctly.
+  private final Closer closer = Closer.create();
+  private boolean isClosed = false;
+
 ```
 
 ### UnstableApiUsage
@@ -21130,54 +21178,6 @@ in `core/src/main/java/google/registry/rde/RydeEncoder.java`
         closer.register(openTarWriter(fileLayer, dataLength, filenamePrefix + ".xml", modified));
   }
 
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `core/src/main/java/google/registry/rde/RydeEncoder.java`
-#### Snippet
-```java
-  private final RydePgpSigningOutputStream signer;
-  // We use a Closer to handle the stream .close, to make sure it's done correctly.
-  private final Closer closer = Closer.create();
-  private boolean isClosed = false;
-
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `core/src/main/java/google/registry/rde/RydeEncoder.java`
-#### Snippet
-```java
-  private final RydePgpSigningOutputStream signer;
-  // We use a Closer to handle the stream .close, to make sure it's done correctly.
-  private final Closer closer = Closer.create();
-  private boolean isClosed = false;
-
-```
-
-### UnstableApiUsage
-'create()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `core/src/main/java/google/registry/rde/RydeEncoder.java`
-#### Snippet
-```java
-  private final RydePgpSigningOutputStream signer;
-  // We use a Closer to handle the stream .close, to make sure it's done correctly.
-  private final Closer closer = Closer.create();
-  private boolean isClosed = false;
-
-```
-
-### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `core/src/main/java/google/registry/rde/RydeEncoder.java`
-#### Snippet
-```java
-    }
-    // Close all the streams we opened
-    closer.close();
-    isClosed = true;
-    try {
 ```
 
 ### UnstableApiUsage
@@ -21305,6 +21305,18 @@ in `core/src/main/java/google/registry/model/tld/label/PremiumListDao.java`
 in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
 #### Snippet
 ```java
+
+  @Column(nullable = false)
+  BloomFilter<String> bloomFilter;
+
+  /** Returns the {@link CurrencyUnit} used for this list. */
+```
+
+### UnstableApiUsage
+'com.google.common.hash.BloomFilter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
+#### Snippet
+```java
         // punycoded.
         getInstance().bloomFilter =
             BloomFilter.create(stringFunnel(US_ASCII), getInstance().labelsToPrices.size());
@@ -21346,18 +21358,6 @@ in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
             .forEach(label -> getInstance().bloomFilter.put(label));
       }
       return super.build();
-```
-
-### UnstableApiUsage
-'com.google.common.hash.BloomFilter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/model/tld/label/PremiumList.java`
-#### Snippet
-```java
-
-  @Column(nullable = false)
-  BloomFilter<String> bloomFilter;
-
-  /** Returns the {@link CurrencyUnit} used for this list. */
 ```
 
 ### UnstableApiUsage
@@ -21421,15 +21421,15 @@ in `core/src/main/java/google/registry/tools/SetupOteCommand.java`
 ```
 
 ### UnstableApiUsage
-'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
-in `core/src/main/java/google/registry/tools/GenerateAllocationTokensCommand.java`
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `core/src/main/java/google/registry/tools/params/DateTimeParameter.java`
 #### Snippet
 ```java
-              .omitEmptyStrings()
-              .trimResults()
-              .splitToStream(Files.asCharSource(new File(domainNamesFile), UTF_8).read())
-              .map(DomainNameUtils::canonicalizeHostname)
-              .collect(Collectors.toCollection(ArrayDeque::new));
+  @Override
+  public DateTime convert(String value) {
+    Long millis = Longs.tryParse(value);
+    if (millis != null) {
+      return new DateTime(millis.longValue(), UTC);
 ```
 
 ### UnstableApiUsage
@@ -21457,15 +21457,15 @@ in `core/src/main/java/google/registry/tools/params/KeyValueMapParameter.java`
 ```
 
 ### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `core/src/main/java/google/registry/tools/params/DateTimeParameter.java`
+'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
+in `core/src/main/java/google/registry/tools/GenerateAllocationTokensCommand.java`
 #### Snippet
 ```java
-  @Override
-  public DateTime convert(String value) {
-    Long millis = Longs.tryParse(value);
-    if (millis != null) {
-      return new DateTime(millis.longValue(), UTC);
+              .omitEmptyStrings()
+              .trimResults()
+              .splitToStream(Files.asCharSource(new File(domainNamesFile), UTF_8).read())
+              .map(DomainNameUtils::canonicalizeHostname)
+              .collect(Collectors.toCollection(ArrayDeque::new));
 ```
 
 ### UnstableApiUsage
@@ -21490,18 +21490,6 @@ in `core/src/main/java/google/registry/reporting/spec11/Spec11RegistrarThreatMat
           .splitToStream(CharStreams.toString(isr))
           .skip(1)
           .map(this::parseRegistrarThreatMatch)
-```
-
-### UnstableApiUsage
-'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `core/src/main/java/google/registry/bigquery/BigqueryConnection.java`
-#### Snippet
-```java
-    // Tracking bug for query-to-GCS support is b/13777340.
-    DestinationTable tempTable = buildTemporaryTable().build();
-    return transformAsync(
-        startQuery(querySql, tempTable),
-        tempTable1 -> extractTable(tempTable1, destinationUri, destinationFormat, printHeader),
 ```
 
 ### UnstableApiUsage
@@ -21550,6 +21538,18 @@ in `core/src/main/java/google/registry/bigquery/BigqueryConnection.java`
     return transform(runJobToCompletion(job, dest), this::updateTable, directExecutor());
   }
 
+```
+
+### UnstableApiUsage
+'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `core/src/main/java/google/registry/bigquery/BigqueryConnection.java`
+#### Snippet
+```java
+    // Tracking bug for query-to-GCS support is b/13777340.
+    DestinationTable tempTable = buildTemporaryTable().build();
+    return transformAsync(
+        startQuery(querySql, tempTable),
+        tempTable1 -> extractTable(tempTable1, destinationUri, destinationFormat, printHeader),
 ```
 
 ### UnstableApiUsage
@@ -21653,11 +21653,23 @@ in `core/src/main/java/google/registry/tldconfig/idn/JapaneseLanguageValidator.j
 in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 #### Snippet
 ```java
-      URI url,
-      URI policy,
-      ImmutableRangeSet<Integer> validCodepoints,
-      Optional<LanguageValidator> languageValidator) {
-    this.name = name;
+  private final URI policy;
+
+  /** {@link ImmutableRangeSet} containing the valid codepoints in this table. */
+  private final ImmutableRangeSet<Integer> validCodepoints;
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
+#### Snippet
+```java
+
+  /** {@link ImmutableRangeSet} containing the valid codepoints in this table. */
+  private final ImmutableRangeSet<Integer> validCodepoints;
+
+  /** Validates the language rules associated with this IDN table. */
 ```
 
 ### UnstableApiUsage
@@ -21749,23 +21761,11 @@ in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
 #### Snippet
 ```java
-  private final URI policy;
-
-  /** {@link ImmutableRangeSet} containing the valid codepoints in this table. */
-  private final ImmutableRangeSet<Integer> validCodepoints;
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `core/src/main/java/google/registry/tldconfig/idn/IdnTable.java`
-#### Snippet
-```java
-
-  /** {@link ImmutableRangeSet} containing the valid codepoints in this table. */
-  private final ImmutableRangeSet<Integer> validCodepoints;
-
-  /** Validates the language rules associated with this IDN table. */
+      URI url,
+      URI policy,
+      ImmutableRangeSet<Integer> validCodepoints,
+      Optional<LanguageValidator> languageValidator) {
+    this.name = name;
 ```
 
 ### UnstableApiUsage
@@ -21790,54 +21790,6 @@ in `core/src/main/java/google/registry/persistence/VKey.java`
             Splitter.on(DELIMITER).withKeyValueSeparator(KV_SEPARATOR).split(keyString));
     String classString = kvs.get(CLASS_TYPE);
     if (classString == null) {
-```
-
-### UnstableApiUsage
-'com.google.common.hash.BloomFilter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
-#### Snippet
-```java
-  @Override
-  @Nullable
-  public byte[] convertToDatabaseColumn(@Nullable BloomFilter<String> entity) {
-    if (entity == null) {
-      return null;
-```
-
-### UnstableApiUsage
-'writeTo(java.io.OutputStream)' is declared in unstable class 'com.google.common.hash.BloomFilter' marked with @Beta
-in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
-#### Snippet
-```java
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    try {
-      entity.writeTo(bos);
-    } catch (IOException e) {
-      throw new UncheckedIOException("Error saving Bloom filter data", e);
-```
-
-### UnstableApiUsage
-'com.google.common.hash.BloomFilter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
-#### Snippet
-```java
-import javax.persistence.Converter;
-
-/** JPA converter for ASCII String {@link BloomFilter}s. */
-@Converter(autoApply = true)
-public class BloomFilterConverter implements AttributeConverter<BloomFilter<String>, byte[]> {
-```
-
-### UnstableApiUsage
-'com.google.common.hash.BloomFilter' is marked unstable with @Beta
-in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
-#### Snippet
-```java
-/** JPA converter for ASCII String {@link BloomFilter}s. */
-@Converter(autoApply = true)
-public class BloomFilterConverter implements AttributeConverter<BloomFilter<String>, byte[]> {
-
-  @Override
 ```
 
 ### UnstableApiUsage
@@ -21886,6 +21838,54 @@ in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverte
       return BloomFilter.readFrom(new ByteArrayInputStream(columnValue), stringFunnel(US_ASCII));
     } catch (IOException e) {
       throw new UncheckedIOException("Error loading Bloom filter data", e);
+```
+
+### UnstableApiUsage
+'com.google.common.hash.BloomFilter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
+#### Snippet
+```java
+  @Override
+  @Nullable
+  public byte[] convertToDatabaseColumn(@Nullable BloomFilter<String> entity) {
+    if (entity == null) {
+      return null;
+```
+
+### UnstableApiUsage
+'writeTo(java.io.OutputStream)' is declared in unstable class 'com.google.common.hash.BloomFilter' marked with @Beta
+in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
+#### Snippet
+```java
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    try {
+      entity.writeTo(bos);
+    } catch (IOException e) {
+      throw new UncheckedIOException("Error saving Bloom filter data", e);
+```
+
+### UnstableApiUsage
+'com.google.common.hash.BloomFilter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
+#### Snippet
+```java
+import javax.persistence.Converter;
+
+/** JPA converter for ASCII String {@link BloomFilter}s. */
+@Converter(autoApply = true)
+public class BloomFilterConverter implements AttributeConverter<BloomFilter<String>, byte[]> {
+```
+
+### UnstableApiUsage
+'com.google.common.hash.BloomFilter' is marked unstable with @Beta
+in `core/src/main/java/google/registry/persistence/converter/BloomFilterConverter.java`
+#### Snippet
+```java
+/** JPA converter for ASCII String {@link BloomFilter}s. */
+@Converter(autoApply = true)
+public class BloomFilterConverter implements AttributeConverter<BloomFilter<String>, byte[]> {
+
+  @Override
 ```
 
 ### UnstableApiUsage
