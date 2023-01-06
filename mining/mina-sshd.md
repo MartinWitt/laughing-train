@@ -1,7 +1,7 @@
 # mina-sshd 
  
 # Bad smells
-I found 1694 bad smells with 60 repairable:
+I found 1695 bad smells with 60 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 549 | false |
@@ -82,9 +82,10 @@ I found 1694 bad smells with 60 repairable:
 | SuspiciousInvocationHandlerImplementation | 1 | false |
 | EqualsBetweenInconvertibleTypes | 1 | false |
 | InstanceofIncompatibleInterface | 1 | false |
-| RedundantStreamOptionalCall | 1 | false |
 | DefaultAnnotationParam | 1 | false |
+| RedundantStreamOptionalCall | 1 | false |
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
 | MismatchedJavadocCode | 1 | false |
 | NestedSynchronizedStatement | 1 | false |
@@ -95,6 +96,42 @@ I found 1694 bad smells with 60 repairable:
 | WaitNotInLoop | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[values.size()\]'
+in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+#### Snippet
+```java
+        }
+
+        return values.toArray(new String[values.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[names.size()\]'
+in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
+#### Snippet
+```java
+        }
+
+        return names.toArray(new String[names.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new DirEntry\[result.size()\]'
+in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
+#### Snippet
+```java
+        }
+
+        return result.toArray(new DirEntry[result.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[effective.size()\]'
 in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
 #### Snippet
@@ -102,42 +139,6 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
         }
 
         return effective.toArray(new String[effective.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new FileAttribute\[fileAttributes.size()\]'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
-#### Snippet
-```java
-        FileAttribute<?>[] fileAttrs = GenericUtils.isEmpty(fileAttributes)
-                ? IoUtils.EMPTY_FILE_ATTRIBUTES
-                : fileAttributes.toArray(new FileAttribute<?>[fileAttributes.size()]);
-
-        SftpFileSystemAccessor accessor = subsystem.getFileSystemAccessor();
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new CopyOption\[opts.size()\]'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java`
-#### Snippet
-```java
-                GenericUtils.isEmpty(opts)
-                        ? IoUtils.EMPTY_COPY_OPTIONS
-                        : opts.toArray(new CopyOption[opts.size()]));
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new CopyOption\[opts.size()\]'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java`
-#### Snippet
-```java
-                GenericUtils.isEmpty(opts)
-                        ? IoUtils.EMPTY_COPY_OPTIONS
-                        : opts.toArray(new CopyOption[opts.size()]));
     }
 
 ```
@@ -179,39 +180,39 @@ in `sshd-git/src/main/java/org/apache/sshd/git/pack/GitPackCommand.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[values.size()\]'
-in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+Call to `toArray()` with pre-sized array argument 'new CopyOption\[opts.size()\]'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java`
 #### Snippet
 ```java
-        }
-
-        return values.toArray(new String[values.size()]);
+                GenericUtils.isEmpty(opts)
+                        ? IoUtils.EMPTY_COPY_OPTIONS
+                        : opts.toArray(new CopyOption[opts.size()]));
     }
 
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new DirEntry\[result.size()\]'
-in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
+Call to `toArray()` with pre-sized array argument 'new CopyOption\[opts.size()\]'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java`
 #### Snippet
 ```java
-        }
-
-        return result.toArray(new DirEntry[result.size()]);
+                GenericUtils.isEmpty(opts)
+                        ? IoUtils.EMPTY_COPY_OPTIONS
+                        : opts.toArray(new CopyOption[opts.size()]));
     }
 
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[names.size()\]'
-in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
+Call to `toArray()` with pre-sized array argument 'new FileAttribute\[fileAttributes.size()\]'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
 #### Snippet
 ```java
-        }
+        FileAttribute<?>[] fileAttrs = GenericUtils.isEmpty(fileAttributes)
+                ? IoUtils.EMPTY_FILE_ATTRIBUTES
+                : fileAttributes.toArray(new FileAttribute<?>[fileAttributes.size()]);
 
-        return names.toArray(new String[names.size()]);
-    }
-
+        SftpFileSystemAccessor accessor = subsystem.getFileSystemAccessor();
 ```
 
 ## RuleId[ruleID=Finalize]
@@ -293,12 +294,12 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper
 ## RuleId[ruleID=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519PublicKeyDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/EdDSASecurityProviderUtils.java`
 #### Snippet
 ```java
-            throws IOException, GeneralSecurityException {
-        byte[] seed = KeyEntryResolver.readRLEBytes(keyData, MAX_ALLOWED_SEED_LEN);
-        return EdDSAPublicKey.class.cast(SecurityUtils.generateEDDSAPublicKey(keyType, seed));
+        EdDSAPublicKeySpec keySpec = new EdDSAPublicKeySpec(prvKey.getAbyte(), prvKey.getParams());
+        KeyFactory factory = SecurityUtils.getKeyFactory(SecurityUtils.EDDSA);
+        return EdDSAPublicKey.class.cast(factory.generatePublic(keySpec));
     }
 
 ```
@@ -317,12 +318,12 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/EdDSASecurityProviderUtils.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519PublicKeyDecoder.java`
 #### Snippet
 ```java
-        EdDSAPublicKeySpec keySpec = new EdDSAPublicKeySpec(prvKey.getAbyte(), prvKey.getParams());
-        KeyFactory factory = SecurityUtils.getKeyFactory(SecurityUtils.EDDSA);
-        return EdDSAPublicKey.class.cast(factory.generatePublic(keySpec));
+            throws IOException, GeneralSecurityException {
+        byte[] seed = KeyEntryResolver.readRLEBytes(keyData, MAX_ALLOWED_SEED_LEN);
+        return EdDSAPublicKey.class.cast(SecurityUtils.generateEDDSAPublicKey(keyType, seed));
     }
 
 ```
@@ -344,6 +345,78 @@ Redundant call to `cast()`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 #### Snippet
 ```java
+    public static boolean compareKeys(PrivateKey k1, PrivateKey k2) {
+        if ((k1 instanceof RSAPrivateKey) && (k2 instanceof RSAPrivateKey)) {
+            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
+            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static boolean compareKeys(PrivateKey k1, PrivateKey k2) {
+        if ((k1 instanceof RSAPrivateKey) && (k2 instanceof RSAPrivateKey)) {
+            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
+            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
+            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
+            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
+            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
+            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
+            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
+        } else if ((k1 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k1.getAlgorithm())
+                && (k2 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k2.getAlgorithm())) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
+        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
+            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
+        } else if ((k1 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k1.getAlgorithm())
+                && (k2 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k2.getAlgorithm())) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
     public static boolean compareKeys(PublicKey k1, PublicKey k2) {
         if ((k1 instanceof RSAPublicKey) && (k2 instanceof RSAPublicKey)) {
             return compareRSAKeys(RSAPublicKey.class.cast(k1), RSAPublicKey.class.cast(k2));
@@ -481,78 +554,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
             return compareOpenSSHCertificateKeys(OpenSshCertificate.class.cast(k1), OpenSshCertificate.class.cast(k2));
         } else {
             return false; // either key is null or not of same class
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static boolean compareKeys(PrivateKey k1, PrivateKey k2) {
-        if ((k1 instanceof RSAPrivateKey) && (k2 instanceof RSAPrivateKey)) {
-            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
-            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static boolean compareKeys(PrivateKey k1, PrivateKey k2) {
-        if ((k1 instanceof RSAPrivateKey) && (k2 instanceof RSAPrivateKey)) {
-            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
-            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
-            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
-            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-            return compareRSAKeys(RSAPrivateKey.class.cast(k1), RSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof DSAPrivateKey) && (k2 instanceof DSAPrivateKey)) {
-            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
-            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
-            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
-        } else if ((k1 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k1.getAlgorithm())
-                && (k2 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k2.getAlgorithm())) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-            return compareDSAKeys(DSAPrivateKey.class.cast(k1), DSAPrivateKey.class.cast(k2));
-        } else if ((k1 instanceof ECPrivateKey) && (k2 instanceof ECPrivateKey)) {
-            return compareECKeys(ECPrivateKey.class.cast(k1), ECPrivateKey.class.cast(k2));
-        } else if ((k1 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k1.getAlgorithm())
-                && (k2 != null) && SecurityUtils.EDDSA.equalsIgnoreCase(k2.getAlgorithm())) {
 ```
 
 ## RuleId[ruleID=WaitWhileHoldingTwoLocks]
@@ -595,6 +596,54 @@ in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BaseFileSystem.ja
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
+C-style array declaration of local variable `rnd`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+  public static String gensalt(int log_rounds, SecureRandom random) {
+      StringBuffer rs = new StringBuffer();
+      byte rnd[] = new byte[BCRYPT_SALT_LEN];
+
+      random.nextBytes(rnd);
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `key`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+   * @param key   an array containing the key
+   */
+  private void key(byte key[]) {
+      int i;
+      int koffp[] = { 0 };
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `koffp`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+  private void key(byte key[]) {
+      int i;
+      int koffp[] = { 0 };
+      int lr[] = { 0, 0 };
+      int plen = P.length, slen = S.length;
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `lr`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+      int i;
+      int koffp[] = { 0 };
+      int lr[] = { 0, 0 };
+      int plen = P.length, slen = S.length;
+
+```
+
+### CStyleArrayDeclaration
 C-style array declaration of field `base64_code`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
@@ -604,6 +653,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
   static private final char base64_code[] = {
       '.', '/', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
       'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `S`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+  // Expanded Blowfish key
+  private int P[];
+  private int S[];
+
+  /**
 ```
 
 ### CStyleArrayDeclaration
@@ -655,51 +716,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of parameter `key`
+C-style array declaration of local variable `ret`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
-   * @param key   an array containing the key
-   */
-  private void key(byte key[]) {
-      int i;
-      int koffp[] = { 0 };
-```
+      StringBuffer rs = new StringBuffer();
+      int off = 0, slen = s.length(), olen = 0;
+      byte ret[];
+      byte c1, c2, c3, c4, o;
 
-### CStyleArrayDeclaration
-C-style array declaration of local variable `koffp`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-  private void key(byte key[]) {
-      int i;
-      int koffp[] = { 0 };
-      int lr[] = { 0, 0 };
-      int plen = P.length, slen = S.length;
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `lr`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-      int i;
-      int koffp[] = { 0 };
-      int lr[] = { 0, 0 };
-      int plen = P.length, slen = S.length;
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of parameter `d`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-   * @exception IllegalArgumentException if the length is invalid
-   */
-  private static String encode_base64(byte d[], int len)
-      throws IllegalArgumentException {
-      int off = 0;
 ```
 
 ### CStyleArrayDeclaration
@@ -763,6 +788,78 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 ```
 
 ### CStyleArrayDeclaration
+C-style array declaration of field `bf_crypt_ciphertext`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+  // this "ciphertext", but it is really plaintext or an IV. We keep
+  // the name to make code comparison easier.
+  static private final int bf_crypt_ciphertext[] = {
+      0x4f727068, 0x65616e42, 0x65686f6c,
+      0x64657253, 0x63727944, 0x6f756274
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `S_orig`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+      0x9216d5d9, 0x8979fb1b
+  };
+  private static final int S_orig[] = {
+      0xd1310ba6, 0x98dfb5ac, 0x2ffd72db, 0xd01adfb7,
+      0xb8e1afed, 0x6a267e96, 0xba7c9045, 0xf12c7f99,
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `lr`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+   * @param off   the position in the array of the blocks
+   */
+  private final void encipher(int lr[], int off) {
+      int i, n, l = lr[off], r = lr[off + 1];
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `hashed_bytes`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+   */
+  public static boolean checkpw(String plaintext, String hashed) {
+      byte hashed_bytes[];
+      byte try_bytes[];
+      try {
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `try_bytes`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+  public static boolean checkpw(String plaintext, String hashed) {
+      byte hashed_bytes[];
+      byte try_bytes[];
+      try {
+          String try_pw = hashpw(plaintext, hashed);
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `P`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+
+  // Expanded Blowfish key
+  private int P[];
+  private int S[];
+
+```
+
+### CStyleArrayDeclaration
 C-style array declaration of parameter `data`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
@@ -823,87 +920,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `S`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-  // Expanded Blowfish key
-  private int P[];
-  private int S[];
-
-  /**
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `hashed_bytes`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-   */
-  public static boolean checkpw(String plaintext, String hashed) {
-      byte hashed_bytes[];
-      byte try_bytes[];
-      try {
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `try_bytes`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-  public static boolean checkpw(String plaintext, String hashed) {
-      byte hashed_bytes[];
-      byte try_bytes[];
-      try {
-          String try_pw = hashpw(plaintext, hashed);
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `P`
+C-style array declaration of field `P_orig`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
 
-  // Expanded Blowfish key
-  private int P[];
-  private int S[];
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `bf_crypt_ciphertext`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-  // this "ciphertext", but it is really plaintext or an IV. We keep
-  // the name to make code comparison easier.
-  static private final int bf_crypt_ciphertext[] = {
-      0x4f727068, 0x65616e42, 0x65686f6c,
-      0x64657253, 0x63727944, 0x6f756274
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `rnd`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-  public static String gensalt(int log_rounds, SecureRandom random) {
-      StringBuffer rs = new StringBuffer();
-      byte rnd[] = new byte[BCRYPT_SALT_LEN];
-
-      random.nextBytes(rnd);
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of parameter `lr`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-   * @param off   the position in the array of the blocks
-   */
-  private final void encipher(int lr[], int off) {
-      int i, n, l = lr[off], r = lr[off + 1];
-
+  // Initial contents of key schedule
+  private static final int P_orig[] = {
+      0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344,
+      0xa4093822, 0x299f31d0, 0x082efa98, 0xec4e6c89,
 ```
 
 ### CStyleArrayDeclaration
@@ -919,39 +944,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `S_orig`
+C-style array declaration of parameter `d`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
-      0x9216d5d9, 0x8979fb1b
-  };
-  private static final int S_orig[] = {
-      0xd1310ba6, 0x98dfb5ac, 0x2ffd72db, 0xd01adfb7,
-      0xb8e1afed, 0x6a267e96, 0xba7c9045, 0xf12c7f99,
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `P_orig`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-
-  // Initial contents of key schedule
-  private static final int P_orig[] = {
-      0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344,
-      0xa4093822, 0x299f31d0, 0x082efa98, 0xec4e6c89,
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `ret`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-      StringBuffer rs = new StringBuffer();
-      int off = 0, slen = s.length(), olen = 0;
-      byte ret[];
-      byte c1, c2, c3, c4, o;
-
+   * @exception IllegalArgumentException if the length is invalid
+   */
+  private static String encode_base64(byte d[], int len)
+      throws IllegalArgumentException {
+      int off = 0;
 ```
 
 ## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
@@ -1031,6 +1032,78 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHel
 ```
 
 ## RuleId[ruleID=UnnecessaryQualifierForThis]
+### UnnecessaryQualifierForThis
+Qualifier `NettyIoSession` on 'this' is unnecessary in this context
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+
+    protected void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        handler.exceptionCaught(NettyIoSession.this, cause);
+    }
+
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `NettyIoSession` on 'this' is unnecessary in this context
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+        service.sessions.remove(id);
+        try {
+            handler.sessionClosed(NettyIoSession.this);
+        } catch (MissingAttachedSessionException e) {
+            // handler.sessionClosed() is supposed to close the attached SSH session. If there isn't one,
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `NettyIoSession` on 'this' is unnecessary in this context
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+        Channel channel = ctx.channel();
+        service.channelGroup.add(channel);
+        service.sessions.put(id, NettyIoSession.this);
+        prev = context.newPromise().setSuccess();
+        remoteAddr = channel.remoteAddress();
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `NettyIoSession` on 'this' is unnecessary in this context
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+        IoConnectFuture future = connectFuture.get();
+        try {
+            handler.sessionCreated(NettyIoSession.this);
+            if (future != null) {
+                future.setSession(NettyIoSession.this);
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `NettyIoSession` on 'this' is unnecessary in this context
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+            handler.sessionCreated(NettyIoSession.this);
+            if (future != null) {
+                future.setSession(NettyIoSession.this);
+            }
+        } catch (Throwable e) {
+```
+
+### UnnecessaryQualifierForThis
+Qualifier `NettyIoSession` on 'this' is unnecessary in this context
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+
+    protected void channelRead(ChannelHandlerContext ctx, Readable msg) throws Exception {
+        handler.messageReceived(NettyIoSession.this, msg);
+    }
+
+```
+
 ### UnnecessaryQualifierForThis
 Qualifier `AgentServerProxy` on 'this' is unnecessary in this context
 in `sshd-core/src/main/java/org/apache/sshd/agent/unix/AgentServerProxy.java`
@@ -1199,78 +1272,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper
                 }
 ```
 
-### UnnecessaryQualifierForThis
-Qualifier `NettyIoSession` on 'this' is unnecessary in this context
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-        Channel channel = ctx.channel();
-        service.channelGroup.add(channel);
-        service.sessions.put(id, NettyIoSession.this);
-        prev = context.newPromise().setSuccess();
-        remoteAddr = channel.remoteAddress();
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `NettyIoSession` on 'this' is unnecessary in this context
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-        IoConnectFuture future = connectFuture.get();
-        try {
-            handler.sessionCreated(NettyIoSession.this);
-            if (future != null) {
-                future.setSession(NettyIoSession.this);
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `NettyIoSession` on 'this' is unnecessary in this context
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-            handler.sessionCreated(NettyIoSession.this);
-            if (future != null) {
-                future.setSession(NettyIoSession.this);
-            }
-        } catch (Throwable e) {
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `NettyIoSession` on 'this' is unnecessary in this context
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-
-    protected void channelRead(ChannelHandlerContext ctx, Readable msg) throws Exception {
-        handler.messageReceived(NettyIoSession.this, msg);
-    }
-
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `NettyIoSession` on 'this' is unnecessary in this context
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-
-    protected void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        handler.exceptionCaught(NettyIoSession.this, cause);
-    }
-
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `NettyIoSession` on 'this' is unnecessary in this context
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-        service.sessions.remove(id);
-        try {
-            handler.sessionClosed(NettyIoSession.this);
-        } catch (MissingAttachedSessionException e) {
-            // handler.sessionClosed() is supposed to close the attached SSH session. If there isn't one,
-```
-
 ## RuleId[ruleID=FinalPrivateMethod]
 ### FinalPrivateMethod
 'private' method declared `final`
@@ -1286,32 +1287,8 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 
 ## RuleId[ruleID=OctalLiteral]
 ### OctalLiteral
-Octal integer `0002000`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-    public static final int S_IFIFO = 0010000; // fifo
-    public static final int S_ISUID = 0004000; // set UID bit
-    public static final int S_ISGID = 0002000; // set GID bit
-    public static final int S_ISVTX = 0001000; // sticky bit
-    public static final int S_IRUSR = 0000400;
-```
-
-### OctalLiteral
-Octal integer `0140000`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-
-    public static final int S_IFMT = 0170000; // bitmask for the file type bitfields
-    public static final int S_IFSOCK = 0140000; // socket
-    public static final int S_IFLNK = 0120000; // symbolic link
-    public static final int S_IFREG = 0100000; // regular file
-```
-
-### OctalLiteral
 Octal integer `0000004`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
 #### Snippet
 ```java
     public static final int S_IWGRP = 0000020;
@@ -1319,6 +1296,126 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
     public static final int S_IROTH = 0000004;
     public static final int S_IWOTH = 0000002;
     public static final int S_IXOTH = 0000001;
+```
+
+### OctalLiteral
+Octal integer `0000100`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    public static final int S_IRUSR = 0000400;
+    public static final int S_IWUSR = 0000200;
+    public static final int S_IXUSR = 0000100;
+    public static final int S_IRGRP = 0000040;
+    public static final int S_IWGRP = 0000020;
+```
+
+### OctalLiteral
+Octal integer `0000400`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+public abstract class ScpPathCommandDetailsSupport extends AbstractScpCommandDetails implements NamedResource {
+    // File permissions masks
+    public static final int S_IRUSR = 0000400;
+    public static final int S_IWUSR = 0000200;
+    public static final int S_IXUSR = 0000100;
+```
+
+### OctalLiteral
+Octal integer `0000001`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    public static final int S_IROTH = 0000004;
+    public static final int S_IWOTH = 0000002;
+    public static final int S_IXOTH = 0000001;
+
+    private Set<PosixFilePermission> permissions;
+```
+
+### OctalLiteral
+Octal integer `0000020`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    public static final int S_IXUSR = 0000100;
+    public static final int S_IRGRP = 0000040;
+    public static final int S_IWGRP = 0000020;
+    public static final int S_IXGRP = 0000010;
+    public static final int S_IROTH = 0000004;
+```
+
+### OctalLiteral
+Octal integer `0000002`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    public static final int S_IXGRP = 0000010;
+    public static final int S_IROTH = 0000004;
+    public static final int S_IWOTH = 0000002;
+    public static final int S_IXOTH = 0000001;
+
+```
+
+### OctalLiteral
+Octal integer `0000040`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    public static final int S_IWUSR = 0000200;
+    public static final int S_IXUSR = 0000100;
+    public static final int S_IRGRP = 0000040;
+    public static final int S_IWGRP = 0000020;
+    public static final int S_IXGRP = 0000010;
+```
+
+### OctalLiteral
+Octal integer `0000200`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    // File permissions masks
+    public static final int S_IRUSR = 0000400;
+    public static final int S_IWUSR = 0000200;
+    public static final int S_IXUSR = 0000100;
+    public static final int S_IRGRP = 0000040;
+```
+
+### OctalLiteral
+Octal integer `0000010`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
+#### Snippet
+```java
+    public static final int S_IRGRP = 0000040;
+    public static final int S_IWGRP = 0000020;
+    public static final int S_IXGRP = 0000010;
+    public static final int S_IROTH = 0000004;
+    public static final int S_IWOTH = 0000002;
+```
+
+### OctalLiteral
+Octal integer `0000001`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int S_IROTH = 0000004;
+    public static final int S_IWOTH = 0000002;
+    public static final int S_IXOTH = 0000001;
+
+    public static final int SFTP_V3 = 3;
+```
+
+### OctalLiteral
+Octal integer `0170000`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int ACE4_SYNCHRONIZE = 0x00100000;
+
+    public static final int S_IFMT = 0170000; // bitmask for the file type bitfields
+    public static final int S_IFSOCK = 0140000; // socket
+    public static final int S_IFLNK = 0120000; // symbolic link
 ```
 
 ### OctalLiteral
@@ -1334,39 +1431,63 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 ```
 
 ### OctalLiteral
-Octal integer `0000100`
+Octal integer `0000200`
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 #### Snippet
 ```java
+    public static final int S_ISVTX = 0001000; // sticky bit
     public static final int S_IRUSR = 0000400;
     public static final int S_IWUSR = 0000200;
     public static final int S_IXUSR = 0000100;
     public static final int S_IRGRP = 0000040;
-    public static final int S_IWGRP = 0000020;
 ```
 
 ### OctalLiteral
-Octal integer `0120000`
+Octal integer `0004000`
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 #### Snippet
 ```java
-    public static final int S_IFMT = 0170000; // bitmask for the file type bitfields
-    public static final int S_IFSOCK = 0140000; // socket
-    public static final int S_IFLNK = 0120000; // symbolic link
-    public static final int S_IFREG = 0100000; // regular file
-    public static final int S_IFBLK = 0060000; // block device
-```
-
-### OctalLiteral
-Octal integer `0001000`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
+    public static final int S_IFCHR = 0020000; // character device
+    public static final int S_IFIFO = 0010000; // fifo
     public static final int S_ISUID = 0004000; // set UID bit
+    public static final int S_ISGID = 0002000; // set GID bit
+    public static final int S_ISVTX = 0001000; // sticky bit
+```
+
+### OctalLiteral
+Octal integer `0020000`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int S_IFBLK = 0060000; // block device
+    public static final int S_IFDIR = 0040000; // directory
+    public static final int S_IFCHR = 0020000; // character device
+    public static final int S_IFIFO = 0010000; // fifo
+    public static final int S_ISUID = 0004000; // set UID bit
+```
+
+### OctalLiteral
+Octal integer `0000400`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
     public static final int S_ISGID = 0002000; // set GID bit
     public static final int S_ISVTX = 0001000; // sticky bit
     public static final int S_IRUSR = 0000400;
     public static final int S_IWUSR = 0000200;
+    public static final int S_IXUSR = 0000100;
+```
+
+### OctalLiteral
+Octal integer `0002000`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int S_IFIFO = 0010000; // fifo
+    public static final int S_ISUID = 0004000; // set UID bit
+    public static final int S_ISGID = 0002000; // set GID bit
+    public static final int S_ISVTX = 0001000; // sticky bit
+    public static final int S_IRUSR = 0000400;
 ```
 
 ### OctalLiteral
@@ -1382,15 +1503,63 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 ```
 
 ### OctalLiteral
-Octal integer `0000200`
+Octal integer `0000020`
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 #### Snippet
 ```java
-    public static final int S_ISVTX = 0001000; // sticky bit
-    public static final int S_IRUSR = 0000400;
+    public static final int S_IXUSR = 0000100;
+    public static final int S_IRGRP = 0000040;
+    public static final int S_IWGRP = 0000020;
+    public static final int S_IXGRP = 0000010;
+    public static final int S_IROTH = 0000004;
+```
+
+### OctalLiteral
+Octal integer `0140000`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+
+    public static final int S_IFMT = 0170000; // bitmask for the file type bitfields
+    public static final int S_IFSOCK = 0140000; // socket
+    public static final int S_IFLNK = 0120000; // symbolic link
+    public static final int S_IFREG = 0100000; // regular file
+```
+
+### OctalLiteral
+Octal integer `0040000`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int S_IFREG = 0100000; // regular file
+    public static final int S_IFBLK = 0060000; // block device
+    public static final int S_IFDIR = 0040000; // directory
+    public static final int S_IFCHR = 0020000; // character device
+    public static final int S_IFIFO = 0010000; // fifo
+```
+
+### OctalLiteral
+Octal integer `0120000`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int S_IFMT = 0170000; // bitmask for the file type bitfields
+    public static final int S_IFSOCK = 0140000; // socket
+    public static final int S_IFLNK = 0120000; // symbolic link
+    public static final int S_IFREG = 0100000; // regular file
+    public static final int S_IFBLK = 0060000; // block device
+```
+
+### OctalLiteral
+Octal integer `0000040`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
     public static final int S_IWUSR = 0000200;
     public static final int S_IXUSR = 0000100;
     public static final int S_IRGRP = 0000040;
+    public static final int S_IWGRP = 0000020;
+    public static final int S_IXGRP = 0000010;
 ```
 
 ### OctalLiteral
@@ -1418,99 +1587,39 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 ```
 
 ### OctalLiteral
-Octal integer `0000040`
+Octal integer `0000100`
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 #### Snippet
 ```java
+    public static final int S_IRUSR = 0000400;
     public static final int S_IWUSR = 0000200;
     public static final int S_IXUSR = 0000100;
     public static final int S_IRGRP = 0000040;
     public static final int S_IWGRP = 0000020;
+```
+
+### OctalLiteral
+Octal integer `0000004`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
+#### Snippet
+```java
+    public static final int S_IWGRP = 0000020;
     public static final int S_IXGRP = 0000010;
+    public static final int S_IROTH = 0000004;
+    public static final int S_IWOTH = 0000002;
+    public static final int S_IXOTH = 0000001;
 ```
 
 ### OctalLiteral
-Octal integer `0040000`
+Octal integer `0001000`
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
 #### Snippet
 ```java
-    public static final int S_IFREG = 0100000; // regular file
-    public static final int S_IFBLK = 0060000; // block device
-    public static final int S_IFDIR = 0040000; // directory
-    public static final int S_IFCHR = 0020000; // character device
-    public static final int S_IFIFO = 0010000; // fifo
-```
-
-### OctalLiteral
-Octal integer `0000400`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
+    public static final int S_ISUID = 0004000; // set UID bit
     public static final int S_ISGID = 0002000; // set GID bit
     public static final int S_ISVTX = 0001000; // sticky bit
     public static final int S_IRUSR = 0000400;
     public static final int S_IWUSR = 0000200;
-    public static final int S_IXUSR = 0000100;
-```
-
-### OctalLiteral
-Octal integer `0020000`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-    public static final int S_IFBLK = 0060000; // block device
-    public static final int S_IFDIR = 0040000; // directory
-    public static final int S_IFCHR = 0020000; // character device
-    public static final int S_IFIFO = 0010000; // fifo
-    public static final int S_ISUID = 0004000; // set UID bit
-```
-
-### OctalLiteral
-Octal integer `0170000`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-    public static final int ACE4_SYNCHRONIZE = 0x00100000;
-
-    public static final int S_IFMT = 0170000; // bitmask for the file type bitfields
-    public static final int S_IFSOCK = 0140000; // socket
-    public static final int S_IFLNK = 0120000; // symbolic link
-```
-
-### OctalLiteral
-Octal integer `0000001`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-    public static final int S_IROTH = 0000004;
-    public static final int S_IWOTH = 0000002;
-    public static final int S_IXOTH = 0000001;
-
-    public static final int SFTP_V3 = 3;
-```
-
-### OctalLiteral
-Octal integer `0000020`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-    public static final int S_IXUSR = 0000100;
-    public static final int S_IRGRP = 0000040;
-    public static final int S_IWGRP = 0000020;
-    public static final int S_IXGRP = 0000010;
-    public static final int S_IROTH = 0000004;
-```
-
-### OctalLiteral
-Octal integer `0004000`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
-#### Snippet
-```java
-    public static final int S_IFCHR = 0020000; // character device
-    public static final int S_IFIFO = 0010000; // fifo
-    public static final int S_ISUID = 0004000; // set UID bit
-    public static final int S_ISGID = 0002000; // set GID bit
-    public static final int S_ISVTX = 0001000; // sticky bit
 ```
 
 ### OctalLiteral
@@ -1525,127 +1634,7 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpConstants.java`
     public static final int S_ISGID = 0002000; // set GID bit
 ```
 
-### OctalLiteral
-Octal integer `0000010`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IRGRP = 0000040;
-    public static final int S_IWGRP = 0000020;
-    public static final int S_IXGRP = 0000010;
-    public static final int S_IROTH = 0000004;
-    public static final int S_IWOTH = 0000002;
-```
-
-### OctalLiteral
-Octal integer `0000400`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-public abstract class ScpPathCommandDetailsSupport extends AbstractScpCommandDetails implements NamedResource {
-    // File permissions masks
-    public static final int S_IRUSR = 0000400;
-    public static final int S_IWUSR = 0000200;
-    public static final int S_IXUSR = 0000100;
-```
-
-### OctalLiteral
-Octal integer `0000040`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IWUSR = 0000200;
-    public static final int S_IXUSR = 0000100;
-    public static final int S_IRGRP = 0000040;
-    public static final int S_IWGRP = 0000020;
-    public static final int S_IXGRP = 0000010;
-```
-
-### OctalLiteral
-Octal integer `0000002`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IXGRP = 0000010;
-    public static final int S_IROTH = 0000004;
-    public static final int S_IWOTH = 0000002;
-    public static final int S_IXOTH = 0000001;
-
-```
-
-### OctalLiteral
-Octal integer `0000001`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IROTH = 0000004;
-    public static final int S_IWOTH = 0000002;
-    public static final int S_IXOTH = 0000001;
-
-    private Set<PosixFilePermission> permissions;
-```
-
-### OctalLiteral
-Octal integer `0000200`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    // File permissions masks
-    public static final int S_IRUSR = 0000400;
-    public static final int S_IWUSR = 0000200;
-    public static final int S_IXUSR = 0000100;
-    public static final int S_IRGRP = 0000040;
-```
-
-### OctalLiteral
-Octal integer `0000004`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IWGRP = 0000020;
-    public static final int S_IXGRP = 0000010;
-    public static final int S_IROTH = 0000004;
-    public static final int S_IWOTH = 0000002;
-    public static final int S_IXOTH = 0000001;
-```
-
-### OctalLiteral
-Octal integer `0000020`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IXUSR = 0000100;
-    public static final int S_IRGRP = 0000040;
-    public static final int S_IWGRP = 0000020;
-    public static final int S_IXGRP = 0000010;
-    public static final int S_IROTH = 0000004;
-```
-
-### OctalLiteral
-Octal integer `0000100`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpPathCommandDetailsSupport.java`
-#### Snippet
-```java
-    public static final int S_IRUSR = 0000400;
-    public static final int S_IWUSR = 0000200;
-    public static final int S_IXUSR = 0000100;
-    public static final int S_IRGRP = 0000040;
-    public static final int S_IWGRP = 0000020;
-```
-
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`override.length() == 0` can be replaced with 'override.isEmpty()'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        }
-
-        if (override.length() == 0) {
-            return Collections.emptySet();
-        }
-```
-
 ### SizeReplaceableByIsEmpty
 `repl.length() == 0` can be replaced with 'repl.isEmpty()'
 in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
@@ -1682,7 +1671,55 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyRandomArt.ja
                     lines[index] = l;
 ```
 
+### SizeReplaceableByIsEmpty
+`override.length() == 0` can be replaced with 'override.isEmpty()'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        }
+
+        if (override.length() == 0) {
+            return Collections.emptySet();
+        }
+```
+
 ## RuleId[ruleID=NonShortCircuitBoolean]
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `writeState.windowExpanded |= resume`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
+#### Snippet
+```java
+        State openState;
+        synchronized (writeState) {
+            writeState.windowExpanded |= resume;
+            if (writeState.pendingWrite == null) {
+                // Just set the flag if there's nothing to write, or a writePacket() call is in progress.
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `foundNoAuth |= authMethods[i] == 0`
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/SocksProxy.java`
+#### Snippet
+```java
+                boolean foundNoAuth = false;
+                for (int i = 0; i < nbAuthMethods; i++) {
+                    foundNoAuth |= authMethods[i] == 0;
+                }
+                buffer = new ByteArrayBuffer(Byte.SIZE, false);
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `success |= l.isEmpty()`
+in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
+#### Snippet
+```java
+            if ((GenericUtils.size(l) > 0) && l.get(0).equals(authMethod)) {
+                l.remove(0);
+                success |= l.isEmpty();
+            }
+        }
+```
+
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `replaceExisting |= opt == StandardCopyOption.REPLACE_EXISTING`
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
@@ -1755,53 +1792,17 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvide
         LinkOption[] linkOptions = IoUtils.getLinkOptions(noFollowLinks);
 ```
 
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `writeState.windowExpanded |= resume`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
-#### Snippet
-```java
-        State openState;
-        synchronized (writeState) {
-            writeState.windowExpanded |= resume;
-            if (writeState.pendingWrite == null) {
-                // Just set the flag if there's nothing to write, or a writePacket() call is in progress.
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `foundNoAuth |= authMethods[i] == 0`
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/SocksProxy.java`
-#### Snippet
-```java
-                boolean foundNoAuth = false;
-                for (int i = 0; i < nbAuthMethods; i++) {
-                    foundNoAuth |= authMethods[i] == 0;
-                }
-                buffer = new ByteArrayBuffer(Byte.SIZE, false);
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `success |= l.isEmpty()`
-in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
-#### Snippet
-```java
-            if ((GenericUtils.size(l) > 0) && l.get(0).equals(authMethod)) {
-                l.remove(0);
-                success |= l.isEmpty();
-            }
-        }
-```
-
 ## RuleId[ruleID=UnnecessaryReturn]
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
 #### Snippet
 ```java
-        if (GenericUtils.isNotEmpty(methods)) {
-            manager.setUserAuthFactoriesNameList(methods);
-            return;
-        }
-    }
+                    // arrives.
+                    ioBuffer = buf;
+                    return;
+                } else {
+                    // Second ByteBuf: copy the ioBuffer, release and null it. Then copy buf and release it.
 ```
 
 ### UnnecessaryReturn
@@ -1866,14 +1867,14 @@ in `sshd-common/src/main/java/org/apache/sshd/server/shell/TtyFilterOutputStream
 
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
 #### Snippet
 ```java
-                    // arrives.
-                    ioBuffer = buf;
-                    return;
-                } else {
-                    // Second ByteBuf: copy the ioBuffer, release and null it. Then copy buf and release it.
+        if (GenericUtils.isNotEmpty(methods)) {
+            manager.setUserAuthFactoriesNameList(methods);
+            return;
+        }
+    }
 ```
 
 ## RuleId[ruleID=FinalStaticMethod]
@@ -1896,9 +1897,9 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateK
 ```java
     }
 
-    public static final PrivateKeyEncryptionContext newPrivateKeyEncryptionContext(PrivateKeyObfuscator o, String password) {
-        return initializeObfuscator(new PrivateKeyEncryptionContext(), o, password);
-    }
+    public static final List<PrivateKeyObfuscator> getRegisteredPrivateKeyObfuscators() {
+        synchronized (OBFUSCATORS) {
+            Collection<? extends PrivateKeyObfuscator> l = OBFUSCATORS.values();
 ```
 
 ### FinalStaticMethod
@@ -1906,11 +1907,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateK
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateKeyEncryptionContext.java`
 #### Snippet
 ```java
-    }
+     * @return         The updated context
+     */
+    public static final <C extends PrivateKeyEncryptionContext> C parseAlgorithmInfo(C context, String algInfo) {
+        ValidateUtils.checkNotNullAndNotEmpty(algInfo, "No encryption algorithm data");
 
-    public static final List<PrivateKeyObfuscator> getRegisteredPrivateKeyObfuscators() {
-        synchronized (OBFUSCATORS) {
-            Collection<? extends PrivateKeyObfuscator> l = OBFUSCATORS.values();
 ```
 
 ### FinalStaticMethod
@@ -1942,11 +1943,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateK
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateKeyEncryptionContext.java`
 #### Snippet
 ```java
-     * @return         The updated context
-     */
-    public static final <C extends PrivateKeyEncryptionContext> C parseAlgorithmInfo(C context, String algInfo) {
-        ValidateUtils.checkNotNullAndNotEmpty(algInfo, "No encryption algorithm data");
+    }
 
+    public static final PrivateKeyEncryptionContext newPrivateKeyEncryptionContext(PrivateKeyObfuscator o, String password) {
+        return initializeObfuscator(new PrivateKeyEncryptionContext(), o, password);
+    }
 ```
 
 ### FinalStaticMethod
@@ -1980,9 +1981,9 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDS
 ```java
     }
 
-    public static final ECPoint decodeECPointData(ASN1Object pointData) throws IOException {
-        if (pointData == null) {
-            throw new StreamCorruptedException("Missing public key data parameter");
+    public static final ECPoint decodeECPublicKeyValue(ASN1Object dataObject) throws IOException {
+        // see openssl asn1parse -inform PEM -in ...file... -dump
+        if (dataObject == null) {
 ```
 
 ### FinalStaticMethod
@@ -1992,9 +1993,9 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDS
 ```java
     }
 
-    public static final ECPoint decodeECPublicKeyValue(ASN1Object dataObject) throws IOException {
-        // see openssl asn1parse -inform PEM -in ...file... -dump
-        if (dataObject == null) {
+    public static final ECPoint decodeECPointData(ASN1Object pointData) throws IOException {
+        if (pointData == null) {
+            throw new StreamCorruptedException("Missing public key data parameter");
 ```
 
 ## RuleId[ruleID=SuspiciousInvocationHandlerImplementation]
@@ -2012,114 +2013,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/EventListenerUtils.jav
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends NamedFactory`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-    // returns null - e.g., re-specified or no supported cipher found
-    public static List<NamedFactory<Cipher>> setupCiphers(
-            String argName, String argVal, List<NamedFactory<Cipher>> current, PrintStream stderr) {
-        if (GenericUtils.size(current) > 0) {
-            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
-```
-
-### BoundedWildcard
-Can generalize to `? extends NamedFactory`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-
-    public static List<NamedFactory<Mac>> setupMacs(
-            String argName, String argVal, List<NamedFactory<Mac>> current, PrintStream stderr) {
-        if (GenericUtils.size(current) > 0) {
-            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
-```
-
-### BoundedWildcard
-Can generalize to `? extends NamedFactory`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-
-    public static List<NamedFactory<Compression>> setupCompressions(
-            String argName, String argVal, List<NamedFactory<Compression>> current, PrintStream stderr) {
-        if (GenericUtils.size(current) > 0) {
-            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-
-    private static void adjustRemoteTargetArguments(
-            ScpLocation remote, ScpLocation source, ScpLocation target, Collection<String> effective) {
-        int port = remote.resolvePort();
-        if (port != SshConstants.DEFAULT_PORT) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`>
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-    protected void resolveServerKeys(
-            SshClient client, String host,
-            Map<String, List<KeyPair>> pairsMap, Map<String, List<NamedFactory<Signature>>> sigFactories)
-            throws IOException {
-        // Cannot use forEach because of the potential for throwing IOException by the invoked code
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpPathImpl.java`
-#### Snippet
-```java
-     * @throws IOException if thrown by the {@code operation}
-     */
-    public <T> T withAttributeCache(IOFunction<Path, T> operation) throws IOException {
-        cacheAttributes(true);
-        try {
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("resource")
-    public int read(byte[] data, int doff, int length, long offset, AtomicReference<Boolean> eof) throws IOException {
-        SeekableByteChannel channel = getFileChannel();
-        channel = channel.position(offset);
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-    }
-
-    protected int checkDataResponse(SftpResponse response, int dstoff, byte[] dst, AtomicReference<Boolean> eofSignalled)
-            throws IOException {
-        switch (response.getType()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-    }
-
-    protected List<DirEntry> checkDirResponse(SftpResponse response, AtomicReference<Boolean> eolIndicator)
-            throws IOException {
-        if (eolIndicator != null) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends CloseableExecutorService`
 in `sshd-core/src/main/java/org/apache/sshd/agent/unix/ChannelAgentForwardingFactory.java`
 #### Snippet
@@ -2132,18 +2025,6 @@ in `sshd-core/src/main/java/org/apache/sshd/agent/unix/ChannelAgentForwardingFac
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HostConfigEntry`
-in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
-#### Snippet
-```java
-
-    protected ConnectFuture doConnect(
-            HostConfigEntry hostConfig, List<HostConfigEntry> jumps,
-            AttributeRepository context, SocketAddress localAddress)
-            throws IOException {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `sshd-core/src/main/java/org/apache/sshd/client/channel/AbstractClientChannel.java`
 #### Snippet
@@ -2153,6 +2034,18 @@ in `sshd-core/src/main/java/org/apache/sshd/client/channel/AbstractClientChannel
     protected void addChannelSignalRequestHandlers(EventNotifier<String> notifier) {
         addRequestHandler(new ExitStatusChannelRequestHandler(exitStatusHolder, notifier));
         addRequestHandler(new ExitSignalChannelRequestHandler(exitSignalHolder, notifier));
+```
+
+### BoundedWildcard
+Can generalize to `? extends HostConfigEntry`
+in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
+#### Snippet
+```java
+
+    protected ConnectFuture doConnect(
+            HostConfigEntry hostConfig, List<HostConfigEntry> jumps,
+            AttributeRepository context, SocketAddress localAddress)
+            throws IOException {
 ```
 
 ### BoundedWildcard
@@ -2208,18 +2101,6 @@ Can generalize to `? super PortForwardingEventListener`
 in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
 #### Snippet
 ```java
-
-    protected void invokePortEventListenerSignallerListeners(
-            Collection<? extends PortForwardingEventListener> listeners, Invoker<PortForwardingEventListener, Void> invoker)
-            throws Throwable {
-        if (GenericUtils.isEmpty(listeners)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super PortForwardingEventListener`
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
-#### Snippet
-```java
     protected void invokePortEventListenerSignallerHolders(
             Collection<? extends PortForwardingEventListenerManager> holders,
             Invoker<PortForwardingEventListener, Void> invoker)
@@ -2228,39 +2109,15 @@ in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+Can generalize to `? super PortForwardingEventListener`
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
 #### Snippet
 ```java
-    protected void handleSetFileAttributeFailure(
-            Path file, String view, String attribute, Object value,
-            Collection<String> unsupported, Exception e)
-            throws IOException {
-        boolean debugEnabled = log.isDebugEnabled();
-```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-     */
-    protected void writeDirEntry(
-            int id, DirectoryHandle dir, Map<String, Path> entries, Buffer buffer,
-            int index, Path f, String shortName, LinkOption... options)
-            throws IOException {
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-     */
-    protected void writeDirEntry(
-            int id, DirectoryHandle dir, Map<String, Path> entries, Buffer buffer,
-            int index, Path f, String shortName, LinkOption... options)
-            throws IOException {
+    protected void invokePortEventListenerSignallerListeners(
+            Collection<? extends PortForwardingEventListener> listeners, Invoker<PortForwardingEventListener, Void> invoker)
+            throws Throwable {
+        if (GenericUtils.isEmpty(listeners)) {
 ```
 
 ### BoundedWildcard
@@ -2273,18 +2130,6 @@ in `sshd-core/src/main/java/org/apache/sshd/server/config/keys/AuthorizedKeysAut
             Collection<AuthorizedKeyEntry> entries, PublicKeyEntryResolver fallbackResolver)
             throws IOException, GeneralSecurityException {
         return PublickeyAuthenticator.fromAuthorizedEntries(path, session, entries, fallbackResolver);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Key`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
-#### Snippet
-```java
-
-    protected NavigableMap<String, PublicKey> reloadRingKeys(
-            SessionContext session, NamedResource resourceKey, Collection<Key> keys)
-            throws IOException, GeneralSecurityException, PGPException {
-        if (GenericUtils.isEmpty(keys)) {
 ```
 
 ### BoundedWildcard
@@ -2333,18 +2178,6 @@ in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentitie
     public ClientIdentitiesWatcher(Collection<ClientIdentityProvider> providers) {
         this.providers = providers;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    protected Object accumulateAttributeValue(C queryContext, Map<String, Object> attrsMap, String attrID, Object attrVal) {
-        Object prev = attrsMap.put(attrID, attrVal);
-        if (prev == null) {
 ```
 
 ### BoundedWildcard
@@ -2420,42 +2253,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/buffer/Buffer.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SessionListener`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    }
-
-    protected void invokeSessionSignaller(Invoker<SessionListener, Void> invoker) throws Throwable {
-        FactoryManager manager = getFactoryManager();
-        SessionListener[] listeners = {
-```
-
-### BoundedWildcard
-Can generalize to `? super KexProposalOption`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    // returns the proposal argument
-    protected Map<KexProposalOption, String> mergeProposals(
-            Map<KexProposalOption, String> current, Map<KexProposalOption, String> proposal) {
-        // Checking references by design
-        if (current == proposal) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    // returns the proposal argument
-    protected Map<KexProposalOption, String> mergeProposals(
-            Map<KexProposalOption, String> current, Map<KexProposalOption, String> proposal) {
-        // Checking references by design
-        if (current == proposal) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
 #### Snippet
@@ -2504,6 +2301,42 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEn
 ```
 
 ### BoundedWildcard
+Can generalize to `? super KexProposalOption`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+    // returns the proposal argument
+    protected Map<KexProposalOption, String> mergeProposals(
+            Map<KexProposalOption, String> current, Map<KexProposalOption, String> proposal) {
+        // Checking references by design
+        if (current == proposal) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+    // returns the proposal argument
+    protected Map<KexProposalOption, String> mergeProposals(
+            Map<KexProposalOption, String> current, Map<KexProposalOption, String> proposal) {
+        // Checking references by design
+        if (current == proposal) {
+```
+
+### BoundedWildcard
+Can generalize to `? super SessionListener`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+    }
+
+    protected void invokeSessionSignaller(Invoker<SessionListener, Void> invoker) throws Throwable {
+        FactoryManager manager = getFactoryManager();
+        SessionListener[] listeners = {
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `sshd-common/src/main/java/org/apache/sshd/common/future/AbstractSshFuture.java`
 #### Snippet
@@ -2516,6 +2349,42 @@ in `sshd-common/src/main/java/org/apache/sshd/common/future/AbstractSshFuture.ja
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends NamedFactory`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+    // returns null - e.g., re-specified or no supported cipher found
+    public static List<NamedFactory<Cipher>> setupCiphers(
+            String argName, String argVal, List<NamedFactory<Cipher>> current, PrintStream stderr) {
+        if (GenericUtils.size(current) > 0) {
+            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
+```
+
+### BoundedWildcard
+Can generalize to `? extends NamedFactory`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+
+    public static List<NamedFactory<Mac>> setupMacs(
+            String argName, String argVal, List<NamedFactory<Mac>> current, PrintStream stderr) {
+        if (GenericUtils.size(current) > 0) {
+            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
+```
+
+### BoundedWildcard
+Can generalize to `? extends NamedFactory`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+
+    public static List<NamedFactory<Compression>> setupCompressions(
+            String argName, String argVal, List<NamedFactory<Compression>> current, PrintStream stderr) {
+        if (GenericUtils.size(current) > 0) {
+            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
+```
+
+### BoundedWildcard
 Can generalize to `? extends Exception`
 in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
 #### Snippet
@@ -2525,6 +2394,138 @@ in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/Sprin
     protected void closeSessionInstance(Callable<Exception> closer) throws Exception {
         if (closer == null) {
             return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`>
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+    protected void resolveServerKeys(
+            SshClient client, String host,
+            Map<String, List<KeyPair>> pairsMap, Map<String, List<NamedFactory<Signature>>> sigFactories)
+            throws IOException {
+        // Cannot use forEach because of the potential for throwing IOException by the invoked code
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+
+    private static void adjustRemoteTargetArguments(
+            ScpLocation remote, ScpLocation source, ScpLocation target, Collection<String> effective) {
+        int port = remote.resolvePort();
+        if (port != SshConstants.DEFAULT_PORT) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Path`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpPathImpl.java`
+#### Snippet
+```java
+     * @throws IOException if thrown by the {@code operation}
+     */
+    public <T> T withAttributeCache(IOFunction<Path, T> operation) throws IOException {
+        cacheAttributes(true);
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("resource")
+    public int read(byte[] data, int doff, int length, long offset, AtomicReference<Boolean> eof) throws IOException {
+        SeekableByteChannel channel = getFileChannel();
+        channel = channel.position(offset);
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+    }
+
+    protected List<DirEntry> checkDirResponse(SftpResponse response, AtomicReference<Boolean> eolIndicator)
+            throws IOException {
+        if (eolIndicator != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+    }
+
+    protected int checkDataResponse(SftpResponse response, int dstoff, byte[] dst, AtomicReference<Boolean> eofSignalled)
+            throws IOException {
+        switch (response.getType()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Key`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
+#### Snippet
+```java
+
+    protected NavigableMap<String, PublicKey> reloadRingKeys(
+            SessionContext session, NamedResource resourceKey, Collection<Key> keys)
+            throws IOException, GeneralSecurityException, PGPException {
+        if (GenericUtils.isEmpty(keys)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unchecked")
+    protected Object accumulateAttributeValue(C queryContext, Map<String, Object> attrsMap, String attrID, Object attrVal) {
+        Object prev = attrsMap.put(attrID, attrVal);
+        if (prev == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+    protected void handleSetFileAttributeFailure(
+            Path file, String view, String attribute, Object value,
+            Collection<String> unsupported, Exception e)
+            throws IOException {
+        boolean debugEnabled = log.isDebugEnabled();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+     */
+    protected void writeDirEntry(
+            int id, DirectoryHandle dir, Map<String, Path> entries, Buffer buffer,
+            int index, Path f, String shortName, LinkOption... options)
+            throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? super Path`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+     */
+    protected void writeDirEntry(
+            int id, DirectoryHandle dir, Map<String, Path> entries, Buffer buffer,
+            int index, Path f, String shortName, LinkOption... options)
+            throws IOException {
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -2545,11 +2546,11 @@ Missorted modifiers `static private`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
-  // this "ciphertext", but it is really plaintext or an IV. We keep
-  // the name to make code comparison easier.
-  static private final int bf_crypt_ciphertext[] = {
-      0x4f727068, 0x65616e42, 0x65686f6c,
-      0x64657253, 0x63727944, 0x6f756274
+
+  // Table for Base64 decoding
+  static private final byte index_64[] = {
+      -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+      -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 ```
 
 ### MissortedModifiers
@@ -2557,11 +2558,11 @@ Missorted modifiers `static private`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
-
-  // Table for Base64 decoding
-  static private final byte index_64[] = {
-      -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-      -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+  // this "ciphertext", but it is really plaintext or an IV. We keep
+  // the name to make code comparison easier.
+  static private final int bf_crypt_ciphertext[] = {
+      0x4f727068, 0x65616e42, 0x65686f6c,
+      0x64657253, 0x63727944, 0x6f756274
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -2691,46 +2692,10 @@ in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
 ## RuleId[ruleID=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-        boolean autoDetect = "auto".equalsIgnoreCase(s);
-        Boolean ptyEnabled = autoDetect ? Boolean.TRUE : PropertyResolverUtils.parseBoolean(s);
-        if ((ptyEnabled == null) || (!ptyEnabled.booleanValue())) {
-            return null;
-        }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java`
-#### Snippet
-```java
-                }
-                Boolean eofSignal = eof.getAndSet(null);
-                if ((dlen < 0) || ((eofSignal != null) && eofSignal.booleanValue())) {
-                    eofIndicator = true;
-                    break;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java`
-#### Snippet
-```java
-                buf.rpos(rpos + dlen);
-                Boolean b = SftpHelper.getEndOfFileIndicatorValue(buf, client.getVersion());
-                if ((b != null) && b.booleanValue()) {
-                    eofIndicator = true;
-                }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
 in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey.java`
 #### Snippet
 ```java
-        String name = getName();
+        PublicKey serverKey = null;
         Integer hostBoundPubKeyVersion = session.getAttribute(DefaultClientKexExtensionHandler.HOSTBOUND_AUTHENTICATION);
         boolean doHostBoundAuth = hostBoundPubKeyVersion != null && hostBoundPubKeyVersion.intValue() == 0;
         if (doHostBoundAuth) {
@@ -2742,7 +2707,7 @@ Unnecessary unboxing
 in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey.java`
 #### Snippet
 ```java
-        PublicKey serverKey = null;
+        String name = getName();
         Integer hostBoundPubKeyVersion = session.getAttribute(DefaultClientKexExtensionHandler.HOSTBOUND_AUTHENTICATION);
         boolean doHostBoundAuth = hostBoundPubKeyVersion != null && hostBoundPubKeyVersion.intValue() == 0;
         if (doHostBoundAuth) {
@@ -2814,18 +2779,6 @@ Unnecessary unboxing
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-            }
-            return Boolean.valueOf(isRunning);
-        }).booleanValue();
-
-        if (kexRunning) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
 
         // Flush the queue asynchronously.
         int numPending = flushDone.getKey().intValue();
@@ -2835,26 +2788,14 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaService.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-        intVal = getInteger(CoreModuleProperties.MIN_READ_BUFFER_SIZE);
-        if (intVal != null) {
-            int readBufferSize = intVal.intValue();
-            if (readBufferSize > defaultMinReadBufferSize) {
-                readBufferSize = Math.min(readBufferSize, config.getMaxReadBufferSize());
-```
+            }
+            return Boolean.valueOf(isRunning);
+        }).booleanValue();
 
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaService.java`
-#### Snippet
-```java
-        intVal = getInteger(CoreModuleProperties.NIO2_READ_BUFFER_SIZE);
-        if (intVal != null) {
-            int readBufferSize = intVal.intValue();
-            if (readBufferSize >= defaultMinReadBufferSize) {
-                readBufferSize = Math.max(readBufferSize, config.getMinReadBufferSize());
+        if (kexRunning) {
 ```
 
 ### UnnecessaryUnboxing
@@ -2965,6 +2906,248 @@ in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/session/helpers/Ch
             if (log.isTraceEnabled()) {
 ```
 
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+        boolean autoDetect = "auto".equalsIgnoreCase(s);
+        Boolean ptyEnabled = autoDetect ? Boolean.TRUE : PropertyResolverUtils.parseBoolean(s);
+        if ((ptyEnabled == null) || (!ptyEnabled.booleanValue())) {
+            return null;
+        }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaService.java`
+#### Snippet
+```java
+        intVal = getInteger(CoreModuleProperties.MIN_READ_BUFFER_SIZE);
+        if (intVal != null) {
+            int readBufferSize = intVal.intValue();
+            if (readBufferSize > defaultMinReadBufferSize) {
+                readBufferSize = Math.min(readBufferSize, config.getMaxReadBufferSize());
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaService.java`
+#### Snippet
+```java
+        intVal = getInteger(CoreModuleProperties.NIO2_READ_BUFFER_SIZE);
+        if (intVal != null) {
+            int readBufferSize = intVal.intValue();
+            if (readBufferSize >= defaultMinReadBufferSize) {
+                readBufferSize = Math.max(readBufferSize, config.getMinReadBufferSize());
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java`
+#### Snippet
+```java
+                buf.rpos(rpos + dlen);
+                Boolean b = SftpHelper.getEndOfFileIndicatorValue(buf, client.getVersion());
+                if ((b != null) && b.booleanValue()) {
+                    eofIndicator = true;
+                }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java`
+#### Snippet
+```java
+                }
+                Boolean eofSignal = eof.getAndSet(null);
+                if ((dlen < 0) || ((eofSignal != null) && eofSignal.booleanValue())) {
+                    eofIndicator = true;
+                    break;
+```
+
+## RuleId[ruleID=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
+#### Snippet
+```java
+    private String gitdir;
+
+    @Argument(index = 0, metaVar = "metaVar_command", required = true, handler = SubcommandHandler.class)
+    private TextBuiltin subcommand;
+
+```
+
+## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `isNamedProviderUsed()` is identical to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityProviderChoice.java`
+#### Snippet
+```java
+
+            @Override
+            public boolean isNamedProviderUsed() {
+                return true;
+            }
+```
+
+### RedundantMethodOverride
+Method `awaitTermination()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return super.awaitTermination(timeout, unit);
+    }
+```
+
+### RedundantMethodOverride
+Method `shutdownNow()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Runnable> shutdownNow() {
+        return super.shutdownNow();
+    }
+```
+
+### RedundantMethodOverride
+Method `isTerminating()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isTerminating() {
+        return super.isTerminating();
+    }
+```
+
+### RedundantMethodOverride
+Method `isShutdown()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isShutdown() {
+        return super.isShutdown();
+    }
+```
+
+### RedundantMethodOverride
+Method `shutdown()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public void shutdown() {
+        super.shutdown();
+    }
+```
+
+### RedundantMethodOverride
+Method `isTerminated()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isTerminated() {
+        return super.isTerminated();
+    }
+```
+
+### RedundantMethodOverride
+Method `hashCode()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEntry.java`
+#### Snippet
+```java
+
+    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
+    public int hashCode() {
+        return super.hashCode();
+    }
+```
+
+### RedundantMethodOverride
+Method `equals()` only delegates to its super method
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEntry.java`
+#### Snippet
+```java
+
+    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+```
+
+### RedundantMethodOverride
+Method `isInteractionAllowed()` is identical to its super method
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+        UserInteraction ui = new UserInteraction() {
+            @Override
+            public boolean isInteractionAllowed(ClientSession session) {
+                return true;
+            }
+```
+
+### RedundantMethodOverride
+Method `isInteractionAllowed()` is identical to its super method
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                client.setUserInteraction(new UserInteraction() {
+                    @Override
+                    public boolean isInteractionAllowed(ClientSession session) {
+                        return true;
+                    }
+```
+
+### RedundantMethodOverride
+Method `hashCode()` only delegates to its super method
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultCloseableHandle.java`
+#### Snippet
+```java
+
+    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
+    public int hashCode() {
+        return super.hashCode();
+    }
+```
+
+### RedundantMethodOverride
+Method `equals()` only delegates to its super method
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultCloseableHandle.java`
+#### Snippet
+```java
+
+    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+```
+
+### RedundantMethodOverride
+Method `getChannel()` is identical to its super method
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Channel getChannel() {
+        return getClientChannel();
+    }
+```
+
 ## RuleId[ruleID=RedundantStreamOptionalCall]
 ### RedundantStreamOptionalCall
 Redundant 'map()' call
@@ -3001,188 +3184,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/Closeable.java`
 public interface Closeable extends Channel {
 
     /**
-```
-
-## RuleId[ruleID=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
-#### Snippet
-```java
-    private String gitdir;
-
-    @Argument(index = 0, metaVar = "metaVar_command", required = true, handler = SubcommandHandler.class)
-    private TextBuiltin subcommand;
-
-```
-
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `equals()` only delegates to its super method
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultCloseableHandle.java`
-#### Snippet
-```java
-
-    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-```
-
-### RedundantMethodOverride
-Method `hashCode()` only delegates to its super method
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultCloseableHandle.java`
-#### Snippet
-```java
-
-    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
-    public int hashCode() {
-        return super.hashCode();
-    }
-```
-
-### RedundantMethodOverride
-Method `isInteractionAllowed()` is identical to its super method
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-        UserInteraction ui = new UserInteraction() {
-            @Override
-            public boolean isInteractionAllowed(ClientSession session) {
-                return true;
-            }
-```
-
-### RedundantMethodOverride
-Method `isInteractionAllowed()` is identical to its super method
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                client.setUserInteraction(new UserInteraction() {
-                    @Override
-                    public boolean isInteractionAllowed(ClientSession session) {
-                        return true;
-                    }
-```
-
-### RedundantMethodOverride
-Method `getChannel()` is identical to its super method
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Channel getChannel() {
-        return getClientChannel();
-    }
-```
-
-### RedundantMethodOverride
-Method `isNamedProviderUsed()` is identical to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityProviderChoice.java`
-#### Snippet
-```java
-
-            @Override
-            public boolean isNamedProviderUsed() {
-                return true;
-            }
-```
-
-### RedundantMethodOverride
-Method `awaitTermination()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return super.awaitTermination(timeout, unit);
-    }
-```
-
-### RedundantMethodOverride
-Method `isShutdown()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isShutdown() {
-        return super.isShutdown();
-    }
-```
-
-### RedundantMethodOverride
-Method `isTerminating()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isTerminating() {
-        return super.isTerminating();
-    }
-```
-
-### RedundantMethodOverride
-Method `shutdownNow()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Runnable> shutdownNow() {
-        return super.shutdownNow();
-    }
-```
-
-### RedundantMethodOverride
-Method `isTerminated()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isTerminated() {
-        return super.isTerminated();
-    }
-```
-
-### RedundantMethodOverride
-Method `shutdown()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/SshThreadPoolExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public void shutdown() {
-        super.shutdown();
-    }
-```
-
-### RedundantMethodOverride
-Method `hashCode()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEntry.java`
-#### Snippet
-```java
-
-    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
-    public int hashCode() {
-        return super.hashCode();
-    }
-```
-
-### RedundantMethodOverride
-Method `equals()` only delegates to its super method
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEntry.java`
-#### Snippet
-```java
-
-    @Override // to avoid Findbugs[EQ_DOESNT_OVERRIDE_EQUALS]
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 ```
 
 ## RuleId[ruleID=ThrowFromFinallyBlock]
@@ -3360,18 +3361,6 @@ in `sshd-core/src/main/java/org/apache/sshd/agent/unix/ChannelAgentForwarding.ja
 
 ## RuleId[ruleID=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `arguments` are queried, but never updated
-in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
-#### Snippet
-```java
-
-    @Argument(index = 1, metaVar = "metaVar_arg")
-    private List<String> arguments = new ArrayList<>();
-
-    private Path rootDir;
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `new TreeMap<>(String.CASE_INSENSITIVE_ORDER)` are updated, but never queried
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/AbstractPEMResourceKeyPairParser.java`
 #### Snippet
@@ -3381,6 +3370,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/Abst
                         ? new TreeMap<>(String.CASE_INSENSITIVE_ORDER)
                         : headers;
                 accHeaders.put(hdrName, hdrValue);
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `arguments` are queried, but never updated
+in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
+#### Snippet
+```java
+
+    @Argument(index = 1, metaVar = "metaVar_arg")
+    private List<String> arguments = new ArrayList<>();
+
+    private Path rootDir;
 ```
 
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
@@ -3445,18 +3446,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/Window.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `packetSize` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/Window.java`
-#### Snippet
-```java
-    private long size; // the window size
-    private long maxSize; // actually uint32
-    private long packetSize; // actually uint32
-
-    protected Window(Channel channel, boolean isClient) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `size` is accessed in both synchronized and unsynchronized contexts
 in `sshd-core/src/main/java/org/apache/sshd/common/channel/Window.java`
 #### Snippet
@@ -3466,6 +3455,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/Window.java`
     private long size; // the window size
     private long maxSize; // actually uint32
     private long packetSize; // actually uint32
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `packetSize` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/Window.java`
+#### Snippet
+```java
+    private long size; // the window size
+    private long maxSize; // actually uint32
+    private long packetSize; // actually uint32
+
+    protected Window(Channel channel, boolean isClient) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3529,18 +3530,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.ja
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `ioServiceFactoryFactory` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManager.java`
-#### Snippet
-```java
- */
-public abstract class AbstractFactoryManager extends AbstractKexFactoryManager implements FactoryManager {
-    protected IoServiceFactoryFactory ioServiceFactoryFactory;
-    protected IoServiceFactory ioServiceFactory;
-    protected Factory<? extends Random> randomFactory;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `ioServiceFactory` is accessed in both synchronized and unsynchronized contexts
 in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManager.java`
 #### Snippet
@@ -3553,39 +3542,15 @@ public abstract class AbstractFactoryManager extends AbstractKexFactoryManager i
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `acceptor` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/server/x11/DefaultX11ForwardSupport.java`
+Field `ioServiceFactoryFactory` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManager.java`
 #### Snippet
 ```java
-public class DefaultX11ForwardSupport extends AbstractInnerCloseable implements X11ForwardSupport {
-    private final ConnectionService service;
-    private IoAcceptor acceptor;
-
-    public DefaultX11ForwardSupport(ConnectionService service) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `localAcceptor` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
-#### Snippet
-```java
-    private final PortForwardingEventListener listenerProxy;
-
-    private IoAcceptor localAcceptor;
-    private IoAcceptor dynamicAcceptor;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `dynamicAcceptor` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
-#### Snippet
-```java
-
-    private IoAcceptor localAcceptor;
-    private IoAcceptor dynamicAcceptor;
-
-    public DefaultForwarder(ConnectionService service) {
+ */
+public abstract class AbstractFactoryManager extends AbstractKexFactoryManager implements FactoryManager {
+    protected IoServiceFactoryFactory ioServiceFactoryFactory;
+    protected IoServiceFactory ioServiceFactory;
+    protected Factory<? extends Random> randomFactory;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3601,15 +3566,39 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractConne
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `shellIn` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/server/shell/InvertedShellWrapper.java`
+Field `acceptor` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/server/x11/DefaultX11ForwardSupport.java`
 #### Snippet
 ```java
-    private OutputStream out;
-    private OutputStream err;
-    private OutputStream shellIn;
-    private InputStream shellOut;
-    private InputStream shellErr;
+public class DefaultX11ForwardSupport extends AbstractInnerCloseable implements X11ForwardSupport {
+    private final ConnectionService service;
+    private IoAcceptor acceptor;
+
+    public DefaultX11ForwardSupport(ConnectionService service) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `dynamicAcceptor` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
+#### Snippet
+```java
+
+    private IoAcceptor localAcceptor;
+    private IoAcceptor dynamicAcceptor;
+
+    public DefaultForwarder(ConnectionService service) {
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `localAcceptor` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
+#### Snippet
+```java
+    private final PortForwardingEventListener listenerProxy;
+
+    private IoAcceptor localAcceptor;
+    private IoAcceptor dynamicAcceptor;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3637,6 +3626,18 @@ in `sshd-core/src/main/java/org/apache/sshd/server/shell/InvertedShellWrapper.ja
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `shellIn` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/server/shell/InvertedShellWrapper.java`
+#### Snippet
+```java
+    private OutputStream out;
+    private OutputStream err;
+    private OutputStream shellIn;
+    private InputStream shellOut;
+    private InputStream shellErr;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `currentAuth` is accessed in both synchronized and unsynchronized contexts
 in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
 #### Snippet
@@ -3646,30 +3647,6 @@ in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService
     private UserAuth currentAuth;
 
     private int maxAuthRequests;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `clientVersion` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-    protected byte[] sessionId;
-    protected String serverVersion;
-    protected String clientVersion;
-    // if empty then means not-initialized
-    protected final Map<KexProposalOption, String> serverProposal = new EnumMap<>(KexProposalOption.class);
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `ignorePacketsVariance` is accessed in both synchronized and unsynchronized contexts
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-    protected int ignorePacketDataLength;
-    protected long ignorePacketsFrequency;
-    protected int ignorePacketsVariance;
-
-    protected final AtomicLong maxRekeyBlocks
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3685,27 +3662,27 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxRekeyBytes` is accessed in both synchronized and unsynchronized contexts
+Field `maxRekyPackets` is accessed in both synchronized and unsynchronized contexts
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
+    protected final AtomicReference<Instant> lastKeyTimeValue = new AtomicReference<>(Instant.now());
     // we initialize them here in case super constructor calls some methods that use these values
     protected long maxRekyPackets;
     protected long maxRekeyBytes;
     protected Duration maxRekeyInterval;
-
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `serverVersion` is accessed in both synchronized and unsynchronized contexts
+Field `clientVersion` is accessed in both synchronized and unsynchronized contexts
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-     */
     protected byte[] sessionId;
     protected String serverVersion;
     protected String clientVersion;
     // if empty then means not-initialized
+    protected final Map<KexProposalOption, String> serverProposal = new EnumMap<>(KexProposalOption.class);
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3721,15 +3698,39 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxRekyPackets` is accessed in both synchronized and unsynchronized contexts
+Field `ignorePacketsVariance` is accessed in both synchronized and unsynchronized contexts
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-    protected final AtomicReference<Instant> lastKeyTimeValue = new AtomicReference<>(Instant.now());
+    protected int ignorePacketDataLength;
+    protected long ignorePacketsFrequency;
+    protected int ignorePacketsVariance;
+
+    protected final AtomicLong maxRekeyBlocks
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `serverVersion` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+     */
+    protected byte[] sessionId;
+    protected String serverVersion;
+    protected String clientVersion;
+    // if empty then means not-initialized
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxRekeyBytes` is accessed in both synchronized and unsynchronized contexts
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
     // we initialize them here in case super constructor calls some methods that use these values
     protected long maxRekyPackets;
     protected long maxRekeyBytes;
     protected Duration maxRekeyInterval;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3757,18 +3758,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/mac/BaseMac.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `hashValue` is accessed in both synchronized and unsynchronized contexts
-in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BasePath.java`
-#### Snippet
-```java
-    private final FS fileSystem;
-    private String strValue;
-    private int hashValue;
-
-    protected BasePath(FS fileSystem, String root, List<String> names) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `strValue` is accessed in both synchronized and unsynchronized contexts
 in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BasePath.java`
 #### Snippet
@@ -3778,6 +3767,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BasePath.java`
     private String strValue;
     private int hashValue;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `hashValue` is accessed in both synchronized and unsynchronized contexts
+in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BasePath.java`
+#### Snippet
+```java
+    private final FS fileSystem;
+    private String strValue;
+    private int hashValue;
+
+    protected BasePath(FS fileSystem, String root, List<String> names) {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3817,18 +3818,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/digest/BaseDigest.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `listeners` is accessed in both synchronized and unsynchronized contexts
-in `sshd-common/src/main/java/org/apache/sshd/common/future/DefaultSshFuture.java`
-#### Snippet
-```java
-     */
-    private final Object lock;
-    private Object listeners;
-    private Object result;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `result` is accessed in both synchronized and unsynchronized contexts
 in `sshd-common/src/main/java/org/apache/sshd/common/future/DefaultSshFuture.java`
 #### Snippet
@@ -3838,6 +3827,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/future/DefaultSshFuture.jav
     private Object result;
 
     /**
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `listeners` is accessed in both synchronized and unsynchronized contexts
+in `sshd-common/src/main/java/org/apache/sshd/common/future/DefaultSshFuture.java`
+#### Snippet
+```java
+     */
+    private final Object lock;
+    private Object listeners;
+    private Object result;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4011,42 +4012,6 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultCloseableHan
 
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
-Redundant interface declaration `Closeable`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/SftpClient.java`
-#### Snippet
-```java
-
-    // CHECKSTYLE:OFF
-    abstract class CloseableHandle extends Handle implements Channel, Closeable {
-        protected CloseableHandle(String path, byte[] id) {
-            super(path, id);
-```
-
-### RedundantImplements
-Redundant interface declaration `SftpEventListenerManager`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystemFactory.java`
-#### Snippet
-```java
-        extends AbstractSftpEventListenerManager
-        implements ManagedExecutorServiceSupplier, SubsystemFactory,
-        SftpEventListenerManager, SftpFileSystemAccessorManager,
-        SftpSubsystemConfigurator {
-
-```
-
-### RedundantImplements
-Redundant interface declaration `Command`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
-#### Snippet
-```java
-public class SftpSubsystem
-        extends AbstractSftpSubsystemHelper
-        implements Command, Runnable, FileSystemAware, ExecutorServiceCarrier,
-        AsyncCommand, ChannelDataReceiver {
-    protected static final Buffer CLOSE = new ByteArrayBuffer(null, 0, 0);
-```
-
-### RedundantImplements
 Redundant interface declaration `SimpleClientConfigurator`
 in `sshd-core/src/main/java/org/apache/sshd/client/simple/SimpleClient.java`
 #### Snippet
@@ -4107,6 +4072,18 @@ public class DefaultForwarder
 ```
 
 ### RedundantImplements
+Redundant interface declaration `KeyPairProvider`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentitiesWatcher.java`
+#### Snippet
+```java
+ * @author <a href="mailto:dev@mina.apache.org">Apache MINA SSHD Project</a>
+ */
+public class ClientIdentitiesWatcher extends AbstractKeyPairProvider implements KeyPairProvider {
+    private final Collection<ClientIdentityProvider> providers;
+
+```
+
+### RedundantImplements
 Redundant interface declaration `IoHandler`
 in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
 #### Snippet
@@ -4143,66 +4120,55 @@ public class MinaAcceptor extends MinaService implements org.apache.sshd.common.
 ```
 
 ### RedundantImplements
-Redundant interface declaration `KeyPairProvider`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentitiesWatcher.java`
+Redundant interface declaration `Closeable`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/SftpClient.java`
 #### Snippet
 ```java
- * @author <a href="mailto:dev@mina.apache.org">Apache MINA SSHD Project</a>
- */
-public class ClientIdentitiesWatcher extends AbstractKeyPairProvider implements KeyPairProvider {
-    private final Collection<ClientIdentityProvider> providers;
 
+    // CHECKSTYLE:OFF
+    abstract class CloseableHandle extends Handle implements Channel, Closeable {
+        protected CloseableHandle(String path, byte[] id) {
+            super(path, id);
+```
+
+### RedundantImplements
+Redundant interface declaration `SftpEventListenerManager`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystemFactory.java`
+#### Snippet
+```java
+        extends AbstractSftpEventListenerManager
+        implements ManagedExecutorServiceSupplier, SubsystemFactory,
+        SftpEventListenerManager, SftpFileSystemAccessorManager,
+        SftpSubsystemConfigurator {
+
+```
+
+### RedundantImplements
+Redundant interface declaration `Command`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+#### Snippet
+```java
+public class SftpSubsystem
+        extends AbstractSftpSubsystemHelper
+        implements Command, Runnable, FileSystemAware, ExecutorServiceCarrier,
+        AsyncCommand, ChannelDataReceiver {
+    protected static final Buffer CLOSE = new ByteArrayBuffer(null, 0, 0);
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-06-06-29-35.591.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                }
-
-                if (e instanceof ConnectException) {
-                    return; // makes no sense to try again with another key type...
-                }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                        } catch (Exception e) {
-                            // check if interrupted while scanning host keys
-                            if (e instanceof InterruptedIOException) {
-                                throw e;
-                            }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-                }
-
-                if (e instanceof IOException) {
-                    throw (IOException) e;
-                } else if (e instanceof RuntimeException) {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-                if (e instanceof IOException) {
-                    throw (IOException) e;
-                } else if (e instanceof RuntimeException) {
-                    throw (RuntimeException) e;
-                } else {
-```
-
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
 in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentServerProxy.java`
@@ -4265,18 +4231,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2Session.java`
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/BufferedIoOutputStream.java`
-#### Snippet
-```java
-            startWriting();
-        } catch (IOException e) {
-            if (e instanceof SshChannelBufferedOutputException) {
-                pendingException.compareAndSet(null, (SshChannelBufferedOutputException) e);
-            } else {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
 in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.java`
 #### Snippet
 ```java
@@ -4289,13 +4243,13 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.j
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/BufferedIoOutputStream.java`
 #### Snippet
 ```java
-            }
-
-            if (e instanceof Exception) {
-                throw (Exception) e;
+            startWriting();
+        } catch (IOException e) {
+            if (e instanceof SshChannelBufferedOutputException) {
+                pendingException.compareAndSet(null, (SshChannelBufferedOutputException) e);
             } else {
 ```
 
@@ -4313,6 +4267,18 @@ in `sshd-core/src/main/java/org/apache/sshd/server/session/AbstractServerSession
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            }
+
+            if (e instanceof Exception) {
+                throw (Exception) e;
+            } else {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
 in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/ConfigFileHostEntryResolver.java`
 #### Snippet
 ```java
@@ -4321,6 +4287,78 @@ in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/ConfigFileHost
             if (e instanceof IOException) {
                 throw (IOException) e;
             } else {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                        } catch (Exception e) {
+                            // check if interrupted while scanning host keys
+                            if (e instanceof InterruptedIOException) {
+                                throw e;
+                            }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                }
+
+                if (e instanceof ConnectException) {
+                    return; // makes no sense to try again with another key type...
+                }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpCommand.java`
+#### Snippet
+```java
+            try {
+                Integer statusCode = null;
+                if (e instanceof ScpException) {
+                    statusCode = ((ScpException) e).getExitStatus();
+                }
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
+#### Snippet
+```java
+            variables.put(STATUS, 0);
+        } catch (IOException e) {
+            Integer statusCode = e instanceof ScpException ? ((ScpException) e).getExitStatus() : null;
+            int exitValue = (statusCode == null) ? ScpAckInfo.ERROR : statusCode;
+            // this is an exception so status cannot be OK/WARNING
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+                }
+
+                if (e instanceof IOException) {
+                    throw (IOException) e;
+                } else if (e instanceof RuntimeException) {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+                if (e instanceof IOException) {
+                    throw (IOException) e;
+                } else if (e instanceof RuntimeException) {
+                    throw (RuntimeException) e;
+                } else {
 ```
 
 ### InstanceofCatchParameter
@@ -4359,30 +4397,6 @@ in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPKeyPairResourceParser.
                         } else {
 ```
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpCommand.java`
-#### Snippet
-```java
-            try {
-                Integer statusCode = null;
-                if (e instanceof ScpException) {
-                    statusCode = ((ScpException) e).getExitStatus();
-                }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
-#### Snippet
-```java
-            variables.put(STATUS, 0);
-        } catch (IOException e) {
-            Integer statusCode = e instanceof ScpException ? ((ScpException) e).getExitStatus() : null;
-            int exitValue = (statusCode == null) ? ScpAckInfo.ERROR : statusCode;
-            // this is an exception so status cannot be OK/WARNING
-```
-
 ## RuleId[ruleID=ArrayEquality]
 ### ArrayEquality
 Array objects are compared using `!=`, not 'Arrays.equals()'
@@ -4414,30 +4428,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/output/SecureByteAr
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
-      throws IllegalArgumentException {
-      int off = 0;
-      StringBuffer rs = new StringBuffer();
-      int c1, c2;
-
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer rs` may be declared as 'StringBuilder'
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-      char minor = (char)0;
-      int rounds, off = 0;
-      StringBuffer rs = new StringBuffer();
-
-      if (salt.charAt(0) != '$' || salt.charAt(1) != '2')
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer rs` may be declared as 'StringBuilder'
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
    */
   public static String gensalt(int log_rounds, SecureRandom random) {
       StringBuffer rs = new StringBuffer();
@@ -4457,19 +4447,92 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
       byte ret[];
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `authed` of exception class
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/AsyncAuthException.java`
+### StringBufferReplaceableByStringBuilder
+`StringBuffer rs` may be declared as 'StringBuilder'
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
+      char minor = (char)0;
+      int rounds, off = 0;
+      StringBuffer rs = new StringBuffer();
 
-    protected transient Object listener;
-    protected Boolean authed;
-
-    public AsyncAuthException() {
+      if (salt.charAt(0) != '$' || salt.charAt(1) != '2')
 ```
 
+### StringBufferReplaceableByStringBuilder
+`StringBuffer rs` may be declared as 'StringBuilder'
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+      throws IllegalArgumentException {
+      int off = 0;
+      StringBuffer rs = new StringBuffer();
+      int c1, c2;
+
+```
+
+## RuleId[ruleID=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+                            log.debug("makeGlobalRequest({})[{}] want-reply=false sent", this, getId());
+                        }
+                        setValue(new ByteArrayBuffer(new byte[0]));
+                        GlobalRequestFuture.ReplyHandler handler = getHandler();
+                        if (handler != null) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
+#### Snippet
+```java
+                }
+                if (!args.isEmpty()) {
+                    cmds.add(args.toArray(new String[0]));
+                }
+                args.clear();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
+#### Snippet
+```java
+        }
+        if (!args.isEmpty()) {
+            cmds.add(args.toArray(new String[0]));
+        }
+        return cmds;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
+#### Snippet
+```java
+    private Object call(Object obj, String name)
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        return call(obj, name, new Class[0], new Object[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
+#### Snippet
+```java
+    private Object call(Object obj, String name)
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        return call(obj, name, new Class[0], new Object[0]);
+    }
+
+```
+
+## RuleId[ruleID=NonFinalFieldOfException]
 ### NonFinalFieldOfException
 Non-final field `listener` of exception class
 in `sshd-core/src/main/java/org/apache/sshd/server/auth/AsyncAuthException.java`
@@ -4480,6 +4543,18 @@ in `sshd-core/src/main/java/org/apache/sshd/server/auth/AsyncAuthException.java`
     protected transient Object listener;
     protected Boolean authed;
 
+```
+
+### NonFinalFieldOfException
+Non-final field `authed` of exception class
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/AsyncAuthException.java`
+#### Snippet
+```java
+
+    protected transient Object listener;
+    protected Boolean authed;
+
+    public AsyncAuthException() {
 ```
 
 ## RuleId[ruleID=SynchronizeOnThis]
@@ -4603,78 +4678,17 @@ in `sshd-common/src/main/java/org/apache/sshd/common/digest/BaseDigest.java`
                 s = getClass().getSimpleName() + "[" + getAlgorithm() + ":" + getBlockSize() + "]";
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
-#### Snippet
-```java
-    private Object call(Object obj, String name)
-            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return call(obj, name, new Class[0], new Object[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
-#### Snippet
-```java
-    private Object call(Object obj, String name)
-            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        return call(obj, name, new Class[0], new Object[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-                            log.debug("makeGlobalRequest({})[{}] want-reply=false sent", this, getId());
-                        }
-                        setValue(new ByteArrayBuffer(new byte[0]));
-                        GlobalRequestFuture.ReplyHandler handler = getHandler();
-                        if (handler != null) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
-#### Snippet
-```java
-                }
-                if (!args.isEmpty()) {
-                    cmds.add(args.toArray(new String[0]));
-                }
-                args.clear();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
-#### Snippet
-```java
-        }
-        if (!args.isEmpty()) {
-            cmds.add(args.toArray(new String[0]));
-        }
-        return cmds;
-```
-
 ## RuleId[ruleID=RedundantUnmodifiable]
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystem.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/ClientBuilder.java`
 #### Snippet
 ```java
-        this.selector = selector;
-        this.errorDataHandler = errorDataHandler;
-        this.stores = Collections.unmodifiableList(Collections.<FileStore> singletonList(new SftpFileStore(id, this)));
-        this.pool = new LinkedBlockingQueue<>(SftpModuleProperties.POOL_SIZE.getRequired(session));
-        try (SftpClient client = getClient()) {
+
+    public static final List<ChannelFactory> DEFAULT_CHANNEL_FACTORIES
+            = Collections.unmodifiableList(Collections.singletonList(ForwardedTcpipFactory.INSTANCE));
+    public static final List<RequestHandler<ConnectionService>> DEFAULT_GLOBAL_REQUEST_HANDLERS
+            = Collections.unmodifiableList(Collections.singletonList(OpenSshHostKeysHandler.INSTANCE));
 ```
 
 ### RedundantUnmodifiable
@@ -4703,42 +4717,6 @@ in `sshd-core/src/main/java/org/apache/sshd/client/ClientBuilder.java`
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-core/src/main/java/org/apache/sshd/client/ClientBuilder.java`
-#### Snippet
-```java
-
-    public static final List<ChannelFactory> DEFAULT_CHANNEL_FACTORIES
-            = Collections.unmodifiableList(Collections.singletonList(ForwardedTcpipFactory.INSTANCE));
-    public static final List<RequestHandler<ConnectionService>> DEFAULT_GLOBAL_REQUEST_HANDLERS
-            = Collections.unmodifiableList(Collections.singletonList(OpenSshHostKeysHandler.INSTANCE));
-```
-
-### RedundantUnmodifiable
-Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPKeyPairResourceParser.java`
-#### Snippet
-```java
-
-    public static final String END_MARKER = "END PGP PRIVATE KEY BLOCK";
-    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
-
-    public static final PGPKeyPairResourceParser INSTANCE = new PGPKeyPairResourceParser();
-```
-
-### RedundantUnmodifiable
-Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPKeyPairResourceParser.java`
-#### Snippet
-```java
-        PGPPrivateKeyExtractor {
-    public static final String BEGIN_MARKER = "BEGIN PGP PRIVATE KEY BLOCK";
-    public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
-
-    public static final String END_MARKER = "END PGP PRIVATE KEY BLOCK";
-```
-
-### RedundantUnmodifiable
-Redundant usage of the 'unmodifiableList' wrapper
 in `sshd-common/src/main/java/org/apache/sshd/common/util/OsUtils.java`
 #### Snippet
 ```java
@@ -4763,14 +4741,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/OpenSSH
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519PublicKeyDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519PEMResourceKeyParser.java`
 #### Snippet
 ```java
-    private Ed25519PublicKeyDecoder() {
-        super(EdDSAPublicKey.class, EdDSAPrivateKey.class,
-              Collections.unmodifiableList(
-                      Collections.singletonList(
-                              KeyPairProvider.SSH_ED25519)));
+
+    public static final String END_MARKER = "END EDDSA PRIVATE KEY";
+    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
+
+    /**
 ```
 
 ### RedundantUnmodifiable
@@ -4787,14 +4765,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519PEMResourceKeyParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/Ed25519PublicKeyDecoder.java`
 #### Snippet
 ```java
-
-    public static final String END_MARKER = "END EDDSA PRIVATE KEY";
-    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
-
-    /**
+    private Ed25519PublicKeyDecoder() {
+        super(EdDSAPublicKey.class, EdDSAPrivateKey.class,
+              Collections.unmodifiableList(
+                      Collections.singletonList(
+                              KeyPairProvider.SSH_ED25519)));
 ```
 
 ### RedundantUnmodifiable
@@ -4826,18 +4804,6 @@ Redundant usage of the 'unmodifiableList' wrapper
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/DSSPEMResourceKeyPairParser.java`
 #### Snippet
 ```java
-    // Not exactly according to standard but good enough
-    public static final String BEGIN_MARKER = "BEGIN DSA PRIVATE KEY";
-    public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
-
-    public static final String END_MARKER = "END DSA PRIVATE KEY";
-```
-
-### RedundantUnmodifiable
-Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/DSSPEMResourceKeyPairParser.java`
-#### Snippet
-```java
 
     public static final String END_MARKER = "END DSA PRIVATE KEY";
     public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
@@ -4847,14 +4813,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/DSSP
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/RSAPEMResourceKeyPairParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/DSSPEMResourceKeyPairParser.java`
 #### Snippet
 ```java
+    // Not exactly according to standard but good enough
+    public static final String BEGIN_MARKER = "BEGIN DSA PRIVATE KEY";
+    public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
 
-    public static final String END_MARKER = "END RSA PRIVATE KEY";
-    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
-
-    public static final String RSA_OID = "1.2.840.113549.1.1.1";
+    public static final String END_MARKER = "END DSA PRIVATE KEY";
 ```
 
 ### RedundantUnmodifiable
@@ -4871,14 +4837,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/RSAP
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/RSAPEMResourceKeyPairParser.java`
 #### Snippet
 ```java
 
-    public static final String END_MARKER = "END EC PRIVATE KEY";
+    public static final String END_MARKER = "END RSA PRIVATE KEY";
     public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
 
-    /**
+    public static final String RSA_OID = "1.2.840.113549.1.1.1";
 ```
 
 ### RedundantUnmodifiable
@@ -4895,6 +4861,18 @@ public class ECDSAPEMResourceKeyPairParser extends AbstractPEMResourceKeyPairPar
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
+#### Snippet
+```java
+
+    public static final String END_MARKER = "END EC PRIVATE KEY";
+    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
+
+    /**
+```
+
+### RedundantUnmodifiable
+Redundant usage of the 'unmodifiableList' wrapper
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHRSAPrivateKeyDecoder.java`
 #### Snippet
 ```java
@@ -4903,30 +4881,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
               Collections.unmodifiableList(Collections.singletonList(KeyPairProvider.SSH_RSA)));
     }
 
-```
-
-### RedundantUnmodifiable
-Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHDSSPrivateKeyEntryDecoder.java`
-#### Snippet
-```java
-    public OpenSSHDSSPrivateKeyEntryDecoder() {
-        super(DSAPublicKey.class, DSAPrivateKey.class,
-              Collections.unmodifiableList(Collections.singletonList(KeyPairProvider.SSH_DSS)));
-    }
-
-```
-
-### RedundantUnmodifiable
-Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PKCS8PEMResourceKeyPairParser.java`
-#### Snippet
-```java
-    // Not exactly according to standard but good enough
-    public static final String BEGIN_MARKER = "BEGIN PRIVATE KEY";
-    public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
-
-    public static final String END_MARKER = "END PRIVATE KEY";
 ```
 
 ### RedundantUnmodifiable
@@ -4943,14 +4897,26 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PKCS
 
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PKCS8PEMResourceKeyPairParser.java`
 #### Snippet
 ```java
+    // Not exactly according to standard but good enough
+    public static final String BEGIN_MARKER = "BEGIN PRIVATE KEY";
+    public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
 
-    public static final String END_MARKER = "END OPENSSH PRIVATE KEY";
-    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
+    public static final String END_MARKER = "END PRIVATE KEY";
+```
 
-    public static final String AUTH_MAGIC = "openssh-key-v1";
+### RedundantUnmodifiable
+Redundant usage of the 'unmodifiableList' wrapper
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHDSSPrivateKeyEntryDecoder.java`
+#### Snippet
+```java
+    public OpenSSHDSSPrivateKeyEntryDecoder() {
+        super(DSAPublicKey.class, DSAPrivateKey.class,
+              Collections.unmodifiableList(Collections.singletonList(KeyPairProvider.SSH_DSS)));
+    }
+
 ```
 
 ### RedundantUnmodifiable
@@ -4963,6 +4929,54 @@ public class OpenSSHKeyPairResourceParser extends AbstractKeyPairResourceParser 
     public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
 
     public static final String END_MARKER = "END OPENSSH PRIVATE KEY";
+```
+
+### RedundantUnmodifiable
+Redundant usage of the 'unmodifiableList' wrapper
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+
+    public static final String END_MARKER = "END OPENSSH PRIVATE KEY";
+    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
+
+    public static final String AUTH_MAGIC = "openssh-key-v1";
+```
+
+### RedundantUnmodifiable
+Redundant usage of the 'unmodifiableList' wrapper
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystem.java`
+#### Snippet
+```java
+        this.selector = selector;
+        this.errorDataHandler = errorDataHandler;
+        this.stores = Collections.unmodifiableList(Collections.<FileStore> singletonList(new SftpFileStore(id, this)));
+        this.pool = new LinkedBlockingQueue<>(SftpModuleProperties.POOL_SIZE.getRequired(session));
+        try (SftpClient client = getClient()) {
+```
+
+### RedundantUnmodifiable
+Redundant usage of the 'unmodifiableList' wrapper
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPKeyPairResourceParser.java`
+#### Snippet
+```java
+        PGPPrivateKeyExtractor {
+    public static final String BEGIN_MARKER = "BEGIN PGP PRIVATE KEY BLOCK";
+    public static final List<String> BEGINNERS = Collections.unmodifiableList(Collections.singletonList(BEGIN_MARKER));
+
+    public static final String END_MARKER = "END PGP PRIVATE KEY BLOCK";
+```
+
+### RedundantUnmodifiable
+Redundant usage of the 'unmodifiableList' wrapper
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPKeyPairResourceParser.java`
+#### Snippet
+```java
+
+    public static final String END_MARKER = "END PGP PRIVATE KEY BLOCK";
+    public static final List<String> ENDERS = Collections.unmodifiableList(Collections.singletonList(END_MARKER));
+
+    public static final PGPKeyPairResourceParser INSTANCE = new PGPKeyPairResourceParser();
 ```
 
 ## RuleId[ruleID=TypeParameterExtendsObject]
@@ -4979,54 +4993,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/closeable/AutoCloseabl
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-The value `buffer.getInt()` assigned to `valid` is never used
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-                int valid = 0xffffffff;
-                if (version >= SftpConstants.SFTP_V6) {
-                    valid = buffer.getInt();
-                }
-                // TODO: handle attrib bits
-```
-
-### UnusedAssignment
-The value `buffer.getInt()` assigned to `valid` is never used
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-                int valid = 0xffffffff;
-                if (version >= SftpConstants.SFTP_V6) {
-                    valid = buffer.getInt();
-                }
-                // TODO: handle attrib bits
-```
-
-### UnusedAssignment
-The value `buffer.getInt()` assigned to `aclFlags` is never used
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        int aclFlags = 0; // TODO handle ACL flags
-        if (version >= SftpConstants.SFTP_V6) {
-            aclFlags = buffer.getInt();
-        }
-
-```
-
-### UnusedAssignment
-Variable `reply` initializer `null` is redundant
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
-#### Snippet
-```java
-        }
-
-        Buffer reply = null;
-        try {
-            DirectoryHandle dh = validateHandle(handle, h, DirectoryHandle.class);
-```
-
 ### UnusedAssignment
 The value `StandardCharsets.US_ASCII` assigned to `charset` is never used
 in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
@@ -5076,15 +5042,39 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMe
 ```
 
 ### UnusedAssignment
-Variable `hashMatches` initializer `false` is redundant
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+The value `null` assigned to `password` is never used
+in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
 #### Snippet
 ```java
-        byte[] digestBuf = new byte[(int) Math.min(effectiveLength, SftpConstants.MD5_QUICK_HASH_SIZE)];
-        ByteBuffer wb = ByteBuffer.wrap(digestBuf);
-        boolean hashMatches = false;
-        byte[] hashValue = null;
-        SftpFileSystemAccessor accessor = getFileSystemAccessor();
+                    ResourceDecodeResult result
+                            = passwordProvider.handleDecodeAttemptResult(session, resourceKey, retryIndex, password, e);
+                    password = null; // get rid of sensitive data a.s.a.p.
+                    if (result == null) {
+                        result = ResourceDecodeResult.TERMINATE;
+```
+
+### UnusedAssignment
+The value `null` assigned to `password` is never used
+in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+#### Snippet
+```java
+                    }
+
+                    password = null; // GC hint - don't keep sensitive data in memory longer than necessary
+                    switch (result) {
+                        case TERMINATE:
+```
+
+### UnusedAssignment
+The value `null` assigned to `password` is never used
+in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+#### Snippet
+```java
+
+                passwordProvider.handleDecodeAttemptResult(session, resourceKey, retryIndex, password, null);
+                password = null; // get rid of sensitive data a.s.a.p.
+                return keys;
+            }
 ```
 
 ### UnusedAssignment
@@ -5097,18 +5087,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
         boolean done = false;
         try {
             if (debugEnabled) {
-```
-
-### UnusedAssignment
-Variable `values` initializer `null` is redundant
-in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
-#### Snippet
-```java
-        }
-
-        List<Object> values = null;
-        if (prev instanceof List<?>) {
-            values = (List<Object>) prev;
 ```
 
 ### UnusedAssignment
@@ -5256,39 +5234,75 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/ScpShell.java`
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `password` is never used
-in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+The value `buffer.getInt()` assigned to `valid` is never used
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
 #### Snippet
 ```java
-                    ResourceDecodeResult result
-                            = passwordProvider.handleDecodeAttemptResult(session, resourceKey, retryIndex, password, e);
-                    password = null; // get rid of sensitive data a.s.a.p.
-                    if (result == null) {
-                        result = ResourceDecodeResult.TERMINATE;
+                int valid = 0xffffffff;
+                if (version >= SftpConstants.SFTP_V6) {
+                    valid = buffer.getInt();
+                }
+                // TODO: handle attrib bits
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `password` is never used
-in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+The value `buffer.getInt()` assigned to `aclFlags` is never used
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
 #### Snippet
 ```java
-                    }
+        int aclFlags = 0; // TODO handle ACL flags
+        if (version >= SftpConstants.SFTP_V6) {
+            aclFlags = buffer.getInt();
+        }
 
-                    password = null; // GC hint - don't keep sensitive data in memory longer than necessary
-                    switch (result) {
-                        case TERMINATE:
 ```
 
 ### UnusedAssignment
-The value `null` assigned to `password` is never used
-in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+The value `buffer.getInt()` assigned to `valid` is never used
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
 #### Snippet
 ```java
+                int valid = 0xffffffff;
+                if (version >= SftpConstants.SFTP_V6) {
+                    valid = buffer.getInt();
+                }
+                // TODO: handle attrib bits
+```
 
-                passwordProvider.handleDecodeAttemptResult(session, resourceKey, retryIndex, password, null);
-                password = null; // get rid of sensitive data a.s.a.p.
-                return keys;
-            }
+### UnusedAssignment
+Variable `values` initializer `null` is redundant
+in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
+#### Snippet
+```java
+        }
+
+        List<Object> values = null;
+        if (prev instanceof List<?>) {
+            values = (List<Object>) prev;
+```
+
+### UnusedAssignment
+Variable `hashMatches` initializer `false` is redundant
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        byte[] digestBuf = new byte[(int) Math.min(effectiveLength, SftpConstants.MD5_QUICK_HASH_SIZE)];
+        ByteBuffer wb = ByteBuffer.wrap(digestBuf);
+        boolean hashMatches = false;
+        byte[] hashValue = null;
+        SftpFileSystemAccessor accessor = getFileSystemAccessor();
+```
+
+### UnusedAssignment
+Variable `reply` initializer `null` is redundant
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+#### Snippet
+```java
+        }
+
+        Buffer reply = null;
+        try {
+            DirectoryHandle dh = validateHandle(handle, h, DirectoryHandle.class);
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -5317,174 +5331,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `logStream != null` is always `true`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-            try {
-                SftpClientFactory clientFactory = resolveSftpClientFactory(session);
-                Logger logger = (logStream != null)
-                        ? CliLogger.getLogger(SftpCommandMain.class, level,
-                                (logStream instanceof PrintStream) ? (PrintStream) logStream : new PrintStream(logStream))
-```
-
-### ConstantValue
-Condition `!error` is always `true`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-        List<NamedFactory<Compression>> compressions = null;
-        int numArgs = GenericUtils.length(args);
-        for (int i = 0; (!error) && (i < numArgs); i++) {
-            String argName = args[i];
-            String argVal = null;
-```
-
-### ConstantValue
-Value `error` is always 'false'
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-        List<NamedFactory<Compression>> compressions = null;
-        int numArgs = GenericUtils.length(args);
-        for (int i = 0; (!error) && (i < numArgs); i++) {
-            String argName = args[i];
-            String argVal = null;
-```
-
-### ConstantValue
-Condition `!error` is always `true` when reached
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-        boolean error = false;
-        boolean threeWay = false;
-        for (int index = 0; (index < numArgs) && (!error); index++) {
-            String argName = args[index];
-            // handled by 'setupClientSession'
-```
-
-### ConstantValue
-Value `error` is always 'false'
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-        boolean error = false;
-        boolean threeWay = false;
-        for (int index = 0; (index < numArgs) && (!error); index++) {
-            String argName = args[index];
-            // handled by 'setupClientSession'
-```
-
-### ConstantValue
-Value `completed` is always 'true'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
-#### Snippet
-```java
-        if (debugEnabled) {
-            log.debug("transferFrom({})[position={}, count={}] use copySize={} - totalRead={}, completed={} for source={}",
-                    this, position, count, copySize, totalRead, completed, src);
-        }
-        return totalRead;
-```
-
-### ConstantValue
-Value `completed` is always 'true'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
-#### Snippet
-```java
-        if (debugEnabled) {
-            log.debug("doWrite({})[position={}] used {}/{} with copySize={} - totalWritten={}, completed={}",
-                    this, position, numBufsUsed, buffers.size(), copySize, totalWritten, completed);
-        }
-
-```
-
-### ConstantValue
-Value `completed` is always 'true'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
-#### Snippet
-```java
-        if (debugEnabled) {
-            log.debug("doRead({})[position={}] filled {}/{} with copySize={} - totalRead={}, completed={}, eof={}",
-                    this, position, numBufsUsed, buffers.size(), copySize, totalRead, completed, eof);
-        }
-
-```
-
-### ConstantValue
-Value `err` is always 'null'
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SimpleSftpClientImpl.java`
-#### Snippet
-```java
-                return closer;
-            } catch (Exception e) {
-                err = ExceptionUtils.accumulateException(err, e);
-            } finally {
-                if (client != null) {
-```
-
-### ConstantValue
-Value `err` is always 'null'
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                input.close();
-            } catch (IOException e) {
-                err = ExceptionUtils.accumulateException(err, e);
-            } finally {
-                input = null;
-```
-
-### ConstantValue
-Condition `"false".equals("value")` is always `false` when reached
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-            if (NumberUtils.isIntegerNumber(value)) {
-                map.put(key, Long.valueOf(value));
-            } else if ("true".equals(value) || "false".equals("value")) {
-                map.put(key, Boolean.valueOf(value));
-            } else {
-```
-
-### ConstantValue
-Condition `e instanceof RuntimeException` is always `true`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-                if (e instanceof IOException) {
-                    throw (IOException) e;
-                } else if (e instanceof RuntimeException) {
-                    throw (RuntimeException) e;
-                } else {
-```
-
-### ConstantValue
-Condition `parsed == null` is always `false`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-        if (parsed == null) {
-            parsed = ParserUtils.parse(extensions);
-            if (parsed == null) {
-                parsed = Collections.emptyMap();
-            }
-```
-
-### ConstantValue
-Condition `count >= 0` is always `true`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-
-        ValidateUtils.checkTrue(count >= 0, "Invalid ACL entries count: %d", count);
-        if (count == 0) {
-            return Collections.emptyList();
-```
-
 ### ConstantValue
 Value `err` is always 'null'
 in `sshd-core/src/main/java/org/apache/sshd/client/simple/AbstractSimpleClientSessionCreator.java`
@@ -5522,18 +5368,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/AbstractIoServiceFactory.j
 ```
 
 ### ConstantValue
-Condition `length > Integer.MAX_VALUE` is always `false`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.java`
-#### Snippet
-```java
-                long lenToSend = Math.min(available, total);
-                long length = Math.min(lenToSend, remoteWindow.getPacketSize());
-                if (length > Integer.MAX_VALUE) {
-                    throw new StreamCorruptedException("Accumulated " + SshConstants.getCommandMessageName(cmd)
-                                                       + " command bytes size (" + length + ") exceeds int boundaries");
-```
-
-### ConstantValue
 Condition `l2 <= Integer.MAX_VALUE` is always `true`
 in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.java`
 #### Snippet
@@ -5567,6 +5401,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.j
         if (isNoDelay() && !flushed) {
             flush();
         } else {
+```
+
+### ConstantValue
+Condition `length > Integer.MAX_VALUE` is always `false`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.java`
+#### Snippet
+```java
+                long lenToSend = Math.min(available, total);
+                long length = Math.min(lenToSend, remoteWindow.getPacketSize());
+                if (length > Integer.MAX_VALUE) {
+                    throw new StreamCorruptedException("Accumulated " + SshConstants.getCommandMessageName(cmd)
+                                                       + " command bytes size (" + length + ") exceeds int boundaries");
 ```
 
 ### ConstantValue
@@ -5642,14 +5488,14 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMe
 ```
 
 ### ConstantValue
-Value `err` is always 'null'
+Value `proxy` is always 'null'
 in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
 #### Snippet
 ```java
-        } catch (Throwable t) {
-            Throwable e = ExceptionUtils.peelException(t);
-            err = ExceptionUtils.accumulateException(err, e);
-        }
+                if (prevProxy != null) {
+                    throw new IOException("Multiple dynamic port mappings found for port=" + port
+                                          + ": current=" + proxy + ", previous=" + prevProxy);
+                }
 
 ```
 
@@ -5678,18 +5524,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java
 ```
 
 ### ConstantValue
-Value `proxy` is always 'null'
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
-#### Snippet
-```java
-                if (prevProxy != null) {
-                    throw new IOException("Multiple dynamic port mappings found for port=" + port
-                                          + ": current=" + proxy + ", previous=" + prevProxy);
-                }
-
-```
-
-### ConstantValue
 Condition `session == null` is always `false`
 in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
 #### Snippet
@@ -5699,6 +5533,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java
         FactoryManager manager = (session == null) ? null : session.getFactoryManager();
         l = (manager == null) ? null : manager.getPortForwardingEventListenerProxy();
         if (l != null) {
+```
+
+### ConstantValue
+Value `err` is always 'null'
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
+#### Snippet
+```java
+        } catch (Throwable t) {
+            Throwable e = ExceptionUtils.peelException(t);
+            err = ExceptionUtils.accumulateException(err, e);
+        }
+
 ```
 
 ### ConstantValue
@@ -5714,27 +5560,15 @@ in `sshd-core/src/main/java/org/apache/sshd/server/shell/InvertedShellWrapper.ja
 ```
 
 ### ConstantValue
-Condition `key == null` is always `false`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyFileWatcher.java`
+Value `immediately` is always 'false'
+in `sshd-core/src/main/java/org/apache/sshd/server/channel/ChannelSession.java`
 #### Snippet
 ```java
-        }
-
-        return (key == null) ? null : key.toPublicKey();
-    }
-}
-```
-
-### ConstantValue
-Value `authed` is always 'false'
-in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
-#### Snippet
-```java
-
-        if (cmd == SshConstants.SSH_MSG_USERAUTH_REQUEST) {
-            AtomicReference<Boolean> authHolder = new AtomicReference<>(authed);
-            if (!handleUserAuthRequestMessage(session, buffer, authHolder)) {
-                return;
+                    if (debugEnabled) {
+                        log.debug("close({})[immediately={}] failed ({}) to close receiver(s): {}",
+                                this, immediately, e.getClass().getSimpleName(), e.getMessage());
+                    }
+                }
 ```
 
 ### ConstantValue
@@ -5750,15 +5584,15 @@ in `sshd-core/src/main/java/org/apache/sshd/server/channel/ChannelSession.java`
 ```
 
 ### ConstantValue
-Value `immediately` is always 'false'
-in `sshd-core/src/main/java/org/apache/sshd/server/channel/ChannelSession.java`
+Value `authed` is always 'false'
+in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
 #### Snippet
 ```java
-                    if (debugEnabled) {
-                        log.debug("close({})[immediately={}] failed ({}) to close receiver(s): {}",
-                                this, immediately, e.getClass().getSimpleName(), e.getMessage());
-                    }
-                }
+
+        if (cmd == SshConstants.SSH_MSG_USERAUTH_REQUEST) {
+            AtomicReference<Boolean> authHolder = new AtomicReference<>(authed);
+            if (!handleUserAuthRequestMessage(session, buffer, authHolder)) {
+                return;
 ```
 
 ### ConstantValue
@@ -5942,18 +5776,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/channel/SttySupport.java`
 ```
 
 ### ConstantValue
-Condition `bufSize < 0` is always `false`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpHelper.java`
-#### Snippet
-```java
-        }
-
-        if (bufSize < 0) { // TODO consider throwing an exception
-            log.warn("sendStream({})[{}] bad buffer size ({}) using default ({})", this, resolver, bufSize,
-                    MIN_SEND_BUFFER_SIZE);
-```
-
-### ConstantValue
 Value `err` is always 'null'
 in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/compression/DeflatingInputStream.java`
 #### Snippet
@@ -5963,6 +5785,18 @@ in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/compression/Deflat
             err = ExceptionUtils.accumulateException(err, e);
         }
 
+```
+
+### ConstantValue
+Condition `logStream != null` is always `true`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
+#### Snippet
+```java
+            try {
+                SftpClientFactory clientFactory = resolveSftpClientFactory(session);
+                Logger logger = (logStream != null)
+                        ? CliLogger.getLogger(SftpCommandMain.class, level,
+                                (logStream instanceof PrintStream) ? (PrintStream) logStream : new PrintStream(logStream))
 ```
 
 ### ConstantValue
@@ -5977,19 +5811,187 @@ in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/Sprin
 
 ```
 
-## RuleId[ruleID=IOResource]
-### IOResource
-'SftpOutputStreamAsync' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+### ConstantValue
+Condition `!error` is always `true`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+        List<NamedFactory<Compression>> compressions = null;
+        int numArgs = GenericUtils.length(args);
+        for (int i = 0; (!error) && (i < numArgs); i++) {
+            String argName = args[i];
+            String argVal = null;
+```
+
+### ConstantValue
+Value `error` is always 'false'
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+        List<NamedFactory<Compression>> compressions = null;
+        int numArgs = GenericUtils.length(args);
+        for (int i = 0; (!error) && (i < numArgs); i++) {
+            String argName = args[i];
+            String argVal = null;
+```
+
+### ConstantValue
+Value `err` is always 'null'
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                input.close();
+            } catch (IOException e) {
+                err = ExceptionUtils.accumulateException(err, e);
+            } finally {
+                input = null;
+```
+
+### ConstantValue
+Condition `!error` is always `true` when reached
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+        boolean error = false;
+        boolean threeWay = false;
+        for (int index = 0; (index < numArgs) && (!error); index++) {
+            String argName = args[index];
+            // handled by 'setupClientSession'
+```
+
+### ConstantValue
+Value `error` is always 'false'
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+        boolean error = false;
+        boolean threeWay = false;
+        for (int index = 0; (index < numArgs) && (!error); index++) {
+            String argName = args[index];
+            // handled by 'setupClientSession'
+```
+
+### ConstantValue
+Condition `bufSize < 0` is always `false`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpHelper.java`
+#### Snippet
+```java
+        }
+
+        if (bufSize < 0) { // TODO consider throwing an exception
+            log.warn("sendStream({})[{}] bad buffer size ({}) using default ({})", this, resolver, bufSize,
+                    MIN_SEND_BUFFER_SIZE);
+```
+
+### ConstantValue
+Value `err` is always 'null'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SimpleSftpClientImpl.java`
+#### Snippet
+```java
+                return closer;
+            } catch (Exception e) {
+                err = ExceptionUtils.accumulateException(err, e);
+            } finally {
+                if (client != null) {
+```
+
+### ConstantValue
+Value `completed` is always 'true'
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
 #### Snippet
 ```java
-                // DO NOT CLOSE THE OUTPUT STREAM AS IT WOULD CLOSE THE HANDLE
-                @SuppressWarnings("resource")
-                SftpOutputStreamAsync output = new SftpOutputStreamAsync(
-                        (AbstractSftpClient) sftp,
-                        copySize, getRemotePath(), handle);
+        if (debugEnabled) {
+            log.debug("doWrite({})[position={}] used {}/{} with copySize={} - totalWritten={}, completed={}",
+                    this, position, numBufsUsed, buffers.size(), copySize, totalWritten, completed);
+        }
+
 ```
 
+### ConstantValue
+Value `completed` is always 'true'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
+#### Snippet
+```java
+        if (debugEnabled) {
+            log.debug("doRead({})[position={}] filled {}/{} with copySize={} - totalRead={}, completed={}, eof={}",
+                    this, position, numBufsUsed, buffers.size(), copySize, totalRead, completed, eof);
+        }
+
+```
+
+### ConstantValue
+Value `completed` is always 'true'
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
+#### Snippet
+```java
+        if (debugEnabled) {
+            log.debug("transferFrom({})[position={}, count={}] use copySize={} - totalRead={}, completed={} for source={}",
+                    this, position, count, copySize, totalRead, completed, src);
+        }
+        return totalRead;
+```
+
+### ConstantValue
+Condition `"false".equals("value")` is always `false` when reached
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+            if (NumberUtils.isIntegerNumber(value)) {
+                map.put(key, Long.valueOf(value));
+            } else if ("true".equals(value) || "false".equals("value")) {
+                map.put(key, Boolean.valueOf(value));
+            } else {
+```
+
+### ConstantValue
+Condition `e instanceof RuntimeException` is always `true`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+                if (e instanceof IOException) {
+                    throw (IOException) e;
+                } else if (e instanceof RuntimeException) {
+                    throw (RuntimeException) e;
+                } else {
+```
+
+### ConstantValue
+Condition `key == null` is always `false`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyFileWatcher.java`
+#### Snippet
+```java
+        }
+
+        return (key == null) ? null : key.toPublicKey();
+    }
+}
+```
+
+### ConstantValue
+Condition `count >= 0` is always `true`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+
+        ValidateUtils.checkTrue(count >= 0, "Invalid ACL entries count: %d", count);
+        if (count == 0) {
+            return Collections.emptyList();
+```
+
+### ConstantValue
+Condition `parsed == null` is always `false`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+        if (parsed == null) {
+            parsed = ParserUtils.parse(extensions);
+            if (parsed == null) {
+                parsed = Collections.emptyMap();
+            }
+```
+
+## RuleId[ruleID=IOResource]
 ### IOResource
 'SftpInputStreamAsync' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
@@ -6002,438 +6004,41 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChann
                         copySize, position, count, getRemotePath(), handle);
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `sshd-core/src/main/java/org/apache/sshd/common/kex/extension/KexExtensionHandler.java`
+### IOResource
+'SftpOutputStreamAsync' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpRemotePathChannel.java`
 #### Snippet
 ```java
-         * sessions, but code should not rely on this implicit assumption.
-         */
-        AUTHOK;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/closeable/AbstractCloseable.java`
-#### Snippet
-```java
-        /** Connection is closed */
-        Closed,
-        /* end */;
-    }
-
+                // DO NOT CLOSE THE OUTPUT STREAM AS IT WOULD CLOSE THE HANDLE
+                @SuppressWarnings("resource")
+                SftpOutputStreamAsync output = new SftpOutputStreamAsync(
+                        (AbstractSftpClient) sftp,
+                        copySize, getRemotePath(), handle);
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
-Argument `command` might be null
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientMain.java`
+Method invocation `initVerifier` may produce `NullPointerException`
+in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
 #### Snippet
 ```java
-                            cmdValue = Channel.CHANNEL_SHELL;
-                        } else {
-                            cmdValue = String.join(" ", command).trim();
-                            channel = session.createExecChannel(cmdValue, ptyConfig, env);
-                        }
+                NamedFactory.create(session.getSignatureFactories(), keyAlg),
+                "No verifier located for algorithm=%s", keyAlg);
+        verif.initVerifier(session, serverPublicHostKey);
+        verif.update(session, h);
+        if (!verif.verify(session, sig)) {
 ```
 
 ### DataFlowIssue
-Method invocation `startsWith` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerCliSupport.java`
+Method invocation `initVerifier` may produce `NullPointerException`
+in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
 #### Snippet
 ```java
-        boolean useScp = false;
-        // SCP + CUSTOM SHELL
-        if (factory.startsWith(ScpCommandFactory.SCP_FACTORY_NAME + "+")) {
-            factory = factory.substring(ScpCommandFactory.SCP_FACTORY_NAME.length() + 1);
-            ValidateUtils.checkNotNullAndNotEmpty(factory, "No extra custom shell factory class specified");
-```
+                NamedFactory.create(session.getSignatureFactories(), keyAlg),
+                "No KeyExchange CA verifier located for algorithm=%s of key ID=%s", keyAlg, keyId);
+        verif.initVerifier(session, signatureKey);
+        verif.update(session, openSshKey.getMessage());
 
-### DataFlowIssue
-Immutable object is modified
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-                String[] extra = GenericUtils.split(prefix, ' ');
-                if (!GenericUtils.isEmpty(extra)) {
-                    args.addAll(Arrays.asList(extra));
-                }
-
-```
-
-### DataFlowIssue
-Immutable object is modified
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-
-                String value = line.substring(startPos + 1, endPos);
-                args.add(value);
-
-                line = (endPos < (line.length() - 1)) ? line.substring(endPos + 1).trim() : "";
-```
-
-### DataFlowIssue
-Immutable object is modified
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-                args = new LinkedList<>();
-            }
-            args.addAll(Arrays.asList(extra));
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `charAt` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-            String flags = (numComps >= 2) ? GenericUtils.trimToEmpty(comps[0]) : null;
-            // ignore all flags
-            if ((GenericUtils.length(pathArg) > 0) && (pathArg.charAt(0) == '-')) {
-                flags = pathArg;
-                pathArg = null;
-```
-
-### DataFlowIssue
-Method invocation `indexOf` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-            int version = sftp.getVersion();
-            boolean showLongName
-                    = (version == SftpConstants.SFTP_V3) && (GenericUtils.length(flags) > 1) && (flags.indexOf('l') > 0);
-            for (SftpClient.DirEntry entry : sftp.readDir(path)) {
-                String fileName = entry.getFilename();
-```
-
-### DataFlowIssue
-Method invocation `charAt` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-            String flags = (numComps >= 2) ? GenericUtils.trimToEmpty(comps[0]) : null;
-            // ignore all flags
-            if ((GenericUtils.length(pathArg) > 0) && (pathArg.charAt(0) == '-')) {
-                flags = pathArg;
-                pathArg = null;
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-        } finally {
-            if ((logStream != stdout) && (logStream != stderr)) {
-                logStream.close();
-            }
-        }
-```
-
-### DataFlowIssue
-Argument `argVal` might be null
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-                }
-
-                port = Integer.parseInt(argVal);
-                if (port <= 0) {
-                    error = CliLogger.showError(stderr, "Bad option value for " + argName + ": " + port);
-```
-
-### DataFlowIssue
-Array access `args[numArgs - 2]` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-
-            // see the way normalizeCommandArguments works...
-            ScpLocation source = (numArgs >= 2) ? new ScpLocation(args[numArgs - 2]) : null;
-            ScpLocation target = (numArgs >= 2) ? new ScpLocation(args[numArgs - 1]) : null;
-
-```
-
-### DataFlowIssue
-Array access `args[index]` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-            boolean threeWay = false;
-            for (int index = 0; index < numArgs; index++) {
-                String argName = args[index];
-                if ("-q".equals(argName)) {
-                    quiet = true;
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-        } finally {
-            if ((logStream != stdout) && (logStream != stderr)) {
-                logStream.close();
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getUsername` may produce `NullPointerException`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-        ValidateUtils.checkState(credentials != null, "No credentials provided");
-
-        String username = credentials.getUsername();
-        String id = getFileSystemIdentifier(host, port, username);
-        SftpFileSystemInitializationContext context = new SftpFileSystemInitializationContext(id, uri, env);
-```
-
-### DataFlowIssue
-Argument `extra` might be null
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
-#### Snippet
-```java
-
-        Set<String> result = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        result.addAll(extra);
-        result.addAll(extra2);
-        return result;
-```
-
-### DataFlowIssue
-Argument `extra2` might be null
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
-#### Snippet
-```java
-        Set<String> result = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        result.addAll(extra);
-        result.addAll(extra2);
-        return result;
-    }
-```
-
-### DataFlowIssue
-Method invocation `longValue` may produce `NullPointerException`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-                : SftpConstants.SSH_FILEXFER_TYPE_UNKNOWN));
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_SIZE) != 0) {
-            buffer.putLong(size.longValue());
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_OWNERGROUP) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastAccessTime);
-        }
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
-            buffer = writeTime(buffer, version, flags, creationTime);
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastModifiedTime);
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-            buffer = writeACLs(buffer, version, acl);
-        }
-        // TODO: ctime
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        // TODO: bits
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-            buffer = writeExtensions(buffer, extensions);
-        }
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
-            }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
-            }
-        } else if (sftpVersion >= SftpConstants.SFTP_V4) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getCreateTime());
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-                buffer = writeACLs(buffer, sftpVersion, attributes.getAcl());
-            }
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-            buffer = writeExtensions(buffer, attributes.getExtensions());
-        }
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastAccessTime);
-            buffer = writeTime(buffer, version, flags, lastModifiedTime);
-        }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastAccessTime);
-            buffer = writeTime(buffer, version, flags, lastModifiedTime);
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-            buffer = writeExtensions(buffer, extensions);
-        }
-
-```
-
-### DataFlowIssue
-Argument `ValidateUtils.checkNotNull(decodeAclEntryType(aclType), "Unknown ACL type: %d", aclType)` might be null
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        UserPrincipal who = new DefaultGroupPrincipal(aclWho);
-        return AclEntry.newBuilder()
-                .setType(ValidateUtils.checkNotNull(decodeAclEntryType(aclType), "Unknown ACL type: %d", aclType))
-                .setFlags(decodeAclFlags(aclFlag))
-                .setPermissions(decodeAclMask(aclMask))
-```
-
-### DataFlowIssue
-Method invocation `resolve` may produce `NullPointerException`
-in `sshd-git/src/main/java/org/apache/sshd/git/pack/GitPackCommand.java`
-#### Snippet
-```java
-
-        ValidateUtils.checkNotNullAndNotEmpty(pathArg, "No %s command sub-path specified", args[0]);
-        return rootDir.resolve(pathArg);
-    }
-}
 ```
 
 ### DataFlowIssue
@@ -6473,30 +6078,6 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/KeyPairIdentity.j
 ```
 
 ### DataFlowIssue
-Method invocation `initVerifier` may produce `NullPointerException`
-in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
-#### Snippet
-```java
-                NamedFactory.create(session.getSignatureFactories(), keyAlg),
-                "No KeyExchange CA verifier located for algorithm=%s of key ID=%s", keyAlg, keyId);
-        verif.initVerifier(session, signatureKey);
-        verif.update(session, openSshKey.getMessage());
-
-```
-
-### DataFlowIssue
-Method invocation `initVerifier` may produce `NullPointerException`
-in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
-#### Snippet
-```java
-                NamedFactory.create(session.getSignatureFactories(), keyAlg),
-                "No verifier located for algorithm=%s", keyAlg);
-        verif.initVerifier(session, serverPublicHostKey);
-        verif.update(session, h);
-        if (!verif.verify(session, sig)) {
-```
-
-### DataFlowIssue
 Method invocation `initSigner` may produce `NullPointerException`
 in `sshd-core/src/main/java/org/apache/sshd/client/auth/hostbased/UserAuthHostBased.java`
 #### Snippet
@@ -6522,18 +6103,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/CurrentServic
 
 ### DataFlowIssue
 Method invocation `initSigner` may produce `NullPointerException`
-in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGServer.java`
-#### Snippet
-```java
-                NamedFactory.create(session.getSignatureFactories(), algo),
-                "Unknown negotiated server keys: %s", algo);
-        sig.initSigner(session, kp.getPrivate());
-
-        buffer = new ByteArrayBuffer();
-```
-
-### DataFlowIssue
-Method invocation `initSigner` may produce `NullPointerException`
 in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGEXServer.java`
 #### Snippet
 ```java
@@ -6545,15 +6114,15 @@ in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGEXServer.java`
 ```
 
 ### DataFlowIssue
-Variable update does nothing
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+Method invocation `initSigner` may produce `NullPointerException`
+in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGServer.java`
 #### Snippet
 ```java
-            if ((flags & SftpConstants.SSH_FXF_CREAT) != 0) {
-                if ((flags & SftpConstants.SSH_FXF_EXCL) != 0) {
-                    pflags |= SftpConstants.SSH_FXF_CREATE_NEW;
-                } else if ((flags & SftpConstants.SSH_FXF_TRUNC) != 0) {
-                    pflags |= SftpConstants.SSH_FXF_CREATE_TRUNCATE;
+                NamedFactory.create(session.getSignatureFactories(), algo),
+                "Unknown negotiated server keys: %s", algo);
+        sig.initSigner(session, kp.getPrivate());
+
+        buffer = new ByteArrayBuffer();
 ```
 
 ### DataFlowIssue
@@ -6593,15 +6162,15 @@ in `sshd-core/src/main/java/org/apache/sshd/server/global/OpenSshHostKeysHandler
 ```
 
 ### DataFlowIssue
-Immutable object is modified
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
+Variable is already assigned to this value
+in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
 #### Snippet
 ```java
-                matches = new ArrayList<>(numEntries);
-            }
-            matches.add(key);
-        }
+                    }
 
+                    password = null; // GC hint - don't keep sensitive data in memory longer than necessary
+                    switch (result) {
+                        case TERMINATE:
 ```
 
 ### DataFlowIssue
@@ -6797,30 +6366,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 ```
 
 ### DataFlowIssue
-Method invocation `validateCommandStatusCode` may produce `NullPointerException`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/ScpRemote2RemoteTransferHelper.java`
-#### Snippet
-```java
-        // wait for destination to signal data received
-        ackInfo = ScpAckInfo.readAck(dstIn, csIn, false);
-        ackInfo.validateCommandStatusCode("[DST-EOF] " + header, "transferSimpleFile");
-        return xferCount;
-    }
-```
-
-### DataFlowIssue
-Method invocation `send` may produce `NullPointerException`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/ScpRemote2RemoteTransferHelper.java`
-#### Snippet
-```java
-            log.debug("transferStatusCode({})[{}] {}", this, logHint, ackInfo);
-        }
-        ackInfo.send(out, csOut);
-        return ackInfo;
-    }
-```
-
-### DataFlowIssue
 Immutable object is modified
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/KeyPairResourceParser.java`
 #### Snippet
@@ -6845,6 +6390,198 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/Abstract
 ```
 
 ### DataFlowIssue
+Method invocation `create` may produce `NullPointerException`
+in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDSASigner.java`
+#### Snippet
+```java
+        if (appRandom == null) {
+            ValidateUtils.checkState(randomFactory != null, "No signing random factory provided");
+            random = randomFactory.create();
+        } else {
+            random = null;
+```
+
+### DataFlowIssue
+Immutable object is modified
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+                String[] extra = GenericUtils.split(prefix, ' ');
+                if (!GenericUtils.isEmpty(extra)) {
+                    args.addAll(Arrays.asList(extra));
+                }
+
+```
+
+### DataFlowIssue
+Immutable object is modified
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+
+                String value = line.substring(startPos + 1, endPos);
+                args.add(value);
+
+                line = (endPos < (line.length() - 1)) ? line.substring(endPos + 1).trim() : "";
+```
+
+### DataFlowIssue
+Immutable object is modified
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+                args = new LinkedList<>();
+            }
+            args.addAll(Arrays.asList(extra));
+        }
+
+```
+
+### DataFlowIssue
+Argument `command` might be null
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientMain.java`
+#### Snippet
+```java
+                            cmdValue = Channel.CHANNEL_SHELL;
+                        } else {
+                            cmdValue = String.join(" ", command).trim();
+                            channel = session.createExecChannel(cmdValue, ptyConfig, env);
+                        }
+```
+
+### DataFlowIssue
+Method invocation `startsWith` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerCliSupport.java`
+#### Snippet
+```java
+        boolean useScp = false;
+        // SCP + CUSTOM SHELL
+        if (factory.startsWith(ScpCommandFactory.SCP_FACTORY_NAME + "+")) {
+            factory = factory.substring(ScpCommandFactory.SCP_FACTORY_NAME.length() + 1);
+            ValidateUtils.checkNotNullAndNotEmpty(factory, "No extra custom shell factory class specified");
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
+#### Snippet
+```java
+        } finally {
+            if ((logStream != stdout) && (logStream != stderr)) {
+                logStream.close();
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `charAt` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
+#### Snippet
+```java
+            String flags = (numComps >= 2) ? GenericUtils.trimToEmpty(comps[0]) : null;
+            // ignore all flags
+            if ((GenericUtils.length(pathArg) > 0) && (pathArg.charAt(0) == '-')) {
+                flags = pathArg;
+                pathArg = null;
+```
+
+### DataFlowIssue
+Method invocation `charAt` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
+#### Snippet
+```java
+            String flags = (numComps >= 2) ? GenericUtils.trimToEmpty(comps[0]) : null;
+            // ignore all flags
+            if ((GenericUtils.length(pathArg) > 0) && (pathArg.charAt(0) == '-')) {
+                flags = pathArg;
+                pathArg = null;
+```
+
+### DataFlowIssue
+Method invocation `indexOf` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
+#### Snippet
+```java
+            int version = sftp.getVersion();
+            boolean showLongName
+                    = (version == SftpConstants.SFTP_V3) && (GenericUtils.length(flags) > 1) && (flags.indexOf('l') > 0);
+            for (SftpClient.DirEntry entry : sftp.readDir(path)) {
+                String fileName = entry.getFilename();
+```
+
+### DataFlowIssue
+Argument `argVal` might be null
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                }
+
+                port = Integer.parseInt(argVal);
+                if (port <= 0) {
+                    error = CliLogger.showError(stderr, "Bad option value for " + argName + ": " + port);
+```
+
+### DataFlowIssue
+Array access `args[numArgs - 2]` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+
+            // see the way normalizeCommandArguments works...
+            ScpLocation source = (numArgs >= 2) ? new ScpLocation(args[numArgs - 2]) : null;
+            ScpLocation target = (numArgs >= 2) ? new ScpLocation(args[numArgs - 1]) : null;
+
+```
+
+### DataFlowIssue
+Array access `args[index]` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+            boolean threeWay = false;
+            for (int index = 0; index < numArgs; index++) {
+                String argName = args[index];
+                if ("-q".equals(argName)) {
+                    quiet = true;
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+        } finally {
+            if ((logStream != stdout) && (logStream != stderr)) {
+                logStream.close();
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `send` may produce `NullPointerException`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/ScpRemote2RemoteTransferHelper.java`
+#### Snippet
+```java
+            log.debug("transferStatusCode({})[{}] {}", this, logHint, ackInfo);
+        }
+        ackInfo.send(out, csOut);
+        return ackInfo;
+    }
+```
+
+### DataFlowIssue
+Method invocation `validateCommandStatusCode` may produce `NullPointerException`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/ScpRemote2RemoteTransferHelper.java`
+#### Snippet
+```java
+        // wait for destination to signal data received
+        ackInfo = ScpAckInfo.readAck(dstIn, csIn, false);
+        ackInfo.validateCommandStatusCode("[DST-EOF] " + header, "transferSimpleFile");
+        return xferCount;
+    }
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `sshd-scp/src/main/java/org/apache/sshd/scp/client/DefaultScpClient.java`
 #### Snippet
@@ -6854,6 +6591,18 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/client/DefaultScpClient.java`
         local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
         remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", remote);
         if (local.size() > 1) {
+```
+
+### DataFlowIssue
+Method invocation `resolve` may produce `NullPointerException`
+in `sshd-git/src/main/java/org/apache/sshd/git/pack/GitPackCommand.java`
+#### Snippet
+```java
+
+        ValidateUtils.checkNotNullAndNotEmpty(pathArg, "No %s command sub-path specified", args[0]);
+        return rootDir.resolve(pathArg);
+    }
+}
 ```
 
 ### DataFlowIssue
@@ -6873,8 +6622,8 @@ Variable is already assigned to this value
 in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
 #### Snippet
 ```java
-    public void download(String[] remote, String local, Collection<Option> options) throws IOException {
-        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
+    @Override
+    public void download(String[] remote, Path local, Collection<Option> options) throws IOException {
         remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
 
         if (remote.length > 1) {
@@ -6885,35 +6634,300 @@ Variable is already assigned to this value
 in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
 #### Snippet
 ```java
-    @Override
-    public void download(String[] remote, Path local, Collection<Option> options) throws IOException {
+    public void download(String[] remote, String local, Collection<Option> options) throws IOException {
+        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
         remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
 
         if (remote.length > 1) {
 ```
 
 ### DataFlowIssue
-Method invocation `create` may produce `NullPointerException`
-in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDSASigner.java`
+Method invocation `getUsername` may produce `NullPointerException`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
 #### Snippet
 ```java
-        if (appRandom == null) {
-            ValidateUtils.checkState(randomFactory != null, "No signing random factory provided");
-            random = randomFactory.create();
-        } else {
-            random = null;
+        ValidateUtils.checkState(credentials != null, "No credentials provided");
+
+        String username = credentials.getUsername();
+        String id = getFileSystemIdentifier(host, port, username);
+        SftpFileSystemInitializationContext context = new SftpFileSystemInitializationContext(id, uri, env);
+```
+
+### DataFlowIssue
+Argument `extra` might be null
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
+#### Snippet
+```java
+
+        Set<String> result = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        result.addAll(extra);
+        result.addAll(extra2);
+        return result;
+```
+
+### DataFlowIssue
+Argument `extra2` might be null
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
+#### Snippet
+```java
+        Set<String> result = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        result.addAll(extra);
+        result.addAll(extra2);
+        return result;
+    }
+```
+
+### DataFlowIssue
+Method invocation `longValue` may produce `NullPointerException`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+                : SftpConstants.SSH_FILEXFER_TYPE_UNKNOWN));
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_SIZE) != 0) {
+            buffer.putLong(size.longValue());
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_OWNERGROUP) != 0) {
 ```
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
 #### Snippet
 ```java
-                    }
 
-                    password = null; // GC hint - don't keep sensitive data in memory longer than necessary
-                    switch (result) {
-                        case TERMINATE:
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastAccessTime);
+        }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
+            buffer = writeTime(buffer, version, flags, creationTime);
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastModifiedTime);
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+            buffer = writeACLs(buffer, version, acl);
+        }
+        // TODO: ctime
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        // TODO: bits
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+            buffer = writeExtensions(buffer, extensions);
+        }
+
+```
+
+### DataFlowIssue
+Argument `ValidateUtils.checkNotNull(decodeAclEntryType(aclType), "Unknown ACL type: %d", aclType)` might be null
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        UserPrincipal who = new DefaultGroupPrincipal(aclWho);
+        return AclEntry.newBuilder()
+                .setType(ValidateUtils.checkNotNull(decodeAclEntryType(aclType), "Unknown ACL type: %d", aclType))
+                .setFlags(decodeAclFlags(aclFlag))
+                .setPermissions(decodeAclMask(aclMask))
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastAccessTime);
+            buffer = writeTime(buffer, version, flags, lastModifiedTime);
+        }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastAccessTime);
+            buffer = writeTime(buffer, version, flags, lastModifiedTime);
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+            buffer = writeExtensions(buffer, extensions);
+        }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
+            }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
+            }
+        } else if (sftpVersion >= SftpConstants.SFTP_V4) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getCreateTime());
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+                buffer = writeACLs(buffer, sftpVersion, attributes.getAcl());
+            }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+        if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+            buffer = writeExtensions(buffer, attributes.getExtensions());
+        }
+
+```
+
+### DataFlowIssue
+Immutable object is modified
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
+#### Snippet
+```java
+                matches = new ArrayList<>(numEntries);
+            }
+            matches.add(key);
+        }
+
+```
+
+### DataFlowIssue
+Variable update does nothing
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+            if ((flags & SftpConstants.SSH_FXF_CREAT) != 0) {
+                if ((flags & SftpConstants.SSH_FXF_EXCL) != 0) {
+                    pflags |= SftpConstants.SSH_FXF_CREATE_NEW;
+                } else if ((flags & SftpConstants.SSH_FXF_TRUNC) != 0) {
+                    pflags |= SftpConstants.SSH_FXF_CREATE_TRUNCATE;
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `sshd-core/src/main/java/org/apache/sshd/common/kex/extension/KexExtensionHandler.java`
+#### Snippet
+```java
+         * sessions, but code should not rely on this implicit assumption.
+         */
+        AUTHOK;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/closeable/AbstractCloseable.java`
+#### Snippet
+```java
+        /** Connection is closed */
+        Closed,
+        /* end */;
+    }
+
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -7029,18 +7043,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'REGISTER_BOUNCY_CASTLE_PROP' is still used
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String REGISTER_BOUNCY_CASTLE_PROP = "org.apache.sshd.registerBouncyCastle";
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'EDDSA_SUPPORTED_PROP' is still used
 in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityUtils.java`
 #### Snippet
@@ -7053,15 +7055,39 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityUtils
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'arcfour128' is still used
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+Deprecated member 'REGISTER_BOUNCY_CASTLE_PROP' is still used
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    arcfour128(Constants.ARCFOUR128, 8, 0, 16, "ARCFOUR", 128, "RC4", 16) {
+    public static final String REGISTER_BOUNCY_CASTLE_PROP = "org.apache.sshd.registerBouncyCastle";
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'dsa_cert' is still used
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    dsa_cert(KeyPairProvider.SSH_DSS_CERT) {
         @Override
-        public Cipher create() {
+        public Signature create() {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'rsa_cert' is still used
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    rsa_cert(KeyPairProvider.SSH_RSA_CERT) {
+        @Override
+        public Signature create() {
 ```
 
 ### DeprecatedIsStillUsed
@@ -7072,6 +7098,30 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
      */
     @Deprecated
     arcfour256(Constants.ARCFOUR256, 8, 0, 32, "ARCFOUR", 256, "RC4", 32) {
+        @Override
+        public Cipher create() {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'blowfishcbc' is still used
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    blowfishcbc(Constants.BLOWFISH_CBC, 8, 0, 16, "Blowfish", 128, "Blowfish/CBC/NoPadding", 8),
+    cc20p1305_openssh(Constants.CC20P1305_OPENSSH, 8, 16, 64, "ChaCha", 256, "ChaCha", 8) {
+        @Override
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'arcfour128' is still used
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    arcfour128(Constants.ARCFOUR128, 8, 0, 16, "ARCFOUR", 128, "RC4", 16) {
         @Override
         public Cipher create() {
 ```
@@ -7088,67 +7138,7 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
     public static final Set<BuiltinCiphers> VALUES = Collections.unmodifiableSet(EnumSet.allOf(BuiltinCiphers.class));
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'blowfishcbc' is still used
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    blowfishcbc(Constants.BLOWFISH_CBC, 8, 0, 16, "Blowfish", 128, "Blowfish/CBC/NoPadding", 8),
-    cc20p1305_openssh(Constants.CC20P1305_OPENSSH, 8, 16, 64, "ChaCha", 256, "ChaCha", 8) {
-        @Override
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'rsa_cert' is still used
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    rsa_cert(KeyPairProvider.SSH_RSA_CERT) {
-        @Override
-        public Signature create() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'dsa_cert' is still used
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    dsa_cert(KeyPairProvider.SSH_DSS_CERT) {
-        @Override
-        public Signature create() {
-```
-
 ## RuleId[ruleID=UnnecessaryCallToStringValueOf]
-### UnnecessaryCallToStringValueOf
-Unnecessary `Character.toString()` call
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Unknown flag (" + Character.toString(ch) + ")");
-                    }
-                }
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Character.toString()` call
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
-#### Snippet
-```java
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Unknown flag (" + Character.toString(ch) + ")");
-                    }
-                }
-```
-
 ### UnnecessaryCallToStringValueOf
 Unnecessary `Integer.toString()` call
 in `sshd-core/src/main/java/org/apache/sshd/common/forward/SocksProxy.java`
@@ -7298,6 +7288,18 @@ Unnecessary `Integer.toString()` call
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
 #### Snippet
 ```java
+          throw new IllegalArgumentException("log_rounds exceeds maximum (30)");
+      }
+      rs.append(Integer.toString(log_rounds));
+      rs.append("$");
+      rs.append(encode_base64(rnd, rnd.length));
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
           throw new IllegalArgumentException("rounds exceeds maximum (30)");
       }
       rs.append(Integer.toString(rounds));
@@ -7306,15 +7308,27 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 ```
 
 ### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+Unnecessary `Character.toString()` call
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
 #### Snippet
 ```java
-          throw new IllegalArgumentException("log_rounds exceeds maximum (30)");
-      }
-      rs.append(Integer.toString(log_rounds));
-      rs.append("$");
-      rs.append(encode_base64(rnd, rnd.length));
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Unknown flag (" + Character.toString(ch) + ")");
+                    }
+                }
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Character.toString()` call
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
+#### Snippet
+```java
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Unknown flag (" + Character.toString(ch) + ")");
+                    }
+                }
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -7404,18 +7418,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/output/SecureByteAr
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'logStream' in a Serializable class
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliLogger.java`
-#### Snippet
-```java
-
-    protected final Level threshold;
-    protected final PrintStream logStream;
-
-    protected CliLogger(String name, Level threshold, PrintStream logStream) {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'keyFactory' in a Serializable class
 in `sshd-core/src/main/java/org/apache/sshd/common/kex/MontgomeryCurve.java`
 #### Snippet
@@ -7437,6 +7439,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
     private final ECParameterSpec params;
     private final int keySize;
     private final int numOctets;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'logStream' in a Serializable class
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliLogger.java`
+#### Snippet
+```java
+
+    protected final Level threshold;
+    protected final PrintStream logStream;
+
+    protected CliLogger(String name, Level threshold, PrintStream logStream) {
 ```
 
 ## RuleId[ruleID=MismatchedJavadocCode]
@@ -7478,6 +7492,138 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2ServiceFactory.java`
+#### Snippet
+```java
+        try {
+            group = AsynchronousChannelGroup.withThreadPool(ThreadUtils.noClose(getExecutorService()));
+            resuming = ThreadUtils.newFixedThreadPoolIf(resumeTasks, factoryManager.toString() + "-nio2-resume",
+                    getNioWorkers(factoryManager));
+        } catch (IOException e) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
+#### Snippet
+```java
+        this.packetWriter = channelInstance.resolveChannelStreamWriter(channel, cmd);
+        this.cmd = cmd;
+        this.packetWriteId = channel.toString() + "[" + SshConstants.getCommandMessageName(cmd) + "]";
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManager.java`
+#### Snippet
+```java
+        if (getScheduledExecutorService() == null) {
+            setScheduledExecutorService(
+                    ThreadUtils.newSingleThreadScheduledExecutor(this.toString() + "-timer"),
+                    true);
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/keyboard/InteractiveChallenge.java`
+#### Snippet
+```java
+            return other;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Failed to clone " + toString() + ": " + e.getMessage(), e);
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/keyboard/PromptEntry.java`
+#### Snippet
+```java
+            return getClass().cast(super.clone());
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Failed to clone " + toString() + ": " + e.getMessage(), e);
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-common/src/main/java/org/apache/sshd/common/file/root/RootedFileSystemProvider.java`
+#### Snippet
+```java
+            Path root = rfs.getRoot();
+            Path rel = root.relativize(nat);
+            return rfs.getPath("/" + rel.toString());
+        } else {
+            return rfs.getPath(nat.toString());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateKeyEncryptionContext.java`
+#### Snippet
+```java
+            return copy;
+        } catch (CloneNotSupportedException e) { // unexpected
+            throw new RuntimeException("Failed to clone: " + toString());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpLocation.java`
+#### Snippet
+```java
+            return getClass().cast(super.clone());
+        } catch (CloneNotSupportedException e) { // unexpected
+            throw new RuntimeException("Failed to clone " + toString(), e);
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+            Boolean status = IoUtils.checkFileExists(local, opts);
+            if (status == null) {
+                throw new SshException("Target directory " + local.toString() + " is probably inaccesible");
+            }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+
+            if (!status) {
+                throw new SshException("Target directory " + local.toString() + " does not exist");
+            }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+
+            if (!Files.isDirectory(local, opts)) {
+                throw new SshException("Target directory " + local.toString() + " is not a directory");
+            }
+        }
+```
+
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/openssh/OpenSSHStatExtensionInfo.java`
@@ -7576,42 +7722,6 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/DirectoryHandle.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2ServiceFactory.java`
-#### Snippet
-```java
-        try {
-            group = AsynchronousChannelGroup.withThreadPool(ThreadUtils.noClose(getExecutorService()));
-            resuming = ThreadUtils.newFixedThreadPoolIf(resumeTasks, factoryManager.toString() + "-nio2-resume",
-                    getNioWorkers(factoryManager));
-        } catch (IOException e) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
-#### Snippet
-```java
-        this.packetWriter = channelInstance.resolveChannelStreamWriter(channel, cmd);
-        this.cmd = cmd;
-        this.packetWriteId = channel.toString() + "[" + SshConstants.getCommandMessageName(cmd) + "]";
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManager.java`
-#### Snippet
-```java
-        if (getScheduledExecutorService() == null) {
-            setScheduledExecutorService(
-                    ThreadUtils.newSingleThreadScheduledExecutor(this.toString() + "-timer"),
-                    true);
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
 #### Snippet
 ```java
@@ -7622,341 +7732,17 @@ in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHel
             return null;
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/keyboard/PromptEntry.java`
-#### Snippet
-```java
-            return getClass().cast(super.clone());
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Failed to clone " + toString() + ": " + e.getMessage(), e);
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/keyboard/InteractiveChallenge.java`
-#### Snippet
-```java
-            return other;
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Failed to clone " + toString() + ": " + e.getMessage(), e);
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-common/src/main/java/org/apache/sshd/common/file/root/RootedFileSystemProvider.java`
-#### Snippet
-```java
-            Path root = rfs.getRoot();
-            Path rel = root.relativize(nat);
-            return rfs.getPath("/" + rel.toString());
-        } else {
-            return rfs.getPath(nat.toString());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateKeyEncryptionContext.java`
-#### Snippet
-```java
-            return copy;
-        } catch (CloneNotSupportedException e) { // unexpected
-            throw new RuntimeException("Failed to clone: " + toString());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpLocation.java`
-#### Snippet
-```java
-            return getClass().cast(super.clone());
-        } catch (CloneNotSupportedException e) { // unexpected
-            throw new RuntimeException("Failed to clone " + toString(), e);
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-            Boolean status = IoUtils.checkFileExists(local, opts);
-            if (status == null) {
-                throw new SshException("Target directory " + local.toString() + " is probably inaccesible");
-            }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-
-            if (!status) {
-                throw new SshException("Target directory " + local.toString() + " does not exist");
-            }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-
-            if (!Files.isDirectory(local, opts)) {
-                throw new SshException("Target directory " + local.toString() + " is not a directory");
-            }
-        }
-```
-
 ## RuleId[ruleID=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientMain.java`
+Assignment to for-loop parameter `remLen`
+in `sshd-putty/src/main/java/org/apache/sshd/putty/PuttyKeyPairResourceParser.java`
 #### Snippet
 ```java
+                        Arrays.fill(digest, (byte) 0); // eliminate sensitive data a.s.a.p.
+                    }
+                    remLen -= 20;
                 }
-
-                i++;
-                continue;
-            }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientMain.java`
-#### Snippet
-```java
-                }
-
-                socksPort = Integer.parseInt(args[++i]);
-                if (socksPort <= 0) {
-                    error = CliLogger.showError(stderr, "Bad option value for " + argName + ": " + socksPort);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
-#### Snippet
-```java
-            String argName = args[i];
-            if ("-p".equals(argName)) {
-                i++;
-                if (i >= numArgs) {
-                    System.err.println("option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
-#### Snippet
-```java
-                port = Integer.parseInt(args[i]);
-            } else if ("-key-type".equals(argName)) {
-                i++;
-                if (i >= numArgs) {
-                    System.err.println("option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
-#### Snippet
-```java
-                hostKeyType = args[i].toUpperCase();
-            } else if ("-key-size".equals(argName)) {
-                i++;
-                if (i >= numArgs) {
-                    System.err.println("option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
-#### Snippet
-```java
-                hostKeySize = Integer.parseInt(args[i]);
-            } else if ("-key-file".equals(argName)) {
-                i++;
-                if (i >= numArgs) {
-                    System.err.println("option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
-#### Snippet
-```java
-                keyFiles.add(keyFilePath);
-            } else if ("-o".equals(argName)) {
-                i++;
-                if (i >= numArgs) {
-                    System.err.println("option requires and argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-            }
-
-            index++;
-            if (index >= numArgs) {
-                stderr.println("option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-                }
-
-                index = -1; // start delimiters again
-            }
-        }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-            String argVal = null;
-            if (isArgumentedOption(portOption, argName)) {
-                i++;
-                if (i >= numArgs) {
-                    error = CliLogger.showError(stderr, "option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-            String argName = args[index];
-            if ("-creator".equals(argName)) {
-                index++;
-                if (index >= numArgs) {
-                    CliLogger.showError(stderr, "option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-            // handled by 'setupClientSession'
-            if (isArgumentedOption(SCP_PORT_OPTION, argName) || "-creator".equals(argName)) {
-                index++;
-                if (index >= numArgs) {
-                    error = CliLogger.showError(stderr, "option requires an argument: " + argName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-                break;
-            } else {
-                index++;
-                if (index >= numArgs) {
-                    error = CliLogger.showError(stderr, "Not enough arguments");
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-            String optName = args[index];
-            if ("-f".equals(optName)) {
-                index++;
-                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
-                ValidateUtils.checkTrue(scanner.getInputStream() == null, "%s option re-specified", optName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                }
-            } else if ("-t".equals(optName)) {
-                index++;
-                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
-                ValidateUtils.checkTrue(GenericUtils.isEmpty(scanner.getKeyTypes()), "%s option re-specified", optName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                scanner.setKeyTypes(Arrays.asList(types));
-            } else if ("-p".equals(optName)) {
-                index++;
-                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
-                ValidateUtils.checkTrue(scanner.getPort() <= 0, "%s option re-specified", optName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                scanner.setPort(port);
-            } else if ("-T".equals(optName)) {
-                index++;
-                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
-                ValidateUtils.checkTrue(scanner.getTimeout() <= 0, "%s option re-specified", optName);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                }
-
-                String provider = args[++index];
-                BuiltinIoServiceFactoryFactories factory
-                        = CliSupport.resolveBuiltinIoServiceFactory(System.err, optName, provider);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-
-                List<String> hosts = new ArrayList<>(remaining);
-                for (; index < numArgs; index++) {
-                    hosts.add(args[index]);
-                }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `line`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                client.start();
-                for (String line = rdr.readLine(); line != null; line = rdr.readLine()) {
-                    line = GenericUtils.replaceWhitespaceAndTrim(line);
-
-                    String[] hosts = GenericUtils.split(line, ',');
+            } finally {
 ```
 
 ### AssignmentToForLoopParameter
@@ -8005,6 +7791,30 @@ in `sshd-core/src/main/java/org/apache/sshd/server/kex/Moduli.java`
             line = line.trim();
             if (line.isEmpty()) {
                 continue;   // skip empty lines
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+#### Snippet
+```java
+                case PUBLIC_LINES_HEADER:
+                    pubLines = extractDataLines(resourceKey, lines, index + 1, hdrName, hdrValue, pubLines);
+                    index += pubLines.size();
+                    break;
+                case PRIVATE_LINES_HEADER:
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
+#### Snippet
+```java
+                case PRIVATE_LINES_HEADER:
+                    prvLines = extractDataLines(resourceKey, lines, index + 1, hdrName, hdrValue, prvLines);
+                    index += prvLines.size();
+                    break;
+                default: // ignored
 ```
 
 ### AssignmentToForLoopParameter
@@ -8164,18 +7974,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/buffer/BufferUtils.jav
 ```
 
 ### AssignmentToForLoopParameter
-Assignment to for-loop parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-        for (Buffer buffer = null; kdfSize > e.length; buffer = BufferUtils.clear(buffer)) {
-            if (buffer == null) {
-                buffer = new ByteArrayBuffer();
-            }
-
-```
-
-### AssignmentToForLoopParameter
 Assignment to for-loop parameter `line`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/ConfigFileReaderSupport.java`
 #### Snippet
@@ -8220,6 +8018,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEn
             lastPos = nextPos + 1;
             curPos = lastPos;
         }
+
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `buffer`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+        for (Buffer buffer = null; kdfSize > e.length; buffer = BufferUtils.clear(buffer)) {
+            if (buffer == null) {
+                buffer = new ByteArrayBuffer();
+            }
 
 ```
 
@@ -8273,6 +8083,30 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `index`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/ssh2/Ssh2PublicKeyEntryDecoder.java`
+#### Snippet
+```java
+            if (value.charAt(vLen - 1) == HEADER_CONTINUATION_INDICATOR) {
+                value = value.substring(0, vLen - 1);
+                for (index++ /* skip current line */; index < len; index++) {
+                    l = lines.get(index);
+                    vLen = l.length();
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/ssh2/Ssh2PublicKeyEntryDecoder.java`
+#### Snippet
+```java
+            if (value.charAt(vLen - 1) == HEADER_CONTINUATION_INDICATOR) {
+                value = value.substring(0, vLen - 1);
+                for (index++ /* skip current line */; index < len; index++) {
+                    l = lines.get(index);
+                    vLen = l.length();
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
 in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactory.java`
 #### Snippet
 ```java
@@ -8285,26 +8119,242 @@ in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactory.
 
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `index`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/ssh2/Ssh2PublicKeyEntryDecoder.java`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
 #### Snippet
 ```java
-            if (value.charAt(vLen - 1) == HEADER_CONTINUATION_INDICATOR) {
-                value = value.substring(0, vLen - 1);
-                for (index++ /* skip current line */; index < len; index++) {
-                    l = lines.get(index);
-                    vLen = l.length();
+                }
+
+                index = -1; // start delimiters again
+            }
+        }
 ```
 
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `index`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/ssh2/Ssh2PublicKeyEntryDecoder.java`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
 #### Snippet
 ```java
-            if (value.charAt(vLen - 1) == HEADER_CONTINUATION_INDICATOR) {
-                value = value.substring(0, vLen - 1);
-                for (index++ /* skip current line */; index < len; index++) {
-                    l = lines.get(index);
-                    vLen = l.length();
+            }
+
+            index++;
+            if (index >= numArgs) {
+                stderr.println("option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientMain.java`
+#### Snippet
+```java
+                }
+
+                i++;
+                continue;
+            }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientMain.java`
+#### Snippet
+```java
+                }
+
+                socksPort = Integer.parseInt(args[++i]);
+                if (socksPort <= 0) {
+                    error = CliLogger.showError(stderr, "Bad option value for " + argName + ": " + socksPort);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
+#### Snippet
+```java
+            String argName = args[i];
+            if ("-p".equals(argName)) {
+                i++;
+                if (i >= numArgs) {
+                    System.err.println("option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
+#### Snippet
+```java
+                port = Integer.parseInt(args[i]);
+            } else if ("-key-type".equals(argName)) {
+                i++;
+                if (i >= numArgs) {
+                    System.err.println("option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
+#### Snippet
+```java
+                hostKeyType = args[i].toUpperCase();
+            } else if ("-key-size".equals(argName)) {
+                i++;
+                if (i >= numArgs) {
+                    System.err.println("option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
+#### Snippet
+```java
+                hostKeySize = Integer.parseInt(args[i]);
+            } else if ("-key-file".equals(argName)) {
+                i++;
+                if (i >= numArgs) {
+                    System.err.println("option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
+#### Snippet
+```java
+                keyFiles.add(keyFilePath);
+            } else if ("-o".equals(argName)) {
+                i++;
+                if (i >= numArgs) {
+                    System.err.println("option requires and argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            String argVal = null;
+            if (isArgumentedOption(portOption, argName)) {
+                i++;
+                if (i >= numArgs) {
+                    error = CliLogger.showError(stderr, "option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+            String optName = args[index];
+            if ("-f".equals(optName)) {
+                index++;
+                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
+                ValidateUtils.checkTrue(scanner.getInputStream() == null, "%s option re-specified", optName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                }
+            } else if ("-t".equals(optName)) {
+                index++;
+                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
+                ValidateUtils.checkTrue(GenericUtils.isEmpty(scanner.getKeyTypes()), "%s option re-specified", optName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                scanner.setKeyTypes(Arrays.asList(types));
+            } else if ("-p".equals(optName)) {
+                index++;
+                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
+                ValidateUtils.checkTrue(scanner.getPort() <= 0, "%s option re-specified", optName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                scanner.setPort(port);
+            } else if ("-T".equals(optName)) {
+                index++;
+                ValidateUtils.checkTrue(index < numArgs, "Missing %s option argument", optName);
+                ValidateUtils.checkTrue(scanner.getTimeout() <= 0, "%s option re-specified", optName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                }
+
+                String provider = args[++index];
+                BuiltinIoServiceFactoryFactories factory
+                        = CliSupport.resolveBuiltinIoServiceFactory(System.err, optName, provider);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+
+                List<String> hosts = new ArrayList<>(remaining);
+                for (; index < numArgs; index++) {
+                    hosts.add(args[index]);
+                }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `line`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                client.start();
+                for (String line = rdr.readLine(); line != null; line = rdr.readLine()) {
+                    line = GenericUtils.replaceWhitespaceAndTrim(line);
+
+                    String[] hosts = GenericUtils.split(line, ',');
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+            String argName = args[index];
+            if ("-creator".equals(argName)) {
+                index++;
+                if (index >= numArgs) {
+                    CliLogger.showError(stderr, "option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+            // handled by 'setupClientSession'
+            if (isArgumentedOption(SCP_PORT_OPTION, argName) || "-creator".equals(argName)) {
+                index++;
+                if (index >= numArgs) {
+                    error = CliLogger.showError(stderr, "option requires an argument: " + argName);
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+                break;
+            } else {
+                index++;
+                if (index >= numArgs) {
+                    error = CliLogger.showError(stderr, "Not enough arguments");
 ```
 
 ### AssignmentToForLoopParameter
@@ -8317,18 +8367,6 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/client/ScpRemote2RemoteTransferHe
                         dirEndSignal = true;
                         break;
                     }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `remLen`
-in `sshd-putty/src/main/java/org/apache/sshd/putty/PuttyKeyPairResourceParser.java`
-#### Snippet
-```java
-                        Arrays.fill(digest, (byte) 0); // eliminate sensitive data a.s.a.p.
-                    }
-                    remLen -= 20;
-                }
-            } finally {
 ```
 
 ### AssignmentToForLoopParameter
@@ -8353,30 +8391,6 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpHelper.java`
                 time = null;
             }
         }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
-#### Snippet
-```java
-                case PUBLIC_LINES_HEADER:
-                    pubLines = extractDataLines(resourceKey, lines, index + 1, hdrName, hdrValue, pubLines);
-                    index += pubLines.size();
-                    break;
-                case PRIVATE_LINES_HEADER:
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `sshd-putty/src/main/java/org/apache/sshd/putty/AbstractPuttyKeyDecoder.java`
-#### Snippet
-```java
-                case PRIVATE_LINES_HEADER:
-                    prvLines = extractDataLines(resourceKey, lines, index + 1, hdrName, hdrValue, prvLines);
-                    index += prvLines.size();
-                    break;
-                default: // ignored
 ```
 
 ## RuleId[ruleID=NestedSynchronizedStatement]
@@ -8538,6 +8552,42 @@ in `sshd-core/src/main/java/org/apache/sshd/client/session/AbstractClientSession
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `localEntry` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
+#### Snippet
+```java
+            case Forwarded:
+                src = (InetSocketAddress) portSession.getRemoteAddress();
+                dst = localEntry;
+                tunnelEntrance = new SshdSocketAddress(src.getHostString(), src.getPort());
+                tunnelExit = new SshdSocketAddress(loc.getHostString(), loc.getPort());
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `openFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
+#### Snippet
+```java
+        }
+
+        openFuture = new DefaultOpenFuture(src, futureLock);
+        if (log.isDebugEnabled()) {
+            log.debug("open({}) send SSH_MSG_CHANNEL_OPEN", this);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `openFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
+#### Snippet
+```java
+        buffer.putUInt(src.getPort());
+        writePacket(buffer);
+        return openFuture;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `streaming` accessed in synchronized context
 in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
 #### Snippet
@@ -8610,42 +8660,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.ja
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `localEntry` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
-#### Snippet
-```java
-            case Forwarded:
-                src = (InetSocketAddress) portSession.getRemoteAddress();
-                dst = localEntry;
-                tunnelEntrance = new SshdSocketAddress(src.getHostString(), src.getPort());
-                tunnelExit = new SshdSocketAddress(loc.getHostString(), loc.getPort());
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `openFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
-#### Snippet
-```java
-        }
-
-        openFuture = new DefaultOpenFuture(src, futureLock);
-        if (log.isDebugEnabled()) {
-            log.debug("open({}) send SSH_MSG_CHANNEL_OPEN", this);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `openFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/TcpipClientChannel.java`
-#### Snippet
-```java
-        buffer.putUInt(src.getPort());
-        writePacket(buffer);
-        return openFuture;
-    }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `ioServiceFactoryFactory` accessed in synchronized context
 in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManager.java`
 #### Snippet
@@ -8691,30 +8705,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/helpers/AbstractFactoryManage
                 ioServiceFactory = ioServiceFactoryFactory.create(this);
             }
         }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `openFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/server/x11/ChannelForwardedX11.java`
-#### Snippet
-```java
-            throw new SshException("Session has been closed");
-        }
-        openFuture = new DefaultOpenFuture(remote, futureLock);
-
-        Session session = getSession();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `openFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/server/x11/ChannelForwardedX11.java`
-#### Snippet
-```java
-        buffer.putUInt(remote.getPort());
-        writePacket(buffer);
-        return openFuture;
-    }
-
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -8761,6 +8751,30 @@ in `sshd-core/src/main/java/org/apache/sshd/server/x11/ChannelForwardedX11.java`
         out = new ChannelOutputStream(
                 this, getRemoteWindow(), log, SshConstants.SSH_MSG_CHANNEL_DATA, true);
         invertedIn = out;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `openFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/server/x11/ChannelForwardedX11.java`
+#### Snippet
+```java
+            throw new SshException("Session has been closed");
+        }
+        openFuture = new DefaultOpenFuture(remote, futureLock);
+
+        Session session = getSession();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `openFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/server/x11/ChannelForwardedX11.java`
+#### Snippet
+```java
+        buffer.putUInt(remote.getPort());
+        writePacket(buffer);
+        return openFuture;
     }
 
 ```
@@ -8898,162 +8912,6 @@ in `sshd-core/src/main/java/org/apache/sshd/server/auth/AsyncAuthException.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-
-        synchronized (kexState) {
-            kexInitializedFuture = null;
-        }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-                DefaultKeyExchangeFuture initFuture;
-                synchronized (kexState) {
-                    initFuture = kexInitializedFuture;
-                    if (initFuture == null) {
-                        initFuture = new DefaultKeyExchangeFuture(toString(), null);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-                    if (initFuture == null) {
-                        initFuture = new DefaultKeyExchangeFuture(toString(), null);
-                        kexInitializedFuture = initFuture;
-                    }
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-
-        synchronized (kexState) {
-            kexInitializedFuture = null;
-        }
-        signalSessionEvent(SessionListener.Event.KexCompleted);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-        byte[] seed;
-        synchronized (kexState) {
-            DefaultKeyExchangeFuture initFuture = kexInitializedFuture;
-            if (initFuture == null) {
-                initFuture = new DefaultKeyExchangeFuture(toString(), null);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-            if (initFuture == null) {
-                initFuture = new DefaultKeyExchangeFuture(toString(), null);
-                kexInitializedFuture = initFuture;
-            }
-            try {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `ignorePacketsFrequency` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-        synchronized (random) {
-            count = calculateNextIgnorePacketCount(
-                    random, ignorePacketsFrequency, ignorePacketsVariance);
-            ignorePacketsCount.set(count);
-            return ignorePacketDataLength + random.random(ignorePacketDataLength);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `ignorePacketsVariance` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-        synchronized (random) {
-            count = calculateNextIgnorePacketCount(
-                    random, ignorePacketsFrequency, ignorePacketsVariance);
-            ignorePacketsCount.set(count);
-            return ignorePacketDataLength + random.random(ignorePacketDataLength);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `ignorePacketDataLength` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-                    random, ignorePacketsFrequency, ignorePacketsVariance);
-            ignorePacketsCount.set(count);
-            return ignorePacketDataLength + random.random(ignorePacketDataLength);
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `ignorePacketDataLength` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-                    random, ignorePacketsFrequency, ignorePacketsVariance);
-            ignorePacketsCount.set(count);
-            return ignorePacketDataLength + random.random(ignorePacketDataLength);
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `kexInitializedFuture` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-        DefaultKeyExchangeFuture initFuture;
-        synchronized (kexState) {
-            initFuture = kexInitializedFuture;
-        }
-        if (initFuture != null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `clientVersion` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-            // One of those properties will be set by the constructor and the other
-            // one should be set by the readIdentification method
-            if ((clientVersion == null) || (serverVersion == null)) {
-                if (readIdentification(decoderBuffer)) {
-                    decoderBuffer.compact();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `serverVersion` accessed in synchronized context
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-            // One of those properties will be set by the constructor and the other
-            // one should be set by the readIdentification method
-            if ((clientVersion == null) || (serverVersion == null)) {
-                if (readIdentification(decoderBuffer)) {
-                    decoderBuffer.compact();
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `maxRekeyBytes` accessed in synchronized context
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
@@ -9186,6 +9044,162 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+        byte[] seed;
+        synchronized (kexState) {
+            DefaultKeyExchangeFuture initFuture = kexInitializedFuture;
+            if (initFuture == null) {
+                initFuture = new DefaultKeyExchangeFuture(toString(), null);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            if (initFuture == null) {
+                initFuture = new DefaultKeyExchangeFuture(toString(), null);
+                kexInitializedFuture = initFuture;
+            }
+            try {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `ignorePacketsFrequency` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+        synchronized (random) {
+            count = calculateNextIgnorePacketCount(
+                    random, ignorePacketsFrequency, ignorePacketsVariance);
+            ignorePacketsCount.set(count);
+            return ignorePacketDataLength + random.random(ignorePacketDataLength);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `ignorePacketsVariance` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+        synchronized (random) {
+            count = calculateNextIgnorePacketCount(
+                    random, ignorePacketsFrequency, ignorePacketsVariance);
+            ignorePacketsCount.set(count);
+            return ignorePacketDataLength + random.random(ignorePacketDataLength);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `ignorePacketDataLength` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+                    random, ignorePacketsFrequency, ignorePacketsVariance);
+            ignorePacketsCount.set(count);
+            return ignorePacketDataLength + random.random(ignorePacketDataLength);
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `ignorePacketDataLength` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+                    random, ignorePacketsFrequency, ignorePacketsVariance);
+            ignorePacketsCount.set(count);
+            return ignorePacketDataLength + random.random(ignorePacketDataLength);
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+        DefaultKeyExchangeFuture initFuture;
+        synchronized (kexState) {
+            initFuture = kexInitializedFuture;
+        }
+        if (initFuture != null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+
+        synchronized (kexState) {
+            kexInitializedFuture = null;
+        }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `clientVersion` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            // One of those properties will be set by the constructor and the other
+            // one should be set by the readIdentification method
+            if ((clientVersion == null) || (serverVersion == null)) {
+                if (readIdentification(decoderBuffer)) {
+                    decoderBuffer.compact();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `serverVersion` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            // One of those properties will be set by the constructor and the other
+            // one should be set by the readIdentification method
+            if ((clientVersion == null) || (serverVersion == null)) {
+                if (readIdentification(decoderBuffer)) {
+                    decoderBuffer.compact();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+                DefaultKeyExchangeFuture initFuture;
+                synchronized (kexState) {
+                    initFuture = kexInitializedFuture;
+                    if (initFuture == null) {
+                        initFuture = new DefaultKeyExchangeFuture(toString(), null);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+                    if (initFuture == null) {
+                        initFuture = new DefaultKeyExchangeFuture(toString(), null);
+                        kexInitializedFuture = initFuture;
+                    }
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `kexInitializedFuture` accessed in synchronized context
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+
+        synchronized (kexState) {
+            kexInitializedFuture = null;
+        }
+        signalSessionEvent(SessionListener.Event.KexCompleted);
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.in` accessed in synchronized context
 in `sshd-common/src/main/java/org/apache/sshd/server/shell/TtyFilterInputStream.java`
 #### Snippet
@@ -9195,30 +9209,6 @@ in `sshd-common/src/main/java/org/apache/sshd/server/shell/TtyFilterInputStream.
             int nb = this.in.read(b, off, len);
             if (nb == -1) {
                 return nb;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lock` accessed in synchronized context
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
-#### Snippet
-```java
-    @Override
-    public void close() throws IOException {
-        synchronized (lock) {
-            decoder = null;
-            if (in != null) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `decoder` accessed in synchronized context
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
-#### Snippet
-```java
-    public void close() throws IOException {
-        synchronized (lock) {
-            decoder = null;
-            if (in != null) {
-                in.close();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -9455,6 +9445,54 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
 #### Snippet
 ```java
     @Override
+    public void close() throws IOException {
+        synchronized (lock) {
+            decoder = null;
+            if (in != null) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `decoder` accessed in synchronized context
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
+#### Snippet
+```java
+    public void close() throws IOException {
+        synchronized (lock) {
+            decoder = null;
+            if (in != null) {
+                in.close();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lock` accessed in synchronized context
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
+#### Snippet
+```java
+    @Override
+    public boolean ready() throws IOException {
+        synchronized (lock) {
+            if (in == null) {
+                throw new IOException("InputStreamReader is closed.");
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `bytes` accessed in synchronized context
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
+#### Snippet
+```java
+            }
+            try {
+                return bytes.hasRemaining() || in.available() > 0;
+            } catch (IOException e) {
+                return false;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `lock` accessed in synchronized context
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
+#### Snippet
+```java
+    @Override
     public int read() throws IOException {
         synchronized (lock) {
             if (!isOpen()) {
@@ -9507,30 +9545,6 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
                 pending = buf[1];
             }
             if (nb > 0) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `lock` accessed in synchronized context
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
-#### Snippet
-```java
-    @Override
-    public boolean ready() throws IOException {
-        synchronized (lock) {
-            if (in == null) {
-                throw new IOException("InputStreamReader is closed.");
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `bytes` accessed in synchronized context
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
-#### Snippet
-```java
-            }
-            try {
-                return bytes.hasRemaining() || in.available() > 0;
-            } catch (IOException e) {
-                return false;
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -9767,6 +9781,18 @@ Unnecessary boxing
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMessageHandler.java`
 #### Snippet
 ```java
+                kexFlushed = true;
+            }
+            return new SimpleImmutableEntry<>(Integer.valueOf(numPending), kexFlushedFuture);
+        });
+    }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMessageHandler.java`
+#### Snippet
+```java
             kexFlushed = true;
             return new SimpleImmutableEntry<Integer, DefaultKeyExchangeFuture>(
                     Integer.valueOf(pendingPackets.size()),
@@ -9783,18 +9809,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMe
         });
         items.getValue().setValue(Boolean.valueOf(items.getKey().intValue() == 0));
         flushRunner.shutdownNow();
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMessageHandler.java`
-#### Snippet
-```java
-                kexFlushed = true;
-            }
-            return new SimpleImmutableEntry<>(Integer.valueOf(numPending), kexFlushedFuture);
-        });
     }
 ```
 
@@ -9896,18 +9910,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyEntryResolve
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/AESPrivateKeyObfuscator.java`
-#### Snippet
-```java
-                    Cipher c = SecurityUtils.getCipher(CIPHER_NAME);
-                    c.init(Cipher.DECRYPT_MODE, key);
-                    sizes.add(Integer.valueOf(keyLength));
-                } catch (GeneralSecurityException e) {
-                    return sizes;
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/DESPrivateKeyObfuscator.java`
 #### Snippet
 ```java
@@ -9916,6 +9918,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/DESPriva
                     Integer.valueOf(DEFAULT_KEY_LENGTH)));
     public static final DESPrivateKeyObfuscator INSTANCE = new DESPrivateKeyObfuscator();
 
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/AESPrivateKeyObfuscator.java`
+#### Snippet
+```java
+                    Cipher c = SecurityUtils.getCipher(CIPHER_NAME);
+                    c.init(Cipher.DECRYPT_MODE, key);
+                    sizes.add(Integer.valueOf(keyLength));
+                } catch (GeneralSecurityException e) {
+                    return sizes;
 ```
 
 ### UnnecessaryBoxing
@@ -9949,18 +9963,6 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
 #### Snippet
 ```java
     @Override
-    public void close() throws IOException {
-        synchronized (lock) {
-            decoder = null;
-            if (in != null) {
-```
-
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `lock`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
-#### Snippet
-```java
-    @Override
     public int read(char[] buf, int offset, int length) throws IOException {
         synchronized (lock) {
             if (!isOpen()) {
@@ -9973,10 +9975,10 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
 #### Snippet
 ```java
     @Override
-    public int read() throws IOException {
+    public void close() throws IOException {
         synchronized (lock) {
-            if (!isOpen()) {
-                throw new IOException("InputStreamReader is closed.");
+            decoder = null;
+            if (in != null) {
 ```
 
 ### SynchronizeOnNonFinalField
@@ -9988,6 +9990,18 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
     public boolean ready() throws IOException {
         synchronized (lock) {
             if (in == null) {
+                throw new IOException("InputStreamReader is closed.");
+```
+
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `lock`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
+#### Snippet
+```java
+    @Override
+    public int read() throws IOException {
+        synchronized (lock) {
+            if (!isOpen()) {
                 throw new IOException("InputStreamReader is closed.");
 ```
 
@@ -10014,18 +10028,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/DefaultIoServiceFactoryFac
         int numDetected = services.size();
         if (numDetected <= 0) {
             return null;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        }
-
-        if (value.length() <= 0) { // means don't report any extensions
-            return Collections.emptyMap();
         }
 ```
 
@@ -10113,41 +10115,16 @@ in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/AbstractResourc
             }
 ```
 
-## RuleId[ruleID=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
 #### Snippet
 ```java
-      try {
-          String try_pw = hashpw(plaintext, hashed);
-          hashed_bytes = hashed.getBytes("UTF-8");
-          try_bytes = try_pw.getBytes("UTF-8");
-      } catch (UnsupportedEncodingException uee) {
-```
+        }
 
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-          String try_pw = hashpw(plaintext, hashed);
-          hashed_bytes = hashed.getBytes("UTF-8");
-          try_bytes = try_pw.getBytes("UTF-8");
-      } catch (UnsupportedEncodingException uee) {
-          return false;
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
-#### Snippet
-```java
-      real_salt = salt.substring(off + 3, off + 25);
-      try {
-          passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes("UTF-8");
-      } catch (UnsupportedEncodingException uee) {
-          throw new AssertionError("UTF-8 is not supported");
+        if (value.length() <= 0) { // means don't report any extensions
+            return Collections.emptyMap();
+        }
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -10157,8 +10134,8 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/CliLogger.java`
 #### Snippet
 ```java
 
-    public static PrintStream resolveSystemPrintStream(Level threshold) {
-        return resolvePrintStream(threshold, System.out, System.err);
+    public static Logger resolveSystemLogger(String name, Level threshold) {
+        return resolveLogger(name, threshold, System.out, System.err);
     }
 
 ```
@@ -10169,8 +10146,8 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/CliLogger.java`
 #### Snippet
 ```java
 
-    public static PrintStream resolveSystemPrintStream(Level threshold) {
-        return resolvePrintStream(threshold, System.out, System.err);
+    public static Logger resolveSystemLogger(String name, Level threshold) {
+        return resolveLogger(name, threshold, System.out, System.err);
     }
 
 ```
@@ -10181,8 +10158,8 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/CliLogger.java`
 #### Snippet
 ```java
 
-    public static Logger resolveSystemLogger(String name, Level threshold) {
-        return resolveLogger(name, threshold, System.out, System.err);
+    public static PrintStream resolveSystemPrintStream(Level threshold) {
+        return resolvePrintStream(threshold, System.out, System.err);
     }
 
 ```
@@ -10193,10 +10170,22 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/CliLogger.java`
 #### Snippet
 ```java
 
-    public static Logger resolveSystemLogger(String name, Level threshold) {
-        return resolveLogger(name, threshold, System.out, System.err);
+    public static PrintStream resolveSystemPrintStream(Level threshold) {
+        return resolvePrintStream(threshold, System.out, System.err);
     }
 
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        BuiltinIoServiceFactoryFactories factory = BuiltinIoServiceFactoryFactories.fromFactoryName(provider);
+        if (factory == null) {
+            System.err.println(argName + " - unknown provider (" + provider + ")"
+                               + " should be one of " + BuiltinIoServiceFactoryFactories.VALUES);
+        }
 ```
 
 ### SystemOutErr
@@ -10536,18 +10525,6 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerMain.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        BuiltinIoServiceFactoryFactories factory = BuiltinIoServiceFactoryFactories.fromFactoryName(provider);
-        if (factory == null) {
-            System.err.println(argName + " - unknown provider (" + provider + ")"
-                               + " should be one of " + BuiltinIoServiceFactoryFactories.VALUES);
-        }
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
 #### Snippet
@@ -10608,27 +10585,27 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SftpCommandMain.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
 #### Snippet
 ```java
-
-    public static void main(String[] args) throws Exception {
-        PrintStream stdout = System.out;
-        PrintStream stderr = System.err;
-        OutputStream logStream = stdout;
+            } else if ("-io".equals(optName)) {
+                if ((index + 1) >= numArgs) {
+                    System.err.println("option requires an argument: " + optName);
+                    break;
+                }
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
 #### Snippet
 ```java
-    public static void main(String[] args) throws Exception {
-        PrintStream stdout = System.out;
-        PrintStream stderr = System.err;
-        OutputStream logStream = stdout;
-        try (BufferedReader stdin = new BufferedReader(
+                String provider = args[++index];
+                BuiltinIoServiceFactoryFactories factory
+                        = CliSupport.resolveBuiltinIoServiceFactory(System.err, optName, provider);
+                if (factory != null) {
+                    System.setProperty(IoServiceFactory.class.getName(), factory.getFactoryClassName());
 ```
 
 ### SystemOutErr
@@ -10656,27 +10633,27 @@ in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
 #### Snippet
 ```java
-            } else if ("-io".equals(optName)) {
-                if ((index + 1) >= numArgs) {
-                    System.err.println("option requires an argument: " + optName);
-                    break;
-                }
+
+    public static void main(String[] args) throws Exception {
+        PrintStream stdout = System.out;
+        PrintStream stderr = System.err;
+        OutputStream logStream = stdout;
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
 #### Snippet
 ```java
-                String provider = args[++index];
-                BuiltinIoServiceFactoryFactories factory
-                        = CliSupport.resolveBuiltinIoServiceFactory(System.err, optName, provider);
-                if (factory != null) {
-                    System.setProperty(IoServiceFactory.class.getName(), factory.getFactoryClassName());
+    public static void main(String[] args) throws Exception {
+        PrintStream stdout = System.out;
+        PrintStream stderr = System.err;
+        OutputStream logStream = stdout;
+        try (BufferedReader stdin = new BufferedReader(
 ```
 
 ### SystemOutErr
@@ -10689,6 +10666,43 @@ in `sshd-git/src/main/java/org/apache/sshd/git/pgm/EmbeddedCommandRunner.java`
         PrintWriter writer = new PrintWriter(err != null ? err : System.err);
         try {
             clp.parseArgument(argv);
+```
+
+## RuleId[ruleID=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+      try {
+          String try_pw = hashpw(plaintext, hashed);
+          hashed_bytes = hashed.getBytes("UTF-8");
+          try_bytes = try_pw.getBytes("UTF-8");
+      } catch (UnsupportedEncodingException uee) {
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+          String try_pw = hashpw(plaintext, hashed);
+          hashed_bytes = hashed.getBytes("UTF-8");
+          try_bytes = try_pw.getBytes("UTF-8");
+      } catch (UnsupportedEncodingException uee) {
+          return false;
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/kdf/BCrypt.java`
+#### Snippet
+```java
+      real_salt = salt.substring(off + 3, off + 25);
+      try {
+          passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes("UTF-8");
+      } catch (UnsupportedEncodingException uee) {
+          throw new AssertionError("UTF-8 is not supported");
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -10803,54 +10817,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/KeyPairR
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.file` is unnecessary and can be removed
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpDirectoryStream.java`
-#### Snippet
-```java
-     *
-     * @param  path        The remote {@link SftpPath}
-     * @param  filter      An <U>optional</U> {@link java.nio.file.DirectoryStream.Filter filter} - ignored if
-     *                     {@code null}
-     * @throws IOException If failed to initialize the directory access handle
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/CheckFileNameExtension.java`
-#### Snippet
-```java
-     * @param  blockSize   Input block size to calculate individual hashes - if zero the <U>one</U> hash of <U>all</U>
-     *                     the data
-     * @return             An <U>immutable</U> {@link java.util.Map.Entry} key left=hash algorithm name, value=the
-     *                     calculated hashes.
-     * @throws IOException If failed to execute the command
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/CheckFileHandleExtension.java`
-#### Snippet
-```java
-     * @param  blockSize   Input block size to calculate individual hashes - if zero the <U>one</U> hash of <U>all</U>
-     *                     the data
-     * @return             An <U>immutable</U> {@link java.util.Map.Entry} where key=hash algorithm name, value=the
-     *                     calculated hashes.
-     * @throws IOException If failed to execute the command
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.channels` is unnecessary, and can be replaced with an import
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/Handle.java`
-#### Snippet
-```java
- * @author <a href="mailto:dev@mina.apache.org">Apache MINA SSHD Project</a>
- */
-public abstract class Handle implements java.nio.channels.Channel, AttributeStore {
-    private final SftpSubsystem sftpSubsystem;
-    private final AtomicBoolean closed = new AtomicBoolean(false);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.nio.channels` is unnecessary, and can be replaced with an import
 in `sshd-core/src/main/java/org/apache/sshd/agent/SshAgent.java`
 #### Snippet
@@ -10876,30 +10842,6 @@ in `sshd-core/src/main/java/org/apache/sshd/agent/unix/AgentServer.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `sshd-core/src/main/java/org/apache/sshd/agent/unix/ChannelAgentForwarding.java`
-#### Snippet
-```java
-     *
-     * @param  code                APR error code
-     * @throws java.io.IOException the produced exception for the given APR error number
-     */
-    private static void throwException(int code) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.nio.charset` is unnecessary and can be removed
-in `sshd-core/src/main/java/org/apache/sshd/core/CoreModuleProperties.java`
-#### Snippet
-```java
-    /**
-     * The charset to use if the configured welcome banner points to a file - if not specified (either as a string or a
-     * {@link java.nio.charset.Charset} then the local default is used.
-     */
-    public static final Property<Charset> WELCOME_BANNER_CHARSET
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
 in `sshd-core/src/main/java/org/apache/sshd/agent/unix/AgentClient.java`
 #### Snippet
 ```java
@@ -10920,6 +10862,30 @@ in `sshd-core/src/main/java/org/apache/sshd/agent/unix/AprLibrary.java`
         if (org.apache.tomcat.jni.File.permsSet(authSocket, perms) != org.apache.tomcat.jni.Status.APR_SUCCESS) {
             throw new IOException("Unable to secure local socket");
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `sshd-core/src/main/java/org/apache/sshd/agent/unix/ChannelAgentForwarding.java`
+#### Snippet
+```java
+     *
+     * @param  code                APR error code
+     * @throws java.io.IOException the produced exception for the given APR error number
+     */
+    private static void throwException(int code) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.charset` is unnecessary and can be removed
+in `sshd-core/src/main/java/org/apache/sshd/core/CoreModuleProperties.java`
+#### Snippet
+```java
+    /**
+     * The charset to use if the configured welcome banner points to a file - if not specified (either as a string or a
+     * {@link java.nio.charset.Charset} then the local default is used.
+     */
+    public static final Property<Charset> WELCOME_BANNER_CHARSET
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10963,18 +10929,6 @@ Qualifier `java.security` is unnecessary and can be removed
 in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
 #### Snippet
 ```java
- * A client session is established using the {@link org.apache.sshd.client.SshClient}. Once the session has been
- * created, the user has to authenticate using either {@link #addPasswordIdentity(String)} or
- * {@link #addPublicKeyIdentity(java.security.KeyPair)} followed by a call to {@link #auth()}.
- * </P>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
-#### Snippet
-```java
      * Starts the authentication process. User identities will be tried until the server successfully authenticate the
      * user. User identities must be provided before calling this method using {@link #addPasswordIdentity(String)} or
      * {@link #addPublicKeyIdentity(java.security.KeyPair)}.
@@ -10992,6 +10946,18 @@ in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
      * @see                #addPublicKeyIdentity(java.security.KeyPair)
      */
     AuthFuture auth() throws IOException;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
+#### Snippet
+```java
+ * A client session is established using the {@link org.apache.sshd.client.SshClient}. Once the session has been
+ * created, the user has to authenticate using either {@link #addPasswordIdentity(String)} or
+ * {@link #addPublicKeyIdentity(java.security.KeyPair)} followed by a call to {@link #auth()}.
+ * </P>
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11115,30 +11081,6 @@ in `sshd-core/src/main/java/org/apache/sshd/server/command/CommandLifecycle.java
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sshd.common.future` is unnecessary and can be removed
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-     * @see <a href="https://tools.ietf.org/html/rfc4254#section-4">RFC 4254: Global Requests</a>
-     * @see <a href="https://tools.ietf.org/html/rfc4253#section-11.4">RFC 4254: Reserved Messages</a>
-     * @see {@link #request(Buffer, String, org.apache.sshd.common.future.GlobalRequestFuture.ReplyHandler)}
-     * @see {@link #requestSuccess(Buffer)}
-     * @see {@link #requestFailure(Buffer)}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.mina.core.service` is unnecessary, and can be replaced with an import
-in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
-#### Snippet
-```java
-
-    @Override
-    protected org.apache.mina.core.service.IoService getIoService() {
-        return getConnector();
-    }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `sshd-common/src/main/java/org/apache/sshd/client/auth/hostbased/HostKeyIdentityProvider.java`
 #### Snippet
@@ -11151,6 +11093,18 @@ in `sshd-common/src/main/java/org/apache/sshd/client/auth/hostbased/HostKeyIdent
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sshd.common.future` is unnecessary and can be removed
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+     * @see <a href="https://tools.ietf.org/html/rfc4254#section-4">RFC 4254: Global Requests</a>
+     * @see <a href="https://tools.ietf.org/html/rfc4253#section-11.4">RFC 4254: Reserved Messages</a>
+     * @see {@link #request(Buffer, String, org.apache.sshd.common.future.GlobalRequestFuture.ReplyHandler)}
+     * @see {@link #requestSuccess(Buffer)}
+     * @see {@link #requestFailure(Buffer)}
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.sshd.common.session` is unnecessary and can be removed
 in `sshd-common/src/main/java/org/apache/sshd/common/CommonModuleProperties.java`
 #### Snippet
@@ -11159,6 +11113,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/CommonModuleProperties.java
     /**
      * Property used to register the {@link org.apache.sshd.common.session.SessionHeartbeatController.HeartbeatType} -
      * if non-existent or {@code NONE} then disabled. Same if some unknown string value is set as the property value.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sshd.common.mac` is unnecessary and can be removed
+in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
+#### Snippet
+```java
+    /**
+     * @param  s The {@link Enum}'s name - ignored if {@code null}/empty
+     * @return   The matching {@link org.apache.sshd.common.mac.BuiltinMacs} whose {@link Enum#name()} matches (case
+     *           <U>insensitive</U>) the provided argument - {@code null} if no match
      */
 ```
 
@@ -11187,18 +11153,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sshd.common.mac` is unnecessary and can be removed
-in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
-#### Snippet
-```java
-    /**
-     * @param  s The {@link Enum}'s name - ignored if {@code null}/empty
-     * @return   The matching {@link org.apache.sshd.common.mac.BuiltinMacs} whose {@link Enum#name()} matches (case
-     *           <U>insensitive</U>) the provided argument - {@code null} if no match
-     */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `sshd-common/src/main/java/org/apache/sshd/common/util/MapEntryUtils.java`
 #### Snippet
@@ -11220,6 +11174,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/EdDSASe
     public static org.apache.sshd.common.signature.Signature getEDDSASignature() {
         ValidateUtils.checkTrue(SecurityUtils.isEDDSACurveSupported(), SecurityUtils.EDDSA + " not supported");
         return new SignatureEd25519();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sshd.common.digest` is unnecessary and can be removed
+in `sshd-common/src/main/java/org/apache/sshd/common/digest/BuiltinDigests.java`
+#### Snippet
+```java
+    /**
+     * @param  d The {@link Digest} instance - ignored if {@code null}
+     * @return   The matching {@link org.apache.sshd.common.digest.BuiltinDigests} whose algorithm matches (case
+     *           <U>insensitive</U>) the digets's algorithm - {@code null} if no match
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11264,9 +11230,9 @@ in `sshd-common/src/main/java/org/apache/sshd/common/digest/BuiltinDigests.java`
 #### Snippet
 ```java
     /**
-     * @param  d The {@link Digest} instance - ignored if {@code null}
-     * @return   The matching {@link org.apache.sshd.common.digest.BuiltinDigests} whose algorithm matches (case
-     *           <U>insensitive</U>) the digets's algorithm - {@code null} if no match
+     * @param  algo The algorithm to find - ignored if {@code null}/empty
+     * @return      The matching {@link org.apache.sshd.common.digest.BuiltinDigests} whose algorithm matches (case
+     *              <U>insensitive</U>) the provided name - {@code null} if no match
      */
 ```
 
@@ -11283,15 +11249,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/digest/BuiltinDigests.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sshd.common.digest` is unnecessary and can be removed
-in `sshd-common/src/main/java/org/apache/sshd/common/digest/BuiltinDigests.java`
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDSASigner.java`
 #### Snippet
 ```java
-    /**
-     * @param  algo The algorithm to find - ignored if {@code null}/empty
-     * @return      The matching {@link org.apache.sshd.common.digest.BuiltinDigests} whose algorithm matches (case
-     *              <U>insensitive</U>) the provided name - {@code null} if no match
-     */
+ * @see    <a href="https://issues.apache.org/jira/browse/SSHD-945">SSHD-945 issue</a>
+ */
+public class LegacyDSASigner extends java.security.Signature {
+    public static final String LEGACY_SIGNATURE = "LegacySHA1withDSA";
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11343,15 +11309,63 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/client/DefaultScpStreamResolver.j
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDSASigner.java`
+Qualifier `org.apache.mina.core.service` is unnecessary, and can be replaced with an import
+in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
 #### Snippet
 ```java
- * @see    <a href="https://issues.apache.org/jira/browse/SSHD-945">SSHD-945 issue</a>
- */
-public class LegacyDSASigner extends java.security.Signature {
-    public static final String LEGACY_SIGNATURE = "LegacySHA1withDSA";
 
+    @Override
+    protected org.apache.mina.core.service.IoService getIoService() {
+        return getConnector();
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.file` is unnecessary and can be removed
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpDirectoryStream.java`
+#### Snippet
+```java
+     *
+     * @param  path        The remote {@link SftpPath}
+     * @param  filter      An <U>optional</U> {@link java.nio.file.DirectoryStream.Filter filter} - ignored if
+     *                     {@code null}
+     * @throws IOException If failed to initialize the directory access handle
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/CheckFileNameExtension.java`
+#### Snippet
+```java
+     * @param  blockSize   Input block size to calculate individual hashes - if zero the <U>one</U> hash of <U>all</U>
+     *                     the data
+     * @return             An <U>immutable</U> {@link java.util.Map.Entry} key left=hash algorithm name, value=the
+     *                     calculated hashes.
+     * @throws IOException If failed to execute the command
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/CheckFileHandleExtension.java`
+#### Snippet
+```java
+     * @param  blockSize   Input block size to calculate individual hashes - if zero the <U>one</U> hash of <U>all</U>
+     *                     the data
+     * @return             An <U>immutable</U> {@link java.util.Map.Entry} where key=hash algorithm name, value=the
+     *                     calculated hashes.
+     * @throws IOException If failed to execute the command
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.nio.channels` is unnecessary, and can be replaced with an import
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/Handle.java`
+#### Snippet
+```java
+ * @author <a href="mailto:dev@mina.apache.org">Apache MINA SSHD Project</a>
+ */
+public abstract class Handle implements java.nio.channels.Channel, AttributeStore {
+    private final SftpSubsystem sftpSubsystem;
+    private final AtomicBoolean closed = new AtomicBoolean(false);
 ```
 
 ## RuleId[ruleID=Java8MapApi]
@@ -11382,474 +11396,6 @@ in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/Apach
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `line`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-
-    public static String[] splitCommandLineArguments(String line) {
-        line = GenericUtils.trimToEmpty(line);
-        if (GenericUtils.isBlank(line)) {
-            return GenericUtils.EMPTY_STRING_ARRAY;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `line`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-                args.add(value);
-
-                line = (endPos < (line.length() - 1)) ? line.substring(endPos + 1).trim() : "";
-                if (GenericUtils.isBlank(line)) {
-                    break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pattern`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPathDirectoryScanner.java`
-#### Snippet
-```java
-
-    public static String adjustPattern(String pattern) {
-        pattern = pattern.trim();
-        if ((!pattern.startsWith(SelectorUtils.REGEX_HANDLER_PREFIX)) && pattern.endsWith("/")) {
-            return pattern + "**";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ciphers`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-            throws Exception {
-        if (GenericUtils.isEmpty(ciphers)) {
-            ciphers = setupCiphers(resolver, stderr);
-            if (ciphers == null) {
-                return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `macs`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-
-        if (GenericUtils.isEmpty(macs)) {
-            macs = setupMacs(resolver, stderr);
-            if (macs == null) {
-                return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `compressions`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-
-        if (GenericUtils.isEmpty(compressions)) {
-            compressions = setupCompressions(resolver, stderr);
-            if (compressions == null) {
-                return null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-        try (BufferedReader stdin = new BufferedReader(
-                new InputStreamReader(new NoCloseInputStream(System.in), Charset.defaultCharset()))) {
-            args = normalizeCommandArguments(stdout, stderr, args);
-
-            Level level = Level.SEVERE;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `max`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java`
-#### Snippet
-```java
-                buffer.rpos(buffer.rpos() + nb);
-                clientOffset += nb;
-                max -= nb;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpOutputStreamAsync.java`
-#### Snippet
-```java
-            buffer.putRawBytes(b, off, nb);
-
-            off += nb;
-            len -= nb;
-            writtenCount += nb;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpOutputStreamAsync.java`
-#### Snippet
-```java
-
-            off += nb;
-            len -= nb;
-            writtenCount += nb;
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attrs`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-            throws IOException {
-        if ("*".equals(attrs)) {
-            attrs = "acl,owner";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attrs`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-        PosixFileAttributes v = readAttributes(path, PosixFileAttributes.class, options);
-        if ("*".equals(attrs)) {
-            attrs = IoUtils.LASTMOD_TIME_VIEW_ATTR
-                    + "," + IoUtils.LASTACC_TIME_VIEW_ATTR
-                    + "," + IoUtils.CREATE_TIME_VIEW_ATTR
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `params`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-                return Collections.emptyMap();
-            }
-            params = params.substring(1);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `client`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-        if (client == null) {
-            // TODO: make this configurable using system properties
-            client = SshClient.setUpDefaultClient();
-            client.start();
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java`
-#### Snippet
-```java
-            }
-
-            name = name.toUpperCase();
-            if (!name.startsWith(LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX)) {
-                name += LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java`
-#### Snippet
-```java
-            name = name.toUpperCase();
-            if (!name.startsWith(LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX)) {
-                name += LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `sshd-git/src/main/java/org/apache/sshd/git/AbstractGitCommand.java`
-#### Snippet
-```java
-    public static List<String> parseDelimitedString(String value, String delim, boolean trim) {
-        if (value == null) {
-            value = "";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attrs`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java`
-#### Snippet
-```java
-         */
-        if (Files.exists(file)) {
-            attrs = IoUtils.EMPTY_FILE_ATTRIBUTES;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fileOffset`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-            checkCommandStatus(SftpConstants.SSH_FXP_WRITE, buffer);
-
-            fileOffset += writeSize;
-            srcOffset += writeSize;
-            remLen -= writeSize;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcOffset`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-
-            fileOffset += writeSize;
-            srcOffset += writeSize;
-            remLen -= writeSize;
-        } while (remLen > 0);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bufferSize`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-    public InputStream read(String path, int bufferSize, Collection<OpenMode> mode) throws IOException {
-        if (bufferSize <= 0) {
-            bufferSize = getReadBufferSize();
-        }
-        if (bufferSize < MIN_READ_BUFFER_SIZE) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-         */
-        if (GenericUtils.isEmpty(options)) {
-            options = EnumSet.of(OpenMode.Read);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bufferSize`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-    public OutputStream write(String path, int bufferSize, Collection<OpenMode> mode) throws IOException {
-        if (bufferSize <= 0) {
-            bufferSize = getWriteBufferSize();
-        }
-        if (bufferSize < MIN_WRITE_BUFFER_SIZE) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastAccessTime);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
-            buffer = writeTime(buffer, version, flags, creationTime);
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastModifiedTime);
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-            buffer = writeACLs(buffer, version, acl);
-        }
-        // TODO: ctime
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        // TODO: bits
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-            buffer = writeExtensions(buffer, extensions);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
-            }
-        } else if (sftpVersion >= SftpConstants.SFTP_V4) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getCreateTime());
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
-                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            }
-            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
-                buffer = writeACLs(buffer, sftpVersion, attributes.getAcl());
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-            buffer = writeExtensions(buffer, attributes.getExtensions());
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastAccessTime);
-            buffer = writeTime(buffer, version, flags, lastModifiedTime);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
-            buffer = writeTime(buffer, version, flags, lastAccessTime);
-            buffer = writeTime(buffer, version, flags, lastModifiedTime);
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-        }
-        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
-            buffer = writeExtensions(buffer, extensions);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `passwords`
-in `sshd-git/src/main/java/org/apache/sshd/git/transport/GitSshdSession.java`
-#### Snippet
-```java
-        try {
-            if (passwords == null) {
-                passwords = GenericUtils.EMPTY_STRING_ARRAY;
-            }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentForwardedChannel.java`
 #### Snippet
@@ -11871,6 +11417,30 @@ in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentForwardedChannel.ja
                 len = receiveBuffer.getInt();
                 receiveBuffer.rpos(off);
                 if (receiveBuffer.available() >= (Integer.BYTES + len)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
+#### Snippet
+```java
+        k = dh.getK();
+
+        buffer = new ByteArrayBuffer(k_s);
+        PublicKey serverKey = buffer.getRawPublicKey();
+        PublicKey serverPublicHostKey = serverKey;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
+#### Snippet
+```java
+        }
+
+        buffer = new ByteArrayBuffer();
+        buffer.putBytes(v_c);
+        buffer.putBytes(v_s);
 ```
 
 ### AssignmentToMethodParameter
@@ -11923,62 +11493,14 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/KeyPairIdentity.j
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
-#### Snippet
-```java
-        k = dh.getK();
-
-        buffer = new ByteArrayBuffer(k_s);
-        PublicKey serverKey = buffer.getRawPublicKey();
-        PublicKey serverPublicHostKey = serverKey;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/client/kex/DHGClient.java`
-#### Snippet
-```java
-        }
-
-        buffer = new ByteArrayBuffer();
-        buffer.putBytes(v_c);
-        buffer.putBytes(v_s);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
-#### Snippet
-```java
-        }
-
-        buffer = prepareReply(buffer);
-
-        buffer.putByte((byte) SftpConstants.SSH_FXP_VERSION);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `readOffset`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserAuthKeyboardInteractive.java`
 #### Snippet
 ```java
 
-            effectiveLength -= readLen;
-            readOffset += readLen;
-            writeOffset += readLen;
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `writeOffset`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
-#### Snippet
-```java
-            effectiveLength -= readLen;
-            readOffset += readLen;
-            writeOffset += readLen;
-        }
-    }
+        int numResponses = rep.length;
+        buffer = session.createBuffer(
+                SshConstants.SSH_MSG_USERAUTH_INFO_RESPONSE, numResponses * Long.SIZE + Byte.SIZE);
+        buffer.putUInt(numResponses);
 ```
 
 ### AssignmentToMethodParameter
@@ -11995,14 +11517,14 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/password/UserAuthPasswor
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserAuthKeyboardInteractive.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey.java`
 #### Snippet
 ```java
-
-        int numResponses = rep.length;
-        buffer = session.createBuffer(
-                SshConstants.SSH_MSG_USERAUTH_INFO_RESPONSE, numResponses * Long.SIZE + Byte.SIZE);
-        buffer.putUInt(numResponses);
+        int length = GenericUtils.length(username) + GenericUtils.length(service) + GenericUtils.length(name)
+                     + GenericUtils.length(algo) + ByteArrayBuffer.DEFAULT_SIZE + Long.SIZE;
+        buffer = session.createBuffer(SshConstants.SSH_MSG_USERAUTH_REQUEST, length);
+        buffer.putString(username);
+        buffer.putString(service);
 ```
 
 ### AssignmentToMethodParameter
@@ -12018,23 +11540,11 @@ in `sshd-core/src/main/java/org/apache/sshd/client/channel/ChannelDirectTcpip.ja
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey.java`
-#### Snippet
-```java
-        int length = GenericUtils.length(username) + GenericUtils.length(service) + GenericUtils.length(name)
-                     + GenericUtils.length(algo) + ByteArrayBuffer.DEFAULT_SIZE + Long.SIZE;
-        buffer = session.createBuffer(SshConstants.SSH_MSG_USERAUTH_REQUEST, length);
-        buffer.putString(username);
-        buffer.putString(service);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `charset`
 in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
 #### Snippet
 ```java
-    default String executeRemoteCommand(String command, OutputStream stderr, Charset charset) throws IOException {
+            throws IOException {
         if (charset == null) {
             charset = StandardCharsets.US_ASCII;
         }
@@ -12046,7 +11556,7 @@ Assignment to method parameter `charset`
 in `sshd-core/src/main/java/org/apache/sshd/client/session/ClientSession.java`
 #### Snippet
 ```java
-            throws IOException {
+    default String executeRemoteCommand(String command, OutputStream stderr, Charset charset) throws IOException {
         if (charset == null) {
             charset = StandardCharsets.US_ASCII;
         }
@@ -12063,6 +11573,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelPipedInputStre
                 len = buffer.available();
             }
             buffer.getRawBytes(b, off, len);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `resume`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
+#### Snippet
+```java
+                if (writeState.windowExpanded) {
+                    writeState.windowExpanded = false;
+                    resume = true;
+                    currentWrite = nextWrite; // Try again.
+                } else {
 ```
 
 ### AssignmentToMethodParameter
@@ -12090,18 +11612,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelOutputStream.j
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `resume`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
-#### Snippet
-```java
-                if (writeState.windowExpanded) {
-                    writeState.windowExpanded = false;
-                    resume = true;
-                    currentWrite = nextWrite; // Try again.
-                } else {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `buffer`
 in `sshd-core/src/main/java/org/apache/sshd/common/forward/SocksProxy.java`
 #### Snippet
@@ -12111,30 +11621,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/forward/SocksProxy.java`
                 buffer = new ByteArrayBuffer(Byte.SIZE, false);
                 buffer.putByte((byte) 0x05);
                 buffer.putByte((byte) (foundNoAuth ? 0x00 : 0xFF));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGServer.java`
-#### Snippet
-```java
-        sig.initSigner(session, kp.getPrivate());
-
-        buffer = new ByteArrayBuffer();
-        buffer.putRawPublicKey(kp.getPublic());
-        byte[] k_s = buffer.getCompactData();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGServer.java`
-#### Snippet
-```java
-        }
-
-        buffer = session.prepareBuffer(SshConstants.SSH_MSG_KEXDH_REPLY, BufferUtils.clear(buffer));
-        buffer.putBytes(k_s);
-        dh.putF(buffer, f);
 ```
 
 ### AssignmentToMethodParameter
@@ -12234,147 +11720,27 @@ in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGEXServer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `followLinks`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+Assignment to method parameter `buffer`
+in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGServer.java`
 #### Snippet
 ```java
-        try {
-            accessor.createDirectory(this, resolvedPath);
-            followLinks = resolvePathResolutionFollowLinks(SftpConstants.SSH_FXP_MKDIR, "", resolvedPath);
-            doSetAttributes(SftpConstants.SSH_FXP_MKDIR, "", resolvedPath, attrs, followLinks);
-        } catch (IOException | RuntimeException | Error e) {
+        sig.initSigner(session, kp.getPrivate());
+
+        buffer = new ByteArrayBuffer();
+        buffer.putRawPublicKey(kp.getPublic());
+        byte[] k_s = buffer.getCompactData();
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-    protected void doOpenSSHLimits(Buffer buffer, int id) throws IOException {
-        OpenSSHLimitsExtensionInfo info = getOpenSSHLimitsExtensionInfo(id, getServerChannelSession());
-        buffer = prepareReply(buffer);
-        buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
-        buffer.putInt(id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `followLinks`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        Path p = resolveFile(path);
-        if (followLinks == null) {
-            followLinks = resolvePathResolutionFollowLinks(cmd, extension, p);
-        }
-        doSetAttributes(cmd, extension, p, attrs, followLinks);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-            ValidateUtils.checkTrue(readLen >= 0, "Illegal requested read length: %d", readLen);
-
-            buffer = prepareReply(buffer);
-            buffer.ensureCapacity(readLen + Long.SIZE /* the header */, IntUnaryOperator.identity());
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+in `sshd-core/src/main/java/org/apache/sshd/server/kex/DHGServer.java`
 #### Snippet
 ```java
         }
 
-        buffer = prepareReply(buffer);
-        buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
-        buffer.putInt(id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `current`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-
-        if (current == null) {
-            current = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `p`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-
-            for (String p2 : extraPaths) {
-                p = p.resolve(p2);
-                options = getPathResolutionLinkOption(
-                        SftpConstants.SSH_FXP_REALPATH, "", p);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-            for (String p2 : extraPaths) {
-                p = p.resolve(p2);
-                options = getPathResolutionLinkOption(
-                        SftpConstants.SSH_FXP_REALPATH, "", p);
-                sb.append('/').append(p2);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-            }
-
-            path = sb.toString();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        int blockSize = buffer.getInt();
-        try {
-            buffer = prepareReply(buffer);
-            buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
-            buffer.putInt(id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        }
-
-        buffer = prepareReply(buffer);
-        buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
-        buffer.putInt(id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `proposed`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-                        session, id, proposed, hig, available);
-            }
-            proposed = hig; // debug breakpoint
-        }
-
+        buffer = session.prepareBuffer(SshConstants.SSH_MSG_KEXDH_REPLY, BufferUtils.clear(buffer));
+        buffer.putBytes(k_s);
+        dh.putF(buffer, f);
 ```
 
 ### AssignmentToMethodParameter
@@ -12466,11 +11832,11 @@ Assignment to method parameter `buffer`
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-    @Override
-    public Buffer prepareBuffer(byte cmd, Buffer buffer) {
-        buffer = validateTargetBuffer(cmd & 0xFF, buffer);
-        buffer.rpos(SshConstants.SSH_PACKET_HEADER_LEN);
-        buffer.wpos(SshConstants.SSH_PACKET_HEADER_LEN);
+            Buffer nb = preProcessEncodeBuffer(cmd, buffer);
+            if (nb != buffer) {
+                buffer = nb;
+                curPos = buffer.rpos();
+
 ```
 
 ### AssignmentToMethodParameter
@@ -12495,6 +11861,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
             len += outMacSize;
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+    @Override
+    protected Buffer preProcessEncodeBuffer(int cmd, Buffer buffer) throws IOException {
+        buffer = super.preProcessEncodeBuffer(cmd, buffer);
+        // SSHD-968 - remember global request outgoing sequence number
+        LongConsumer setter = globalSequenceNumbers.remove(buffer);
 ```
 
 ### AssignmentToMethodParameter
@@ -12526,18 +11904,6 @@ Assignment to method parameter `buffer`
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-    @Override
-    protected Buffer preProcessEncodeBuffer(int cmd, Buffer buffer) throws IOException {
-        buffer = super.preProcessEncodeBuffer(cmd, buffer);
-        // SSHD-968 - remember global request outgoing sequence number
-        LongConsumer setter = globalSequenceNumbers.remove(buffer);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `buffer`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
         byte[] data = buffer.array();
         int cmd = data[curPos] & 0xFF; // usually the 1st byte is the command
         buffer = validateTargetBuffer(cmd, buffer);
@@ -12550,23 +11916,11 @@ Assignment to method parameter `buffer`
 in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
 #### Snippet
 ```java
-            Buffer nb = preProcessEncodeBuffer(cmd, buffer);
-            if (nb != buffer) {
-                buffer = nb;
-                curPos = buffer.rpos();
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
-#### Snippet
-```java
-     */
-    public void setBinaryAttributes(String value) {
-        value = ValidateUtils.checkNotNullAndNotEmpty(value, "No attributes").replace(',', ' ');
-        ldapEnv.put("java.naming.ldap.attributes.binary", value);
-    }
+    @Override
+    public Buffer prepareBuffer(byte cmd, Buffer buffer) {
+        buffer = validateTargetBuffer(cmd & 0xFF, buffer);
+        buffer.rpos(SshConstants.SSH_PACKET_HEADER_LEN);
+        buffer.wpos(SshConstants.SSH_PACKET_HEADER_LEN);
 ```
 
 ### AssignmentToMethodParameter
@@ -12719,9 +12073,9 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/ValidateUtils.java`
 #### Snippet
 ```java
 
-    public static String checkNotNullAndNotEmpty(String t, String message, Object... args) {
-        t = checkNotNull(t, message, args).trim();
-        checkTrue(GenericUtils.length(t) > 0, message, args);
+    public static String checkNotNullAndNotEmpty(String t, String message) {
+        t = checkNotNull(t, message).trim();
+        checkTrue(GenericUtils.length(t) > 0, message);
         return t;
 ```
 
@@ -12743,58 +12097,10 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/ValidateUtils.java`
 #### Snippet
 ```java
 
-    public static String checkNotNullAndNotEmpty(String t, String message) {
-        t = checkNotNull(t, message).trim();
-        checkTrue(GenericUtils.length(t) > 0, message);
+    public static String checkNotNullAndNotEmpty(String t, String message, Object... args) {
+        t = checkNotNull(t, message, args).trim();
+        checkTrue(GenericUtils.length(t) > 0, message, args);
         return t;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pattern`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
-#### Snippet
-```java
-                    && pattern.startsWith(ANT_HANDLER_PREFIX)
-                    && pattern.endsWith(PATTERN_HANDLER_SUFFIX)) {
-                pattern = pattern.substring(ANT_HANDLER_PREFIX.length(), pattern.length() - PATTERN_HANDLER_SUFFIX.length());
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
-#### Snippet
-```java
-            }
-
-            path = sb.toString();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pattern`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
-#### Snippet
-```java
-                && pattern.startsWith(REGEX_HANDLER_PREFIX)
-                && pattern.endsWith(PATTERN_HANDLER_SUFFIX)) {
-            pattern = pattern.substring(REGEX_HANDLER_PREFIX.length(), pattern.length() - PATTERN_HANDLER_SUFFIX.length());
-            return str.matches(pattern);
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `pattern`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
-#### Snippet
-```java
-                    && pattern.startsWith(ANT_HANDLER_PREFIX)
-                    && pattern.endsWith(PATTERN_HANDLER_SUFFIX)) {
-                pattern = pattern.substring(ANT_HANDLER_PREFIX.length(), pattern.length() - PATTERN_HANDLER_SUFFIX.length());
-            }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -12858,6 +12164,54 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/PathScanningMatcher
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `pattern`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
+#### Snippet
+```java
+                && pattern.startsWith(REGEX_HANDLER_PREFIX)
+                && pattern.endsWith(PATTERN_HANDLER_SUFFIX)) {
+            pattern = pattern.substring(REGEX_HANDLER_PREFIX.length(), pattern.length() - PATTERN_HANDLER_SUFFIX.length());
+            return str.matches(pattern);
+        } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pattern`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
+#### Snippet
+```java
+                    && pattern.startsWith(ANT_HANDLER_PREFIX)
+                    && pattern.endsWith(PATTERN_HANDLER_SUFFIX)) {
+                pattern = pattern.substring(ANT_HANDLER_PREFIX.length(), pattern.length() - PATTERN_HANDLER_SUFFIX.length());
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
+#### Snippet
+```java
+            }
+
+            path = sb.toString();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pattern`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/SelectorUtils.java`
+#### Snippet
+```java
+                    && pattern.startsWith(ANT_HANDLER_PREFIX)
+                    && pattern.endsWith(PATTERN_HANDLER_SUFFIX)) {
+                pattern = pattern.substring(ANT_HANDLER_PREFIX.length(), pattern.length() - PATTERN_HANDLER_SUFFIX.length());
+            }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/io/PathUtils.java`
 #### Snippet
@@ -12906,18 +12260,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/DERWriter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `max`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
-#### Snippet
-```java
-            start = end + repl.length();
-
-            if (--max == 0) {
-                break;
-            }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `i1`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
 #### Snippet
@@ -12939,6 +12281,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
         i2 = iteratorOf(i2);
         for (int index = 0;; index++) {
             if (i1.hasNext()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `max`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+#### Snippet
+```java
+            start = end + repl.length();
+
+            if (--max == 0) {
+                break;
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -13074,15 +12428,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ChaCha20Cipher.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `inputLen`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BaseGCMCipher.java`
+Assignment to method parameter `data`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BaseCipher.java`
 #### Snippet
 ```java
-    public void update(byte[] input, int inputOffset, int inputLen) throws Exception {
-        if (mode == Mode.Decrypt) {
-            inputLen += getAuthenticationTagSize();
+            byte[] tmp = new byte[size];
+            System.arraycopy(data, 0, tmp, 0, size);
+            data = tmp;
         }
-        Cipher cipher = getInitializedCipherInstance();
+        return data;
 ```
 
 ### AssignmentToMethodParameter
@@ -13110,51 +12464,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BaseCipher.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `data`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BaseCipher.java`
+Assignment to method parameter `inputLen`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BaseGCMCipher.java`
 #### Snippet
 ```java
-            byte[] tmp = new byte[size];
-            System.arraycopy(data, 0, tmp, 0, size);
-            data = tmp;
+    public void update(byte[] input, int inputOffset, int inputLen) throws Exception {
+        if (mode == Mode.Decrypt) {
+            inputLen += getAuthenticationTagSize();
         }
-        return data;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lang`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    public IoWriteFuture sendDebugMessage(boolean display, Object msg, String lang) throws IOException {
-        String text = Objects.toString(msg, "");
-        lang = (lang == null) ? "" : lang;
-
-        Buffer buffer = createBuffer(SshConstants.SSH_MSG_DEBUG,
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `data`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    @Override
-    public IoWriteFuture sendIgnoreMessage(byte... data) throws IOException {
-        data = (data == null) ? GenericUtils.EMPTY_BYTE_ARRAY : data;
-        Buffer buffer = createBuffer(SshConstants.SSH_MSG_IGNORE, data.length + Byte.SIZE);
-        buffer.putBytes(data);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-            System.arraycopy(e, 0, bar, 0, e.length);
-            System.arraycopy(foo, 0, bar, e.length, foo.length);
-            e = bar;
-        }
-
+        Cipher cipher = getInitializedCipherInstance();
 ```
 
 ### AssignmentToMethodParameter
@@ -13182,15 +12500,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyEntryResolve
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `keyType`
+Assignment to method parameter `decoder`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.java`
 #### Snippet
 ```java
-     */
-    public static PublicKeyEntryDataResolver resolveKeyDataEntryResolver(String keyType) {
-        keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type provided");
-
-        PublicKeyEntryDataResolver resolver = getKeyDataEntryResolver(keyType);
+        String keyType = data.substring(0, startPos);
+        if (decoder == null) {
+            decoder = resolveKeyDataEntryResolver(keyType);
+        }
+        String b64Data = data.substring(startPos + 1, endPos).trim();
 ```
 
 ### AssignmentToMethodParameter
@@ -13203,6 +12521,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.
         keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type provided");
 
         synchronized (KEY_DATA_RESOLVERS) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `keyType`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.java`
+#### Snippet
+```java
+     */
+    public static PublicKeyEntryDataResolver resolveKeyDataEntryResolver(String keyType) {
+        keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type provided");
+
+        PublicKeyEntryDataResolver resolver = getKeyDataEntryResolver(keyType);
 ```
 
 ### AssignmentToMethodParameter
@@ -13230,27 +12560,63 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `decoder`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.java`
+Assignment to method parameter `e`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
 #### Snippet
 ```java
-        String keyType = data.substring(0, startPos);
-        if (decoder == null) {
-            decoder = resolveKeyDataEntryResolver(keyType);
+            System.arraycopy(e, 0, bar, 0, e.length);
+            System.arraycopy(foo, 0, bar, e.length, foo.length);
+            e = bar;
         }
-        String b64Data = data.substring(startPos + 1, endPos).trim();
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `curve`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
+Assignment to method parameter `data`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
 #### Snippet
 ```java
-            }
-        } else if (curve == null) {
-            curve = namedParam;
-        } else if (namedParam != curve) {
-            throw new StreamCorruptedException("Mismatched provide (" + curve + ") vs. parsed curve (" + namedParam + ")");
+    @Override
+    public IoWriteFuture sendIgnoreMessage(byte... data) throws IOException {
+        data = (data == null) ? GenericUtils.EMPTY_BYTE_ARRAY : data;
+        Buffer buffer = createBuffer(SshConstants.SSH_MSG_IGNORE, data.length + Byte.SIZE);
+        buffer.putBytes(data);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lang`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+    public IoWriteFuture sendDebugMessage(boolean display, Object msg, String lang) throws IOException {
+        String text = Objects.toString(msg, "");
+        lang = (lang == null) ? "" : lang;
+
+        Buffer buffer = createBuffer(SshConstants.SSH_MSG_DEBUG,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `keyType`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static PublicKeyEntryDecoder<?, ?> registerPublicKeyEntryDecoderForKeyType(
+            String keyType, PublicKeyEntryDecoder<?, ?> decoder) {
+        keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type specified");
+        Objects.requireNonNull(decoder, "No decoder specified");
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `keyType`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+     */
+    public static PublicKeyEntryDecoder<?, ?> unregisterPublicKeyEntryDecoderForKeyType(String keyType) {
+        keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type specified");
+
+        synchronized (BY_KEY_TYPE_DECODERS_MAP) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13278,27 +12644,15 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `keyType`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+Assignment to method parameter `curve`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
 #### Snippet
 ```java
-     */
-    public static PublicKeyEntryDecoder<?, ?> unregisterPublicKeyEntryDecoderForKeyType(String keyType) {
-        keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type specified");
-
-        synchronized (BY_KEY_TYPE_DECODERS_MAP) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `keyType`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static PublicKeyEntryDecoder<?, ?> registerPublicKeyEntryDecoderForKeyType(
-            String keyType, PublicKeyEntryDecoder<?, ?> decoder) {
-        keyType = ValidateUtils.checkNotNullAndNotEmpty(keyType, "No key type specified");
-        Objects.requireNonNull(decoder, "No decoder specified");
-
+            }
+        } else if (curve == null) {
+            curve = namedParam;
+        } else if (namedParam != curve) {
+            throw new StreamCorruptedException("Mismatched provide (" + curve + ") vs. parsed curve (" + namedParam + ")");
 ```
 
 ### AssignmentToMethodParameter
@@ -13311,6 +12665,78 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
         stream = validateStreamMagicMarker(session, resourceKey, stream);
 
         String cipher = KeyEntryResolver.decodeString(stream, MAX_CIPHER_NAME_LENGTH);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `line`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+
+    public static String[] splitCommandLineArguments(String line) {
+        line = GenericUtils.trimToEmpty(line);
+        if (GenericUtils.isBlank(line)) {
+            return GenericUtils.EMPTY_STRING_ARRAY;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `line`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+                args.add(value);
+
+                line = (endPos < (line.length() - 1)) ? line.substring(endPos + 1).trim() : "";
+                if (GenericUtils.isBlank(line)) {
+                    break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ciphers`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            throws Exception {
+        if (GenericUtils.isEmpty(ciphers)) {
+            ciphers = setupCiphers(resolver, stderr);
+            if (ciphers == null) {
+                return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `macs`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+
+        if (GenericUtils.isEmpty(macs)) {
+            macs = setupMacs(resolver, stderr);
+            if (macs == null) {
+                return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `compressions`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+
+        if (GenericUtils.isEmpty(compressions)) {
+            compressions = setupCompressions(resolver, stderr);
+            if (compressions == null) {
+                return null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+        try (BufferedReader stdin = new BufferedReader(
+                new InputStreamReader(new NoCloseInputStream(System.in), Charset.defaultCharset()))) {
+            args = normalizeCommandArguments(stdout, stderr, args);
+
+            Level level = Level.SEVERE;
 ```
 
 ### AssignmentToMethodParameter
@@ -13386,138 +12812,6 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/client/DefaultScpClient.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/DefaultScpFileOpener.java`
-#### Snippet
-```java
-            Session session, Path file, long size, Set<PosixFilePermission> permissions, OpenOption... options)
-            throws IOException {
-        options = resolveOpenOptions(session, file, size, permissions, options);
-        if (log.isDebugEnabled()) {
-            log.debug("openWrite({}) size={}, permissions={}, file={}, options={}",
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-        if (GenericUtils.isEmpty(options) || (!options.contains(Option.TargetIsDirectory))) {
-            // create a copy in case the original collection is un-modifiable
-            options = GenericUtils.isEmpty(options) ? EnumSet.noneOf(Option.class) : GenericUtils.of(options);
-            options.add(Option.TargetIsDirectory);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `local`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-    @Override
-    public void download(String remote, String local, Collection<Option> options) throws IOException {
-        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
-
-        ClientSession session = getClientSession();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `local`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-    @Override
-    public void download(String remote, Path local, Collection<Option> options) throws IOException {
-        local = ValidateUtils.checkNotNull(local, "Invalid argument local: %s", local);
-        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", remote);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `remote`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-    public void download(String remote, Path local, Collection<Option> options) throws IOException {
-        local = ValidateUtils.checkNotNull(local, "Invalid argument local: %s", local);
-        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", remote);
-
-        LinkOption[] opts = IoUtils.getLinkOptions(true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-        LinkOption[] opts = IoUtils.getLinkOptions(true);
-        if (Files.isDirectory(local, opts)) {
-            options = addTargetIsDirectory(options);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `local`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-    @Override
-    public void download(String[] remote, String local, Collection<Option> options) throws IOException {
-        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
-        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `remote`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-    public void download(String[] remote, String local, Collection<Option> options) throws IOException {
-        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
-        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
-
-        if (remote.length > 1) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-
-        if (remote.length > 1) {
-            options = addTargetIsDirectory(options);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `remote`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-    @Override
-    public void download(String[] remote, Path local, Collection<Option> options) throws IOException {
-        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
-
-        if (remote.length > 1) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `options`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
-#### Snippet
-```java
-
-        if (remote.length > 1) {
-            options = addTargetIsDirectory(options);
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `time`
 in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpHelper.java`
 #### Snippet
@@ -13577,55 +12871,727 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/common/ScpHelper.java`
                 } else {
 ```
 
-## RuleId[ruleID=UnnecessaryContinue]
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/DefaultScpFileOpener.java`
 #### Snippet
 ```java
-            Integer prev = ptyModes.put(mode, value);
-            if (prev != null) {
-                continue; // debug breakpoint
+            Session session, Path file, long size, Set<PosixFilePermission> permissions, OpenOption... options)
+            throws IOException {
+        options = resolveOpenOptions(session, file, size, permissions, options);
+        if (log.isDebugEnabled()) {
+            log.debug("openWrite({}) size={}, permissions={}, file={}, options={}",
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `sshd-git/src/main/java/org/apache/sshd/git/AbstractGitCommand.java`
+#### Snippet
+```java
+    public static List<String> parseDelimitedString(String value, String delim, boolean trim) {
+        if (value == null) {
+            value = "";
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `local`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+    @Override
+    public void download(String remote, Path local, Collection<Option> options) throws IOException {
+        local = ValidateUtils.checkNotNull(local, "Invalid argument local: %s", local);
+        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", remote);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `remote`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+    public void download(String remote, Path local, Collection<Option> options) throws IOException {
+        local = ValidateUtils.checkNotNull(local, "Invalid argument local: %s", local);
+        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", remote);
+
+        LinkOption[] opts = IoUtils.getLinkOptions(true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+        LinkOption[] opts = IoUtils.getLinkOptions(true);
+        if (Files.isDirectory(local, opts)) {
+            options = addTargetIsDirectory(options);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `local`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+    @Override
+    public void download(String remote, String local, Collection<Option> options) throws IOException {
+        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
+
+        ClientSession session = getClientSession();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+        if (GenericUtils.isEmpty(options) || (!options.contains(Option.TargetIsDirectory))) {
+            // create a copy in case the original collection is un-modifiable
+            options = GenericUtils.isEmpty(options) ? EnumSet.noneOf(Option.class) : GenericUtils.of(options);
+            options.add(Option.TargetIsDirectory);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `remote`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+    @Override
+    public void download(String[] remote, Path local, Collection<Option> options) throws IOException {
+        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
+
+        if (remote.length > 1) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+
+        if (remote.length > 1) {
+            options = addTargetIsDirectory(options);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `local`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+    @Override
+    public void download(String[] remote, String local, Collection<Option> options) throws IOException {
+        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
+        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `remote`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+    public void download(String[] remote, String local, Collection<Option> options) throws IOException {
+        local = ValidateUtils.checkNotNullAndNotEmpty(local, "Invalid argument local: %s", local);
+        remote = ValidateUtils.checkNotNullAndNotEmpty(remote, "Invalid argument remote: %s", (Object) remote);
+
+        if (remote.length > 1) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/client/AbstractScpClient.java`
+#### Snippet
+```java
+
+        if (remote.length > 1) {
+            options = addTargetIsDirectory(options);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `passwords`
+in `sshd-git/src/main/java/org/apache/sshd/git/transport/GitSshdSession.java`
+#### Snippet
+```java
+        try {
+            if (passwords == null) {
+                passwords = GenericUtils.EMPTY_STRING_ARRAY;
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `pattern`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPathDirectoryScanner.java`
+#### Snippet
+```java
+
+    public static String adjustPattern(String pattern) {
+        pattern = pattern.trim();
+        if ((!pattern.startsWith(SelectorUtils.REGEX_HANDLER_PREFIX)) && pattern.endsWith("/")) {
+            return pattern + "**";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpOutputStreamAsync.java`
+#### Snippet
+```java
+            buffer.putRawBytes(b, off, nb);
+
+            off += nb;
+            len -= nb;
+            writtenCount += nb;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpOutputStreamAsync.java`
+#### Snippet
+```java
+
+            off += nb;
+            len -= nb;
+            writtenCount += nb;
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `max`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpInputStreamAsync.java`
+#### Snippet
+```java
+                buffer.rpos(buffer.rpos() + nb);
+                clientOffset += nb;
+                max -= nb;
             }
         }
 ```
 
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+### AssignmentToMethodParameter
+Assignment to method parameter `params`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
 #### Snippet
 ```java
-                Object prev = env.put(key, value);
-                if (prev != null) {
-                    continue; // debug breakpoint
-                }
+                return Collections.emptyMap();
+            }
+            params = params.substring(1);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `attrs`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+        PosixFileAttributes v = readAttributes(path, PosixFileAttributes.class, options);
+        if ("*".equals(attrs)) {
+            attrs = IoUtils.LASTMOD_TIME_VIEW_ATTR
+                    + "," + IoUtils.LASTACC_TIME_VIEW_ATTR
+                    + "," + IoUtils.CREATE_TIME_VIEW_ATTR
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `attrs`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+            throws IOException {
+        if ("*".equals(attrs)) {
+            attrs = "acl,owner";
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `client`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+        if (client == null) {
+            // TODO: make this configurable using system properties
+            client = SshClient.setUpDefaultClient();
+            client.start();
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java`
+#### Snippet
+```java
+            }
+
+            name = name.toUpperCase();
+            if (!name.startsWith(LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX)) {
+                name += LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java`
+#### Snippet
+```java
+            name = name.toUpperCase();
+            if (!name.startsWith(LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX)) {
+                name += LazyAclCapabilityNameHolder.ACL_CAP_NAME_PREFIX;
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `attrs`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpFileSystemAccessor.java`
+#### Snippet
+```java
+         */
+        if (Files.exists(file)) {
+            attrs = IoUtils.EMPTY_FILE_ATTRIBUTES;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastAccessTime);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
+            buffer = writeTime(buffer, version, flags, creationTime);
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastModifiedTime);
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+            buffer = writeACLs(buffer, version, acl);
+        }
+        // TODO: ctime
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        // TODO: bits
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+            buffer = writeExtensions(buffer, extensions);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastAccessTime);
+            buffer = writeTime(buffer, version, flags, lastModifiedTime);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+            buffer = writeTime(buffer, version, flags, lastAccessTime);
+            buffer = writeTime(buffer, version, flags, lastModifiedTime);
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+        }
+        if ((flags & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+            buffer = writeExtensions(buffer, extensions);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
             }
 ```
 
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/SftpClient.java`
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
 #### Snippet
 ```java
-                     * The option is ignored when the file system does not support the creation of sparse files
-                     */
-                    continue;
-                } else {
-                    throw new IllegalArgumentException("Unsupported open option: " + option);
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/VersionsParser.java`
-#### Snippet
-```java
-
-                if (!available.add(Integer.valueOf(v))) {
-                    continue; // debug breakpoint
-                }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACMODTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
             }
+        } else if (sftpVersion >= SftpConstants.SFTP_V4) {
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACCESSTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getAccessTime());
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_CREATETIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getCreateTime());
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_MODIFYTIME) != 0) {
+                buffer = writeTime(buffer, sftpVersion, flagsMask, attributes.getModifyTime());
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            }
+            if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_ACL) != 0) {
+                buffer = writeACLs(buffer, sftpVersion, attributes.getAcl());
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+        if ((flagsMask & SftpConstants.SSH_FILEXFER_ATTR_EXTENDED) != 0) {
+            buffer = writeExtensions(buffer, attributes.getExtensions());
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+         */
+        if (GenericUtils.isEmpty(options)) {
+            options = EnumSet.of(OpenMode.Read);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bufferSize`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+    public OutputStream write(String path, int bufferSize, Collection<OpenMode> mode) throws IOException {
+        if (bufferSize <= 0) {
+            bufferSize = getWriteBufferSize();
+        }
+        if (bufferSize < MIN_WRITE_BUFFER_SIZE) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bufferSize`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+    public InputStream read(String path, int bufferSize, Collection<OpenMode> mode) throws IOException {
+        if (bufferSize <= 0) {
+            bufferSize = getReadBufferSize();
+        }
+        if (bufferSize < MIN_READ_BUFFER_SIZE) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fileOffset`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+            checkCommandStatus(SftpConstants.SSH_FXP_WRITE, buffer);
+
+            fileOffset += writeSize;
+            srcOffset += writeSize;
+            remLen -= writeSize;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcOffset`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+
+            fileOffset += writeSize;
+            srcOffset += writeSize;
+            remLen -= writeSize;
+        } while (remLen > 0);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
+#### Snippet
+```java
+     */
+    public void setBinaryAttributes(String value) {
+        value = ValidateUtils.checkNotNullAndNotEmpty(value, "No attributes").replace(',', ' ');
+        ldapEnv.put("java.naming.ldap.attributes.binary", value);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+    protected void doOpenSSHLimits(Buffer buffer, int id) throws IOException {
+        OpenSSHLimitsExtensionInfo info = getOpenSSHLimitsExtensionInfo(id, getServerChannelSession());
+        buffer = prepareReply(buffer);
+        buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
+        buffer.putInt(id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        int blockSize = buffer.getInt();
+        try {
+            buffer = prepareReply(buffer);
+            buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
+            buffer.putInt(id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `current`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+
+        if (current == null) {
+            current = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        }
+
+        buffer = prepareReply(buffer);
+        buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
+        buffer.putInt(id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        }
+
+        buffer = prepareReply(buffer);
+        buffer.putByte((byte) SftpConstants.SSH_FXP_EXTENDED_REPLY);
+        buffer.putInt(id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `followLinks`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        try {
+            accessor.createDirectory(this, resolvedPath);
+            followLinks = resolvePathResolutionFollowLinks(SftpConstants.SSH_FXP_MKDIR, "", resolvedPath);
+            doSetAttributes(SftpConstants.SSH_FXP_MKDIR, "", resolvedPath, attrs, followLinks);
+        } catch (IOException | RuntimeException | Error e) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `followLinks`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        Path p = resolveFile(path);
+        if (followLinks == null) {
+            followLinks = resolvePathResolutionFollowLinks(cmd, extension, p);
+        }
+        doSetAttributes(cmd, extension, p, attrs, followLinks);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+            ValidateUtils.checkTrue(readLen >= 0, "Illegal requested read length: %d", readLen);
+
+            buffer = prepareReply(buffer);
+            buffer.ensureCapacity(readLen + Long.SIZE /* the header */, IntUnaryOperator.identity());
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `p`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+
+            for (String p2 : extraPaths) {
+                p = p.resolve(p2);
+                options = getPathResolutionLinkOption(
+                        SftpConstants.SSH_FXP_REALPATH, "", p);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `options`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+            for (String p2 : extraPaths) {
+                p = p.resolve(p2);
+                options = getPathResolutionLinkOption(
+                        SftpConstants.SSH_FXP_REALPATH, "", p);
+                sb.append('/').append(p2);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+            }
+
+            path = sb.toString();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `proposed`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+                        session, id, proposed, hig, available);
+            }
+            proposed = hig; // debug breakpoint
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `buffer`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+#### Snippet
+```java
+        }
+
+        buffer = prepareReply(buffer);
+
+        buffer.putByte((byte) SftpConstants.SSH_FXP_VERSION);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `readOffset`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+#### Snippet
+```java
+
+            effectiveLength -= readLen;
+            readOffset += readLen;
+            writeOffset += readLen;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `writeOffset`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+#### Snippet
+```java
+            effectiveLength -= readLen;
+            readOffset += readLen;
+            writeOffset += readLen;
+        }
+    }
+```
+
+## RuleId[ruleID=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
 in `sshd-common/src/main/java/org/apache/sshd/common/util/logging/LoggingUtils.java`
@@ -13657,6 +13623,54 @@ in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/AbstractResourc
 ```java
 
                 if (!toDelete.add(resourceKey)) {
+                    continue; // debug breakpoint
+                }
+            }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                Object prev = env.put(key, value);
+                if (prev != null) {
+                    continue; // debug breakpoint
+                }
+            }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            Integer prev = ptyModes.put(mode, value);
+            if (prev != null) {
+                continue; // debug breakpoint
+            }
+        }
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/SftpClient.java`
+#### Snippet
+```java
+                     * The option is ignored when the file system does not support the creation of sparse files
+                     */
+                    continue;
+                } else {
+                    throw new IllegalArgumentException("Unsupported open option: " + option);
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/VersionsParser.java`
+#### Snippet
+```java
+
+                if (!available.add(Integer.valueOf(v))) {
                     continue; // debug breakpoint
                 }
             }
@@ -13726,804 +13740,48 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerCliSupport.java`
-#### Snippet
-```java
-
-        if (PropertyResolverUtils.isNoneValue(factory)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (GenericUtils.size(current) > 0) {
-            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (GenericUtils.isEmpty(available)) {
-            CliLogger.showError(stderr, "WARNING: No known ciphers in " + argVal);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (GenericUtils.size(current) > 0) {
-            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (GenericUtils.isEmpty(available)) {
-            CliLogger.showError(stderr, "No known MACs in " + argVal);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-            if (factory != null) {
-                stderr.println("I/O factory re-specified - already set as " + factory);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-            if (index >= numArgs) {
-                stderr.println("option requires an argument: " + argName);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-            factory = resolveBuiltinIoServiceFactory(stderr, argName, provider);
-            if (factory == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (value == null) {
-            CliLogger.showError(stderr, "Unknown compression configuration value: " + argVal);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        BuiltinIoServiceFactoryFactories factory = resolveIoServiceFactory(stderr, args);
-        if (factory == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (GenericUtils.size(current) > 0) {
-            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
-#### Snippet
-```java
-        if (GenericUtils.isEmpty(available)) {
-            CliLogger.showError(stderr, "No known compressions in " + argVal);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPath.java`
-#### Snippet
-```java
-    public SftpClient.Attributes getAttributes() {
-        // Subclasses may override
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileStore.java`
-#### Snippet
-```java
-    @Override
-    public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
-        return null; // no special views supported
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileStore.java`
-#### Snippet
-```java
-    @Override
-    public Object getAttribute(String attribute) throws IOException {
-        return null; // no special attributes supported
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java`
-#### Snippet
-```java
-    public GroupPrincipal group() {
-        String group = attributes.getGroup();
-        return GenericUtils.isEmpty(group) ? null : new SftpFileSystem.DefaultGroupPrincipal(group);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java`
-#### Snippet
-```java
-    public Object fileKey() {
-        // TODO consider implementing this
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java`
-#### Snippet
-```java
-    public UserPrincipal owner() {
-        String owner = attributes.getOwner();
-        return GenericUtils.isEmpty(owner) ? null : new SftpFileSystem.DefaultUserPrincipal(owner);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPathIterator.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpDirEntryIterator.java`
-#### Snippet
-```java
-                    log.trace("load({})[{}] exhausted all entries on previous call", getPath(), handle);
-                }
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-                    stderr.append("WARNING: ").append(e.getClass().getSimpleName())
-                            .append(" while read password: ").println(e.getMessage());
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-            ciphers = setupCiphers(resolver, stderr);
-            if (ciphers == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-            macs = setupMacs(resolver, stderr);
-            if (macs == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-            compressions = setupCompressions(resolver, stderr);
-            if (compressions == null) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-        SshClient client = setupDefaultClient(resolver, level, stdout, stderr, args);
-        if (client == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-            CliLogger.showError(stderr, "Failed (" + t.getClass().getSimpleName() + ") to setup client: " + t.getMessage());
-            client.close();
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-
-        if (error) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-                stdin, stdout, stderr, level, args);
-        if (client == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-        Boolean ptyEnabled = autoDetect ? Boolean.TRUE : PropertyResolverUtils.parseBoolean(s);
-        if ((ptyEnabled == null) || (!ptyEnabled.booleanValue())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-                if ((index + 1) >= maxIndex) {
-                    CliLogger.showError(stderr, "Missing " + argName + " option argument");
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-                    CliLogger.showError(stderr,
-                            "Failed (" + e.getClass().getSimpleName() + ") to open " + argVal + ": " + e.getMessage());
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
-#### Snippet
-```java
-
-        if (GenericUtils.isEmpty(identities)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-                if (index >= numArgs) {
-                    CliLogger.showError(stderr, "option requires an argument: " + argName);
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-                    .append(": ").println(e.getMessage());
-            stderr.flush();
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
-#### Snippet
-```java
-
-        if (error) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                            ClientSession session, String name, String instruction,
-                            String lang, String[] prompt, boolean[] echo) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-    private static String toString(SocketAddress addr) {
-        if (addr == null) {
-            return null;
-        } else if (addr instanceof InetSocketAddress) {
-            return ((InetSocketAddress) addr).getHostString();
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
-#### Snippet
-```java
-                    @Override
-                    public String getUpdatedPassword(ClientSession session, String prompt, String lang) {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-    public SftpFileSystem getFileSystem(String id) {
-        if (GenericUtils.isEmpty(id)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-    public static MutableBasicCredentials parseCredentials(String userInfo) {
-        if (GenericUtils.isEmpty(userInfo)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
-#### Snippet
-```java
-    public SftpFileSystem removeFileSystem(String id) {
-        if (GenericUtils.isEmpty(id)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/helpers/AbstractSftpClientExtension.java`
-#### Snippet
-```java
-                }
-
-                return null;
-            default:
-                throw new SshException(
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/SftpClient.java`
-#### Snippet
-```java
-        Object instance = getExtension(BuiltinSftpClientExtensions.fromType(extensionType));
-        if (instance == null) {
-            return null;
-        } else {
-            return extensionType.cast(instance);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultSftpClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java`
-#### Snippet
-```java
-    public static BuiltinSftpClientExtensions fromType(Class<?> type) {
-        if ((type == null) || (!SftpClientExtension.class.isAssignableFrom(type))) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java`
-#### Snippet
-```java
-        // the base class is assignable to everybody so we cannot distinguish between the enum(s)
-        if (SftpClientExtension.class == type) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
-#### Snippet
-```java
-        ExtensionParser<?> parser = getRegisteredParser(name);
-        if (parser == null) {
-            return null;
-        } else {
-            return parser.parse(encoded);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
-#### Snippet
-```java
-    public static ExtensionParser<?> unregisterParser(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
-#### Snippet
-```java
-    public static ExtensionParser<?> getRegisteredParser(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java`
-#### Snippet
-```java
-        public static Integer getAclCapabilityValue(String name) {
-            if (GenericUtils.isEmpty(name)) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
-#### Snippet
-```java
-                throw new IllegalArgumentException("Not allowed to use " + key + "=" + val);
-            }
-            return null;
-        } else if (IoUtils.REGFILE_VIEW_ATTR.equals(key)) {
-            if (!(Boolean) val) {
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
-#### Snippet
-```java
-                throw new IllegalArgumentException("Not allowed to use " + key + "=" + val);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-        Object instance = getExtension(BuiltinSftpClientExtensions.fromType(extensionType));
-        if (instance == null) {
-            return null;
-        } else {
-            return extensionType.cast(instance);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-            throw err;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-    public SftpClientExtension getExtension(SftpClientExtensionFactory factory) {
-        if (factory == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-            case SftpConstants.SSH_FXP_STATUS:
-                throwStatusException(response.getCmd(), response.getId(), SftpStatus.parse(response));
-                return null;
-            default:
-                return handleUnexpectedAttributesPacket(response);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-            case SftpConstants.SSH_FXP_STATUS:
-                throwStatusException(response.getCmd(), response.getId(), SftpStatus.parse(response));
-                return null;
-            default:
-                return handleUnknownOneNamePacket(response);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-                    log.trace("checkDirResponse({})[id={}] - status: {}", getClientChannel(), response.getId(), status);
-                }
-                return null;
-            default:
-                return handleUnknownDirListingPacket(response);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
-#### Snippet
-```java
-            case SftpConstants.SSH_FXP_STATUS:
-                throwStatusException(response.getCmd(), response.getId(), SftpStatus.parse(response));
-                return null;
-            default:
-                return handleUnexpectedHandlePacket(response);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-            Buffer buffer, int version, PropertyResolver resolver, boolean indicatorValue) {
-        if (version < SftpConstants.SFTP_V6) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-
-        if (!SftpModuleProperties.APPEND_END_OF_LIST_INDICATOR.getRequired(resolver)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-     */
-    public static Boolean getEndOfListIndicatorValue(Buffer buffer, int version) {
-        return (version < SftpConstants.SFTP_V6) || (buffer.available() < 1) ? null : buffer.getBoolean();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-                return AclEntryType.ALARM;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
-#### Snippet
-```java
-     */
-    public static Boolean getEndOfFileIndicatorValue(Buffer buffer, int version) {
-        return (version < SftpConstants.SFTP_V6) || (buffer.available() < 1) ? null : buffer.getBoolean();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/agent/SshAgent.java`
 #### Snippet
 ```java
      */
     default KeyPair resolveLocalIdentity(PublicKey key) {
         return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoConnector.java`
+#### Snippet
+```java
+        public IoSession getSession() {
+            Object v = getValue();
+            return (v instanceof IoSession) ? (IoSession) v : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoConnector.java`
+#### Snippet
+```java
+        public Throwable getException() {
+            Object v = getValue();
+            return (v instanceof Throwable) ? (Throwable) v : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
+#### Snippet
+```java
+    public SocketAddress getLocalAddress() {
+        Channel channel = (context == null) ? null : context.channel();
+        return (channel == null) ? null : channel.localAddress();
     }
 
 ```
@@ -14557,18 +13815,6 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentImpl.java`
 #### Snippet
 ```java
-    public KeyPair resolveLocalIdentity(PublicKey key) {
-        Map.Entry<KeyPair, String> pp = getKeyPair(keys, key);
-        return (pp == null) ? null : pp.getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentImpl.java`
-#### Snippet
-```java
             Collection<? extends Map.Entry<KeyPair, String>> keys, PublicKey key) {
         if (GenericUtils.isEmpty(keys) || (key == null)) {
             return null;
@@ -14590,6 +13836,18 @@ in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentImpl.java`
 
 ### ReturnNull
 Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/agent/local/AgentImpl.java`
+#### Snippet
+```java
+    public KeyPair resolveLocalIdentity(PublicKey key) {
+        Map.Entry<KeyPair, String> pp = getKeyPair(keys, key);
+        return (pp == null) ? null : pp.getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/client/ClientBuilder.java`
 #### Snippet
 ```java
@@ -14602,11 +13860,23 @@ in `sshd-core/src/main/java/org/apache/sshd/client/ClientBuilder.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/BuiltinUserAuthFactories.java`
+in `sshd-putty/src/main/java/org/apache/sshd/putty/PuttyKeyPairResourceParser.java`
 #### Snippet
 ```java
-    public static UserAuthFactory resolveFactory(String name) {
-        if (GenericUtils.isEmpty(name)) {
+
+    static String getStringHeaderValue(Map<String, String> headers, String key) {
+        return MapEntryUtils.isEmpty(headers) ? null : headers.get(key);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKeyFactory.java`
+#### Snippet
+```java
+        @Override
+        public List<NamedFactory<Signature>> getSignatureFactories() {
             return null;
         }
 
@@ -14626,25 +13896,13 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/BuiltinUserAuthFactories
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKeyFactory.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/BuiltinUserAuthFactories.java`
 #### Snippet
 ```java
-        @Override
-        public List<NamedFactory<Signature>> getSignatureFactories() {
+    public static UserAuthFactory resolveFactory(String name) {
+        if (GenericUtils.isEmpty(name)) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserInteraction.java`
-#### Snippet
-```java
-     */
-    default String resolveAuthPasswordAttempt(ClientSession session) throws Exception {
-        return null;
-    }
 
 ```
 
@@ -14662,73 +13920,13 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserInteraction
 
 ### ReturnNull
 Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserInteraction.java`
 #### Snippet
 ```java
-                        new AccessDeniedException(p.toString(), p.toString(), "Not readable"));
-            }
-            return null;
-        });
-        // Directory exists and is readable
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/password/UserAuthPassword.java`
-#### Snippet
-```java
-                        maxAttempts);
-            }
-            return null;
-        }
-        UserInteraction ui = session.getUserInteraction();
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/password/UserAuthPassword.java`
-#### Snippet
-```java
-        UserInteraction ui = session.getUserInteraction();
-        if ((ui == null) || (!ui.isInteractionAllowed(session))) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserAuthKeyboardInteractive.java`
-#### Snippet
-```java
-            return passwords.next();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserAuthKeyboardInteractive.java`
-#### Snippet
-```java
-        }
-
+     */
+    default String resolveAuthPasswordAttempt(ClientSession session) throws Exception {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/hostbased/UserAuthHostBasedFactory.java`
-#### Snippet
-```java
-        @Override
-        public List<NamedFactory<Signature>> getSignatureFactories() {
-            return null;
-        }
 
 ```
 
@@ -14762,10 +13960,46 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/hostbased/UserAuthHostBa
 #### Snippet
 ```java
         @Override
+        public List<NamedFactory<Signature>> getSignatureFactories() {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/hostbased/UserAuthHostBasedFactory.java`
+#### Snippet
+```java
+        @Override
         public HostKeyIdentityProvider getClientHostKeys() {
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserAuthKeyboardInteractive.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/keyboard/UserAuthKeyboardInteractive.java`
+#### Snippet
+```java
+            return passwords.next();
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -14797,7 +14031,7 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/client/future/DefaultConnectFuture.java`
 #### Snippet
 ```java
-            return (ClientSession) v;
+            return (Throwable) v;
         } else {
             return null;
         }
@@ -14809,7 +14043,7 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/client/future/DefaultConnectFuture.java`
 #### Snippet
 ```java
-            return (Throwable) v;
+            return (ClientSession) v;
         } else {
             return null;
         }
@@ -14818,11 +14052,23 @@ in `sshd-core/src/main/java/org/apache/sshd/client/future/DefaultConnectFuture.j
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKeyIterator.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/password/UserAuthPassword.java`
 #### Snippet
 ```java
-        SshAgentFactory factory = manager.getAgentFactory();
-        if (factory == null) {
+                        maxAttempts);
+            }
+            return null;
+        }
+        UserInteraction ui = session.getUserInteraction();
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/password/UserAuthPassword.java`
+#### Snippet
+```java
+        UserInteraction ui = session.getUserInteraction();
+        if ((ui == null) || (!ui.isInteractionAllowed(session))) {
             return null;
         }
 
@@ -14830,14 +14076,14 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKeyIterator.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey.java`
 #### Snippet
 ```java
-        agent = factory.createClient(session, manager);
-        if (agent == null) {
-            return null;
-        }
-        return new Iterable<KeyAgentIdentity>() {
+            KeyPair keyPair, String keyType)
+            throws Exception {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -14866,23 +14112,11 @@ in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKey.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKeyIterator.java`
 #### Snippet
 ```java
-            KeyPair keyPair, String keyType)
-            throws Exception {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
-#### Snippet
-```java
-    public KeyPair removePublicKeyIdentity(KeyPair kp) {
-        if (kp == null) {
+        SshAgentFactory factory = manager.getAgentFactory();
+        if (factory == null) {
             return null;
         }
 
@@ -14890,14 +14124,14 @@ in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/auth/pubkey/UserAuthPublicKeyIterator.java`
 #### Snippet
 ```java
-            return (KeyPair) identities.remove(index);
-        } else {
+        agent = factory.createClient(session, manager);
+        if (agent == null) {
             return null;
         }
-    }
+        return new Iterable<KeyAgentIdentity>() {
 ```
 
 ### ReturnNull
@@ -14926,6 +14160,30 @@ in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
 
 ### ReturnNull
 Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
+#### Snippet
+```java
+    public KeyPair removePublicKeyIdentity(KeyPair kp) {
+        if (kp == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/SshClient.java`
+#### Snippet
+```java
+            return (KeyPair) identities.remove(index);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/ServiceFactory.java`
 #### Snippet
 ```java
@@ -14934,6 +14192,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/ServiceFactory.java`
             return null;
         } else {
             return factory.create(session);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/FactoryManager.java`
+#### Snippet
+```java
+    static <T> T resolveAttribute(FactoryManager manager, AttributeRepository.AttributeKey<T> key) {
+        Objects.requireNonNull(key, "No key");
+        return (manager == null) ? null : manager.getAttribute(key);
+    }
+}
 ```
 
 ### ReturnNull
@@ -14962,18 +14232,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/BuiltinIoServiceFactoryFac
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/FactoryManager.java`
-#### Snippet
-```java
-    static <T> T resolveAttribute(FactoryManager manager, AttributeRepository.AttributeKey<T> key) {
-        Objects.requireNonNull(key, "No key");
-        return (manager == null) ? null : manager.getAttribute(key);
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/io/AbstractIoServiceFactoryFactory.java`
 #### Snippet
 ```java
@@ -14982,6 +14240,30 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/AbstractIoServiceFactoryFa
         return executorServiceFactory != null ? executorServiceFactory.create() : null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2CompletionHandler.java`
+#### Snippet
+```java
+        AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+            onCompleted(result, attachment);
+            return null;
+        });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2CompletionHandler.java`
+#### Snippet
+```java
+        AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
+            onFailed(exc, attachment);
+            return null;
+        });
+    }
 ```
 
 ### ReturnNull
@@ -15010,30 +14292,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/DefaultIoServiceFactoryFac
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2CompletionHandler.java`
-#### Snippet
-```java
-        AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
-            onFailed(exc, attachment);
-            return null;
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2CompletionHandler.java`
-#### Snippet
-```java
-        AccessController.doPrivileged((PrivilegedAction<Object>) () -> {
-            onCompleted(result, attachment);
-            return null;
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2Connector.java`
 #### Snippet
 ```java
@@ -15052,42 +14310,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/io/nio2/Nio2Connector.java`
         public IoSession getSession() {
             Object v = getValue();
             return v instanceof IoSession ? (IoSession) v : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerKeyVerifier.java`
-#### Snippet
-```java
-        Collection<SshdSocketAddress> patterns = resolveHostNetworkIdentities(clientSession, remoteAddress);
-        if (GenericUtils.isEmpty(patterns)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerKeyVerifier.java`
-#### Snippet
-```java
-    protected NamedFactory<Mac> getHostValueDigester(
-            ClientSession clientSession, SocketAddress remoteAddress, SshdSocketAddress hostIdentity) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerKeyVerifier.java`
-#### Snippet
-```java
-            }
-
-            return null;
         }
 
 ```
@@ -15142,6 +14364,42 @@ in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerK
 
 ### ReturnNull
 Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerKeyVerifier.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerKeyVerifier.java`
+#### Snippet
+```java
+        Collection<SshdSocketAddress> patterns = resolveHostNetworkIdentities(clientSession, remoteAddress);
+        if (GenericUtils.isEmpty(patterns)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/client/keyverifier/KnownHostsServerKeyVerifier.java`
+#### Snippet
+```java
+    protected NamedFactory<Mac> getHostValueDigester(
+            ClientSession clientSession, SocketAddress remoteAddress, SshdSocketAddress hostIdentity) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/kex/DHGroupData.java`
 #### Snippet
 ```java
@@ -15154,59 +14412,23 @@ in `sshd-core/src/main/java/org/apache/sshd/common/kex/DHGroupData.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/future/DefaultKeyExchangeFuture.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/session/AbstractClientSession.java`
 #### Snippet
 ```java
-            return (Throwable) v;
-        } else {
+    public KeyPair removePublicKeyIdentity(KeyPair kp) {
+        if (kp == null) {
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/future/GlobalRequestFuture.java`
-#### Snippet
-```java
-            return (Throwable) value;
-        }
-        return null;
-    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/future/GlobalRequestFuture.java`
+in `sshd-core/src/main/java/org/apache/sshd/client/session/AbstractClientSession.java`
 #### Snippet
 ```java
-            return (Buffer) value;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/RequestHandler.java`
-#### Snippet
-```java
-        public static Result fromName(String name) {
-            if (GenericUtils.isEmpty(name)) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/RequestHandler.java`
-#### Snippet
-```java
-            }
-
+            return (KeyPair) identities.remove(index);
+        } else {
             return null;
         }
     }
@@ -15238,23 +14460,59 @@ in `sshd-core/src/main/java/org/apache/sshd/client/session/AbstractClientSession
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/session/AbstractClientSession.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/future/DefaultKeyExchangeFuture.java`
 #### Snippet
 ```java
-    public KeyPair removePublicKeyIdentity(KeyPair kp) {
-        if (kp == null) {
+            return (Throwable) v;
+        } else {
             return null;
         }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/RequestHandler.java`
+#### Snippet
+```java
+        public static Result fromName(String name) {
+            if (GenericUtils.isEmpty(name)) {
+                return null;
+            }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/client/session/AbstractClientSession.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/future/GlobalRequestFuture.java`
 #### Snippet
 ```java
-            return (KeyPair) identities.remove(index);
-        } else {
+            return (Throwable) value;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/future/GlobalRequestFuture.java`
+#### Snippet
+```java
+            return (Buffer) value;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/RequestHandler.java`
+#### Snippet
+```java
+            }
+
             return null;
         }
     }
@@ -15265,7 +14523,7 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/kex/BuiltinDHFactories.java`
 #### Snippet
 ```java
-    public static DHFactory unregisterExtension(String name) {
+    public static DHFactory resolveFactory(String name) {
         if (GenericUtils.isEmpty(name)) {
             return null;
         }
@@ -15277,7 +14535,7 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/kex/BuiltinDHFactories.java`
 #### Snippet
 ```java
-    public static DHFactory resolveFactory(String name) {
+    public static DHFactory unregisterExtension(String name) {
         if (GenericUtils.isEmpty(name)) {
             return null;
         }
@@ -15318,6 +14576,42 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelFactory.java`
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
+#### Snippet
+```java
+            }
+            future.setValue(Boolean.TRUE);
+            return null;
+        }
+        Channel channel = getChannel();
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
+#### Snippet
+```java
+            }
+            f.setValue(e);
+            return null;
+        }
+        IoWriteFutureImpl thisFuture = f;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
+#### Snippet
+```java
+        writeFuture.addListener(w -> onWritten(thisFuture, stillToSend, chunkLength, w));
+        // If something remains it will be written via the listener we just added.
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -15365,42 +14659,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/BufferedIoOutputStrea
             if (!currentWrite.compareAndSet(null, future)) {
                 return null;
             }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
-#### Snippet
-```java
-            }
-            future.setValue(Boolean.TRUE);
-            return null;
-        }
-        Channel channel = getChannel();
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
-#### Snippet
-```java
-            }
-            f.setValue(e);
-            return null;
-        }
-        IoWriteFutureImpl thisFuture = f;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/channel/ChannelAsyncOutputStream.java`
-#### Snippet
-```java
-        writeFuture.addListener(w -> onWritten(thisFuture, stillToSend, chunkLength, w));
-        // If something remains it will be written via the listener we just added.
-        return null;
-    }
 
 ```
 
@@ -15505,18 +14763,6 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/common/session/Session.java`
 #### Snippet
 ```java
-        Objects.requireNonNull(key, "No key");
-        if (session == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/Session.java`
-#### Snippet
-```java
     default SocketAddress getRemoteAddress() {
         IoSession s = getIoSession();
         return (s == null) ? null : s.getRemoteAddress();
@@ -15533,6 +14779,18 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/Session.java`
         IoSession s = getIoSession();
         return (s == null) ? null : s.getLocalAddress();
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/Session.java`
+#### Snippet
+```java
+        Objects.requireNonNull(key, "No key");
+        if (session == null) {
+            return null;
+        }
 
 ```
 
@@ -15586,6 +14844,30 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/KeyExchangeMe
 
 ### ReturnNull
 Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractConnectionService.java`
+#### Snippet
+```java
+
+        if ((heartbeatType == null) || (heartbeatType == HeartbeatType.NONE) || (GenericUtils.isNegativeOrNull(interval))) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractConnectionService.java`
+#### Snippet
+```java
+
+        Session s = getSession();
+        return (s == null) ? null : s.resolveUnknownChannelReferenceHandler();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/server/x11/DefaultX11ForwardSupport.java`
 #### Snippet
 ```java
@@ -15622,14 +14904,14 @@ in `sshd-core/src/main/java/org/apache/sshd/server/x11/DefaultX11ForwardSupport.
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/BuiltinUserAuthFactories.java`
 #### Snippet
 ```java
-                    log.debug("localPortForwardingRequested({})[{}][haveFilter={}] rejected", session, local, filter != null);
-                }
-                return null;
-            }
-        } catch (Error e) {
+        Factory<UserAuthFactory> factory = NamedResource.findByName(name, String.CASE_INSENSITIVE_ORDER, VALUES);
+        if (factory == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -15646,146 +14928,14 @@ in `sshd-core/src/main/java/org/apache/sshd/server/auth/BuiltinUserAuthFactories
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/BuiltinUserAuthFactories.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/forward/DefaultForwarder.java`
 #### Snippet
 ```java
-        Factory<UserAuthFactory> factory = NamedResource.findByName(name, String.CASE_INSENSITIVE_ORDER, VALUES);
-        if (factory == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractConnectionService.java`
-#### Snippet
-```java
-
-        Session s = getSession();
-        return (s == null) ? null : s.resolveUnknownChannelReferenceHandler();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractConnectionService.java`
-#### Snippet
-```java
-
-        if ((heartbeatType == null) || (heartbeatType == HeartbeatType.NONE) || (GenericUtils.isNegativeOrNull(interval))) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/pubkey/UserAuthPublicKeyFactory.java`
-#### Snippet
-```java
-        @Override
-        public List<NamedFactory<Signature>> getSignatureFactories() {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
+                    log.debug("localPortForwardingRequested({})[{}][haveFilter={}] rejected", session, local, filter != null);
                 }
+                return null;
             }
-            return null;
-        });
-        // Directory does not exist yet
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-    protected Path normalize(Path f) {
-        if (f == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            handleUserPrincipalLookupServiceException(GroupPrincipal.class, name.toString(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        Map.Entry<Integer, String> result = checkVersionCompatibility(buffer, id, proposed, SftpConstants.SSH_FX_FAILURE);
-        if (result == null) { // validation failed
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-                        new SftpException(SftpConstants.SSH_FX_FILE_IS_A_DIRECTORY, p.toString() + " is a folder"), false);
-            }
-            return null;
-        });
-        // File exists and is not a directory
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            handleUserPrincipalLookupServiceException(UserPrincipal.class, name.toString(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
-#### Snippet
-```java
-            sendStatus(prepareReply(buffer), id, failureOpcode,
-                    "Proposed version (" + proposed + ") not in supported range: " + available);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/gss/UserAuthGSS.java`
-#### Snippet
-```java
-        } catch (GSSException e) {
-            // won't happen
-            return null;
-        }
-    }
+        } catch (Error e) {
 ```
 
 ### ReturnNull
@@ -15810,6 +14960,30 @@ in `sshd-core/src/main/java/org/apache/sshd/server/auth/gss/UserAuthGSS.java`
                     return null;
                 } else {
                     return established;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/gss/UserAuthGSS.java`
+#### Snippet
+```java
+        } catch (GSSException e) {
+            // won't happen
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/pubkey/UserAuthPublicKeyFactory.java`
+#### Snippet
+```java
+        @Override
+        public List<NamedFactory<Signature>> getSignatureFactories() {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -15862,6 +15036,18 @@ in `sshd-core/src/main/java/org/apache/sshd/server/auth/password/UserAuthPasswor
 
 ### ReturnNull
 Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/server/auth/pubkey/UserAuthPublicKey.java`
+#### Snippet
+```java
+        if (!hasSig) {
+            sendPublicKeyResponse(session, username, alg, key, buffer.array(), oldPos, 4 + len, buffer);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/server/auth/hostbased/UserAuthHostBasedFactory.java`
 #### Snippet
 ```java
@@ -15894,18 +15080,6 @@ in `sshd-core/src/main/java/org/apache/sshd/server/shell/ShellFactorySelector.ja
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/auth/pubkey/UserAuthPublicKey.java`
-#### Snippet
-```java
-        if (!hasSig) {
-            sendPublicKeyResponse(session, username, alg, key, buffer.array(), oldPos, 4 + len, buffer);
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -16030,42 +15204,6 @@ in `sshd-core/src/main/java/org/apache/sshd/server/subsystem/SubsystemFactory.ja
 
 ### ReturnNull
 Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyFileWatcher.java`
-#### Snippet
-```java
-            keyHolder.set(null); // mark as stale
-            if (!exists()) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyFileWatcher.java`
-#### Snippet
-```java
-        }
-
-        return (key == null) ? null : key.toPublicKey();
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyEntryDataResolver.java`
-#### Snippet
-```java
-            case PublicKeyAlgorithmTags.EDDSA: // TODO find out how these key types are called
-            default:
-                return null;
-
-        }
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/server/forward/TcpipServerChannel.java`
 #### Snippet
 ```java
@@ -16090,254 +15228,26 @@ in `sshd-core/src/main/java/org/apache/sshd/server/forward/TcpipServerChannel.ja
 
 ### ReturnNull
 Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/LazyClientKeyIdentityProvider.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
-#### Snippet
-```java
-        log.warn("handlePublicKeyExtractionError({}) failed ({}) to extract value for fingerprint={} from {}: {}",
-                session, reason.getClass().getSimpleName(), fingerprint, resourceKey.getName(), reason.getMessage());
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPAuthorizedKeyEntriesLoader.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (!PGPPublicKeyEntryDataResolver.PGP_KEY_TYPES.contains(keyType)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPAuthorizedKeyEntriesLoader.java`
-#### Snippet
-```java
-        String fingerprint = PGPPublicKeyEntryDataResolver.encodeKeyFingerprint(keyData);
-        if (GenericUtils.isEmpty(fingerprint)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (sk == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        } else if (bcKey instanceof EdDSAPublicBCPGKey) {
-            return extractEdDSAPublicKey(resourceKey, (EdDSAPublicBCPGKey) bcKey);
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException {
-        if (bcKey == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
-#### Snippet
-```java
-            throws IOException, GeneralSecurityException, PGPException {
-        if (sk == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPUtils.java`
-#### Snippet
-```java
-    public static CompressionAlgorithm fromCompressionName(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPUtils.java`
-#### Snippet
-```java
-    public static EncryptionAlgorithm fromCipherName(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPUtils.java`
-#### Snippet
-```java
-    public static Subkey findSubkeyByFingerprint(Collection<? extends Subkey> subKeys, String fingerprint) {
-        if (GenericUtils.isEmpty(subKeys) || GenericUtils.isEmpty(fingerprint)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
-#### Snippet
-```java
-        Object bannerValue = CoreModuleProperties.WELCOME_BANNER.getOrNull(this);
-        if (bannerValue == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
-#### Snippet
-```java
-            String message = bannerValue.toString();
-            if (GenericUtils.isEmpty(message)) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
-#### Snippet
-```java
-                    log.debug("resolveWelcomeBanner({}) file is empty/does not exist {}", session, path);
+            if (!loader.isValidLocation(location)) {
+                if (ignoreInvalid) {
+                    return null;
                 }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/LazyClientKeyIdentityProvider.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            if (ignoreInvalid) {
                 return null;
             }
-            bannerValue = path.toUri();
+
 ```
 
 ### ReturnNull
@@ -16378,11 +15288,11 @@ in `sshd-core/src/main/java/org/apache/sshd/server/channel/ChannelSession.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
 #### Snippet
 ```java
-    public String getNegotiatedKexParameter(KexProposalOption paramType) {
-        if (paramType == null) {
+        Object bannerValue = CoreModuleProperties.WELCOME_BANNER.getOrNull(this);
+        if (bannerValue == null) {
             return null;
         }
 
@@ -16390,170 +15300,26 @@ in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSessi
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-            ThreadUtils.runAsInternal(() -> {
-                doHandleMessage(buffer);
+            String message = bannerValue.toString();
+            if (GenericUtils.isEmpty(message)) {
                 return null;
-            });
-        } catch (Throwable e) {
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
             }
 
-            return null;
-        }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+in `sshd-core/src/main/java/org/apache/sshd/server/session/ServerUserAuthService.java`
 #### Snippet
 ```java
-    protected byte[] getClientKexData() {
-        synchronized (kexState) {
-            return (clientKexData == null) ? null : clientKexData.clone();
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-     */
-    protected KeyExchangeFuture checkRekey() throws Exception {
-        return isRekeyRequired() ? requestNewKeysExchange() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-    protected IoWriteFuture notImplemented(int cmd, Buffer buffer) throws Exception {
-        if (doInvokeUnimplementedMessageHandler(cmd, buffer)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-    protected byte[] getServerKexData() {
-        synchronized (kexState) {
-            return (serverKexData == null) ? null : serverKexData.clone();
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-                            SshConstants.getCommandMessageName(((GlobalRequestException) result).getCode()));
+                    log.debug("resolveWelcomeBanner({}) file is empty/does not exist {}", session, path);
                 }
                 return null;
             }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-            return (Buffer) result;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            ExceptionUtils.rethrowAsIoException(e);
-            return null;    // actually dead code
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
-#### Snippet
-```java
-            public Throwable getException() {
-                Object v = getValue();
-                return v instanceof Throwable ? (Throwable) v : null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
-#### Snippet
-```java
-            public org.apache.sshd.common.io.IoSession getSession() {
-                Object v = getValue();
-                return v instanceof org.apache.sshd.common.io.IoSession ? (org.apache.sshd.common.io.IoSession) v : null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/server/session/AbstractServerSession.java`
-#### Snippet
-```java
-        String keyType = KeyUtils.getCanonicalKeyType(proposedKey);
-        if (GenericUtils.isEmpty(keyType)) {
-            return null;    // OK if not negotiated yet
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapPublickeyAuthenticator.java`
-#### Snippet
-```java
-            throws GeneralSecurityException, IOException {
-        if (keyData == null) {
-            return null;
-        }
-
+            bannerValue = path.toUri();
 ```
 
 ### ReturnNull
@@ -16573,34 +15339,22 @@ Return of `null`
 in `sshd-core/src/main/java/org/apache/sshd/server/session/AbstractServerSession.java`
 #### Snippet
 ```java
+        String keyType = KeyUtils.getCanonicalKeyType(proposedKey);
+        if (GenericUtils.isEmpty(keyType)) {
+            return null;    // OK if not negotiated yet
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/server/session/AbstractServerSession.java`
+#### Snippet
+```java
                     this, provided, supported);
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/LazyClientKeyIdentityProvider.java`
-#### Snippet
-```java
-            if (!loader.isValidLocation(location)) {
-                if (ignoreInvalid) {
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/LazyClientKeyIdentityProvider.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            if (ignoreInvalid) {
-                return null;
-            }
 
 ```
 
@@ -16642,6 +15396,138 @@ in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntr
 
 ### ReturnNull
 Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            ExceptionUtils.rethrowAsIoException(e);
+            return null;    // actually dead code
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+    public String getNegotiatedKexParameter(KexProposalOption paramType) {
+        if (paramType == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+    protected byte[] getClientKexData() {
+        synchronized (kexState) {
+            return (clientKexData == null) ? null : clientKexData.clone();
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+    protected IoWriteFuture notImplemented(int cmd, Buffer buffer) throws Exception {
+        if (doInvokeUnimplementedMessageHandler(cmd, buffer)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+                            SshConstants.getCommandMessageName(((GlobalRequestException) result).getCode()));
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            return (Buffer) result;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+     */
+    protected KeyExchangeFuture checkRekey() throws Exception {
+        return isRekeyRequired() ? requestNewKeysExchange() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+    protected byte[] getServerKexData() {
+        synchronized (kexState) {
+            return (serverKexData == null) ? null : serverKexData.clone();
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/AbstractSession.java`
+#### Snippet
+```java
+            ThreadUtils.runAsInternal(() -> {
+                doHandleMessage(buffer);
+                return null;
+            });
+        } catch (Throwable e) {
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentitiesWatcher.java`
 #### Snippet
 ```java
@@ -16650,102 +15536,6 @@ in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentitie
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
-#### Snippet
-```java
-        Object prev = attrsMap.put(attrID, attrVal);
-        if (prev == null) {
-            return null; // debug breakpoint
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
-#### Snippet
-```java
-    public static String toString(Object attrVal) {
-        if (attrVal == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostPatternsHolder.java`
-#### Snippet
-```java
-        String pattern = GenericUtils.replaceWhitespaceAndTrim(Objects.toString(patternString, null));
-        if (GenericUtils.isEmpty(pattern)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/NamedResource.java`
-#### Snippet
-```java
-            Collection<String> names, Comparator<? super String> c, Collection<? extends R> resources) {
-        return (GenericUtils.isEmpty(names) || GenericUtils.isEmpty(resources))
-                ? null
-                : GenericUtils.stream(resources)
-                        .filter(r -> GenericUtils.findFirstMatchingMember(n -> c.compare(n, r.getName()) == 0, names) != null)
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/NamedResource.java`
-#### Snippet
-```java
-     * Returns the value of {@link #getName()} - or {@code null} if argument is {@code null}
-     */
-    Function<NamedResource, String> NAME_EXTRACTOR = input -> input == null ? null : input.getName();
-
-    /**
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/NamedResource.java`
-#### Snippet
-```java
-            String name, Comparator<? super String> c, Collection<? extends R> resources) {
-        return (GenericUtils.isEmpty(name) || GenericUtils.isEmpty(resources))
-                ? null
-                : GenericUtils.stream(resources)
-                        .filter(r -> c.compare(name, r.getName()) == 0)
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/NamedFactory.java`
-#### Snippet
-```java
-            return f.create();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/AttributeRepository.java`
-#### Snippet
-```java
-            public <T> T getAttribute(AttributeKey<T> key) {
-                Objects.requireNonNull(key, "No key provided");
-                return MapEntryUtils.isEmpty(attributes) ? null : (T) attributes.get(key);
-            }
-
 ```
 
 ### ReturnNull
@@ -16774,14 +15564,62 @@ in `sshd-common/src/main/java/org/apache/sshd/common/SyspropsMapWrapper.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentity.java`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostPatternsHolder.java`
 #### Snippet
 ```java
-                || (name.length() <= ID_FILE_PREFIX.length())
-                || (!name.startsWith(ID_FILE_PREFIX))) {
+        String pattern = GenericUtils.replaceWhitespaceAndTrim(Objects.toString(patternString, null));
+        if (GenericUtils.isEmpty(pattern)) {
             return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/NamedResource.java`
+#### Snippet
+```java
+            String name, Comparator<? super String> c, Collection<? extends R> resources) {
+        return (GenericUtils.isEmpty(name) || GenericUtils.isEmpty(resources))
+                ? null
+                : GenericUtils.stream(resources)
+                        .filter(r -> c.compare(name, r.getName()) == 0)
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/NamedResource.java`
+#### Snippet
+```java
+     * Returns the value of {@link #getName()} - or {@code null} if argument is {@code null}
+     */
+    Function<NamedResource, String> NAME_EXTRACTOR = input -> input == null ? null : input.getName();
+
+    /**
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/NamedResource.java`
+#### Snippet
+```java
+            Collection<String> names, Comparator<? super String> c, Collection<? extends R> resources) {
+        return (GenericUtils.isEmpty(names) || GenericUtils.isEmpty(resources))
+                ? null
+                : GenericUtils.stream(resources)
+                        .filter(r -> GenericUtils.findFirstMatchingMember(n -> c.compare(n, r.getName()) == 0, names) != null)
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/NamedFactory.java`
+#### Snippet
+```java
+            return f.create();
         } else {
-            return name.substring(ID_FILE_PREFIX.length());
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -16793,6 +15631,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/AttributeStore.java`
         if (value == null) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/AttributeRepository.java`
+#### Snippet
+```java
+            public <T> T getAttribute(AttributeKey<T> key) {
+                Objects.requireNonNull(key, "No key provided");
+                return MapEntryUtils.isEmpty(attributes) ? null : (T) attributes.get(key);
+            }
 
 ```
 
@@ -16810,6 +15660,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolver.java`
 
 ### ReturnNull
 Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/keys/ClientIdentity.java`
+#### Snippet
+```java
+                || (name.length() <= ID_FILE_PREFIX.length())
+                || (!name.startsWith(ID_FILE_PREFIX))) {
+            return null;
+        } else {
+            return name.substring(ID_FILE_PREFIX.length());
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/io/AbstractIoWriteFuture.java`
 #### Snippet
 ```java
@@ -16818,18 +15680,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/io/AbstractIoWriteFuture.ja
             return null;
         }
     }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/kex/KexProposalOption.java`
-#### Snippet
-```java
-    public static KexProposalOption fromProposalIndex(int index) {
-        if ((index < 0) || (index >= VALUES.size())) {
-            return null;
-        } else {
-            return VALUES.get(index);
 ```
 
 ### ReturnNull
@@ -16858,6 +15708,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/kex/KexProposalOption.java`
 
 ### ReturnNull
 Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/kex/KexProposalOption.java`
+#### Snippet
+```java
+    public static KexProposalOption fromProposalIndex(int index) {
+        if ((index < 0) || (index >= VALUES.size())) {
+            return null;
+        } else {
+            return VALUES.get(index);
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/kex/extension/parser/HostBoundPubkeyAuthentication.java`
 #### Snippet
 ```java
@@ -16882,78 +15744,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/kex/extension/parser/HostBo
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
-#### Snippet
-```java
-        protected Object toStorage(Duration value) {
-            atLeast(getName(), value, min);
-            return (value != null) ? value.getSeconds() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
-#### Snippet
-```java
-        protected Object toStorage(Duration value) {
-            atLeast(getName(), value, min);
-            return (value != null) ? value.toMillis() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
-#### Snippet
-```java
-        protected Duration fromStorage(Object value) {
-            Long val = PropertyResolverUtils.toLong(value);
-            return (val != null) ? Duration.ofMillis(val) : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
-#### Snippet
-```java
-        @Override
-        protected String fromStorage(Object value) {
-            return (value != null) ? value.toString() : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
-#### Snippet
-```java
-
-        private static Long toMillis(Duration value) {
-            return value == null ? null : value.toMillis();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
-#### Snippet
-```java
-        protected Duration fromStorage(Object value) {
-            Long val = PropertyResolverUtils.toLong(value);
-            return val != null ? Duration.ofSeconds(val) : null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/auth/UserAuthMethodFactory.java`
 #### Snippet
 ```java
@@ -16969,11 +15759,11 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntry.java`
 #### Snippet
 ```java
-            throws IOException {
-        if (entry == null) {
+        Map<String, String> props = getProperties();
+        if (MapEntryUtils.isEmpty(props)) {
             return null;
-        }
-
+        } else {
+            return props.remove(key);
 ```
 
 ### ReturnNull
@@ -16993,11 +15783,35 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntry.java`
 #### Snippet
 ```java
-        Map<String, String> props = getProperties();
-        if (MapEntryUtils.isEmpty(props)) {
+    public static HostConfigEntry findBestMatch(Iterable<? extends HostConfigEntry> matches) {
+        if (matches == null) {
             return null;
         } else {
-            return props.remove(key);
+            return findBestMatch(matches.iterator());
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntry.java`
+#### Snippet
+```java
+    public static HostConfigEntry findBestMatch(Collection<? extends HostConfigEntry> matches) {
+        if (GenericUtils.isEmpty(matches)) {
+            return null;
+        } else {
+            return findBestMatch(matches.iterator());
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntry.java`
+#### Snippet
+```java
+            throws IOException {
+        if (entry == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -17038,26 +15852,74 @@ in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntr
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntry.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
 #### Snippet
 ```java
-    public static HostConfigEntry findBestMatch(Iterable<? extends HostConfigEntry> matches) {
-        if (matches == null) {
-            return null;
-        } else {
-            return findBestMatch(matches.iterator());
+        @Override
+        protected String fromStorage(Object value) {
+            return (value != null) ? value.toString() : null;
+        }
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/client/config/hosts/HostConfigEntry.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
 #### Snippet
 ```java
-    public static HostConfigEntry findBestMatch(Collection<? extends HostConfigEntry> matches) {
-        if (GenericUtils.isEmpty(matches)) {
-            return null;
-        } else {
-            return findBestMatch(matches.iterator());
+
+        private static Long toMillis(Duration value) {
+            return value == null ? null : value.toMillis();
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
+#### Snippet
+```java
+        protected Object toStorage(Duration value) {
+            atLeast(getName(), value, min);
+            return (value != null) ? value.toMillis() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
+#### Snippet
+```java
+        protected Duration fromStorage(Object value) {
+            Long val = PropertyResolverUtils.toLong(value);
+            return val != null ? Duration.ofSeconds(val) : null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
+#### Snippet
+```java
+        protected Duration fromStorage(Object value) {
+            Long val = PropertyResolverUtils.toLong(value);
+            return (val != null) ? Duration.ofMillis(val) : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/Property.java`
+#### Snippet
+```java
+        protected Object toStorage(Duration value) {
+            atLeast(getName(), value, min);
+            return (value != null) ? value.getSeconds() : null;
+        }
+
 ```
 
 ### ReturnNull
@@ -17074,11 +15936,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/file/util/MockPath.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/file/nonefs/NoneFileSystemFactory.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/file/nonefs/NoneFileSystemProvider.java`
 #### Snippet
 ```java
     @Override
-    public Path getUserHomeDir(SessionContext session) throws IOException {
+    public <V extends FileAttributeView> V getFileAttributeView(Path path, Class<V> type, LinkOption... options) {
         return null;
     }
 
@@ -17089,19 +15951,7 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
 #### Snippet
 ```java
-    public static BuiltinMacs fromFactory(NamedFactory<Mac> factory) {
-        if (factory == null) {
-            return null;
-        } else {
-            return fromFactoryName(factory.getName());
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
-#### Snippet
-```java
-    public static MacFactory unregisterExtension(String name) {
+    public static MacFactory resolveFactory(String name) {
         if (GenericUtils.isEmpty(name)) {
             return null;
         }
@@ -17137,10 +15987,34 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
 #### Snippet
 ```java
-    public static MacFactory resolveFactory(String name) {
+    public static MacFactory unregisterExtension(String name) {
         if (GenericUtils.isEmpty(name)) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/mac/BuiltinMacs.java`
+#### Snippet
+```java
+    public static BuiltinMacs fromFactory(NamedFactory<Mac> factory) {
+        if (factory == null) {
+            return null;
+        } else {
+            return fromFactoryName(factory.getName());
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/file/nonefs/NoneFileSystemFactory.java`
+#### Snippet
+```java
+    @Override
+    public Path getUserHomeDir(SessionContext session) throws IOException {
+        return null;
+    }
 
 ```
 
@@ -17170,14 +16044,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/file/nativefs/NativeFileSys
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/file/nonefs/NoneFileSystemProvider.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/ReflectionUtils.java`
 #### Snippet
 ```java
-    @Override
-    public <V extends FileAttributeView> V getFileAttributeView(Path path, Class<V> type, LinkOption... options) {
-        return null;
-    }
+ */
+public final class ReflectionUtils {
+    public static final Function<Field, String> FIELD_NAME_EXTRACTOR = f -> (f == null) ? null : f.getName();
 
+    private ReflectionUtils() {
 ```
 
 ### ReturnNull
@@ -17202,18 +16076,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/IgnoringEmptyMap.java`
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/ReflectionUtils.java`
-#### Snippet
-```java
- */
-public final class ReflectionUtils {
-    public static final Function<Field, String> FIELD_NAME_EXTRACTOR = f -> (f == null) ? null : f.getName();
-
-    private ReflectionUtils() {
 ```
 
 ### ReturnNull
@@ -17302,6 +16164,66 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/ModifiableFileWatch
 
 ### ReturnNull
 Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/EventListenerUtils.java`
+#### Snippet
+```java
+            }
+
+            return null; // we assume always void return value...
+        });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/ASN1Class.java`
+#### Snippet
+```java
+        // all 4 values are defined
+        if ((value < 0) || (value >= VALUES.size())) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/ASN1Class.java`
+#### Snippet
+```java
+    public static ASN1Class fromName(String s) {
+        if (GenericUtils.isEmpty(s)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/ASN1Class.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/DERParser.java`
+#### Snippet
+```java
+        int tag = read();
+        if (tag == -1) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BasePath.java`
 #### Snippet
 ```java
@@ -17333,66 +16255,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/file/util/BasePath.java`
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/EventListenerUtils.java`
-#### Snippet
-```java
-            }
-
-            return null; // we assume always void return value...
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/ASN1Class.java`
-#### Snippet
-```java
-    public static ASN1Class fromName(String s) {
-        if (GenericUtils.isEmpty(s)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/ASN1Class.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/ASN1Class.java`
-#### Snippet
-```java
-        // all 4 values are defined
-        if ((value < 0) || (value >= VALUES.size())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/io/der/DERParser.java`
-#### Snippet
-```java
-        int tag = read();
-        if (tag == -1) {
-            return null;
-        }
 
 ```
 
@@ -17449,18 +16311,6 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/io/IoUtils.java`
 #### Snippet
 ```java
-            return OsUtils.getCanonicalUser(owner);
-        } catch (UnsupportedOperationException e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/io/IoUtils.java`
-#### Snippet
-```java
             Collection<PosixFilePermission> perms, Collection<PosixFilePermission> excluded) {
         if (GenericUtils.isEmpty(perms) || GenericUtils.isEmpty(excluded)) {
             return null;
@@ -17485,11 +16335,11 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/io/IoUtils.java`
 #### Snippet
 ```java
-            return Boolean.FALSE;
-        } catch (IOException e) {
-            return null;
         }
+
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -17509,11 +16359,23 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/io/IoUtils.java`
 #### Snippet
 ```java
+            return Boolean.FALSE;
+        } catch (IOException e) {
+            return null;
         }
-
-        return null;
     }
+```
 
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/io/IoUtils.java`
+#### Snippet
+```java
+            return OsUtils.getCanonicalUser(owner);
+        } catch (UnsupportedOperationException e) {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -17542,18 +16404,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/functors/Invoker.ja
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
-#### Snippet
-```java
-    public static <T> T head(Iterable<? extends T> it) {
-        if (it == null) {
-            return null;
-        } else if (it instanceof Deque<?>) { // check before (!) instanceof List since LinkedList implements List
-            Deque<? extends T> l = (Deque<? extends T>) it;
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/io/resource/IoResource.java`
 #### Snippet
 ```java
@@ -17562,6 +16412,54 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/io/resource/IoResource
             return null;
         } else if (resource instanceof Path) {
             return new PathResource((Path) resource);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+#### Snippet
+```java
+            Predicate<? super T> acceptor, Collection<? extends T> values) {
+        List<T> matches = selectMatchingMembers(acceptor, values);
+        return GenericUtils.isEmpty(matches) ? null : matches.get(0);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+#### Snippet
+```java
+        Objects.requireNonNull(type, "No type selector specified");
+        if (values == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
+#### Snippet
+```java
+    public static <T> T head(Iterable<? extends T> it) {
+        if (it == null) {
+            return null;
+        } else if (it instanceof Deque<?>) { // check before (!) instanceof List since LinkedList implements List
+            Deque<? extends T> l = (Deque<? extends T>) it;
 ```
 
 ### ReturnNull
@@ -17614,42 +16512,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
-#### Snippet
-```java
-            Predicate<? super T> acceptor, Collection<? extends T> values) {
-        List<T> matches = selectMatchingMembers(acceptor, values);
-        return GenericUtils.isEmpty(matches) ? null : matches.get(0);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
-#### Snippet
-```java
-        Objects.requireNonNull(type, "No type selector specified");
-        if (values == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/GenericUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/buffer/BufferUtils.java`
 #### Snippet
 ```java
@@ -17657,90 +16519,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/util/buffer/BufferUtils.jav
         if (NumberUtils.isEmpty(mpInt)) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/ExecutorServiceProvider.java`
-#### Snippet
-```java
-    default CloseableExecutorService resolveExecutorService() {
-        Supplier<? extends CloseableExecutorService> provider = getExecutorServiceProvider();
-        return (provider == null) ? null : provider.get();
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
-#### Snippet
-```java
-            Map<SshdSocketAddress, ? extends V> map, SshdSocketAddress address) {
-        if (MapEntryUtils.isEmpty(map) || (address == null)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
-#### Snippet
-```java
-    public static InetSocketAddress toInetSocketAddress(SocketAddress remoteAddress) {
-        if (remoteAddress == null) {
-            return null;
-        } else if (remoteAddress instanceof InetSocketAddress) {
-            return (InetSocketAddress) remoteAddress;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
-#### Snippet
-```java
-    public static InetAddress getFirstExternalNetwork4Address() {
-        List<? extends InetAddress> addresses = getExternalNetwork4Addresses();
-        return (GenericUtils.size(addresses) > 0) ? addresses.get(0) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
-#### Snippet
-```java
-        String ip = (addr == null) ? null : addr.toString();
-        if (GenericUtils.isEmpty(ip)) {
-            return null;
-        } else {
-            return ip.replaceAll(".*/", "");
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
-#### Snippet
-```java
-    public static String toAddressString(SocketAddress addr) {
-        if (addr == null) {
-            return null;
-        } else if (addr instanceof InetSocketAddress) {
-            return ((InetSocketAddress) addr).getHostString();
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
-#### Snippet
-```java
-    public static <V> V findByOptionalWildcardAddress(Map<SshdSocketAddress, ? extends V> map, SshdSocketAddress address) {
-        Map.Entry<SshdSocketAddress, ? extends V> entry = findMatchingOptionalWildcardEntry(map, address);
-        return (entry == null) ? null : entry.getValue();
-    }
 
 ```
 
@@ -17761,11 +16539,95 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
 #### Snippet
 ```java
+            Map<SshdSocketAddress, ? extends V> map, SshdSocketAddress address) {
+        if (MapEntryUtils.isEmpty(map) || (address == null)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
+#### Snippet
+```java
+    public static String toAddressString(SocketAddress addr) {
+        if (addr == null) {
+            return null;
+        } else if (addr instanceof InetSocketAddress) {
+            return ((InetSocketAddress) addr).getHostString();
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
+#### Snippet
+```java
+        String ip = (addr == null) ? null : addr.toString();
+        if (GenericUtils.isEmpty(ip)) {
+            return null;
+        } else {
+            return ip.replaceAll(".*/", "");
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
+#### Snippet
+```java
+    public static InetSocketAddress toInetSocketAddress(SocketAddress remoteAddress) {
+        if (remoteAddress == null) {
+            return null;
+        } else if (remoteAddress instanceof InetSocketAddress) {
+            return (InetSocketAddress) remoteAddress;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
+#### Snippet
+```java
     public static SshdSocketAddress toSshdSocketAddress(SocketAddress addr) {
         if (addr == null) {
             return null;
         } else if (addr instanceof SshdSocketAddress) {
             return (SshdSocketAddress) addr;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
+#### Snippet
+```java
+    public static <V> V findByOptionalWildcardAddress(Map<SshdSocketAddress, ? extends V> map, SshdSocketAddress address) {
+        Map.Entry<SshdSocketAddress, ? extends V> entry = findMatchingOptionalWildcardEntry(map, address);
+        return (entry == null) ? null : entry.getValue();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/net/SshdSocketAddress.java`
+#### Snippet
+```java
+    public static InetAddress getFirstExternalNetwork4Address() {
+        List<? extends InetAddress> addresses = getExternalNetwork4Addresses();
+        return (GenericUtils.size(addresses) > 0) ? addresses.get(0) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/threads/ExecutorServiceProvider.java`
+#### Snippet
+```java
+    default CloseableExecutorService resolveExecutorService() {
+        Supplier<? extends CloseableExecutorService> provider = getExecutorServiceProvider();
+        return (provider == null) ? null : provider.get();
+    }
+}
 ```
 
 ### ReturnNull
@@ -17797,10 +16659,10 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityProviderChoice.java`
 #### Snippet
 ```java
-        @Override
-        public Provider getSecurityProvider() {
-            return null;
-        }
+            @Override
+            public Provider getSecurityProvider() {
+                return null;
+            }
 
 ```
 
@@ -17809,10 +16671,10 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/security/SecurityProviderChoice.java`
 #### Snippet
 ```java
-            @Override
-            public Provider getSecurityProvider() {
-                return null;
-            }
+        @Override
+        public Provider getSecurityProvider() {
+            return null;
+        }
 
 ```
 
@@ -17833,11 +16695,11 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/OpenSSHEd25519PrivateKeyEntryDecoder.java`
 #### Snippet
 ```java
-    public EdDSAPrivateKey clonePrivateKey(EdDSAPrivateKey key) throws GeneralSecurityException {
+    public EdDSAPublicKey clonePublicKey(EdDSAPublicKey key) throws GeneralSecurityException {
         if (key == null) {
             return null;
         } else {
-            return generatePrivateKey(new EdDSAPrivateKeySpec(key.getSeed(), key.getParams()));
+            return generatePublicKey(new EdDSAPublicKeySpec(key.getA(), key.getParams()));
 ```
 
 ### ReturnNull
@@ -17845,11 +16707,11 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/util/security/eddsa/OpenSSHEd25519PrivateKeyEntryDecoder.java`
 #### Snippet
 ```java
-    public EdDSAPublicKey clonePublicKey(EdDSAPublicKey key) throws GeneralSecurityException {
+    public EdDSAPrivateKey clonePrivateKey(EdDSAPrivateKey key) throws GeneralSecurityException {
         if (key == null) {
             return null;
         } else {
-            return generatePublicKey(new EdDSAPublicKeySpec(key.getA(), key.getParams()));
+            return generatePrivateKey(new EdDSAPrivateKeySpec(key.getSeed(), key.getParams()));
 ```
 
 ### ReturnNull
@@ -17950,11 +16812,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/SyslogFacilityValue.
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/TimeValueConfig.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/LogLevelValue.java`
 #### Snippet
 ```java
-    public static TimeValueConfig fromValueChar(char ch) {
-        if ((ch <= ' ') || (ch >= 0x7F)) {
+    public static LogLevelValue fromName(String n) {
+        if (GenericUtils.isEmpty(n)) {
             return null;
         }
 
@@ -17962,7 +16824,43 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/TimeValueConfig.java
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/TimeValueConfig.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/LogLevelValue.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
+#### Snippet
+```java
+    public static BigInteger octetStringToInteger(byte... octets) {
+        if (octets == null) {
+            return null;
+        } else if (octets.length == 0) {
+            return BigInteger.ZERO;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
+#### Snippet
+```java
+    public static ECCurves fromKeyType(String type) {
+        if (GenericUtils.isEmpty(type)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
 #### Snippet
 ```java
         }
@@ -17977,8 +16875,20 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
 #### Snippet
 ```java
-    public static ECCurves fromOIDValue(List<? extends Number> oid) {
-        if (GenericUtils.isEmpty(oid)) {
+    public static ECPoint octetStringToEcPoint(byte... octets) {
+        if (NumberUtils.isEmpty(octets)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
+#### Snippet
+```java
+    public static ECCurves fromCurveSize(int keySize) {
+        if (keySize <= 0) {
             return null;
         }
 
@@ -18025,7 +16935,7 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
 #### Snippet
 ```java
-    public static ECCurves fromOID(String oid) {
+    public static ECCurves fromOIDValue(List<? extends Number> oid) {
         if (GenericUtils.isEmpty(oid)) {
             return null;
         }
@@ -18061,20 +16971,8 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
 #### Snippet
 ```java
-    public static ECPoint octetStringToEcPoint(byte... octets) {
-        if (NumberUtils.isEmpty(octets)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
-#### Snippet
-```java
-    public static ECCurves fromCurveSize(int keySize) {
-        if (keySize <= 0) {
+    public static ECCurves fromOID(String oid) {
+        if (GenericUtils.isEmpty(oid)) {
             return null;
         }
 
@@ -18094,23 +16992,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/TimeValueConfig.java`
 #### Snippet
 ```java
-    public static BigInteger octetStringToInteger(byte... octets) {
-        if (octets == null) {
-            return null;
-        } else if (octets.length == 0) {
-            return BigInteger.ZERO;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
-#### Snippet
-```java
-    public static ECCurves fromKeyType(String type) {
-        if (GenericUtils.isEmpty(type)) {
+    public static TimeValueConfig fromValueChar(char ch) {
+        if ((ch <= ' ') || (ch >= 0x7F)) {
             return null;
         }
 
@@ -18118,7 +17004,7 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/TimeValueConfig.java`
 #### Snippet
 ```java
         }
@@ -18126,30 +17012,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/cipher/ECCurves.java`
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/LogLevelValue.java`
-#### Snippet
-```java
-    public static LogLevelValue fromName(String n) {
-        if (GenericUtils.isEmpty(n)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/LogLevelValue.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -18178,134 +17040,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/CompressionConfigVal
 
 ### ReturnNull
 Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
 #### Snippet
 ```java
-
-        IoSession s = getIoSession();
-        return (s == null) ? null : s.getRemoteAddress();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-                    // Need more data, so undo reading and return null
-                    buffer.rpos(rpos);
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-
-        FactoryManager mgr = getFactoryManager();
-        return (mgr == null) ? null : mgr.resolveUnknownChannelReferenceHandler();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    public SshdSocketAddress getBoundRemotePortForward(int port) {
-        Forwarder forwarder = getForwarder();
-        return (forwarder == null) ? null : forwarder.getBoundRemotePortForward(port);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-    protected Forwarder getForwarder() {
-        ConnectionService service = getConnectionService();
-        return (service == null) ? null : service.getForwarder();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-            return new TimeoutIndicator(TimeoutStatus.IdleTimeout, idleTimeout, d);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
-#### Snippet
-```java
-            return new TimeoutIndicator(TimeoutStatus.AuthTimeout, authTimeout, d);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntryResolver.java`
-#### Snippet
-```java
-        public PublicKey resolve(SessionContext session, String keyType, byte[] keyData, Map<String, String> headers)
-                throws IOException, GeneralSecurityException {
-            return null;
         }
 
-```
+        return null;
+    }
 
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/IdentityUtils.java`
-#### Snippet
-```java
-    public static String getIdentityFileName(String prefix, String type, String suffix) {
-        if (GenericUtils.isEmpty(type)) {
-            return null;
-        } else {
-            return GenericUtils.trimToEmpty(prefix)
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/IdentityUtils.java`
-#### Snippet
-```java
-    public static KeyPairProvider createKeyPairProvider(Map<String, KeyPair> ids, boolean supportedOnly) {
-        if (MapEntryUtils.isEmpty(ids)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/IdentityUtils.java`
-#### Snippet
-```java
-
-        if (MapEntryUtils.isEmpty(pairsMap)) {
-            return null;
-        } else {
-            return new MappedKeyPairProvider(pairsMap);
 ```
 
 ### ReturnNull
@@ -18313,11 +17055,35 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
 #### Snippet
 ```java
-    public static Boolean toBoolean(Object value) {
+    public static Boolean parseBoolean(String value) {
+        if (GenericUtils.isEmpty(value)) {
+            return null;
+        } else if (TRUE_VALUES.contains(value)) {
+            return Boolean.TRUE;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
+#### Snippet
+```java
+    public static Charset toCharset(Object value) {
         if (value == null) {
             return null;
-        } else if (value instanceof Boolean) {
-            return (Boolean) value;
+        } else if (value instanceof Charset) {
+            return (Charset) value;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
+#### Snippet
+```java
+    public static Integer toInteger(Object value) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof Integer) {
+            return (Integer) value;
 ```
 
 ### ReturnNull
@@ -18349,6 +17115,30 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
 #### Snippet
 ```java
+    public static Boolean toBoolean(Object value) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof Boolean) {
+            return (Boolean) value;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
+#### Snippet
+```java
+    public static Long toLong(Object value) {
+        if (value == null) {
+            return null;
+        } else if (value instanceof Long) {
+            return (Long) value;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
+#### Snippet
+```java
         }
 
         return null;
@@ -18370,71 +17160,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntryResolver.java`
 #### Snippet
 ```java
-    public static Charset toCharset(Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof Charset) {
-            return (Charset) value;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
-#### Snippet
-```java
-    public static Boolean parseBoolean(String value) {
-        if (GenericUtils.isEmpty(value)) {
-            return null;
-        } else if (TRUE_VALUES.contains(value)) {
-            return Boolean.TRUE;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
-#### Snippet
-```java
-    public static Long toLong(Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof Long) {
-            return (Long) value;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/PropertyResolverUtils.java`
-#### Snippet
-```java
-    public static Integer toInteger(Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof Integer) {
-            return (Integer) value;
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/BuiltinIdentities.java`
-#### Snippet
-```java
-    public static BuiltinIdentities fromKeyType(Class<?> clazz) {
-        if ((clazz == null) || (!Key.class.isAssignableFrom(clazz))) {
+        public PublicKey resolve(SessionContext session, String keyType, byte[] keyData, Map<String, String> headers)
+                throws IOException, GeneralSecurityException {
             return null;
         }
 
@@ -18442,14 +17172,50 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/BuiltinIdentiti
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/BuiltinIdentities.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyEntryResolver.java`
 #### Snippet
 ```java
+    default KeyPair cloneKeyPair(KeyPair kp) throws GeneralSecurityException {
+        if (kp == null) {
+            return null;
         }
 
-        return null;
-    }
+```
 
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/IdentityUtils.java`
+#### Snippet
+```java
+    public static KeyPairProvider createKeyPairProvider(Map<String, KeyPair> ids, boolean supportedOnly) {
+        if (MapEntryUtils.isEmpty(ids)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/IdentityUtils.java`
+#### Snippet
+```java
+
+        if (MapEntryUtils.isEmpty(pairsMap)) {
+            return null;
+        } else {
+            return new MappedKeyPairProvider(pairsMap);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/IdentityUtils.java`
+#### Snippet
+```java
+    public static String getIdentityFileName(String prefix, String type, String suffix) {
+        if (GenericUtils.isEmpty(type)) {
+            return null;
+        } else {
+            return GenericUtils.trimToEmpty(prefix)
 ```
 
 ### ReturnNull
@@ -18502,11 +17268,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/BuiltinIdentiti
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyEntryResolver.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/BuiltinIdentities.java`
 #### Snippet
 ```java
-    default KeyPair cloneKeyPair(KeyPair kp) throws GeneralSecurityException {
-        if (kp == null) {
+    public static BuiltinIdentities fromKeyType(Class<?> clazz) {
+        if ((clazz == null) || (!Key.class.isAssignableFrom(clazz))) {
             return null;
         }
 
@@ -18514,14 +17280,26 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyEntryResolve
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/FilePasswordProvider.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/BuiltinIdentities.java`
 #### Snippet
 ```java
-     * An &quot;empty&quot; provider that returns {@code null} - i.e., unprotected key file
-     */
-    FilePasswordProvider EMPTY = (session, resourceKey, retryIndex) -> null;
+        }
 
-    /**
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PrivateKeyEntryDecoder.java`
+#### Snippet
+```java
+     */
+    default PUB recoverPublicKey(PRV prvKey) throws GeneralSecurityException {
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -18550,14 +17328,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PrivateKeyEntry
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PrivateKeyEntryDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/FilePasswordProvider.java`
 #### Snippet
 ```java
+     * An &quot;empty&quot; provider that returns {@code null} - i.e., unprotected key file
      */
-    default PUB recoverPublicKey(PRV prvKey) throws GeneralSecurityException {
-        return null;
-    }
-}
+    FilePasswordProvider EMPTY = (session, resourceKey, retryIndex) -> null;
+
+    /**
 ```
 
 ### ReturnNull
@@ -18574,13 +17352,37 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyTypeNamesSup
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyRawDataDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertificateImpl.java`
 #### Snippet
 ```java
-            throws IOException, GeneralSecurityException {
-        if (length <= 0) {
+    public byte[] getRawSignature() {
+        if (signature == null) {
             return null;
         }
+        ByteArrayBuffer buffer = new ByteArrayBuffer(signature);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertificateImpl.java`
+#### Snippet
+```java
+    @Override
+    public String getRawKeyType() {
+        return GenericUtils.isEmpty(keyType) ? null : keyType.split("@")[0].substring(0, keyType.indexOf("-cert"));
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertificateImpl.java`
+#### Snippet
+```java
+    @Override
+    public String getSignatureAlgorithm() {
+        return NumberUtils.isEmpty(signature) ? null : new ByteArrayBuffer(signature).getString();
+    }
 
 ```
 
@@ -18610,38 +17412,26 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertific
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertificateImpl.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.java`
 #### Snippet
 ```java
-    @Override
-    public String getSignatureAlgorithm() {
-        return NumberUtils.isEmpty(signature) ? null : new ByteArrayBuffer(signature).getString();
-    }
-
+        String data = GenericUtils.replaceWhitespaceAndTrim(encData);
+        if (GenericUtils.isEmpty(data)) {
+            return null;
+        } else {
+            return parsePublicKeyEntry(new PublicKeyEntry(), data, decoder);
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertificateImpl.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyRawDataDecoder.java`
 #### Snippet
 ```java
-    @Override
-    public String getRawKeyType() {
-        return GenericUtils.isEmpty(keyType) ? null : keyType.split("@")[0].substring(0, keyType.indexOf("-cert"));
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/OpenSshCertificateImpl.java`
-#### Snippet
-```java
-    public byte[] getRawSignature() {
-        if (signature == null) {
+            throws IOException, GeneralSecurityException {
+        if (length <= 0) {
             return null;
         }
-        ByteArrayBuffer buffer = new ByteArrayBuffer(signature);
+
 ```
 
 ### ReturnNull
@@ -18658,14 +17448,50 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PrivateKeyEntry
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/PublicKeyEntry.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkEcdsaPublicKey.java`
 #### Snippet
 ```java
-        String data = GenericUtils.replaceWhitespaceAndTrim(encData);
-        if (GenericUtils.isEmpty(data)) {
-            return null;
-        } else {
-            return parsePublicKeyEntry(new PublicKeyEntry(), data, decoder);
+    @Override
+    public byte[] getEncoded() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkEcdsaPublicKey.java`
+#### Snippet
+```java
+    @Override
+    public String getFormat() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkED25519PublicKey.java`
+#### Snippet
+```java
+    @Override
+    public byte[] getEncoded() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkED25519PublicKey.java`
+#### Snippet
+```java
+    @Override
+    public String getFormat() {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -18674,18 +17500,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEn
 #### Snippet
 ```java
         String line = GenericUtils.replaceWhitespaceAndTrim(entryLine);
-        if (GenericUtils.isEmpty(line) || (line.charAt(0) == COMMENT_CHAR) /* comment ? */) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEntry.java`
-#### Snippet
-```java
-        String line = GenericUtils.replaceWhitespaceAndTrim(value);
         if (GenericUtils.isEmpty(line) || (line.charAt(0) == COMMENT_CHAR) /* comment ? */) {
             return null;
         }
@@ -18706,49 +17520,37 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEn
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkEcdsaPublicKey.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/AuthorizedKeyEntry.java`
 #### Snippet
 ```java
-    @Override
-    public byte[] getEncoded() {
-        return null;
-    }
+        String line = GenericUtils.replaceWhitespaceAndTrim(value);
+        if (GenericUtils.isEmpty(line) || (line.charAt(0) == COMMENT_CHAR) /* comment ? */) {
+            return null;
+        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkEcdsaPublicKey.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/SkED25519PublicKeyEntryDecoder.java`
 #### Snippet
 ```java
-    @Override
-    public String getFormat() {
-        return null;
-    }
+    public SkED25519PublicKey clonePublicKey(SkED25519PublicKey key) {
+        if (key == null) {
+            return null;
+        }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkED25519PublicKey.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/DSSPublicKeyEntryDecoder.java`
 #### Snippet
 ```java
-    @Override
-    public String getFormat() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/u2f/SkED25519PublicKey.java`
-#### Snippet
-```java
-    @Override
-    public byte[] getEncoded() {
-        return null;
-    }
+    public DSAPublicKey clonePublicKey(DSAPublicKey key) throws GeneralSecurityException {
+        if (key == null) {
+            return null;
+        }
 
 ```
 
@@ -18766,10 +17568,10 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/DSSPublicK
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/DSSPublicKeyEntryDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/SkECDSAPublicKeyEntryDecoder.java`
 #### Snippet
 ```java
-    public DSAPublicKey clonePublicKey(DSAPublicKey key) throws GeneralSecurityException {
+    public SkEcdsaPublicKey clonePublicKey(SkEcdsaPublicKey key) throws GeneralSecurityException {
         if (key == null) {
             return null;
         }
@@ -18802,25 +17604,13 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/RSAPublicK
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/SkED25519PublicKeyEntryDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/OpenSSHCertificateDecoder.java`
 #### Snippet
 ```java
-    public SkED25519PublicKey clonePublicKey(SkED25519PublicKey key) {
-        if (key == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/SkECDSAPublicKeyEntryDecoder.java`
-#### Snippet
-```java
-    public SkEcdsaPublicKey clonePublicKey(SkEcdsaPublicKey key) throws GeneralSecurityException {
-        if (key == null) {
-            return null;
-        }
+    @Override
+    public KeyPairGenerator getKeyPairGenerator() throws GeneralSecurityException {
+        return null;
+    }
 
 ```
 
@@ -18834,18 +17624,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/OpenSSHCer
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/impl/OpenSSHCertificateDecoder.java`
-#### Snippet
-```java
-    @Override
-    public KeyPairGenerator getKeyPairGenerator() throws GeneralSecurityException {
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -18898,26 +17676,86 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/PrivateK
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
 #### Snippet
 ```java
-    public static Map.Entry<ECCurves, ASN1Object> parseCurveParameter(ASN1Object paramsObject) throws IOException {
-        if (paramsObject == null) {
+            return new TimeoutIndicator(TimeoutStatus.AuthTimeout, authTimeout, d);
+        } else {
             return null;
         }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+
+        IoSession s = getIoSession();
+        return (s == null) ? null : s.getRemoteAddress();
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
 #### Snippet
 ```java
-        ASN1Type objType = paramsObject.getObjType();
-        if (objType == ASN1Type.NULL) {
+
+        FactoryManager mgr = getFactoryManager();
+        return (mgr == null) ? null : mgr.resolveUnknownChannelReferenceHandler();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+    protected Forwarder getForwarder() {
+        ConnectionService service = getConnectionService();
+        return (service == null) ? null : service.getForwarder();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+                    // Need more data, so undo reading and return null
+                    buffer.rpos(rpos);
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+    public SshdSocketAddress getBoundRemotePortForward(int port) {
+        Forwarder forwarder = getForwarder();
+        return (forwarder == null) ? null : forwarder.getBoundRemotePortForward(port);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-core/src/main/java/org/apache/sshd/common/session/helpers/SessionHelper.java`
+#### Snippet
+```java
+            return new TimeoutIndicator(TimeoutStatus.IdleTimeout, idleTimeout, d);
+        } else {
             return null;
         }
-
+    }
 ```
 
 ### ReturnNull
@@ -18925,20 +17763,8 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 #### Snippet
 ```java
-    public static String getFingerPrint(Digest d, String s, Charset charset) {
-        if (GenericUtils.isEmpty(s)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static PublicKeyEntryDecoder<?, ?> getPublicKeyEntryDecoder(String keyType) {
-        if (GenericUtils.isEmpty(keyType)) {
+    public static String getFingerPrint(Digest d, PublicKey key) {
+        if (key == null) {
             return null;
         }
 
@@ -18954,6 +17780,42 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
         return (key == null) ? null : getRawFingerprint(Objects.requireNonNull(f, "No digest factory").create(), key);
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static PublicKey findMatchingKey(PublicKey key, Collection<? extends PublicKey> keySet) {
+        if (key == null || GenericUtils.isEmpty(keySet)) {
+            return null;
+        }
+        for (PublicKey k : keySet) {
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static PublicKeyEntryDecoder<?, ?> getPublicKeyEntryDecoder(Key key) {
+        if (key == null) {
+            return null;
+        } else {
+            return getPublicKeyEntryDecoder(key.getClass());
 ```
 
 ### ReturnNull
@@ -18997,11 +17859,83 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 #### Snippet
 ```java
-    public static PublicKeyEntryDecoder<?, ?> getPublicKeyEntryDecoder(Key key) {
-        if (key == null) {
+            return SecurityUtils.recoverEDDSAPublicKey(key);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static PublicKeyEntryDecoder<?, ?> getPublicKeyEntryDecoder(Class<?> keyType) {
+        if ((keyType == null) || (!Key.class.isAssignableFrom(keyType))) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static PublicKey findMatchingKey(PublicKey key, PublicKey... keySet) {
+        if (key == null || GenericUtils.isEmpty(keySet)) {
             return null;
         } else {
-            return getPublicKeyEntryDecoder(key.getClass());
+            return findMatchingKey(key, Arrays.asList(keySet));
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static String getKeyType(KeyPair kp) {
+        if (kp == null) {
+            return null;
+        }
+        PrivateKey key = kp.getPrivate();
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+     */
+    public static String getFingerPrint(Factory<? extends Digest> f, PublicKey key) {
+        return (key == null) ? null : getFingerPrint(Objects.requireNonNull(f, "No digest factory").create(), key);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+#### Snippet
+```java
+    public static SimpleImmutableEntry<Boolean, String> checkFingerPrint(String expected, Digest d, PublicKey key) {
+        if (key == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -19045,59 +17979,11 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 #### Snippet
 ```java
-    public static String getFingerPrint(Digest d, PublicKey key) {
-        if (key == null) {
+    public static PublicKeyEntryDecoder<?, ?> getPublicKeyEntryDecoder(String keyType) {
+        if (GenericUtils.isEmpty(keyType)) {
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static PublicKey findMatchingKey(PublicKey key, Collection<? extends PublicKey> keySet) {
-        if (key == null || GenericUtils.isEmpty(keySet)) {
-            return null;
-        }
-        for (PublicKey k : keySet) {
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-            return SecurityUtils.recoverEDDSAPublicKey(key);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static String getKeyType(KeyPair kp) {
-        if (kp == null) {
-            return null;
-        }
-        PrivateKey key = kp.getPrivate();
 ```
 
 ### ReturnNull
@@ -19117,10 +18003,10 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 #### Snippet
 ```java
-     */
-    public static String getFingerPrint(Factory<? extends Digest> f, PublicKey key) {
-        return (key == null) ? null : getFingerPrint(Objects.requireNonNull(f, "No digest factory").create(), key);
-    }
+    public static String getFingerPrint(Digest d, String s, Charset charset) {
+        if (GenericUtils.isEmpty(s)) {
+            return null;
+        }
 
 ```
 
@@ -19174,11 +18060,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
 #### Snippet
 ```java
-    public static SimpleImmutableEntry<Boolean, String> checkFingerPrint(String expected, Digest d, PublicKey key) {
-        if (key == null) {
+    public static Map.Entry<ECCurves, ASN1Object> parseCurveParameter(ASN1Object paramsObject) throws IOException {
+        if (paramsObject == null) {
             return null;
         }
 
@@ -19186,95 +18072,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/ECDSAPEMResourceKeyPairParser.java`
 #### Snippet
 ```java
-    public static PublicKeyEntryDecoder<?, ?> getPublicKeyEntryDecoder(Class<?> keyType) {
-        if ((keyType == null) || (!Key.class.isAssignableFrom(keyType))) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/KeyUtils.java`
-#### Snippet
-```java
-    public static PublicKey findMatchingKey(PublicKey key, PublicKey... keySet) {
-        if (key == null || GenericUtils.isEmpty(keySet)) {
-            return null;
-        } else {
-            return findMatchingKey(key, Arrays.asList(keySet));
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
-#### Snippet
-```java
-    public static NamedFactory<Cipher> unregisterExtension(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
-#### Snippet
-```java
-    public static BuiltinCiphers fromFactory(NamedFactory<Cipher> factory) {
-        if (factory == null) {
-            return null;
-        } else {
-            return fromFactoryName(factory.getName());
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
-#### Snippet
-```java
-    public static BuiltinCiphers fromString(String s) {
-        if (GenericUtils.isEmpty(s)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
-#### Snippet
-```java
-    public static CipherFactory resolveFactory(String name) {
-        if (GenericUtils.isEmpty(name)) {
+        ASN1Type objType = paramsObject.getObjType();
+        if (objType == ASN1Type.NULL) {
             return null;
         }
 
@@ -19297,18 +18099,6 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHRSAPrivateKeyDecoder.java`
 #### Snippet
 ```java
-            return KeyPairProvider.SSH_RSA;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHRSAPrivateKeyDecoder.java`
-#### Snippet
-```java
     public RSAPublicKey clonePublicKey(RSAPublicKey key) throws GeneralSecurityException {
         if (key == null) {
             return null;
@@ -19318,25 +18108,13 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHECDSAPrivateKeyEntryDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHRSAPrivateKeyDecoder.java`
 #### Snippet
 ```java
-
-        if (key == null) {
-            return null;
+            return KeyPairProvider.SSH_RSA;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHECDSAPrivateKeyEntryDecoder.java`
-#### Snippet
-```java
-
-        if (key == null) {
-            return null;
-        }
+        return null;
+    }
 
 ```
 
@@ -19354,10 +18132,22 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHDSSPrivateKeyEntryDecoder.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHECDSAPrivateKeyEntryDecoder.java`
 #### Snippet
 ```java
-    public DSAPublicKey clonePublicKey(DSAPublicKey key) throws GeneralSecurityException {
+
+        if (key == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHECDSAPrivateKeyEntryDecoder.java`
+#### Snippet
+```java
+
         if (key == null) {
             return null;
         }
@@ -19370,6 +18160,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 #### Snippet
 ```java
     public DSAPrivateKey clonePrivateKey(DSAPrivateKey key) throws GeneralSecurityException {
+        if (key == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHDSSPrivateKeyEntryDecoder.java`
+#### Snippet
+```java
+    public DSAPublicKey clonePublicKey(DSAPublicKey key) throws GeneralSecurityException {
         if (key == null) {
             return null;
         }
@@ -19405,35 +18207,23 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
 #### Snippet
 ```java
-            String algo, Comparator<? super String> comp, Collection<? extends D> digests) {
-        if (GenericUtils.isEmpty(algo) || GenericUtils.isEmpty(digests)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
-#### Snippet
-```java
     public static String getFingerPrint(Digest d, String s, Charset charset) throws Exception {
         if (GenericUtils.isEmpty(s)) {
             return null;
         } else {
             return DigestUtils.getFingerPrint(d, s.getBytes(charset));
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
+#### Snippet
+```java
+    public static String getFingerPrint(Digest d, byte[] buf, int offset, int len) throws Exception {
+        if (len <= 0) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -19465,7 +18255,7 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
 #### Snippet
 ```java
-    public static String getFingerPrint(Digest d, byte[] buf, int offset, int len) throws Exception {
+    public static byte[] getRawFingerprint(Digest d, byte[] buf, int offset, int len) throws Exception {
         if (len <= 0) {
             return null;
         }
@@ -19477,11 +18267,95 @@ Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
 #### Snippet
 ```java
-    public static byte[] getRawFingerprint(Digest d, byte[] buf, int offset, int len) throws Exception {
-        if (len <= 0) {
+            String algo, Comparator<? super String> comp, Collection<? extends D> digests) {
+        if (GenericUtils.isEmpty(algo) || GenericUtils.isEmpty(digests)) {
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/digest/DigestUtils.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(KeyPair kp) {
+        if (kp == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+            return d1;
+        } else {
+            return null; // some kind of mixed keys...
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(String keyType) {
+        if (GenericUtils.isEmpty(keyType)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(Key key) {
+        if (key == null) {
+            return null;
+        } else {
+            return getPrivateKeyEntryDecoder(key.getClass());
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(Class<?> keyType) {
+        if ((keyType == null) || (!Key.class.isAssignableFrom(keyType))) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -19534,11 +18408,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/future/AbstractSshFuture.ja
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PEMResourceParserUtils.java`
 #### Snippet
 ```java
-    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(KeyPair kp) {
-        if (kp == null) {
+    public static KeyPairPEMResourceParser getPEMResourceParserByOid(String oid) {
+        if (GenericUtils.isEmpty(oid)) {
             return null;
         }
 
@@ -19546,74 +18420,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PEMResourceParserUtils.java`
 #### Snippet
 ```java
-            return d1;
-        } else {
-            return null; // some kind of mixed keys...
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
-#### Snippet
-```java
-    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(Class<?> keyType) {
-        if ((keyType == null) || (!Key.class.isAssignableFrom(keyType))) {
+    public static KeyPairPEMResourceParser getPEMResourceParserByAlgorithm(String algorithm) {
+        if (GenericUtils.isEmpty(algorithm)) {
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
-#### Snippet
-```java
-    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(String keyType) {
-        if (GenericUtils.isEmpty(keyType)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/openssh/OpenSSHKeyPairResourceParser.java`
-#### Snippet
-```java
-    public static PrivateKeyEntryDecoder<?, ?> getPrivateKeyEntryDecoder(Key key) {
-        if (key == null) {
-            return null;
-        } else {
-            return getPrivateKeyEntryDecoder(key.getClass());
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/future/DefaultSshFuture.java`
-#### Snippet
-```java
-    public Object getValue() {
-        synchronized (lock) {
-            return (result == GenericUtils.NULL) ? null : result;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -19626,6 +18440,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyChannelConfigura
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/future/DefaultSshFuture.java`
+#### Snippet
+```java
+    public Object getValue() {
+        synchronized (lock) {
+            return (result == GenericUtils.NULL) ? null : result;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -19650,6 +18476,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/session/helpers/TimeoutIndi
         return (d == null) ? null : Long.toString(d.toMillis());
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/ssh2/Ssh2PublicKeyEntryDecoder.java`
+#### Snippet
+```java
+        Map.Entry<Integer, Integer> markerPos = KeyPairResourceParser.findMarkerLine(lines, START_MARKERS);
+        if (markerPos == null) {
+            return null; // be lenient
+        }
+
 ```
 
 ### ReturnNull
@@ -19726,30 +18564,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/signature/AbstractSignature
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PEMResourceParserUtils.java`
-#### Snippet
-```java
-    public static KeyPairPEMResourceParser getPEMResourceParserByOid(String oid) {
-        if (GenericUtils.isEmpty(oid)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/pem/PEMResourceParserUtils.java`
-#### Snippet
-```java
-    public static KeyPairPEMResourceParser getPEMResourceParserByAlgorithm(String algorithm) {
-        if (GenericUtils.isEmpty(algorithm)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactoriesManager.java`
 #### Snippet
 ```java
@@ -19758,18 +18572,6 @@ in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactorie
         return (manager == null) ? null : manager.getSignatureFactories();
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/compression/BuiltinCompressions.java`
-#### Snippet
-```java
-    public static CompressionFactory resolveFactory(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -19786,13 +18588,13 @@ in `sshd-common/src/main/java/org/apache/sshd/common/compression/BuiltinCompress
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/FileKeyPairProvider.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/compression/BuiltinCompressions.java`
 #### Snippet
 ```java
-    @Override
-    protected IoResource<Path> getIoResource(SessionContext session, Path resource) {
-        return (resource == null) ? null : new PathResource(resource);
-    }
+    public static CompressionFactory resolveFactory(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
 
 ```
 
@@ -19822,13 +18624,13 @@ in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/KeyPairProvider
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactory.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/FileKeyPairProvider.java`
 #### Snippet
 ```java
-            throws InvalidKeySpecException {
-        if (pubKey == null) {
-            return null;
-        }
+    @Override
+    protected IoResource<Path> getIoResource(SessionContext session, Path resource) {
+        return (resource == null) ? null : new PathResource(resource);
+    }
 
 ```
 
@@ -19846,24 +18648,12 @@ in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactory.
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/KeyIdentityProvider.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/SignatureFactory.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/ssh2/Ssh2PublicKeyEntryDecoder.java`
-#### Snippet
-```java
-        Map.Entry<Integer, Integer> markerPos = KeyPairResourceParser.findMarkerLine(lines, START_MARKERS);
-        if (markerPos == null) {
-            return null; // be lenient
+            throws InvalidKeySpecException {
+        if (pubKey == null) {
+            return null;
         }
 
 ```
@@ -19882,11 +18672,35 @@ in `sshd-common/src/main/java/org/apache/sshd/server/Signal.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyMode.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/keyprovider/KeyIdentityProvider.java`
 #### Snippet
 ```java
-    public static PtyMode fromName(String name) {
-        if (GenericUtils.isEmpty(name)) {
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/util/security/bouncycastle/BouncyCastleKeyPairResourceParser.java`
+#### Snippet
+```java
+                                continue;
+                            case IGNORE:
+                                return null;
+                            default:
+                                throw new ProtocolException(
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-contrib/src/main/java/org/apache/sshd/contrib/client/auth/password/InteractivePasswordIdentityProvider.java`
+#### Snippet
+```java
+        UserInteraction ui = getUserInteraction();
+        if (!ui.isInteractionAllowed(session)) {
             return null;
         }
 
@@ -19894,11 +18708,11 @@ in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyMode.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyMode.java`
+in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/io/EndlessWriteFuture.java`
 #### Snippet
 ```java
-        }
-
+    public IoWriteFuture verify(long timeoutMillis) throws IOException {
+        await(timeoutMillis);
         return null;
     }
 
@@ -19906,74 +18720,14 @@ in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyMode.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/io/EndlessWriteFuture.java`
 #### Snippet
 ```java
-    public static SignatureFactory resolveFactory(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-    public static BuiltinSignatures fromFactory(NamedFactory<Signature> factory) {
-        if (factory == null) {
-            return null;
-        } else {
-            return fromFactoryName(factory.getName());
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-    public static BuiltinSignatures fromString(String s) {
-        if (GenericUtils.isEmpty(s)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-        }
-
+    @Override
+    public Throwable getException() {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-    public static Signature getSignerByCurveSize(ECParameterSpec params) {
-        NamedFactory<Signature> factory = getFactoryByCurveSize(params);
-        return (factory == null) ? null : factory.create();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
-#### Snippet
-```java
-    public static SignatureFactory unregisterExtension(String name) {
-        if (GenericUtils.isEmpty(name)) {
-            return null;
-        }
-
+}
 ```
 
 ### ReturnNull
@@ -20038,54 +18792,6 @@ in `sshd-common/src/main/java/org/apache/sshd/server/keyprovider/AbstractGenerat
 
 ### ReturnNull
 Return of `null`
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoConnector.java`
-#### Snippet
-```java
-        public IoSession getSession() {
-            Object v = getValue();
-            return (v instanceof IoSession) ? (IoSession) v : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoConnector.java`
-#### Snippet
-```java
-        public Throwable getException() {
-            Object v = getValue();
-            return (v instanceof Throwable) ? (Throwable) v : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-netty/src/main/java/org/apache/sshd/netty/NettyIoSession.java`
-#### Snippet
-```java
-    public SocketAddress getLocalAddress() {
-        Channel channel = (context == null) ? null : context.channel();
-        return (channel == null) ? null : channel.localAddress();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `sshd-common/src/main/java/org/apache/sshd/common/util/security/bouncycastle/BouncyCastleKeyPairResourceParser.java`
-#### Snippet
-```java
-                                continue;
-                            case IGNORE:
-                                return null;
-                            default:
-                                throw new ProtocolException(
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/KeyPairResourceParser.java`
 #### Snippet
 ```java
@@ -20110,6 +18816,474 @@ in `sshd-common/src/main/java/org/apache/sshd/common/config/keys/loader/KeyPairR
 
 ### ReturnNull
 Return of `null`
+in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDSASigner.java`
+#### Snippet
+```java
+    @Deprecated
+    protected Object engineGetParameter(String key) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyMode.java`
+#### Snippet
+```java
+    public static PtyMode fromName(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/channel/PtyMode.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        BuiltinIoServiceFactoryFactories factory = resolveIoServiceFactory(stderr, args);
+        if (factory == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (GenericUtils.size(current) > 0) {
+            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (GenericUtils.isEmpty(available)) {
+            CliLogger.showError(stderr, "WARNING: No known ciphers in " + argVal);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (GenericUtils.size(current) > 0) {
+            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (GenericUtils.isEmpty(available)) {
+            CliLogger.showError(stderr, "No known MACs in " + argVal);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (GenericUtils.size(current) > 0) {
+            CliLogger.showError(stderr, argName + " option value re-specified: " + NamedResource.getNames(current));
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (GenericUtils.isEmpty(available)) {
+            CliLogger.showError(stderr, "No known compressions in " + argVal);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+        if (value == null) {
+            CliLogger.showError(stderr, "Unknown compression configuration value: " + argVal);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+            if (factory != null) {
+                stderr.println("I/O factory re-specified - already set as " + factory);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+            if (index >= numArgs) {
+                stderr.println("option requires an argument: " + argName);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/CliSupport.java`
+#### Snippet
+```java
+            factory = resolveBuiltinIoServiceFactory(stderr, argName, provider);
+            if (factory == null) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/server/SshServerCliSupport.java`
+#### Snippet
+```java
+
+        if (PropertyResolverUtils.isNoneValue(factory)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
+#### Snippet
+```java
+
+    public SpringSftpSession(SftpClient clientInstance) {
+        this(clientInstance, () -> null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/ApacheSshdSftpSessionFactory.java`
+#### Snippet
+```java
+                            try {
+                                sessionInstance.close();
+                                return null;
+                            } catch (Exception e) {
+                                return e;
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/ApacheSshdSftpSessionFactory.java`
+#### Snippet
+```java
+        Resource location = getPrivateKeyLocation();
+        if (location == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+        Boolean ptyEnabled = autoDetect ? Boolean.TRUE : PropertyResolverUtils.parseBoolean(s);
+        if ((ptyEnabled == null) || (!ptyEnabled.booleanValue())) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                    stderr.append("WARNING: ").append(e.getClass().getSimpleName())
+                            .append(" while read password: ").println(e.getMessage());
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                if ((index + 1) >= maxIndex) {
+                    CliLogger.showError(stderr, "Missing " + argName + " option argument");
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                    CliLogger.showError(stderr,
+                            "Failed (" + e.getClass().getSimpleName() + ") to open " + argVal + ": " + e.getMessage());
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+
+        if (error) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                stdin, stdout, stderr, level, args);
+        if (client == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+
+        if (GenericUtils.isEmpty(identities)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            ciphers = setupCiphers(resolver, stderr);
+            if (ciphers == null) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            macs = setupMacs(resolver, stderr);
+            if (macs == null) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            compressions = setupCompressions(resolver, stderr);
+            if (compressions == null) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+        SshClient client = setupDefaultClient(resolver, level, stdout, stderr, args);
+        if (client == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+            CliLogger.showError(stderr, "Failed (" + t.getClass().getSimpleName() + ") to setup client: " + t.getMessage());
+            client.close();
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+    public static SignatureFactory unregisterExtension(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+    public static BuiltinSignatures fromFactory(NamedFactory<Signature> factory) {
+        if (factory == null) {
+            return null;
+        } else {
+            return fromFactoryName(factory.getName());
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+    public static BuiltinSignatures fromString(String s) {
+        if (GenericUtils.isEmpty(s)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+    public static SignatureFactory resolveFactory(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/signature/BuiltinSignatures.java`
+#### Snippet
+```java
+    public static Signature getSignerByCurveSize(ECParameterSpec params) {
+        NamedFactory<Signature> factory = getFactoryByCurveSize(params);
+        return (factory == null) ? null : factory.create();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+    private static String toString(SocketAddress addr) {
+        if (addr == null) {
+            return null;
+        } else if (addr instanceof InetSocketAddress) {
+            return ((InetSocketAddress) addr).getHostString();
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                            ClientSession session, String name, String instruction,
+                            String lang, String[] prompt, boolean[] echo) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshKeyScanMain.java`
+#### Snippet
+```java
+                    @Override
+                    public String getUpdatedPassword(ClientSession session, String prompt, String lang) {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `sshd-scp/src/main/java/org/apache/sshd/scp/client/SimpleScpClientImpl.java`
 #### Snippet
 ```java
@@ -20118,6 +19292,42 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/client/SimpleScpClientImpl.java`
             return null;    // actually dead code...
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+                if (index >= numArgs) {
+                    CliLogger.showError(stderr, "option requires an argument: " + argName);
+                    return null;
+                }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+                    .append(": ").println(e.getMessage());
+            stderr.flush();
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/ScpCommandMain.java`
+#### Snippet
+```java
+
+        if (error) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -20146,18 +19356,6 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpReceiveFileComm
 
 ### ReturnNull
 Return of `null`
-in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpTimestampCommandDetails.java`
-#### Snippet
-```java
-     */
-    public static ScpTimestampCommandDetails parse(String line) throws NumberFormatException {
-        return GenericUtils.isEmpty(line) ? null : new ScpTimestampCommandDetails(line);
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpAckInfo.java`
 #### Snippet
 ```java
@@ -20166,6 +19364,18 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpAckInfo.java`
                 return null;
             }
             throw new EOFException("readAck - EOF before ACK");
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpTimestampCommandDetails.java`
+#### Snippet
+```java
+     */
+    public static ScpTimestampCommandDetails parse(String line) throws NumberFormatException {
+        return GenericUtils.isEmpty(line) ? null : new ScpTimestampCommandDetails(line);
+    }
+}
 ```
 
 ### ReturnNull
@@ -20194,13 +19404,61 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/common/helpers/ScpIoUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-putty/src/main/java/org/apache/sshd/putty/PuttyKeyPairResourceParser.java`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
 #### Snippet
 ```java
+    public static BuiltinCiphers fromFactory(NamedFactory<Cipher> factory) {
+        if (factory == null) {
+            return null;
+        } else {
+            return fromFactoryName(factory.getName());
+```
 
-    static String getStringHeaderValue(Map<String, String> headers, String key) {
-        return MapEntryUtils.isEmpty(headers) ? null : headers.get(key);
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+#### Snippet
+```java
+    public static CipherFactory resolveFactory(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+#### Snippet
+```java
+    public static BuiltinCiphers fromString(String s) {
+        if (GenericUtils.isEmpty(s)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+#### Snippet
+```java
+        }
+
+        return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-common/src/main/java/org/apache/sshd/common/cipher/BuiltinCiphers.java`
+#### Snippet
+```java
+    public static NamedFactory<Cipher> unregisterExtension(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
 
 ```
 
@@ -20230,23 +19488,35 @@ in `sshd-scp/src/main/java/org/apache/sshd/scp/server/InputStreamReader.java`
 
 ### ReturnNull
 Return of `null`
-in `sshd-contrib/src/main/java/org/apache/sshd/contrib/client/auth/password/InteractivePasswordIdentityProvider.java`
+in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
 #### Snippet
 ```java
-        UserInteraction ui = getUserInteraction();
-        if (!ui.isInteractionAllowed(session)) {
-            return null;
-        }
+            public Throwable getException() {
+                Object v = getValue();
+                return v instanceof Throwable ? (Throwable) v : null;
+            }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/io/EndlessWriteFuture.java`
+in `sshd-mina/src/main/java/org/apache/sshd/mina/MinaConnector.java`
 #### Snippet
 ```java
-    public IoWriteFuture verify(long timeoutMillis) throws IOException {
-        await(timeoutMillis);
+            public org.apache.sshd.common.io.IoSession getSession() {
+                Object v = getValue();
+                return v instanceof org.apache.sshd.common.io.IoSession ? (org.apache.sshd.common.io.IoSession) v : null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPath.java`
+#### Snippet
+```java
+    public SftpClient.Attributes getAttributes() {
+        // Subclasses may override
         return null;
     }
 
@@ -20254,11 +19524,23 @@ in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/io/EndlessWriteFut
 
 ### ReturnNull
 Return of `null`
-in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/io/EndlessWriteFuture.java`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java`
 #### Snippet
 ```java
-    @Override
-    public Throwable getException() {
+    public UserPrincipal owner() {
+        String owner = attributes.getOwner();
+        return GenericUtils.isEmpty(owner) ? null : new SftpFileSystem.DefaultUserPrincipal(owner);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java`
+#### Snippet
+```java
+    public Object fileKey() {
+        // TODO consider implementing this
         return null;
     }
 }
@@ -20266,11 +19548,47 @@ in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/io/EndlessWriteFut
 
 ### ReturnNull
 Return of `null`
-in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDSASigner.java`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPosixFileAttributes.java`
 #### Snippet
 ```java
-    @Deprecated
-    protected Object engineGetParameter(String key) {
+    public GroupPrincipal group() {
+        String group = attributes.getGroup();
+        return GenericUtils.isEmpty(group) ? null : new SftpFileSystem.DefaultGroupPrincipal(group);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileStore.java`
+#### Snippet
+```java
+    @Override
+    public Object getAttribute(String attribute) throws IOException {
+        return null; // no special attributes supported
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileStore.java`
+#### Snippet
+```java
+    @Override
+    public <V extends FileStoreAttributeView> V getFileStoreAttributeView(Class<V> type) {
+        return null; // no special views supported
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpPathIterator.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -20278,23 +19596,47 @@ in `sshd-contrib/src/main/java/org/apache/sshd/contrib/common/signature/LegacyDS
 
 ### ReturnNull
 Return of `null`
-in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/SpringSftpSession.java`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/SftpDirEntryIterator.java`
 #### Snippet
 ```java
+                    log.trace("load({})[{}] exhausted all entries on previous call", getPath(), handle);
+                }
+                return null;
+            }
 
-    public SpringSftpSession(SftpClient clientInstance) {
-        this(clientInstance, () -> null);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultSftpClient.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/ApacheSshdSftpSessionFactory.java`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/helpers/AbstractSftpClientExtension.java`
 #### Snippet
 ```java
-        Resource location = getPrivateKeyLocation();
-        if (location == null) {
+                }
+
+                return null;
+            default:
+                throw new SshException(
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+    public static MutableBasicCredentials parseCredentials(String userInfo) {
+        if (GenericUtils.isEmpty(userInfo)) {
             return null;
         }
 
@@ -20302,29 +19644,689 @@ in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/Apach
 
 ### ReturnNull
 Return of `null`
-in `sshd-spring-sftp/src/main/java/org/apache/sshd/sftp/spring/integration/ApacheSshdSftpSessionFactory.java`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
 #### Snippet
 ```java
-                            try {
-                                sessionInstance.close();
-                                return null;
-                            } catch (Exception e) {
-                                return e;
+    public SftpFileSystem getFileSystem(String id) {
+        if (GenericUtils.isEmpty(id)) {
+            return null;
+        }
+
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `opt` is redundant
-in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/fs/SftpFileSystemProvider.java`
+#### Snippet
+```java
+    public SftpFileSystem removeFileSystem(String id) {
+        if (GenericUtils.isEmpty(id)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/SftpClient.java`
+#### Snippet
+```java
+        Object instance = getExtension(BuiltinSftpClientExtensions.fromType(extensionType));
+        if (instance == null) {
+            return null;
+        } else {
+            return extensionType.cast(instance);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java`
+#### Snippet
+```java
+    public static BuiltinSftpClientExtensions fromType(Class<?> type) {
+        if ((type == null) || (!SftpClientExtension.class.isAssignableFrom(type))) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java`
+#### Snippet
+```java
+        // the base class is assignable to everybody so we cannot distinguish between the enum(s)
+        if (SftpClientExtension.class == type) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/extensions/BuiltinSftpClientExtensions.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/AclSupportedParser.java`
+#### Snippet
+```java
+        public static Integer getAclCapabilityValue(String name) {
+            if (GenericUtils.isEmpty(name)) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
+#### Snippet
+```java
+        ExtensionParser<?> parser = getRegisteredParser(name);
+        if (parser == null) {
+            return null;
+        } else {
+            return parser.parse(encoded);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
+#### Snippet
+```java
+    public static ExtensionParser<?> getRegisteredParser(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/extensions/ParserUtils.java`
+#### Snippet
+```java
+    public static ExtensionParser<?> unregisterParser(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
+#### Snippet
+```java
+                throw new IllegalArgumentException("Not allowed to use " + key + "=" + val);
+            }
+            return null;
+        } else if (IoUtils.REGFILE_VIEW_ATTR.equals(key)) {
+            if (!(Boolean) val) {
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/FileHandle.java`
+#### Snippet
+```java
+                throw new IllegalArgumentException("Not allowed to use " + key + "=" + val);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyFileWatcher.java`
+#### Snippet
+```java
+            keyHolder.set(null); // mark as stale
+            if (!exists()) {
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyFileWatcher.java`
+#### Snippet
+```java
+        }
+
+        return (key == null) ? null : key.toPublicKey();
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+     */
+    public static Boolean getEndOfListIndicatorValue(Buffer buffer, int version) {
+        return (version < SftpConstants.SFTP_V6) || (buffer.available() < 1) ? null : buffer.getBoolean();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+     */
+    public static Boolean getEndOfFileIndicatorValue(Buffer buffer, int version) {
+        return (version < SftpConstants.SFTP_V6) || (buffer.available() < 1) ? null : buffer.getBoolean();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+                return AclEntryType.ALARM;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+            Buffer buffer, int version, PropertyResolver resolver, boolean indicatorValue) {
+        if (version < SftpConstants.SFTP_V6) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/common/SftpHelper.java`
+#### Snippet
+```java
+
+        if (!SftpModuleProperties.APPEND_END_OF_LIST_INDICATOR.getRequired(resolver)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyEntryDataResolver.java`
+#### Snippet
+```java
+            case PublicKeyAlgorithmTags.EDDSA: // TODO find out how these key types are called
+            default:
+                return null;
+
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        } else if (bcKey instanceof EdDSAPublicBCPGKey) {
+            return extractEdDSAPublicKey(resourceKey, (EdDSAPublicBCPGKey) bcKey);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (sk == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+            throw err;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+    public SftpClientExtension getExtension(SftpClientExtensionFactory factory) {
+        if (factory == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+                    log.trace("checkDirResponse({})[id={}] - status: {}", getClientChannel(), response.getId(), status);
+                }
+                return null;
+            default:
+                return handleUnknownDirListingPacket(response);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+            case SftpConstants.SSH_FXP_STATUS:
+                throwStatusException(response.getCmd(), response.getId(), SftpStatus.parse(response));
+                return null;
+            default:
+                return handleUnknownOneNamePacket(response);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+        Object instance = getExtension(BuiltinSftpClientExtensions.fromType(extensionType));
+        if (instance == null) {
+            return null;
+        } else {
+            return extensionType.cast(instance);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+            case SftpConstants.SSH_FXP_STATUS:
+                throwStatusException(response.getCmd(), response.getId(), SftpStatus.parse(response));
+                return null;
+            default:
+                return handleUnexpectedAttributesPacket(response);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/AbstractSftpClient.java`
+#### Snippet
+```java
+            case SftpConstants.SSH_FXP_STATUS:
+                throwStatusException(response.getCmd(), response.getId(), SftpStatus.parse(response));
+                return null;
+            default:
+                return handleUnexpectedHandlePacket(response);
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
+#### Snippet
+```java
+        log.warn("handlePublicKeyExtractionError({}) failed ({}) to extract value for fingerprint={} from {}: {}",
+                session, reason.getClass().getSimpleName(), fingerprint, resourceKey.getName(), reason.getMessage());
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPublicRingWatcher.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPAuthorizedKeyEntriesLoader.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (!PGPPublicKeyEntryDataResolver.PGP_KEY_TYPES.contains(keyType)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPAuthorizedKeyEntriesLoader.java`
+#### Snippet
+```java
+        String fingerprint = PGPPublicKeyEntryDataResolver.encodeKeyFingerprint(keyData);
+        if (GenericUtils.isEmpty(fingerprint)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException, PGPException {
+        if (sk == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPPrivateKeyExtractor.java`
+#### Snippet
+```java
+            throws IOException, GeneralSecurityException {
+        if (bcKey == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPUtils.java`
+#### Snippet
+```java
+    public static Subkey findSubkeyByFingerprint(Collection<? extends Subkey> subKeys, String fingerprint) {
+        if (GenericUtils.isEmpty(subKeys) || GenericUtils.isEmpty(fingerprint)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPUtils.java`
+#### Snippet
+```java
+    public static CompressionAlgorithm fromCompressionName(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-openpgp/src/main/java/org/apache/sshd/openpgp/PGPUtils.java`
+#### Snippet
+```java
+    public static EncryptionAlgorithm fromCipherName(String name) {
+        if (GenericUtils.isEmpty(name)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapPublickeyAuthenticator.java`
+#### Snippet
+```java
+            throws GeneralSecurityException, IOException {
+        if (keyData == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
+#### Snippet
+```java
+        Object prev = attrsMap.put(attrID, attrVal);
+        if (prev == null) {
+            return null; // debug breakpoint
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-ldap/src/main/java/org/apache/sshd/ldap/LdapNetworkConnector.java`
+#### Snippet
+```java
+    public static String toString(Object attrVal) {
+        if (attrVal == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        Map.Entry<Integer, String> result = checkVersionCompatibility(buffer, id, proposed, SftpConstants.SSH_FX_FAILURE);
+        if (result == null) { // validation failed
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+    protected Path normalize(Path f) {
+        if (f == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
 #### Snippet
 ```java
                 }
-            } else if ("-o".equals(argName)) {
-                String opt = argVal;
-                int idx = opt.indexOf('=');
-                if (idx <= 0) {
+            }
+            return null;
+        });
+        // Directory does not exist yet
 ```
 
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            handleUserPrincipalLookupServiceException(GroupPrincipal.class, name.toString(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+                        new SftpException(SftpConstants.SSH_FX_FILE_IS_A_DIRECTORY, p.toString() + " is a folder"), false);
+            }
+            return null;
+        });
+        // File exists and is not a directory
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+            sendStatus(prepareReply(buffer), id, failureOpcode,
+                    "Proposed version (" + proposed + ") not in supported range: " + available);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/AbstractSftpSubsystemHelper.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            handleUserPrincipalLookupServiceException(UserPrincipal.class, name.toString(), e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/server/SftpSubsystem.java`
+#### Snippet
+```java
+                        new AccessDeniedException(p.toString(), p.toString(), "Not readable"));
+            }
+            return null;
+        });
+        // Directory exists and is readable
+```
+
+## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `channel` is redundant
 in `sshd-core/src/main/java/org/apache/sshd/agent/unix/ChannelAgentForwardingFactory.java`
@@ -20433,6 +20435,18 @@ in `sshd-common/src/main/java/org/apache/sshd/common/channel/SttySupport.java`
         }
 ```
 
+### UnnecessaryLocalVariable
+Local variable `opt` is redundant
+in `sshd-cli/src/main/java/org/apache/sshd/cli/client/SshClientCliSupport.java`
+#### Snippet
+```java
+                }
+            } else if ("-o".equals(argName)) {
+                String opt = argVal;
+                int idx = opt.indexOf('=');
+                if (idx <= 0) {
+```
+
 ## RuleId[ruleID=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
@@ -20444,6 +20458,19 @@ in `sshd-core/src/main/java/org/apache/sshd/server/shell/InvertedShellWrapper.ja
                 Thread.sleep(pumpSleepTime.toMillis());
             }
         } catch (Throwable e) {
+```
+
+## RuleId[ruleID=WaitNotInLoop]
+### WaitNotInLoop
+Call to `wait()` is not in loop
+in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultSftpClient.java`
+#### Snippet
+```java
+            if (GenericUtils.isPositive(idleTimeout)) {
+                try {
+                    messages.wait(idleTimeout.toMillis(), idleTimeout.getNano() % 1_000_000);
+                } catch (InterruptedException e) {
+                    throw (IOException) new InterruptedIOException("Interrupted while waiting for messages").initCause(e);
 ```
 
 ## RuleId[ruleID=ThrowableNotThrown]
@@ -20481,19 +20508,6 @@ in `sshd-core/src/main/java/org/apache/sshd/common/channel/SimpleIoOutputStream.
         IoUtils.closeQuietly(os);
         super.doCloseImmediately();
     }
-```
-
-## RuleId[ruleID=WaitNotInLoop]
-### WaitNotInLoop
-Call to `wait()` is not in loop
-in `sshd-sftp/src/main/java/org/apache/sshd/sftp/client/impl/DefaultSftpClient.java`
-#### Snippet
-```java
-            if (GenericUtils.isPositive(idleTimeout)) {
-                try {
-                    messages.wait(idleTimeout.toMillis(), idleTimeout.getNano() % 1_000_000);
-                } catch (InterruptedException e) {
-                    throw (IOException) new InterruptedIOException("Interrupted while waiting for messages").initCause(e);
 ```
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
