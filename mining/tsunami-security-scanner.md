@@ -77,15 +77,15 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/Payload.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'bodyBytes'
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
+`Optional` used as type for parameter 'requestBody'
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpRequest.java`
 #### Snippet
 ```java
     public abstract Builder setHeaders(HttpHeaders httpHeaders);
-    public abstract Builder setBodyBytes(ByteString bodyBytes);
-    public abstract Builder setBodyBytes(Optional<ByteString> bodyBytes);
-    public abstract Builder setResponseUrl(HttpUrl url);
-    public abstract Builder setResponseUrl(Optional<HttpUrl> url);
+    public abstract Builder setRequestBody(ByteString requestBody);
+    public abstract Builder setRequestBody(Optional<ByteString> requestBody);
+
+    public Builder withEmptyHeaders() {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -101,15 +101,15 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'requestBody'
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpRequest.java`
+`Optional` used as type for parameter 'bodyBytes'
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 #### Snippet
 ```java
     public abstract Builder setHeaders(HttpHeaders httpHeaders);
-    public abstract Builder setRequestBody(ByteString requestBody);
-    public abstract Builder setRequestBody(Optional<ByteString> requestBody);
-
-    public Builder withEmptyHeaders() {
+    public abstract Builder setBodyBytes(ByteString bodyBytes);
+    public abstract Builder setBodyBytes(Optional<ByteString> bodyBytes);
+    public abstract Builder setResponseUrl(HttpUrl url);
+    public abstract Builder setResponseUrl(Optional<HttpUrl> url);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -165,18 +165,6 @@ in `plugin/src/main/java/com/google/tsunami/plugin/TcsClient.java`
 ## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpRequest.java`
-#### Snippet
-```java
-        case HEAD:
-          checkState(
-              !httpRequest.requestBody().isPresent(),
-              "A request body is not allowed for HTTP GET/HEAD request");
-          break;
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 #### Snippet
 ```java
@@ -197,6 +185,18 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
         && !pluginDefinition.targetSoftware().isPresent()
         && !pluginDefinition.isForWebService()) {
       // No filtering annotation applied, just match all network services from reconnaissance.
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpRequest.java`
+#### Snippet
+```java
+        case HEAD:
+          checkState(
+              !httpRequest.requestBody().isPresent(),
+              "A request body is not allowed for HTTP GET/HEAD request");
+          break;
 ```
 
 ### SimplifyOptionalCallChains
@@ -305,10 +305,10 @@ in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.java`
 #### Snippet
 ```java
-      return httpClientCliOptions.connectTimeoutSeconds;
+      return httpClientCliOptions.callTimeoutSeconds;
     }
-    if (httpClientConfigProperties.connectTimeoutSeconds != null) {
-      return httpClientConfigProperties.connectTimeoutSeconds;
+    if (httpClientConfigProperties.callTimeoutSeconds != null) {
+      return httpClientConfigProperties.callTimeoutSeconds;
     }
 ```
 
@@ -317,10 +317,10 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.jav
 in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.java`
 #### Snippet
 ```java
-      return httpClientCliOptions.trustAllCertificates;
+      return httpClientCliOptions.readTimeoutSeconds;
     }
-    if (httpClientConfigProperties.trustAllCertificates != null) {
-      return httpClientConfigProperties.trustAllCertificates;
+    if (httpClientConfigProperties.readTimeoutSeconds != null) {
+      return httpClientConfigProperties.readTimeoutSeconds;
     }
 ```
 
@@ -341,10 +341,10 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.jav
 in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.java`
 #### Snippet
 ```java
-      return httpClientCliOptions.callTimeoutSeconds;
+      return httpClientCliOptions.trustAllCertificates;
     }
-    if (httpClientConfigProperties.callTimeoutSeconds != null) {
-      return httpClientConfigProperties.callTimeoutSeconds;
+    if (httpClientConfigProperties.trustAllCertificates != null) {
+      return httpClientConfigProperties.trustAllCertificates;
     }
 ```
 
@@ -353,10 +353,10 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.jav
 in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientModule.java`
 #### Snippet
 ```java
-      return httpClientCliOptions.readTimeoutSeconds;
+      return httpClientCliOptions.connectTimeoutSeconds;
     }
-    if (httpClientConfigProperties.readTimeoutSeconds != null) {
-      return httpClientConfigProperties.readTimeoutSeconds;
+    if (httpClientConfigProperties.connectTimeoutSeconds != null) {
+      return httpClientConfigProperties.connectTimeoutSeconds;
     }
 ```
 
@@ -502,30 +502,6 @@ in `common/src/main/java/com/google/tsunami/common/version/ComparisonUtility.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpHeaders.java`
-#### Snippet
-```java
-   * (lower case to original string value).
-   */
-  private static void addFields(ImmutableBiMap.Builder<String, String> builder, Class<?> clazz) {
-    try {
-      for (Field field : clazz.getFields()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpHeaders.java`
-#### Snippet
-```java
-   * (lower case to original string value).
-   */
-  private static void addFields(ImmutableBiMap.Builder<String, String> builder, Class<?> clazz) {
-    try {
-      for (Field field : clazz.getFields()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends PluginDefinition`
 in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 #### Snippet
@@ -547,6 +523,30 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
   PluginManager(Map<PluginDefinition, Provider<TsunamiPlugin>> tsunamiPlugins) {
     this.tsunamiPlugins = tsunamiPlugins;
   }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpHeaders.java`
+#### Snippet
+```java
+   * (lower case to original string value).
+   */
+  private static void addFields(ImmutableBiMap.Builder<String, String> builder, Class<?> clazz) {
+    try {
+      for (Field field : clazz.getFields()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpHeaders.java`
+#### Snippet
+```java
+   * (lower case to original string value).
+   */
+  private static void addFields(ImmutableBiMap.Builder<String, String> builder, Class<?> clazz) {
+    try {
+      for (Field field : clazz.getFields()) {
 ```
 
 ### BoundedWildcard
@@ -574,18 +574,6 @@ in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HttpQueryParameter`
-in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
-#### Snippet
-```java
-  }
-
-  private static String assembleQueryParams(ImmutableList<HttpQueryParameter> params) {
-    return params.stream()
-        .map(param -> String.format("%s=%s", param.name(), param.value()))
-```
-
-### BoundedWildcard
 Can generalize to `? super ImmutableList`
 in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
 #### Snippet
@@ -595,6 +583,18 @@ in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
       ImmutableSet.Builder<ImmutableList<HttpQueryParameter>> builder,
       ImmutableList<HttpQueryParameter> params,
       int index,
+```
+
+### BoundedWildcard
+Can generalize to `? extends HttpQueryParameter`
+in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
+#### Snippet
+```java
+  }
+
+  private static String assembleQueryParams(ImmutableList<HttpQueryParameter> params) {
+    return params.stream()
+        .map(param -> String.format("%s=%s", param.name(), param.value()))
 ```
 
 ## RuleId[ruleID=UnstableTypeUsedInSignature]
@@ -624,18 +624,6 @@ public abstract class ServerPortCommand {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutor.java`
-#### Snippet
-```java
-
-    @AutoValue.Builder
-    public abstract static class Builder<T> {
-      @SuppressWarnings("rawtypes")  // AutoValue bug for not handling generic correctly.
-      public abstract Builder<T> setMatchedPlugin(PluginMatchingResult matchedPlugin);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `PluginExecutorConfig` has no concrete subclass
 in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutor.java`
 #### Snippet
@@ -649,14 +637,14 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutor.java`
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutionResult.java`
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutor.java`
 #### Snippet
 ```java
-  /** Builder for {@link PluginExecutionResult}. */
-  @AutoValue.Builder
-  public abstract static class Builder<T> {
-    public abstract Builder<T> setExecutionStatus(ExecutionStatus executionStatus);
-    public abstract Builder<T> setResultData(T resultData);
+
+    @AutoValue.Builder
+    public abstract static class Builder<T> {
+      @SuppressWarnings("rawtypes")  // AutoValue bug for not handling generic correctly.
+      public abstract Builder<T> setMatchedPlugin(PluginMatchingResult matchedPlugin);
 ```
 
 ### AbstractClassNeverImplemented
@@ -669,6 +657,18 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutionResult.java`
 public abstract class PluginExecutionResult<T> {
   /** All possible execution status of a Tsunami plugin. */
   public enum ExecutionStatus {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutionResult.java`
+#### Snippet
+```java
+  /** Builder for {@link PluginExecutionResult}. */
+  @AutoValue.Builder
+  public abstract static class Builder<T> {
+    public abstract Builder<T> setExecutionStatus(ExecutionStatus executionStatus);
+    public abstract Builder<T> setResultData(T resultData);
 ```
 
 ### AbstractClassNeverImplemented
@@ -696,27 +696,39 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/testing/FakePayloadGe
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `HttpResponse` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
+Abstract class `PluginMatchingResult` has no concrete subclass
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 #### Snippet
 ```java
-// HttpUrl is immutable even if not marked as such.
-@SuppressWarnings("Immutable")
-public abstract class HttpResponse {
-  public abstract HttpStatus status();
-  public abstract HttpHeaders headers();
+  /** Matched {@link TsunamiPlugin}s based on certain criteria. */
+  @AutoValue
+  public abstract static class PluginMatchingResult<T extends TsunamiPlugin> {
+    public abstract PluginDefinition pluginDefinition();
+
 ```
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 #### Snippet
 ```java
-  /** Builder for {@link HttpResponse}. */
+    @SuppressWarnings("CanIgnoreReturnValueSuggester")
+    @AutoValue.Builder
+    public abstract static class Builder<T extends TsunamiPlugin> {
+      public abstract Builder<T> setPluginDefinition(PluginDefinition value);
+      public abstract Builder<T> setTsunamiPlugin(T value);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpRequest.java`
+#### Snippet
+```java
+  /** Builder for {@link HttpRequest}. */
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract Builder setStatus(HttpStatus httpStatus);
-    public abstract Builder setHeaders(HttpHeaders httpHeaders);
+    public abstract Builder setMethod(HttpMethod method);
+    public abstract Builder setUrl(String url);
 ```
 
 ### AbstractClassNeverImplemented
@@ -733,14 +745,50 @@ public abstract class HttpRequest {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpRequest.java`
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 #### Snippet
 ```java
-  /** Builder for {@link HttpRequest}. */
+  /** Builder for {@link HttpResponse}. */
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract Builder setMethod(HttpMethod method);
-    public abstract Builder setUrl(String url);
+    public abstract Builder setStatus(HttpStatus httpStatus);
+    public abstract Builder setHeaders(HttpHeaders httpHeaders);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `HttpResponse` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
+#### Snippet
+```java
+// HttpUrl is immutable even if not marked as such.
+@SuppressWarnings("Immutable")
+public abstract class HttpResponse {
+  public abstract HttpStatus status();
+  public abstract HttpHeaders headers();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `VersionSet` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/common/version/VersionSet.java`
+#### Snippet
+```java
+@AutoValue
+@Immutable
+public abstract class VersionSet {
+  public abstract ImmutableList<Version> versions();
+  public abstract ImmutableList<VersionRange> versionRanges();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/common/version/VersionSet.java`
+#### Snippet
+```java
+  /** Builder for {@link VersionSet}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    abstract ImmutableList.Builder<Version> versionsBuilder();
+    public Builder addVersion(Version version) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -768,54 +816,6 @@ public abstract class HttpHeaders {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/common/version/VersionSet.java`
-#### Snippet
-```java
-  /** Builder for {@link VersionSet}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    abstract ImmutableList.Builder<Version> versionsBuilder();
-    public Builder addVersion(Version version) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `VersionSet` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/common/version/VersionSet.java`
-#### Snippet
-```java
-@AutoValue
-@Immutable
-public abstract class VersionSet {
-  public abstract ImmutableList<Version> versions();
-  public abstract ImmutableList<VersionRange> versionRanges();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
-#### Snippet
-```java
-    @SuppressWarnings("CanIgnoreReturnValueSuggester")
-    @AutoValue.Builder
-    public abstract static class Builder<T extends TsunamiPlugin> {
-      public abstract Builder<T> setPluginDefinition(PluginDefinition value);
-      public abstract Builder<T> setTsunamiPlugin(T value);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `PluginMatchingResult` has no concrete subclass
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
-#### Snippet
-```java
-  /** Matched {@link TsunamiPlugin}s based on certain criteria. */
-  @AutoValue
-  public abstract static class PluginMatchingResult<T extends TsunamiPlugin> {
-    public abstract PluginDefinition pluginDefinition();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Segment` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/common/version/Segment.java`
 #### Snippet
@@ -840,18 +840,6 @@ in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/common/version/Version.java`
-#### Snippet
-```java
-  /** Builder for {@link Version}. */
-  @AutoValue.Builder
-  public abstract static class Builder {
-    public abstract Builder setVersionType(Type value);
-    public abstract Builder setVersionString(String value);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Version` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/common/version/Version.java`
 #### Snippet
@@ -861,6 +849,18 @@ in `common/src/main/java/com/google/tsunami/common/version/Version.java`
 public abstract class Version implements Comparable<Version> {
   private static final Pattern EPOCH_PATTERN = Pattern.compile("\\d+[:|_].*");
   private static final Pattern SEMANTIC_SEGMENT_SEPARATORS = Pattern.compile("[-:_~]");
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/common/version/Version.java`
+#### Snippet
+```java
+  /** Builder for {@link Version}. */
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setVersionType(Type value);
+    public abstract Builder setVersionString(String value);
 ```
 
 ### AbstractClassNeverImplemented
@@ -929,11 +929,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 #### Snippet
 ```java
-  private final String[] args;
   private Process process;
   @Nullable private String output;
   @Nullable private String error;
 
+  public CommandExecutor(String... args) {
 ```
 
 ### NullableProblems
@@ -941,11 +941,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 #### Snippet
 ```java
+  private final String[] args;
   private Process process;
   @Nullable private String output;
   @Nullable private String error;
 
-  public CommandExecutor(String... args) {
 ```
 
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
@@ -959,18 +959,6 @@ in `plugin/src/main/java/com/google/tsunami/plugin/TcsClient.java`
         jsonParser.merge(response.bodyString().get(), result);
         return Optional.of(result.build());
       } else {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-            .flatMap(
-                detectionResult ->
-                    detectionResult.resultData().get().getDetectionReportsList().stream())
-            .collect(toImmutableList());
-    ImmutableList<String> failedPlugins =
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -995,6 +983,18 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
     executionTracer.startPortScanning(ImmutableList.of(matchedPortScanner.get()));
 
     NetworkService networkService = scanTarget.getNetworkService();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
+#### Snippet
+```java
+            .flatMap(
+                detectionResult ->
+                    detectionResult.resultData().get().getDetectionReportsList().stream())
+            .collect(toImmutableList());
+    ImmutableList<String> failedPlugins =
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
@@ -1083,15 +1083,27 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
 ```
 
 ### UnstableApiUsage
-'toString()' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
 #### Snippet
 ```java
-   */
-  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
-    return toHostAndPort(networkEndpoint).toString();
-  }
+  public static NetworkEndpoint forHostname(String hostname) {
+    checkArgument(
+        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
 
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+  public static NetworkEndpoint forHostname(String hostname) {
+    checkArgument(
+        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
+
+    return NetworkEndpoint.newBuilder()
 ```
 
 ### UnstableApiUsage
@@ -1116,6 +1128,42 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
     checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
 
     return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
+    return toHostAndPort(networkEndpoint).toString();
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+    checkArgument(
+        0 <= port && port <= MAX_PORT_NUMBER,
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+    checkArgument(
+        0 <= port && port <= MAX_PORT_NUMBER,
 ```
 
 ### UnstableApiUsage
@@ -1224,102 +1272,6 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
         return HostAndPort.fromParts(
             networkEndpoint.getHostname().getName(), networkEndpoint.getPort().getPortNumber());
       case UNRECOGNIZED:
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  public static NetworkEndpoint forHostname(String hostname) {
-    checkArgument(
-        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  public static NetworkEndpoint forHostname(String hostname) {
-    checkArgument(
-        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-    checkArgument(
-        0 <= port && port <= MAX_PORT_NUMBER,
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-    checkArgument(
-        0 <= port && port <= MAX_PORT_NUMBER,
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
-#### Snippet
-```java
-      PluginExecutorConfig<T> executorConfig) {
-    // Executes the core plugin logic within the thread pool.
-    return FluentFuture.from(
-            pluginExecutionThreadPool.submit(
-                () -> {
-```
-
-### UnstableApiUsage
-'from(com.google.common.util.concurrent.ListenableFuture)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
-#### Snippet
-```java
-      PluginExecutorConfig<T> executorConfig) {
-    // Executes the core plugin logic within the thread pool.
-    return FluentFuture.from(
-            pluginExecutionThreadPool.submit(
-                () -> {
-```
-
-### UnstableApiUsage
-'transform(com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
-#### Snippet
-```java
-                }))
-        // If execution succeeded, build successful execution result.
-        .transform(resultData -> buildSucceededResult(resultData, executorConfig), directExecutor())
-        // If execution failed, build failed execution result.
-        .catching(
-```
-
-### UnstableApiUsage
-'catching(java.lang.Class, com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
-#### Snippet
-```java
-        .transform(resultData -> buildSucceededResult(resultData, executorConfig), directExecutor())
-        // If execution failed, build failed execution result.
-        .catching(
-            Throwable.class,
-            exception -> buildFailedResult(exception, executorConfig),
 ```
 
 ### UnstableApiUsage
@@ -1455,6 +1407,54 @@ in `plugin/src/main/java/com/google/tsunami/plugin/TcsClient.java`
 ```
 
 ### UnstableApiUsage
+'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
+#### Snippet
+```java
+      PluginExecutorConfig<T> executorConfig) {
+    // Executes the core plugin logic within the thread pool.
+    return FluentFuture.from(
+            pluginExecutionThreadPool.submit(
+                () -> {
+```
+
+### UnstableApiUsage
+'from(com.google.common.util.concurrent.ListenableFuture)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
+#### Snippet
+```java
+      PluginExecutorConfig<T> executorConfig) {
+    // Executes the core plugin logic within the thread pool.
+    return FluentFuture.from(
+            pluginExecutionThreadPool.submit(
+                () -> {
+```
+
+### UnstableApiUsage
+'transform(com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
+#### Snippet
+```java
+                }))
+        // If execution succeeded, build successful execution result.
+        .transform(resultData -> buildSucceededResult(resultData, executorConfig), directExecutor())
+        // If execution failed, build failed execution result.
+        .catching(
+```
+
+### UnstableApiUsage
+'catching(java.lang.Class, com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/PluginExecutorImpl.java`
+#### Snippet
+```java
+        .transform(resultData -> buildSucceededResult(resultData, executorConfig), directExecutor())
+        // If execution failed, build failed execution result.
+        .catching(
+            Throwable.class,
+            exception -> buildFailedResult(exception, executorConfig),
+```
+
+### UnstableApiUsage
 'stream(java.util.Optional)' is marked unstable with @Beta
 in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 #### Snippet
@@ -1476,54 +1476,6 @@ in `common/src/main/java/com/google/tsunami/common/concurrent/BaseThreadPoolModu
         MoreExecutors.addDelayedShutdownHook(
             service, shutdownDelay.toMillis(), TimeUnit.MILLISECONDS);
       }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                .map(executorConfig -> pluginExecutorProvider.get().executeAsync(executorConfig))
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
-        .transform(
-            executionResults ->
-```
-
-### UnstableApiUsage
-'from(com.google.common.util.concurrent.ListenableFuture)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                .map(executorConfig -> pluginExecutorProvider.get().executeAsync(executorConfig))
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
-        .transform(
-            executionResults ->
-```
-
-### UnstableApiUsage
-'successfulAsList(java.lang.Iterable\>)' is marked unstable with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                .map(executorConfig -> pluginExecutorProvider.get().executeAsync(executorConfig))
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
-        .transform(
-            executionResults ->
-```
-
-### UnstableApiUsage
-'transform(com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
-        .transform(
-            executionResults ->
-                ReconnaissanceReport.newBuilder()
 ```
 
 ### UnstableApiUsage
@@ -1683,51 +1635,51 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
 ```
 
 ### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
 ```java
-    checkNotNull(config.pollingUri);
-    checkArgument(
-        InetAddresses.isInetAddress(config.callbackAddress)
-            || InternetDomainName.isValid(config.callbackAddress),
-        "Invalid callback address specified");
+                .map(executorConfig -> pluginExecutorProvider.get().executeAsync(executorConfig))
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
+        .transform(
+            executionResults ->
 ```
 
 ### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+'from(com.google.common.util.concurrent.ListenableFuture)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
 ```java
-    checkNotNull(config.pollingUri);
-    checkArgument(
-        InetAddresses.isInetAddress(config.callbackAddress)
-            || InternetDomainName.isValid(config.callbackAddress),
-        "Invalid callback address specified");
+                .map(executorConfig -> pluginExecutorProvider.get().executeAsync(executorConfig))
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
+        .transform(
+            executionResults ->
 ```
 
 ### UnstableApiUsage
-'com.google.common.net.InternetDomainName' is marked unstable with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+'successfulAsList(java.lang.Iterable\>)' is marked unstable with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
 ```java
-    checkArgument(
-        InetAddresses.isInetAddress(config.callbackAddress)
-            || InternetDomainName.isValid(config.callbackAddress),
-        "Invalid callback address specified");
-    checkArgument(
+                .map(executorConfig -> pluginExecutorProvider.get().executeAsync(executorConfig))
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
+        .transform(
+            executionResults ->
 ```
 
 ### UnstableApiUsage
-'isValid(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+'transform(com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
 ```java
-    checkArgument(
-        InetAddresses.isInetAddress(config.callbackAddress)
-            || InternetDomainName.isValid(config.callbackAddress),
-        "Invalid callback address specified");
-    checkArgument(
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
+        .transform(
+            executionResults ->
+                ReconnaissanceReport.newBuilder()
 ```
 
 ### UnstableApiUsage
@@ -1776,5 +1728,53 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModul
                 Resources.getResource(this.getClass(), "payload_definitions.yaml"),
                 UTF_8));
 
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+    checkNotNull(config.pollingUri);
+    checkArgument(
+        InetAddresses.isInetAddress(config.callbackAddress)
+            || InternetDomainName.isValid(config.callbackAddress),
+        "Invalid callback address specified");
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+    checkNotNull(config.pollingUri);
+    checkArgument(
+        InetAddresses.isInetAddress(config.callbackAddress)
+            || InternetDomainName.isValid(config.callbackAddress),
+        "Invalid callback address specified");
+```
+
+### UnstableApiUsage
+'com.google.common.net.InternetDomainName' is marked unstable with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+    checkArgument(
+        InetAddresses.isInetAddress(config.callbackAddress)
+            || InternetDomainName.isValid(config.callbackAddress),
+        "Invalid callback address specified");
+    checkArgument(
+```
+
+### UnstableApiUsage
+'isValid(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+    checkArgument(
+        InetAddresses.isInetAddress(config.callbackAddress)
+            || InternetDomainName.isValid(config.callbackAddress),
+        "Invalid callback address specified");
+    checkArgument(
 ```
 
