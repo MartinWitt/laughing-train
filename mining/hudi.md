@@ -1,7 +1,7 @@
 # hudi 
  
 # Bad smells
-I found 3231 bad smells with 577 repairable:
+I found 3232 bad smells with 577 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 586 | false |
@@ -108,6 +108,7 @@ I found 3231 bad smells with 577 repairable:
 | EqualsBetweenInconvertibleTypes | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | EqualsAndHashcode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | CastConflictsWithInstanceof | 1 | false |
 | OptionalContainsCollection | 1 | false |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 1 | false |
@@ -143,18 +144,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/SparkTempViewProvider.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Comparable\[commitDetails.size()\]'
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.java`
-#### Snippet
-```java
-      commitDetails.add(Option.ofNullable(record.get(metadataName)).orElse("{}").toString());
-    }
-    return commitDetails.toArray(new Comparable[commitDetails.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[l.size()\]'
 in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodiePrintHelper.java`
 #### Snippet
@@ -164,6 +153,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodiePrintHelper.java`
         buffer.getRenderRows().stream().map(l -> l.toArray(new String[l.size()])).toArray(String[][]::new);
     return printTextTable(header, rows);
   }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Comparable\[commitDetails.size()\]'
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.java`
+#### Snippet
+```java
+      commitDetails.add(Option.ofNullable(record.get(metadataName)).orElse("{}").toString());
+    }
+    return commitDetails.toArray(new Comparable[commitDetails.size()]);
+  }
+
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -203,27 +204,15 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableIn
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new CombineHiveInputSplit\[result.size()\]'
+Call to `toArray()` with pre-sized array argument 'new Path\[paths.size()\]'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
 ```java
-
-    LOG.info("number of splits " + result.size());
-    return result.toArray(new CombineHiveInputSplit[result.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new InputSplit\[result.size()\]'
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
-#### Snippet
-```java
-    LOG.info("Number of all splits " + result.size());
-    perfLogger.PerfLogEnd(CLASS_NAME, PerfLogger.GET_SPLITS);
-    return result.toArray(new InputSplit[result.size()]);
-  }
-
+        try {
+          List<Path> paths = Utilities.getInputPathsTez(job, mrwork);
+          dirs = paths.toArray(new Path[paths.size()]);
+        } catch (Exception e) {
+          throw new IOException("Could not create input files", e);
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -251,15 +240,27 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveIn
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Path\[paths.size()\]'
+Call to `toArray()` with pre-sized array argument 'new CombineHiveInputSplit\[result.size()\]'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
 ```java
-        try {
-          List<Path> paths = Utilities.getInputPathsTez(job, mrwork);
-          dirs = paths.toArray(new Path[paths.size()]);
-        } catch (Exception e) {
-          throw new IOException("Could not create input files", e);
+
+    LOG.info("number of splits " + result.size());
+    return result.toArray(new CombineHiveInputSplit[result.size()]);
+  }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new InputSplit\[result.size()\]'
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+    LOG.info("Number of all splits " + result.size());
+    perfLogger.PerfLogEnd(CLASS_NAME, PerfLogger.GET_SPLITS);
+    return result.toArray(new InputSplit[result.size()]);
+  }
+
 ```
 
 ## RuleId[ruleID=WrapperTypeMayBePrimitive]
@@ -329,42 +330,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.
 #### Snippet
 ```java
 
-  public Long getTotalScanTime() {
-    Long totalScanTime = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
-  public Long getTotalCompactedRecordsUpdated() {
-    Long totalUpdateRecords = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
-  public Long getTotalLogRecordsCompacted() {
-    Long totalLogRecords = 0L;
-    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
-      for (HoodieWriteStat writeStat : entry.getValue()) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
-#### Snippet
-```java
-
   public Long getTotalUpsertTime() {
     Long totalUpsertTime = 0L;
     for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
@@ -389,6 +354,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.
 #### Snippet
 ```java
 
+  public Long getTotalLogRecordsCompacted() {
+    Long totalLogRecords = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
   public Long getTotalLogFilesCompacted() {
     Long totalLogFiles = 0L;
     for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
@@ -401,8 +378,32 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.
 #### Snippet
 ```java
 
+  public Long getTotalCompactedRecordsUpdated() {
+    Long totalUpdateRecords = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
   public Long getTotalCreateTime() {
     Long totalCreateTime = 0L;
+    for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
+      for (HoodieWriteStat writeStat : entry.getValue()) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieCommitMetadata.java`
+#### Snippet
+```java
+
+  public Long getTotalScanTime() {
+    Long totalScanTime = 0L;
     for (Map.Entry<String, List<HoodieWriteStat>> entry : partitionToWriteStats.entrySet()) {
       for (HoodieWriteStat writeStat : entry.getValue()) {
 ```
@@ -524,10 +525,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 #### Snippet
 ```java
 
-    private HFile.Reader partitionIndexReader() {
-      if (null == indexByPartitionReader) {
+    private HFile.Reader fileIdIndexReader() {
+      if (null == indexByFileIdReader) {
         synchronized (this) {
-          if (null == indexByPartitionReader) {
+          if (null == indexByFileIdReader) {
 ```
 
 ### DoubleCheckedLocking
@@ -536,10 +537,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 #### Snippet
 ```java
 
-    private HFile.Reader fileIdIndexReader() {
-      if (null == indexByFileIdReader) {
+    private HFile.Reader partitionIndexReader() {
+      if (null == indexByPartitionReader) {
         synchronized (this) {
-          if (null == indexByFileIdReader) {
+          if (null == indexByPartitionReader) {
 ```
 
 ### DoubleCheckedLocking
@@ -609,11 +610,11 @@ Commented out code (4 lines)
 in `hudi-common/src/main/java/org/apache/hudi/avro/ConvertingGenericData.java`
 #### Snippet
 ```java
-    // NOTE: Those are not supported in Avro 1.8.2
-    // TODO re-enable upon upgrading to 1.10
-    // addLogicalTypeConversion(TIME_MILLIS_CONVERSION);
-    // addLogicalTypeConversion(TIMESTAMP_MILLIS_CONVERSION);
-    // addLogicalTypeConversion(LOCAL_TIMESTAMP_MILLIS_CONVERSION);
+  // NOTE: Those are not supported in Avro 1.8.2
+  // TODO re-enable upon upgrading to 1.10
+  // private static final TimeConversions.TimestampMillisConversion TIMESTAMP_MILLIS_CONVERSION = new TimeConversions.TimestampMillisConversion();
+  // private static final TimeConversions.TimeMillisConversion TIME_MILLIS_CONVERSION = new TimeConversions.TimeMillisConversion();
+  // private static final TimeConversions.LocalTimestampMillisConversion LOCAL_TIMESTAMP_MILLIS_CONVERSION = new TimeConversions.LocalTimestampMillisConversion();
 ```
 
 ### CommentedOutCode
@@ -621,11 +622,11 @@ Commented out code (4 lines)
 in `hudi-common/src/main/java/org/apache/hudi/avro/ConvertingGenericData.java`
 #### Snippet
 ```java
-  // NOTE: Those are not supported in Avro 1.8.2
-  // TODO re-enable upon upgrading to 1.10
-  // private static final TimeConversions.TimestampMillisConversion TIMESTAMP_MILLIS_CONVERSION = new TimeConversions.TimestampMillisConversion();
-  // private static final TimeConversions.TimeMillisConversion TIME_MILLIS_CONVERSION = new TimeConversions.TimeMillisConversion();
-  // private static final TimeConversions.LocalTimestampMillisConversion LOCAL_TIMESTAMP_MILLIS_CONVERSION = new TimeConversions.LocalTimestampMillisConversion();
+    // NOTE: Those are not supported in Avro 1.8.2
+    // TODO re-enable upon upgrading to 1.10
+    // addLogicalTypeConversion(TIME_MILLIS_CONVERSION);
+    // addLogicalTypeConversion(TIMESTAMP_MILLIS_CONVERSION);
+    // addLogicalTypeConversion(LOCAL_TIMESTAMP_MILLIS_CONVERSION);
 ```
 
 ### CommentedOutCode
@@ -690,30 +691,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CommitsCommand.java`
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `shutdownThread` from instance context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-  private void addShutDownHook() {
-    if (null == shutdownThread) {
-      shutdownThread = new Thread(() -> {
-        try {
-          hbaseConnection.close();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `hbaseConnection` from instance context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-      synchronized (SparkHoodieHBaseIndex.class) {
-        if (hbaseConnection == null || hbaseConnection.isClosed()) {
-          hbaseConnection = getHBaseConnection();
-        }
-      }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `hbaseConnection` from instance context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
@@ -742,11 +719,35 @@ Assignment to static field `hbaseConnection` from instance context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
+      synchronized (SparkHoodieHBaseIndex.class) {
+        if (hbaseConnection == null || hbaseConnection.isClosed()) {
+          hbaseConnection = getHBaseConnection();
+        }
+      }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `hbaseConnection` from instance context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
     synchronized (SparkHoodieHBaseIndex.class) {
       if (hbaseConnection == null || hbaseConnection.isClosed()) {
         hbaseConnection = getHBaseConnection();
       }
     }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `shutdownThread` from instance context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+  private void addShutDownHook() {
+    if (null == shutdownThread) {
+      shutdownThread = new Thread(() -> {
+        try {
+          hbaseConnection.close();
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -935,6 +936,30 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/HoodieLogFileCommand.jav
 ```
 
 ### SizeReplaceableByIsEmpty
+`config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0` can be replaced with '!config.getSplitStrings(META_SYNC_PARTITION_FIELDS).isEmpty()'
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
+#### Snippet
+```java
+      String newSchemaStr = HiveSchemaUtil.generateSchemaString(newSchema, config.getSplitStrings(META_SYNC_PARTITION_FIELDS), config.getBoolean(HIVE_SUPPORT_TIMESTAMP_TYPE));
+      // Cascade clause should not be present for non-partitioned tables
+      String cascadeClause = config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0 ? " cascade" : "";
+      StringBuilder sqlBuilder = new StringBuilder("ALTER TABLE ").append(HIVE_ESCAPE_CHARACTER)
+          .append(databaseName).append(HIVE_ESCAPE_CHARACTER).append(".")
+```
+
+### SizeReplaceableByIsEmpty
+`syncConfig.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0` can be replaced with '!syncConfig.getSplitStrings(META_SYNC_PARTITION_FIELDS).isEmpty()'
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/HMSDDLExecutor.java`
+#### Snippet
+```java
+  public void updateTableDefinition(String tableName, MessageType newSchema) {
+    try {
+      boolean cascade = syncConfig.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0;
+      List<FieldSchema> fieldSchema = HiveSchemaUtil.convertParquetSchemaToHiveFieldSchema(newSchema, syncConfig);
+      Table table = client.getTable(databaseName, tableName);
+```
+
+### SizeReplaceableByIsEmpty
 `zkConnectUrl.length() > 0` can be replaced with '!zkConnectUrl.isEmpty()'
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/transaction/lock/HiveMetastoreBasedLockProvider.java`
 #### Snippet
@@ -971,27 +996,15 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/transaction/lock
 ```
 
 ### SizeReplaceableByIsEmpty
-`syncConfig.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0` can be replaced with '!syncConfig.getSplitStrings(META_SYNC_PARTITION_FIELDS).isEmpty()'
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/HMSDDLExecutor.java`
+`partitionPaths.size() > 0` can be replaced with '!partitionPaths.isEmpty()'
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/JavaUpsertPartitioner.java`
 #### Snippet
 ```java
-  public void updateTableDefinition(String tableName, MessageType newSchema) {
-    try {
-      boolean cascade = syncConfig.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0;
-      List<FieldSchema> fieldSchema = HiveSchemaUtil.convertParquetSchemaToHiveFieldSchema(newSchema, syncConfig);
-      Table table = client.getTable(databaseName, tableName);
-```
+    }
 
-### SizeReplaceableByIsEmpty
-`config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0` can be replaced with '!config.getSplitStrings(META_SYNC_PARTITION_FIELDS).isEmpty()'
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
-#### Snippet
-```java
-      String newSchemaStr = HiveSchemaUtil.generateSchemaString(newSchema, config.getSplitStrings(META_SYNC_PARTITION_FIELDS), config.getBoolean(HIVE_SUPPORT_TIMESTAMP_TYPE));
-      // Cascade clause should not be present for non-partitioned tables
-      String cascadeClause = config.getSplitStrings(META_SYNC_PARTITION_FIELDS).size() > 0 ? " cascade" : "";
-      StringBuilder sqlBuilder = new StringBuilder("ALTER TABLE ").append(HIVE_ESCAPE_CHARACTER)
-          .append(databaseName).append(HIVE_ESCAPE_CHARACTER).append(".")
+    if (partitionPaths != null && partitionPaths.size() > 0) {
+      context.setJobStatus(this.getClass().getSimpleName(), "Getting small files from partitions: " + config.getTableName());
+      partitionSmallFilesMap = context.mapToPair(partitionPaths,
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1004,18 +1017,6 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/comm
     if (partitionPaths != null && partitionPaths.size() > 0) {
       partitionToExistingFileIds = context.mapToPair(partitionPaths,
           partitionPath -> Pair.of(partitionPath, getAllExistingFileIds(partitionPath)), 1);
-```
-
-### SizeReplaceableByIsEmpty
-`partitionPaths.size() > 0` can be replaced with '!partitionPaths.isEmpty()'
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/JavaUpsertPartitioner.java`
-#### Snippet
-```java
-    }
-
-    if (partitionPaths != null && partitionPaths.size() > 0) {
-      context.setJobStatus(this.getClass().getSimpleName(), "Getting small files from partitions: " + config.getTableName());
-      partitionSmallFilesMap = context.mapToPair(partitionPaths,
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1043,18 +1044,6 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering
 ```
 
 ### SizeReplaceableByIsEmpty
-`rolloverPaths.size() > 0` can be replaced with '!rolloverPaths.isEmpty()'
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
-#### Snippet
-```java
-  @Override
-  public Path getWritePath() {
-    return rolloverPaths.size() > 0 ? rolloverPaths.get(0) : newFilePath;
-  }
-}
-```
-
-### SizeReplaceableByIsEmpty
 `rolloverPaths.size() == 0` can be replaced with 'rolloverPaths.isEmpty()'
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
 #### Snippet
@@ -1064,6 +1053,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHan
     if (rolloverPaths.size() == 0) {
       // only one flush action, no need to roll over
       return;
+```
+
+### SizeReplaceableByIsEmpty
+`rolloverPaths.size() > 0` can be replaced with '!rolloverPaths.isEmpty()'
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHandle.java`
+#### Snippet
+```java
+  @Override
+  public Path getWritePath() {
+    return rolloverPaths.size() > 0 ? rolloverPaths.get(0) : newFilePath;
+  }
+}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1127,18 +1128,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Spar
 ```
 
 ### SizeReplaceableByIsEmpty
-`partitionPaths.size() > 0` can be replaced with '!partitionPaths.isEmpty()'
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
-#### Snippet
-```java
-        List<String> partitionPaths =
-            FSUtils.getAllPartitionPaths(context, config.getMetadataConfig(), table.getMetaClient().getBasePath());
-        if (partitionPaths != null && partitionPaths.size() > 0) {
-          context.setJobStatus(this.getClass().getSimpleName(), "Getting ExistingFileIds of all partitions: " + config.getTableName());
-          partitionToExistingFileIds = partitionPaths.stream().parallel()
-```
-
-### SizeReplaceableByIsEmpty
 `paths.size() == 0` can be replaced with 'paths.isEmpty()'
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDReadClient.java`
 #### Snippet
@@ -1151,15 +1140,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDR
 ```
 
 ### SizeReplaceableByIsEmpty
-`op.getDeltaFilePaths().size() > 0` can be replaced with '!op.getDeltaFilePaths().isEmpty()'
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
+`partitionPaths.size() > 0` can be replaced with '!partitionPaths.isEmpty()'
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
 #### Snippet
 ```java
-  private HoodieData<HoodieRecord<T>> readRecordsForGroup(JavaSparkContext jsc, HoodieClusteringGroup clusteringGroup, String instantTime) {
-    List<ClusteringOperation> clusteringOps = clusteringGroup.getSlices().stream().map(ClusteringOperation::create).collect(Collectors.toList());
-    boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
-    if (hasLogFiles) {
-      // if there are log files, we read all records into memory for a file group and apply updates.
+        List<String> partitionPaths =
+            FSUtils.getAllPartitionPaths(context, config.getMetadataConfig(), table.getMetaClient().getBasePath());
+        if (partitionPaths != null && partitionPaths.size() > 0) {
+          context.setJobStatus(this.getClass().getSimpleName(), "Getting ExistingFileIds of all partitions: " + config.getTableName());
+          partitionToExistingFileIds = partitionPaths.stream().parallel()
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1172,6 +1161,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clusterin
     boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
     SQLContext sqlContext = new SQLContext(jsc.sc());
 
+```
+
+### SizeReplaceableByIsEmpty
+`op.getDeltaFilePaths().size() > 0` can be replaced with '!op.getDeltaFilePaths().isEmpty()'
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
+#### Snippet
+```java
+  private HoodieData<HoodieRecord<T>> readRecordsForGroup(JavaSparkContext jsc, HoodieClusteringGroup clusteringGroup, String instantTime) {
+    List<ClusteringOperation> clusteringOps = clusteringGroup.getSlices().stream().map(ClusteringOperation::create).collect(Collectors.toList());
+    boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
+    if (hasLogFiles) {
+      // if there are log files, we read all records into memory for a file group and apply updates.
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1196,18 +1197,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Lis
         lr -> lr.getMatchingRecordKeys().size() > 0).collect(toList());
     return context.parallelize(keyLookupResults).flatMap(lookupResult ->
         lookupResult.getMatchingRecordKeys().stream()
-```
-
-### SizeReplaceableByIsEmpty
-`partitionPath.length() == 0` can be replaced with 'partitionPath.isEmpty()'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-
-  private String makeFilePath(HoodieLogFile logFile) {
-    return partitionPath.length() == 0
-        ? new Path(logFile.getFileName()).toString()
-        : new Path(partitionPath, logFile.getFileName()).toString();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1244,6 +1233,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppend
       if (blocks.size() > 0) {
         AppendResult appendResult = writer.appendBlocks(blocks);
         processAppendResult(appendResult, recordList);
+```
+
+### SizeReplaceableByIsEmpty
+`partitionPath.length() == 0` can be replaced with 'partitionPath.isEmpty()'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+
+  private String makeFilePath(HoodieLogFile logFile) {
+    return partitionPath.length() == 0
+        ? new Path(logFile.getFileName()).toString()
+        : new Path(partitionPath, logFile.getFileName()).toString();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1503,11 +1504,11 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatRe
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
 #### Snippet
 ```java
-    if (contains(PARTITION_FIELDS)) {
-      return Option.of(Arrays.stream(getString(PARTITION_FIELDS).split(","))
-          .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
-    }
-    return Option.empty();
+    String keyFieldsValue = getStringOrDefault(RECORDKEY_FIELDS, HoodieRecord.RECORD_KEY_METADATA_FIELD);
+    return Option.of(Arrays.stream(keyFieldsValue.split(","))
+        .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
+  }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1515,11 +1516,11 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.jav
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
 #### Snippet
 ```java
-    String keyFieldsValue = getStringOrDefault(RECORDKEY_FIELDS, HoodieRecord.RECORD_KEY_METADATA_FIELD);
-    return Option.of(Arrays.stream(keyFieldsValue.split(","))
-        .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
-  }
-
+    if (contains(PARTITION_FIELDS)) {
+      return Option.of(Arrays.stream(getString(PARTITION_FIELDS).split(","))
+          .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
+    }
+    return Option.empty();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1607,18 +1608,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.fields.size() == 0` can be replaced with 'this.fields.isEmpty()'
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/utils/QuickstartConfigurations.java`
-#### Snippet
-```java
-
-    public String end() {
-      if (this.fields.size() == 0) {
-        this.fields = FIELDS;
-      }
-```
-
-### SizeReplaceableByIsEmpty
 `nonHoodiePaths.size() > 0` can be replaced with '!nonHoodiePaths.isEmpty()'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
 #### Snippet
@@ -1640,6 +1629,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableIn
     if (snapshotPaths.size() > 0) {
       returns.addAll(listStatusForSnapshotMode(job, tableMetaClientMap, snapshotPaths));
     }
+```
+
+### SizeReplaceableByIsEmpty
+`this.fields.size() == 0` can be replaced with 'this.fields.isEmpty()'
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/utils/QuickstartConfigurations.java`
+#### Snippet
+```java
+
+    public String end() {
+      if (this.fields.size() == 0) {
+        this.fields = FIELDS;
+      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1676,30 +1677,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieCombineRe
     } else if (recordReaders.size() > 0) {
       this.currentRecordReader.close();
       this.currentRecordReader = recordReaders.remove(0);
-```
-
-### SizeReplaceableByIsEmpty
-`latestFileSlices.size() == 0` can be replaced with 'latestFileSlices.isEmpty()'
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-      final List<FileSlice> latestFileSlices = HoodieTableMetadataUtil
-          .getPartitionLatestFileSlices(metaClient.get(), fsView, partitionType.getPartitionPath());
-      if (latestFileSlices.size() == 0 && !partitionType.getPartitionPath().equals(MetadataPartitionType.FILES.getPartitionPath())) {
-        return getFileGroupCount(partitionType, metadataConfig);
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`relativeFilePathsToDelete.size() > 0` can be replaced with '!relativeFilePathsToDelete.isEmpty()'
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-          .flatMap(e -> e.getValue().stream())
-          .collect(Collectors.toList());
-      if (relativeFilePathsToDelete.size() > 0) {
-        if (!backupFiles(relativeFilePathsToDelete)) {
-          LOG.error("Error backing up dangling files. Exiting...");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1763,6 +1740,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotCopier.
 ```
 
 ### SizeReplaceableByIsEmpty
+`relativeFilePathsToDelete.size() > 0` can be replaced with '!relativeFilePathsToDelete.isEmpty()'
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+          .flatMap(e -> e.getValue().stream())
+          .collect(Collectors.toList());
+      if (relativeFilePathsToDelete.size() > 0) {
+        if (!backupFiles(relativeFilePathsToDelete)) {
+          LOG.error("Error backing up dangling files. Exiting...");
+```
+
+### SizeReplaceableByIsEmpty
+`latestFileSlices.size() == 0` can be replaced with 'latestFileSlices.isEmpty()'
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+      final List<FileSlice> latestFileSlices = HoodieTableMetadataUtil
+          .getPartitionLatestFileSlices(metaClient.get(), fsView, partitionType.getPartitionPath());
+      if (latestFileSlices.size() == 0 && !partitionType.getPartitionPath().equals(MetadataPartitionType.FILES.getPartitionPath())) {
+        return getFileGroupCount(partitionType, metadataConfig);
+      }
+```
+
+### SizeReplaceableByIsEmpty
 `logFileStatus.size() > 0` can be replaced with '!logFileStatus.isEmpty()'
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
@@ -1808,6 +1809,18 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/transaction/Connect
             if (ws.getErrors().size() > 0) {
               ws.getErrors().forEach((key, value) -> LOG.trace("Error for key:" + key + " is " + value));
             }
+```
+
+### SizeReplaceableByIsEmpty
+`records.size() > 0` can be replaced with '!records.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
+#### Snippet
+```java
+
+    List<HoodieRecord> records = bucket.writeBuffer();
+    ValidationUtils.checkState(records.size() > 0, "Data bucket to flush has no buffering records");
+    if (config.getBoolean(FlinkOptions.PRE_COMBINE)) {
+      Properties props = new Properties();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1859,18 +1872,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWr
 ```
 
 ### SizeReplaceableByIsEmpty
-`records.size() > 0` can be replaced with '!records.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteFunction.java`
-#### Snippet
-```java
-
-    List<HoodieRecord> records = bucket.writeBuffer();
-    ValidationUtils.checkState(records.size() > 0, "Data bucket to flush has no buffering records");
-    if (config.getBoolean(FlinkOptions.PRE_COMBINE)) {
-      Properties props = new Properties();
-```
-
-### SizeReplaceableByIsEmpty
 `this.messages.size() > 0` can be replaced with '!this.messages.isEmpty()'
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/meta/CkpMetadata.java`
 #### Snippet
@@ -1880,18 +1881,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/meta/Ckp
     if (this.messages.size() > 0) {
       CkpMessage ckpMsg = this.messages.get(this.messages.size() - 1);
       // consider 'aborted' as pending too to reuse the instant
-```
-
-### SizeReplaceableByIsEmpty
-`evt.getWriteStatuses().size() > 0` can be replaced with '!evt.getWriteStatuses().isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
-#### Snippet
-```java
-      // start to initialize the instant.
-      final String instant = Arrays.stream(eventBuffer)
-          .filter(evt -> evt.getWriteStatuses().size() > 0)
-          .findFirst().map(WriteMetadataEvent::getInstantTime)
-          .orElse(WriteMetadataEvent.BOOTSTRAP_INSTANT);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1919,6 +1908,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWr
 ```
 
 ### SizeReplaceableByIsEmpty
+`evt.getWriteStatuses().size() > 0` can be replaced with '!evt.getWriteStatuses().isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWriteOperatorCoordinator.java`
+#### Snippet
+```java
+      // start to initialize the instant.
+      final String instant = Arrays.stream(eventBuffer)
+          .filter(evt -> evt.getWriteStatuses().size() > 0)
+          .findFirst().map(WriteMetadataEvent::getInstantTime)
+          .orElse(WriteMetadataEvent.BOOTSTRAP_INSTANT);
+```
+
+### SizeReplaceableByIsEmpty
 `ws.getErrors().size() > 0` can be replaced with '!ws.getErrors().isEmpty()'
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
 #### Snippet
@@ -1928,18 +1929,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSy
         if (ws.getErrors().size() > 0) {
           ws.getErrors().forEach((key, value) -> LOG.trace("Error for key:" + key + " is " + value));
         }
-```
-
-### SizeReplaceableByIsEmpty
-`op.getDeltaFilePaths().size() > 0` can be replaced with '!op.getDeltaFilePaths().isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
-#### Snippet
-```java
-
-    List<ClusteringOperation> clusteringOps = clusteringGroupInfo.getOperations();
-    boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
-
-    Iterator<RowData> iterator;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1955,15 +1944,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 ```
 
 ### SizeReplaceableByIsEmpty
-`types.size() == 0` can be replaced with 'types.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroSchemaConverter.java`
+`op.getDeltaFilePaths().size() > 0` can be replaced with '!op.getDeltaFilePaths().isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
 #### Snippet
 ```java
-   */
-  private static boolean recordTypesOfSameNumFields(List<Schema> types) {
-    if (types == null || types.size() == 0) {
-      return false;
-    }
+
+    List<ClusteringOperation> clusteringOps = clusteringGroupInfo.getOperations();
+    boolean hasLogFiles = clusteringOps.stream().anyMatch(op -> op.getDeltaFilePaths().size() > 0);
+
+    Iterator<RowData> iterator;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2003,15 +1992,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
 ```
 
 ### SizeReplaceableByIsEmpty
-`split.getLogPaths().get().size() > 0` can be replaced with '!split.getLogPaths().get().isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+`types.size() == 0` can be replaced with 'types.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroSchemaConverter.java`
 #### Snippet
 ```java
-
-  private ClosableIterator<RowData> getFileSliceIterator(MergeOnReadInputSplit split) {
-    if (!(split.getLogPaths().isPresent() && split.getLogPaths().get().size() > 0)) {
-      // base file only
-      return getBaseFileIteratorWithMetadata(split.getBasePath().get());
+   */
+  private static boolean recordTypesOfSameNumFields(List<Schema> types) {
+    if (types == null || types.size() == 0) {
+      return false;
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2039,14 +2028,50 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### SizeReplaceableByIsEmpty
-`relPartitionPaths.size() == 0` can be replaced with 'relPartitionPaths.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+`split.getLogPaths().get().size() > 0` can be replaced with '!split.getLogPaths().get().isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
 #### Snippet
 ```java
-    fileIndex.setPartitionPaths(requiredPartitionPaths);
-    List<String> relPartitionPaths = fileIndex.getOrBuildPartitionPaths();
-    if (relPartitionPaths.size() == 0) {
-      return new FileStatus[0];
+
+  private ClosableIterator<RowData> getFileSliceIterator(MergeOnReadInputSplit split) {
+    if (!(split.getLogPaths().isPresent() && split.getLogPaths().get().size() > 0)) {
+      // base file only
+      return getBaseFileIteratorWithMetadata(split.getBasePath().get());
+```
+
+### SizeReplaceableByIsEmpty
+`partitionKeys.size() == 0` can be replaced with 'partitionKeys.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
+#### Snippet
+```java
+      String defaultParName,
+      boolean hivePartition) {
+    if (partitionKeys.size() == 0) {
+      // non partitioned table
+      return Collections.emptyList();
+```
+
+### SizeReplaceableByIsEmpty
+`this.filters.size() == 0` can be replaced with 'this.filters.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
+#### Snippet
+```java
+      return null;
+    }
+    if (this.filters == null || this.filters.size() == 0) {
+      return null;
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`filters.size() > 0` can be replaced with '!filters.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
+#### Snippet
+```java
+   */
+  public void setFilters(List<ResolvedExpression> filters) {
+    if (filters.size() > 0) {
+      this.filters = new ArrayList<>(filters);
     }
 ```
 
@@ -2060,6 +2085,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
             if (inputSplits.size() == 0) {
               // When there is no input splits, just return an empty source.
               LOG.warn("No input splits generate for MERGE_ON_READ input format, returns empty collection instead");
+```
+
+### SizeReplaceableByIsEmpty
+`relPartitionPaths.size() == 0` can be replaced with 'relPartitionPaths.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+#### Snippet
+```java
+    fileIndex.setPartitionPaths(requiredPartitionPaths);
+    List<String> relPartitionPaths = fileIndex.getOrBuildPartitionPaths();
+    if (relPartitionPaths.size() == 0) {
+      return new FileStatus[0];
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2087,42 +2124,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog
 ```
 
 ### SizeReplaceableByIsEmpty
-`this.filters.size() == 0` can be replaced with 'this.filters.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
-#### Snippet
-```java
-      return null;
-    }
-    if (this.filters == null || this.filters.size() == 0) {
-      return null;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`partitionKeys.size() == 0` can be replaced with 'partitionKeys.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
-#### Snippet
-```java
-      String defaultParName,
-      boolean hivePartition) {
-    if (partitionKeys.size() == 0) {
-      // non partitioned table
-      return Collections.emptyList();
-```
-
-### SizeReplaceableByIsEmpty
-`filters.size() > 0` can be replaced with '!filters.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
-#### Snippet
-```java
-   */
-  public void setFilters(List<ResolvedExpression> filters) {
-    if (filters.size() > 0) {
-      this.filters = new ArrayList<>(filters);
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `split.getLogPaths().get().size() > 0` can be replaced with '!split.getLogPaths().get().isEmpty()'
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
@@ -2132,54 +2133,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
     if (!(split.getLogPaths().isPresent() && split.getLogPaths().get().size() > 0)) {
       if (split.getInstantRange().isPresent()) {
         // base file only with commit time filtering
-```
-
-### SizeReplaceableByIsEmpty
-`readPartitions.size() == 0` can be replaced with 'readPartitions.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-      FileIndex fileIndex = getFileIndex();
-      readPartitions = new HashSet<>(fileIndex.getOrBuildPartitionPaths());
-      if (readPartitions.size() == 0) {
-        LOG.warn("No partitions found for reading in user provided path.");
-        return Result.EMPTY;
-```
-
-### SizeReplaceableByIsEmpty
-`instants.size() == 0` can be replaced with 'instants.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-      fileStatuses = fileIndex.getFilesInPartitions();
-    } else {
-      if (instants.size() == 0) {
-        LOG.info("No new instant found for the table under path " + path + ", skip reading");
-        return Result.EMPTY;
-```
-
-### SizeReplaceableByIsEmpty
-`readPartitions.size() == 0` can be replaced with 'readPartitions.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-          .map(instant -> WriteProfiles.getCommitMetadata(tableName, path, instant, commitTimeline)).collect(Collectors.toList());
-      readPartitions = getReadPartitions(metadataList);
-      if (readPartitions.size() == 0) {
-        LOG.warn("No partitions found for reading in user provided path.");
-        return Result.EMPTY;
-```
-
-### SizeReplaceableByIsEmpty
-`readPartitions.size() == 0` can be replaced with 'readPartitions.isEmpty()'
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-        FileIndex fileIndex = getFileIndex();
-        readPartitions = new HashSet<>(fileIndex.getOrBuildPartitionPaths());
-        if (readPartitions.size() == 0) {
-          LOG.warn("No partitions found for reading in user provided path.");
-          return Result.EMPTY;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2243,6 +2196,54 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Increm
 ```
 
 ### SizeReplaceableByIsEmpty
+`readPartitions.size() == 0` can be replaced with 'readPartitions.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+      FileIndex fileIndex = getFileIndex();
+      readPartitions = new HashSet<>(fileIndex.getOrBuildPartitionPaths());
+      if (readPartitions.size() == 0) {
+        LOG.warn("No partitions found for reading in user provided path.");
+        return Result.EMPTY;
+```
+
+### SizeReplaceableByIsEmpty
+`instants.size() == 0` can be replaced with 'instants.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+      fileStatuses = fileIndex.getFilesInPartitions();
+    } else {
+      if (instants.size() == 0) {
+        LOG.info("No new instant found for the table under path " + path + ", skip reading");
+        return Result.EMPTY;
+```
+
+### SizeReplaceableByIsEmpty
+`readPartitions.size() == 0` can be replaced with 'readPartitions.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+          .map(instant -> WriteProfiles.getCommitMetadata(tableName, path, instant, commitTimeline)).collect(Collectors.toList());
+      readPartitions = getReadPartitions(metadataList);
+      if (readPartitions.size() == 0) {
+        LOG.warn("No partitions found for reading in user provided path.");
+        return Result.EMPTY;
+```
+
+### SizeReplaceableByIsEmpty
+`readPartitions.size() == 0` can be replaced with 'readPartitions.isEmpty()'
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+        FileIndex fileIndex = getFileIndex();
+        readPartitions = new HashSet<>(fileIndex.getOrBuildPartitionPaths());
+        if (readPartitions.size() == 0) {
+          LOG.warn("No partitions found for reading in user provided path.");
+          return Result.EMPTY;
+```
+
+### SizeReplaceableByIsEmpty
 `this.inputSplits.size() == 0` can be replaced with 'this.inputSplits.isEmpty()'
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
 #### Snippet
@@ -2267,6 +2268,18 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### SizeReplaceableByIsEmpty
+`listCommitsSince(fs, basePath, commitTimestamp).size() > 0` can be replaced with '!listCommitsSince(fs, basePath, commitTimestamp).isEmpty()'
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/HoodieDataSourceHelpers.java`
+#### Snippet
+```java
+  @PublicAPIMethod(maturity = ApiMaturityLevel.STABLE)
+  public static boolean hasNewCommits(FileSystem fs, String basePath, String commitTimestamp) {
+    return listCommitsSince(fs, basePath, commitTimestamp).size() > 0;
+  }
+
+```
+
+### SizeReplaceableByIsEmpty
 `filtered.size() > 0` can be replaced with '!filtered.isEmpty()'
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
@@ -2288,18 +2301,6 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/f
     ValidationUtils.checkState(filtered.size() > 0, "Corrupted Parquet schema");
     return filtered;
   }
-```
-
-### SizeReplaceableByIsEmpty
-`listCommitsSince(fs, basePath, commitTimestamp).size() > 0` can be replaced with '!listCommitsSince(fs, basePath, commitTimestamp).isEmpty()'
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/HoodieDataSourceHelpers.java`
-#### Snippet
-```java
-  @PublicAPIMethod(maturity = ApiMaturityLevel.STABLE)
-  public static boolean hasNewCommits(FileSystem fs, String basePath, String commitTimestamp) {
-    return listCommitsSince(fs, basePath, commitTimestamp).size() > 0;
-  }
-
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2357,30 +2358,6 @@ Empty string used in concatenation
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
 ```java
-          newV.putDecimal(i, oldDecimal, ((DecimalType) newType).precision());
-        } else if (newType instanceof StringType) {
-          newV.putByteArray(i, (oldV.getDouble(i) + "").getBytes(StandardCharsets.UTF_8));
-        }
-      }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
-          newV.putDouble(i, isInt ? oldV.getInt(i) : oldV.getLong(i));
-        } else if (newType instanceof StringType) {
-          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
-        } else if (newType instanceof DecimalType) {
-          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
         // float -> double/string/decimal
         if (newType instanceof DoubleType) {
           newV.putDouble(i, Double.valueOf(oldV.getFloat(i) + ""));
@@ -2402,14 +2379,26 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
 ```java
-        if (oldSchema.getType() == Schema.Type.FLOAT) {
-          // java float cannot convert to double directly, deal with float precision change
-          return Double.valueOf(oldValue + "");
-        } else if (oldSchema.getType() == Schema.Type.INT) {
-          return ((Integer) oldValue).doubleValue();
+          newV.putDecimal(i, oldDecimal, ((DecimalType) newType).precision());
+        } else if (newType instanceof StringType) {
+          newV.putByteArray(i, (oldV.getDouble(i) + "").getBytes(StandardCharsets.UTF_8));
+        }
+      }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
+#### Snippet
+```java
+          newV.putDouble(i, isInt ? oldV.getInt(i) : oldV.getLong(i));
+        } else if (newType instanceof StringType) {
+          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
+        } else if (newType instanceof DecimalType) {
+          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
 ```
 
 ### TrivialStringConcatenation
@@ -2422,6 +2411,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/NumericUtils.java`
     String pre = "KMGTPE".charAt(exp - 1) + "";
     return String.format("%.1f %sB", bytes / Math.pow(1024, exp), pre);
   }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+        if (oldSchema.getType() == Schema.Type.FLOAT) {
+          // java float cannot convert to double directly, deal with float precision change
+          return Double.valueOf(oldValue + "");
+        } else if (oldSchema.getType() == Schema.Type.INT) {
+          return ((Integer) oldValue).doubleValue();
 ```
 
 ### TrivialStringConcatenation
@@ -2478,23 +2479,23 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-    }
+   * Total number of log records that were compacted by a compaction operation.
+   */
+  @Nullable
+  private long totalLogRecords;
 
-    public void setTotalUpsertTime(@Nullable long totalUpsertTime) {
-      this.totalUpsertTime = totalUpsertTime;
-    }
 ```
 
 ### NullableProblems
-Primitive type members cannot be annotated
+Getter for @Nullable field might be annotated @Nullable itself
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-    private long totalCreateTime;
+  }
 
-    @Nullable
-    public long getTotalScanTime() {
-      return totalScanTime;
+  public Long getMaxEventTime() {
+    return maxEventTime;
+  }
 ```
 
 ### NullableProblems
@@ -2510,15 +2511,111 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 ```
 
 ### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
+    public void setTotalUpsertTime(@Nullable long totalUpsertTime) {
+      this.totalUpsertTime = totalUpsertTime;
+    }
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+     * Total time taken by a Hoodie Insert to a file.
+     */
+    @Nullable
+    private long totalCreateTime;
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
+    @Nullable
+    public long getTotalCreateTime() {
+      return totalCreateTime;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    private long totalCreateTime;
+
+    @Nullable
+    public long getTotalScanTime() {
+      return totalScanTime;
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+     * Total time taken by a Hoodie Merge for an existing file.
+     */
+    @Nullable
+    private long totalUpsertTime;
+
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
   }
 
-  public void setPartitionPath(String partitionPath) {
-    this.partitionPath = partitionPath;
+  public Long getMinEventTime() {
+    return minEventTime;
   }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+  }
+
+  public String getPartitionPath() {
+    return partitionPath;
+  }
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+   * Total number of rollback blocks seen in a compaction operation.
+   */
+  @Nullable
+  private long totalRollbackBlocks;
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+    }
+
+    public void setTotalScanTime(@Nullable long totalScanTime) {
+      this.totalScanTime = totalScanTime;
+    }
 ```
 
 ### NullableProblems
@@ -2538,6 +2635,18 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
+   * Total number of log files compacted for a file slice with this base fileid.
+   */
+  @Nullable
+  private long totalLogFilesCompacted;
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
     }
 
     @Nullable
@@ -2550,23 +2659,11 @@ Primitive type members cannot be annotated
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
-     * Total time taken to read and merge logblocks in a log file.
-     */
-    @Nullable
-    private long totalScanTime;
+   * Total number of corrupt blocks seen in a compaction operation.
+   */
+  @Nullable
+  private long totalCorruptLogBlock;
 
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-  }
-
-  public Long getMaxEventTime() {
-    return maxEventTime;
-  }
 ```
 
 ### NullableProblems
@@ -2594,135 +2691,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 ```
 
 ### NullableProblems
+Primitive type members cannot be annotated
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+     * Total time taken to read and merge logblocks in a log file.
+     */
+    @Nullable
+    private long totalScanTime;
+
+```
+
+### NullableProblems
 Setter parameter for @Nullable field might be annotated @Nullable itself
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
 #### Snippet
 ```java
   }
 
-  public void setTempPath(String tempPath) {
-    this.tempPath = tempPath;
+  public void setPartitionPath(String partitionPath) {
+    this.partitionPath = partitionPath;
   }
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of rollback blocks seen in a compaction operation.
-   */
-  @Nullable
-  private long totalRollbackBlocks;
-
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-  }
-
-  public Long getMinEventTime() {
-    return minEventTime;
-  }
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of corrupt blocks seen in a compaction operation.
-   */
-  @Nullable
-  private long totalCorruptLogBlock;
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    public long getTotalCreateTime() {
-      return totalCreateTime;
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-  }
-
-  public String getPartitionPath() {
-    return partitionPath;
-  }
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-    }
-
-    public void setTotalScanTime(@Nullable long totalScanTime) {
-      this.totalScanTime = totalScanTime;
-    }
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-     * Total time taken by a Hoodie Insert to a file.
-     */
-    @Nullable
-    private long totalCreateTime;
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-     * Total time taken by a Hoodie Merge for an existing file.
-     */
-    @Nullable
-    private long totalUpsertTime;
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of log records that were compacted by a compaction operation.
-   */
-  @Nullable
-  private long totalLogRecords;
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
-#### Snippet
-```java
-   * Total number of log files compacted for a file slice with this base fileid.
-   */
-  @Nullable
-  private long totalLogFilesCompacted;
-
 ```
 
 ### NullableProblems
@@ -2735,6 +2724,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
   @Nullable
   private long totalLogSizeCompacted;
 
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieWriteStat.java`
+#### Snippet
+```java
+  }
+
+  public void setTempPath(String tempPath) {
+    this.tempPath = tempPath;
+  }
 ```
 
 ## RuleId[ruleID=EqualsBetweenInconvertibleTypes]
@@ -2768,35 +2769,23 @@ Result of `HoodieCLI.getTableMetaClient()` is ignored
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
+  public String validateFiles(
+      @ShellOption(value = {"--verbose"}, help = "Print all file details", defaultValue = "false") final boolean verbose) throws IOException {
+    HoodieCLI.getTableMetaClient();
+    HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
+    HoodieBackedTableMetadata metadataReader = new HoodieBackedTableMetadata(
+```
+
+### IgnoreResultOfCall
+Result of `HoodieCLI.getTableMetaClient()` is ignored
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
+#### Snippet
+```java
   @ShellMethod(key = "metadata stats", value = "Print stats about the metadata")
   public String stats() throws IOException {
     HoodieCLI.getTableMetaClient();
     HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
     HoodieBackedTableMetadata metadata = new HoodieBackedTableMetadata(new HoodieLocalEngineContext(HoodieCLI.conf),
-```
-
-### IgnoreResultOfCall
-Result of `HoodieCLI.getTableMetaClient()` is ignored
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
-#### Snippet
-```java
-  public String listFiles(
-      @ShellOption(value = {"--partition"}, help = "Name of the partition to list files", defaultValue = "") final String partition) throws IOException {
-    HoodieCLI.getTableMetaClient();
-    HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
-    HoodieBackedTableMetadata metaReader = new HoodieBackedTableMetadata(
-```
-
-### IgnoreResultOfCall
-Result of `HoodieCLI.getTableMetaClient()` is ignored
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
-#### Snippet
-```java
-      @ShellOption(value = "--sparkMaster", defaultValue = SparkUtil.DEFAULT_SPARK_MASTER, help = "Spark master") final String master
-  ) throws IOException {
-    HoodieCLI.getTableMetaClient();
-    Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
-    try {
 ```
 
 ### IgnoreResultOfCall
@@ -2816,23 +2805,11 @@ Result of `HoodieCLI.getTableMetaClient()` is ignored
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
 #### Snippet
 ```java
-  @ShellMethod(key = "metadata delete", value = "Remove the Metadata Table")
-  public String delete() throws Exception {
+      @ShellOption(value = "--sparkMaster", defaultValue = SparkUtil.DEFAULT_SPARK_MASTER, help = "Spark master") final String master
+  ) throws IOException {
     HoodieCLI.getTableMetaClient();
     Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
     try {
-```
-
-### IgnoreResultOfCall
-Result of `HoodieCLI.getTableMetaClient()` is ignored
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
-#### Snippet
-```java
-  public String validateFiles(
-      @ShellOption(value = {"--verbose"}, help = "Print all file details", defaultValue = "false") final boolean verbose) throws IOException {
-    HoodieCLI.getTableMetaClient();
-    HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
-    HoodieBackedTableMetadata metadataReader = new HoodieBackedTableMetadata(
 ```
 
 ### IgnoreResultOfCall
@@ -2845,6 +2822,30 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
     HoodieCLI.getTableMetaClient();
     Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
     try {
+```
+
+### IgnoreResultOfCall
+Result of `HoodieCLI.getTableMetaClient()` is ignored
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
+#### Snippet
+```java
+  @ShellMethod(key = "metadata delete", value = "Remove the Metadata Table")
+  public String delete() throws Exception {
+    HoodieCLI.getTableMetaClient();
+    Path metadataPath = new Path(getMetadataTableBasePath(HoodieCLI.basePath));
+    try {
+```
+
+### IgnoreResultOfCall
+Result of `HoodieCLI.getTableMetaClient()` is ignored
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/MetadataCommand.java`
+#### Snippet
+```java
+  public String listFiles(
+      @ShellOption(value = {"--partition"}, help = "Name of the partition to list files", defaultValue = "") final String partition) throws IOException {
+    HoodieCLI.getTableMetaClient();
+    HoodieMetadataConfig config = HoodieMetadataConfig.newBuilder().enable(true).build();
+    HoodieBackedTableMetadata metaReader = new HoodieBackedTableMetadata(
 ```
 
 ### IgnoreResultOfCall
@@ -2948,18 +2949,6 @@ Result of `File.mkdirs()` is ignored
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
 #### Snippet
 ```java
-      LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
-          + ", BaseDir=" + baseStoreDir);
-      new File(baseStoreDir).mkdirs();
-      Map<HoodieFileGroupId, HoodieInstant> pendingMap = new ExternalSpillableMap<>(
-          maxMemoryForClusteringFileGroups, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
       LOG.info("Creating Partition To File groups map using external spillable Map. Max Mem=" + maxMemoryForFileGroupMap
           + ", BaseDir=" + baseStoreDir);
       new File(baseStoreDir).mkdirs();
@@ -2996,6 +2985,18 @@ Result of `File.mkdirs()` is ignored
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
 #### Snippet
 ```java
+      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+          + ", BaseDir=" + baseStoreDir);
+      new File(baseStoreDir).mkdirs();
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> pendingMap = new ExternalSpillableMap<>(
+          maxMemoryForPendingLogCompaction, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
       LOG.info("Creating Pending Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingCompaction
           + ", BaseDir=" + baseStoreDir);
       new File(baseStoreDir).mkdirs();
@@ -3008,11 +3009,11 @@ Result of `File.mkdirs()` is ignored
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
 #### Snippet
 ```java
-      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+      LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
           + ", BaseDir=" + baseStoreDir);
       new File(baseStoreDir).mkdirs();
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> pendingMap = new ExternalSpillableMap<>(
-          maxMemoryForPendingLogCompaction, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
+      Map<HoodieFileGroupId, HoodieInstant> pendingMap = new ExternalSpillableMap<>(
+          maxMemoryForClusteringFileGroups, baseStoreDir, new DefaultSizeEstimator(), new DefaultSizeEstimator<>(),
 ```
 
 ### IgnoreResultOfCall
@@ -3034,44 +3035,20 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSy
 #### Snippet
 ```java
   @Override
-  public boolean delete(Path f) throws IOException {
-    return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.delete(f, true)).start().booleanValue();
-  }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
-#### Snippet
-```java
-  public boolean mkdirs(Path f, FsPermission permission) throws IOException {
-    return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList)
-        .tryWith(() -> fileSystem.mkdirs(f, permission)).start().booleanValue();
-  }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
-#### Snippet
-```java
-  @Override
-  public boolean exists(Path f) throws IOException {
-    return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.exists(f)).start().booleanValue();
-  }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
-#### Snippet
-```java
-  @Override
   public boolean createNewFile(Path f) throws IOException {
     return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.createNewFile(f)).start().booleanValue();
+  }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
+#### Snippet
+```java
+  @Override
+  public boolean delete(Path f) throws IOException {
+    return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.delete(f, true)).start().booleanValue();
   }
 
 ```
@@ -3093,9 +3070,33 @@ Unnecessary unboxing
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
 #### Snippet
 ```java
+  @Override
+  public boolean exists(Path f) throws IOException {
+    return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList).tryWith(() -> fileSystem.exists(f)).start().booleanValue();
+  }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
+#### Snippet
+```java
   public boolean delete(Path f, boolean recursive) throws IOException {
     return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList)
         .tryWith(() -> fileSystem.delete(f, recursive)).start().booleanValue();
+  }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieRetryWrapperFileSystem.java`
+#### Snippet
+```java
+  public boolean mkdirs(Path f, FsPermission permission) throws IOException {
+    return new RetryHelper<Boolean, IOException>(maxRetryIntervalMs, maxRetryNumbers, initialRetryIntervalMs, retryExceptionsList)
+        .tryWith(() -> fileSystem.mkdirs(f, permission)).start().booleanValue();
   }
 
 ```
@@ -3210,6 +3211,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/Hoodi
 ```
 
 ### RedundantMethodOverride
+Method `getCommitActionType()` is identical to its super method
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  protected String getCommitActionType() {
+    return table.getMetaClient().getCommitActionType();
+  }
+```
+
+### RedundantMethodOverride
 Method `isWorkloadProfileNeeded()` is identical to its super method
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
 #### Snippet
@@ -3222,14 +3235,14 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### RedundantMethodOverride
-Method `getCommitActionType()` is identical to its super method
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/BaseFlinkCommitActionExecutor.java`
+Method `end()` is identical to its super method
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/HoodieBloomIndexCheckFunction.java`
 #### Snippet
 ```java
 
-  @Override
-  protected String getCommitActionType() {
-    return table.getMetaClient().getCommitActionType();
+    @Override
+    protected void end() {
+    }
   }
 ```
 
@@ -3243,18 +3256,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Hood
     protected void start() {
     }
 
-```
-
-### RedundantMethodOverride
-Method `end()` is identical to its super method
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/HoodieBloomIndexCheckFunction.java`
-#### Snippet
-```java
-
-    @Override
-    protected void end() {
-    }
-  }
 ```
 
 ### RedundantMethodOverride
@@ -3294,18 +3295,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bucket/Hoo
 ```
 
 ### RedundantMethodOverride
-Method `finalizeWrite()` only delegates to its super method
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSparkMergeOnReadTable.java`
-#### Snippet
-```java
-
-  @Override
-  public void finalizeWrite(HoodieEngineContext context, String instantTs, List<HoodieWriteStat> stats)
-      throws HoodieIOException {
-    // delegate to base class for MOR tables
-```
-
-### RedundantMethodOverride
 Method `scheduleRollback()` is identical to its super method
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSparkMergeOnReadTable.java`
 #### Snippet
@@ -3315,6 +3304,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSpar
   public Option<HoodieRollbackPlan> scheduleRollback(HoodieEngineContext context,
                                                      String instantTime,
                                                      HoodieInstant instantToRollback, boolean skipTimelinePublish, boolean shouldRollbackUsingMarkers) {
+```
+
+### RedundantMethodOverride
+Method `finalizeWrite()` only delegates to its super method
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/HoodieSparkMergeOnReadTable.java`
+#### Snippet
+```java
+
+  @Override
+  public void finalizeWrite(HoodieEngineContext context, String instantTs, List<HoodieWriteStat> stats)
+      throws HoodieIOException {
+    // delegate to base class for MOR tables
 ```
 
 ### RedundantMethodOverride
@@ -3342,18 +3343,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### RedundantMethodOverride
-Method `end()` is identical to its super method
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieBaseBloomIndexCheckFunction.java`
-#### Snippet
-```java
-
-    @Override
-    protected void end() {
-    }
-  }
-```
-
-### RedundantMethodOverride
 Method `start()` is identical to its super method
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieBaseBloomIndexCheckFunction.java`
 #### Snippet
@@ -3363,6 +3352,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Hoo
     protected void start() {
     }
 
+```
+
+### RedundantMethodOverride
+Method `end()` is identical to its super method
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieBaseBloomIndexCheckFunction.java`
+#### Snippet
+```java
+
+    @Override
+    protected void end() {
+    }
+  }
 ```
 
 ### RedundantMethodOverride
@@ -3402,6 +3403,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/prometh
 ```
 
 ### RedundantMethodOverride
+Method `close()` only delegates to its super method
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroParquetWriter.java`
+#### Snippet
+```java
+
+  @Override
+  public void close() throws IOException {
+    super.close();
+  }
+```
+
+### RedundantMethodOverride
 Method `end()` is identical to its super method
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/execution/HoodieLazyInsertIterable.java`
 #### Snippet
@@ -3423,18 +3436,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/execution/Hoodi
   protected void start() {}
 
   @Override
-```
-
-### RedundantMethodOverride
-Method `close()` only delegates to its super method
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroParquetWriter.java`
-#### Snippet
-```java
-
-  @Override
-  public void close() throws IOException {
-    super.close();
-  }
 ```
 
 ### RedundantMethodOverride
@@ -3475,7 +3476,7 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Type.java`
 
 ### RedundantMethodOverride
 Method `withPositionChange()` is identical to its super method
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChanges.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange.java`
 #### Snippet
 ```java
 
@@ -3487,7 +3488,7 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange
 
 ### RedundantMethodOverride
 Method `withPositionChange()` is identical to its super method
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChange.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChanges.java`
 #### Snippet
 ```java
 
@@ -3650,6 +3651,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadS
 #### Snippet
 ```java
         location.getFileId(),
+        Pair.of(location.getInstantTime(), numUpdates + accNumUpdates));
+    return this.numUpdates += numUpdates;
+  }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadStat.java`
+#### Snippet
+```java
+        location.getFileId(),
         Pair.of(location.getInstantTime(), numInserts + accNumInserts));
     return this.numInserts += numInserts;
   }
@@ -3664,18 +3677,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadS
 
   public long addInserts(long numInserts) {
     return this.numInserts += numInserts;
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/WorkloadStat.java`
-#### Snippet
-```java
-        location.getFileId(),
-        Pair.of(location.getInstantTime(), numUpdates + accNumUpdates));
-    return this.numUpdates += numUpdates;
   }
 
 ```
@@ -3948,18 +3949,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHood
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentTxnOwnerInstant` is accessed in both synchronized and unsynchronized contexts
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/TransactionManager.java`
-#### Snippet
-```java
-  private final LockManager lockManager;
-  private final boolean isOptimisticConcurrencyControlEnabled;
-  private Option<HoodieInstant> currentTxnOwnerInstant = Option.empty();
-  private Option<HoodieInstant> lastCompletedTxnOwnerInstant = Option.empty();
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `lastCompletedTxnOwnerInstant` is accessed in both synchronized and unsynchronized contexts
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/TransactionManager.java`
 #### Snippet
@@ -3972,14 +3961,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transact
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `lockInfo` is accessed in both synchronized and unsynchronized contexts
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/lock/FileSystemBasedLockProvider.java`
+Field `currentTxnOwnerInstant` is accessed in both synchronized and unsynchronized contexts
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/TransactionManager.java`
 #### Snippet
 ```java
-  protected LockConfiguration lockConfiguration;
-  private SimpleDateFormat sdf;
-  private LockInfo lockInfo;
-  private String currentOwnerLockInfo;
+  private final LockManager lockManager;
+  private final boolean isOptimisticConcurrencyControlEnabled;
+  private Option<HoodieInstant> currentTxnOwnerInstant = Option.empty();
+  private Option<HoodieInstant> lastCompletedTxnOwnerInstant = Option.empty();
 
 ```
 
@@ -3993,6 +3982,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transact
   private transient Timer lockDuration;
   private transient Timer lockApiRequestDuration;
   private static final Object REGISTRY_LOCK = new Object();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lockInfo` is accessed in both synchronized and unsynchronized contexts
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/transaction/lock/FileSystemBasedLockProvider.java`
+#### Snippet
+```java
+  protected LockConfiguration lockConfiguration;
+  private SimpleDateFormat sdf;
+  private LockInfo lockInfo;
+  private String currentOwnerLockInfo;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4080,18 +4081,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDbDisk
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `totalCorruptBlocks` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  private AtomicLong totalRollbacks = new AtomicLong(0);
-  // Total number of corrupt blocks written across all log files
-  private AtomicLong totalCorruptBlocks = new AtomicLong(0);
-  // Store the last instant log blocks (needed to implement rollback)
-  private Deque<HoodieLogBlock> currentInstantLogBlocks = new ArrayDeque<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `progress` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
@@ -4101,30 +4090,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
   private float progress = 0.0f;
   // Partition name
   private Option<String> partitionName;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `totalLogRecords` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  private AtomicLong totalLogBlocks = new AtomicLong(0);
-  // Total log records read - for metrics
-  private AtomicLong totalLogRecords = new AtomicLong(0);
-  // Total number of rollbacks written across all log files
-  private AtomicLong totalRollbacks = new AtomicLong(0);
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `partitionName` is accessed in both synchronized and unsynchronized contexts
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-  private float progress = 0.0f;
-  // Partition name
-  private Option<String> partitionName;
-  // Populate meta fields for the records
-  private boolean populateMetaFields = true;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4152,6 +4117,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `totalCorruptBlocks` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private AtomicLong totalRollbacks = new AtomicLong(0);
+  // Total number of corrupt blocks written across all log files
+  private AtomicLong totalCorruptBlocks = new AtomicLong(0);
+  // Store the last instant log blocks (needed to implement rollback)
+  private Deque<HoodieLogBlock> currentInstantLogBlocks = new ArrayDeque<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `simpleKeyGenFields` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private final TypedProperties payloadProps;
+  // simple key gen fields
+  private Option<Pair<String, String>> simpleKeyGenFields = Option.empty();
+  // Log File Paths
+  protected final List<String> logFilePaths;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `currentInstantLogBlocks` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
@@ -4176,15 +4165,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `simpleKeyGenFields` is accessed in both synchronized and unsynchronized contexts
+Field `totalLogRecords` is accessed in both synchronized and unsynchronized contexts
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
 ```java
-  private final TypedProperties payloadProps;
-  // simple key gen fields
-  private Option<Pair<String, String>> simpleKeyGenFields = Option.empty();
-  // Log File Paths
-  protected final List<String> logFilePaths;
+  private AtomicLong totalLogBlocks = new AtomicLong(0);
+  // Total log records read - for metrics
+  private AtomicLong totalLogRecords = new AtomicLong(0);
+  // Total number of rollbacks written across all log files
+  private AtomicLong totalRollbacks = new AtomicLong(0);
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `partitionName` is accessed in both synchronized and unsynchronized contexts
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+  private float progress = 0.0f;
+  // Partition name
+  private Option<String> partitionName;
+  // Populate meta fields for the records
+  private boolean populateMetaFields = true;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4320,18 +4321,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Stream
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `dispatchingThreadFuture` is accessed in both synchronized and unsynchronized contexts
-in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/MarkerHandler.java`
-#### Snippet
-```java
-  private final Object firstCreationRequestSeenLock = new Object();
-  private transient HoodieEngineContext hoodieEngineContext;
-  private ScheduledFuture<?> dispatchingThreadFuture;
-  private boolean firstCreationRequestSeen;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `firstCreationRequestSeen` is accessed in both synchronized and unsynchronized contexts
 in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/MarkerHandler.java`
 #### Snippet
@@ -4341,6 +4330,18 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handler
   private boolean firstCreationRequestSeen;
 
   public MarkerHandler(Configuration conf, TimelineService.Config timelineServiceConfig,
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `dispatchingThreadFuture` is accessed in both synchronized and unsynchronized contexts
+in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/MarkerHandler.java`
+#### Snippet
+```java
+  private final Object firstCreationRequestSeenLock = new Object();
+  private transient HoodieEngineContext hoodieEngineContext;
+  private ScheduledFuture<?> dispatchingThreadFuture;
+  private boolean firstCreationRequestSeen;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4368,6 +4369,19 @@ public class SerializablePath implements Serializable {
   private Path path;
 ```
 
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-07-16-34-24.152.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[ruleID=CallToStringConcatCanBeReplacedByOperator]
 ### CallToStringConcatCanBeReplacedByOperator
 Call to `concat()` can be replaced with '+' expression
@@ -4378,6 +4392,18 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.jav
     final String bloomFilterIndexKey = new PartitionIndexID(partitionName).asBase64EncodedString()
         .concat(new FileIndexID(baseFileName).asBase64EncodedString());
     HoodieKey key = new HoodieKey(bloomFilterIndexKey, MetadataPartitionType.BLOOM_FILTERS.getPartitionPath());
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+#### Snippet
+```java
+  public static String getBloomFilterIndexKey(PartitionIndexID partitionIndexID, FileIndexID fileIndexID) {
+    return partitionIndexID.asBase64EncodedString()
+        .concat(fileIndexID.asBase64EncodedString());
+  }
 
 ```
 
@@ -4400,18 +4426,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.jav
 ```java
     return columnIndexID.asBase64EncodedString()
         .concat(partitionIndexID.asBase64EncodedString())
-        .concat(fileIndexID.asBase64EncodedString());
-  }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
-#### Snippet
-```java
-  public static String getBloomFilterIndexKey(PartitionIndexID partitionIndexID, FileIndexID fileIndexID) {
-    return partitionIndexID.asBase64EncodedString()
         .concat(fileIndexID.asBase64EncodedString());
   }
 
@@ -4544,18 +4558,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  protected void tryInitRowAccessor(StructType schema) {
-    if (this.rowAccessor == null) {
-      synchronized (this) {
-        if (this.rowAccessor == null) {
-          this.rowAccessor = new SparkRowAccessor(schema);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
-#### Snippet
-```java
   private UTF8StringPartitionPathFormatter getUTF8StringPartitionPathFormatter() {
     if (utf8StringPartitionPathFormatter == null) {
       synchronized (this) {
@@ -4568,11 +4570,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  private StringPartitionPathFormatter getStringPartitionPathFormatter() {
-    if (stringPartitionPathFormatter == null) {
+  private void tryInitRowConverter(StructType structType) {
+    if (rowConverter == null) {
       synchronized (this) {
-        if (stringPartitionPathFormatter == null) {
-          this.stringPartitionPathFormatter = new StringPartitionPathFormatter(
+        if (rowConverter == null) {
+          rowConverter = new SparkRowConverter(structType);
 ```
 
 ### SynchronizeOnThis
@@ -4580,11 +4582,23 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  private void tryInitRowConverter(StructType structType) {
-    if (rowConverter == null) {
+  protected void tryInitRowAccessor(StructType schema) {
+    if (this.rowAccessor == null) {
       synchronized (this) {
-        if (rowConverter == null) {
-          rowConverter = new SparkRowConverter(structType);
+        if (this.rowAccessor == null) {
+          this.rowAccessor = new SparkRowAccessor(schema);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+  private StringPartitionPathFormatter getStringPartitionPathFormatter() {
+    if (stringPartitionPathFormatter == null) {
+      synchronized (this) {
+        if (stringPartitionPathFormatter == null) {
+          this.stringPartitionPathFormatter = new StringPartitionPathFormatter(
 ```
 
 ### SynchronizeOnThis
@@ -4677,10 +4691,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/metrics/Registry.java`
 #### Snippet
 ```java
    */
-  static Map<String, Long> getAllMetrics(boolean flush, boolean prefixWithRegistryName) {
+  static Registry getRegistry(String registryName, String clazz) {
     synchronized (Registry.class) {
-      HashMap<String, Long> allMetrics = new HashMap<>();
-      REGISTRY_MAP.forEach((registryName, registry) -> {
+      if (!REGISTRY_MAP.containsKey(registryName)) {
+        Registry registry = (Registry)ReflectionUtils.loadClass(clazz, registryName);
 ```
 
 ### SynchronizeOnThis
@@ -4689,10 +4703,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/metrics/Registry.java`
 #### Snippet
 ```java
    */
-  static Registry getRegistry(String registryName, String clazz) {
+  static Map<String, Long> getAllMetrics(boolean flush, boolean prefixWithRegistryName) {
     synchronized (Registry.class) {
-      if (!REGISTRY_MAP.containsKey(registryName)) {
-        Registry registry = (Registry)ReflectionUtils.loadClass(clazz, registryName);
+      HashMap<String, Long> allMetrics = new HashMap<>();
+      REGISTRY_MAP.forEach((registryName, registry) -> {
 ```
 
 ### SynchronizeOnThis
@@ -4700,11 +4714,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
 ```java
-    private HFile.Reader partitionIndexReader() {
-      if (null == indexByPartitionReader) {
-        synchronized (this) {
-          if (null == indexByPartitionReader) {
-            LOG.info("Opening partition index :" + indexByPartitionPath);
+
+    private void initIndexInfo() {
+      synchronized (this) {
+        if (null == bootstrapIndexInfo) {
+          try {
 ```
 
 ### SynchronizeOnThis
@@ -4724,11 +4738,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
 ```java
-
-    private void initIndexInfo() {
-      synchronized (this) {
-        if (null == bootstrapIndexInfo) {
-          try {
+    private HFile.Reader partitionIndexReader() {
+      if (null == indexByPartitionReader) {
+        synchronized (this) {
+          if (null == indexByPartitionReader) {
+            LOG.info("Opening partition index :" + indexByPartitionPath);
 ```
 
 ### SynchronizeOnThis
@@ -4768,18 +4782,6 @@ in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexMana
 ```
 
 ### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/factory/CollectSinkTableFactory.java`
-#### Snippet
-```java
-      }
-      this.taskID = getRuntimeContext().getIndexOfThisSubtask();
-      synchronized (CollectSinkTableFactory.class) {
-        RESULT.put(taskID, localResult);
-      }
-```
-
-### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
@@ -4801,6 +4803,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.j
         synchronized (this) {
           if (latestCommitWithValidData == null) {
             latestCommitWithValidData = instant;
+```
+
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/factory/CollectSinkTableFactory.java`
+#### Snippet
+```java
+      }
+      this.taskID = getRuntimeContext().getIndexOfThisSubtask();
+      synchronized (CollectSinkTableFactory.class) {
+        RESULT.put(taskID, localResult);
+      }
 ```
 
 ## RuleId[ruleID=DoubleBraceInitialization]
@@ -4859,6 +4873,18 @@ The value changed at `idx++` is never used
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
 #### Snippet
 ```java
+        row[idx++] = fs.getLogFiles().filter(lf -> lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
+            .collect(Collectors.toList()).toString();
+        row[idx++] = fs.getLogFiles().filter(lf -> !lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
+            .collect(Collectors.toList()).toString();
+      }
+```
+
+### UnusedAssignment
+The value changed at `idx++` is never used
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
+#### Snippet
+```java
         row[idx++] = fs.getLogFiles().count();
         row[idx++] = fs.getLogFiles().mapToLong(HoodieLogFile::getFileSize).sum();
         row[idx++] = fs.getLogFiles().collect(Collectors.toList()).toString();
@@ -4867,15 +4893,15 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.ja
 ```
 
 ### UnusedAssignment
-The value changed at `idx++` is never used
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
+Variable `numCopied` initializer `0` is redundant
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ExportCommand.java`
 #### Snippet
 ```java
-        row[idx++] = fs.getLogFiles().filter(lf -> lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
-            .collect(Collectors.toList()).toString();
-        row[idx++] = fs.getLogFiles().filter(lf -> !lf.getBaseCommitTime().equals(fs.getBaseInstantTime()))
-            .collect(Collectors.toList()).toString();
-      }
+    final Set<String> actionSet = new HashSet<String>(Arrays.asList(filter.split(",")));
+    int numExports = limit == -1 ? Integer.MAX_VALUE : limit;
+    int numCopied = 0;
+
+    if (!new File(localFolder).isDirectory()) {
 ```
 
 ### UnusedAssignment
@@ -4900,18 +4926,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ExportCommand.java`
             GenericRecord metadata = null;
             switch (action) {
               case HoodieTimeline.CLEAN_ACTION:
-```
-
-### UnusedAssignment
-Variable `numCopied` initializer `0` is redundant
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ExportCommand.java`
-#### Snippet
-```java
-    final Set<String> actionSet = new HashSet<String>(Arrays.asList(filter.split(",")));
-    int numExports = limit == -1 ? Integer.MAX_VALUE : limit;
-    int numCopied = 0;
-
-    if (!new File(localFolder).isDirectory()) {
 ```
 
 ### UnusedAssignment
@@ -5023,18 +5037,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/Fi
 ```
 
 ### UnusedAssignment
-Variable `instants` initializer `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
-#### Snippet
-```java
-   */
-  private boolean deleteAllInstantsOlderOrEqualsInAuxMetaFolder(HoodieInstant thresholdInstant) throws IOException {
-    List<HoodieInstant> instants = null;
-    boolean success = true;
-    try {
-```
-
-### UnusedAssignment
 Variable `plan` initializer `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
 #### Snippet
@@ -5044,6 +5046,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTi
         HoodieMergeArchiveFilePlan plan = null;
         try {
           plan = TimelineMetadataUtils.deserializeAvroMetadata(FileIOUtils.readDataFromPath(fs, planPath).get(), HoodieMergeArchiveFilePlan.class);
+```
+
+### UnusedAssignment
+Variable `instants` initializer `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieTimelineArchiver.java`
+#### Snippet
+```java
+   */
+  private boolean deleteAllInstantsOlderOrEqualsInAuxMetaFolder(HoodieInstant thresholdInstant) throws IOException {
+    List<HoodieInstant> instants = null;
+    boolean success = true;
+    try {
 ```
 
 ### UnusedAssignment
@@ -5059,18 +5073,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/PartitionPathEncodeUti
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `new HashMap<>()` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
-#### Snippet
-```java
-      HoodieEngineContext hoodieEngineContext, FileSystem fs, Path dirPath, int parallelism,
-      Predicate<FileStatus> subPathPredicate, SerializableFunction<Pair<String, SerializableConfiguration>, T> pairFunction) {
-    Map<String, T> result = new HashMap<>();
-    try {
-      FileStatus[] fileStatuses = fs.listStatus(dirPath);
-```
-
-### UnusedAssignment
 Variable `lines` initializer `new ArrayList<>()` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
 #### Snippet
@@ -5083,15 +5085,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
 ```
 
 ### UnusedAssignment
-Variable `bigDecimal` initializer `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+Variable `result` initializer `new HashMap<>()` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 #### Snippet
 ```java
-                  || oldSchema.getType() == Schema.Type.FLOAT) {
-            LogicalTypes.Decimal decimal = (LogicalTypes.Decimal) newSchema.getLogicalType();
-            BigDecimal bigDecimal = null;
-            if (oldSchema.getType() == Schema.Type.STRING) {
-              bigDecimal = new java.math.BigDecimal(oldValue.toString())
+      HoodieEngineContext hoodieEngineContext, FileSystem fs, Path dirPath, int parallelism,
+      Predicate<FileStatus> subPathPredicate, SerializableFunction<Pair<String, SerializableConfiguration>, T> pairFunction) {
+    Map<String, T> result = new HashMap<>();
+    try {
+      FileStatus[] fileStatuses = fs.listStatus(dirPath);
 ```
 
 ### UnusedAssignment
@@ -5107,15 +5109,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### UnusedAssignment
-Variable `content` initializer `Option.empty()` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+Variable `bigDecimal` initializer `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
-    Path markerTypeFilePath = new Path(markerDir, MARKER_TYPE_FILENAME);
-    FSDataInputStream fsDataInputStream = null;
-    Option<MarkerType> content = Option.empty();
-    try {
-      if (!doesMarkerTypeFileExist(fileSystem, markerDir)) {
+                  || oldSchema.getType() == Schema.Type.FLOAT) {
+            LogicalTypes.Decimal decimal = (LogicalTypes.Decimal) newSchema.getLogicalType();
+            BigDecimal bigDecimal = null;
+            if (oldSchema.getType() == Schema.Type.STRING) {
+              bigDecimal = new java.math.BigDecimal(oldValue.toString())
 ```
 
 ### UnusedAssignment
@@ -5128,6 +5130,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
     Set<String> markers = new HashSet<>();
     try {
       LOG.debug("Read marker file: " + markersFilePath);
+```
+
+### UnusedAssignment
+Variable `content` initializer `Option.empty()` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+#### Snippet
+```java
+    Path markerTypeFilePath = new Path(markerDir, MARKER_TYPE_FILENAME);
+    FSDataInputStream fsDataInputStream = null;
+    Option<MarkerType> content = Option.empty();
+    try {
+      if (!doesMarkerTypeFileExist(fileSystem, markerDir)) {
 ```
 
 ### UnusedAssignment
@@ -5155,18 +5169,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatRe
 ```
 
 ### UnusedAssignment
-Variable `useColNameFromFileSchema` initializer `true` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSchemaMerger.java`
-#### Snippet
-```java
-  // eg: current column name is colOldName, now we rename it to colNewName,
-  // we can pass colNewName to reWriteRecordWithNewSchema directly, everything is ok.
-  private boolean useColNameFromFileSchema = true;
-
-  public InternalSchemaMerger(InternalSchema fileSchema, InternalSchema querySchema, boolean ignoreRequiredAttribute, boolean useColumnTypeFromFileSchema, boolean useColNameFromFileSchema) {
-```
-
-### UnusedAssignment
 Variable `useColumnTypeFromFileSchema` initializer `true` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSchemaMerger.java`
 #### Snippet
@@ -5179,6 +5181,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSch
 ```
 
 ### UnusedAssignment
+Variable `useColNameFromFileSchema` initializer `true` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSchemaMerger.java`
+#### Snippet
+```java
+  // eg: current column name is colOldName, now we rename it to colNewName,
+  // we can pass colNewName to reWriteRecordWithNewSchema directly, everything is ok.
+  private boolean useColNameFromFileSchema = true;
+
+  public InternalSchemaMerger(InternalSchema fileSchema, InternalSchema querySchema, boolean ignoreRequiredAttribute, boolean useColumnTypeFromFileSchema, boolean useColNameFromFileSchema) {
+```
+
+### UnusedAssignment
 Variable `supportPayload` initializer `true` is redundant
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/AbstractRealtimeRecordReader.java`
 #### Snippet
@@ -5188,30 +5202,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/AbstractRealtim
   protected boolean supportPayload = true;
   // handle hive type to avro record
   protected HiveAvroSerializer serializer;
-```
-
-### UnusedAssignment
-Variable `source` initializer `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
-#### Snippet
-```java
-    }
-
-    Dataset<Row> source = null;
-    // Do incremental pull. Set end instant if available.
-    if (queryTypeAndInstantEndpts.getKey().equals(DataSourceReadOptions.QUERY_TYPE_INCREMENTAL_OPT_VAL())) {
-```
-
-### UnusedAssignment
-Variable `sparkOptionsMap` initializer `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
-#### Snippet
-```java
-    if (!StringUtils.isNullOrEmpty(props.getString(Config.SPARK_DATASOURCE_OPTIONS, null))) {
-      final ObjectMapper mapper = new ObjectMapper();
-      Map<String, String> sparkOptionsMap = null;
-      try {
-        sparkOptionsMap = mapper.readValue(props.getString(Config.SPARK_DATASOURCE_OPTIONS), Map.class);
 ```
 
 ### UnusedAssignment
@@ -5236,6 +5226,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrS
     Map<String, String> sparkOptionsMap = null;
 
     try {
+```
+
+### UnusedAssignment
+Variable `sparkOptionsMap` initializer `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
+#### Snippet
+```java
+    if (!StringUtils.isNullOrEmpty(props.getString(Config.SPARK_DATASOURCE_OPTIONS, null))) {
+      final ObjectMapper mapper = new ObjectMapper();
+      Map<String, String> sparkOptionsMap = null;
+      try {
+        sparkOptionsMap = mapper.readValue(props.getString(Config.SPARK_DATASOURCE_OPTIONS), Map.class);
+```
+
+### UnusedAssignment
+Variable `source` initializer `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
+#### Snippet
+```java
+    }
+
+    Dataset<Row> source = null;
+    // Do incremental pull. Set end instant if available.
+    if (queryTypeAndInstantEndpts.getKey().equals(DataSourceReadOptions.QUERY_TYPE_INCREMENTAL_OPT_VAL())) {
 ```
 
 ### UnusedAssignment
@@ -5291,10 +5305,10 @@ Variable `curAvroRecord` initializer `null` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
 ```java
-        while (logRecordsKeyIterator.hasNext()) {
-          String curAvroKey = logRecordsKeyIterator.next();
+      public boolean hasNext() {
+        while (recordsIterator.hasNext()) {
           Option<IndexedRecord> curAvroRecord = null;
-          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) scanner.getRecords().get(curAvroKey);
+          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) recordsIterator.next();
           try {
 ```
 
@@ -5303,10 +5317,10 @@ Variable `curAvroRecord` initializer `null` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
 ```java
-      public boolean hasNext() {
-        while (recordsIterator.hasNext()) {
+        while (logRecordsKeyIterator.hasNext()) {
+          String curAvroKey = logRecordsKeyIterator.next();
           Option<IndexedRecord> curAvroRecord = null;
-          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) recordsIterator.next();
+          final HoodieAvroRecord<?> hoodieRecord = (HoodieAvroRecord) scanner.getRecords().get(curAvroKey);
           try {
 ```
 
@@ -5555,30 +5569,6 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-    Map<String, List<Map.Entry<HoodieFileGroupId, HoodieInstant>>> partitionToReplacedFileGroups =
-        replacedFileGroups.entrySet().stream().collect(Collectors.groupingBy(e -> e.getKey().getPartitionPath()));
-    partitionToReplacedFileGroups.entrySet().stream().forEach(partitionToReplacedFileGroupsEntry -> {
-      String partitionPath = partitionToReplacedFileGroupsEntry.getKey();
-      List<Map.Entry<HoodieFileGroupId, HoodieInstant>> replacedFileGroupsInPartition = partitionToReplacedFileGroupsEntry.getValue();
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-      // Now add them
-      rocksDB.writeBatch(batch ->
-          replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
-            rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
-                schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
 #### Snippet
 ```java
@@ -5587,42 +5577,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
     replaceMetadata.getPartitionToReplaceFileIds().entrySet().stream().forEach(entry -> {
       String partition = entry.getKey();
       Map<HoodieFileGroupId, HoodieInstant> replacedFileIds = entry.getValue().stream()
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-
-    // First remove pending compaction instants which were completed
-    diffResult.getFinishedCompactionInstants().stream().forEach(instant -> {
-      try {
-        removePendingCompactionInstant(timeline, instant);
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-
-    // Now remove pending log compaction instants which were completed or removed
-    diffResult.getFinishedOrRemovedLogCompactionInstants().stream().forEach(instant -> {
-      try {
-        removePendingLogCompactionInstant(timeline, instant);
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-          }));
-        }).collect(Collectors.groupingBy(Pair::getKey));
-    partitionFiles.entrySet().stream().forEach(e -> {
-      removeFileSlicesForPartition(timeline, instant, e.getKey(),
-          e.getValue().stream().map(x -> x.getValue()).collect(Collectors.toList()));
 ```
 
 ### SimplifyStreamApiCallChains
@@ -5654,6 +5608,42 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
 #### Snippet
 ```java
+          }));
+        }).collect(Collectors.groupingBy(Pair::getKey));
+    partitionFiles.entrySet().stream().forEach(e -> {
+      removeFileSlicesForPartition(timeline, instant, e.getKey(),
+          e.getValue().stream().map(x -> x.getValue()).collect(Collectors.toList()));
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
+
+    // First remove pending compaction instants which were completed
+    diffResult.getFinishedCompactionInstants().stream().forEach(instant -> {
+      try {
+        removePendingCompactionInstant(timeline, instant);
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
+
+    // Now remove pending log compaction instants which were completed or removed
+    diffResult.getFinishedOrRemovedLogCompactionInstants().stream().forEach(instant -> {
+      try {
+        removePendingLogCompactionInstant(timeline, instant);
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
                                               HoodieTimeline timeline,
                                               HoodieInstant instant) {
     partitionToWriteStats.entrySet().stream().forEach(entry -> {
@@ -5674,6 +5664,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileSlic
 ```
 
 ### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+    Map<String, List<Map.Entry<HoodieFileGroupId, HoodieInstant>>> partitionToReplacedFileGroups =
+        replacedFileGroups.entrySet().stream().collect(Collectors.groupingBy(e -> e.getKey().getPartitionPath()));
+    partitionToReplacedFileGroups.entrySet().stream().forEach(partitionToReplacedFileGroupsEntry -> {
+      String partitionPath = partitionToReplacedFileGroupsEntry.getKey();
+      List<Map.Entry<HoodieFileGroupId, HoodieInstant>> replacedFileGroupsInPartition = partitionToReplacedFileGroupsEntry.getValue();
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+      // Now add them
+      rocksDB.writeBatch(batch ->
+          replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
+            rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
+                schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
+```
+
+### SimplifyStreamApiCallChains
 Can be replaced with '.values().stream()'
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
 #### Snippet
@@ -5683,18 +5697,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
     return idToName.entrySet().stream().map(e -> e.getValue().toLowerCase(Locale.ROOT))
         .collect(Collectors.toSet()).contains(colName);
   }
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
-#### Snippet
-```java
-    // try to correct all changes
-    TableChanges.ColumnUpdateChange updateChange = TableChanges.ColumnUpdateChange.get(writeInternalSchema);
-    candidateUpdateCols.stream().forEach(f -> updateChange.updateColumnNullability(f, true));
-    InternalSchema updatedSchema = SchemaChangeUtils.applyTableChanges2Schema(writeInternalSchema, updateChange);
-    return AvroInternalSchemaConverter.convert(updatedSchema, writeSchema.getFullName());
 ```
 
 ### SimplifyStreamApiCallChains
@@ -5723,14 +5725,14 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEv
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
 #### Snippet
 ```java
-    // find top parent field ID. eg: a.b.c, f.g.h, only collect id of a and f ignore all child field.
-    List<Integer> topParentFieldIds = new ArrayList<>();
-    names.stream().forEach(f -> {
-      int id = schema.findIdByName(f.split("\\.")[0]);
-      if (!topParentFieldIds.contains(id)) {
+    // try to correct all changes
+    TableChanges.ColumnUpdateChange updateChange = TableChanges.ColumnUpdateChange.get(writeInternalSchema);
+    candidateUpdateCols.stream().forEach(f -> updateChange.updateColumnNullability(f, true));
+    InternalSchema updatedSchema = SchemaChangeUtils.applyTableChanges2Schema(writeInternalSchema, updateChange);
+    return AvroInternalSchemaConverter.convert(updatedSchema, writeSchema.getFullName());
 ```
 
 ### SimplifyStreamApiCallChains
@@ -5743,6 +5745,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSche
       result = parentNames.stream().collect(Collectors.joining(".")) + "." + result;
     }
     return result;
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
+#### Snippet
+```java
+    // find top parent field ID. eg: a.b.c, f.g.h, only collect id of a and f ignore all child field.
+    List<Integer> topParentFieldIds = new ArrayList<>();
+    names.stream().forEach(f -> {
+      int id = schema.findIdByName(f.split("\\.")[0]);
+      if (!topParentFieldIds.contains(id)) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -5846,11 +5860,11 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataType
 in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/execution/datasources/parquet/Spark24HoodieVectorizedParquetRecordReader.java`
 #### Snippet
 ```java
-      typeChangeInfos.entrySet()
-          .stream()
-          .forEach(f -> {
-            WritableColumnVector vector =
-                memoryMode == MemoryMode.OFF_HEAP ? new OffHeapColumnVector(capacity, f.getValue().getLeft()) : new OnHeapColumnVector(capacity, f.getValue().getLeft());
+    boolean result = super.nextBatch();
+    if (idToColumnVectors != null) {
+      idToColumnVectors.entrySet().stream().forEach(e -> e.getValue().reset());
+    }
+    numBatched = resultBatch().numRows();
 ```
 
 ### SimplifyStreamApiCallChains
@@ -5858,11 +5872,11 @@ in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/executi
 in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/execution/datasources/parquet/Spark24HoodieVectorizedParquetRecordReader.java`
 #### Snippet
 ```java
-    boolean result = super.nextBatch();
-    if (idToColumnVectors != null) {
-      idToColumnVectors.entrySet().stream().forEach(e -> e.getValue().reset());
-    }
-    numBatched = resultBatch().numRows();
+      typeChangeInfos.entrySet()
+          .stream()
+          .forEach(f -> {
+            WritableColumnVector vector =
+                memoryMode == MemoryMode.OFF_HEAP ? new OffHeapColumnVector(capacity, f.getValue().getLeft()) : new OnHeapColumnVector(capacity, f.getValue().getLeft());
 ```
 
 ## RuleId[ruleID=StringOperationCanBeSimplified]
@@ -6090,30 +6104,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodieCLI.java`
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.rowAccessor` accessed in synchronized context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
-#### Snippet
-```java
-    if (this.rowAccessor == null) {
-      synchronized (this) {
-        if (this.rowAccessor == null) {
-          this.rowAccessor = new SparkRowAccessor(schema);
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.rowAccessor` accessed in synchronized context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
-#### Snippet
-```java
-      synchronized (this) {
-        if (this.rowAccessor == null) {
-          this.rowAccessor = new SparkRowAccessor(schema);
-        }
-      }
-```
-
-### PublicFieldAccessedInSynchronizedContext
 Non-private field `utf8StringPartitionPathFormatter` accessed in synchronized context
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
@@ -6134,30 +6124,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
         if (utf8StringPartitionPathFormatter == null) {
           this.utf8StringPartitionPathFormatter = new UTF8StringPartitionPathFormatter(
               UTF8StringPartitionPathFormatter.UTF8StringBuilder::new, hiveStylePartitioning, encodePartitionPath);
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `stringPartitionPathFormatter` accessed in synchronized context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
-#### Snippet
-```java
-    if (stringPartitionPathFormatter == null) {
-      synchronized (this) {
-        if (stringPartitionPathFormatter == null) {
-          this.stringPartitionPathFormatter = new StringPartitionPathFormatter(
-              StringPartitionPathFormatter.JavaStringBuilder::new, hiveStylePartitioning, encodePartitionPath);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.stringPartitionPathFormatter` accessed in synchronized context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
-#### Snippet
-```java
-      synchronized (this) {
-        if (stringPartitionPathFormatter == null) {
-          this.stringPartitionPathFormatter = new StringPartitionPathFormatter(
-              StringPartitionPathFormatter.JavaStringBuilder::new, hiveStylePartitioning, encodePartitionPath);
         }
 ```
 
@@ -6186,27 +6152,51 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `activeTimeline` accessed in synchronized context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
+Non-private field `this.rowAccessor` accessed in synchronized context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-   */
-  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
-    activeTimeline = new HoodieActiveTimeline(this);
-    return activeTimeline;
-  }
+    if (this.rowAccessor == null) {
+      synchronized (this) {
+        if (this.rowAccessor == null) {
+          this.rowAccessor = new SparkRowAccessor(schema);
+        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
-Non-private field `activeTimeline` accessed in synchronized context
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
+Non-private field `this.rowAccessor` accessed in synchronized context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
-    activeTimeline = new HoodieActiveTimeline(this);
-    return activeTimeline;
-  }
+      synchronized (this) {
+        if (this.rowAccessor == null) {
+          this.rowAccessor = new SparkRowAccessor(schema);
+        }
+      }
+```
 
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `stringPartitionPathFormatter` accessed in synchronized context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+    if (stringPartitionPathFormatter == null) {
+      synchronized (this) {
+        if (stringPartitionPathFormatter == null) {
+          this.stringPartitionPathFormatter = new StringPartitionPathFormatter(
+              StringPartitionPathFormatter.JavaStringBuilder::new, hiveStylePartitioning, encodePartitionPath);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.stringPartitionPathFormatter` accessed in synchronized context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
+#### Snippet
+```java
+      synchronized (this) {
+        if (stringPartitionPathFormatter == null) {
+          this.stringPartitionPathFormatter = new StringPartitionPathFormatter(
+              StringPartitionPathFormatter.JavaStringBuilder::new, hiveStylePartitioning, encodePartitionPath);
+        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -6240,6 +6230,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient
 ```java
       activeTimeline = new HoodieActiveTimeline(this);
     }
+    return activeTimeline;
+  }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `activeTimeline` accessed in synchronized context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
+#### Snippet
+```java
+   */
+  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
+    activeTimeline = new HoodieActiveTimeline(this);
+    return activeTimeline;
+  }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `activeTimeline` accessed in synchronized context
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
+#### Snippet
+```java
+  public synchronized HoodieActiveTimeline reloadActiveTimeline() {
+    activeTimeline = new HoodieActiveTimeline(this);
     return activeTimeline;
   }
 
@@ -6471,78 +6485,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
 #### Snippet
 ```java
-      @ShellOption(value = "--krb5conf", help = "Path to krb5.conf", defaultValue = "/etc/krb5.conf") String krb5ConfPath) throws IOException {
-
-    System.out.println("Destroy Kerberos authentication");
-    System.out.println("Parameters:");
-    System.out.println("--krb5conf: " + krb5ConfPath);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
-#### Snippet
-```java
-
-    System.out.println("Destroy Kerberos authentication");
-    System.out.println("Parameters:");
-    System.out.println("--krb5conf: " + krb5ConfPath);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
-#### Snippet
-```java
-    System.out.println("Destroy Kerberos authentication");
-    System.out.println("Parameters:");
-    System.out.println("--krb5conf: " + krb5ConfPath);
-
-    System.setProperty("java.security.krb5.conf", krb5ConfPath);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
-#### Snippet
-```java
-      UserGroupInformation.reset();
-    } else {
-      System.out.println("Currently, no user login with kerberos, do nothing");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
-#### Snippet
-```java
-    }
-
-    System.out.println("Current user: " + UserGroupInformation.getCurrentUser());
-    System.out.println("Login user: " + UserGroupInformation.getLoginUser());
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
-#### Snippet
-```java
-
-    System.out.println("Current user: " + UserGroupInformation.getCurrentUser());
-    System.out.println("Login user: " + UserGroupInformation.getLoginUser());
-
-    return "Destroy Kerberos authentication success";
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
-#### Snippet
-```java
           @ShellOption(value = "--keytab", help = "Path to keytab") String keytabPath) throws IOException {
 
     System.out.println("Perform Kerberos authentication");
@@ -6624,6 +6566,78 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCo
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
+#### Snippet
+```java
+      @ShellOption(value = "--krb5conf", help = "Path to krb5.conf", defaultValue = "/etc/krb5.conf") String krb5ConfPath) throws IOException {
+
+    System.out.println("Destroy Kerberos authentication");
+    System.out.println("Parameters:");
+    System.out.println("--krb5conf: " + krb5ConfPath);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
+#### Snippet
+```java
+
+    System.out.println("Destroy Kerberos authentication");
+    System.out.println("Parameters:");
+    System.out.println("--krb5conf: " + krb5ConfPath);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
+#### Snippet
+```java
+    System.out.println("Destroy Kerberos authentication");
+    System.out.println("Parameters:");
+    System.out.println("--krb5conf: " + krb5ConfPath);
+
+    System.setProperty("java.security.krb5.conf", krb5ConfPath);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
+#### Snippet
+```java
+      UserGroupInformation.reset();
+    } else {
+      System.out.println("Currently, no user login with kerberos, do nothing");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
+#### Snippet
+```java
+    }
+
+    System.out.println("Current user: " + UserGroupInformation.getCurrentUser());
+    System.out.println("Login user: " + UserGroupInformation.getLoginUser());
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/KerberosAuthenticationCommand.java`
+#### Snippet
+```java
+
+    System.out.println("Current user: " + UserGroupInformation.getCurrentUser());
+    System.out.println("Login user: " + UserGroupInformation.getLoginUser());
+
+    return "Destroy Kerberos authentication success";
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/utils/SparkTempViewProvider.java`
 #### Snippet
 ```java
@@ -6687,11 +6701,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.java`
 #### Snippet
 ```java
-              defaultValue = "false") final boolean headerOnly)
       throws IOException {
+
     System.out.println("===============> Showing only " + limit + " archived commits <===============");
-    String basePath = HoodieCLI.getTableMetaClient().getBasePath();
-    Path archivePath = new Path(HoodieCLI.getTableMetaClient().getArchivePath() + "/.commits_.archive*");
+    HoodieTableMetaClient metaClient = HoodieCLI.getTableMetaClient();
+    String basePath = metaClient.getBasePath();
 ```
 
 ### SystemOutErr
@@ -6699,11 +6713,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.java`
 #### Snippet
 ```java
+              defaultValue = "false") final boolean headerOnly)
       throws IOException {
-
     System.out.println("===============> Showing only " + limit + " archived commits <===============");
-    HoodieTableMetaClient metaClient = HoodieCLI.getTableMetaClient();
-    String basePath = metaClient.getBasePath();
+    String basePath = HoodieCLI.getTableMetaClient().getBasePath();
+    Path archivePath = new Path(HoodieCLI.getTableMetaClient().getArchivePath() + "/.commits_.archive*");
 ```
 
 ### SystemOutErr
@@ -6744,10 +6758,10 @@ in `packaging/hudi-aws-bundle/src/main/java/org/apache/hudi/aws/bundle/Main.java
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `packaging/hudi-cli-bundle/src/main/java/org/apache/hudi/cli/bundle/Main.java`
+in `packaging/hudi-gcp-bundle/src/main/java/org/apache/hudi/gcp/bigquery/bundle/Main.java`
 #### Snippet
 ```java
-public class Main {
+
   public static void main(String[] args) {
     ReflectionUtils.getTopLevelClassesInClasspath(Main.class).forEach(System.out::println);
   }
@@ -6756,10 +6770,10 @@ public class Main {
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `packaging/hudi-gcp-bundle/src/main/java/org/apache/hudi/gcp/bigquery/bundle/Main.java`
+in `packaging/hudi-cli-bundle/src/main/java/org/apache/hudi/cli/bundle/Main.java`
 #### Snippet
 ```java
-
+public class Main {
   public static void main(String[] args) {
     ReflectionUtils.getTopLevelClassesInClasspath(Main.class).forEach(System.out::println);
   }
@@ -6781,30 +6795,6 @@ in `packaging/hudi-flink-bundle/src/main/java/org/apache/hudi/flink/bundle/Main.
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `packaging/hudi-spark-bundle/src/main/java/org/apache/hudi/spark/bundle/Main.java`
-#### Snippet
-```java
-
-  public static void main(String[] args) {
-    ReflectionUtils.getTopLevelClassesInClasspath(Main.class).forEach(System.out::println);
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `packaging/hudi-presto-bundle/src/main/java/org/apache/hudi/presto/bundle/Main.java`
-#### Snippet
-```java
-
-  public static void main(String[] args) {
-    ReflectionUtils.getTopLevelClassesInClasspath(Main.class).forEach(System.out::println);
-  }
-}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `packaging/hudi-hive-sync-bundle/src/main/java/org/apache/hudi/hive/bundle/Main.java`
 #### Snippet
 ```java
 
@@ -6840,7 +6830,19 @@ in `packaging/hudi-hadoop-mr-bundle/src/main/java/org/apache/hudi/hadoop/bundle/
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `packaging/hudi-datahub-sync-bundle/src/main/java/org/apache/hudi/datahub/bundle/Main.java`
+in `packaging/hudi-presto-bundle/src/main/java/org/apache/hudi/presto/bundle/Main.java`
+#### Snippet
+```java
+
+  public static void main(String[] args) {
+    ReflectionUtils.getTopLevelClassesInClasspath(Main.class).forEach(System.out::println);
+  }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `packaging/hudi-hive-sync-bundle/src/main/java/org/apache/hudi/hive/bundle/Main.java`
 #### Snippet
 ```java
 
@@ -6864,7 +6866,7 @@ in `packaging/hudi-utilities-bundle/src/main/java/org/apache/hudi/utilities/bund
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `packaging/hudi-kafka-connect-bundle/src/main/java/org/apache/hudi/kafka/connect/bundle/Main.java`
+in `packaging/hudi-datahub-sync-bundle/src/main/java/org/apache/hudi/datahub/bundle/Main.java`
 #### Snippet
 ```java
 
@@ -6877,6 +6879,18 @@ in `packaging/hudi-kafka-connect-bundle/src/main/java/org/apache/hudi/kafka/conn
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `packaging/hudi-utilities-slim-bundle/src/main/java/org/apache/hudi/utilities/bundle/Main.java`
+#### Snippet
+```java
+
+  public static void main(String[] args) {
+    ReflectionUtils.getTopLevelClassesInClasspath(Main.class).forEach(System.out::println);
+  }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `packaging/hudi-kafka-connect-bundle/src/main/java/org/apache/hudi/kafka/connect/bundle/Main.java`
 #### Snippet
 ```java
 
@@ -6948,24 +6962,24 @@ in `hudi-examples/hudi-examples-java/src/main/java/org/apache/hudi/examples/java
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
-#### Snippet
-```java
-  public static void main(String[] args) throws TableNotExistException, InterruptedException {
-    if (args.length < 3) {
-      System.err.println("Usage: HoodieWriteClientExample <tablePath> <tableName> <tableType>");
-      System.exit(1);
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spark/HoodieSparkBootstrapExample.java`
 #### Snippet
 ```java
   public static void main(String[] args) throws Exception {
     if (args.length < 5) {
       System.err.println("Usage: HoodieSparkBootstrapExample <recordKey> <tableName> <partitionPath> <preCombineField> <basePath>");
+      System.exit(1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
+#### Snippet
+```java
+  public static void main(String[] args) throws TableNotExistException, InterruptedException {
+    if (args.length < 3) {
+      System.err.println("Usage: HoodieWriteClientExample <tablePath> <tableName> <tableType>");
       System.exit(1);
     }
 ```
@@ -6992,30 +7006,6 @@ in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/qui
       System.err.println("Usage: HoodieWriteClientExample <tablePath> <tableName>");
       System.exit(1);
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
-#### Snippet
-```java
-    startService();
-    final String driverHost = InetAddress.getLocalHost().getHostAddress();
-    System.out.println("Driver Hostname is :" + driverHost);
-    List<String> messages = new ArrayList<>();
-    IntStream.range(0, cfg.numPartitions).forEach(i -> messages.add("Hello World"));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
-#### Snippet
-```java
-    context.setJobStatus(this.getClass().getSimpleName(), "Sending requests to driver host");
-    List<String> gotMessages = context.map(messages, msg -> sendRequest(driverHost, cfg.serverPort), messages.size());
-    System.out.println("Got Messages :" + gotMessages);
-    ValidationUtils.checkArgument(gotMessages.equals(messages), "Got expected reply from Server");
-  }
 ```
 
 ### SystemOutErr
@@ -7068,14 +7058,26 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineSer
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
 #### Snippet
 ```java
-              new HoodieFileGroupId(cfg.partitionPath, cfg.fileId), cfg.skipValidation, cfg.dryRun);
-          if (cfg.printOutput) {
-            System.out.println(r);
-          }
-          serializeOperationResult(fs, r);
+    startService();
+    final String driverHost = InetAddress.getLocalHost().getHostAddress();
+    System.out.println("Driver Hostname is :" + driverHost);
+    List<String> messages = new ArrayList<>();
+    IntStream.range(0, cfg.numPartitions).forEach(i -> messages.add("Hello World"));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineServer.java`
+#### Snippet
+```java
+    context.setJobStatus(this.getClass().getSimpleName(), "Sending requests to driver host");
+    List<String> gotMessages = context.map(messages, msg -> sendRequest(driverHost, cfg.serverPort), messages.size());
+    System.out.println("Got Messages :" + gotMessages);
+    ValidationUtils.checkArgument(gotMessages.equals(messages), "Got expected reply from Server");
+  }
 ```
 
 ### SystemOutErr
@@ -7104,14 +7106,14 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-        String row = String.format("%s,%d,%d,%d,%f,%f,%f,%f\n", x.partition, x.id, x.minTime, x.maxTime, x.meanTime,
-            x.medianTime, x.p75, x.p95);
-        System.out.println(row);
-        try {
-          outputStream.write(row.getBytes());
+              new HoodieFileGroupId(cfg.partitionPath, cfg.fileId), cfg.skipValidation, cfg.dryRun);
+          if (cfg.printOutput) {
+            System.out.println(r);
+          }
+          serializeOperationResult(fs, r);
 ```
 
 ### SystemOutErr
@@ -7136,6 +7138,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPe
       slices.forEach(s -> System.out.println("\t\tFileSlice=" + s));
       return result.stream();
     }, cfg.numExecutors);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
+#### Snippet
+```java
+        String row = String.format("%s,%d,%d,%d,%f,%f,%f,%f\n", x.partition, x.id, x.minTime, x.maxTime, x.meanTime,
+            x.medianTime, x.p75, x.p95);
+        System.out.println(row);
+        try {
+          outputStream.write(row.getBytes());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
+#### Snippet
+```java
+      Option<FileSlice> c = fsView.getLatestFileSlice(partition, fileId);
+      long endTs = System.currentTimeMillis();
+      System.out.println("Latest File Slice for part=" + partition + ", fileId=" + fileId + ", Slice=" + c + ", Time="
+          + (endTs - beginTs));
+      latencyHistogram.update(endTs - beginTs);
 ```
 
 ### SystemOutErr
@@ -7196,18 +7222,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPe
       System.out.println("Timeline Server Host Address=" + hostAddr + ", port=" + timelineServer.getServerPort());
       while (true) {
         try {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
-#### Snippet
-```java
-      Option<FileSlice> c = fsView.getLatestFileSlice(partition, fileId);
-      long endTs = System.currentTimeMillis();
-      System.out.println("Latest File Slice for part=" + partition + ", fileId=" + fileId + ", Slice=" + c + ", Time="
-          + (endTs - beginTs));
-      latencyHistogram.update(endTs - beginTs);
 ```
 
 ## RuleId[ruleID=ImplicitArrayToString]
@@ -7301,6 +7315,18 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDD
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
 #### Snippet
 ```java
+    // schema.
+    // HDrone sync should not fail because of this.
+    finalStr = finalStr.replaceAll("-", "_");
+    return finalStr;
+  }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
           continue;
         }
         tableColumnType = tableColumnType.replaceAll("\\s+", "");
@@ -7330,18 +7356,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaU
         expectedType = expectedType.replaceAll("`", "");
 
         if (!tableColumnType.equalsIgnoreCase(expectedType)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-    // schema.
-    // HDrone sync should not fail because of this.
-    finalStr = finalStr.replaceAll("-", "_");
-    return finalStr;
-  }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7441,30 +7455,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
-#### Snippet
-```java
-  protected static String getPartitionPathWithoutPartitionKeys(String partitionPath) {
-    if (partitionPath.contains("=")) {
-      return partitionPath.replaceFirst(".*?=", "").replaceAll("/.*?=", "/");
-    }
-    return partitionPath;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
-#### Snippet
-```java
-  protected static String getPartitionPathWithoutPartitionKeys(String partitionPath) {
-    if (partitionPath.contains("=")) {
-      return partitionPath.replaceFirst(".*?=", "").replaceAll("/.*?=", "/");
-    }
-    return partitionPath;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
 #### Snippet
@@ -7486,6 +7476,30 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
         .sorted(Comparator.reverseOrder()).map(partitionPath -> partitionPath.replace("-", "/"))
         .collect(Collectors.toList()).subList(0, Math.min(allPartitionPaths.size(),
             writeConfig.getTargetPartitionsPerDayBasedCompaction()));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
+#### Snippet
+```java
+  protected static String getPartitionPathWithoutPartitionKeys(String partitionPath) {
+    if (partitionPath.contains("=")) {
+      return partitionPath.replaceFirst(".*?=", "").replaceAll("/.*?=", "/");
+    }
+    return partitionPath;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/strategy/DayBasedCompactionStrategy.java`
+#### Snippet
+```java
+  protected static String getPartitionPathWithoutPartitionKeys(String partitionPath) {
+    if (partitionPath.contains("=")) {
+      return partitionPath.replaceFirst(".*?=", "").replaceAll("/.*?=", "/");
+    }
+    return partitionPath;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7525,30 +7539,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaCompatibility.java`
-#### Snippet
-```java
-        }
-        // Apply JSON pointer escaping.
-        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
-      }
-      return s.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaCompatibility.java`
-#### Snippet
-```java
-        }
-        // Apply JSON pointer escaping.
-        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
-      }
-      return s.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFSUtils.java`
 #### Snippet
@@ -7570,6 +7560,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFSUtils.jav
     String[] slices = inlineFSPath.toString().split("[?&=]");
     return Long.parseLong(slices[slices.length - 3]);
   }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaCompatibility.java`
+#### Snippet
+```java
+        }
+        // Apply JSON pointer escaping.
+        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
+      }
+      return s.toString();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaCompatibility.java`
+#### Snippet
+```java
+        }
+        // Apply JSON pointer escaping.
+        s.append(coordinate.replace("~", "~0").replace("/", "~1"));
+      }
+      return s.toString();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -8019,6 +8033,18 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/expression/Expre
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `QueryBasedDDLExecutor()` of an abstract class should not be declared 'public'
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
+#### Snippet
+```java
+  protected final PartitionValueExtractor partitionValueExtractor;
+
+  public QueryBasedDDLExecutor(HiveSyncConfig config) {
+    this.config = config;
+    this.databaseName = config.getStringOrDefault(META_SYNC_DATABASE_NAME);
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `HoodieSyncTool()` of an abstract class should not be declared 'public'
 in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieSyncTool.java`
 #### Snippet
@@ -8035,10 +8061,10 @@ Constructor `HoodieSyncTool()` of an abstract class should not be declared 'publ
 in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieSyncTool.java`
 #### Snippet
 ```java
-  protected Configuration hadoopConf;
 
-  public HoodieSyncTool(Properties props) {
-    this(props, ConfigUtils.createHadoopConf(props));
+  @Deprecated
+  public HoodieSyncTool(TypedProperties props, Configuration conf, FileSystem fs) {
+    this(props, conf);
   }
 ```
 
@@ -8059,10 +8085,10 @@ Constructor `HoodieSyncTool()` of an abstract class should not be declared 'publ
 in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieSyncTool.java`
 #### Snippet
 ```java
+  protected Configuration hadoopConf;
 
-  @Deprecated
-  public HoodieSyncTool(TypedProperties props, Configuration conf, FileSystem fs) {
-    this(props, conf);
+  public HoodieSyncTool(Properties props) {
+    this(props, ConfigUtils.createHadoopConf(props));
   }
 ```
 
@@ -8076,18 +8102,6 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
   public HoodieSyncClient(HoodieSyncConfig config) {
     this.config = config;
     this.partitionValueExtractor = ReflectionUtils.loadClass(config.getStringOrDefault(META_SYNC_PARTITION_EXTRACTOR_CLASS));
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `QueryBasedDDLExecutor()` of an abstract class should not be declared 'public'
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/QueryBasedDDLExecutor.java`
-#### Snippet
-```java
-  protected final PartitionValueExtractor partitionValueExtractor;
-
-  public QueryBasedDDLExecutor(HiveSyncConfig config) {
-    this.config = config;
-    this.databaseName = config.getStringOrDefault(META_SYNC_DATABASE_NAME);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8215,11 +8229,11 @@ Constructor `BaseSparkDeltaCommitActionExecutor()` of an abstract class should n
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/deltacommit/BaseSparkDeltaCommitActionExecutor.java`
 #### Snippet
 ```java
-  }
+  private SparkUpsertDeltaCommitPartitioner<T> mergeOnReadUpsertPartitioner;
 
   public BaseSparkDeltaCommitActionExecutor(HoodieSparkEngineContext context, HoodieWriteConfig config, HoodieTable table,
-                                                String instantTime, WriteOperationType operationType,
-                                                Option<Map<String, String>> extraMetadata) {
+                                                String instantTime, WriteOperationType operationType) {
+    this(context, config, table, instantTime, operationType, Option.empty());
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8227,11 +8241,11 @@ Constructor `BaseSparkDeltaCommitActionExecutor()` of an abstract class should n
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/deltacommit/BaseSparkDeltaCommitActionExecutor.java`
 #### Snippet
 ```java
-  private SparkUpsertDeltaCommitPartitioner<T> mergeOnReadUpsertPartitioner;
+  }
 
   public BaseSparkDeltaCommitActionExecutor(HoodieSparkEngineContext context, HoodieWriteConfig config, HoodieTable table,
-                                                String instantTime, WriteOperationType operationType) {
-    this(context, config, table, instantTime, operationType, Option.empty());
+                                                String instantTime, WriteOperationType operationType,
+                                                Option<Map<String, String>> extraMetadata) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8244,30 +8258,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/validator
   public SqlQueryPreCommitValidator(HoodieSparkTable<T> table, HoodieEngineContext engineContext, HoodieWriteConfig config) {
     super(table, engineContext, config);
   }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SingleSparkJobExecutionStrategy()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SingleSparkJobExecutionStrategy.java`
-#### Snippet
-```java
-  private static final Logger LOG = LogManager.getLogger(SingleSparkJobExecutionStrategy.class);
-
-  public SingleSparkJobExecutionStrategy(HoodieTable table, HoodieEngineContext engineContext, HoodieWriteConfig writeConfig) {
-    super(table, engineContext, writeConfig);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseSparkUpdateStrategy()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/update/strategy/BaseSparkUpdateStrategy.java`
-#### Snippet
-```java
-public abstract class BaseSparkUpdateStrategy<T> extends UpdateStrategy<T, HoodieData<HoodieRecord<T>>> {
-
-  public BaseSparkUpdateStrategy(HoodieEngineContext engineContext, HoodieTable table,
-                                 Set<HoodieFileGroupId> fileGroupsInPendingClustering) {
-    super(engineContext, table, fileGroupsInPendingClustering);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8295,6 +8285,30 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/com
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `SingleSparkJobExecutionStrategy()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SingleSparkJobExecutionStrategy.java`
+#### Snippet
+```java
+  private static final Logger LOG = LogManager.getLogger(SingleSparkJobExecutionStrategy.class);
+
+  public SingleSparkJobExecutionStrategy(HoodieTable table, HoodieEngineContext engineContext, HoodieWriteConfig writeConfig) {
+    super(table, engineContext, writeConfig);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseSparkUpdateStrategy()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/update/strategy/BaseSparkUpdateStrategy.java`
+#### Snippet
+```java
+public abstract class BaseSparkUpdateStrategy<T> extends UpdateStrategy<T, HoodieData<HoodieRecord<T>>> {
+
+  public BaseSparkUpdateStrategy(HoodieEngineContext engineContext, HoodieTable table,
+                                 Set<HoodieFileGroupId> fileGroupsInPendingClustering) {
+    super(engineContext, table, fileGroupsInPendingClustering);
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `MultipleSparkJobExecutionStrategy()` of an abstract class should not be declared 'public'
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
 #### Snippet
@@ -8311,9 +8325,9 @@ Constructor `SpatialCurveSortPartitionerBase()` of an abstract class should not 
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/SpatialCurveSortPartitionerBase.java`
 #### Snippet
 ```java
-  private final HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType;
+  }
 
-  public SpatialCurveSortPartitionerBase(String orderByColumns,
+  public SpatialCurveSortPartitionerBase(String[] orderByColumns,
                                          HoodieClusteringConfig.LayoutOptimizationStrategy layoutOptStrategy,
                                          HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType) {
 ```
@@ -8323,9 +8337,9 @@ Constructor `SpatialCurveSortPartitionerBase()` of an abstract class should not 
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/SpatialCurveSortPartitionerBase.java`
 #### Snippet
 ```java
-  }
+  private final HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType;
 
-  public SpatialCurveSortPartitionerBase(String[] orderByColumns,
+  public SpatialCurveSortPartitionerBase(String orderByColumns,
                                          HoodieClusteringConfig.LayoutOptimizationStrategy layoutOptStrategy,
                                          HoodieClusteringConfig.SpatialCurveCompositionStrategyType curveCompositionStrategyType) {
 ```
@@ -8359,18 +8373,6 @@ Constructor `AsyncCompactService()` of an abstract class should not be declared 
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncCompactService.java`
 #### Snippet
 ```java
-  private transient BaseCompactor compactor;
-
-  public AsyncCompactService(HoodieEngineContext context, BaseHoodieWriteClient client) {
-    this(context, client, false);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AsyncCompactService()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncCompactService.java`
-#### Snippet
-```java
   }
 
   public AsyncCompactService(HoodieEngineContext context, BaseHoodieWriteClient client, boolean runInDaemonMode) {
@@ -8379,14 +8381,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncComp
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AsyncClusteringService()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncClusteringService.java`
+Constructor `AsyncCompactService()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncCompactService.java`
 #### Snippet
 ```java
-  private transient BaseClusterer clusteringClient;
+  private transient BaseCompactor compactor;
 
-  public AsyncClusteringService(HoodieEngineContext context, BaseHoodieWriteClient writeClient) {
-    this(context, writeClient, false);
+  public AsyncCompactService(HoodieEngineContext context, BaseHoodieWriteClient client) {
+    this(context, client, false);
   }
 ```
 
@@ -8400,6 +8402,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncClus
   public AsyncClusteringService(HoodieEngineContext context, BaseHoodieWriteClient writeClient, boolean runInDaemonMode) {
     super(writeClient.getConfig(), runInDaemonMode);
     this.clusteringClient = createClusteringClient(writeClient);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AsyncClusteringService()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/AsyncClusteringService.java`
+#### Snippet
+```java
+  private transient BaseClusterer clusteringClient;
+
+  public AsyncClusteringService(HoodieEngineContext context, BaseHoodieWriteClient writeClient) {
+    this(context, writeClient, false);
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8571,30 +8585,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseComp
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseRollbackActionExecutor()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/BaseRollbackActionExecutor.java`
-#### Snippet
-```java
-  }
-
-  public BaseRollbackActionExecutor(HoodieEngineContext context,
-      HoodieWriteConfig config,
-      HoodieTable<T, I, K, O> table,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseRollbackActionExecutor()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/BaseRollbackActionExecutor.java`
-#### Snippet
-```java
-  protected HoodieInstant resolvedInstant;
-
-  public BaseRollbackActionExecutor(HoodieEngineContext context,
-                                    HoodieWriteConfig config,
-                                    HoodieTable<T, I, K, O> table,
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `LazyIterableIterator()` of an abstract class should not be declared 'public'
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/LazyIterableIterator.java`
 #### Snippet
@@ -8619,18 +8609,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstra
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `HoodieBootstrapSchemaProvider()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstrap/HoodieBootstrapSchemaProvider.java`
-#### Snippet
-```java
-  protected final HoodieWriteConfig writeConfig;
-
-  public HoodieBootstrapSchemaProvider(HoodieWriteConfig writeConfig) {
-    this.writeConfig = writeConfig;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `BootstrapModeSelector()` of an abstract class should not be declared 'public'
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstrap/selector/BootstrapModeSelector.java`
 #### Snippet
@@ -8652,6 +8630,42 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstra
   public BootstrapPartitionPathTranslator(TypedProperties properties) {
     this.properties = properties;
   }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `HoodieBootstrapSchemaProvider()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstrap/HoodieBootstrapSchemaProvider.java`
+#### Snippet
+```java
+  protected final HoodieWriteConfig writeConfig;
+
+  public HoodieBootstrapSchemaProvider(HoodieWriteConfig writeConfig) {
+    this.writeConfig = writeConfig;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseRollbackActionExecutor()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/BaseRollbackActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  public BaseRollbackActionExecutor(HoodieEngineContext context,
+      HoodieWriteConfig config,
+      HoodieTable<T, I, K, O> table,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseRollbackActionExecutor()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/BaseRollbackActionExecutor.java`
+#### Snippet
+```java
+  protected HoodieInstant resolvedInstant;
+
+  public BaseRollbackActionExecutor(HoodieEngineContext context,
+                                    HoodieWriteConfig config,
+                                    HoodieTable<T, I, K, O> table,
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8799,30 +8813,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.jav
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseHoodieWriteClient()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public BaseHoodieWriteClient(HoodieEngineContext context,
-                               HoodieWriteConfig writeConfig,
-                               SupportsUpgradeDowngrade upgradeDowngradeHelper) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BaseHoodieWriteClient()` of an abstract class should not be declared 'public'
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public BaseHoodieWriteClient(HoodieEngineContext context,
-                               HoodieWriteConfig writeConfig,
-                               Option<EmbeddedTimelineService> timelineService,
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `BaseAvroPayload()` of an abstract class should not be declared 'public'
 in `hudi-common/src/main/java/org/apache/hudi/common/model/BaseAvroPayload.java`
 #### Snippet
@@ -8839,10 +8829,10 @@ Constructor `AbstractDebeziumAvroPayload()` of an abstract class should not be d
 in `hudi-common/src/main/java/org/apache/hudi/common/model/debezium/AbstractDebeziumAvroPayload.java`
 #### Snippet
 ```java
-  }
+  private static final Logger LOG = LogManager.getLogger(AbstractDebeziumAvroPayload.class);
 
-  public AbstractDebeziumAvroPayload(Option<GenericRecord> record) {
-    super(record);
+  public AbstractDebeziumAvroPayload(GenericRecord record, Comparable orderingVal) {
+    super(record, orderingVal);
   }
 ```
 
@@ -8851,10 +8841,10 @@ Constructor `AbstractDebeziumAvroPayload()` of an abstract class should not be d
 in `hudi-common/src/main/java/org/apache/hudi/common/model/debezium/AbstractDebeziumAvroPayload.java`
 #### Snippet
 ```java
-  private static final Logger LOG = LogManager.getLogger(AbstractDebeziumAvroPayload.class);
+  }
 
-  public AbstractDebeziumAvroPayload(GenericRecord record, Comparable orderingVal) {
-    super(record, orderingVal);
+  public AbstractDebeziumAvroPayload(Option<GenericRecord> record) {
+    super(record);
   }
 ```
 
@@ -8889,18 +8879,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
 ```java
   }
 
-  public HoodieRecord(HoodieKey key, T data, HoodieOperation operation, Option<Map<String, String>> metaData) {
-    this.key = key;
-    this.data = data;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `HoodieRecord()` of an abstract class should not be declared 'public'
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
-#### Snippet
-```java
-  }
-
   public HoodieRecord(
       HoodieKey key,
       T data,
@@ -8919,6 +8897,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `HoodieRecord()` of an abstract class should not be declared 'public'
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
+#### Snippet
+```java
+  }
+
+  public HoodieRecord(HoodieKey key, T data, HoodieOperation operation, Option<Map<String, String>> metaData) {
+    this.key = key;
+    this.data = data;
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `InstantRange()` of an abstract class should not be declared 'public'
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/InstantRange.java`
 #### Snippet
@@ -8928,6 +8918,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/InstantRange.java
   public InstantRange(String startInstant, String endInstant) {
     this.startInstant = startInstant;
     this.endInstant = endInstant;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseHoodieWriteClient()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public BaseHoodieWriteClient(HoodieEngineContext context,
+                               HoodieWriteConfig writeConfig,
+                               Option<EmbeddedTimelineService> timelineService,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseHoodieWriteClient()` of an abstract class should not be declared 'public'
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public BaseHoodieWriteClient(HoodieEngineContext context,
+                               HoodieWriteConfig writeConfig,
+                               SupportsUpgradeDowngrade upgradeDowngradeHelper) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -8979,13 +8993,13 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieEngineContext.
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `IndexReader()` of an abstract class should not be declared 'public'
+Constructor `IndexWriter()` of an abstract class should not be declared 'public'
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIndex.java`
 #### Snippet
 ```java
     protected final HoodieTableMetaClient metaClient;
 
-    public IndexReader(HoodieTableMetaClient metaClient) {
+    public IndexWriter(HoodieTableMetaClient metaClient) {
       this.metaClient = metaClient;
     }
 ```
@@ -9003,13 +9017,13 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIn
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `IndexWriter()` of an abstract class should not be declared 'public'
+Constructor `IndexReader()` of an abstract class should not be declared 'public'
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/BootstrapIndex.java`
 #### Snippet
 ```java
     protected final HoodieTableMetaClient metaClient;
 
-    public IndexWriter(HoodieTableMetaClient metaClient) {
+    public IndexReader(HoodieTableMetaClient metaClient) {
       this.metaClient = metaClient;
     }
 ```
@@ -9171,18 +9185,6 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseVectorizedColumnReader()` of an abstract class should not be declared 'public'
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/BaseVectorizedColumnReader.java`
-#### Snippet
-```java
-  protected final LogicalType logicalType;
-
-  public BaseVectorizedColumnReader(
-      ColumnDescriptor descriptor,
-      PageReader pageReader,
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractColumnReader()` of an abstract class should not be declared 'public'
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/AbstractColumnReader.java`
 #### Snippet
@@ -9192,6 +9194,18 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
   public AbstractColumnReader(
       ColumnDescriptor descriptor,
       PageReader pageReader) throws IOException {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BaseVectorizedColumnReader()` of an abstract class should not be declared 'public'
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/BaseVectorizedColumnReader.java`
+#### Snippet
+```java
+  protected final LogicalType logicalType;
+
+  public BaseVectorizedColumnReader(
+      ColumnDescriptor descriptor,
+      PageReader pageReader,
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -9219,18 +9233,6 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractColumnReader()` of an abstract class should not be declared 'public'
-in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/AbstractColumnReader.java`
-#### Snippet
-```java
-  private RunLengthDecoder dictionaryIdsDecoder;
-
-  public AbstractColumnReader(
-      ColumnDescriptor descriptor,
-      PageReader pageReader) throws IOException {
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `BaseVectorizedColumnReader()` of an abstract class should not be declared 'public'
 in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/BaseVectorizedColumnReader.java`
 #### Snippet
@@ -9240,6 +9242,18 @@ in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/f
   public BaseVectorizedColumnReader(
       ColumnDescriptor descriptor,
       PageReader pageReader,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractColumnReader()` of an abstract class should not be declared 'public'
+in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/AbstractColumnReader.java`
+#### Snippet
+```java
+  private RunLengthDecoder dictionaryIdsDecoder;
+
+  public AbstractColumnReader(
+      ColumnDescriptor descriptor,
+      PageReader pageReader) throws IOException {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -9317,18 +9331,6 @@ in `hudi-aws/src/main/java/org/apache/hudi/aws/transaction/lock/DynamoDBBasedLoc
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `globRegex`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
-#### Snippet
-```java
-      throws IOException {
-
-    globRegex = globRegex == null ? "" : globRegex;
-
-    HoodieTableFileSystemView fsView = buildFileSystemView(globRegex, maxInstant, baseFileOnly, includeMaxInstant,
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `maxInstant`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
 #### Snippet
@@ -9338,6 +9340,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.ja
         maxInstant = HoodieCLI.getTableMetaClient().getActiveTimeline().filterCompletedAndCompactionInstants().lastInstant()
             .get().getTimestamp();
       }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `globRegex`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.java`
+#### Snippet
+```java
+      throws IOException {
+
+    globRegex = globRegex == null ? "" : globRegex;
+
+    HoodieTableFileSystemView fsView = buildFileSystemView(globRegex, maxInstant, baseFileOnly, includeMaxInstant,
 ```
 
 ### AssignmentToMethodParameter
@@ -9389,42 +9403,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CommitsCommand.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `sparkPropertiesPath`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
-#### Snippet
-```java
-    }
-    if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
-      sparkPropertiesPath =
-          Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sparkPropertiesPath`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
-#### Snippet
-```java
-          help = "Spark executor memory") final String sparkMemory) throws Exception {
-    if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
-      sparkPropertiesPath =
-          Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `sparkPropertiesPath`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
-#### Snippet
-```java
-          help = "Spark executor memory") final String sparkMemory) throws Exception {
-    if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
-      sparkPropertiesPath =
-          Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `compactionInstantTime`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
@@ -9461,6 +9439,42 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `sparkPropertiesPath`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
+#### Snippet
+```java
+          help = "Spark executor memory") final String sparkMemory) throws Exception {
+    if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
+      sparkPropertiesPath =
+          Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sparkPropertiesPath`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
+#### Snippet
+```java
+    }
+    if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
+      sparkPropertiesPath =
+          Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `sparkPropertiesPath`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/RepairsCommand.java`
+#### Snippet
+```java
+          help = "Spark executor memory") final String sparkMemory) throws Exception {
+    if (StringUtils.isNullOrEmpty(sparkPropertiesPath)) {
+      sparkPropertiesPath =
+          Utils.getDefaultPropertiesFile(JavaConverters.mapAsScalaMapConverter(System.getenv()).asScala());
+    }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `colName`
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/ColumnNameXLator.java`
 #### Snippet
@@ -9470,6 +9484,30 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/ColumnNameX
     for (Iterator<Map.Entry<String, String>> ic = xformMap.entrySet().iterator(); ic.hasNext(); colName =
         colName.replaceAll(entry.getKey(), entry.getValue())) {
       entry = ic.next();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
+  private static String tickSurround(String result) {
+    if (!result.startsWith("`")) {
+      result = "`" + result;
+    }
+    if (!result.endsWith("`")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
+    }
+    if (!result.endsWith("`")) {
+      result = result + "`";
+    }
+    return result;
 ```
 
 ### AssignmentToMethodParameter
@@ -9506,30 +9544,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaU
       result = result.substring(1, result.length() - 1);
     }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-  private static String tickSurround(String result) {
-    if (!result.startsWith("`")) {
-      result = "`" + result;
-    }
-    if (!result.endsWith("`")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-    }
-    if (!result.endsWith("`")) {
-      result = result + "`";
-    }
-    return result;
 ```
 
 ### AssignmentToMethodParameter
@@ -9689,15 +9703,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+Assignment to method parameter `value`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
-  public static String sanitizeName(String name) {
-    if (name.substring(0, 1).matches(INVALID_AVRO_FIRST_CHAR_IN_NAMES)) {
-      name = name.replaceFirst(INVALID_AVRO_FIRST_CHAR_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
+
+    if (value == null && matchValue != null) {
+      value = matchValue;
     }
-    return name.replaceAll(INVALID_AVRO_CHARS_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -9737,30 +9751,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-
-    if (value == null && matchValue != null) {
-      value = matchValue;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-
-    // copy data from buffer
-    len = Math.min(len, (int) (this.validLastPosition - this.currentPosition));
-    int buffOff = (int) (this.currentPosition - this.startPosition);
-    System.arraycopy(this.dataBuffer.array(), buffOff, b, off, len);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
 #### Snippet
@@ -9790,10 +9780,34 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFi
 #### Snippet
 ```java
 
+    // copy data from buffer
+    len = Math.min(len, (int) (this.validLastPosition - this.currentPosition));
+    int buffOff = (int) (this.currentPosition - this.startPosition);
+    System.arraycopy(this.dataBuffer.array(), buffOff, b, off, len);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+
     // copy data to buffer, until all data is copied or to buffer capacity.
     len = Math.min(len, (int) (this.validLastPosition - this.currentPosition));
     int buffOff = (int) (this.currentPosition - this.startPosition);
     System.arraycopy(b, off, this.dataBuffer.array(), buffOff, len);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+  public static String sanitizeName(String name) {
+    if (name.substring(0, 1).matches(INVALID_AVRO_FIRST_CHAR_IN_NAMES)) {
+      name = name.replaceFirst(INVALID_AVRO_FIRST_CHAR_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
+    }
+    return name.replaceAll(INVALID_AVRO_CHARS_IN_NAMES, MASK_FOR_INVALID_CHARS_IN_NAMES);
 ```
 
 ### AssignmentToMethodParameter
@@ -9849,10 +9863,10 @@ Assignment to method parameter `metadata`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/versioning/MetadataMigrator.java`
 #### Snippet
 ```java
-    while (newVersion <= targetVersion) {
-      VersionMigrator<T> upgrader = migrators.get(newVersion);
-      metadata = upgrader.upgradeFrom(metadata);
-      newVersion += 1;
+    while (newVersion >= targetVersion) {
+      VersionMigrator<T> downgrader = migrators.get(newVersion);
+      metadata = downgrader.downgradeFrom(metadata);
+      newVersion -= 1;
     }
 ```
 
@@ -9861,10 +9875,10 @@ Assignment to method parameter `metadata`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/versioning/MetadataMigrator.java`
 #### Snippet
 ```java
-    while (newVersion >= targetVersion) {
-      VersionMigrator<T> downgrader = migrators.get(newVersion);
-      metadata = downgrader.downgradeFrom(metadata);
-      newVersion -= 1;
+    while (newVersion <= targetVersion) {
+      VersionMigrator<T> upgrader = migrators.get(newVersion);
+      metadata = upgrader.upgradeFrom(metadata);
+      newVersion += 1;
     }
 ```
 
@@ -9905,18 +9919,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-    if (valueScale != scale) {
-      try {
-        value = value.setScale(scale, RoundingMode.UNNECESSARY);
-        scaleAdjusted = true;
-      } catch (ArithmeticException aex) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `path`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
@@ -9929,6 +9931,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveIn
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+    if (valueScale != scale) {
+      try {
+        value = value.setScale(scale, RoundingMode.UNNECESSARY);
+        scaleAdjusted = true;
+      } catch (ArithmeticException aex) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `maxRetryCount`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
 #### Snippet
@@ -9938,6 +9952,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
       } while (ret != 0 && maxRetryCount-- > 0);
     } catch (Throwable t) {
       LOG.error(errorMessage, t);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `retry`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+      do {
+        ret = dataImport(jsc);
+      } while (ret != 0 && retry-- > 0);
+    } catch (Throwable t) {
+      LOG.error(t);
 ```
 
 ### AssignmentToMethodParameter
@@ -9958,10 +9984,10 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/Debe
 #### Snippet
 ```java
 
-      for (String dateCol : dateFields) {
-        dataset = dataset.withColumn(dateCol, functions.col(dateCol).cast(DataTypes.DateType));
-      }
+    for (String colName : arrayColumns) {
+      dataset = dataset.withColumn(colName, functions.col(colName).cast(DataTypes.StringType));
     }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -9970,22 +9996,10 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/Debe
 #### Snippet
 ```java
 
-    for (String colName : arrayColumns) {
-      dataset = dataset.withColumn(colName, functions.col(colName).cast(DataTypes.StringType));
+      for (String dateCol : dateFields) {
+        dataset = dataset.withColumn(dateCol, functions.col(dateCol).cast(DataTypes.DateType));
+      }
     }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `records`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-    // filter dupes if needed
-    if (cfg.filterDupes) {
-      records = DataSourceUtils.dropDuplicates(jssc, records, writeClient.getConfig());
-    }
-
 ```
 
 ### AssignmentToMethodParameter
@@ -10001,14 +10015,14 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSy
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `dataStream`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/Pipelines.java`
+Assignment to method parameter `records`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
 #### Snippet
 ```java
-    final RowDataKeyGen rowDataKeyGen = RowDataKeyGen.instance(conf, rowType);
-    // shuffle by partition keys
-    dataStream = dataStream
-        .keyBy(rowDataKeyGen::getPartitionPath);
+    // filter dupes if needed
+    if (cfg.filterDupes) {
+      records = DataSourceUtils.dropDuplicates(jssc, records, writeClient.getConfig());
+    }
 
 ```
 
@@ -10061,6 +10075,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/Pi
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `dataStream`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/Pipelines.java`
+#### Snippet
+```java
+    final RowDataKeyGen rowDataKeyGen = RowDataKeyGen.instance(conf, rowType);
+    // shuffle by partition keys
+    dataStream = dataStream
+        .keyBy(rowDataKeyGen::getPartitionPath);
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `minNumSplits`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cow/CopyOnWriteInputFormat.java`
 #### Snippet
@@ -10070,18 +10096,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
     minNumSplits = Math.max(minNumSplits, this.numSplits);
 
     final List<FileInputSplit> inputSplits = new ArrayList<>(minNumSplits);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `numBytes`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-      while (numBytes > 0) {
-        int skipped = this.skipBytes(numBytes);
-        numBytes -= skipped;
-      }
-    }
 ```
 
 ### AssignmentToMethodParameter
@@ -10097,27 +10111,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `timeline`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+Assignment to method parameter `numBytes`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
 #### Snippet
 ```java
-    if (this.skipCompaction) {
-      // the compaction commit uses 'commit' as action which is tricky
-      timeline = timeline.filter(instant -> !instant.getAction().equals(HoodieTimeline.COMMIT_ACTION));
+      while (numBytes > 0) {
+        int skipped = this.skipBytes(numBytes);
+        numBytes -= skipped;
+      }
     }
-    if (this.skipClustering) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `timeline`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
-#### Snippet
-```java
-    }
-    if (this.skipClustering) {
-      timeline = timeline.filter(instant -> !ClusteringUtil.isClusteringInstant(instant, oriTimeline));
-    }
-    return timeline;
 ```
 
 ### AssignmentToMethodParameter
@@ -10169,39 +10171,51 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `rowId`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
+Assignment to method parameter `timeline`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
 #### Snippet
 ```java
-          throw new AssertionError();
-      }
-      rowId += n;
-      left -= n;
-      currentCount -= n;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rowId`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
-#### Snippet
-```java
-          throw new AssertionError();
-      }
-      rowId += n;
-      left -= n;
-      currentCount -= n;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rowCount`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ParquetColumnarRowSplitReader.java`
-#### Snippet
-```java
-        rowsInBatch = (int) metaData.getRowCount();
-        nextRow = (int) metaData.getRowCount();
-        rowCount -= metaData.getRowCount();
-      }
+    if (this.skipCompaction) {
+      // the compaction commit uses 'commit' as action which is tricky
+      timeline = timeline.filter(instant -> !instant.getAction().equals(HoodieTimeline.COMMIT_ACTION));
     }
+    if (this.skipClustering) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeline`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/IncrementalInputSplits.java`
+#### Snippet
+```java
+    }
+    if (this.skipClustering) {
+      timeline = timeline.filter(instant -> !ClusteringUtil.isClusteringInstant(instant, oriTimeline));
+    }
+    return timeline;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rowId`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
+#### Snippet
+```java
+          throw new AssertionError();
+      }
+      rowId += n;
+      left -= n;
+      currentCount -= n;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rowId`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
+#### Snippet
+```java
+          throw new AssertionError();
+      }
+      rowId += n;
+      left -= n;
+      currentCount -= n;
 ```
 
 ### AssignmentToMethodParameter
@@ -10214,6 +10228,18 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
       readNumber -= num;
     }
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rowCount`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ParquetColumnarRowSplitReader.java`
+#### Snippet
+```java
+        rowsInBatch = (int) metaData.getRowCount();
+        nextRow = (int) metaData.getRowCount();
+        rowCount -= metaData.getRowCount();
+      }
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -10253,18 +10279,6 @@ in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
-      case DATE:
-        if (value instanceof LocalDate) {
-          value = Date.valueOf((LocalDate) value);
-        }
-        return createVectorFromConstant(
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `rowCount`
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ParquetColumnarRowSplitReader.java`
 #### Snippet
@@ -10301,18 +10315,6 @@ in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
-      case DATE:
-        if (value instanceof LocalDate) {
-          value = Date.valueOf((LocalDate) value);
-        }
-        return createVectorFromConstant(
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `readNumber`
 in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/AbstractColumnReader.java`
 #### Snippet
@@ -10326,7 +10328,7 @@ in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/f
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `value`
-in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
 ```java
       case DATE:
@@ -10349,6 +10351,18 @@ in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+#### Snippet
+```java
+      case DATE:
+        if (value instanceof LocalDate) {
+          value = Date.valueOf((LocalDate) value);
+        }
+        return createVectorFromConstant(
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `writer`
 in `hudi-spark-datasource/hudi-spark/src/test/java/HoodieJavaGenerateApp.java`
 #### Snippet
@@ -10446,7 +10460,7 @@ in `hudi-spark-datasource/hudi-spark/src/test/java/HoodieJavaApp.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `value`
-in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
 ```java
       case DATE:
@@ -10493,15 +10507,15 @@ in `hudi-spark-datasource/hudi-spark/src/test/java/HoodieJavaStreamingApp.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `retry`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+Assignment to method parameter `value`
+in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
 ```java
-      do {
-        ret = dataImport(jsc);
-      } while (ret != 0 && retry-- > 0);
-    } catch (Throwable t) {
-      LOG.error(t);
+      case DATE:
+        if (value instanceof LocalDate) {
+          value = Date.valueOf((LocalDate) value);
+        }
+        return createVectorFromConstant(
 ```
 
 ## RuleId[ruleID=PrimitiveArrayArgumentToVariableArgMethod]
@@ -10560,18 +10574,6 @@ Return of `null`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
 ```java
-        } catch (HoodieIOException ioe) {
-          // SKIP
-          return null;
-        }
-      } else {
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
-#### Snippet
-```java
       }
     } else {
       return null;
@@ -10581,13 +10583,25 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 
 ### ReturnNull
 Return of `null`
-in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieMetaSyncOperations.java`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
 ```java
-   */
-  default MessageType getStorageSchema() {
-    return null;
-  }
+        } catch (HoodieIOException ioe) {
+          // SKIP
+          return null;
+        }
+      } else {
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
+#### Snippet
+```java
+
+      if (!SUPPORT_TYPES.contains(fieldSchema.getType())) {
+        return null;
+      }
 
 ```
 
@@ -10605,13 +10619,13 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieM
 
 ### ReturnNull
 Return of `null`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
+in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieMetaSyncOperations.java`
 #### Snippet
 ```java
-
-      if (!SUPPORT_TYPES.contains(fieldSchema.getType())) {
-        return null;
-      }
+   */
+  default MessageType getStorageSchema() {
+    return null;
+  }
 
 ```
 
@@ -10704,11 +10718,11 @@ Return of `null`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-      } catch (Exception e) {
-        if (returnNull) {
-          return null;
-        }
-        LOG.error(String.format("Failed to resolve nested field-paths (%s) in schema (%s)", fieldPaths, schema), e);
+  private static Object convertToLogicalDataType(DataType dataType, Object value) {
+    if (value == null) {
+      return null;
+    } else if (dataType instanceof TimestampType) {
+      // Provided value have to be [[Long]] in this case, representing micros since epoch
 ```
 
 ### ReturnNull
@@ -10740,11 +10754,11 @@ Return of `null`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKeyGenerator.java`
 #### Snippet
 ```java
-  private static Object convertToLogicalDataType(DataType dataType, Object value) {
-    if (value == null) {
-      return null;
-    } else if (dataType instanceof TimestampType) {
-      // Provided value have to be [[Long]] in this case, representing micros since epoch
+      } catch (Exception e) {
+        if (returnNull) {
+          return null;
+        }
+        LOG.error(String.format("Failed to resolve nested field-paths (%s) in schema (%s)", fieldPaths, schema), e);
 ```
 
 ### ReturnNull
@@ -10848,9 +10862,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/parser/HoodieDateTimeParser.java`
 #### Snippet
 ```java
-      inputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_INPUT_TIMEZONE_FORMAT_PROP, "");
+      outputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_OUTPUT_TIMEZONE_FORMAT_PROP, "");
     }
-    return !inputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(inputTimeZone)) : null;
+    return !outputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(outputTimeZone)) : null;
   }
 
 ```
@@ -10860,9 +10874,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/parser/HoodieDateTimeParser.java`
 #### Snippet
 ```java
-      outputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_OUTPUT_TIMEZONE_FORMAT_PROP, "");
+      inputTimeZone = config.getString(KeyGeneratorOptions.Config.TIMESTAMP_INPUT_TIMEZONE_FORMAT_PROP, "");
     }
-    return !outputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(outputTimeZone)) : null;
+    return !inputTimeZone.trim().isEmpty() ? DateTimeZone.forTimeZone(TimeZone.getTimeZone(inputTimeZone)) : null;
   }
 
 ```
@@ -10884,9 +10898,69 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-      conflictResolutionTimer = createTimer(conflictResolutionTimerName);
+      logCompactionTimer = createTimer(commitTimerName);
     }
-    return conflictResolutionTimer == null ? null : conflictResolutionTimer.time();
+    return logCompactionTimer == null ? null : logCompactionTimer.time();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      compactionTimer = createTimer(commitTimerName);
+    }
+    return compactionTimer == null ? null : compactionTimer.time();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+
+  String getMetricsName(String action, String metric) {
+    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      deltaCommitTimer = createTimer(deltaCommitTimerName);
+    }
+    return deltaCommitTimer == null ? null : deltaCommitTimer.time();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      rollbackTimer = createTimer(rollbackTimerName);
+    }
+    return rollbackTimer == null ? null : rollbackTimer.time();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+      clusteringTimer = createTimer(replaceCommitTimerName);
+    }
+    return clusteringTimer == null ? null : clusteringTimer.time();
   }
 
 ```
@@ -10920,9 +10994,9 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-
-  String getMetricsName(String action, String metric) {
-    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
+      finalizeTimer = createTimer(finalizeTimerName);
+    }
+    return finalizeTimer == null ? null : finalizeTimer.time();
   }
 
 ```
@@ -10944,81 +11018,21 @@ Return of `null`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
+      conflictResolutionTimer = createTimer(conflictResolutionTimerName);
+    }
+    return conflictResolutionTimer == null ? null : conflictResolutionTimer.time();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
 
   private Timer createTimer(String name) {
     return config.isMetricsOn() ? Metrics.getInstance().getRegistry().timer(name) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      logCompactionTimer = createTimer(commitTimerName);
-    }
-    return logCompactionTimer == null ? null : logCompactionTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      finalizeTimer = createTimer(finalizeTimerName);
-    }
-    return finalizeTimer == null ? null : finalizeTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      clusteringTimer = createTimer(replaceCommitTimerName);
-    }
-    return clusteringTimer == null ? null : clusteringTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      rollbackTimer = createTimer(rollbackTimerName);
-    }
-    return rollbackTimer == null ? null : rollbackTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      deltaCommitTimer = createTimer(deltaCommitTimerName);
-    }
-    return deltaCommitTimer == null ? null : deltaCommitTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-      compactionTimer = createTimer(commitTimerName);
-    }
-    return compactionTimer == null ? null : compactionTimer.time();
   }
 
 ```
@@ -11061,30 +11075,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/TimedFSDataInputStream.j
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaCompatibility.java`
-#### Snippet
-```java
-    switch (writerFields.size()) {
-      case 0:
-        return null;
-      case 1:
-        return writerFields.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStream.java`
-#### Snippet
-```java
-          bytesWritten.addAndGet(b.length);
-          super.write(b);
-          return null;
-        });
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStream.java`
 #### Snippet
 ```java
@@ -11097,14 +11087,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStr
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSystem.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/SizeAwareFSDataOutputStream.java`
 #### Snippet
 ```java
-  @Override
-  public FSDataOutputStream append(Path path, int i, Progressable progressable) throws IOException {
-    return null;
+          bytesWritten.addAndGet(b.length);
+          super.write(b);
+          return null;
+        });
   }
-
 ```
 
 ### ReturnNull
@@ -11125,10 +11115,58 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSyste
 #### Snippet
 ```java
   @Override
+  public FSDataOutputStream append(Path path, int i, Progressable progressable) throws IOException {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSystem.java`
+#### Snippet
+```java
+  @Override
   public FSDataInputStream open(Path inlinePath, int bufferSize) {
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaCompatibility.java`
+#### Snippet
+```java
+    switch (writerFields.size()) {
+      case 0:
+        return null;
+      case 1:
+        return writerFields.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/OrcReaderIterator.java`
+#### Snippet
+```java
+    // No more records left to read from ORC file
+    if (!ensureBatch()) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
+#### Snippet
+```java
+      return System.getProperty("java.io.tmpdir").split(",");
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -11169,26 +11207,74 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/OrcReaderIterator.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 #### Snippet
 ```java
-    // No more records left to read from ORC file
-    if (!ensureBatch()) {
+  public static String join(final String[] array, final String separator) {
+    if (array == null) {
       return null;
     }
-
+    return org.apache.hadoop.util.StringUtils.join(separator, array);
 ```
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
 #### Snippet
 ```java
-      return System.getProperty("java.io.tmpdir").split(",");
-    } else {
+  public static String join(final List<String> list, final String separator) {
+    if (list == null || list.size() == 0) {
       return null;
     }
-  }
+    return org.apache.hadoop.util.StringUtils.join(separator, list.toArray(new String[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
+#### Snippet
+```java
+  public static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements) {
+    if (elements == null) {
+      return null;
+    }
+    return String.join(delimiter, elements);
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
+#### Snippet
+```java
+  public static String objToString(@Nullable Object obj) {
+    if (obj == null) {
+      return null;
+    }
+    return obj instanceof ByteBuffer ? toHexString(((ByteBuffer) obj).array()) : obj.toString();
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/HoodieRecordUtils.java`
+#### Snippet
+```java
+            } catch (HoodieException e) {
+              LOG.warn(String.format("Unable to init %s", clazz), e);
+              return null;
+            }
+          })
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+
+    if (colVector.isNull[vectorPos]) {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -11201,18 +11287,6 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
   private static final ThreadLocal<BinaryDecoder> BINARY_DECODER = ThreadLocal.withInitial(() -> null);
 
   private static final long MILLIS_PER_DAY = 86400000L;
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-  private static Object rewriteRecordWithNewSchema(Object oldRecord, Schema oldAvroSchema, Schema newSchema, Map<String, String> renameCols, Deque<String> fieldNames) {
-    if (oldRecord == null) {
-      return null;
-    }
-    // try to get real schema for union type
 ```
 
 ### ReturnNull
@@ -11280,6 +11354,18 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
+  private static Object rewriteRecordWithNewSchema(Object oldRecord, Schema oldAvroSchema, Schema newSchema, Map<String, String> renameCols, Deque<String> fieldNames) {
+    if (oldRecord == null) {
+      return null;
+    }
+    // try to get real schema for union type
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
     if (record.getSchema().getField(key) == null) {
       if (returnNullIfNotFound) {
         return null;
@@ -11301,78 +11387,6 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
-#### Snippet
-```java
-  public static String join(final List<String> list, final String separator) {
-    if (list == null || list.size() == 0) {
-      return null;
-    }
-    return org.apache.hadoop.util.StringUtils.join(separator, list.toArray(new String[0]));
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
-#### Snippet
-```java
-  public static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements) {
-    if (elements == null) {
-      return null;
-    }
-    return String.join(delimiter, elements);
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
-#### Snippet
-```java
-  public static String objToString(@Nullable Object obj) {
-    if (obj == null) {
-      return null;
-    }
-    return obj instanceof ByteBuffer ? toHexString(((ByteBuffer) obj).array()) : obj.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
-#### Snippet
-```java
-  public static String join(final String[] array, final String separator) {
-    if (array == null) {
-      return null;
-    }
-    return org.apache.hadoop.util.StringUtils.join(separator, array);
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/HoodieRecordUtils.java`
-#### Snippet
-```java
-            } catch (HoodieException e) {
-              LOG.warn(String.format("Unable to init %s", clazz), e);
-              return null;
-            }
-          })
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-
-    if (colVector.isNull[vectorPos]) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BaseHoodieQueueBasedExecutor.java`
 #### Snippet
 ```java
@@ -11385,14 +11399,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BaseHoodieQueueB
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ArrayUtils.java`
 #### Snippet
 ```java
-  private static Comparable<?> convertToNativeJavaType(PrimitiveType primitiveType, Comparable<?> val) {
-    if (val == null) {
+  public static long[] toPrimitive(Long[] array) {
+    if (array == null) {
       return null;
-    }
-
+    } else if (array.length == 0) {
+      return EMPTY_LONG_ARRAY;
 ```
 
 ### ReturnNull
@@ -11409,14 +11423,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ArrayUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 #### Snippet
 ```java
-  public static long[] toPrimitive(Long[] array) {
-    if (array == null) {
+  private static Comparable<?> convertToNativeJavaType(PrimitiveType primitiveType, Comparable<?> val) {
+    if (val == null) {
       return null;
-    } else if (array.length == 0) {
-      return EMPTY_LONG_ARRAY;
+    }
+
 ```
 
 ### ReturnNull
@@ -11472,7 +11486,7 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
 #### Snippet
 ```java
-      return getDiskBasedMap().get(key);
+      return getDiskBasedMap().remove(key);
     }
     return null;
   }
@@ -11484,7 +11498,7 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
 #### Snippet
 ```java
-      return getDiskBasedMap().remove(key);
+      return getDiskBasedMap().get(key);
     }
     return null;
   }
@@ -11505,26 +11519,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalDynamicBloomF
 
 ### ReturnNull
 Return of `null`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieOperation.java`
 #### Snippet
 ```java
-  public HoodieCleanMetadata clean(String cleanInstantTime, boolean scheduleInline, boolean skipLocking) throws HoodieIOException {
-    if (!tableServicesEnabled(config)) {
+  public static HoodieOperation fromName(Option<String> nameOpt) {
+    if (!nameOpt.isPresent()) {
       return null;
     }
-    final Timer.Context timerContext = metrics.getCleanCtx();
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieEmptyRecord.java`
-#### Snippet
-```java
-  @Override
-  public T getData() {
-    return null;
-  }
-
+    return fromName(nameOpt.get());
 ```
 
 ### ReturnNull
@@ -11541,14 +11543,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieEmptyRecord.jav
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieOperation.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieEmptyRecord.java`
 #### Snippet
 ```java
-  public static HoodieOperation fromName(Option<String> nameOpt) {
-    if (!nameOpt.isPresent()) {
-      return null;
-    }
-    return fromName(nameOpt.get());
+  @Override
+  public T getData() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -11589,6 +11591,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
 
 ### ReturnNull
 Return of `null`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+  public HoodieCleanMetadata clean(String cleanInstantTime, boolean scheduleInline, boolean skipLocking) throws HoodieIOException {
+    if (!tableServicesEnabled(config)) {
+      return null;
+    }
+    final Timer.Context timerContext = metrics.getCleanCtx();
+```
+
+### ReturnNull
+Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.java`
 #### Snippet
 ```java
@@ -11601,14 +11615,134 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/LogReaderUtils.ja
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermissionDTO.java`
 #### Snippet
 ```java
-        .map(Pair::getValue).reduce(null,
-            (x, y) -> ((x == null) ? y
-                : (y == null) ? null
-                    : HoodieTimeline.compareTimestamps(x.getBaseInstantTime(), HoodieTimeline.GREATER_THAN, y.getBaseInstantTime()
-            ) ? x : y)));
+  public static FsPermission fromFsPermissionDTO(FSPermissionDTO dto) {
+    if (null == dto) {
+      return null;
+    }
+    return new FsPermission(dto.useraction, dto.groupaction, dto.otheraction, dto.stickyBit);
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermissionDTO.java`
+#### Snippet
+```java
+  public static FSPermissionDTO fromFsPermission(FsPermission permission) {
+    if (null == permission) {
+      return null;
+    }
+    FSPermissionDTO dto = new FSPermissionDTO();
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePathDTO.java`
+#### Snippet
+```java
+  public static Path toPath(FilePathDTO dto) {
+    if (null == dto) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePathDTO.java`
+#### Snippet
+```java
+  public static FilePathDTO fromPath(Path path) {
+    if (null == path) {
+      return null;
+    }
+    FilePathDTO dto = new FilePathDTO();
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/InstantDTO.java`
+#### Snippet
+```java
+  public static HoodieInstant toInstant(InstantDTO dto) {
+    if (null == dto) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/InstantDTO.java`
+#### Snippet
+```java
+  public static InstantDTO fromInstant(HoodieInstant instant) {
+    if (null == instant) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileStatusDTO.java`
+#### Snippet
+```java
+  public static FileStatus toFileStatus(FileStatusDTO dto) {
+    if (null == dto) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileStatusDTO.java`
+#### Snippet
+```java
+  public static FileStatusDTO fromFileStatus(FileStatus fileStatus) {
+    if (null == fileStatus) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
+#### Snippet
+```java
+  private static BaseFile toBaseFile(BaseFileDTO dto) {
+    if (null == dto) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
+#### Snippet
+```java
+  public static BaseFileDTO fromHoodieBaseFile(BaseFile baseFile) {
+    if (null == baseFile) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
+#### Snippet
+```java
+  public static HoodieBaseFile toHoodieBaseFile(BaseFileDTO dto) {
+    if (null == dto) {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -11640,6 +11774,18 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
+        .map(Pair::getValue).reduce(null,
+            (x, y) -> ((x == null) ? y
+                : (y == null) ? null
+                    : HoodieTimeline.compareTimestamps(x.getBaseInstantTime(), HoodieTimeline.GREATER_THAN, y.getBaseInstantTime()
+            ) ? x : y)));
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
             .map(Pair::getValue).reduce(null,
                 (x, y) -> ((x == null) ? y
                     : (y == null) ? null
@@ -11649,146 +11795,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermissionDTO.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
 #### Snippet
 ```java
-  public static FSPermissionDTO fromFsPermission(FsPermission permission) {
-    if (null == permission) {
+  public static HoodieFSPermission fromFSPermission(FsPermission fsPermission) {
+    if (null == fsPermission) {
       return null;
     }
-    FSPermissionDTO dto = new FSPermissionDTO();
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FSPermissionDTO.java`
-#### Snippet
-```java
-  public static FsPermission fromFsPermissionDTO(FSPermissionDTO dto) {
-    if (null == dto) {
-      return null;
-    }
-    return new FsPermission(dto.useraction, dto.groupaction, dto.otheraction, dto.stickyBit);
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePathDTO.java`
-#### Snippet
-```java
-  public static FilePathDTO fromPath(Path path) {
-    if (null == path) {
-      return null;
-    }
-    FilePathDTO dto = new FilePathDTO();
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FilePathDTO.java`
-#### Snippet
-```java
-  public static Path toPath(FilePathDTO dto) {
-    if (null == dto) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/InstantDTO.java`
-#### Snippet
-```java
-  public static InstantDTO fromInstant(HoodieInstant instant) {
-    if (null == instant) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/InstantDTO.java`
-#### Snippet
-```java
-  public static HoodieInstant toInstant(InstantDTO dto) {
-    if (null == dto) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileStatusDTO.java`
-#### Snippet
-```java
-  public static FileStatusDTO fromFileStatus(FileStatus fileStatus) {
-    if (null == fileStatus) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileStatusDTO.java`
-#### Snippet
-```java
-  public static FileStatus toFileStatus(FileStatusDTO dto) {
-    if (null == dto) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
-#### Snippet
-```java
-  public static BaseFileDTO fromHoodieBaseFile(BaseFile baseFile) {
-    if (null == baseFile) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
-#### Snippet
-```java
-  private static BaseFile toBaseFile(BaseFileDTO dto) {
-    if (null == dto) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/BaseFileDTO.java`
-#### Snippet
-```java
-  public static HoodieBaseFile toHoodieBaseFile(BaseFileDTO dto) {
-    if (null == dto) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchivedTimeline.java`
-#### Snippet
-```java
-          }
-        }
-        return null;
-      });
-    }
+    String userAction = fsPermission.getUserAction() != null ? fsPermission.getUserAction().name() : null;
 ```
 
 ### ReturnNull
@@ -11808,11 +11822,11 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
 #### Snippet
 ```java
-  public static Path toPath(HoodiePath path) {
-    if (null == path) {
+  public static FileStatus toFileStatus(HoodieFileStatus fileStatus) {
+    if (null == fileStatus) {
       return null;
     }
-    return new Path(path.getUri());
+
 ```
 
 ### ReturnNull
@@ -11832,11 +11846,11 @@ Return of `null`
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
 #### Snippet
 ```java
-  public static FileStatus toFileStatus(HoodieFileStatus fileStatus) {
-    if (null == fileStatus) {
+  public static Path toPath(HoodiePath path) {
+    if (null == path) {
       return null;
     }
-
+    return new Path(path.getUri());
 ```
 
 ### ReturnNull
@@ -11853,86 +11867,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.j
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/FileStatusUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchivedTimeline.java`
 #### Snippet
 ```java
-  public static HoodieFSPermission fromFSPermission(FsPermission fsPermission) {
-    if (null == fsPermission) {
-      return null;
+          }
+        }
+        return null;
+      });
     }
-    String userAction = fsPermission.getUserAction() != null ? fsPermission.getUserAction().name() : null;
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return field.type();
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return valueField.type();
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return valueField;
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return elementField;
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-        return elementType();
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
-#### Snippet
-```java
-      return field.type();
-    }
-    return null;
-  }
-
 ```
 
 ### ReturnNull
@@ -11953,6 +11895,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
 #### Snippet
 ```java
       return buildIdToField().get(id);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+#### Snippet
+```java
+      return field.type();
     }
     return null;
   }
@@ -11985,14 +11939,62 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
 
 ### ReturnNull
 Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChanges.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
 #### Snippet
 ```java
-    public Type applyDelete(int id, Type type) {
-      if (deletes.contains(id)) {
-        return null;
+        return elementType();
       }
-      return type;
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+        return valueField.type();
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+        return field.type();
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+        return valueField;
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+        return elementField;
+      }
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -12049,42 +12051,6 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSc
 #### Snippet
 ```java
 
-  public T map(Types.MapType map, T keyResult, T valueResult) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T schema(InternalSchema schema, T recordResult) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
-  public T field(Types.Field field, T fieldResult) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
-#### Snippet
-```java
-
   public T array(Types.ArrayType array, T elementResult) {
     return null;
   }
@@ -12109,10 +12075,58 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSc
 #### Snippet
 ```java
 
+  public T schema(InternalSchema schema, T recordResult) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
+#### Snippet
+```java
+
   public T primitive(Type.PrimitiveType primitive) {
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
+#### Snippet
+```java
+
+  public T map(Types.MapType map, T keyResult, T valueResult) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/visitor/InternalSchemaVisitor.java`
+#### Snippet
+```java
+
+  public T field(Types.Field field, T fieldResult) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChanges.java`
+#### Snippet
+```java
+    public Type applyDelete(int id, Type type) {
+      if (deletes.contains(id)) {
+        return null;
+      }
+      return type;
 ```
 
 ### ReturnNull
@@ -12137,6 +12151,18 @@ in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexUtil
       return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
+#### Snippet
+```java
+        }
+      }
+      return lastBlock != null ? new AvroSchemaConverter().convert(lastBlock.getSchema()) : null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -12333,6 +12359,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieRealtimeReco
 
 ### ReturnNull
 Return of `null`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/RealtimeUnmergedRecordReader.java`
+#### Snippet
+```java
+          // Scan all the delta-log files, filling in the queue
+          scanner.scan();
+          return null;
+        }),
+        new IteratorBasedQueueProducer<>(parquetRecordsIterator)
+```
+
+### ReturnNull
+Return of `null`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
 #### Snippet
 ```java
@@ -12357,14 +12395,14 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer
 
 ### ReturnNull
 Return of `null`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/RealtimeUnmergedRecordReader.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller.java`
 #### Snippet
 ```java
-          // Scan all the delta-log files, filling in the queue
-          scanner.scan();
-          return null;
-        }),
-        new IteratorBasedQueueProducer<>(parquetRecordsIterator)
+      }
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -12381,13 +12419,25 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller
 
 ### ReturnNull
 Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HiveIncrementalPuller.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/NullTargetSchemaRegistryProvider.java`
 #### Snippet
 ```java
-      }
-    }
+  @Override
+  public Schema getTargetSchema() {
     return null;
   }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SparkAvroPostProcessor.java`
+#### Snippet
+```java
+  public Schema processSchema(Schema schema) {
+    if (schema == null) {
+      return null;
+    }
 
 ```
 
@@ -12413,30 +12463,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.j
         return null;
 
       default:
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/NullTargetSchemaRegistryProvider.java`
-#### Snippet
-```java
-  @Override
-  public Schema getTargetSchema() {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SparkAvroPostProcessor.java`
-#### Snippet
-```java
-  public Schema processSchema(Schema schema) {
-    if (schema == null) {
-      return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -12564,9 +12590,33 @@ Return of `null`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
+
+  String getMetricsName(String action, String metric) {
+    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
       overallTimer = createTimer(overallTimerName);
     }
     return overallTimer == null ? null : overallTimer.time();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
+      hiveSyncTimer = createTimer(hiveSyncTimerName);
+    }
+    return hiveSyncTimer == null ? null : hiveSyncTimer.time();
   }
 
 ```
@@ -12591,30 +12641,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieD
       metaSyncTimer = createTimer(metaSyncTimerName);
     }
     return metaSyncTimer == null ? null : metaSyncTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
-      hiveSyncTimer = createTimer(hiveSyncTimerName);
-    }
-    return hiveSyncTimer == null ? null : hiveSyncTimer.time();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
-
-  String getMetricsName(String action, String metric) {
-    return config == null ? null : String.format("%s.%s.%s", config.getMetricReporterMetricsNamePrefix(), action, metric);
   }
 
 ```
@@ -12681,6 +12707,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroToRo
 
 ### ReturnNull
 Return of `null`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataTypeUtils.java`
+#### Snippet
+```java
+  public static Object resolvePartition(String partition, DataType type) {
+    if (partition == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
 #### Snippet
 ```java
@@ -12717,14 +12755,14 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/Streamer
 
 ### ReturnNull
 Return of `null`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataTypeUtils.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/RowDataToAvroConverters.java`
 #### Snippet
 ```java
-  public static Object resolvePartition(String partition, DataType type) {
-    if (partition == null) {
-      return null;
-    }
-
+              @Override
+              public Object convert(Schema schema, Object object) {
+                return null;
+              }
+            };
 ```
 
 ### ReturnNull
@@ -12741,14 +12779,14 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/RowDataT
 
 ### ReturnNull
 Return of `null`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/RowDataToAvroConverters.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FormatUtils.java`
 #### Snippet
 ```java
-              @Override
-              public Object convert(Schema schema, Object object) {
-                return null;
-              }
-            };
+
+  private static Object getVal(IndexedRecord record, int pos) {
+    return pos == -1 ? null : record.get(pos);
+  }
+
 ```
 
 ### ReturnNull
@@ -12760,18 +12798,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
         scanner.scan();
         return null;
       }));
-
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FormatUtils.java`
-#### Snippet
-```java
-
-  private static Object getVal(IndexedRecord record, int pos) {
-    return pos == -1 ? null : record.get(pos);
-  }
 
 ```
 
@@ -12813,18 +12839,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 
 ### ReturnNull
 Return of `null`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ArrayColumnReader.java`
 #### Snippet
 ```java
@@ -12844,6 +12858,18 @@ in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/f
     if (dictionaryValue == null) {
       return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
 
 ```
 
@@ -12905,18 +12931,6 @@ in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/hudi/internal/Def
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-        }
-      }
-      return lastBlock != null ? new AvroSchemaConverter().convert(lastBlock.getSchema()) : null;
-    }
-  }
 ```
 
 ## RuleId[ruleID=AssignmentToLambdaParameter]
@@ -13102,18 +13116,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkin
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `sortColumns` is redundant
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RowCustomColumnsSortPartitioner.java`
-#### Snippet
-```java
-  @Override
-  public Dataset<Row> repartitionRecords(Dataset<Row> records, int outputSparkPartitions) {
-    final String[] sortColumns = this.sortColumnNames;
-    return records.coalesce(outputSparkPartitions)
-        .sortWithinPartitions(HoodieRecord.PARTITION_PATH_METADATA_FIELD, sortColumns);
-```
-
-### UnnecessaryLocalVariable
 Local variable `value` is redundant
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/common/model/HoodieSparkRecord.java`
 #### Snippet
@@ -13126,15 +13128,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/common/model/Hoo
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `executionStrategy` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/HoodieCompactor.java`
+Local variable `sortColumns` is redundant
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RowCustomColumnsSortPartitioner.java`
 #### Snippet
 ```java
-      return new CompactionExecutionHelper();
-    } else {
-      CompactionExecutionHelper executionStrategy = ReflectionUtils.loadClass(compactionPlan.getStrategy().getCompactorClassName());
-      return executionStrategy;
-    }
+  @Override
+  public Dataset<Row> repartitionRecords(Dataset<Row> records, int outputSparkPartitions) {
+    final String[] sortColumns = this.sortColumnNames;
+    return records.coalesce(outputSparkPartitions)
+        .sortWithinPartitions(HoodieRecord.PARTITION_PATH_METADATA_FIELD, sortColumns);
 ```
 
 ### UnnecessaryLocalVariable
@@ -13147,6 +13149,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
     String maxInstantTime = metaClient
         .getActiveTimeline().getTimelineOfActions(CollectionUtils.createSet(HoodieTimeline.COMMIT_ACTION,
             HoodieTimeline.ROLLBACK_ACTION, HoodieTimeline.DELTA_COMMIT_ACTION))
+```
+
+### UnnecessaryLocalVariable
+Local variable `executionStrategy` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/HoodieCompactor.java`
+#### Snippet
+```java
+      return new CompactionExecutionHelper();
+    } else {
+      CompactionExecutionHelper executionStrategy = ReflectionUtils.loadClass(compactionPlan.getStrategy().getCompactorClassName());
+      return executionStrategy;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -13186,18 +13200,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFileSystem.
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `julianDays` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-    long millisUtc = date.getTime();
-    long millisLocal = millisUtc + TimeZone.getDefault().getOffset(millisUtc);
-    int julianDays = Math.toIntExact(Math.floorDiv(millisLocal, MILLIS_PER_DAY));
-    return julianDays;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `nullUnion` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
@@ -13210,15 +13212,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `inflightTimelineExcludeClusteringCommit` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+Local variable `julianDays` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
-  private HoodieTimeline getInflightTimelineExcludeCompactionAndClustering(HoodieTableMetaClient metaClient) {
-    HoodieTimeline inflightTimelineWithReplaceCommit = metaClient.getCommitsTimeline().filterPendingExcludingMajorAndMinorCompaction();
-    HoodieTimeline inflightTimelineExcludeClusteringCommit = inflightTimelineWithReplaceCommit.filter(instant -> {
-      if (instant.getAction().equals(HoodieTimeline.REPLACE_COMMIT_ACTION)) {
-        Option<Pair<HoodieInstant, HoodieClusteringPlan>> instantPlan = ClusteringUtils.getClusteringPlan(metaClient, instant);
+    long millisUtc = date.getTime();
+    long millisLocal = millisUtc + TimeZone.getDefault().getOffset(millisUtc);
+    int julianDays = Math.toIntExact(Math.floorDiv(millisLocal, MILLIS_PER_DAY));
+    return julianDays;
+  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -13231,6 +13233,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieAvroIndexedReco
     HoodieRecord hoodieRecord = new HoodieAvroRecord(hoodieKey, avroPayload);
     return hoodieRecord;
   }
+```
+
+### UnnecessaryLocalVariable
+Local variable `inflightTimelineExcludeClusteringCommit` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+  private HoodieTimeline getInflightTimelineExcludeCompactionAndClustering(HoodieTableMetaClient metaClient) {
+    HoodieTimeline inflightTimelineWithReplaceCommit = metaClient.getCommitsTimeline().filterPendingExcludingMajorAndMinorCompaction();
+    HoodieTimeline inflightTimelineExcludeClusteringCommit = inflightTimelineWithReplaceCommit.filter(instant -> {
+      if (instant.getAction().equals(HoodieTimeline.REPLACE_COMMIT_ACTION)) {
+        Option<Pair<HoodieInstant, HoodieClusteringPlan>> instantPlan = ClusteringUtils.getClusteringPlan(metaClient, instant);
 ```
 
 ### UnnecessaryLocalVariable
@@ -13258,18 +13272,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewSt
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `fgInpendingClustering` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
-    Map<HoodieFileGroupId, HoodieInstant> fgInpendingClustering = new ConcurrentHashMap<>(fileGroupsInClustering);
-    return fgInpendingClustering;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `replacedFileGroupsMap` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
@@ -13278,6 +13280,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
   protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
     Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
     return replacedFileGroupsMap;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `fgInpendingClustering` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
+    Map<HoodieFileGroupId, HoodieInstant> fgInpendingClustering = new ConcurrentHashMap<>(fileGroupsInClustering);
+    return fgInpendingClustering;
   }
 ```
 
@@ -13298,11 +13312,11 @@ Local variable `configProperty` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/config/ConfigProperty.java`
 #### Snippet
 ```java
-    public <T> ConfigProperty<T> defaultValue(T value) {
-      Objects.requireNonNull(value);
-      ConfigProperty<T> configProperty = new ConfigProperty<>(key, value, "", Option.empty(), Option.empty(), Option.empty(), Collections.emptySet());
+
+    public ConfigProperty<String> noDefaultValue() {
+      ConfigProperty<String> configProperty = new ConfigProperty<>(key, null, "", Option.empty(),
+          Option.empty(), Option.empty(), Collections.emptySet());
       return configProperty;
-    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -13310,11 +13324,11 @@ Local variable `configProperty` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/config/ConfigProperty.java`
 #### Snippet
 ```java
-
-    public ConfigProperty<String> noDefaultValue() {
-      ConfigProperty<String> configProperty = new ConfigProperty<>(key, null, "", Option.empty(),
-          Option.empty(), Option.empty(), Collections.emptySet());
+    public <T> ConfigProperty<T> defaultValue(T value) {
+      Objects.requireNonNull(value);
+      ConfigProperty<T> configProperty = new ConfigProperty<>(key, value, "", Option.empty(), Option.empty(), Option.empty(), Collections.emptySet());
       return configProperty;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -13378,18 +13392,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/RealtimeCompact
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `columnRangeMetadataList` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-      if (filePath.endsWith(HoodieFileFormat.PARQUET.getFileExtension())) {
-        Path fullFilePath = new Path(datasetMetaClient.getBasePath(), filePath);
-        List<HoodieColumnRangeMetadata<Comparable>> columnRangeMetadataList =
-            new ParquetUtils().readRangeFromParquetMetadata(datasetMetaClient.getHadoopConf(), fullFilePath, columnsToIndex);
-
-```
-
-### UnnecessaryLocalVariable
 Local variable `ret` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
@@ -13399,6 +13401,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
     int ret = UtilHelpers.retry(retry, () -> {
       switch (cfg.runningMode.toLowerCase()) {
         case SCHEDULE: {
+```
+
+### UnnecessaryLocalVariable
+Local variable `columnRangeMetadataList` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+      if (filePath.endsWith(HoodieFileFormat.PARQUET.getFileExtension())) {
+        Path fullFilePath = new Path(datasetMetaClient.getBasePath(), filePath);
+        List<HoodieColumnRangeMetadata<Comparable>> columnRangeMetadataList =
+            new ParquetUtils().readRangeFromParquetMetadata(datasetMetaClient.getHadoopConf(), fullFilePath, columnsToIndex);
+
 ```
 
 ## RuleId[ruleID=BusyWait]
@@ -13538,14 +13552,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/T
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/UpgradeDowngrade.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/TwoToThreeUpgradeHandler.java`
 #### Snippet
 ```java
-    // Perform the actual upgrade/downgrade; this has to be idempotent, for now.
-    LOG.info("Attempting to move table from version " + fromVersion + " to " + toVersion);
-    Map<ConfigProperty, String> tableProps = new Hashtable<>();
-    if (fromVersion.versionCode() < toVersion.versionCode()) {
-      // upgrade
+      HoodieTableMetadataUtil.deleteMetadataTable(config.getBasePath(), context);
+    }
+    Map<ConfigProperty, String> tablePropsToAdd = new Hashtable<>();
+    tablePropsToAdd.put(HoodieTableConfig.URL_ENCODE_PARTITIONING, config.getStringOrDefault(HoodieTableConfig.URL_ENCODE_PARTITIONING));
+    tablePropsToAdd.put(HoodieTableConfig.HIVE_STYLE_PARTITIONING_ENABLE, config.getStringOrDefault(HoodieTableConfig.HIVE_STYLE_PARTITIONING_ENABLE));
 ```
 
 ### ObsoleteCollection
@@ -13562,14 +13576,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/O
 
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/TwoToThreeUpgradeHandler.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/upgrade/UpgradeDowngrade.java`
 #### Snippet
 ```java
-      HoodieTableMetadataUtil.deleteMetadataTable(config.getBasePath(), context);
-    }
-    Map<ConfigProperty, String> tablePropsToAdd = new Hashtable<>();
-    tablePropsToAdd.put(HoodieTableConfig.URL_ENCODE_PARTITIONING, config.getStringOrDefault(HoodieTableConfig.URL_ENCODE_PARTITIONING));
-    tablePropsToAdd.put(HoodieTableConfig.HIVE_STYLE_PARTITIONING_ENABLE, config.getStringOrDefault(HoodieTableConfig.HIVE_STYLE_PARTITIONING_ENABLE));
+    // Perform the actual upgrade/downgrade; this has to be idempotent, for now.
+    LOG.info("Attempting to move table from version " + fromVersion + " to " + toVersion);
+    Map<ConfigProperty, String> tableProps = new Hashtable<>();
+    if (fromVersion.versionCode() < toVersion.versionCode()) {
+      // upgrade
 ```
 
 ## RuleId[ruleID=RedundantArrayCreation]
@@ -13807,6 +13821,42 @@ Duplicate branch in 'switch'
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
+      case SHORT:
+        // smallint (16 bit), use int to hold it
+        return Schema.create(Schema.Type.INT);
+      case INT:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+      case INT:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
+        return Schema.create(Schema.Type.INT);
+      case LONG:
+        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MICROS, but there is no way to distinguish
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+      case DATE:
+        // convert to daysSinceEpoch for LogicalType.Date
+        return (int) ((LongColumnVector) colVector).vector[vectorPos];
+      case TIMESTAMP:
+        // The unit of time in ORC is millis. Convert (time,nanos) to the desired unit per logicalType
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
       case ENUM:
         // represent as String for now
         return TypeDescription.createString();
@@ -13831,42 +13881,6 @@ Duplicate branch in 'switch'
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
 ```java
-      case DATE:
-        // convert to daysSinceEpoch for LogicalType.Date
-        return (int) ((LongColumnVector) colVector).vector[vectorPos];
-      case TIMESTAMP:
-        // The unit of time in ORC is millis. Convert (time,nanos) to the desired unit per logicalType
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-      case SHORT:
-        // smallint (16 bit), use int to hold it
-        return Schema.create(Schema.Type.INT);
-      case INT:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-      case INT:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MILLIS, but there is no way to distinguish
-        return Schema.create(Schema.Type.INT);
-      case LONG:
-        // the Avro logical type could be AvroTypeUtil.LOGICAL_TYPE_TIME_MICROS, but there is no way to distinguish
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
       case SHORT:
         // smallint (16 bit), use int to hold it
         return Schema.create(Schema.Type.INT);
@@ -13893,8 +13907,8 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 ```java
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
-        return false;
-      case 1:
+        return true;
+      default:
         return true;
 ```
 
@@ -13953,8 +13967,8 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 ```java
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
-        return true;
-      default:
+        return false;
+      case 1:
         return true;
 ```
 
@@ -14021,18 +14035,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatU
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-    for (String partitionKey : config.getSplitStrings(META_SYNC_PARTITION_FIELDS)) {
-      String partitionKeyWithTicks = tickSurround(partitionKey);
-      partitionFields.add(new StringBuilder().append(partitionKeyWithTicks).append(" ")
-          .append(getPartitionKeyType(hiveSchema, partitionKeyWithTicks)).toString());
-    }
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/execution/bulkinsert/JavaGlobalSortPartitioner.java`
 #### Snippet
 ```java
@@ -14057,14 +14059,14 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/execution/bulkins
 
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/GlobalSortPartitioner.java`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
 #### Snippet
 ```java
-      // the records split evenly across RDD partitions, such that small partitions fit
-      // into 1 RDD partition, while big ones spread evenly across multiple RDD partitions
-      return new StringBuilder()
-          .append(record.getPartitionPath())
-          .append("+")
+    for (String partitionKey : config.getSplitStrings(META_SYNC_PARTITION_FIELDS)) {
+      String partitionKeyWithTicks = tickSurround(partitionKey);
+      partitionFields.add(new StringBuilder().append(partitionKeyWithTicks).append(" ")
+          .append(getPartitionKeyType(hiveSchema, partitionKeyWithTicks)).toString());
+    }
 ```
 
 ### StringBufferReplaceableByString
@@ -14077,6 +14079,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkin
                 new StringBuilder()
                     .append(record.getPartitionPath())
                     .append("+")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/GlobalSortPartitioner.java`
+#### Snippet
+```java
+      // the records split evenly across RDD partitions, such that small partitions fit
+      // into 1 RDD partition, while big ones spread evenly across multiple RDD partitions
+      return new StringBuilder()
+          .append(record.getPartitionPath())
+          .append("+")
 ```
 
 ### StringBufferReplaceableByString
@@ -14189,18 +14203,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/Triple.java
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `hudi-common/src/main/java/org/apache/hudi/common/model/FileSlice.java`
-#### Snippet
-```java
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder("FileSlice {");
-    sb.append("fileGroupId=").append(fileGroupId);
-    sb.append(", baseCommitTime=").append(baseInstantTime);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
 in `hudi-common/src/main/java/org/apache/hudi/common/model/ConsistentHashingNode.java`
 #### Snippet
 ```java
@@ -14209,6 +14211,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/ConsistentHashingNode
     final StringBuilder sb = new StringBuilder("ConsistentHashingNode{");
     sb.append("value=").append(value);
     sb.append(", fileIdPfx='").append(fileIdPrefix).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `hudi-common/src/main/java/org/apache/hudi/common/model/FileSlice.java`
+#### Snippet
+```java
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("FileSlice {");
+    sb.append("fileGroupId=").append(fileGroupId);
+    sb.append(", baseCommitTime=").append(baseInstantTime);
 ```
 
 ### StringBufferReplaceableByString
@@ -14673,6 +14687,18 @@ public abstract class SchemaProvider implements Serializable {
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? super MetricDatum`
+in `hudi-aws/src/main/java/org/apache/hudi/aws/cloudwatch/CloudWatchReporter.java`
+#### Snippet
+```java
+                                StandardUnit standardUnit,
+                                long timestampMilliSec,
+                                List<MetricDatum> metricData) {
+    String[] metricNameParts = metricName.split("\\.", 2);
+    String tableName = metricNameParts[0];
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/Table.java`
 #### Snippet
@@ -14706,18 +14732,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/Table.java`
   public Table add(List<Comparable> row) {
     if (finishedAdding) {
       throw new IllegalStateException("Container already marked done for adding. No more entries can be added.");
-```
-
-### BoundedWildcard
-Can generalize to `? super MetricDatum`
-in `hudi-aws/src/main/java/org/apache/hudi/aws/cloudwatch/CloudWatchReporter.java`
-#### Snippet
-```java
-                                StandardUnit standardUnit,
-                                long timestampMilliSec,
-                                List<MetricDatum> metricData) {
-    String[] metricNameParts = metricName.split("\\.", 2);
-    String tableName = metricNameParts[0];
 ```
 
 ### BoundedWildcard
@@ -14769,18 +14783,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CommitsCommand.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super HoodieInstant`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
-#### Snippet
-```java
-  private <T extends HoodieDefaultTimeline, U extends HoodieInstant, V extends HoodieCompactionPlan>
-      Function<HoodieInstant, HoodieCompactionPlan> compactionPlanReader(
-      BiFunction<T, HoodieInstant, HoodieCompactionPlan> f, T timeline) {
-
-    return (y) -> f.apply(timeline, y);
-```
-
-### BoundedWildcard
 Can generalize to `? extends RenameOpResult`
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
@@ -14793,6 +14795,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super HoodieInstant`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
+#### Snippet
+```java
+  private <T extends HoodieDefaultTimeline, U extends HoodieInstant, V extends HoodieCompactionPlan>
+      Function<HoodieInstant, HoodieCompactionPlan> compactionPlanReader(
+      BiFunction<T, HoodieInstant, HoodieCompactionPlan> f, T timeline) {
+
+    return (y) -> f.apply(timeline, y);
+```
+
+### BoundedWildcard
 Can generalize to `? extends PartitionEvent`
 in `hudi-sync/hudi-adb-sync/src/main/java/org/apache/hudi/sync/adb/AdbSyncTool.java`
 #### Snippet
@@ -14802,6 +14816,18 @@ in `hudi-sync/hudi-adb-sync/src/main/java/org/apache/hudi/sync/adb/AdbSyncTool.j
   private List<String> filterPartitions(List<PartitionEvent> events, PartitionEventType eventType) {
     return events.stream().filter(s -> s.eventType == eventType)
         .map(s -> s.storagePartition).collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
+#### Snippet
+```java
+  private String getFormattedDate(
+      String instantTimestamp, HoodieInstant.State state,
+      Map<String, Map<HoodieInstant.State, HoodieInstantWithModTime>> instantInfoMap,
+      boolean showTimeSeconds) {
+    Long timeMs = null;
 ```
 
 ### BoundedWildcard
@@ -14829,18 +14855,6 @@ in `hudi-sync/hudi-adb-sync/src/main/java/org/apache/hudi/sync/adb/HoodieAdbJdbc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
-#### Snippet
-```java
-  private String getFormattedDate(
-      String instantTimestamp, HoodieInstant.State state,
-      Map<String, Map<HoodieInstant.State, HoodieInstantWithModTime>> instantInfoMap,
-      boolean showTimeSeconds) {
-    Long timeMs = null;
-```
-
-### BoundedWildcard
 Can generalize to `? extends FieldSchema`
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HoodieHiveSyncClient.java`
 #### Snippet
@@ -14862,42 +14876,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HoodieHiveSyncCl
   public void updateTableComments(String tableName, List<FieldSchema> fromMetastore, List<FieldSchema> fromStorage) {
     Map<String, FieldSchema> metastoreMap = fromMetastore.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
     Map<String, FieldSchema> storageMap = fromStorage.stream().collect(Collectors.toMap(f -> f.getName().toLowerCase(Locale.ROOT), f -> f));
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieException`
-in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/SyncUtilHelpers.java`
-#### Snippet
-```java
-  }
-
-  public static HoodieException getExceptionFromList(Collection<HoodieException> exceptions) {
-    if (exceptions.size() == 1) {
-      return exceptions.stream().findFirst().get();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Partition`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
-#### Snippet
-```java
-   *     And(Equal(Attribute(date), Literal(2022-09-02)), Equal(Attribute(hour), Literal(13))))
-   */
-  private static Expression buildPartitionExpression(List<Partition> partitions, List<FieldSchema> partitionFields) {
-    return partitions.stream().map(partition -> {
-      List<String> partitionValues = partition.getValues();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldSchema`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
-#### Snippet
-```java
-   *     And(Equal(Attribute(date), Literal(2022-09-02)), Equal(Attribute(hour), Literal(13))))
-   */
-  private static Expression buildPartitionExpression(List<Partition> partitions, List<FieldSchema> partitionFields) {
-    return partitions.stream().map(partition -> {
-      List<String> partitionValues = partition.getValues();
 ```
 
 ### BoundedWildcard
@@ -14913,6 +14891,30 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFi
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Partition`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
+#### Snippet
+```java
+   *     And(Equal(Attribute(date), Literal(2022-09-02)), Equal(Attribute(hour), Literal(13))))
+   */
+  private static Expression buildPartitionExpression(List<Partition> partitions, List<FieldSchema> partitionFields) {
+    return partitions.stream().map(partition -> {
+      List<String> partitionValues = partition.getValues();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldSchema`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
+#### Snippet
+```java
+   *     And(Equal(Attribute(date), Literal(2022-09-02)), Equal(Attribute(hour), Literal(13))))
+   */
+  private static Expression buildPartitionExpression(List<Partition> partitions, List<FieldSchema> partitionFields) {
+    return partitions.stream().map(partition -> {
+      List<String> partitionValues = partition.getValues();
+```
+
+### BoundedWildcard
 Can generalize to `? extends Pair`
 in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/HMSDDLExecutor.java`
 #### Snippet
@@ -14922,6 +14924,18 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/ddl/HMSDDLExecut
   public void updateTableComments(String tableName, Map<String, Pair<String, String>> alterSchema) {
     try {
       Table table = client.getTable(databaseName, tableName);
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieException`
+in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/SyncUtilHelpers.java`
+#### Snippet
+```java
+  }
+
+  public static HoodieException getExceptionFromList(Collection<HoodieException> exceptions) {
+    if (exceptions.size() == 1) {
+      return exceptions.stream().findFirst().get();
 ```
 
 ### BoundedWildcard
@@ -14973,15 +14987,15 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/delt
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Type`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+Can generalize to `? extends ClusteringOperation`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/JavaExecutionStrategy.java`
 #### Snippet
 ```java
-   * @return : Equivalent 'struct' Hive schema
+   * Read records from baseFiles and apply updates.
    */
-  private static String createHiveStruct(List<Type> parquetFields, boolean supportTimestamp, boolean doFormat) {
-    StringBuilder struct = new StringBuilder();
-    struct.append(doFormat ? "STRUCT< " : "STRUCT<");
+  private List<HoodieRecord<T>> readRecordsForGroupWithLogs(List<ClusteringOperation> clusteringOps,
+                                                            String instantTime) {
+    HoodieWriteConfig config = getWriteConfig();
 ```
 
 ### BoundedWildcard
@@ -14994,18 +15008,6 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering
   private List<HoodieRecord<T>> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
     List<HoodieRecord<T>> records = new ArrayList<>();
     clusteringOps.forEach(clusteringOp -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClusteringOperation`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/JavaExecutionStrategy.java`
-#### Snippet
-```java
-   * Read records from baseFiles and apply updates.
-   */
-  private List<HoodieRecord<T>> readRecordsForGroupWithLogs(List<ClusteringOperation> clusteringOps,
-                                                            String instantTime) {
-    HoodieWriteConfig config = getWriteConfig();
 ```
 
 ### BoundedWildcard
@@ -15033,42 +15035,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkMergeHan
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkConcatHandle.java`
-#### Snippet
-```java
-
-  public FlinkConcatHandle(HoodieWriteConfig config, String instantTime, HoodieTable<T, I, K, O> hoodieTable,
-                           Iterator<HoodieRecord<T>> recordItr, String partitionPath, String fileId,
-                           TaskContextSupplier taskContextSupplier) {
-    super(config, instantTime, hoodieTable, Collections.emptyIterator(), partitionPath, fileId, taskContextSupplier);
-```
-
-### BoundedWildcard
-Can generalize to `? super List`>
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/JavaDeleteHelper.java`
-#### Snippet
-```java
-                                                        HoodieWriteConfig config,
-                                                        HoodieTable<EmptyHoodieRecordPayload, List<HoodieRecord<EmptyHoodieRecordPayload>>, List<HoodieKey>, List<WriteStatus>> table,
-                                                        BaseCommitActionExecutor<EmptyHoodieRecordPayload, List<HoodieRecord<EmptyHoodieRecordPayload>>, List<HoodieKey>, List<WriteStatus>, R> deleteExecutor) {
-    try {
-      HoodieWriteMetadata<List<WriteStatus>> result = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
-#### Snippet
-```java
-  }
-
-  protected List<WriteStatus> updateIndex(List<WriteStatus> writeStatuses, HoodieWriteMetadata<List<WriteStatus>> result) {
-    Instant indexStartTime = Instant.now();
-    // Update the index back
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
 #### Snippet
@@ -15090,6 +15056,54 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/comm
   protected Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(List<HoodieRecord<T>> inputRecords) {
     HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
     WorkloadStat globalStat = new WorkloadStat();
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  protected List<WriteStatus> updateIndex(List<WriteStatus> writeStatuses, HoodieWriteMetadata<List<WriteStatus>> result) {
+    Instant indexStartTime = Instant.now();
+    // Update the index back
+```
+
+### BoundedWildcard
+Can generalize to `? super List`>
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/JavaDeleteHelper.java`
+#### Snippet
+```java
+                                                        HoodieWriteConfig config,
+                                                        HoodieTable<EmptyHoodieRecordPayload, List<HoodieRecord<EmptyHoodieRecordPayload>>, List<HoodieKey>, List<WriteStatus>> table,
+                                                        BaseCommitActionExecutor<EmptyHoodieRecordPayload, List<HoodieRecord<EmptyHoodieRecordPayload>>, List<HoodieKey>, List<WriteStatus>, R> deleteExecutor) {
+    try {
+      HoodieWriteMetadata<List<WriteStatus>> result = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
+   * @return : Equivalent 'struct' Hive schema
+   */
+  private static String createHiveStruct(List<Type> parquetFields, boolean supportTimestamp, boolean doFormat) {
+    StringBuilder struct = new StringBuilder();
+    struct.append(doFormat ? "STRUCT< " : "STRUCT<");
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkConcatHandle.java`
+#### Snippet
+```java
+
+  public FlinkConcatHandle(HoodieWriteConfig config, String instantTime, HoodieTable<T, I, K, O> hoodieTable,
+                           Iterator<HoodieRecord<T>> recordItr, String partitionPath, String fileId,
+                           TaskContextSupplier taskContextSupplier) {
+    super(config, instantTime, hoodieTable, Collections.emptyIterator(), partitionPath, fileId, taskContextSupplier);
 ```
 
 ### BoundedWildcard
@@ -15137,150 +15151,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/HoodieFlin
   public static HoodieWriteMetadata<List<WriteStatus>> convertMetadata(
       HoodieWriteMetadata<HoodieData<WriteStatus>> metadata) {
     return metadata.clone(metadata.getWriteStatuses().collectAsList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
-#### Snippet
-```java
-    @Override
-    public HoodieWriteHandle<?, ?, ?, ?> create(
-        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
-        HoodieRecord<T> record,
-        HoodieWriteConfig config,
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieWriteHandle`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
-#### Snippet
-```java
-    @Override
-    public HoodieWriteHandle<?, ?, ?, ?> create(
-        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
-        HoodieRecord<T> record,
-        HoodieWriteConfig config,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
-#### Snippet
-```java
-    @Override
-    public HoodieWriteHandle<?, ?, ?, ?> create(
-        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
-        HoodieRecord<T> record,
-        HoodieWriteConfig config,
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieWriteHandle`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
-#### Snippet
-```java
-    @Override
-    public HoodieWriteHandle<?, ?, ?, ?> create(
-        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
-        HoodieRecord<T> record,
-        HoodieWriteConfig config,
-```
-
-### BoundedWildcard
-Can generalize to `? extends I`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends I`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.stream().forEach(throwingForeachWrapper(consumer));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.stream().forEach(throwingForeachWrapper(consumer));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super Iterator`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
-                                                                                 SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-  @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel()
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends I`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
   }
 ```
 
@@ -15339,6 +15209,42 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
 ```java
 
   @Override
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.stream().forEach(throwingForeachWrapper(consumer));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.stream().forEach(throwingForeachWrapper(consumer));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super Iterator`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
+                                                                                 SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
+```
+
+### BoundedWildcard
+Can generalize to `? extends I`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
   public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
     return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
   }
@@ -15366,6 +15272,114 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
   public <I, O> List<O> map(List<I> data, SerializableFunction<I, O> func, int parallelism) {
     return data.stream().parallel().map(throwingMapWrapper(func)).collect(toList());
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel()
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends I`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends I`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
+#### Snippet
+```java
+    @Override
+    public HoodieWriteHandle<?, ?, ?, ?> create(
+        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
+        HoodieRecord<T> record,
+        HoodieWriteConfig config,
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieWriteHandle`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
+#### Snippet
+```java
+    @Override
+    public HoodieWriteHandle<?, ?, ?, ?> create(
+        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
+        HoodieRecord<T> record,
+        HoodieWriteConfig config,
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
+#### Snippet
+```java
+    @Override
+    public HoodieWriteHandle<?, ?, ?, ?> create(
+        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
+        HoodieRecord<T> record,
+        HoodieWriteConfig config,
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieWriteHandle`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/FlinkWriteHandleFactory.java`
+#### Snippet
+```java
+    @Override
+    public HoodieWriteHandle<?, ?, ?, ?> create(
+        Map<String, HoodieWriteHandle<?, ?, ?, ?>> bucketToHandles,
+        HoodieRecord<T> record,
+        HoodieWriteConfig config,
 ```
 
 ### BoundedWildcard
@@ -15423,21 +15437,9 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaR
 ```java
 
   @Override
-  public <O> HoodieData<O> map(SerializableFunction<T, O> func) {
-    return HoodieJavaRDD.of(rddData.map(func::apply));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends O`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaRDD.java`
-#### Snippet
-```java
-
-  @Override
-  public <O> HoodieData<O> map(SerializableFunction<T, O> func) {
-    return HoodieJavaRDD.of(rddData.map(func::apply));
-  }
+  public <K, V> HoodiePairData<K, V> mapToPair(SerializablePairFunction<T, K, V> func) {
+    return HoodieJavaPairRDD.of(rddData.mapToPair(input -> {
+      Pair<K, V> pair = func.call(input);
 ```
 
 ### BoundedWildcard
@@ -15461,18 +15463,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaR
   @Override
   public <O> HoodieData<O> flatMap(SerializableFunction<T, Iterator<O>> func) {
     return HoodieJavaRDD.of(rddData.flatMap(e -> func.apply(e)));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaRDD.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodieData<T> filter(SerializableFunction<T, Boolean> filterFunc) {
-    return HoodieJavaRDD.of(rddData.filter(filterFunc::apply));
   }
 ```
 
@@ -15507,21 +15497,33 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaR
 ```java
 
   @Override
-  public <K, V> HoodiePairData<K, V> mapToPair(SerializablePairFunction<T, K, V> func) {
-    return HoodieJavaPairRDD.of(rddData.mapToPair(input -> {
-      Pair<K, V> pair = func.call(input);
+  public HoodieData<T> filter(SerializableFunction<T, Boolean> filterFunc) {
+    return HoodieJavaRDD.of(rddData.filter(filterFunc::apply));
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Pair`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
+Can generalize to `? super T`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaRDD.java`
 #### Snippet
 ```java
 
   @Override
-  public <L, W> HoodiePairData<L, W> mapToPair(SerializablePairFunction<Pair<K, V>, L, W> mapToPairFunc) {
-    return HoodieJavaPairRDD.of(pairRDDData.mapToPair(pair -> {
-      Pair<L, W> newPair = mapToPairFunc.call(new ImmutablePair<>(pair._1, pair._2));
+  public <O> HoodieData<O> map(SerializableFunction<T, O> func) {
+    return HoodieJavaRDD.of(rddData.map(func::apply));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends O`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaRDD.java`
+#### Snippet
+```java
+
+  @Override
+  public <O> HoodieData<O> map(SerializableFunction<T, O> func) {
+    return HoodieJavaRDD.of(rddData.map(func::apply));
+  }
 ```
 
 ### BoundedWildcard
@@ -15561,6 +15563,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaP
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Pair`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
+#### Snippet
+```java
+
+  @Override
+  public <L, W> HoodiePairData<L, W> mapToPair(SerializablePairFunction<Pair<K, V>, L, W> mapToPairFunc) {
+    return HoodieJavaPairRDD.of(pairRDDData.mapToPair(pair -> {
+      Pair<L, W> newPair = mapToPairFunc.call(new ImmutablePair<>(pair._1, pair._2));
+```
+
+### BoundedWildcard
 Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaPairRDD.java`
 #### Snippet
@@ -15597,42 +15611,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/data/HoodieJavaP
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Mutation`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-   * Helper method to facilitate performing mutations (including puts and deletes) in Hbase.
-   */
-  private void doMutations(BufferedMutator mutator, List<Mutation> mutations, RateLimiter limiter) throws IOException {
-    if (mutations.isEmpty()) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-  }
-
-  Map<String, Integer> mapFileWithInsertsToUniquePartition(JavaRDD<WriteStatus> writeStatusRDD) {
-    final Map<String, Integer> fileIdPartitionMap = new HashMap<>();
-    int partitionIndex = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
-#### Snippet
-```java
-  }
-
-  Tuple2<Long, Integer> getHBasePutAccessParallelism(final JavaRDD<WriteStatus> writeStatusRDD) {
-    final JavaPairRDD<Long, Integer> insertOnlyWriteStatusRDD = writeStatusRDD
-        .filter(w -> w.getStat().getNumInserts() > 0).mapToPair(w -> new Tuple2<>(w.getStat().getNumInserts(), 1));
-```
-
-### BoundedWildcard
 Can generalize to `? extends I`
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
 #### Snippet
@@ -15654,18 +15632,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
   public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
     return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
         .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? super Iterator`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-  @Override
-  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(
-      Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
-      SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
 ```
 
 ### BoundedWildcard
@@ -15714,18 +15680,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
   public <I, K, V> Map<K, V> mapToPair(List<I> data, SerializablePairFunction<I, K, V> func, Integer parallelism) {
     return data.stream().parallel().map(throwingMapToPairWrapper(func)).collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieData`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/SparkInsertOverwriteCommitActionExecutor.java`
-#### Snippet
-```java
-
-  @Override
-  protected Map<String, List<String>> getPartitionToReplacedFileIds(HoodieWriteMetadata<HoodieData<WriteStatus>> writeMetadata) {
-    return HoodieJavaPairRDD.getJavaPairRDD(writeMetadata.getWriteStatuses().map(status -> status.getStat().getPartitionPath()).distinct().mapToPair(partitionPath ->
-        Pair.of(partitionPath, getAllExistingFileIds(partitionPath)))).collectAsMap();
 ```
 
 ### BoundedWildcard
@@ -15765,6 +15719,42 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Iterator`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(
+      Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
+      SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
+```
+
+### BoundedWildcard
+Can generalize to `? extends I`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.forEach(throwingForeachWrapper(consumer));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    data.forEach(throwingForeachWrapper(consumer));
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Pair`
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
 #### Snippet
@@ -15783,30 +15773,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.forEach(throwingForeachWrapper(consumer));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    data.forEach(throwingForeachWrapper(consumer));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends I`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/HoodieFlinkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
   public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
     return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(Collectors.toList());
   }
@@ -15822,6 +15788,78 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/common/Ho
   public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
     return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(Collectors.toList());
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieData`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/SparkInsertOverwriteCommitActionExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  protected Map<String, List<String>> getPartitionToReplacedFileIds(HoodieWriteMetadata<HoodieData<WriteStatus>> writeMetadata) {
+    return HoodieJavaPairRDD.getJavaPairRDD(writeMetadata.getWriteStatuses().map(status -> status.getStat().getPartitionPath()).distinct().mapToPair(partitionPath ->
+        Pair.of(partitionPath, getAllExistingFileIds(partitionPath)))).collectAsMap();
+```
+
+### BoundedWildcard
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+  }
+
+  Tuple2<Long, Integer> getHBasePutAccessParallelism(final JavaRDD<WriteStatus> writeStatusRDD) {
+    final JavaPairRDD<Long, Integer> insertOnlyWriteStatusRDD = writeStatusRDD
+        .filter(w -> w.getStat().getNumInserts() > 0).mapToPair(w -> new Tuple2<>(w.getStat().getNumInserts(), 1));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Mutation`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+   * Helper method to facilitate performing mutations (including puts and deletes) in Hbase.
+   */
+  private void doMutations(BufferedMutator mutator, List<Mutation> mutations, RateLimiter limiter) throws IOException {
+    if (mutations.isEmpty()) {
+      return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
+#### Snippet
+```java
+  }
+
+  Map<String, Integer> mapFileWithInsertsToUniquePartition(JavaRDD<WriteStatus> writeStatusRDD) {
+    final Map<String, Integer> fileIdPartitionMap = new HashMap<>();
+    int partitionIndex = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/deltacommit/SparkUpsertDeltaCommitPartitioner.java`
+#### Snippet
+```java
+
+  // TODO (NA) : Make this static part of utility
+  public long convertLogFilesSizeToExpectedParquetSize(List<HoodieLogFile> hoodieLogFiles) {
+    long totalSizeOfLogFiles =
+        hoodieLogFiles.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/SparkHoodieBloomIndexHelper.java`
+#### Snippet
+```java
+      HoodieWriteConfig config, HoodieEngineContext context, HoodieTable hoodieTable,
+      HoodiePairData<String, String> partitionRecordKeyPairs,
+      HoodieData<Pair<String, HoodieKey>> fileComparisonPairs,
+      Map<String, List<BloomIndexFileInfo>> partitionToFileInfo,
+      Map<String, Long> recordsPerPartition) {
 ```
 
 ### BoundedWildcard
@@ -15850,26 +15888,14 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/Spar
 
 ### BoundedWildcard
 Can generalize to `? extends Pair`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bloom/SparkHoodieBloomIndexHelper.java`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDReadClient.java`
 #### Snippet
 ```java
-      HoodieWriteConfig config, HoodieEngineContext context, HoodieTable hoodieTable,
-      HoodiePairData<String, String> partitionRecordKeyPairs,
-      HoodieData<Pair<String, HoodieKey>> fileComparisonPairs,
-      Map<String, List<BloomIndexFileInfo>> partitionToFileInfo,
-      Map<String, Long> recordsPerPartition) {
-```
+  }
 
-### BoundedWildcard
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/deltacommit/SparkUpsertDeltaCommitPartitioner.java`
-#### Snippet
-```java
-
-  // TODO (NA) : Make this static part of utility
-  public long convertLogFilesSizeToExpectedParquetSize(List<HoodieLogFile> hoodieLogFiles) {
-    long totalSizeOfLogFiles =
-        hoodieLogFiles.stream()
+  private Option<String> convertToDataFilePath(Option<Pair<String, String>> partitionPathFileIDPair) {
+    if (partitionPathFileIDPair.isPresent()) {
+      HoodieBaseFile dataFile = hoodieTable.getBaseFileOnlyView()
 ```
 
 ### BoundedWildcard
@@ -15885,18 +15911,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFli
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
-#### Snippet
-```java
-
-  @Override
-  protected List<WriteStatus> postWrite(HoodieWriteMetadata<List<WriteStatus>> result,
-                                        String instantTime,
-                                        HoodieTable hoodieTable) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Map`
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
 #### Snippet
@@ -15909,15 +15923,15 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFli
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDReadClient.java`
+Can generalize to `? extends List`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/client/HoodieFlinkWriteClient.java`
 #### Snippet
 ```java
-  }
 
-  private Option<String> convertToDataFilePath(Option<Pair<String, String>> partitionPathFileIDPair) {
-    if (partitionPathFileIDPair.isPresent()) {
-      HoodieBaseFile dataFile = hoodieTable.getBaseFileOnlyView()
+  @Override
+  protected List<WriteStatus> postWrite(HoodieWriteMetadata<List<WriteStatus>> result,
+                                        String instantTime,
+                                        HoodieTable hoodieTable) {
 ```
 
 ### BoundedWildcard
@@ -15933,18 +15947,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/validator
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SparkSingleFileSortExecutionStrategy.java`
-#### Snippet
-```java
-                                                                 Map<String, String> strategyParams,
-                                                                 Schema schema,
-                                                                 List<HoodieFileGroupId> fileGroupIdList,
-                                                                 boolean shouldPreserveHoodieMetadata,
-                                                                 Map<String, String> extraMetadata) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
@@ -15957,13 +15959,49 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 ```
 
 ### BoundedWildcard
-Can generalize to `? super HoodieData`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/bootstrap/SparkBootstrapCommitActionExecutor.java`
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
 #### Snippet
 ```java
   }
 
-  private void updateIndexAndCommitIfNeeded(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
+  private HoodieData<WriteStatus> mapPartitionsAsRDD(HoodieData<HoodieRecord<T>> dedupedRecords, Partitioner partitioner) {
+    JavaPairRDD<Tuple2<HoodieKey, Option<HoodieRecordLocation>>, HoodieRecord<T>> mappedRDD = HoodieJavaPairRDD.getJavaPairRDD(
+        dedupedRecords.mapToPair(record -> Pair.of(new Tuple2<>(record.getKey(), Option.ofNullable(record.getCurrentLocation())), record)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieData`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  protected void setCommitMetadata(HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
+    result.setCommitMetadata(Option.of(CommitUtils.buildMetadata(result.getWriteStatuses().map(WriteStatus::getStat).collectAsList(),
+        result.getPartitionToReplaceFileIds(),
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
+#### Snippet
+```java
+   * Count the number of updates/inserts for each file in each partition.
+   */
+  private Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(HoodieData<HoodieRecord<T>> inputRecords) {
+    HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
+    WorkloadStat globalStat = new WorkloadStat();
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieData`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  protected HoodieData<WriteStatus> updateIndex(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
     // cache writeStatusRDD before updating index, so that all actions before this are not triggered again for future
     // RDD actions that are performed after updating the index.
 ```
@@ -15981,6 +16019,30 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/boo
 ```
 
 ### BoundedWildcard
+Can generalize to `? super HoodieData`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/bootstrap/SparkBootstrapCommitActionExecutor.java`
+#### Snippet
+```java
+  }
+
+  private void updateIndexAndCommitIfNeeded(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
+    // cache writeStatusRDD before updating index, so that all actions before this are not triggered again for future
+    // RDD actions that are performed after updating the index.
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SparkSingleFileSortExecutionStrategy.java`
+#### Snippet
+```java
+                                                                 Map<String, String> strategyParams,
+                                                                 Schema schema,
+                                                                 List<HoodieFileGroupId> fileGroupIdList,
+                                                                 boolean shouldPreserveHoodieMetadata,
+                                                                 Map<String, String> extraMetadata) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ClusteringOperation`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/SingleSparkJobExecutionStrategy.java`
 #### Snippet
@@ -15993,15 +16055,39 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clusterin
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/update/strategy/BaseSparkUpdateStrategy.java`
+#### Snippet
+```java
+   * @return the records matched file group ids
+   */
+  protected List<HoodieFileGroupId> getGroupIdsWithUpdate(HoodieData<HoodieRecord<T>> inputRecords) {
+    return inputRecords
+            .filter(record -> record.getCurrentLocation() != null)
+```
+
+### BoundedWildcard
+Can generalize to `? extends StringBuilder`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/PartitionPathFormatterBase.java`
+#### Snippet
+```java
+  private final boolean useEncoding;
+
+  PartitionPathFormatterBase(Supplier<StringBuilder<S>> stringBuilderFactory,
+                             boolean useHiveStylePartitioning,
+                             boolean useEncoding) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends I`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
 
   @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
-  }
+  public <I, K, V> Map<K, V> mapToPair(List<I> data, SerializablePairFunction<I, K, V> func, Integer parallelism) {
+    if (Objects.nonNull(parallelism)) {
+      return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
 ```
 
 ### BoundedWildcard
@@ -16011,9 +16097,57 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
-    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
-  }
+  public <I, K, V> Map<K, V> mapToPair(List<I> data, SerializablePairFunction<I, K, V> func, Integer parallelism) {
+    if (Objects.nonNull(parallelism)) {
+      return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
+        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
 ```
 
 ### BoundedWildcard
@@ -16095,9 +16229,9 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
+  }
 ```
 
 ### BoundedWildcard
@@ -16107,69 +16241,9 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```java
 
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-      Pair<K, V> pair = mapToPairFunc.call(input);
-```
-
-### BoundedWildcard
-Can generalize to `? extends I`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> Map<K, V> mapToPair(List<I> data, SerializablePairFunction<I, K, V> func, Integer parallelism) {
-    if (Objects.nonNull(parallelism)) {
-      return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <I, K, V> Map<K, V> mapToPair(List<I> data, SerializablePairFunction<I, K, V> func, Integer parallelism) {
-    if (Objects.nonNull(parallelism)) {
-      return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+  public <I> void foreach(List<I> data, SerializableConsumer<I> consumer, int parallelism) {
+    javaSparkContext.parallelize(data, parallelism).foreach(consumer::accept);
+  }
 ```
 
 ### BoundedWildcard
@@ -16209,15 +16283,27 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/Ho
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
+Can generalize to `? extends I`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### BoundedWildcard
@@ -16225,11 +16311,11 @@ Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### BoundedWildcard
@@ -16237,11 +16323,11 @@ Can generalize to `? super V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### BoundedWildcard
@@ -16249,95 +16335,11 @@ Can generalize to `? extends V`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/common/HoodieSparkEngineContext.java`
 #### Snippet
 ```java
-  @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return javaSparkContext.parallelize(data, parallelism).mapToPair(pair -> new Tuple2<K, V>(pair.getLeft(), pair.getRight()))
-        .reduceByKey(reduceFunc::apply).map(Tuple2::_2).collect();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/update/strategy/BaseSparkUpdateStrategy.java`
-#### Snippet
-```java
-   * @return the records matched file group ids
-   */
-  protected List<HoodieFileGroupId> getGroupIdsWithUpdate(HoodieData<HoodieRecord<T>> inputRecords) {
-    return inputRecords
-            .filter(record -> record.getCurrentLocation() != null)
-```
-
-### BoundedWildcard
-Can generalize to `? extends StringBuilder`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/PartitionPathFormatterBase.java`
-#### Snippet
-```java
-  private final boolean useEncoding;
-
-  PartitionPathFormatterBase(Supplier<StringBuilder<S>> stringBuilderFactory,
-                             boolean useHiveStylePartitioning,
-                             boolean useEncoding) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
-#### Snippet
-```java
-  }
-
-  private HoodieData<WriteStatus> mapPartitionsAsRDD(HoodieData<HoodieRecord<T>> dedupedRecords, Partitioner partitioner) {
-    JavaPairRDD<Tuple2<HoodieKey, Option<HoodieRecordLocation>>, HoodieRecord<T>> mappedRDD = HoodieJavaPairRDD.getJavaPairRDD(
-        dedupedRecords.mapToPair(record -> Pair.of(new Tuple2<>(record.getKey(), Option.ofNullable(record.getCurrentLocation())), record)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
-#### Snippet
-```java
-   * Count the number of updates/inserts for each file in each partition.
-   */
-  private Pair<HashMap<String, WorkloadStat>, WorkloadStat> buildProfile(HoodieData<HoodieRecord<T>> inputRecords) {
-    HashMap<String, WorkloadStat> partitionPathStatMap = new HashMap<>();
-    WorkloadStat globalStat = new WorkloadStat();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieData`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
-#### Snippet
-```java
 
   @Override
-  protected void setCommitMetadata(HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
-    result.setCommitMetadata(Option.of(CommitUtils.buildMetadata(result.getWriteStatuses().map(WriteStatus::getStat).collectAsList(),
-        result.getPartitionToReplaceFileIds(),
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieData`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/table/action/commit/BaseSparkCommitActionExecutor.java`
-#### Snippet
-```java
-  }
-
-  protected HoodieData<WriteStatus> updateIndex(HoodieData<WriteStatus> writeStatuses, HoodieWriteMetadata<HoodieData<WriteStatus>> result) {
-    // cache writeStatusRDD before updating index, so that all actions before this are not triggered again for future
-    // RDD actions that are performed after updating the index.
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClusteringOperation`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
-#### Snippet
-```java
-   */
-  private HoodieData<HoodieRecord<T>> readRecordsForGroupWithLogs(JavaSparkContext jsc,
-                                                                  List<ClusteringOperation> clusteringOps,
-                                                                  String instantTime) {
-    HoodieWriteConfig config = getWriteConfig();
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return javaSparkContext.parallelize(data, parallelism).mapToPair(input -> {
+      Pair<K, V> pair = mapToPairFunc.call(input);
 ```
 
 ### BoundedWildcard
@@ -16353,15 +16355,15 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clusterin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Map`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
+Can generalize to `? extends ClusteringOperation`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/clustering/run/strategy/MultipleSparkJobExecutionStrategy.java`
 #### Snippet
 ```java
-
-  @Override
-  public void commitCompaction(String compactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
-    HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
-    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
+   */
+  private HoodieData<HoodieRecord<T>> readRecordsForGroupWithLogs(JavaSparkContext jsc,
+                                                                  List<ClusteringOperation> clusteringOps,
+                                                                  String instantTime) {
+    HoodieWriteConfig config = getWriteConfig();
 ```
 
 ### BoundedWildcard
@@ -16384,6 +16386,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDW
 
   @Override
   public void commitLogCompaction(String logCompactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
+    HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
+    extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/SparkRDDWriteClient.java`
+#### Snippet
+```java
+
+  @Override
+  public void commitCompaction(String compactionInstantTime, HoodieCommitMetadata metadata, Option<Map<String, String>> extraMetadata) {
     HoodieSparkTable<T> table = HoodieSparkTable.create(config, context);
     extraMetadata.ifPresent(m -> m.forEach(metadata::addMetadata));
 ```
@@ -16497,18 +16511,6 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/BuiltinKe
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConsistentBucketIdentifier`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RDDConsistentBucketPartitioner.java`
-#### Snippet
-```java
-   * @param partitionToIdentifier Mapping from table partition to bucket identifier
-   */
-  private Map<String, Map<String, Integer>> generateFileIdPfx(Map<String, ConsistentBucketIdentifier> partitionToIdentifier) {
-    Map<String, Map<String, Integer>> partitionToFileIdPfxIdxMap = new HashMap(partitionToIdentifier.size() * 2);
-    doAppend = new ArrayList<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends HoodieRecord`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RDDConsistentBucketPartitioner.java`
 #### Snippet
@@ -16518,6 +16520,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkin
   private JavaRDD<HoodieRecord<T>> doPartitionAndSortByRecordKey(JavaRDD<HoodieRecord<T>> records, Partitioner partitioner) {
     if (table.getConfig().getBulkInsertSortMode() == BulkInsertSortMode.GLOBAL_SORT) {
       LOG.warn("Consistent bucket does not support global sort mode, the sort will only be done within each data partition");
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConsistentBucketIdentifier`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/execution/bulkinsert/RDDConsistentBucketPartitioner.java`
+#### Snippet
+```java
+   * @param partitionToIdentifier Mapping from table partition to bucket identifier
+   */
+  private Map<String, Map<String, Integer>> generateFileIdPfx(Map<String, ConsistentBucketIdentifier> partitionToIdentifier) {
+    Map<String, Map<String, Integer>> partitionToFileIdPfxIdxMap = new HashMap(partitionToIdentifier.size() * 2);
+    doAppend = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -16581,18 +16595,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/async/HoodieAsy
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandleWithChangeLog.java`
-#### Snippet
-```java
-  }
-
-  protected boolean writeUpdateRecord(HoodieRecord<T> newRecord, HoodieRecord<T> oldRecord, Option<HoodieRecord> combinedRecordOpt, Schema writerSchema)
-      throws IOException {
-    // TODO [HUDI-5019] Remove these unnecessary newInstance invocations
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeLookupTree.java`
 #### Snippet
@@ -16602,6 +16604,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Key
   private void getMatchingIndexFiles(KeyRangeNode root, String lookupKey, Set<String> matchingFileNameSet) {
     if (root == null) {
       return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecordLocation`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/HoodieIndexUtils.java`
+#### Snippet
+```java
+   * @return the tagged {@link HoodieRecord}
+   */
+  public static HoodieRecord getTaggedRecord(HoodieRecord inputRecord, Option<HoodieRecordLocation> location) {
+    HoodieRecord<?> record = inputRecord;
+    if (location.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -16617,6 +16631,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Int
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandleWithChangeLog.java`
+#### Snippet
+```java
+  }
+
+  protected boolean writeUpdateRecord(HoodieRecord<T> newRecord, HoodieRecord<T> oldRecord, Option<HoodieRecord> combinedRecordOpt, Schema writerSchema)
+      throws IOException {
+    // TODO [HUDI-5019] Remove these unnecessary newInstance invocations
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/IntervalTreeBasedGlobalIndexFileFilter.java`
 #### Snippet
@@ -16626,18 +16652,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Int
   IntervalTreeBasedGlobalIndexFileFilter(final Map<String, List<BloomIndexFileInfo>> partitionToFileIndexInfo) {
     List<BloomIndexFileInfo> allIndexFiles = new ArrayList<>();
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecordLocation`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/HoodieIndexUtils.java`
-#### Snippet
-```java
-   * @return the tagged {@link HoodieRecord}
-   */
-  public static HoodieRecord getTaggedRecord(HoodieRecord inputRecord, Option<HoodieRecordLocation> location) {
-    HoodieRecord<?> record = inputRecord;
-    if (location.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -16665,42 +16679,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Lis
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  }
-
-  private void processAppendResult(AppendResult result, List<HoodieRecord> recordList) throws IOException {
-    HoodieDeltaWriteStat stat = (HoodieDeltaWriteStat) this.writeStatus.getStat();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/HoodieInMemoryHashIndex.java`
-#### Snippet
-```java
-  @Override
-  public <R> HoodieData<HoodieRecord<R>> tagLocation(
-      HoodieData<HoodieRecord<R>> records, HoodieEngineContext context,
-      HoodieTable hoodieTable) {
-    return records.mapPartitions(hoodieRecordIterator -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends WriteStatus`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/HoodieInMemoryHashIndex.java`
-#### Snippet
-```java
-  @Override
-  public HoodieData<WriteStatus> updateLocation(
-      HoodieData<WriteStatus> writeStatuses, HoodieEngineContext context,
-      HoodieTable hoodieTable) {
-    return writeStatuses.map(writeStatus -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends HoodieRecordLocation`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/HoodieGlobalBloomIndex.java`
 #### Snippet
@@ -16722,6 +16700,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Hoo
       HoodieData<HoodieRecord<R>> records) {
 
     HoodiePairData<String, HoodieRecord<R>> incomingRowKeyRecordPairs =
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  }
+
+  private void processAppendResult(AppendResult result, List<HoodieRecord> recordList) throws IOException {
+    HoodieDeltaWriteStat stat = (HoodieDeltaWriteStat) this.writeStatus.getStat();
+
 ```
 
 ### BoundedWildcard
@@ -16750,38 +16740,26 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/Ho
 
 ### BoundedWildcard
 Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/HoodieInMemoryHashIndex.java`
 #### Snippet
 ```java
   @Override
-  protected <R> HoodieData<HoodieRecord<R>> tagLocationInternal(
-      HoodieData<HoodieRecord<R>> inputRecords, HoodieEngineContext context,
+  public <R> HoodieData<HoodieRecord<R>> tagLocation(
+      HoodieData<HoodieRecord<R>> records, HoodieEngineContext context,
       HoodieTable hoodieTable) {
-
+    return records.mapPartitions(hoodieRecordIterator -> {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+Can generalize to `? extends WriteStatus`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/inmemory/HoodieInMemoryHashIndex.java`
 #### Snippet
 ```java
-   */
-  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
-      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
-      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
-    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecordLocation`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
-#### Snippet
-```java
-  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
-      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
-      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
-    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
-        existingRecords.mapToPair(
+  @Override
+  public HoodieData<WriteStatus> updateLocation(
+      HoodieData<WriteStatus> writeStatuses, HoodieEngineContext context,
+      HoodieTable hoodieTable) {
+    return writeStatuses.map(writeStatus -> {
 ```
 
 ### BoundedWildcard
@@ -16809,15 +16787,39 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Hoo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanActionExecutor.java`
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
 #### Snippet
 ```java
-  }
+   */
+  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
+      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
+      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
+    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
+```
 
-  private static Stream<Pair<String, PartitionCleanStat>> deleteFilesFunc(Iterator<Pair<String, CleanFileInfo>> cleanFileInfo, HoodieTable table) {
-    Map<String, PartitionCleanStat> partitionCleanStatMap = new HashMap<>();
-    FileSystem fs = table.getMetaClient().getFs();
+### BoundedWildcard
+Can generalize to `? extends HoodieRecordLocation`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+#### Snippet
+```java
+  private <R> HoodieData<HoodieRecord<R>> getTaggedRecords(
+      HoodiePairData<String, HoodieRecord<R>> incomingRecords,
+      HoodiePairData<HoodieKey, HoodieRecordLocation> existingRecords) {
+    HoodiePairData<String, Pair<String, HoodieRecordLocation>> existingRecordByRecordKey =
+        existingRecords.mapToPair(
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/simple/HoodieGlobalSimpleIndex.java`
+#### Snippet
+```java
+  @Override
+  protected <R> HoodieData<HoodieRecord<R>> tagLocationInternal(
+      HoodieData<HoodieRecord<R>> inputRecords, HoodieEngineContext context,
+      HoodieTable hoodieTable) {
+
 ```
 
 ### BoundedWildcard
@@ -16833,63 +16835,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/co
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-   */
-  public HoodieCreateHandle(HoodieWriteConfig config, String instantTime, HoodieTable<T, I, K, O> hoodieTable,
-      String partitionPath, String fileId, Map<String, HoodieRecord<T>> recordMap,
-      TaskContextSupplier taskContextSupplier) {
-    this(config, instantTime, hoodieTable, partitionPath, fileId, taskContextSupplier, config.isPreserveHoodieCommitMetadataForCompaction());
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieWriteStat`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-  protected void reconcileAgainstMarkers(HoodieEngineContext context,
-                                         String instantTs,
-                                         List<HoodieWriteStat> stats,
-                                         boolean consistencyCheckEnabled) throws HoodieIOException {
-    try {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanActionExecutor.java`
 #### Snippet
 ```java
   }
 
-  private boolean waitForCondition(String partitionPath, Stream<Pair<String, String>> partitionFilePaths, FileVisibility visibility) {
-    final FileSystem fileSystem = metaClient.getRawFs();
-    List<String> fileList = partitionFilePaths.map(Pair::getValue).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-   * @param inflightInstant Inflight Compaction Instant
-   */
-  public void rollbackInflightLogCompaction(HoodieInstant inflightInstant, Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
-    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
-        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
-#### Snippet
-```java
-   */
-  private void rollbackInflightInstant(HoodieInstant inflightInstant,
-                                       Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
-    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
-        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
+  private static Stream<Pair<String, PartitionCleanStat>> deleteFilesFunc(Iterator<Pair<String, CleanFileInfo>> cleanFileInfo, HoodieTable table) {
+    Map<String, PartitionCleanStat> partitionCleanStatMap = new HashMap<>();
+    FileSystem fs = table.getMetaClient().getFs();
 ```
 
 ### BoundedWildcard
@@ -16905,6 +16859,54 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTab
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+   */
+  private void rollbackInflightInstant(HoodieInstant inflightInstant,
+                                       Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
+    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
+        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieWriteStat`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+  protected void reconcileAgainstMarkers(HoodieEngineContext context,
+                                         String instantTs,
+                                         List<HoodieWriteStat> stats,
+                                         boolean consistencyCheckEnabled) throws HoodieIOException {
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+   * @param inflightInstant Inflight Compaction Instant
+   */
+  public void rollbackInflightLogCompaction(HoodieInstant inflightInstant, Function<String, Option<HoodiePendingRollbackInfo>> getPendingRollbackInstantFunc) {
+    final String commitTime = getPendingRollbackInstantFunc.apply(inflightInstant.getTimestamp()).map(entry
+        -> entry.getRollbackInstant().getTimestamp()).orElse(HoodieActiveTimeline.createNewInstantTime());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
+#### Snippet
+```java
+  }
+
+  private boolean waitForCondition(String partitionPath, Stream<Pair<String, String>> partitionFilePaths, FileVisibility visibility) {
+    final FileSystem fileSystem = metaClient.getRawFs();
+    List<String> fileList = partitionFilePaths.map(Pair::getValue).collect(Collectors.toList());
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`>
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTable.java`
 #### Snippet
@@ -16914,42 +16916,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/HoodieTab
   private void deleteInvalidFilesByPartitions(HoodieEngineContext context, Map<String, List<Pair<String, String>>> invalidFilesByPartition) {
     // Now delete partially written files
     context.setJobStatus(this.getClass().getSimpleName(), "Delete invalid files generated during the write operation: " + config.getTableName());
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieBaseFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/CompactionExecutionHelper.java`
-#### Snippet
-```java
-                                                                  String instantTime,
-                                                                  HoodieMergedLogRecordScanner scanner,
-                                                                  Option<HoodieBaseFile> oldDataFileOpt) throws IOException {
-    Iterator<List<WriteStatus>> result;
-    // If the dataFile is present, perform updates else perform inserts into a new base file.
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileSlice`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanPlanner.java`
-#### Snippet
-```java
-   * Gets the latest version < instantTime. This version file could still be used by queries.
-   */
-  private String getLatestVersionBeforeCommit(List<FileSlice> fileSliceList, HoodieInstant instantTime) {
-    for (FileSlice file : fileSliceList) {
-      String fileCommitTime = file.getBaseInstantTime();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanPlanner.java`
-#### Snippet
-```java
-  }
-
-  private List<CleanFileInfo> getReplacedFilesEligibleToClean(List<String> savepointedFiles, String partitionPath, Option<HoodieInstant> earliestCommitToRetain) {
-    final Stream<HoodieFileGroup> replacedGroups;
-    if (earliestCommitToRetain.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -16974,6 +16940,90 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeH
   private boolean writeRecord(HoodieRecord<T> newRecord, Option<HoodieRecord> combineRecord, Schema schema, Properties prop, boolean isDelete) throws IOException {
     Option recordMetadata = newRecord.getMetadata();
     if (!partitionPath.equals(newRecord.getPartitionPath())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanPlanner.java`
+#### Snippet
+```java
+  }
+
+  private List<CleanFileInfo> getReplacedFilesEligibleToClean(List<String> savepointedFiles, String partitionPath, Option<HoodieInstant> earliestCommitToRetain) {
+    final Stream<HoodieFileGroup> replacedGroups;
+    if (earliestCommitToRetain.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileSlice`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/clean/CleanPlanner.java`
+#### Snippet
+```java
+   * Gets the latest version < instantTime. This version file could still be used by queries.
+   */
+  private String getLatestVersionBeforeCommit(List<FileSlice> fileSliceList, HoodieInstant instantTime) {
+    for (FileSlice file : fileSliceList) {
+      String fileCommitTime = file.getBaseInstantTime();
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieBaseFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/compact/CompactionExecutionHelper.java`
+#### Snippet
+```java
+                                                                  String instantTime,
+                                                                  HoodieMergedLogRecordScanner scanner,
+                                                                  Option<HoodieBaseFile> oldDataFileOpt) throws IOException {
+    Iterator<List<WriteStatus>> result;
+    // If the dataFile is present, perform updates else perform inserts into a new base file.
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+   */
+  public HoodieCreateHandle(HoodieWriteConfig config, String instantTime, HoodieTable<T, I, K, O> hoodieTable,
+      String partitionPath, String fileId, Map<String, HoodieRecord<T>> recordMap,
+      TaskContextSupplier taskContextSupplier) {
+    this(config, instantTime, hoodieTable, partitionPath, fileId, taskContextSupplier, config.isPreserveHoodieCommitMetadataForCompaction());
+```
+
+### BoundedWildcard
+Can generalize to `? extends GenericRecord`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+  }
+
+  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
+    if (getPartitionPathFields() == null) {
+      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Row`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+  }
+
+  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
+    if (getPartitionPathFields() == null) {
+      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+  }
+
+  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
+    if (getPartitionPathFields() == null) {
+      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
 ```
 
 ### BoundedWildcard
@@ -17005,11 +17055,11 @@ Can generalize to `? extends HoodieCommitMetadata`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/ListingBasedRollbackStrategy.java`
 #### Snippet
 ```java
-  private FileStatus[] fetchFilesFromInstant(HoodieInstant instantToRollback, String partitionPath, String basePath,
-                                             String baseFileExtension, HoodieWrapperFileSystem fs,
-                                             Option<HoodieCommitMetadata> commitMetadataOptional,
-                                             Boolean isCommitMetadataCompleted) throws IOException {
-    if (isCommitMetadataCompleted) {
+
+  private Boolean checkCommitMetadataCompleted(HoodieInstant instantToRollback,
+                                               Option<HoodieCommitMetadata> commitMetadataOptional) {
+    return commitMetadataOptional.isPresent() && instantToRollback.isCompleted()
+        && !WriteOperationType.UNKNOWN.equals(commitMetadataOptional.get().getOperationType());
 ```
 
 ### BoundedWildcard
@@ -17017,11 +17067,11 @@ Can generalize to `? extends HoodieCommitMetadata`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/rollback/ListingBasedRollbackStrategy.java`
 #### Snippet
 ```java
-
-  private Boolean checkCommitMetadataCompleted(HoodieInstant instantToRollback,
-                                               Option<HoodieCommitMetadata> commitMetadataOptional) {
-    return commitMetadataOptional.isPresent() && instantToRollback.isCompleted()
-        && !WriteOperationType.UNKNOWN.equals(commitMetadataOptional.get().getOperationType());
+  private FileStatus[] fetchFilesFromInstant(HoodieInstant instantToRollback, String partitionPath, String basePath,
+                                             String baseFileExtension, HoodieWrapperFileSystem fs,
+                                             Option<HoodieCommitMetadata> commitMetadataOptional,
+                                             Boolean isCommitMetadataCompleted) throws IOException {
+    if (isCommitMetadataCompleted) {
 ```
 
 ### BoundedWildcard
@@ -17085,6 +17135,66 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/Fi
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
+#### Snippet
+```java
+  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
+
+  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
+    this.leftIterator = leftIterator;
+    this.rightIterator = rightIterator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
+#### Snippet
+```java
+  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
+
+  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
+    this.leftIterator = leftIterator;
+    this.rightIterator = rightIterator;
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
+#### Snippet
+```java
+  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
+
+  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
+    this.leftIterator = leftIterator;
+    this.rightIterator = rightIterator;
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
+#### Snippet
+```java
+  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
+
+  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
+    this.leftIterator = leftIterator;
+    this.rightIterator = rightIterator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
+#### Snippet
+```java
+  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
+
+  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
+    this.leftIterator = leftIterator;
+    this.rightIterator = rightIterator;
+```
+
+### BoundedWildcard
 Can generalize to `? extends HoodieInstant`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/TransactionUtils.java`
 #### Snippet
@@ -17094,66 +17204,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/Tr
       final Option<HoodieInstant> currentTxnOwnerInstant,
       final Option<HoodieCommitMetadata> thisCommitMetadata,
       final HoodieWriteConfig config,
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
-#### Snippet
-```java
-  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
-
-  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
-    this.leftIterator = leftIterator;
-    this.rightIterator = rightIterator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
-#### Snippet
-```java
-  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
-
-  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
-    this.leftIterator = leftIterator;
-    this.rightIterator = rightIterator;
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
-#### Snippet
-```java
-  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
-
-  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
-    this.leftIterator = leftIterator;
-    this.rightIterator = rightIterator;
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
-#### Snippet
-```java
-  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
-
-  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
-    this.leftIterator = leftIterator;
-    this.rightIterator = rightIterator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MergingIterator.java`
-#### Snippet
-```java
-  private final BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction;
-
-  public MergingIterator(Iterator<HoodieRecord> leftIterator, Iterator<HoodieRecord> rightIterator, BiFunction<HoodieRecord, HoodieRecord, HoodieRecord> mergeFunction) {
-    this.leftIterator = leftIterator;
-    this.rightIterator = rightIterator;
 ```
 
 ### BoundedWildcard
@@ -17193,6 +17243,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/bootstra
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/log/HoodieFileSliceReader.java`
+#### Snippet
+```java
+  }
+
+  private HoodieFileSliceReader(Iterator<HoodieRecord<T>> recordsItr) {
+    this.recordsIterator = recordsItr;
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends HoodieFileReader`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/log/HoodieFileSliceReader.java`
 #### Snippet
@@ -17205,15 +17267,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/lo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/common/table/log/HoodieFileSliceReader.java`
+Can generalize to `? extends HoodieTableFileSystemView`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
 #### Snippet
 ```java
-  }
-
-  private HoodieFileSliceReader(Iterator<HoodieRecord<T>> recordsItr) {
-    this.recordsIterator = recordsItr;
-  }
+  public List<Pair<HoodieLogFile, HoodieLogFile>> getRenamingActionsForUnschedulingCompactionOperation(
+      HoodieTableMetaClient metaClient, String compactionInstant, CompactionOperation operation,
+      Option<HoodieTableFileSystemView> fsViewOpt, boolean skipValidation) throws IOException {
+    List<Pair<HoodieLogFile, HoodieLogFile>> result = new ArrayList<>();
+    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
 ```
 
 ### BoundedWildcard
@@ -17233,42 +17295,6 @@ Can generalize to `? extends HoodieLogFile`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
 #### Snippet
 ```java
-    public RenameOpResult() {}
-
-    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
-      super(
-          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-    public RenameOpResult() {}
-
-    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
-      super(
-          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-   */
-  private List<RenameOpResult> runRenamingOps(HoodieTableMetaClient metaClient,
-      List<Pair<HoodieLogFile, HoodieLogFile>> renameActions, int parallelism, boolean dryRun) {
-    if (renameActions.isEmpty()) {
-      LOG.info("No renaming of log-files needed. Proceeding to removing file-id from compaction-plan");
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieLogFile`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
     }
 
     public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean executed, boolean success,
@@ -17286,6 +17312,30 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/Compacti
     public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean executed, boolean success,
         Option<Exception> exception) {
       super(
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    public RenameOpResult() {}
+
+    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
+      super(
+          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieLogFile`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    public RenameOpResult() {}
+
+    public RenameOpResult(Pair<HoodieLogFile, HoodieLogFile> op, boolean success, Option<Exception> exception) {
+      super(
+          new RenameInfo(op.getKey().getFileId(), op.getKey().getPath().toString(), op.getRight().getPath().toString()),
 ```
 
 ### BoundedWildcard
@@ -17301,15 +17351,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/Compacti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieTableFileSystemView`
+Can generalize to `? extends Pair`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
 #### Snippet
 ```java
-  public List<Pair<HoodieLogFile, HoodieLogFile>> getRenamingActionsForUnschedulingCompactionOperation(
-      HoodieTableMetaClient metaClient, String compactionInstant, CompactionOperation operation,
-      Option<HoodieTableFileSystemView> fsViewOpt, boolean skipValidation) throws IOException {
-    List<Pair<HoodieLogFile, HoodieLogFile>> result = new ArrayList<>();
-    HoodieTableFileSystemView fileSystemView = fsViewOpt.isPresent() ? fsViewOpt.get()
+   */
+  private List<RenameOpResult> runRenamingOps(HoodieTableMetaClient metaClient,
+      List<Pair<HoodieLogFile, HoodieLogFile>> renameActions, int parallelism, boolean dryRun) {
+    if (renameActions.isEmpty()) {
+      LOG.info("No renaming of log-files needed. Proceeding to removing file-id from compaction-plan");
 ```
 
 ### BoundedWildcard
@@ -17341,10 +17391,10 @@ Can generalize to `? extends BaseKeyGenerator`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
 #### Snippet
 ```java
-   * @return the record key for the passed in generic record.
+   * @return the partition path for the passed in generic record.
    */
-  public static String getRecordKeyFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
-    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getRecordKey(genericRecord) : genericRecord.get(HoodieRecord.RECORD_KEY_METADATA_FIELD).toString();
+  public static String getPartitionPathFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
+    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getPartitionPath(genericRecord) : genericRecord.get(HoodieRecord.PARTITION_PATH_METADATA_FIELD).toString();
   }
 ```
 
@@ -17353,10 +17403,10 @@ Can generalize to `? extends BaseKeyGenerator`
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
 #### Snippet
 ```java
-   * @return the partition path for the passed in generic record.
+   * @return the record key for the passed in generic record.
    */
-  public static String getPartitionPathFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
-    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getPartitionPath(genericRecord) : genericRecord.get(HoodieRecord.PARTITION_PATH_METADATA_FIELD).toString();
+  public static String getRecordKeyFromGenericRecord(GenericRecord genericRecord, Option<BaseKeyGenerator> keyGeneratorOpt) {
+    return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getRecordKey(genericRecord) : genericRecord.get(HoodieRecord.RECORD_KEY_METADATA_FIELD).toString();
   }
 ```
 
@@ -17385,42 +17435,6 @@ in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroParquetReader
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Schema.Field`
-in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaUtils.java`
-#### Snippet
-```java
-   *       of the source schema as is
-   */
-  public static Schema appendFieldsToSchema(Schema schema, List<Schema.Field> newFields) {
-    List<Schema.Field> fields = schema.getFields().stream()
-        .map(field -> new Schema.Field(field.name(), field.schema(), field.doc(), field.defaultVal()))
-```
-
-### BoundedWildcard
-Can generalize to `? super Schema`
-in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaUtils.java`
-#### Snippet
-```java
-  private static boolean isProjectionOfInternal(Schema sourceSchema,
-                                                Schema targetSchema,
-                                                BiFunction<Schema, Schema, Boolean> atomicTypeEqualityPredicate) {
-    if (sourceSchema.getType() == targetSchema.getType()) {
-      if (sourceSchema.getType() == Schema.Type.RECORD) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Schema`
-in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaUtils.java`
-#### Snippet
-```java
-  private static boolean isProjectionOfInternal(Schema sourceSchema,
-                                                Schema targetSchema,
-                                                BiFunction<Schema, Schema, Boolean> atomicTypeEqualityPredicate) {
-    if (sourceSchema.getType() == targetSchema.getType()) {
-      if (sourceSchema.getType() == Schema.Type.RECORD) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `hudi-common/src/main/java/org/apache/hudi/util/Lazy.java`
 #### Snippet
@@ -17433,6 +17447,42 @@ in `hudi-common/src/main/java/org/apache/hudi/util/Lazy.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Schema`
+in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaUtils.java`
+#### Snippet
+```java
+  private static boolean isProjectionOfInternal(Schema sourceSchema,
+                                                Schema targetSchema,
+                                                BiFunction<Schema, Schema, Boolean> atomicTypeEqualityPredicate) {
+    if (sourceSchema.getType() == targetSchema.getType()) {
+      if (sourceSchema.getType() == Schema.Type.RECORD) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Schema`
+in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaUtils.java`
+#### Snippet
+```java
+  private static boolean isProjectionOfInternal(Schema sourceSchema,
+                                                Schema targetSchema,
+                                                BiFunction<Schema, Schema, Boolean> atomicTypeEqualityPredicate) {
+    if (sourceSchema.getType() == targetSchema.getType()) {
+      if (sourceSchema.getType() == Schema.Type.RECORD) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Schema.Field`
+in `hudi-common/src/main/java/org/apache/hudi/avro/AvroSchemaUtils.java`
+#### Snippet
+```java
+   *       of the source schema as is
+   */
+  public static Schema appendFieldsToSchema(Schema schema, List<Schema.Field> newFields) {
+    List<Schema.Field> fields = schema.getFields().stream()
+        .map(field -> new Schema.Field(field.name(), field.schema(), field.doc(), field.defaultVal()))
+```
+
+### BoundedWildcard
 Can generalize to `? extends FileStatus`
 in `hudi-common/src/main/java/org/apache/hudi/common/HoodieRollbackStat.java`
 #### Snippet
@@ -17442,6 +17492,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/HoodieRollbackStat.java`
     public Builder withDeletedFileResults(Map<FileStatus, Boolean> deletedFiles) {
       // noinspection Convert2MethodRef
       successDeleteFiles = deletedFiles.entrySet().stream().filter(s -> s.getValue())
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieData.java`
+#### Snippet
+```java
+  HoodieData<T> repartition(int parallelism);
+
+  default <O> HoodieData<T> distinctWithKey(SerializableFunction<T, O> keyGetter, int parallelism) {
+    return mapToPair(i -> Pair.of(keyGetter.apply(i), i))
+        .reduceByKey((value1, value2) -> value1, parallelism)
 ```
 
 ### BoundedWildcard
@@ -17469,13 +17531,37 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metadata/Hoodie
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieData.java`
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/HoodieCleanStat.java`
 #### Snippet
 ```java
-  HoodieData<T> repartition(int parallelism);
+    }
 
-  default <O> HoodieData<T> distinctWithKey(SerializableFunction<T, O> keyGetter, int parallelism) {
+    public Builder withEarliestCommitRetained(Option<HoodieInstant> earliestCommitToRetain) {
+      this.earliestCommitToRetain =
+          (earliestCommitToRetain.isPresent()) ? earliestCommitToRetain.get().getTimestamp() : "";
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/Option.java`
+#### Snippet
+```java
+   * @return Option
+   */
+  public static <T> Option<T> fromJavaOptional(Optional<T> v) {
+    return Option.ofNullable(v.orElse(null));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListData.java`
+#### Snippet
+```java
+
+  @Override
+  public <O> HoodieData<T> distinctWithKey(SerializableFunction<T, O> keyGetter, int parallelism) {
     return mapToPair(i -> Pair.of(keyGetter.apply(i), i))
         .reduceByKey((value1, value2) -> value1, parallelism)
 ```
@@ -17517,39 +17603,63 @@ in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListData.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListData.java`
-#### Snippet
-```java
-
-  @Override
-  public <O> HoodieData<T> distinctWithKey(SerializableFunction<T, O> keyGetter, int parallelism) {
-    return mapToPair(i -> Pair.of(keyGetter.apply(i), i))
-        .reduceByKey((value1, value2) -> value1, parallelism)
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/HoodieCleanStat.java`
-#### Snippet
-```java
-    }
-
-    public Builder withEarliestCommitRetained(Option<HoodieInstant> earliestCommitToRetain) {
-      this.earliestCommitToRetain =
-          (earliestCommitToRetain.isPresent()) ? earliestCommitToRetain.get().getTimestamp() : "";
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/Option.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MappingIterator.java`
 #### Snippet
 ```java
-   * @return Option
+  private final Function<T, R> mapper;
+
+  public MappingIterator(ClosableIterator<T> sourceIterator, Function<T, R> mapper) {
+    this.sourceIterator = sourceIterator;
+    this.mapper = mapper;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MappingIterator.java`
+#### Snippet
+```java
+  private final Function<T, R> mapper;
+
+  public MappingIterator(ClosableIterator<T> sourceIterator, Function<T, R> mapper) {
+    this.sourceIterator = sourceIterator;
+    this.mapper = mapper;
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MappingIterator.java`
+#### Snippet
+```java
+  private final Function<T, R> mapper;
+
+  public MappingIterator(ClosableIterator<T> sourceIterator, Function<T, R> mapper) {
+    this.sourceIterator = sourceIterator;
+    this.mapper = mapper;
+```
+
+### BoundedWildcard
+Can generalize to `? super FileStatus`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
+#### Snippet
+```java
+   * @throws IOException -
    */
-  public static <T> Option<T> fromJavaOptional(Optional<T> v) {
-    return Option.ofNullable(v.orElse(null));
-  }
+  public static void processFiles(FileSystem fs, String basePathStr, Function<FileStatus, Boolean> consumer,
+                                  boolean excludeMetaFolder) throws IOException {
+    PathFilter pathFilter = excludeMetaFolder ? getExcludeMetaPathFilter() : ALLOW_ALL_FILTER;
+```
+
+### BoundedWildcard
+Can generalize to `? super FileStatus`
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
+#### Snippet
+```java
+  public static <T> Map<String, T> parallelizeSubPathProcess(
+      HoodieEngineContext hoodieEngineContext, FileSystem fs, Path dirPath, int parallelism,
+      Predicate<FileStatus> subPathPredicate, SerializableFunction<Pair<String, SerializableConfiguration>, T> pairFunction) {
+    Map<String, T> result = new HashMap<>();
+    try {
 ```
 
 ### BoundedWildcard
@@ -17577,66 +17687,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super FileStatus`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
-#### Snippet
-```java
-  public static <T> Map<String, T> parallelizeSubPathProcess(
-      HoodieEngineContext hoodieEngineContext, FileSystem fs, Path dirPath, int parallelism,
-      Predicate<FileStatus> subPathPredicate, SerializableFunction<Pair<String, SerializableConfiguration>, T> pairFunction) {
-    Map<String, T> result = new HashMap<>();
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? super FileStatus`
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
-#### Snippet
-```java
-   * @throws IOException -
-   */
-  public static void processFiles(FileSystem fs, String basePathStr, Function<FileStatus, Boolean> consumer,
-                                  boolean excludeMetaFolder) throws IOException {
-    PathFilter pathFilter = excludeMetaFolder ? getExcludeMetaPathFilter() : ALLOW_ALL_FILTER;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MappingIterator.java`
-#### Snippet
-```java
-  private final Function<T, R> mapper;
-
-  public MappingIterator(ClosableIterator<T> sourceIterator, Function<T, R> mapper) {
-    this.sourceIterator = sourceIterator;
-    this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MappingIterator.java`
-#### Snippet
-```java
-  private final Function<T, R> mapper;
-
-  public MappingIterator(ClosableIterator<T> sourceIterator, Function<T, R> mapper) {
-    this.sourceIterator = sourceIterator;
-    this.mapper = mapper;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MappingIterator.java`
-#### Snippet
-```java
-  private final Function<T, R> mapper;
-
-  public MappingIterator(ClosableIterator<T> sourceIterator, Function<T, R> mapper) {
-    this.sourceIterator = sourceIterator;
-    this.mapper = mapper;
-```
-
-### BoundedWildcard
 Can generalize to `? extends CompletableFuture`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/FutureUtils.java`
 #### Snippet
@@ -17649,27 +17699,39 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/FutureUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/IdentityIterator.java`
 #### Snippet
 ```java
-      String payloadClass,
-      String preCombineField,
-      Option<Pair<String, String>> simpleKeyGenFieldsOpt,
-      Boolean withOperation,
-      Option<String> partitionNameOp,
+  private Iterator<R> itr;
+
+  public IdentityIterator(Iterator<R> itr) {
+    this.itr = itr;
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+Can generalize to `? extends Map`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
 #### Snippet
 ```java
-   * To better understand conversion rules please check {@link #rewriteRecord(GenericRecord, Schema)}
-   */
-  public static List<GenericRecord> rewriteRecords(List<GenericRecord> records, Schema newSchema) {
-    return records.stream().map(r -> rewriteRecord(r, newSchema)).collect(Collectors.toList());
+  public static HoodieCommitMetadata buildMetadata(List<HoodieWriteStat> writeStats,
+                                                   Map<String, List<String>> partitionToReplaceFileIds,
+                                                   Option<Map<String, String>> extraMetadata,
+                                                   WriteOperationType operationType,
+                                                   String schemaToStoreInCommit,
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieWriteStat`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
+#### Snippet
+```java
   }
+
+  private static HoodieCommitMetadata buildMetadataFromStats(List<HoodieWriteStat> writeStats,
+                                                             Map<String, List<String>> partitionToReplaceFileIds,
+                                                             String commitActionType,
 ```
 
 ### BoundedWildcard
@@ -17682,18 +17744,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
   private static Map<String, Double> buildMetrics(List<FileSlice> fileSlices) {
     int numLogFiles = 0;
     long totalLogFileSize = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/IdentityIterator.java`
-#### Snippet
-```java
-  private Iterator<R> itr;
-
-  public IdentityIterator(Iterator<R> itr) {
-    this.itr = itr;
-  }
 ```
 
 ### BoundedWildcard
@@ -17721,30 +17771,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/TypeUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieWriteStat`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
-#### Snippet
-```java
-  }
-
-  private static HoodieCommitMetadata buildMetadataFromStats(List<HoodieWriteStat> writeStats,
-                                                             Map<String, List<String>> partitionToReplaceFileIds,
-                                                             String commitActionType,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
-#### Snippet
-```java
-  public static HoodieCommitMetadata buildMetadata(List<HoodieWriteStat> writeStats,
-                                                   Map<String, List<String>> partitionToReplaceFileIds,
-                                                   Option<Map<String, String>> extraMetadata,
-                                                   WriteOperationType operationType,
-                                                   String schemaToStoreInCommit,
-```
-
-### BoundedWildcard
 Can generalize to `? extends TypeDescription`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
@@ -17757,15 +17783,39 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/RetryHelper.java`
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
+   * To better understand conversion rules please check {@link #rewriteRecord(GenericRecord, Schema)}
+   */
+  public static List<GenericRecord> rewriteRecords(List<GenericRecord> records, Schema newSchema) {
+    return records.stream().map(r -> rewriteRecord(r, newSchema)).collect(Collectors.toList());
   }
+```
 
-  public RetryHelper<T, R> tryWith(CheckedFunction<T, R> func) {
-    this.func = func;
-    return this;
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+      String payloadClass,
+      String preCombineField,
+      Option<Pair<String, String>> simpleKeyGenFieldsOpt,
+      Boolean withOperation,
+      Option<String> partitionNameOp,
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ClosableIteratorWithSchema.java`
+#### Snippet
+```java
+  private final Schema schema;
+
+  public ClosableIteratorWithSchema(ClosableIterator<R> iter, Schema schema) {
+    this.iter = iter;
+    this.schema = schema;
 ```
 
 ### BoundedWildcard
@@ -17782,98 +17832,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/RetryHelper.java`
 
 ### BoundedWildcard
 Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ClosableIteratorWithSchema.java`
-#### Snippet
-```java
-  private final Schema schema;
-
-  public ClosableIteratorWithSchema(ClosableIterator<R> iter, Schema schema) {
-    this.iter = iter;
-    this.schema = schema;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/RetryHelper.java`
 #### Snippet
 ```java
   }
 
-  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
-    return data.entrySet().stream()
-        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-  }
-
-  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
-    return data.entrySet().stream()
-        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
-```
-
-### BoundedWildcard
-Can generalize to `? super Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public <L, W> HoodiePairData<L, W> mapToPair(SerializablePairFunction<Pair<K, V>, L, W> mapToPairFunc) {
-    return new HoodieListPairData<>(asStream().map(p -> throwingMapToPairWrapper(mapToPairFunc).apply(p)), lazy);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-```
-
-### BoundedWildcard
-Can generalize to `? extends I`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/IteratorBasedQueueProducer.java`
-#### Snippet
-```java
-  private final Iterator<I> inputIterator;
-
-  public IteratorBasedQueueProducer(Iterator<I> inputIterator) {
-    this.inputIterator = inputIterator;
-  }
+  public RetryHelper<T, R> tryWith(CheckedFunction<T, R> func) {
+    this.func = func;
+    return this;
 ```
 
 ### BoundedWildcard
@@ -17889,87 +17855,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/IteratorBasedQue
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends E`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+Can generalize to `? extends I`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/IteratorBasedQueueProducer.java`
 #### Snippet
 ```java
-   * Returns difference b/w {@code one} {@link Set} of elements and {@code another}
-   */
-  public static <E> Set<E> diff(Collection<E> one, Collection<E> another) {
-    Set<E> diff = new HashSet<>(one);
-    diff.removeAll(another);
+  private final Iterator<I> inputIterator;
+
+  public IteratorBasedQueueProducer(Iterator<I> inputIterator) {
+    this.inputIterator = inputIterator;
+  }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+Can generalize to `? super HoodieMessageQueue`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/FunctionBasedQueueProducer.java`
 #### Snippet
 ```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
+  private final Function<HoodieMessageQueue<I, ?>, Boolean> producerFunction;
 
-### BoundedWildcard
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   *       values from the first one
-   */
-  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
-    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
-    combined.putAll(one);
-```
-
-### BoundedWildcard
-Can generalize to `? extends E`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
-   */
-  public static <E> List<E> combine(List<E> one, List<E> another) {
-    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
-    combined.addAll(one);
-```
-
-### BoundedWildcard
-Can generalize to `? extends E`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
-   */
-  public static <E> List<E> combine(List<E> one, List<E> another) {
-    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
-    combined.addAll(one);
+  public FunctionBasedQueueProducer(Function<HoodieMessageQueue<I, ?>, Boolean> producerFunction) {
+    this.producerFunction = producerFunction;
+  }
 ```
 
 ### BoundedWildcard
@@ -17989,6 +17895,90 @@ Can generalize to `? extends K`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 #### Snippet
 ```java
+   * Zip two lists into a Map. Will throw Exception if the size is different between these two lists.
+   */
+  public static <K, V> Map<K, V> zipToMap(List<K> keys, List<V> values) {
+    checkArgument(keys.size() == values.size(),
+        "keys' size must be equal with the values' size");
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Zip two lists into a Map. Will throw Exception if the size is different between these two lists.
+   */
+  public static <K, V> Map<K, V> zipToMap(List<K> keys, List<V> values) {
+    checkArgument(keys.size() == values.size(),
+        "keys' size must be equal with the values' size");
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+  }
+
+  public static <T> List<T> createImmutableList(final List<T> list) {
+    return Collections.unmodifiableList(list);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Collects provided {@link Iterator} to a {@link Stream}
+   */
+  public static <T> Stream<T> toStream(Iterator<T> iterator) {
+    return StreamSupport.stream(
+        Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED),
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
+   */
+  public static <E> List<E> combine(List<E> one, List<E> another) {
+    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
+    combined.addAll(one);
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Combines provided {@link List}s into one, returning new instance of {@link ArrayList}
+   */
+  public static <E> List<E> combine(List<E> one, List<E> another) {
+    ArrayList<E> combined = new ArrayList<>(one.size() + another.size());
+    combined.addAll(one);
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   * Returns difference b/w {@code one} {@link Set} of elements and {@code another}
+   */
+  public static <E> Set<E> diff(Collection<E> one, Collection<E> another) {
+    Set<E> diff = new HashSet<>(one);
+    diff.removeAll(another);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
   }
 
   public static <K,V> Map<K,V> createImmutableMap(final Map<K,V> map) {
@@ -18006,6 +17996,54 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
   public static <K,V> Map<K,V> createImmutableMap(final Map<K,V> map) {
     return Collections.unmodifiableMap(map);
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
+#### Snippet
+```java
+   *       values from the first one
+   */
+  public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another) {
+    HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
+    combined.putAll(one);
 ```
 
 ### BoundedWildcard
@@ -18025,42 +18063,6 @@ Can generalize to `? extends K`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
 #### Snippet
 ```java
-   * Zip two lists into a Map. Will throw Exception if the size is different between these two lists.
-   */
-  public static <K, V> Map<K, V> zipToMap(List<K> keys, List<V> values) {
-    checkArgument(keys.size() == values.size(),
-        "keys' size must be equal with the values' size");
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   * Zip two lists into a Map. Will throw Exception if the size is different between these two lists.
-   */
-  public static <K, V> Map<K, V> zipToMap(List<K> keys, List<V> values) {
-    checkArgument(keys.size() == values.size(),
-        "keys' size must be equal with the values' size");
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-   * Collects provided {@link Iterator} to a {@link Stream}
-   */
-  public static <T> Stream<T> toStream(Iterator<T> iterator) {
-    return StreamSupport.stream(
-        Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED),
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
    *       values from the first one
    */
   public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
@@ -18138,30 +18140,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
   public static <K, V> HashMap<K, V> combine(Map<K, V> one, Map<K, V> another, BiFunction<V, V, V> merge) {
     HashMap<K, V> combined = new HashMap<>(one.size() + another.size());
     combined.putAll(one);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/CollectionUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <T> List<T> createImmutableList(final List<T> list) {
-    return Collections.unmodifiableList(list);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieMessageQueue`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/FunctionBasedQueueProducer.java`
-#### Snippet
-```java
-  private final Function<HoodieMessageQueue<I, ?>, Boolean> producerFunction;
-
-  public FunctionBasedQueueProducer(Function<HoodieMessageQueue<I, ?>, Boolean> producerFunction) {
-    this.producerFunction = producerFunction;
-  }
 ```
 
 ### BoundedWildcard
@@ -18237,6 +18215,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessage
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
+#### Snippet
+```java
+    }
+
+    private HoodieKeyIterator(ClosableIterator<GenericRecord> nestedItr, Option<BaseKeyGenerator> keyGenerator) {
+      this.nestedItr = nestedItr;
+      if (keyGenerator.isPresent()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 #### Snippet
@@ -18261,27 +18251,99 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
-#### Snippet
-```java
-    }
-
-    private HoodieKeyIterator(ClosableIterator<GenericRecord> nestedItr, Option<BaseKeyGenerator> keyGenerator) {
-      this.nestedItr = nestedItr;
-      if (keyGenerator.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super O`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryExecutor.java`
+Can generalize to `? super Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
 #### Snippet
 ```java
 
   @Override
-  protected void doConsume(HoodieMessageQueue<I, O> queue, HoodieConsumer<O, E> consumer) {
-    LOG.info("Starting consumer, consuming records from the queue");
-    try {
+  public <L, W> HoodiePairData<L, W> mapToPair(SerializablePairFunction<Pair<K, V>, L, W> mapToPairFunc) {
+    return new HoodieListPairData<>(asStream().map(p -> throwingMapToPairWrapper(mapToPairFunc).apply(p)), lazy);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+  }
+
+  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
+    return data.entrySet().stream()
+        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+  }
+
+  private static <K, V> Stream<Pair<K, V>> explode(Map<K, List<V>> data) {
+    return data.entrySet().stream()
+        .flatMap(e -> e.getValue().stream().map(v -> Pair.of(e.getKey(), v)));
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/SimpleHoodieExecutor.java`
+#### Snippet
+```java
+
+  public SimpleHoodieExecutor(final Iterator<I> inputItr, Option<HoodieConsumer<O, E>> consumer,
+                              Function<I, O> transformFunction) {
+    this.it = inputItr;
+    this.consumer = consumer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends O`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/SimpleHoodieExecutor.java`
+#### Snippet
+```java
+
+  public SimpleHoodieExecutor(final Iterator<I> inputItr, Option<HoodieConsumer<O, E>> consumer,
+                              Function<I, O> transformFunction) {
+    this.it = inputItr;
+    this.consumer = consumer;
 ```
 
 ### BoundedWildcard
@@ -18313,18 +18375,6 @@ Can generalize to `? extends Key`
 in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalFilter.java`
 #### Snippet
 ```java
-   * @param keys The collection of keys.
-   */
-  public void add(Collection<Key> keys) {
-    if (keys == null) {
-      throw new IllegalArgumentException("Collection<Key> may not be null");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Key`
-in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalFilter.java`
-#### Snippet
-```java
    * @param keys The list of keys.
    */
   public void add(List<Key> keys) {
@@ -18333,27 +18383,63 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalFilter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
+Can generalize to `? extends Key`
+in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalFilter.java`
 #### Snippet
 ```java
-    private final Iterator<R> diskLazyFileIterator;
-
-    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
-      this.inMemoryIterator = inMemoryIterator;
-      this.diskLazyFileIterator = diskLazyFileIterator;
+   * @param keys The collection of keys.
+   */
+  public void add(Collection<Key> keys) {
+    if (keys == null) {
+      throw new IllegalArgumentException("Collection<Key> may not be null");
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/FlatLists.java`
 #### Snippet
 ```java
-    private final Iterator<R> diskLazyFileIterator;
+    }
 
-    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
-      this.inMemoryIterator = inMemoryIterator;
-      this.diskLazyFileIterator = diskLazyFileIterator;
+    static <T extends Comparable<T>> int compare(List<T> list0, List<T> list1, int size) {
+      for (int i = 0; i < size; i++) {
+        Comparable o0 = list0.get(i);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/FlatLists.java`
+#### Snippet
+```java
+    }
+
+    static <T extends Comparable<T>> int compare(List<T> list0, List<T> list1, int size) {
+      for (int i = 0; i < size; i++) {
+        Comparable o0 = list0.get(i);
+```
+
+### BoundedWildcard
+Can generalize to `? super O`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  protected void doConsume(HoodieMessageQueue<I, O> queue, HoodieConsumer<O, E> consumer) {
+    LOG.info("Starting consumer, consuming records from the queue");
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/OverwriteWithLatestAvroPayload.java`
+#### Snippet
+```java
+  }
+
+  public OverwriteWithLatestAvroPayload(Option<GenericRecord> record) {
+    this(record.isPresent() ? record.get() : null, 0); // natural order
+  }
 ```
 
 ### BoundedWildcard
@@ -18381,63 +18467,27 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpi
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/FlatLists.java`
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
 #### Snippet
 ```java
-    }
+    private final Iterator<R> diskLazyFileIterator;
 
-    static <T extends Comparable<T>> int compare(List<T> list0, List<T> list1, int size) {
-      for (int i = 0; i < size; i++) {
-        Comparable o0 = list0.get(i);
+    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
+      this.inMemoryIterator = inMemoryIterator;
+      this.diskLazyFileIterator = diskLazyFileIterator;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/FlatLists.java`
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpillableMap.java`
 #### Snippet
 ```java
-    }
+    private final Iterator<R> diskLazyFileIterator;
 
-    static <T extends Comparable<T>> int compare(List<T> list0, List<T> list1, int size) {
-      for (int i = 0; i < size; i++) {
-        Comparable o0 = list0.get(i);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/common/model/OverwriteWithLatestAvroPayload.java`
-#### Snippet
-```java
-  }
-
-  public OverwriteWithLatestAvroPayload(Option<GenericRecord> record) {
-    this(record.isPresent() ? record.get() : null, 0); // natural order
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/SimpleHoodieExecutor.java`
-#### Snippet
-```java
-
-  public SimpleHoodieExecutor(final Iterator<I> inputItr, Option<HoodieConsumer<O, E>> consumer,
-                              Function<I, O> transformFunction) {
-    this.it = inputItr;
-    this.consumer = consumer;
-```
-
-### BoundedWildcard
-Can generalize to `? extends O`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/SimpleHoodieExecutor.java`
-#### Snippet
-```java
-
-  public SimpleHoodieExecutor(final Iterator<I> inputItr, Option<HoodieConsumer<O, E>> consumer,
-                              Function<I, O> transformFunction) {
-    this.it = inputItr;
-    this.consumer = consumer;
+    public IteratorWrapper(Iterator<R> inMemoryIterator, Iterator<R> diskLazyFileIterator) {
+      this.inMemoryIterator = inMemoryIterator;
+      this.diskLazyFileIterator = diskLazyFileIterator;
 ```
 
 ### BoundedWildcard
@@ -18448,6 +18498,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/DefaultHoodieRecordPa
   }
 
   public DefaultHoodieRecordPayload(Option<GenericRecord> record) {
+    this(record.isPresent() ? record.get() : null, 0); // natural order
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends GenericRecord`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/EventTimeAvroPayload.java`
+#### Snippet
+```java
+  }
+
+  public EventTimeAvroPayload(Option<GenericRecord> record) {
     this(record.isPresent() ? record.get() : null, 0); // natural order
   }
 ```
@@ -18477,27 +18539,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/AWSDmsAvroPayload.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BiConsumer`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+Can generalize to `? extends BaseKeyGenerator`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieAvroIndexedRecord.java`
 #### Snippet
 ```java
-  public boolean commitStats(String instantTime, List<HoodieWriteStat> stats, Option<Map<String, String>> extraMetadata,
-                             String commitActionType, Map<String, List<String>> partitionToReplaceFileIds,
-                             Option<BiConsumer<HoodieTableMetaClient, HoodieCommitMetadata>> extraPreCommitFunc) {
-    // Skip the empty commit if not allowed
-    if (!config.allowEmptyCommit() && stats.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `hudi-common/src/main/java/org/apache/hudi/common/model/EventTimeAvroPayload.java`
-#### Snippet
-```java
-  }
-
-  public EventTimeAvroPayload(Option<GenericRecord> record) {
-    this(record.isPresent() ? record.get() : null, 0); // natural order
-  }
+  @Override
+  public HoodieRecord wrapIntoHoodieRecordPayloadWithKeyGen(Schema recordSchema,
+      Properties props, Option<BaseKeyGenerator> keyGen) {
+    GenericRecord record = (GenericRecord) data;
+    String key;
 ```
 
 ### BoundedWildcard
@@ -18510,18 +18560,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieAvroIndexedReco
   public String getRecordKey(Schema recordSchema, Option<BaseKeyGenerator> keyGeneratorOpt) {
     return keyGeneratorOpt.isPresent() ? keyGeneratorOpt.get().getRecordKey((GenericRecord) data) : ((GenericRecord) data).get(HoodieRecord.RECORD_KEY_METADATA_FIELD).toString();
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends BaseKeyGenerator`
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieAvroIndexedRecord.java`
-#### Snippet
-```java
-  @Override
-  public HoodieRecord wrapIntoHoodieRecordPayloadWithKeyGen(Schema recordSchema,
-      Properties props, Option<BaseKeyGenerator> keyGen) {
-    GenericRecord record = (GenericRecord) data;
-    String key;
 ```
 
 ### BoundedWildcard
@@ -18558,6 +18596,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieRecord.java`
   public HoodieRecord(HoodieRecord<T> record) {
     this(record.key, record.data, record.operation, record.metaData);
     this.currentLocation = record.currentLocation;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BiConsumer`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+#### Snippet
+```java
+  public boolean commitStats(String instantTime, List<HoodieWriteStat> stats, Option<Map<String, String>> extraMetadata,
+                             String commitActionType, Map<String, List<String>> partitionToReplaceFileIds,
+                             Option<BiConsumer<HoodieTableMetaClient, HoodieCommitMetadata>> extraPreCommitFunc) {
+    // Skip the empty commit if not allowed
+    if (!config.allowEmptyCommit() && stats.isEmpty()) {
 ```
 
 ### BoundedWildcard
@@ -18669,18 +18719,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieDataB
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieTableMetadata`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewManager.java`
-#### Snippet
-```java
-   */
-  private static HoodieTableFileSystemView createInMemoryFileSystemView(HoodieMetadataConfig metadataConfig, FileSystemViewStorageConfig viewConf,
-                                                                        HoodieTableMetaClient metaClient, SerializableSupplier<HoodieTableMetadata> metadataSupplier) {
-    LOG.info("Creating InMemory based view for basePath " + metaClient.getBasePath());
-    HoodieTimeline timeline = metaClient.getActiveTimeline().filterCompletedAndCompactionInstants();
-```
-
-### BoundedWildcard
 Can generalize to `? super HoodieTableMetaClient`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewManager.java`
 #### Snippet
@@ -18717,6 +18755,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewMa
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieTableMetadata`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/FileSystemViewManager.java`
+#### Snippet
+```java
+   */
+  private static HoodieTableFileSystemView createInMemoryFileSystemView(HoodieMetadataConfig metadataConfig, FileSystemViewStorageConfig viewConf,
+                                                                        HoodieTableMetaClient metaClient, SerializableSupplier<HoodieTableMetadata> metadataSupplier) {
+    LOG.info("Creating InMemory based view for basePath " + metaClient.getBasePath());
+    HoodieTimeline timeline = metaClient.getActiveTimeline().filterCompletedAndCompactionInstants();
+```
+
+### BoundedWildcard
 Can generalize to `? extends HoodieWriteStat`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTablePreCommitFileSystemView.java`
 #### Snippet
@@ -18735,78 +18785,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFil
 ```java
   }
 
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
-    if (errorOnPreferredView) {
-      LOG.warn("Routing request to secondary file-system view");
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
-#### Snippet
-```java
-  }
-
   private <T1, T2, T3, R> R execute(T1 val, T2 val2, T3 val3, Function3<T1, T2, T3, R> preferredFunction,
       Function3<T1, T2, T3, R> secondaryFunction) {
     if (errorOnPreferredView) {
@@ -18903,6 +18881,78 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFil
 ```java
   }
 
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <T1, R> R execute(T1 val, Function1<T1, R> preferredFunction, Function1<T1, R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private <R> R execute(Function0<R> preferredFunction, Function0<R> secondaryFunction) {
+    if (errorOnPreferredView) {
+      LOG.warn("Routing request to secondary file-system view");
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFileSystemView.java`
+#### Snippet
+```java
+  }
+
   private <T1, T2, R> R execute(T1 val, T2 val2, Function2<T1, T2, R> preferredFunction,
       Function2<T1, T2, R> secondaryFunction) {
     if (errorOnPreferredView) {
@@ -18969,15 +19019,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/PriorityBasedFil
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieLogBlock`
+Can generalize to `? extends KeySpec`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
 ```java
-   * Process the set of log blocks belonging to the last instant which is read fully.
-   */
-  private void processQueuedBlocksForInstant(Deque<HoodieLogBlock> logBlocks, int numLogFilesSeen,
-                                             Option<KeySpec> keySpecOpt) throws Exception {
-    while (!logBlocks.isEmpty()) {
+
+  private ClosableIteratorWithSchema<HoodieRecord> getRecordsIterator(
+      HoodieDataBlock dataBlock, Option<KeySpec> keySpecOpt) throws IOException {
+    ClosableIterator<HoodieRecord> blockRecordsIterator;
+    if (keySpecOpt.isPresent()) {
 ```
 
 ### BoundedWildcard
@@ -18993,15 +19043,147 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KeySpec`
+Can generalize to `? extends HoodieLogBlock`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
 ```java
+   * Process the set of log blocks belonging to the last instant which is read fully.
+   */
+  private void processQueuedBlocksForInstant(Deque<HoodieLogBlock> logBlocks, int numLogFilesSeen,
+                                             Option<KeySpec> keySpecOpt) throws Exception {
+    while (!logBlocks.isEmpty()) {
+```
 
-  private ClosableIteratorWithSchema<HoodieRecord> getRecordsIterator(
-      HoodieDataBlock dataBlock, Option<KeySpec> keySpecOpt) throws IOException {
-    ClosableIterator<HoodieRecord> blockRecordsIterator;
-    if (keySpecOpt.isPresent()) {
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, BootstrapBaseFileMapping> createFileIdToBootstrapBaseFileMap(
+      Map<HoodieFileGroupId, BootstrapBaseFileMapping> fileGroupIdBootstrapBaseFileMap) {
+    try {
+      LOG.info("Creating bootstrap base File Map using external spillable Map. Max Mem=" + maxMemoryForBootstrapBaseFile
+```
+
+### BoundedWildcard
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, BootstrapBaseFileMapping> createFileIdToBootstrapBaseFileMap(
+      Map<HoodieFileGroupId, BootstrapBaseFileMapping> fileGroupIdBootstrapBaseFileMap) {
+    try {
+      LOG.info("Creating bootstrap base File Map using external spillable Map. Max Mem=" + maxMemoryForBootstrapBaseFile
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    try {
+      LOG.info("Creating file group id to replace instant map using external spillable Map. Max Mem=" + maxMemoryForReplaceFileGroups
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    try {
+      LOG.info("Creating file group id to replace instant map using external spillable Map. Max Mem=" + maxMemoryForReplaceFileGroups
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
+    try {
+      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
+    try {
+      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingCompactionMap(
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingCompaction) {
+    try {
+      LOG.info("Creating Pending Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingCompaction
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingCompactionMap(
+      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingCompaction) {
+    try {
+      LOG.info("Creating Pending Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingCompaction
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroupId`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
+    try {
+      LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
+    try {
+      LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void addFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+    fileGroups.forEach(fileGroupInstantPair -> {
+      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
 ```
 
 ### BoundedWildcard
@@ -19023,9 +19205,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```java
 
   @Override
-  protected void resetPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    // Build fileId to Pending Compaction Instants
-    this.fgIdToPendingCompaction = createFileIdToPendingCompactionMap(operations.map(entry ->
+  protected void addPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    operations.forEach(opInstantPair -> {
+      ValidationUtils.checkArgument(!fgIdToPendingCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
 ```
 
 ### BoundedWildcard
@@ -19050,6 +19232,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
   protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
     Map<HoodieFileGroupId, HoodieInstant> fgInpendingClustering = new ConcurrentHashMap<>(fileGroupsInClustering);
     return fgInpendingClustering;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void removeFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+    fileGroups.forEach(fileGroupInstantPair -> {
+      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
 ```
 
 ### BoundedWildcard
@@ -19077,30 +19271,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    // Build fileId to bootstrap Data File
-    this.fgIdToBootstrapBaseFile = createFileIdToBootstrapBaseFileMap(bootstrapBaseFileStream
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected void addPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    operations.forEach(opInstantPair -> {
-      ValidationUtils.checkArgument(!fgIdToPendingCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
-```
-
-### BoundedWildcard
 Can generalize to `? extends Pair`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
@@ -19113,27 +19283,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected void addPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    operations.forEach(opInstantPair -> {
-      ValidationUtils.checkArgument(!fgIdToPendingLogCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
-```
-
-### BoundedWildcard
 Can generalize to `? extends HoodieFileGroupId`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
-
-  @Override
-  protected void addReplacedFileGroups(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    fgIdToReplaceInstants.putAll(replacedFileGroups);
   }
+
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
+    return replacedFileGroupsMap;
 ```
 
 ### BoundedWildcard
@@ -19141,11 +19299,35 @@ Can generalize to `? extends HoodieInstant`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
+  }
+
+  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
+    return replacedFileGroupsMap;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
 
   @Override
-  protected void addReplacedFileGroups(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    fgIdToReplaceInstants.putAll(replacedFileGroups);
-  }
+  protected void resetPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    // Build fileId to Pending Compaction Instants
+    this.fgIdToPendingCompaction = createFileIdToPendingCompactionMap(operations.map(entry ->
+```
+
+### BoundedWildcard
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    bootstrapBaseFileStream.forEach(bootstrapBaseFile -> {
+      ValidationUtils.checkArgument(!fgIdToBootstrapBaseFile.containsKey(bootstrapBaseFile.getFileGroupId()),
 ```
 
 ### BoundedWildcard
@@ -19167,21 +19349,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```java
 
   @Override
-  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    bootstrapBaseFileStream.forEach(bootstrapBaseFile -> {
-      ValidationUtils.checkArgument(!fgIdToBootstrapBaseFile.containsKey(bootstrapBaseFile.getFileGroupId()),
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void addFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
-    fileGroups.forEach(fileGroupInstantPair -> {
-      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
+  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    // Build fileId to bootstrap Data File
+    this.fgIdToBootstrapBaseFile = createFileIdToBootstrapBaseFileMap(bootstrapBaseFileStream
 ```
 
 ### BoundedWildcard
@@ -19189,11 +19359,11 @@ Can generalize to `? extends HoodieFileGroupId`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
+
+  @Override
+  protected void addReplacedFileGroups(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    fgIdToReplaceInstants.putAll(replacedFileGroups);
   }
-
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
-    return replacedFileGroupsMap;
 ```
 
 ### BoundedWildcard
@@ -19201,11 +19371,11 @@ Can generalize to `? extends HoodieInstant`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
 #### Snippet
 ```java
+
+  @Override
+  protected void addReplacedFileGroups(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
+    fgIdToReplaceInstants.putAll(replacedFileGroups);
   }
-
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    Map<HoodieFileGroupId, HoodieInstant> replacedFileGroupsMap = new ConcurrentHashMap<>(replacedFileGroups);
-    return replacedFileGroupsMap;
 ```
 
 ### BoundedWildcard
@@ -19215,129 +19385,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 ```java
 
   @Override
-  void removeFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
-    fileGroups.forEach(fileGroupInstantPair -> {
-      ValidationUtils.checkArgument(fgIdToPendingClustering.containsKey(fileGroupInstantPair.getLeft()),
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
-    try {
-      LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToPendingClusteringMap(final Map<HoodieFileGroupId, HoodieInstant> fileGroupsInClustering) {
-    try {
-      LOG.info("Creating file group id to clustering instant map using external spillable Map. Max Mem=" + maxMemoryForClusteringFileGroups
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, BootstrapBaseFileMapping> createFileIdToBootstrapBaseFileMap(
-      Map<HoodieFileGroupId, BootstrapBaseFileMapping> fileGroupIdBootstrapBaseFileMap) {
-    try {
-      LOG.info("Creating bootstrap base File Map using external spillable Map. Max Mem=" + maxMemoryForBootstrapBaseFile
-```
-
-### BoundedWildcard
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, BootstrapBaseFileMapping> createFileIdToBootstrapBaseFileMap(
-      Map<HoodieFileGroupId, BootstrapBaseFileMapping> fileGroupIdBootstrapBaseFileMap) {
-    try {
-      LOG.info("Creating bootstrap base File Map using external spillable Map. Max Mem=" + maxMemoryForBootstrapBaseFile
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    try {
-      LOG.info("Creating file group id to replace instant map using external spillable Map. Max Mem=" + maxMemoryForReplaceFileGroups
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  protected Map<HoodieFileGroupId, HoodieInstant> createFileIdToReplaceInstantMap(final Map<HoodieFileGroupId, HoodieInstant> replacedFileGroups) {
-    try {
-      LOG.info("Creating file group id to replace instant map using external spillable Map. Max Mem=" + maxMemoryForReplaceFileGroups
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingCompactionMap(
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingCompaction) {
-    try {
-      LOG.info("Creating Pending Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingCompaction
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingCompactionMap(
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingCompaction) {
-    try {
-      LOG.info("Creating Pending Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingCompaction
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieFileGroupId`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
-    try {
-      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/SpillableMapBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  protected Map<HoodieFileGroupId, Pair<String, CompactionOperation>> createFileIdToPendingLogCompactionMap(
-      Map<HoodieFileGroupId, Pair<String, CompactionOperation>> fgIdToPendingLogCompaction) {
-    try {
-      LOG.info("Creating Pending Log Compaction map using external spillable Map. Max Mem=" + maxMemoryForPendingLogCompaction
+  protected void addPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    operations.forEach(opInstantPair -> {
+      ValidationUtils.checkArgument(!fgIdToPendingLogCompaction.containsKey(opInstantPair.getValue().getFileGroupId()),
 ```
 
 ### BoundedWildcard
@@ -19378,26 +19428,50 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieTimeli
 
 ### BoundedWildcard
 Can generalize to `? extends HoodieFileGroup`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
 #### Snippet
 ```java
-
-  @Override
-  protected void storePartitionView(String partitionPath, List<HoodieFileGroup> fileGroups) {
-    LOG.info("Resetting and adding new partition (" + partitionPath + ") to ROCKSDB based file-system view at "
-        + config.getRocksdbBasePath() + ", Total file-groups=" + fileGroups.size());
+   * @param mode Delta Apply mode
+   */
+  protected void applyDeltaFileSlicesToPartitionView(String partition, List<HoodieFileGroup> deltaFileGroups,
+      DeltaApplyMode mode) {
+    if (deltaFileGroups.isEmpty()) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+Can generalize to `? extends List`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private void updatePartitionWriteFileGroups(Map<String, List<HoodieWriteStat>> partitionToWriteStats,
+                                              HoodieTimeline timeline,
+                                              HoodieInstant instant) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
+#### Snippet
+```java
+  private String timelineHash;
+
+  public HoodieDefaultTimeline(Stream<HoodieInstant> instants, Function<HoodieInstant, Option<byte[]>> details) {
+    this.details = details;
+    setInstants(instants.collect(Collectors.toList()));
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
 #### Snippet
 ```java
 
   @Override
-  protected void addPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    rocksDB.writeBatch(batch ->
-        operations.forEach(opInstantPair -> {
+  public HoodieTimeline filter(Predicate<HoodieInstant> filter) {
+    return new HoodieDefaultTimeline(getInstantsAsStream().filter(filter), details);
+  }
 ```
 
 ### BoundedWildcard
@@ -19413,51 +19487,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void removePendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    rocksDB.writeBatch(batch ->
-        operations.forEach(opInstantPair -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends HoodieFileGroup`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
-   * This is overridden to incrementally apply file-slices to rocks DB
-   */
-  protected void applyDeltaFileSlicesToPartitionView(String partition, List<HoodieFileGroup> deltaFileGroups,
-      DeltaApplyMode mode) {
-    rocksDB.writeBatch(batch ->
-```
-
-### BoundedWildcard
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
 
   @Override
-  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+  protected void storePartitionView(String partitionPath, List<HoodieFileGroup> fileGroups) {
+    LOG.info("Resetting and adding new partition (" + partitionPath + ") to ROCKSDB based file-system view at "
+        + config.getRocksdbBasePath() + ", Total file-groups=" + fileGroups.size());
 ```
 
 ### BoundedWildcard
@@ -19485,6 +19523,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieFileGroup`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+   * This is overridden to incrementally apply file-slices to rocks DB
+   */
+  protected void applyDeltaFileSlicesToPartitionView(String partition, List<HoodieFileGroup> deltaFileGroups,
+      DeltaApplyMode mode) {
+    rocksDB.writeBatch(batch ->
+```
+
+### BoundedWildcard
 Can generalize to `? extends Pair`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
@@ -19503,21 +19565,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
-  protected void resetPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
-    rocksDB.writeBatch(batch -> {
-      operations.forEach(opPair ->
-```
-
-### BoundedWildcard
-Can generalize to `? extends BootstrapBaseFileMapping`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-
-  @Override
-  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+  void removeFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+    rocksDB.writeBatch(batch ->
+        fileGroups.forEach(fgToPendingClusteringInstant -> {
 ```
 
 ### BoundedWildcard
@@ -19527,7 +19577,7 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
-  protected void resetPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+  protected void resetPendingCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
     rocksDB.writeBatch(batch -> {
       operations.forEach(opPair ->
 ```
@@ -19563,57 +19613,93 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
 ```java
 
   @Override
-  void removeFileGroupsInPendingClustering(Stream<Pair<HoodieFileGroupId, HoodieInstant>> fileGroups) {
+  protected void addPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
     rocksDB.writeBatch(batch ->
-        fileGroups.forEach(fgToPendingClusteringInstant -> {
+        operations.forEach(opInstantPair -> {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieFileGroup`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-   * @param mode Delta Apply mode
-   */
-  protected void applyDeltaFileSlicesToPartitionView(String partition, List<HoodieFileGroup> deltaFileGroups,
-      DeltaApplyMode mode) {
-    if (deltaFileGroups.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-  }
-
-  private void updatePartitionWriteFileGroups(Map<String, List<HoodieWriteStat>> partitionToWriteStats,
-                                              HoodieTimeline timeline,
-                                              HoodieInstant instant) {
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
 
   @Override
-  public HoodieTimeline filter(Predicate<HoodieInstant> filter) {
-    return new HoodieDefaultTimeline(getInstantsAsStream().filter(filter), details);
-  }
+  void removePendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    rocksDB.writeBatch(batch ->
+        operations.forEach(opInstantPair -> {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieDefaultTimeline.java`
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
-  private String timelineHash;
 
-  public HoodieDefaultTimeline(Stream<HoodieInstant> instants, Function<HoodieInstant, Option<byte[]>> details) {
-    this.details = details;
-    setInstants(instants.collect(Collectors.toList()));
+  @Override
+  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends BootstrapBaseFileMapping`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+
+  @Override
+  protected void resetPendingLogCompactionOperations(Stream<Pair<String, CompactionOperation>> operations) {
+    rocksDB.writeBatch(batch -> {
+      operations.forEach(opPair ->
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieBaseFile`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
+      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
+    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieLogFile`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
+#### Snippet
+```java
+
+  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
+      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
+    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
+        baseFileStream.collect(Collectors.groupingBy(baseFile -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
+#### Snippet
+```java
+
+  public static <I, K, V> Function<I, Stream<Pair<K, V>>> throwingFlatMapToPairWrapper(
+      SerializablePairFlatMapFunction<I, K, V> throwingPairFlatMapFunction) {
+    return v1 -> {
+      try {
 ```
 
 ### BoundedWildcard
@@ -19677,30 +19763,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
-#### Snippet
-```java
-  }
-
-  public static <I, K, V> Function<I, Pair<K, V>> throwingMapToPairWrapper(SerializablePairFunction<I, K, V> throwingPairFunction) {
-    return v1 -> {
-      try {
-```
-
-### BoundedWildcard
-Can generalize to `? super I`
-in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
-#### Snippet
-```java
-
-  public static <I, K, V> Function<I, Stream<Pair<K, V>>> throwingFlatMapToPairWrapper(
-      SerializablePairFlatMapFunction<I, K, V> throwingPairFlatMapFunction) {
-    return v1 -> {
-      try {
-```
-
-### BoundedWildcard
 Can generalize to `? super V`
 in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
 #### Snippet
@@ -19737,27 +19799,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieBaseFile`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
+Can generalize to `? super I`
+in `hudi-common/src/main/java/org/apache/hudi/common/function/FunctionWrapper.java`
 #### Snippet
 ```java
   }
 
-  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
-      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
-    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieLogFile`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
-#### Snippet
-```java
-
-  protected List<HoodieFileGroup> buildFileGroups(Stream<HoodieBaseFile> baseFileStream,
-      Stream<HoodieLogFile> logFileStream, HoodieTimeline timeline, boolean addPendingCompactionFileSlice) {
-    Map<Pair<String, String>, List<HoodieBaseFile>> baseFiles =
-        baseFileStream.collect(Collectors.groupingBy(baseFile -> {
+  public static <I, K, V> Function<I, Pair<K, V>> throwingMapToPairWrapper(SerializablePairFunction<I, K, V> throwingPairFunction) {
+    return v1 -> {
+      try {
 ```
 
 ### BoundedWildcard
@@ -19785,42 +19835,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InternalSchema`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/SerDeHelper.java`
-#### Snippet
-```java
-   * @return a string
-   */
-  public static String toJson(List<InternalSchema> internalSchemas) {
-    try {
-      StringWriter writer = new StringWriter();
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuilder.java`
-#### Snippet
-```java
-  }
-
-  private void index2Parents(Type type, Deque<Integer> pids, Map<Integer, Integer> id2p) {
-    switch (type.typeId()) {
-      case RECORD:
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuilder.java`
-#### Snippet
-```java
-  }
-
-  private void index2Parents(Type type, Deque<Integer> pids, Map<Integer, Integer> id2p) {
-    switch (type.typeId()) {
-      case RECORD:
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuilder.java`
 #### Snippet
@@ -19840,6 +19854,30 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuil
   }
 
   private void visitIdToField(Type type, Map<Integer, Types.Field> index) {
+    switch (type.typeId()) {
+      case RECORD:
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuilder.java`
+#### Snippet
+```java
+  }
+
+  private void index2Parents(Type type, Deque<Integer> pids, Map<Integer, Integer> id2p) {
+    switch (type.typeId()) {
+      case RECORD:
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchemaBuilder.java`
+#### Snippet
+```java
+  }
+
+  private void index2Parents(Type type, Deque<Integer> pids, Map<Integer, Integer> id2p) {
     switch (type.typeId()) {
       case RECORD:
 ```
@@ -19881,6 +19919,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSche
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends InternalSchema`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/SerDeHelper.java`
+#### Snippet
+```java
+   * @return a string
+   */
+  public static String toJson(List<InternalSchema> internalSchemas) {
+    try {
+      StringWriter writer = new StringWriter();
+```
+
+### BoundedWildcard
 Can generalize to `? extends Types.Field`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSchemaMerger.java`
 #### Snippet
@@ -19905,15 +19955,15 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/InternalSch
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends Schema`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
 #### Snippet
 ```java
-   * @return a hudi type match avro schema.
+   * this is auxiliary function used by visitInternalSchemaToBuildAvroSchema
    */
-  private static Type visitAvroSchemaToBuildType(Schema schema, Deque<String> visited, Boolean firstVisitRoot, AtomicInteger nextId) {
-    switch (schema.getType()) {
-      case RECORD:
+  private static Schema visitInternalRecordToBuildAvroRecord(Types.RecordType recordType, List<Schema> fieldSchemas, String recordNameFallback) {
+    List<Types.Field> fields = recordType.fields();
+    List<Schema.Field> avroFields = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -19929,15 +19979,75 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroIntern
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Schema`
+Can generalize to `? super String`
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
 #### Snippet
 ```java
-   * this is auxiliary function used by visitInternalSchemaToBuildAvroSchema
+   * @return a hudi type match avro schema.
    */
-  private static Schema visitInternalRecordToBuildAvroRecord(Types.RecordType recordType, List<Schema> fieldSchemas, String recordNameFallback) {
-    List<Types.Field> fields = recordType.fields();
-    List<Schema.Field> avroFields = new ArrayList<>();
+  private static Type visitAvroSchemaToBuildType(Schema schema, Deque<String> visited, Boolean firstVisitRoot, AtomicInteger nextId) {
+    switch (schema.getType()) {
+      case RECORD:
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
+#### Snippet
+```java
+  }
+
+  Map<String, FileStatus[]> fetchAllFilesInPartitionPaths(List<Path> partitionPaths) throws IOException {
+    Map<String, Path> partitionIdToPathMap =
+        partitionPaths.parallelStream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexManager.java`
+#### Snippet
+```java
+   */
+  private boolean indexExists(
+      Option<List<HoodieSecondaryIndex>> secondaryIndexes,
+      String indexName,
+      Option<String> indexType,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Set`
+in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexManager.java`
+#### Snippet
+```java
+      String indexName,
+      Option<String> indexType,
+      Option<Set<String>> colNames) {
+    return secondaryIndexes.map(indexes ->
+        indexes.stream().anyMatch(index -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataType`
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/utils/SchemaBuilder.java`
+#### Snippet
+```java
+  }
+
+  public SchemaBuilder fields(List<String> names, List<DataType> types) {
+    List<Column> columns = IntStream.range(0, names.size())
+        .mapToObj(idx -> Column.physical(names.get(idx), types.get(idx)))
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
+#### Snippet
+```java
+  @Override
+  public <I, K, V> List<V> reduceByKey(
+      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel()
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
 ```
 
 ### BoundedWildcard
@@ -19965,15 +20075,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
+Can generalize to `? super Iterator`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
   @Override
-  public <I, K, V> List<V> reduceByKey(
-      List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel()
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(
+      Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
+      SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
 ```
 
 ### BoundedWildcard
@@ -20029,11 +20139,11 @@ Can generalize to `? extends I`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
-  }
+  public <I, K, V> List<V> mapToPairAndReduceByKey(
+      List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
 ```
 
 ### BoundedWildcard
@@ -20041,11 +20151,11 @@ Can generalize to `? super I`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
-
   @Override
-  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
-    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
-  }
+  public <I, K, V> List<V> mapToPairAndReduceByKey(
+      List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
 ```
 
 ### BoundedWildcard
@@ -20085,27 +20195,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Iterator`
-in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
-#### Snippet
-```java
-  @Override
-  public <I, K, V> Stream<ImmutablePair<K, V>> mapPartitionsToPairAndReduceByKey(
-      Stream<I> data, SerializablePairFlatMapFunction<Iterator<I>, K, V> flatMapToPairFunc,
-      SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return throwingFlatMapToPairWrapper(flatMapToPairFunc).apply(data.parallel().iterator())
-```
-
-### BoundedWildcard
 Can generalize to `? extends I`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(
-      List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
+  }
 ```
 
 ### BoundedWildcard
@@ -20113,59 +20211,83 @@ Can generalize to `? super I`
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
+
   @Override
-  public <I, K, V> List<V> mapToPairAndReduceByKey(
-      List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
-#### Snippet
-```java
+  public <I, O> List<O> flatMap(List<I> data, SerializableFunction<I, Stream<O>> func, int parallelism) {
+    return data.stream().parallel().flatMap(throwingFlatMapWrapper(func)).collect(toList());
   }
-
-  Map<String, FileStatus[]> fetchAllFilesInPartitionPaths(List<Path> partitionPaths) throws IOException {
-    Map<String, Path> partitionIdToPathMap =
-        partitionPaths.parallelStream()
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexManager.java`
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
+   * @deprecated please use {@link #getTableAvroSchema(HoodieInstant, boolean)} instead
    */
-  private boolean indexExists(
-      Option<List<HoodieSecondaryIndex>> secondaryIndexes,
-      String indexName,
-      Option<String> indexType,
+  public MessageType readSchemaFromLastCompaction(Option<HoodieInstant> lastCompactionCommitOpt) throws Exception {
+    HoodieActiveTimeline activeTimeline = metaClient.getActiveTimeline();
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Set`
-in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexManager.java`
+Can generalize to `? super Schema`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
-      String indexName,
-      Option<String> indexType,
-      Option<Set<String>> colNames) {
-    return secondaryIndexes.map(indexes ->
-        indexes.stream().anyMatch(index -> {
+  @Deprecated
+  public Schema getLatestSchema(Schema writeSchema, boolean convertTableSchemaToAddNamespace,
+      Function1<Schema, Schema> converterFn) {
+    Schema latestSchema = writeSchema;
+    try {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataType`
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/utils/SchemaBuilder.java`
+Can generalize to `? extends Schema`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
+#### Snippet
+```java
+  @Deprecated
+  public Schema getLatestSchema(Schema writeSchema, boolean convertTableSchemaToAddNamespace,
+      Function1<Schema, Schema> converterFn) {
+    Schema latestSchema = writeSchema;
+    try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
   }
 
-  public SchemaBuilder fields(List<String> names, List<DataType> types) {
-    List<Column> columns = IntStream.range(0, names.size())
-        .mapToObj(idx -> Column.physical(names.get(idx), types.get(idx)))
+  private Schema getTableAvroSchemaInternal(boolean includeMetadataFields, Option<HoodieInstant> instantOpt) {
+    Schema schema =
+        (instantOpt.isPresent()
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `hudi-examples/hudi-examples-common/src/main/java/org/apache/hudi/examples/common/HoodieExampleDataGenerator.java`
+#### Snippet
+```java
+  }
+
+  public HoodieExampleDataGenerator(String[] partitionPaths, Map<Integer, KeyPartition> keyPartitionMap) {
+    this.partitionPaths = Arrays.copyOf(partitionPaths, partitionPaths.length);
+    this.existingKeys = keyPartitionMap;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieRecord`
+in `hudi-examples/hudi-examples-common/src/main/java/org/apache/hudi/examples/common/HoodieExampleDataGenerator.java`
+#### Snippet
+```java
+  }
+
+  public List<String> convertToStringList(List<HoodieRecord<T>> records) {
+    return records.stream().map(this::convertToString).filter(Option::isPresent).map(Option::get)
+        .collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -20197,18 +20319,6 @@ Can generalize to `? super Long`
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
 #### Snippet
 ```java
-                                                                                  List<String> keys,
-                                                                                  boolean fullKey,
-                                                                                  List<Long> timings) {
-    HoodieTimer timer = HoodieTimer.start();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Long`
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
-#### Snippet
-```java
                                                                                                              boolean fullKeys,
                                                                                                              Map<String, Option<HoodieRecord<HoodieMetadataPayload>>> logRecords,
                                                                                                              List<Long> timings,
@@ -20217,39 +20327,15 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieRecord`
-in `hudi-examples/hudi-examples-common/src/main/java/org/apache/hudi/examples/common/HoodieExampleDataGenerator.java`
+Can generalize to `? super Long`
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
 #### Snippet
 ```java
-  }
+                                                                                  List<String> keys,
+                                                                                  boolean fullKey,
+                                                                                  List<Long> timings) {
+    HoodieTimer timer = HoodieTimer.start();
 
-  public List<String> convertToStringList(List<HoodieRecord<T>> records) {
-    return records.stream().map(this::convertToString).filter(Option::isPresent).map(Option::get)
-        .collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `hudi-examples/hudi-examples-common/src/main/java/org/apache/hudi/examples/common/HoodieExampleDataGenerator.java`
-#### Snippet
-```java
-  }
-
-  public HoodieExampleDataGenerator(String[] partitionPaths, Map<Integer, KeyPartition> keyPartitionMap) {
-    this.partitionPaths = Arrays.copyOf(partitionPaths, partitionPaths.length);
-    this.existingKeys = keyPartitionMap;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/utils/QuickstartConfigurations.java`
-#### Snippet
-```java
-      String tableName,
-      List<String> fields,
-      Map<String, String> options,
-      boolean havePartition,
-      String pkField,
 ```
 
 ### BoundedWildcard
@@ -20262,6 +20348,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/SafeParquetRecordReaderW
   public SafeParquetRecordReaderWrapper(RecordReader<NullWritable, ArrayWritable> parquetReader) {
     this.parquetReader = parquetReader;
     ArrayWritable arrayWritable = parquetReader.createValue();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/utils/QuickstartConfigurations.java`
+#### Snippet
+```java
+      String tableName,
+      List<String> fields,
+      Map<String, String> options,
+      boolean havePartition,
+      String pkField,
 ```
 
 ### BoundedWildcard
@@ -20295,9 +20393,9 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/SchemaEvolutionContext.j
 ```java
   }
 
-  private void setColumnNameList(JobConf job, List<Types.Field> fields) {
-    if (fields == null) {
-      return;
+  public void setColumnTypeList(JobConf job, List<Types.Field> fields) {
+    List<TypeInfo> fullTypeInfos = TypeInfoUtils.getTypeInfosFromTypeString(job.get(serdeConstants.LIST_COLUMN_TYPES));
+    List<Integer> tmpColIdList = Arrays.stream(job.get(ColumnProjectionUtils.READ_COLUMN_IDS_CONF_STR).split(","))
 ```
 
 ### BoundedWildcard
@@ -20307,21 +20405,9 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/SchemaEvolutionContext.j
 ```java
   }
 
-  public void setColumnTypeList(JobConf job, List<Types.Field> fields) {
-    List<TypeInfo> fullTypeInfos = TypeInfoUtils.getTypeInfosFromTypeString(job.get(serdeConstants.LIST_COLUMN_TYPES));
-    List<Integer> tmpColIdList = Arrays.stream(job.get(ColumnProjectionUtils.READ_COLUMN_IDS_CONF_STR).split(","))
-```
-
-### BoundedWildcard
-Can generalize to `? extends Field`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/AbstractRealtimeRecordReader.java`
-#### Snippet
-```java
-  }
-
-  public Schema constructHiveOrderedSchema(Schema writerSchema, Map<String, Field> schemaFieldsMap, String hiveColumnString) {
-    String[] hiveColumns = hiveColumnString.split(",");
-    LOG.info("Hive Columns : " + hiveColumnString);
+  private void setColumnNameList(JobConf job, List<Types.Field> fields) {
+    if (fields == null) {
+      return;
 ```
 
 ### BoundedWildcard
@@ -20337,15 +20423,75 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieRealtimeReco
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieCommitMetadata`
+Can generalize to `? extends Field`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/AbstractRealtimeRecordReader.java`
+#### Snippet
+```java
+  }
+
+  public Schema constructHiveOrderedSchema(Schema writerSchema, Map<String, Field> schemaFieldsMap, String hiveColumnString) {
+    String[] hiveColumns = hiveColumnString.split(",");
+    LOG.info("Hive Columns : " + hiveColumnString);
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeInfo`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
+#### Snippet
+```java
+  private static final Logger LOG = LogManager.getLogger(HiveAvroSerializer.class);
+
+  public HiveAvroSerializer(ObjectInspector objectInspector, List<String> columnNames, List<TypeInfo> columnTypes) {
+    this.columnNames = columnNames;
+    this.columnTypes = columnTypes;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieAvroIndexedRecord`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/RealtimeCompactedRecordReader.java`
+#### Snippet
+```java
+  }
+
+  private void setUpWritable(Option<HoodieAvroIndexedRecord> rec, ArrayWritable arrayWritable, String key) {
+    GenericRecord recordToReturn = (GenericRecord) rec.get().getData();
+    if (usesCustomPayload) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RecordReader`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieCombineRealtimeRecordReader.java`
+#### Snippet
+```java
+
+  public HoodieCombineRealtimeRecordReader(JobConf jobConf, CombineFileSplit split,
+      List<RecordReader> readers) {
+    try {
+      ValidationUtils.checkArgument(((HoodieCombineRealtimeFileSplit) split).getRealtimeFileSplits().size() == readers
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-   * @return the partition path set
+   * @throws IOException
    */
-  public static Set<String> getWritePartitionPaths(List<HoodieCommitMetadata> metadataList) {
-    return metadataList.stream()
-        .map(HoodieCommitMetadata::getWritePartitionPaths)
+  public static Option<String> getAffectedPartitions(List<HoodieInstant> commitsToCheck,
+                                      HoodieTableMetaClient tableMetaClient,
+                                      HoodieTimeline timeline,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
+#### Snippet
+```java
+                                      HoodieTableMetaClient tableMetaClient,
+                                      HoodieTimeline timeline,
+                                      List<Path> inputPaths) throws IOException {
+    Set<String> partitionsToList = new HashSet<>();
+    for (HoodieInstant commit : commitsToCheck) {
 ```
 
 ### BoundedWildcard
@@ -20365,42 +20511,6 @@ Can generalize to `? extends HoodieInstant`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-   * @throws IOException
-   */
-  public static Option<String> getAffectedPartitions(List<HoodieInstant> commitsToCheck,
-                                      HoodieTableMetaClient tableMetaClient,
-                                      HoodieTimeline timeline,
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeInfo`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer.java`
-#### Snippet
-```java
-  private static final Logger LOG = LogManager.getLogger(HiveAvroSerializer.class);
-
-  public HiveAvroSerializer(ObjectInspector objectInspector, List<String> columnNames, List<TypeInfo> columnTypes) {
-    this.columnNames = columnNames;
-    this.columnTypes = columnTypes;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
-#### Snippet
-```java
-                                      HoodieTableMetaClient tableMetaClient,
-                                      HoodieTimeline timeline,
-                                      List<Path> inputPaths) throws IOException {
-    Set<String> partitionsToList = new HashSet<>();
-    for (HoodieInstant commit : commitsToCheck) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
-#### Snippet
-```java
    */
   public static List<FileStatus> filterIncrementalFileStatus(Job job, HoodieTableMetaClient tableMetaClient,
       HoodieTimeline timeline, FileStatus[] fileStatuses, List<HoodieInstant> commitsToCheck) throws IOException {
@@ -20409,15 +20519,15 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatU
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Path`
+Can generalize to `? extends HoodieTableMetaClient`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-   * @return partition path to table meta client mapping
    */
-  public static Map<Path, HoodieTableMetaClient> getTableMetaClientByPartitionPath(Configuration conf, Set<Path> partitions) {
-    Map<Path, HoodieTableMetaClient> metaClientMap = new HashMap<>();
-    return partitions.stream().collect(Collectors.toMap(Function.identity(), p -> {
+  public static Map<HoodieTableMetaClient, List<FileStatus>> groupFileStatusForSnapshotPaths(
+      FileStatus[] fileStatuses, String fileExtension, Collection<HoodieTableMetaClient> metaClientList) {
+    // This assumes the paths for different tables are grouped together
+    Map<HoodieTableMetaClient, List<FileStatus>> grouped = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -20445,39 +20555,75 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatU
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieTableMetaClient`
+Can generalize to `? extends HoodieCommitMetadata`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
+   * @return the partition path set
    */
-  public static Map<HoodieTableMetaClient, List<FileStatus>> groupFileStatusForSnapshotPaths(
-      FileStatus[] fileStatuses, String fileExtension, Collection<HoodieTableMetaClient> metaClientList) {
-    // This assumes the paths for different tables are grouped together
-    Map<HoodieTableMetaClient, List<FileStatus>> grouped = new HashMap<>();
+  public static Set<String> getWritePartitionPaths(List<HoodieCommitMetadata> metadataList) {
+    return metadataList.stream()
+        .map(HoodieCommitMetadata::getWritePartitionPaths)
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RecordReader`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieCombineRealtimeRecordReader.java`
+Can generalize to `? extends Path`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieInputFormatUtils.java`
 #### Snippet
 ```java
-
-  public HoodieCombineRealtimeRecordReader(JobConf jobConf, CombineFileSplit split,
-      List<RecordReader> readers) {
-    try {
-      ValidationUtils.checkArgument(((HoodieCombineRealtimeFileSplit) split).getRealtimeFileSplits().size() == readers
+   * @return partition path to table meta client mapping
+   */
+  public static Map<Path, HoodieTableMetaClient> getTableMetaClientByPartitionPath(Configuration conf, Set<Path> partitions) {
+    Map<Path, HoodieTableMetaClient> metaClientMap = new HashMap<>();
+    return partitions.stream().collect(Collectors.toMap(Function.identity(), p -> {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends HoodieAvroIndexedRecord`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/RealtimeCompactedRecordReader.java`
+Can generalize to `? super CombineFileSplit`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
 ```java
   }
 
-  private void setUpWritable(Option<HoodieAvroIndexedRecord> rec, ArrayWritable arrayWritable, String key) {
-    GenericRecord recordToReturn = (GenericRecord) rec.get().getData();
-    if (usesCustomPayload) {
+  private void processPaths(JobConf job, CombineFileInputFormatShim combine, List<CombineFileSplit> iss, Path... path)
+      throws IOException {
+    JobConf currJob = new JobConf(job);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CombineFileSplit`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
+#### Snippet
+```java
+   * @return the sampled splits
+   */
+  private List<CombineFileSplit> sampleSplits(List<CombineFileSplit> splits) {
+    HashMap<String, SplitSample> nameToSamples = mrwork.getNameToSplitSample();
+    List<CombineFileSplit> retLists = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends SchemaPostProcessor`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaProviderWithPostProcessor.java`
+#### Snippet
+```java
+
+  public SchemaProviderWithPostProcessor(SchemaProvider schemaProvider,
+      Option<SchemaPostProcessor> schemaPostProcessor) {
+    super(null, null);
+    this.schemaProvider = schemaProvider;
+```
+
+### BoundedWildcard
+Can generalize to `? extends SchemaPostProcessor`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/postprocessor/ChainedSchemaPostProcessor.java`
+#### Snippet
+```java
+  }
+
+  public ChainedSchemaPostProcessor(TypedProperties props, JavaSparkContext jssc, List<SchemaPostProcessor> processors) {
+    super(props, jssc);
+    this.processors = processors;
 ```
 
 ### BoundedWildcard
@@ -20517,51 +20663,15 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CombineFileSplit`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
-#### Snippet
-```java
-   * @return the sampled splits
-   */
-  private List<CombineFileSplit> sampleSplits(List<CombineFileSplit> splits) {
-    HashMap<String, SplitSample> nameToSamples = mrwork.getNameToSplitSample();
-    List<CombineFileSplit> retLists = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super CombineFileSplit`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
-#### Snippet
-```java
-  }
-
-  private void processPaths(JobConf job, CombineFileInputFormatShim combine, List<CombineFileSplit> iss, Path... path)
-      throws IOException {
-    JobConf currJob = new JobConf(job);
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieFileGroup`
+Can generalize to `? extends FileSplit`
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
 ```java
   }
 
-  private static List<FileStatus> collectAllIncrementalFiles(List<HoodieFileGroup> fileGroups,
-                                                             String maxCommitTime,
-                                                             String basePath,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileStatus`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
-#### Snippet
-```java
-                                                             String maxCommitTime,
-                                                             String basePath,
-                                                             Map<String, FileStatus> candidateFileStatus,
-                                                             Option<HoodieVirtualKeyInfo> virtualKeyInfoOpt) {
-
+  private static boolean containsIncrementalQuerySplits(List<FileSplit> fileSplits) {
+    return fileSplits.stream().anyMatch(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery);
+  }
 ```
 
 ### BoundedWildcard
@@ -20586,18 +20696,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnRe
                                                                       Option<HoodieInstant> latestCompletedInstantOpt,
                                                                       Option<HoodieVirtualKeyInfo> virtualKeyInfoOpt) {
     List<HoodieLogFile> sortedLogFiles = logFiles.sorted(HoodieLogFile.getLogFileComparator()).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileSplit`
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
-#### Snippet
-```java
-  }
-
-  private static List<FileSplit> filterIncrementalQueryFileSplits(List<FileSplit> fileSplits) {
-    return fileSplits.stream().filter(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery)
-        .collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -20631,33 +20729,33 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnRe
 ```java
   }
 
-  private static boolean containsIncrementalQuerySplits(List<FileSplit> fileSplits) {
-    return fileSplits.stream().anyMatch(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery);
-  }
+  private static List<FileSplit> filterIncrementalQueryFileSplits(List<FileSplit> fileSplits) {
+    return fileSplits.stream().filter(HoodieRealtimeInputFormatUtils::doesBelongToIncrementalQuery)
+        .collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SchemaPostProcessor`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaProviderWithPostProcessor.java`
-#### Snippet
-```java
-
-  public SchemaProviderWithPostProcessor(SchemaProvider schemaProvider,
-      Option<SchemaPostProcessor> schemaPostProcessor) {
-    super(null, null);
-    this.schemaProvider = schemaProvider;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaPostProcessor`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/postprocessor/ChainedSchemaPostProcessor.java`
+Can generalize to `? extends HoodieFileGroup`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
 ```java
   }
 
-  public ChainedSchemaPostProcessor(TypedProperties props, JavaSparkContext jssc, List<SchemaPostProcessor> processors) {
-    super(props, jssc);
-    this.processors = processors;
+  private static List<FileStatus> collectAllIncrementalFiles(List<HoodieFileGroup> fileGroups,
+                                                             String maxCommitTime,
+                                                             String basePath,
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileStatus`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
+#### Snippet
+```java
+                                                             String maxCommitTime,
+                                                             String basePath,
+                                                             Map<String, FileStatus> candidateFileStatus,
+                                                             Option<HoodieVirtualKeyInfo> virtualKeyInfoOpt) {
+
 ```
 
 ### BoundedWildcard
@@ -20670,6 +20768,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
   public static int handleErrors(JavaSparkContext jsc, String instantTime, JavaRDD<WriteStatus> writeResponse) {
     LongAccumulator errors = jsc.sc().longAccumulator();
     writeResponse.foreach(writeStatus -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Message`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
+#### Snippet
+```java
+   * Delete batch of messages from queue.
+   */
+  protected void deleteBatchOfMessages(AmazonSQS sqs, String queueUrl, List<Message> messagesToBeDeleted) {
+    DeleteMessageBatchRequest deleteBatchReq =
+        new DeleteMessageBatchRequest().withQueueUrl(queueUrl);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Message`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
+#### Snippet
+```java
+   * functionality, due to https://github.com/apache/hudi/blob/master/style/checkstyle.xml#L270
+   */
+  protected List<List<Message>> createListPartitions(List<Message> singleList, int eachBatchSize) {
+    List<List<Message>> listPartitions = new ArrayList<>();
+    if (singleList.size() == 0 || eachBatchSize < 1) {
 ```
 
 ### BoundedWildcard
@@ -20697,27 +20819,39 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/S3Eve
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Message`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
+Can generalize to `? extends JsonKafkaSourcePostProcessor`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/processor/ChainedJsonKafkaSourcePostProcessor.java`
 #### Snippet
 ```java
-   * functionality, due to https://github.com/apache/hudi/blob/master/style/checkstyle.xml#L270
-   */
-  protected List<List<Message>> createListPartitions(List<Message> singleList, int eachBatchSize) {
-    List<List<Message>> listPartitions = new ArrayList<>();
-    if (singleList.size() == 0 || eachBatchSize < 1) {
+  private final List<JsonKafkaSourcePostProcessor> processors;
+
+  public ChainedJsonKafkaSourcePostProcessor(List<JsonKafkaSourcePostProcessor> processors, TypedProperties props) {
+    super(props);
+    this.processors = processors;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Message`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudObjectsSelector.java`
+Can generalize to `? extends HoodieBaseFile`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
 #### Snippet
 ```java
-   * Delete batch of messages from queue.
-   */
-  protected void deleteBatchOfMessages(AmazonSQS sqs, String queueUrl, List<Message> messagesToBeDeleted) {
-    DeleteMessageBatchRequest deleteBatchReq =
-        new DeleteMessageBatchRequest().withQueueUrl(queueUrl);
+  }
+
+  private List<HoodieBaseFile> filterBaseFileBasedOnInflightCleaning(List<HoodieBaseFile> sortedBaseFileList, Set<String> baseDataFilesForCleaning) {
+    return sortedBaseFileList.stream()
+        .filter(baseFile -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileSlice`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+  }
+
+  private List<FileSlice> filterFileSliceBasedOnInflightCleaning(List<FileSlice> sortedLatestFileSliceList, Set<String> baseDataFilesForCleaning) {
+    return sortedLatestFileSliceList.stream()
+        .filter(fileSlice -> {
 ```
 
 ### BoundedWildcard
@@ -20757,54 +20891,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FileSlice`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-  }
-
-  private List<FileSlice> filterFileSliceBasedOnInflightCleaning(List<FileSlice> sortedLatestFileSliceList, Set<String> baseDataFilesForCleaning) {
-    return sortedLatestFileSliceList.stream()
-        .filter(fileSlice -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieBaseFile`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-  }
-
-  private List<HoodieBaseFile> filterBaseFileBasedOnInflightCleaning(List<HoodieBaseFile> sortedBaseFileList, Set<String> baseDataFilesForCleaning) {
-    return sortedBaseFileList.stream()
-        .filter(baseFile -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JsonKafkaSourcePostProcessor`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/processor/ChainedJsonKafkaSourcePostProcessor.java`
-#### Snippet
-```java
-  private final List<JsonKafkaSourcePostProcessor> processors;
-
-  public ChainedJsonKafkaSourcePostProcessor(List<JsonKafkaSourcePostProcessor> processors, TypedProperties props) {
-    super(props);
-    this.processors = processors;
-```
-
-### BoundedWildcard
-Can generalize to `? extends PartitionInfo`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
-#### Snippet
-```java
-   * @return
-   */
-  private Option<String> getOffsetsByTimestamp(KafkaConsumer consumer, List<PartitionInfo> partitionInfoList, Set<TopicPartition> topicPartitions,
-                                               String topicName, Long timestamp) {
-
-```
-
-### BoundedWildcard
 Can generalize to `? extends Transformer`
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/ChainedTransformer.java`
 #### Snippet
@@ -20817,15 +20903,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/transform/ChainedTran
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TimestampBasedAvroKeyGenerator`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
+Can generalize to `? extends PartitionInfo`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
 #### Snippet
 ```java
-      boolean hiveStylePartitioning,
-      boolean encodePartitionPath,
-      Option<TimestampBasedAvroKeyGenerator> keyGenOpt) {
-    if (keyGenOpt.isPresent()) {
-      TimestampBasedAvroKeyGenerator keyGenerator = keyGenOpt.get();
+   * @return
+   */
+  private Option<String> getOffsetsByTimestamp(KafkaConsumer consumer, List<PartitionInfo> partitionInfoList, Set<TopicPartition> topicPartitions,
+                                               String topicName, Long timestamp) {
+
 ```
 
 ### BoundedWildcard
@@ -20853,6 +20939,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/event/Wr
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends TimestampBasedAvroKeyGenerator`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
+#### Snippet
+```java
+      boolean hiveStylePartitioning,
+      boolean encodePartitionPath,
+      Option<TimestampBasedAvroKeyGenerator> keyGenOpt) {
+    if (keyGenOpt.isPresent()) {
+      TimestampBasedAvroKeyGenerator keyGenerator = keyGenOpt.get();
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bucket/BucketBulkInsertWriterHelper.java`
 #### Snippet
@@ -20862,42 +20960,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bucket/B
   private static String getFileId(Map<String, String> bucketIdToFileId, RowDataKeyGen keyGen, RowData record, String indexKeys, int numBuckets) {
     String recordKey = keyGen.getRecordKey(record);
     String partition = keyGen.getPartitionPath(record);
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieTimeline`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-  }
-
-  private Option<String> getLastPendingClusteringInstant(Option<HoodieTimeline> commitTimelineOpt) {
-    if (commitTimelineOpt.isPresent()) {
-      Option<HoodieInstant> pendingClusteringInstant = commitTimelineOpt.get().filterPendingReplaceTimeline().lastInstant();
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieTimeline`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-   * @throws IOException
-   */
-  private Option<String> getCheckpointToResume(Option<HoodieTimeline> commitTimelineOpt) throws IOException {
-    Option<String> resumeCheckpointStr = Option.empty();
-    Option<HoodieInstant> lastCommit = commitTimelineOpt.get().lastInstant();
-```
-
-### BoundedWildcard
-Can generalize to `? super SparkRDDWriteClient`
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
-#### Snippet
-```java
-  public DeltaSync(HoodieDeltaStreamer.Config cfg, SparkSession sparkSession, SchemaProvider schemaProvider,
-                   TypedProperties props, JavaSparkContext jssc, FileSystem fs, Configuration conf,
-                   Function<SparkRDDWriteClient, Boolean> onInitializingHoodieWriteClient) throws IOException {
-
-    this.cfg = cfg;
 ```
 
 ### BoundedWildcard
@@ -20937,6 +20999,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/transfor
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieInstant`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfile.java`
+#### Snippet
+```java
+   * whose instant does not belong to the given instants {@code instants}.
+   */
+  private void cleanMetadataCache(Stream<HoodieInstant> instants) {
+    Set<String> timestampSet = instants.map(HoodieInstant::getTimestamp).collect(Collectors.toSet());
+    this.metadataCache.keySet().retainAll(timestampSet);
+```
+
+### BoundedWildcard
 Can generalize to `? super O`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssignFunction.java`
 #### Snippet
@@ -20946,6 +21020,54 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
   private void processRecord(HoodieRecord<?> record, Collector<O> out) throws Exception {
     // 1. put the record into the BucketAssigner;
     // 2. look up the state for location, if the record has a location, just send it out;
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieTimeline`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+#### Snippet
+```java
+  }
+
+  private Option<String> getLastPendingClusteringInstant(Option<HoodieTimeline> commitTimelineOpt) {
+    if (commitTimelineOpt.isPresent()) {
+      Option<HoodieInstant> pendingClusteringInstant = commitTimelineOpt.get().filterPendingReplaceTimeline().lastInstant();
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieTimeline`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+#### Snippet
+```java
+   * @throws IOException
+   */
+  private Option<String> getCheckpointToResume(Option<HoodieTimeline> commitTimelineOpt) throws IOException {
+    Option<String> resumeCheckpointStr = Option.empty();
+    Option<HoodieInstant> lastCommit = commitTimelineOpt.get().lastInstant();
+```
+
+### BoundedWildcard
+Can generalize to `? super SparkRDDWriteClient`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/DeltaSync.java`
+#### Snippet
+```java
+  public DeltaSync(HoodieDeltaStreamer.Config cfg, SparkSession sparkSession, SchemaProvider schemaProvider,
+                   TypedProperties props, JavaSparkContext jssc, FileSystem fs, Configuration conf,
+                   Function<SparkRDDWriteClient, Boolean> onInitializingHoodieWriteClient) throws IOException {
+
+    this.cfg = cfg;
+```
+
+### BoundedWildcard
+Can generalize to `? extends SmallFile`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  public List<SmallFile> smallFilesOfThisTask(List<SmallFile> smallFiles) {
+    // computes the small files to write inserts for this task.
+    return smallFiles.stream()
 ```
 
 ### BoundedWildcard
@@ -20973,6 +21095,54 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends HoodieCommitMetadata`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfiles.java`
+#### Snippet
+```java
+      Path basePath,
+      Configuration hadoopConf,
+      List<HoodieCommitMetadata> metadataList,
+      HoodieTableType tableType) {
+    Map<String, FileStatus> uniqueIdToFileStatus = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends HoodieCommitMetadata`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfiles.java`
+#### Snippet
+```java
+      Path basePath,
+      Configuration hadoopConf,
+      List<HoodieCommitMetadata> metadataList,
+      HoodieTableType tableType) {
+    FileSystem fs = FSUtils.getFs(basePath.toString(), hadoopConf);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ResolvedExpression`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ExpressionUtils.java`
+#### Snippet
+```java
+   * only simple call expression is supported.
+   */
+  public static String[] referencedColumns(List<ResolvedExpression> exprs) {
+    return exprs.stream()
+        .map(ExpressionUtils::getReferencedColumns)
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ExpressionUtils.java`
+#### Snippet
+```java
+  }
+
+  private static boolean isFieldReferenceAndLiteral(List<Expression> exprs) {
+    if (exprs.size() != 2) {
+      return false;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ClusteringOperation`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clustering/ClusteringOperator.java`
 #### Snippet
@@ -20994,78 +21164,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/clusteri
   private Iterator<RowData> readRecordsForGroupBaseFiles(List<ClusteringOperation> clusteringOps) {
     List<Iterator<RowData>> iteratorsForPartition = clusteringOps.stream().map(clusteringOp -> {
       Iterable<IndexedRecord> indexedRecords = () -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfile.java`
-#### Snippet
-```java
-   * whose instant does not belong to the given instants {@code instants}.
-   */
-  private void cleanMetadataCache(Stream<HoodieInstant> instants) {
-    Set<String> timestampSet = instants.map(HoodieInstant::getTimestamp).collect(Collectors.toSet());
-    this.metadataCache.keySet().retainAll(timestampSet);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SmallFile`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  public List<SmallFile> smallFilesOfThisTask(List<SmallFile> smallFiles) {
-    // computes the small files to write inserts for this task.
-    return smallFiles.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieCommitMetadata`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfiles.java`
-#### Snippet
-```java
-      Path basePath,
-      Configuration hadoopConf,
-      List<HoodieCommitMetadata> metadataList,
-      HoodieTableType tableType) {
-    FileSystem fs = FSUtils.getFs(basePath.toString(), hadoopConf);
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieCommitMetadata`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/profile/WriteProfiles.java`
-#### Snippet
-```java
-      Path basePath,
-      Configuration hadoopConf,
-      List<HoodieCommitMetadata> metadataList,
-      HoodieTableType tableType) {
-    Map<String, FileStatus> uniqueIdToFileStatus = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ExpressionUtils.java`
-#### Snippet
-```java
-  }
-
-  private static boolean isFieldReferenceAndLiteral(List<Expression> exprs) {
-    if (exprs.size() != 2) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResolvedExpression`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ExpressionUtils.java`
-#### Snippet
-```java
-   * only simple call expression is supported.
-   */
-  public static String[] referencedColumns(List<ResolvedExpression> exprs) {
-    return exprs.stream()
-        .map(ExpressionUtils::getReferencedColumns)
 ```
 
 ### BoundedWildcard
@@ -21105,99 +21203,27 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super MergeOnReadInputSplit`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+Can generalize to `? extends FieldSchema`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
 ```java
-        Configuration flinkConf,
-        RowType rowType,
-        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
-      this.serializer = new RowDataSerializer(rowType);
-      this.splitIteratorFunc = splitIteratorFunc;
+   */
+  public static Pair<List<FieldSchema>, List<FieldSchema>> splitSchemaByPartitionKeys(
+      List<FieldSchema> fieldSchemas,
+      List<String> partitionKeys) {
+    List<FieldSchema> regularColumns = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClosableIterator`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+Can generalize to `? extends FieldSchema`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
 ```java
-        Configuration flinkConf,
-        RowType rowType,
-        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
-      this.serializer = new RowDataSerializer(rowType);
-      this.splitIteratorFunc = splitIteratorFunc;
-```
-
-### BoundedWildcard
-Can generalize to `? super MergeOnReadInputSplit`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-        long maxCompactionMemoryInBytes,
-        HoodieCDCFileSplit fileSplit,
-        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
-      // init before images
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClosableIterator`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-        long maxCompactionMemoryInBytes,
-        HoodieCDCFileSplit fileSplit,
-        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
-      // init before images
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends RowData`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-    private RowData currentRecord;
-
-    AddBaseFileIterator(ClosableIterator<RowData> nested) {
-      this.nested = nested;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super HoodieCDCFileSplit`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-        CdcInputSplit inputSplit,
-        ImageManager imageManager,
-        Function<HoodieCDCFileSplit, ClosableIterator<RowData>> recordIteratorFunc) {
-      this.fileSplitIterator = Arrays.asList(inputSplit.getChanges()).iterator();
-      this.imageManager = imageManager;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClosableIterator`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-        CdcInputSplit inputSplit,
-        ImageManager imageManager,
-        Function<HoodieCDCFileSplit, ClosableIterator<RowData>> recordIteratorFunc) {
-      this.fileSplitIterator = Arrays.asList(inputSplit.getChanges()).iterator();
-      this.imageManager = imageManager;
-```
-
-### BoundedWildcard
-Can generalize to `? extends RowData`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
-#### Snippet
-```java
-    private final RowDataProjection projection;
-
-    RemoveBaseFileIterator(MergeOnReadTableState tableState, ClosableIterator<RowData> iterator) {
-      this.nested = iterator;
-      this.projection = RowDataProjection.instance(tableState.getRequiredRowType(), tableState.getRequiredPositions());
+   * Get field names from field schemas.
+   */
+  public static List<String> getFieldNames(List<FieldSchema> fieldSchemas) {
+    return fieldSchemas.stream().map(FieldSchema::getName).collect(Collectors.toList());
+  }
 ```
 
 ### BoundedWildcard
@@ -21237,30 +21263,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldSchema`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
-#### Snippet
-```java
-   * Get field names from field schemas.
-   */
-  public static List<String> getFieldNames(List<FieldSchema> fieldSchemas) {
-    return fieldSchemas.stream().map(FieldSchema::getName).collect(Collectors.toList());
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldSchema`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
-#### Snippet
-```java
-   */
-  public static Pair<List<FieldSchema>, List<FieldSchema>> splitSchemaByPartitionKeys(
-      List<FieldSchema> fieldSchemas,
-      List<String> partitionKeys) {
-    List<FieldSchema> regularColumns = new ArrayList<>();
-```
-
-### BoundedWildcard
 Can generalize to `? super MergeOnReadInputSplit`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
 #### Snippet
@@ -21270,6 +21272,102 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Stream
   public void monitorDirAndForwardSplits(SourceContext<MergeOnReadInputSplit> context) {
     HoodieTableMetaClient metaClient = getOrCreateMetaClient();
     if (metaClient == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super HoodieCDCFileSplit`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+        CdcInputSplit inputSplit,
+        ImageManager imageManager,
+        Function<HoodieCDCFileSplit, ClosableIterator<RowData>> recordIteratorFunc) {
+      this.fileSplitIterator = Arrays.asList(inputSplit.getChanges()).iterator();
+      this.imageManager = imageManager;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClosableIterator`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+        CdcInputSplit inputSplit,
+        ImageManager imageManager,
+        Function<HoodieCDCFileSplit, ClosableIterator<RowData>> recordIteratorFunc) {
+      this.fileSplitIterator = Arrays.asList(inputSplit.getChanges()).iterator();
+      this.imageManager = imageManager;
+```
+
+### BoundedWildcard
+Can generalize to `? super MergeOnReadInputSplit`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+        long maxCompactionMemoryInBytes,
+        HoodieCDCFileSplit fileSplit,
+        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
+      // init before images
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClosableIterator`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+        long maxCompactionMemoryInBytes,
+        HoodieCDCFileSplit fileSplit,
+        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
+      // init before images
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends RowData`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+    private final RowDataProjection projection;
+
+    RemoveBaseFileIterator(MergeOnReadTableState tableState, ClosableIterator<RowData> iterator) {
+      this.nested = iterator;
+      this.projection = RowDataProjection.instance(tableState.getRequiredRowType(), tableState.getRequiredPositions());
+```
+
+### BoundedWildcard
+Can generalize to `? super MergeOnReadInputSplit`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+        Configuration flinkConf,
+        RowType rowType,
+        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
+      this.serializer = new RowDataSerializer(rowType);
+      this.splitIteratorFunc = splitIteratorFunc;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ClosableIterator`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+        Configuration flinkConf,
+        RowType rowType,
+        Function<MergeOnReadInputSplit, ClosableIterator<RowData>> splitIteratorFunc) {
+      this.serializer = new RowDataSerializer(rowType);
+      this.splitIteratorFunc = splitIteratorFunc;
+```
+
+### BoundedWildcard
+Can generalize to `? extends RowData`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/cdc/CdcInputFormat.java`
+#### Snippet
+```java
+    private RowData currentRecord;
+
+    AddBaseFileIterator(ClosableIterator<RowData> nested) {
+      this.nested = nested;
+    }
 ```
 
 ### BoundedWildcard
@@ -21285,6 +21383,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIn
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ResolvedExpression`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ExpressionEvaluator.java`
+#### Snippet
+```java
+   * @return true if the index row should be considered as a candidate
+   */
+  public static boolean filterExprs(List<ResolvedExpression> filters, RowData indexRow, RowType.RowField[] queryFields) {
+    for (ResolvedExpression filter : filters) {
+      if (!Evaluator.bindCall((CallExpression) filter, indexRow, queryFields).eval()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ColumnReader`
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
+#### Snippet
+```java
+  private final List<ColumnReader> fieldReaders;
+
+  public RowColumnReader(List<ColumnReader> fieldReaders) {
+    this.fieldReaders = fieldReaders;
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends RowData`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
 #### Snippet
@@ -21306,6 +21428,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
     SkipMergeIterator(ClosableIterator<RowData> nested, ClosableIterator<RowData> iterator) {
       this.nested = nested;
       this.iterator = iterator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends RowData`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+#### Snippet
+```java
+    private final ClosableIterator<RowData> iterator;
+
+    public LogFileOnlyIterator(ClosableIterator<RowData> iterator) {
+      this.iterator = iterator;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataType`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+#### Snippet
+```java
+      Configuration conf,
+      MergeOnReadTableState tableState,
+      List<DataType> fieldTypes,
+      String defaultPartName,
+      long limit,
 ```
 
 ### BoundedWildcard
@@ -21357,39 +21503,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DataType`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+Can generalize to `? extends ColumnReader`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
 #### Snippet
 ```java
-      Configuration conf,
-      MergeOnReadTableState tableState,
-      List<DataType> fieldTypes,
-      String defaultPartName,
-      long limit,
-```
+  private final List<ColumnReader> fieldReaders;
 
-### BoundedWildcard
-Can generalize to `? extends RowData`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
-#### Snippet
-```java
-    private final ClosableIterator<RowData> iterator;
-
-    public LogFileOnlyIterator(ClosableIterator<RowData> iterator) {
-      this.iterator = iterator;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResolvedExpression`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ExpressionEvaluator.java`
-#### Snippet
-```java
-   * @return true if the index row should be considered as a candidate
-   */
-  public static boolean filterExprs(List<ResolvedExpression> filters, RowData indexRow, RowType.RowField[] queryFields) {
-    for (ResolvedExpression filter : filters) {
-      if (!Evaluator.bindCall((CallExpression) filter, indexRow, queryFields).eval()) {
+  public RowColumnReader(List<ColumnReader> fieldReaders) {
+    this.fieldReaders = fieldReaders;
+  }
 ```
 
 ### BoundedWildcard
@@ -21418,7 +21540,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Increm
 
 ### BoundedWildcard
 Can generalize to `? extends ColumnReader`
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
+in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
 #### Snippet
 ```java
   private final List<ColumnReader> fieldReaders;
@@ -21426,18 +21548,6 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
   public RowColumnReader(List<ColumnReader> fieldReaders) {
     this.fieldReaders = fieldReaders;
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RowData`
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
-#### Snippet
-```java
-   * @return reshaped table according to the format outlined above
-   */
-  public static Pair<List<RowData>, String[]> transposeColumnStatsIndex(List<RowData> colStats, String[] queryColumns, RowType tableSchema) {
-
-    Map<String, LogicalType> tableFieldTypeMap = tableSchema.getFields().stream()
 ```
 
 ### BoundedWildcard
@@ -21450,6 +21560,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/
       Map<LogicalType, AvroToRowDataConverters.AvroToRowDataConverter> converters) {
     AvroToRowDataConverters.AvroToRowDataConverter converter =
         converters.computeIfAbsent(logicalType, k -> AvroToRowDataConverters.createConverter(logicalType));
+```
+
+### BoundedWildcard
+Can generalize to `? extends RowData`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ColumnStatsIndices.java`
+#### Snippet
+```java
+   * @return reshaped table according to the format outlined above
+   */
+  public static Pair<List<RowData>, String[]> transposeColumnStatsIndex(List<RowData> colStats, String[] queryColumns, RowType tableSchema) {
+
+    Map<String, LogicalType> tableFieldTypeMap = tableSchema.getFields().stream()
 ```
 
 ### BoundedWildcard
@@ -21466,19 +21588,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/
 
 ### BoundedWildcard
 Can generalize to `? extends ColumnReader`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
-#### Snippet
-```java
-  private final List<ColumnReader> fieldReaders;
-
-  public RowColumnReader(List<ColumnReader> fieldReaders) {
-    this.fieldReaders = fieldReaders;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ColumnReader`
-in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
+in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
 #### Snippet
 ```java
   private final List<ColumnReader> fieldReaders;
@@ -21501,32 +21611,8 @@ in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/f
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ColumnReader`
-in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RowColumnReader.java`
-#### Snippet
-```java
-  private final List<ColumnReader> fieldReaders;
-
-  public RowColumnReader(List<ColumnReader> fieldReaders) {
-    this.fieldReaders = fieldReaders;
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends ColumnDescriptor`
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
-  }
-
-  private static List<ColumnDescriptor> filterDescriptors(int depth, Type type, List<ColumnDescriptor> columns) throws ParquetRuntimeException {
-    List<ColumnDescriptor> filtered = new ArrayList<>();
-    for (ColumnDescriptor descriptor : columns) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ColumnDescriptor`
-in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
 ```java
   }
@@ -21546,6 +21632,18 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/HDFSParqu
   public static int handleErrors(JavaSparkContext jsc, String instantTime, JavaRDD<WriteStatus> writeResponse) {
     LongAccumulator errors = jsc.sc().longAccumulator();
     writeResponse.foreach(writeStatus -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Row`
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+     * @return list of hoodie records to delete
+     */
+    public List<String> generateDeletes(List<Row> rows) {
+      // if row.length() == 2, then the record contains "uuid" and "partitionpath" fields, otherwise,
+      // another field "ts" is available
 ```
 
 ### BoundedWildcard
@@ -21573,15 +21671,15 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Row`
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+Can generalize to `? extends ColumnDescriptor`
+in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
 ```java
-     * @return list of hoodie records to delete
-     */
-    public List<String> generateDeletes(List<Row> rows) {
-      // if row.length() == 2, then the record contains "uuid" and "partitionpath" fields, otherwise,
-      // another field "ts" is available
+  }
+
+  private static List<ColumnDescriptor> filterDescriptors(int depth, Type type, List<ColumnDescriptor> columns) throws ParquetRuntimeException {
+    List<ColumnDescriptor> filtered = new ArrayList<>();
+    for (ColumnDescriptor descriptor : columns) {
 ```
 
 ### BoundedWildcard
@@ -21618,90 +21716,6 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handler
       final List<MarkerCreationFuture> pendingMarkerCreationFutures, int fileIndex) {
     if (pendingMarkerCreationFutures.isEmpty()) {
       markFileAsAvailable(fileIndex);
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-  }
-
-  private Schema getTableAvroSchemaInternal(boolean includeMetadataFields, Option<HoodieInstant> instantOpt) {
-    Schema schema =
-        (instantOpt.isPresent()
-```
-
-### BoundedWildcard
-Can generalize to `? super Schema`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-  @Deprecated
-  public Schema getLatestSchema(Schema writeSchema, boolean convertTableSchemaToAddNamespace,
-      Function1<Schema, Schema> converterFn) {
-    Schema latestSchema = writeSchema;
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Schema`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-  @Deprecated
-  public Schema getLatestSchema(Schema writeSchema, boolean convertTableSchemaToAddNamespace,
-      Function1<Schema, Schema> converterFn) {
-    Schema latestSchema = writeSchema;
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends HoodieInstant`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-   * @deprecated please use {@link #getTableAvroSchema(HoodieInstant, boolean)} instead
-   */
-  public MessageType readSchemaFromLastCompaction(Option<HoodieInstant> lastCompactionCommitOpt) throws Exception {
-    HoodieActiveTimeline activeTimeline = metaClient.getActiveTimeline();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
-  }
-
-  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
-    if (getPartitionPathFields() == null) {
-      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Row`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
-  }
-
-  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
-    if (getPartitionPathFields() == null) {
-      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
-  }
-
-  private String getPartitionPath(Option<GenericRecord> record, Option<Row> row, Option<Pair<InternalRow, StructType>> internalRowStructTypePair) {
-    if (getPartitionPathFields() == null) {
-      throw new HoodieKeyException("Unable to find field names for partition path in cfg");
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -21807,86 +21821,26 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/Schedul
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
-    public int parallelism = 2;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
+    public boolean continuous = false;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+#### Snippet
+```java
     public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-        + "and log files from the table", required = false)
-    public String backupPath = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
-    public int parallelism = 2;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    public String endingInstantTime = null;
-    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
-        + "and log files from the table", required = false)
-    public String backupPath = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    public String runningMode = null;
-    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
-        + "for repair (inclusive)", required = false)
-    public String startingInstantTime = null;
-    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    public String startingInstantTime = null;
-    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
-        + "for repair (inclusive)", required = false)
-    public String endingInstantTime = null;
-    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    public String sparkMemory = "1g";
-    @Parameter(names = {"--assume-date-partitioning", "-dp"}, description = "whether the partition path "
-        + "is date with three levels", required = false)
-    public Boolean assumeDatePartitioning = false;
-    @Parameter(names = {"--help", "-h"}, help = true)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
     @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
     public String sparkMemory = "1g";
-    @Parameter(names = {"--assume-date-partitioning", "-dp"}, description = "whether the partition path "
+
 ```
 
 ### DefaultAnnotationParam
@@ -21898,18 +21852,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValida
     @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
         + "This is a stop-gap to support tables created by versions < 0.3.1. Will be removed eventually", required = false)
     public Boolean assumeDatePartitioning = false;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
-#### Snippet
-```java
-    public String sparkMaster = null;
-
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
 
 ```
 
@@ -21951,14 +21893,14 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValida
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
-    public boolean continuous = false;
-
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
+    public String schemaFile = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
 ```
 
 ### DefaultAnnotationParam
@@ -21966,11 +21908,23 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
+    public int retry = 0;
+    @Parameter(names = {"--schedule", "-sc"}, description = "Schedule compaction", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
     @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
     public String compactionInstantTime = null;
     @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-    public int parallelism = 200;
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -21983,6 +21937,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
     @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
     public String schemaFile = null;
     @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
+    public int parallelism = 200;
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22014,30 +21980,6 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
-    public String schemaFile = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
-    public int retry = 0;
-    @Parameter(names = {"--schedule", "-sc"}, description = "Schedule compaction", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
     @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
     public int retry = 0;
     @Parameter(names = {"--schedule", "-sc"}, description = "Schedule compaction", required = false)
@@ -22047,14 +21989,26 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+    public String partitionPath = null;
+    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
+    public String fileId = null;
     @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
+    public boolean skipValidation = false;
+    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
+    public String outputPath = null;
+    @Parameter(names = {"--print-output", "-pt"}, description = "Print Output", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22086,23 +22040,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
-    public String fileId = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-    public int parallelism = 3;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
-    public boolean skipValidation = false;
-    @Parameter(names = {"--output-path", "-ot"}, description = "Output Path", required = false)
-    public String outputPath = null;
-    @Parameter(names = {"--print-output", "-pt"}, description = "Print Output", required = false)
+    @Parameter(names = {"--base-path", "-bp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22122,11 +22064,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
     @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
     public String fileId = null;
     @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
+    public int parallelism = 3;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
 ```
 
 ### DefaultAnnotationParam
@@ -22143,14 +22085,86 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--base-path", "-bp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
-    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+        + "and log files from the table", required = false)
+    public String backupPath = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
+    public int parallelism = 2;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    public String endingInstantTime = null;
+    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
+        + "and log files from the table", required = false)
+    public String backupPath = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    public String sparkMemory = "1g";
+    @Parameter(names = {"--assume-date-partitioning", "-dp"}, description = "whether the partition path "
+        + "is date with three levels", required = false)
+    public Boolean assumeDatePartitioning = false;
+    @Parameter(names = {"--help", "-h"}, help = true)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    public String runningMode = null;
+    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
+        + "for repair (inclusive)", required = false)
+    public String startingInstantTime = null;
+    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    public String startingInstantTime = null;
+    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+        + "for repair (inclusive)", required = false)
+    public String endingInstantTime = null;
+    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+    @Parameter(names = {"--assume-date-partitioning", "-dp"}, description = "whether the partition path "
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
+    public int parallelism = 2;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22158,11 +22172,71 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
-    public String partitions = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
-    public int parallelism = 1500;
-    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
+    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
+    public String hiveURL = "jdbc:hive2://localhost:10000";
+    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
+    public String hivePartitionsField = "";
+    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
+    public String hivePartitionsField = "";
+    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
+    public boolean hiveUseJdbc = true;
+    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    public String hiveUserName = "hive";
+    @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
+    public String hivePassWord = "hive";
+    @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
+    public String hiveTableName = null;
+    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    public String hiveUserName = "hive";
+    @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
+    public boolean syncToHive = false;
+    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
+    public String hiveDataBase = null;
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22182,35 +22256,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
-    public boolean syncToHive = false;
     @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
     public String hiveDataBase = null;
     @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
     public String hiveTableName = null;
     @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
-    public String hiveUserName = "hive";
-    @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public boolean hiveSyncIgnoreException = false;
-    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
-        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
-    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22230,23 +22280,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
-    public String hiveUserName = "hive";
-    @Parameter(names = {"--hive-pass-word", "-pass"}, description = "hive password to use.", required = false)
-    public String hivePassWord = "hive";
-    @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
-    public String hiveDataBase = null;
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-    public String hiveTableName = null;
-    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
+    public String hiveSyncMode = "hms";
+    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
+    public boolean hiveSyncIgnoreException = false;
+    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
 ```
 
 ### DefaultAnnotationParam
@@ -22266,23 +22304,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
-    public String hivePartitionsField = "";
-    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
-    public boolean hiveUseJdbc = true;
-    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
+    public boolean hiveSyncIgnoreException = false;
+    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
         + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
     public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
     @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22290,23 +22316,11 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
+    public String hiveHMSUris = null;
     @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
     public String hiveSyncMode = "hms";
     @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
-    public boolean hiveSyncIgnoreException = false;
-    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--hive-jdbc-url", "-jdbc"}, description = "hive url to use.", required = false)
-    public String hiveURL = "jdbc:hive2://localhost:10000";
-    @Parameter(names = {"--hive-partition-field"}, description = "Comma separated list of field in the hive table to use for determining hive partition columns.", required = false)
-    public String hivePartitionsField = "";
-    @Parameter(names = {"--hive-sync-use-jdbc"}, description = "Use JDBC when hive synchronization.", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22319,18 +22333,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsT
     @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
     public String hiveHMSUris = null;
     @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
-    public String hiveHMSUris = null;
-    @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
-    public String hiveSyncMode = "hms";
-    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
 ```
 
 ### DefaultAnnotationParam
@@ -22347,6 +22349,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsT
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
+    public String partitions = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
+    public int parallelism = 1500;
+    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public int parallelism = 200;
+
+    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore metadata validate failure and continue.", required = false)
+    public boolean ignoreFailed = false;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
 #### Snippet
 ```java
@@ -22354,6 +22380,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 
     @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
     public boolean validateLatestBaseFiles = false;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean continuous = false;
+
+    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
+    public boolean skipDataFilesForCleaning = false;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
+    public boolean continuous = false;
 
 ```
 
@@ -22374,34 +22424,46 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
 #### Snippet
 ```java
+    public boolean validateAllFileGroups = false;
+
+    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
+    public boolean validateAllColumnStats = false;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public Integer minValidateIntervalSeconds = 10 * 60;
+
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for valuation", required = false)
+    public int parallelism = 200;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    public boolean validateAllColumnStats = false;
+
+    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
+    public boolean validateBloomFilters = false;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
     public boolean validateLatestBaseFiles = false;
 
     @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
     public boolean validateAllFileGroups = false;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public int parallelism = 200;
-
-    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore metadata validate failure and continue.", required = false)
-    public boolean ignoreFailed = false;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean skipDataFilesForCleaning = false;
-
-    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
-    public boolean validateLatestFileSlices = false;
 
 ```
 
@@ -22434,58 +22496,10 @@ Redundant default parameter value assignment
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
 #### Snippet
 ```java
-    public boolean validateAllColumnStats = false;
-
-    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
-    public boolean validateBloomFilters = false;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public Integer minValidateIntervalSeconds = 10 * 60;
-
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for valuation", required = false)
-    public int parallelism = 200;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean continuous = false;
-
-    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
     public boolean skipDataFilesForCleaning = false;
 
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    public boolean validateAllFileGroups = false;
-
-    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
-    public boolean validateAllColumnStats = false;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
-    public boolean continuous = false;
+    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
+    public boolean validateLatestFileSlices = false;
 
 ```
 
@@ -22507,11 +22521,11 @@ Redundant 'sequential()' call: the stream was created via 'stream()', so it's al
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 #### Snippet
 ```java
-    // Collect stats from all individual Parquet blocks
-    Map<String, List<HoodieColumnRangeMetadata<Comparable>>> columnToStatsListMap =
-        (Map<String, List<HoodieColumnRangeMetadata<Comparable>>>) metadata.getBlocks().stream().sequential()
-          .flatMap(blockMetaData ->
-              blockMetaData.getColumns().stream()
+    // there are multiple blocks. Compute min(block_mins) and max(block_maxs)
+    return blockRanges.stream()
+        .sequential()
+        .reduce(this::combineRanges).get();
+  }
 ```
 
 ### RedundantStreamOptionalCall
@@ -22519,11 +22533,11 @@ Redundant 'sequential()' call: the stream was created via 'stream()', so it's al
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
 #### Snippet
 ```java
-    // there are multiple blocks. Compute min(block_mins) and max(block_maxs)
-    return blockRanges.stream()
-        .sequential()
-        .reduce(this::combineRanges).get();
-  }
+    // Collect stats from all individual Parquet blocks
+    Map<String, List<HoodieColumnRangeMetadata<Comparable>>> columnToStatsListMap =
+        (Map<String, List<HoodieColumnRangeMetadata<Comparable>>>) metadata.getBlocks().stream().sequential()
+          .flatMap(blockMetaData ->
+              blockMetaData.getColumns().stream()
 ```
 
 ### RedundantStreamOptionalCall
@@ -22618,18 +22632,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/H
 #### Snippet
 ```java
   @Override
-  public void writeRow(RowData row) throws IOException {
-    super.write(row);
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataParquetWriter.java`
-#### Snippet
-```java
-  @Override
   public void writeRow(String key, RowData row) throws IOException {
     super.write(row);
     writeSupport.add(key);
@@ -22638,7 +22640,19 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/H
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/FlinkUpsertPreppedCommitActionExecutor.java`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowDataParquetWriter.java`
+#### Snippet
+```java
+  @Override
+  public void writeRow(RowData row) throws IOException {
+    super.write(row);
+  }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/FlinkInsertPreppedCommitActionExecutor.java`
 #### Snippet
 ```java
   @Override
@@ -22650,7 +22664,7 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/com
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/FlinkInsertPreppedCommitActionExecutor.java`
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/commit/FlinkUpsertPreppedCommitActionExecutor.java`
 #### Snippet
 ```java
   @Override
@@ -22670,18 +22684,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/table/action/com
     return super.execute(preppedRecords);
   }
 }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/HoodieSparkParquetWriter.java`
-#### Snippet
-```java
-  @Override
-  public void writeRow(String recordKey, InternalRow row) throws IOException {
-    super.write(row);
-    if (populateMetaFields) {
-      writeSupport.add(UTF8String.fromString(recordKey));
 ```
 
 ### UnnecessarySuperQualifier
@@ -22710,14 +22712,14 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/Hoodi
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieInternalRowParquetWriter.java`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/HoodieSparkParquetWriter.java`
 #### Snippet
 ```java
   @Override
-  public void writeRow(UTF8String key, InternalRow row) throws IOException {
+  public void writeRow(String recordKey, InternalRow row) throws IOException {
     super.write(row);
-    writeSupport.add(key);
-  }
+    if (populateMetaFields) {
+      writeSupport.add(UTF8String.fromString(recordKey));
 ```
 
 ### UnnecessarySuperQualifier
@@ -22730,6 +22732,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/H
     super.write(row);
   }
 }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieInternalRowParquetWriter.java`
+#### Snippet
+```java
+  @Override
+  public void writeRow(UTF8String key, InternalRow row) throws IOException {
+    super.write(row);
+    writeSupport.add(key);
+  }
 ```
 
 ### UnnecessarySuperQualifier
@@ -22846,10 +22860,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasLogBlockLength() {
+  public boolean hasOrdinal() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
-        return false;
+        return true;
 ```
 
 ### UnnecessarySuperQualifier
@@ -22906,7 +22920,7 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasOrdinal() {
+  public boolean hasMagicHeader() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
         return true;
@@ -22918,10 +22932,10 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatVe
 #### Snippet
 ```java
   @Override
-  public boolean hasMagicHeader() {
+  public boolean hasLogBlockLength() {
     switch (super.getVersion()) {
       case DEFAULT_VERSION:
-        return true;
+        return false;
 ```
 
 ### UnnecessarySuperQualifier
@@ -23171,11 +23185,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          HoodieRollbackMetadata metadata = TimelineMetadataUtils
-              .deserializeAvroMetadata(timeline.getInstantDetails(rollbackInstant).get(), HoodieRollbackMetadata.class);
-          metadata.getCommitsRollback().forEach(instant -> {
-            rollbackInfoMap.computeIfAbsent(instant, k -> new ArrayList<>())
-                .add(rollbackInstant.getTimestamp());
+          return HoodieActiveTimeline.VALID_EXTENSIONS_IN_ACTIVE_TIMELINE.contains(extension);
+        })).map(HoodieInstantWithModTime::new);
+    instantStream.forEach(instant -> {
+      instantMap.computeIfAbsent(instant.getTimestamp(), t -> new HashMap<>())
+          .put(instant.getState(), instant);
 ```
 
 ### CodeBlock2Expr
@@ -23183,11 +23197,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          return HoodieActiveTimeline.VALID_EXTENSIONS_IN_ACTIVE_TIMELINE.contains(extension);
-        })).map(HoodieInstantWithModTime::new);
-    instantStream.forEach(instant -> {
-      instantMap.computeIfAbsent(instant.getTimestamp(), t -> new HashMap<>())
-          .put(instant.getState(), instant);
+          HoodieRollbackMetadata metadata = TimelineMetadataUtils
+              .deserializeAvroMetadata(timeline.getInstantDetails(rollbackInstant).get(), HoodieRollbackMetadata.class);
+          metadata.getCommitsRollback().forEach(instant -> {
+            rollbackInfoMap.computeIfAbsent(instant, k -> new ArrayList<>())
+                .add(rollbackInstant.getTimestamp());
 ```
 
 ### CodeBlock2Expr
@@ -23231,18 +23245,6 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-  public FSDataOutputStream create(Path f, short replication) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), replication));
-    });
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
   public FileStatus[] globStatus(Path pathPattern) throws IOException {
     return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
       return fileSystem.globStatus(convertToDefaultPath(pathPattern));
@@ -23267,11 +23269,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-                                   Progressable progress) throws IOException {
+  public FSDataOutputStream create(Path f) throws IOException {
     return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f,
-          fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, replication, blockSize, progress));
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f)));
     });
+  }
 ```
 
 ### CodeBlock2Expr
@@ -23279,11 +23281,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-  public FSDataOutputStream create(Path f, boolean overwrite) throws IOException {
+                                   Progressable progress) throws IOException {
     return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite));
+      return wrapOutputStream(f,
+          fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, replication, blockSize, progress));
     });
-  }
 ```
 
 ### CodeBlock2Expr
@@ -23303,9 +23305,9 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-  public FileStatus[] globStatus(Path pathPattern, PathFilter filter) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
-      return fileSystem.globStatus(convertToDefaultPath(pathPattern), filter);
+  public boolean delete(Path f) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.delete.name(), f, () -> {
+      return delete(f, true);
     });
   }
 ```
@@ -23315,35 +23317,11 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-  public FileStatus[] listStatus(Path f) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
-      return fileSystem.listStatus(convertToDefaultPath(f));
-    });
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FileStatus[] listStatus(Path[] files, PathFilter filter) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), files.length > 0 ? files[0] : null, () -> {
-      return fileSystem.listStatus(convertDefaults(files), filter);
-    });
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f) throws IOException {
+                                   short replication, long blockSize, Progressable progress) throws IOException {
     return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f)));
+      return wrapOutputStream(f,
+          fileSystem.create(convertToDefaultPath(f), permission, flags, bufferSize, replication, blockSize, progress));
     });
-  }
 ```
 
 ### CodeBlock2Expr
@@ -23351,21 +23329,9 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-      throws IOException {
+  public FSDataOutputStream create(Path f, short replication, Progressable progress) throws IOException {
     return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, progress));
-    });
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f, Progressable progress) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), progress));
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), replication, progress));
     });
   }
 ```
@@ -23387,6 +23353,18 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
+  public FileStatus[] globStatus(Path pathPattern, PathFilter filter) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.globStatus.name(), pathPattern, () -> {
+      return fileSystem.globStatus(convertToDefaultPath(pathPattern), filter);
+    });
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
       throws IOException {
     return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
       return wrapOutputStream(f,
@@ -23399,21 +23377,9 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-                                   short replication, long blockSize, Progressable progress) throws IOException {
+      throws IOException {
     return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f,
-          fileSystem.create(convertToDefaultPath(f), permission, flags, bufferSize, replication, blockSize, progress));
-    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public boolean delete(Path f) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.delete.name(), f, () -> {
-      return delete(f, true);
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite, bufferSize, progress));
     });
   }
 ```
@@ -23423,21 +23389,9 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
 #### Snippet
 ```java
-  public FileStatus[] listStatus(Path f, PathFilter filter) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
-      return fileSystem.listStatus(convertToDefaultPath(f), filter);
-    });
-  }
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
-#### Snippet
-```java
-  public FSDataOutputStream create(Path f, short replication, Progressable progress) throws IOException {
-    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
-      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), replication, progress));
+  public FileStatus[] listStatus(Path[] files, PathFilter filter) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), files.length > 0 ? files[0] : null, () -> {
+      return fileSystem.listStatus(convertDefaults(files), filter);
     });
   }
 ```
@@ -23456,6 +23410,66 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, short replication) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), replication));
+    });
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, Progressable progress) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), progress));
+    });
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FSDataOutputStream create(Path f, boolean overwrite) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.create.name(), f, () -> {
+      return wrapOutputStream(f, fileSystem.create(convertToDefaultPath(f), overwrite));
+    });
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FileStatus[] listStatus(Path f) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
+      return fileSystem.listStatus(convertToDefaultPath(f));
+    });
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.java`
+#### Snippet
+```java
+  public FileStatus[] listStatus(Path f, PathFilter filter) throws IOException {
+    return executeFuncWithTimeMetrics(MetricName.listStatus.name(), f, () -> {
+      return fileSystem.listStatus(convertToDefaultPath(f), filter);
+    });
+  }
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/common/model/CompactionOperation.java`
 #### Snippet
 ```java
@@ -23464,54 +23478,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/CompactionOperation.j
       return externalBaseFile.map(ext -> new HoodieBaseFile(new Path(dirPath, df).toString(), ext))
           .orElseGet(() -> new HoodieBaseFile(new Path(dirPath, df).toString()));
     });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-      // Now add them
-      rocksDB.writeBatch(batch ->
-          replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
-            rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
-                schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
-        ValidationUtils.checkArgument(
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
-        rocksDB.putInBatch(batch, schemaHelper.getColFamilyForBootstrapBaseFile(),
-            schemaHelper.getKeyForBootstrapBaseFile(externalBaseFile.getFileGroupId()), externalBaseFile);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-  @Override
-  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
-    rocksDB.writeBatch(batch -> {
-      bootstrapBaseFileStream.forEach(externalBaseFile -> {
-        ValidationUtils.checkArgument(!isBootstrapBaseFilePresentForFileId(externalBaseFile.getFileGroupId()),
 ```
 
 ### CodeBlock2Expr
@@ -23564,6 +23530,54 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+      // Now add them
+      rocksDB.writeBatch(batch ->
+          replacedFileGroupsInPartition.stream().forEach(fgToReplacedInstant -> {
+            rocksDB.putInBatch(batch, schemaHelper.getColFamilyForReplacedFileGroups(),
+                schemaHelper.getKeyForReplacedFileGroup(fgToReplacedInstant.getKey()), fgToReplacedInstant.getValue());
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+  void resetBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+        rocksDB.putInBatch(batch, schemaHelper.getColFamilyForBootstrapBaseFile(),
+            schemaHelper.getKeyForBootstrapBaseFile(externalBaseFile.getFileGroupId()), externalBaseFile);
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  void addBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+        ValidationUtils.checkArgument(!isBootstrapBaseFilePresentForFileId(externalBaseFile.getFileGroupId()),
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+  @Override
+  void removeBootstrapBaseFileMapping(Stream<BootstrapBaseFileMapping> bootstrapBaseFileStream) {
+    rocksDB.writeBatch(batch -> {
+      bootstrapBaseFileStream.forEach(externalBaseFile -> {
+        ValidationUtils.checkArgument(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
 #### Snippet
 ```java
@@ -23603,10 +23617,10 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
 #### Snippet
 ```java
-    datasetTimeline.getRollbackAndRestoreTimeline().filterCompletedInstants().getInstantsAsStream()
-        .filter(instant -> HoodieTimeline.compareTimestamps(instant.getTimestamp(), HoodieTimeline.GREATER_THAN, earliestInstantTime))
-        .forEach(instant -> {
-          validInstantTimestamps.addAll(getRollbackedCommits(instant, datasetTimeline));
+        HoodieRestoreMetadata restoreMetadata = TimelineMetadataUtils.deserializeHoodieRestoreMetadata(
+            timeline.getInstantDetails(instant).get());
+        restoreMetadata.getHoodieRestoreMetadata().values().forEach(rms -> {
+          rms.forEach(rm -> rollbackedCommits.addAll(rm.getCommitsRollback()));
         });
 ```
 
@@ -23615,10 +23629,10 @@ Statement lambda can be replaced with expression lambda
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadata.java`
 #### Snippet
 ```java
-        HoodieRestoreMetadata restoreMetadata = TimelineMetadataUtils.deserializeHoodieRestoreMetadata(
-            timeline.getInstantDetails(instant).get());
-        restoreMetadata.getHoodieRestoreMetadata().values().forEach(rms -> {
-          rms.forEach(rm -> rollbackedCommits.addAll(rm.getCommitsRollback()));
+    datasetTimeline.getRollbackAndRestoreTimeline().filterCompletedInstants().getInstantsAsStream()
+        .filter(instant -> HoodieTimeline.compareTimestamps(instant.getTimestamp(), HoodieTimeline.GREATER_THAN, earliestInstantTime))
+        .forEach(instant -> {
+          validInstantTimestamps.addAll(getRollbackedCommits(instant, datasetTimeline));
         });
 ```
 
@@ -23876,6 +23890,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppend
 ```
 
 ### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+    //         - Expected to bear this config
+    //         - Can't be stubbed out w/ null
+    filtered.put(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key(), "");
+    return filtered;
+  }
+```
+
+### UseOfPropertiesAsHashtable
 Call to `Hashtable.putAll()` on properties object
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieIndexConfig.java`
 #### Snippet
@@ -23893,153 +23919,9 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withLayoutConfig(HoodieLayoutConfig layoutConfig) {
-      writeConfig.getProps().putAll(layoutConfig.getProps());
-      isLayoutConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withClusteringConfig(HoodieClusteringConfig clusteringConfig) {
-      writeConfig.getProps().putAll(clusteringConfig.getProps());
-      isClusteringConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
     public Builder withConsistencyGuardConfig(ConsistencyGuardConfig consistencyGuardConfig) {
       writeConfig.getProps().putAll(consistencyGuardConfig.getProps());
       isConsistencyGuardSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withBootstrapConfig(HoodieBootstrapConfig bootstrapConfig) {
-      writeConfig.getProps().putAll(bootstrapConfig.getProps());
-      isBootstrapConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withPreCommitValidatorConfig(HoodiePreCommitValidatorConfig validatorConfig) {
-      writeConfig.getProps().putAll(validatorConfig.getProps());
-      isPreCommitValidationConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withArchivalConfig(HoodieArchivalConfig cleanConfig) {
-      writeConfig.getProps().putAll(cleanConfig.getProps());
-      isArchivalConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withMemoryConfig(HoodieMemoryConfig memoryConfig) {
-      writeConfig.getProps().putAll(memoryConfig.getProps());
-      isMemoryConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withLockConfig(HoodieLockConfig lockConfig) {
-      writeConfig.getProps().putAll(lockConfig.getProps());
-      isLockConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withCallbackConfig(HoodieWriteCommitCallbackConfig callbackConfig) {
-      writeConfig.getProps().putAll(callbackConfig.getProps());
-      isCallbackConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withMetricsGraphiteConfig(HoodieMetricsGraphiteConfig mericsGraphiteConfig) {
-      writeConfig.getProps().putAll(mericsGraphiteConfig.getProps());
-      isMetricsGraphiteConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withMetadataConfig(HoodieMetadataConfig metadataConfig) {
-      writeConfig.getProps().putAll(metadataConfig.getProps());
-      isMetadataConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withFileSystemViewConfig(FileSystemViewStorageConfig viewStorageConfig) {
-      writeConfig.getProps().putAll(viewStorageConfig.getProps());
-      isViewConfigSet = true;
-      return this;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withMetricsConfig(HoodieMetricsConfig metricsConfig) {
-      writeConfig.getProps().putAll(metricsConfig.getProps());
-      isMetricsConfigSet = true;
       return this;
 ```
 
@@ -24061,9 +23943,9 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withMetricsJmxConfig(HoodieMetricsJmxConfig metricsJmxConfig) {
-      writeConfig.getProps().putAll(metricsJmxConfig.getProps());
-      isMetricsJmxConfigSet = true;
+    public Builder withLayoutConfig(HoodieLayoutConfig layoutConfig) {
+      writeConfig.getProps().putAll(layoutConfig.getProps());
+      isLayoutConfigSet = true;
       return this;
 ```
 
@@ -24085,21 +23967,9 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
-    public Builder withProps(Map kvprops) {
-      writeConfig.getProps().putAll(kvprops);
-      return this;
-    }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-
-    public Builder withPayloadConfig(HoodiePayloadConfig payloadConfig) {
-      writeConfig.getProps().putAll(payloadConfig.getProps());
-      isPayloadConfigSet = true;
+    public Builder withCallbackConfig(HoodieWriteCommitCallbackConfig callbackConfig) {
+      writeConfig.getProps().putAll(callbackConfig.getProps());
+      isCallbackConfigSet = true;
       return this;
 ```
 
@@ -24121,9 +23991,165 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
 #### Snippet
 ```java
 
+    public Builder withProps(Map kvprops) {
+      writeConfig.getProps().putAll(kvprops);
+      return this;
+    }
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
     public Builder withStorageConfig(HoodieStorageConfig storageConfig) {
       writeConfig.getProps().putAll(storageConfig.getProps());
       isStorageConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withMetricsJmxConfig(HoodieMetricsJmxConfig metricsJmxConfig) {
+      writeConfig.getProps().putAll(metricsJmxConfig.getProps());
+      isMetricsJmxConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withLockConfig(HoodieLockConfig lockConfig) {
+      writeConfig.getProps().putAll(lockConfig.getProps());
+      isLockConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withArchivalConfig(HoodieArchivalConfig cleanConfig) {
+      writeConfig.getProps().putAll(cleanConfig.getProps());
+      isArchivalConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withClusteringConfig(HoodieClusteringConfig clusteringConfig) {
+      writeConfig.getProps().putAll(clusteringConfig.getProps());
+      isClusteringConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withFileSystemViewConfig(FileSystemViewStorageConfig viewStorageConfig) {
+      writeConfig.getProps().putAll(viewStorageConfig.getProps());
+      isViewConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withMemoryConfig(HoodieMemoryConfig memoryConfig) {
+      writeConfig.getProps().putAll(memoryConfig.getProps());
+      isMemoryConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withMetadataConfig(HoodieMetadataConfig metadataConfig) {
+      writeConfig.getProps().putAll(metadataConfig.getProps());
+      isMetadataConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withPayloadConfig(HoodiePayloadConfig payloadConfig) {
+      writeConfig.getProps().putAll(payloadConfig.getProps());
+      isPayloadConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withBootstrapConfig(HoodieBootstrapConfig bootstrapConfig) {
+      writeConfig.getProps().putAll(bootstrapConfig.getProps());
+      isBootstrapConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withMetricsConfig(HoodieMetricsConfig metricsConfig) {
+      writeConfig.getProps().putAll(metricsConfig.getProps());
+      isMetricsConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withPreCommitValidatorConfig(HoodiePreCommitValidatorConfig validatorConfig) {
+      writeConfig.getProps().putAll(validatorConfig.getProps());
+      isPreCommitValidationConfigSet = true;
+      return this;
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.putAll()` on properties object
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+
+    public Builder withMetricsGraphiteConfig(HoodieMetricsGraphiteConfig mericsGraphiteConfig) {
+      writeConfig.getProps().putAll(mericsGraphiteConfig.getProps());
+      isMetricsGraphiteConfigSet = true;
       return this;
 ```
 
@@ -24192,6 +24218,18 @@ Call to `Hashtable.put()` on properties object
 in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.java`
 #### Snippet
 ```java
+    keys.remove(key);
+    keys.add(key);
+    return super.put(key, value);
+  }
+
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.java`
+#### Snippet
+```java
         keys.add(e.getKey());
       }
       super.put(e.getKey(), e.getValue());
@@ -24207,18 +24245,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.ja
       keys.add(key);
     }
     return super.putIfAbsent(key, value);
-  }
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/OrderedProperties.java`
-#### Snippet
-```java
-    keys.remove(key);
-    keys.add(key);
-    return super.put(key, value);
   }
 
 ```
@@ -24248,18 +24274,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/TypedProperties.java
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.putAll()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
-#### Snippet
-```java
-  public static TypedProperties getGlobalProps() {
-    final TypedProperties globalProps = new TypedProperties();
-    globalProps.putAll(GLOBAL_PROPS);
-    return globalProps;
-  }
-```
-
-### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
 #### Snippet
@@ -24272,27 +24286,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfigu
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
+Call to `Hashtable.putAll()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/DFSPropertiesConfiguration.java`
 #### Snippet
 ```java
-  private <T> Option<Object> getRawValue(ConfigProperty<T> configProperty) {
-    if (props.containsKey(configProperty.key())) {
-      return Option.ofNullable(props.get(configProperty.key()));
-    }
-    for (String alternative : configProperty.getAlternatives()) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
-#### Snippet
-```java
-                + "and may be removed in the future. Please use the new key '%s' instead.",
-            alternative, configProperty.key()));
-        return Option.ofNullable(props.get(alternative));
-      }
-    }
+  public static TypedProperties getGlobalProps() {
+    final TypedProperties globalProps = new TypedProperties();
+    globalProps.putAll(GLOBAL_PROPS);
+    return globalProps;
+  }
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -24320,6 +24322,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
 ```
 
 ### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
+#### Snippet
+```java
+  private <T> Option<Object> getRawValue(ConfigProperty<T> configProperty) {
+    if (props.containsKey(configProperty.key())) {
+      return Option.ofNullable(props.get(configProperty.key()));
+    }
+    for (String alternative : configProperty.getAlternatives()) {
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `hudi-common/src/main/java/org/apache/hudi/common/config/HoodieConfig.java`
+#### Snippet
+```java
+                + "and may be removed in the future. Please use the new key '%s' instead.",
+            alternative, configProperty.key()));
+        return Option.ofNullable(props.get(alternative));
+      }
+    }
+```
+
+### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexManager.java`
 #### Snippet
@@ -24341,6 +24367,18 @@ in `hudi-common/src/main/java/org/apache/hudi/secondary/index/SecondaryIndexMana
       updatedProps.put(HoodieTableConfig.SECONDARY_INDEXES_METADATA.key(),
           SecondaryIndexUtils.toJsonString(secondaryIndexesToKeep));
       HoodieTableConfig.update(metaClient.getFs(), new Path(metaClient.getMetaPath()), updatedProps);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+
+    // need to do commit in SparkDeletePartitionCommitActionExecutor#execute
+    this.props.put(HoodieWriteConfig.AUTO_COMMIT_ENABLE.key(), "true");
+    try (SparkRDDWriteClient<HoodieRecordPayload> client =  UtilHelpers.createHoodieClient(jsc, cfg.basePath, "", cfg.parallelism, Option.empty(), props)) {
+      List<String> partitionsToDelete = Arrays.asList(cfg.partitions.split(","));
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -24525,18 +24563,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsT
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-
-    // need to do commit in SparkDeletePartitionCommitActionExecutor#execute
-    this.props.put(HoodieWriteConfig.AUTO_COMMIT_ENABLE.key(), "true");
-    try (SparkRDDWriteClient<HoodieRecordPayload> client =  UtilHelpers.createHoodieClient(jsc, cfg.basePath, "", cfg.parallelism, Option.empty(), props)) {
-      List<String> partitionsToDelete = Arrays.asList(cfg.partitions.split(","));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deser/KafkaAvroSchemaDeserializer.java`
 #### Snippet
 ```java
@@ -24632,30 +24658,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/JsonKafkaSour
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
-#### Snippet
-```java
-              || prop.toString().startsWith(AvroKafkaSource.KAFKA_AVRO_VALUE_DESERIALIZER_PROPERTY_PREFIX);
-    }).forEach(prop -> {
-      kafkaParams.put(prop.toString(), props.get(prop.toString()));
-    });
-    return kafkaParams;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.putIfAbsent()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/BootstrapExecutor.java`
-#### Snippet
-```java
-
-    // Add more defaults if full bootstrap requested
-    this.props.putIfAbsent(DataSourceWriteOptions.PAYLOAD_CLASS_NAME().key(),
-        DataSourceWriteOptions.PAYLOAD_CLASS_NAME().defaultValue());
-    this.schemaProvider = UtilHelpers.createSchemaProvider(cfg.schemaProviderClassName, props, jssc);
-```
-
-### UseOfPropertiesAsHashtable
 Call to `Hashtable.putAll()` on properties object
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/BootstrapExecutor.java`
 #### Snippet
@@ -24704,6 +24706,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/Bootstr
 ```
 
 ### UseOfPropertiesAsHashtable
+Call to `Hashtable.putIfAbsent()` on properties object
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/BootstrapExecutor.java`
+#### Snippet
+```java
+
+    // Add more defaults if full bootstrap requested
+    this.props.putIfAbsent(DataSourceWriteOptions.PAYLOAD_CLASS_NAME().key(),
+        DataSourceWriteOptions.PAYLOAD_CLASS_NAME().defaultValue());
+    this.schemaProvider = UtilHelpers.createSchemaProvider(cfg.schemaProviderClassName, props, jssc);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
+#### Snippet
+```java
+              || prop.toString().startsWith(AvroKafkaSource.KAFKA_AVRO_VALUE_DESERIALIZER_PROPERTY_PREFIX);
+    }).forEach(prop -> {
+      kafkaParams.put(prop.toString(), props.get(prop.toString()));
+    });
+    return kafkaParams;
+```
+
+### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
 #### Snippet
@@ -24713,30 +24739,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieM
         if (tableProperties.get(k) == null) {
           tableProperties.setProperty(k.toString(), v.toString());
         }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
-#### Snippet
-```java
-    super(props, sparkContext, sparkSession, schemaProvider);
-
-    props.put(NATIVE_KAFKA_KEY_DESERIALIZER_PROP, StringDeserializer.class.getName());
-    deserializerClassName = props.getString(DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().key(),
-        DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().defaultValue());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
-#### Snippet
-```java
-
-    try {
-      props.put(NATIVE_KAFKA_VALUE_DESERIALIZER_PROP, Class.forName(deserializerClassName).getName());
-    } catch (ClassNotFoundException e) {
-      String error = "Could not load custom avro kafka deserializer: " + deserializerClassName;
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -24785,6 +24787,30 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/writers/KafkaConnec
       connectConfigs.getProps().putAll(properties);
       return this;
     }
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
+#### Snippet
+```java
+  public static int getLatestNumPartitions(String bootstrapServers, String topicName) {
+    Properties props = new Properties();
+    props.put("bootstrap.servers", bootstrapServers);
+    try {
+      AdminClient client = AdminClient.create(props);
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
+#### Snippet
+```java
+      return !prop.toString().startsWith(HOODIE_CONF_PREFIX);
+    }).forEach(prop -> {
+      hadoopConf.set(prop.toString(), connectConfigs.getProps().get(prop.toString()).toString());
+    });
+    return hadoopConf;
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -24848,27 +24874,27 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/kafka/KafkaConnectC
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
+Call to `Hashtable.put()` on properties object
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
 #### Snippet
 ```java
-      return !prop.toString().startsWith(HOODIE_CONF_PREFIX);
-    }).forEach(prop -> {
-      hadoopConf.set(prop.toString(), connectConfigs.getProps().get(prop.toString()).toString());
-    });
-    return hadoopConf;
+    super(props, sparkContext, sparkSession, schemaProvider);
+
+    props.put(NATIVE_KAFKA_KEY_DESERIALIZER_PROP, StringDeserializer.class.getName());
+    deserializerClassName = props.getString(DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().key(),
+        DataSourceWriteOptions.KAFKA_AVRO_VALUE_DESERIALIZER_CLASS().defaultValue());
 ```
 
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
-in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/utils/KafkaConnectUtils.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
 #### Snippet
 ```java
-  public static int getLatestNumPartitions(String bootstrapServers, String topicName) {
-    Properties props = new Properties();
-    props.put("bootstrap.servers", bootstrapServers);
+
     try {
-      AdminClient client = AdminClient.create(props);
+      props.put(NATIVE_KAFKA_VALUE_DESERIALIZER_PROP, Class.forName(deserializerClassName).getName());
+    } catch (ClassNotFoundException e) {
+      String error = "Could not load custom avro kafka deserializer: " + deserializerClassName;
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -24924,6 +24950,18 @@ Call to `Hashtable.put()` on properties object
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
 #### Snippet
 ```java
+    for (ConfigOption<?> option : FlinkOptions.optionalOptions()) {
+      if (!flatConf.contains(option) && option.hasDefaultValue()) {
+        properties.put(option.key(), option.defaultValue());
+      }
+    }
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
+#### Snippet
+```java
   public static TypedProperties appendKafkaProps(FlinkStreamerConfig config) {
     TypedProperties properties = getProps(config);
     properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, config.kafkaBootstrapServers);
@@ -24941,18 +24979,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/Streamer
     properties.put(ConsumerConfig.GROUP_ID_CONFIG, config.kafkaGroupId);
     return properties;
   }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
-#### Snippet
-```java
-    for (ConfigOption<?> option : FlinkOptions.optionalOptions()) {
-      if (!flatConf.contains(option) && option.hasDefaultValue()) {
-        properties.put(option.key(), option.defaultValue());
-      }
-    }
 ```
 
 ### UseOfPropertiesAsHashtable
@@ -25037,18 +25063,6 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/Bootstrap
     this.props.putIfAbsent(DataSourceWriteOptions.PAYLOAD_CLASS_NAME().key(),
         DataSourceWriteOptions.PAYLOAD_CLASS_NAME().defaultValue());
     /*
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
-    //         - Expected to bear this config
-    //         - Can't be stubbed out w/ null
-    filtered.put(KeyGeneratorOptions.PARTITIONPATH_FIELD_NAME.key(), "");
-    return filtered;
-  }
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -25238,11 +25252,11 @@ Field initialization to `false` is redundant
 in `hudi-gcp/src/main/java/org/apache/hudi/gcp/bigquery/BigQuerySyncConfig.java`
 #### Snippet
 ```java
+    public List<String> partitionFields = new ArrayList<>();
+    @Parameter(names = {"--use-file-listing-from-metadata"}, description = "Fetch file listing from Hudi's metadata")
+    public boolean useFileListingFromMetadata = false;
     @Parameter(names = {"--assume-date-partitioning"}, description = "Assume standard yyyy/mm/dd partitioning, this"
         + " exists to support backward compatibility. If you use hoodie 0.3.x, do not set this parameter")
-    public boolean assumeDatePartitioning = false;
-
-    public boolean isHelp() {
 ```
 
 ### RedundantFieldInitialization
@@ -25250,11 +25264,11 @@ Field initialization to `false` is redundant
 in `hudi-gcp/src/main/java/org/apache/hudi/gcp/bigquery/BigQuerySyncConfig.java`
 #### Snippet
 ```java
-    public List<String> partitionFields = new ArrayList<>();
-    @Parameter(names = {"--use-file-listing-from-metadata"}, description = "Fetch file listing from Hudi's metadata")
-    public boolean useFileListingFromMetadata = false;
     @Parameter(names = {"--assume-date-partitioning"}, description = "Assume standard yyyy/mm/dd partitioning, this"
         + " exists to support backward compatibility. If you use hoodie 0.3.x, do not set this parameter")
+    public boolean assumeDatePartitioning = false;
+
+    public boolean isHelp() {
 ```
 
 ### RedundantFieldInitialization
@@ -25270,18 +25284,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/replication/Hive
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/transaction/lock/HiveMetastoreBasedLockProvider.java`
-#### Snippet
-```java
-  private final String hiveMetastoreUris;
-  private IMetaStoreClient hiveClient;
-  private volatile LockResponse lock = null;
-  protected LockConfiguration lockConfiguration;
-  ExecutorService executor = Executors.newSingleThreadExecutor();
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieSyncConfig.java`
 #### Snippet
@@ -25291,6 +25293,18 @@ in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/HoodieS
     public boolean help = false;
 
     public boolean isHelp() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/transaction/lock/HiveMetastoreBasedLockProvider.java`
+#### Snippet
+```java
+  private final String hiveMetastoreUris;
+  private IMetaStoreClient hiveClient;
+  private volatile LockResponse lock = null;
+  protected LockConfiguration lockConfiguration;
+  ExecutorService executor = Executors.newSingleThreadExecutor();
 ```
 
 ### RedundantFieldInitialization
@@ -25406,11 +25420,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
+
   private static final Logger LOG = LogManager.getLogger(SparkHoodieHBaseIndex.class);
   private static Connection hbaseConnection = null;
   private HBaseIndexQPSResourceAllocator hBaseIndexQPSResourceAllocator = null;
   private int maxQpsPerRegionServer;
-  private long totalNumInserts;
 ```
 
 ### RedundantFieldInitialization
@@ -25418,11 +25432,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/SparkHoodieHBaseIndex.java`
 #### Snippet
 ```java
-
   private static final Logger LOG = LogManager.getLogger(SparkHoodieHBaseIndex.class);
   private static Connection hbaseConnection = null;
   private HBaseIndexQPSResourceAllocator hBaseIndexQPSResourceAllocator = null;
   private int maxQpsPerRegionServer;
+  private long totalNumInserts;
 ```
 
 ### RedundantFieldInitialization
@@ -25478,11 +25492,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
 #### Snippet
 ```java
+  private String rightSubTreeMin = null;
   private String leftSubTreeMin = null;
   private KeyRangeNode left = null;
   private KeyRangeNode right = null;
 
-  /**
 ```
 
 ### RedundantFieldInitialization
@@ -25502,6 +25516,42 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
 #### Snippet
 ```java
+  private String rightSubTreeMax = null;
+  private String leftSubTreeMax = null;
+  private String rightSubTreeMin = null;
+  private String leftSubTreeMin = null;
+  private KeyRangeNode left = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
+#### Snippet
+```java
+  private String leftSubTreeMin = null;
+  private KeyRangeNode left = null;
+  private KeyRangeNode right = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
+#### Snippet
+```java
+  private String leftSubTreeMax = null;
+  private String rightSubTreeMin = null;
+  private String leftSubTreeMin = null;
+  private KeyRangeNode left = null;
+  private KeyRangeNode right = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
+#### Snippet
+```java
   private final String maxRecordKey;
   private String rightSubTreeMax = null;
   private String leftSubTreeMax = null;
@@ -25510,39 +25560,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/Key
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
 #### Snippet
 ```java
-  private String rightSubTreeMin = null;
-  private String leftSubTreeMin = null;
-  private KeyRangeNode left = null;
-  private KeyRangeNode right = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
-#### Snippet
-```java
-  private String leftSubTreeMax = null;
-  private String rightSubTreeMin = null;
-  private String leftSubTreeMin = null;
-  private KeyRangeNode left = null;
-  private KeyRangeNode right = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/index/bloom/KeyRangeNode.java`
-#### Snippet
-```java
-  private String rightSubTreeMax = null;
-  private String leftSubTreeMax = null;
-  private String rightSubTreeMin = null;
-  private String leftSubTreeMin = null;
-  private KeyRangeNode left = null;
+  private String baseInstantTime;
+  // This is used to distinguish between normal append and logcompaction's append operation.
+  private boolean isLogCompaction = false;
+  // use writer schema for log compaction.
+  private boolean useWriterSchema = false;
 ```
 
 ### RedundantFieldInitialization
@@ -25550,11 +25576,11 @@ Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
 #### Snippet
 ```java
-  protected long updatedRecordsWritten = 0;
-  // Total number of new records inserted into the delta file
-  protected long insertRecordsWritten = 0;
-
-  // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
+  protected final List<WriteStatus> statuses;
+  // Total number of records written during an append
+  protected long recordsWritten = 0;
+  // Total number of records deleted during an append
+  protected long recordsDeleted = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -25574,11 +25600,11 @@ Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
 #### Snippet
 ```java
-  protected final List<WriteStatus> statuses;
-  // Total number of records written during an append
-  protected long recordsWritten = 0;
-  // Total number of records deleted during an append
-  protected long recordsDeleted = 0;
+
+  // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
+  private long averageRecordSize = 0;
+  // Flag used to initialize some metadata
+  private boolean doInit = true;
 ```
 
 ### RedundantFieldInitialization
@@ -25586,11 +25612,23 @@ Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
 #### Snippet
 ```java
+  protected long updatedRecordsWritten = 0;
+  // Total number of new records inserted into the delta file
+  protected long insertRecordsWritten = 0;
 
   // Average record size for a HoodieRecord. This size is updated at the end of every log block flushed to disk
-  private long averageRecordSize = 0;
-  // Flag used to initialize some metadata
-  private boolean doInit = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
+#### Snippet
+```java
+  protected long recordsWritten = 0;
+  // Total number of records deleted during an append
+  protected long recordsDeleted = 0;
+  // Total number of records updated during an append
+  protected long updatedRecordsWritten = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -25610,35 +25648,11 @@ Field initialization to `0` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
 #### Snippet
 ```java
-  protected long recordsWritten = 0;
-  // Total number of records deleted during an append
-  protected long recordsDeleted = 0;
-  // Total number of records updated during an append
-  protected long updatedRecordsWritten = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
   protected long recordsDeleted = 0;
   // Total number of records updated during an append
   protected long updatedRecordsWritten = 0;
   // Total number of new records inserted into the delta file
   protected long insertRecordsWritten = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieAppendHandle.java`
-#### Snippet
-```java
-  private String baseInstantTime;
-  // This is used to distinguish between normal append and logcompaction's append operation.
-  private boolean isLogCompaction = false;
-  // use writer schema for log compaction.
-  private boolean useWriterSchema = false;
 ```
 
 ### RedundantFieldInitialization
@@ -25667,50 +25681,26 @@ public class WorkloadStat implements Serializable {
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
 #### Snippet
 ```java
-  protected final HoodieFileWriter fileWriter;
-  protected final Path path;
+  protected Path newFilePath;
+  protected Path oldFilePath;
   protected long recordsWritten = 0;
-  protected long insertRecordsWritten = 0;
   protected long recordsDeleted = 0;
+  protected long updatedRecordsWritten = 0;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
 #### Snippet
 ```java
-  protected final Path path;
+  protected Path oldFilePath;
   protected long recordsWritten = 0;
+  protected long recordsDeleted = 0;
+  protected long updatedRecordsWritten = 0;
   protected long insertRecordsWritten = 0;
-  protected long recordsDeleted = 0;
-  private Map<String, HoodieRecord<T>> recordMap;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-  protected long recordsWritten = 0;
-  protected long insertRecordsWritten = 0;
-  protected long recordsDeleted = 0;
-  private Map<String, HoodieRecord<T>> recordMap;
-  private boolean useWriterSchema = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-  protected long recordsDeleted = 0;
-  private Map<String, HoodieRecord<T>> recordMap;
-  private boolean useWriterSchema = false;
-  private final boolean preserveMetadata;
-
 ```
 
 ### RedundantFieldInitialization
@@ -25723,18 +25713,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeH
   protected long insertRecordsWritten = 0;
   protected boolean useWriterSchemaForCompaction;
   protected Option<BaseKeyGenerator> keyGeneratorOpt;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
-#### Snippet
-```java
-  protected Path newFilePath;
-  protected Path oldFilePath;
-  protected long recordsWritten = 0;
-  protected long recordsDeleted = 0;
-  protected long updatedRecordsWritten = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -25763,26 +25741,122 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeH
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
 #### Snippet
 ```java
-  protected Path oldFilePath;
+  protected final Path path;
   protected long recordsWritten = 0;
-  protected long recordsDeleted = 0;
-  protected long updatedRecordsWritten = 0;
   protected long insertRecordsWritten = 0;
+  protected long recordsDeleted = 0;
+  private Map<String, HoodieRecord<T>> recordMap;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+  protected final HoodieFileWriter fileWriter;
+  protected final Path path;
+  protected long recordsWritten = 0;
+  protected long insertRecordsWritten = 0;
+  protected long recordsDeleted = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+  protected long recordsWritten = 0;
+  protected long insertRecordsWritten = 0;
+  protected long recordsDeleted = 0;
+  private Map<String, HoodieRecord<T>> recordMap;
+  private boolean useWriterSchema = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+  protected long recordsDeleted = 0;
+  private Map<String, HoodieRecord<T>> recordMap;
+  private boolean useWriterSchema = false;
+  private final boolean preserveMetadata;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private HoodieWriteStat stat = null;
+
+  private long totalRecords = 0;
+  private long totalErrorRecords = 0;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+
+  private long totalRecords = 0;
+  private long totalErrorRecords = 0;
+
+  private final double failureFraction;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieInternalWriteStatus.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
 #### Snippet
 ```java
+  private String partitionPath = null;
+
+  private HoodieWriteStat stat = null;
+
   private long totalRecords = 0;
-  private long totalErrorRecords = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private String fileId = null;
+
+  private String partitionPath = null;
+
+  private HoodieWriteStat stat = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private final List<HoodieRecord> failedRecords = new ArrayList<>();
+
   private Throwable globalError = null;
 
-  private final double failureFraction;
+  private String fileId = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+#### Snippet
+```java
+  private Throwable globalError = null;
+
+  private String fileId = null;
+
+  private String partitionPath = null;
 ```
 
 ### RedundantFieldInitialization
@@ -25810,87 +25884,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieIn
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/HoodieInternalWriteStatus.java`
 #### Snippet
 ```java
-
   private long totalRecords = 0;
   private long totalErrorRecords = 0;
+  private Throwable globalError = null;
 
   private final double failureFraction;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private HoodieWriteStat stat = null;
-
-  private long totalRecords = 0;
-  private long totalErrorRecords = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private Throwable globalError = null;
-
-  private String fileId = null;
-
-  private String partitionPath = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private final List<HoodieRecord> failedRecords = new ArrayList<>();
-
-  private Throwable globalError = null;
-
-  private String fileId = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private String partitionPath = null;
-
-  private HoodieWriteStat stat = null;
-
-  private long totalRecords = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/WriteStatus.java`
-#### Snippet
-```java
-  private String fileId = null;
-
-  private String partitionPath = null;
-
-  private HoodieWriteStat stat = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/LazyIterableIterator.java`
-#### Snippet
-```java
-  protected Iterator<I> inputItr;
-  private boolean consumed = false;
-  private boolean startCalled = false;
-  private boolean endCalled = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -25915,6 +25917,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/La
   private boolean endCalled = false;
 
   public LazyIterableIterator(Iterator<I> in) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/LazyIterableIterator.java`
+#### Snippet
+```java
+  protected Iterator<I> inputItr;
+  private boolean consumed = false;
+  private boolean startCalled = false;
+  private boolean endCalled = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -25958,11 +25972,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String replaceCommitTimerName = null;
-  public String finalizeTimerName = null;
-  public String compactionTimerName = null;
-  public String indexTimerName = null;
-  private String conflictResolutionTimerName = null;
+  private Timer deltaCommitTimer = null;
+  private Timer finalizeTimer = null;
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
 ```
 
 ### RedundantFieldInitialization
@@ -25982,30 +25996,6 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String logCompactionTimerName = null;
-  public String deltaCommitTimerName = null;
-  public String replaceCommitTimerName = null;
-  public String finalizeTimerName = null;
-  public String compactionTimerName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  public String rollbackTimerName = null;
-  public String cleanTimerName = null;
-  public String commitTimerName = null;
-  public String logCompactionTimerName = null;
-  public String deltaCommitTimerName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
   private Timer rollbackTimer = null;
   private Timer cleanTimer = null;
   private Timer commitTimer = null;
@@ -26018,11 +26008,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  private Timer compactionTimer = null;
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
+  public String replaceCommitTimerName = null;
+  public String finalizeTimerName = null;
+  public String compactionTimerName = null;
+  public String indexTimerName = null;
+  private String conflictResolutionTimerName = null;
 ```
 
 ### RedundantFieldInitialization
@@ -26030,11 +26020,11 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
-  public String cleanTimerName = null;
-  public String commitTimerName = null;
-  public String logCompactionTimerName = null;
-  public String deltaCommitTimerName = null;
-  public String replaceCommitTimerName = null;
+  private Timer finalizeTimer = null;
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
 ```
 
 ### RedundantFieldInitialization
@@ -26054,11 +26044,47 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
+  private String tableName;
+  private Timer rollbackTimer = null;
+  private Timer cleanTimer = null;
+  private Timer commitTimer = null;
+  private Timer deltaCommitTimer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String finalizeTimerName = null;
   public String compactionTimerName = null;
   public String indexTimerName = null;
   private String conflictResolutionTimerName = null;
   private String conflictResolutionSuccessCounterName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private String conflictResolutionTimerName = null;
+  private String conflictResolutionSuccessCounterName = null;
   private String conflictResolutionFailureCounterName = null;
+  private HoodieWriteConfig config;
+  private String tableName;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String deltaCommitTimerName = null;
+  public String replaceCommitTimerName = null;
+  public String finalizeTimerName = null;
+  public String compactionTimerName = null;
+  public String indexTimerName = null;
 ```
 
 ### RedundantFieldInitialization
@@ -26078,6 +26104,150 @@ Field initialization to `null` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
 #### Snippet
 ```java
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer cleanTimer = null;
+  private Timer commitTimer = null;
+  private Timer deltaCommitTimer = null;
+  private Timer finalizeTimer = null;
+  private Timer compactionTimer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String compactionTimerName = null;
+  public String indexTimerName = null;
+  private String conflictResolutionTimerName = null;
+  private String conflictResolutionSuccessCounterName = null;
+  private String conflictResolutionFailureCounterName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String rollbackTimerName = null;
+  public String cleanTimerName = null;
+  public String commitTimerName = null;
+  public String logCompactionTimerName = null;
+  public String deltaCommitTimerName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private HoodieWriteConfig config;
+  private String tableName;
+  private Timer rollbackTimer = null;
+  private Timer cleanTimer = null;
+  private Timer commitTimer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
+  private Counter conflictResolutionSuccessCounter = null;
+  private Counter conflictResolutionFailureCounter = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String cleanTimerName = null;
+  public String commitTimerName = null;
+  public String logCompactionTimerName = null;
+  public String deltaCommitTimerName = null;
+  public String replaceCommitTimerName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer logCompactionTimer = null;
+  private Timer clusteringTimer = null;
+  private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
+  private Counter conflictResolutionSuccessCounter = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String logCompactionTimerName = null;
+  public String deltaCommitTimerName = null;
+  public String replaceCommitTimerName = null;
+  public String finalizeTimerName = null;
+  public String compactionTimerName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer indexTimer = null;
+  private Timer conflictResolutionTimer = null;
+  private Counter conflictResolutionSuccessCounter = null;
+  private Counter conflictResolutionFailureCounter = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  public String indexTimerName = null;
+  private String conflictResolutionTimerName = null;
+  private String conflictResolutionSuccessCounterName = null;
+  private String conflictResolutionFailureCounterName = null;
+  private HoodieWriteConfig config;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
+  private Timer commitTimer = null;
+  private Timer deltaCommitTimer = null;
+  private Timer finalizeTimer = null;
+  private Timer compactionTimer = null;
+  private Timer logCompactionTimer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+#### Snippet
+```java
   private static final Logger LOG = LogManager.getLogger(HoodieMetrics.class);
   // Some timers
   public String rollbackTimerName = null;
@@ -26086,159 +26256,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieM
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-  private Timer cleanTimer = null;
-  private Timer commitTimer = null;
-  private Timer deltaCommitTimer = null;
-  private Timer finalizeTimer = null;
-  private Timer compactionTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-  private Counter conflictResolutionSuccessCounter = null;
-  private Counter conflictResolutionFailureCounter = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-  private Counter conflictResolutionSuccessCounter = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  public String finalizeTimerName = null;
-  public String compactionTimerName = null;
-  public String indexTimerName = null;
-  private String conflictResolutionTimerName = null;
-  private String conflictResolutionSuccessCounterName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  public String deltaCommitTimerName = null;
-  public String replaceCommitTimerName = null;
-  public String finalizeTimerName = null;
-  public String compactionTimerName = null;
-  public String indexTimerName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private String tableName;
-  private Timer rollbackTimer = null;
-  private Timer cleanTimer = null;
-  private Timer commitTimer = null;
-  private Timer deltaCommitTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private HoodieWriteConfig config;
-  private String tableName;
-  private Timer rollbackTimer = null;
-  private Timer cleanTimer = null;
-  private Timer commitTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer finalizeTimer = null;
-  private Timer compactionTimer = null;
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
-  private Timer indexTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private String conflictResolutionTimerName = null;
-  private String conflictResolutionSuccessCounterName = null;
-  private String conflictResolutionFailureCounterName = null;
-  private HoodieWriteConfig config;
-  private String tableName;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer commitTimer = null;
-  private Timer deltaCommitTimer = null;
-  private Timer finalizeTimer = null;
-  private Timer compactionTimer = null;
-  private Timer logCompactionTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  public String indexTimerName = null;
-  private String conflictResolutionTimerName = null;
-  private String conflictResolutionSuccessCounterName = null;
-  private String conflictResolutionFailureCounterName = null;
-  private HoodieWriteConfig config;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer indexTimer = null;
-  private Timer conflictResolutionTimer = null;
-  private Counter conflictResolutionSuccessCounter = null;
-  private Counter conflictResolutionFailureCounter = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/HoodieMetrics.java`
-#### Snippet
-```java
-  private Timer deltaCommitTimer = null;
-  private Timer finalizeTimer = null;
-  private Timer compactionTimer = null;
-  private Timer logCompactionTimer = null;
-  private Timer clusteringTimer = null;
+    private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
+    private boolean isMetricsJmxConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26246,11 +26272,11 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-    private boolean isMemoryConfigSet = false;
-    private boolean isViewConfigSet = false;
-    private boolean isConsistencyGuardSet = false;
-    private boolean isCallbackConfigSet = false;
-    private boolean isPayloadConfigSet = false;
+    private boolean isLockConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
+    private boolean isMetricsJmxConfigSet = false;
+    private boolean isMetricsGraphiteConfigSet = false;
+    private boolean isLayoutConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26270,11 +26296,11 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
-    private boolean isPreCommitValidationConfigSet = false;
-    private boolean isMetricsJmxConfigSet = false;
-    private boolean isMetricsGraphiteConfigSet = false;
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
+    private boolean isOptimizeConfigSet = false;
+    private boolean isMetricsConfigSet = false;
+    private boolean isBootstrapConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26294,71 +26320,11 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-    private boolean isStorageConfigSet = false;
-    private boolean isCompactionConfigSet = false;
-    private boolean isCleanConfigSet = false;
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isCallbackConfigSet = false;
-    private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
-    private boolean isPreCommitValidationConfigSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isPreCommitValidationConfigSet = false;
-    private boolean isMetricsJmxConfigSet = false;
-    private boolean isMetricsGraphiteConfigSet = false;
-    private boolean isLayoutConfigSet = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
-    private boolean isPreCommitValidationConfigSet = false;
-    private boolean isMetricsJmxConfigSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    protected EngineType engineType = EngineType.SPARK;
-    private boolean isIndexConfigSet = false;
-    private boolean isStorageConfigSet = false;
-    private boolean isCompactionConfigSet = false;
-    private boolean isCleanConfigSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
+    private boolean isMemoryConfigSet = false;
     private boolean isViewConfigSet = false;
     private boolean isConsistencyGuardSet = false;
     private boolean isCallbackConfigSet = false;
     private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26378,11 +26344,11 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
+    private boolean isCleanConfigSet = false;
     private boolean isArchivalConfigSet = false;
     private boolean isClusteringConfigSet = false;
     private boolean isOptimizeConfigSet = false;
     private boolean isMetricsConfigSet = false;
-    private boolean isBootstrapConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26390,35 +26356,11 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-    private boolean isBootstrapConfigSet = false;
-    private boolean isMemoryConfigSet = false;
-    private boolean isViewConfigSet = false;
-    private boolean isConsistencyGuardSet = false;
-    private boolean isCallbackConfigSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isLockConfigSet = false;
-    private boolean isPreCommitValidationConfigSet = false;
-    private boolean isMetricsJmxConfigSet = false;
-    private boolean isMetricsGraphiteConfigSet = false;
-    private boolean isLayoutConfigSet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
-#### Snippet
-```java
-    private boolean isConsistencyGuardSet = false;
-    private boolean isCallbackConfigSet = false;
-    private boolean isPayloadConfigSet = false;
-    private boolean isMetadataConfigSet = false;
-    private boolean isLockConfigSet = false;
+    private boolean isCompactionConfigSet = false;
+    private boolean isCleanConfigSet = false;
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
+    private boolean isOptimizeConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26438,11 +26380,11 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
-    private boolean isCleanConfigSet = false;
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-    private boolean isOptimizeConfigSet = false;
-    private boolean isMetricsConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
+    private boolean isMetricsJmxConfigSet = false;
+    private boolean isMetricsGraphiteConfigSet = false;
+    private boolean isLayoutConfigSet = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -26462,11 +26404,59 @@ Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
 #### Snippet
 ```java
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
+    private boolean isMetricsJmxConfigSet = false;
+    private boolean isMetricsGraphiteConfigSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    protected EngineType engineType = EngineType.SPARK;
+    private boolean isIndexConfigSet = false;
+    private boolean isStorageConfigSet = false;
     private boolean isCompactionConfigSet = false;
     private boolean isCleanConfigSet = false;
-    private boolean isArchivalConfigSet = false;
-    private boolean isClusteringConfigSet = false;
-    private boolean isOptimizeConfigSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isCallbackConfigSet = false;
+    private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
+    private boolean isPreCommitValidationConfigSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isBootstrapConfigSet = false;
+    private boolean isMemoryConfigSet = false;
+    private boolean isViewConfigSet = false;
+    private boolean isConsistencyGuardSet = false;
+    private boolean isCallbackConfigSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isConsistencyGuardSet = false;
+    private boolean isCallbackConfigSet = false;
+    private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+    private boolean isLockConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26479,6 +26469,30 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWr
     private boolean isCompactionConfigSet = false;
     private boolean isCleanConfigSet = false;
     private boolean isArchivalConfigSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isViewConfigSet = false;
+    private boolean isConsistencyGuardSet = false;
+    private boolean isCallbackConfigSet = false;
+    private boolean isPayloadConfigSet = false;
+    private boolean isMetadataConfigSet = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieWriteConfig.java`
+#### Snippet
+```java
+    private boolean isStorageConfigSet = false;
+    private boolean isCompactionConfigSet = false;
+    private boolean isCleanConfigSet = false;
+    private boolean isArchivalConfigSet = false;
+    private boolean isClusteringConfigSet = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26510,6 +26524,30 @@ Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.java`
 #### Snippet
 ```java
+    private final Schema readerSchema;
+
+    private IndexedRecord next = null;
+
+    RecordByKeyPrefixIterator(HFileScanner scanner, List<String> keyPrefixes, Schema writerSchema, Schema readerSchema) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.java`
+#### Snippet
+```java
+    private final Schema readerSchema;
+
+    private IndexedRecord next = null;
+
+    RecordIterator(HFileScanner scanner, Schema writerSchema, Schema readerSchema) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.java`
+#### Snippet
+```java
     private final Schema writerSchema;
 
     private IndexedRecord next = null;
@@ -26530,18 +26568,6 @@ in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.java`
-#### Snippet
-```java
-    private final Schema readerSchema;
-
-    private IndexedRecord next = null;
-
-    RecordByKeyPrefixIterator(HFileScanner scanner, List<String> keyPrefixes, Schema writerSchema, Schema readerSchema) throws IOException {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.java`
 #### Snippet
@@ -26551,18 +26577,6 @@ in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.j
       private boolean eof = false;
 
       @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/io/storage/HoodieAvroHFileReader.java`
-#### Snippet
-```java
-    private final Schema readerSchema;
-
-    private IndexedRecord next = null;
-
-    RecordIterator(HFileScanner scanner, Schema writerSchema, Schema readerSchema) {
 ```
 
 ### RedundantFieldInitialization
@@ -26578,6 +26592,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InMemoryFileSyste
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFileSystem.java`
+#### Snippet
+```java
+
+  public static final String SCHEME = "inlinefs";
+  private Configuration conf = null;
+
+  @Override
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metadata/HoodieBackedTableMetadataWriter.java`
 #### Snippet
@@ -26590,15 +26616,27 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metadata/Hoodie
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/inline/InLineFileSystem.java`
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
 #### Snippet
 ```java
+  private boolean isDirty = false;
+  private boolean isClosed = false;
+  private boolean isEOF = false;
 
-  public static final String SCHEME = "inlinefs";
-  private Configuration conf = null;
+  /**
+```
 
-  @Override
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+  private ByteBuffer dataBuffer;
+  private long startPosition = 0L;
+  private long currentPosition = 0L;
+  private long validLastPosition = 0L;
+  private long diskPosition = 0L;
 ```
 
 ### RedundantFieldInitialization
@@ -26614,42 +26652,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFi
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private long validLastPosition = 0L;
-  private long diskPosition = 0L;
-  private boolean isDirty = false;
-  private boolean isClosed = false;
-  private boolean isEOF = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private long currentPosition = 0L;
-  private long validLastPosition = 0L;
-  private long diskPosition = 0L;
-  private boolean isDirty = false;
-  private boolean isClosed = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
-#### Snippet
-```java
-  private long diskPosition = 0L;
-  private boolean isDirty = false;
-  private boolean isClosed = false;
-  private boolean isEOF = false;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `0L` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
 #### Snippet
@@ -26662,15 +26664,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFi
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0L` is redundant
+Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
 #### Snippet
 ```java
-  private ByteBuffer dataBuffer;
-  private long startPosition = 0L;
-  private long currentPosition = 0L;
   private long validLastPosition = 0L;
   private long diskPosition = 0L;
+  private boolean isDirty = false;
+  private boolean isClosed = false;
+  private boolean isEOF = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26678,9 +26680,33 @@ Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
 #### Snippet
 ```java
+  private long diskPosition = 0L;
   private boolean isDirty = false;
   private boolean isClosed = false;
   private boolean isEOF = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/BufferedRandomAccessFile.java`
+#### Snippet
+```java
+  private long currentPosition = 0L;
+  private long validLastPosition = 0L;
+  private long diskPosition = 0L;
+  private boolean isDirty = false;
+  private boolean isClosed = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryQueue.java`
+#### Snippet
+```java
+
+  /** Indicates number of samples collected so far. **/
+  private long numSamples = 0;
 
   /**
 ```
@@ -26698,18 +26724,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryQ
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/BoundedInMemoryQueue.java`
-#### Snippet
-```java
-
-  /** Indicates number of samples collected so far. **/
-  private long numSamples = 0;
-
-  /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessageQueue.java`
 #### Snippet
@@ -26722,18 +26736,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/queue/DisruptorMessage
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.java`
-#### Snippet
-```java
-  private static final String SUBFOLDER_PREFIX = "hudi";
-  private final File diskMapPathFile;
-  private transient Thread shutdownThread = null;
-
-  // Base path for the write file
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
 #### Snippet
@@ -26743,6 +26745,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.
   private boolean closed = false;
   private final String rocksDBBasePath;
   private long totalBytesWritten;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.java`
+#### Snippet
+```java
+  private static final String SUBFOLDER_PREFIX = "hudi";
+  private final File diskMapPathFile;
+  private transient Thread shutdownThread = null;
+
+  // Base path for the write file
 ```
 
 ### RedundantFieldInitialization
@@ -26770,18 +26784,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ExternalSpi
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalDynamicBloomFilter.java`
-#### Snippet
-```java
-  private int maxNr;
-  private boolean reachedMax = false;
-  private int curMatrixIndex = 0;
-
-  /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalDynamicBloomFilter.java`
 #### Snippet
@@ -26794,15 +26796,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalDynamicBloomF
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+Field initialization to `0` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/bloom/InternalDynamicBloomFilter.java`
 #### Snippet
 ```java
+  private int maxNr;
+  private boolean reachedMax = false;
+  private int curMatrixIndex = 0;
 
-  protected final transient HoodieMetrics metrics;
-  protected transient Timer.Context writeTimer = null;
-  protected transient Timer.Context compactionTimer;
-  protected transient Timer.Context clusteringTimer;
+  /**
 ```
 
 ### RedundantFieldInitialization
@@ -26830,15 +26832,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/InstantRange.java
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFileReader.java`
+Field initialization to `null` is redundant
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
 #### Snippet
 ```java
-  private boolean reverseReader;
-  private boolean enableRecordLookups;
-  private boolean closed = false;
-  private transient Thread shutdownThread = null;
 
+  protected final transient HoodieMetrics metrics;
+  protected transient Timer.Context writeTimer = null;
+  protected transient Timer.Context compactionTimer;
+  protected transient Timer.Context clusteringTimer;
 ```
 
 ### RedundantFieldInitialization
@@ -26855,26 +26857,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFileRead
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieMergedLogRecordScanner.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFileReader.java`
 #### Snippet
 ```java
-    private boolean withOperationField = false;
-    // Use scanV2 method.
-    private boolean useScanV2 = false;
-    private HoodieRecordMerger recordMerger;
+  private boolean reverseReader;
+  private boolean enableRecordLookups;
+  private boolean closed = false;
+  private transient Thread shutdownThread = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieMergedLogRecordScanner.java`
-#### Snippet
-```java
-    private boolean autoScan = true;
-    // operation field default false
-    private boolean withOperationField = false;
-    // Use scanV2 method.
-    private boolean useScanV2 = false;
 ```
 
 ### RedundantFieldInitialization
@@ -26903,14 +26893,38 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieLogFormatWr
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieMergedLogRecordScanner.java`
+#### Snippet
+```java
+    private boolean withOperationField = false;
+    // Use scanV2 method.
+    private boolean useScanV2 = false;
+    private HoodieRecordMerger recordMerger;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/HoodieMergedLogRecordScanner.java`
+#### Snippet
+```java
+    private boolean autoScan = true;
+    // operation field default false
+    private boolean withOperationField = false;
+    // Use scanV2 method.
+    private boolean useScanV2 = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
 #### Snippet
 ```java
-    private Configuration conf;
     private String basePath;
     private boolean loadActiveTimelineOnLoad = false;
     private String payloadClassName = null;
     private String mergerStrategy = null;
+    private ConsistencyGuardConfig consistencyGuardConfig = ConsistencyGuardConfig.newBuilder().build();
 ```
 
 ### RedundantFieldInitialization
@@ -26926,27 +26940,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
 #### Snippet
 ```java
+    private Configuration conf;
     private String basePath;
     private boolean loadActiveTimelineOnLoad = false;
     private String payloadClassName = null;
     private String mergerStrategy = null;
-    private ConsistencyGuardConfig consistencyGuardConfig = ConsistencyGuardConfig.newBuilder().build();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
-#### Snippet
-```java
-
-    private int totalRecords = 0;
-    private int readRecords = 0;
-
-    private RecordIterator(Schema readerSchema, Schema writerSchema, byte[] content) throws IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -26959,6 +26961,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroD
     private int totalRecords = 0;
     private int readRecords = 0;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieAvroDataBlock.java`
+#### Snippet
+```java
+
+    private int totalRecords = 0;
+    private int readRecords = 0;
+
+    private RecordIterator(Schema readerSchema, Schema writerSchema, byte[] content) throws IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -26987,18 +27001,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
-#### Snippet
-```java
-  private RocksDBDAO rocksDB;
-
-  private boolean closed = false;
-
-  public RocksDbBasedFileSystemView(HoodieTableMetaClient metaClient, HoodieTimeline visibleActiveTimeline,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTableFileSystemView.java`
 #### Snippet
 ```java
@@ -27010,39 +27012,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTabl
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
 #### Snippet
 ```java
+  private RocksDBDAO rocksDB;
 
-    private transient Map<String, Field> nameToFields = null;
-    private transient Map<Integer, Field> idToFields = null;
+  private boolean closed = false;
 
-    private RecordType(List<Field> fields, String name) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-    private final Field[] fields;
-
-    private transient Map<String, Field> nameToFields = null;
-    private transient Map<Integer, Field> idToFields = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
-#### Snippet
-```java
-    private final Field keyField;
-    private final Field valueField;
-    private transient List<Field> fields = null;
-
-    private MapType(Field keyField, Field valueField) {
+  public RocksDbBasedFileSystemView(HoodieTableMetaClient metaClient, HoodieTimeline visibleActiveTimeline,
 ```
 
 ### RedundantFieldInitialization
@@ -27050,11 +27028,11 @@ Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
 #### Snippet
 ```java
-  private long versionId;
 
   private transient Map<Integer, Field> idToField = null;
   private transient Map<String, Integer> nameToId = null;
   private transient Map<Integer, String> idToName = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -27074,22 +27052,46 @@ Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
 #### Snippet
 ```java
+  private long versionId;
 
   private transient Map<Integer, Field> idToField = null;
   private transient Map<String, Integer> nameToId = null;
   private transient Map<Integer, String> idToName = null;
-
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
 #### Snippet
 ```java
 
-    private boolean closed = false;
-    private int numPartitionKeysAdded = 0;
-    private int numFileIdKeysAdded = 0;
+    private transient Map<String, Field> nameToFields = null;
+    private transient Map<Integer, Field> idToFields = null;
+
+    private RecordType(List<Field> fields, String name) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+    private final Field keyField;
+    private final Field valueField;
+    private transient List<Field> fields = null;
+
+    private MapType(Field keyField, Field valueField) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+#### Snippet
+```java
+    private final Field[] fields;
+
+    private transient Map<String, Field> nameToFields = null;
+    private transient Map<Integer, Field> idToFields = null;
 
 ```
 
@@ -27118,6 +27120,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootst
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+
+    private boolean closed = false;
+    private int numPartitionKeysAdded = 0;
+    private int numFileIdKeysAdded = 0;
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataMergedLogRecordReader.java`
 #### Snippet
@@ -27134,6 +27148,18 @@ Field initialization to `false` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
 #### Snippet
 ```java
+  protected boolean isMetadataTableEnabled;
+  protected boolean isBloomFilterIndexEnabled = false;
+  protected boolean isColumnStatsIndexEnabled = false;
+
+  protected BaseTableMetadata(HoodieEngineContext engineContext, HoodieMetadataConfig metadataConfig,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
+#### Snippet
+```java
 
   protected boolean isMetadataTableEnabled;
   protected boolean isBloomFilterIndexEnabled = false;
@@ -27142,15 +27168,27 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/metadata/BaseTableMetadata.java`
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
-  protected boolean isMetadataTableEnabled;
-  protected boolean isBloomFilterIndexEnabled = false;
-  protected boolean isColumnStatsIndexEnabled = false;
+  private final Lazy<ConcurrentHashMap<HoodieInstant, HoodieCommitMetadata>> commitMetadataCache;
 
-  protected BaseTableMetadata(HoodieEngineContext engineContext, HoodieMetadataConfig metadataConfig,
+  private volatile HoodieInstant latestCommitWithValidSchema = null;
+  private volatile HoodieInstant latestCommitWithValidData = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
+#### Snippet
+```java
+
+  private volatile HoodieInstant latestCommitWithValidSchema = null;
+  private volatile HoodieInstant latestCommitWithValidData = null;
+
+  public TableSchemaResolver(HoodieTableMetaClient metaClient) {
 ```
 
 ### RedundantFieldInitialization
@@ -27218,6 +27256,30 @@ Field initialization to `null` is redundant
 in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
 #### Snippet
 ```java
+  private static final Lazy<DateWrapper.Builder> DATE_WRAPPER_BUILDER_STUB = Lazy.lazily(DateWrapper::newBuilder);
+
+  private String key = null;
+  private int type = 0;
+  private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+#### Snippet
+```java
+  private int type = 0;
+  private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
+  private HoodieMetadataBloomFilter bloomFilterMetadata = null;
+  private HoodieMetadataColumnStats columnStatMetadata = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
+#### Snippet
+```java
   private String key = null;
   private int type = 0;
   private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
@@ -27235,30 +27297,6 @@ in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.jav
   private int type = 0;
   private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
   private HoodieMetadataBloomFilter bloomFilterMetadata = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
-#### Snippet
-```java
-  private int type = 0;
-  private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
-  private HoodieMetadataBloomFilter bloomFilterMetadata = null;
-  private HoodieMetadataColumnStats columnStatMetadata = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieMetadataPayload.java`
-#### Snippet
-```java
-  private static final Lazy<DateWrapper.Builder> DATE_WRAPPER_BUILDER_STUB = Lazy.lazily(DateWrapper::newBuilder);
-
-  private String key = null;
-  private int type = 0;
-  private Map<String, HoodieMetadataFileInfo> filesystemMetadata = null;
 ```
 
 ### RedundantFieldInitialization
@@ -27287,42 +27325,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieRealtimeB
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--output-partition-field"}, description = "A field to be used by Spark repartitioning")
-    public String outputPartitionField = null;
-
-    @Parameter(names = {"--output-partitioner"}, description = "A class to facilitate custom repartitioning")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--output-partitioner"}, description = "A class to facilitate custom repartitioning")
-    public String outputPartitioner = null;
-
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for file listing")
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for file listing")
-    public int parallelism = 0;
-  }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCleaner.java`
 #### Snippet
 ```java
@@ -27334,87 +27336,63 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCleaner.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for table repair")
-    public String propsFilePath = null;
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
+    public boolean continuous = false;
 
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+    @Parameter(names = {"--min-validate-interval-seconds"},
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    public int parallelism = 2;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
-        + "and log files from the table", required = false)
-    public String backupPath = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
-    public int parallelism = 2;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
-        + "for repair (inclusive)", required = false)
-    public String startingInstantTime = null;
-    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
-        + "for repair (inclusive)", required = false)
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
-        + "for repair (inclusive)", required = false)
-    public String endingInstantTime = null;
-    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
-        + "and log files from the table", required = false)
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
   public static class Config implements Serializable {
     @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
     public String basePath = null;
-    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: Set \"repair\" means repairing the table "
-        + "by removing dangling data and log files not belonging to any commit; "
+
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore data table validate failure and continue.", required = false)
+    public boolean ignoreFailed = false;
+
+    @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
 #### Snippet
 ```java
-        + "Set \"dry_run\" means only looking for dangling data and log files; "
-        + "Set \"undo\" means undoing the repair by copying back the files from backup directory", required = true)
-    public String runningMode = null;
-    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
-        + "for repair (inclusive)", required = false)
+
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client")
+    public String propsFilePath = null;
+
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
 ```
 
 ### RedundantFieldInitialization
@@ -27443,98 +27421,38 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieWithTimelineSer
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
 #### Snippet
 ```java
-  public static class Config implements Serializable {
-    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
 
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+    @Parameter(names = {"--output-partition-field"}, description = "A field to be used by Spark repartitioning")
+    public String outputPartitionField = null;
+
+    @Parameter(names = {"--output-partitioner"}, description = "A class to facilitate custom repartitioning")
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for file listing")
+    public int parallelism = 0;
+  }
+
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
-#### Snippet
-```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client")
-    public String propsFilePath = null;
-
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotExporter.java`
 #### Snippet
 ```java
 
-    @Parameter(names = {"--ignore-failed", "-ig"}, description = "Ignore data table validate failure and continue.", required = false)
-    public boolean ignoreFailed = false;
+    @Parameter(names = {"--output-partitioner"}, description = "A class to facilitate custom repartitioning")
+    public String outputPartitioner = null;
 
-    @Parameter(names = {"--assume-date-partitioning"}, description = "Should HoodieWriteClient assume the data is partitioned by dates, i.e three levels from base path."
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableValidator.java`
-#### Snippet
-```java
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
-    public boolean continuous = false;
-
-    @Parameter(names = {"--min-validate-interval-seconds"},
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for compacting")
-    public String propsFilePath = null;
-
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    public int parallelism = 200;
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
-    public String schemaFile = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-        + "Set \"execute\" means execute a compact plan at given instant which means --instant-time is needed here; "
-        + "Set \"scheduleAndExecute\" means make a compact plan first and execute that plan immediately", required = false)
-    public String runningMode = null;
-    @Parameter(names = {"--strategy", "-st"}, description = "Strategy Class", required = false)
-    public String strategyClassName = LogFileSizeBasedCompactionStrategy.class.getName();
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for file listing")
 ```
 
 ### RedundantFieldInitialization
@@ -27547,18 +27465,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
     public String sparkMaster = null;
     @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
     public String sparkMemory = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
-#### Snippet
-```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
-    public int retry = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -27578,11 +27484,59 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries", required = false)
+    public int retry = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
+    public int parallelism = 200;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for compacting")
+    public String propsFilePath = null;
+
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
     public String basePath = null;
     @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
     public String tableName = null;
     @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
     public String compactionInstantTime = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
+#### Snippet
+```java
+    public int parallelism = 200;
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = false)
+    public String schemaFile = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
 ```
 
 ### RedundantFieldInitialization
@@ -27602,11 +27556,23 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactor.java`
 #### Snippet
 ```java
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-    public int parallelism = 200;
+        + "Set \"execute\" means execute a compact plan at given instant which means --instant-time is needed here; "
+        + "Set \"scheduleAndExecute\" means make a compact plan first and execute that plan immediately", required = false)
+    public String runningMode = null;
+    @Parameter(names = {"--strategy", "-st"}, description = "Strategy Class", required = false)
+    public String strategyClassName = LogFileSizeBasedCompactionStrategy.class.getName();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotCopier.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--base-path", "-bp"}, description = "Hoodie table base path", required = true)
+    String basePath = null;
+
+    @Parameter(names = {"--output-path", "-op"}, description = "The snapshot output path", required = true)
 ```
 
 ### RedundantFieldInitialization
@@ -27631,18 +27597,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotCopier.
     boolean shouldAssumeDatePartitioning = false;
 
     @Parameter(names = {"--use-file-listing-from-metadata"}, description = "Fetch file listing from Hudi's metadata")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotCopier.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--base-path", "-bp"}, description = "Hoodie table base path", required = true)
-    String basePath = null;
-
-    @Parameter(names = {"--output-path", "-op"}, description = "The snapshot output path", required = true)
 ```
 
 ### RedundantFieldInitialization
@@ -27674,47 +27628,23 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
 #### Snippet
 ```java
+        + "the earliest scheduled clustering instant time is used by default. "
+        + "When set \"--mode scheduleAndExecute\" this instant-time will be ignored.")
+    public String clusteringInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert")
+    public int parallelism = 1;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
     @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
         + "hoodie client for clustering")
     public String propsFilePath = null;
 
     @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-  public static class Config implements Serializable {
-    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
-#### Snippet
-```java
-    @Parameter(names = {"--job-max-processing-time-ms", "-jt"}, description = "Take effect when using --mode/-m scheduleAndExecute and --retry-last-failed-clustering-job/-rc true. "
-        + "If maxProcessingTimeMs passed but clustering job is still unfinished, hoodie would consider this job as failed and relaunch.")
-    public long maxProcessingTimeMs = 0;
-
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
 ```
 
 ### RedundantFieldInitialization
@@ -27734,11 +27664,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
 #### Snippet
 ```java
-        + "the earliest scheduled clustering instant time is used by default. "
-        + "When set \"--mode scheduleAndExecute\" this instant-time will be ignored.")
-    public String clusteringInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert")
-    public int parallelism = 1;
+        + "Set \"execute\" means execute a cluster plan at given instant which means --instant-time is needed here; "
+        + "Set \"scheduleAndExecute\" means make a cluster plan first and execute that plan immediately")
+    public String runningMode = null;
+
+    @Parameter(names = {"--help", "-h"}, help = true)
 ```
 
 ### RedundantFieldInitialization
@@ -27746,11 +27676,35 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
 #### Snippet
 ```java
-        + "Set \"execute\" means execute a cluster plan at given instant which means --instant-time is needed here; "
-        + "Set \"scheduleAndExecute\" means make a cluster plan first and execute that plan immediately")
-    public String runningMode = null;
+    public String basePath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Clustering Instant time, only used when set --mode execute. "
+        + "If the instant time is not provided with --mode execute, "
+```
 
-    @Parameter(names = {"--help", "-h"}, help = true)
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+    @Parameter(names = {"--job-max-processing-time-ms", "-jt"}, description = "Take effect when using --mode/-m scheduleAndExecute and --retry-last-failed-clustering-job/-rc true. "
+        + "If maxProcessingTimeMs passed but clustering job is still unfinished, hoodie would consider this job as failed and relaunch.")
+    public long maxProcessingTimeMs = 0;
+
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
+#### Snippet
+```java
+  public static class Config implements Serializable {
+    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
 ```
 
 ### RedundantFieldInitialization
@@ -27770,23 +27724,23 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieClusteringJob.java`
 #### Snippet
 ```java
-    public String basePath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Clustering Instant time, only used when set --mode execute. "
-        + "If the instant time is not provided with --mode execute, "
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    public String sparkMemory = null;
-    @Parameter(names = {"--dry-run", "-dr"}, description = "Dry Run Mode", required = false)
-    public boolean dryRun = false;
-    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
-    public boolean skipValidation = false;
+    public String partitionPath = null;
+    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
+    public String fileId = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
+    public int parallelism = 3;
 ```
 
 ### RedundantFieldInitialization
@@ -27806,11 +27760,23 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
-    @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
-    public String fileId = null;
+    public int parallelism = 3;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    public String sparkMemory = null;
+    @Parameter(names = {"--dry-run", "-dr"}, description = "Dry Run Mode", required = false)
+    public boolean dryRun = false;
+    @Parameter(names = {"--skip-validation", "-sv"}, description = "Skip Validation", required = false)
+    public boolean skipValidation = false;
 ```
 
 ### RedundantFieldInitialization
@@ -27830,11 +27796,23 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
+    public String basePath = null;
+    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
+    public String partitionPath = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
+#### Snippet
+```java
+    public String compactionInstantTime = null;
+    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
     public String partitionPath = null;
     @Parameter(names = {"--file-id", "-id"}, description = "File Id", required = false)
     public String fileId = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = false)
-    public int parallelism = 3;
 ```
 
 ### RedundantFieldInitialization
@@ -27854,30 +27832,6 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
 #### Snippet
 ```java
-    public int parallelism = 3;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = true)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
-    public String basePath = null;
-    @Parameter(names = {"--instant-time", "-in"}, description = "Compaction Instant time", required = false)
-    public String compactionInstantTime = null;
-    @Parameter(names = {"--partition-path", "-pp"}, description = "Partition Path", required = false)
-    public String partitionPath = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdminTool.java`
-#### Snippet
-```java
     public Operation operation = Operation.VALIDATE;
     @Parameter(names = {"--base-path", "-bp"}, description = "Base path for the table", required = true)
     public String basePath = null;
@@ -27887,14 +27841,254 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieCompactionAdmin
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
 #### Snippet
 ```java
+  public static class Config implements Serializable {
+    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: Set \"repair\" means repairing the table "
+        + "by removing dangling data and log files not belonging to any commit; "
+```
 
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for hoodie client for indexing")
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
+        + "and log files from the table", required = false)
+    public String backupPath = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for repair", required = false)
+    public int parallelism = 2;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for table repair")
     public String propsFilePath = null;
 
     @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
+        + "for repair (inclusive)", required = false)
+    public String startingInstantTime = null;
+    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+        + "for repair (inclusive)", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--end-instant-time", "-ei"}, description = "Ending Instant time "
+        + "for repair (inclusive)", required = false)
+    public String endingInstantTime = null;
+    @Parameter(names = {"--backup-path", "-bp"}, description = "Backup path for storing dangling data "
+        + "and log files from the table", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+        + "Set \"dry_run\" means only looking for dangling data and log files; "
+        + "Set \"undo\" means undoing the repair by copying back the files from backup directory", required = true)
+    public String runningMode = null;
+    @Parameter(names = {"--start-instant-time", "-si"}, description = "Starting Instant time "
+        + "for repair (inclusive)", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieRepairTool.java`
+#### Snippet
+```java
+    public int parallelism = 2;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for deleting table partitions")
+    public String propsFilePath = null;
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+        + "(using the CLI parameter \"--props\") can also be passed command line using this parameter. This can be repeated",
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
+    public String sparkMemory = "1g";
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String hiveDataBase = null;
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
+    public String hiveTableName = null;
+    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
+    public String hiveUserName = "hive";
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String hiveSyncMode = "hms";
+    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
+    public boolean hiveSyncIgnoreException = false;
+    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
+        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public int parallelism = 1500;
+    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
+    public String instantTime = null;
+    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
+    public boolean syncToHive = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String tableName = null;
+    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
+    public String partitions = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
+    public int parallelism = 1500;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+  public static class Config implements Serializable {
+    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
+    public String basePath = null;
+    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: "
+        + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public boolean hiveUseJdbc = true;
+    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
+    public String hiveHMSUris = null;
+    @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
+    public String hiveSyncMode = "hms";
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public boolean syncToHive = false;
+    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
+    public String hiveDataBase = null;
+    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
+    public String hiveTableName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String runningMode = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
+    public String partitions = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+    public String instantTime = null;
+    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
+    public boolean syncToHive = false;
+    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
+    public String hiveDataBase = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+#### Snippet
+```java
+        + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
+        + "Set \"dry_run\" means only looking for the table partitions will be deleted and corresponding data files.", required = true)
+    public String runningMode = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
+#### Snippet
+```java
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
+#### Snippet
+```java
+    public String tableName = null;
+    @Parameter(names = {"--instant-time", "-it"}, description = "Indexing Instant time")
+    public String indexInstantTime = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = true)
+    public int parallelism = 1;
 ```
 
 ### RedundantFieldInitialization
@@ -27938,35 +28132,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
 #### Snippet
 ```java
-    public String tableName = null;
-    @Parameter(names = {"--instant-time", "-it"}, description = "Indexing Instant time")
-    public String indexInstantTime = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert", required = true)
-    public int parallelism = 1;
-```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
-#### Snippet
-```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-```
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for hoodie client for indexing")
+    public String propsFilePath = null;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
-#### Snippet
-```java
-        + "Set \"scheduleandExecute\" to generate an indexing plan first and execute that plan immediately;"
-        + "Set \"dropindex\" to drop the index types specified in --index-types;")
-    public String runningMode = null;
-    @Parameter(names = {"--help", "-h"}, help = true)
-    public Boolean help = false;
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
 ```
 
 ### RedundantFieldInitialization
@@ -27995,146 +28165,14 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieIndexer.java`
 #### Snippet
 ```java
-    public String tableName = null;
-    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
-    public String partitions = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert/upsert/delete", required = false)
-    public int parallelism = 1500;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public int parallelism = 1500;
-    @Parameter(names = {"--instant-time", "-it"}, description = "instant time for delete table partitions operation.", required = false)
-    public String instantTime = null;
-    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
-    public boolean syncToHive = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public boolean syncToHive = false;
-    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
-    public String hiveDataBase = null;
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-    public String hiveTableName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for deleting table partitions")
-    public String propsFilePath = null;
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-        + "(using the CLI parameter \"--props\") can also be passed command line using this parameter. This can be repeated",
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
+        + "Set \"scheduleandExecute\" to generate an indexing plan first and execute that plan immediately;"
+        + "Set \"dropindex\" to drop the index types specified in --index-types;")
     public String runningMode = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--partitions", "-p"}, description = "Comma separated list of partitions to delete.", required = true)
-    public String partitions = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-  public static class Config implements Serializable {
-    @Parameter(names = {"--base-path", "-sp"}, description = "Base path for the table", required = true)
-    public String basePath = null;
-    @Parameter(names = {"--mode", "-m"}, description = "Set job mode: "
-        + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public String partitionValueExtractorClass = "org.apache.hudi.hive.SlashEncodedDayPartitionValueExtractor";
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master", required = false)
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = false)
-    public String sparkMemory = "1g";
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public String hiveSyncMode = "hms";
-    @Parameter(names = {"--hive-sync-ignore-exception"}, description = "Ignore hive sync exception.", required = false)
-    public boolean hiveSyncIgnoreException = false;
-    @Parameter(names = {"--hive-partition-value-extractor-class"}, description = "Class which implements PartitionValueExtractor to extract the partition values,"
-        + " default 'SlashEncodedDayPartitionValueExtractor'.", required = false)
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public boolean hiveUseJdbc = true;
-    @Parameter(names = {"--hive-metastore-uris"}, description = "hive meta store uris to use.", required = false)
-    public String hiveHMSUris = null;
-    @Parameter(names = {"--hive-sync-mode"}, description = "Mode to choose for Hive ops. Valid values are hms, jdbc and hiveql.", required = false)
-    public String hiveSyncMode = "hms";
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-        + "Set \"delete\" means mask/tombstone these partitions and corresponding data files table partitions and let cleaner delete these files later;"
-        + "Set \"dry_run\" means only looking for the table partitions will be deleted and corresponding data files.", required = true)
-    public String runningMode = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public String instantTime = null;
-    @Parameter(names = {"--sync-hive-meta", "-sync"}, description = "Sync information to HMS.", required = false)
-    public boolean syncToHive = false;
-    @Parameter(names = {"--hive-database", "-db"}, description = "Database to sync to.", required = false)
-    public String hiveDataBase = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
-    public String hiveDataBase = null;
-    @Parameter(names = {"--hive-table-name"}, description = "Table to sync to.", required = false)
-    public String hiveTableName = null;
-    @Parameter(names = {"--hive-user-name", "-user"}, description = "hive user name to use.", required = false)
-    public String hiveUserName = "hive";
+    @Parameter(names = {"--help", "-h"}, help = true)
+    public Boolean help = false;
 ```
 
 ### RedundantFieldInitialization
@@ -28150,39 +28188,147 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPe
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
-
-    @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
-    public boolean validateLatestBaseFiles = false;
-
-    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client")
-    public String propsFilePath = null;
-
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+    public String rowKey = null;
+    @Parameter(names = {"--partition-key-field", "-pk"}, description = "Partition key field name", required = true)
+    public String partitionKey = null;
+    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert(default)/upsert/bulkinsert", required = true)
+    public int parallelism = 1;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for importing")
+    public String propsFilePath = null;
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+        + "(using the CLI parameter \"--props\") can also be passed command line using this parameter. This can be repeated",
+```
 
-    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
-    public boolean validateAllFileGroups = false;
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public int parallelism = 1;
+    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = true)
+    public String schemaFile = null;
+    @Parameter(names = {"--format", "-f"}, description = "Format for the input data.", validateValueWith = FormatValidator.class)
+    public String format = null;
+```
 
-    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String tableName = null;
+    @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
+    public String tableType = null;
+    @Parameter(names = {"--row-key-field", "-rk"}, description = "Row key field name", required = true)
+    public String rowKey = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String sparkMemory = null;
+    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
+    public int retry = 0;
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client for importing")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String command = "INSERT";
+    @Parameter(names = {"--src-path", "-sp"}, description = "Base path for the input table", required = true)
+    public String srcPath = null;
+    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
+        required = true)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String format = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
+    public String sparkMaster = null;
+    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
+    public String sparkMemory = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String targetPath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+    @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
+    public String tableType = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String tableType = null;
+    @Parameter(names = {"--row-key-field", "-rk"}, description = "Row key field name", required = true)
+    public String rowKey = null;
+    @Parameter(names = {"--partition-key-field", "-pk"}, description = "Partition key field name", required = true)
+    public String partitionKey = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
+        required = true)
+    public String targetPath = null;
+    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
+    public String tableName = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
+#### Snippet
+```java
+    public String schemaFile = null;
+    @Parameter(names = {"--format", "-f"}, description = "Format for the input data.", validateValueWith = FormatValidator.class)
+    public String format = null;
+    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
+    public String sparkMaster = null;
 ```
 
 ### RedundantFieldInitialization
@@ -28203,10 +28349,82 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 #### Snippet
 ```java
 
-    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
-    public boolean validateLatestFileSlices = false;
-
     @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
+    public boolean validateLatestBaseFiles = false;
+
+    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
+    public boolean skipDataFilesForCleaning = false;
+
+    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
+        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
+    public boolean continuous = false;
+
+    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
+    public boolean validateAllColumnStats = false;
+
+    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
+        + "hoodie client")
+    public String propsFilePath = null;
+
+    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
+    public boolean validateBloomFilters = false;
+
+    @Parameter(names = {"--min-validate-interval-seconds"},
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--validate-all-file-groups"}, description = "Validate all file groups, and all file slices within file groups.", required = false)
+    public boolean validateAllFileGroups = false;
+
+    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
 ```
 
 ### RedundantFieldInitialization
@@ -28227,10 +28445,10 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
 #### Snippet
 ```java
 
-    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
-    public boolean validateBloomFilters = false;
+    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
+    public boolean validateLatestFileSlices = false;
 
-    @Parameter(names = {"--min-validate-interval-seconds"},
+    @Parameter(names = {"--validate-latest-base-files"}, description = "Validate latest base files for all partitions.", required = false)
 ```
 
 ### RedundantFieldInitialization
@@ -28243,42 +28461,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableVa
     public String basePath = null;
 
     @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
-    public boolean skipDataFilesForCleaning = false;
-
-    @Parameter(names = {"--validate-latest-file-slices"}, description = "Validate latest file slices for all partitions.", required = false)
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--validate-all-column-stats"}, description = "Validate column stats for all columns in the schema", required = false)
-    public boolean validateAllColumnStats = false;
-
-    @Parameter(names = {"--validate-bloom-filters"}, description = "Validate bloom filters of base files", required = false)
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieMetadataTableValidator.java`
-#### Snippet
-```java
-    @Parameter(names = {"--continuous"}, description = "Running MetadataTableValidator in continuous. "
-        + "Can use --min-validate-interval-seconds to control validation frequency", required = false)
-    public boolean continuous = false;
-
-    @Parameter(names = {"--skip-data-files-for-cleaning"}, description = "Skip to compare the data files which are under deletion by cleaner", required = false)
 ```
 
 ### RedundantFieldInitialization
@@ -28298,47 +28480,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
-
-  public String overallTimerName = null;
-  public String hiveSyncTimerName = null;
-  public String metaSyncTimerName = null;
-  private transient Timer overallTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
   public String overallTimerName = null;
   public String hiveSyncTimerName = null;
   public String metaSyncTimerName = null;
   private transient Timer overallTimer = null;
   public transient Timer hiveSyncTimer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
-  public String metaSyncTimerName = null;
-  private transient Timer overallTimer = null;
-  public transient Timer hiveSyncTimer = null;
-  public transient Timer metaSyncTimer = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
-#### Snippet
-```java
-  private transient Timer overallTimer = null;
-  public transient Timer hiveSyncTimer = null;
-  public transient Timer metaSyncTimer = null;
-
-  public HoodieDeltaStreamerMetrics(HoodieWriteConfig config) {
 ```
 
 ### RedundantFieldInitialization
@@ -28358,6 +28504,18 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
 #### Snippet
 ```java
+  private transient Timer overallTimer = null;
+  public transient Timer hiveSyncTimer = null;
+  public transient Timer metaSyncTimer = null;
+
+  public HoodieDeltaStreamerMetrics(HoodieWriteConfig config) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
   public String hiveSyncTimerName = null;
   public String metaSyncTimerName = null;
   private transient Timer overallTimer = null;
@@ -28367,14 +28525,38 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieD
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
+  public String metaSyncTimerName = null;
+  private transient Timer overallTimer = null;
+  public transient Timer hiveSyncTimer = null;
+  public transient Timer metaSyncTimer = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamerMetrics.java`
+#### Snippet
+```java
+
+  public String overallTimerName = null;
+  public String hiveSyncTimerName = null;
+  public String metaSyncTimerName = null;
+  private transient Timer overallTimer = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
 #### Snippet
 ```java
-        + " For Sources that return Dataset<Row>, the schema is obtained implicitly. "
-        + "However, this CLI option allows overriding the schemaprovider returned by Source.")
-    public String schemaProviderClassName = null;
+     */
+    @Parameter(names = {"--checkpoint"}, description = "Resume Delta Streamer from this checkpoint.")
+    public String checkpoint = null;
 
-    @Parameter(names = {"--transformer-class"},
+    @Parameter(names = {"--cluster-scheduling-weight"}, description = "Scheduling weight for clustering as defined in "
 ```
 
 ### RedundantFieldInitialization
@@ -28394,71 +28576,11 @@ Field initialization to `null` is redundant
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
 #### Snippet
 ```java
-     */
-    @Parameter(names = {"--checkpoint"}, description = "Resume Delta Streamer from this checkpoint.")
-    public String checkpoint = null;
-
-    @Parameter(names = {"--cluster-scheduling-weight"}, description = "Scheduling weight for clustering as defined in "
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
-#### Snippet
-```java
-        + "for the first run. This field will override the checkpoint of last commit using the checkpoint field. "
-        + "Use this field only when switching source, for example, from DFS source to Kafka Source.")
-    public String initialCheckpointProvider = null;
-
-    @Parameter(names = {"--run-bootstrap"}, description = "Run bootstrap if bootstrap index is not found")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
-#### Snippet
-```java
-            + "allows a SQL query templated to be passed as a transformation function). "
-            + "Pass a comma-separated list of subclass names to chain the transformations.")
-    public List<String> transformerClassNames = null;
-
-    @Parameter(names = {"--source-limit"}, description = "Maximum amount of data to read from source. "
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
-#### Snippet
-```java
         + " For Sources that return Dataset<Row>, the schema is obtained implicitly. "
         + "However, this CLI option allows overriding the schemaprovider returned by Source.")
     public String schemaProviderClassName = null;
 
     @Parameter(names = {"--transformer-class"},
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
-#### Snippet
-```java
-     */
-    @Parameter(names = {"--checkpoint"}, description = "Resume Delta Streamer from this checkpoint.")
-    public String checkpoint = null;
-
-    @Parameter(names = {"--initial-checkpoint-provider"}, description = "subclass of "
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/BulkInsertWriterHelper.java`
-#### Snippet
-```java
-  private String lastKnownPartitionPath = null;
-  private final String fileIdPrefix;
-  private int numFilesWritten = 0;
-  protected final Map<String, HoodieRowDataCreateHandle> handles = new HashMap<>();
-  @Nullable protected final RowDataKeyGen keyGen;
 ```
 
 ### RedundantFieldInitialization
@@ -28471,6 +28593,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/Bul
   private String lastKnownPartitionPath = null;
   private final String fileIdPrefix;
   private int numFilesWritten = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/BulkInsertWriterHelper.java`
+#### Snippet
+```java
+  private String lastKnownPartitionPath = null;
+  private final String fileIdPrefix;
+  private int numFilesWritten = 0;
+  protected final Map<String, HoodieRowDataCreateHandle> handles = new HashMap<>();
+  @Nullable protected final RowDataKeyGen keyGen;
 ```
 
 ### RedundantFieldInitialization
@@ -28495,30 +28629,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/StreamWr
     private long totalSize = 0L;
 
     BufferSizeDetector(double batchSizeMb) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
-#### Snippet
-```java
-
-  // efficient code path
-  private boolean simpleRecordKey = false;
-  private RowData.FieldGetter recordKeyFieldGetter;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
-#### Snippet
-```java
-  private RowData.FieldGetter recordKeyFieldGetter;
-
-  private boolean simplePartitionPath = false;
-  private RowData.FieldGetter partitionPathFieldGetter;
-
 ```
 
 ### RedundantFieldInitialization
@@ -28570,15 +28680,75 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/event/Wr
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/NonThrownExecutor.java`
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
 #### Snippet
 ```java
-    private final Logger logger;
-    private ExceptionHook exceptionHook;
-    private boolean waitForTasksFinish = false;
+     */
+    @Parameter(names = {"--checkpoint"}, description = "Resume Delta Streamer from this checkpoint.")
+    public String checkpoint = null;
 
-    private Builder(Logger logger) {
+    @Parameter(names = {"--initial-checkpoint-provider"}, description = "subclass of "
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
+#### Snippet
+```java
+            + "allows a SQL query templated to be passed as a transformation function). "
+            + "Pass a comma-separated list of subclass names to chain the transformations.")
+    public List<String> transformerClassNames = null;
+
+    @Parameter(names = {"--source-limit"}, description = "Maximum amount of data to read from source. "
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
+#### Snippet
+```java
+        + "for the first run. This field will override the checkpoint of last commit using the checkpoint field. "
+        + "Use this field only when switching source, for example, from DFS source to Kafka Source.")
+    public String initialCheckpointProvider = null;
+
+    @Parameter(names = {"--run-bootstrap"}, description = "Run bootstrap if bootstrap index is not found")
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieDeltaStreamer.java`
+#### Snippet
+```java
+        + " For Sources that return Dataset<Row>, the schema is obtained implicitly. "
+        + "However, this CLI option allows overriding the schemaprovider returned by Source.")
+    public String schemaProviderClassName = null;
+
+    @Parameter(names = {"--transformer-class"},
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
+#### Snippet
+```java
+
+  // efficient code path
+  private boolean simpleRecordKey = false;
+  private RowData.FieldGetter recordKeyFieldGetter;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/bulk/RowDataKeyGen.java`
+#### Snippet
+```java
+  private RowData.FieldGetter recordKeyFieldGetter;
+
+  private boolean simplePartitionPath = false;
+  private RowData.FieldGetter partitionPathFieldGetter;
+
 ```
 
 ### RedundantFieldInitialization
@@ -28591,6 +28761,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/common/A
   protected volatile boolean confirming = false;
 
   /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/NonThrownExecutor.java`
+#### Snippet
+```java
+    private final Logger logger;
+    private ExceptionHook exceptionHook;
+    private boolean waitForTasksFinish = false;
+
+    private Builder(Logger logger) {
 ```
 
 ### RedundantFieldInitialization
@@ -28610,11 +28792,11 @@ Field initialization to `0` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
 #### Snippet
 ```java
-   * Num of accumulated successful checkpoints, used for cleaning the new file assign state.
-   */
-  private int accCkp = 0;
+  private static class SmallFileAssign {
+    final SmallFileAssignState[] states;
+    int assignIdx = 0;
+    boolean noSpace = false;
 
-  public BucketAssigner(
 ```
 
 ### RedundantFieldInitialization
@@ -28634,11 +28816,11 @@ Field initialization to `0` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitioner/BucketAssigner.java`
 #### Snippet
 ```java
-  private static class SmallFileAssign {
-    final SmallFileAssignState[] states;
-    int assignIdx = 0;
-    boolean noSpace = false;
+   * Num of accumulated successful checkpoints, used for cleaning the new file assign state.
+   */
+  private int accCkp = 0;
 
+  public BucketAssigner(
 ```
 
 ### RedundantFieldInitialization
@@ -28654,6 +28836,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ExpressionEvaluator.java`
+#### Snippet
+```java
+    protected Object minVal;
+    protected Object maxVal;
+    protected long nullCnt = 0;
+
+    // referenced field type
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/streamer/FlinkStreamerConfig.java`
 #### Snippet
@@ -28663,6 +28857,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/streamer/Flin
   public List<String> transformerClassNames = null;
 
   @Parameter(names = {"--metadata-enabled"}, description = "Enable the internal metadata table which serves table metadata like level file listings, default false.")
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
+#### Snippet
+```java
+  // Buffer of decoded values if the values are PACKED.
+  int[] currentBuffer = new int[16];
+  int currentBufferIdx = 0;
+
+  RunLengthDecoder() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+#### Snippet
+```java
+    // method #reachedEnd() returns false after it returns true.
+    // refactor it out once FLINK-22370 is resolved.
+    private boolean readLogs = false;
+
+    private RowData currentRecord;
 ```
 
 ### RedundantFieldInitialization
@@ -28686,7 +28904,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
     // refactor it out once FLINK-22370 is resolved.
     private boolean readLogs = false;
 
-    private RowData currentRecord;
+    private final Set<String> keyToSkip = new HashSet<>();
 ```
 
 ### RedundantFieldInitialization
@@ -28703,26 +28921,14 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/mor/MergeOnReadInputFormat.java`
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ArrayColumnReader.java`
 #### Snippet
 ```java
-    // method #reachedEnd() returns false after it returns true.
-    // refactor it out once FLINK-22370 is resolved.
-    private boolean readLogs = false;
 
-    private final Set<String> keyToSkip = new HashSet<>();
-```
+  // flag to indicate if there is no data in parquet data page
+  private boolean eof = false;
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ExpressionEvaluator.java`
-#### Snippet
-```java
-    protected Object minVal;
-    protected Object maxVal;
-    protected long nullCnt = 0;
-
-    // referenced field type
+  // flag to indicate if it's the first time to read parquet data page with this instance
 ```
 
 ### RedundantFieldInitialization
@@ -28735,30 +28941,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/Increm
     private boolean skipCompaction = false;
     // skip clustering
     private boolean skipClustering = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/RunLengthDecoder.java`
-#### Snippet
-```java
-  // Buffer of decoded values if the values are PACKED.
-  int[] currentBuffer = new int[16];
-  int currentBufferIdx = 0;
-
-  RunLengthDecoder() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/ArrayColumnReader.java`
-#### Snippet
-```java
-
-  // flag to indicate if there is no data in parquet data page
-  private boolean eof = false;
-
-  // flag to indicate if it's the first time to read parquet data page with this instance
 ```
 
 ### RedundantFieldInitialization
@@ -28846,27 +29028,15 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/cli/Bootstrap
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/execution/datasources/parquet/Spark24HoodieVectorizedParquetRecordReader.java`
+Field initialization to `null` is redundant
+in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/internal/BaseDefaultSource.java`
 #### Snippet
 ```java
-   */
-  private int batchIdx = 0;
-  private int numBatched = 0;
 
-  public Spark24HoodieVectorizedParquetRecordReader(
-```
+  protected SparkSession sparkSession = null;
+  protected Configuration configuration = null;
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/execution/datasources/parquet/Spark24HoodieVectorizedParquetRecordReader.java`
-#### Snippet
-```java
-   * batch is used up (batchIdx == numBatched), we populated the batch.
-   */
-  private int batchIdx = 0;
-  private int numBatched = 0;
-
+  protected SparkSession getSparkSession() {
 ```
 
 ### RedundantFieldInitialization
@@ -28882,15 +29052,27 @@ public class BaseDefaultSource {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/internal/BaseDefaultSource.java`
+Field initialization to `0` is redundant
+in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/execution/datasources/parquet/Spark24HoodieVectorizedParquetRecordReader.java`
 #### Snippet
 ```java
+   * batch is used up (batchIdx == numBatched), we populated the batch.
+   */
+  private int batchIdx = 0;
+  private int numBatched = 0;
 
-  protected SparkSession sparkSession = null;
-  protected Configuration configuration = null;
+```
 
-  protected SparkSession getSparkSession() {
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `hudi-spark-datasource/hudi-spark2/src/main/java/org/apache/spark/sql/execution/datasources/parquet/Spark24HoodieVectorizedParquetRecordReader.java`
+#### Snippet
+```java
+   */
+  private int batchIdx = 0;
+  private int numBatched = 0;
+
+  public Spark24HoodieVectorizedParquetRecordReader(
 ```
 
 ### RedundantFieldInitialization
@@ -28903,30 +29085,6 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/Timelin
       private boolean async = false;
       private boolean compress = true;
       private boolean enableMarkerRequests = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/TimelineService.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--enable-marker-requests", "-em"}, description = "Enable handling of marker-related requests")
-    public boolean enableMarkerRequests = false;
-
-    @Parameter(names = {"--marker-batch-threads", "-mbt"}, description = "Number of threads to use for batch processing marker creation requests")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/TimelineService.java`
-#### Snippet
-```java
-
-    @Parameter(names = {"--async"}, description = "Use asyncronous request processing")
-    public boolean async = false;
-
-    @Parameter(names = {"--compress"}, description = "Compress output using gzip")
 ```
 
 ### RedundantFieldInitialization
@@ -28955,6 +29113,30 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/Timelin
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/TimelineService.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--enable-marker-requests", "-em"}, description = "Enable handling of marker-related requests")
+    public boolean enableMarkerRequests = false;
+
+    @Parameter(names = {"--marker-batch-threads", "-mbt"}, description = "Number of threads to use for batch processing marker creation requests")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/TimelineService.java`
+#### Snippet
+```java
+
+    @Parameter(names = {"--async"}, description = "Use asyncronous request processing")
+    public boolean async = false;
+
+    @Parameter(names = {"--compress"}, description = "Compress output using gzip")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handlers/marker/MarkerDirState.java`
 #### Snippet
 ```java
@@ -28963,174 +29145,6 @@ in `hudi-timeline-service/src/main/java/org/apache/hudi/timeline/service/handler
   private boolean isMarkerTypeWritten = false;
 
   public MarkerDirState(String markerDirPath, int markerBatchNumThreads, FileSystem fileSystem,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for importing")
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String rowKey = null;
-    @Parameter(names = {"--partition-key-field", "-pk"}, description = "Partition key field name", required = true)
-    public String partitionKey = null;
-    @Parameter(names = {"--parallelism", "-pl"}, description = "Parallelism for hoodie insert(default)/upsert/bulkinsert", required = true)
-    public int parallelism = 1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-    @Parameter(names = {"--retry", "-rt"}, description = "number of retries")
-    public int retry = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public int parallelism = 1;
-    @Parameter(names = {"--schema-file", "-sf"}, description = "path for Avro schema file", required = true)
-    public String schemaFile = null;
-    @Parameter(names = {"--format", "-f"}, description = "Format for the input data.", validateValueWith = FormatValidator.class)
-    public String format = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String tableType = null;
-    @Parameter(names = {"--row-key-field", "-rk"}, description = "Row key field name", required = true)
-    public String rowKey = null;
-    @Parameter(names = {"--partition-key-field", "-pk"}, description = "Partition key field name", required = true)
-    public String partitionKey = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
-        required = true)
-    public String targetPath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String targetPath = null;
-    @Parameter(names = {"--table-name", "-tn"}, description = "Table name", required = true)
-    public String tableName = null;
-    @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
-    public String tableType = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String command = "INSERT";
-    @Parameter(names = {"--src-path", "-sp"}, description = "Base path for the input table", required = true)
-    public String srcPath = null;
-    @Parameter(names = {"--target-path", "-tp"}, description = "Base path for the target hoodie table",
-        required = true)
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String format = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-    @Parameter(names = {"--spark-memory", "-sm"}, description = "spark memory to use", required = true)
-    public String sparkMemory = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String schemaFile = null;
-    @Parameter(names = {"--format", "-f"}, description = "Format for the input data.", validateValueWith = FormatValidator.class)
-    public String format = null;
-    @Parameter(names = {"--spark-master", "-ms"}, description = "Spark master")
-    public String sparkMaster = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    @Parameter(names = {"--props"}, description = "path to properties file on localfs or dfs, with configurations for "
-        + "hoodie client for importing")
-    public String propsFilePath = null;
-    @Parameter(names = {"--hoodie-conf"}, description = "Any configuration that can be set in the properties file "
-        + "(using the CLI parameter \"--props\") can also be passed command line using this parameter. This can be repeated",
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
-#### Snippet
-```java
-    public String tableName = null;
-    @Parameter(names = {"--table-type", "-tt"}, description = "Table type", required = true)
-    public String tableType = null;
-    @Parameter(names = {"--row-key-field", "-rk"}, description = "Row key field name", required = true)
-    public String rowKey = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-  private final Lazy<ConcurrentHashMap<HoodieInstant, HoodieCommitMetadata>> commitMetadataCache;
-
-  private volatile HoodieInstant latestCommitWithValidSchema = null;
-  private volatile HoodieInstant latestCommitWithValidData = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-
-  private volatile HoodieInstant latestCommitWithValidSchema = null;
-  private volatile HoodieInstant latestCommitWithValidData = null;
-
-  public TableSchemaResolver(HoodieTableMetaClient metaClient) {
 ```
 
 ## RuleId[ruleID=RedundantImplements]
@@ -29316,18 +29330,6 @@ public class HeapArrayVector extends AbstractHeapVector
 
 ### RedundantImplements
 Redundant interface declaration `WritableColumnVector`
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
-#### Snippet
-```java
- */
-public class HeapMapColumnVector extends AbstractHeapVector
-    implements WritableColumnVector, MapColumnVector {
-
-  private long[] offsets;
-```
-
-### RedundantImplements
-Redundant interface declaration `WritableColumnVector`
 in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
 #### Snippet
 ```java
@@ -29336,6 +29338,18 @@ public class HeapRowColumnVector extends AbstractHeapVector
     implements WritableColumnVector, RowColumnVector {
 
   public WritableColumnVector[] vectors;
+```
+
+### RedundantImplements
+Redundant interface declaration `WritableColumnVector`
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
+#### Snippet
+```java
+ */
+public class HeapMapColumnVector extends AbstractHeapVector
+    implements WritableColumnVector, MapColumnVector {
+
+  private long[] offsets;
 ```
 
 ### RedundantImplements
@@ -29352,18 +29366,6 @@ public class HeapArrayVector extends AbstractHeapVector
 
 ### RedundantImplements
 Redundant interface declaration `WritableColumnVector`
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
-#### Snippet
-```java
- */
-public class HeapRowColumnVector extends AbstractHeapVector
-    implements WritableColumnVector, RowColumnVector {
-
-  public WritableColumnVector[] vectors;
-```
-
-### RedundantImplements
-Redundant interface declaration `WritableColumnVector`
 in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
 #### Snippet
 ```java
@@ -29372,6 +29374,18 @@ public class HeapMapColumnVector extends AbstractHeapVector
     implements WritableColumnVector, MapColumnVector {
 
   private long[] offsets;
+```
+
+### RedundantImplements
+Redundant interface declaration `WritableColumnVector`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
+#### Snippet
+```java
+ */
+public class HeapRowColumnVector extends AbstractHeapVector
+    implements WritableColumnVector, RowColumnVector {
+
+  public WritableColumnVector[] vectors;
 ```
 
 ### RedundantImplements
@@ -29388,18 +29402,6 @@ public class HeapArrayVector extends AbstractHeapVector
 
 ### RedundantImplements
 Redundant interface declaration `WritableColumnVector`
-in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
-#### Snippet
-```java
- */
-public class HeapRowColumnVector extends AbstractHeapVector
-    implements WritableColumnVector, RowColumnVector {
-
-  public WritableColumnVector[] vectors;
-```
-
-### RedundantImplements
-Redundant interface declaration `WritableColumnVector`
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
 #### Snippet
 ```java
@@ -29408,6 +29410,18 @@ public class HeapMapColumnVector extends AbstractHeapVector
     implements WritableColumnVector, MapColumnVector {
 
   private long[] offsets;
+```
+
+### RedundantImplements
+Redundant interface declaration `WritableColumnVector`
+in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
+#### Snippet
+```java
+ */
+public class HeapRowColumnVector extends AbstractHeapVector
+    implements WritableColumnVector, RowColumnVector {
+
+  public WritableColumnVector[] vectors;
 ```
 
 ### RedundantImplements
@@ -29424,18 +29438,6 @@ public class HeapArrayVector extends AbstractHeapVector
 
 ### RedundantImplements
 Redundant interface declaration `WritableColumnVector`
-in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
-#### Snippet
-```java
- */
-public class HeapRowColumnVector extends AbstractHeapVector
-    implements WritableColumnVector, RowColumnVector {
-
-  public WritableColumnVector[] vectors;
-```
-
-### RedundantImplements
-Redundant interface declaration `WritableColumnVector`
 in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapMapColumnVector.java`
 #### Snippet
 ```java
@@ -29444,6 +29446,18 @@ public class HeapMapColumnVector extends AbstractHeapVector
     implements WritableColumnVector, MapColumnVector {
 
   private long[] offsets;
+```
+
+### RedundantImplements
+Redundant interface declaration `WritableColumnVector`
+in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/format/cow/vector/HeapRowColumnVector.java`
+#### Snippet
+```java
+ */
+public class HeapRowColumnVector extends AbstractHeapVector
+    implements WritableColumnVector, RowColumnVector {
+
+  public WritableColumnVector[] vectors;
 ```
 
 ### RedundantImplements
@@ -29718,14 +29732,14 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/FileSystemViewCommand.ja
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.java`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodiePrintHelper.java`
 #### Snippet
 ```java
-              row.add(hoodieWriteStat.getTotalWriteErrors());
-              return row;
-            })).map(rowList -> rowList.toArray(new Comparable[0]));
-          }).collect(Collectors.toList());
-      allStats.addAll(readCommits);
+    String[] head = new String[header.getFieldNames().size()];
+    header.getFieldNames().toArray(head);
+    return printTextTable(head, new String[][] {});
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -29754,14 +29768,14 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.j
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodiePrintHelper.java`
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/ArchivedCommitsCommand.java`
 #### Snippet
 ```java
-    String[] head = new String[header.getFieldNames().size()];
-    header.getFieldNames().toArray(head);
-    return printTextTable(head, new String[][] {});
-  }
-
+              row.add(hoodieWriteStat.getTotalWriteErrors());
+              return row;
+            })).map(rowList -> rowList.toArray(new Comparable[0]));
+          }).collect(Collectors.toList());
+      allStats.addAll(readCommits);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -29778,30 +29792,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFi
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
-#### Snippet
-```java
-
-    return new RowTypeInfo(
-        types.toArray(new TypeInformation<?>[0]), names.toArray(new String[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
-#### Snippet
-```java
-
-    return new RowTypeInfo(
-        types.toArray(new TypeInformation<?>[0]), names.toArray(new String[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetRowDataWriter.java`
 #### Snippet
 ```java
@@ -29810,6 +29800,30 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/p
     this.fieldNames = rowType.getFieldNames().toArray(new String[0]);
     for (int i = 0; i < rowType.getFieldCount(); i++) {
       this.filedWriters[i] = createWriter(rowType.getTypeAt(i));
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
+#### Snippet
+```java
+
+    return new RowTypeInfo(
+        types.toArray(new TypeInformation<?>[0]), names.toArray(new String[0]));
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
+#### Snippet
+```java
+
+    return new RowTypeInfo(
+        types.toArray(new TypeInformation<?>[0]), names.toArray(new String[0]));
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -29902,9 +29916,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieAvroPayload.jav
 #### Snippet
 ```java
 
-  public HoodieAvroPayload(Option<GenericRecord> record) {
-    this.recordBytes = record.isPresent() ? HoodieAvroUtils.avroToBytes(record.get()) : new byte[0];
-    this.orderingVal = 0;
+  public HoodieAvroPayload(GenericRecord record, Comparable<?> orderingVal) {
+    this.recordBytes = record == null ? new byte[0] : HoodieAvroUtils.avroToBytes(record);
+    this.orderingVal = orderingVal;
   }
 ```
 
@@ -29914,9 +29928,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieAvroPayload.jav
 #### Snippet
 ```java
 
-  public HoodieAvroPayload(GenericRecord record, Comparable<?> orderingVal) {
-    this.recordBytes = record == null ? new byte[0] : HoodieAvroUtils.avroToBytes(record);
-    this.orderingVal = orderingVal;
+  public HoodieAvroPayload(Option<GenericRecord> record) {
+    this.recordBytes = record.isPresent() ? HoodieAvroUtils.avroToBytes(record.get()) : new byte[0];
+    this.orderingVal = 0;
   }
 ```
 
@@ -29949,18 +29963,6 @@ Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
 #### Snippet
 ```java
-    if (contains(PARTITION_FIELDS)) {
-      return Option.of(Arrays.stream(getString(PARTITION_FIELDS).split(","))
-          .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
-    }
-    return Option.empty();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
-#### Snippet
-```java
     String keyFieldsValue = getStringOrDefault(RECORDKEY_FIELDS, HoodieRecord.RECORD_KEY_METADATA_FIELD);
     return Option.of(Arrays.stream(keyFieldsValue.split(","))
         .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
@@ -29970,14 +29972,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.jav
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParquetDataBlock.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableConfig.java`
 #### Snippet
 ```java
-  protected byte[] serializeRecords(List<HoodieRecord> records) throws IOException {
-    if (records.size() == 0) {
-      return new byte[0];
+    if (contains(PARTITION_FIELDS)) {
+      return Option.of(Arrays.stream(getString(PARTITION_FIELDS).split(","))
+          .filter(p -> p.length() > 0).collect(Collectors.toList()).toArray(new String[] {}));
     }
-
+    return Option.empty();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -29994,14 +29996,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieComma
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTableFileSystemView.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/block/HoodieParquetDataBlock.java`
 #### Snippet
 ```java
-  public Stream<FileSlice> getLatestFileSliceInRange(List<String> commitsToReturn) {
-    Map<String, String> paramsMap =
-        getParams(INSTANTS_PARAM, StringUtils.join(commitsToReturn.toArray(new String[0]), ","));
-    try {
-      List<FileSliceDTO> dataFiles = executeRequest(LATEST_SLICES_RANGE_INSTANT_URL, paramsMap,
+  protected byte[] serializeRecords(List<HoodieRecord> records) throws IOException {
+    if (records.size() == 0) {
+      return new byte[0];
+    }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30018,6 +30020,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTabl
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RemoteHoodieTableFileSystemView.java`
+#### Snippet
+```java
+  public Stream<FileSlice> getLatestFileSliceInRange(List<String> commitsToReturn) {
+    Map<String, String> paramsMap =
+        getParams(INSTANTS_PARAM, StringUtils.join(commitsToReturn.toArray(new String[0]), ","));
+    try {
+      List<FileSliceDTO> dataFiles = executeRequest(LATEST_SLICES_RANGE_INSTANT_URL, paramsMap,
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFileSystemView.java`
 #### Snippet
 ```java
@@ -30030,13 +30044,13 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/AbstractTableFil
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
 #### Snippet
 ```java
-    private RecordType(List<Field> fields, String name) {
-      this.name = name;
-      this.fields = fields.toArray(new Field[0]);
+      nameToId = InternalSchemaBuilder.getBuilder().buildNameToId(record);
     }
+    return Arrays.asList(nameToId.keySet().toArray(new String[0]));
+  }
 
 ```
 
@@ -30054,13 +30068,13 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.jav
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/InternalSchema.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/Types.java`
 #### Snippet
 ```java
-      nameToId = InternalSchemaBuilder.getBuilder().buildNameToId(record);
+    private RecordType(List<Field> fields, String name) {
+      this.name = name;
+      this.fields = fields.toArray(new Field[0]);
     }
-    return Arrays.asList(nameToId.keySet().toArray(new String[0]));
-  }
 
 ```
 
@@ -30069,11 +30083,11 @@ Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
 ```java
-        if (bytes.isPresent()) {
-          indexByPartitionWriter
-              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
-                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
-          numPartitionKeysAdded++;
+      try {
+        HFileScanner scanner = partitionIndexReader().getScanner(true, false);
+        KeyValue keyValue = new KeyValue(Bytes.toBytes(getPartitionKey(partition)), new byte[0], new byte[0],
+            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, new byte[0]);
+        if (scanner.seekTo(keyValue) == 0) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30081,11 +30095,47 @@ Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
 ```java
-        if (bytes.isPresent()) {
-          indexByPartitionWriter
-              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
-                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
-          numPartitionKeysAdded++;
+      try {
+        HFileScanner scanner = partitionIndexReader().getScanner(true, false);
+        KeyValue keyValue = new KeyValue(Bytes.toBytes(getPartitionKey(partition)), new byte[0], new byte[0],
+            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, new byte[0]);
+        if (scanner.seekTo(keyValue) == 0) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+        HFileScanner scanner = partitionIndexReader().getScanner(true, false);
+        KeyValue keyValue = new KeyValue(Bytes.toBytes(getPartitionKey(partition)), new byte[0], new byte[0],
+            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, new byte[0]);
+        if (scanner.seekTo(keyValue) == 0) {
+          ByteBuffer readValue = scanner.getValue();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+        srcFilePartitionInfo.setBootstrapPartitionPath(mapping.getBootstrapPartitionPath());
+        srcFilePartitionInfo.setBootstrapFileStatus(mapping.getBootstrapFileStatus());
+        KeyValue kv = new KeyValue(getFileGroupKey(mapping.getFileGroupId()).getBytes(), new byte[0], new byte[0],
+            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put,
+            TimelineMetadataUtils.serializeAvroMetadata(srcFilePartitionInfo,
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
+#### Snippet
+```java
+        srcFilePartitionInfo.setBootstrapPartitionPath(mapping.getBootstrapPartitionPath());
+        srcFilePartitionInfo.setBootstrapFileStatus(mapping.getBootstrapFileStatus());
+        KeyValue kv = new KeyValue(getFileGroupKey(mapping.getFileGroupId()).getBytes(), new byte[0], new byte[0],
+            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put,
+            TimelineMetadataUtils.serializeAvroMetadata(srcFilePartitionInfo,
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30129,11 +30179,11 @@ Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
 ```java
-        srcFilePartitionInfo.setBootstrapPartitionPath(mapping.getBootstrapPartitionPath());
-        srcFilePartitionInfo.setBootstrapFileStatus(mapping.getBootstrapFileStatus());
-        KeyValue kv = new KeyValue(getFileGroupKey(mapping.getFileGroupId()).getBytes(), new byte[0], new byte[0],
-            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put,
-            TimelineMetadataUtils.serializeAvroMetadata(srcFilePartitionInfo,
+        if (bytes.isPresent()) {
+          indexByPartitionWriter
+              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
+                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
+          numPartitionKeysAdded++;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30141,47 +30191,11 @@ Allocation of zero length array
 in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
 #### Snippet
 ```java
-        srcFilePartitionInfo.setBootstrapPartitionPath(mapping.getBootstrapPartitionPath());
-        srcFilePartitionInfo.setBootstrapFileStatus(mapping.getBootstrapFileStatus());
-        KeyValue kv = new KeyValue(getFileGroupKey(mapping.getFileGroupId()).getBytes(), new byte[0], new byte[0],
-            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put,
-            TimelineMetadataUtils.serializeAvroMetadata(srcFilePartitionInfo,
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
-#### Snippet
-```java
-      try {
-        HFileScanner scanner = partitionIndexReader().getScanner(true, false);
-        KeyValue keyValue = new KeyValue(Bytes.toBytes(getPartitionKey(partition)), new byte[0], new byte[0],
-            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, new byte[0]);
-        if (scanner.seekTo(keyValue) == 0) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
-#### Snippet
-```java
-      try {
-        HFileScanner scanner = partitionIndexReader().getScanner(true, false);
-        KeyValue keyValue = new KeyValue(Bytes.toBytes(getPartitionKey(partition)), new byte[0], new byte[0],
-            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, new byte[0]);
-        if (scanner.seekTo(keyValue) == 0) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-common/src/main/java/org/apache/hudi/common/bootstrap/index/HFileBootstrapIndex.java`
-#### Snippet
-```java
-        HFileScanner scanner = partitionIndexReader().getScanner(true, false);
-        KeyValue keyValue = new KeyValue(Bytes.toBytes(getPartitionKey(partition)), new byte[0], new byte[0],
-            HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, new byte[0]);
-        if (scanner.seekTo(keyValue) == 0) {
-          ByteBuffer readValue = scanner.getValue();
+        if (bytes.isPresent()) {
+          indexByPartitionWriter
+              .append(new KeyValue(Bytes.toBytes(getPartitionKey(partitionPath)), new byte[0], new byte[0],
+                  HConstants.LATEST_TIMESTAMP, KeyValue.Type.Put, bytes.get()));
+          numPartitionKeysAdded++;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30206,6 +30220,30 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/BootstrapColumnStichingR
           .toArray(new String[0]);
       values = new ArrayWritable(vals);
     }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieColumnProjectionUtils.java`
+#### Snippet
+```java
+      return colNames.split(",");
+    }
+    return new String[] {};
+  }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HiveHoodieTableFileIndex.java`
+#### Snippet
+```java
+    //       since Hive does partition pruning in a different way (based on the input-path being
+    //       fetched by the query engine)
+    return new Object[0];
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30242,30 +30280,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableIn
           new String[0], new String[0]);
       return new BootstrapBaseFileSplit(split, externalFileSplit);
     } catch (IOException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieColumnProjectionUtils.java`
-#### Snippet
-```java
-      return colNames.split(",");
-    }
-    return new String[] {};
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HiveHoodieTableFileIndex.java`
-#### Snippet
-```java
-    //       since Hive does partition pruning in a different way (based on the input-path being
-    //       fetched by the query engine)
-    return new Object[0];
-  }
-
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30357,6 +30371,18 @@ Allocation of zero length array
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
 ```java
+        .listAffectedFilesForCommits(job, new Path(tableMetaClient.getBasePath()), metadataList));
+    // step3
+    HoodieTableFileSystemView fsView = new HoodieTableFileSystemView(tableMetaClient, commitsTimelineToReturn, affectedFileStatus.toArray(new FileStatus[0]));
+    // build fileGroup from fsView
+    Path basePath = new Path(tableMetaClient.getBasePath());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
+#### Snippet
+```java
     try {
       String[] hosts = split.getLocationInfo() != null ? Arrays.stream(split.getLocationInfo())
           .filter(x -> !x.isInMemory()).toArray(String[]::new) : new String[0];
@@ -30381,35 +30407,11 @@ Allocation of zero length array
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
 ```java
-        .listAffectedFilesForCommits(job, new Path(tableMetaClient.getBasePath()), metadataList));
-    // step3
-    HoodieTableFileSystemView fsView = new HoodieTableFileSystemView(tableMetaClient, commitsTimelineToReturn, affectedFileStatus.toArray(new FileStatus[0]));
-    // build fileGroup from fsView
-    Path basePath = new Path(tableMetaClient.getBasePath());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
-#### Snippet
-```java
 
     return (containsIncrementalQuerySplits(fileSplits) ? filterIncrementalQueryFileSplits(fileSplits) : fileSplits)
         .toArray(new FileSplit[0]);
   }
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
-#### Snippet
-```java
-    if (!cloudFiles.isEmpty()) {
-      DataFrameReader dataFrameReader = getDataFrameReader(fileFormat);
-      dataset = Option.of(dataFrameReader.load(cloudFiles.toArray(new String[0])));
-    }
-    LOG.debug("Extracted distinct files " + cloudFiles.size()
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30422,6 +30424,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrS
     Dataset<Row> fileDataDs = dfReader.load(filepaths.toArray(new String[0]));
     return Option.of(fileDataDs);
   }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
+#### Snippet
+```java
+    if (!cloudFiles.isEmpty()) {
+      DataFrameReader dataFrameReader = getDataFrameReader(fileFormat);
+      dataset = Option.of(dataFrameReader.load(cloudFiles.toArray(new String[0])));
+    }
+    LOG.debug("Extracted distinct files " + cloudFiles.size()
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30454,7 +30468,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 #### Snippet
 ```java
     metadataList.forEach(metadata ->
-        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, fs, tableType)));
+        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, hadoopConf, tableType)));
     return uniqueIdToFileStatus.values().toArray(new FileStatus[0]);
   }
 
@@ -30466,7 +30480,7 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/partitio
 #### Snippet
 ```java
     metadataList.forEach(metadata ->
-        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, hadoopConf, tableType)));
+        uniqueIdToFileStatus.putAll(getFilesToReadOfInstant(basePath, metadata, fs, tableType)));
     return uniqueIdToFileStatus.values().toArray(new FileStatus[0]);
   }
 
@@ -30522,26 +30536,26 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
 ```java
-              path,
-              hivePartition,
-              partitionKeys.toArray(new String[0]))
-          .stream()
-          .map(tuple2 -> tuple2.f0)
+    final DataType dataType = schema.toPersistedRowDataType();
+    final RowType rowType = (RowType) dataType.getLogicalType();
+    final String[] fieldNames = rowType.getFieldNames().toArray(new String[0]);
+    final DataType[] fieldTypes = dataType.getChildren().toArray(new DataType[0]);
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
 ```java
-  public static String[] extractPartitionKeys(org.apache.flink.configuration.Configuration conf) {
-    if (FlinkOptions.isDefaultValueDefined(conf, FlinkOptions.PARTITION_PATH_FIELD)) {
-      return new String[0];
-    }
-    return conf.getString(FlinkOptions.PARTITION_PATH_FIELD).split(",");
+    final RowType rowType = (RowType) dataType.getLogicalType();
+    final String[] fieldNames = rowType.getFieldNames().toArray(new String[0]);
+    final DataType[] fieldTypes = dataType.getChildren().toArray(new DataType[0]);
+
+    List<FieldSchema> columns = new ArrayList<>(fieldNames.length);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30570,38 +30584,38 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
 #### Snippet
 ```java
-
-  private String getSourceOperatorName(String operatorName) {
-    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
-    List<String> fields = Arrays.stream(this.requiredPos)
-        .mapToObj(i -> schemaFieldNames[i])
+              path,
+              hivePartition,
+              partitionKeys.toArray(new String[0]))
+          .stream()
+          .map(tuple2 -> tuple2.f0)
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
 #### Snippet
 ```java
-    return new CopyOnWriteInputFormat(
-        FilePathUtils.toFlinkPaths(paths),
-        this.schema.getColumnNames().toArray(new String[0]),
-        this.schema.getColumnDataTypes().toArray(new DataType[0]),
-        this.requiredPos,
+  public static String[] extractPartitionKeys(org.apache.flink.configuration.Configuration conf) {
+    if (FlinkOptions.isDefaultValueDefined(conf, FlinkOptions.PARTITION_PATH_FIELD)) {
+      return new String[0];
+    }
+    return conf.getString(FlinkOptions.PARTITION_PATH_FIELD).split(",");
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
 #### Snippet
 ```java
-        FilePathUtils.toFlinkPaths(paths),
-        this.schema.getColumnNames().toArray(new String[0]),
-        this.schema.getColumnDataTypes().toArray(new DataType[0]),
-        this.requiredPos,
-        this.conf.getString(FlinkOptions.PARTITION_DEFAULT_NAME),
+  public FileStatus[] getFilesInPartitions() {
+    if (!tableExists) {
+      return new FileStatus[0];
+    }
+    String[] partitions = getOrBuildPartitionPaths().stream().map(p -> fullPartitionPath(path, p)).toArray(String[]::new);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30642,38 +30656,38 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieT
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
 #### Snippet
 ```java
-    final DataType dataType = schema.toPersistedRowDataType();
-    final RowType rowType = (RowType) dataType.getLogicalType();
-    final String[] fieldNames = rowType.getFieldNames().toArray(new String[0]);
-    final DataType[] fieldTypes = dataType.getChildren().toArray(new DataType[0]);
 
+  private String getSourceOperatorName(String operatorName) {
+    String[] schemaFieldNames = this.schema.getColumnNames().toArray(new String[0]);
+    List<String> fields = Arrays.stream(this.requiredPos)
+        .mapToObj(i -> schemaFieldNames[i])
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
 #### Snippet
 ```java
-    final RowType rowType = (RowType) dataType.getLogicalType();
-    final String[] fieldNames = rowType.getFieldNames().toArray(new String[0]);
-    final DataType[] fieldTypes = dataType.getChildren().toArray(new DataType[0]);
-
-    List<FieldSchema> columns = new ArrayList<>(fieldNames.length);
+    return new CopyOnWriteInputFormat(
+        FilePathUtils.toFlinkPaths(paths),
+        this.schema.getColumnNames().toArray(new String[0]),
+        this.schema.getColumnDataTypes().toArray(new DataType[0]),
+        this.requiredPos,
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIndex.java`
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/HoodieTableSource.java`
 #### Snippet
 ```java
-  public FileStatus[] getFilesInPartitions() {
-    if (!tableExists) {
-      return new FileStatus[0];
-    }
-    String[] partitions = getOrBuildPartitionPaths().stream().map(p -> fullPartitionPath(path, p)).toArray(String[]::new);
+        FilePathUtils.toFlinkPaths(paths),
+        this.schema.getColumnNames().toArray(new String[0]),
+        this.schema.getColumnDataTypes().toArray(new DataType[0]),
+        this.requiredPos,
+        this.conf.getString(FlinkOptions.PARTITION_DEFAULT_NAME),
 ```
 
 ### ZeroLengthArrayInitialization
@@ -30774,18 +30788,6 @@ in `hudi-flink-datasource/hudi-flink1.16.x/src/main/java/org/apache/hudi/table/f
 
 ## RuleId[ruleID=NonFinalFieldOfException]
 ### NonFinalFieldOfException
-Non-final field `value` of exception class
-in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
-#### Snippet
-```java
-  public static class HoodieJsonToAvroConversionException extends HoodieException {
-
-    private Object value;
-    private String fieldName;
-    private Schema schema;
-```
-
-### NonFinalFieldOfException
 Non-final field `schema` of exception class
 in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
 #### Snippet
@@ -30807,6 +30809,18 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
     private String fieldName;
     private Schema schema;
 
+```
+
+### NonFinalFieldOfException
+Non-final field `value` of exception class
+in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
+#### Snippet
+```java
+  public static class HoodieJsonToAvroConversionException extends HoodieException {
+
+    private Object value;
+    private String fieldName;
+    private Schema schema;
 ```
 
 ### NonFinalFieldOfException
@@ -30902,18 +30916,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/Compacti
 #### Snippet
 ```java
     FileSlice merged =
-        fileSystemView.getLatestMergedFileSlicesBeforeOrOn(op.getPartitionPath(), lastInstant.getTimestamp())
-            .filter(fs -> fs.getFileId().equals(op.getFileId())).findFirst().get();
-    final int maxVersion = op.getDeltaFileNames().stream().map(lf -> FSUtils.getFileVersionFromLog(new Path(lf)))
-        .reduce((x, y) -> x > y ? x : y).orElse(0);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
-#### Snippet
-```java
-    FileSlice merged =
         fileSystemView.getLatestMergedFileSlicesBeforeOrOn(operation.getPartitionPath(), lastInstant.getTimestamp())
             .filter(fs -> fs.getFileId().equals(operation.getFileId())).findFirst().get();
     List<HoodieLogFile> logFilesToRepair =
@@ -30942,6 +30944,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/Compacti
         .orElse(fileSliceForCompaction.getLogFiles().findFirst().map(lf -> lf.getPath().getParent().toString()).get());
     for (HoodieLogFile toRepair : logFilesToRepair) {
       int version = maxUsedVersion + 1;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/CompactionAdminClient.java`
+#### Snippet
+```java
+    FileSlice merged =
+        fileSystemView.getLatestMergedFileSlicesBeforeOrOn(op.getPartitionPath(), lastInstant.getTimestamp())
+            .filter(fs -> fs.getFileId().equals(op.getFileId())).findFirst().get();
+    final int maxVersion = op.getDeltaFileNames().stream().map(lf -> FSUtils.getFileVersionFromLog(new Path(lf)))
+        .reduce((x, y) -> x > y ? x : y).orElse(0);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -31033,11 +31047,11 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
 #### Snippet
 ```java
-      // use the source table schema as the sink schema if the source table was specified, .
-      ObjectPath objectPath = new ObjectPath(tEnv.getCurrentDatabase(), sourceTable);
-      TableSchema schema = tEnv.getCatalog(tEnv.getCurrentCatalog()).get().getTable(objectPath).getSchema();
-      sinkDDL = QuickstartConfigurations.getCollectSinkDDL("sink", schema);
-    } else {
+    // wait to finish
+    try {
+      tableResult.getJobClient().get().getJobExecutionResult().get();
+    } catch (InterruptedException | ExecutionException ex) {
+      // ignored
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -31045,11 +31059,11 @@ in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/qui
 in `hudi-examples/hudi-examples-flink/src/main/java/org/apache/hudi/examples/quickstart/HoodieFlinkQuickstart.java`
 #### Snippet
 ```java
-    // wait to finish
-    try {
-      tableResult.getJobClient().get().getJobExecutionResult().get();
-    } catch (InterruptedException | ExecutionException ex) {
-      // ignored
+      // use the source table schema as the sink schema if the source table was specified, .
+      ObjectPath objectPath = new ObjectPath(tEnv.getCurrentDatabase(), sourceTable);
+      TableSchema schema = tEnv.getCatalog(tEnv.getCurrentCatalog()).get().getTable(objectPath).getSchema();
+      sinkDDL = QuickstartConfigurations.getCollectSinkDDL("sink", schema);
+    } else {
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -31210,6 +31224,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/hbase/Spar
 ```
 
 ### ConstantValue
+Condition `newType instanceof DecimalType` is always `true`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
+#### Snippet
+```java
+        } else if (newType instanceof StringType) {
+          newV.putByteArray(i, (oldV.getFloat(i) + "").getBytes(StandardCharsets.UTF_8));
+        } else if (newType instanceof DecimalType) {
+          Decimal oldDecimal = Decimal.apply(oldV.getFloat(i));
+          oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
+```
+
+### ConstantValue
 Condition `newType instanceof StringType` is always `true`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
@@ -31226,35 +31252,11 @@ Condition `newType instanceof DecimalType` is always `true`
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
 #### Snippet
 ```java
-        } else if (newType instanceof StringType) {
-          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
-        } else if (newType instanceof DecimalType) {
-          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
-          oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
-```
-
-### ConstantValue
-Condition `newType instanceof DecimalType` is always `true`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
           int days = org.apache.spark.sql.catalyst.util.DateTimeUtils.fromJavaDate(Date.valueOf(oldV.getUTF8String(i).toString()));
           newV.putInt(i, days);
         } else if (newType instanceof DecimalType) {
           DecimalType decimalType = (DecimalType) newType;
           java.math.BigDecimal bigDecimal = new java.math.BigDecimal(oldV.getUTF8String(i).toString().trim());
-```
-
-### ConstantValue
-Condition `newType instanceof StringType` is always `true`
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
-#### Snippet
-```java
-          oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
-          newV.putDecimal(i, oldDecimal, ((DecimalType) newType).precision());
-        } else if (newType instanceof StringType) {
-          newV.putByteArray(i, oldDecimal.toString().getBytes(StandardCharsets.UTF_8));
-        }
 ```
 
 ### ConstantValue
@@ -31275,10 +31277,22 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/Spa
 #### Snippet
 ```java
         } else if (newType instanceof StringType) {
-          newV.putByteArray(i, (oldV.getFloat(i) + "").getBytes(StandardCharsets.UTF_8));
+          newV.putByteArray(i, ((isInt ? oldV.getInt(i) : oldV.getLong(i)) + "").getBytes(StandardCharsets.UTF_8));
         } else if (newType instanceof DecimalType) {
-          Decimal oldDecimal = Decimal.apply(oldV.getFloat(i));
+          Decimal oldDecimal = Decimal.apply(isInt ? oldV.getInt(i) : oldV.getLong(i));
           oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
+```
+
+### ConstantValue
+Condition `newType instanceof StringType` is always `true`
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/utils/SparkInternalSchemaConverter.java`
+#### Snippet
+```java
+          oldDecimal.changePrecision(((DecimalType) newType).precision(), ((DecimalType) newType).scale());
+          newV.putDecimal(i, oldDecimal, ((DecimalType) newType).precision());
+        } else if (newType instanceof StringType) {
+          newV.putByteArray(i, oldDecimal.toString().getBytes(StandardCharsets.UTF_8));
+        }
 ```
 
 ### ConstantValue
@@ -31330,6 +31344,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/PartitionPathEncodeUti
 ```
 
 ### ConstantValue
+Condition `value == null && matchValue != null` is always `false`
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+    }
+
+    if (value == null && matchValue != null) {
+      value = matchValue;
+    }
+```
+
+### ConstantValue
+Condition `matchValue != null` is always `false` when reached
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+    }
+
+    if (value == null && matchValue != null) {
+      value = matchValue;
+    }
+```
+
+### ConstantValue
 Condition `stringType == null || !stringType.equals(StringType.String)` is always `true`
 in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
 #### Snippet
@@ -31375,30 +31413,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
               value == null ? "null" : value.toString(),
               type.toString()
           ));
-```
-
-### ConstantValue
-Condition `value == null && matchValue != null` is always `false`
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-    }
-
-    if (value == null && matchValue != null) {
-      value = matchValue;
-    }
-```
-
-### ConstantValue
-Condition `matchValue != null` is always `false` when reached
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-    }
-
-    if (value == null && matchValue != null) {
-      value = matchValue;
-    }
 ```
 
 ### ConstantValue
@@ -31619,18 +31633,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/ImmutableTr
 ```
 
 ### MethodOverridesStaticMethod
-Method `fromJsonString()` tries to override a static method of a superclass
-in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieReplaceCommitMetadata.java`
-#### Snippet
-```java
-  }
-
-  public static <T> T fromJsonString(String jsonStr, Class<T> clazz) throws Exception {
-    if (jsonStr == null || jsonStr.isEmpty()) {
-      // For empty commit file (no data or somethings bad happen).
-```
-
-### MethodOverridesStaticMethod
 Method `fromBytes()` tries to override a static method of a superclass
 in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieReplaceCommitMetadata.java`
 #### Snippet
@@ -31640,6 +31642,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieReplaceCommitMe
   public static <T> T fromBytes(byte[] bytes, Class<T> clazz) throws IOException {
     try {
       return fromJsonString(new String(bytes, StandardCharsets.UTF_8), clazz);
+```
+
+### MethodOverridesStaticMethod
+Method `fromJsonString()` tries to override a static method of a superclass
+in `hudi-common/src/main/java/org/apache/hudi/common/model/HoodieReplaceCommitMetadata.java`
+#### Snippet
+```java
+  }
+
+  public static <T> T fromJsonString(String jsonStr, Class<T> clazz) throws Exception {
+    if (jsonStr == null || jsonStr.isEmpty()) {
+      // For empty commit file (no data or somethings bad happen).
 ```
 
 ### MethodOverridesStaticMethod
@@ -32117,15 +32131,15 @@ public class HoodieCliSparkConfig {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodieTableHeaderFields` has only 'static' members, and lacks a 'private' constructor
-in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodieTableHeaderFields.java`
+Class `HoodieAWSCredentialsProviderFactory` has only 'static' members, and lacks a 'private' constructor
+in `hudi-aws/src/main/java/org/apache/hudi/aws/credentials/HoodieAWSCredentialsProviderFactory.java`
 #### Snippet
 ```java
- * Fields of print table header.
+ * Factory class for Hoodie AWSCredentialsProvider.
  */
-public class HoodieTableHeaderFields {
-  public static final String HEADER_ROW_NO = "No.";
-  public static final String HEADER_PARTITION = "Partition";
+public class HoodieAWSCredentialsProviderFactory {
+  public static AWSCredentialsProvider getAwsCredentialsProvider(Properties props) {
+    return getAwsCredentialsProviderChain(props);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32138,18 +32152,6 @@ package org.apache.hudi.aws.utils;
 public final class S3Utils {
 
   public static String s3aToS3(String s3aUrl) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HoodieAWSCredentialsProviderFactory` has only 'static' members, and lacks a 'private' constructor
-in `hudi-aws/src/main/java/org/apache/hudi/aws/credentials/HoodieAWSCredentialsProviderFactory.java`
-#### Snippet
-```java
- * Factory class for Hoodie AWSCredentialsProvider.
- */
-public class HoodieAWSCredentialsProviderFactory {
-  public static AWSCredentialsProvider getAwsCredentialsProvider(Properties props) {
-    return getAwsCredentialsProviderChain(props);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32174,6 +32176,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodieCLI.java`
 public class HoodieCLI {
 
   public static Configuration conf;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HoodieTableHeaderFields` has only 'static' members, and lacks a 'private' constructor
+in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodieTableHeaderFields.java`
+#### Snippet
+```java
+ * Fields of print table header.
+ */
+public class HoodieTableHeaderFields {
+  public static final String HEADER_ROW_NO = "No.";
+  public static final String HEADER_PARTITION = "Partition";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32213,18 +32227,6 @@ public class SparkUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HiveSyncConfigHolder` has only 'static' members, and lacks a 'private' constructor
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HiveSyncConfigHolder.java`
-#### Snippet
-```java
-import org.apache.hudi.common.model.HoodieSyncTableStrategy;
-
-public class HiveSyncConfigHolder {
-  /*
-   * NOTE: below are HIVE SYNC SPECIFIC CONFIGS which should be under HiveSyncConfig.java
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HoodiePrintHelper` has only 'static' members, and lacks a 'private' constructor
 in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodiePrintHelper.java`
 #### Snippet
@@ -32234,6 +32236,18 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/HoodiePrintHelper.java`
 public class HoodiePrintHelper {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HiveSyncConfigHolder` has only 'static' members, and lacks a 'private' constructor
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HiveSyncConfigHolder.java`
+#### Snippet
+```java
+import org.apache.hudi.common.model.HoodieSyncTableStrategy;
+
+public class HiveSyncConfigHolder {
+  /*
+   * NOTE: below are HIVE SYNC SPECIFIC CONFIGS which should be under HiveSyncConfig.java
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32273,6 +32287,18 @@ public class SparkMain {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `PartitionFilterGenerator` has only 'static' members, and lacks a 'private' constructor
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
+#### Snippet
+```java
+import static org.apache.hudi.sync.common.HoodieSyncConfig.META_SYNC_PARTITION_EXTRACTOR_CLASS;
+
+public class PartitionFilterGenerator {
+
+  private static final Set<String> SUPPORT_TYPES = new HashSet<String>() {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `TableUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/TableUtils.java`
 #### Snippet
@@ -32297,15 +32323,15 @@ public class SyncUtilHelpers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PartitionFilterGenerator` has only 'static' members, and lacks a 'private' constructor
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/PartitionFilterGenerator.java`
+Class `Parquet2SparkSchemaUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/Parquet2SparkSchemaUtils.java`
 #### Snippet
 ```java
-import static org.apache.hudi.sync.common.HoodieSyncConfig.META_SYNC_PARTITION_EXTRACTOR_CLASS;
+ * in spark project.
+ */
+public class Parquet2SparkSchemaUtils {
 
-public class PartitionFilterGenerator {
-
-  private static final Set<String> SUPPORT_TYPES = new HashSet<String>() {
+  public static String convertToSparkSchemaJson(GroupType parquetSchema) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32333,24 +32359,24 @@ public class SparkDataSourceTableUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Parquet2SparkSchemaUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-sync/hudi-sync-common/src/main/java/org/apache/hudi/sync/common/util/Parquet2SparkSchemaUtils.java`
-#### Snippet
-```java
- * in spark project.
- */
-public class Parquet2SparkSchemaUtils {
-
-  public static String convertToSparkSchemaJson(GroupType parquetSchema) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `packaging/hudi-aws-bundle/src/main/java/org/apache/hudi/aws/bundle/Main.java`
 #### Snippet
 ```java
 import org.apache.hudi.common.util.ReflectionUtils;
 
+public class Main {
+
+  public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `packaging/hudi-gcp-bundle/src/main/java/org/apache/hudi/gcp/bigquery/bundle/Main.java`
+#### Snippet
+```java
+ * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
+ */
 public class Main {
 
   public static void main(String[] args) {
@@ -32370,18 +32396,6 @@ public class Main {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-gcp-bundle/src/main/java/org/apache/hudi/gcp/bigquery/bundle/Main.java`
-#### Snippet
-```java
- * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
- */
-public class Main {
-
-  public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `packaging/hudi-flink-bundle/src/main/java/org/apache/hudi/flink/bundle/Main.java`
 #### Snippet
 ```java
@@ -32395,30 +32409,6 @@ public class Main {
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `packaging/hudi-spark-bundle/src/main/java/org/apache/hudi/spark/bundle/Main.java`
-#### Snippet
-```java
- * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
- */
-public class Main {
-
-  public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-presto-bundle/src/main/java/org/apache/hudi/presto/bundle/Main.java`
-#### Snippet
-```java
- * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
- */
-public class Main {
-
-  public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-hive-sync-bundle/src/main/java/org/apache/hudi/hive/bundle/Main.java`
 #### Snippet
 ```java
  * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
@@ -32454,7 +32444,19 @@ public class Main {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-datahub-sync-bundle/src/main/java/org/apache/hudi/datahub/bundle/Main.java`
+in `packaging/hudi-presto-bundle/src/main/java/org/apache/hudi/presto/bundle/Main.java`
+#### Snippet
+```java
+ * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
+ */
+public class Main {
+
+  public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `packaging/hudi-hive-sync-bundle/src/main/java/org/apache/hudi/hive/bundle/Main.java`
 #### Snippet
 ```java
  * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
@@ -32478,7 +32480,7 @@ public class Main {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `packaging/hudi-kafka-connect-bundle/src/main/java/org/apache/hudi/kafka/connect/bundle/Main.java`
+in `packaging/hudi-datahub-sync-bundle/src/main/java/org/apache/hudi/datahub/bundle/Main.java`
 #### Snippet
 ```java
  * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
@@ -32491,6 +32493,18 @@ public class Main {
 ### UtilityClassWithoutPrivateConstructor
 Class `Main` has only 'static' members, and lacks a 'private' constructor
 in `packaging/hudi-utilities-slim-bundle/src/main/java/org/apache/hudi/utilities/bundle/Main.java`
+#### Snippet
+```java
+ * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
+ */
+public class Main {
+
+  public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `packaging/hudi-kafka-connect-bundle/src/main/java/org/apache/hudi/kafka/connect/bundle/Main.java`
 #### Snippet
 ```java
  * This class does not have anything to do with Hudi but is there to keep mvn javadocs/source plugin happy.
@@ -32549,18 +32563,6 @@ public class HoodieRowDataFileWriterFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FlinkClientUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/FlinkClientUtil.java`
-#### Snippet
-```java
- * Utilities for Hoodie Flink client.
- */
-public class FlinkClientUtil {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `WriteStatMerger` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/WriteStatMerger.java`
 #### Snippet
@@ -32570,6 +32572,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/WriteStatMe
 public class WriteStatMerger {
   public static HoodieWriteStat merge(HoodieWriteStat stat1, HoodieWriteStat stat2) {
     if (stat1 instanceof HoodieDeltaWriteStat) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FlinkClientUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/util/FlinkClientUtil.java`
+#### Snippet
+```java
+ * Utilities for Hoodie Flink client.
+ */
+public class FlinkClientUtil {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32609,18 +32623,6 @@ public class FlinkWriteHandleFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodieSparkRecordUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/util/HoodieSparkRecordUtils.java`
-#### Snippet
-```java
-import org.apache.spark.sql.types.StructType;
-
-public class HoodieSparkRecordUtils {
-
-  public static Object getValue(StructType structType, String fieldName, InternalRow row) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HoodieInternalRowFileWriterFactory` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieInternalRowFileWriterFactory.java`
 #### Snippet
@@ -32630,6 +32632,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/H
 public class HoodieInternalRowFileWriterFactory {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HoodieSparkRecordUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/util/HoodieSparkRecordUtils.java`
+#### Snippet
+```java
+import org.apache.spark.sql.types.StructType;
+
+public class HoodieSparkRecordUtils {
+
+  public static Object getValue(StructType structType, String fieldName, InternalRow row) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32813,6 +32827,18 @@ public class SavepointHelpers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `BootstrapUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/bootstrap/BootstrapUtils.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class BootstrapUtils {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `WriteMarkersFactory` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/WriteMarkersFactory.java`
 #### Snippet
@@ -32834,18 +32860,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/Ma
 public class MarkerBasedRollbackUtils {
 
   private static final Logger LOG = LogManager.getLogger(MarkerBasedRollbackUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BootstrapUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/bootstrap/BootstrapUtils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class BootstrapUtils {
-
-  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32897,18 +32911,6 @@ public class EmbeddedTimelineServerHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TransactionUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/TransactionUtils.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-public class TransactionUtils {
-
-  private static final Logger LOG = LogManager.getLogger(TransactionUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MetadataConversionUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/MetadataConversionUtils.java`
 #### Snippet
@@ -32918,6 +32920,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/Me
 public class MetadataConversionUtils {
 
   public static HoodieArchivedMetaEntry createMetaWrapper(HoodieInstant hoodieInstant, HoodieTableMetaClient metaClient) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TransactionUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/utils/TransactionUtils.java`
+#### Snippet
+```java
+import java.util.stream.Stream;
+
+public class TransactionUtils {
+
+  private static final Logger LOG = LogManager.getLogger(TransactionUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32945,18 +32959,6 @@ public class HoodieAvroKeyGeneratorFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MetricsReporterFactory` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/MetricsReporterFactory.java`
-#### Snippet
-```java
- * Factory class for creating MetricsReporter.
- */
-public class MetricsReporterFactory {
-
-  private static final Logger LOG = LogManager.getLogger(MetricsReporterFactory.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `KeyGenUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
 #### Snippet
@@ -32969,15 +32971,15 @@ public class KeyGenUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodieWriteCommitCallbackUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/callback/util/HoodieWriteCommitCallbackUtil.java`
+Class `MetricsReporterFactory` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/MetricsReporterFactory.java`
 #### Snippet
 ```java
- * Util helps to prepare callback message.
+ * Factory class for creating MetricsReporter.
  */
-public class HoodieWriteCommitCallbackUtil {
+public class MetricsReporterFactory {
 
-  private static ObjectMapper mapper = new ObjectMapper();
+  private static final Logger LOG = LogManager.getLogger(MetricsReporterFactory.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -32990,6 +32992,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/callback/util/H
 public class HoodieCommitCallbackFactory {
   public static HoodieWriteCommitCallback create(HoodieWriteConfig config) {
     String callbackClass = config.getCallbackClass();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HoodieWriteCommitCallbackUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/callback/util/HoodieWriteCommitCallbackUtil.java`
+#### Snippet
+```java
+ * Util helps to prepare callback message.
+ */
+public class HoodieWriteCommitCallbackUtil {
+
+  private static ObjectMapper mapper = new ObjectMapper();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33089,30 +33103,6 @@ public class PartitionPathEncodeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SpillableMapUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/SpillableMapUtils.java`
-#### Snippet
-```java
- * A utility class supports spillable map.
- */
-public class SpillableMapUtils {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FSUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
-#### Snippet
-```java
- * Utility functions related to accessing the file storage.
- */
-public class FSUtils {
-
-  private static final Logger LOG = LogManager.getLogger(FSUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ValidationUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ValidationUtils.java`
 #### Snippet
@@ -33120,6 +33110,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ValidationUtils.java`
  * Simple utility to test validation conditions (to replace Guava's PreConditions)
  */
 public class ValidationUtils {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SpillableMapUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/SpillableMapUtils.java`
+#### Snippet
+```java
+ * A utility class supports spillable map.
+ */
+public class SpillableMapUtils {
 
   /**
 ```
@@ -33137,6 +33139,18 @@ public final class Base64CodecUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ObjectSizeCalculator` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ObjectSizeCalculator.java`
+#### Snippet
+```java
+ * @author Attila Szegedi
+ */
+public class ObjectSizeCalculator {
+  /**
+   * Given an object, returns the total allocated size, in bytes, of the object and all other objects reachable from it.
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `FileIOUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/FileIOUtils.java`
 #### Snippet
@@ -33149,15 +33163,15 @@ public class FileIOUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ObjectSizeCalculator` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ObjectSizeCalculator.java`
+Class `FSUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/FSUtils.java`
 #### Snippet
 ```java
- * @author Attila Szegedi
+ * Utility functions related to accessing the file storage.
  */
-public class ObjectSizeCalculator {
-  /**
-   * Given an object, returns the total allocated size, in bytes, of the object and all other objects reachable from it.
+public class FSUtils {
+
+  private static final Logger LOG = LogManager.getLogger(FSUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33173,18 +33187,6 @@ public class FutureUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodieAvroUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
- * Helper class to do common stuff across Avro.
- */
-public class HoodieAvroUtils {
-
-  public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `NetworkUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/NetworkUtils.java`
 #### Snippet
@@ -33194,18 +33196,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/NetworkUtils.java`
 public class NetworkUtils {
 
   public static synchronized String getHostname() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClusteringUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
-#### Snippet
-```java
- * Helper class to generate clustering plan from metadata.
- */
-public class ClusteringUtils {
-
-  private static final Logger LOG = LogManager.getLogger(ClusteringUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33245,6 +33235,18 @@ public class HoodieRecordUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ClusteringUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ClusteringUtils.java`
+#### Snippet
+```java
+ * Helper class to generate clustering plan from metadata.
+ */
+public class ClusteringUtils {
+
+  private static final Logger LOG = LogManager.getLogger(ClusteringUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ConfigUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ConfigUtils.java`
 #### Snippet
@@ -33254,6 +33256,18 @@ import java.util.stream.Collectors;
 public class ConfigUtils {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/ReflectionUtils.java`
+#### Snippet
+```java
+ * A utility class for reflection.
+ */
+public class ReflectionUtils {
+
+  private static final Logger LOG = LogManager.getLogger(ReflectionUtils.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33281,27 +33295,15 @@ public class AvroOrcUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/ReflectionUtils.java`
+Class `HoodieAvroUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
- * A utility class for reflection.
+ * Helper class to do common stuff across Avro.
  */
-public class ReflectionUtils {
+public class HoodieAvroUtils {
 
-  private static final Logger LOG = LogManager.getLogger(ReflectionUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DateTimeUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/DateTimeUtils.java`
-#### Snippet
-```java
- * Utils for Hudi instant time.
- */
-public class DateTimeUtils {
-  private static final Map<String, ChronoUnit> LABEL_TO_UNIT_MAP =
-      Collections.unmodifiableMap(initMap());
+  public static final String AVRO_VERSION = Schema.class.getPackage().getImplementationVersion();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33317,15 +33319,15 @@ public class CleanerUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MarkerUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+Class `DateTimeUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/DateTimeUtils.java`
 #### Snippet
 ```java
- * A utility class for marker related operations.
+ * Utils for Hudi instant time.
  */
-public class MarkerUtils {
-  public static final String MARKERS_FILENAME_PREFIX = "MARKERS";
-  public static final String MARKER_TYPE_FILENAME = MARKERS_FILENAME_PREFIX + ".type";
+public class DateTimeUtils {
+  private static final Map<String, ChronoUnit> LABEL_TO_UNIT_MAP =
+      Collections.unmodifiableMap(initMap());
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33338,6 +33340,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ThreadUtils.java`
 public class ThreadUtils {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MarkerUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
+#### Snippet
+```java
+ * A utility class for marker related operations.
+ */
+public class MarkerUtils {
+  public static final String MARKERS_FILENAME_PREFIX = "MARKERS";
+  public static final String MARKER_TYPE_FILENAME = MARKERS_FILENAME_PREFIX + ".type";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33593,18 +33607,6 @@ in `hudi-common/src/main/java/org/apache/hudi/keygen/constant/KeyGeneratorOption
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TableChangesHelper` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChangesHelper.java`
-#### Snippet
-```java
- * Helper class to support Table schema changes.
- */
-public class TableChangesHelper {
-  /**
-   * Apply add operation and column position change operation.
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AvroSchemaEvolutionUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
 #### Snippet
@@ -33614,6 +33616,18 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEv
 public class AvroSchemaEvolutionUtils {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TableChangesHelper` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/action/TableChangesHelper.java`
+#### Snippet
+```java
+ * Helper class to support Table schema changes.
+ */
+public class TableChangesHelper {
+  /**
+   * Apply add operation and column position change operation.
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33665,18 +33679,6 @@ public class HoodieSparkBootstrapExample {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodieExampleSparkUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/common/HoodieExampleSparkUtils.java`
-#### Snippet
-```java
- * Bunch of util methods.
- */
-public class HoodieExampleSparkUtils {
-
-  private static Map<String, String> defaultConf() {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HoodieWriteClientExample` has only 'static' members, and lacks a 'private' constructor
 in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spark/HoodieWriteClientExample.java`
 #### Snippet
@@ -33686,6 +33688,18 @@ in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spa
 public class HoodieWriteClientExample {
 
   private static final Logger LOG = LogManager.getLogger(HoodieWriteClientExample.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HoodieExampleSparkUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/common/HoodieExampleSparkUtils.java`
+#### Snippet
+```java
+ * Bunch of util methods.
+ */
+public class HoodieExampleSparkUtils {
+
+  private static Map<String, String> defaultConf() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33713,18 +33727,6 @@ public class HoodieColumnProjectionUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodieHiveUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieHiveUtils.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-
-public class HoodieHiveUtils {
-
-  public static final Logger LOG = LogManager.getLogger(HoodieHiveUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HoodieRealtimeConfig` has only 'static' members, and lacks a 'private' constructor
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/config/HoodieRealtimeConfig.java`
 #### Snippet
@@ -33737,6 +33739,18 @@ public final class HoodieRealtimeConfig {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `HoodieHiveUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieHiveUtils.java`
+#### Snippet
+```java
+import java.util.stream.Collectors;
+
+public class HoodieHiveUtils {
+
+  public static final Logger LOG = LogManager.getLogger(HoodieHiveUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `HoodieRealtimeRecordReaderUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HoodieRealtimeRecordReaderUtils.java`
 #### Snippet
@@ -33746,18 +33760,6 @@ import static org.apache.hudi.avro.AvroSchemaUtils.createNullableSchema;
 public class HoodieRealtimeRecordReaderUtils {
   private static final Logger LOG = LogManager.getLogger(HoodieRealtimeRecordReaderUtils.class);
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HoodieTableMetadataUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
- * A utility to convert timeline information to metadata table records.
- */
-public class HoodieTableMetadataUtil {
-
-  private static final Logger LOG = LogManager.getLogger(HoodieTableMetadataUtil.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33786,18 +33788,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaPostProc
 
 ### UtilityClassWithoutPrivateConstructor
 Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/ProtoClassBasedSchemaProvider.java`
-#### Snippet
-```java
-   * Configs supported.
-   */
-  public static class Config {
-    private static final String PROTO_SCHEMA_PROVIDER_PREFIX = "hoodie.deltastreamer.schemaprovider.proto";
-    public static final ConfigProperty<String> PROTO_SCHEMA_CLASS_NAME = ConfigProperty.key(PROTO_SCHEMA_PROVIDER_PREFIX + ".class.name")
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Config` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SparkAvroPostProcessor.java`
 #### Snippet
 ```java
@@ -33806,6 +33796,18 @@ public class SparkAvroPostProcessor extends SchemaPostProcessor {
   public static class Config {
     public static final String SPARK_AVRO_POST_PROCESSOR_PROP_ENABLE =
             "hoodie.deltastreamer.schemaprovider.spark_avro_post_processor.enable";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/ProtoClassBasedSchemaProvider.java`
+#### Snippet
+```java
+   * Configs supported.
+   */
+  public static class Config {
+    private static final String PROTO_SCHEMA_PROVIDER_PREFIX = "hoodie.deltastreamer.schemaprovider.proto";
+    public static final ConfigProperty<String> PROTO_SCHEMA_CLASS_NAME = ConfigProperty.key(PROTO_SCHEMA_PROVIDER_PREFIX + ".class.name")
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33845,6 +33847,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/postprocessor/
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `HoodieTableMetadataUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+ * A utility to convert timeline information to metadata table records.
+ */
+public class HoodieTableMetadataUtil {
+
+  private static final Logger LOG = LogManager.getLogger(HoodieTableMetadataUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Config` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.java`
 #### Snippet
@@ -33854,30 +33868,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.
   public static class Config {
     private static final ConfigProperty<String> PULSAR_SOURCE_TOPIC_NAME = ConfigProperty
         .key("hoodie.deltastreamer.source.pulsar.topic")
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UtilHelpers` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
-#### Snippet
-```java
- * Bunch of helper methods.
- */
-public class UtilHelpers {
-
-  public static final String EXECUTE = "execute";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
-#### Snippet
-```java
-  private static final Logger LOG = LogManager.getLogger(S3EventsHoodieIncrSource.class);
-
-  static class Config {
-    // control whether we do existence check for files before consuming them
-    static final String ENABLE_EXISTS_CHECK = "hoodie.deltastreamer.source.s3incr.check.file.exists";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33893,15 +33883,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/HoodieIncrSou
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/DFSPathSelector.java`
+Class `UtilHelpers` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/UtilHelpers.java`
 #### Snippet
 ```java
-   * Configs supported.
-   */
-  public static class Config {
+ * Bunch of helper methods.
+ */
+public class UtilHelpers {
 
-    public static final String ROOT_INPUT_PATH_PROP = "hoodie.deltastreamer.source.dfs.root";
+  public static final String EXECUTE = "execute";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33917,6 +33907,18 @@ public class IncrSourceCloudStorageHelper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsHoodieIncrSource.java`
+#### Snippet
+```java
+  private static final Logger LOG = LogManager.getLogger(S3EventsHoodieIncrSource.class);
+
+  static class Config {
+    // control whether we do existence check for files before consuming them
+    static final String ENABLE_EXISTS_CHECK = "hoodie.deltastreamer.source.s3incr.check.file.exists";
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CloudStoreIngestionConfig` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/CloudStoreIngestionConfig.java`
 #### Snippet
@@ -33926,6 +33928,30 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/Cloud
 public class CloudStoreIngestionConfig {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/DFSPathSelector.java`
+#### Snippet
+```java
+   * Configs supported.
+   */
+  public static class Config {
+
+    public static final String ROOT_INPUT_PATH_PROP = "hoodie.deltastreamer.source.dfs.root";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IncrSourceHelper` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrSourceHelper.java`
+#### Snippet
+```java
+import static org.apache.hudi.utilities.sources.HoodieIncrSource.Config.READ_LATEST_INSTANT_ON_MISSING_CKPT;
+
+public class IncrSourceHelper {
+
+  private static final String DEFAULT_BEGIN_TIMESTAMP = "000";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -33950,18 +33976,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/Cloud
 public class CloudObjectsSelectorCommon {
 
   private static final Logger LOG = LogManager.getLogger(CloudObjectsSelectorCommon.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IncrSourceHelper` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/IncrSourceHelper.java`
-#### Snippet
-```java
-import static org.apache.hudi.utilities.sources.HoodieIncrSource.Config.READ_LATEST_INSTANT_ON_MISSING_CKPT;
-
-public class IncrSourceHelper {
-
-  private static final String DEFAULT_BEGIN_TIMESTAMP = "000";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34013,15 +34027,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/processor/max
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Config` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
+Class `TerminationStrategyUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/TerminationStrategyUtils.java`
 #### Snippet
 ```java
-   * Configs to be passed for this source. All standard Kafka consumer configs are also respected
-   */
-  public static class Config {
+import org.apache.hudi.exception.HoodieException;
 
-    private static final ConfigProperty<String> KAFKA_TOPIC_NAME = ConfigProperty
+public class TerminationStrategyUtils {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34037,15 +34051,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/Kafka
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TerminationStrategyUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/TerminationStrategyUtils.java`
+Class `Config` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/KafkaOffsetGen.java`
 #### Snippet
 ```java
-import org.apache.hudi.exception.HoodieException;
+   * Configs to be passed for this source. All standard Kafka consumer configs are also respected
+   */
+  public static class Config {
 
-public class TerminationStrategyUtils {
-
-  /**
+    private static final ConfigProperty<String> KAFKA_TOPIC_NAME = ConfigProperty
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34061,18 +34075,6 @@ public class SchedulerConfGenerator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Helpers` has only 'static' members, and lacks a 'private' constructor
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
-#### Snippet
-```java
-  }
-
-  public static class Helpers {
-
-    static String getDefaultConfigFilePath(String configFolder, String database, String currentTable) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Constants` has only 'static' members, and lacks a 'private' constructor
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
 #### Snippet
@@ -34082,6 +34084,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieM
   public static class Constants {
     public static final String KAFKA_TOPIC_PROP = "hoodie.deltastreamer.source.kafka.topic";
     public static final String HIVE_SYNC_TABLE_PROP = "hoodie.datasource.hive_sync.table";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Helpers` has only 'static' members, and lacks a 'private' constructor
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
+#### Snippet
+```java
+  }
+
+  public static class Helpers {
+
+    static String getDefaultConfigFilePath(String configFolder, String database, String currentTable) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34121,18 +34135,6 @@ public class Pipelines {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CompactionUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/CompactionUtil.java`
-#### Snippet
-```java
- * Utilities for flink hudi compaction.
- */
-public class CompactionUtil {
-
-  private static final Logger LOG = LoggerFactory.getLogger(CompactionUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ExpressionUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ExpressionUtils.java`
 #### Snippet
@@ -34145,6 +34147,18 @@ public class ExpressionUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CompactionUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/CompactionUtil.java`
+#### Snippet
+```java
+ * Utilities for flink hudi compaction.
+ */
+public class CompactionUtil {
+
+  private static final Logger LOG = LoggerFactory.getLogger(CompactionUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ViewStorageProperties` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ViewStorageProperties.java`
 #### Snippet
@@ -34154,18 +34168,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/ViewStor
 public class ViewStorageProperties {
   private static final Logger LOG = LoggerFactory.getLogger(ViewStorageProperties.class);
 
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FlinkWriteClients` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
-#### Snippet
-```java
- * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
- */
-public class FlinkWriteClients {
-
-  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34205,37 +34207,13 @@ public class ClusteringUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `HoodiePipeline` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/HoodiePipeline.java`
+Class `FlinkWriteClients` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
 #### Snippet
 ```java
- *  </pre>
+ * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
  */
-public class HoodiePipeline {
-
-  private static final Logger LOG = LogManager.getLogger(HoodiePipeline.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StreamerUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
-#### Snippet
-```java
- * Utilities for Flink stream read and write.
- */
-public class StreamerUtil {
-
-  private static final Logger LOG = LoggerFactory.getLogger(StreamerUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AvroSchemaConverter` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroSchemaConverter.java`
-#### Snippet
-```java
- * <p>NOTE: reference from Flink release 1.12.0, should remove when Flink version upgrade to that.
- */
-public class AvroSchemaConverter {
+public class FlinkWriteClients {
 
   /**
 ```
@@ -34253,6 +34231,18 @@ public class DataTypeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `StreamerUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
+#### Snippet
+```java
+ * Utilities for Flink stream read and write.
+ */
+public class StreamerUtil {
+
+  private static final Logger LOG = LoggerFactory.getLogger(StreamerUtil.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `RowDataToAvroConverters` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/RowDataToAvroConverters.java`
 #### Snippet
@@ -34265,15 +34255,27 @@ public class RowDataToAvroConverters {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FilePathUtils` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
+Class `AvroSchemaConverter` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/AvroSchemaConverter.java`
 #### Snippet
 ```java
- * but supports simple partition path besides the Hive style.
+ * <p>NOTE: reference from Flink release 1.12.0, should remove when Flink version upgrade to that.
  */
-public class FilePathUtils {
+public class AvroSchemaConverter {
 
-  private static final Pattern HIVE_PARTITION_NAME_PATTERN = Pattern.compile("([^/]+)=([^/]+)");
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HoodiePipeline` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/HoodiePipeline.java`
+#### Snippet
+```java
+ *  </pre>
+ */
+public class HoodiePipeline {
+
+  private static final Logger LOG = LogManager.getLogger(HoodiePipeline.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34301,18 +34303,6 @@ public class HoodieCatalogUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TableOptionProperties` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/TableOptionProperties.java`
-#### Snippet
-```java
- * Helper class to read/write flink table options as a map.
- */
-public class TableOptionProperties {
-  private static final Logger LOG = LoggerFactory.getLogger(TableOptionProperties.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HiveSchemaUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/HiveSchemaUtils.java`
 #### Snippet
@@ -34325,6 +34315,18 @@ public class HiveSchemaUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `FilePathUtils` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/FilePathUtils.java`
+#### Snippet
+```java
+ * but supports simple partition path besides the Hive style.
+ */
+public class FilePathUtils {
+
+  private static final Pattern HIVE_PARTITION_NAME_PATTERN = Pattern.compile("([^/]+)=([^/]+)");
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `HoodieFlinkStreamer` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/streamer/HoodieFlinkStreamer.java`
 #### Snippet
@@ -34334,30 +34336,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/streamer/Hood
 public class HoodieFlinkStreamer {
   public static void main(String[] args) throws Exception {
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OptionsResolver` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration/OptionsResolver.java`
-#### Snippet
-```java
- * Tool helping to resolve the flink options {@link FlinkOptions}.
- */
-public class OptionsResolver {
-  /**
-   * Returns whether insert clustering is allowed with given configuration {@code conf}.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OptionsInference` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration/OptionsInference.java`
-#### Snippet
-```java
- * Tool helping to infer the flink options {@link FlinkOptions}.
- */
-public class OptionsInference {
-
-  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34385,6 +34363,42 @@ public class ExpressionEvaluator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `TableOptionProperties` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/catalog/TableOptionProperties.java`
+#### Snippet
+```java
+ * Helper class to read/write flink table options as a map.
+ */
+public class TableOptionProperties {
+  private static final Logger LOG = LoggerFactory.getLogger(TableOptionProperties.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OptionsInference` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration/OptionsInference.java`
+#### Snippet
+```java
+ * Tool helping to infer the flink options {@link FlinkOptions}.
+ */
+public class OptionsInference {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OptionsResolver` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration/OptionsResolver.java`
+#### Snippet
+```java
+ * Tool helping to resolve the flink options {@link FlinkOptions}.
+ */
+public class OptionsResolver {
+  /**
+   * Returns whether insert clustering is allowed with given configuration {@code conf}.
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/adapter/Utils.java`
 #### Snippet
@@ -34409,18 +34423,6 @@ public class Utils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
- * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
- */
-public class ParquetSplitReaderUtil {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/adapter/Utils.java`
 #### Snippet
@@ -34434,19 +34436,7 @@ public class Utils {
 
 ### UtilityClassWithoutPrivateConstructor
 Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
-#### Snippet
-```java
- * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
- */
-public class ParquetSplitReaderUtil {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
-in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
 #### Snippet
 ```java
  * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
@@ -34481,6 +34471,18 @@ public class HoodieDataSourceHelpers {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+#### Snippet
+```java
+ * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
+ */
+public class ParquetSplitReaderUtil {
+
+  /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `QuickstartUtils` has only 'static' members, and lacks a 'private' constructor
 in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
 #### Snippet
@@ -34490,6 +34492,18 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUti
 public class QuickstartUtils {
 
   public static class DataGenerator {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ParquetSplitReaderUtil` has only 'static' members, and lacks a 'private' constructor
+in `hudi-flink-datasource/hudi-flink1.15.x/src/main/java/org/apache/hudi/table/format/cow/ParquetSplitReaderUtil.java`
+#### Snippet
+```java
+ * based TIMESTAMP_MILLIS as ConvertedType, should remove when Flink supports that.
+ */
+public class ParquetSplitReaderUtil {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -34590,18 +34604,6 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/SparkMain.java`
 ```
 
 ### DataFlowIssue
-Method invocation `replaceAll` may produce `NullPointerException`
-in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
-#### Snippet
-```java
-
-        String expectedType = getExpectedType(newTableSchema, tickSurroundedFieldName);
-        expectedType = expectedType.replaceAll("\\s+", "");
-        expectedType = expectedType.replaceAll("`", "");
-
-```
-
-### DataFlowIssue
 Argument `workloadProfile` might be null
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/commit/BaseJavaCommitActionExecutor.java`
 #### Snippet
@@ -34611,6 +34613,18 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/table/action/comm
       saveWorkloadProfileMetadataToInflight(workloadProfile, instantTime);
     } catch (Exception e) {
       HoodieTableMetaClient metaClient = table.getMetaClient();
+```
+
+### DataFlowIssue
+Method invocation `replaceAll` may produce `NullPointerException`
+in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/util/HiveSchemaUtil.java`
+#### Snippet
+```java
+
+        String expectedType = getExpectedType(newTableSchema, tickSurroundedFieldName);
+        expectedType = expectedType.replaceAll("\\s+", "");
+        expectedType = expectedType.replaceAll("`", "");
+
 ```
 
 ### DataFlowIssue
@@ -34667,10 +34681,10 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/SimpleKey
 #### Snippet
 ```java
     //       record-key field
-    if (recordKeys[0] == null) {
+    if (recordKeyValues[0] == null) {
       return handleNullRecordKey(null);
-    } else {
-      return requireNonNullNonEmptyKey(recordKeys[0].toString());
+    } else if (recordKeyValues[0] instanceof UTF8String) {
+      return requireNonNullNonEmptyKey((UTF8String) recordKeyValues[0]);
 ```
 
 ### DataFlowIssue
@@ -34679,10 +34693,10 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/SimpleKey
 #### Snippet
 ```java
     //       record-key field
-    if (recordKeyValues[0] == null) {
+    if (recordKeys[0] == null) {
       return handleNullRecordKey(null);
-    } else if (recordKeyValues[0] instanceof UTF8String) {
-      return requireNonNullNonEmptyKey((UTF8String) recordKeyValues[0]);
+    } else {
+      return requireNonNullNonEmptyKey(recordKeys[0].toString());
 ```
 
 ### DataFlowIssue
@@ -34710,18 +34724,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/action/cl
 ```
 
 ### DataFlowIssue
-Method invocation `getTotalCreateTime` may produce `NullPointerException`
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
-#### Snippet
-```java
-      LOG.info(String.format("CreateHandle for partitionPath %s fileID %s, took %d ms.",
-          writeStatus.getStat().getPartitionPath(), writeStatus.getStat().getFileId(),
-          writeStatus.getStat().getRuntimeStats().getTotalCreateTime()));
-
-      return Collections.singletonList(writeStatus);
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeHandle.java`
 #### Snippet
@@ -34731,6 +34733,18 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieMergeH
           copyOldRecord = true;
         } else if (writeUpdateRecord(newRecord, oldRecord, combinedRecord, combineRecordSchema)) {
           /*
+```
+
+### DataFlowIssue
+Method invocation `getTotalCreateTime` may produce `NullPointerException`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/io/HoodieCreateHandle.java`
+#### Snippet
+```java
+      LOG.info(String.format("CreateHandle for partitionPath %s fileID %s, took %d ms.",
+          writeStatus.getStat().getPartitionPath(), writeStatus.getStat().getFileId(),
+          writeStatus.getStat().getRuntimeStats().getTotalCreateTime()));
+
+      return Collections.singletonList(writeStatus);
 ```
 
 ### DataFlowIssue
@@ -34998,18 +35012,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
 ```
 
 ### DataFlowIssue
-Method invocation `getBlockType` may produce `NullPointerException`
-in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
-#### Snippet
-```java
-      // poll the element at the bottom of the stack since that's the order it was inserted
-      HoodieLogBlock lastBlock = logBlocks.pollLast();
-      switch (lastBlock.getBlockType()) {
-        case AVRO_DATA_BLOCK:
-          processDataBlock((HoodieAvroDataBlock) lastBlock, keySpecOpt);
-```
-
-### DataFlowIssue
 Method invocation `getLogBlockHeader` may produce `NullPointerException`
 in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
 #### Snippet
@@ -35019,6 +35021,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLog
         .contentEquals(currentInstantLogBlocks.peek().getLogBlockHeader().get(INSTANT_TIME));
   }
 
+```
+
+### DataFlowIssue
+Method invocation `getBlockType` may produce `NullPointerException`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/log/AbstractHoodieLogRecordReader.java`
+#### Snippet
+```java
+      // poll the element at the bottom of the stack since that's the order it was inserted
+      HoodieLogBlock lastBlock = logBlocks.pollLast();
+      switch (lastBlock.getBlockType()) {
+        case AVRO_DATA_BLOCK:
+          processDataBlock((HoodieAvroDataBlock) lastBlock, keySpecOpt);
 ```
 
 ### DataFlowIssue
@@ -35275,18 +35289,6 @@ in `hudi-sync/hudi-hive-sync/src/main/java/org/apache/hudi/hive/HiveSyncConfig.j
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'tagLocation' is still used
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/index/JavaHoodieIndex.java`
-#### Snippet
-```java
-  @Deprecated
-  @PublicAPIMethod(maturity = ApiMaturityLevel.DEPRECATED)
-  public abstract List<HoodieRecord<T>> tagLocation(List<HoodieRecord<T>> records,
-                                                    HoodieEngineContext context,
-                                                    HoodieTable hoodieTable) throws HoodieIndexException;
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'updateLocation' is still used
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/index/JavaHoodieIndex.java`
 #### Snippet
@@ -35300,7 +35302,7 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/index/JavaHoodieI
 
 ### DeprecatedIsStillUsed
 Deprecated member 'tagLocation' is still used
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/index/FlinkHoodieIndex.java`
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/index/JavaHoodieIndex.java`
 #### Snippet
 ```java
   @Deprecated
@@ -35320,6 +35322,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/index/FlinkHoodi
   public abstract List<WriteStatus> updateLocation(List<WriteStatus> writeStatuses,
                                                    HoodieEngineContext context,
                                                    HoodieTable hoodieTable) throws HoodieIndexException;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'tagLocation' is still used
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/index/FlinkHoodieIndex.java`
+#### Snippet
+```java
+  @Deprecated
+  @PublicAPIMethod(maturity = ApiMaturityLevel.DEPRECATED)
+  public abstract List<HoodieRecord<T>> tagLocation(List<HoodieRecord<T>> records,
+                                                    HoodieEngineContext context,
+                                                    HoodieTable hoodieTable) throws HoodieIndexException;
 ```
 
 ### DeprecatedIsStillUsed
@@ -35344,6 +35358,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/client/HoodieRea
 public class HoodieReadClient<T> extends SparkRDDReadClient<T> {
 
   public HoodieReadClient(HoodieSparkEngineContext context, String basePath) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CustomKeyGenerator' is still used
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class CustomKeyGenerator extends BuiltinKeyGenerator {
+
+  private final CustomAvroKeyGenerator customAvroKeyGenerator;
 ```
 
 ### DeprecatedIsStillUsed
@@ -35395,6 +35421,18 @@ public class MetadataRecordsGenerationParams implements Serializable {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getTableAvroSchemaWithoutMetadataFields' is still used
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public Schema getTableAvroSchemaWithoutMetadataFields() throws Exception {
+    return getTableAvroSchema(false);
+  }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'HoodieSnapshotCopier' is still used
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieSnapshotCopier.java`
 #### Snippet
@@ -35431,18 +35469,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/helpers/DFSPa
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'targetTableName' is still used
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
-#### Snippet
-```java
-    @Deprecated
-    @Parameter(names = {"--target-table"}, description = "name of the target table")
-    public String targetTableName;
-
-    @Parameter(names = {"--table-type"}, description = "Type of table. COPY_ON_WRITE (or) MERGE_ON_READ", required = true)
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'HDFSParquetImporter' is still used
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HDFSParquetImporter.java`
 #### Snippet
@@ -35455,27 +35481,15 @@ public class HDFSParquetImporter implements Serializable {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getTableAvroSchemaWithoutMetadataFields' is still used
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
+Deprecated member 'targetTableName' is still used
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/deltastreamer/HoodieMultiTableDeltaStreamer.java`
 #### Snippet
 ```java
-   */
-  @Deprecated
-  public Schema getTableAvroSchemaWithoutMetadataFields() throws Exception {
-    return getTableAvroSchema(false);
-  }
-```
+    @Deprecated
+    @Parameter(names = {"--target-table"}, description = "name of the target table")
+    public String targetTableName;
 
-### DeprecatedIsStillUsed
-Deprecated member 'CustomKeyGenerator' is still used
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/keygen/CustomKeyGenerator.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class CustomKeyGenerator extends BuiltinKeyGenerator {
-
-  private final CustomAvroKeyGenerator customAvroKeyGenerator;
+    @Parameter(names = {"--table-type"}, description = "Type of table. COPY_ON_WRITE (or) MERGE_ON_READ", required = true)
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
@@ -35556,30 +35570,6 @@ Lambda can be replaced with method reference
 in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
 #### Snippet
 ```java
-  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).get())
-        .collect(Collectors.toList());
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
-    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
-        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
-        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).get())
-        .collect(Collectors.toList());
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
-#### Snippet
-```java
       List<Pair<K, V>> data, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
     return data.stream().parallel()
         .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
@@ -35597,6 +35587,30 @@ in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/Hoo
         .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).orElse(null))
         .filter(Objects::nonNull)
         .collect(Collectors.toList());
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+  public <I, K, V> List<V> mapToPairAndReduceByKey(List<I> data, SerializablePairFunction<I, K, V> mapToPairFunc, SerializableBiFunction<V, V, V> reduceFunc, int parallelism) {
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).get())
+        .collect(Collectors.toList());
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-client/hudi-java-client/src/main/java/org/apache/hudi/client/common/HoodieJavaEngineContext.java`
+#### Snippet
+```java
+    return data.stream().parallel().map(throwingMapToPairWrapper(mapToPairFunc))
+        .collect(Collectors.groupingBy(p -> p.getKey())).values().stream()
+        .map(list -> list.stream().map(e -> e.getValue()).reduce(throwingReduceWrapper(reduceFunc)).get())
+        .collect(Collectors.toList());
+  }
 ```
 
 ### Convert2MethodRef
@@ -35757,14 +35771,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/CommitUtils.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/model/ClusteringGroupInfo.java`
 #### Snippet
 ```java
-  private void startCommitWithTime(String instantTime, String actionType, HoodieTableMetaClient metaClient) {
-    CleanerUtils.rollbackFailedWrites(config.getFailedWritesCleanPolicy(),
-        HoodieTimeline.COMMIT_ACTION, () -> rollbackFailedWrites());
-    startCommit(instantTime, actionType, metaClient);
+  
+  private String getFilePathsInGroup() {
+    return getOperations().stream().map(op -> op.getDataFilePath()).collect(Collectors.joining(","));
   }
+}
 ```
 
 ### Convert2MethodRef
@@ -35781,26 +35795,14 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHood
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-common/src/main/java/org/apache/hudi/common/model/ClusteringGroupInfo.java`
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/client/BaseHoodieWriteClient.java`
 #### Snippet
 ```java
-  
-  private String getFilePathsInGroup() {
-    return getOperations().stream().map(op -> op.getDataFilePath()).collect(Collectors.joining(","));
+  private void startCommitWithTime(String instantTime, String actionType, HoodieTableMetaClient metaClient) {
+    CleanerUtils.rollbackFailedWrites(config.getFailedWritesCleanPolicy(),
+        HoodieTimeline.COMMIT_ACTION, () -> rollbackFailedWrites());
+    startCommit(instantTime, actionType, metaClient);
   }
-}
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
-#### Snippet
-```java
-    partitionFiles.entrySet().stream().forEach(e -> {
-      removeFileSlicesForPartition(timeline, instant, e.getKey(),
-          e.getValue().stream().map(x -> x.getValue()).collect(Collectors.toList()));
-    });
-
 ```
 
 ### Convert2MethodRef
@@ -35841,6 +35843,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimel
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/IncrementalTimelineSyncFileSystemView.java`
+#### Snippet
+```java
+    partitionFiles.entrySet().stream().forEach(e -> {
+      removeFileSlicesForPartition(timeline, instant, e.getKey(),
+          e.getValue().stream().map(x -> x.getValue()).collect(Collectors.toList()));
+    });
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/dto/FileGroupDTO.java`
 #### Snippet
 ```java
@@ -35872,7 +35886,7 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/io/FileBasedIntern
       if (fs.exists(baseSchemaPath)) {
         List<String> candidateSchemaFiles = Arrays.stream(fs.listStatus(baseSchemaPath)).filter(f -> f.isFile())
             .map(file -> file.getPath().getName()).collect(Collectors.toList());
-        List<String> validateSchemaFiles = candidateSchemaFiles.stream().filter(f -> validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
+        List<String> residualSchemaFiles = candidateSchemaFiles.stream().filter(f -> !validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
 ```
 
 ### Convert2MethodRef
@@ -35884,7 +35898,7 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/io/FileBasedIntern
       if (fs.exists(baseSchemaPath)) {
         List<String> candidateSchemaFiles = Arrays.stream(fs.listStatus(baseSchemaPath)).filter(f -> f.isFile())
             .map(file -> file.getPath().getName()).collect(Collectors.toList());
-        List<String> residualSchemaFiles = candidateSchemaFiles.stream().filter(f -> !validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
+        List<String> validateSchemaFiles = candidateSchemaFiles.stream().filter(f -> validateCommits.contains(f.split("\\.")[0])).collect(Collectors.toList());
 ```
 
 ### Convert2MethodRef
@@ -35937,6 +35951,30 @@ in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSche
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `hudi-examples/hudi-examples-java/src/main/java/org/apache/hudi/examples/java/HoodieJavaWriteClientExample.java`
+#### Snippet
+```java
+    List<HoodieRecord<HoodieAvroPayload>> recordsSoFar = new ArrayList<>(records);
+    List<HoodieRecord<HoodieAvroPayload>> writeRecords =
+        recordsSoFar.stream().map(r -> new HoodieAvroRecord<HoodieAvroPayload>(r)).collect(Collectors.toList());
+    client.insert(writeRecords, newCommitTime);
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-examples/hudi-examples-java/src/main/java/org/apache/hudi/examples/java/HoodieJavaWriteClientExample.java`
+#### Snippet
+```java
+    recordsSoFar.addAll(toBeUpdated);
+    writeRecords =
+        recordsSoFar.stream().map(r -> new HoodieAvroRecord<HoodieAvroPayload>(r)).collect(Collectors.toList());
+    client.upsert(writeRecords, newCommitTime);
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineContext.java`
 #### Snippet
 ```java
@@ -35985,30 +36023,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/engine/HoodieLocalEngineCon
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-examples/hudi-examples-java/src/main/java/org/apache/hudi/examples/java/HoodieJavaWriteClientExample.java`
-#### Snippet
-```java
-    List<HoodieRecord<HoodieAvroPayload>> recordsSoFar = new ArrayList<>(records);
-    List<HoodieRecord<HoodieAvroPayload>> writeRecords =
-        recordsSoFar.stream().map(r -> new HoodieAvroRecord<HoodieAvroPayload>(r)).collect(Collectors.toList());
-    client.insert(writeRecords, newCommitTime);
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-examples/hudi-examples-java/src/main/java/org/apache/hudi/examples/java/HoodieJavaWriteClientExample.java`
-#### Snippet
-```java
-    recordsSoFar.addAll(toBeUpdated);
-    writeRecords =
-        recordsSoFar.stream().map(r -> new HoodieAvroRecord<HoodieAvroPayload>(r)).collect(Collectors.toList());
-    client.upsert(writeRecords, newCommitTime);
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spark/HoodieWriteClientExample.java`
 #### Snippet
 ```java
@@ -36021,18 +36035,6 @@ in `hudi-examples/hudi-examples-spark/src/main/java/org/apache/hudi/examples/spa
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
-#### Snippet
-```java
-              .stream()
-              .flatMap(Collection::stream)
-              .filter(fileSlice -> checkIfValidFileSlice(fileSlice))
-              .map(fileSlice -> createFileStatusUnchecked(fileSlice, fileIndex, tableMetaClient))
-              .collect(Collectors.toList())
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieColumnProjectionUtils.java`
 #### Snippet
 ```java
@@ -36041,6 +36043,18 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieColumnProjectionUt
           .map(t -> t.getTypeName()).collect(Collectors.toList());
     }
     return new ArrayList<>();
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/HoodieCopyOnWriteTableInputFormat.java`
+#### Snippet
+```java
+              .stream()
+              .flatMap(Collection::stream)
+              .filter(fileSlice -> checkIfValidFileSlice(fileSlice))
+              .map(fileSlice -> createFileStatusUnchecked(fileSlice, fileIndex, tableMetaClient))
+              .collect(Collectors.toList())
 ```
 
 ### Convert2MethodRef
@@ -36069,30 +36083,6 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/utils/HiveAvroSerializer
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-      String instantTime, MetadataRecordsGenerationParams recordsGenerationParams) {
-    final List<HoodieWriteStat> allWriteStats = commitMetadata.getPartitionToWriteStats().values().stream()
-        .flatMap(entry -> entry.stream()).collect(Collectors.toList());
-    if (allWriteStats.isEmpty()) {
-      return context.emptyHoodieData();
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-
-    Collector<HoodieColumnRangeMetadata<Comparable>, ?, Map<String, HoodieColumnRangeMetadata<Comparable>>> collector =
-        Collectors.toMap(colRangeMetadata -> colRangeMetadata.getColumnName(), Function.identity());
-
-    return (Map<String, HoodieColumnRangeMetadata<Comparable>>) targetFields.stream()
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableUtils.java`
 #### Snippet
 ```java
@@ -36117,14 +36107,38 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDataTableUtils.
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-        // add file group which has only logs.
-        if (f.getLatestFileSlice().isPresent() && baseFiles.isEmpty()) {
-          List<FileStatus> logFileStatus = f.getLatestFileSlice().get().getLogFiles().map(logFile -> logFile.getFileStatus()).collect(Collectors.toList());
-          if (logFileStatus.size() > 0) {
-            List<HoodieLogFile> deltaLogFiles = logFileStatus.stream().map(l -> new HoodieLogFile(l.getPath(), l.getLen())).collect(Collectors.toList());
+      List<String> parts = Arrays.asList(cfg.partitions.split(","));
+      Map<String, List<String>> partitionToReplaceFileIds = jsc.parallelize(parts, parts.size()).distinct()
+          .mapToPair(partitionPath -> new Tuple2<>(partitionPath, table.getSliceView().getLatestFileSlices(partitionPath).map(fg -> fg.getFileId()).distinct().collect(Collectors.toList())))
+          .collectAsMap();
+      printDeleteFilesInfo(partitionToReplaceFileIds);
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+
+    Collector<HoodieColumnRangeMetadata<Comparable>, ?, Map<String, HoodieColumnRangeMetadata<Comparable>>> collector =
+        Collectors.toMap(colRangeMetadata -> colRangeMetadata.getColumnName(), Function.identity());
+
+    return (Map<String, HoodieColumnRangeMetadata<Comparable>>) targetFields.stream()
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+      String instantTime, MetadataRecordsGenerationParams recordsGenerationParams) {
+    final List<HoodieWriteStat> allWriteStats = commitMetadata.getPartitionToWriteStats().values().stream()
+        .flatMap(entry -> entry.stream()).collect(Collectors.toList());
+    if (allWriteStats.isEmpty()) {
+      return context.emptyHoodieData();
 ```
 
 ### Convert2MethodRef
@@ -36141,14 +36155,14 @@ in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnRe
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
+in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/realtime/HoodieMergeOnReadTableInputFormat.java`
 #### Snippet
 ```java
-      List<String> parts = Arrays.asList(cfg.partitions.split(","));
-      Map<String, List<String>> partitionToReplaceFileIds = jsc.parallelize(parts, parts.size()).distinct()
-          .mapToPair(partitionPath -> new Tuple2<>(partitionPath, table.getSliceView().getLatestFileSlices(partitionPath).map(fg -> fg.getFileId()).distinct().collect(Collectors.toList())))
-          .collectAsMap();
-      printDeleteFilesInfo(partitionToReplaceFileIds);
+        // add file group which has only logs.
+        if (f.getLatestFileSlice().isPresent() && baseFiles.isEmpty()) {
+          List<FileStatus> logFileStatus = f.getLatestFileSlice().get().getLogFiles().map(logFile -> logFile.getFileStatus()).collect(Collectors.toList());
+          if (logFileStatus.size() > 0) {
+            List<HoodieLogFile> deltaLogFiles = logFileStatus.stream().map(l -> new HoodieLogFile(l.getPath(), l.getLen())).collect(Collectors.toList());
 ```
 
 ### Convert2MethodRef
@@ -36168,42 +36182,6 @@ Lambda can be replaced with method reference
 in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
 #### Snippet
 ```java
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
-
-  public static List<String> convertToStringList(List<HoodieRecord> records) {
-    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
-        .collect(Collectors.toList());
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
-#### Snippet
-```java
               ? convertToString(row.getAs("uuid"), row.getAs("partitionpath"), null) :
               convertToString(row.getAs("uuid"), row.getAs("partitionpath"), row.getAs("ts"))
           ).filter(os -> os.isPresent()).map(os -> os.get())
@@ -36221,6 +36199,42 @@ in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUti
           ).filter(os -> os.isPresent()).map(os -> os.get())
           .collect(Collectors.toList());
     }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+  }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+  }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `hudi-spark-datasource/hudi-spark/src/main/java/org/apache/hudi/QuickstartUtils.java`
+#### Snippet
+```java
+
+  public static List<String> convertToStringList(List<HoodieRecord> records) {
+    return records.stream().map(hr -> convertToString(hr)).filter(os -> os.isPresent()).map(os -> os.get())
+        .collect(Collectors.toList());
+  }
 ```
 
 ## RuleId[ruleID=ComparatorCombinators]
@@ -36396,18 +36410,6 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/H
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'currTimer' in a Serializable class
-in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowCreateHandle.java`
-#### Snippet
-```java
-  private final boolean shouldPreserveHoodieMetadata;
-
-  private final HoodieTimer currTimer;
-
-  protected final HoodieInternalRowFileWriter fileWriter;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'path' in a Serializable class
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowCreateHandle.java`
 #### Snippet
@@ -36417,6 +36419,18 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/H
   private final Path path;
   private final String fileId;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'currTimer' in a Serializable class
+in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/io/storage/row/HoodieRowCreateHandle.java`
+#### Snippet
+```java
+  private final boolean shouldPreserveHoodieMetadata;
+
+  private final HoodieTimer currTimer;
+
+  protected final HoodieInternalRowFileWriter fileWriter;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36468,18 +36482,6 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/MercifulJsonConverter.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'baos' in a Serializable class
-in `hudi-common/src/main/java/org/apache/hudi/common/util/SerializationUtils.java`
-#### Snippet
-```java
-    private final Kryo kryo;
-    // Caching ByteArrayOutputStream to avoid recreating it for every operation
-    private final ByteArrayOutputStream baos;
-
-    KryoSerializerInstance() {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'kryo' in a Serializable class
 in `hudi-common/src/main/java/org/apache/hudi/common/util/SerializationUtils.java`
 #### Snippet
@@ -36492,15 +36494,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/SerializationUtils.jav
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'decompressBaos' in a Serializable class
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
+Non-serializable field 'baos' in a Serializable class
+in `hudi-common/src/main/java/org/apache/hudi/common/util/SerializationUtils.java`
 #### Snippet
 ```java
-    // Caching ByteArrayOutputStreams to avoid recreating it for every operation
-    private final ByteArrayOutputStream compressBaos;
-    private final ByteArrayOutputStream decompressBaos;
-    private final byte[] decompressIntermediateBuffer;
+    private final Kryo kryo;
+    // Caching ByteArrayOutputStream to avoid recreating it for every operation
+    private final ByteArrayOutputStream baos;
 
+    KryoSerializerInstance() {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36516,15 +36518,15 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDisk
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'schemaHelper' in a Serializable class
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+Non-serializable field 'decompressBaos' in a Serializable class
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/BitCaskDiskMap.java`
 #### Snippet
 ```java
-  private final FileSystemViewStorageConfig config;
+    // Caching ByteArrayOutputStreams to avoid recreating it for every operation
+    private final ByteArrayOutputStream compressBaos;
+    private final ByteArrayOutputStream decompressBaos;
+    private final byte[] decompressIntermediateBuffer;
 
-  private final RocksDBSchemaHelper schemaHelper;
-
-  private RocksDBDAO rocksDB;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36537,6 +36539,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFile
   private RocksDBDAO rocksDB;
 
   private boolean closed = false;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'schemaHelper' in a Serializable class
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/RocksDbBasedFileSystemView.java`
+#### Snippet
+```java
+  private final FileSystemViewStorageConfig config;
+
+  private final RocksDBSchemaHelper schemaHelper;
+
+  private RocksDBDAO rocksDB;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36588,18 +36602,6 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/SchemaPostProc
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'dumpPath' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
-#### Snippet
-```java
-  private static class Dumper implements Serializable {
-
-    private final Path dumpPath;
-    private final FileSystem fileSystem;
-    private FSDataOutputStream outputStream;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'outputStream' in a Serializable class
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
 #### Snippet
@@ -36612,27 +36614,15 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPe
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'offsetGen' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/KafkaSource.java`
+Non-serializable field 'dumpPath' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/perf/TimelineServerPerf.java`
 #### Snippet
 ```java
-  protected final HoodieDeltaStreamerMetrics metrics;
-  protected final SchemaProvider schemaProvider;
-  protected KafkaOffsetGen offsetGen;
+  private static class Dumper implements Serializable {
 
-  protected KafkaSource(TypedProperties props, JavaSparkContext sparkContext, SparkSession sparkSession,
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'pathSelector' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsSource.java`
-#### Snippet
-```java
-public class S3EventsSource extends RowSource implements Closeable {
-
-  private final S3EventsMetaSelector pathSelector;
-  private final List<Message> processedMessages = new ArrayList<>();
-  AmazonSQS sqs;
+    private final Path dumpPath;
+    private final FileSystem fileSystem;
+    private FSDataOutputStream outputStream;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36648,15 +36638,27 @@ public class GcsEventsSource extends RowSource {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'pulsarConsumer' in a Serializable class
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.java`
+Non-serializable field 'pathSelector' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/S3EventsSource.java`
 #### Snippet
 ```java
-  // NOTE: We're keeping the client so that we can shut it down properly
-  private final Lazy<PulsarClient> pulsarClient;
-  private final Lazy<Consumer<byte[]>> pulsarConsumer;
+public class S3EventsSource extends RowSource implements Closeable {
 
-  public PulsarSource(TypedProperties props,
+  private final S3EventsMetaSelector pathSelector;
+  private final List<Message> processedMessages = new ArrayList<>();
+  AmazonSQS sqs;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'offsetGen' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/KafkaSource.java`
+#### Snippet
+```java
+  protected final HoodieDeltaStreamerMetrics metrics;
+  protected final SchemaProvider schemaProvider;
+  protected KafkaOffsetGen offsetGen;
+
+  protected KafkaSource(TypedProperties props, JavaSparkContext sparkContext, SparkSession sparkSession,
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36669,6 +36671,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.
   private final Lazy<PulsarClient> pulsarClient;
   private final Lazy<Consumer<byte[]>> pulsarConsumer;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'pulsarConsumer' in a Serializable class
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/PulsarSource.java`
+#### Snippet
+```java
+  // NOTE: We're keeping the client so that we can shut it down properly
+  private final Lazy<PulsarClient> pulsarClient;
+  private final Lazy<Consumer<byte[]>> pulsarConsumer;
+
+  public PulsarSource(TypedProperties props,
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36708,18 +36722,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/CleanFun
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'path' in a Serializable class
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/meta/CkpMetadata.java`
-#### Snippet
-```java
-
-  private final FileSystem fs;
-  protected final Path path;
-
-  private List<CkpMessage> messages;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'constructor' in a Serializable class
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/PayloadCreation.java`
 #### Snippet
@@ -36729,6 +36731,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/utils/Pa
   private final Constructor<?> constructor;
   private final String preCombineField;
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'path' in a Serializable class
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/sink/meta/CkpMetadata.java`
+#### Snippet
+```java
+
+  private final FileSystem fs;
+  protected final Path path;
+
+  private List<CkpMessage> messages;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -36895,18 +36909,6 @@ Unnecessary `toString()` call
 in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
 #### Snippet
 ```java
-      } else {
-        throw new UnsupportedOperationException(
-            "Unsupported SqlTimeTypeInfo " + typeInfo.toString());
-      }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
-#### Snippet
-```java
                         String.format(
                             "List field [%s] in List [%s] has to be required. ",
                             type.toString(), fieldType.getName()));
@@ -36928,6 +36930,18 @@ in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/p
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `hudi-client/hudi-flink-client/src/main/java/org/apache/hudi/io/storage/row/parquet/ParquetSchemaConverter.java`
+#### Snippet
+```java
+      } else {
+        throw new UnsupportedOperationException(
+            "Unsupported SqlTimeTypeInfo " + typeInfo.toString());
+      }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bucket/HoodieSparkConsistentBucketIndex.java`
 #### Snippet
 ```java
@@ -36940,36 +36954,12 @@ in `hudi-client/hudi-spark-client/src/main/java/org/apache/hudi/index/bucket/Hoo
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/DirectWriteMarkers.java`
-#### Snippet
-```java
-      throw new HoodieException("Failed to create marker file " + markerPath, e);
-    }
-    LOG.info("[direct] Created marker file " + markerPath.toString()
-        + " in " + timer.endTimer() + " ms");
-    return Option.of(markerPath);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
 #### Snippet
 ```java
+          MARKERS_DIR_EXISTS_URL, paramsMap, new TypeReference<Boolean>() {}, RequestMethod.GET);
     } catch (IOException e) {
-      throw new HoodieRemoteException("Failed to get CREATE and MERGE data file paths in "
-          + markerDirPath.toString(), e);
-    }
-  }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
-#### Snippet
-```java
-          DELETE_MARKER_DIR_URL, paramsMap, new TypeReference<Boolean>() {}, RequestMethod.POST);
-    } catch (IOException e) {
-      throw new HoodieRemoteException("Failed to delete marker directory " + markerDirPath.toString(), e);
+      throw new HoodieRemoteException("Failed to check marker directory " + markerDirPath.toString(), e);
     }
   }
 ```
@@ -36991,11 +36981,35 @@ Unnecessary `toString()` call
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
 #### Snippet
 ```java
-          MARKERS_DIR_EXISTS_URL, paramsMap, new TypeReference<Boolean>() {}, RequestMethod.GET);
+          DELETE_MARKER_DIR_URL, paramsMap, new TypeReference<Boolean>() {}, RequestMethod.POST);
     } catch (IOException e) {
-      throw new HoodieRemoteException("Failed to check marker directory " + markerDirPath.toString(), e);
+      throw new HoodieRemoteException("Failed to delete marker directory " + markerDirPath.toString(), e);
     }
   }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/TimelineServerBasedWriteMarkers.java`
+#### Snippet
+```java
+    } catch (IOException e) {
+      throw new HoodieRemoteException("Failed to get CREATE and MERGE data file paths in "
+          + markerDirPath.toString(), e);
+    }
+  }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/table/marker/DirectWriteMarkers.java`
+#### Snippet
+```java
+      throw new HoodieException("Failed to create marker file " + markerPath, e);
+    }
+    LOG.info("[direct] Created marker file " + markerPath.toString()
+        + " in " + timer.endTimer() + " ms");
+    return Option.of(markerPath);
 ```
 
 ### UnnecessaryToStringCall
@@ -37135,9 +37149,9 @@ Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
 #### Snippet
 ```java
-      bufferedWriter.write(markerType.toString());
+      content = Option.of(MarkerType.valueOf(FileIOUtils.readAsUTFString(fsDataInputStream)));
     } catch (IOException e) {
-      throw new HoodieException("Failed to create marker type file " + markerTypeFilePath.toString()
+      throw new HoodieIOException("Cannot read marker type file " + markerTypeFilePath.toString()
           + "; " + e.getMessage(), e);
     } finally {
 ```
@@ -37147,9 +37161,9 @@ Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/util/MarkerUtils.java`
 #### Snippet
 ```java
-      content = Option.of(MarkerType.valueOf(FileIOUtils.readAsUTFString(fsDataInputStream)));
+      bufferedWriter.write(markerType.toString());
     } catch (IOException e) {
-      throw new HoodieIOException("Cannot read marker type file " + markerTypeFilePath.toString()
+      throw new HoodieException("Failed to create marker type file " + markerTypeFilePath.toString()
           + "; " + e.getMessage(), e);
     } finally {
 ```
@@ -37180,6 +37194,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/InternalSchemaCache.ja
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
+#### Snippet
+```java
+  public RocksDBDAO(String basePath, String rocksDBBasePath) {
+    this.rocksDBBasePath =
+        String.format("%s/%s/%s", rocksDBBasePath, basePath.replace("/", "_"), UUID.randomUUID().toString());
+    init();
+    totalBytesWritten = 0L;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.java`
 #### Snippet
 ```java
@@ -37192,14 +37218,14 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/DiskMap.jav
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `hudi-common/src/main/java/org/apache/hudi/common/util/collection/RocksDBDAO.java`
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
 #### Snippet
 ```java
-  public RocksDBDAO(String basePath, String rocksDBBasePath) {
-    this.rocksDBBasePath =
-        String.format("%s/%s/%s", rocksDBBasePath, basePath.replace("/", "_"), UUID.randomUUID().toString());
-    init();
-    totalBytesWritten = 0L;
+          newFields.add(f);
+        } else {
+          throw new HoodieSchemaException(String.format("cannot find pruned id %s in currentSchema %s", id, schema.toString()));
+        }
+      }
 ```
 
 ### UnnecessaryToStringCall
@@ -37228,12 +37254,12 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActive
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/InternalSchemaUtils.java`
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
 #### Snippet
 ```java
-          newFields.add(f);
-        } else {
-          throw new HoodieSchemaException(String.format("cannot find pruned id %s in currentSchema %s", id, schema.toString()));
+          // ingestion pipeline is still producing events in old schema
+          latestSchema = tableSchema;
+          LOG.debug("Using latest table schema to rewrite incoming records " + tableSchema.toString());
         }
       }
 ```
@@ -37291,18 +37317,6 @@ Unnecessary `toString()` call
 in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-      tool.run();
-    } catch (Throwable throwable) {
-      LOG.error("Fail to run deleting table partitions for " + cfg.toString(), throwable);
-    } finally {
-      jsc.stop();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
-#### Snippet
-```java
         + hiveSyncConfig.getStringOrDefault(HiveSyncConfigHolder.HIVE_URL)
         + ", basePath :" + cfg.basePath);
     LOG.info("Hive Sync Conf => " + hiveSyncConfig.toString());
@@ -37312,14 +37326,14 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsT
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/HoodieDropPartitionsTool.java`
 #### Snippet
 ```java
-          }).map(Field::name).collect(Collectors.toList());
-
-      LOG.info("Date fields: " + dateFields.toString());
-
-      for (String dateCol : dateFields) {
+      tool.run();
+    } catch (Throwable throwable) {
+      LOG.error("Fail to run deleting table partitions for " + cfg.toString(), throwable);
+    } finally {
+      jsc.stop();
 ```
 
 ### UnnecessaryToStringCall
@@ -37332,6 +37346,18 @@ in `hudi-kafka-connect/src/main/java/org/apache/hudi/connect/kafka/KafkaConnectC
     props.put(ConsumerConfig.GROUP_ID_CONFIG, "hudi-control-group" + UUID.randomUUID().toString());
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ByteArrayDeserializer.class);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `hudi-utilities/src/main/java/org/apache/hudi/utilities/sources/debezium/DebeziumSource.java`
+#### Snippet
+```java
+          }).map(Field::name).collect(Collectors.toList());
+
+      LOG.info("Date fields: " + dateFields.toString());
+
+      for (String dateCol : dateFields) {
 ```
 
 ### UnnecessaryToStringCall
@@ -37356,18 +37382,6 @@ in `hudi-spark-datasource/hudi-spark-common/src/main/java/org/apache/hudi/DataSo
         throw new HoodieException("Not a valid operation type for doWriteOperation: " + operation.toString());
     }
   }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-          // ingestion pipeline is still producing events in old schema
-          latestSchema = tableSchema;
-          LOG.debug("Using latest table schema to rewrite incoming records " + tableSchema.toString());
-        }
-      }
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -37512,11 +37526,11 @@ Synchronization on a non-final field `checkpointLock`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
 #### Snippet
 ```java
-    checkpointLock = context.getCheckpointLock();
-    while (isRunning) {
+    if (checkpointLock != null) {
+      // this is to cover the case where cancel() is called before the run()
       synchronized (checkpointLock) {
-        monitorDirAndForwardSplits(context);
-      }
+        issuedInstant = null;
+        isRunning = false;
 ```
 
 ### SynchronizeOnNonFinalField
@@ -37524,11 +37538,11 @@ Synchronization on a non-final field `checkpointLock`
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/StreamReadMonitoringFunction.java`
 #### Snippet
 ```java
-    if (checkpointLock != null) {
-      // this is to cover the case where cancel() is called before the run()
+    checkpointLock = context.getCheckpointLock();
+    while (isRunning) {
       synchronized (checkpointLock) {
-        issuedInstant = null;
-        isRunning = false;
+        monitorDirAndForwardSplits(context);
+      }
 ```
 
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
@@ -37562,11 +37576,11 @@ Missing '@Deprecated' annotation
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieClusteringConfig.java`
 #### Snippet
 ```java
-   * @deprecated this setting has no effect
+   * {@link #LAYOUT_OPTIMIZE_STRATEGY} config to enable advanced record layout optimization strategies
    */
-  public static final ConfigProperty LAYOUT_OPTIMIZE_DATA_SKIPPING_ENABLE = ConfigProperty
-      .key(LAYOUT_OPTIMIZE_PARAM_PREFIX + "data.skipping.enable")
-      .defaultValue(true)
+  public static final ConfigProperty LAYOUT_OPTIMIZE_ENABLE = ConfigProperty
+      .key(LAYOUT_OPTIMIZE_PARAM_PREFIX + "enable")
+      .defaultValue(false)
 ```
 
 ### MissingDeprecatedAnnotation
@@ -37574,11 +37588,11 @@ Missing '@Deprecated' annotation
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/config/HoodieClusteringConfig.java`
 #### Snippet
 ```java
-   * {@link #LAYOUT_OPTIMIZE_STRATEGY} config to enable advanced record layout optimization strategies
+   * @deprecated this setting has no effect
    */
-  public static final ConfigProperty LAYOUT_OPTIMIZE_ENABLE = ConfigProperty
-      .key(LAYOUT_OPTIMIZE_PARAM_PREFIX + "enable")
-      .defaultValue(false)
+  public static final ConfigProperty LAYOUT_OPTIMIZE_DATA_SKIPPING_ENABLE = ConfigProperty
+      .key(LAYOUT_OPTIMIZE_PARAM_PREFIX + "data.skipping.enable")
+      .defaultValue(true)
 ```
 
 ### MissingDeprecatedAnnotation
@@ -37636,9 +37650,9 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchiv
 ```java
    * @deprecated
    */
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
+  public HoodieArchivedTimeline() {
   }
+
 ```
 
 ### MissingDeprecatedAnnotation
@@ -37648,8 +37662,20 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchiv
 ```java
    * @deprecated
    */
-  public HoodieArchivedTimeline() {
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
   }
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
+#### Snippet
+```java
+   * @deprecated please use {@link #getTableAvroSchema(HoodieInstant, boolean)} instead
+   */
+  public MessageType readSchemaFromLastCompaction(Option<HoodieInstant> lastCompactionCommitOpt) throws Exception {
+    HoodieActiveTimeline activeTimeline = metaClient.getActiveTimeline();
 
 ```
 
@@ -37677,18 +37703,6 @@ public class HDFSParquetImporter implements Serializable {
   private static final long serialVersionUID = 1L;
 ```
 
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `hudi-common/src/main/java/org/apache/hudi/common/table/TableSchemaResolver.java`
-#### Snippet
-```java
-   * @deprecated please use {@link #getTableAvroSchema(HoodieInstant, boolean)} instead
-   */
-  public MessageType readSchemaFromLastCompaction(Option<HoodieInstant> lastCompactionCommitOpt) throws Exception {
-    HoodieActiveTimeline activeTimeline = metaClient.getActiveTimeline();
-
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `scala.collection` is unnecessary, and can be replaced with an import
@@ -37699,7 +37713,19 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
       String sparkPropertiesPath = Utils
           .getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
       SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-      sparkLauncher.addAppArgs(SparkCommand.COMPACT_UNSCHEDULE_FILE.toString(), master, sparkMemory, client.getBasePath(),
+      sparkLauncher.addAppArgs(SparkCommand.COMPACT_UNSCHEDULE_PLAN.toString(), master, sparkMemory, client.getBasePath(),
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `scala.collection` is unnecessary, and can be replaced with an import
+in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
+#### Snippet
+```java
+    HoodieCLI.initFS(initialized);
+    String sparkPropertiesPath =
+        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
+    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
+    sparkLauncher.addAppArgs(SparkCommand.COMPACT_SCHEDULE_AND_EXECUTE.toString(), master, sparkMemory, client.getBasePath(),
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -37731,18 +37757,6 @@ Qualifier `scala.collection` is unnecessary, and can be replaced with an import
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
 #### Snippet
 ```java
-    HoodieCLI.initFS(initialized);
-    String sparkPropertiesPath =
-        Utils.getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
-    SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-    sparkLauncher.addAppArgs(SparkCommand.COMPACT_SCHEDULE_AND_EXECUTE.toString(), master, sparkMemory, client.getBasePath(),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `scala.collection` is unnecessary, and can be replaced with an import
-in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
-#### Snippet
-```java
     try {
       String sparkPropertiesPath = Utils
           .getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
@@ -37759,7 +37773,7 @@ in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/CompactionCommand.java`
       String sparkPropertiesPath = Utils
           .getDefaultPropertiesFile(scala.collection.JavaConversions.propertiesAsScalaMap(System.getProperties()));
       SparkLauncher sparkLauncher = SparkUtil.initLauncher(sparkPropertiesPath);
-      sparkLauncher.addAppArgs(SparkCommand.COMPACT_UNSCHEDULE_PLAN.toString(), master, sparkMemory, client.getBasePath(),
+      sparkLauncher.addAppArgs(SparkCommand.COMPACT_UNSCHEDULE_FILE.toString(), master, sparkMemory, client.getBasePath(),
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -37955,18 +37969,6 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/factory/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.log4j` is unnecessary, and can be replaced with an import
-in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/JmxMetricsReporter.java`
-#### Snippet
-```java
-public class JmxMetricsReporter extends MetricsReporter {
-
-  private static final org.apache.log4j.Logger LOG = LogManager.getLogger(JmxMetricsReporter.class);
-
-  private final MetricRegistry registry;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.hudi.keygen` is unnecessary and can be removed
 in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUtils.java`
 #### Snippet
@@ -37979,15 +37981,15 @@ in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/keygen/KeyGenUt
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hudi.common.fs` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/common/fs/FailSafeConsistencyGuard.java`
+Qualifier `org.apache.log4j` is unnecessary, and can be replaced with an import
+in `hudi-client/hudi-client-common/src/main/java/org/apache/hudi/metrics/JmxMetricsReporter.java`
 #### Snippet
 ```java
-   * @param dir directory of interest in which list of files are checked for visibility
-   * @param files List of files to check for visibility
-   * @param event {@link org.apache.hudi.common.fs.ConsistencyGuard.FileVisibility} event of interest.
-   * @throws TimeoutException when retries are exhausted
-   */
+public class JmxMetricsReporter extends MetricsReporter {
+
+  private static final org.apache.log4j.Logger LOG = LogManager.getLogger(JmxMetricsReporter.class);
+
+  private final MetricRegistry registry;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38015,6 +38017,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/FailSafeConsistencyGuard
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.hudi.common.fs` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/common/fs/FailSafeConsistencyGuard.java`
+#### Snippet
+```java
+   * @param dir directory of interest in which list of files are checked for visibility
+   * @param files List of files to check for visibility
+   * @param event {@link org.apache.hudi.common.fs.ConsistencyGuard.FileVisibility} event of interest.
+   * @throws TimeoutException when retries are exhausted
+   */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `hudi-common/src/main/java/org/apache/hudi/common/util/ObjectSizeCalculator.java`
 #### Snippet
@@ -38024,6 +38038,42 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ObjectSizeCalculator.j
    * @param obj the object; can be null. Passing in a {@link java.lang.Class} object doesn't do anything special, it
    *        measures the size of all objects reachable through it (which will include its class loader, and by
    *        extension, all other Class objects loaded by the same loader, and all the parent class loaders). It doesn't
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
+#### Snippet
+```java
+
+  /**
+   * Wrapper of {@link java.lang.String#join(CharSequence, Iterable)}.
+   *
+   * Allow return {@code null} when {@code Iterable} is {@code null}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+   * @VisibleForTesting
+   */
+  public static java.sql.Date toJavaDate(int days) {
+    LocalDate date = LocalDate.ofEpochDay(days);
+    ZoneId defaultZoneId = ZoneId.systemDefault();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
+#### Snippet
+```java
+    ZoneId defaultZoneId = ZoneId.systemDefault();
+    ZonedDateTime zonedDateTime = date.atStartOfDay(defaultZoneId);
+    return new java.sql.Date(zonedDateTime.toInstant().toEpochMilli());
+  }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38063,42 +38113,6 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-   * @VisibleForTesting
-   */
-  public static java.sql.Date toJavaDate(int days) {
-    LocalDate date = LocalDate.ofEpochDay(days);
-    ZoneId defaultZoneId = ZoneId.systemDefault();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
-#### Snippet
-```java
-    ZoneId defaultZoneId = ZoneId.systemDefault();
-    ZonedDateTime zonedDateTime = date.atStartOfDay(defaultZoneId);
-    return new java.sql.Date(zonedDateTime.toInstant().toEpochMilli());
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/common/util/StringUtils.java`
-#### Snippet
-```java
-
-  /**
-   * Wrapper of {@link java.lang.String#join(CharSequence, Iterable)}.
-   *
-   * Allow return {@code null} when {@code Iterable} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.time` is unnecessary and can be removed
 in `hudi-common/src/main/java/org/apache/hudi/common/util/DateTimeUtils.java`
 #### Snippet
@@ -38108,18 +38122,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/DateTimeUtils.java`
    * Parse input String to a {@link java.time.Instant}.
    *
    * @param s Input String should be Epoch time in millisecond or ISO-8601 format.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
-#### Snippet
-```java
-  @Override
-  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
-    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
-        Collectors.groupingBy(
-            Pair::getKey,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38144,6 +38146,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/util/ParquetUtils.java`
         return java.sql.Date.valueOf(
             primitiveType.stringifier().stringify((Integer) val)
         );
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `hudi-common/src/main/java/org/apache/hudi/common/data/HoodieListPairData.java`
+#### Snippet
+```java
+  @Override
+  public HoodiePairData<K, V> reduceByKey(SerializableBiFunction<V, V, V> combiner, int parallelism) {
+    Map<K, java.util.Optional<V>> reducedMap = asStream().collect(
+        Collectors.groupingBy(
+            Pair::getKey,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38175,11 +38189,11 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
 #### Snippet
 ```java
-  }
+   * @deprecated
+   */
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
 
-  private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-    out.defaultWriteObject();
-  }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38187,18 +38201,6 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `hudi-common/src/main/java/org/apache/hudi/common/table/HoodieTableMetaClient.java`
 #### Snippet
 ```java
-   * @deprecated
-   */
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
-#### Snippet
-```java
   }
 
   private void writeObject(java.io.ObjectOutputStream out) throws IOException {
@@ -38215,6 +38217,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileS
    */
   private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
     in.defaultReadObject();
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `hudi-common/src/main/java/org/apache/hudi/common/table/view/HoodieTableFileSystemView.java`
+#### Snippet
+```java
+  }
+
+  private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+    out.defaultWriteObject();
   }
 ```
 
@@ -38255,6 +38269,30 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieArchiv
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary, and can be replaced with an import
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
+#### Snippet
+```java
+      String rawName = splitPoint > 0 ? name.substring(splitPoint + 1) : name;
+      // try to infer add position.
+      java.util.Optional<String> inferPosition =
+          colNamesFromIncoming.stream().filter(c ->
+              c.lastIndexOf(".") == splitPoint
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.hudi.internal.schema` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
+#### Snippet
+```java
+   * @param cache use to cache intermediate convert result to save cost.
+   * @param recordName auto-generated record name used as a fallback, in case
+   * {@link org.apache.hudi.internal.schema.Types.RecordType} doesn't bear original record-name
+   * @return a Avro schema match this type
+   */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.hudi.common.table.timeline` is unnecessary and can be removed
 in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActiveTimeline.java`
 #### Snippet
@@ -38276,6 +38314,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActive
    *  {@link org.apache.hudi.common.table.timeline.HoodieInstantTimeGenerator#SECS_INSTANT_TIMESTAMP_FORMAT}.
    * @return Date of instant timestamp
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActiveTimeline.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+    in.defaultReadObject();
+  }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38327,54 +38377,6 @@ in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActive
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `hudi-common/src/main/java/org/apache/hudi/common/table/timeline/HoodieActiveTimeline.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary, and can be replaced with an import
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/utils/AvroSchemaEvolutionUtils.java`
-#### Snippet
-```java
-      String rawName = splitPoint > 0 ? name.substring(splitPoint + 1) : name;
-      // try to infer add position.
-      java.util.Optional<String> inferPosition =
-          colNamesFromIncoming.stream().filter(c ->
-              c.lastIndexOf(".") == splitPoint
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hudi.internal.schema` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/internal/schema/convert/AvroInternalSchemaConverter.java`
-#### Snippet
-```java
-   * @param cache use to cache intermediate convert result to save cost.
-   * @param recordName auto-generated record name used as a fallback, in case
-   * {@link org.apache.hudi.internal.schema.Types.RecordType} doesn't bear original record-name
-   * @return a Avro schema match this type
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.avro` is unnecessary and can be removed
-in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
-#### Snippet
-```java
-  /**
-   * Does an upcast for {@link BigDecimal} instance to align it with scale/precision expected by
-   * the {@link org.apache.avro.LogicalTypes.Decimal} Avro logical type
-   */
-  public static BigDecimal tryUpcastDecimal(BigDecimal value, final LogicalTypes.Decimal decimal) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.hadoop.hive.shims` is unnecessary, and can be replaced with an import
 in `hudi-hadoop-mr/src/main/java/org/apache/hudi/hadoop/hive/HoodieCombineHiveInputFormat.java`
 #### Snippet
@@ -38420,6 +38422,18 @@ in `hudi-utilities/src/main/java/org/apache/hudi/utilities/schema/HiveSchemaProv
         TableIdentifier targetSchemaTable = new TableIdentifier(targetSchemaTableName, scala.Option.apply(targetSchemaDatabaseName));
         StructType targetSchema = spark.sessionState().catalog().getTableMetadata(targetSchemaTable).schema();
         this.targetSchema = AvroConversionUtils.convertStructTypeToAvroSchema(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.avro` is unnecessary and can be removed
+in `hudi-common/src/main/java/org/apache/hudi/metadata/HoodieTableMetadataUtil.java`
+#### Snippet
+```java
+  /**
+   * Does an upcast for {@link BigDecimal} instance to align it with scale/precision expected by
+   * the {@link org.apache.avro.LogicalTypes.Decimal} Avro logical type
+   */
+  public static BigDecimal tryUpcastDecimal(BigDecimal value, final LogicalTypes.Decimal decimal) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38507,18 +38521,6 @@ public class ChangelogModes {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hudi.client` is unnecessary and can be removed
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
-#### Snippet
-```java
-
-/**
- * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
- */
-public class FlinkWriteClients {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.flink.api.common.io` is unnecessary and can be removed
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/InputFormats.java`
 #### Snippet
@@ -38543,15 +38545,15 @@ public class FlinkTables {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.configuration` is unnecessary and can be removed
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
+Qualifier `org.apache.hudi.client` is unnecessary and can be removed
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/FlinkWriteClients.java`
 #### Snippet
 ```java
-  }
 
-  public static Schema getSourceSchema(org.apache.flink.configuration.Configuration conf) {
-    if (conf.getOptional(FlinkOptions.SOURCE_AVRO_SCHEMA_PATH).isPresent()) {
-      return new FilebasedSchemaProvider(conf).getSourceSchema();
+/**
+ * Utilities for {@link org.apache.hudi.client.HoodieFlinkWriteClient}.
+ */
+public class FlinkWriteClients {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38564,6 +38566,18 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/DataType
  * Utilities for {@link org.apache.flink.table.types.DataType}.
  */
 public class DataTypeUtils {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.configuration` is unnecessary and can be removed
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/util/StreamerUtil.java`
+#### Snippet
+```java
+  }
+
+  public static Schema getSourceSchema(org.apache.flink.configuration.Configuration conf) {
+    if (conf.getOptional(FlinkOptions.SOURCE_AVRO_SCHEMA_PATH).isPresent()) {
+      return new FilebasedSchemaProvider(conf).getSourceSchema();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38616,6 +38630,30 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/FileIn
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.flink.configuration` is unnecessary and can be removed
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration/HadoopConfigurations.java`
+#### Snippet
+```java
+   */
+  public static org.apache.hadoop.conf.Configuration getParquetConf(
+      org.apache.flink.configuration.Configuration options,
+      org.apache.hadoop.conf.Configuration hadoopConf) {
+    org.apache.hadoop.conf.Configuration copy = new org.apache.hadoop.conf.Configuration(hadoopConf);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.table.expressions` is unnecessary and can be removed
+in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ExpressionEvaluator.java`
+#### Snippet
+```java
+
+/**
+ * Tool to evaluate the {@link org.apache.flink.table.expressions.ResolvedExpression}s.
+ */
+public class ExpressionEvaluator {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.configuration` is unnecessary and can be removed
 in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/streamer/FlinkStreamerConfig.java`
 #### Snippet
 ```java
@@ -38651,15 +38689,15 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.configuration` is unnecessary and can be removed
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/configuration/HadoopConfigurations.java`
+Qualifier `org.apache.parquet.column` is unnecessary, and can be replaced with an import
+in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/Int64TimestampColumnReader.java`
 #### Snippet
 ```java
-   */
-  public static org.apache.hadoop.conf.Configuration getParquetConf(
-      org.apache.flink.configuration.Configuration options,
-      org.apache.hadoop.conf.Configuration hadoopConf) {
-    org.apache.hadoop.conf.Configuration copy = new org.apache.hadoop.conf.Configuration(hadoopConf);
+  public static TimestampData decodeInt64ToTimestamp(
+      boolean utcTimestamp,
+      org.apache.parquet.column.Dictionary dictionary,
+      int id,
+      ChronoUnit unit) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38687,20 +38725,8 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/table/format/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.table.expressions` is unnecessary and can be removed
-in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/ExpressionEvaluator.java`
-#### Snippet
-```java
-
-/**
- * Tool to evaluate the {@link org.apache.flink.table.expressions.ResolvedExpression}s.
- */
-public class ExpressionEvaluator {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.parquet.column` is unnecessary, and can be replaced with an import
-in `hudi-flink-datasource/hudi-flink1.13.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/Int64TimestampColumnReader.java`
+in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/Int64TimestampColumnReader.java`
 #### Snippet
 ```java
   public static TimestampData decodeInt64ToTimestamp(
@@ -38720,18 +38746,6 @@ in `hudi-flink-datasource/hudi-flink/src/main/java/org/apache/hudi/source/stats/
     org.apache.hudi.util.AvroToRowDataConverters.AvroToRowDataConverter converter =
         AvroToRowDataConverters.createRowConverter((RowType) METADATA_DATA_TYPE.getLogicalType());
     return records.collectAsList().stream().parallel().map(record -> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.parquet.column` is unnecessary, and can be replaced with an import
-in `hudi-flink-datasource/hudi-flink1.14.x/src/main/java/org/apache/hudi/table/format/cow/vector/reader/Int64TimestampColumnReader.java`
-#### Snippet
-```java
-  public static TimestampData decodeInt64ToTimestamp(
-      boolean utcTimestamp,
-      org.apache.parquet.column.Dictionary dictionary,
-      int id,
-      ChronoUnit unit) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -38812,11 +38826,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-          limit, sortByField, descending, headerOnly, true, showTimeSeconds, showRollbackInfo);
-    } catch (IOException e) {
-      e.printStackTrace();
-      return e.getMessage();
-    }
+      } catch (IOException e) {
+        LOG.error(String.format("Error reading rollback info of %s", rollbackInstant));
+        e.printStackTrace();
+      }
+    });
 ```
 
 ### ThrowablePrintStackTrace
@@ -38848,11 +38862,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `hudi-cli/src/main/java/org/apache/hudi/cli/commands/TimelineCommand.java`
 #### Snippet
 ```java
-      } catch (IOException e) {
-        LOG.error(String.format("Error reading rollback info of %s", rollbackInstant));
-        e.printStackTrace();
-      }
-    });
+          limit, sortByField, descending, headerOnly, true, showTimeSeconds, showRollbackInfo);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return e.getMessage();
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -38969,6 +38983,18 @@ in `hudi-common/src/main/java/org/apache/hudi/common/fs/HoodieWrapperFileSystem.
 ## RuleId[ruleID=BigDecimalMethodWithoutRoundingCalled]
 ### BigDecimalMethodWithoutRoundingCalled
 'BigDecimal.setScale()' called without a rounding mode argument
+in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
+#### Snippet
+```java
+        BigDecimal bigDecimal = ((DecimalColumnVector) colVector).vector[vectorPos]
+            .getHiveDecimal().bigDecimalValue()
+            .setScale(((LogicalTypes.Decimal) logicalType).getScale());
+        Schema.Type baseType = avroSchema.getType();
+        if (baseType.equals(Schema.Type.FIXED)) {
+```
+
+### BigDecimalMethodWithoutRoundingCalled
+'BigDecimal.setScale()' called without a rounding mode argument
 in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
 #### Snippet
 ```java
@@ -39001,18 +39027,6 @@ in `hudi-common/src/main/java/org/apache/hudi/avro/HoodieAvroUtils.java`
                       .setScale(decimal.getScale());
             }
             return DECIMAL_CONVERSION.toFixed(bigDecimal, newSchema, newSchema.getLogicalType());
-```
-
-### BigDecimalMethodWithoutRoundingCalled
-'BigDecimal.setScale()' called without a rounding mode argument
-in `hudi-common/src/main/java/org/apache/hudi/common/util/AvroOrcUtils.java`
-#### Snippet
-```java
-        BigDecimal bigDecimal = ((DecimalColumnVector) colVector).vector[vectorPos]
-            .getHiveDecimal().bigDecimalValue()
-            .setScale(((LogicalTypes.Decimal) logicalType).getScale());
-        Schema.Type baseType = avroSchema.getType();
-        if (baseType.equals(Schema.Type.FIXED)) {
 ```
 
 ### BigDecimalMethodWithoutRoundingCalled
