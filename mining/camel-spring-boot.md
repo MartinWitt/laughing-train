@@ -55,31 +55,6 @@ public class JasyptEncryptedPropertiesUtils {
     private static final String SYSTEM_ENVIRONMENT_PREFIX = "sysenv:";
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
-#### Snippet
-```java
-
-    private enum ProviderType {
-        keycloak;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
-#### Snippet
-```java
-        final String jwkSetUri = getClientRegistration().getProviderDetails().getJwkSetUri();
-        final NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
-        jwtDecoder.setClaimSetConverter(new KeycloakUsernameSubClaimAdapter(getProvider().getUserNameAttribute()));;
-        return jwtDecoder;
-    }
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Argument `isNotice` might be null
@@ -110,11 +85,11 @@ Argument `is` might be null
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-            String header;
-            try (InputStream is = getClass().getClassLoader().getResourceAsStream("license-header-java.txt")) {
-                header = PackageHelper.loadText(is);
-            }
-            String code = header + "\n" + source;
+            try {
+                InputStream is = getClass().getClassLoader().getResourceAsStream("license-header.txt");
+                String header = PackageHelper.loadText(is);
+                String code = sb.toString();
+                // add empty new line after header
 ```
 
 ### DataFlowIssue
@@ -122,11 +97,11 @@ Argument `is` might be null
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-            try {
-                InputStream is = getClass().getClassLoader().getResourceAsStream("license-header.txt");
-                String header = PackageHelper.loadText(is);
-                String code = sb.toString();
-                // add empty new line after header
+            String header;
+            try (InputStream is = getClass().getClassLoader().getResourceAsStream("license-header-java.txt")) {
+                header = PackageHelper.loadText(is);
+            }
+            String code = header + "\n" + source;
 ```
 
 ### DataFlowIssue
@@ -139,6 +114,31 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/util/OnHie
         for (AnnotationAttributes attribute : annotationAttributesFromMultiValueMap(attributes)) {
             String[] vals = (String[]) attribute.get("value");
             if (vals != null) {
+```
+
+## RuleId[ruleID=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
+#### Snippet
+```java
+
+    private enum ProviderType {
+        keycloak;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
+#### Snippet
+```java
+        final String jwkSetUri = getClientRegistration().getProviderDetails().getJwkSetUri();
+        final NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withJwkSetUri(jwkSetUri).build();
+        jwtDecoder.setClaimSetConverter(new KeycloakUsernameSubClaimAdapter(getProvider().getUserNameAttribute()));;
+        return jwtDecoder;
+    }
 ```
 
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
@@ -210,10 +210,10 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 #### Snippet
 ```java
             // Group the models by implementing classes
-            Map<String, List<ComponentModel>> grModels = allModels.stream().collect(Collectors.groupingBy(ComponentModel::getJavaType));
-            for (String componentClass : grModels.keySet()) {
-                List<ComponentModel> compModels = grModels.get(componentClass);
-                ComponentModel model = compModels.get(0); // They should be
+            Map<String, List<LanguageModel>> grModels = allModels.stream().collect(Collectors.groupingBy(LanguageModel::getJavaType));
+            for (String languageClass : grModels.keySet()) {
+                List<LanguageModel> dfModels = grModels.get(languageClass);
+                LanguageModel model = dfModels.get(0); // They should be
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -222,10 +222,10 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 #### Snippet
 ```java
             // Group the models by implementing classes
-            Map<String, List<LanguageModel>> grModels = allModels.stream().collect(Collectors.groupingBy(LanguageModel::getJavaType));
-            for (String languageClass : grModels.keySet()) {
-                List<LanguageModel> dfModels = grModels.get(languageClass);
-                LanguageModel model = dfModels.get(0); // They should be
+            Map<String, List<ComponentModel>> grModels = allModels.stream().collect(Collectors.groupingBy(ComponentModel::getJavaType));
+            for (String componentClass : grModels.keySet()) {
+                List<ComponentModel> compModels = grModels.get(componentClass);
+                ComponentModel model = compModels.get(0); // They should be
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -279,6 +279,18 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ```
 
 ### SizeReplaceableByIsEmpty
+`csv.trim().length() == 0` can be replaced with 'csv.trim().isEmpty()'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
+#### Snippet
+```java
+
+    private Set<String> csvToSet(String csv) {
+        if (csv == null || csv.trim().length() == 0) {
+            return new TreeSet<>();
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `deps.size() > 0` can be replaced with '!deps.isEmpty()'
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
 #### Snippet
@@ -300,18 +312,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
             if (deps.size() > 0) {
                 dependencies.appendChild(pom.createComment(GENERATED_SECTION_START));
                 for (String dep : deps) {
-```
-
-### SizeReplaceableByIsEmpty
-`csv.trim().length() == 0` can be replaced with 'csv.trim().isEmpty()'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
-#### Snippet
-```java
-
-    private Set<String> csvToSet(String csv) {
-        if (csv == null || csv.trim().length() == 0) {
-            return new TreeSet<>();
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -357,18 +357,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 #### Snippet
 ```java
 
-    private static String createLanguageBody(String shortJavaType, String name) {
-        return new StringBuilder()
-                .append("return new LanguageCustomizer() {\n")
-                .append("    @Override\n")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-
     private static String createDataFormatBody(String shortJavaType, String name) {
         return new StringBuilder()
                 .append("return new DataFormatCustomizer() {\n")
@@ -384,6 +372,18 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
     private static String createComponentBody(String shortJavaType, String name) {
         return new StringBuilder()
                 .append("return new ComponentCustomizer() {\n")
+                .append("    @Override\n")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+
+    private static String createLanguageBody(String shortJavaType, String name) {
+        return new StringBuilder()
+                .append("return new LanguageCustomizer() {\n")
                 .append("    @Override\n")
 ```
 
@@ -418,9 +418,21 @@ Redundant escape of '/'
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
+        sortImports(javaClass);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
         }
 
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + className + ".java";
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
         writeSourceIfChanged(javaClass, fileName, true);
     }
 ```
@@ -442,10 +454,10 @@ Redundant escape of '/'
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-        sortImports(javaClass);
+        }
 
         String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
+        writeSourceIfChanged(javaClass, fileName, true);
     }
 ```
 
@@ -454,22 +466,10 @@ Redundant escape of '/'
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-        method.addAnnotation(Bean.class);
+        }
 
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
-    }
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        sortImports(javaClass);
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + className + ".java";
+        writeSourceIfChanged(javaClass, fileName, true);
     }
 ```
 
@@ -502,71 +502,71 @@ Redundant escape of '/'
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
+        method.addAnnotation(Bean.class);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        sortImports(javaClass);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        sortImports(javaClass);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        sortImports(javaClass);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        }
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, true);
+    }
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
                 + "    definition.setCorsHeaders(target);\n" + "}\n" + "return definition;");
 
         String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
         writeSourceIfChanged(javaClass, fileName, true);
         writeComponentSpringFactorySource(packageName, name);
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        sortImports(javaClass);
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
-    }
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        sortImports(javaClass);
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
-
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
 ```
 
 ## RuleId[ruleID=InnerClassMayBeStatic]
@@ -709,18 +709,6 @@ Can generalize to `? extends Dependency`
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/BomDependenciesGeneratorMojo.java`
 #### Snippet
 ```java
-    }
-
-    private void checkConflictsWithExternalBoms(Collection<Dependency> dependencies, Set<String> external) throws MojoFailureException {
-        Set<String> errors = new TreeSet<>();
-        for (Dependency d : dependencies) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Dependency`
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/BomDependenciesGeneratorMojo.java`
-#### Snippet
-```java
 
 
     private void overwriteDependencyManagement(Document pom, List<Dependency> dependencies) throws Exception {
@@ -738,6 +726,18 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
     private List<Dependency> enhance(List<Dependency> dependencyList) throws IOException {
         List<Dependency> outDependencies = new ArrayList<>();
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends Dependency`
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/BomDependenciesGeneratorMojo.java`
+#### Snippet
+```java
+    }
+
+    private void checkConflictsWithExternalBoms(Collection<Dependency> dependencies, Set<String> external) throws MojoFailureException {
+        Set<String> errors = new TreeSet<>();
+        for (Dependency d : dependencies) {
 ```
 
 ### BoundedWildcard
@@ -879,11 +879,11 @@ Result of `File.mkdirs()` is ignored
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/BomGeneratorMojo.java`
 #### Snippet
 ```java
-        } else {
-            File parent = file.getParentFile();
-            parent.mkdirs();
-        }
+        DOMSource source = new DOMSource(pom);
 
+        targetPom.getParentFile().mkdirs();
+
+        String content;
 ```
 
 ### IgnoreResultOfCall
@@ -891,11 +891,11 @@ Result of `File.mkdirs()` is ignored
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/BomGeneratorMojo.java`
 #### Snippet
 ```java
-        DOMSource source = new DOMSource(pom);
+        } else {
+            File parent = file.getParentFile();
+            parent.mkdirs();
+        }
 
-        targetPom.getParentFile().mkdirs();
-
-        String content;
 ```
 
 ### IgnoreResultOfCall
@@ -1010,7 +1010,7 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/en
 ## RuleId[ruleID=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `components-starter/camel-opentracing-starter/src/main/java/org/apache/camel/opentracing/starter/OpenTracingAutoConfiguration.java`
+in `components-starter/camel-opentelemetry-starter/src/main/java/org/apache/camel/opentelemetry/starter/OpenTelemetryAutoConfiguration.java`
 #### Snippet
 ```java
         }
@@ -1022,7 +1022,7 @@ in `components-starter/camel-opentracing-starter/src/main/java/org/apache/camel/
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `components-starter/camel-opentelemetry-starter/src/main/java/org/apache/camel/opentelemetry/starter/OpenTelemetryAutoConfiguration.java`
+in `components-starter/camel-opentracing-starter/src/main/java/org/apache/camel/opentracing/starter/OpenTracingAutoConfiguration.java`
 #### Snippet
 ```java
         }
@@ -1032,32 +1032,19 @@ in `components-starter/camel-opentelemetry-starter/src/main/java/org/apache/came
         ottracer.init(camelContext);
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `getServerPort()` only delegates to its super method
-in `components-starter/camel-platform-http-starter/src/main/java/org/apache/camel/component/platform/http/springboot/ServletPlatformHttpEngine.java`
-#### Snippet
-```java
-
-	@Override
-	public int getServerPort() {
-		return PlatformHttpEngine.super.getServerPort();
-	}
-```
-
-### RedundantMethodOverride
-Method `init()` only delegates to its super method
-in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
-#### Snippet
-```java
-
-        @Override
-        public void init(WebSecurity web) throws Exception {
-            super.init(web);
-        }
-```
-
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `Condition` is the same as one of its superclass' names
+in `components-starter/camel-kubernetes-starter/src/main/java/org/apache/camel/component/kubernetes/springboot/cloud/KubernetesServiceDiscoveryAutoConfiguration.java`
+#### Snippet
+```java
+    // *******************************
+
+    public static class Condition extends GroupCondition {
+        public Condition() {
+            super(
+```
+
 ### ClassNameSameAsAncestorName
 Class name `ZooKeeperServiceRegistryConfiguration` is the same as one of its superclass' names
 in `components-starter/camel-zookeeper-starter/src/main/java/org/apache/camel/component/zookeeper/springboot/cloud/ZooKeeperServiceRegistryConfiguration.java`
@@ -1085,6 +1072,18 @@ public class ConsulServiceRegistryConfiguration extends org.apache.camel.compone
 ### ClassNameSameAsAncestorName
 Class name `Condition` is the same as one of its superclass' names
 in `components-starter/camel-consul-starter/src/main/java/org/apache/camel/component/consul/springboot/cloud/ConsulServiceDiscoveryAutoConfiguration.java`
+#### Snippet
+```java
+    // *******************************
+
+    public static class Condition extends GroupCondition {
+        public Condition() {
+            super(
+```
+
+### ClassNameSameAsAncestorName
+Class name `Condition` is the same as one of its superclass' names
+in `components-starter/camel-dns-starter/src/main/java/org/apache/camel/component/dns/springboot/cloud/DnsCloudAutoConfiguration.java`
 #### Snippet
 ```java
     // *******************************
@@ -1130,28 +1129,29 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/security/C
         public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata annotatedTypeMetadata) {
 ```
 
-### ClassNameSameAsAncestorName
-Class name `Condition` is the same as one of its superclass' names
-in `components-starter/camel-kubernetes-starter/src/main/java/org/apache/camel/component/kubernetes/springboot/cloud/KubernetesServiceDiscoveryAutoConfiguration.java`
+## RuleId[ruleID=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `init()` only delegates to its super method
+in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
 #### Snippet
 ```java
-    // *******************************
 
-    public static class Condition extends GroupCondition {
-        public Condition() {
-            super(
+        @Override
+        public void init(WebSecurity web) throws Exception {
+            super.init(web);
+        }
 ```
 
-### ClassNameSameAsAncestorName
-Class name `Condition` is the same as one of its superclass' names
-in `components-starter/camel-dns-starter/src/main/java/org/apache/camel/component/dns/springboot/cloud/DnsCloudAutoConfiguration.java`
+### RedundantMethodOverride
+Method `getServerPort()` only delegates to its super method
+in `components-starter/camel-platform-http-starter/src/main/java/org/apache/camel/component/platform/http/springboot/ServletPlatformHttpEngine.java`
 #### Snippet
 ```java
-    // *******************************
 
-    public static class Condition extends GroupCondition {
-        public Condition() {
-            super(
+	@Override
+	public int getServerPort() {
+		return PlatformHttpEngine.super.getServerPort();
+	}
 ```
 
 ## RuleId[ruleID=DefaultAnnotationParam]
@@ -1169,6 +1169,18 @@ public class ZipkinAutoConfiguration {
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `components-starter/camel-opentelemetry-starter/src/main/java/org/apache/camel/opentelemetry/starter/OpenTelemetryAutoConfiguration.java`
+#### Snippet
+```java
+    private Tracer tracer;
+
+    @Bean(initMethod = "", destroyMethod = "")
+    // Camel handles the lifecycle of this bean
+    @ConditionalOnMissingBean(OpenTelemetryTracer.class)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `components-starter/camel-opentracing-starter/src/main/java/org/apache/camel/opentracing/starter/OpenTracingAutoConfiguration.java`
 #### Snippet
 ```java
@@ -1179,16 +1191,17 @@ in `components-starter/camel-opentracing-starter/src/main/java/org/apache/camel/
     @ConditionalOnMissingBean(OpenTracingTracer.class)
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `components-starter/camel-opentelemetry-starter/src/main/java/org/apache/camel/opentelemetry/starter/OpenTelemetryAutoConfiguration.java`
+## RuleId[ruleID=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/DynamicClassLoader.java`
 #### Snippet
 ```java
-    private Tracer tracer;
 
-    @Bean(initMethod = "", destroyMethod = "")
-    // Camel handles the lifecycle of this bean
-    @ConditionalOnMissingBean(OpenTelemetryTracer.class)
+    public Class defineClass(String name, byte[] data) {
+        return super.defineClass(name, data, 0, data.length);
+    }
+
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -1253,30 +1266,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-                List<java.lang.reflect.Method> publicMethods = Stream.of(clazz.getDeclaredMethods()).filter(m -> Modifier.isPublic(m.getModifiers())).collect(Collectors.toList());
-                List<java.lang.reflect.Method> allSetters = publicMethods.stream().filter(m -> m.getReturnType() == void.class || m.getReturnType() == clazz)
-                        .filter(m -> m.getParameterCount() == 1).filter(m -> m.getName().matches("set[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
-                List<java.lang.reflect.Method> allGetters = publicMethods.stream().filter(m -> m.getReturnType() != void.class).filter(m -> m.getParameterCount() == 0)
-                        .filter(m -> m.getName().matches("(get|is)[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-                        .filter(m -> m.getParameterCount() == 1).filter(m -> m.getName().matches("set[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
-                List<java.lang.reflect.Method> allGetters = publicMethods.stream().filter(m -> m.getReturnType() != void.class).filter(m -> m.getParameterCount() == 0)
-                        .filter(m -> m.getName().matches("(get|is)[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
-                allSetters.stream()
-                        .sorted(Comparator.<java.lang.reflect.Method>comparingInt(m -> getSetterPosition(sourceCode, m))
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
@@ -1293,7 +1282,7 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-        method.addAnnotation(Bean.class);
+        sortImports(javaClass);
 
         String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
         writeSourceIfChanged(javaClass, fileName, false);
@@ -1305,10 +1294,10 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-        sortImports(javaClass);
+        }
 
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + className + ".java";
+        writeSourceIfChanged(javaClass, fileName, true);
     }
 ```
 
@@ -1341,6 +1330,54 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
+        method.addAnnotation(Bean.class);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        sortImports(javaClass);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        sortImports(javaClass);
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, false);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        }
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, true);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
                 + "    definition.setCorsHeaders(target);\n" + "}\n" + "return definition;");
 
         String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
@@ -1349,75 +1386,27 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-        sortImports(javaClass);
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
-    }
+                List<java.lang.reflect.Method> publicMethods = Stream.of(clazz.getDeclaredMethods()).filter(m -> Modifier.isPublic(m.getModifiers())).collect(Collectors.toList());
+                List<java.lang.reflect.Method> allSetters = publicMethods.stream().filter(m -> m.getReturnType() == void.class || m.getReturnType() == clazz)
+                        .filter(m -> m.getParameterCount() == 1).filter(m -> m.getName().matches("set[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
+                List<java.lang.reflect.Method> allGetters = publicMethods.stream().filter(m -> m.getReturnType() != void.class).filter(m -> m.getParameterCount() == 0)
+                        .filter(m -> m.getName().matches("(get|is)[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        sortImports(javaClass);
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, false);
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        }
-
-        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + className + ".java";
-        writeSourceIfChanged(javaClass, fileName, true);
-    }
+                        .filter(m -> m.getParameterCount() == 1).filter(m -> m.getName().matches("set[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
+                List<java.lang.reflect.Method> allGetters = publicMethods.stream().filter(m -> m.getReturnType() != void.class).filter(m -> m.getParameterCount() == 0)
+                        .filter(m -> m.getName().matches("(get|is)[A-Z][a-zA-Z0-9]*")).collect(Collectors.toList());
+                allSetters.stream()
+                        .sorted(Comparator.<java.lang.reflect.Method>comparingInt(m -> getSetterPosition(sourceCode, m))
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1429,6 +1418,30 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 
         String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
         writeSourceIfChanged(javaClass, fileName, false);
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        }
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, true);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+        }
+
+        String fileName = packageName.replaceAll("\\.", "\\/") + "/" + name + ".java";
+        writeSourceIfChanged(javaClass, fileName, true);
     }
 ```
 
@@ -1456,42 +1469,17 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
     }
 ```
 
-## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/DynamicClassLoader.java`
-#### Snippet
-```java
-
-    public Class defineClass(String name, byte[] data) {
-        return super.defineClass(name, data, 0, data.length);
-    }
-
-```
-
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.ehcache.config` is unnecessary and can be removed
-in `components-starter/camel-ehcache-starter/src/main/java/org/apache/camel/component/ehcache/springboot/customizer/CacheConfigurationCustomizer.java`
+Qualifier `io.apicurio.datamodels` is unnecessary, and can be replaced with an import
+in `components-starter/camel-springdoc-starter/src/main/java/org/apache/camel/springboot/springdoc/SpringdocAutoConfiguration.java`
 #### Snippet
 ```java
-/**
- * A simple implementation of {@link ComponentCustomizer} that auto discovers a
- * {@link org.ehcache.config.CacheConfiguration} instance and bind it to the
- * {@link EhcacheComponent} component.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-                            Type wft;
-                            boolean isBoolean;
-                            java.lang.reflect.Field field = Stream.of(clazz.getDeclaredFields()).filter(f -> f.getName().equals(fn)).findAny().orElse(null);
-                            List<java.lang.reflect.Method> setters = allSetters.stream().filter(m -> m.getName().equals("set" + StringUtils.capitalize(fn))).collect(Collectors.toList());
-                            List<java.lang.reflect.Method> getters = allGetters.stream()
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        final Object dump = io.apicurio.datamodels.Library.writeNode(openApi);
+        final byte[] jsonData = mapper.writeValueAsBytes(dump);
+        // json to yaml
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1504,6 +1492,18 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
         } catch (java.time.format.DateTimeParseException e) {
             value = pattern;
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary, and can be replaced with an import
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+#### Snippet
+```java
+                            Type wft;
+                            boolean isBoolean;
+                            java.lang.reflect.Field field = Stream.of(clazz.getDeclaredFields()).filter(f -> f.getName().equals(fn)).findAny().orElse(null);
+                            List<java.lang.reflect.Method> setters = allSetters.stream().filter(m -> m.getName().equals("set" + StringUtils.capitalize(fn))).collect(Collectors.toList());
+                            List<java.lang.reflect.Method> getters = allGetters.stream()
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1520,18 +1520,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `io.apicurio.datamodels` is unnecessary, and can be replaced with an import
-in `components-starter/camel-springdoc-starter/src/main/java/org/apache/camel/springboot/springdoc/SpringdocAutoConfiguration.java`
-#### Snippet
-```java
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        final Object dump = io.apicurio.datamodels.Library.writeNode(openApi);
-        final byte[] jsonData = mapper.writeValueAsBytes(dump);
-        // json to yaml
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.apicurio.datamodels` is unnecessary, and can be replaced with an import
 in `components-starter/camel-openapi-java-starter/src/main/java/org/apache/camel/springboot/openapi/OpenApiAutoConfiguration.java`
 #### Snippet
 ```java
@@ -1540,6 +1528,18 @@ in `components-starter/camel-openapi-java-starter/src/main/java/org/apache/camel
         Object dump = io.apicurio.datamodels.Library.writeNode(openApi);
         byte[] jsonData = mapper.writeValueAsBytes(dump);
         // json to yaml
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.ehcache.config` is unnecessary and can be removed
+in `components-starter/camel-ehcache-starter/src/main/java/org/apache/camel/component/ehcache/springboot/customizer/CacheConfigurationCustomizer.java`
+#### Snippet
+```java
+/**
+ * A simple implementation of {@link ComponentCustomizer} that auto discovers a
+ * {@link org.ehcache.config.CacheConfiguration} instance and bind it to the
+ * {@link EhcacheComponent} component.
+ *
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -3538,6 +3538,18 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/FatJarPack
 
 ## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
+`uri = uri + p` could be simplified to 'uri += p'
+in `components-starter/camel-micrometer-starter/src/main/java/org/apache/camel/component/micrometer/springboot/MicrometerTagsAutoConfiguration.java`
+#### Snippet
+```java
+                    String p = request.getPathInfo();
+                    if (p != null) {
+                        uri = uri + p;
+                    }
+                }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
 `line = line + ",\\"` could be simplified to 'line += ",\\\\"'
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
@@ -3547,18 +3559,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
                             line = line + ",\\";
                             lines.set(i, line);
                             lastLine = i;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`desc = desc + "."` could be simplified to 'desc += "."'
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-                if (complex) {
-                    if (!desc.endsWith(".")) {
-                        desc = desc + ".";
-                    }
-                    desc = desc + " The option is a " + option.getJavaType() + " type.";
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -3598,15 +3598,15 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
-`uri = uri + p` could be simplified to 'uri += p'
-in `components-starter/camel-micrometer-starter/src/main/java/org/apache/camel/component/micrometer/springboot/MicrometerTagsAutoConfiguration.java`
+`desc = desc + "."` could be simplified to 'desc += "."'
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-                    String p = request.getPathInfo();
-                    if (p != null) {
-                        uri = uri + p;
+                if (complex) {
+                    if (!desc.endsWith(".")) {
+                        desc = desc + ".";
                     }
-                }
+                    desc = desc + " The option is a " + option.getJavaType() + " type.";
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -3735,6 +3735,18 @@ in `components-starter/camel-zookeeper-starter/src/main/java/org/apache/camel/co
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `contextPath`
+in `components-starter/camel-springdoc-starter/src/main/java/org/apache/camel/springboot/springdoc/SpringdocAutoConfiguration.java`
+#### Snippet
+```java
+    private String getBasePath(String springContextPath, Object basePath, String contextPath) {
+        if (contextPath == null) {
+            contextPath = (String)basePath; // could still be null
+        }
+        if (contextPath != null && !contextPath.isEmpty()) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `version`
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/BomDependenciesGeneratorMojo.java`
 #### Snippet
@@ -3756,18 +3768,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
         file = file.getCanonicalFile();
         if (file.exists()) {
             try (FileReader fr = new FileReader(file)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
-#### Snippet
-```java
-        String wrapper = PRIMITIVEMAP.get(type);
-        if (wrapper != null) {
-            type = wrapper;
-        }
-        return type;
 ```
 
 ### AssignmentToMethodParameter
@@ -3855,15 +3855,15 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `contextPath`
-in `components-starter/camel-springdoc-starter/src/main/java/org/apache/camel/springboot/springdoc/SpringdocAutoConfiguration.java`
+Assignment to method parameter `type`
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
-    private String getBasePath(String springContextPath, Object basePath, String contextPath) {
-        if (contextPath == null) {
-            contextPath = (String)basePath; // could still be null
+        String wrapper = PRIMITIVEMAP.get(type);
+        if (wrapper != null) {
+            type = wrapper;
         }
-        if (contextPath != null && !contextPath.isEmpty()) {
+        return type;
 ```
 
 ### AssignmentToMethodParameter
@@ -3966,18 +3966,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `dsl-starter/camel-cli-connector-starter/src/main/java/org/apache/camel/springboot/cli/connector/SpringCliConnectorFactory.java`
 #### Snippet
 ```java
@@ -3986,6 +3974,30 @@ in `dsl-starter/camel-cli-connector-starter/src/main/java/org/apache/camel/sprin
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `components-starter/camel-springdoc-starter/src/main/java/org/apache/camel/springboot/springdoc/SpringdocAutoConfiguration.java`
+#### Snippet
+```java
+        final List<RestDefinition> rests = resolver.getRestDefinitions(camelContext, null);
+        if (rests == null || rests.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -4003,6 +4015,18 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ### ReturnNull
 Return of `null`
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/AbstractSpringBootGenerator.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
 #### Snippet
 ```java
             }
@@ -4050,22 +4074,10 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 
 ### ReturnNull
 Return of `null`
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootAutoConfigurationMojo.java`
+in `components-starter/camel-openapi-java-starter/src/main/java/org/apache/camel/springboot/openapi/OpenApiAutoConfiguration.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `components-starter/camel-springdoc-starter/src/main/java/org/apache/camel/springboot/springdoc/SpringdocAutoConfiguration.java`
-#### Snippet
-```java
-        final List<RestDefinition> rests = resolver.getRestDefinitions(camelContext, null);
+        List<RestDefinition> rests = resolver.getRestDefinitions(camelContext, null);
         if (rests == null || rests.isEmpty()) {
             return null;
         }
@@ -4122,6 +4134,30 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/SpringType
 
 ### ReturnNull
 Return of `null`
+in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/console/CamelDevConsoleEndpoint.java`
+#### Snippet
+```java
+        DevConsoleRegistry dcr = camelContext.getExtension(DevConsoleRegistry.class);
+        if (dcr == null || !dcr.isEnabled()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/console/CamelDevConsoleEndpoint.java`
+#### Snippet
+```java
+        DevConsoleRegistry dcr = camelContext.getExtension(DevConsoleRegistry.class);
+        if (dcr == null || !dcr.isEnabled()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/health/CamelHealthCheckAutoConfiguration.java`
 #### Snippet
 ```java
@@ -4142,30 +4178,6 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/he
                 return null;
             }
             // lets signal we are integrated with spring boot
-```
-
-### ReturnNull
-Return of `null`
-in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/console/CamelDevConsoleEndpoint.java`
-#### Snippet
-```java
-        DevConsoleRegistry dcr = camelContext.getExtension(DevConsoleRegistry.class);
-        if (dcr == null || !dcr.isEnabled()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/console/CamelDevConsoleEndpoint.java`
-#### Snippet
-```java
-        DevConsoleRegistry dcr = camelContext.getExtension(DevConsoleRegistry.class);
-        if (dcr == null || !dcr.isEnabled()) {
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -4216,19 +4228,19 @@ in `core/camel-spring-boot/src/main/java/org/apache/camel/spring/boot/actuate/en
 
 ```
 
-### ReturnNull
-Return of `null`
-in `components-starter/camel-openapi-java-starter/src/main/java/org/apache/camel/springboot/openapi/OpenApiAutoConfiguration.java`
+## RuleId[ruleID=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `ivGenerator` is redundant
+in `components-starter/camel-jasypt-starter/src/main/java/org/apache/camel/component/jasypt/springboot/JasyptEncryptedPropertiesUtils.java`
 #### Snippet
 ```java
-        List<RestDefinition> rests = resolver.getRestDefinitions(camelContext, null);
-        if (rests == null || rests.isEmpty()) {
-            return null;
+            return isIVNeeded(algorithm) ? new RandomIvGenerator() : new NoIvGenerator();
         }
-
+        IvGenerator ivGenerator = loadClass(ivGeneratorClassName);
+        return ivGenerator;
+    }
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `componentId` is redundant
 in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
@@ -4238,18 +4250,6 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
         String componentName = getMainDepArtifactId();
         String componentId = componentName.replace("camel-", "");
         return componentId;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `pom` is redundant
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
-#### Snippet
-```java
-
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document pom = builder.parse(bin);
-        return pom;
     }
 ```
 
@@ -4266,14 +4266,14 @@ in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/ca
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `ivGenerator` is redundant
-in `components-starter/camel-jasypt-starter/src/main/java/org/apache/camel/component/jasypt/springboot/JasyptEncryptedPropertiesUtils.java`
+Local variable `pom` is redundant
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
 #### Snippet
 ```java
-            return isIVNeeded(algorithm) ? new RandomIvGenerator() : new NoIvGenerator();
-        }
-        IvGenerator ivGenerator = loadClass(ivGeneratorClassName);
-        return ivGenerator;
+
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document pom = builder.parse(bin);
+        return pom;
     }
 ```
 
@@ -4305,18 +4305,6 @@ in `components-starter/camel-jasypt-starter/src/main/java/org/apache/camel/compo
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Condition `deps.size() > 0` is always `true`
-in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
-#### Snippet
-```java
-            Node dependencies = ((NodeList) xpath.compile("/project/dependencies").evaluate(pom, XPathConstants.NODESET)).item(0);
-
-            if (deps.size() > 0) {
-                dependencies.appendChild(pom.createComment(GENERATED_SECTION_START));
-                for (String dep : deps) {
-```
-
-### ConstantValue
 Condition `definedProviders.size() > 1` is always `false`
 in `components-starter/camel-undertow-spring-security-starter/src/main/java/org/apache/camel/undertow/spring/boot/UndertowSpringSecurityCustomizer.java`
 #### Snippet
@@ -4338,5 +4326,17 @@ in `components-starter/camel-jasypt-starter/src/main/java/org/apache/camel/compo
         if (saltGenerator != null) {
             return saltGenerator;
         }
+```
+
+### ConstantValue
+Condition `deps.size() > 0` is always `true`
+in `tooling/camel-spring-boot-generator-maven-plugin/src/main/java/org/apache/camel/springboot/maven/SpringBootStarterMojo.java`
+#### Snippet
+```java
+            Node dependencies = ((NodeList) xpath.compile("/project/dependencies").evaluate(pom, XPathConstants.NODESET)).item(0);
+
+            if (deps.size() > 0) {
+                dependencies.appendChild(pom.createComment(GENERATED_SECTION_START));
+                for (String dep : deps) {
 ```
 
