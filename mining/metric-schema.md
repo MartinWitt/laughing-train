@@ -22,6 +22,18 @@ I found 29 bad smells with 1 repairable:
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
+            String namespace,
+            String metricName,
+            Optional<String> libraryName,
+            MetricNamespace metricNamespace,
+            MetricDefinition definition,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
             String namespaceName,
             String metricName,
             Optional<String> libraryName,
@@ -35,34 +47,22 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
-            MetricNamespace metrics,
-            Optional<String> libraryName,
-            String packageName,
-            ImplementationVisibility visibility) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
-            String metricName,
-            Optional<String> libraryName,
-            MetricNamespace metricNamespace,
-            MetricDefinition definition,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
             String metricName,
             Optional<String> libraryName,
             MetricDefinition definition,
             MetricNamespace metricNamespace) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
+            MetricNamespace metrics,
+            Optional<String> libraryName,
+            String packageName,
+            ImplementationVisibility visibility) {
 ```
 
 ## RuleId[ruleID=IOResource]
@@ -121,11 +121,11 @@ Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        }
-        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
-                .addModifiers(modifiers.toArray(new Modifier[0]))
-                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
-                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
+        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
+                .addModifiers(visibility.apply())
+                .addModifiers(extraModifiers.toArray(new Modifier[0]))
+                .returns(MetricName.class)
+                .addCode("return $L;", metricNameBlock)
 ```
 
 ### ZeroLengthArrayInitialization
@@ -133,11 +133,11 @@ Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
-                .addModifiers(visibility.apply())
-                .addModifiers(extraModifiers.toArray(new Modifier[0]))
-                .returns(MetricName.class)
-                .addCode("return $L;", metricNameBlock)
+        }
+        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
+                .addModifiers(modifiers.toArray(new Modifier[0]))
+                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
+                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
 ```
 
 ## RuleId[ruleID=DataFlowIssue]
@@ -156,7 +156,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -168,7 +168,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -178,56 +178,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
     @InputFile
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `CompileMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class CompileMetricSchemaTask extends DefaultTask {
-    @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GenerateMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class GenerateMetricSchemaTask extends DefaultTask {
-    private final Property<String> libraryName =
-            getProject().getObjects().property(String.class).value(defaultLibraryName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JavaGeneratorArgs` has no concrete subclass
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
-#### Snippet
-```java
-        jdkOnly = true,
-        get = {"get*", "is*"})
-public abstract class JavaGeneratorArgs {
-
-    private static final Predicate<String> LIBRARY_NAME =
-```
-
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
-#### Snippet
-```java
-    }
-
-    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
-        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
-    }
-```
-
 ### BoundedWildcard
 Can generalize to `? extends List`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
@@ -250,6 +201,18 @@ public final class ProviderUtils {
     public static Provider<RegularFile> filterNonExistentFile(Project project, Provider<RegularFile> provider) {
         return provider.flatMap(file -> file.getAsFile().exists()
                 ? project.provider(() -> file)
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+#### Snippet
+```java
+    }
+
+    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
+        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
+    }
 ```
 
 ### BoundedWildcard
@@ -300,6 +263,43 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
         JavaPluginConvention javaPlugin = project.getConvention().getPlugin(JavaPluginConvention.class);
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `JavaGeneratorArgs` has no concrete subclass
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
+#### Snippet
+```java
+        jdkOnly = true,
+        get = {"get*", "is*"})
+public abstract class JavaGeneratorArgs {
+
+    private static final Predicate<String> LIBRARY_NAME =
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CompileMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
+#### Snippet
+```java
+
+@CacheableTask
+public abstract class CompileMetricSchemaTask extends DefaultTask {
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GenerateMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+
+@CacheableTask
+public abstract class GenerateMetricSchemaTask extends DefaultTask {
+    private final Property<String> libraryName =
+            getProject().getObjects().property(String.class).value(defaultLibraryName());
+```
+
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -321,9 +321,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
+        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
+            return Optional.empty();
 ```
 
 ### OptionalContainsCollection
@@ -333,24 +333,12 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
+    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
+        if (!artifact.getFile().exists()) {
+            log.debug("Artifact did not exist: {}", artifact.getFile());
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
-### UnstableApiUsage
-'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
-#### Snippet
-```java
-    static String anyToUpperUnderscore(String input) {
-        Preconditions.checkNotNull(input, "Input string is required");
-        return escapeIfNecessary(splitter.splitToStream(input)
-                .map(segment -> CaseFormats.estimate(segment)
-                        .orElse(CaseFormat.LOWER_CAMEL)
-```
-
 ### UnstableApiUsage
 'builderWithExpectedSize(int)' is marked unstable with @Beta
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/ImplementationVisibility.java`
@@ -361,6 +349,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/Implementa
             return ImmutableList.<Modifier>builderWithExpectedSize(modifiers.length + 1)
                     .add(Modifier.PUBLIC)
                     .add(modifiers)
+```
+
+### UnstableApiUsage
+'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
+#### Snippet
+```java
+    static String anyToUpperUnderscore(String input) {
+        Preconditions.checkNotNull(input, "Input string is required");
+        return escapeIfNecessary(splitter.splitToStream(input)
+                .map(segment -> CaseFormats.estimate(segment)
+                        .orElse(CaseFormat.LOWER_CAMEL)
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
