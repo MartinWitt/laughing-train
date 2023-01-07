@@ -1,27 +1,36 @@
 
-import { useLazyQuery } from "@apollo/client";
 import { Button, Typography } from "@mui/material";
 import React from "react";
-import { loginQuery } from "../ProjectData";
+import { useKeycloak } from "@react-keycloak/web";
 
 export function LoginButton() {
-  const [ login,{ data, error } ] = useLazyQuery(loginQuery);
+  const { keycloak } = useKeycloak();
   return (
     <Button
-      onClick={() => {
-        login();
-        if (data) {
-          console.log(data);
-          console.log("Login successful");
-        }
-        if (error) {
-          console.log(error);
-          console.log("Login failed");
-        }
-      }}
+      onClick={doAuth}
     >
-      <Typography sx={{ fontSize: "30" }} fontWeight={"bold"}>Login</Typography>
+      <Typography sx={{ fontSize: "30" }} fontWeight={"bold"}>{state()}</Typography>
     </Button>
   );
 
+  function state() {
+    if (keycloak.authenticated) {
+      return "Logout " + keycloak.tokenParsed?.name;
+    } else {
+      return "Login";
+    }
+  }
+  function login() {
+    keycloak.login();
+  }
+  function logout() {
+    keycloak.logout();
+  }
+  function doAuth() {
+    if (keycloak.authenticated) {
+      logout();
+    } else {
+      login();
+    }
+  }
 }

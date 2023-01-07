@@ -56,7 +56,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
     spacing={5}>
     {projects.map((project) => {
       return (
-          <DashBoardItem {...project} />
+          <DashBoardItem key={project.projectUrl} {...project} />
       );
     })}
   </Stack>;

@@ -94,7 +94,7 @@ function StackSelectedRule({ selected, handleSelect }: { selected: string[]; han
   console.log(selected);
   return <Stack>
     {selected.map((value) => {
-      return <Chip  label={value} size="medium" onClick={(e) => handleSelect(value)} />;
+      return <Chip  label={value} key={value} size="medium" onClick={() => handleSelect(value)} />;
     })}
   </Stack>;
 }
