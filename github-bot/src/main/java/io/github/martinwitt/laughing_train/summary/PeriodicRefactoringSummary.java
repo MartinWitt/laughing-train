@@ -45,13 +45,14 @@ public class PeriodicRefactoringSummary {
             if (badSmellByRuleId.values().stream().allMatch(List::isEmpty)) {
                 continue;
             }
+            summary.append("| Rule | Occurrences |\n");
+            summary.append("| --- | --- |\n");
             summary.append("## Project: ").append(project.getProjectName()).append("\n");
             for (var entry : badSmellByRuleId.entrySet()) {
                 if (entry.getValue().isEmpty()) {
                     continue;
                 }
-                summary.append("| Rule | Occurrences |\n");
-                summary.append("| --- | --- |\n");
+
                 summary.append("| ")
                         .append(entry.getKey().ruleID())
                         .append(" | ")
