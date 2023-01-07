@@ -49,6 +49,18 @@ in `tchannel-benchmark/src/main/java/com/uber/tchannel/benchmarks/PingPongMultiS
 
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `tchannel-core/src/main/java/com/uber/tchannel/tracing/Tracing.java`
+#### Snippet
+```java
+                if (response.isError()) {
+                    Tags.ERROR.set(span, true);
+                    span.log(response.getError().getMessage());
+                }
+                span.finish();
+```
+
+### DataFlowIssue
 Argument `thriftRequest.getTransportHeaders()` might be null
 in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/ThriftHandler.java`
 #### Snippet
@@ -58,6 +70,18 @@ in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/
                 .setTransportHeaders(thriftRequest.getTransportHeaders())
                 .setBody(new Call_result(objectToData(response)))
                 .build();
+```
+
+### DataFlowIssue
+Argument `message.getArg2()` might be null
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Serializer.java`
+#### Snippet
+```java
+
+    public Map<String, String> decodeHeaders(RawMessage message) {
+        return this.getSerializer(message).decodeHeaders(message.getArg2());
+    }
+
 ```
 
 ### DataFlowIssue
@@ -80,210 +104,6 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/Serializer.java`
 
     public <T> T decodeBody(RawMessage message, Class<T> bodyType) {
         return this.getSerializer(message).decodeBody(message.getArg3(), bodyType);
-    }
-
-```
-
-### DataFlowIssue
-Argument `message.getArg2()` might be null
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Serializer.java`
-#### Snippet
-```java
-
-    public Map<String, String> decodeHeaders(RawMessage message) {
-        return this.getSerializer(message).decodeHeaders(message.getArg2());
-    }
-
-```
-
-### DataFlowIssue
-Argument `request.getTransportHeaders()` might be null
-in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/JSONHandler.java`
-#### Snippet
-```java
-        Response response = behavior.handleRequest(request.getBody(Request.class));
-        return new JsonResponse.Builder<Response>(request)
-                .setTransportHeaders(request.getTransportHeaders())
-                .setBody(response)
-                .build();
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
-#### Snippet
-```java
-    public String toString() {
-        if (isError()) {
-            return getError().toString();
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-        try (ThriftResponse<KeyValue.setValue_result> response = future.get()) {
-            if (response.isError()) {
-                System.out.println("setValue failed due to: " + response.getError().getMessage());
-            } else {
-                System.out.println("setValue succeeded");
-```
-
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-        try (ThriftResponse<KeyValue.getValue_result> getResult = future.get()) {
-            if (getResult.isError()) {
-                System.out.println("getValue failed due to: " + getResult.getError().getMessage());
-                return null;
-            } else {
-```
-
-### DataFlowIssue
-Method invocation `retain` may produce `NullPointerException`
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingRequestHandler.java`
-#### Snippet
-```java
-    @Override
-    public JsonResponse<Pong> handleImpl(JsonRequest<Ping> request) {
-        request.getArg2().retain();
-        return new JsonResponse.Builder<Pong>(request)
-            .setTransportHeaders(request.getTransportHeaders())
-```
-
-### DataFlowIssue
-Argument `request.getTransportHeaders()` might be null
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingRequestHandler.java`
-#### Snippet
-```java
-        request.getArg2().retain();
-        return new JsonResponse.Builder<Pong>(request)
-            .setTransportHeaders(request.getTransportHeaders())
-            .setArg2(request.getArg2())
-            .setBody(new Pong("pong!"))
-```
-
-### DataFlowIssue
-Argument `request.getTransportHeaders()` might be null
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
-#### Snippet
-```java
-                        case 1:
-                            return new RawResponse.Builder(request)
-                                .setTransportHeaders(request.getTransportHeaders())
-                                .setHeader("Polo")
-                                .setBody("Pong!")
-```
-
-### DataFlowIssue
-Argument `request.getTransportHeaders()` might be null
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
-#### Snippet
-```java
-                        case 2:
-                            return new RawResponse.Builder(request)
-                                .setTransportHeaders(request.getTransportHeaders())
-                                .setResponseCode(ResponseCode.Error)
-                                .setHeader("Polo")
-```
-
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `tchannel-core/src/main/java/com/uber/tchannel/tracing/Tracing.java`
-#### Snippet
-```java
-                if (response.isError()) {
-                    Tags.ERROR.set(span, true);
-                    span.log(response.getError().getMessage());
-                }
-                span.finish();
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedResponse.java`
-#### Snippet
-```java
-    public String toString() {
-        if (isError()) {
-            return getError().toString();
-        }
-        return String.format(
-```
-
-### DataFlowIssue
-Argument `checksumType` might be null
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallRequestFrame.java`
-#### Snippet
-```java
-
-        // (csum:4){0,1}
-        checksum = CodecUtils.decodeChecksum(checksumType, tFrame.payload);
-
-        // arg1~2 arg2~2 arg3~2
-```
-
-### DataFlowIssue
-Argument `checksumType` might be null
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallRequestContinueFrame.java`
-#### Snippet
-```java
-
-        // (csum:4){0,1}
-        checksum = CodecUtils.decodeChecksum(checksumType, tFrame.payload);
-
-        // {continuation}
-```
-
-### DataFlowIssue
-Method invocation `getErrorType` may produce `NullPointerException`
-in `tchannel-benchmark/src/main/java/com/uber/tchannel/benchmarks/LargePayloadBenchmark.java`
-#### Snippet
-```java
-                    counters.actualQPS.incrementAndGet();
-                } else {
-                    switch (pongResponse.getError().getErrorType()) {
-                        case Busy:
-                            counters.busyQPS.incrementAndGet();
-```
-
-### DataFlowIssue
-Method invocation `getErrorType` may produce `NullPointerException`
-in `tchannel-benchmark/src/main/java/com/uber/tchannel/benchmarks/PingPongServerBenchmark.java`
-#### Snippet
-```java
-                } else {
-                    // System.out.println(pongResponse.getError().getMessage());
-                    switch (pongResponse.getError().getErrorType()) {
-                        case Busy:
-                            counters.busyQPS.incrementAndGet();
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
-#### Snippet
-```java
-            this.id = req.getId();
-            this.transportHeaders.put(
-                TransportHeaders.ARG_SCHEME_KEY, req.getTransportHeaders().get(TransportHeaders.ARG_SCHEME_KEY)
-            );
-        }
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
-#### Snippet
-```java
-
-    public ArgScheme getArgScheme() {
-        return ArgScheme.toScheme(transportHeaders.get(TransportHeaders.ARG_SCHEME_KEY));
     }
 
 ```
@@ -313,51 +133,75 @@ in `tchannel-core/src/main/java/com/uber/tchannel/api/TFuture.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getErrorType` may produce `NullPointerException`
-in `tchannel-hyperbahn/src/main/java/com/uber/tchannel/hyperbahn/api/HyperbahnClient.java`
+Argument `this.remoteAddress` might be null
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 #### Snippet
 ```java
-                        logger.error(
-                            "Failed to advertise to Hyperbahn: {} - {}",
-                            error.getErrorType(),
-                            error.getMessage()
-                        );
+    public @NotNull SocketAddress getRemoteAddressAsSocketAddress() {
+        synchronized (lock) {
+            return hostPortToSocketAddress(this.remoteAddress);
+        }
+    }
 ```
 
 ### DataFlowIssue
-Unboxing of `requestQueue.poll()` may produce `NullPointerException`
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/ResponseRouter.java`
+Method invocation `getErrorType` may produce `NullPointerException`
+in `tchannel-benchmark/src/main/java/com/uber/tchannel/benchmarks/LargePayloadBenchmark.java`
 #### Snippet
 ```java
-            boolean flush = false;
-            while (!requestQueue.isEmpty() && channel.isWritable()) {
-                long id = requestQueue.poll();
-                OutRequest<?> outRequest = requestMap.get(id);
-                if (outRequest != null) {
+                    counters.actualQPS.incrementAndGet();
+                } else {
+                    switch (pongResponse.getError().getErrorType()) {
+                        case Busy:
+                            counters.busyQPS.incrementAndGet();
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedResponse.java`
+#### Snippet
+```java
+    public String toString() {
+        if (isError()) {
+            return getError().toString();
+        }
+        return String.format(
+```
+
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+        try (ThriftResponse<KeyValue.getValue_result> getResult = future.get()) {
+            if (getResult.isError()) {
+                System.out.println("getValue failed due to: " + getResult.getError().getMessage());
+                return null;
+            } else {
+```
+
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+        try (ThriftResponse<KeyValue.setValue_result> response = future.get()) {
+            if (response.isError()) {
+                System.out.println("setValue failed due to: " + response.getError().getMessage());
+            } else {
+                System.out.println("setValue succeeded");
 ```
 
 ### DataFlowIssue
 Argument `checksumType` might be null
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseContinueFrame.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseFrame.java`
 #### Snippet
 ```java
 
         // (csum:4){0,1}
         checksum = CodecUtils.decodeChecksum(checksumType, tFrame.payload);
 
-        // {continuation}
-```
-
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `tchannel-example/src/main/java/com/uber/tchannel/hyperbahn/HyperbahnExample.java`
-#### Snippet
-```java
-                    System.out.println("Got response. All set: " + response.getBody(AdvertiseResponse.class));
-                } else {
-                    System.out.println("Error happened: " + response.getError().getMessage());
-                }
-            }
+        // arg1~2 arg2~2 arg3~2
 ```
 
 ### DataFlowIssue
@@ -373,20 +217,128 @@ in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/Server.java`
 ```
 
 ### DataFlowIssue
-Argument `this.remoteAddress` might be null
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
+Method invocation `get` may produce `NullPointerException`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
 #### Snippet
 ```java
-    public @NotNull SocketAddress getRemoteAddressAsSocketAddress() {
-        synchronized (lock) {
-            return hostPortToSocketAddress(this.remoteAddress);
+            this.id = req.getId();
+            this.transportHeaders.put(
+                TransportHeaders.ARG_SCHEME_KEY, req.getTransportHeaders().get(TransportHeaders.ARG_SCHEME_KEY)
+            );
         }
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
+#### Snippet
+```java
+
+    public ArgScheme getArgScheme() {
+        return ArgScheme.toScheme(transportHeaders.get(TransportHeaders.ARG_SCHEME_KEY));
     }
+
 ```
 
 ### DataFlowIssue
 Argument `checksumType` might be null
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseFrame.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseContinueFrame.java`
+#### Snippet
+```java
+
+        // (csum:4){0,1}
+        checksum = CodecUtils.decodeChecksum(checksumType, tFrame.payload);
+
+        // {continuation}
+```
+
+### DataFlowIssue
+Argument `request.getTransportHeaders()` might be null
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
+#### Snippet
+```java
+                        case 1:
+                            return new RawResponse.Builder(request)
+                                .setTransportHeaders(request.getTransportHeaders())
+                                .setHeader("Polo")
+                                .setBody("Pong!")
+```
+
+### DataFlowIssue
+Argument `request.getTransportHeaders()` might be null
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
+#### Snippet
+```java
+                        case 2:
+                            return new RawResponse.Builder(request)
+                                .setTransportHeaders(request.getTransportHeaders())
+                                .setResponseCode(ResponseCode.Error)
+                                .setHeader("Polo")
+```
+
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `tchannel-example/src/main/java/com/uber/tchannel/hyperbahn/HyperbahnExample.java`
+#### Snippet
+```java
+                    System.out.println("Got response. All set: " + response.getBody(AdvertiseResponse.class));
+                } else {
+                    System.out.println("Error happened: " + response.getError().getMessage());
+                }
+            }
+```
+
+### DataFlowIssue
+Method invocation `retain` may produce `NullPointerException`
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingRequestHandler.java`
+#### Snippet
+```java
+    @Override
+    public JsonResponse<Pong> handleImpl(JsonRequest<Ping> request) {
+        request.getArg2().retain();
+        return new JsonResponse.Builder<Pong>(request)
+            .setTransportHeaders(request.getTransportHeaders())
+```
+
+### DataFlowIssue
+Argument `request.getTransportHeaders()` might be null
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingRequestHandler.java`
+#### Snippet
+```java
+        request.getArg2().retain();
+        return new JsonResponse.Builder<Pong>(request)
+            .setTransportHeaders(request.getTransportHeaders())
+            .setArg2(request.getArg2())
+            .setBody(new Pong("pong!"))
+```
+
+### DataFlowIssue
+Method invocation `getErrorType` may produce `NullPointerException`
+in `tchannel-benchmark/src/main/java/com/uber/tchannel/benchmarks/PingPongServerBenchmark.java`
+#### Snippet
+```java
+                } else {
+                    // System.out.println(pongResponse.getError().getMessage());
+                    switch (pongResponse.getError().getErrorType()) {
+                        case Busy:
+                            counters.busyQPS.incrementAndGet();
+```
+
+### DataFlowIssue
+Argument `request.getTransportHeaders()` might be null
+in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/JSONHandler.java`
+#### Snippet
+```java
+        Response response = behavior.handleRequest(request.getBody(Request.class));
+        return new JsonResponse.Builder<Response>(request)
+                .setTransportHeaders(request.getTransportHeaders())
+                .setBody(response)
+                .build();
+```
+
+### DataFlowIssue
+Argument `checksumType` might be null
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallRequestFrame.java`
 #### Snippet
 ```java
 
@@ -394,6 +346,54 @@ in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseFrame.java`
         checksum = CodecUtils.decodeChecksum(checksumType, tFrame.payload);
 
         // arg1~2 arg2~2 arg3~2
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+#### Snippet
+```java
+    public String toString() {
+        if (isError()) {
+            return getError().toString();
+        }
+
+```
+
+### DataFlowIssue
+Argument `checksumType` might be null
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallRequestContinueFrame.java`
+#### Snippet
+```java
+
+        // (csum:4){0,1}
+        checksum = CodecUtils.decodeChecksum(checksumType, tFrame.payload);
+
+        // {continuation}
+```
+
+### DataFlowIssue
+Unboxing of `requestQueue.poll()` may produce `NullPointerException`
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/ResponseRouter.java`
+#### Snippet
+```java
+            boolean flush = false;
+            while (!requestQueue.isEmpty() && channel.isWritable()) {
+                long id = requestQueue.poll();
+                OutRequest<?> outRequest = requestMap.get(id);
+                if (outRequest != null) {
+```
+
+### DataFlowIssue
+Method invocation `getErrorType` may produce `NullPointerException`
+in `tchannel-hyperbahn/src/main/java/com/uber/tchannel/hyperbahn/api/HyperbahnClient.java`
+#### Snippet
+```java
+                        logger.error(
+                            "Failed to advertise to Hyperbahn: {} - {}",
+                            error.getErrorType(),
+                            error.getMessage()
+                        );
 ```
 
 ### DataFlowIssue
@@ -435,18 +435,6 @@ in `tchannel-benchmark/src/main/java/com/uber/tchannel/benchmarks/PingPongServer
 
 ## RuleId[ruleID=ObsoleteCollection]
 ### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `tchannel-core/src/main/java/com/uber/tchannel/tracing/TracingContext.java`
-#### Snippet
-```java
-                };
-
-        private Stack<Span> stack() {
-            return stack.get();
-        }
-```
-
-### ObsoleteCollection
 Obsolete collection type `Stack<>` used
 in `tchannel-core/src/main/java/com/uber/tchannel/tracing/TracingContext.java`
 #### Snippet
@@ -458,19 +446,19 @@ in `tchannel-core/src/main/java/com/uber/tchannel/tracing/TracingContext.java`
                 };
 ```
 
-## RuleId[ruleID=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `tchannel-core/src/main/java/com/uber/tchannel/tracing/TracingContext.java`
 #### Snippet
 ```java
-            case Cancelled:
-            case Unhealthy:
-                return false;
+                };
 
-            case Busy:
+        private Stack<Span> stack() {
+            return stack.get();
+        }
 ```
 
+## RuleId[ruleID=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
 in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
@@ -483,14 +471,26 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
             case JSON:
 ```
 
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+#### Snippet
+```java
+            case Cancelled:
+            case Unhealthy:
+                return false;
+
+            case Busy:
+```
+
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'trace' in a Serializable class
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/BadRequestError.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/BusyError.java`
 #### Snippet
 ```java
-public class BadRequestError extends ProtocolError {
-    private static final ErrorType errorType = ErrorType.BadRequest;
+public class BusyError extends ProtocolError {
+    private static final ErrorType errorType = ErrorType.Busy;
     private final Trace trace;
     private final long id;
 
@@ -510,11 +510,11 @@ in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java
 
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'trace' in a Serializable class
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/BusyError.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/BadRequestError.java`
 #### Snippet
 ```java
-public class BusyError extends ProtocolError {
-    private static final ErrorType errorType = ErrorType.Busy;
+public class BadRequestError extends ProtocolError {
+    private static final ErrorType errorType = ErrorType.BadRequest;
     private final Trace trace;
     private final long id;
 
@@ -523,14 +523,74 @@ public class BusyError extends ProtocolError {
 ## RuleId[ruleID=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/JsonResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftResponse.java`
 #### Snippet
 ```java
     }
 
-    protected JsonResponse(long id, ResponseCode responseCode,
+    protected ThriftResponse(ErrorResponse error) {
+        super(error);
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftResponse.java`
+#### Snippet
+```java
+    }
+
+    protected ThriftResponse(long id, ResponseCode responseCode,
                               Map<String, String> transportHeaders,
                               ByteBuf arg2, ByteBuf arg3) {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
+#### Snippet
+```java
+    }
+
+    protected RawRequest(long id, long ttl, Trace trace,
+                      String service, Map<String, String> transportHeaders,
+                      ByteBuf arg1, ByteBuf arg2, ByteBuf arg3) {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
+#### Snippet
+```java
+    private String body = null;
+
+    protected RawRequest(Builder builder) {
+        super(builder);
+        this.body = builder.body;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/api/SubChannel.java`
+#### Snippet
+```java
+    }
+
+    protected <V extends Response> TFuture<V> sendRequest(
+        Request request,
+        InetAddress host,
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CancelFrame.java`
+#### Snippet
+```java
+    }
+
+    protected CancelFrame(long id) {
+        this.id = id;
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -547,26 +607,62 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/JsonResponse.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/JsonResponse.java`
 #### Snippet
 ```java
     }
 
-    protected static TChannel createClient() throws Exception {
-
-        // create TChannel
+    protected JsonResponse(long id, ResponseCode responseCode,
+                              Map<String, String> transportHeaders,
+                              ByteBuf arg2, ByteBuf arg3) {
 ```
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/InitRequestFrame.java`
 #### Snippet
 ```java
     }
 
-    protected static TChannel createServer() throws Exception {
+    protected InitRequestFrame(long id) {
+        this.id = id;
+    }
+```
 
-        // create TChannel
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/InitResponseFrame.java`
+#### Snippet
+```java
+    }
+
+    protected InitResponseFrame(long id) {
+        this.id = id;
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/ErrorFrame.java`
+#### Snippet
+```java
+    }
+
+    protected ErrorFrame(long id) {
+        this.id = id;
+    }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseFrame.java`
+#### Snippet
+```java
+    }
+
+    protected CallResponseFrame(long id) {
+        this(id,(byte)0, null, null, null, null, 0, null);
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -595,26 +691,38 @@ in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseContinueFrame.java`
 #### Snippet
 ```java
     }
 
-    protected ThriftResponse(ErrorResponse error) {
-        super(error);
+    protected CallResponseContinueFrame(long id) {
+        this(id, (byte)0, null, 0, null);
     }
 ```
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftResponse.java`
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
 #### Snippet
 ```java
     }
 
-    protected ThriftResponse(long id, ResponseCode responseCode,
-                              Map<String, String> transportHeaders,
-                              ByteBuf arg2, ByteBuf arg3) {
+    protected static TChannel createClient() throws Exception {
+
+        // create TChannel
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
+#### Snippet
+```java
+    }
+
+    protected static TChannel createServer() throws Exception {
+
+        // create TChannel
 ```
 
 ### ProtectedMemberInFinalClass
@@ -643,102 +751,6 @@ in `tchannel-hyperbahn/src/main/java/com/uber/tchannel/hyperbahn/api/HyperbahnCl
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/api/SubChannel.java`
-#### Snippet
-```java
-    }
-
-    protected <V extends Response> TFuture<V> sendRequest(
-        Request request,
-        InetAddress host,
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseContinueFrame.java`
-#### Snippet
-```java
-    }
-
-    protected CallResponseContinueFrame(long id) {
-        this(id, (byte)0, null, 0, null);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/ErrorFrame.java`
-#### Snippet
-```java
-    }
-
-    protected ErrorFrame(long id) {
-        this.id = id;
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/InitResponseFrame.java`
-#### Snippet
-```java
-    }
-
-    protected InitResponseFrame(long id) {
-        this.id = id;
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CancelFrame.java`
-#### Snippet
-```java
-    }
-
-    protected CancelFrame(long id) {
-        this.id = id;
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallResponseFrame.java`
-#### Snippet
-```java
-    }
-
-    protected CallResponseFrame(long id) {
-        this(id,(byte)0, null, null, null, null, 0, null);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/InitRequestFrame.java`
-#### Snippet
-```java
-    }
-
-    protected InitRequestFrame(long id) {
-        this.id = id;
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
-#### Snippet
-```java
-    }
-
-    protected static TChannel createClient() throws Exception {
-
-        // create TChannel
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 #### Snippet
 ```java
@@ -751,26 +763,14 @@ in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
-#### Snippet
-```java
-    private String body = null;
-
-    protected RawRequest(Builder builder) {
-        super(builder);
-        this.body = builder.body;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 #### Snippet
 ```java
     }
 
-    protected RawRequest(long id, long ttl, Trace trace,
-                      String service, Map<String, String> transportHeaders,
-                      ByteBuf arg1, ByteBuf arg2, ByteBuf arg3) {
+    protected static TChannel createClient() throws Exception {
+
+        // create TChannel
 ```
 
 ## RuleId[ruleID=UnnecessaryToStringCall]
@@ -811,42 +811,41 @@ in `tchannel-core/src/main/java/com/uber/tchannel/headers/RetryFlag.java`
             retryFlags.add(toRetryFlag(c));
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `DefaultTypedRequestHandler` has no concrete subclass
-in `tchannel-core/src/main/java/com/uber/tchannel/api/handlers/DefaultTypedRequestHandler.java`
-#### Snippet
-```java
-import com.uber.tchannel.messages.Response;
-
-public abstract class DefaultTypedRequestHandler implements RequestHandler {
-
-    @Override
-```
-
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends SerializerInterface`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Serializer.java`
+Can generalize to `? extends CallFrame`
+in `tchannel-core/src/main/java/com/uber/tchannel/codecs/MessageCodec.java`
 #### Snippet
 ```java
-    Map<ArgScheme, SerializerInterface> serializers;
-
-    public Serializer(Map<ArgScheme, SerializerInterface> serializers) {
-        this.serializers = serializers;
     }
+
+    public static Request decodeCallRequest(List<CallFrame> frames) {
+
+        if (frames.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CallFrame`
+in `tchannel-core/src/main/java/com/uber/tchannel/codecs/MessageCodec.java`
+#### Snippet
+```java
+    }
+
+    public static Response decodeCallResponse(List<CallFrame> frames) {
+
+        if (frames.isEmpty()) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
 #### Snippet
 ```java
     }
 
     public T getBody(Class<T> bodyType) {
-        if (body == null && arg3 != null) {
-            body = serializer.decodeBody(this, bodyType);
+        if (body == null) {
+            if (arg3 != null) {
 ```
 
 ### BoundedWildcard
@@ -858,6 +857,18 @@ in `tchannel-hyperbahn/src/main/java/com/uber/tchannel/hyperbahn/messages/Advert
 
     public AdvertiseRequest(List<Service> services) {
         this.services = services;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SerializerInterface`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Serializer.java`
+#### Snippet
+```java
+    Map<ArgScheme, SerializerInterface> serializers;
+
+    public Serializer(Map<ArgScheme, SerializerInterface> serializers) {
+        this.serializers = serializers;
     }
 ```
 
@@ -886,15 +897,15 @@ in `tchannel-core/src/main/java/com/uber/tchannel/api/SubChannel.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ByteBuf`
-in `tchannel-core/src/main/java/com/uber/tchannel/codecs/CodecUtils.java`
+Can generalize to `? extends T`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedResponse.java`
 #### Snippet
 ```java
-        @NotNull ByteBufAllocator allocator,
-        @NotNull ByteBuf header,
-        @NotNull List<ByteBuf> args
-    ) {
-        int writableBytes = TFrame.MAX_FRAME_PAYLOAD_LENGTH - header.readableBytes();
+    }
+
+    public T getBody(Class<T> bodyType) {
+        if (body == null && arg3 != null) {
+            body = serializer.decodeBody(this, bodyType);
 ```
 
 ### BoundedWildcard
@@ -907,6 +918,18 @@ in `tchannel-core/src/main/java/com/uber/tchannel/codecs/CodecUtils.java`
         @NotNull List<ByteBuf> args
     ) {
         ByteBuf payload = allocator.buffer(header.readableBytes(), TFrame.MAX_FRAME_PAYLOAD_LENGTH);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ByteBuf`
+in `tchannel-core/src/main/java/com/uber/tchannel/codecs/CodecUtils.java`
+#### Snippet
+```java
+        @NotNull ByteBufAllocator allocator,
+        @NotNull ByteBuf header,
+        @NotNull List<ByteBuf> args
+    ) {
+        int writableBytes = TFrame.MAX_FRAME_PAYLOAD_LENGTH - header.readableBytes();
 ```
 
 ### BoundedWildcard
@@ -938,18 +961,6 @@ Can generalize to `? super String`
 in `tchannel-core/src/main/java/com/uber/tchannel/tracing/PrefixedHeadersCarrier.java`
 #### Snippet
 ```java
-
-    private static Function<String, String> cachingTransformer(
-            Function<String, String> transformer
-    ) {
-        final LoadingCache<String, String> cache = CacheBuilder.newBuilder()
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `tchannel-core/src/main/java/com/uber/tchannel/tracing/PrefixedHeadersCarrier.java`
-#### Snippet
-```java
             Map<String, String> headers,
             String prefix,
             Function<String, String> encoder,
@@ -970,52 +981,28 @@ in `tchannel-core/src/main/java/com/uber/tchannel/tracing/PrefixedHeadersCarrier
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
+Can generalize to `? super String`
+in `tchannel-core/src/main/java/com/uber/tchannel/tracing/PrefixedHeadersCarrier.java`
 #### Snippet
 ```java
-    }
 
-    public T getBody(Class<T> bodyType) {
-        if (body == null) {
-            if (arg3 != null) {
+    private static Function<String, String> cachingTransformer(
+            Function<String, String> transformer
+    ) {
+        final LoadingCache<String, String> cache = CacheBuilder.newBuilder()
 ```
 
-### BoundedWildcard
-Can generalize to `? extends CallFrame`
-in `tchannel-core/src/main/java/com/uber/tchannel/codecs/MessageCodec.java`
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `DefaultTypedRequestHandler` has no concrete subclass
+in `tchannel-core/src/main/java/com/uber/tchannel/api/handlers/DefaultTypedRequestHandler.java`
 #### Snippet
 ```java
-    }
+import com.uber.tchannel.messages.Response;
 
-    public static Request decodeCallRequest(List<CallFrame> frames) {
+public abstract class DefaultTypedRequestHandler implements RequestHandler {
 
-        if (frames.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CallFrame`
-in `tchannel-core/src/main/java/com/uber/tchannel/codecs/MessageCodec.java`
-#### Snippet
-```java
-    }
-
-    public static Response decodeCallResponse(List<CallFrame> frames) {
-
-        if (frames.isEmpty()) {
-```
-
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final protected`
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
-#### Snippet
-```java
-    private @Nullable String remoteAddress = null;
-    private @Nullable TChannelError lastError = null;
-    final protected @NotNull Object lock;
-
-    public Connection(Peer peer, @NotNull Channel channel, Direction direction) {
+    @Override
 ```
 
 ## RuleId[ruleID=NullableProblems]
@@ -1068,18 +1055,6 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
 ```
 
 ### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-
-        @VisibleForTesting
-        ByteBuf getArg1() {
-            return arg1;
-        }
-```
-
-### NullableProblems
 Constructor parameter for @Nullable field might be annotated @Nullable itself
 in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
 #### Snippet
@@ -1091,19 +1066,57 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
             this.arg1 = arg1;
 ```
 
-## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `direction` accessed in synchronized context
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+
+        @VisibleForTesting
+        ByteBuf getArg1() {
+            return arg1;
+        }
+```
+
+## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final protected`
 in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 #### Snippet
 ```java
-    public boolean satisfy(@Nullable Direction preferredDirection) {
-        synchronized (lock) {
-            return preferredDirection == null || preferredDirection == Direction.NONE || preferredDirection == direction;
-        }
-    }
+    private @Nullable String remoteAddress = null;
+    private @Nullable TChannelError lastError = null;
+    final protected @NotNull Object lock;
+
+    public Connection(Peer peer, @NotNull Channel channel, Direction direction) {
 ```
 
+## RuleId[ruleID=NegativeIntConstantInLongContext]
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java`
+#### Snippet
+```java
+
+public class FatalProtocolError extends ProtocolError {
+    private static final long ID = 0xFFFFFFFF;
+    private static final ErrorType errorType = ErrorType.FatalProtocolError;
+    private final Trace trace;
+```
+
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java`
+#### Snippet
+```java
+    @Override
+    public long getId() {
+        return ID;
+    }
+
+```
+
+## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.state` accessed in synchronized context
 in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
@@ -1133,6 +1146,30 @@ Non-private field `this.state` accessed in synchronized context
 in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 #### Snippet
 ```java
+
+            channel.close();
+            this.state = ConnectionState.DESTROYED;
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `direction` accessed in synchronized context
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
+#### Snippet
+```java
+    public boolean satisfy(@Nullable Direction preferredDirection) {
+        synchronized (lock) {
+            return preferredDirection == null || preferredDirection == Direction.NONE || preferredDirection == direction;
+        }
+    }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.state` accessed in synchronized context
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
+#### Snippet
+```java
     public boolean satisfy(@Nullable ConnectionState preferredState) {
         synchronized (lock) {
             ConnectionState connState = this.state;
@@ -1145,48 +1182,11 @@ Non-private field `this.state` accessed in synchronized context
 in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 #### Snippet
 ```java
-
-            channel.close();
-            this.state = ConnectionState.DESTROYED;
-        }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.state` accessed in synchronized context
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
-#### Snippet
-```java
     public void setState(ConnectionState state) {
         synchronized (lock) {
             this.state = state;
             if (state == ConnectionState.IDENTIFIED || (state == ConnectionState.UNCONNECTED && this.lastError != null)) {
                 lock.notifyAll();
-```
-
-## RuleId[ruleID=NegativeIntConstantInLongContext]
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java`
-#### Snippet
-```java
-
-public class FatalProtocolError extends ProtocolError {
-    private static final long ID = 0xFFFFFFFF;
-    private static final ErrorType errorType = ErrorType.FatalProtocolError;
-    private final Trace trace;
-```
-
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java`
-#### Snippet
-```java
-    @Override
-    public long getId() {
-        return ID;
-    }
-
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -1215,6 +1215,90 @@ in `tchannel-core/src/main/java/com/uber/tchannel/tracing/OpenTracingContext.jav
 ```
 
 ## RuleId[ruleID=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/json/JsonClient.java`
+#### Snippet
+```java
+
+        try (JsonResponse<ResponsePojo> res = p.get()) {
+            System.out.println(res);
+        }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingServer.java`
+#### Snippet
+```java
+        int port = Integer.parseInt(cmd.getOptionValue("p", "8888"));
+
+        System.out.println(String.format("Starting server on port: %d", port));
+        new PingServer(port).run();
+        System.out.println("Stopping server...");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingServer.java`
+#### Snippet
+```java
+        System.out.println(String.format("Starting server on port: %d", port));
+        new PingServer(port).run();
+        System.out.println("Stopping server...");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+        try (ThriftResponse<KeyValue.getValue_result> getResult = future.get()) {
+            if (getResult.isError()) {
+                System.out.println("getValue failed due to: " + getResult.getError().getMessage());
+                return null;
+            } else {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+                return null;
+            } else {
+                System.out.println("getValue succeeded");
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+        try (ThriftResponse<KeyValue.setValue_result> response = future.get()) {
+            if (response.isError()) {
+                System.out.println("setValue failed due to: " + response.getError().getMessage());
+            } else {
+                System.out.println("setValue succeeded");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+                System.out.println("setValue failed due to: " + response.getError().getMessage());
+            } else {
+                System.out.println("setValue succeeded");
+            }
+        }
+```
+
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
@@ -1272,66 +1356,6 @@ in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
 
         System.out.println("Disconnected from KeyValue Server.");
     }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-        try (ThriftResponse<KeyValue.setValue_result> response = future.get()) {
-            if (response.isError()) {
-                System.out.println("setValue failed due to: " + response.getError().getMessage());
-            } else {
-                System.out.println("setValue succeeded");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-                System.out.println("setValue failed due to: " + response.getError().getMessage());
-            } else {
-                System.out.println("setValue succeeded");
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-        try (ThriftResponse<KeyValue.getValue_result> getResult = future.get()) {
-            if (getResult.isError()) {
-                System.out.println("getValue failed due to: " + getResult.getError().getMessage());
-                return null;
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-                return null;
-            } else {
-                System.out.println("getValue succeeded");
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/json/JsonClient.java`
-#### Snippet
-```java
-
-        try (JsonResponse<ResponsePojo> res = p.get()) {
-            System.out.println(res);
-        }
 
 ```
 
@@ -1397,30 +1421,6 @@ in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingServer.java`
-#### Snippet
-```java
-        int port = Integer.parseInt(cmd.getOptionValue("p", "8888"));
-
-        System.out.println(String.format("Starting server on port: %d", port));
-        new PingServer(port).run();
-        System.out.println("Stopping server...");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingServer.java`
-#### Snippet
-```java
-        System.out.println(String.format("Starting server on port: %d", port));
-        new PingServer(port).run();
-        System.out.println("Stopping server...");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `tchannel-example/src/main/java/com/uber/tchannel/hyperbahn/HyperbahnExample.java`
 #### Snippet
 ```java
@@ -1441,30 +1441,6 @@ in `tchannel-example/src/main/java/com/uber/tchannel/hyperbahn/HyperbahnExample.
                     System.out.println("Error happened: " + response.getError().getMessage());
                 }
             }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
-#### Snippet
-```java
-                @Override
-                public RawResponse handleImpl(RawRequest request) {
-                    System.out.println(String.format("Request received: header: %s, body: %s",
-                        request.getHeader(),
-                        request.getBody()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
-#### Snippet
-```java
-
-        done.await();
-        System.out.println(String.format("%nTime cost: %dms", System.currentTimeMillis() - start));
-
-        // close channels asynchronously
 ```
 
 ### SystemOutErr
@@ -1493,14 +1469,26 @@ in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingClient.java`
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 #### Snippet
 ```java
+                @Override
+                public RawResponse handleImpl(RawRequest request) {
+                    System.out.println(String.format("Request received: header: %s, body: %s",
+                        request.getHeader(),
+                        request.getBody()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
+#### Snippet
+```java
+
         done.await();
-        for (Map.Entry<String, AtomicInteger> stringIntegerEntry : msgs.entrySet()) {
-            System.out.println(String.format("%s%n\tcount:%s",
-                stringIntegerEntry.getKey(), stringIntegerEntry.getValue()
-            ));
+        System.out.println(String.format("%nTime cost: %dms", System.currentTimeMillis() - start));
+
+        // close channels asynchronously
 ```
 
 ### SystemOutErr
@@ -1527,43 +1515,19 @@ in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingClient.java`
 
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingClient.java`
+#### Snippet
+```java
+        done.await();
+        for (Map.Entry<String, AtomicInteger> stringIntegerEntry : msgs.entrySet()) {
+            System.out.println(String.format("%s%n\tcount:%s",
+                stringIntegerEntry.getKey(), stringIntegerEntry.getValue()
+            ));
+```
+
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends Response.Builder {
-
-        protected String header = null;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/JsonResponse.java`
-#### Snippet
-```java
-     * @param <T> response body type
-     */
-    public static class Builder<T> extends EncodedResponse.Builder<T> {
-
-        public Builder(@NotNull JsonRequest<?> req) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftRequest.java`
-#### Snippet
-```java
-     * @param <T> request body type
-     */
-    public static class Builder<T> extends EncodedRequest.Builder<T> {
-
-        public Builder(String service, String endpoint) {
-```
-
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
 in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftResponse.java`
@@ -1578,26 +1542,14 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftResponse.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
 #### Snippet
 ```java
-     * @param <T> response body type
-     */
-    public static class Builder<T> extends Response.Builder {
+    }
 
-        private Map<String, String> headers = new HashMap<>();
-```
-
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
-#### Snippet
-```java
-     * @param <T> request body type
-     */
-    public static class Builder<T> extends Request.Builder {
-
-        protected Map<String, String> headers = new HashMap<>();
+    public static class Builder extends Request.Builder {
+        protected String header = null;
+        protected String body = null;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -1614,14 +1566,62 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/JsonRequest.java`
 
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
+#### Snippet
+```java
+     * @param <T> request body type
+     */
+    public static class Builder<T> extends Request.Builder {
+
+        protected Map<String, String> headers = new HashMap<>();
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/JsonResponse.java`
+#### Snippet
+```java
+     * @param <T> response body type
+     */
+    public static class Builder<T> extends EncodedResponse.Builder<T> {
+
+        public Builder(@NotNull JsonRequest<?> req) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedResponse.java`
+#### Snippet
+```java
+     * @param <T> response body type
+     */
+    public static class Builder<T> extends Response.Builder {
+
+        private Map<String, String> headers = new HashMap<>();
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
 #### Snippet
 ```java
     }
 
-    public static class Builder extends Request.Builder {
+    public static class Builder extends Response.Builder {
+
         protected String header = null;
-        protected String body = null;
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/ThriftRequest.java`
+#### Snippet
+```java
+     * @param <T> request body type
+     */
+    public static class Builder<T> extends EncodedRequest.Builder<T> {
+
+        public Builder(String service, String endpoint) {
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1653,35 +1653,35 @@ in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
 #### Snippet
 ```java
 
+public final class RawRequest extends Request {
+    private String header = null;
+    private String body = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
+#### Snippet
+```java
+    public static class Builder extends Request.Builder {
         protected String header = null;
         protected String body = null;
 
-        public Builder(@NotNull Request req) {
+        public Builder(String service, String endpoint) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
 #### Snippet
 ```java
-public class RawResponse extends Response {
 
-    private @Nullable String header = null;
-    private @Nullable String body = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
-#### Snippet
-```java
-    public static class Builder extends Response.Builder {
-
+    public static class Builder extends Request.Builder {
         protected String header = null;
         protected String body = null;
 
@@ -1689,110 +1689,98 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
 #### Snippet
 ```java
+public final class RawRequest extends Request {
+    private String header = null;
+    private String body = null;
 
-    private @Nullable String header = null;
-    private @Nullable String body = null;
-
-    private RawResponse(Builder builder) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
-#### Snippet
-```java
-        tchannel.makeSubChannel("server")
-            .register("pong", new RawRequestHandler() {
-                private int count = 0;
-
-                @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallFrame.java`
-#### Snippet
-```java
-    public static final short MAX_ARG1_LENGTH = 16384;
-
-    protected byte flags = 0;
-    protected ByteBuf payload = null;
-    protected ChecksumType checksumType = ChecksumType.NoChecksum;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallFrame.java`
-#### Snippet
-```java
-    protected ByteBuf payload = null;
-    protected ChecksumType checksumType = ChecksumType.NoChecksum;
-    protected int checksum = 0;
-
-    public final byte getFlags() {
+    protected RawRequest(Builder builder) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallFrame.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
 #### Snippet
 ```java
 
-    protected byte flags = 0;
-    protected ByteBuf payload = null;
-    protected ChecksumType checksumType = ChecksumType.NoChecksum;
-    protected int checksum = 0;
+    protected Map<String, String> headers;
+    protected T body = null;
+
+    protected EncodedRequest(Builder<T> builder) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
+#### Snippet
+```java
+
+        protected Map<String, String> headers = new HashMap<>();
+        protected T body = null;
+        protected ArgScheme argScheme;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
+#### Snippet
+```java
+
+    private double score = 0;
+    private @Nullable Connection connection = null;
+    private Connection.Direction direction = Connection.Direction.NONE;
+
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
 #### Snippet
 ```java
-    private final @NotNull AtomicInteger retryCount = new AtomicInteger(0);
+    private final @NotNull PeerManager peerManager;
 
-    private int retryLimit = 0;
-    private @Nullable Timeout timeout = null;
-    private @Nullable ChannelFuture channelFuture = null;
+    private double score = 0;
+    private @Nullable Connection connection = null;
+    private Connection.Direction direction = Connection.Direction.NONE;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/api/TFuture.java`
 #### Snippet
 ```java
+    private final ArgScheme argScheme;
+    private final @Nullable TracingContext tracingContext;
+    private V response = null;
 
-    private int retryLimit = 0;
-    private @Nullable Timeout timeout = null;
-    private @Nullable ChannelFuture channelFuture = null;
-    private @Nullable ErrorResponse lastError = null;
+    private TFuture(ArgScheme argScheme, @Nullable TracingContext tracingContext) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 #### Snippet
 ```java
-    private @Nullable Timeout timeout = null;
-    private @Nullable ChannelFuture channelFuture = null;
-    private @Nullable ErrorResponse lastError = null;
+    private final @NotNull Channel channel;
+    private @Nullable String remoteAddress = null;
+    private @Nullable TChannelError lastError = null;
+    final protected @NotNull Object lock;
 
-    public OutRequest(
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 #### Snippet
 ```java
-    private int retryLimit = 0;
-    private @Nullable Timeout timeout = null;
-    private @Nullable ChannelFuture channelFuture = null;
-    private @Nullable ErrorResponse lastError = null;
-
+    private Peer peer;
+    private final @NotNull Channel channel;
+    private @Nullable String remoteAddress = null;
+    private @Nullable TChannelError lastError = null;
+    final protected @NotNull Object lock;
 ```
 
 ### RedundantFieldInitialization
@@ -1845,14 +1833,122 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/api/TFuture.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
 #### Snippet
 ```java
-    private final ArgScheme argScheme;
-    private final @Nullable TracingContext tracingContext;
-    private V response = null;
+    private int retryLimit = 0;
+    private @Nullable Timeout timeout = null;
+    private @Nullable ChannelFuture channelFuture = null;
+    private @Nullable ErrorResponse lastError = null;
 
-    private TFuture(ArgScheme argScheme, @Nullable TracingContext tracingContext) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+#### Snippet
+```java
+
+    private int retryLimit = 0;
+    private @Nullable Timeout timeout = null;
+    private @Nullable ChannelFuture channelFuture = null;
+    private @Nullable ErrorResponse lastError = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+#### Snippet
+```java
+    private final @NotNull AtomicInteger retryCount = new AtomicInteger(0);
+
+    private int retryLimit = 0;
+    private @Nullable Timeout timeout = null;
+    private @Nullable ChannelFuture channelFuture = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+#### Snippet
+```java
+    private @Nullable Timeout timeout = null;
+    private @Nullable ChannelFuture channelFuture = null;
+    private @Nullable ErrorResponse lastError = null;
+
+    public OutRequest(
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
+#### Snippet
+```java
+        tchannel.makeSubChannel("server")
+            .register("pong", new RawRequestHandler() {
+                private int count = 0;
+
+                @Override
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallFrame.java`
+#### Snippet
+```java
+
+    protected byte flags = 0;
+    protected ByteBuf payload = null;
+    protected ChecksumType checksumType = ChecksumType.NoChecksum;
+    protected int checksum = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallFrame.java`
+#### Snippet
+```java
+    public static final short MAX_ARG1_LENGTH = 16384;
+
+    protected byte flags = 0;
+    protected ByteBuf payload = null;
+    protected ChecksumType checksumType = ChecksumType.NoChecksum;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/CallFrame.java`
+#### Snippet
+```java
+    protected ByteBuf payload = null;
+    protected ChecksumType checksumType = ChecksumType.NoChecksum;
+    protected int checksum = 0;
+
+    public final byte getFlags() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
+#### Snippet
+```java
+        private Tracer tracer;
+        private TracingContext tracingContext;
+        private ExecutorService executorService = null;
+
+        private LoadControlHandler.Factory loadControlHandlerFactory;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
+#### Snippet
+```java
+
+        private int bossGroupThreads = 1;
+        private int childGroupThreads = 0; // 0 (zero) defaults to NettyRuntime.availableProcessors()
+
+        private final @NotNull HashedWheelTimer timer;
 ```
 
 ### RedundantFieldInitialization
@@ -1872,18 +1968,6 @@ Field initialization to `0` is redundant
 in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
 #### Snippet
 ```java
-
-        private int bossGroupThreads = 1;
-        private int childGroupThreads = 0; // 0 (zero) defaults to NettyRuntime.availableProcessors()
-
-        private final @NotNull HashedWheelTimer timer;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
-#### Snippet
-```java
         private final @NotNull String service;
         private InetAddress host;
         private int port = 0;
@@ -1893,14 +1977,62 @@ in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
 #### Snippet
 ```java
-        private Tracer tracer;
-        private TracingContext tracingContext;
-        private ExecutorService executorService = null;
+public class RawResponse extends Response {
 
-        private LoadControlHandler.Factory loadControlHandlerFactory;
+    private @Nullable String header = null;
+    private @Nullable String body = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+#### Snippet
+```java
+
+    private @Nullable String header = null;
+    private @Nullable String body = null;
+
+    private RawResponse(Builder builder) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+#### Snippet
+```java
+
+        protected String header = null;
+        protected String body = null;
+
+        public Builder(@NotNull Request req) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawResponse.java`
+#### Snippet
+```java
+    public static class Builder extends Response.Builder {
+
+        protected String header = null;
+        protected String body = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
+#### Snippet
+```java
+        tchannel.makeSubChannel("server")
+            .register("pong", new RawRequestHandler() {
+                private int count = 0;
+
+                @Override
 ```
 
 ### RedundantFieldInitialization
@@ -1908,23 +2040,11 @@ Field initialization to `null` is redundant
 in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
 #### Snippet
 ```java
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
     protected ByteBuf arg3 = null;
 
     protected String endpoint = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected long id = -1;
-    protected String service = null;
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
-    protected ByteBuf arg3 = null;
+    protected long ttl = 100;
+    protected Map<String, String> transportHeaders = new HashMap<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1944,35 +2064,11 @@ Field initialization to `null` is redundant
 in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
 #### Snippet
 ```java
-        private long id = -1;
-        private @Nullable String endpoint = null;
-        private @Nullable ByteBuf arg1 = null;
-        private final String service;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-
         protected Map<String, String> transportHeaders = new HashMap<>();
         protected ByteBuf arg2 = null;
         protected ByteBuf arg3 = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected String service = null;
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
-    protected ByteBuf arg3 = null;
-
+        private long id = -1;
 ```
 
 ### RedundantFieldInitialization
@@ -1993,172 +2089,76 @@ in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
 #### Snippet
 ```java
 
+        protected Map<String, String> transportHeaders = new HashMap<>();
+        protected ByteBuf arg2 = null;
+        protected ByteBuf arg3 = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected long id = -1;
+    protected String service = null;
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+    protected ByteBuf arg3 = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+    protected ByteBuf arg3 = null;
+
+    protected String endpoint = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected String service = null;
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+    protected ByteBuf arg3 = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+        private long id = -1;
+        private @Nullable String endpoint = null;
+        private @Nullable ByteBuf arg1 = null;
+        private final String service;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+
     protected long id = -1;
     protected String service = null;
     protected ByteBuf arg1 = null;
     protected ByteBuf arg2 = null;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-        protected Map<String, String> transportHeaders = new HashMap<>();
-        protected ByteBuf arg2 = null;
-        protected ByteBuf arg3 = null;
-
-        private long id = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected ByteBuf arg3 = null;
-
-    protected String endpoint = null;
-    protected long ttl = 100;
-    protected Map<String, String> transportHeaders = new HashMap<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
-#### Snippet
-```java
-
-    private double score = 0;
-    private @Nullable Connection connection = null;
-    private Connection.Direction direction = Connection.Direction.NONE;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
-#### Snippet
-```java
-    private final @NotNull PeerManager peerManager;
-
-    private double score = 0;
-    private @Nullable Connection connection = null;
-    private Connection.Direction direction = Connection.Direction.NONE;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
-#### Snippet
-```java
-
-        protected Map<String, String> headers = new HashMap<>();
-        protected T body = null;
-        protected ArgScheme argScheme;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
-#### Snippet
-```java
-
-    protected Map<String, String> headers;
-    protected T body = null;
-
-    protected EncodedRequest(Builder<T> builder) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
-#### Snippet
-```java
-    private Peer peer;
-    private final @NotNull Channel channel;
-    private @Nullable String remoteAddress = null;
-    private @Nullable TChannelError lastError = null;
-    final protected @NotNull Object lock;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
-#### Snippet
-```java
-    private final @NotNull Channel channel;
-    private @Nullable String remoteAddress = null;
-    private @Nullable TChannelError lastError = null;
-    final protected @NotNull Object lock;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
-#### Snippet
-```java
-        tchannel.makeSubChannel("server")
-            .register("pong", new RawRequestHandler() {
-                private int count = 0;
-
-                @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
-#### Snippet
-```java
-    public static class Builder extends Request.Builder {
-        protected String header = null;
-        protected String body = null;
-
-        public Builder(String service, String endpoint) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
-#### Snippet
-```java
-
-public final class RawRequest extends Request {
-    private String header = null;
-    private String body = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
-#### Snippet
-```java
-
-    public static class Builder extends Request.Builder {
-        protected String header = null;
-        protected String body = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/RawRequest.java`
-#### Snippet
-```java
-public final class RawRequest extends Request {
-    private String header = null;
-    private String body = null;
-
-    protected RawRequest(Builder builder) {
-```
-
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-06-18-40-54.682.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-07-04-06-17.307.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2170,15 +2170,15 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-06-18-40-54.682.
 
 ## RuleId[ruleID=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
-Exception class name `TChannelConnectionReset` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelConnectionReset.java`
+Exception class name `BusyError` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/BusyError.java`
 #### Snippet
 ```java
-package com.uber.tchannel.api.errors;
+import com.uber.tchannel.tracing.Trace;
 
-public class TChannelConnectionReset extends TChannelError {
-    public TChannelConnectionReset() {
-        super("Connection reset error", TChannelError.ERROR_CONNECTION_RESET);
+public class BusyError extends ProtocolError {
+    private static final ErrorType errorType = ErrorType.Busy;
+    private final Trace trace;
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -2194,66 +2194,6 @@ public class TChannelProtocol extends TChannelError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `TChannelConnectionTimeout` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelConnectionTimeout.java`
-#### Snippet
-```java
-package com.uber.tchannel.api.errors;
-
-public class TChannelConnectionTimeout extends TChannelError {
-    public TChannelConnectionTimeout() {
-        super("Connection timeout on identification", TChannelError.ERROR_INIT_TIMEOUT);
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `TChannelNoPeerAvailable` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelNoPeerAvailable.java`
-#### Snippet
-```java
-package com.uber.tchannel.api.errors;
-
-public class TChannelNoPeerAvailable extends TChannelError {
-    public TChannelNoPeerAvailable() {
-        super("no peer available for request", TChannelError.ERROR_NO_PEER_AVAILABLE);
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `TChannelConnectionFailure` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelConnectionFailure.java`
-#### Snippet
-```java
-package com.uber.tchannel.api.errors;
-
-public class TChannelConnectionFailure extends TChannelError {
-    public TChannelConnectionFailure(Throwable ex) {
-        super("Failed to connect to the host", TChannelError.ERROR_CONNECTION_FAILURE, ex);
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `ProtocolError` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/ProtocolError.java`
-#### Snippet
-```java
-import com.uber.tchannel.tracing.Trace;
-
-public abstract class ProtocolError extends Exception {
-
-    /**
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `BadRequestError` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/BadRequestError.java`
-#### Snippet
-```java
-import com.uber.tchannel.tracing.Trace;
-
-public class BadRequestError extends ProtocolError {
-    private static final ErrorType errorType = ErrorType.BadRequest;
-    private final Trace trace;
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `TChannelError` does not end with 'Exception'
 in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelError.java`
 #### Snippet
@@ -2263,18 +2203,6 @@ package com.uber.tchannel.api.errors;
 public class TChannelError extends Exception {
     public static final String ERROR_INTERRUPTED = "tchannel.interrupted";
     public static final String ERROR_WRAPPED = "tchannel.wrapped";
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `FatalProtocolError` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java`
-#### Snippet
-```java
-import com.uber.tchannel.tracing.Trace;
-
-public class FatalProtocolError extends ProtocolError {
-    private static final long ID = 0xFFFFFFFF;
-    private static final ErrorType errorType = ErrorType.FatalProtocolError;
 ```
 
 ### ExceptionNameDoesntEndWithException
@@ -2302,6 +2230,30 @@ public class TChannelInterrupted extends TChannelError {
 ```
 
 ### ExceptionNameDoesntEndWithException
+Exception class name `TChannelNoPeerAvailable` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelNoPeerAvailable.java`
+#### Snippet
+```java
+package com.uber.tchannel.api.errors;
+
+public class TChannelNoPeerAvailable extends TChannelError {
+    public TChannelNoPeerAvailable() {
+        super("no peer available for request", TChannelError.ERROR_NO_PEER_AVAILABLE);
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `TChannelConnectionTimeout` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelConnectionTimeout.java`
+#### Snippet
+```java
+package com.uber.tchannel.api.errors;
+
+public class TChannelConnectionTimeout extends TChannelError {
+    public TChannelConnectionTimeout() {
+        super("Connection timeout on identification", TChannelError.ERROR_INIT_TIMEOUT);
+```
+
+### ExceptionNameDoesntEndWithException
 Exception class name `TChannelCodec` does not end with 'Exception'
 in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelCodec.java`
 #### Snippet
@@ -2314,114 +2266,66 @@ public class TChannelCodec extends TChannelError {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `BusyError` does not end with 'Exception'
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/BusyError.java`
+Exception class name `ProtocolError` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/ProtocolError.java`
 #### Snippet
 ```java
 import com.uber.tchannel.tracing.Trace;
 
-public class BusyError extends ProtocolError {
-    private static final ErrorType errorType = ErrorType.Busy;
+public abstract class ProtocolError extends Exception {
+
+    /**
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `FatalProtocolError` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/FatalProtocolError.java`
+#### Snippet
+```java
+import com.uber.tchannel.tracing.Trace;
+
+public class FatalProtocolError extends ProtocolError {
+    private static final long ID = 0xFFFFFFFF;
+    private static final ErrorType errorType = ErrorType.FatalProtocolError;
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `TChannelConnectionFailure` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelConnectionFailure.java`
+#### Snippet
+```java
+package com.uber.tchannel.api.errors;
+
+public class TChannelConnectionFailure extends TChannelError {
+    public TChannelConnectionFailure(Throwable ex) {
+        super("Failed to connect to the host", TChannelError.ERROR_CONNECTION_FAILURE, ex);
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `TChannelConnectionReset` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/api/errors/TChannelConnectionReset.java`
+#### Snippet
+```java
+package com.uber.tchannel.api.errors;
+
+public class TChannelConnectionReset extends TChannelError {
+    public TChannelConnectionReset() {
+        super("Connection reset error", TChannelError.ERROR_CONNECTION_RESET);
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `BadRequestError` does not end with 'Exception'
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/BadRequestError.java`
+#### Snippet
+```java
+import com.uber.tchannel.tracing.Trace;
+
+public class BadRequestError extends ProtocolError {
+    private static final ErrorType errorType = ErrorType.BadRequest;
     private final Trace trace;
 ```
 
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `tchannel-core/src/main/java/com/uber/tchannel/frames/FrameType.java`
-#### Snippet
-```java
-                return Error;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/TraceBehavior.java`
-#### Snippet
-```java
-    private Response callDownstream(Downstream downstream) {
-        if (downstream == null) {
-            return null;
-        }
-        logger.info("Calling downstream {}", downstream);
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
-#### Snippet
-```java
-            if (getResult.isError()) {
-                System.out.println("getValue failed due to: " + getResult.getError().getMessage());
-                return null;
-            } else {
-                System.out.println("getValue succeeded");
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-core/src/main/java/com/uber/tchannel/checksum/ChecksumType.java`
-#### Snippet
-```java
-                return CRC32C;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-core/src/main/java/com/uber/tchannel/api/ResponseCode.java`
-#### Snippet
-```java
-                return Error;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-core/src/main/java/com/uber/tchannel/errors/ErrorType.java`
-#### Snippet
-```java
-                return FatalProtocolError;
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/MessageDefragmenter.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
-#### Snippet
-```java
-                body = serializer.decodeBody(this, bodyType);
-            } else {
-                return null;
-            }
-        }
-```
-
 ### ReturnNull
 Return of `null`
 in `tchannel-core/src/main/java/com/uber/tchannel/codecs/MessageCodec.java`
@@ -2482,6 +2386,102 @@ in `tchannel-core/src/main/java/com/uber/tchannel/codecs/MessageCodec.java`
 
 ```
 
+### ReturnNull
+Return of `null`
+in `tchannel-core/src/main/java/com/uber/tchannel/errors/ErrorType.java`
+#### Snippet
+```java
+                return FatalProtocolError;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/EncodedRequest.java`
+#### Snippet
+```java
+                body = serializer.decodeBody(this, bodyType);
+            } else {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/TraceBehavior.java`
+#### Snippet
+```java
+    private Response callDownstream(Downstream downstream) {
+        if (downstream == null) {
+            return null;
+        }
+        logger.info("Calling downstream {}", downstream);
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/MessageDefragmenter.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-core/src/main/java/com/uber/tchannel/checksum/ChecksumType.java`
+#### Snippet
+```java
+                return CRC32C;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
+#### Snippet
+```java
+            if (getResult.isError()) {
+                System.out.println("getValue failed due to: " + getResult.getError().getMessage());
+                return null;
+            } else {
+                System.out.println("getValue succeeded");
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-core/src/main/java/com/uber/tchannel/api/ResponseCode.java`
+#### Snippet
+```java
+                return Error;
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `tchannel-core/src/main/java/com/uber/tchannel/frames/FrameType.java`
+#### Snippet
+```java
+                return Error;
+            default:
+                return null;
+        }
+    }
+```
+
 ## RuleId[ruleID=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `obj` is redundant
@@ -2496,6 +2496,18 @@ in `tchannel-crossdock/src/main/java/com/uber/tchannel/crossdock/behavior/trace/
 ```
 
 ## RuleId[ruleID=RedundantStringFormatCall]
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingServer.java`
+#### Snippet
+```java
+        int port = Integer.parseInt(cmd.getOptionValue("p", "8888"));
+
+        System.out.println(String.format("Starting server on port: %d", port));
+        new PingServer(port).run();
+        System.out.println("Stopping server...");
+```
+
 ### RedundantStringFormatCall
 Redundant call to `format()`
 in `tchannel-example/src/main/java/com/uber/tchannel/thrift/KeyValueClient.java`
@@ -2570,14 +2582,26 @@ in `tchannel-example/src/main/java/com/uber/tchannel/basic/SyncRequest.java`
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingServer.java`
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 #### Snippet
 ```java
-        int port = Integer.parseInt(cmd.getOptionValue("p", "8888"));
+                // when using callback, resource associated with response is released by the the TChannel library
+                if (!response.isError()) {
+                    System.out.println(String.format("Response received: response code: %s, header: %s, body: %s",
+                        response.getResponseCode(),
+                        response.getHeader(),
+```
 
-        System.out.println(String.format("Starting server on port: %d", port));
-        new PingServer(port).run();
-        System.out.println("Stopping server...");
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
+#### Snippet
+```java
+                        response.getBody()));
+                } else {
+                    System.out.println(String.format("Got error response: %s",
+                        response.toString()));
+                }
 ```
 
 ### RedundantStringFormatCall
@@ -2606,26 +2630,14 @@ in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
+in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingClient.java`
 #### Snippet
 ```java
-                // when using callback, resource associated with response is released by the the TChannel library
-                if (!response.isError()) {
-                    System.out.println(String.format("Response received: response code: %s, header: %s, body: %s",
-                        response.getResponseCode(),
-                        response.getHeader(),
-```
+        int requests = Integer.parseInt(cmd.getOptionValue("n", "10000"));
 
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `tchannel-example/src/main/java/com/uber/tchannel/basic/AsyncRequest.java`
-#### Snippet
-```java
-                        response.getBody()));
-                } else {
-                    System.out.println(String.format("Got error response: %s",
-                        response.toString()));
-                }
+        System.out.println(String.format("Connecting from client to server on port: %d", port));
+        new PingClient(host, port, requests).run();
+        System.out.println("Stopping Client...");
 ```
 
 ### RedundantStringFormatCall
@@ -2638,18 +2650,6 @@ in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingClient.java`
             System.out.println(String.format("%s%n\tcount:%s",
                 stringIntegerEntry.getKey(), stringIntegerEntry.getValue()
             ));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `tchannel-example/src/main/java/com/uber/tchannel/ping/PingClient.java`
-#### Snippet
-```java
-        int requests = Integer.parseInt(cmd.getOptionValue("n", "10000"));
-
-        System.out.println(String.format("Connecting from client to server on port: %d", port));
-        new PingClient(host, port, requests).run();
-        System.out.println("Stopping Client...");
 ```
 
 ## RuleId[ruleID=WaitNotInLoop]
@@ -2666,102 +2666,6 @@ in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 ```
 
 ## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `retryLimit` initializer `0` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
-#### Snippet
-```java
-    private final @NotNull AtomicInteger retryCount = new AtomicInteger(0);
-
-    private int retryLimit = 0;
-    private @Nullable Timeout timeout = null;
-    private @Nullable ChannelFuture channelFuture = null;
-```
-
-### UnusedAssignment
-Variable `id` initializer `-1` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
-#### Snippet
-```java
-        protected ResponseCode responseCode = ResponseCode.OK;
-
-        private long id = -1;
-
-        public Builder(@NotNull Request req) {
-```
-
-### UnusedAssignment
-Variable `arg3` initializer `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
-    protected ByteBuf arg3 = null;
-
-    protected String endpoint = null;
-```
-
-### UnusedAssignment
-Variable `arg1` initializer `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected long id = -1;
-    protected String service = null;
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
-    protected ByteBuf arg3 = null;
-```
-
-### UnusedAssignment
-Variable `arg2` initializer `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected String service = null;
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
-    protected ByteBuf arg3 = null;
-
-```
-
-### UnusedAssignment
-Variable `transportHeaders` initializer `new HashMap<>()` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-    protected String endpoint = null;
-    protected long ttl = 100;
-    protected Map<String, String> transportHeaders = new HashMap<>();
-
-    protected final int retryLimit;
-```
-
-### UnusedAssignment
-Variable `service` initializer `null` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-
-    protected long id = -1;
-    protected String service = null;
-    protected ByteBuf arg1 = null;
-    protected ByteBuf arg2 = null;
-```
-
-### UnusedAssignment
-Variable `ttl` initializer `100` is redundant
-in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
-#### Snippet
-```java
-
-    protected String endpoint = null;
-    protected long ttl = 100;
-    protected Map<String, String> transportHeaders = new HashMap<>();
-
-```
-
 ### UnusedAssignment
 Variable `direction` initializer `Connection.Direction.NONE` is redundant
 in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
@@ -2786,7 +2690,139 @@ in `tchannel-core/src/main/java/com/uber/tchannel/channels/Connection.java`
 
 ```
 
+### UnusedAssignment
+Variable `id` initializer `-1` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Response.java`
+#### Snippet
+```java
+        protected ResponseCode responseCode = ResponseCode.OK;
+
+        private long id = -1;
+
+        public Builder(@NotNull Request req) {
+```
+
+### UnusedAssignment
+Variable `retryLimit` initializer `0` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/OutRequest.java`
+#### Snippet
+```java
+    private final @NotNull AtomicInteger retryCount = new AtomicInteger(0);
+
+    private int retryLimit = 0;
+    private @Nullable Timeout timeout = null;
+    private @Nullable ChannelFuture channelFuture = null;
+```
+
+### UnusedAssignment
+Variable `arg1` initializer `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected long id = -1;
+    protected String service = null;
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+    protected ByteBuf arg3 = null;
+```
+
+### UnusedAssignment
+Variable `transportHeaders` initializer `new HashMap<>()` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected String endpoint = null;
+    protected long ttl = 100;
+    protected Map<String, String> transportHeaders = new HashMap<>();
+
+    protected final int retryLimit;
+```
+
+### UnusedAssignment
+Variable `ttl` initializer `100` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+
+    protected String endpoint = null;
+    protected long ttl = 100;
+    protected Map<String, String> transportHeaders = new HashMap<>();
+
+```
+
+### UnusedAssignment
+Variable `arg3` initializer `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+    protected ByteBuf arg3 = null;
+
+    protected String endpoint = null;
+```
+
+### UnusedAssignment
+Variable `arg2` initializer `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+    protected String service = null;
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+    protected ByteBuf arg3 = null;
+
+```
+
+### UnusedAssignment
+Variable `service` initializer `null` is redundant
+in `tchannel-core/src/main/java/com/uber/tchannel/messages/Request.java`
+#### Snippet
+```java
+
+    protected long id = -1;
+    protected String service = null;
+    protected ByteBuf arg1 = null;
+    protected ByteBuf arg2 = null;
+```
+
 ## RuleId[ruleID=ConstantValue]
+### ConstantValue
+Value `flag` is always 'false'
+in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
+#### Snippet
+```java
+        if (peer == null) {
+            score = SCORE_UNCONNECTED;
+            return flag;
+        }
+
+```
+
+### ConstantValue
+Condition `service == null` is always `false`
+in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
+#### Snippet
+```java
+
+        public Builder(@NotNull String service) {
+            if (service == null) {
+                throw new NullPointerException("`service` cannot be null");
+            }
+```
+
+### ConstantValue
+Condition `response != null` is always `true`
+in `tchannel-core/src/main/java/com/uber/tchannel/handlers/ResponseRouter.java`
+#### Snippet
+```java
+        }
+
+        if (response != null) {
+            // Reset timeout counter if we receive a non-timeout response.
+            if (!(response.isError() &&
+```
+
 ### ConstantValue
 Condition `service == null` is always `false`
 in `tchannel-hyperbahn/src/main/java/com/uber/tchannel/hyperbahn/api/HyperbahnClient.java`
@@ -2809,42 +2845,6 @@ in `tchannel-hyperbahn/src/main/java/com/uber/tchannel/hyperbahn/api/HyperbahnCl
             if (channel == null) {
                 throw new NullPointerException("`channel` cannot be null");
             }
-```
-
-### ConstantValue
-Condition `response != null` is always `true`
-in `tchannel-core/src/main/java/com/uber/tchannel/handlers/ResponseRouter.java`
-#### Snippet
-```java
-        }
-
-        if (response != null) {
-            // Reset timeout counter if we receive a non-timeout response.
-            if (!(response.isError() &&
-```
-
-### ConstantValue
-Condition `service == null` is always `false`
-in `tchannel-core/src/main/java/com/uber/tchannel/api/TChannel.java`
-#### Snippet
-```java
-
-        public Builder(@NotNull String service) {
-            if (service == null) {
-                throw new NullPointerException("`service` cannot be null");
-            }
-```
-
-### ConstantValue
-Value `flag` is always 'false'
-in `tchannel-core/src/main/java/com/uber/tchannel/channels/SubPeer.java`
-#### Snippet
-```java
-        if (peer == null) {
-            score = SCORE_UNCONNECTED;
-            return flag;
-        }
-
 ```
 
 ## RuleId[ruleID=UnstableApiUsage]
