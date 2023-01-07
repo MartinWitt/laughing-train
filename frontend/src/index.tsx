@@ -63,8 +63,8 @@ const router = createBrowserRouter([
     element: <DashBoard />,
     errorElement: <DashBoard />,
   },
-  
-    
+
+
 ]);
 
 const client = new ApolloClient({
@@ -90,22 +90,22 @@ export const themeOptions: ThemeOptions = {
 };
 const theme = createTheme(
   themeOptions
-  
 
-  
+
+
 );
 
 
 
 root.render(
   <ReactKeycloakProvider authClient={keycloak}>
-  <React.StrictMode>
-    <ThemeProvider theme={theme} >
-  <ApolloProvider client={client}>
-        <RouterProvider router={router} />
-        <CssBaseline />
+    <React.StrictMode>
+      <ThemeProvider theme={theme} >
+        <ApolloProvider client={client}>
+          <RouterProvider router={router} />
+          <CssBaseline />
         </ApolloProvider>
-    </ThemeProvider>
+      </ThemeProvider>
     </React.StrictMode>
   </ReactKeycloakProvider>
 );
