@@ -60,6 +60,18 @@ in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
+Value `commit` is always 'null'
+in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
+#### Snippet
+```java
+                Map.of("region", "eu", "created", Instant.now().toEpochMilli());
+        var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
+        hubStore.write(commit);
+
+
+```
+
+### ConstantValue
 Value `monitor` is always 'null'
 in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
 #### Snippet
@@ -72,15 +84,15 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
-Value `cdef` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+Value `result` is always 'null'
+in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiController.java`
 #### Snippet
 ```java
-                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
-                .build();
-        contractDefinitionStore.save(cdef);
-    }
+        var result = queryResponse.getOffers();
 
+        return Response.ok(result).build();
+    }
+}
 ```
 
 ### ConstantValue
@@ -228,26 +240,14 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
 ```
 
 ### ConstantValue
-Value `result` is always 'null'
-in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiController.java`
+Value `cdef` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
 #### Snippet
 ```java
-        var result = queryResponse.getOffers();
-
-        return Response.ok(result).build();
+                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
+                .build();
+        contractDefinitionStore.save(cdef);
     }
-}
-```
-
-### ConstantValue
-Value `commit` is always 'null'
-in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
-#### Snippet
-```java
-                Map.of("region", "eu", "created", Instant.now().toEpochMilli());
-        var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
-        hubStore.write(commit);
-
 
 ```
 
