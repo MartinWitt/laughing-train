@@ -35,18 +35,6 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-  }
-
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-            .map(this::getFetchUrl)
-```
-
-### BoundedWildcard
 Can generalize to `? extends SBuildType`
 in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
 #### Snippet
@@ -56,6 +44,18 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
   private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
     return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+  }
+
+  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
+    return stream.flatMap(List::stream)
+            .map(this::getFetchUrl)
 ```
 
 ### BoundedWildcard
