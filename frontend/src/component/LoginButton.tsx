@@ -21,7 +21,10 @@ export function LoginButton() {
     }
   }
   function login() {
-    keycloak.login();
+
+    keycloak.login({
+      prompt: "login",
+    });
   }
   function logout() {
     keycloak.logout();
