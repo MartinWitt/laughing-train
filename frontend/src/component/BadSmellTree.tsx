@@ -7,7 +7,7 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import JavaCodeBlock from "./JavaCodeBlock";
 
-export function BadSmellTreeView({ badSmell, selector }: { badSmell: BadSmell[];  selector: (selected: string) => void; }) {
+export function BadSmellTreeView({ badSmell, selector }: { badSmell: BadSmell[];  selector: (selected: [string]) => void; }) {
   const [expanded, setExpanded] = React.useState<string[]>([]);
 
   const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
@@ -37,19 +37,19 @@ export function BadSmellTreeView({ badSmell, selector }: { badSmell: BadSmell[];
         onNodeToggle={handleToggle}
         multiSelect
       >
-        {convertBadSmellToTree(badSmell).map((temp) => printChilds(temp, selector))}
+        {convertBadSmellToTree(badSmell).map((temp) => printChildren(temp, selector))}
       </TreeView>
     </Box>
   );
 }
-function printChilds(node: TreeNode, setSelected : (selected: string) => void) {
+function printChildren(node: TreeNode, setSelected : (selected: [string]) => void) {
   if (node.children.length === 0) {
     return <TreeItem key={node.parent + node.label} nodeId={node.parent + node.label} label={node.label} >
       {CodeBlocks(node.badSmell, setSelected)}
     </TreeItem>
   } else {
     return <TreeItem key={node.parent + node.label} nodeId={node.parent + node.label} label={node.label}>
-      {node.children.map((child) => printChilds(child, setSelected))}
+      {node.children.map((child) => printChildren(child, setSelected))}
       </TreeItem>
   }
   
@@ -87,7 +87,7 @@ function convertBadSmellToTree(badSmell: BadSmell[]): TreeNode[] {
 
 }
 
-function CodeBlocks(params: BadSmell[], setSelected: (selected: string) => void) {
+function CodeBlocks(params: BadSmell[], setSelected: (selected: [string]) => void) {
     return (
       <div >
             <Stack spacing={2} direction='column' alignItems={"center"}>
@@ -99,7 +99,7 @@ function CodeBlocks(params: BadSmell[], setSelected: (selected: string) => void)
                     alignContent: "center",
                     width: "100%",
                   }} elevation={10}>
-                    <CardActionArea onClick={e => setSelected(badSmell.identifier)}>
+                    <CardActionArea onClick={e => setSelected([badSmell.identifier])}>
                     <BadSmellCardHeader  {...badSmell} />
                     <Typography padding="10px" fontSize={18} >{badSmell.messageMarkdown}</Typography>
                       <JavaCodeBlock code={badSmell.snippet} />
