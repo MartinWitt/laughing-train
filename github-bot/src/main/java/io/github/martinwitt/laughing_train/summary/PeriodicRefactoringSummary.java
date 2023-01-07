@@ -43,7 +43,7 @@ public class PeriodicRefactoringSummary {
             String commitHash = getNewestHash(project);
             Map<RuleId, List<BadSmell>> badSmellByRuleId = getFixableBadSmells(ruleIDs, commitHash);
             if (badSmellByRuleId.values().stream().allMatch(List::isEmpty)) {
-              continue;
+                continue;
             }
             summary.append("## Project: ").append(project.getProjectName()).append("\n");
             summary.append("| Rule | Occurrences |\n");
