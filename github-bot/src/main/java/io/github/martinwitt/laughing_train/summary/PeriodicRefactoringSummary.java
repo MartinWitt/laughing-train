@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import org.kohsuke.github.GHIssue;
@@ -30,7 +29,7 @@ public class PeriodicRefactoringSummary {
     @Inject
     BadSmellRepository badSmellRepository;
 
-    @Scheduled(every = "2h", delay = 10, delayUnit = TimeUnit.MINUTES)
+    @Scheduled(every = "2h", delay = 10)
     void createSummary() throws IOException {
         var issue = searchSummaryIssueOnGithub().get(0);
         issue.setBody(createSummaryBody());
@@ -46,15 +45,18 @@ public class PeriodicRefactoringSummary {
             if (badSmellByRuleId.values().stream().allMatch(List::isEmpty)) {
                 continue;
             }
-            summary.append("## Project: " + project.getProjectName() + "\n");
+            summary.append("## Project: ").append(project.getProjectName()).append("\n");
             for (var entry : badSmellByRuleId.entrySet()) {
                 if (entry.getValue().isEmpty()) {
                     continue;
                 }
                 summary.append("| Rule | Occurrences |\n");
                 summary.append("| --- | --- |\n");
-                summary.append("| " + entry.getKey().ruleID() + " | "
-                        + entry.getValue().size() + " |\n");
+                summary.append("| ")
+                        .append(entry.getKey().ruleID())
+                        .append(" | ")
+                        .append(entry.getValue().size())
+                        .append(" |\n");
             }
         }
         return summary.toString();
