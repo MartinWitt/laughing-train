@@ -13,9 +13,13 @@ import { CssBaseline } from '@mui/material';
 import { AddProjectView } from './pages/AddProjectView';
 import { RefactorView } from './pages/RefactorView';
 import { ProjectConfigview } from './pages/ProjectConfigView';
+import { ReactKeycloakProvider } from '@react-keycloak/web';
+import keycloak from './Keycloak';
+import PrivateRoute from './PrivateRoute';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 
 const router = createBrowserRouter([
   {
@@ -29,11 +33,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/mutation/refactor/:name/:hash",
-    element: <RefactorView />,
+    element: <PrivateRoute> <RefactorView /></PrivateRoute>,
   },
   {
     path: "/mutation/projectconfig/:projectUrl",
-    element: <ProjectConfigview />,
+    element: <PrivateRoute><ProjectConfigview /></PrivateRoute>,
   },
   {
     path: "/resultview",
@@ -59,8 +63,8 @@ const router = createBrowserRouter([
     element: <DashBoard />,
     errorElement: <DashBoard />,
   },
-  
-    
+
+
 ]);
 
 const client = new ApolloClient({
@@ -86,22 +90,24 @@ export const themeOptions: ThemeOptions = {
 };
 const theme = createTheme(
   themeOptions
-  
 
-  
+
+
 );
 
 
 
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme} >
-  <ApolloProvider client={client}>
-        <RouterProvider router={router} />
-        <CssBaseline />
-      </ApolloProvider>
-    </ThemeProvider>
-  </React.StrictMode>
+  <ReactKeycloakProvider authClient={keycloak}>
+    <React.StrictMode>
+      <ThemeProvider theme={theme} >
+        <ApolloProvider client={client}>
+          <RouterProvider router={router} />
+          <CssBaseline />
+        </ApolloProvider>
+      </ThemeProvider>
+    </React.StrictMode>
+  </ReactKeycloakProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

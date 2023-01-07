@@ -9,6 +9,7 @@
     "@mui/icons-material": "5.11.0",
     "@mui/lab": "5.0.0-alpha.114",
     "@mui/material": "5.11.3",
+    "@react-keycloak/web": "^3.4.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "14.4.3",
@@ -54,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.1.20"
   }
 }
