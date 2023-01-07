@@ -25,42 +25,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
 #### Snippet
 ```java
-        RidesService service = uberRidesApi.createService();
-        // Fetch the user's profile.
-        System.out.println("Calling API to get the user's profile");
-        Response<UserProfile> response = service.getUserProfile().execute();
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
-#### Snippet
-```java
-            // Handle error.
-            ClientError clientError = apiError.getClientErrors().get(0);
-            System.out.printf("Unable to fetch profile. %s", clientError.getTitle());
-            System.exit(0);
-            return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
-#### Snippet
-```java
-        // Success!
-        UserProfile userProfile = response.body();
-        System.out.printf("Logged in as %s%n", userProfile.getEmail());
-        System.exit(0);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
-#### Snippet
-```java
         if (credential == null || credential.getAccessToken() == null) {
             // Send user to authorize your application.
             System.out.printf("Add the following redirect URI to your developer.uber.com application: %s%n",
@@ -118,6 +82,42 @@ in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetU
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
+#### Snippet
+```java
+        RidesService service = uberRidesApi.createService();
+        // Fetch the user's profile.
+        System.out.println("Calling API to get the user's profile");
+        Response<UserProfile> response = service.getUserProfile().execute();
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
+#### Snippet
+```java
+            // Handle error.
+            ClientError clientError = apiError.getClientErrors().get(0);
+            System.out.printf("Unable to fetch profile. %s", clientError.getTitle());
+            System.exit(0);
+            return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
+#### Snippet
+```java
+        // Success!
+        UserProfile userProfile = response.body();
+        System.out.printf("Logged in as %s%n", userProfile.getEmail());
+        System.exit(0);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `samples/servlet-sample/src/main/java/com/uber/sdk/rides/samples/servlet/Server.java`
 #### Snippet
 ```java
@@ -167,6 +167,18 @@ public class Server {
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.math` is unnecessary and can be removed
+in `uber-core/src/main/java/com/uber/sdk/core/client/internal/BigDecimalAdapter.java`
+#### Snippet
+```java
+
+/**
+ * Adapter used to adapt floats to {@link java.math.BigDecimal}.
+ */
+public class BigDecimalAdapter {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `okhttp3.logging` is unnecessary and can be removed
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/UberRidesApi.java`
 #### Snippet
@@ -188,18 +200,6 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/UberRidesApi.java`
          * Optional and defaults to {@link okhttp3.logging.HttpLoggingInterceptor.Logger#DEFAULT}
          */
         @Nonnull
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.math` is unnecessary and can be removed
-in `uber-core/src/main/java/com/uber/sdk/core/client/internal/BigDecimalAdapter.java`
-#### Snippet
-```java
-
-/**
- * Adapter used to adapt floats to {@link java.math.BigDecimal}.
- */
-public class BigDecimalAdapter {
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -279,31 +279,6 @@ in `uber-core/src/main/java/com/uber/sdk/core/auth/BaseRefreshableAuthenticator.
         }
 ```
 
-## RuleId[ruleID=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `Authenticator`
-in `uber-core-oauth-client-adapter/src/main/java/com/uber/sdk/core/auth/CredentialsAuthenticator.java`
-#### Snippet
-```java
-
-public class CredentialsAuthenticator extends BaseRefreshableAuthenticator implements
-        Authenticator {
-    static final String HEADER_BEARER_ACCESS_VALUE = "Bearer %s";
-
-```
-
-### RedundantImplements
-Redundant interface declaration `Authenticator`
-in `uber-core/src/main/java/com/uber/sdk/core/auth/AccessTokenAuthenticator.java`
-#### Snippet
-```java
-
-public class AccessTokenAuthenticator extends
-        BaseRefreshableAuthenticator implements Authenticator {
-
-    private static final String HEADER_BEARER_ACCESS_VALUE = "Bearer %s";
-```
-
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'oAuth2Credentials' in a Serializable class
@@ -341,6 +316,31 @@ public class OAuth2CallbackServlet extends HttpServlet {
     @Override
 ```
 
+## RuleId[ruleID=RedundantImplements]
+### RedundantImplements
+Redundant interface declaration `Authenticator`
+in `uber-core-oauth-client-adapter/src/main/java/com/uber/sdk/core/auth/CredentialsAuthenticator.java`
+#### Snippet
+```java
+
+public class CredentialsAuthenticator extends BaseRefreshableAuthenticator implements
+        Authenticator {
+    static final String HEADER_BEARER_ACCESS_VALUE = "Bearer %s";
+
+```
+
+### RedundantImplements
+Redundant interface declaration `Authenticator`
+in `uber-core/src/main/java/com/uber/sdk/core/auth/AccessTokenAuthenticator.java`
+#### Snippet
+```java
+
+public class AccessTokenAuthenticator extends
+        BaseRefreshableAuthenticator implements Authenticator {
+
+    private static final String HEADER_BEARER_ACCESS_VALUE = "Bearer %s";
+```
+
 ## RuleId[ruleID=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
@@ -369,18 +369,6 @@ in `uber-core/src/main/java/com/uber/sdk/core/auth/BaseRefreshableAuthenticator.
 
 ### ReturnNull
 Return of `null`
-in `uber-core/src/main/java/com/uber/sdk/core/auth/ServerTokenAuthenticator.java`
-#### Snippet
-```java
-    @Override
-    public Request refresh(Response response) {
-        return null;
-        //Do nothing, server token is not refreshable
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `uber-core/src/main/java/com/uber/sdk/core/client/internal/BigDecimalAdapter.java`
 #### Snippet
 ```java
@@ -389,6 +377,18 @@ in `uber-core/src/main/java/com/uber/sdk/core/client/internal/BigDecimalAdapter.
         return value != null ? new BigDecimal(value.toString()) : null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `uber-core/src/main/java/com/uber/sdk/core/auth/ServerTokenAuthenticator.java`
+#### Snippet
+```java
+    @Override
+    public Request refresh(Response response) {
+        return null;
+        //Do nothing, server token is not refreshable
+    }
 ```
 
 ## RuleId[ruleID=SetReplaceableByEnumSet]
@@ -455,6 +455,18 @@ in `uber-core/src/main/java/com/uber/sdk/core/client/SessionConfiguration.java`
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/TimeEstimate.java`
+#### Snippet
+```java
+    private String product_id;
+    private String display_name;
+    @Nullable
+    private Integer estimate;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Location.java`
 #### Snippet
 ```java
@@ -479,14 +491,62 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Location.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/TimeEstimate.java`
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
 #### Snippet
 ```java
-    private String product_id;
-    private String display_name;
     @Nullable
-    private Integer estimate;
+    private Float fare;
+    @Nullable
+    private String currency_code;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
+#### Snippet
+```java
+    @Nullable
+    private String product_id;
+    @Nullable
+    private City start_city;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
+#### Snippet
+```java
+    @Nullable
+    private City start_city;
+    @Nullable
+    private Float fare;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
+#### Snippet
+```java
+    private long start_time;
+    private long end_time;
+    @Nullable
+    private String product_id;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
+#### Snippet
+```java
+    public static class City {
+
+        @Nullable
+        private String display_name;
+        private float latitude;
 ```
 
 ### NullableProblems
@@ -527,218 +587,14 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideReceipt.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
-    @Nullable private Float end_longitude;
-    @Nullable private String end_nickname;
-    @Nullable private String end_address;
-    @Nullable private String end_place_id;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-    @Nullable private String end_nickname;
-    @Nullable private String end_address;
-    @Nullable private String end_place_id;
-
-    private RideUpdateParameters(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-        @Nullable private Float endLatitude;
-        @Nullable private Float endLongitude;
-        @Nullable private String endNickname;
-        @Nullable private String endAddress;
-        @Nullable private String endPlaceId;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-
-        @Nullable private Float endLatitude;
-        @Nullable private Float endLongitude;
-        @Nullable private String endNickname;
-        @Nullable private String endAddress;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-        @Nullable private String endNickname;
-        @Nullable private String endAddress;
-        @Nullable private String endPlaceId;
-
-        /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-        @Nullable private Float endLongitude;
-        @Nullable private String endNickname;
-        @Nullable private String endAddress;
-        @Nullable private String endPlaceId;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-
-    @Nullable private Float end_latitude;
-    @Nullable private Float end_longitude;
-    @Nullable private String end_nickname;
-    @Nullable private String end_address;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-    public static class Builder {
-
-        @Nullable private Float endLatitude;
-        @Nullable private Float endLongitude;
-        @Nullable private String endNickname;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-    @Nullable private Float end_latitude;
-    @Nullable private Float end_longitude;
-    @Nullable private String end_nickname;
-    @Nullable private String end_address;
-    @Nullable private String end_place_id;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
-#### Snippet
-```java
-public class RideUpdateParameters {
-
-    @Nullable private Float end_latitude;
-    @Nullable private Float end_longitude;
-    @Nullable private String end_nickname;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
-#### Snippet
-```java
-    @Nullable
-    private Float fare;
-    @Nullable
-    private String currency_code;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
-#### Snippet
-```java
-    private long start_time;
-    private long end_time;
-    @Nullable
-    private String product_id;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
-#### Snippet
-```java
-    @Nullable
-    private String product_id;
-    @Nullable
-    private City start_city;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
-#### Snippet
-```java
-    @Nullable
-    private City start_city;
-    @Nullable
-    private Float fare;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/UserActivity.java`
-#### Snippet
-```java
-    public static class City {
-
         @Nullable
-        private String display_name;
-        private float latitude;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ApiError.java`
-#### Snippet
-```java
-    @Nullable
-    private final Meta meta;
-    @Nonnull
-    private final List<ClientError> errors;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ApiError.java`
-#### Snippet
-```java
-public final class ApiError {
-
-    @Nullable
-    private final Meta meta;
-    @Nonnull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/Meta.java`
-#### Snippet
-```java
-public class Meta {
-
-    @Nullable
-    private final SurgeConfirmation surge_confirmation;
-
+        private BigDecimal low_estimate;
+        @Nullable
+        private String display;
+        @Nullable
 ```
 
 ### NullableProblems
@@ -747,9 +603,9 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
         @Nullable
-        private Float surge_multiplier;
+        private String display;
         @Nullable
-        private BigDecimal high_estimate;
+        private String currency_code;
         @Nullable
 ```
 
@@ -770,66 +626,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
-        @Nullable
-        private String surge_confirmation_href;
-        @Nullable
-        private String surge_confirmation_id;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
-        @Nullable
-        private String display;
-        @Nullable
-        private String currency_code;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
-        @Nullable
-        private Long expires_at;
-        @Nullable
-        private BigDecimal value;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
-    @Nullable
-    private Estimate estimate;
-    @Nullable
-    private Trip trip;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
-        @Nullable
-        private String surge_confirmation_id;
-        @Nullable
-        private Float surge_multiplier;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
      */
     public static class Estimate {
         @Nullable
@@ -842,34 +638,10 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
-    @Nullable
-    private Fare fare;
-    @Nullable
-    private Estimate estimate;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
         @Nullable
-        private BigDecimal low_estimate;
+        private Integer minimum;
         @Nullable
-        private String display;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
-#### Snippet
-```java
-        @Nullable
-        private String fare_id;
-        @Nullable
-        private String currency_code;
+        private String surge_confirmation_href;
         @Nullable
 ```
 
@@ -902,11 +674,23 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
-public class RideEstimate {
+        @Nullable
+        private String surge_confirmation_id;
+        @Nullable
+        private Float surge_multiplier;
+        @Nullable
+```
 
-    @Nullable
-    private Fare fare;
-    @Nullable
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
+#### Snippet
+```java
+        @Nullable
+        private String surge_confirmation_href;
+        @Nullable
+        private String surge_confirmation_id;
+        @Nullable
 ```
 
 ### NullableProblems
@@ -926,6 +710,54 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
+    @Nullable
+    private Estimate estimate;
+    @Nullable
+    private Trip trip;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
+#### Snippet
+```java
+        @Nullable
+        private String fare_id;
+        @Nullable
+        private String currency_code;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
+#### Snippet
+```java
+        @Nullable
+        private Float surge_multiplier;
+        @Nullable
+        private BigDecimal high_estimate;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
+#### Snippet
+```java
+    @Nullable
+    private Fare fare;
+    @Nullable
+    private Estimate estimate;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
+#### Snippet
+```java
         @Nullable
         private String currency_code;
         @Nullable
@@ -938,11 +770,179 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
 #### Snippet
 ```java
+public class RideEstimate {
+
+    @Nullable
+    private Fare fare;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideEstimate.java`
+#### Snippet
+```java
         @Nullable
-        private Integer minimum;
+        private Long expires_at;
         @Nullable
-        private String surge_confirmation_href;
-        @Nullable
+        private BigDecimal value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+    public static class Builder {
+
+        @Nullable private Float endLatitude;
+        @Nullable private Float endLongitude;
+        @Nullable private String endNickname;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+
+        @Nullable private Float endLatitude;
+        @Nullable private Float endLongitude;
+        @Nullable private String endNickname;
+        @Nullable private String endAddress;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+    @Nullable private Float end_longitude;
+    @Nullable private String end_nickname;
+    @Nullable private String end_address;
+    @Nullable private String end_place_id;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+        @Nullable private Float endLatitude;
+        @Nullable private Float endLongitude;
+        @Nullable private String endNickname;
+        @Nullable private String endAddress;
+        @Nullable private String endPlaceId;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+        @Nullable private Float endLongitude;
+        @Nullable private String endNickname;
+        @Nullable private String endAddress;
+        @Nullable private String endPlaceId;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+public class RideUpdateParameters {
+
+    @Nullable private Float end_latitude;
+    @Nullable private Float end_longitude;
+    @Nullable private String end_nickname;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+    @Nullable private String end_nickname;
+    @Nullable private String end_address;
+    @Nullable private String end_place_id;
+
+    private RideUpdateParameters(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+    @Nullable private Float end_latitude;
+    @Nullable private Float end_longitude;
+    @Nullable private String end_nickname;
+    @Nullable private String end_address;
+    @Nullable private String end_place_id;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+
+    @Nullable private Float end_latitude;
+    @Nullable private Float end_longitude;
+    @Nullable private String end_nickname;
+    @Nullable private String end_address;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideUpdateParameters.java`
+#### Snippet
+```java
+        @Nullable private String endNickname;
+        @Nullable private String endAddress;
+        @Nullable private String endPlaceId;
+
+        /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ApiError.java`
+#### Snippet
+```java
+public final class ApiError {
+
+    @Nullable
+    private final Meta meta;
+    @Nonnull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ApiError.java`
+#### Snippet
+```java
+    @Nullable
+    private final Meta meta;
+    @Nonnull
+    private final List<ClientError> errors;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/Meta.java`
+#### Snippet
+```java
+public class Meta {
+
+    @Nullable
+    private final SurgeConfirmation surge_confirmation;
+
 ```
 
 ### NullableProblems
@@ -954,18 +954,6 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PaymentMethod.java`
     private String type;
     @Nullable
     private String description;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/SandboxProductRequestParameters.java`
-#### Snippet
-```java
-    public static class Builder {
-
-        @Nullable private Float surgeMultiplier;
-        @Nullable private Boolean driversAvailable;
 
 ```
 
@@ -986,10 +974,10 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/SandboxProductRequestParameters.java`
 #### Snippet
 ```java
-public class SandboxProductRequestParameters {
+    public static class Builder {
 
-    @Nullable private Float surge_multiplier;
-    @Nullable private Boolean drivers_available;
+        @Nullable private Float surgeMultiplier;
+        @Nullable private Boolean driversAvailable;
 
 ```
 
@@ -1003,6 +991,18 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/SandboxProductReque
     @Nullable private Boolean drivers_available;
 
     /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/SandboxProductRequestParameters.java`
+#### Snippet
+```java
+public class SandboxProductRequestParameters {
+
+    @Nullable private Float surge_multiplier;
+    @Nullable private Boolean drivers_available;
+
 ```
 
 ### NullableProblems
@@ -1059,10 +1059,10 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Ride.java`
 #### Snippet
 ```java
     @Nullable
-    private Float surge_multiplier;
+    private Location pickup;
     @Nullable
-    private Location location;
-    @Nullable
+    private Location destination;
+
 ```
 
 ### NullableProblems
@@ -1071,10 +1071,22 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Ride.java`
 #### Snippet
 ```java
     @Nullable
-    private Location pickup;
+    private Float surge_multiplier;
     @Nullable
-    private Location destination;
+    private Location location;
+    @Nullable
+```
 
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Driver.java`
+#### Snippet
+```java
+    @Nullable
+    private String sms_number;
+    @Nullable
+    private Float rating;
+    @Nullable
 ```
 
 ### NullableProblems
@@ -1102,15 +1114,15 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Driver.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Driver.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/CompatibilityApiError.java`
 #### Snippet
 ```java
-    @Nullable
-    private String sms_number;
-    @Nullable
-    private Float rating;
-    @Nullable
+    @Nonnull
+    final String message;
+    @Nonnull
+    final String code;
+
 ```
 
 ### NullableProblems
@@ -1127,14 +1139,14 @@ final class CompatibilityApiError {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/CompatibilityApiError.java`
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/SurgeConfirmation.java`
 #### Snippet
 ```java
-    @Nonnull
-    final String message;
-    @Nonnull
-    final String code;
+public final class SurgeConfirmation {
 
+    @Nonnull
+    public final String href;
+    @Nonnull
 ```
 
 ### NullableProblems
@@ -1147,18 +1159,6 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/SurgeConfirmation.j
     @Nonnull
     public final String surge_confirmation_id;
     public final float multiplier;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/SurgeConfirmation.java`
-#### Snippet
-```java
-public final class SurgeConfirmation {
-
-    @Nonnull
-    public final String href;
-    @Nonnull
 ```
 
 ### NullableProblems
@@ -1187,26 +1187,26 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/Vehicle.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PriceEstimate.java`
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ClientError.java`
 #### Snippet
 ```java
-
-    private String product_id;
+    private final String code;
+    private final int status;
     @Nullable
-    private String currency_code;
-    private String display_name;
+    private final String title;
+
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PriceEstimate.java`
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ClientError.java`
 #### Snippet
 ```java
+public final class ClientError {
+
     @Nullable
-    private Float surge_multiplier;
-    @Nullable
-    private Integer duration;
-    @Nullable
+    private final String code;
+    private final int status;
 ```
 
 ### NullableProblems
@@ -1238,6 +1238,30 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PriceEstimate.java`
 #### Snippet
 ```java
+    @Nullable
+    private BigDecimal high_estimate;
+    @Nullable
+    private Float surge_multiplier;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PriceEstimate.java`
+#### Snippet
+```java
+    @Nullable
+    private Float surge_multiplier;
+    @Nullable
+    private Integer duration;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PriceEstimate.java`
+#### Snippet
+```java
     private String display_name;
     private String estimate;
     @Nullable
@@ -1250,35 +1274,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/PriceEstimate.java`
 #### Snippet
 ```java
-    @Nullable
-    private BigDecimal high_estimate;
-    @Nullable
-    private Float surge_multiplier;
-    @Nullable
-```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ClientError.java`
-#### Snippet
-```java
-    private final String code;
-    private final int status;
+    private String product_id;
     @Nullable
-    private final String title;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/error/ClientError.java`
-#### Snippet
-```java
-public final class ClientError {
-
-    @Nullable
-    private final String code;
-    private final int status;
+    private String currency_code;
+    private String display_name;
 ```
 
 ### NullableProblems
@@ -1287,9 +1287,9 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParamete
 #### Snippet
 ```java
         @Nullable
-        private String surgeConfirmationId;
+        private Float endLatitude;
         @Nullable
-        private String paymentMethodId;
+        private Float endLongitude;
         @Nullable
 ```
 
@@ -1298,10 +1298,106 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
 #### Snippet
 ```java
+    @Nullable
+    private Integer seat_count;
+    @Nullable
+    private String fare_id;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    public static class Builder {
+
+        @Nullable
+        private String productId;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private String product_id;
     @Nullable
     private Float start_latitude;
     @Nullable
-    private Float start_longitude;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private Float endLongitude;
+        @Nullable
+        private String endNickname;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private Float end_latitude;
+    @Nullable
+    private Float end_longitude;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private Integer seatCount;
+        @Nullable
+        private String fareId;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private String end_place_id;
+    @Nullable
+    private String surge_confirmation_id;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private String startAddress;
+        @Nullable
+        private String startPlaceId;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private String start_nickname;
+    @Nullable
+    private String start_address;
     @Nullable
 ```
 
@@ -1334,6 +1430,18 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
 #### Snippet
 ```java
+        @Nullable
+        private String paymentMethodId;
+        @Nullable
+        private Integer seatCount;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
     @Nullable
     private Float start_longitude;
     @Nullable
@@ -1347,9 +1455,21 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParamete
 #### Snippet
 ```java
     @Nullable
-    private String product_id;
+    private String surge_confirmation_id;
     @Nullable
-    private Float start_latitude;
+    private String payment_method_id;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private String payment_method_id;
+    @Nullable
+    private Integer seat_count;
     @Nullable
 ```
 
@@ -1359,9 +1479,129 @@ in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParamete
 #### Snippet
 ```java
         @Nullable
+        private String endNickname;
+        @Nullable
+        private String endAddress;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private String surgeConfirmationId;
+        @Nullable
         private String paymentMethodId;
         @Nullable
-        private Integer seatCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private Float end_longitude;
+    @Nullable
+    private String end_nickname;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private Float start_latitude;
+    @Nullable
+    private Float start_longitude;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private String startPlaceId;
+        @Nullable
+        private Float endLatitude;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private String endPlaceId;
+        @Nullable
+        private String surgeConfirmationId;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+    @Nullable
+    private String start_address;
+    @Nullable
+    private String start_place_id;
+    @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private Float startLongitude;
+        @Nullable
+        private String startNickname;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private String endAddress;
+        @Nullable
+        private String endPlaceId;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private String startNickname;
+        @Nullable
+        private String startAddress;
+        @Nullable
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
+#### Snippet
+```java
+        @Nullable
+        private Float startLatitude;
+        @Nullable
+        private Float startLongitude;
         @Nullable
 ```
 
@@ -1394,254 +1634,26 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
 #### Snippet
 ```java
-    @Nullable
-    private Float end_longitude;
-    @Nullable
-    private String end_nickname;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private String payment_method_id;
-    @Nullable
-    private Integer seat_count;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private String end_place_id;
-    @Nullable
-    private String surge_confirmation_id;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private String endNickname;
-        @Nullable
-        private String endAddress;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    public static class Builder {
-
-        @Nullable
-        private String productId;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private String surge_confirmation_id;
-    @Nullable
-    private String payment_method_id;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private Float startLatitude;
-        @Nullable
-        private Float startLongitude;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private String startPlaceId;
-        @Nullable
-        private Float endLatitude;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private Float endLatitude;
-        @Nullable
-        private Float endLongitude;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private String endAddress;
-        @Nullable
-        private String endPlaceId;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private Float startLongitude;
-        @Nullable
-        private String startNickname;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private Integer seatCount;
-        @Nullable
-        private String fareId;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
         @Nullable
         private String productId;
         @Nullable
         private Float startLatitude;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private Integer seat_count;
-    @Nullable
-    private String fare_id;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private String start_nickname;
-    @Nullable
-    private String start_address;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private String startAddress;
-        @Nullable
-        private String startPlaceId;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private Float endLongitude;
-        @Nullable
-        private String endNickname;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private String endPlaceId;
-        @Nullable
-        private String surgeConfirmationId;
-        @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private Float end_latitude;
-    @Nullable
-    private Float end_longitude;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-    @Nullable
-    private String start_address;
-    @Nullable
-    private String start_place_id;
-    @Nullable
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `uber-rides/src/main/java/com/uber/sdk/rides/client/model/RideRequestParameters.java`
-#### Snippet
-```java
-        @Nullable
-        private String startNickname;
-        @Nullable
-        private String startAddress;
         @Nullable
 ```
 
 ## RuleId[ruleID=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `InputStream.read()` is ignored
+in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
+#### Snippet
+```java
+            System.out.println("Press Enter when done.");
+
+            System.in.read();
+
+            // Generate an authorization URL.
+```
+
 ### IgnoreResultOfCall
 Result of `File.setReadable()` is ignored
 in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
@@ -1664,17 +1676,5 @@ in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetU
         credentialDirectory.setWritable(true, true);
         // If you'd like to store them in memory or in a DB, any DataStoreFactory can be used.
         AbstractDataStoreFactory dataStoreFactory = new FileDataStoreFactory(credentialDirectory);
-```
-
-### IgnoreResultOfCall
-Result of `InputStream.read()` is ignored
-in `samples/cmdline-sample/src/main/java/com/uber/sdk/rides/samples/cmdline/GetUserProfile.java`
-#### Snippet
-```java
-            System.out.println("Press Enter when done.");
-
-            System.in.read();
-
-            // Generate an authorization URL.
 ```
 
