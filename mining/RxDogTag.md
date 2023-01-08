@@ -83,15 +83,15 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
+Can generalize to `? extends ObserverHandler`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
 ```java
-   * not contain such element.
-   */
-  private static <T> int indexOfLast(T[] array, NonCheckingPredicate<T> predicate) {
-    for (int index = array.length - 1; index >= 0; --index) {
-      if (predicate.test(array[index])) {
+     * @return this builder for fluent chaining.
+     */
+    public Builder addObserverHandlers(Collection<ObserverHandler> handlers) {
+      observerHandlers.addAll(handlers);
+      return this;
 ```
 
 ### BoundedWildcard
@@ -107,14 +107,14 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ObserverHandler`
+Can generalize to `? super T`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
 ```java
-     * @return this builder for fluent chaining.
-     */
-    public Builder addObserverHandlers(Collection<ObserverHandler> handlers) {
-      observerHandlers.addAll(handlers);
-      return this;
+   * not contain such element.
+   */
+  private static <T> int indexOfLast(T[] array, NonCheckingPredicate<T> predicate) {
+    for (int index = array.length - 1; index >= 0; --index) {
+      if (predicate.test(array[index])) {
 ```
 
