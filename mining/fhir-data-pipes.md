@@ -56,15 +56,15 @@ in `pipelines/controller/src/main/java/org/openmrs/analytics/PipelineManager.jav
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Runner` has only 'static' members, and lacks a 'private' constructor
-in `pipelines/streaming/src/main/java/org/openmrs/analytics/Runner.java`
+Class `EtlUtils` has only 'static' members, and lacks a 'private' constructor
+in `pipelines/batch/src/main/java/org/openmrs/analytics/EtlUtils.java`
 #### Snippet
 ```java
-// the
-// changes in OpenMRS to FHIR resources that are exported to GCP FHIR store.
-public class Runner {
+import org.slf4j.LoggerFactory;
 
-  private static final Main MAIN = new Main();
+class EtlUtils {
+
+  static final String METRICS_NAMESPACE = "PipelineMetrics";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -80,15 +80,15 @@ public class GZipUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EtlUtils` has only 'static' members, and lacks a 'private' constructor
-in `pipelines/batch/src/main/java/org/openmrs/analytics/EtlUtils.java`
+Class `ParquetMerger` has only 'static' members, and lacks a 'private' constructor
+in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
+ * which does deduplication of resources too.
+ */
+public class ParquetMerger {
 
-class EtlUtils {
-
-  static final String METRICS_NAMESPACE = "PipelineMetrics";
+  private static final Logger log = LoggerFactory.getLogger(ParquetMerger.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -101,6 +101,18 @@ in `pipelines/controller/src/main/java/org/openmrs/analytics/ControlPanelApplica
 public class ControlPanelApplication {
 
   public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Runner` has only 'static' members, and lacks a 'private' constructor
+in `pipelines/streaming/src/main/java/org/openmrs/analytics/Runner.java`
+#### Snippet
+```java
+// the
+// changes in OpenMRS to FHIR resources that are exported to GCP FHIR store.
+public class Runner {
+
+  private static final Main MAIN = new Main();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -125,18 +137,6 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/tools/GenerateSchema
 public class GenerateSchemas {
 
   public static final String DELIMITER = ";";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ParquetMerger` has only 'static' members, and lacks a 'private' constructor
-in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
-#### Snippet
-```java
- * which does deduplication of resources too.
- */
-public class ParquetMerger {
-
-  private static final Logger log = LoggerFactory.getLogger(ParquetMerger.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -202,6 +202,18 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
 ```
 
 ### DataFlowIssue
+Argument `input` might be null
+in `bunsen/bunsen-uscore-resources-stu3/src/main/java/com/cerner/bunsen/stu3/UsCoreStu3ProfileProvider.java`
+#### Snippet
+```java
+
+      StructureDefinition definition = (StructureDefinition)
+          jsonParser.parseResource(new InputStreamReader(input));
+
+      support.addStructureDefinition(definition);
+```
+
+### DataFlowIssue
 Dereference of `defaultDefinitions` may produce `NullPointerException`
 in `bunsen/bunsen-uscore-resources-stu3/src/main/java/com/cerner/bunsen/stu3/UsCoreStu3ProfileProvider.java`
 #### Snippet
@@ -214,15 +226,51 @@ in `bunsen/bunsen-uscore-resources-stu3/src/main/java/com/cerner/bunsen/stu3/UsC
 ```
 
 ### DataFlowIssue
-Argument `input` might be null
-in `bunsen/bunsen-uscore-resources-stu3/src/main/java/com/cerner/bunsen/stu3/UsCoreStu3ProfileProvider.java`
+Argument `structureDefinition` might be null
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
 ```java
+                  .fetchStructureDefinition(typeRef.getCode());
 
-      StructureDefinition definition = (StructureDefinition)
-          jsonParser.parseResource(new InputStreamReader(input));
+          T child = transform(visitor, element, structureDefinition, new ArrayDeque<>());
 
-      support.addStructureDefinition(definition);
+          choiceTypes.put(typeRef.getCode(), child);
+```
+
+### DataFlowIssue
+Argument `definition` might be null
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+#### Snippet
+```java
+        StructureDefinition definition = getDefinition(element);
+
+        if (shouldTerminateRecursive(visitor, definition, stack)) {
+
+          return Collections.emptyList();
+```
+
+### DataFlowIssue
+Argument `definition` might be null
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+#### Snippet
+```java
+      StructureDefinition definition = getDefinition(element);
+
+      if (shouldTerminateRecursive(visitor, definition, stack)) {
+
+        return Collections.emptyList();
+```
+
+### DataFlowIssue
+Method invocation `getType` may produce `NullPointerException`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+#### Snippet
+```java
+                validation.fetchStructureDefinition(getFirstProfile(type.getTargetProfile()));
+
+            return targetDefinition.getType();
+          })
+          .sorted()
 ```
 
 ### DataFlowIssue
@@ -273,54 +321,6 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
         return Collections.emptyList();
 ```
 
-### DataFlowIssue
-Method invocation `getType` may produce `NullPointerException`
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-                validation.fetchStructureDefinition(getFirstProfile(type.getTargetProfile()));
-
-            return targetDefinition.getType();
-          })
-          .sorted()
-```
-
-### DataFlowIssue
-Argument `structureDefinition` might be null
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-                  .fetchStructureDefinition(typeRef.getCode());
-
-          T child = transform(visitor, element, structureDefinition, new ArrayDeque<>());
-
-          choiceTypes.put(typeRef.getCode(), child);
-```
-
-### DataFlowIssue
-Argument `definition` might be null
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-        StructureDefinition definition = getDefinition(element);
-
-        if (shouldTerminateRecursive(visitor, definition, stack)) {
-
-          return Collections.emptyList();
-```
-
-### DataFlowIssue
-Argument `definition` might be null
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-      StructureDefinition definition = getDefinition(element);
-
-      if (shouldTerminateRecursive(visitor, definition, stack)) {
-
-        return Collections.emptyList();
-```
-
 ## RuleId[ruleID=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with 'String.join'
@@ -335,6 +335,18 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/Definitio
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/tools/GenerateSchemas.java`
+#### Snippet
+```java
+        .skip(1)
+        .collect(Collectors.toMap(item -> item.split(DELIMITER)[0],
+            item -> generateContainedUrls(item)));
+
+    List<Schema> schemas = AvroConverter.generateSchemas(FhirContexts.forStu3(), resourceTypeUrls);
+```
+
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3FhirConversionSupport.java`
@@ -381,18 +393,6 @@ in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4FhirC
                   Property::getName, property -> property.getValues(), (first, second) -> first));
     }
   }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/tools/GenerateSchemas.java`
-#### Snippet
-```java
-        .skip(1)
-        .collect(Collectors.toMap(item -> item.split(DELIMITER)[0],
-            item -> generateContainedUrls(item)));
-
-    List<Schema> schemas = AvroConverter.generateSchemas(FhirContexts.forStu3(), resourceTypeUrls);
 ```
 
 ## RuleId[ruleID=RegExpRedundantEscape]
@@ -482,30 +482,6 @@ in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/DefinitionVis
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'openmrsUtil' in a Serializable class
-in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
-#### Snippet
-```java
-  @VisibleForTesting protected ParquetUtil parquetUtil;
-
-  protected OpenmrsUtil openmrsUtil;
-
-  protected FhirSearchUtil fhirSearchUtil;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'fhirContext' in a Serializable class
-in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
-#### Snippet
-```java
-  protected IParser parser;
-
-  protected FhirContext fhirContext;
-
-  private static JdbcConnectionUtil jdbcConnectionUtil = null;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'fhirStoreUtil' in a Serializable class
 in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
 #### Snippet
@@ -518,15 +494,15 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'parquetUtil' in a Serializable class
+Non-serializable field 'fhirContext' in a Serializable class
 in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
 #### Snippet
 ```java
-  private final int maxPoolSize;
+  protected IParser parser;
 
-  @VisibleForTesting protected ParquetUtil parquetUtil;
+  protected FhirContext fhirContext;
 
-  protected OpenmrsUtil openmrsUtil;
+  private static JdbcConnectionUtil jdbcConnectionUtil = null;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -551,6 +527,30 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
   protected FhirSearchUtil fhirSearchUtil;
 
   protected FhirStoreUtil fhirStoreUtil;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'openmrsUtil' in a Serializable class
+in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
+#### Snippet
+```java
+  @VisibleForTesting protected ParquetUtil parquetUtil;
+
+  protected OpenmrsUtil openmrsUtil;
+
+  protected FhirSearchUtil fhirSearchUtil;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'parquetUtil' in a Serializable class
+in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
+#### Snippet
+```java
+  private final int maxPoolSize;
+
+  @VisibleForTesting protected ParquetUtil parquetUtil;
+
+  protected OpenmrsUtil openmrsUtil;
 ```
 
 ## RuleId[ruleID=RedundantCollectionOperation]
@@ -605,7 +605,7 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/Definitio
 
 ### SizeReplaceableByIsEmpty
 `containedDefinitions.size() > 0` can be replaced with '!containedDefinitions.isEmpty()'
-in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
 ```java
 
@@ -613,6 +613,18 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
     if (containedDefinitions.size() > 0) {
 
       StructureField<T> containedElement = transformContained(visitor,
+```
+
+### SizeReplaceableByIsEmpty
+`extensions.size() > 0` can be replaced with '!extensions.isEmpty()'
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+#### Snippet
+```java
+    }
+
+    if (!element.getMax().equals("1") && extensions.size() > 0) {
+      // the nested extension element has max: *
+      return Collections.singletonList(StructureField.extension(
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -629,7 +641,7 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
 
 ### SizeReplaceableByIsEmpty
 `containedDefinitions.size() > 0` can be replaced with '!containedDefinitions.isEmpty()'
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
 #### Snippet
 ```java
 
@@ -639,21 +651,33 @@ in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4Struc
       StructureField<T> containedElement = transformContained(visitor,
 ```
 
-### SizeReplaceableByIsEmpty
-`extensions.size() > 0` can be replaced with '!extensions.isEmpty()'
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-    }
-
-    if (!element.getMax().equals("1") && extensions.size() > 0) {
-      // the nested extension element has max: *
-      return Collections.singletonList(StructureField.extension(
-```
-
 ## RuleId[ruleID=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
+#### Snippet
+```java
+            String.format("No _getpages parameter found in search link %s", searchLink));
+      }
+      return openmrsUtil.getSourceFhirUrl() + "?" + pagesParam.toString();
+    } catch (URISyntaxException e) {
+      throw new IllegalArgumentException(
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
+#### Snippet
+```java
+            String.format(
+                "While searching for resource %s with date, caught exception %s",
+                resourceType, e.toString()));
+        log.info("Trying without date for resource " + resourceType);
+        searchBundle = makeQueryForResource(resourceType, options.getBatchSize()).execute();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
 #### Snippet
 ```java
@@ -672,30 +696,6 @@ in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
       log.error(String.format("IOException while using Google APIs: %s", e.toString()));
     } catch (URISyntaxException e) {
       log.error(String.format("URI syntax exception while using Google APIs: %s", e.toString()));
-    }
-    return null;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-              new BearerTokenAuthInterceptor(credential.refreshAccessToken().getTokenValue())));
-    } catch (IOException e) {
-      log.error("IOException while using Google APIs: {}", e.toString(), e);
-    } catch (URISyntaxException e) {
-      log.error("URI syntax exception while using Google APIs: {}", e.toString(), e);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-      log.error("IOException while using Google APIs: {}", e.toString(), e);
-    } catch (URISyntaxException e) {
-      log.error("URI syntax exception while using Google APIs: {}", e.toString(), e);
     }
     return null;
 ```
@@ -714,26 +714,26 @@ in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
 #### Snippet
 ```java
-            String.format(
-                "While searching for resource %s with date, caught exception %s",
-                resourceType, e.toString()));
-        log.info("Trying without date for resource " + resourceType);
-        searchBundle = makeQueryForResource(resourceType, options.getBatchSize()).execute();
+              new BearerTokenAuthInterceptor(credential.refreshAccessToken().getTokenValue())));
+    } catch (IOException e) {
+      log.error("IOException while using Google APIs: {}", e.toString(), e);
+    } catch (URISyntaxException e) {
+      log.error("URI syntax exception while using Google APIs: {}", e.toString(), e);
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
 #### Snippet
 ```java
-            String.format("No _getpages parameter found in search link %s", searchLink));
-      }
-      return openmrsUtil.getSourceFhirUrl() + "?" + pagesParam.toString();
+      log.error("IOException while using Google APIs: {}", e.toString(), e);
     } catch (URISyntaxException e) {
-      throw new IllegalArgumentException(
+      log.error("URI syntax exception while using Google APIs: {}", e.toString(), e);
+    }
+    return null;
 ```
 
 ## RuleId[ruleID=Java9CollectionFactory]
@@ -776,15 +776,39 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/Definitio
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends IClientInterceptor`
-in `pipelines/common/src/main/java/org/openmrs/analytics/FhirStoreUtil.java`
+Can generalize to `? extends GenericRecord`
+in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
 #### Snippet
 ```java
 
-  protected IGenericClient createGenericClient(
-      String sinkUrl, Collection<IClientInterceptor> interceptors) {
-    IGenericClient client = clientFactory.newGenericClient(sinkUrl);
+  private static GenericRecord findLastRecord(
+      Iterable<GenericRecord> iter1, Iterable<GenericRecord> iter2, Counter numDuplicates) {
+    // Note we are assuming all times have the same time-zone to avoid parsing date values.
+    String lastUpdated = null;
+```
 
+### BoundedWildcard
+Can generalize to `? extends GenericRecord`
+in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
+#### Snippet
+```java
+
+  private static GenericRecord findLastRecord(
+      Iterable<GenericRecord> iter1, Iterable<GenericRecord> iter2, Counter numDuplicates) {
+    // Note we are assuming all times have the same time-zone to avoid parsing date values.
+    String lastUpdated = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super KV`
+in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
+#### Snippet
+```java
+              @ProcessElement
+              public void processElement(
+                  @Element GenericRecord record, OutputReceiver<KV<String, GenericRecord>> out) {
+                String id = record.get(ID_KEY).toString();
+                if (id == null) {
 ```
 
 ### BoundedWildcard
@@ -824,6 +848,18 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/JdbcFetchOpenMrs.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends IClientInterceptor`
+in `pipelines/common/src/main/java/org/openmrs/analytics/FhirStoreUtil.java`
+#### Snippet
+```java
+
+  protected IGenericClient createGenericClient(
+      String sinkUrl, Collection<IClientInterceptor> interceptors) {
+    IGenericClient client = clientFactory.newGenericClient(sinkUrl);
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends ConfigFields`
 in `pipelines/controller/src/main/java/org/openmrs/analytics/DataProperties.java`
 #### Snippet
@@ -833,42 +869,6 @@ in `pipelines/controller/src/main/java/org/openmrs/analytics/DataProperties.java
   void sortConfigList(List<ConfigFields> configFields) {
     configFields.sort(Comparator.comparing(c -> c.name));
   }
-```
-
-### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
-#### Snippet
-```java
-
-  private static GenericRecord findLastRecord(
-      Iterable<GenericRecord> iter1, Iterable<GenericRecord> iter2, Counter numDuplicates) {
-    // Note we are assuming all times have the same time-zone to avoid parsing date values.
-    String lastUpdated = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends GenericRecord`
-in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
-#### Snippet
-```java
-
-  private static GenericRecord findLastRecord(
-      Iterable<GenericRecord> iter1, Iterable<GenericRecord> iter2, Counter numDuplicates) {
-    // Note we are assuming all times have the same time-zone to avoid parsing date values.
-    String lastUpdated = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super KV`
-in `pipelines/batch/src/main/java/org/openmrs/analytics/ParquetMerger.java`
-#### Snippet
-```java
-              @ProcessElement
-              public void processElement(
-                  @Element GenericRecord record, OutputReceiver<KV<String, GenericRecord>> out) {
-                String id = record.get(ID_KEY).toString();
-                if (id == null) {
 ```
 
 ### BoundedWildcard
@@ -908,42 +908,6 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/Definitio
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ElementDefinition`
-in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
-#### Snippet
-```java
-
-  private List<ElementDefinition> getChildren(ElementDefinition parent,
-      List<ElementDefinition> definitions) {
-
-    if (parent.getContentReference() != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StructureDefinition`
-in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
-#### Snippet
-```java
-  private <T> StructureField<T> transformContained(DefinitionVisitor<T> visitor,
-      StructureDefinition rootDefinition,
-      List<StructureDefinition> containedDefinitions,
-      Deque<QualifiedPath> stack,
-      ElementDefinition element) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends StructureDefinition`
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-  private <T> StructureField<T> transformContained(DefinitionVisitor<T> visitor,
-      StructureDefinition rootDefinition,
-      List<StructureDefinition> containedDefinitions,
-      Deque<QualifiedPath> stack,
-      ElementDefinition element) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends CanonicalType`
 in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
@@ -956,6 +920,18 @@ in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4Struc
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends StructureDefinition`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+#### Snippet
+```java
+  private <T> StructureField<T> transformContained(DefinitionVisitor<T> visitor,
+      StructureDefinition rootDefinition,
+      List<StructureDefinition> containedDefinitions,
+      Deque<QualifiedPath> stack,
+      ElementDefinition element) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ElementDefinition`
 in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
@@ -965,6 +941,30 @@ in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4Struc
       List<ElementDefinition> definitions) {
 
     if (parent.getContentReference() != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ElementDefinition`
+in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
+#### Snippet
+```java
+
+  private List<ElementDefinition> getChildren(ElementDefinition parent,
+      List<ElementDefinition> definitions) {
+
+    if (parent.getContentReference() != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends StructureDefinition`
+in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
+#### Snippet
+```java
+  private <T> StructureField<T> transformContained(DefinitionVisitor<T> visitor,
+      StructureDefinition rootDefinition,
+      List<StructureDefinition> containedDefinitions,
+      Deque<QualifiedPath> stack,
+      ElementDefinition element) {
 ```
 
 ## RuleId[ruleID=AbstractClassNeverImplemented]
@@ -1015,19 +1015,6 @@ in `pipelines/common/src/main/java/org/openmrs/analytics/ParquetUtil.java`
             PARQUET_EXTENSION);
     Path bestFilePath =
         new Path(Paths.get(dwhFiles.getRoot(), resourceType).toString(), uniquetFileName);
-```
-
-## RuleId[ruleID=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `pipelines/common/src/main/java/org/openmrs/analytics/GZipUtil.java`
-#### Snippet
-```java
-      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(theResource);
-      GZIPInputStream inputStream = new GZIPInputStream(byteArrayInputStream);
-      return IOUtils.toString(inputStream, "UTF-8");
-    } catch (IOException exception) {
-      exception.printStackTrace();
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -1139,6 +1126,19 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/tools/GenerateSchema
       return 1;
 ```
 
+## RuleId[ruleID=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `pipelines/common/src/main/java/org/openmrs/analytics/GZipUtil.java`
+#### Snippet
+```java
+      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(theResource);
+      GZIPInputStream inputStream = new GZIPInputStream(byteArrayInputStream);
+      return IOUtils.toString(inputStream, "UTF-8");
+    } catch (IOException exception) {
+      exception.printStackTrace();
+```
+
 ## RuleId[ruleID=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -1188,31 +1188,6 @@ in `pipelines/streaming/src/main/java/org/openmrs/analytics/StatusServer.java`
       if (var.isEmpty() || !var.startsWith("/")) {
         StringBuilder builder =
             new StringBuilder(
-```
-
-## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-      log.info(String.format("Full URL is: %s", uriBuilder.build()));
-
-      return super.updateFhirResource(
-          uri,
-          resource,
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-      log.info("Full URL is: {}", uriBuilder.build());
-
-      return super.uploadBundle(
-          uri,
-          bundle,
 ```
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
@@ -1274,6 +1249,31 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/Definitio
     String[] parts = localPart.split("[-|_]");
 
     String recordName = Arrays.stream(parts).map(part ->
+```
+
+## RuleId[ruleID=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
+#### Snippet
+```java
+      log.info(String.format("Full URL is: %s", uriBuilder.build()));
+
+      return super.updateFhirResource(
+          uri,
+          resource,
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
+#### Snippet
+```java
+      log.info("Full URL is: {}", uriBuilder.build());
+
+      return super.uploadBundle(
+          uri,
+          bundle,
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -1344,10 +1344,10 @@ import org.hl7.fhir.instance.model.api.IPrimitiveType;
 in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiCompositeConverter.java`
 #### Snippet
 ```java
-      // Append the [x] suffix for choice properties.
-      if (schemaEntry.isChoice()) {
-        propertyName = propertyName + "[x]";
-      }
+        if (child.isChoice()) {
+
+          propertyName = propertyName + "[x]";
+        }
 
 ```
 
@@ -1356,10 +1356,10 @@ in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiComposite
 in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiCompositeConverter.java`
 #### Snippet
 ```java
-        if (child.isChoice()) {
-
-          propertyName = propertyName + "[x]";
-        }
+      // Append the [x] suffix for choice properties.
+      if (schemaEntry.isChoice()) {
+        propertyName = propertyName + "[x]";
+      }
 
 ```
 
@@ -1452,30 +1452,6 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/JdbcFetchOpenMrs.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `pipelines/common/src/main/java/org/openmrs/analytics/BaseArgs.java`
-#### Snippet
-```java
-              + " reached, the content is flushed to disk. This won't be triggered if there are"
-              + " less than 100 records. Use 0 to fall back to the default row-group size.")
-  public int rowGroupSizeForParquetFiles = 0;
-}
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-  private static final Logger log = LoggerFactory.getLogger(GcpStoreUtil.class);
-
-  private GoogleCredentials credential = null;
-
-  protected GcpStoreUtil(String sinkUrl, IRestfulClientFactory clientFactory) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchResources.java`
 #### Snippet
@@ -1499,6 +1475,30 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/FetchSearchPageFn.java`
   // This is to enforce the Singleton pattern for JdbcConnectionUtil used by all workers running
 ```
 
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `pipelines/common/src/main/java/org/openmrs/analytics/BaseArgs.java`
+#### Snippet
+```java
+              + " reached, the content is flushed to disk. This won't be triggered if there are"
+              + " less than 100 records. Use 0 to fall back to the default row-group size.")
+  public int rowGroupSizeForParquetFiles = 0;
+}
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
+#### Snippet
+```java
+  private static final Logger log = LoggerFactory.getLogger(GcpStoreUtil.class);
+
+  private GoogleCredentials credential = null;
+
+  protected GcpStoreUtil(String sinkUrl, IRestfulClientFactory clientFactory) {
+```
+
 ## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `input`
@@ -1514,7 +1514,7 @@ in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/EnumConverter
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `parent`
-in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
 ```java
 
@@ -1526,7 +1526,7 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `parent`
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
 #### Snippet
 ```java
 
@@ -1551,46 +1551,10 @@ in `pipelines/common/src/main/java/org/openmrs/analytics/OpenmrsUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `pipelines/streaming/src/main/java/org/openmrs/analytics/StatusServer.java`
+in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
 #### Snippet
 ```java
-        return statusVars.get(name);
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-      log.error(String.format("URI syntax exception while using Google APIs: %s", e.toString()));
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-      log.error("URI syntax exception while using Google APIs: {}", e.toString(), e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
-#### Snippet
-```java
-      log.error(String.format("Exception while sending to sink: %s", e.toString()));
+      log.error("Failed to search for url: " + searchUrl + " ;  " + "Exception: " + e);
     }
     return null;
   }
@@ -1611,14 +1575,62 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
 #### Snippet
 ```java
-      log.error("Failed to search for url: " + searchUrl + " ;  " + "Exception: " + e);
+      log.error(String.format("URI syntax exception while using Google APIs: %s", e.toString()));
     }
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
+#### Snippet
+```java
+      log.error(String.format("Exception while sending to sink: %s", e.toString()));
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `pipelines/common/src/main/java/org/openmrs/analytics/GcpStoreUtil.java`
+#### Snippet
+```java
+      log.error("URI syntax exception while using Google APIs: {}", e.toString(), e);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `pipelines/streaming/src/main/java/org/openmrs/analytics/StatusServer.java`
+#### Snippet
+```java
+        return statusVars.get(name);
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `pipelines/controller/src/main/java/org/openmrs/analytics/PipelineManager.java`
+#### Snippet
+```java
+  LocalDateTime getNextIncrementalTime() {
+    if (isRunning() || lastRunEnd == null) {
+      return null;
+    }
+    return cron.next(lastRunEnd);
 ```
 
 ### ReturnNull
@@ -1642,6 +1654,42 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/NoOpConve
     public IBase toHapi(Object input) {
       return null;
     }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiConverter.java`
+#### Snippet
+```java
+   */
+  public String extensionUrl() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiConverter.java`
+#### Snippet
+```java
+   */
+  public String getElementType() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/EnumConverter.java`
+#### Snippet
+```java
+
+    return "?".equals(primitive.getValueAsString())
+        ? null
+        : primitive.getValueAsString();
   }
 ```
 
@@ -1671,54 +1719,6 @@ in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4FhirC
 
 ### ReturnNull
 Return of `null`
-in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiConverter.java`
-#### Snippet
-```java
-   */
-  public String extensionUrl() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiConverter.java`
-#### Snippet
-```java
-   */
-  public String getElementType() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `pipelines/controller/src/main/java/org/openmrs/analytics/PipelineManager.java`
-#### Snippet
-```java
-  LocalDateTime getNextIncrementalTime() {
-    if (isRunning() || lastRunEnd == null) {
-      return null;
-    }
-    return cron.next(lastRunEnd);
-```
-
-### ReturnNull
-Return of `null`
-in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/EnumConverter.java`
-#### Snippet
-```java
-
-    return "?".equals(primitive.getValueAsString())
-        ? null
-        : primitive.getValueAsString();
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiCompositeConverter.java`
 #### Snippet
 ```java
@@ -1727,6 +1727,18 @@ in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/HapiComposite
       return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirEtl.java`
+#### Snippet
+```java
+      return pipeline;
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -1743,13 +1755,13 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirEtl.java`
 
 ### ReturnNull
 Return of `null`
-in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirEtl.java`
+in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/DefinitionToAvroVisitor.java`
 #### Snippet
 ```java
-      return pipeline;
+      return uri != null && uri.startsWith(prefix)
+          ? uri.substring(uri.lastIndexOf('/') + 1)
+          : null;
     }
-    return null;
-  }
 
 ```
 
@@ -1779,14 +1791,26 @@ in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/Definitio
 
 ### ReturnNull
 Return of `null`
-in `bunsen/bunsen-avro/src/main/java/com/cerner/bunsen/avro/converters/DefinitionToAvroVisitor.java`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
 ```java
-      return uri != null && uri.startsWith(prefix)
-          ? uri.substring(uri.lastIndexOf('/') + 1)
-          : null;
+  private String getFirstProfile(List<CanonicalType> types) {
+    if (types == null || types.isEmpty()) {
+      return  null;
     }
+    if (types.size() > 1) {
+```
 
+### ReturnNull
+Return of `null`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+#### Snippet
+```java
+        || element.getTypeFirstRep().getCode().equals("BackboneElement")
+        || element.getTypeFirstRep().getCode().equals("Element")
+        ? null
+        : (StructureDefinition) validationSupport.fetchStructureDefinition(
+            element.getTypeFirstRep().getCode());
 ```
 
 ### ReturnNull
@@ -1799,30 +1823,6 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
         ? null
         : (StructureDefinition) validationSupport.fetchStructureDefinition(
             element.getTypeFirstRep().getCode());
-```
-
-### ReturnNull
-Return of `null`
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-        || element.getTypeFirstRep().getCode().equals("BackboneElement")
-        || element.getTypeFirstRep().getCode().equals("Element")
-        ? null
-        : (StructureDefinition) validationSupport.fetchStructureDefinition(
-            element.getTypeFirstRep().getCode());
-```
-
-### ReturnNull
-Return of `null`
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
-#### Snippet
-```java
-  private String getFirstProfile(List<CanonicalType> types) {
-    if (types == null || types.isEmpty()) {
-      return  null;
-    }
-    if (types.size() > 1) {
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -1877,30 +1877,6 @@ in `pipelines/streaming/src/main/java/org/openmrs/analytics/DebeziumListener.jav
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-Variable `response` initializer `""` is redundant
-in `pipelines/streaming/src/main/java/org/openmrs/analytics/StatusServer.java`
-#### Snippet
-```java
-      log.info("Received request: " + exchange.getRequestURI());
-      String var = exchange.getRequestURI().getPath().replaceFirst(PATH_PREFIX, "");
-      String response = "";
-      if (var.isEmpty() || !var.startsWith("/")) {
-        StringBuilder builder =
-```
-
-### UnusedAssignment
-Variable `uuid` initializer `""` is redundant
-in `pipelines/streaming/src/main/java/org/openmrs/analytics/FhirConverter.java`
-#### Snippet
-```java
-      return;
-    }
-    String uuid = "";
-    if (payload.get("uuid") != null) {
-      uuid = payload.get("uuid").toString();
-```
-
-### UnusedAssignment
 Variable `statement` initializer `null` is redundant
 in `pipelines/batch/src/main/java/org/openmrs/analytics/JdbcResourceWriter.java`
 #### Snippet
@@ -1922,6 +1898,30 @@ in `pipelines/batch/src/main/java/org/openmrs/analytics/FhirSearchUtil.java`
       Bundle searchBundle = null;
       try {
         searchBundle = searchQuery.execute();
+```
+
+### UnusedAssignment
+Variable `response` initializer `""` is redundant
+in `pipelines/streaming/src/main/java/org/openmrs/analytics/StatusServer.java`
+#### Snippet
+```java
+      log.info("Received request: " + exchange.getRequestURI());
+      String var = exchange.getRequestURI().getPath().replaceFirst(PATH_PREFIX, "");
+      String response = "";
+      if (var.isEmpty() || !var.startsWith("/")) {
+        StringBuilder builder =
+```
+
+### UnusedAssignment
+Variable `uuid` initializer `""` is redundant
+in `pipelines/streaming/src/main/java/org/openmrs/analytics/FhirConverter.java`
+#### Snippet
+```java
+      return;
+    }
+    String uuid = "";
+    if (payload.get("uuid") != null) {
+      uuid = payload.get("uuid").toString();
 ```
 
 ### UnusedAssignment
@@ -1963,7 +1963,7 @@ in `bunsen/bunsen-core/src/main/java/com/cerner/bunsen/definitions/DefinitionVis
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
 ```java
           .findFirst();
@@ -1975,7 +1975,7 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
+in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
 #### Snippet
 ```java
 
@@ -1987,7 +1987,7 @@ in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
 #### Snippet
 ```java
           .findFirst();
@@ -1999,7 +1999,7 @@ in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4Struc
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `bunsen/bunsen-core-r4/src/main/java/com/cerner/bunsen/definitions/r4/R4StructureDefinitions.java`
+in `bunsen/bunsen-core-stu3/src/main/java/com/cerner/bunsen/definitions/stu3/Stu3StructureDefinitions.java`
 #### Snippet
 ```java
 
