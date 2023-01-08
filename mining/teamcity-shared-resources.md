@@ -381,30 +381,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CustomResource`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-  }
-
-  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
-                                                           @NotNull final Map<String, Lock> locks) {
-    final Map<String, CustomResource> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
-    return myLocks.stream()
-                  .collect(Collectors.toMap(Function.identity(), val -> ""));
-```
-
-### BoundedWildcard
 Can generalize to `? extends Resource`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
 #### Snippet
@@ -426,6 +402,30 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
                                                          @NotNull final Map<String, Map<String, CustomResource>> projectTreeCustomResources) {
     return projectTreeCustomResources.computeIfAbsent(projectId,
                                                       id -> projectResources.values().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
+    return myLocks.stream()
+                  .collect(Collectors.toMap(Function.identity(), val -> ""));
+```
+
+### BoundedWildcard
+Can generalize to `? extends CustomResource`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+  }
+
+  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
+                                                           @NotNull final Map<String, Lock> locks) {
+    final Map<String, CustomResource> result = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -465,18 +465,6 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TakenLock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
-#### Snippet
-```java
-
-  private String getNextAvailableValue(@NotNull final CustomResource resource,
-                                       @NotNull final Map<Resource, TakenLock> takenLocks,
-                                       @NotNull final BuildPromotion promotion,
-                                       @NotNull final DistributionDataAccessor accessor) {
-```
-
-### BoundedWildcard
 Can generalize to `? super Map`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
 #### Snippet
@@ -486,6 +474,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgent
                                  @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
     if (takenLocks.get() == null) {
       takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends TakenLock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
+#### Snippet
+```java
+
+  private String getNextAvailableValue(@NotNull final CustomResource resource,
+                                       @NotNull final Map<Resource, TakenLock> takenLocks,
+                                       @NotNull final BuildPromotion promotion,
+                                       @NotNull final DistributionDataAccessor accessor) {
 ```
 
 ### BoundedWildcard
