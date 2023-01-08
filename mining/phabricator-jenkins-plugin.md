@@ -87,6 +87,18 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
 
 ## RuleId[ruleID=FieldMayBeStatic]
 ### FieldMayBeStatic
+Field `borderColor` may be 'static'
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
+#### Snippet
+```java
+    private final String background = "transparent";
+    private final String border = "0";
+    private final String borderColor = "transparent";
+    private final String link;
+
+```
+
+### FieldMayBeStatic
 Field `border` may be 'static'
 in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
 #### Snippet
@@ -108,18 +120,6 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
     private final String background = "transparent";
     private final String border = "0";
     private final String borderColor = "transparent";
-```
-
-### FieldMayBeStatic
-Field `borderColor` may be 'static'
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
-#### Snippet
-```java
-    private final String background = "transparent";
-    private final String border = "0";
-    private final String borderColor = "transparent";
-    private final String link;
-
 ```
 
 ### FieldMayBeStatic
@@ -224,18 +224,6 @@ in `src/main/java/com/uber/jenkins/phabricator/BuildResultProcessor.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`available.size() == 0` can be replaced with 'available.isEmpty()'
-in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
-#### Snippet
-```java
-    public static ConduitCredentials getCredentials(Job owner, String credentialsID) {
-        List<ConduitCredentials> available = availableCredentials(owner);
-        if (available.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `build.getActions(PhabricatorPostbuildAction.class).size() == 0` can be replaced with 'build.getActions(PhabricatorPostbuildAction.class).isEmpty()'
 in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
 #### Snippet
@@ -245,6 +233,18 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
         final boolean needsDecoration = build.getActions(PhabricatorPostbuildAction.class).size() == 0;
 
         final String diffID = environment.get(PhabricatorPlugin.DIFFERENTIAL_ID_FIELD);
+```
+
+### SizeReplaceableByIsEmpty
+`available.size() == 0` can be replaced with 'available.isEmpty()'
+in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
+#### Snippet
+```java
+    public static ConduitCredentials getCredentials(Job owner, String credentialsID) {
+        List<ConduitCredentials> available = availableCredentials(owner);
+        if (available.size() == 0) {
+            return null;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -315,6 +315,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ed
 in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
 #### Snippet
 ```java
+public class ConduitCredentialsImpl extends BaseStandardCredentials implements ConduitCredentials {
+
+    @NonNull
+    private final Secret token;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@edu.umd.cs.findbugs.annotations.NonNull'
+in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+#### Snippet
+```java
     private final String gateway;
 
     @NonNull
@@ -331,18 +343,6 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 
     @Nullable
     private final String gateway;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@edu.umd.cs.findbugs.annotations.NonNull'
-in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
-#### Snippet
-```java
-public class ConduitCredentialsImpl extends BaseStandardCredentials implements ConduitCredentials {
-
-    @NonNull
-    private final Secret token;
 
 ```
 
@@ -364,9 +364,9 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-        Object rawRevisionIdObj = rawJSON.get("revisionID");
-        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
-        if (rawRevisionId == null || rawRevisionId.equals("")) {
+    public String getDiffID() {
+        String rawDiffId = (String) rawJSON.get("id");
+        if (rawDiffId == null || rawDiffId.equals("")) {
             return null;
         }
 ```
@@ -376,14 +376,26 @@ in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-    public String getDiffID() {
-        String rawDiffId = (String) rawJSON.get("id");
-        if (rawDiffId == null || rawDiffId.equals("")) {
+        Object rawRevisionIdObj = rawJSON.get("revisionID");
+        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
+        if (rawRevisionId == null || rawRevisionId.equals("")) {
             return null;
         }
 ```
 
 ## RuleId[ruleID=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Float.parseFloat()` call can be used instead
+in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
+#### Snippet
+```java
+        String content = attrs.getNamedItem(attr).getTextContent();
+        try {
+            return Math.round(Float.valueOf(content));
+        } catch (NumberFormatException e) {
+            throw new IllegalStateException(content + " is not a valid coverage number", e);
+```
+
 ### UnnecessaryBoxing
 Redundant boxing, `Long.parseLong()` call can be used instead
 in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
@@ -406,18 +418,6 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
                 long missed = Long.valueOf(attrs.getNamedItem("missed").getTextContent());
                 switch (attrs.getNamedItem("type").getTextContent()) {
                     case "CLASS":
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Float.parseFloat()` call can be used instead
-in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
-#### Snippet
-```java
-        String content = attrs.getNamedItem(attr).getTextContent();
-        try {
-            return Math.round(Float.valueOf(content));
-        } catch (NumberFormatException e) {
-            throw new IllegalStateException(content + " is not a valid coverage number", e);
 ```
 
 ### UnnecessaryBoxing
@@ -538,11 +538,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
 #### Snippet
 ```java
-            localDb = dbf.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
+            parse(includeFiles, coverageReports);
+        } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
-        db = localDb;
+        computeMetrics();
 ```
 
 ### ThrowablePrintStackTrace
@@ -550,11 +550,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
 #### Snippet
 ```java
-            parse(includeFiles, coverageReports);
-        } catch (SAXException | IOException e) {
+            localDb = dbf.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        computeMetrics();
+        db = localDb;
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -598,18 +598,6 @@ in `src/main/java/com/uber/jenkins/phabricator/tasks/Task.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/uber/jenkins/phabricator/coverage/CoverageProvider.java`
-#### Snippet
-```java
-    final Set<String> includeFiles;
-    final Map<String, List<Integer>> lineCoverage = new HashMap<>();
-    CodeCoverageMetrics metrics = null;
-
-    private boolean hasComputedCoverage = false;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/com/uber/jenkins/phabricator/coverage/CoverageProvider.java`
 #### Snippet
@@ -622,15 +610,15 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/CoverageProvider.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
+Field initialization to `null` is redundant
+in `src/main/java/com/uber/jenkins/phabricator/coverage/CoverageProvider.java`
 #### Snippet
 ```java
-    private static class CoverageCounter {
+    final Set<String> includeFiles;
+    final Map<String, List<Integer>> lineCoverage = new HashMap<>();
+    CodeCoverageMetrics metrics = null;
 
-        long covered = 0;
-        long missed = 0;
-
+    private boolean hasComputedCoverage = false;
 ```
 
 ### RedundantFieldInitialization
@@ -643,6 +631,18 @@ in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java
         long missed = 0;
 
         float getPercent() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/com/uber/jenkins/phabricator/coverage/XmlCoverageProvider.java`
+#### Snippet
+```java
+    private static class CoverageCounter {
+
+        long covered = 0;
+        long missed = 0;
+
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -663,11 +663,11 @@ Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
-        if (rawRevisionId == null || rawRevisionId.equals("")) {
+        String rawDiffId = (String) rawJSON.get("id");
+        if (rawDiffId == null || rawDiffId.equals("")) {
             return null;
         }
-        if (formatted) {
+        return rawDiffId;
 ```
 
 ### ReturnNull
@@ -675,11 +675,11 @@ Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/conduit/Differential.java`
 #### Snippet
 ```java
-        String rawDiffId = (String) rawJSON.get("id");
-        if (rawDiffId == null || rawDiffId.equals("")) {
+        String rawRevisionId = rawRevisionIdObj != null && !(rawRevisionIdObj instanceof net.sf.json.JSONNull) ? (String) rawRevisionIdObj : null;
+        if (rawRevisionId == null || rawRevisionId.equals("")) {
             return null;
         }
-        return rawDiffId;
+        if (formatted) {
 ```
 
 ### ReturnNull
@@ -692,18 +692,6 @@ in `src/main/java/com/uber/jenkins/phabricator/provider/InstanceProvider.java`
             return null;
         }
         return makeInstance();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/coverage/JacocoPluginCoverageProvider.java`
-#### Snippet
-```java
-    static CodeCoverageMetrics convertJacoco(CoverageReport coverageResult) {
-        if (coverageResult == null) {
-            return null;
-        }
-        float methodCoverage = coverageResult.getMethodCoverage().getPercentageFloat();
 ```
 
 ### ReturnNull
@@ -732,6 +720,18 @@ in `src/main/java/com/uber/jenkins/phabricator/RemoteFileFetcher.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/coverage/JacocoPluginCoverageProvider.java`
+#### Snippet
+```java
+    static CodeCoverageMetrics convertJacoco(CoverageReport coverageResult) {
+        if (coverageResult == null) {
+            return null;
+        }
+        float methodCoverage = coverageResult.getMethodCoverage().getPercentageFloat();
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/coverage/CoberturaPluginCoverageProvider.java`
 #### Snippet
 ```java
@@ -756,18 +756,6 @@ in `src/main/java/com/uber/jenkins/phabricator/tasks/PostCommentTask.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
-#### Snippet
-```java
-    public static String getIconPath(String icon) {
-        if (icon == null) {
-            return null;
-        }
-        if (icon.startsWith("/")) {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/unit/JUnitTestProvider.java`
 #### Snippet
 ```java
@@ -780,14 +768,26 @@ in `src/main/java/com/uber/jenkins/phabricator/unit/JUnitTestProvider.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
+in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
 #### Snippet
 ```java
-        List<ConduitCredentials> available = availableCredentials(owner);
-        if (available.size() == 0) {
-            return null;
+            if (statusCode != HttpStatus.SC_OK) {
+                logger.info(TAG, "Call failed: " + request.getStatusLine());
+                return null;
+            }
+            return request.getResponseBodyAsString();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
+#### Snippet
+```java
+            e.printStackTrace(logger.getStream());
         }
-        CredentialsMatcher matcher;
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -828,22 +828,22 @@ in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
 #### Snippet
 ```java
-            if (statusCode != HttpStatus.SC_OK) {
-                logger.info(TAG, "Call failed: " + request.getStatusLine());
-                return null;
-            }
-            return request.getResponseBodyAsString();
+    public static String getIconPath(String icon) {
+        if (icon == null) {
+            return null;
+        }
+        if (icon.startsWith("/")) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
 #### Snippet
 ```java
-            e.printStackTrace(logger.getStream());
+            return credentials.getUrl();
         }
         return null;
     }
@@ -888,14 +888,14 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
+in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
 #### Snippet
 ```java
-            return credentials.getUrl();
+        List<ConduitCredentials> available = availableCredentials(owner);
+        if (available.size() == 0) {
+            return null;
         }
-        return null;
-    }
-
+        CredentialsMatcher matcher;
 ```
 
 ### ReturnNull
@@ -905,18 +905,6 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
 ```java
         }
         logger.warn("credentials", "No credentials configured.");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
-#### Snippet
-```java
-            }
-        }
         return null;
     }
 
@@ -963,7 +951,7 @@ Return of `null`
 in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
 #### Snippet
 ```java
-            return credentials.getUrl();
+            }
         }
         return null;
     }
@@ -976,6 +964,18 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
 #### Snippet
 ```java
             }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorBuildWrapper.java`
+#### Snippet
+```java
+            return credentials.getUrl();
         }
         return null;
     }
