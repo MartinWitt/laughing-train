@@ -48,28 +48,44 @@ I found 563 bad smells with 51 repairable:
 | UnnecessaryReturn | 1 | true |
 | RedundantSuppression | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
-| ComparatorMethodParameterNotUsed | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
+| ComparatorMethodParameterNotUsed | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
 | UnusedAssignment | 1 | false |
 | UseBulkOperation | 1 | false |
 ## RuleId[ruleID=EnumSwitchStatementWhichMissesCases]
 ### EnumSwitchStatementWhichMissesCases
-`switch (status()) { // if we haven't already registered, do so, to correctly mai...` statement on enum type 'accord.local.Status' misses cases: 'PreAccepted', 'Accepted', 'PreCommitted', ...
+`switch (status()) { case Committed: // TODO: maintain distinct R...` statement on enum type 'accord.local.Status' misses cases: 'NotWitnessed', 'PreAccepted', ...
 in `accord-core/src/main/java/accord/local/Command.java`
 #### Snippet
 ```java
-        setKind(kind);
-        set(safeStore, coordinateRanges, Ranges.EMPTY, shard, route, null, Ignore, partialDeps, Set);
+        }
+
         switch (status())
         {
-            // if we haven't already registered, do so, to correctly maintain max per-key timestamp
-            case NotWitnessed:
-            case AcceptedInvalidate:
-                safeStore.forEach(keys, acceptRanges, forKey -> forKey.register(this));
-        }
-        setStatus(Accepted);
+            case Committed:
+                // TODO: maintain distinct ReadyToRead and ReadyToWrite states
+                setStatus(ReadyToExecute);
+                logger.trace("{}: set to ReadyToExecute", txnId());
+                safeStore.progressLog().readyToExecute(this, shard);
+                notifyListeners(safeStore);
+                break;
 
+            case PreApplied:
+                if (executeRanges(safeStore, executeAt()).intersects(writes().keys, safeStore.commandStore()::hashIntersects))
+                {
+                    logger.trace("{}: applying", txnId());
+                    apply(safeStore);
+                }
+                else
+                {
+                    logger.trace("{}: applying no-op", txnId());
+                    setStatus(Applied);
+                    notifyListeners(safeStore);
+                }
+        }
+        return true;
+    }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -141,172 +157,24 @@ in `accord-core/src/main/java/accord/local/Command.java`
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (status()) { case Committed: // TODO: maintain distinct R...` statement on enum type 'accord.local.Status' misses cases: 'NotWitnessed', 'PreAccepted', ...
+`switch (status()) { // if we haven't already registered, do so, to correctly mai...` statement on enum type 'accord.local.Status' misses cases: 'PreAccepted', 'Accepted', 'PreCommitted', ...
 in `accord-core/src/main/java/accord/local/Command.java`
 #### Snippet
 ```java
-        }
-
+        setKind(kind);
+        set(safeStore, coordinateRanges, Ranges.EMPTY, shard, route, null, Ignore, partialDeps, Set);
         switch (status())
         {
-            case Committed:
-                // TODO: maintain distinct ReadyToRead and ReadyToWrite states
-                setStatus(ReadyToExecute);
-                logger.trace("{}: set to ReadyToExecute", txnId());
-                safeStore.progressLog().readyToExecute(this, shard);
-                notifyListeners(safeStore);
-                break;
-
-            case PreApplied:
-                if (executeRanges(safeStore, executeAt()).intersects(writes().keys, safeStore.commandStore()::hashIntersects))
-                {
-                    logger.trace("{}: applying", txnId());
-                    apply(safeStore);
-                }
-                else
-                {
-                    logger.trace("{}: applying no-op", txnId());
-                    setStatus(Applied);
-                    notifyListeners(safeStore);
-                }
+            // if we haven't already registered, do so, to correctly maintain max per-key timestamp
+            case NotWitnessed:
+            case AcceptedInvalidate:
+                safeStore.forEach(keys, acceptRanges, forKey -> forKey.register(this));
         }
-        return true;
-    }
+        setStatus(Accepted);
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
-#### Snippet
-```java
-public class BeginRecovery extends TxnRequest<BeginRecovery.RecoverReply>
-{
-    public static class SerializationSupport
-    {
-        public static BeginRecovery create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, PartialTxn partialTxn, Ballot ballot, @Nullable FullRoute<?> route)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/InformDurable.java`
-#### Snippet
-```java
-public class InformDurable extends TxnRequest<Reply> implements PreLoadContext
-{
-    public static class SerializationSupport
-    {
-        public static InformDurable create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, Timestamp executeAt, Durability durability)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/primitives/Keys.java`
-#### Snippet
-```java
-public class Keys extends AbstractKeys<Key, Keys> implements Seekables<Key, Keys>
-{
-    public static class SerializationSupport
-    {
-        public static Keys create(Key[] keys)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/ReadData.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(ReadData.class);
-
-    public static class SerializerSupport
-    {
-        public static ReadData create(TxnId txnId, Seekables<?, ?> scope, long executeAtEpoch, long waitForEpoch)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/Commit.java`
-#### Snippet
-```java
-    public static class Invalidate implements Request, PreLoadContext
-    {
-        public static class SerializerSupport
-        {
-            public static Invalidate create(TxnId txnId, Unseekables<?, ?> scope, long waitForEpoch, long invalidateUntilEpoch)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/Commit.java`
-#### Snippet
-```java
-public class Commit extends TxnRequest<ReadNack>
-{
-    public static class SerializerSupport
-    {
-        public static Commit create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, Timestamp executeAt, @Nullable PartialTxn partialTxn, PartialDeps partialDeps, @Nullable FullRoute<?> fullRoute, @Nullable ReadData read)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/primitives/RoutingKeys.java`
-#### Snippet
-```java
-public class RoutingKeys extends AbstractRoutableKeys<AbstractRoutableKeys<?>> implements Unseekables<RoutingKey, AbstractRoutableKeys<?>>
-{
-    public static class SerializationSupport
-    {
-        public static RoutingKeys create(RoutingKey[] keys)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/primitives/PartialKeyRoute.java`
-#### Snippet
-```java
-public class PartialKeyRoute extends KeyRoute implements PartialRoute<RoutingKey>
-{
-    public static class SerializationSupport
-    {
-        public static PartialKeyRoute create(Ranges covering, RoutingKey homeKey, RoutingKey[] keys)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Functions` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/utils/Functions.java`
-#### Snippet
-```java
-import java.util.function.Function;
-
-public class Functions
-{
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/Apply.java`
-#### Snippet
-```java
-public class Apply extends TxnRequest<ApplyReply>
-{
-    public static class SerializationSupport
-    {
-        public static Apply create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, long untilEpoch, Timestamp executeAt, PartialDeps deps, Writes writes, Result result)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/primitives/FullKeyRoute.java`
-#### Snippet
-```java
-public class FullKeyRoute extends KeyRoute implements FullRoute<RoutingKey>
-{
-    public static class SerializationSupport
-    {
-        public static FullKeyRoute create(RoutingKey homeKey, RoutingKey[] keys)
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
 in `accord-core/src/main/java/accord/messages/GetDeps.java`
@@ -317,30 +185,6 @@ public class GetDeps extends TxnRequest.WithUnsynced<PartialDeps>
     public static final class SerializationSupport
     {
         public static GetDeps create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, long minEpoch, boolean doNotComputeProgressKey, Seekables<?, ?> keys, Timestamp executeAt, Txn.Kind kind)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Invariants` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/utils/Invariants.java`
-#### Snippet
-```java
-import java.util.function.Predicate;
-
-public class Invariants
-{
-    public static <T1, T2 extends T1> T2 checkType(T1 cast)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/messages/PreAccept.java`
-#### Snippet
-```java
-public class PreAccept extends WithUnsynced<PreAccept.PreAcceptReply>
-{
-    public static class SerializerSupport
-    {
-        public static PreAccept create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, long minEpoch, boolean doNotComputeProgressKey, long maxEpoch, PartialTxn partialTxn, @Nullable FullRoute<?> fullRoute)
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -356,15 +200,123 @@ public class FullRangeRoute extends RangeRoute implements FullRoute<Range>
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Json` has only 'static' members, and lacks a 'private' constructor
-in `accord-maelstrom/src/main/java/accord/maelstrom/Json.java`
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/primitives/FullKeyRoute.java`
 #### Snippet
 ```java
-import accord.messages.ReadData.ReadOk;
-
-public class Json
+public class FullKeyRoute extends KeyRoute implements FullRoute<RoutingKey>
 {
-    public static final Gson GSON;
+    public static class SerializationSupport
+    {
+        public static FullKeyRoute create(RoutingKey homeKey, RoutingKey[] keys)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Utils` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/utils/Utils.java`
+#### Snippet
+```java
+
+// TODO: remove when jdk8 support is dropped
+public class Utils
+{
+    // reimplements Collection#toArray
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/primitives/PartialKeyRoute.java`
+#### Snippet
+```java
+public class PartialKeyRoute extends KeyRoute implements PartialRoute<RoutingKey>
+{
+    public static class SerializationSupport
+    {
+        public static PartialKeyRoute create(Ranges covering, RoutingKey homeKey, RoutingKey[] keys)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/primitives/RoutingKeys.java`
+#### Snippet
+```java
+public class RoutingKeys extends AbstractRoutableKeys<AbstractRoutableKeys<?>> implements Unseekables<RoutingKey, AbstractRoutableKeys<?>>
+{
+    public static class SerializationSupport
+    {
+        public static RoutingKeys create(RoutingKey[] keys)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/PreAccept.java`
+#### Snippet
+```java
+public class PreAccept extends WithUnsynced<PreAccept.PreAcceptReply>
+{
+    public static class SerializerSupport
+    {
+        public static PreAccept create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, long minEpoch, boolean doNotComputeProgressKey, long maxEpoch, PartialTxn partialTxn, @Nullable FullRoute<?> fullRoute)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/Commit.java`
+#### Snippet
+```java
+public class Commit extends TxnRequest<ReadNack>
+{
+    public static class SerializerSupport
+    {
+        public static Commit create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, Timestamp executeAt, @Nullable PartialTxn partialTxn, PartialDeps partialDeps, @Nullable FullRoute<?> fullRoute, @Nullable ReadData read)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/Commit.java`
+#### Snippet
+```java
+    public static class Invalidate implements Request, PreLoadContext
+    {
+        public static class SerializerSupport
+        {
+            public static Invalidate create(TxnId txnId, Unseekables<?, ?> scope, long waitForEpoch, long invalidateUntilEpoch)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/Apply.java`
+#### Snippet
+```java
+public class Apply extends TxnRequest<ApplyReply>
+{
+    public static class SerializationSupport
+    {
+        public static Apply create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, long untilEpoch, Timestamp executeAt, PartialDeps deps, Writes writes, Result result)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializerSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/ReadData.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(ReadData.class);
+
+    public static class SerializerSupport
+    {
+        public static ReadData create(TxnId txnId, Seekables<?, ?> scope, long executeAtEpoch, long waitForEpoch)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
+#### Snippet
+```java
+public class BeginRecovery extends TxnRequest<BeginRecovery.RecoverReply>
+{
+    public static class SerializationSupport
+    {
+        public static BeginRecovery create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, PartialTxn partialTxn, Ballot ballot, @Nullable FullRoute<?> route)
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -380,15 +332,75 @@ public class InMemoryCommandStore
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Utils` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/utils/Utils.java`
+Class `Invariants` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/utils/Invariants.java`
 #### Snippet
 ```java
+import java.util.function.Predicate;
 
-// TODO: remove when jdk8 support is dropped
-public class Utils
+public class Invariants
 {
-    // reimplements Collection#toArray
+    public static <T1, T2 extends T1> T2 checkType(T1 cast)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/primitives/Keys.java`
+#### Snippet
+```java
+public class Keys extends AbstractKeys<Key, Keys> implements Seekables<Key, Keys>
+{
+    public static class SerializationSupport
+    {
+        public static Keys create(Key[] keys)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/messages/InformDurable.java`
+#### Snippet
+```java
+public class InformDurable extends TxnRequest<Reply> implements PreLoadContext
+{
+    public static class SerializationSupport
+    {
+        public static InformDurable create(TxnId txnId, PartialRoute<?> scope, long waitForEpoch, Timestamp executeAt, Durability durability)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SortedArrays` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+import static accord.utils.ArrayBuffers.uncached;
+
+public class SortedArrays
+{
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Helper` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+    }
+
+    class Helper
+    {
+        interface SetIntersections<L extends Routables<?, ?>, R extends Routables<?, ?>>
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `accord-maelstrom/src/main/java/accord/maelstrom/Main.java`
+#### Snippet
+```java
+import accord.messages.Request;
+
+public class Main
+{
+    static class CallbackInfo
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -428,18 +440,6 @@ public class Accept extends TxnRequest.WithUnsynced<Accept.AcceptReply>
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `accord-maelstrom/src/main/java/accord/maelstrom/Main.java`
-#### Snippet
-```java
-import accord.messages.Request;
-
-public class Main
-{
-    static class CallbackInfo
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SerializationSupport` has only 'static' members, and lacks a 'private' constructor
 in `accord-core/src/main/java/accord/primitives/PartialRangeRoute.java`
 #### Snippet
@@ -452,27 +452,15 @@ public class PartialRangeRoute extends RangeRoute implements PartialRoute<Range>
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Helper` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/primitives/Routables.java`
+Class `Functions` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/utils/Functions.java`
 #### Snippet
 ```java
-    }
+import java.util.function.Function;
 
-    class Helper
-    {
-        interface SetIntersections<L extends Routables<?, ?>, R extends Routables<?, ?>>
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FetchData` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/coordinate/FetchData.java`
-#### Snippet
-```java
- * TODO accept lower bound epoch to avoid fetching data we should already have
- */
-public class FetchData
+public class Functions
 {
-    public static Object fetch(Known fetch, Node node, TxnId txnId, Unseekables<?, ?> someUnseekables, long untilLocalEpoch, BiConsumer<Known, Throwable> callback)
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -488,15 +476,27 @@ in `accord-core/src/main/java/accord/messages/CheckStatus.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SortedArrays` has only 'static' members, and lacks a 'private' constructor
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+Class `Json` has only 'static' members, and lacks a 'private' constructor
+in `accord-maelstrom/src/main/java/accord/maelstrom/Json.java`
 #### Snippet
 ```java
-import static accord.utils.ArrayBuffers.uncached;
+import accord.messages.ReadData.ReadOk;
 
-public class SortedArrays
+public class Json
 {
-    /**
+    public static final Gson GSON;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FetchData` has only 'static' members, and lacks a 'private' constructor
+in `accord-core/src/main/java/accord/coordinate/FetchData.java`
+#### Snippet
+```java
+ * TODO accept lower bound epoch to avoid fetching data we should already have
+ */
+public class FetchData
+{
+    public static Object fetch(Known fetch, Node node, TxnId txnId, Unseekables<?, ?> someUnseekables, long untilLocalEpoch, BiConsumer<Known, Throwable> callback)
 ```
 
 ## RuleId[ruleID=ManualArrayToCollectionCopy]
@@ -514,18 +514,6 @@ in `accord-core/src/main/java/accord/utils/Utils.java`
 
 ## RuleId[ruleID=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `max()` declared in class 'accord.primitives.Timestamp' but referenced via subclass 'accord.primitives.Ballot'
-in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
-#### Snippet
-```java
-
-        return new RecoverOk(
-                txnId, ok1.status, Ballot.max(ok1.accepted, ok2.accepted), timestamp, deps,
-                earlierCommittedWitness, earlierAcceptedNoWitness,
-                ok1.rejectsFastPath | ok2.rejectsFastPath,
-```
-
-### StaticCallOnSubclass
 Static method `nonNullOrMax()` declared in class 'accord.primitives.Timestamp' but referenced via subclass 'accord.primitives.Ballot'
 in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
 #### Snippet
@@ -537,7 +525,67 @@ in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
         Route<?> route =  Route.merge((Route)o1.route, o2.route);
 ```
 
+### StaticCallOnSubclass
+Static method `max()` declared in class 'accord.primitives.Timestamp' but referenced via subclass 'accord.primitives.Ballot'
+in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
+#### Snippet
+```java
+
+        return new RecoverOk(
+                txnId, ok1.status, Ballot.max(ok1.accepted, ok2.accepted), timestamp, deps,
+                earlierCommittedWitness, earlierAcceptedNoWitness,
+                ok1.rejectsFastPath | ok2.rejectsFastPath,
+```
+
 ## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Dereference of `type` may produce `NullPointerException`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Body.java`
+#### Snippet
+```java
+                    break;
+                case "body":
+                    body = Json.GSON.fromJson(in, type.type);
+                    break;
+                case "txn":
+```
+
+### DataFlowIssue
+Dereference of `type` may produce `NullPointerException`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Body.java`
+#### Snippet
+```java
+        }
+
+        switch (type)
+        {
+            case init: return new MaelstromInit(msg_id, node_id, toArray(node_ids, Id[]::new));
+```
+
+### DataFlowIssue
+Argument `node_ids` might be null
+in `accord-maelstrom/src/main/java/accord/maelstrom/Body.java`
+#### Snippet
+```java
+        switch (type)
+        {
+            case init: return new MaelstromInit(msg_id, node_id, toArray(node_ids, Id[]::new));
+            case init_ok: return new Body(Type.init_ok, msg_id, in_reply_to);
+            case txn: return new MaelstromRequest(msg_id, txn);
+```
+
+### DataFlowIssue
+Method invocation `containsKey` may produce `NullPointerException`
+in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromRequest.java`
+#### Snippet
+```java
+                out.endArray();
+            }
+            if (update.containsKey(key))
+            {
+                out.beginArray();
+```
+
 ### DataFlowIssue
 Method invocation `merge` may produce `NullPointerException`
 in `accord-core/src/main/java/accord/primitives/PartialTxn.java`
@@ -551,39 +599,123 @@ in `accord-core/src/main/java/accord/primitives/PartialTxn.java`
 ```
 
 ### DataFlowIssue
-Method invocation `recordSyncComplete` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+Dereference of `full.executeAt` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/coordinate/CheckOn.java`
 #### Snippet
 ```java
-            {
-                EpochState state = get(epoch);
-                state.recordSyncComplete(node);
-                for (epoch++ ; state.syncComplete() && epoch <= currentEpoch; epoch++)
-                {
+                case Applied:
+                case PreApplied:
+                    if (untilLocalEpoch >= full.executeAt.epoch)
+                    {
+                        confirm(command.commit(safeStore, maxRoute, progressKey, partialTxn, full.executeAt, partialDeps));
 ```
 
 ### DataFlowIssue
-Method invocation `markPrevSynced` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+Method invocation `slice` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/primitives/Txn.java`
 #### Snippet
 ```java
-                {
-                    state = get(epoch);
-                    state.markPrevSynced();
-                }
+                    ranges, kind(), keys().slice(ranges),
+                    read().slice(ranges), includeQuery ? query() : null,
+                    update() == null ? null : update().slice(ranges)
+            );
+        }
+```
+
+### DataFlowIssue
+Method invocation `compute` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/primitives/Txn.java`
+#### Snippet
+```java
+    default Result result(TxnId txnId, @Nullable Data data)
+    {
+        return query().compute(txnId, data, read(), update());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `kind` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+            case Set:
+            case TrySet:
+                setKind(partialTxn.kind());
+                setPartialTxn(partialTxn = partialTxn.slice(allRanges, shard.isHome()));
+                // TODO: duplicate application of ranges
+```
+
+### DataFlowIssue
+Method invocation `slice` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+            case Set:
+            case TrySet:
+                setPartialDeps(partialDeps.slice(allRanges));
+                break;
+        }
+```
+
+### DataFlowIssue
+Method invocation `covers` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+                    throw new IllegalArgumentException("Incomplete route (" + route + ") provided; does not cover " + additionalRanges);
+            }
+            else if (existingRanges != additionalRanges && !route().covers(additionalRanges))
+            {
+                if (!route.covers(additionalRanges))
+```
+
+### DataFlowIssue
+Method invocation `covers` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+            else
+            {
+                if (!route().covers(existingRanges))
+                    throw new IllegalStateException();
             }
 ```
 
 ### DataFlowIssue
-Method invocation `local` may produce `NullPointerException`
+Method invocation `equals` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
+#### Snippet
+```java
+                && accepted.equals(command.accepted)
+                && Objects.equals(executeAt, command.executeAt)
+                && partialDeps.equals(command.partialDeps)
+                && Objects.equals(writes, command.writes)
+                && Objects.equals(result, command.result)
+```
+
+### DataFlowIssue
+Argument `command.partialDeps` might be null
+in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
+#### Snippet
+```java
+                && accepted.equals(command.accepted)
+                && Objects.equals(executeAt, command.executeAt)
+                && partialDeps.equals(command.partialDeps)
+                && Objects.equals(writes, command.writes)
+                && Objects.equals(result, command.result)
+```
+
+### DataFlowIssue
+Dereference of `maxEpochState` may produce `NullPointerException`
 in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
-    public Ranges localRangesForEpoch(long epoch)
-    {
-        return epochs.get(epoch).local().rangesForNode(node);
-    }
+        EpochState maxEpochState = snapshot.get(maxEpoch);
+        if (minEpoch == maxEpoch && !snapshot.requiresHistoricalTopologiesFor(select, maxEpoch))
+            return new Single(sorter, maxEpochState.global.forSelection(select));
 
+        int start = (int)(snapshot.currentEpoch - maxEpoch);
 ```
 
 ### DataFlowIssue
@@ -594,6 +726,18 @@ in `accord-core/src/main/java/accord/topology/TopologyManager.java`
     public Topology localForEpoch(long epoch)
     {
         return epochs.get(epoch).local();
+    }
+
+```
+
+### DataFlowIssue
+Dereference of `state` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+#### Snippet
+```java
+    {
+        EpochState state = epochs.get(epoch);
+        return new Single(sorter, state.global.forSelection(select));
     }
 
 ```
@@ -647,147 +791,63 @@ in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 ```
 
 ### DataFlowIssue
-Dereference of `maxEpochState` may produce `NullPointerException`
+Method invocation `local` may produce `NullPointerException`
 in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
-        EpochState maxEpochState = snapshot.get(maxEpoch);
-        if (minEpoch == maxEpoch && !snapshot.requiresHistoricalTopologiesFor(select, maxEpoch))
-            return new Single(sorter, maxEpochState.global.forSelection(select));
-
-        int start = (int)(snapshot.currentEpoch - maxEpoch);
-```
-
-### DataFlowIssue
-Dereference of `state` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
-#### Snippet
-```java
+    public Ranges localRangesForEpoch(long epoch)
     {
-        EpochState state = epochs.get(epoch);
-        return new Single(sorter, state.global.forSelection(select));
+        return epochs.get(epoch).local().rangesForNode(node);
     }
 
 ```
 
 ### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
+Method invocation `recordSyncComplete` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
-                && accepted.equals(command.accepted)
-                && Objects.equals(executeAt, command.executeAt)
-                && partialDeps.equals(command.partialDeps)
-                && Objects.equals(writes, command.writes)
-                && Objects.equals(result, command.result)
-```
-
-### DataFlowIssue
-Argument `command.partialDeps` might be null
-in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
-#### Snippet
-```java
-                && accepted.equals(command.accepted)
-                && Objects.equals(executeAt, command.executeAt)
-                && partialDeps.equals(command.partialDeps)
-                && Objects.equals(writes, command.writes)
-                && Objects.equals(result, command.result)
-```
-
-### DataFlowIssue
-Method invocation `covers` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-                    throw new IllegalArgumentException("Incomplete route (" + route + ") provided; does not cover " + additionalRanges);
-            }
-            else if (existingRanges != additionalRanges && !route().covers(additionalRanges))
             {
-                if (!route.covers(additionalRanges))
+                EpochState state = get(epoch);
+                state.recordSyncComplete(node);
+                for (epoch++ ; state.syncComplete() && epoch <= currentEpoch; epoch++)
+                {
 ```
 
 ### DataFlowIssue
-Method invocation `covers` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/local/Command.java`
+Method invocation `markPrevSynced` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
-            else
-            {
-                if (!route().covers(existingRanges))
-                    throw new IllegalStateException();
+                {
+                    state = get(epoch);
+                    state.markPrevSynced();
+                }
             }
 ```
 
 ### DataFlowIssue
-Method invocation `kind` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/local/Command.java`
+Method invocation `with` may produce `NullPointerException`
+in `accord-core/src/main/java/accord/messages/Accept.java`
 #### Snippet
 ```java
-            case Set:
-            case TrySet:
-                setKind(partialTxn.kind());
-                setPartialTxn(partialTxn = partialTxn.slice(allRanges, shard.isHome()));
-                // TODO: duplicate application of ranges
+            return ok1.outcome().compareTo(ok2.outcome()) >= 0 ? ok1 : ok2;
+
+        PartialDeps deps = ok1.deps.with(ok2.deps);
+        if (deps == ok1.deps) return ok1;
+        if (deps == ok2.deps) return ok2;
 ```
 
 ### DataFlowIssue
-Method invocation `slice` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/local/Command.java`
+Argument `ok2.deps` might be null
+in `accord-core/src/main/java/accord/messages/Accept.java`
 #### Snippet
 ```java
-            case Set:
-            case TrySet:
-                setPartialDeps(partialDeps.slice(allRanges));
-                break;
-        }
-```
+            return ok1.outcome().compareTo(ok2.outcome()) >= 0 ? ok1 : ok2;
 
-### DataFlowIssue
-Dereference of `full.executeAt` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/coordinate/CheckOn.java`
-#### Snippet
-```java
-                case Applied:
-                case PreApplied:
-                    if (untilLocalEpoch >= full.executeAt.epoch)
-                    {
-                        confirm(command.commit(safeStore, maxRoute, progressKey, partialTxn, full.executeAt, partialDeps));
-```
-
-### DataFlowIssue
-Dereference of `type` may produce `NullPointerException`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Body.java`
-#### Snippet
-```java
-                    break;
-                case "body":
-                    body = Json.GSON.fromJson(in, type.type);
-                    break;
-                case "txn":
-```
-
-### DataFlowIssue
-Dereference of `type` may produce `NullPointerException`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Body.java`
-#### Snippet
-```java
-        }
-
-        switch (type)
-        {
-            case init: return new MaelstromInit(msg_id, node_id, toArray(node_ids, Id[]::new));
-```
-
-### DataFlowIssue
-Argument `node_ids` might be null
-in `accord-maelstrom/src/main/java/accord/maelstrom/Body.java`
-#### Snippet
-```java
-        switch (type)
-        {
-            case init: return new MaelstromInit(msg_id, node_id, toArray(node_ids, Id[]::new));
-            case init_ok: return new Body(Type.init_ok, msg_id, in_reply_to);
-            case txn: return new MaelstromRequest(msg_id, txn);
+        PartialDeps deps = ok1.deps.with(ok2.deps);
+        if (deps == ok1.deps) return ok1;
+        if (deps == ok2.deps) return ok2;
 ```
 
 ### DataFlowIssue
@@ -839,18 +899,6 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/Json.java`
 ```
 
 ### DataFlowIssue
-Method invocation `containsKey` may produce `NullPointerException`
-in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromRequest.java`
-#### Snippet
-```java
-                out.endArray();
-            }
-            if (update.containsKey(key))
-            {
-                out.beginArray();
-```
-
-### DataFlowIssue
 Dereference of `merged.executeAt` may produce `NullPointerException`
 in `accord-core/src/main/java/accord/coordinate/RecoverWithRoute.java`
 #### Snippet
@@ -860,54 +908,6 @@ in `accord-core/src/main/java/accord/coordinate/RecoverWithRoute.java`
                     node.withEpoch(merged.executeAt.epoch, () -> {
                         Persist.persistAndCommit(node, txnId, route(), txn, merged.executeAt, deps, merged.writes, merged.result);
                     });
-```
-
-### DataFlowIssue
-Method invocation `with` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/messages/Accept.java`
-#### Snippet
-```java
-            return ok1.outcome().compareTo(ok2.outcome()) >= 0 ? ok1 : ok2;
-
-        PartialDeps deps = ok1.deps.with(ok2.deps);
-        if (deps == ok1.deps) return ok1;
-        if (deps == ok2.deps) return ok2;
-```
-
-### DataFlowIssue
-Argument `ok2.deps` might be null
-in `accord-core/src/main/java/accord/messages/Accept.java`
-#### Snippet
-```java
-            return ok1.outcome().compareTo(ok2.outcome()) >= 0 ? ok1 : ok2;
-
-        PartialDeps deps = ok1.deps.with(ok2.deps);
-        if (deps == ok1.deps) return ok1;
-        if (deps == ok2.deps) return ok2;
-```
-
-### DataFlowIssue
-Method invocation `slice` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/primitives/Txn.java`
-#### Snippet
-```java
-                    ranges, kind(), keys().slice(ranges),
-                    read().slice(ranges), includeQuery ? query() : null,
-                    update() == null ? null : update().slice(ranges)
-            );
-        }
-```
-
-### DataFlowIssue
-Method invocation `compute` may produce `NullPointerException`
-in `accord-core/src/main/java/accord/primitives/Txn.java`
-#### Snippet
-```java
-    default Result result(TxnId txnId, @Nullable Data data)
-    {
-        return query().compute(txnId, data, read(), update());
-    }
-
 ```
 
 ## RuleId[ruleID=EmptyStatementBody]
@@ -987,43 +987,6 @@ in `accord-core/src/main/java/accord/messages/Commit.java`
                 return ReadNack.NotCommitted;
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'known' in a Serializable class
-in `accord-core/src/main/java/accord/local/SaveStatus.java`
-#### Snippet
-```java
-    public final Status status;
-    public final Phase phase;
-    public final Known known; // TODO: duplicate contents here to reduce indirection for majority of cases
-
-    SaveStatus(Status status)
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'txnId' in a Serializable class
-in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
-#### Snippet
-```java
-public class CoordinateFailed extends Throwable
-{
-    private @Nullable TxnId txnId;
-    private @Nullable RoutingKey homeKey;
-    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'minKnown' in a Serializable class
-in `accord-core/src/main/java/accord/local/Status.java`
-#### Snippet
-```java
-
-    public final Phase phase;
-    public final Known minKnown;
-
-    Status(Phase phase, Known minKnown)
-```
-
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
 ### AbstractMethodCallInConstructor
 Call to 'abstract' method `startInclusive()` during object construction
@@ -1049,6 +1012,43 @@ in `accord-core/src/main/java/accord/primitives/Range.java`
         this.start = start;
 ```
 
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'known' in a Serializable class
+in `accord-core/src/main/java/accord/local/SaveStatus.java`
+#### Snippet
+```java
+    public final Status status;
+    public final Phase phase;
+    public final Known known; // TODO: duplicate contents here to reduce indirection for majority of cases
+
+    SaveStatus(Status status)
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'minKnown' in a Serializable class
+in `accord-core/src/main/java/accord/local/Status.java`
+#### Snippet
+```java
+
+    public final Phase phase;
+    public final Known minKnown;
+
+    Status(Phase phase, Known minKnown)
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'txnId' in a Serializable class
+in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+#### Snippet
+```java
+public class CoordinateFailed extends Throwable
+{
+    private @Nullable TxnId txnId;
+    private @Nullable RoutingKey homeKey;
+    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
@@ -1060,19 +1060,6 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
         StringBuilder sb = new StringBuilder();
         String missing = isMissingLeft ? "left" : "right";
         String extra = isMissingLeft ? "right" : "left";
-```
-
-## RuleId[ruleID=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `accord-maelstrom/src/main/java/accord/maelstrom/SimpleConfigService.java`
-#### Snippet
-```java
-    public void fetchTopologyForEpoch(long epoch)
-    {
-        return;
-    }
-
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -1112,19 +1099,20 @@ in `accord-core/src/main/java/accord/primitives/Unseekables.java`
 
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
+## RuleId[ruleID=UnnecessaryReturn]
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `accord-maelstrom/src/main/java/accord/maelstrom/SimpleConfigService.java`
 #### Snippet
 ```java
-                    throw new IllegalStateException(String.format("Duplicate TxnId (%s) found for key %s", txnId, key));
-                }
-                i++;
-            }
-            ++k;
+    public void fetchTopologyForEpoch(long epoch)
+    {
+        return;
+    }
+
 ```
 
+## RuleId[ruleID=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `t`
 in `accord-core/src/main/java/accord/primitives/Deps.java`
@@ -1137,53 +1125,761 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
             builder.append("]");
 ```
 
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+                    throw new IllegalStateException(String.format("Duplicate TxnId (%s) found for key %s", txnId, key));
+                }
+                i++;
+            }
+            ++k;
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super I`
-in `accord-core/src/main/java/accord/utils/MapReduceConsume.java`
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/utils/Utils.java`
 #### Snippet
 ```java
-    void accept(O result, Throwable failure);
-
-    static <I> MapReduceConsume<I, Void> forEach(Consumer<I> forEach, BiConsumer<Object, Throwable> consume)
+{
+    // reimplements Collection#toArray
+    public static <T> T[] toArray(Collection<T> src, IntFunction<T[]> factory)
     {
-        return new MapReduceConsume<I, Void>() {
+        T[] dst = factory.apply(src.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/utils/Utils.java`
+#### Snippet
+```java
+
+    // reimplements Collection#toArray
+    public static <T> T[] toArray(List<T> src, IntFunction<T[]> factory)
+    {
+        T[] dst = factory.apply(src.size());
+```
+
+### BoundedWildcard
+Can generalize to `? super Result`
+in `accord-core/src/main/java/accord/coordinate/FindRoute.java`
+#### Snippet
+```java
+
+    final BiConsumer<Result, Throwable> callback;
+    FindRoute(Node node, TxnId txnId, RoutingKey homeKey, BiConsumer<Result, Throwable> callback)
+    {
+        super(node, txnId, RoutingKeys.of(homeKey), txnId.epoch, IncludeInfo.Route);
 ```
 
 ### BoundedWildcard
 Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/utils/MapReduceConsume.java`
+in `accord-core/src/main/java/accord/coordinate/FindRoute.java`
 #### Snippet
 ```java
-    void accept(O result, Throwable failure);
 
-    static <I> MapReduceConsume<I, Void> forEach(Consumer<I> forEach, BiConsumer<Object, Throwable> consume)
+    final BiConsumer<Result, Throwable> callback;
+    FindRoute(Node node, TxnId txnId, RoutingKey homeKey, BiConsumer<Result, Throwable> callback)
     {
-        return new MapReduceConsume<I, Void>() {
+        super(node, txnId, RoutingKeys.of(homeKey), txnId.epoch, IncludeInfo.Route);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RoutingKey`
-in `accord-core/src/main/java/accord/coordinate/FindHomeKey.java`
+Can generalize to `? super Ranges`
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
 #### Snippet
 ```java
-{
-    final BiConsumer<RoutingKey, Throwable> callback;
-    FindHomeKey(Node node, TxnId txnId, Unseekables<?, ?> unseekables, BiConsumer<RoutingKey, Throwable> callback)
+    }
+
+    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
     {
-        super(node, txnId, unseekables, txnId.epoch, IncludeInfo.No);
+        Ranges last = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends O`
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
+#### Snippet
+```java
+    }
+
+    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
+    {
+        Ranges last = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super O`
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
+#### Snippet
+```java
+    }
+
+    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
+    {
+        Ranges last = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super O`
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
+#### Snippet
+```java
+    }
+
+    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
+    {
+        Ranges last = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends O`
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
+#### Snippet
+```java
+    }
+
+    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
+    {
+        Ranges last = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Id`
+in `accord-core/src/main/java/accord/coordinate/ReadCoordinator.java`
+#### Snippet
+```java
+    }
+
+    protected void start(Set<Id> to)
+    {
+        to.forEach(this::contact);
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvalidateReply`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+        }
+
+        public static Route<?> mergeRoutes(List<InvalidateReply> invalidateOks)
+        {
+            return mapReduceNonNull(ok -> (Route)ok.route, Route::union, invalidateOks);
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvalidateReply`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+        }
+
+        public static InvalidateReply max(List<InvalidateReply> invalidateReplies)
+        {
+            return Status.max(invalidateReplies, r -> r.status, r -> r.accepted, invalidateReply -> true);
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvalidateReply`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+        }
+
+        public static RoutingKey findHomeKey(List<InvalidateReply> invalidateOks)
+        {
+            for (InvalidateReply ok : invalidateOks)
+```
+
+### BoundedWildcard
+Can generalize to `? extends InvalidateReply`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+        }
+
+        public static FullRoute<?> findRoute(List<InvalidateReply> invalidateOks)
+        {
+            for (InvalidateReply ok : invalidateOks)
+```
+
+### BoundedWildcard
+Can generalize to `? extends Future`
+in `accord-core/src/main/java/accord/api/Read.java`
+#### Snippet
+```java
+        }
+
+        private synchronized void listen(List<Future<Data>> futures)
+        {
+            for (int i=0, mi=futures.size(); i<mi; i++)
 ```
 
 ### BoundedWildcard
 Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/coordinate/FindHomeKey.java`
+in `accord-core/src/main/java/accord/coordinate/Propose.java`
 #### Snippet
 ```java
-{
-    final BiConsumer<RoutingKey, Throwable> callback;
-    FindHomeKey(Node node, TxnId txnId, Unseekables<?, ?> unseekables, BiConsumer<RoutingKey, Throwable> callback)
+        private boolean isDone;
+
+        Invalidate(Node node, Shard shard, Ballot ballot, TxnId txnId, RoutingKey invalidateWithKey, BiConsumer<Void, Throwable> callback)
+        {
+            this.node = node;
+```
+
+### BoundedWildcard
+Can generalize to `? extends RecoverOk`
+in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
+#### Snippet
+```java
+        }
+
+        public static RecoverOk maxAcceptedOrLater(List<RecoverOk> recoverOks)
+        {
+            return Status.max(recoverOks, r -> r.status, r -> r.accepted, r -> r.status.phase.compareTo(Phase.Accept) >= 0);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+            private final Function<? super SafeCommandStore, T> function;
+
+            public FunctionWrapper(Function<? super SafeCommandStore, T> function)
+            {
+                this.function = function;
+```
+
+### BoundedWildcard
+Can generalize to `? super Command`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+        }
+
+        public void forEpochCommands(Ranges ranges, long epoch, Consumer<Command> consumer)
+        {
+            Timestamp minTimestamp = new Timestamp(epoch, Long.MIN_VALUE, Integer.MIN_VALUE, Node.Id.NONE);
+```
+
+### BoundedWildcard
+Can generalize to `? super CommandsForKey`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+        }
+
+        public void forEach(Routables<?, ?> keysOrRanges, Ranges slice, Consumer<CommandsForKey> forEach)
+        {
+            switch (keysOrRanges.kindOfContents()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super CommandsForKey`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+        }
+
+        public <T> T mapReduce(Routables<?, ?> keysOrRanges, Ranges slice, Function<CommandsForKey, T> map, BinaryOperator<T> reduce, T initialValue)
+        {
+            switch (keysOrRanges.kindOfContents()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Command`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+        }
+
+        public void forCommittedInEpoch(Ranges ranges, long epoch, Consumer<Command> consumer)
+        {
+            Timestamp minTimestamp = new Timestamp(epoch, Long.MIN_VALUE, Integer.MIN_VALUE, Node.Id.NONE);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+            }
+
+            public synchronized <T> Future<T> submit(PreLoadContext context, Function<? super SafeCommandStore, T> function)
+            {
+                AsyncPromise<T> promise = new AsyncPromise<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super CommandsForKey`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+#### Snippet
+```java
+        }
+
+        public void forEach(Routable keyOrRange, Ranges slice, Consumer<CommandsForKey> forEach)
+        {
+            switch (keyOrRange.kind())
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/utils/Invariants.java`
+#### Snippet
+```java
+
+    @Inline
+    public static <T> T checkArgument(T param, Predicate<T> condition, String msg)
     {
-        super(node, txnId, unseekables, txnId.epoch, IncludeInfo.No);
+        if (!condition.test(param))
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/utils/Invariants.java`
+#### Snippet
+```java
+
+    @Inline
+    public static <T> T checkArgument(T param, Predicate<T> condition)
+    {
+        if (!condition.test(param))
+```
+
+### BoundedWildcard
+Can generalize to `? super Topology`
+in `accord-core/src/main/java/accord/topology/Topologies.java`
+#### Snippet
+```java
+    int maxShardsPerEpoch();
+
+    default void forEach(IndexedConsumer<Topology> consumer)
+    {
+        for (int i=0, mi=size(); i<mi; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     * TODO: introduce exponential search optimised version
+     */
+    public static <T> T[] linearIntersection(T[] left, int leftLength, T[] right, int rightLength, Comparator<T> comparator, ObjectBuffers<T> buffers)
+    {
+        int leftIdx = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     * in either list may be matched to multiple in the other list.
+     */
+    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
+    {
+        if (ai == asLength)
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     * in either list may be matched to multiple in the other list.
+     */
+    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
+    {
+        if (ai == asLength)
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     * in either list may be matched to multiple in the other list.
+     */
+    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
+    {
+        if (ai == asLength)
+```
+
+### BoundedWildcard
+Can generalize to `? super T1`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     * in either list may be matched to multiple in the other list.
+     */
+    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
+    {
+        if (ai == asLength)
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     */
+    @Inline
+    public static <T1, T2> int binarySearch(T2[] in, int from, int to, T1 find, AsymmetricComparator<T1, T2> comparator, Search op)
+    {
+        int found = -1;
+```
+
+### BoundedWildcard
+Can generalize to `? super T2`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+     */
+    @Inline
+    public static <T1, T2> int exponentialSearch(T2[] in, int from, int to, T1 find, AsymmetricComparator<T1, T2> comparator, Search op)
+    {
+        int step = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `accord-core/src/main/java/accord/coordinate/CheckOn.java`
+#### Snippet
+```java
+    }
+
+    CheckOn(Node node, Known sufficient, TxnId txnId, Route<?> route, Unseekables<?, ?> routeWithHomeKey, long srcEpoch, long untilLocalEpoch, BiConsumer<? super CheckStatusOkFull, Throwable> callback)
+    {
+        // TODO (soon): restore behaviour of only collecting info if e.g. Committed or Executed
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
+        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
+        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
+        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
+        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Inputs`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super Matches`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+        @Inline
+        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
+        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
+                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
+        {
+```
+
+### BoundedWildcard
+Can generalize to `? super TxnId`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+     * @param forEach function to call on each unique {@link TxnId}
+     */
+    public void forEachOn(Ranges ranges, Predicate<? super Key> include, Consumer<TxnId> forEach)
+    {
+        // Find all keys within the ranges, but record existence within an int64 bitset.  Since the bitset is limited
+```
+
+### BoundedWildcard
+Can generalize to `? super TxnId`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public void forEach(Key key, Consumer<TxnId> forEach)
+    {
+        int keyIndex = keys.indexOf(key);
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    T linearUnion(K[] leftKeys, int leftKeysLength, V[] leftValues, int leftValuesLength, int[] left, int leftLength,
+                  K[] rightKeys, int rightKeysLength, V[] rightValues, int rightValuesLength, int[] right, int rightLength,
+                  ObjectBuffers<K> keyBuffers, ObjectBuffers<V> valueBuffers, IntBuffers intBuffers, DepsConstructor<K, V, T> constructor)
+    {
+        K[] outKeys = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    T linearUnion(K[] leftKeys, int leftKeysLength, V[] leftValues, int leftValuesLength, int[] left, int leftLength,
+                  K[] rightKeys, int rightKeysLength, V[] rightValues, int rightValuesLength, int[] right, int rightLength,
+                  ObjectBuffers<K> keyBuffers, ObjectBuffers<V> valueBuffers, IntBuffers intBuffers, DepsConstructor<K, V, T> constructor)
+    {
+        K[] outKeys = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super TxnId`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+
+    // TODO: optimise for case where none removed
+    public Deps without(Predicate<TxnId> remove)
+    {
+        if (isEmpty())
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public static <T> Deps merge(List<T> merge, Function<T, Deps> getter)
+    {
+        LinearMerger linearMerger = new LinearMerger();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public static <T> Deps merge(List<T> merge, Function<T, Deps> getter)
+    {
+        LinearMerger linearMerger = new LinearMerger();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Deps`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public static <T> Deps merge(List<T> merge, Function<T, Deps> getter)
+    {
+        LinearMerger linearMerger = new LinearMerger();
+```
+
+### BoundedWildcard
+Can generalize to `? super Key`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public void forEachOn(Ranges ranges, Predicate<Key> include, BiConsumer<Key, TxnId> forEach)
+    {
+        Routables.foldl(keys, ranges, (key, value, index) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super Key`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public void forEachOn(Ranges ranges, Predicate<Key> include, BiConsumer<Key, TxnId> forEach)
+    {
+        Routables.foldl(keys, ranges, (key, value, index) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super TxnId`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+    }
+
+    public void forEachOn(Ranges ranges, Predicate<Key> include, BiConsumer<Key, TxnId> forEach)
+    {
+        Routables.foldl(keys, ranges, (key, value, index) -> {
 ```
 
 ### BoundedWildcard
@@ -1211,39 +1907,39 @@ in `accord-core/src/main/java/accord/coordinate/CollectDeps.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Result`
-in `accord-core/src/main/java/accord/coordinate/Execute.java`
+Can generalize to `? super I`
+in `accord-core/src/main/java/accord/utils/MapReduceConsume.java`
 #### Snippet
 ```java
-    private Data data;
+    void accept(O result, Throwable failure);
 
-    private Execute(Node node, TxnId txnId, Txn txn, FullRoute<?> route, Seekables<?, ?> readScope, Timestamp executeAt, Deps deps, BiConsumer<Result, Throwable> callback)
+    static <I> MapReduceConsume<I, Void> forEach(Consumer<I> forEach, BiConsumer<Object, Throwable> consume)
     {
-        super(node, node.topology().forEpoch(readScope.toUnseekables(), executeAt.epoch), txnId);
+        return new MapReduceConsume<I, Void>() {
 ```
 
 ### BoundedWildcard
 Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/coordinate/Execute.java`
+in `accord-core/src/main/java/accord/utils/MapReduceConsume.java`
 #### Snippet
 ```java
-    private Data data;
+    void accept(O result, Throwable failure);
 
-    private Execute(Node node, TxnId txnId, Txn txn, FullRoute<?> route, Seekables<?, ?> readScope, Timestamp executeAt, Deps deps, BiConsumer<Result, Throwable> callback)
+    static <I> MapReduceConsume<I, Void> forEach(Consumer<I> forEach, BiConsumer<Object, Throwable> consume)
     {
-        super(node, node.topology().forEpoch(readScope.toUnseekables(), executeAt.epoch), txnId);
+        return new MapReduceConsume<I, Void>() {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends RecoverOk`
-in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
+Can generalize to `? extends O`
+in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
 #### Snippet
 ```java
-        }
 
-        public static RecoverOk maxAcceptedOrLater(List<RecoverOk> recoverOks)
+        @Override
+        public O apply(MapReduce<? super SafeCommandStore, O> map, SyncCommandStore commandStore, PreLoadContext context)
         {
-            return Status.max(recoverOks, r -> r.status, r -> r.accepted, r -> r.status.phase.compareTo(Phase.Accept) >= 0);
+            return commandStore.executeSync(context, map);
 ```
 
 ### BoundedWildcard
@@ -1259,15 +1955,27 @@ in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends O`
-in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
+Can generalize to `? extends B`
+in `accord-core/src/main/java/accord/utils/ArrayBuffers.java`
 #### Snippet
 ```java
+        final int maxSize;
 
-        @Override
-        public O apply(MapReduce<? super SafeCommandStore, O> map, SyncCommandStore commandStore, PreLoadContext context)
+        AbstractBufferCache(IntFunction<B> allocator, Clear<B> clear, int maxCount, int maxSize)
         {
-            return commandStore.executeSync(context, map);
+            this.allocator = allocator;
+```
+
+### BoundedWildcard
+Can generalize to `? super B`
+in `accord-core/src/main/java/accord/utils/ArrayBuffers.java`
+#### Snippet
+```java
+        final int maxSize;
+
+        AbstractBufferCache(IntFunction<B> allocator, Clear<B> clear, int maxCount, int maxSize)
+        {
+            this.allocator = allocator;
 ```
 
 ### BoundedWildcard
@@ -1295,15 +2003,135 @@ in `accord-core/src/main/java/accord/coordinate/tracking/AbstractTracker.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Future`
-in `accord-core/src/main/java/accord/api/Read.java`
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/local/Status.java`
 #### Snippet
 ```java
-        }
+    }
 
-        private synchronized void listen(List<Future<Data>> futures)
-        {
-            for (int i=0, mi=futures.size(); i<mi; i++)
+    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
+    {
+        T max = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/local/Status.java`
+#### Snippet
+```java
+    }
+
+    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
+    {
+        T max = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/local/Status.java`
+#### Snippet
+```java
+    }
+
+    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
+    {
+        T max = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Ballot`
+in `accord-core/src/main/java/accord/local/Status.java`
+#### Snippet
+```java
+    }
+
+    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
+    {
+        T max = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/local/Status.java`
+#### Snippet
+```java
+    }
+
+    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
+    {
+        T max = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super Result`
+in `accord-core/src/main/java/accord/coordinate/Execute.java`
+#### Snippet
+```java
+    private Data data;
+
+    private Execute(Node node, TxnId txnId, Txn txn, FullRoute<?> route, Seekables<?, ?> readScope, Timestamp executeAt, Deps deps, BiConsumer<Result, Throwable> callback)
+    {
+        super(node, node.topology().forEpoch(readScope.toUnseekables(), executeAt.epoch), txnId);
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `accord-core/src/main/java/accord/coordinate/Execute.java`
+#### Snippet
+```java
+    private Data data;
+
+    private Execute(Node node, TxnId txnId, Txn txn, FullRoute<?> route, Seekables<?, ?> readScope, Timestamp executeAt, Deps deps, BiConsumer<Result, Throwable> callback)
+    {
+        super(node, node.topology().forEpoch(readScope.toUnseekables(), executeAt.epoch), txnId);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Random`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
+#### Snippet
+```java
+    }
+
+    public static void run(Id[] nodes, QueueSupplier queueSupplier, Consumer<Packet> responseSink, Supplier<Random> randomSupplier, Supplier<LongSupplier> nowSupplier, TopologyFactory topologyFactory, Supplier<Packet> in, OutputStream stderr)
+    {
+        Topology topology = topologyFactory.toTopology(nodes);
+```
+
+### BoundedWildcard
+Can generalize to `? extends LongSupplier`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
+#### Snippet
+```java
+    }
+
+    public static void run(Id[] nodes, QueueSupplier queueSupplier, Consumer<Packet> responseSink, Supplier<Random> randomSupplier, Supplier<LongSupplier> nowSupplier, TopologyFactory topologyFactory, Supplier<Packet> in, OutputStream stderr)
+    {
+        Topology topology = topologyFactory.toTopology(nodes);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Packet`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
+#### Snippet
+```java
+    }
+
+    public static void run(Id[] nodes, QueueSupplier queueSupplier, Consumer<Packet> responseSink, Supplier<Random> randomSupplier, Supplier<LongSupplier> nowSupplier, TopologyFactory topologyFactory, Supplier<Packet> in, OutputStream stderr)
+    {
+        Topology topology = topologyFactory.toTopology(nodes);
+```
+
+### BoundedWildcard
+Can generalize to `? super Packet`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
+#### Snippet
+```java
+    Set<Id> partitionSet;
+
+    public Cluster(QueueSupplier queueSupplier, Function<Id, Node> lookup, Consumer<Packet> responseSink, OutputStream stderr)
+    {
+        this.pending = queueSupplier.get();
 ```
 
 ### BoundedWildcard
@@ -1319,15 +2147,27 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Topology`
-in `accord-core/src/main/java/accord/topology/Topologies.java`
+Can generalize to `? super RoutingKey`
+in `accord-core/src/main/java/accord/coordinate/FindHomeKey.java`
 #### Snippet
 ```java
-    int maxShardsPerEpoch();
-
-    default void forEach(IndexedConsumer<Topology> consumer)
+{
+    final BiConsumer<RoutingKey, Throwable> callback;
+    FindHomeKey(Node node, TxnId txnId, Unseekables<?, ?> unseekables, BiConsumer<RoutingKey, Throwable> callback)
     {
-        for (int i=0, mi=size(); i<mi; i++)
+        super(node, txnId, unseekables, txnId.epoch, IncludeInfo.No);
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `accord-core/src/main/java/accord/coordinate/FindHomeKey.java`
+#### Snippet
+```java
+{
+    final BiConsumer<RoutingKey, Throwable> callback;
+    FindHomeKey(Node node, TxnId txnId, Unseekables<?, ?> unseekables, BiConsumer<RoutingKey, Throwable> callback)
+    {
+        super(node, txnId, unseekables, txnId.epoch, IncludeInfo.No);
 ```
 
 ### BoundedWildcard
@@ -1475,378 +2315,6 @@ in `accord-core/src/main/java/accord/utils/Functions.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Ranges`
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-    }
-
-    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
-    {
-        Ranges last = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends O`
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-    }
-
-    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
-    {
-        Ranges last = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super O`
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-    }
-
-    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
-    {
-        Ranges last = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super O`
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-    }
-
-    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
-    {
-        Ranges last = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends O`
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-    }
-
-    private static <I, O> O computeScopeInternal(Node.Id node, Topologies topologies, I keys, int startIndex, BiFunction<I, Ranges, O> slice, BiFunction<O, O, O> merge)
-    {
-        Ranges last = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/coordinate/CheckOn.java`
-#### Snippet
-```java
-    }
-
-    CheckOn(Node node, Known sufficient, TxnId txnId, Route<?> route, Unseekables<?, ?> routeWithHomeKey, long srcEpoch, long untilLocalEpoch, BiConsumer<? super CheckStatusOkFull, Throwable> callback)
-    {
-        // TODO (soon): restore behaviour of only collecting info if e.g. Committed or Executed
-```
-
-### BoundedWildcard
-Can generalize to `? super Command`
-in `accord-core/src/main/java/accord/messages/Defer.java`
-#### Snippet
-```java
-    }
-
-    Defer(Function<Command, Ready> waitUntil, TxnRequest<?> request)
-    {
-        this.waitUntil = waitUntil;
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvalidateReply`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-        }
-
-        public static RoutingKey findHomeKey(List<InvalidateReply> invalidateOks)
-        {
-            for (InvalidateReply ok : invalidateOks)
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvalidateReply`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-        }
-
-        public static FullRoute<?> findRoute(List<InvalidateReply> invalidateOks)
-        {
-            for (InvalidateReply ok : invalidateOks)
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvalidateReply`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-        }
-
-        public static InvalidateReply max(List<InvalidateReply> invalidateReplies)
-        {
-            return Status.max(invalidateReplies, r -> r.status, r -> r.accepted, invalidateReply -> true);
-```
-
-### BoundedWildcard
-Can generalize to `? extends InvalidateReply`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-        }
-
-        public static Route<?> mergeRoutes(List<InvalidateReply> invalidateOks)
-        {
-            return mapReduceNonNull(ok -> (Route)ok.route, Route::union, invalidateOks);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/utils/Invariants.java`
-#### Snippet
-```java
-
-    @Inline
-    public static <T> T checkArgument(T param, Predicate<T> condition)
-    {
-        if (!condition.test(param))
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/utils/Invariants.java`
-#### Snippet
-```java
-
-    @Inline
-    public static <T> T checkArgument(T param, Predicate<T> condition, String msg)
-    {
-        if (!condition.test(param))
-```
-
-### BoundedWildcard
-Can generalize to `? extends Id`
-in `accord-core/src/main/java/accord/coordinate/ReadCoordinator.java`
-#### Snippet
-```java
-    }
-
-    protected void start(Set<Id> to)
-    {
-        to.forEach(this::contact);
-```
-
-### BoundedWildcard
-Can generalize to `? super CommandsForKey`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-        }
-
-        public void forEach(Routable keyOrRange, Ranges slice, Consumer<CommandsForKey> forEach)
-        {
-            switch (keyOrRange.kind())
-```
-
-### BoundedWildcard
-Can generalize to `? super Command`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-        }
-
-        public void forCommittedInEpoch(Ranges ranges, long epoch, Consumer<Command> consumer)
-        {
-            Timestamp minTimestamp = new Timestamp(epoch, Long.MIN_VALUE, Integer.MIN_VALUE, Node.Id.NONE);
-```
-
-### BoundedWildcard
-Can generalize to `? super CommandsForKey`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-        }
-
-        public void forEach(Routables<?, ?> keysOrRanges, Ranges slice, Consumer<CommandsForKey> forEach)
-        {
-            switch (keysOrRanges.kindOfContents()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CommandsForKey`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-        }
-
-        public <T> T mapReduce(Routables<?, ?> keysOrRanges, Ranges slice, Function<CommandsForKey, T> map, BinaryOperator<T> reduce, T initialValue)
-        {
-            switch (keysOrRanges.kindOfContents()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-            }
-
-            public synchronized <T> Future<T> submit(PreLoadContext context, Function<? super SafeCommandStore, T> function)
-            {
-                AsyncPromise<T> promise = new AsyncPromise<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-            private final Function<? super SafeCommandStore, T> function;
-
-            public FunctionWrapper(Function<? super SafeCommandStore, T> function)
-            {
-                this.function = function;
-```
-
-### BoundedWildcard
-Can generalize to `? super Command`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-        }
-
-        public void forEpochCommands(Ranges ranges, long epoch, Consumer<Command> consumer)
-        {
-            Timestamp minTimestamp = new Timestamp(epoch, Long.MIN_VALUE, Integer.MIN_VALUE, Node.Id.NONE);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/utils/Utils.java`
-#### Snippet
-```java
-
-    // reimplements Collection#toArray
-    public static <T> T[] toArray(List<T> src, IntFunction<T[]> factory)
-    {
-        T[] dst = factory.apply(src.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/utils/Utils.java`
-#### Snippet
-```java
-{
-    // reimplements Collection#toArray
-    public static <T> T[] toArray(Collection<T> src, IntFunction<T[]> factory)
-    {
-        T[] dst = factory.apply(src.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super Result`
-in `accord-core/src/main/java/accord/coordinate/FindRoute.java`
-#### Snippet
-```java
-
-    final BiConsumer<Result, Throwable> callback;
-    FindRoute(Node node, TxnId txnId, RoutingKey homeKey, BiConsumer<Result, Throwable> callback)
-    {
-        super(node, txnId, RoutingKeys.of(homeKey), txnId.epoch, IncludeInfo.Route);
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/coordinate/FindRoute.java`
-#### Snippet
-```java
-
-    final BiConsumer<Result, Throwable> callback;
-    FindRoute(Node node, TxnId txnId, RoutingKey homeKey, BiConsumer<Result, Throwable> callback)
-    {
-        super(node, txnId, RoutingKeys.of(homeKey), txnId.epoch, IncludeInfo.Route);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Random`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
-#### Snippet
-```java
-    }
-
-    public static void run(Id[] nodes, QueueSupplier queueSupplier, Consumer<Packet> responseSink, Supplier<Random> randomSupplier, Supplier<LongSupplier> nowSupplier, TopologyFactory topologyFactory, Supplier<Packet> in, OutputStream stderr)
-    {
-        Topology topology = topologyFactory.toTopology(nodes);
-```
-
-### BoundedWildcard
-Can generalize to `? extends LongSupplier`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
-#### Snippet
-```java
-    }
-
-    public static void run(Id[] nodes, QueueSupplier queueSupplier, Consumer<Packet> responseSink, Supplier<Random> randomSupplier, Supplier<LongSupplier> nowSupplier, TopologyFactory topologyFactory, Supplier<Packet> in, OutputStream stderr)
-    {
-        Topology topology = topologyFactory.toTopology(nodes);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Packet`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
-#### Snippet
-```java
-    }
-
-    public static void run(Id[] nodes, QueueSupplier queueSupplier, Consumer<Packet> responseSink, Supplier<Random> randomSupplier, Supplier<LongSupplier> nowSupplier, TopologyFactory topologyFactory, Supplier<Packet> in, OutputStream stderr)
-    {
-        Topology topology = topologyFactory.toTopology(nodes);
-```
-
-### BoundedWildcard
-Can generalize to `? super Packet`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
-#### Snippet
-```java
-    Set<Id> partitionSet;
-
-    public Cluster(QueueSupplier queueSupplier, Function<Id, Node> lookup, Consumer<Packet> responseSink, OutputStream stderr)
-    {
-        this.pending = queueSupplier.get();
-```
-
-### BoundedWildcard
-Can generalize to `? super Id`
-in `accord-core/src/main/java/accord/coordinate/tracking/ReadTracker.java`
-#### Snippet
-```java
-    }
-
-    public <T1> RequestStatus trySendMore(BiConsumer<T1, Id> contact, T1 with)
-    {
-        ShardSelection toRead;
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/coordinate/Propose.java`
-#### Snippet
-```java
-        private boolean isDone;
-
-        Invalidate(Node node, Shard shard, Ballot ballot, TxnId txnId, RoutingKey invalidateWithKey, BiConsumer<Void, Throwable> callback)
-        {
-            this.node = node;
-```
-
-### BoundedWildcard
 Can generalize to `? super SafeCommandStore`
 in `accord-core/src/main/java/accord/local/CommandStores.java`
 #### Snippet
@@ -1859,435 +2327,15 @@ in `accord-core/src/main/java/accord/local/CommandStores.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TxnId`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-     * @param forEach function to call on each unique {@link TxnId}
-     */
-    public void forEachOn(Ranges ranges, Predicate<? super Key> include, Consumer<TxnId> forEach)
-    {
-        // Find all keys within the ranges, but record existence within an int64 bitset.  Since the bitset is limited
-```
-
-### BoundedWildcard
-Can generalize to `? super Key`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
+Can generalize to `? super Command`
+in `accord-core/src/main/java/accord/messages/Defer.java`
 #### Snippet
 ```java
     }
 
-    public void forEachOn(Ranges ranges, Predicate<Key> include, BiConsumer<Key, TxnId> forEach)
+    Defer(Function<Command, Ready> waitUntil, TxnRequest<?> request)
     {
-        Routables.foldl(keys, ranges, (key, value, index) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super Key`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    }
-
-    public void forEachOn(Ranges ranges, Predicate<Key> include, BiConsumer<Key, TxnId> forEach)
-    {
-        Routables.foldl(keys, ranges, (key, value, index) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super TxnId`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    }
-
-    public void forEachOn(Ranges ranges, Predicate<Key> include, BiConsumer<Key, TxnId> forEach)
-    {
-        Routables.foldl(keys, ranges, (key, value, index) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Deps merge(List<T> merge, Function<T, Deps> getter)
-    {
-        LinearMerger linearMerger = new LinearMerger();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Deps merge(List<T> merge, Function<T, Deps> getter)
-    {
-        LinearMerger linearMerger = new LinearMerger();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Deps`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Deps merge(List<T> merge, Function<T, Deps> getter)
-    {
-        LinearMerger linearMerger = new LinearMerger();
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    T linearUnion(K[] leftKeys, int leftKeysLength, V[] leftValues, int leftValuesLength, int[] left, int leftLength,
-                  K[] rightKeys, int rightKeysLength, V[] rightValues, int rightValuesLength, int[] right, int rightLength,
-                  ObjectBuffers<K> keyBuffers, ObjectBuffers<V> valueBuffers, IntBuffers intBuffers, DepsConstructor<K, V, T> constructor)
-    {
-        K[] outKeys = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    T linearUnion(K[] leftKeys, int leftKeysLength, V[] leftValues, int leftValuesLength, int[] left, int leftLength,
-                  K[] rightKeys, int rightKeysLength, V[] rightValues, int rightValuesLength, int[] right, int rightLength,
-                  ObjectBuffers<K> keyBuffers, ObjectBuffers<V> valueBuffers, IntBuffers intBuffers, DepsConstructor<K, V, T> constructor)
-    {
-        K[] outKeys = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super TxnId`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-    }
-
-    public void forEach(Key key, Consumer<TxnId> forEach)
-    {
-        int keyIndex = keys.indexOf(key);
-```
-
-### BoundedWildcard
-Can generalize to `? super TxnId`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-
-    // TODO: optimise for case where none removed
-    public Deps without(Predicate<TxnId> remove)
-    {
-        if (isEmpty())
-```
-
-### BoundedWildcard
-Can generalize to `? extends B`
-in `accord-core/src/main/java/accord/utils/ArrayBuffers.java`
-#### Snippet
-```java
-        final int maxSize;
-
-        AbstractBufferCache(IntFunction<B> allocator, Clear<B> clear, int maxCount, int maxSize)
-        {
-            this.allocator = allocator;
-```
-
-### BoundedWildcard
-Can generalize to `? super B`
-in `accord-core/src/main/java/accord/utils/ArrayBuffers.java`
-#### Snippet
-```java
-        final int maxSize;
-
-        AbstractBufferCache(IntFunction<B> allocator, Clear<B> clear, int maxCount, int maxSize)
-        {
-            this.allocator = allocator;
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldlMissing(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                   Inputs is, Matches ms, IndexedFoldToLong<? super Input> fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>>
-        long rangeFoldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                        Inputs is, Matches ms, IndexedRangeFoldToLong fold, long param, long initialValue, long terminalValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
-        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
-        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Inputs`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
-        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Matches`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-        @Inline
-        static <Input extends Routable, Inputs extends Routables<Input, ?>, Matches extends Routables<?, ?>, T>
-        T foldl(SetIntersections<Inputs, Matches> setIntersections, ValueIntersections<Inputs, Matches> valueIntersections,
-                Inputs is, Matches ms, IndexedFold<? super Input, T> fold, T initialValue)
-        {
-```
-
-### BoundedWildcard
-Can generalize to `? super Known`
-in `accord-core/src/main/java/accord/coordinate/FetchData.java`
-#### Snippet
-```java
-    }
-
-    private static Object fetchInternal(Ranges ranges, Known target, Node node, TxnId txnId, PartialRoute<?> route, @Nullable Timestamp executeAt, long untilLocalEpoch, BiConsumer<Known, Throwable> callback)
-    {
-        long srcEpoch = executeAt == null || target.epoch() == Coordination ? txnId.epoch : executeAt.epoch;
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `accord-core/src/main/java/accord/coordinate/FetchData.java`
-#### Snippet
-```java
-    }
-
-    private static Object fetchInternal(Ranges ranges, Known target, Node node, TxnId txnId, PartialRoute<?> route, @Nullable Timestamp executeAt, long untilLocalEpoch, BiConsumer<Known, Throwable> callback)
-    {
-        long srcEpoch = executeAt == null || target.epoch() == Coordination ? txnId.epoch : executeAt.epoch;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
-#### Snippet
-```java
-        }
-
-        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
-        {
-            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
-#### Snippet
-```java
-        }
-
-        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
-        {
-            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
-#### Snippet
-```java
-        }
-
-        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
-        {
-            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
-#### Snippet
-```java
-        }
-
-        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
-        {
-            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
-```
-
-### BoundedWildcard
-Can generalize to `? super O`
-in `accord-core/src/main/java/accord/local/AsyncCommandStores.java`
-#### Snippet
-```java
-
-        @Override
-        public void consume(MapReduceConsume<?, O> reduceAndConsume, Future<O> future)
-        {
-            future.addCallback(reduceAndConsume);
+        this.waitUntil = waitUntil;
 ```
 
 ### BoundedWildcard
@@ -2312,6 +2360,78 @@ in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
     static <RS extends AbstractRanges<?>> RS mergeTouching(RS input, Function<Range[], RS> constructor)
     {
         Range[] ranges = input.ranges;
+```
+
+### BoundedWildcard
+Can generalize to `? super O`
+in `accord-core/src/main/java/accord/local/AsyncCommandStores.java`
+#### Snippet
+```java
+
+        @Override
+        public void consume(MapReduceConsume<?, O> reduceAndConsume, Future<O> future)
+        {
+            future.addCallback(reduceAndConsume);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
+#### Snippet
+```java
+        }
+
+        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
+        {
+            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
+#### Snippet
+```java
+        }
+
+        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
+        {
+            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
+#### Snippet
+```java
+        }
+
+        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
+        {
+            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
+#### Snippet
+```java
+        }
+
+        public <T> T mapReduce(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, Function<? super SafeCommandStore, T> map, BiFunction<T, T, T> reduce)
+        {
+            return mapReduce(context, keys, minEpoch, maxEpoch, new MapReduce<SafeCommandStore, T>() {
+```
+
+### BoundedWildcard
+Can generalize to `? super Id`
+in `accord-core/src/main/java/accord/coordinate/tracking/ReadTracker.java`
+#### Snippet
+```java
+    }
+
+    public <T1> RequestStatus trySendMore(BiConsumer<T1, Id> contact, T1 with)
+    {
+        ShardSelection toRead;
 ```
 
 ### BoundedWildcard
@@ -2351,66 +2471,6 @@ in `accord-core/src/main/java/accord/impl/InMemoryCommandsForKey.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `accord-core/src/main/java/accord/local/Status.java`
-#### Snippet
-```java
-    }
-
-    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
-    {
-        T max = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/local/Status.java`
-#### Snippet
-```java
-    }
-
-    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
-    {
-        T max = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/local/Status.java`
-#### Snippet
-```java
-    }
-
-    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
-    {
-        T max = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Ballot`
-in `accord-core/src/main/java/accord/local/Status.java`
-#### Snippet
-```java
-    }
-
-    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
-    {
-        T max = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/local/Status.java`
-#### Snippet
-```java
-    }
-
-    public static <T> T max(List<T> list, Function<T, Status> getStatus, Function<T, Ballot> getAccepted, Predicate<T> filter)
-    {
-        T max = null;
-```
-
-### BoundedWildcard
 Can generalize to `? super Shard`
 in `accord-core/src/main/java/accord/topology/Topology.java`
 #### Snippet
@@ -2447,27 +2507,15 @@ in `accord-core/src/main/java/accord/topology/Topology.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Id`
+Can generalize to `? super Shard`
 in `accord-core/src/main/java/accord/topology/Topology.java`
 #### Snippet
 ```java
     }
 
-    private Topology forSubset(int[] newSubset, Collection<Id> nodes)
+    public int matchesOn(Id on, IndexedPredicate<Shard> consumer)
     {
-        Ranges rangeSubset = ranges.select(newSubset);
-```
-
-### BoundedWildcard
-Can generalize to `? super Id`
-in `accord-core/src/main/java/accord/topology/Topology.java`
-#### Snippet
-```java
-    }
-
-    public <P1> void visitNodeForKeysOnceOrMore(Unseekables<?, ?> select, IndexedPredicate<P1> predicate, P1 param, Consumer<Id> nodes)
-    {
-        for (int shardIndex : subsetFor(select, predicate, param))
+        // TODO: this can be done by divide-and-conquer splitting of the lists and recursion, which should be more efficient
 ```
 
 ### BoundedWildcard
@@ -2501,21 +2549,69 @@ in `accord-core/src/main/java/accord/topology/Topology.java`
 ```java
     }
 
-    public int matchesOn(Id on, IndexedPredicate<Shard> consumer)
+    public void forEachOn(Id on, IndexedConsumer<Shard> consumer)
     {
-        // TODO: this can be done by divide-and-conquer splitting of the lists and recursion, which should be more efficient
+        NodeInfo info = nodeLookup.get(on);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Shard`
+Can generalize to `? super Id`
 in `accord-core/src/main/java/accord/topology/Topology.java`
 #### Snippet
 ```java
     }
 
-    public void forEachOn(Id on, IndexedConsumer<Shard> consumer)
+    public <P1> void visitNodeForKeysOnceOrMore(Unseekables<?, ?> select, IndexedPredicate<P1> predicate, P1 param, Consumer<Id> nodes)
     {
-        NodeInfo info = nodeLookup.get(on);
+        for (int shardIndex : subsetFor(select, predicate, param))
+```
+
+### BoundedWildcard
+Can generalize to `? extends Id`
+in `accord-core/src/main/java/accord/topology/Topology.java`
+#### Snippet
+```java
+    }
+
+    private Topology forSubset(int[] newSubset, Collection<Id> nodes)
+    {
+        Ranges rangeSubset = ranges.select(newSubset);
+```
+
+### BoundedWildcard
+Can generalize to `? super Known`
+in `accord-core/src/main/java/accord/coordinate/FetchData.java`
+#### Snippet
+```java
+    }
+
+    private static Object fetchInternal(Ranges ranges, Known target, Node node, TxnId txnId, PartialRoute<?> route, @Nullable Timestamp executeAt, long untilLocalEpoch, BiConsumer<Known, Throwable> callback)
+    {
+        long srcEpoch = executeAt == null || target.epoch() == Coordination ? txnId.epoch : executeAt.epoch;
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `accord-core/src/main/java/accord/coordinate/FetchData.java`
+#### Snippet
+```java
+    }
+
+    private static Object fetchInternal(Ranges ranges, Known target, Node node, TxnId txnId, PartialRoute<?> route, @Nullable Timestamp executeAt, long untilLocalEpoch, BiConsumer<Known, Throwable> callback)
+    {
+        long srcEpoch = executeAt == null || target.epoch() == Coordination ? txnId.epoch : executeAt.epoch;
+```
+
+### BoundedWildcard
+Can generalize to `? super SafeCommandStore`
+in `accord-core/src/main/java/accord/local/Node.java`
+#### Snippet
+```java
+    }
+
+    public <T> void mapReduceConsumeLocal(TxnRequest<?> request, long minEpoch, long maxEpoch, MapReduceConsume<SafeCommandStore, T> mapReduceConsume)
+    {
+        commandStores.mapReduceConsume(request, request.scope(), minEpoch, maxEpoch, mapReduceConsume);
 ```
 
 ### BoundedWildcard
@@ -2531,51 +2627,27 @@ in `accord-core/src/main/java/accord/local/Node.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Id`
+Can generalize to `? extends Future`
 in `accord-core/src/main/java/accord/local/Node.java`
 #### Snippet
 ```java
-    }
 
-    public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory, Callback<T> callback)
+    @Inline
+    public <T> Future<T> withEpoch(long epoch, Supplier<Future<T>> supplier)
     {
-        to.forEach(dst -> send(dst, requestFactory.apply(dst), callback));
+        if (topology.hasEpoch(epoch))
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Id`
+Can generalize to `? super SafeCommandStore`
 in `accord-core/src/main/java/accord/local/Node.java`
 #### Snippet
 ```java
     }
 
-    public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory, Callback<T> callback)
+    public <T> void mapReduceConsumeLocal(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, MapReduceConsume<SafeCommandStore, T> mapReduceConsume)
     {
-        to.forEach(dst -> send(dst, requestFactory.apply(dst), callback));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Request`
-in `accord-core/src/main/java/accord/local/Node.java`
-#### Snippet
-```java
-    }
-
-    public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory, Callback<T> callback)
-    {
-        to.forEach(dst -> send(dst, requestFactory.apply(dst), callback));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Id`
-in `accord-core/src/main/java/accord/local/Node.java`
-#### Snippet
-```java
-    }
-
-    public <T> void send(Collection<Id> to, Request send, Callback<T> callback)
-    {
-        to.forEach(dst -> send(dst, send, callback));
+        commandStores.mapReduceConsume(context, keys, minEpoch, maxEpoch, mapReduceConsume);
 ```
 
 ### BoundedWildcard
@@ -2609,6 +2681,18 @@ in `accord-core/src/main/java/accord/local/Node.java`
 ```java
     }
 
+    public <T> void send(Collection<Id> to, Request send, Callback<T> callback)
+    {
+        to.forEach(dst -> send(dst, send, callback));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Id`
+in `accord-core/src/main/java/accord/local/Node.java`
+#### Snippet
+```java
+    }
+
     public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory)
     {
         to.forEach(dst -> send(dst, requestFactory.apply(dst)));
@@ -2639,136 +2723,64 @@ in `accord-core/src/main/java/accord/local/Node.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SafeCommandStore`
+Can generalize to `? extends Id`
 in `accord-core/src/main/java/accord/local/Node.java`
 #### Snippet
 ```java
     }
 
-    public <T> void mapReduceConsumeLocal(PreLoadContext context, Routables<?, ?> keys, long minEpoch, long maxEpoch, MapReduceConsume<SafeCommandStore, T> mapReduceConsume)
+    public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory, Callback<T> callback)
     {
-        commandStores.mapReduceConsume(context, keys, minEpoch, maxEpoch, mapReduceConsume);
+        to.forEach(dst -> send(dst, requestFactory.apply(dst), callback));
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Future`
-in `accord-core/src/main/java/accord/local/Node.java`
-#### Snippet
-```java
-
-    @Inline
-    public <T> Future<T> withEpoch(long epoch, Supplier<Future<T>> supplier)
-    {
-        if (topology.hasEpoch(epoch))
-```
-
-### BoundedWildcard
-Can generalize to `? super SafeCommandStore`
+Can generalize to `? super Id`
 in `accord-core/src/main/java/accord/local/Node.java`
 #### Snippet
 ```java
     }
 
-    public <T> void mapReduceConsumeLocal(TxnRequest<?> request, long minEpoch, long maxEpoch, MapReduceConsume<SafeCommandStore, T> mapReduceConsume)
+    public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory, Callback<T> callback)
     {
-        commandStores.mapReduceConsume(request, request.scope(), minEpoch, maxEpoch, mapReduceConsume);
+        to.forEach(dst -> send(dst, requestFactory.apply(dst), callback));
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T2`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+Can generalize to `? extends Request`
+in `accord-core/src/main/java/accord/local/Node.java`
 #### Snippet
 ```java
-     */
-    @Inline
-    public static <T1, T2> int binarySearch(T2[] in, int from, int to, T1 find, AsymmetricComparator<T1, T2> comparator, Search op)
-    {
-        int found = -1;
-```
+    }
 
-### BoundedWildcard
-Can generalize to `? super T1`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-     * in either list may be matched to multiple in the other list.
-     */
-    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
+    public <T> void send(Collection<Id> to, Function<Id, Request> requestFactory, Callback<T> callback)
     {
-        if (ai == asLength)
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-     * in either list may be matched to multiple in the other list.
-     */
-    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
-    {
-        if (ai == asLength)
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-     * in either list may be matched to multiple in the other list.
-     */
-    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
-    {
-        if (ai == asLength)
-```
-
-### BoundedWildcard
-Can generalize to `? super T1`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-     * in either list may be matched to multiple in the other list.
-     */
-    private static <T1, T2> long findNextIntersection(T1[] as, int ai, int asLength, T2[] bs, int bi, int bsLength, AsymmetricComparator<T1, T2> cmp1, AsymmetricComparator<T2, T1> cmp2, Search op)
-    {
-        if (ai == asLength)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-     * TODO: introduce exponential search optimised version
-     */
-    public static <T> T[] linearIntersection(T[] left, int leftLength, T[] right, int rightLength, Comparator<T> comparator, ObjectBuffers<T> buffers)
-    {
-        int leftIdx = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? super T2`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-     */
-    @Inline
-    public static <T1, T2> int exponentialSearch(T2[] in, int from, int to, T1 find, AsymmetricComparator<T1, T2> comparator, Search op)
-    {
-        int step = 0;
+        to.forEach(dst -> send(dst, requestFactory.apply(dst), callback));
 ```
 
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+Overridden methods are not annotated
+in `accord-core/src/main/java/accord/primitives/Txn.java`
 #### Snippet
 ```java
-    private @Nullable TxnId txnId;
-    private @Nullable RoutingKey homeKey;
-    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
-    {
-        this.txnId = txnId;
+
+    @Nonnull Kind kind();
+    @Nonnull Seekables<?, ?> keys();
+    @Nonnull Read read();
+    @Nullable Query query(); // may be null only in PartialTxn
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `accord-core/src/main/java/accord/primitives/Txn.java`
+#### Snippet
+```java
+    @Nonnull Kind kind();
+    @Nonnull Seekables<?, ?> keys();
+    @Nonnull Read read();
+    @Nullable Query query(); // may be null only in PartialTxn
+    @Nullable Update update();
 ```
 
 ### NullableProblems
@@ -2788,132 +2800,48 @@ Overridden methods are not annotated
 in `accord-core/src/main/java/accord/primitives/Txn.java`
 #### Snippet
 ```java
-
-    @Nonnull Kind kind();
-    @Nonnull Seekables<?, ?> keys();
-    @Nonnull Read read();
-    @Nullable Query query(); // may be null only in PartialTxn
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `accord-core/src/main/java/accord/primitives/Txn.java`
-#### Snippet
-```java
-    @Nonnull Kind kind();
-    @Nonnull Seekables<?, ?> keys();
-    @Nonnull Read read();
-    @Nullable Query query(); // may be null only in PartialTxn
-    @Nullable Update update();
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `accord-core/src/main/java/accord/primitives/Txn.java`
-#### Snippet
-```java
     }
 
     @Nonnull Kind kind();
     @Nonnull Seekables<?, ?> keys();
     @Nonnull Read read();
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+#### Snippet
+```java
+    private @Nullable TxnId txnId;
+    private @Nullable RoutingKey homeKey;
+    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
+    {
+        this.txnId = txnId;
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
-#### Snippet
-```java
-    public final PartialTxn partialTxn;
-    public final Ballot ballot;
-    public final @Nullable FullRoute<?> route;
-
-    public BeginRecovery(Id to, Topologies topologies, TxnId txnId, Txn txn, FullRoute<?> route, Ballot ballot)
-```
-
-### MissortedModifiers
 Missorted modifiers `static abstract`
-in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
+in `accord-core/src/main/java/accord/messages/PreAccept.java`
 #### Snippet
 ```java
     }
 
-    public static abstract class RecoverReply implements Reply
+    public static abstract class PreAcceptReply implements Reply
     {
         @Override
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static abstract`
-in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
-#### Snippet
-```java
-    }
-
-    public static abstract class SyncCommandStore extends CommandStore
-    {
-        public SyncCommandStore(int id, int generation, int shardIndex, int numShards)
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
-#### Snippet
-```java
-    private Ballot promised = Ballot.ZERO, accepted = Ballot.ZERO;
-    private Timestamp executeAt;
-    private @Nullable PartialDeps partialDeps = null;
-    private Writes writes;
-    private Result result;
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
-#### Snippet
-```java
-
-    @Override
-    public @Nullable PartialDeps partialDeps()
-    {
-        return partialDeps;
-```
-
-### MissortedModifiers
-Missorted modifiers `public abstract @Nullable`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-     * (would probably need to remove hashIntersects)
-     */
-    public abstract @Nullable Route<?> route();
-    protected abstract void setRoute(Route<?> route);
-
-```
-
-### MissortedModifiers
 Missorted modifiers `public final @Nullable`
-in `accord-core/src/main/java/accord/messages/ReadData.java`
-#### Snippet
-```java
-    public static class ReadOk implements ReadReply
-    {
-        public final @Nullable Data data;
-
-        public ReadOk(@Nullable Data data)
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `accord-core/src/main/java/accord/messages/Commit.java`
+in `accord-core/src/main/java/accord/messages/PreAccept.java`
 #### Snippet
 ```java
 
-    public final Timestamp executeAt;
-    public final @Nullable PartialTxn partialTxn;
-    public final PartialDeps partialDeps;
-    public final @Nullable FullRoute<?> route;
+    public final PartialTxn partialTxn;
+    public final @Nullable FullRoute<?> route; // ordinarily only set on home shard
+    public final long maxEpoch;
+
 ```
 
 ### MissortedModifiers
@@ -2926,6 +2854,18 @@ in `accord-core/src/main/java/accord/messages/Commit.java`
     public final @Nullable FullRoute<?> route;
     public final ReadData read;
 
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `accord-core/src/main/java/accord/messages/Commit.java`
+#### Snippet
+```java
+
+    public final Timestamp executeAt;
+    public final @Nullable PartialTxn partialTxn;
+    public final PartialDeps partialDeps;
+    public final @Nullable FullRoute<?> route;
 ```
 
 ### MissortedModifiers
@@ -2966,26 +2906,38 @@ in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
 
 ### MissortedModifiers
 Missorted modifiers `public final @Nullable`
-in `accord-core/src/main/java/accord/messages/PreAccept.java`
+in `accord-core/src/main/java/accord/messages/ReadData.java`
 #### Snippet
 ```java
+    public static class ReadOk implements ReadReply
+    {
+        public final @Nullable Data data;
 
-    public final PartialTxn partialTxn;
-    public final @Nullable FullRoute<?> route; // ordinarily only set on home shard
-    public final long maxEpoch;
-
+        public ReadOk(@Nullable Data data)
 ```
 
 ### MissortedModifiers
 Missorted modifiers `static abstract`
-in `accord-core/src/main/java/accord/messages/PreAccept.java`
+in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
 #### Snippet
 ```java
     }
 
-    public static abstract class PreAcceptReply implements Reply
+    public static abstract class RecoverReply implements Reply
     {
         @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
+#### Snippet
+```java
+    public final PartialTxn partialTxn;
+    public final Ballot ballot;
+    public final @Nullable FullRoute<?> route;
+
+    public BeginRecovery(Id to, Topologies topologies, TxnId txnId, Txn txn, FullRoute<?> route, Ballot ballot)
 ```
 
 ### MissortedModifiers
@@ -3001,54 +2953,6 @@ public class InMemoryCommandStore
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
-#### Snippet
-```java
-{
-    private @Nullable TxnId txnId;
-    private @Nullable RoutingKey homeKey;
-    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
-    {
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
-#### Snippet
-```java
-    }
-
-    public @Nullable RoutingKey homeKey()
-    {
-        return homeKey;
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
-#### Snippet
-```java
-    }
-
-    public @Nullable TxnId txnId()
-    {
-        return txnId;
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
-#### Snippet
-```java
-public class CoordinateFailed extends Throwable
-{
-    private @Nullable TxnId txnId;
-    private @Nullable RoutingKey homeKey;
-    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
-```
-
-### MissortedModifiers
 Missorted modifiers `static abstract`
 in `accord-core/src/main/java/accord/primitives/Deps.java`
 #### Snippet
@@ -3061,15 +2965,27 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `accord-core/src/main/java/accord/coordinate/RecoverWithRoute.java`
+Missorted modifiers `static abstract`
+in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
 #### Snippet
 ```java
-public class RecoverWithRoute extends CheckShards
-{
-    final @Nullable Ballot promisedBallot; // if non-null, has already been promised by some shard
-    final FullRoute<?> route;
-    final BiConsumer<Outcome, Throwable> callback;
+    }
+
+    public static abstract class SyncCommandStore extends CommandStore
+    {
+        public SyncCommandStore(int id, int generation, int shardIndex, int numShards)
+```
+
+### MissortedModifiers
+Missorted modifiers `public abstract @Nullable`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+     * (would probably need to remove hashIntersects)
+     */
+    public abstract @Nullable Route<?> route();
+    protected abstract void setRoute(Route<?> route);
+
 ```
 
 ### MissortedModifiers
@@ -3085,6 +3001,30 @@ in `accord-core/src/main/java/accord/utils/ArrayBuffers.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
+#### Snippet
+```java
+
+    @Override
+    public @Nullable PartialDeps partialDeps()
+    {
+        return partialDeps;
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
+#### Snippet
+```java
+    private Ballot promised = Ballot.ZERO, accepted = Ballot.ZERO;
+    private Timestamp executeAt;
+    private @Nullable PartialDeps partialDeps = null;
+    private Writes writes;
+    private Result result;
+```
+
+### MissortedModifiers
 Missorted modifiers `public final @Nullable`
 in `accord-core/src/main/java/accord/messages/Accept.java`
 #### Snippet
@@ -3097,26 +3037,62 @@ in `accord-core/src/main/java/accord/messages/Accept.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+#### Snippet
+```java
+    }
+
+    public @Nullable TxnId txnId()
+    {
+        return txnId;
+```
+
+### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+#### Snippet
+```java
+    }
+
+    public @Nullable RoutingKey homeKey()
+    {
+        return homeKey;
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+#### Snippet
+```java
+public class CoordinateFailed extends Throwable
+{
+    private @Nullable TxnId txnId;
+    private @Nullable RoutingKey homeKey;
+    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `accord-core/src/main/java/accord/coordinate/CoordinateFailed.java`
+#### Snippet
+```java
+{
+    private @Nullable TxnId txnId;
+    private @Nullable RoutingKey homeKey;
+    public CoordinateFailed(TxnId txnId, @Nullable RoutingKey homeKey)
+    {
+```
+
+### MissortedModifiers
 Missorted modifiers `public final @Nullable`
 in `accord-core/src/main/java/accord/messages/CheckStatus.java`
 #### Snippet
 ```java
-        public final Ballot promised;
-        public final Ballot accepted;
-        public final @Nullable Timestamp executeAt; // not set if invalidating or invalidated
         public final boolean isCoordinating;
         public final Durability durability; // i.e. on all shards
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `accord-core/src/main/java/accord/messages/CheckStatus.java`
-#### Snippet
-```java
-    public static abstract class CheckStatusReply implements Reply
-    {
-        abstract public boolean isOk();
-    }
+        public final @Nullable Route<?> route;
+        public final @Nullable RoutingKey homeKey;
 
 ```
 
@@ -3133,6 +3109,18 @@ in `accord-core/src/main/java/accord/messages/CheckStatus.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `abstract public`
+in `accord-core/src/main/java/accord/messages/CheckStatus.java`
+#### Snippet
+```java
+    public static abstract class CheckStatusReply implements Reply
+    {
+        abstract public boolean isOk();
+    }
+
+```
+
+### MissortedModifiers
 Missorted modifiers `static abstract`
 in `accord-core/src/main/java/accord/messages/CheckStatus.java`
 #### Snippet
@@ -3149,11 +3137,23 @@ Missorted modifiers `public final @Nullable`
 in `accord-core/src/main/java/accord/messages/CheckStatus.java`
 #### Snippet
 ```java
+        public final Ballot promised;
+        public final Ballot accepted;
+        public final @Nullable Timestamp executeAt; // not set if invalidating or invalidated
         public final boolean isCoordinating;
         public final Durability durability; // i.e. on all shards
-        public final @Nullable Route<?> route;
-        public final @Nullable RoutingKey homeKey;
+```
 
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `accord-core/src/main/java/accord/coordinate/RecoverWithRoute.java`
+#### Snippet
+```java
+public class RecoverWithRoute extends CheckShards
+{
+    final @Nullable Ballot promisedBallot; // if non-null, has already been promised by some shard
+    final FullRoute<?> route;
+    final BiConsumer<Outcome, Throwable> callback;
 ```
 
 ### MissortedModifiers
@@ -3169,6 +3169,18 @@ in `accord-core/src/main/java/accord/local/Node.java`
 ```
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `progressKey` accessed in synchronized context
+in `accord-core/src/main/java/accord/messages/Commit.java`
+#### Snippet
+```java
+    {
+        Command command = safeStore.command(txnId);
+        switch (command.commit(safeStore, route != null ? route : scope, progressKey, partialTxn, executeAt, partialDeps))
+        {
+            default:
+```
+
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `node` accessed in synchronized context
 in `accord-core/src/main/java/accord/messages/ReadData.java`
@@ -3279,14 +3291,14 @@ in `accord-core/src/main/java/accord/messages/ReadData.java`
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `progressKey` accessed in synchronized context
-in `accord-core/src/main/java/accord/messages/Commit.java`
+in `accord-core/src/main/java/accord/messages/Accept.java`
 #### Snippet
 ```java
     {
         Command command = safeStore.command(txnId);
-        switch (command.commit(safeStore, route != null ? route : scope, progressKey, partialTxn, executeAt, partialDeps))
+        switch (command.accept(safeStore, ballot, kind, scope, keys, progressKey, executeAt, partialDeps))
         {
-            default:
+            default: throw new IllegalStateException();
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -3323,18 +3335,6 @@ in `accord-core/src/main/java/accord/local/CommandStores.java`
         for (ShardedRanges group : current.ranges)
             for (CommandStore commandStore : group.shards)
                 commandStore.shutdown();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `progressKey` accessed in synchronized context
-in `accord-core/src/main/java/accord/messages/Accept.java`
-#### Snippet
-```java
-    {
-        Command command = safeStore.command(txnId);
-        switch (command.accept(safeStore, ballot, kind, scope, keys, progressKey, executeAt, partialDeps))
-        {
-            default: throw new IllegalStateException();
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -3390,18 +3390,6 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/Main.java`
 
 ## RuleId[ruleID=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
-Class name `InMemory` is the same as one of its superclass' names
-in `accord-core/src/main/java/accord/primitives/PartialTxn.java`
-#### Snippet
-```java
-    }
-
-    class InMemory extends Txn.InMemory implements PartialTxn
-    {
-        public final Ranges covering;
-```
-
-### ClassNameSameAsAncestorName
 Class name `Range` is the same as one of its superclass' names
 in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromKey.java`
 #### Snippet
@@ -3438,6 +3426,18 @@ abstract class ReadCoordinator<Reply extends accord.messages.Reply> extends Read
 ```
 
 ### ClassNameSameAsAncestorName
+Class name `InMemory` is the same as one of its superclass' names
+in `accord-core/src/main/java/accord/primitives/PartialTxn.java`
+#### Snippet
+```java
+    }
+
+    class InMemory extends Txn.InMemory implements PartialTxn
+    {
+        public final Ranges covering;
+```
+
+### ClassNameSameAsAncestorName
 Class name `Entry` is the same as one of its superclass' names
 in `accord-core/src/main/java/accord/primitives/Deps.java`
 #### Snippet
@@ -3451,27 +3451,15 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
 
 ## RuleId[ruleID=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `txnIds()` is identical to its super method
-in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
+Method `slice()` is identical to its super method
+in `accord-core/src/main/java/accord/primitives/FullRangeRoute.java`
 #### Snippet
 ```java
 
     @Override
-    public Iterable<TxnId> txnIds()
+    public PartialRangeRoute slice(Ranges ranges)
     {
-        // TODO (soon): should be empty list, as can be written without existing state
-```
-
-### RedundantMethodOverride
-Method `txnIds()` is identical to its super method
-in `accord-core/src/main/java/accord/messages/ReadData.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterable<TxnId> txnIds()
-    {
-        return Collections.singleton(txnId);
+        return slice(ranges, this, homeKey, PartialRangeRoute::new);
 ```
 
 ### RedundantMethodOverride
@@ -3487,18 +3475,6 @@ in `accord-core/src/main/java/accord/utils/DeterministicIdentitySet.java`
 ```
 
 ### RedundantMethodOverride
-Method `txnIds()` is identical to its super method
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterable<TxnId> txnIds()
-    {
-        return Collections.singleton(txnId);
-```
-
-### RedundantMethodOverride
 Method `keys()` is identical to its super method
 in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
 #### Snippet
@@ -3511,15 +3487,39 @@ in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
 ```
 
 ### RedundantMethodOverride
-Method `slice()` is identical to its super method
-in `accord-core/src/main/java/accord/primitives/FullRangeRoute.java`
+Method `txnIds()` is identical to its super method
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
 #### Snippet
 ```java
 
     @Override
-    public PartialRangeRoute slice(Ranges ranges)
+    public Iterable<TxnId> txnIds()
     {
-        return slice(ranges, this, homeKey, PartialRangeRoute::new);
+        return Collections.singleton(txnId);
+```
+
+### RedundantMethodOverride
+Method `txnIds()` is identical to its super method
+in `accord-core/src/main/java/accord/messages/ReadData.java`
+#### Snippet
+```java
+
+    @Override
+    public Iterable<TxnId> txnIds()
+    {
+        return Collections.singleton(txnId);
+```
+
+### RedundantMethodOverride
+Method `txnIds()` is identical to its super method
+in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
+#### Snippet
+```java
+
+    @Override
+    public Iterable<TxnId> txnIds()
+    {
+        // TODO (soon): should be empty list, as can be written without existing state
 ```
 
 ### RedundantMethodOverride
@@ -3572,6 +3572,18 @@ in `accord-core/src/main/java/accord/impl/InMemoryCommandStores.java`
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `accord.api` is unnecessary and can be removed
+in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromKey.java`
+#### Snippet
+```java
+    }
+
+    public static class Routing extends MaelstromKey implements accord.api.RoutingKey
+    {
+        public Routing(Datum.Kind kind, Object value)
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `accord.api` is unnecessary and can be removed
 in `accord-core/src/main/java/accord/api/ConfigurationService.java`
@@ -3632,16 +3644,17 @@ in `accord-core/src/main/java/accord/api/ConfigurationService.java`
  */
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `accord.api` is unnecessary and can be removed
-in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromKey.java`
+## RuleId[ruleID=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `accord-core/src/main/java/accord/impl/SimpleProgressLog.java`
 #### Snippet
 ```java
-    }
-
-    public static class Routing extends MaelstromKey implements accord.api.RoutingKey
-    {
-        public Routing(Datum.Kind kind, Object value)
+            catch (Throwable t)
+            {
+                t.printStackTrace();
+            }
+            finally
 ```
 
 ## RuleId[ruleID=ComparatorMethodParameterNotUsed]
@@ -3655,19 +3668,6 @@ in `accord-core/src/main/java/accord/primitives/RoutableKey.java`
         public int compareTo(@Nonnull RoutableKey ignore)
         {
             return compareTo;
-```
-
-## RuleId[ruleID=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `accord-core/src/main/java/accord/impl/SimpleProgressLog.java`
-#### Snippet
-```java
-            catch (Throwable t)
-            {
-                t.printStackTrace();
-            }
-            finally
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -4442,14 +4442,14 @@ import accord.primitives.TxnId;
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `accord-core/src/main/java/accord/utils/IntrusiveLinkedList.java`
+in `accord-core/src/main/java/accord/utils/DeterministicIdentitySet.java`
 #### Snippet
 ```java
-    public IntrusiveLinkedList()
+    public DeterministicIdentitySet(int size)
     {
-        prev = next = this;
+        head.prev = head.next = head;
+        lookup = new IdentityHashMap<>(size);
     }
-
 ```
 
 ### NestedAssignment
@@ -4466,6 +4466,30 @@ in `accord-core/src/main/java/accord/messages/BeginRecovery.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+
+                    case CEIL:
+                        to = found = i;
+                        break;
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `accord-core/src/main/java/accord/utils/IntrusiveLinkedList.java`
+#### Snippet
+```java
+    public IntrusiveLinkedList()
+    {
+        prev = next = this;
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `accord-core/src/main/java/accord/local/Command.java`
 #### Snippet
 ```java
@@ -4478,14 +4502,14 @@ in `accord-core/src/main/java/accord/local/Command.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `accord-core/src/main/java/accord/utils/DeterministicIdentitySet.java`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
 #### Snippet
 ```java
-    public DeterministicIdentitySet(int size)
-    {
-        head.prev = head.next = head;
-        lookup = new IdentityHashMap<>(size);
-    }
+
+            Packet next;
+            while ((next = in.get()) != null)
+                sinks.add(next);
+
 ```
 
 ### NestedAssignment
@@ -4498,18 +4522,6 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
                             result[i] = new MaelstromKey.Routing(cur += delta);
                     }
                     break;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
-#### Snippet
-```java
-
-            Packet next;
-            while ((next = in.get()) != null)
-                sinks.add(next);
-
 ```
 
 ### NestedAssignment
@@ -4541,6 +4553,18 @@ Result of assignment expression used
 in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
 #### Snippet
 ```java
+                break;
+            }
+            else if ((c = b.end().compareTo(a.end())) <= 0)
+            {
+                bi++;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
+#### Snippet
+```java
                     Range min;
                     if (ai == as.length) min = bs[bi];
                     else if (bi == bs.length) min = a = as[ai];
@@ -4562,18 +4586,6 @@ in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
-#### Snippet
-```java
-                break;
-            }
-            else if ((c = b.end().compareTo(a.end())) <= 0)
-            {
-                bi++;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
 #### Snippet
 ```java
@@ -4584,43 +4596,7 @@ in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
                 break;
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-
-                    case CEIL:
-                        to = found = i;
-                        break;
-
-```
-
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `SyncCommandStore()` of an abstract class should not be declared 'public'
-in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
-#### Snippet
-```java
-    public static abstract class SyncCommandStore extends CommandStore
-    {
-        public SyncCommandStore(int id, int generation, int shardIndex, int numShards)
-        {
-            super(id, generation, shardIndex, numShards);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `WithUnsynced()` of an abstract class should not be declared 'public'
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-        public final boolean doNotComputeProgressKey;
-
-        public WithUnsynced(Id to, Topologies topologies, TxnId txnId, FullRoute<?> route)
-        {
-            this(to, topologies, txnId, route, latestRelevantEpochIndex(to, topologies, route));
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `TxnRequest()` of an abstract class should not be declared 'public'
 in `accord-core/src/main/java/accord/messages/TxnRequest.java`
@@ -4628,9 +4604,9 @@ in `accord-core/src/main/java/accord/messages/TxnRequest.java`
 ```java
     }
 
-    public TxnRequest(TxnId txnId, PartialRoute<?> scope, long waitForEpoch)
+    public TxnRequest(Node.Id to, Topologies topologies, Route<?> route, TxnId txnId, int startIndex)
     {
-        Invariants.checkState(!scope.isEmpty());
+        this(txnId, computeScope(to, topologies, route, startIndex), computeWaitForEpoch(to, topologies, startIndex));
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -4652,9 +4628,21 @@ in `accord-core/src/main/java/accord/messages/TxnRequest.java`
 ```java
     }
 
-    public TxnRequest(Node.Id to, Topologies topologies, Route<?> route, TxnId txnId, int startIndex)
+    public TxnRequest(TxnId txnId, PartialRoute<?> scope, long waitForEpoch)
     {
-        this(txnId, computeScope(to, topologies, route, startIndex), computeWaitForEpoch(to, topologies, startIndex));
+        Invariants.checkState(!scope.isEmpty());
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `WithUnsynced()` of an abstract class should not be declared 'public'
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
+#### Snippet
+```java
+        public final boolean doNotComputeProgressKey;
+
+        public WithUnsynced(Id to, Topologies topologies, TxnId txnId, FullRoute<?> route)
+        {
+            this(to, topologies, txnId, route, latestRelevantEpochIndex(to, topologies, route));
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -4667,6 +4655,30 @@ in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
         public State(NodeTimeService time, Agent agent, DataStore store, ProgressLog progressLog, RangesForEpoch rangesForEpoch, CommandStore commandStore)
         {
             this.time = time;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractOrderedBuilder()` of an abstract class should not be declared 'public'
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+        int totalCount;
+
+        public AbstractOrderedBuilder(boolean hasOrderedTxnId)
+        {
+            this.keys = cachedKeys.get(16);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SyncCommandStore()` of an abstract class should not be declared 'public'
+in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
+#### Snippet
+```java
+    public static abstract class SyncCommandStore extends CommandStore
+    {
+        public SyncCommandStore(int id, int generation, int shardIndex, int numShards)
+        {
+            super(id, generation, shardIndex, numShards);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -4694,18 +4706,6 @@ in `accord-core/src/main/java/accord/local/CommandStores.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractOrderedBuilder()` of an abstract class should not be declared 'public'
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-        int totalCount;
-
-        public AbstractOrderedBuilder(boolean hasOrderedTxnId)
-        {
-            this.keys = cachedKeys.get(16);
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `CommandStore()` of an abstract class should not be declared 'public'
 in `accord-core/src/main/java/accord/local/CommandStore.java`
 #### Snippet
@@ -4720,14 +4720,14 @@ in `accord-core/src/main/java/accord/local/CommandStore.java`
 ## RuleId[ruleID=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `accord-core/src/main/java/accord/impl/SimpleProgressLog.java`
+in `accord-core/src/main/java/accord/messages/Apply.java`
 #### Snippet
 ```java
-                    };
-
-                    node.withEpoch(toEpoch, () -> {
-                        debugInvestigating = FetchData.fetch(blockedUntil, node, txnId, someKeys, executeAt, toEpoch, callback);
-                    });
+        if (reply == ApplyReply.Applied)
+        {
+            node.ifLocal(empty(), scope.homeKey(), txnId.epoch, instance -> {
+                node.withEpoch(executeAt.epoch, () -> instance.progressLog().durableLocal(txnId));
+            }).addCallback(node.agent());
 ```
 
 ### CodeBlock2Expr
@@ -4744,26 +4744,14 @@ in `accord-core/src/main/java/accord/impl/SimpleProgressLog.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `accord-core/src/main/java/accord/messages/Apply.java`
+in `accord-core/src/main/java/accord/impl/SimpleProgressLog.java`
 #### Snippet
 ```java
-        if (reply == ApplyReply.Applied)
-        {
-            node.ifLocal(empty(), scope.homeKey(), txnId.epoch, instance -> {
-                node.withEpoch(executeAt.epoch, () -> instance.progressLog().durableLocal(txnId));
-            }).addCallback(node.agent());
-```
+                    };
 
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
-#### Snippet
-```java
-                    Range range = (Range) keyOrRange;
-                    // TODO: zero allocation
-                    Ranges.of(range).slice(slice).forEach(r -> {
-                        commandsForKey.subMap(r.start(), r.startInclusive(), r.end(), r.endInclusive())
-                                .values().forEach(forEach);
+                    node.withEpoch(toEpoch, () -> {
+                        debugInvestigating = FetchData.fetch(blockedUntil, node, txnId, someKeys, executeAt, toEpoch, callback);
+                    });
 ```
 
 ### CodeBlock2Expr
@@ -4780,26 +4768,14 @@ in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `accord-core/src/main/java/accord/coordinate/RecoverWithRoute.java`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
 #### Snippet
 ```java
-                {
-                    Deps deps = merged.committedDeps.reconstitute(route());
-                    node.withEpoch(merged.executeAt.epoch, () -> {
-                        Persist.persistAndCommit(node, txnId, route(), txn, merged.executeAt, deps, merged.writes, merged.result);
-                    });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
-#### Snippet
-```java
-        Commit.Invalidate.commitInvalidate(node, txnId, route != null ? Unseekables.merge(route, (Unseekables)invalidateWith) : invalidateWith, txnId);
-        // TODO: pick a reasonable upper bound, so we don't invalidate into an epoch/commandStore that no longer cares about this command
-        node.forEachLocalSince(contextFor(txnId), invalidateWith, txnId, safeStore -> {
-            safeStore.command(txnId).commitInvalidate(safeStore);
-        }).addCallback((s, f) -> {
+                    Range range = (Range) keyOrRange;
+                    // TODO: zero allocation
+                    Ranges.of(range).slice(slice).forEach(r -> {
+                        commandsForKey.subMap(r.start(), r.startInclusive(), r.end(), r.endInclusive())
+                                .values().forEach(forEach);
 ```
 
 ### CodeBlock2Expr
@@ -4826,19 +4802,31 @@ in `accord-core/src/main/java/accord/coordinate/Recover.java`
                             if (fail != null) accept(null, fail);
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `isObsolete` is accessed in both synchronized and unsynchronized contexts
-in `accord-core/src/main/java/accord/messages/ReadData.java`
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
 #### Snippet
 ```java
-    private final long waitForEpoch;
-    private Data data;
-    private transient boolean isObsolete; // TODO: respond with the Executed result we have stored?
-    private transient BitSet waitingOn;
-    private transient int waitingOnCount;
+        Commit.Invalidate.commitInvalidate(node, txnId, route != null ? Unseekables.merge(route, (Unseekables)invalidateWith) : invalidateWith, txnId);
+        // TODO: pick a reasonable upper bound, so we don't invalidate into an epoch/commandStore that no longer cares about this command
+        node.forEachLocalSince(contextFor(txnId), invalidateWith, txnId, safeStore -> {
+            safeStore.command(txnId).commitInvalidate(safeStore);
+        }).addCallback((s, f) -> {
 ```
 
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `accord-core/src/main/java/accord/coordinate/RecoverWithRoute.java`
+#### Snippet
+```java
+                {
+                    Deps deps = merged.committedDeps.reconstitute(route());
+                    node.withEpoch(merged.executeAt.epoch, () -> {
+                        Persist.persistAndCommit(node, txnId, route(), txn, merged.executeAt, deps, merged.writes, merged.result);
+                    });
+```
+
+## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `waitingOn` is accessed in both synchronized and unsynchronized contexts
 in `accord-core/src/main/java/accord/messages/ReadData.java`
@@ -4849,6 +4837,18 @@ in `accord-core/src/main/java/accord/messages/ReadData.java`
     private transient BitSet waitingOn;
     private transient int waitingOnCount;
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `isObsolete` is accessed in both synchronized and unsynchronized contexts
+in `accord-core/src/main/java/accord/messages/ReadData.java`
+#### Snippet
+```java
+    private final long waitForEpoch;
+    private Data data;
+    private transient boolean isObsolete; // TODO: respond with the Executed result we have stored?
+    private transient BitSet waitingOn;
+    private transient int waitingOnCount;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4865,14 +4865,14 @@ in `accord-core/src/main/java/accord/coordinate/Coordinate.java`
 
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `isDone` is accessed in both synchronized and unsynchronized contexts
-in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
+in `accord-core/src/main/java/accord/coordinate/Recover.java`
 #### Snippet
 ```java
+    private final FullRoute<?> route;
     private final BiConsumer<Outcome, Throwable> callback;
-
     private boolean isDone;
-    private boolean isPrepareDone;
-    private final boolean transitivelyInvokedByPriorInvalidation;
+
+    private final List<RecoverOk> recoverOks = new ArrayList<>();
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -4889,14 +4889,14 @@ in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
 
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `isDone` is accessed in both synchronized and unsynchronized contexts
-in `accord-core/src/main/java/accord/coordinate/Recover.java`
+in `accord-core/src/main/java/accord/coordinate/Invalidate.java`
 #### Snippet
 ```java
-    private final FullRoute<?> route;
     private final BiConsumer<Outcome, Throwable> callback;
-    private boolean isDone;
 
-    private final List<RecoverOk> recoverOks = new ArrayList<>();
+    private boolean isDone;
+    private boolean isPrepareDone;
+    private final boolean transitivelyInvokedByPriorInvalidation;
 ```
 
 ## RuleId[ruleID=EmptyMethod]
@@ -4938,42 +4938,6 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/SimpleConfigService.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
-#### Snippet
-```java
-        private final Topology local;
-        private final QuorumTracker syncTracker;
-        private boolean syncComplete = false;
-        private boolean prevSynced;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
-#### Snippet
-```java
-    private Ballot promised = Ballot.ZERO, accepted = Ballot.ZERO;
-    private Timestamp executeAt;
-    private @Nullable PartialDeps partialDeps = null;
-    private Writes writes;
-    private Result result;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `accord-core/src/main/java/accord/api/Read.java`
-#### Snippet
-```java
-    {
-        public final Keys keyScope;
-        private Data result = null;
-        private int pending = 0;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `accord-core/src/main/java/accord/api/Read.java`
 #### Snippet
@@ -4986,50 +4950,14 @@ in `accord-core/src/main/java/accord/api/Read.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
-#### Snippet
-```java
-        final Random random;
-
-        int nextMessageId = 0;
-        Map<Long, Callback> callbacks = new LinkedHashMap<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `accord-core/src/main/java/accord/coordinate/tracking/ReadTracker.java`
-#### Snippet
-```java
-    public static class ReadShardTracker extends ShardTracker
-    {
-        protected boolean hasData = false;
-        protected int quorum; // if !hasData, a slowPathQuorum will trigger success
-        protected int inflight;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `accord-core/src/main/java/accord/primitives/Deps.java`
+in `accord-core/src/main/java/accord/api/Read.java`
 #### Snippet
 ```java
-        int[] buf = null;
-        int bufKeysLength, bufTxnIdsLength = 0, bufLength = 0;
-        Deps from = null;
-
-        LinearMerger()
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-        TxnId[] bufTxnIds;
-        int[] buf = null;
-        int bufKeysLength, bufTxnIdsLength = 0, bufLength = 0;
-        Deps from = null;
+    {
+        public final Keys keyScope;
+        private Data result = null;
+        private int pending = 0;
 
 ```
 
@@ -5071,6 +4999,30 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+        TxnId[] bufTxnIds;
+        int[] buf = null;
+        int bufKeysLength, bufTxnIdsLength = 0, bufLength = 0;
+        Deps from = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+        int[] buf = null;
+        int bufKeysLength, bufTxnIdsLength = 0, bufLength = 0;
+        Deps from = null;
+
+        LinearMerger()
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
 in `accord-core/src/main/java/accord/coordinate/tracking/RecoveryTracker.java`
 #### Snippet
 ```java
@@ -5079,6 +5031,42 @@ in `accord-core/src/main/java/accord/coordinate/tracking/RecoveryTracker.java`
         protected int fastPathRejects = 0;
 
         private RecoveryShardTracker(Shard shard)
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
+#### Snippet
+```java
+    private Ballot promised = Ballot.ZERO, accepted = Ballot.ZERO;
+    private Timestamp executeAt;
+    private @Nullable PartialDeps partialDeps = null;
+    private Writes writes;
+    private Result result;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+#### Snippet
+```java
+        private final Topology local;
+        private final QuorumTracker syncTracker;
+        private boolean syncComplete = false;
+        private boolean prevSynced;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `accord-maelstrom/src/main/java/accord/maelstrom/Cluster.java`
+#### Snippet
+```java
+        final Random random;
+
+        int nextMessageId = 0;
+        Map<Long, Callback> callbacks = new LinkedHashMap<>();
+
 ```
 
 ### RedundantFieldInitialization
@@ -5093,151 +5081,19 @@ in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
             public boolean hasNext()
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `reply`
-in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `accord-core/src/main/java/accord/coordinate/tracking/ReadTracker.java`
 #### Snippet
 ```java
+    public static class ReadShardTracker extends ShardTracker
     {
-        if (reply == null)
-            reply = Nack;
-
-        super.accept(reply, failure);
+        protected boolean hasData = false;
+        protected int quorum; // if !hasData, a slowPathQuorum will trigger success
+        protected int inflight;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `epoch`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
-#### Snippet
-```java
-                EpochState state = get(epoch);
-                state.recordSyncComplete(node);
-                for (epoch++ ; state.syncComplete() && epoch <= currentEpoch; epoch++)
-                {
-                    state = get(epoch);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `epoch`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
-#### Snippet
-```java
-                EpochState state = get(epoch);
-                state.recordSyncComplete(node);
-                for (epoch++ ; state.syncComplete() && epoch <= currentEpoch; epoch++)
-                {
-                    state = get(epoch);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `maxEpoch`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
-#### Snippet
-```java
-        Epochs snapshot = epochs;
-
-        if (maxEpoch == Long.MAX_VALUE) maxEpoch = snapshot.currentEpoch;
-        else Invariants.checkState(snapshot.currentEpoch >= maxEpoch);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `keys`
-in `accord-core/src/main/java/accord/primitives/Keys.java`
-#### Snippet
-```java
-        }
-        if (removed > 0)
-            keys = Arrays.copyOf(keys, keys.length - removed);
-        return new Keys(keys);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `partialTxn`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-                if (partialTxn() != null)
-                {
-                    partialTxn = partialTxn.slice(allRanges, shard.isHome());
-                    Routables.foldlMissing((Seekables)partialTxn.keys(), partialTxn().keys(), (keyOrRange, p, v, i) -> {
-                        // TODO: duplicate application of ranges
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `partialTxn`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-            case TrySet:
-                setKind(partialTxn.kind());
-                setPartialTxn(partialTxn = partialTxn.slice(allRanges, shard.isHome()));
-                // TODO: duplicate application of ranges
-                safeStore.forEach(partialTxn.keys(), allRanges, forKey -> {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
-#### Snippet
-```java
-        {
-            if (v == 0) return ' ';
-            v -= 1;
-            if (v < 10) return (char) ('0' + v);
-            v -= 10;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
-#### Snippet
-```java
-            v -= 1;
-            if (v < 10) return (char) ('0' + v);
-            v -= 10;
-            if (v < 26) return (char) ('A' + v);
-            v -= 26;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
-#### Snippet
-```java
-            v -= 10;
-            if (v < 26) return (char) ('A' + v);
-            v -= 26;
-            return (char) ('a' + v);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
-#### Snippet
-```java
-        {
-            if (v == 0) return "";
-            --v;
-            char[] buf = new char[4];
-            for (int i = 3 ; i >= 0 ; --i)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
-#### Snippet
-```java
-            {
-                buf[i] = toChar(v % CHARS);
-                v /= CHARS;
-            }
-            return new String(buf);
-```
-
+## RuleId[ruleID=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `known`
 in `accord-core/src/main/java/accord/local/SaveStatus.java`
@@ -5248,18 +5104,6 @@ in `accord-core/src/main/java/accord/local/SaveStatus.java`
                 known = known.with(DepsUnknown);
             case Accepted:
                 if (!known.executeAt.isDecisionKnown())
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `accord-core/src/main/java/accord/utils/Functions.java`
-#### Snippet
-```java
-        {
-            if (b != null)
-                a = merge.apply(a, b);
-        }
-        return a;
 ```
 
 ### AssignmentToMethodParameter
@@ -5275,219 +5119,15 @@ in `accord-core/src/main/java/accord/impl/SimpleProgressLog.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-                while (i < nexti)
-                {
-                    initialValue = fold.apply(is.get(i), param, initialValue, i);
-                    if (initialValue == terminalValue)
-                        break done;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-                while (i < nexti)
-                {
-                    initialValue = fold.apply(is.get(i), param, initialValue, i);
-                    if (initialValue == terminalValue)
-                        break done;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-
-                int nexti = valueIntersections.findLimit(is, i, ms, m);
-                initialValue = fold.apply(param, initialValue, i, nexti);
-                if (initialValue == terminalValue)
-                    break;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/primitives/Routables.java`
-#### Snippet
-```java
-                while (i < nexti)
-                {
-                    initialValue = fold.apply(is.get(i), initialValue, i);
-                    ++i;
-                }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `trgPos`
-in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
-#### Snippet
-```java
-        int trgStart = trgPos;
-        if (trgPos == 0)
-            trg[trgPos++] = src[srcPos++].toUnseekable();
-
-        while (srcPos < srcEnd)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcPos`
-in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
-#### Snippet
-```java
-        int trgStart = trgPos;
-        if (trgPos == 0)
-            trg[trgPos++] = src[srcPos++].toUnseekable();
-
-        while (srcPos < srcEnd)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcPos`
-in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
-#### Snippet
-```java
-        while (srcPos < srcEnd)
-        {
-            RoutingKey next = src[srcPos++].toUnseekable();
-            if (!next.equals(trg[trgPos - 1]))
-                trg[trgPos++] = next;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `trgPos`
-in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
-#### Snippet
-```java
-            RoutingKey next = src[srcPos++].toUnseekable();
-            if (!next.equals(trg[trgPos - 1]))
-                trg[trgPos++] = next;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
-#### Snippet
-```java
-        for (int i = 0; i < keys.length; i++)
-        {
-            initialValue = fold.apply(keys[i], param, initialValue, i);
-            if (terminalValue == initialValue)
-                return initialValue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
+Assignment to method parameter `keys`
+in `accord-core/src/main/java/accord/primitives/Keys.java`
 #### Snippet
 ```java
         }
-
-        count -= removed;
-        if (count != ranges.length)
-            ranges = Arrays.copyOf(ranges, count);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ranges`
-in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
-#### Snippet
-```java
-        count -= removed;
-        if (count != ranges.length)
-            ranges = Arrays.copyOf(ranges, count);
-
-        return constructor.apply(ranges);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `accumulator`
-in `accord-core/src/main/java/accord/topology/Topology.java`
-#### Snippet
-```java
-            bi = (int)(abi >>> 32);
-
-            accumulator = function.apply(shards[bi], accumulator, bi);
-            ++bi;
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/topology/Topology.java`
-#### Snippet
-```java
-            if (a[ai] == b[bi])
-            {
-                initialValue = consumer.apply(param, initialValue, offset + ai);
-                if (terminalValue == initialValue)
-                    return terminalValue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `initialValue`
-in `accord-core/src/main/java/accord/topology/Topology.java`
-#### Snippet
-```java
-            {
-                O next = function.apply(p1, p2, p3, offset + ai);
-                initialValue = reduce.apply(initialValue, next);
-                ++ai; ++bi;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-            if (c < 0)
-            {
-                to = i;
-            }
-            else if (c > 0)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-            else if (c > 0)
-            {
-                from = i + 1;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-
-                    case CEIL:
-                        to = found = i;
-                        break;
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-                    case FLOOR:
-                        found = i;
-                        from = i + 1;
-                }
-            }
+        if (removed > 0)
+            keys = Arrays.copyOf(keys, keys.length - removed);
+        return new Keys(keys);
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -5536,6 +5176,54 @@ in `accord-core/src/main/java/accord/utils/SortedArrays.java`
             ai = -1 - ai;
             if (ai == asLength)
                 return -1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+            if (c < 0)
+            {
+                to = i;
+            }
+            else if (c > 0)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+            else if (c > 0)
+            {
+                from = i + 1;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+
+                    case CEIL:
+                        to = found = i;
+                        break;
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+                    case FLOOR:
+                        found = i;
+                        from = i + 1;
+                }
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -5670,6 +5358,318 @@ in `accord-core/src/main/java/accord/utils/SortedArrays.java`
             }
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+                while (i < nexti)
+                {
+                    initialValue = fold.apply(is.get(i), initialValue, i);
+                    ++i;
+                }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+                while (i < nexti)
+                {
+                    initialValue = fold.apply(is.get(i), param, initialValue, i);
+                    if (initialValue == terminalValue)
+                        break done;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+
+                int nexti = valueIntersections.findLimit(is, i, ms, m);
+                initialValue = fold.apply(param, initialValue, i, nexti);
+                if (initialValue == terminalValue)
+                    break;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/primitives/Routables.java`
+#### Snippet
+```java
+                while (i < nexti)
+                {
+                    initialValue = fold.apply(is.get(i), param, initialValue, i);
+                    if (initialValue == terminalValue)
+                        break done;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `partialTxn`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+                if (partialTxn() != null)
+                {
+                    partialTxn = partialTxn.slice(allRanges, shard.isHome());
+                    Routables.foldlMissing((Seekables)partialTxn.keys(), partialTxn().keys(), (keyOrRange, p, v, i) -> {
+                        // TODO: duplicate application of ranges
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `partialTxn`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+            case TrySet:
+                setKind(partialTxn.kind());
+                setPartialTxn(partialTxn = partialTxn.slice(allRanges, shard.isHome()));
+                // TODO: duplicate application of ranges
+                safeStore.forEach(partialTxn.keys(), allRanges, forKey -> {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `maxEpoch`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+#### Snippet
+```java
+        Epochs snapshot = epochs;
+
+        if (maxEpoch == Long.MAX_VALUE) maxEpoch = snapshot.currentEpoch;
+        else Invariants.checkState(snapshot.currentEpoch >= maxEpoch);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `epoch`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+#### Snippet
+```java
+                EpochState state = get(epoch);
+                state.recordSyncComplete(node);
+                for (epoch++ ; state.syncComplete() && epoch <= currentEpoch; epoch++)
+                {
+                    state = get(epoch);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `epoch`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+#### Snippet
+```java
+                EpochState state = get(epoch);
+                state.recordSyncComplete(node);
+                for (epoch++ ; state.syncComplete() && epoch <= currentEpoch; epoch++)
+                {
+                    state = get(epoch);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
+#### Snippet
+```java
+        {
+            if (v == 0) return ' ';
+            v -= 1;
+            if (v < 10) return (char) ('0' + v);
+            v -= 10;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
+#### Snippet
+```java
+            v -= 1;
+            if (v < 10) return (char) ('0' + v);
+            v -= 10;
+            if (v < 26) return (char) ('A' + v);
+            v -= 26;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
+#### Snippet
+```java
+            v -= 10;
+            if (v < 26) return (char) ('A' + v);
+            v -= 26;
+            return (char) ('a' + v);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
+#### Snippet
+```java
+        {
+            if (v == 0) return "";
+            --v;
+            char[] buf = new char[4];
+            for (int i = 3 ; i >= 0 ; --i)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Datum.java`
+#### Snippet
+```java
+            {
+                buf[i] = toChar(v % CHARS);
+                v /= CHARS;
+            }
+            return new String(buf);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `reply`
+in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
+#### Snippet
+```java
+    {
+        if (reply == null)
+            reply = Nack;
+
+        super.accept(reply, failure);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `accord-core/src/main/java/accord/utils/Functions.java`
+#### Snippet
+```java
+        {
+            if (b != null)
+                a = merge.apply(a, b);
+        }
+        return a;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
+#### Snippet
+```java
+        for (int i = 0; i < keys.length; i++)
+        {
+            initialValue = fold.apply(keys[i], param, initialValue, i);
+            if (terminalValue == initialValue)
+                return initialValue;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `trgPos`
+in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
+#### Snippet
+```java
+        int trgStart = trgPos;
+        if (trgPos == 0)
+            trg[trgPos++] = src[srcPos++].toUnseekable();
+
+        while (srcPos < srcEnd)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcPos`
+in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
+#### Snippet
+```java
+        int trgStart = trgPos;
+        if (trgPos == 0)
+            trg[trgPos++] = src[srcPos++].toUnseekable();
+
+        while (srcPos < srcEnd)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcPos`
+in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
+#### Snippet
+```java
+        while (srcPos < srcEnd)
+        {
+            RoutingKey next = src[srcPos++].toUnseekable();
+            if (!next.equals(trg[trgPos - 1]))
+                trg[trgPos++] = next;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `trgPos`
+in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
+#### Snippet
+```java
+            RoutingKey next = src[srcPos++].toUnseekable();
+            if (!next.equals(trg[trgPos - 1]))
+                trg[trgPos++] = next;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
+#### Snippet
+```java
+        }
+
+        count -= removed;
+        if (count != ranges.length)
+            ranges = Arrays.copyOf(ranges, count);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ranges`
+in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
+#### Snippet
+```java
+        count -= removed;
+        if (count != ranges.length)
+            ranges = Arrays.copyOf(ranges, count);
+
+        return constructor.apply(ranges);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `accumulator`
+in `accord-core/src/main/java/accord/topology/Topology.java`
+#### Snippet
+```java
+            bi = (int)(abi >>> 32);
+
+            accumulator = function.apply(shards[bi], accumulator, bi);
+            ++bi;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/topology/Topology.java`
+#### Snippet
+```java
+            if (a[ai] == b[bi])
+            {
+                initialValue = consumer.apply(param, initialValue, offset + ai);
+                if (terminalValue == initialValue)
+                    return terminalValue;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialValue`
+in `accord-core/src/main/java/accord/topology/Topology.java`
+#### Snippet
+```java
+            {
+                O next = function.apply(p1, p2, p3, offset + ai);
+                initialValue = reduce.apply(initialValue, next);
+                ++ai; ++bi;
+            }
+```
+
 ## RuleId[ruleID=EqualsAndHashcode]
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
@@ -5681,18 +5681,6 @@ in `accord-core/src/main/java/accord/primitives/Keys.java`
 public class Keys extends AbstractKeys<Key, Keys> implements Seekables<Key, Keys>
 {
     public static class SerializationSupport
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
-in `accord-core/src/main/java/accord/primitives/RangeRoute.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public abstract class RangeRoute extends AbstractRanges<Route<Range>> implements Route<Range>
-{
-    public final RoutingKey homeKey;
 ```
 
 ### EqualsAndHashcode
@@ -5709,6 +5697,18 @@ public class Deps implements Iterable<Map.Entry<Key, TxnId>>
 
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
+in `accord-core/src/main/java/accord/primitives/RangeRoute.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public abstract class RangeRoute extends AbstractRanges<Route<Range>> implements Route<Range>
+{
+    public final RoutingKey homeKey;
+```
+
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
 in `accord-core/src/main/java/accord/primitives/PartialRangeRoute.java`
 #### Snippet
 ```java
@@ -5721,63 +5721,39 @@ public class PartialRangeRoute extends RangeRoute implements PartialRoute<Range>
 
 ## RuleId[ruleID=RedundantImplements]
 ### RedundantImplements
-Redundant interface declaration `Request`
-in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
-#### Snippet
-```java
-import static accord.messages.SimpleReply.Ok;
-
-public class InformOfTxnId extends AbstractEpochRequest<Reply> implements Request, PreLoadContext
-{
-    public final RoutingKey homeKey;
-```
-
-### RedundantImplements
-Redundant interface declaration `PreLoadContext`
-in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
-#### Snippet
-```java
-import static accord.messages.SimpleReply.Ok;
-
-public class InformOfTxnId extends AbstractEpochRequest<Reply> implements Request, PreLoadContext
-{
-    public final RoutingKey homeKey;
-```
-
-### RedundantImplements
 Redundant interface declaration `Unseekables`>
-in `accord-core/src/main/java/accord/primitives/FullRoute.java`
+in `accord-core/src/main/java/accord/primitives/RoutingKeys.java`
 #### Snippet
 ```java
-package accord.primitives;
+import static accord.utils.ArrayBuffers.cachedRoutingKeys;
 
-public interface FullRoute<T extends Unseekable> extends Route<T>, Unseekables<T, Route<T>>
-{
-    @Override default FullRoute<T> union(Route<T> route) { return this; }
-```
-
-### RedundantImplements
-Redundant interface declaration `PreLoadContext`
-in `accord-core/src/main/java/accord/messages/InformDurable.java`
-#### Snippet
-```java
-import static accord.messages.SimpleReply.Ok;
-
-public class InformDurable extends TxnRequest<Reply> implements PreLoadContext
+public class RoutingKeys extends AbstractRoutableKeys<AbstractRoutableKeys<?>> implements Unseekables<RoutingKey, AbstractRoutableKeys<?>>
 {
     public static class SerializationSupport
 ```
 
 ### RedundantImplements
-Redundant interface declaration `Iterable`
-in `accord-core/src/main/java/accord/primitives/Ranges.java`
+Redundant interface declaration `Request`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
 #### Snippet
 ```java
-import static accord.utils.Utils.toArray;
+import static accord.utils.Functions.mapReduceNonNull;
 
-public class Ranges extends AbstractRanges<Ranges> implements Iterable<Range>, Seekables<Range, Ranges>, Unseekables<Range, Ranges>
+public class BeginInvalidation extends AbstractEpochRequest<BeginInvalidation.InvalidateReply> implements Request, PreLoadContext
 {
-    public static final Ranges EMPTY = ofSortedAndDeoverlappedUnchecked();
+    public final Ballot ballot;
+```
+
+### RedundantImplements
+Redundant interface declaration `PreLoadContext`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+import static accord.utils.Functions.mapReduceNonNull;
+
+public class BeginInvalidation extends AbstractEpochRequest<BeginInvalidation.InvalidateReply> implements Request, PreLoadContext
+{
+    public final Ballot ballot;
 ```
 
 ### RedundantImplements
@@ -5793,15 +5769,39 @@ public abstract class AbstractRoutableKeys<KS extends Unseekables<RoutingKey, ?>
 ```
 
 ### RedundantImplements
-Redundant interface declaration `Unseekables`>
-in `accord-core/src/main/java/accord/primitives/RoutingKeys.java`
+Redundant interface declaration `SafeCommandStore`
+in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
 #### Snippet
 ```java
-import static accord.utils.ArrayBuffers.cachedRoutingKeys;
+        }
 
-public class RoutingKeys extends AbstractRoutableKeys<AbstractRoutableKeys<?>> implements Unseekables<RoutingKey, AbstractRoutableKeys<?>>
+        class AsyncState extends State implements SafeCommandStore
+        {
+            public AsyncState(NodeTimeService time, Agent agent, DataStore store, ProgressLog progressLog, RangesForEpoch rangesForEpoch, CommandStore commandStore)
+```
+
+### RedundantImplements
+Redundant interface declaration `PreLoadContext`
+in `accord-core/src/main/java/accord/messages/InformDurable.java`
+#### Snippet
+```java
+import static accord.messages.SimpleReply.Ok;
+
+public class InformDurable extends TxnRequest<Reply> implements PreLoadContext
 {
     public static class SerializationSupport
+```
+
+### RedundantImplements
+Redundant interface declaration `Unseekables`>
+in `accord-core/src/main/java/accord/primitives/FullRoute.java`
+#### Snippet
+```java
+package accord.primitives;
+
+public interface FullRoute<T extends Unseekable> extends Route<T>, Unseekables<T, Route<T>>
+{
+    @Override default FullRoute<T> union(Route<T> route) { return this; }
 ```
 
 ### RedundantImplements
@@ -5817,39 +5817,51 @@ public interface Unseekables<K extends Unseekable, U extends Unseekables<K, ?>> 
 ```
 
 ### RedundantImplements
-Redundant interface declaration `Request`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+Redundant interface declaration `Iterable`
+in `accord-core/src/main/java/accord/primitives/Ranges.java`
 #### Snippet
 ```java
-import static accord.utils.Functions.mapReduceNonNull;
+import static accord.utils.Utils.toArray;
 
-public class BeginInvalidation extends AbstractEpochRequest<BeginInvalidation.InvalidateReply> implements Request, PreLoadContext
+public class Ranges extends AbstractRanges<Ranges> implements Iterable<Range>, Seekables<Range, Ranges>, Unseekables<Range, Ranges>
 {
-    public final Ballot ballot;
+    public static final Ranges EMPTY = ofSortedAndDeoverlappedUnchecked();
+```
+
+### RedundantImplements
+Redundant interface declaration `Request`
+in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
+#### Snippet
+```java
+import static accord.messages.SimpleReply.Ok;
+
+public class InformOfTxnId extends AbstractEpochRequest<Reply> implements Request, PreLoadContext
+{
+    public final RoutingKey homeKey;
 ```
 
 ### RedundantImplements
 Redundant interface declaration `PreLoadContext`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+in `accord-core/src/main/java/accord/messages/InformOfTxnId.java`
 #### Snippet
 ```java
-import static accord.utils.Functions.mapReduceNonNull;
+import static accord.messages.SimpleReply.Ok;
 
-public class BeginInvalidation extends AbstractEpochRequest<BeginInvalidation.InvalidateReply> implements Request, PreLoadContext
+public class InformOfTxnId extends AbstractEpochRequest<Reply> implements Request, PreLoadContext
 {
-    public final Ballot ballot;
+    public final RoutingKey homeKey;
 ```
 
 ### RedundantImplements
-Redundant interface declaration `SafeCommandStore`
-in `accord-core/src/main/java/accord/impl/InMemoryCommandStore.java`
+Redundant interface declaration `Iterable`
+in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
 #### Snippet
 ```java
-        }
-
-        class AsyncState extends State implements SafeCommandStore
-        {
-            public AsyncState(NodeTimeService time, Agent agent, DataStore store, ProgressLog progressLog, RangesForEpoch rangesForEpoch, CommandStore commandStore)
+@SuppressWarnings("rawtypes")
+// TODO: check that foldl call-sites are inlined and optimised by HotSpot
+public abstract class AbstractKeys<K extends RoutableKey, KS extends Routables<K, ?>> implements Iterable<K>, Routables<K, KS>
+{
+    final K[] keys;
 ```
 
 ### RedundantImplements
@@ -5890,18 +5902,6 @@ public class CheckStatus extends AbstractEpochRequest<CheckStatus.CheckStatusOk>
 
 ### RedundantImplements
 Redundant interface declaration `Iterable`
-in `accord-core/src/main/java/accord/primitives/AbstractKeys.java`
-#### Snippet
-```java
-@SuppressWarnings("rawtypes")
-// TODO: check that foldl call-sites are inlined and optimised by HotSpot
-public abstract class AbstractKeys<K extends RoutableKey, KS extends Routables<K, ?>> implements Iterable<K>, Routables<K, KS>
-{
-    final K[] keys;
-```
-
-### RedundantImplements
-Redundant interface declaration `Iterable`
 in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
 #### Snippet
 ```java
@@ -5915,6 +5915,162 @@ public abstract class AbstractRanges<RS extends Routables<Range, ?>> implements 
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `accord-core/src/main/java/accord/messages/Commit.java`
+#### Snippet
+```java
+            case Success:
+            case Redundant:
+                return null;
+
+            case Insufficient:
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/messages/TxnRequest.java`
+#### Snippet
+```java
+        {
+            if (doNotComputeProgressKey)
+                return null;
+            return super.progressKey(node);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Value.java`
+#### Snippet
+```java
+        {
+            in.nextNull();
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+                    return ok.homeKey;
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
+#### Snippet
+```java
+                    return castToFullRoute(ok.route);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/messages/ReadData.java`
+#### Snippet
+```java
+
+                if (status == Committed)
+                    return null;
+
+                safeStore.progressLog().waiting(txnId, Committed.minKnown, readScope.toUnseekables());
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/messages/ReadData.java`
+#### Snippet
+```java
+                if (!isObsolete)
+                    read(safeStore, command);
+                return null;
+
+            case PreApplied:
+```
+
+### ReturnNull
+Return of `null`
+in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromRequest.java`
+#### Snippet
+```java
+    {
+        if (in.peek() == JsonToken.NULL)
+            return null;
+
+        NavigableSet<Key> buildReadKeys = new TreeSet<>();
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/primitives/Range.java`
+#### Snippet
+```java
+    {
+        if (this.compareIntersecting(that) != 0)
+            return null;
+
+        RoutingKey start = this.start.compareTo(that.start) > 0 ? this.start : that.start;
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/coordinate/Coordinate.java`
+#### Snippet
+```java
+        if (tracker.hasFastPathAccepted())
+        {
+            Deps deps = Deps.merge(successes, ok -> ok.witnessedAt.equals(txnId) ? ok.deps : null);
+            Execute.execute(node, txnId, txn, route, txnId, deps, this);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+                Invariants.checkState(outLength == bufLength);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+        Routables.foldl(keys, ranges, (key, value, index) -> {
+            if (!include.test(key))
+                return null;
+
+            for (int t = startOffset(index), end = endOffset(index); t < end ; ++t)
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+                forEach.accept(key, txnId);
+            }
+            return null;
+        }, null);
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `accord-core/src/main/java/accord/utils/IntrusiveLinkedList.java`
 #### Snippet
 ```java
@@ -5923,30 +6079,6 @@ in `accord-core/src/main/java/accord/utils/IntrusiveLinkedList.java`
             return null;
 
         IntrusiveLinkedListNode next = this.next;
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/primitives/Route.java`
-#### Snippet
-```java
-    {
-        if (unseekables == null)
-            return null;
-
-        switch (unseekables.kindOfContents())
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/primitives/Route.java`
-#### Snippet
-```java
-    {
-        if (unseekables == null)
-            return null;
-
-        switch (unseekables.kindOfContents())
 ```
 
 ### ReturnNull
@@ -5987,26 +6119,26 @@ in `accord-core/src/main/java/accord/primitives/Route.java`
 
 ### ReturnNull
 Return of `null`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+in `accord-core/src/main/java/accord/primitives/Route.java`
 #### Snippet
 ```java
-        EpochState epochState = epochs.get(epoch);
-        if (epochState == null)
+    {
+        if (unseekables == null)
             return null;
-        return epochState.global().forKey(key);
-    }
+
+        switch (unseekables.kindOfContents())
 ```
 
 ### ReturnNull
 Return of `null`
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+in `accord-core/src/main/java/accord/primitives/Route.java`
 #### Snippet
 ```java
-        {
-            if (epoch > currentEpoch || epoch <= currentEpoch - epochs.length)
-                return null;
+    {
+        if (unseekables == null)
+            return null;
 
-            return epochs[(int) (currentEpoch - epoch)];
+        switch (unseekables.kindOfContents())
 ```
 
 ### ReturnNull
@@ -6019,6 +6151,66 @@ in `accord-core/src/main/java/accord/local/SyncCommandStores.java`
             return result == SENTINEL ? null : result;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+    private static Ranges covers(@Nullable PartialTxn txn)
+    {
+        return txn == null ? null : txn.covering();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+        Route<?> route = someRoute();
+        if (route == null)
+            return null;
+
+        return route.toMaximalUnseekables();
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+            return new PartialKeyRoute(Ranges.EMPTY, homeKey(), new RoutingKey[0]);
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+    private static Ranges covers(@Nullable PartialDeps deps)
+    {
+        return deps == null ? null : deps.covering;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `accord-core/src/main/java/accord/local/Command.java`
+#### Snippet
+```java
+        private Command get(SafeCommandStore safeStore, int i)
+        {
+            return i >= 0 ? safeStore.command(txnIds[i]) : null;
+        }
+
 ```
 
 ### ReturnNull
@@ -6059,182 +6251,26 @@ in `accord-core/src/main/java/accord/impl/InMemoryCommand.java`
 
 ### ReturnNull
 Return of `null`
-in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromResult.java`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
         {
-            if (in.peek() == JsonToken.NULL)
+            if (epoch > currentEpoch || epoch <= currentEpoch - epochs.length)
                 return null;
 
-            Node.Id client = null;
+            return epochs[(int) (currentEpoch - epoch)];
 ```
 
 ### ReturnNull
 Return of `null`
-in `accord-core/src/main/java/accord/local/Command.java`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
-        Route<?> route = someRoute();
-        if (route == null)
+        EpochState epochState = epochs.get(epoch);
+        if (epochState == null)
             return null;
-
-        return route.toMaximalUnseekables();
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-        private Command get(SafeCommandStore safeStore, int i)
-        {
-            return i >= 0 ? safeStore.command(txnIds[i]) : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-    private static Ranges covers(@Nullable PartialTxn txn)
-    {
-        return txn == null ? null : txn.covering();
+        return epochState.global().forKey(key);
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-    private static Ranges covers(@Nullable PartialDeps deps)
-    {
-        return deps == null ? null : deps.covering;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/local/Command.java`
-#### Snippet
-```java
-            return new PartialKeyRoute(Ranges.EMPTY, homeKey(), new RoutingKey[0]);
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/primitives/Range.java`
-#### Snippet
-```java
-    {
-        if (this.compareIntersecting(that) != 0)
-            return null;
-
-        RoutingKey start = this.start.compareTo(that.start) > 0 ? this.start : that.start;
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/messages/ReadData.java`
-#### Snippet
-```java
-
-                if (status == Committed)
-                    return null;
-
-                safeStore.progressLog().waiting(txnId, Committed.minKnown, readScope.toUnseekables());
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/messages/ReadData.java`
-#### Snippet
-```java
-                if (!isObsolete)
-                    read(safeStore, command);
-                return null;
-
-            case PreApplied:
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/messages/Commit.java`
-#### Snippet
-```java
-            case Success:
-            case Redundant:
-                return null;
-
-            case Insufficient:
-```
-
-### ReturnNull
-Return of `null`
-in `accord-maelstrom/src/main/java/accord/maelstrom/Value.java`
-#### Snippet
-```java
-        {
-            in.nextNull();
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/coordinate/Coordinate.java`
-#### Snippet
-```java
-        if (tracker.hasFastPathAccepted())
-        {
-            Deps deps = Deps.merge(successes, ok -> ok.witnessedAt.equals(txnId) ? ok.deps : null);
-            Execute.execute(node, txnId, txn, route, txnId, deps, this);
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/messages/TxnRequest.java`
-#### Snippet
-```java
-        {
-            if (doNotComputeProgressKey)
-                return null;
-            return super.progressKey(node);
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-                    return ok.homeKey;
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/messages/BeginInvalidation.java`
-#### Snippet
-```java
-                    return castToFullRoute(ok.route);
-            }
-            return null;
-        }
-
 ```
 
 ### ReturnNull
@@ -6287,50 +6323,14 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromReply.java`
 
 ### ReturnNull
 Return of `null`
-in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromRequest.java`
+in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromResult.java`
 #### Snippet
 ```java
-    {
-        if (in.peek() == JsonToken.NULL)
-            return null;
-
-        NavigableSet<Key> buildReadKeys = new TreeSet<>();
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-                Invariants.checkState(outLength == bufLength);
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-        Routables.foldl(keys, ranges, (key, value, index) -> {
-            if (!include.test(key))
+        {
+            if (in.peek() == JsonToken.NULL)
                 return null;
 
-            for (int t = startOffset(index), end = endOffset(index); t < end ; ++t)
-```
-
-### ReturnNull
-Return of `null`
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-                forEach.accept(key, txnId);
-            }
-            return null;
-        }, null);
-    }
+            Node.Id client = null;
 ```
 
 ### ReturnNull
@@ -6398,62 +6398,26 @@ in `accord-core/src/main/java/accord/local/Node.java`
 ## RuleId[ruleID=ArrayEquality]
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Keys.java`
+in `accord-core/src/main/java/accord/primitives/PartialKeyRoute.java`
 #### Snippet
 ```java
-    private Keys wrap(Key[] wrap)
-    {
-        return wrap == keys ? this : new Keys(wrap);
-    }
-}
+        RoutingKey[] keys = SortedArrays.linearUnion(this.keys, that.keys, RoutingKey[]::new);
+        Ranges covering = this.covering.union(that.covering);
+        if (covering == this.covering && keys == this.keys)
+            return this;
+        if (covering == that.covering && keys == that.keys)
 ```
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Keys.java`
+in `accord-core/src/main/java/accord/primitives/PartialKeyRoute.java`
 #### Snippet
 ```java
-    private Keys wrap(Key[] wrap, AbstractKeys<Key, ?> that)
-    {
-        return wrap == keys ? this : wrap == that.keys && that instanceof Keys ? (Keys)that : new Keys(wrap);
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Keys.java`
-#### Snippet
-```java
-    private Keys wrap(Key[] wrap, AbstractKeys<Key, ?> that)
-    {
-        return wrap == keys ? this : wrap == that.keys && that instanceof Keys ? (Keys)that : new Keys(wrap);
-    }
-
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Ranges.java`
-#### Snippet
-```java
-    {
-        return union(mode, this, that, this, that, (left, right, ranges) -> {
-            if (ranges == left.ranges) return left;
-            if (ranges == right.ranges) return right;
-            return new Ranges(ranges);
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Ranges.java`
-#### Snippet
-```java
-        return union(mode, this, that, this, that, (left, right, ranges) -> {
-            if (ranges == left.ranges) return left;
-            if (ranges == right.ranges) return right;
-            return new Ranges(ranges);
-        });
+        if (covering == this.covering && keys == this.keys)
+            return this;
+        if (covering == that.covering && keys == that.keys)
+            return that;
+        return new PartialKeyRoute(covering, homeKey, keys);
 ```
 
 ### ArrayEquality
@@ -6494,26 +6458,74 @@ in `accord-core/src/main/java/accord/primitives/RoutingKeys.java`
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/PartialKeyRoute.java`
+in `accord-core/src/main/java/accord/primitives/Keys.java`
 #### Snippet
 ```java
-        RoutingKey[] keys = SortedArrays.linearUnion(this.keys, that.keys, RoutingKey[]::new);
-        Ranges covering = this.covering.union(that.covering);
-        if (covering == this.covering && keys == this.keys)
-            return this;
-        if (covering == that.covering && keys == that.keys)
+    private Keys wrap(Key[] wrap, AbstractKeys<Key, ?> that)
+    {
+        return wrap == keys ? this : wrap == that.keys && that instanceof Keys ? (Keys)that : new Keys(wrap);
+    }
+
 ```
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/PartialKeyRoute.java`
+in `accord-core/src/main/java/accord/primitives/Keys.java`
 #### Snippet
 ```java
-        if (covering == this.covering && keys == this.keys)
-            return this;
-        if (covering == that.covering && keys == that.keys)
-            return that;
-        return new PartialKeyRoute(covering, homeKey, keys);
+    private Keys wrap(Key[] wrap, AbstractKeys<Key, ?> that)
+    {
+        return wrap == keys ? this : wrap == that.keys && that instanceof Keys ? (Keys)that : new Keys(wrap);
+    }
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Keys.java`
+#### Snippet
+```java
+    private Keys wrap(Key[] wrap)
+    {
+        return wrap == keys ? this : new Keys(wrap);
+    }
+}
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/utils/SortedArrays.java`
+#### Snippet
+```java
+                                                                          IntBufferAllocator allocator)
+    {
+        if (src == trg || trgLength == srcLength)
+            return null;
+
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+            outLength = outKeysLength;
+
+            if (remapLeft == null && outKeys == leftKeys)
+            {
+                // "this" knows all the TxnId and Keys already, but do both agree on what Keys map to TxnIds?
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+                    return constructor.construct(leftKeys, leftKeysLength, leftValues, leftValuesLength, left, leftLength);
+            }
+            else if (remapRight == null && outKeys == rightKeys)
+            {
+                // "that" knows all the TxnId and keys already, but "this" does not
 ```
 
 ### ArrayEquality
@@ -6550,66 +6562,6 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
                 Invariants.checkState(txnIds == bufTxnIds && txnIdsLength == bufTxnIdsLength);
                 Invariants.checkState(outLength == bufLength);
             }
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-            outLength = outKeysLength;
-
-            if (remapLeft == null && outKeys == leftKeys)
-            {
-                // "this" knows all the TxnId and Keys already, but do both agree on what Keys map to TxnIds?
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-                    return constructor.construct(leftKeys, leftKeysLength, leftValues, leftValuesLength, left, leftLength);
-            }
-            else if (remapRight == null && outKeys == rightKeys)
-            {
-                // "that" knows all the TxnId and keys already, but "this" does not
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-                    keyBuffers, this, this, this
-            );
-            if (buf == deps.keyToTxnId)
-            {
-                Invariants.checkState(deps.keys.keys == bufKeys && deps.keys.keys.length == bufKeysLength);
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-            if (buf == deps.keyToTxnId)
-            {
-                Invariants.checkState(deps.keys.keys == bufKeys && deps.keys.keys.length == bufKeysLength);
-                Invariants.checkState(deps.txnIds == bufTxnIds && deps.txnIds.length == bufTxnIdsLength);
-                Invariants.checkState(deps.keyToTxnId.length == bufLength);
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/primitives/Deps.java`
-#### Snippet
-```java
-            {
-                Invariants.checkState(deps.keys.keys == bufKeys && deps.keys.keys.length == bufKeysLength);
-                Invariants.checkState(deps.txnIds == bufTxnIds && deps.txnIds.length == bufTxnIdsLength);
-                Invariants.checkState(deps.keyToTxnId.length == bufLength);
-                from = deps;
 ```
 
 ### ArrayEquality
@@ -6650,6 +6602,66 @@ in `accord-core/src/main/java/accord/primitives/Deps.java`
 
 ### ArrayEquality
 Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+                    keyBuffers, this, this, this
+            );
+            if (buf == deps.keyToTxnId)
+            {
+                Invariants.checkState(deps.keys.keys == bufKeys && deps.keys.keys.length == bufKeysLength);
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+            if (buf == deps.keyToTxnId)
+            {
+                Invariants.checkState(deps.keys.keys == bufKeys && deps.keys.keys.length == bufKeysLength);
+                Invariants.checkState(deps.txnIds == bufTxnIds && deps.txnIds.length == bufTxnIdsLength);
+                Invariants.checkState(deps.keyToTxnId.length == bufLength);
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Deps.java`
+#### Snippet
+```java
+            {
+                Invariants.checkState(deps.keys.keys == bufKeys && deps.keys.keys.length == bufKeysLength);
+                Invariants.checkState(deps.txnIds == bufTxnIds && deps.txnIds.length == bufTxnIdsLength);
+                Invariants.checkState(deps.keyToTxnId.length == bufLength);
+                from = deps;
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Ranges.java`
+#### Snippet
+```java
+    {
+        return union(mode, this, that, this, that, (left, right, ranges) -> {
+            if (ranges == left.ranges) return left;
+            if (ranges == right.ranges) return right;
+            return new Ranges(ranges);
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
+in `accord-core/src/main/java/accord/primitives/Ranges.java`
+#### Snippet
+```java
+        return union(mode, this, that, this, that, (left, right, ranges) -> {
+            if (ranges == left.ranges) return left;
+            if (ranges == right.ranges) return right;
+            return new Ranges(ranges);
+        });
+```
+
+### ArrayEquality
+Array objects are compared using `==`, not 'Arrays.equals()'
 in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
 #### Snippet
 ```java
@@ -6682,18 +6694,6 @@ in `accord-core/src/main/java/accord/primitives/AbstractRanges.java`
             return constructor.construct(param1, param2, (as == left.ranges ? left : right).ranges);
 
         // TODO (now): caching
-```
-
-### ArrayEquality
-Array objects are compared using `==`, not 'Arrays.equals()'
-in `accord-core/src/main/java/accord/utils/SortedArrays.java`
-#### Snippet
-```java
-                                                                          IntBufferAllocator allocator)
-    {
-        if (src == trg || trgLength == srcLength)
-            return null;
-
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -6736,12 +6736,12 @@ in `accord-core/src/main/java/accord/topology/Topology.java`
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+in `accord-maelstrom/src/main/java/accord/maelstrom/Value.java`
 #### Snippet
 ```java
-        this.sorter = sorter;
-        this.node = node;
-        this.epochs = new Epochs(new EpochState[0]);
+    private Value()
+    {
+        this.contents = new Datum[0];
     }
 
 ```
@@ -6751,9 +6751,9 @@ Allocation of zero length array
 in `accord-core/src/main/java/accord/primitives/Keys.java`
 #### Snippet
 ```java
-    public static Keys ofSorted(Collection<? extends Key> keys)
+    public static Keys ofUnique(Collection<? extends Key> keys)
     {
-        return ofSorted(keys.toArray(new Key[0]));
+        return ofUnique(keys.toArray(new Key[0]));
     }
 
 ```
@@ -6787,9 +6787,9 @@ Allocation of zero length array
 in `accord-core/src/main/java/accord/primitives/Keys.java`
 #### Snippet
 ```java
-    public Keys(SortedSet<? extends Key> keys)
+    public static Keys ofSorted(Collection<? extends Key> keys)
     {
-        super(keys.toArray(new Key[0]));
+        return ofSorted(keys.toArray(new Key[0]));
     }
 
 ```
@@ -6799,9 +6799,9 @@ Allocation of zero length array
 in `accord-core/src/main/java/accord/primitives/Keys.java`
 #### Snippet
 ```java
-    public static Keys ofUnique(Collection<? extends Key> keys)
+    public Keys(SortedSet<? extends Key> keys)
     {
-        return ofUnique(keys.toArray(new Key[0]));
+        super(keys.toArray(new Key[0]));
     }
 
 ```
@@ -6820,12 +6820,24 @@ in `accord-core/src/main/java/accord/local/Command.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `accord-maelstrom/src/main/java/accord/maelstrom/Value.java`
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
 #### Snippet
 ```java
-    private Value()
+        this.sorter = sorter;
+        this.node = node;
+        this.epochs = new Epochs(new EpochState[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `accord-core/src/main/java/accord/local/CommandStores.java`
+#### Snippet
+```java
     {
-        this.contents = new Datum[0];
+        this.supplier = supplier;
+        this.current = new Snapshot(new ShardedRanges[0], Topology.EMPTY, Topology.EMPTY);
     }
 
 ```
@@ -6840,18 +6852,6 @@ in `accord-maelstrom/src/main/java/accord/maelstrom/MaelstromReply.java`
         Value[] values = reads.values().toArray(new Value[0]);
 
         return new MaelstromResult(client, requestId, keys, values, update);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `accord-core/src/main/java/accord/local/CommandStores.java`
-#### Snippet
-```java
-    {
-        this.supplier = supplier;
-        this.current = new Snapshot(new ShardedRanges[0], Topology.EMPTY, Topology.EMPTY);
-    }
-
 ```
 
 ## RuleId[ruleID=EqualsWhichDoesntCheckParameterClass]
@@ -6907,18 +6907,6 @@ in `accord-core/src/main/java/accord/utils/Utils.java`
 
 ## RuleId[ruleID=ConstantValue]
 ### ConstantValue
-Value `acc` is always 'false'
-in `accord-core/src/main/java/accord/topology/TopologyManager.java`
-#### Snippet
-```java
-            Boolean result = global().foldl(intersect, (shard, acc, i) -> {
-                if (acc == Boolean.FALSE)
-                    return acc;
-                return syncTracker.get(i).hasReachedQuorum();
-            }, Boolean.TRUE);
-```
-
-### ConstantValue
 Condition `scope == null` is always `false`
 in `accord-core/src/main/java/accord/messages/TxnRequest.java`
 #### Snippet
@@ -6928,5 +6916,17 @@ in `accord-core/src/main/java/accord/messages/TxnRequest.java`
         if (scope == null)
             throw new IllegalArgumentException("No intersection");
         return scope;
+```
+
+### ConstantValue
+Value `acc` is always 'false'
+in `accord-core/src/main/java/accord/topology/TopologyManager.java`
+#### Snippet
+```java
+            Boolean result = global().foldl(intersect, (shard, acc, i) -> {
+                if (acc == Boolean.FALSE)
+                    return acc;
+                return syncTracker.get(i).hasReachedQuorum();
+            }, Boolean.TRUE);
 ```
 
