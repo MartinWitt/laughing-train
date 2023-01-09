@@ -67,54 +67,6 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
-#### Snippet
-```java
-      }
-      if (lhsValue == null || rhsValue == null) {
-        return null;
-      }
-      if (!(lhsValue instanceof Integer) || !(rhsValue instanceof Integer)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
-#### Snippet
-```java
-          return lhsInt * rhsInt;
-        case DIVIDE:
-          return (rhsInt == 0) ? null : lhsInt / rhsInt;
-        case REMAINDER:
-          return (rhsInt == 0) ? null : lhsInt % rhsInt;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
-#### Snippet
-```java
-          return (rhsInt == 0) ? null : lhsInt / rhsInt;
-        case REMAINDER:
-          return (rhsInt == 0) ? null : lhsInt % rhsInt;
-        default:
-          throw new AssertionError(op);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
-#### Snippet
-```java
-    Object value = evaluate(context);
-    if (value == null) {
-      return null;
-    }
-    if (!(value instanceof Integer)) {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/google/escapevelocity/MethodFinder.java`
 #### Snippet
 ```java
@@ -149,6 +101,54 @@ in `src/main/java/com/google/escapevelocity/MethodFinder.java`
 
 ```
 
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
+#### Snippet
+```java
+          return lhsInt * rhsInt;
+        case DIVIDE:
+          return (rhsInt == 0) ? null : lhsInt / rhsInt;
+        case REMAINDER:
+          return (rhsInt == 0) ? null : lhsInt % rhsInt;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
+#### Snippet
+```java
+          return (rhsInt == 0) ? null : lhsInt / rhsInt;
+        case REMAINDER:
+          return (rhsInt == 0) ? null : lhsInt % rhsInt;
+        default:
+          throw new AssertionError(op);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
+#### Snippet
+```java
+      }
+      if (lhsValue == null || rhsValue == null) {
+        return null;
+      }
+      if (!(lhsValue instanceof Integer) || !(rhsValue instanceof Integer)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
+#### Snippet
+```java
+    Object value = evaluate(context);
+    if (value == null) {
+      return null;
+    }
+    if (!(value instanceof Integer)) {
+```
+
 ## RuleId[ruleID=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
@@ -163,30 +163,6 @@ in `src/main/java/com/google/escapevelocity/ExpressionNode.java`
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/java/com/google/escapevelocity/SetSpacing.java`
-#### Snippet
-```java
-   * <p>The whitespace in question can include newlines, except when <i>thing</i> is a reference.
-   */
-  static boolean shouldRemoveLastNodeBeforeSet(List<Node> nodes) {
-    if (nodes.isEmpty()) {
-      return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `src/main/java/com/google/escapevelocity/Node.java`
-#### Snippet
-```java
-    private final ImmutableList<Node> nodes;
-
-    Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
-      super(resourceName, lineNumber);
-      this.nodes = nodes;
-```
-
 ### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/com/google/escapevelocity/Macro.java`
@@ -212,6 +188,30 @@ in `src/main/java/com/google/escapevelocity/Macro.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/java/com/google/escapevelocity/Node.java`
+#### Snippet
+```java
+    private final ImmutableList<Node> nodes;
+
+    Cons(String resourceName, int lineNumber, ImmutableList<Node> nodes) {
+      super(resourceName, lineNumber);
+      this.nodes = nodes;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `src/main/java/com/google/escapevelocity/SetSpacing.java`
+#### Snippet
+```java
+   * <p>The whitespace in question can include newlines, except when <i>thing</i> is a reference.
+   */
+  static boolean shouldRemoveLastNodeBeforeSet(List<Node> nodes) {
+    if (nodes.isEmpty()) {
+      return false;
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExpressionNode`
 in `src/main/java/com/google/escapevelocity/ReferenceNode.java`
 #### Snippet
@@ -224,18 +224,6 @@ in `src/main/java/com/google/escapevelocity/ReferenceNode.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ExpressionNode`
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-    private final ImmutableList<ExpressionNode> elements;
-
-    ListLiteralNode(String resourceName, int lineNumber, ImmutableList<ExpressionNode> elements) {
-      super(resourceName, lineNumber);
-      this.elements = elements;
-```
-
-### BoundedWildcard
 Can generalize to `? extends Node`
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
@@ -245,6 +233,18 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
     StringLiteralNode(String resourceName, int lineNumber, char quote, ImmutableList<Node> nodes) {
       super(resourceName, lineNumber);
       this.quote = quote;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExpressionNode`
+in `src/main/java/com/google/escapevelocity/Parser.java`
+#### Snippet
+```java
+    private final ImmutableList<ExpressionNode> elements;
+
+    ListLiteralNode(String resourceName, int lineNumber, ImmutableList<ExpressionNode> elements) {
+      super(resourceName, lineNumber);
+      this.elements = elements;
 ```
 
 ## RuleId[ruleID=ConstantValue]
