@@ -56,18 +56,6 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleL
 
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`gradleTasks.length() > 0` can be replaced with '!gradleTasks.isEmpty()'
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
-#### Snippet
-```java
-
-    String gradleTasks = ConfigurationParamsUtil.getGradleTasks(getRunnerParameters());
-    if (gradleTasks.length() > 0) {
-      final List<String> tasks = StringUtil.splitHonorQuotes(gradleTasks, ' ');
-      for (String task: tasks) {
-```
-
-### SizeReplaceableByIsEmpty
 `gradleHomePath.length() > 0` can be replaced with '!gradleHomePath.isEmpty()'
 in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleToolProvider.java`
 #### Snippet
@@ -77,6 +65,18 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleT
         if (null != gradleHomePath && gradleHomePath.length() > 0) {
           return gradleHomePath;
         } else {
+```
+
+### SizeReplaceableByIsEmpty
+`gradleTasks.length() > 0` can be replaced with '!gradleTasks.isEmpty()'
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
+#### Snippet
+```java
+
+    String gradleTasks = ConfigurationParamsUtil.getGradleTasks(getRunnerParameters());
+    if (gradleTasks.length() > 0) {
+      final List<String> tasks = StringUtil.splitHonorQuotes(gradleTasks, ' ');
+      for (String task: tasks) {
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -297,6 +297,18 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
+  public static @NotNull List<String> getGradleParams(Map<String, String> runParameters)
+  {
+    return CommandLineArgumentsUtil.extractArguments(emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_PARAMS)));
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @NotNull`
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
+#### Snippet
+```java
+  }
+
   public static @NotNull String getGradleTasks(Map<String, String> runParameters)
   {
     return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
@@ -309,9 +321,9 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
-  public static @NotNull List<String> getGradleParams(Map<String, String> runParameters)
+  public static @NotNull String getJavaArgs(Map<String, String> runParameters)
   {
-    return CommandLineArgumentsUtil.extractArguments(emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_PARAMS)));
+    return StringUtil.newLineToSpaceDelimited(emptyIfNull(runParameters.get(JavaRunnerConstants.JVM_ARGS_KEY)));
 ```
 
 ### MissortedModifiers
@@ -336,18 +348,6 @@ public class ConfigurationParamsUtil
   public static @NotNull String getGradleHome(Map<String, String> runParameters)
   {
     return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @NotNull`
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
-#### Snippet
-```java
-  }
-
-  public static @NotNull String getJavaArgs(Map<String, String> runParameters)
-  {
-    return StringUtil.newLineToSpaceDelimited(emptyIfNull(runParameters.get(JavaRunnerConstants.JVM_ARGS_KEY)));
 ```
 
 ## RuleId[ruleID=Convert2MethodRef]
