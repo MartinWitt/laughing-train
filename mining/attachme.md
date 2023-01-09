@@ -153,18 +153,6 @@ in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
-#### Snippet
-```java
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 #### Snippet
 ```java
@@ -189,14 +177,14 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/Agent.java`
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
 #### Snippet
 ```java
-      args = parseArgs(strArgs);
-    } catch (IllegalArgumentException e) {
-      System.err.println("[attachme] FATAL ERROR: " + e.getMessage());
-      System.exit(1);
-      return;
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+  }
+
 ```
 
 ### SystemOutErr
@@ -271,19 +259,19 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
     }
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'connection' in a Serializable class
-in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/Agent.java`
 #### Snippet
 ```java
-
-  public static class ProcessAttachRunConfiguration extends RunConfigurationBase<Element> {
-    RemoteConnection connection;
-
-    protected ProcessAttachRunConfiguration(@NotNull Project project) {
+      args = parseArgs(strArgs);
+    } catch (IllegalArgumentException e) {
+      System.err.println("[attachme] FATAL ERROR: " + e.getMessage());
+      System.exit(1);
+      return;
 ```
 
+## RuleId[ruleID=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 't' in a Serializable class
 in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
@@ -294,6 +282,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
     final Thread t;
 
     MProcHandler(Thread t) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'connection' in a Serializable class
+in `plugin/src/main/java/com/attachme/plugin/AttachmeDebugger.java`
+#### Snippet
+```java
+
+  public static class ProcessAttachRunConfiguration extends RunConfigurationBase<Element> {
+    RemoteConnection connection;
+
+    protected ProcessAttachRunConfiguration(@NotNull Project project) {
 ```
 
 ## RuleId[ruleID=ReturnNull]
@@ -375,18 +375,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
 ## RuleId[ruleID=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
-#### Snippet
-```java
-  @Override
-  protected void resetEditorFrom(@NotNull AttachmeRunConfig s) {
-    portField.setText(s.getPort() + "");
-  }
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
 #### Snippet
 ```java
@@ -395,6 +383,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
     RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
     AttachmeDebugger.attach(project, config, msg.getPid());
   }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
+#### Snippet
+```java
+  @Override
+  protected void resetEditorFrom(@NotNull AttachmeRunConfig s) {
+    portField.setText(s.getPort() + "");
+  }
+
 ```
 
 ## RuleId[ruleID=UNUSED_IMPORT]
@@ -408,19 +408,6 @@ import java.net.Socket;
 import java.net.InetSocketAddress;
 
 public class AttachmeServer implements Runnable {
-```
-
-## RuleId[ruleID=DialogTitleCapitalization]
-### DialogTitleCapitalization
-String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
-#### Snippet
-```java
-  @Override
-  public String getDisplayName() {
-    return "Attachme debugger registry";
-  }
-
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -465,18 +452,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `agent/src/main/java/com/attachme/agent/Agent.java`
 #### Snippet
 ```java
-    Thread task = new Thread(new DebugPortTask(args), "AttachmeAgentTread");
-    task.setDaemon(true);
-    task.setUncaughtExceptionHandler((t, e) -> e.printStackTrace());
-    task.start();
-  }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/Agent.java`
-#### Snippet
-```java
             Thread.sleep(100);
           } catch (InterruptedException e) {
             e.printStackTrace();
@@ -506,6 +481,31 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
             e.printStackTrace();
           }
         }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/Agent.java`
+#### Snippet
+```java
+    Thread task = new Thread(new DebugPortTask(args), "AttachmeAgentTread");
+    task.setDaemon(true);
+    task.setUncaughtExceptionHandler((t, e) -> e.printStackTrace());
+    task.start();
+  }
+```
+
+## RuleId[ruleID=DialogTitleCapitalization]
+### DialogTitleCapitalization
+String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
+#### Snippet
+```java
+  @Override
+  public String getDisplayName() {
+    return "Attachme debugger registry";
+  }
+
 ```
 
 ## RuleId[ruleID=NestedAssignment]
