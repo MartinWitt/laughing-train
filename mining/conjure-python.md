@@ -107,31 +107,6 @@ in `conjure-python/src/main/java/com/palantir/conjure/python/cli/ConjurePythonCl
         }
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `BuildConfiguration` has no concrete subclass
-in `conjure-python/src/main/java/com/palantir/conjure/python/cli/BuildConfiguration.java`
-#### Snippet
-```java
-@ImmutablesStyle
-@JsonDeserialize(as = ImmutableBuildConfiguration.class)
-public abstract class BuildConfiguration {
-
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CliConfiguration` has no concrete subclass
-in `conjure-python/src/main/java/com/palantir/conjure/python/cli/CliConfiguration.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutablesStyle
-public abstract class CliConfiguration {
-    abstract File input();
-
-```
-
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends PackageNameProcessor`
@@ -145,43 +120,32 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/processors/pac
     }
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `CliConfiguration` has no concrete subclass
+in `conjure-python/src/main/java/com/palantir/conjure/python/cli/CliConfiguration.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutablesStyle
+public abstract class CliConfiguration {
+    abstract File input();
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BuildConfiguration` has no concrete subclass
+in `conjure-python/src/main/java/com/palantir/conjure/python/cli/BuildConfiguration.java`
+#### Snippet
+```java
+@ImmutablesStyle
+@JsonDeserialize(as = ImmutableBuildConfiguration.class)
+public abstract class BuildConfiguration {
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(new YAMLFactory());
+```
+
 ## RuleId[ruleID=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
-#### Snippet
-```java
-            paramsWithHeader.stream()
-                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_HEADER))
-                    .forEach(param -> {
-                        poetWriter.writeIndentedLine(
-                                "'%s': %s,",
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
-#### Snippet
-```java
-            paramsWithHeader.stream()
-                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_QUERY))
-                    .forEach(param -> {
-                        poetWriter.writeIndentedLine(
-                                "'%s': %s,",
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
-#### Snippet
-```java
-            paramsWithHeader.stream()
-                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_PATH))
-                    .forEach(param -> {
-                        poetWriter.writeIndentedLine("'%s': %s,", param.paramName(), param.pythonParamName());
-                    });
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonMetaYaml.java`
@@ -242,31 +206,43 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonSet
             });
 ```
 
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
+#### Snippet
+```java
+            paramsWithHeader.stream()
+                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_HEADER))
+                    .forEach(param -> {
+                        poetWriter.writeIndentedLine(
+                                "'%s': %s,",
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
+#### Snippet
+```java
+            paramsWithHeader.stream()
+                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_QUERY))
+                    .forEach(param -> {
+                        poetWriter.writeIndentedLine(
+                                "'%s': %s,",
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEndpointDefinition.java`
+#### Snippet
+```java
+            paramsWithHeader.stream()
+                    .filter(param -> param.paramType().accept(ParameterTypeVisitor.IS_PATH))
+                    .forEach(param -> {
+                        poetWriter.writeIndentedLine("'%s': %s,", param.paramName(), param.pythonParamName());
+                    });
+```
+
 ## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
-                .addContents(PythonMetaYaml.builder()
-                        .pythonPackage(rootPackage)
-                        .condaPackageName(config.packageName().get())
-                        .packageVersion(config.packageVersion().get())
-                        .addInstallDependencies("requests")
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
-                        .pythonPackage(rootPackage)
-                        .condaPackageName(config.packageName().get())
-                        .packageVersion(config.packageVersion().get())
-                        .addInstallDependencies("requests")
-                        .addInstallDependencies(String.format(
-```
-
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
@@ -289,6 +265,30 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
                                 "__version__ = \"%s\"", config.packageVersion().get()))
                         .build()));
         return builder.build();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                .addContents(PythonMetaYaml.builder()
+                        .pythonPackage(rootPackage)
+                        .condaPackageName(config.packageName().get())
+                        .packageVersion(config.packageVersion().get())
+                        .addInstallDependencies("requests")
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                        .pythonPackage(rootPackage)
+                        .condaPackageName(config.packageName().get())
+                        .packageVersion(config.packageVersion().get())
+                        .addInstallDependencies("requests")
+                        .addInstallDependencies(String.format(
 ```
 
 ### OptionalGetWithoutIsPresent
