@@ -57,20 +57,8 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        if (isRepoEmpty()) {
-            log.debug("Repository is empty");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
-        if (ref == null) {
+        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
+        if (objectId == null) {
             return null;
         }
 
@@ -93,8 +81,20 @@ Return of `null`
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        ObjectId objectId = git.getRepository().findRef(Constants.HEAD).getObjectId();
-        if (objectId == null) {
+        Ref ref = git.getRepository().findRef(git.getRepository().getBranch());
+        if (ref == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        if (isRepoEmpty()) {
+            log.debug("Repository is empty");
             return null;
         }
 
@@ -110,18 +110,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         return match.matches() ? match.group(1) : null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
-#### Snippet
-```java
-        } catch (IOException | RuntimeException e) {
-            log.debug("JGit describe failed", e);
-            return null;
-        }
-    }
 ```
 
 ### ReturnNull
@@ -143,6 +131,18 @@ in `src/main/java/com/palantir/gradle/gitversion/NativeGitDescribe.java`
 ```java
         } catch (IOException | InterruptedException | RuntimeException e) {
             log.debug("Native git describe failed", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/JGitDescribe.java`
+#### Snippet
+```java
+        } catch (IOException | RuntimeException e) {
+            log.debug("JGit describe failed", e);
             return null;
         }
     }
