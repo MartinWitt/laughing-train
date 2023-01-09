@@ -251,18 +251,6 @@ public class SimpleIcons {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SimpleUtil` has only 'static' members, and lacks a 'private' constructor
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleUtil.java`
-#### Snippet
-```java
-import java.util.*;
-
-public class SimpleUtil {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SimpleElementFactory` has only 'static' members, and lacks a 'private' constructor
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/SimpleElementFactory.java`
 #### Snippet
@@ -272,6 +260,18 @@ import org.intellij.sdk.language.SimpleFileType;
 public class SimpleElementFactory {
 
   public static SimpleProperty createProperty(Project project, String name) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SimpleUtil` has only 'static' members, and lacks a 'private' constructor
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleUtil.java`
+#### Snippet
+```java
+import java.util.*;
+
+public class SimpleUtil {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -505,15 +505,15 @@ in `code_samples/comparing_references_inspection/src/main/java/org/intellij/sdk/
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_LEXSTATE`
+C-style array declaration of field `ZZ_CMAP_Z`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-   * l is of the form l = 2*k, k a non negative integer
-   */
-  private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1, 1
-  };
+
+  /* The ZZ_CMAP_Z table has 272 entries */
+  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
+    "\1\0\1\100\1\200\u010d\100");
+
 ```
 
 ### CStyleArrayDeclaration
@@ -529,6 +529,18 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
 ```
 
 ### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_LEXSTATE`
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+   * l is of the form l = 2*k, k a non negative integer
+   */
+  private static final int ZZ_LEXSTATE[] = { 
+     0,  0,  1, 1
+  };
+```
+
+### CStyleArrayDeclaration
 C-style array declaration of field `ZZ_CMAP_Y`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
@@ -537,18 +549,6 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   /* The ZZ_CMAP_Y table has 192 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
     "\1\0\1\1\1\2\175\3\1\4\77\3");
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Z`
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_Z table has 272 entries */
-  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\100\1\200\u010d\100");
 
 ```
 
@@ -739,18 +739,6 @@ in `code_samples/action_basics/src/main/java/org/intellij/sdk/action/PopupDialog
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/ShowSourceRootsActions.java`
-#### Snippet
-```java
-    }
-    Messages.showInfoMessage(
-            "Source roots for the " + projectName + " plugin:\n" + sourceRootsList.toString(),
-            "Project Properties"
-    );
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/LibrariesAction.java`
 #### Snippet
 ```java
@@ -759,6 +747,18 @@ in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/Libr
         fileAndLibs = virtualFile.getName() + ": " + jars.toString();
       } else {
         fileAndLibs = "None";
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/ShowSourceRootsActions.java`
+#### Snippet
+```java
+    }
+    Messages.showInfoMessage(
+            "Source roots for the " + projectName + " plugin:\n" + sourceRootsList.toString(),
+            "Project Properties"
+    );
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -826,30 +826,6 @@ in `code_samples/inspection_basics/src/main/java/org/intellij/sdk/inspection/Dem
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
-      // like it has LF embedded in it and embedded " to escaped "
-      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
-    }
-    return retTxt;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
-      // like it has LF embedded in it and embedded " to escaped "
-      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
-    }
-    return retTxt;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleUtil.java`
 #### Snippet
@@ -863,14 +839,26 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleCreatePropertyQuickFix.java`
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
 #### Snippet
 ```java
-      }
-      // IMPORTANT: change spaces to escaped spaces or the new node will only have the first word for the key
-      SimpleProperty property = SimpleElementFactory.createProperty(project, key.replaceAll(" ", "\\\\ "), "");
-      simpleFile.getNode().addChild(property.getNode());
-      ((Navigatable) property.getLastChild().getNavigationElement()).navigate(true);
+      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
+      // like it has LF embedded in it and embedded " to escaped "
+      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
+    }
+    return retTxt;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
+#### Snippet
+```java
+      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
+      // like it has LF embedded in it and embedded " to escaped "
+      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
+    }
+    return retTxt;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -883,6 +871,18 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
       return keyNode.getText().replaceAll("\\\\ ", " ");
     } else {
       return null;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleCreatePropertyQuickFix.java`
+#### Snippet
+```java
+      }
+      // IMPORTANT: change spaces to escaped spaces or the new node will only have the first word for the key
+      SimpleProperty property = SimpleElementFactory.createProperty(project, key.replaceAll(" ", "\\\\ "), "");
+      simpleFile.getNode().addChild(property.getNode());
+      ((Navigatable) property.getLastChild().getNavigationElement()).navigate(true);
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -903,23 +903,11 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-
-  /** the input device */
-  private java.io.Reader zzReader;
-
-  /** the current state of the DFA */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  private boolean zzRefill() throws java.io.IOException {
-    return true;
-  }
+  public IElementType advance() throws java.io.IOException {
+    int zzInput;
+    int zzAction;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -941,9 +929,21 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
 ```java
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public IElementType advance() throws java.io.IOException {
-    int zzInput;
-    int zzAction;
+  private boolean zzRefill() throws java.io.IOException {
+    return true;
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+
+  /** the input device */
+  private java.io.Reader zzReader;
+
+  /** the current state of the DFA */
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1199,30 +1199,6 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-The value `zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[21];
-    int offset = 0;
-    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
-The value `zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[21];
-    int offset = 0;
-    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
 The value `zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result)` assigned to `offset` is never used
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
@@ -1242,6 +1218,30 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
     int [] result = new int[170];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[21];
+    int offset = 0;
+    offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[21];
+    int offset = 0;
+    offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
   }
 ```
