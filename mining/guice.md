@@ -1,7 +1,7 @@
 # guice 
  
 # Bad smells
-I found 534 bad smells with 63 repairable:
+I found 533 bad smells with 63 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 71 | false |
@@ -60,7 +60,6 @@ I found 534 bad smells with 63 repairable:
 | OptionalAssignedToNull | 1 | false |
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | EqualsAndHashcode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | NonStaticFinalLogger | 1 | false |
 | NonFinalFieldOfException | 1 | false |
@@ -73,42 +72,6 @@ I found 534 bad smells with 63 repairable:
 | CaughtExceptionImmediatelyRethrown | 1 | false |
 | UnnecessaryContinue | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new FilterDefinition\[filterDefinitions.size()\]'
-in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
-#### Snippet
-```java
-
-    // Copy to a fixed-size array for speed of iteration.
-    return filterDefinitions.toArray(new FilterDefinition[filterDefinitions.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ServletDefinition\[servletDefinitions.size()\]'
-in `extensions/servlet/src/com/google/inject/servlet/ManagedServletPipeline.java`
-#### Snippet
-```java
-
-    // Copy to a fixed size array for speed.
-    return servletDefinitions.toArray(new ServletDefinition[servletDefinitions.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new StackTraceElement\[pruned.size()\]'
-in `extensions/servlet/src/com/google/inject/servlet/FilterChainInvocation.java`
-#### Snippet
-```java
-        }
-      }
-      t.setStackTrace(pruned.toArray(new StackTraceElement[pruned.size()]));
-    }
-  }
-```
-
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new ProvisionListener\[listeners.size()\]'
 in `core/src/com/google/inject/spi/ProvisionListenerBinding.java`
@@ -169,65 +132,53 @@ in `core/src/com/google/inject/internal/InterceptorStackCallback.java`
   }
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new FilterDefinition\[filterDefinitions.size()\]'
+in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
+#### Snippet
+```java
+
+    // Copy to a fixed-size array for speed of iteration.
+    return filterDefinitions.toArray(new FilterDefinition[filterDefinitions.size()]);
+  }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new ServletDefinition\[servletDefinitions.size()\]'
+in `extensions/servlet/src/com/google/inject/servlet/ManagedServletPipeline.java`
+#### Snippet
+```java
+
+    // Copy to a fixed size array for speed.
+    return servletDefinitions.toArray(new ServletDefinition[servletDefinitions.size()]);
+  }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new StackTraceElement\[pruned.size()\]'
+in `extensions/servlet/src/com/google/inject/servlet/FilterChainInvocation.java`
+#### Snippet
+```java
+        }
+      }
+      t.setStackTrace(pruned.toArray(new StackTraceElement[pruned.size()]));
+    }
+  }
+```
+
 ## RuleId[ruleID=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `extensions/servlet/src/com/google/inject/servlet/RequestScoper.java`
+in `core/src/com/google/inject/Scope.java`
 #### Snippet
 ```java
-
-  /** Closeable subclass that does not throw any exceptions from close. */
-  public interface CloseableScope extends Closeable {
-    @Override
-    void close();
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
-#### Snippet
-```java
-    private final Kind patternKind;
-
-    private static enum Kind {
-      PREFIX,
-      SUFFIX,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `extensions/servlet/src/com/google/inject/servlet/ServletModule.java`
-#### Snippet
-```java
-   * @since 2.0
+   *     the requested object doesn't already exist in this scope
    */
-  public static interface ServletKeyBindingBuilder {
-    void with(Class<? extends HttpServlet> servletKey);
+  public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped);
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `extensions/servlet/src/com/google/inject/servlet/ServletModule.java`
-#### Snippet
-```java
-   * @since 2.0
-   */
-  public static interface FilterKeyBindingBuilder {
-    void through(Class<? extends Filter> filterKey);
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
-#### Snippet
-```java
-  }
-
-  private static enum ReturnType {
-    PLAIN,
-    COLLECTION,
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -264,30 +215,6 @@ in `core/src/com/google/inject/RestrictedBindingSource.java`
   public static enum RestrictionLevel {
     WARNING,
     ERROR;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/com/google/inject/Scope.java`
-#### Snippet
-```java
-   *     the requested object doesn't already exist in this scope
-   */
-  public <T> Provider<T> scope(Key<T> key, Provider<T> unscoped);
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-  }
-
-  private static enum SuperMethodLookup {
-    UNREFLECT_SPECIAL {
-      @Override
 ```
 
 ### UnnecessaryModifier
@@ -350,19 +277,79 @@ in `core/src/com/google/inject/internal/ProvisionListenerStackCallback.java`
 
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `GuiceFilter.servletContext` from instance context
-in `extensions/servlet/src/com/google/inject/servlet/GuiceServletContextListener.java`
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
 #### Snippet
 ```java
-    // Set the Servletcontext early for those people who are using this class.
-    // NOTE(user): This use of the servletContext is deprecated.
-    GuiceFilter.servletContext = new WeakReference<>(servletContext);
+  }
 
-    Injector injector = getInjector();
+  private static enum ReturnType {
+    PLAIN,
+    COLLECTION,
 ```
 
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extensions/servlet/src/com/google/inject/servlet/RequestScoper.java`
+#### Snippet
+```java
+
+  /** Closeable subclass that does not throw any exceptions from close. */
+  public interface CloseableScope extends Closeable {
+    @Override
+    void close();
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `extensions/servlet/src/com/google/inject/servlet/ServletModule.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static interface FilterKeyBindingBuilder {
+    void through(Class<? extends Filter> filterKey);
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `extensions/servlet/src/com/google/inject/servlet/ServletModule.java`
+#### Snippet
+```java
+   * @since 2.0
+   */
+  public static interface ServletKeyBindingBuilder {
+    void with(Class<? extends HttpServlet> servletKey);
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+  }
+
+  private static enum SuperMethodLookup {
+    UNREFLECT_SPECIAL {
+      @Override
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
+#### Snippet
+```java
+    private final Kind patternKind;
+
+    private static enum Kind {
+      PREFIX,
+      SUFFIX,
+```
+
+## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `GuiceFilter.servletContext` from instance context
 in `extensions/servlet/src/com/google/inject/servlet/GuiceFilter.java`
@@ -375,7 +362,67 @@ in `extensions/servlet/src/com/google/inject/servlet/GuiceFilter.java`
     // In the default pipeline, this is a noop. However, if replaced
 ```
 
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `GuiceFilter.servletContext` from instance context
+in `extensions/servlet/src/com/google/inject/servlet/GuiceServletContextListener.java`
+#### Snippet
+```java
+    // Set the Servletcontext early for those people who are using this class.
+    // NOTE(user): This use of the servletContext is deprecated.
+    GuiceFilter.servletContext = new WeakReference<>(servletContext);
+
+    Injector injector = getInjector();
+```
+
 ## RuleId[ruleID=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `core/src/com/google/inject/internal/PackageNameCompressor.java`
+#### Snippet
+```java
+  // Class names in second group will not be compressed.
+  private static final Pattern QUOTED_PATTERN =
+      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
+
+  /**
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `core/src/com/google/inject/internal/PackageNameCompressor.java`
+#### Snippet
+```java
+  // Class names in second group will not be compressed.
+  private static final Pattern QUOTED_PATTERN =
+      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
+
+  /**
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `core/src/com/google/inject/internal/PackageNameCompressor.java`
+#### Snippet
+```java
+  // Class names in second group will not be compressed.
+  private static final Pattern QUOTED_PATTERN =
+      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
+
+  /**
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `core/src/com/google/inject/internal/PackageNameCompressor.java`
+#### Snippet
+```java
+  // Class names in second group will not be compressed.
+  private static final Pattern QUOTED_PATTERN =
+      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
+
+  /**
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\\(` in RegExp
 in `extensions/grapher/src/com/google/inject/grapher/ShortNameFactory.java`
@@ -386,54 +433,6 @@ in `extensions/grapher/src/com/google/inject/grapher/ShortNameFactory.java`
     return str.replaceAll("(^|[< .\\(])([a-z0-9]+\\.)*", "$1");
   }
 }
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `core/src/com/google/inject/internal/PackageNameCompressor.java`
-#### Snippet
-```java
-  // Class names in second group will not be compressed.
-  private static final Pattern QUOTED_PATTERN =
-      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
-
-  /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `core/src/com/google/inject/internal/PackageNameCompressor.java`
-#### Snippet
-```java
-  // Class names in second group will not be compressed.
-  private static final Pattern QUOTED_PATTERN =
-      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
-
-  /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `core/src/com/google/inject/internal/PackageNameCompressor.java`
-#### Snippet
-```java
-  // Class names in second group will not be compressed.
-  private static final Pattern QUOTED_PATTERN =
-      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
-
-  /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `core/src/com/google/inject/internal/PackageNameCompressor.java`
-#### Snippet
-```java
-  // Class names in second group will not be compressed.
-  private static final Pattern QUOTED_PATTERN =
-      Pattern.compile("([^\\\"]+)((\\\")?[^\\\"\\r\\n]*\\\")?");
-
-  /**
 ```
 
 ## RuleId[ruleID=KeySetIterationMayUseEntrySet]
@@ -477,18 +476,6 @@ in `core/src/com/google/inject/internal/Messages.java`
 
 ## RuleId[ruleID=RegExpSimplifiable]
 ### RegExpSimplifiable
-`[/]` can be simplified to '/'
-in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
-#### Snippet
-```java
-              int servletPathLength = servletPath.length();
-              String requestUri = getRequestURI();
-              pathInfo = requestUri.substring(getContextPath().length()).replaceAll("[/]{2,}", "/");
-              // See: https://github.com/google/guice/issues/372
-              if (pathInfo.startsWith(servletPath)) {
-```
-
-### RegExpSimplifiable
 `[\\W]` can be simplified to '\\W'
 in `core/src/com/google/inject/internal/PackageNameCompressor.java`
 #### Snippet
@@ -500,55 +487,19 @@ in `core/src/com/google/inject/internal/PackageNameCompressor.java`
               + "[A-Z][\\w$]*)");
 ```
 
+### RegExpSimplifiable
+`[/]` can be simplified to '/'
+in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
+#### Snippet
+```java
+              int servletPathLength = servletPath.length();
+              String requestUri = getRequestURI();
+              pathInfo = requestUri.substring(getContextPath().length()).replaceAll("[/]{2,}", "/");
+              // See: https://github.com/google/guice/issues/372
+              if (pathInfo.startsWith(servletPath)) {
+```
+
 ## RuleId[ruleID=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`requestURI.trim().length() > 0` can be replaced with '!requestURI.trim().isEmpty()'
-in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
-#### Snippet
-```java
-        String suffix = requestURI.substring(contextPath.length());
-        return normalizePath(suffix);
-      } else if (requestURI.trim().length() > 0 && contextPath.length() == requestURI.length()) {
-        return "/";
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`exceptionTypes.size() == 0` can be replaced with 'exceptionTypes.isEmpty()'
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviders.java`
-#### Snippet
-```java
-        Arrays.asList((Class<? extends Throwable>[]) getMethod.getExceptionTypes());
-
-    if (exceptionTypes.size() == 0) {
-      return;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`subtitle.length() != 0` can be replaced with '!subtitle.isEmpty()'
-in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.java`
-#### Snippet
-```java
-
-    String subtitle = Joiner.on("<br align=\"left\"/>").join(node.getSubtitles());
-    if (subtitle.length() != 0) {
-      html.append("<font color=\"").append(node.getHeaderTextColor());
-      html.append("\" point-size=\"10\">");
-```
-
-### SizeReplaceableByIsEmpty
-`jpaUnit.length() > 0` can be replaced with '!jpaUnit.isEmpty()'
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaPersistModule.java`
-#### Snippet
-```java
-  public JpaPersistModule(String jpaUnit) {
-    Preconditions.checkArgument(
-        null != jpaUnit && jpaUnit.length() > 0, "JPA unit name must be a non-empty string.");
-    this.jpaUnit = jpaUnit;
-  }
-```
-
 ### SizeReplaceableByIsEmpty
 `value.length() > 0` can be replaced with '!value.isEmpty()'
 in `core/src/com/google/inject/internal/InternalFlags.java`
@@ -583,6 +534,54 @@ in `core/src/com/google/inject/internal/Messages.java`
     if (modules.length() == 0) {
       return source;
     } else {
+```
+
+### SizeReplaceableByIsEmpty
+`jpaUnit.length() > 0` can be replaced with '!jpaUnit.isEmpty()'
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaPersistModule.java`
+#### Snippet
+```java
+  public JpaPersistModule(String jpaUnit) {
+    Preconditions.checkArgument(
+        null != jpaUnit && jpaUnit.length() > 0, "JPA unit name must be a non-empty string.");
+    this.jpaUnit = jpaUnit;
+  }
+```
+
+### SizeReplaceableByIsEmpty
+`exceptionTypes.size() == 0` can be replaced with 'exceptionTypes.isEmpty()'
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviders.java`
+#### Snippet
+```java
+        Arrays.asList((Class<? extends Throwable>[]) getMethod.getExceptionTypes());
+
+    if (exceptionTypes.size() == 0) {
+      return;
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`requestURI.trim().length() > 0` can be replaced with '!requestURI.trim().isEmpty()'
+in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
+#### Snippet
+```java
+        String suffix = requestURI.substring(contextPath.length());
+        return normalizePath(suffix);
+      } else if (requestURI.trim().length() > 0 && contextPath.length() == requestURI.length()) {
+        return "/";
+      }
+```
+
+### SizeReplaceableByIsEmpty
+`subtitle.length() != 0` can be replaced with '!subtitle.isEmpty()'
+in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.java`
+#### Snippet
+```java
+
+    String subtitle = Joiner.on("<br align=\"left\"/>").join(node.getSubtitles());
+    if (subtitle.length() != 0) {
+      html.append("<font color=\"").append(node.getHeaderTextColor());
+      html.append("\" point-size=\"10\">");
 ```
 
 ## RuleId[ruleID=UnnecessaryReturn]
@@ -630,6 +629,18 @@ in `core/src/com/google/inject/internal/Messages.java`
 ```java
   }
 
+  public static final String faint(String text) {
+    return formatText(text, FormatOptions.FAINT);
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `core/src/com/google/inject/internal/Messages.java`
+#### Snippet
+```java
+  }
+
   private static final String formatText(String text, FormatOptions... options) {
     if (!InternalFlags.enableColorizeErrorMessages()) {
       return text;
@@ -644,18 +655,6 @@ in `core/src/com/google/inject/internal/Messages.java`
 
   public static final String underline(String text) {
     return formatText(text, FormatOptions.UNDERLINE);
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `core/src/com/google/inject/internal/Messages.java`
-#### Snippet
-```java
-  }
-
-  public static final String faint(String text) {
-    return formatText(text, FormatOptions.FAINT);
   }
 ```
 
@@ -687,294 +686,6 @@ in `core/src/com/google/inject/internal/InterceptorStackCallback.java`
 
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends ServletContext`
-in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
-#### Snippet
-```java
-      Injector injector,
-      ManagedServletPipeline servletPipeline,
-      Provider<ServletContext> servletContext) {
-    this.injector = injector;
-    this.servletPipeline = servletPipeline;
-```
-
-### BoundedWildcard
-Can generalize to `? super Filter`
-in `extensions/servlet/src/com/google/inject/servlet/FilterDefinition.java`
-#### Snippet
-```java
-
-  public void init(
-      final ServletContext servletContext, Injector injector, Set<Filter> initializedSoFar)
-      throws ServletException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Filter`
-in `extensions/servlet/src/com/google/inject/servlet/FilterDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void destroy(Set<Filter> destroyedSoFar) {
-    // filters are always singletons
-    Filter reference = filter.get();
-```
-
-### BoundedWildcard
-Can generalize to `? super Method`
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
-#### Snippet
-```java
-  }
-
-  private DaggerMethodScanner(Predicate<Method> predicate) {
-    this.predicate = predicate;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeLiteral`
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProvideUtils.java`
-#### Snippet
-```java
-  static void validateExceptions(
-      Binder binder,
-      Iterable<TypeLiteral<?>> actualExceptionTypes,
-      Iterable<Class<? extends Throwable>> expectedExceptionTypes,
-      Class<? extends CheckedProvider> checkedProvider) {
-```
-
-### BoundedWildcard
-Can generalize to `? super HttpServlet`
-in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
-#### Snippet
-```java
-
-  public void init(
-      final ServletContext servletContext, Injector injector, Set<HttpServlet> initializedSoFar)
-      throws ServletException {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super HttpServlet`
-in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
-#### Snippet
-```java
-  }
-
-  public void destroy(Set<HttpServlet> destroyedSoFar) {
-    HttpServlet reference = httpServlet.get();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Provider`
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviderMethod.java`
-#### Snippet
-```java
-      Object instance,
-      ImmutableSet<Dependency<?>> dependencies,
-      List<Provider<?>> parameterProviders,
-      Class<? extends Annotation> scopeAnnotation,
-      Class<? extends CheckedProvider> checkedProvider,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Binding`
-in `extensions/grapher/src/com/google/inject/grapher/DefaultEdgeCreator.java`
-#### Snippet
-```java
-
-  @Override
-  public Iterable<Edge> getEdges(Iterable<Binding<?>> bindings) {
-    List<Edge> edges = Lists.newArrayList();
-    EdgeVisitor visitor = new EdgeVisitor();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Binding`
-in `extensions/grapher/src/com/google/inject/grapher/DefaultNodeCreator.java`
-#### Snippet
-```java
-final class DefaultNodeCreator implements NodeCreator {
-  @Override
-  public Iterable<Node> getNodes(Iterable<Binding<?>> bindings) {
-    List<Node> nodes = Lists.newArrayList();
-    NodeVisitor visitor = new NodeVisitor();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Binding`
-in `extensions/grapher/src/com/google/inject/grapher/ProviderAliasCreator.java`
-#### Snippet
-```java
-final class ProviderAliasCreator implements AliasCreator {
-  @Override
-  public Iterable<Alias> createAliases(Iterable<Binding<?>> bindings) {
-    List<Alias> aliases = Lists.newArrayList();
-    for (Binding<?> binding : bindings) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Node`
-in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
-#### Snippet
-```java
-  protected abstract void postProcess() throws IOException;
-
-  private void createNodes(Iterable<Node> nodes, Map<NodeId, NodeId> aliases) throws IOException {
-    for (Node node : nodes) {
-      NodeId originalId = node.getId();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Key`
-in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
-#### Snippet
-```java
-
-  /** Returns the bindings for the root keys and their transitive dependencies. */
-  private Iterable<Binding<?>> getBindings(Injector injector, Set<Key<?>> root) {
-    Set<Key<?>> keys = Sets.newHashSet(root);
-    Set<Key<?>> visitedKeys = Sets.newHashSet();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Edge`
-in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
-#### Snippet
-```java
-  }
-
-  private void createEdges(Iterable<Edge> edges, Map<NodeId, NodeId> aliases) throws IOException {
-    for (Edge edge : edges) {
-      edge =
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeLiteral`
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-    }
-
-    private TypeLiteral<?> computeBoundType(Optional<TypeLiteral<?>> naturalType)
-        throws BoundFieldException {
-      Class<?> bindClass = bindAnnotation.to();
-```
-
-### BoundedWildcard
-Can generalize to `? extends TypeLiteral`
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-    }
-
-    private void checkBindingIsAssignable(Field field, Optional<TypeLiteral<?>> naturalType)
-        throws BoundFieldException {
-      if (naturalType.isPresent()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Message`
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-      TypeLiteral<?> containingClassType,
-      Field field,
-      ImmutableList.Builder<Message> deferredErrors) {
-    Bind bindAnnotation = field.getAnnotation(Bind.class);
-    if (bindAnnotation == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/AssistedConstructor.java`
-#### Snippet
-```java
-  }
-
-  private AssistedConstructor(Constructor<T> constructor, List<TypeLiteral<?>> parameterTypes) {
-    this.constructor = constructor;
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
-#### Snippet
-```java
-  private static final class RequestScope implements Scope {
-    @Override
-    public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
-      return new Provider<T>() {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
-#### Snippet
-```java
-  private static final class SessionScope implements Scope {
-    @Override
-    public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
-      final String name = key.toString();
-      return new Provider<T>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
-#### Snippet
-```java
-  }
-
-  private static <T> Callable<T> wrap(Callable<T> delegate, RequestScoper requestScoper) {
-    return () -> {
-      try (RequestScoper.CloseableScope scope = requestScoper.open()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EntityManager`
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
-#### Snippet
-```java
-
-  @Inject
-  public JpaFinderProxy(Provider<EntityManager> emProvider) {
-    this.emProvider = emProvider;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends UriPatternMatcher`
-in `extensions/servlet/src/com/google/inject/servlet/ServletsModuleBuilder.java`
-#### Snippet
-```java
-    private final List<UriPatternMatcher> uriPatterns;
-
-    private ServletKeyBindingBuilderImpl(List<UriPatternMatcher> uriPatterns) {
-      this.uriPatterns = uriPatterns;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Key`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-   */
-  private boolean constructorHasMatchingParams(
-      TypeLiteral<?> type, Constructor<?> constructor, List<Key<?>> paramList, Errors errors)
-      throws ErrorsException {
-    List<TypeLiteral<?>> params = type.getParameterTypes(constructor);
-```
-
-### BoundedWildcard
 Can generalize to `? extends Element`
 in `core/src/com/google/inject/spi/BindingSourceRestriction.java`
 #### Snippet
@@ -984,42 +695,6 @@ in `core/src/com/google/inject/spi/BindingSourceRestriction.java`
   private static ImmutableList<Message> check(List<Element> elements) {
     ImmutableList.Builder<Message> errorMessagesBuilder = ImmutableList.builder();
     for (Element element : elements) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `core/src/com/google/inject/spi/InjectionPoint.java`
-#### Snippet
-```java
-      AnnotatedType[] annotatedTypes,
-      Annotation[][] parameterAnnotationsPerParameter,
-      Predicate<Integer> isParameterKotlinNullable) {
-    List<Dependency<?>> dependencies = Lists.newArrayList();
-    int index = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends UriPatternMatcher`
-in `extensions/servlet/src/com/google/inject/servlet/FiltersModuleBuilder.java`
-#### Snippet
-```java
-    private final List<UriPatternMatcher> uriPatterns;
-
-    private FilterKeyBindingBuilderImpl(List<UriPatternMatcher> uriPatterns) {
-      this.uriPatterns = uriPatterns;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Element`
-in `core/src/com/google/inject/util/Modules.java`
-#### Snippet
-```java
-  }
-
-  private static Module extractScanners(Iterable<Element> elements) {
-    final List<ModuleAnnotatedMethodScannerBinding> scanners = Lists.newArrayList();
-    ElementVisitor<Void> visitor =
 ```
 
 ### BoundedWildcard
@@ -1035,6 +710,18 @@ in `core/src/com/google/inject/util/Modules.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Element`
+in `core/src/com/google/inject/util/Modules.java`
+#### Snippet
+```java
+  }
+
+  private static Module extractScanners(Iterable<Element> elements) {
+    final List<ModuleAnnotatedMethodScannerBinding> scanners = Lists.newArrayList();
+    ElementVisitor<Void> visitor =
+```
+
+### BoundedWildcard
 Can generalize to `? extends Set`
 in `core/src/com/google/inject/internal/WeakKeySet.java`
 #### Snippet
@@ -1044,18 +731,6 @@ in `core/src/com/google/inject/internal/WeakKeySet.java`
       RemovalNotification<InjectorBindingData, Set<KeyAndSource>> notification) {
     Preconditions.checkState(RemovalCause.COLLECTED.equals(notification.getCause()));
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/com/google/inject/internal/ProvisionListenerStackCallback.java`
-#### Snippet
-```java
-    ProvisionListener erredListener;
-
-    public Provision(ProvisionCallback<T> callable) {
-      this.callable = callable;
-    }
 ```
 
 ### BoundedWildcard
@@ -1092,6 +767,30 @@ in `core/src/com/google/inject/internal/ConstantFactory.java`
   public ConstantFactory(Initializable<T> initializable) {
     this.initializable = initializable;
   }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/com/google/inject/internal/ProvisionListenerStackCallback.java`
+#### Snippet
+```java
+    ProvisionListener erredListener;
+
+    public Provision(ProvisionCallback<T> callable) {
+      this.callable = callable;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `core/src/com/google/inject/spi/InjectionPoint.java`
+#### Snippet
+```java
+      AnnotatedType[] annotatedTypes,
+      Annotation[][] parameterAnnotationsPerParameter,
+      Predicate<Integer> isParameterKotlinNullable) {
+    List<Dependency<?>> dependencies = Lists.newArrayList();
+    int index = 0;
 ```
 
 ### BoundedWildcard
@@ -1132,30 +831,6 @@ in `core/src/com/google/inject/internal/CycleDetectingLock.java`
 
 ### BoundedWildcard
 Can generalize to `? extends ErrorDetail`
-in `core/src/com/google/inject/internal/MissingImplementationError.java`
-#### Snippet
-```java
-
-  @Override
-  public void formatDetail(List<ErrorDetail<?>> mergeableErrors, Formatter formatter) {
-    if (!suggestions.isEmpty()) {
-      suggestions.forEach(formatter::format);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Binding`
-in `core/src/com/google/inject/internal/DuplicateElementError.java`
-#### Snippet
-```java
-  }
-
-  static <T> ImmutableMultimap<T, Element<T>> indexElements(List<Binding<T>> bindings, T[] values) {
-    ImmutableMultimap.Builder<T, Element<T>> map = ImmutableMultimap.builder();
-    for (int i = 0; i < values.length; i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ErrorDetail`
 in `core/src/com/google/inject/internal/MissingConstructorError.java`
 #### Snippet
 ```java
@@ -1179,51 +854,27 @@ in `core/src/com/google/inject/internal/ScopeNotFoundError.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/com/google/inject/internal/BytecodeGen.java`
+Can generalize to `? extends Binding`
+in `core/src/com/google/inject/internal/DuplicateElementError.java`
 #### Snippet
 ```java
-   */
-  static BiFunction<Object, Object[], Object> enhancedConstructor(
-      Function<String, BiFunction<Object, Object[], Object>> enhancer, Constructor<?> constructor) {
-    checkArgument(canEnhance(constructor), "Constructor is not visible");
-    return enhancer.apply(signature(constructor));
+  }
+
+  static <T> ImmutableMultimap<T, Element<T>> indexElements(List<Binding<T>> bindings, T[] values) {
+    ImmutableMultimap.Builder<T, Element<T>> map = ImmutableMultimap.builder();
+    for (int i = 0; i < values.length; i++) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BiFunction`
-in `core/src/com/google/inject/internal/BytecodeGen.java`
+Can generalize to `? extends ErrorDetail`
+in `core/src/com/google/inject/internal/MissingImplementationError.java`
 #### Snippet
 ```java
-   */
-  static BiFunction<Object, Object[], Object> enhancedConstructor(
-      Function<String, BiFunction<Object, Object[], Object>> enhancer, Constructor<?> constructor) {
-    checkArgument(canEnhance(constructor), "Constructor is not visible");
-    return enhancer.apply(signature(constructor));
-```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/com/google/inject/internal/BytecodeGen.java`
-#### Snippet
-```java
-   */
-  static BiFunction<Object, Object[], Object> superMethod(
-      Function<String, BiFunction<Object, Object[], Object>> enhancer, Method method) {
-    // no need to check 'canEnhance', ProxyFactory will only pick methods from enhanceable list
-    return enhancer.apply(signature(method));
-```
-
-### BoundedWildcard
-Can generalize to `? extends BiFunction`
-in `core/src/com/google/inject/internal/BytecodeGen.java`
-#### Snippet
-```java
-   */
-  static BiFunction<Object, Object[], Object> superMethod(
-      Function<String, BiFunction<Object, Object[], Object>> enhancer, Method method) {
-    // no need to check 'canEnhance', ProxyFactory will only pick methods from enhanceable list
-    return enhancer.apply(signature(method));
+  @Override
+  public void formatDetail(List<ErrorDetail<?>> mergeableErrors, Formatter formatter) {
+    if (!suggestions.isEmpty()) {
+      suggestions.forEach(formatter::format);
 ```
 
 ### BoundedWildcard
@@ -1239,18 +890,6 @@ in `core/src/com/google/inject/internal/Messages.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/com/google/inject/internal/InternalProviderInstanceBindingImpl.java`
-#### Snippet
-```java
-        Dependency<?> dependency,
-        InternalContext context,
-        ConstructionContext<T> constructionContext)
-        throws InternalProvisionException {
-      try {
-```
-
-### BoundedWildcard
 Can generalize to `? extends ErrorDetail`
 in `core/src/com/google/inject/internal/ChildBindingAlreadySetError.java`
 #### Snippet
@@ -1263,51 +902,63 @@ in `core/src/com/google/inject/internal/ChildBindingAlreadySetError.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/com/google/inject/internal/InjectorImpl.java`
+Can generalize to `? super T`
+in `core/src/com/google/inject/internal/InternalProviderInstanceBindingImpl.java`
 #### Snippet
 ```java
-
-  <T> InternalFactory<? extends T> getInternalFactory(
-      Key<T> key, Errors errors, JitLimitation jitType) throws ErrorsException {
-    return getBindingOrThrow(key, errors, jitType).getInternalFactory();
-  }
+        Dependency<?> dependency,
+        InternalContext context,
+        ConstructionContext<T> constructionContext)
+        throws InternalProvisionException {
+      try {
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Key`
-in `core/src/com/google/inject/internal/InjectorImpl.java`
-#### Snippet
-```java
-   * failed.
-   */
-  private boolean cleanup(BindingImpl<?> binding, Set<Key<?>> encountered) {
-    boolean bindingFailed = false;
-    Set<Dependency<?>> deps = getInternalDependencies(binding);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/com/google/inject/internal/InjectorImpl.java`
-#### Snippet
-```java
-
-    SyntheticProviderBindingImpl(
-        InjectorImpl injector, Key<Provider<T>> key, Binding<T> providedBinding) {
-      super(
-          injector,
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/com/google/inject/internal/SingletonScope.java`
+Can generalize to `? super String`
+in `core/src/com/google/inject/internal/BytecodeGen.java`
 #### Snippet
 ```java
    */
-  @Override
-  public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
-    /** Locking strategy: */
-    return new Provider<T>() {
+  static BiFunction<Object, Object[], Object> enhancedConstructor(
+      Function<String, BiFunction<Object, Object[], Object>> enhancer, Constructor<?> constructor) {
+    checkArgument(canEnhance(constructor), "Constructor is not visible");
+    return enhancer.apply(signature(constructor));
+```
+
+### BoundedWildcard
+Can generalize to `? extends BiFunction`
+in `core/src/com/google/inject/internal/BytecodeGen.java`
+#### Snippet
+```java
+   */
+  static BiFunction<Object, Object[], Object> enhancedConstructor(
+      Function<String, BiFunction<Object, Object[], Object>> enhancer, Constructor<?> constructor) {
+    checkArgument(canEnhance(constructor), "Constructor is not visible");
+    return enhancer.apply(signature(constructor));
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `core/src/com/google/inject/internal/BytecodeGen.java`
+#### Snippet
+```java
+   */
+  static BiFunction<Object, Object[], Object> superMethod(
+      Function<String, BiFunction<Object, Object[], Object>> enhancer, Method method) {
+    // no need to check 'canEnhance', ProxyFactory will only pick methods from enhanceable list
+    return enhancer.apply(signature(method));
+```
+
+### BoundedWildcard
+Can generalize to `? extends BiFunction`
+in `core/src/com/google/inject/internal/BytecodeGen.java`
+#### Snippet
+```java
+   */
+  static BiFunction<Object, Object[], Object> superMethod(
+      Function<String, BiFunction<Object, Object[], Object>> enhancer, Method method) {
+    // no need to check 'canEnhance', ProxyFactory will only pick methods from enhanceable list
+    return enhancer.apply(signature(method));
 ```
 
 ### BoundedWildcard
@@ -1320,6 +971,18 @@ in `core/src/com/google/inject/internal/aop/ImmutableStringTrie.java`
     Overflow(char[] data, String overflowKey, ToIntFunction<String> next) {
       this.trie = new ImmutableStringTrie(data);
       this.overflowKey = overflowKey;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/com/google/inject/internal/SingletonScope.java`
+#### Snippet
+```java
+   */
+  @Override
+  public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
+    /** Locking strategy: */
+    return new Provider<T>() {
 ```
 
 ### BoundedWildcard
@@ -1359,6 +1022,18 @@ in `core/src/com/google/inject/internal/aop/MethodPartition.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ClassLoader`
+in `core/src/com/google/inject/internal/aop/GeneratedClassDefiner.java`
+#### Snippet
+```java
+  private final BiFunction<ClassLoader, byte[], Class<?>> defineAccess;
+
+  GeneratedClassDefiner(BiFunction<ClassLoader, byte[], Class<?>> defineAccess) {
+    this.defineAccess = defineAccess;
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Executable`
 in `core/src/com/google/inject/internal/aop/AbstractGlueGenerator.java`
 #### Snippet
@@ -1380,54 +1055,6 @@ in `core/src/com/google/inject/internal/aop/AbstractGlueGenerator.java`
       ToIntFunction<String> signatureTable, MethodHandle invokerTable) {
 
     // single-argument method; the table must be a function from integer index to invoker function
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassLoader`
-in `core/src/com/google/inject/internal/aop/GeneratedClassDefiner.java`
-#### Snippet
-```java
-  private final BiFunction<ClassLoader, byte[], Class<?>> defineAccess;
-
-  GeneratedClassDefiner(BiFunction<ClassLoader, byte[], Class<?>> defineAccess) {
-    this.defineAccess = defineAccess;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `core/src/com/google/inject/internal/RealMultibinder.java`
-#### Snippet
-```java
-    private final Key<Boolean> key;
-
-    PermitDuplicatesModule(Key<Boolean> key) {
-      this.key = key;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super BindingSelection`
-in `core/src/com/google/inject/internal/RealMultibinder.java`
-#### Snippet
-```java
-    BaseFactory(
-        BindingSelection<ValueT> bindingSelection,
-        Function<BindingSelection<ValueT>, ImmutableSet<Dependency<?>>> dependenciesFn) {
-      // While Multibinders only depend on bindings created in modules so we could theoretically
-      // initialize eagerly, they also depend on
-```
-
-### BoundedWildcard
-Can generalize to `? extends ImmutableSet`>
-in `core/src/com/google/inject/internal/RealMultibinder.java`
-#### Snippet
-```java
-    BaseFactory(
-        BindingSelection<ValueT> bindingSelection,
-        Function<BindingSelection<ValueT>, ImmutableSet<Dependency<?>>> dependenciesFn) {
-      // While Multibinders only depend on bindings created in modules so we could theoretically
-      // initialize eagerly, they also depend on
 ```
 
 ### BoundedWildcard
@@ -1467,6 +1094,210 @@ in `core/src/com/google/inject/internal/aop/ClassBuilding.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super BindingSelection`
+in `core/src/com/google/inject/internal/RealMultibinder.java`
+#### Snippet
+```java
+    BaseFactory(
+        BindingSelection<ValueT> bindingSelection,
+        Function<BindingSelection<ValueT>, ImmutableSet<Dependency<?>>> dependenciesFn) {
+      // While Multibinders only depend on bindings created in modules so we could theoretically
+      // initialize eagerly, they also depend on
+```
+
+### BoundedWildcard
+Can generalize to `? extends ImmutableSet`>
+in `core/src/com/google/inject/internal/RealMultibinder.java`
+#### Snippet
+```java
+    BaseFactory(
+        BindingSelection<ValueT> bindingSelection,
+        Function<BindingSelection<ValueT>, ImmutableSet<Dependency<?>>> dependenciesFn) {
+      // While Multibinders only depend on bindings created in modules so we could theoretically
+      // initialize eagerly, they also depend on
+```
+
+### BoundedWildcard
+Can generalize to `? super Boolean`
+in `core/src/com/google/inject/internal/RealMultibinder.java`
+#### Snippet
+```java
+    private final Key<Boolean> key;
+
+    PermitDuplicatesModule(Key<Boolean> key) {
+      this.key = key;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends EntityManager`
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
+#### Snippet
+```java
+
+  @Inject
+  public JpaFinderProxy(Provider<EntityManager> emProvider) {
+    this.emProvider = emProvider;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeLiteral`
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProvideUtils.java`
+#### Snippet
+```java
+  static void validateExceptions(
+      Binder binder,
+      Iterable<TypeLiteral<?>> actualExceptionTypes,
+      Iterable<Class<? extends Throwable>> expectedExceptionTypes,
+      Class<? extends CheckedProvider> checkedProvider) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Provider`
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviderMethod.java`
+#### Snippet
+```java
+      Object instance,
+      ImmutableSet<Dependency<?>> dependencies,
+      List<Provider<?>> parameterProviders,
+      Class<? extends Annotation> scopeAnnotation,
+      Class<? extends CheckedProvider> checkedProvider,
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/AssistedConstructor.java`
+#### Snippet
+```java
+  }
+
+  private AssistedConstructor(Constructor<T> constructor, List<TypeLiteral<?>> parameterTypes) {
+    this.constructor = constructor;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+
+  <T> InternalFactory<? extends T> getInternalFactory(
+      Key<T> key, Errors errors, JitLimitation jitType) throws ErrorsException {
+    return getBindingOrThrow(key, errors, jitType).getInternalFactory();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super Key`
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+   * failed.
+   */
+  private boolean cleanup(BindingImpl<?> binding, Set<Key<?>> encountered) {
+    boolean bindingFailed = false;
+    Set<Dependency<?>> deps = getInternalDependencies(binding);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+
+    SyntheticProviderBindingImpl(
+        InjectorImpl injector, Key<Provider<T>> key, Binding<T> providedBinding) {
+      super(
+          injector,
+```
+
+### BoundedWildcard
+Can generalize to `? super Method`
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
+#### Snippet
+```java
+  }
+
+  private DaggerMethodScanner(Predicate<Method> predicate) {
+    this.predicate = predicate;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ServletContext`
+in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
+#### Snippet
+```java
+      Injector injector,
+      ManagedServletPipeline servletPipeline,
+      Provider<ServletContext> servletContext) {
+    this.injector = injector;
+    this.servletPipeline = servletPipeline;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Key`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+   */
+  private boolean constructorHasMatchingParams(
+      TypeLiteral<?> type, Constructor<?> constructor, List<Key<?>> paramList, Errors errors)
+      throws ErrorsException {
+    List<TypeLiteral<?>> params = type.getParameterTypes(constructor);
+```
+
+### BoundedWildcard
+Can generalize to `? super Filter`
+in `extensions/servlet/src/com/google/inject/servlet/FilterDefinition.java`
+#### Snippet
+```java
+
+  public void init(
+      final ServletContext servletContext, Injector injector, Set<Filter> initializedSoFar)
+      throws ServletException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super Filter`
+in `extensions/servlet/src/com/google/inject/servlet/FilterDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void destroy(Set<Filter> destroyedSoFar) {
+    // filters are always singletons
+    Filter reference = filter.get();
+```
+
+### BoundedWildcard
+Can generalize to `? super HttpServlet`
+in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
+#### Snippet
+```java
+
+  public void init(
+      final ServletContext servletContext, Injector injector, Set<HttpServlet> initializedSoFar)
+      throws ServletException {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super HttpServlet`
+in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
+#### Snippet
+```java
+  }
+
+  public void destroy(Set<HttpServlet> destroyedSoFar) {
+    HttpServlet reference = httpServlet.get();
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `extensions/jndi/src/com/google/inject/jndi/JndiIntegration.java`
 #### Snippet
@@ -1478,17 +1309,222 @@ in `extensions/jndi/src/com/google/inject/jndi/JndiIntegration.java`
       this.name = name;
 ```
 
+### BoundedWildcard
+Can generalize to `? extends Binding`
+in `extensions/grapher/src/com/google/inject/grapher/DefaultNodeCreator.java`
+#### Snippet
+```java
+final class DefaultNodeCreator implements NodeCreator {
+  @Override
+  public Iterable<Node> getNodes(Iterable<Binding<?>> bindings) {
+    List<Node> nodes = Lists.newArrayList();
+    NodeVisitor visitor = new NodeVisitor();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Binding`
+in `extensions/grapher/src/com/google/inject/grapher/DefaultEdgeCreator.java`
+#### Snippet
+```java
+
+  @Override
+  public Iterable<Edge> getEdges(Iterable<Binding<?>> bindings) {
+    List<Edge> edges = Lists.newArrayList();
+    EdgeVisitor visitor = new EdgeVisitor();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Node`
+in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
+#### Snippet
+```java
+  protected abstract void postProcess() throws IOException;
+
+  private void createNodes(Iterable<Node> nodes, Map<NodeId, NodeId> aliases) throws IOException {
+    for (Node node : nodes) {
+      NodeId originalId = node.getId();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Edge`
+in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
+#### Snippet
+```java
+  }
+
+  private void createEdges(Iterable<Edge> edges, Map<NodeId, NodeId> aliases) throws IOException {
+    for (Edge edge : edges) {
+      edge =
+```
+
+### BoundedWildcard
+Can generalize to `? extends Key`
+in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
+#### Snippet
+```java
+
+  /** Returns the bindings for the root keys and their transitive dependencies. */
+  private Iterable<Binding<?>> getBindings(Injector injector, Set<Key<?>> root) {
+    Set<Key<?>> keys = Sets.newHashSet(root);
+    Set<Key<?>> visitedKeys = Sets.newHashSet();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Binding`
+in `extensions/grapher/src/com/google/inject/grapher/ProviderAliasCreator.java`
+#### Snippet
+```java
+final class ProviderAliasCreator implements AliasCreator {
+  @Override
+  public Iterable<Alias> createAliases(Iterable<Binding<?>> bindings) {
+    List<Alias> aliases = Lists.newArrayList();
+    for (Binding<?> binding : bindings) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+#### Snippet
+```java
+  private static final class RequestScope implements Scope {
+    @Override
+    public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
+      return new Provider<T>() {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+#### Snippet
+```java
+  private static final class SessionScope implements Scope {
+    @Override
+    public <T> Provider<T> scope(final Key<T> key, final Provider<T> creator) {
+      final String name = key.toString();
+      return new Provider<T>() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+#### Snippet
+```java
+  }
+
+  private static <T> Callable<T> wrap(Callable<T> delegate, RequestScoper requestScoper) {
+    return () -> {
+      try (RequestScoper.CloseableScope scope = requestScoper.open()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Message`
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+      TypeLiteral<?> containingClassType,
+      Field field,
+      ImmutableList.Builder<Message> deferredErrors) {
+    Bind bindAnnotation = field.getAnnotation(Bind.class);
+    if (bindAnnotation == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeLiteral`
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+    }
+
+    private TypeLiteral<?> computeBoundType(Optional<TypeLiteral<?>> naturalType)
+        throws BoundFieldException {
+      Class<?> bindClass = bindAnnotation.to();
+```
+
+### BoundedWildcard
+Can generalize to `? extends TypeLiteral`
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+    }
+
+    private void checkBindingIsAssignable(Field field, Optional<TypeLiteral<?>> naturalType)
+        throws BoundFieldException {
+      if (naturalType.isPresent()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends UriPatternMatcher`
+in `extensions/servlet/src/com/google/inject/servlet/ServletsModuleBuilder.java`
+#### Snippet
+```java
+    private final List<UriPatternMatcher> uriPatterns;
+
+    private ServletKeyBindingBuilderImpl(List<UriPatternMatcher> uriPatterns) {
+      this.uriPatterns = uriPatterns;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends UriPatternMatcher`
+in `extensions/servlet/src/com/google/inject/servlet/FiltersModuleBuilder.java`
+#### Snippet
+```java
+    private final List<UriPatternMatcher> uriPatterns;
+
+    private FilterKeyBindingBuilderImpl(List<UriPatternMatcher> uriPatterns) {
+      this.uriPatterns = uriPatterns;
+    }
+```
+
+## RuleId[ruleID=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `core/src/com/google/inject/internal/SingletonScope.java`
+#### Snippet
+```java
+       * InternalContext during instantiation.
+       */
+      final @Nullable InjectorImpl injector;
+
+      {
+```
+
+### MissortedModifiers
+Missorted modifiers `private static @com.google.inject.Inject`
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+          + "that uses the Struts2GuicePluginModule in your application's web.xml?";
+
+  private static @com.google.inject.Inject Injector injector;
+
+  private final List<ProvidedInterceptor> interceptors = new ArrayList<>();
+```
+
 ## RuleId[ruleID=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `core/src/com/google/inject/internal/MembersInjectorImpl.java`
 #### Snippet
 ```java
-  // some memory lookups by representing empty as null.
+  @Nullable private final ImmutableList<MembersInjector<? super T>> userMembersInjectors;
+  @Nullable private final ImmutableList<InjectionListener<? super T>> injectionListeners;
+  @Nullable private final ImmutableList<MethodAspect> addedAspects;
+
+  MembersInjectorImpl(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `core/src/com/google/inject/internal/MembersInjectorImpl.java`
+#### Snippet
+```java
   @Nullable private final ImmutableList<SingleMemberInjector> memberInjectors;
   @Nullable private final ImmutableList<MembersInjector<? super T>> userMembersInjectors;
   @Nullable private final ImmutableList<InjectionListener<? super T>> injectionListeners;
   @Nullable private final ImmutableList<MethodAspect> addedAspects;
+
 ```
 
 ### NullableProblems
@@ -1508,52 +1544,15 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `core/src/com/google/inject/internal/MembersInjectorImpl.java`
 #### Snippet
 ```java
+  // some memory lookups by representing empty as null.
   @Nullable private final ImmutableList<SingleMemberInjector> memberInjectors;
   @Nullable private final ImmutableList<MembersInjector<? super T>> userMembersInjectors;
   @Nullable private final ImmutableList<InjectionListener<? super T>> injectionListeners;
   @Nullable private final ImmutableList<MethodAspect> addedAspects;
-
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `core/src/com/google/inject/internal/MembersInjectorImpl.java`
-#### Snippet
-```java
-  @Nullable private final ImmutableList<MembersInjector<? super T>> userMembersInjectors;
-  @Nullable private final ImmutableList<InjectionListener<? super T>> injectionListeners;
-  @Nullable private final ImmutableList<MethodAspect> addedAspects;
-
-  MembersInjectorImpl(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `core/src/com/google/inject/internal/SingletonScope.java`
-#### Snippet
-```java
-       * InternalContext during instantiation.
-       */
-      final @Nullable InjectorImpl injector;
-
-      {
-```
-
-## RuleId[ruleID=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `private static @com.google.inject.Inject`
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
-#### Snippet
-```java
-          + "that uses the Struts2GuicePluginModule in your application's web.xml?";
-
-  private static @com.google.inject.Inject Injector injector;
-
-  private final List<ProvidedInterceptor> interceptors = new ArrayList<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
 in `core/src/com/google/inject/internal/SingletonScope.java`
 #### Snippet
 ```java
@@ -1676,7 +1675,32 @@ in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModul
           throw new BoundFieldException(
 ```
 
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`normalized = normalized + "*"` could be simplified to 'normalized += "\*"'
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
+#### Snippet
+```java
+        normalized = "*" + normalized;
+      } else if (patternKind == Kind.SUFFIX) {
+        normalized = normalized + "*";
+      }
+      if (!pattern.equals(normalized)) {
+```
+
 ## RuleId[ruleID=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `core/src/com/google/inject/internal/WeakKeySet.java`
+#### Snippet
+```java
+      Set<KeyAndSource> keyAndSources = evictionCache.getIfPresent(state);
+      if (keyAndSources == null) {
+        evictionCache.put(state, keyAndSources = Sets.newHashSet());
+      }
+      keyAndSources.add(new KeyAndSource(key, convertedSource));
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `core/src/com/google/inject/spi/InjectionPoint.java`
@@ -1703,26 +1727,15 @@ in `core/src/com/google/inject/spi/InjectionPoint.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `core/src/com/google/inject/internal/WeakKeySet.java`
+in `core/src/com/google/inject/internal/RealMultibinder.java`
 #### Snippet
 ```java
-      Set<KeyAndSource> keyAndSources = evictionCache.getIfPresent(state);
-      if (keyAndSources == null) {
-        evictionCache.put(state, keyAndSources = Sets.newHashSet());
+      if (local == null) {
+        local =
+            collectionOfJavaxProvidersKey =
+                setKey.ofType(collectionOfJavaxProvidersOf(elementType));
       }
-      keyAndSources.add(new KeyAndSource(key, convertedSource));
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/com/google/inject/internal/InjectorImpl.java`
-#### Snippet
-```java
-    InternalContext ctx = (InternalContext) reference[0];
-    if (ctx == null) {
-      reference[0] = ctx = new InternalContext(options, reference);
-    } else {
-      ctx.enter();
+      return local;
 ```
 
 ### NestedAssignment
@@ -1733,19 +1746,6 @@ in `core/src/com/google/inject/internal/RealMultibinder.java`
       Key<Set<? extends T>> local = setOfExtendsKey;
       if (local == null) {
         local = setOfExtendsKey = setKey.ofType(setOfExtendsOf(elementType));
-      }
-      return local;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/com/google/inject/internal/RealMultibinder.java`
-#### Snippet
-```java
-      if (local == null) {
-        local =
-            collectionOfJavaxProvidersKey =
-                setKey.ofType(collectionOfJavaxProvidersOf(elementType));
       }
       return local;
 ```
@@ -1776,15 +1776,14 @@ in `core/src/com/google/inject/internal/RealMultibinder.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `core/src/com/google/inject/internal/RealMapBinder.java`
+in `core/src/com/google/inject/internal/InjectorImpl.java`
 #### Snippet
 ```java
-        Type mapOfKeyAndExtendsValue = Types.mapOf(keyType.getType(), extendsValue);
-        local =
-            mapOfKeyExtendsValueKey =
-                (Key<Map<K, ? extends V>>) mapKey.ofType(mapOfKeyAndExtendsValue);
-      }
-      return local;
+    InternalContext ctx = (InternalContext) reference[0];
+    if (ctx == null) {
+      reference[0] = ctx = new InternalContext(options, reference);
+    } else {
+      ctx.enter();
 ```
 
 ### NestedAssignment
@@ -1794,33 +1793,8 @@ in `core/src/com/google/inject/internal/RealMapBinder.java`
 ```java
       if (local == null) {
         local =
-            javaxProviderSetMultimapKey =
-                mapKey.ofType(mapOfSetOfJavaxProviderOf(keyType, valueType));
-      }
-      return local;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-      Key<Map<K, Provider<V>>> local = providerMapKey;
-      if (local == null) {
-        local = providerMapKey = mapKey.ofType(mapOfProviderOf(keyType, valueType));
-      }
-      return local;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-      if (local == null) {
-        local =
-            entrySetJavaxProviderKey =
-                mapKey.ofType(setOfEntryOfJavaxProviderOf(keyType, valueType));
+            javaxProviderCollectionMultimapKey =
+                mapKey.ofType(mapOfCollectionOfJavaxProviderOf(keyType, valueType));
       }
       return local;
 ```
@@ -1842,10 +1816,22 @@ Result of assignment expression used
 in `core/src/com/google/inject/internal/RealMapBinder.java`
 #### Snippet
 ```java
-      if (local == null) {
+        Type mapOfKeyAndExtendsValue = Types.mapOf(keyType.getType(), extendsValue);
         local =
-            providerCollectionMultimapKey =
-                mapKey.ofType(mapOfCollectionOfProviderOf(keyType, valueType));
+            mapOfKeyExtendsValueKey =
+                (Key<Map<K, ? extends V>>) mapKey.ofType(mapOfKeyAndExtendsValue);
+      }
+      return local;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+      Key<Map<K, Set<V>>> local = multimapKey;
+      if (local == null) {
+        local = multimapKey = mapKey.ofType(mapOf(keyType, setOf(valueType)));
       }
       return local;
 ```
@@ -1869,8 +1855,8 @@ in `core/src/com/google/inject/internal/RealMapBinder.java`
 ```java
       if (local == null) {
         local =
-            javaxProviderCollectionMultimapKey =
-                mapKey.ofType(mapOfCollectionOfJavaxProviderOf(keyType, valueType));
+            entrySetJavaxProviderKey =
+                mapKey.ofType(setOfEntryOfJavaxProviderOf(keyType, valueType));
       }
       return local;
 ```
@@ -1880,24 +1866,37 @@ Result of assignment expression used
 in `core/src/com/google/inject/internal/RealMapBinder.java`
 #### Snippet
 ```java
-      Key<Map<K, Set<V>>> local = multimapKey;
+      Key<Map<K, Provider<V>>> local = providerMapKey;
       if (local == null) {
-        local = multimapKey = mapKey.ofType(mapOf(keyType, setOf(valueType)));
+        local = providerMapKey = mapKey.ofType(mapOfProviderOf(keyType, valueType));
       }
       return local;
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`normalized = normalized + "*"` could be simplified to 'normalized += "\*"'
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
+### NestedAssignment
+Result of assignment expression used
+in `core/src/com/google/inject/internal/RealMapBinder.java`
 #### Snippet
 ```java
-        normalized = "*" + normalized;
-      } else if (patternKind == Kind.SUFFIX) {
-        normalized = normalized + "*";
+      if (local == null) {
+        local =
+            providerCollectionMultimapKey =
+                mapKey.ofType(mapOfCollectionOfProviderOf(keyType, valueType));
       }
-      if (!pattern.equals(normalized)) {
+      return local;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+      if (local == null) {
+        local =
+            javaxProviderSetMultimapKey =
+                mapKey.ofType(mapOfSetOfJavaxProviderOf(keyType, valueType));
+      }
+      return local;
 ```
 
 ## RuleId[ruleID=ExtendsAnnotation]
@@ -1926,18 +1925,6 @@ class RealElement implements Element {
 ```
 
 ### ExtendsAnnotation
-Class 'ActualImpl' implements annotation interface `Actual`
-in `core/src/com/google/inject/internal/RealOptionalBinder.java`
-#### Snippet
-```java
-  }
-
-  static class ActualImpl extends BaseAnnotation implements Actual {
-    public ActualImpl(String value) {
-      super(Actual.class, value);
-```
-
-### ExtendsAnnotation
 Class 'DefaultImpl' implements annotation interface `Default`
 in `core/src/com/google/inject/internal/RealOptionalBinder.java`
 #### Snippet
@@ -1949,39 +1936,27 @@ in `core/src/com/google/inject/internal/RealOptionalBinder.java`
       super(Default.class, value);
 ```
 
+### ExtendsAnnotation
+Class 'ActualImpl' implements annotation interface `Actual`
+in `core/src/com/google/inject/internal/RealOptionalBinder.java`
+#### Snippet
+```java
+  }
+
+  static class ActualImpl extends BaseAnnotation implements Actual {
+    public ActualImpl(String value) {
+      super(Actual.class, value);
+```
+
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `boundClasses` is accessed in both synchronized and unsynchronized contexts
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+Field `binder` is accessed in both synchronized and unsynchronized contexts
+in `core/src/com/google/inject/PrivateModule.java`
 #### Snippet
 ```java
-  }
 
-  Set<Class<?>> boundClasses = new HashSet<>();
-
-  @Override
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `boundClasses` is accessed in both synchronized and unsynchronized contexts
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-  }
-
-  Set<Class<?>> boundClasses = new HashSet<>();
-
-  @SuppressWarnings("rawtypes") // Parent class uses raw type.
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `interceptors` is accessed in both synchronized and unsynchronized contexts
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-  volatile Injector injector;
-  boolean developmentMode = false;
-  List<ProvidedInterceptor> interceptors = new ArrayList<>();
+  /** Like abstract module, the binder of the current private module */
+  private PrivateBinder binder;
 
   @Override
 ```
@@ -1999,18 +1974,6 @@ public abstract class AbstractModule implements Module {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `binder` is accessed in both synchronized and unsynchronized contexts
-in `core/src/com/google/inject/PrivateModule.java`
-#### Snippet
-```java
-
-  /** Like abstract module, the binder of the current private module */
-  private PrivateBinder binder;
-
-  @Override
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `backingMap` is accessed in both synchronized and unsynchronized contexts
 in `core/src/com/google/inject/internal/WeakKeySet.java`
 #### Snippet
@@ -2023,18 +1986,6 @@ final class WeakKeySet {
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `lockOwnerThread` is accessed in both synchronized and unsynchronized contexts
-in `core/src/com/google/inject/internal/CycleDetectingLock.java`
-#### Snippet
-```java
-       * Thread that owns this lock. Nullable. Guarded by {@code CycleDetectingLockFactory.this}.
-       */
-      private Thread lockOwnerThread = null;
-
-      /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `lockThreadIsWaitingOn` is accessed in both synchronized and unsynchronized contexts
 in `core/src/com/google/inject/internal/CycleDetectingLock.java`
 #### Snippet
@@ -2044,6 +1995,18 @@ in `core/src/com/google/inject/internal/CycleDetectingLock.java`
     private static Map<Thread, ReentrantCycleDetectingLock<?>> lockThreadIsWaitingOn =
         Maps.newHashMap();
 
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lockOwnerThread` is accessed in both synchronized and unsynchronized contexts
+in `core/src/com/google/inject/internal/CycleDetectingLock.java`
+#### Snippet
+```java
+       * Thread that owns this lock. Nullable. Guarded by {@code CycleDetectingLockFactory.this}.
+       */
+      private Thread lockOwnerThread = null;
+
+      /**
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2082,6 +2045,42 @@ in `core/src/com/google/inject/internal/InjectorImpl.java`
   /** Cached provision listener callbacks for each key. */
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `boundClasses` is accessed in both synchronized and unsynchronized contexts
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+  }
+
+  Set<Class<?>> boundClasses = new HashSet<>();
+
+  @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `boundClasses` is accessed in both synchronized and unsynchronized contexts
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+  }
+
+  Set<Class<?>> boundClasses = new HashSet<>();
+
+  @SuppressWarnings("rawtypes") // Parent class uses raw type.
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `interceptors` is accessed in both synchronized and unsynchronized contexts
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+  volatile Injector injector;
+  boolean developmentMode = false;
+  List<ProvidedInterceptor> interceptors = new ArrayList<>();
+
+  @Override
+```
+
 ## RuleId[ruleID=EmptyMethod]
 ### EmptyMethod
 All implementations of this method are empty
@@ -2109,90 +2108,6 @@ in `core/src/com/google/inject/internal/util/LineNumbers.java`
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
-#### Snippet
-```java
-
-  //Guards a DCL, so needs to be volatile
-  private volatile boolean initialized = false;
-  private static final TypeLiteral<FilterDefinition> FILTER_DEFS =
-      TypeLiteral.get(FilterDefinition.class);
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/servlet/src/com/google/inject/servlet/FilterChainInvocation.java`
-#### Snippet
-```java
-  private int index = -1;
-  // whether or not we've caught an exception & cleaned up stack traces
-  private boolean cleanedStacks = false;
-
-  public FilterChainInvocation(
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/grapher/src/com/google/inject/grapher/Node.java`
-#### Snippet
-```java
-   * used in tests.
-   */
-  static boolean ignoreSourceInComparisons = false;
-
-  private final NodeId id;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-  Module module;
-  volatile Injector injector;
-  boolean developmentMode = false;
-  List<ProvidedInterceptor> interceptors = new ArrayList<>();
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaLocalTxnInterceptor.java`
-#### Snippet
-```java
-  @Inject private JpaPersistService emProvider = null;
-
-  @Inject private UnitOfWork unitOfWork = null;
-
-  @Transactional
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaLocalTxnInterceptor.java`
-#### Snippet
-```java
-
-  // TODO(gak): Move these args to the cxtor & make these final.
-  @Inject private JpaPersistService emProvider = null;
-
-  @Inject private UnitOfWork unitOfWork = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
-#### Snippet
-```java
-  /** A wrapper data class that caches information about a finder method. */
-  private static class FinderDescriptor {
-    private volatile boolean isKeyedQuery = false;
-    volatile boolean isBindAsRawParameters = true;
-    //should we treat the query as having ? instead of :named params
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `core/src/com/google/inject/ConfigurationException.java`
 #### Snippet
@@ -2202,66 +2117,6 @@ in `core/src/com/google/inject/ConfigurationException.java`
   private Object partialValue = null;
 
   /** Creates a ConfigurationException containing {@code messages}. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/com/google/inject/spi/Elements.java`
-#### Snippet
-```java
-
-    /** The current modules stack */
-    private ModuleSource moduleSource = null;
-    /**
-     * The current scanner.
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/com/google/inject/spi/Elements.java`
-#### Snippet
-```java
-
-    private ModuleAnnotatedMethodScanner currentScanner = null;
-    private boolean trustedSource = false;
-
-    private RecordingBinder(Stage stage) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/com/google/inject/spi/Elements.java`
-#### Snippet
-```java
-     * variable, only custom scanners are.
-     */
-    private ModuleAnnotatedMethodScanner scannerSource = null;
-
-    private ModuleAnnotatedMethodScanner currentScanner = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/com/google/inject/spi/Elements.java`
-#### Snippet
-```java
-    private ModuleAnnotatedMethodScanner scannerSource = null;
-
-    private ModuleAnnotatedMethodScanner currentScanner = null;
-    private boolean trustedSource = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/com/google/inject/internal/InjectorOptionsProcessor.java`
-#### Snippet
-```java
-  private boolean disableCircularProxies = false;
-  private boolean jitDisabled = false;
-  private boolean atInjectRequired = false;
-  private boolean exactBindingAnnotationsRequired = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -2293,11 +2148,71 @@ Field initialization to `false` is redundant
 in `core/src/com/google/inject/internal/InjectorOptionsProcessor.java`
 #### Snippet
 ```java
+  private boolean disableCircularProxies = false;
+  private boolean jitDisabled = false;
+  private boolean atInjectRequired = false;
+  private boolean exactBindingAnnotationsRequired = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/com/google/inject/internal/InjectorOptionsProcessor.java`
+#### Snippet
+```java
 
   private boolean disableCircularProxies = false;
   private boolean jitDisabled = false;
   private boolean atInjectRequired = false;
   private boolean exactBindingAnnotationsRequired = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/com/google/inject/spi/Elements.java`
+#### Snippet
+```java
+
+    private ModuleAnnotatedMethodScanner currentScanner = null;
+    private boolean trustedSource = false;
+
+    private RecordingBinder(Stage stage) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/com/google/inject/spi/Elements.java`
+#### Snippet
+```java
+
+    /** The current modules stack */
+    private ModuleSource moduleSource = null;
+    /**
+     * The current scanner.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/com/google/inject/spi/Elements.java`
+#### Snippet
+```java
+     * variable, only custom scanners are.
+     */
+    private ModuleAnnotatedMethodScanner scannerSource = null;
+
+    private ModuleAnnotatedMethodScanner currentScanner = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/com/google/inject/spi/Elements.java`
+#### Snippet
+```java
+    private ModuleAnnotatedMethodScanner scannerSource = null;
+
+    private ModuleAnnotatedMethodScanner currentScanner = null;
+    private boolean trustedSource = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -2346,6 +2261,90 @@ in `core/src/com/google/inject/internal/Initializer.java`
   private volatile boolean validationStarted = false;
 
   /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaLocalTxnInterceptor.java`
+#### Snippet
+```java
+
+  // TODO(gak): Move these args to the cxtor & make these final.
+  @Inject private JpaPersistService emProvider = null;
+
+  @Inject private UnitOfWork unitOfWork = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaLocalTxnInterceptor.java`
+#### Snippet
+```java
+  @Inject private JpaPersistService emProvider = null;
+
+  @Inject private UnitOfWork unitOfWork = null;
+
+  @Transactional
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
+#### Snippet
+```java
+  /** A wrapper data class that caches information about a finder method. */
+  private static class FinderDescriptor {
+    private volatile boolean isKeyedQuery = false;
+    volatile boolean isBindAsRawParameters = true;
+    //should we treat the query as having ? instead of :named params
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+  Module module;
+  volatile Injector injector;
+  boolean developmentMode = false;
+  List<ProvidedInterceptor> interceptors = new ArrayList<>();
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
+#### Snippet
+```java
+
+  //Guards a DCL, so needs to be volatile
+  private volatile boolean initialized = false;
+  private static final TypeLiteral<FilterDefinition> FILTER_DEFS =
+      TypeLiteral.get(FilterDefinition.class);
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/servlet/src/com/google/inject/servlet/FilterChainInvocation.java`
+#### Snippet
+```java
+  private int index = -1;
+  // whether or not we've caught an exception & cleaned up stack traces
+  private boolean cleanedStacks = false;
+
+  public FilterChainInvocation(
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `extensions/grapher/src/com/google/inject/grapher/Node.java`
+#### Snippet
+```java
+   * used in tests.
+   */
+  static boolean ignoreSourceInComparisons = false;
+
+  private final NodeId id;
 ```
 
 ## RuleId[ruleID=EqualsAndHashcode]
@@ -2398,19 +2397,6 @@ public final class GenericErrorDetail extends InternalErrorDetail<GenericErrorDe
       ErrorId errorId, String message, List<Object> sources, Throwable cause) {
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-08-09-45-29.712.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[ruleID=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
@@ -2437,32 +2423,7 @@ public final class ContinuousStopwatch {
 
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `partialValue` of exception class
-in `core/src/com/google/inject/ConfigurationException.java`
-#### Snippet
-```java
-
-  private final com.google.common.collect.ImmutableSet<Message> messages;
-  private Object partialValue = null;
-
-  /** Creates a ConfigurationException containing {@code messages}. */
-```
-
 ## RuleId[ruleID=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaPersistModule.java`
-#### Snippet
-```java
-                  @Override
-                  public Object[] getArguments() {
-                    return null == args ? new Object[0] : args;
-                  }
-
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `core/src/com/google/inject/internal/aop/EnhancerBuilderImpl.java`
@@ -2487,79 +2448,19 @@ in `core/src/com/google/inject/internal/aop/ClassBuilding.java`
 
 ```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaPersistModule.java`
+#### Snippet
+```java
+                  @Override
+                  public Object[] getArguments() {
+                    return null == args ? new Object[0] : args;
+                  }
+
+```
+
 ## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
-#### Snippet
-```java
-    interceptors.add(providedInterceptor);
-    if (strutsInjector != null) {
-      synchronized (this) {
-        if (strutsInjector != null) {
-          providedInterceptor.inject();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
-#### Snippet
-```java
-    Class<?> clazz = super.getClassInstance(name);
-
-    synchronized (this) {
-      if (strutsInjector == null) {
-        // We can only bind each class once.
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
-#### Snippet
-```java
-  public Object buildBean(Class clazz, Map<String, Object> extraContext) {
-    if (strutsInjector == null) {
-      synchronized (this) {
-        if (strutsInjector == null) {
-          createInjector();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-  public Object buildBean(Class clazz, Map<String, Object> extraContext) {
-    if (injector == null) {
-      synchronized (this) {
-        if (injector == null) {
-          createInjector();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-    Class<?> clazz = super.getClassInstance(name);
-
-    synchronized (this) {
-      if (injector == null) {
-        // We can only bind each class once.
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `extensions/assistedinject/src/com/google/inject/assistedinject/Parameter.java`
-#### Snippet
-```java
-  public Object getValue(Injector injector) {
-    if (null == provider) {
-      synchronized (this) {
-        if (null == provider) {
-          provider =
-```
-
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `core/src/com/google/inject/internal/CycleDetectingLock.java`
@@ -2596,32 +2497,92 @@ in `core/src/com/google/inject/internal/CycleDetectingLock.java`
           lockThreadIsWaitingOn.remove(currentThread);
 ```
 
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `factory` initializer `null` is redundant
-in `core/src/com/google/inject/internal/ConstructorInjectorStore.java`
-#### Snippet
-```java
-        (MembersInjectorImpl<T>)
-            injector.membersInjectorStore.get(injectionPoint.getDeclaringType(), errors);
-    ConstructionProxyFactory<T> factory = null;
-    if (InternalFlags.isBytecodeGenEnabled()) {
-      ImmutableList<InterceptorBinding> injectorBindings =
-```
-
-## RuleId[ruleID=TypeParameterExtendsObject]
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `extensions/assistedinject/src/com/google/inject/assistedinject/Parameter.java`
 #### Snippet
 ```java
-  private final boolean isProvider;
-
-  private volatile Provider<? extends Object> provider;
-
-  public Parameter(Type type, Annotation[] annotations) {
+  public Object getValue(Injector injector) {
+    if (null == provider) {
+      synchronized (this) {
+        if (null == provider) {
+          provider =
 ```
 
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+    Class<?> clazz = super.getClassInstance(name);
+
+    synchronized (this) {
+      if (strutsInjector == null) {
+        // We can only bind each class once.
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+    interceptors.add(providedInterceptor);
+    if (strutsInjector != null) {
+      synchronized (this) {
+        if (strutsInjector != null) {
+          providedInterceptor.inject();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+  public Object buildBean(Class clazz, Map<String, Object> extraContext) {
+    if (strutsInjector == null) {
+      synchronized (this) {
+        if (strutsInjector == null) {
+          createInjector();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+    Class<?> clazz = super.getClassInstance(name);
+
+    synchronized (this) {
+      if (injector == null) {
+        // We can only bind each class once.
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+  public Object buildBean(Class clazz, Map<String, Object> extraContext) {
+    if (injector == null) {
+      synchronized (this) {
+        if (injector == null) {
+          createInjector();
+```
+
+## RuleId[ruleID=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `partialValue` of exception class
+in `core/src/com/google/inject/ConfigurationException.java`
+#### Snippet
+```java
+
+  private final com.google.common.collect.ImmutableSet<Message> messages;
+  private Object partialValue = null;
+
+  /** Creates a ConfigurationException containing {@code messages}. */
+```
+
+## RuleId[ruleID=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `core/src/com/google/inject/internal/Indexer.java`
@@ -2632,30 +2593,6 @@ in `core/src/com/google/inject/internal/Indexer.java`
   public Indexer.IndexedBinding visit(UntargettedBinding<? extends Object> binding) {
     return new Indexer.IndexedBinding(binding, BindingType.UNTARGETTED, scope(binding), null);
   }
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `core/src/com/google/inject/internal/Indexer.java`
-#### Snippet
-```java
-
-  @Override
-  public Indexer.IndexedBinding visit(InstanceBinding<? extends Object> binding) {
-    return new Indexer.IndexedBinding(
-        binding, BindingType.INSTANCE, scope(binding), binding.getInstance());
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `core/src/com/google/inject/internal/Indexer.java`
-#### Snippet
-```java
-
-  @Override
-  public Indexer.IndexedBinding visit(LinkedKeyBinding<? extends Object> binding) {
-    return new Indexer.IndexedBinding(
-        binding, BindingType.LINKED_KEY, scope(binding), binding.getLinkedKey());
 ```
 
 ### TypeParameterExtendsObject
@@ -2677,9 +2614,9 @@ in `core/src/com/google/inject/internal/Indexer.java`
 ```java
 
   @Override
-  public Indexer.IndexedBinding visit(ProviderInstanceBinding<? extends Object> binding) {
+  public Indexer.IndexedBinding visit(ProviderKeyBinding<? extends Object> binding) {
     return new Indexer.IndexedBinding(
-        binding, BindingType.PROVIDER_INSTANCE, scope(binding), binding.getUserSuppliedProvider());
+        binding, BindingType.PROVIDER_KEY, scope(binding), binding.getProviderKey());
 ```
 
 ### TypeParameterExtendsObject
@@ -2689,9 +2626,9 @@ in `core/src/com/google/inject/internal/Indexer.java`
 ```java
 
   @Override
-  public Indexer.IndexedBinding visit(ProviderBinding<? extends Object> binding) {
+  public Indexer.IndexedBinding visit(ProviderInstanceBinding<? extends Object> binding) {
     return new Indexer.IndexedBinding(
-        binding,
+        binding, BindingType.PROVIDER_INSTANCE, scope(binding), binding.getUserSuppliedProvider());
 ```
 
 ### TypeParameterExtendsObject
@@ -2713,9 +2650,9 @@ in `core/src/com/google/inject/internal/Indexer.java`
 ```java
 
   @Override
-  public Indexer.IndexedBinding visit(ProviderKeyBinding<? extends Object> binding) {
+  public Indexer.IndexedBinding visit(InstanceBinding<? extends Object> binding) {
     return new Indexer.IndexedBinding(
-        binding, BindingType.PROVIDER_KEY, scope(binding), binding.getProviderKey());
+        binding, BindingType.INSTANCE, scope(binding), binding.getInstance());
 ```
 
 ### TypeParameterExtendsObject
@@ -2730,32 +2667,56 @@ in `core/src/com/google/inject/internal/Indexer.java`
   }
 ```
 
-## RuleId[ruleID=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `core/src/com/google/inject/internal/PackageNameCompressor.java`
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `core/src/com/google/inject/internal/Indexer.java`
 #### Snippet
 ```java
-    StringBuilder legendBuilder = new StringBuilder();
-    // Find the longest key for building the legend
-    int longestKey = replacementMap.keySet().stream().max(comparing(String::length)).get().length();
-    for (Map.Entry<String, String> entry : replacementMap.entrySet()) {
-      String shortName = entry.getKey();
+
+  @Override
+  public Indexer.IndexedBinding visit(LinkedKeyBinding<? extends Object> binding) {
+    return new Indexer.IndexedBinding(
+        binding, BindingType.LINKED_KEY, scope(binding), binding.getLinkedKey());
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `core/src/com/google/inject/internal/Indexer.java`
+#### Snippet
+```java
+
+  @Override
+  public Indexer.IndexedBinding visit(ProviderBinding<? extends Object> binding) {
+    return new Indexer.IndexedBinding(
+        binding,
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `extensions/assistedinject/src/com/google/inject/assistedinject/Parameter.java`
+#### Snippet
+```java
+  private final boolean isProvider;
+
+  private volatile Provider<? extends Object> provider;
+
+  public Parameter(Type type, Annotation[] annotations) {
+```
+
+## RuleId[ruleID=UnusedAssignment]
+### UnusedAssignment
+Variable `factory` initializer `null` is redundant
+in `core/src/com/google/inject/internal/ConstructorInjectorStore.java`
+#### Snippet
+```java
+        (MembersInjectorImpl<T>)
+            injector.membersInjectorStore.get(injectionPoint.getDeclaringType(), errors);
+    ConstructionProxyFactory<T> factory = null;
+    if (InternalFlags.isBytecodeGenEnabled()) {
+      ImmutableList<InterceptorBinding> injectorBindings =
 ```
 
 ## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `prev != null` is always `true`
-in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
-#### Snippet
-```java
-
-      Set<NodeId> prev = inverse.get(from);
-      if (prev != null) {
-        for (NodeId id : prev) {
-          resolved.remove(id);
-```
-
 ### ConstantValue
 Condition `member.getDeclaringClass().getDeclaredField(member.getName()) != null` is always `true`
 in `core/src/com/google/inject/spi/InjectionPoint.java`
@@ -2780,31 +2741,32 @@ in `core/src/com/google/inject/internal/InternalInjectorCreator.java`
     }
 ```
 
+### ConstantValue
+Condition `prev != null` is always `true`
+in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
+#### Snippet
+```java
+
+      Set<NodeId> prev = inverse.get(from);
+      if (prev != null) {
+        for (NodeId id : prev) {
+          resolved.remove(id);
+```
+
+## RuleId[ruleID=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `core/src/com/google/inject/internal/PackageNameCompressor.java`
+#### Snippet
+```java
+    StringBuilder legendBuilder = new StringBuilder();
+    // Find the longest key for building the legend
+    int longestKey = replacementMap.keySet().stream().max(comparing(String::length)).get().length();
+    for (Map.Entry<String, String> entry : replacementMap.entrySet()) {
+      String shortName = entry.getKey();
+```
+
 ## RuleId[ruleID=StringConcatenationInsideStringBufferAppend]
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.java`
-#### Snippet
-```java
-
-    html.append("<tr>").append("<td align=\"left\" port=\"header\" ");
-    html.append("bgcolor=\"" + node.getHeaderBackgroundColor() + "\">");
-
-    String subtitle = Joiner.on("<br align=\"left\"/>").join(node.getSubtitles());
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.java`
-#### Snippet
-```java
-    }
-
-    html.append("<font color=\"" + node.getHeaderTextColor() + "\">");
-    html.append(htmlEscape(node.getTitle())).append("<br align=\"left\"/>");
-    html.append("</font>").append("</td>").append("</tr>");
-```
-
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
 in `core/src/com/google/inject/util/Modules.java`
@@ -2827,6 +2789,30 @@ in `core/src/com/google/inject/util/Modules.java`
                 sb.append("%n     bound directly at " + Errors.convert(usedSource) + "");
               }
               binder
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.java`
+#### Snippet
+```java
+
+    html.append("<tr>").append("<td align=\"left\" port=\"header\" ");
+    html.append("bgcolor=\"" + node.getHeaderBackgroundColor() + "\">");
+
+    String subtitle = Joiner.on("<br align=\"left\"/>").join(node.getSubtitles());
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.java`
+#### Snippet
+```java
+    }
+
+    html.append("<font color=\"" + node.getHeaderTextColor() + "\">");
+    html.append(htmlEscape(node.getTitle())).append("<br align=\"left\"/>");
+    html.append("</font>").append("</td>").append("</tr>");
 ```
 
 ## RuleId[ruleID=OptionalIsPresent]
@@ -2872,10 +2858,10 @@ in `core/src/com/google/inject/internal/InjectorBindingData.java`
 #### Snippet
 ```java
 
-  public ImmutableList<ProvisionListenerBinding> getProvisionListenerBindings() {
+  public ImmutableList<InterceptorBinding> getInterceptorBindings() {
     if (parent.isPresent()) {
-      return new ImmutableList.Builder<ProvisionListenerBinding>()
-          .addAll(parent.get().getProvisionListenerBindings())
+      return new ImmutableList.Builder<InterceptorBinding>()
+          .addAll(parent.get().getInterceptorBindings())
 ```
 
 ### OptionalIsPresent
@@ -2896,73 +2882,13 @@ in `core/src/com/google/inject/internal/InjectorBindingData.java`
 #### Snippet
 ```java
 
-  public ImmutableList<InterceptorBinding> getInterceptorBindings() {
+  public ImmutableList<ProvisionListenerBinding> getProvisionListenerBindings() {
     if (parent.isPresent()) {
-      return new ImmutableList.Builder<InterceptorBinding>()
-          .addAll(parent.get().getInterceptorBindings())
+      return new ImmutableList.Builder<ProvisionListenerBinding>()
+          .addAll(parent.get().getProvisionListenerBindings())
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `Keys` has only 'static' members, and lacks a 'private' constructor
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/Keys.java`
-#### Snippet
-```java
-
-/** Utility methods for creating {@link Key}s. */
-final class Keys {
-  static Key<?> parameterKey(Parameter parameter) {
-    Optional<Annotation> qualifier = getAnnotatedAnnotation(parameter, Qualifier.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SupportedAnnotations` has only 'static' members, and lacks a 'private' constructor
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/SupportedAnnotations.java`
-#### Snippet
-```java
-
-/** Collections of annotations that are supported by {@link DaggerAdapter}. */
-final class SupportedAnnotations {
-  static final ImmutableSet<Class<? extends Annotation>> BINDING_ANNOTATIONS =
-      ImmutableSet.of(Provides.class, Binds.class, Multibinds.class, BindsOptionalOf.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Annotations` has only 'static' members, and lacks a 'private' constructor
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/Annotations.java`
-#### Snippet
-```java
-
-/** Extensions for {@link Annotation}. */
-final class Annotations {
-  static Optional<Annotation> getAnnotatedAnnotation(
-      AnnotatedElement element, Class<? extends Annotation> annotationClass) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Manager` has only 'static' members, and lacks a 'private' constructor
-in `extensions/jmx/src/com/google/inject/tools/jmx/Manager.java`
-#### Snippet
-```java
- * @author crazybob@google.com (Bob Lee)
- */
-public class Manager {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PrivateLookup` has only 'static' members, and lacks a 'private' constructor
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-  // Note: this isn't a public API, but we need to use it in order to call default methods on (or
-  // with) non-public types. If it doesn't exist, the code falls back to a less precise check.
-  static class PrivateLookup {
-    PrivateLookup() {}
-
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `Elements` has only 'static' members, and lacks a 'private' constructor
 in `core/src/com/google/inject/spi/Elements.java`
@@ -3023,6 +2949,223 @@ public final class Classes {
   public static boolean isInnerClass(Class<?> clazz) {
 ```
 
+### UtilityClassWithoutPrivateConstructor
+Class `Keys` has only 'static' members, and lacks a 'private' constructor
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/Keys.java`
+#### Snippet
+```java
+
+/** Utility methods for creating {@link Key}s. */
+final class Keys {
+  static Key<?> parameterKey(Parameter parameter) {
+    Optional<Annotation> qualifier = getAnnotatedAnnotation(parameter, Qualifier.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SupportedAnnotations` has only 'static' members, and lacks a 'private' constructor
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/SupportedAnnotations.java`
+#### Snippet
+```java
+
+/** Collections of annotations that are supported by {@link DaggerAdapter}. */
+final class SupportedAnnotations {
+  static final ImmutableSet<Class<? extends Annotation>> BINDING_ANNOTATIONS =
+      ImmutableSet.of(Provides.class, Binds.class, Multibinds.class, BindsOptionalOf.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Annotations` has only 'static' members, and lacks a 'private' constructor
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/Annotations.java`
+#### Snippet
+```java
+
+/** Extensions for {@link Annotation}. */
+final class Annotations {
+  static Optional<Annotation> getAnnotatedAnnotation(
+      AnnotatedElement element, Class<? extends Annotation> annotationClass) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PrivateLookup` has only 'static' members, and lacks a 'private' constructor
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+  // Note: this isn't a public API, but we need to use it in order to call default methods on (or
+  // with) non-public types. If it doesn't exist, the code falls back to a less precise check.
+  static class PrivateLookup {
+    PrivateLookup() {}
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Manager` has only 'static' members, and lacks a 'private' constructor
+in `extensions/jmx/src/com/google/inject/tools/jmx/Manager.java`
+#### Snippet
+```java
+ * @author crazybob@google.com (Bob Lee)
+ */
+public class Manager {
+
+  /**
+```
+
+## RuleId[ruleID=DataFlowIssue]
+### DataFlowIssue
+Dereference of `notification.getValue()` may produce `NullPointerException`
+in `core/src/com/google/inject/internal/WeakKeySet.java`
+#### Snippet
+```java
+    // that's relevant.
+    synchronized (lock) {
+      for (KeyAndSource keyAndSource : notification.getValue()) {
+        Multiset<Object> set = backingMap.get(keyAndSource.key);
+        if (set != null) {
+```
+
+### DataFlowIssue
+Argument `dataSoFar.get(otherMethod)` might be null
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+                break;
+              } else {
+                assistDataBuilder.put(defaultMethod, dataSoFar.get(otherMethod));
+                foundMatch = true;
+              }
+```
+
+### DataFlowIssue
+Method invocation `invokeWithArguments` may produce `NullPointerException`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+    // can call the default method implementation (and not our proxied version of it).
+    if (methodHandleByMethod.containsKey(method)) {
+      return methodHandleByMethod.get(method).invokeWithArguments(args);
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `extensions/testlib/src/com/google/inject/testing/throwingproviders/CheckedProviderSubject.java`
+#### Snippet
+```java
+    T got;
+    try {
+      got = provider.get();
+    } catch (Throwable e) {
+      return check("get()'s exception").that(e);
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `extensions/testlib/src/com/google/inject/testing/throwingproviders/CheckedProviderSubject.java`
+#### Snippet
+```java
+    T got;
+    try {
+      got = provider.get();
+    } catch (Exception e) {
+      failWithCauseAndMessage(e, "checked provider was not expected to throw an exception");
+```
+
+### DataFlowIssue
+Argument `injectors` might be null
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+                  injector.getParametersInjectors(dependenciesForKey, errors);
+
+          perKeyDatas[i] = new PerKeyData<>(entry.getKey(), bindingsArray, injectors);
+          i++;
+        }
+```
+
+### DataFlowIssue
+Method invocation `getSource` may produce `NullPointerException`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+          for (Key<V> key : keysOnlyFromBindings) {
+            sb.append(
+                Errors.format("  %s bound at: %s%n", key, valueKeyToBinding.get(key).getSource()));
+          }
+        }
+```
+
+### DataFlowIssue
+Method invocation `getSource` may produce `NullPointerException`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+                Errors.format(
+                    "  '%s' bound at: %s%n",
+                    valueKeyToKey.get(key), valueKeyToEntryBinding.get(key).getSource()));
+          }
+        }
+```
+
+### DataFlowIssue
+Method invocation `getUserSuppliedProvider` may produce `NullPointerException`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+      @SuppressWarnings("unchecked")
+      ExtensionRealMapProvider<K, V> mapProvider =
+          (ExtensionRealMapProvider<K, V>) providerInstanceBinding.getUserSuppliedProvider();
+
+      this.bindingSelection = mapProvider.getBindingSelection();
+```
+
+### DataFlowIssue
+Method invocation `acceptTargetVisitor` may produce `NullPointerException`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+          // Guice deduplication, so we need to re-implement our own here, ignoring
+          // uniqueId.
+          if (index.put(key, valueBinding.acceptTargetVisitor(indexer))) {
+
+            entriesBuilder.add(Maps.immutableEntry(key, valueBinding));
+```
+
+### DataFlowIssue
+Method invocation `getProvider` may produce `NullPointerException`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+    void initialize(InjectorImpl injector, Errors errors) {
+      Binding<V> valueBinding = injector.getExistingBinding(valueKey);
+      entry = Maps.immutableEntry(key, valueBinding.getProvider());
+    }
+
+```
+
+### DataFlowIssue
+Argument `bindingSelection.getMapBindings().get(key)` might be null
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+
+        if (value == null) {
+          throw createNullValueException(key, bindingSelection.getMapBindings().get(key));
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/ThrowingProviderBinder.java`
+#### Snippet
+```java
+            public T get() throws Exception {
+              try {
+                return typeProvider.get();
+              } catch (ProvisionException pe) {
+                // Rethrow the provision cause as the actual exception
+```
+
 ## RuleId[ruleID=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -3034,18 +3177,6 @@ in `core/src/com/google/inject/RestrictedBindingSource.java`
     ERROR;
   }
 
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-    abstract MethodHandle superMethodHandle(Method method, MethodHandles.Lookup lookup)
-        throws ReflectiveOperationException;
-  };
-
-  // Note: this isn't a public API, but we need to use it in order to call default methods on (or
 ```
 
 ### UnnecessarySemicolon
@@ -3086,6 +3217,18 @@ in `core/src/com/google/inject/internal/InternalProviderInstanceBindingImpl.java
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+    abstract MethodHandle superMethodHandle(Method method, MethodHandles.Lookup lookup)
+        throws ReflectiveOperationException;
+  };
+
+  // Note: this isn't a public API, but we need to use it in order to call default methods on (or
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `core/src/com/google/inject/internal/RealMapBinder.java`
 #### Snippet
 ```java
@@ -3094,163 +3237,6 @@ in `core/src/com/google/inject/internal/RealMapBinder.java`
       HAS_ERRORS;
     }
 
-```
-
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `extensions/testlib/src/com/google/inject/testing/throwingproviders/CheckedProviderSubject.java`
-#### Snippet
-```java
-    T got;
-    try {
-      got = provider.get();
-    } catch (Throwable e) {
-      return check("get()'s exception").that(e);
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `extensions/testlib/src/com/google/inject/testing/throwingproviders/CheckedProviderSubject.java`
-#### Snippet
-```java
-    T got;
-    try {
-      got = provider.get();
-    } catch (Exception e) {
-      failWithCauseAndMessage(e, "checked provider was not expected to throw an exception");
-```
-
-### DataFlowIssue
-Method invocation `invokeWithArguments` may produce `NullPointerException`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-    // can call the default method implementation (and not our proxied version of it).
-    if (methodHandleByMethod.containsKey(method)) {
-      return methodHandleByMethod.get(method).invokeWithArguments(args);
-    }
-
-```
-
-### DataFlowIssue
-Argument `dataSoFar.get(otherMethod)` might be null
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-                break;
-              } else {
-                assistDataBuilder.put(defaultMethod, dataSoFar.get(otherMethod));
-                foundMatch = true;
-              }
-```
-
-### DataFlowIssue
-Dereference of `notification.getValue()` may produce `NullPointerException`
-in `core/src/com/google/inject/internal/WeakKeySet.java`
-#### Snippet
-```java
-    // that's relevant.
-    synchronized (lock) {
-      for (KeyAndSource keyAndSource : notification.getValue()) {
-        Multiset<Object> set = backingMap.get(keyAndSource.key);
-        if (set != null) {
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/ThrowingProviderBinder.java`
-#### Snippet
-```java
-            public T get() throws Exception {
-              try {
-                return typeProvider.get();
-              } catch (ProvisionException pe) {
-                // Rethrow the provision cause as the actual exception
-```
-
-### DataFlowIssue
-Method invocation `getUserSuppliedProvider` may produce `NullPointerException`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-      @SuppressWarnings("unchecked")
-      ExtensionRealMapProvider<K, V> mapProvider =
-          (ExtensionRealMapProvider<K, V>) providerInstanceBinding.getUserSuppliedProvider();
-
-      this.bindingSelection = mapProvider.getBindingSelection();
-```
-
-### DataFlowIssue
-Method invocation `getProvider` may produce `NullPointerException`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-    void initialize(InjectorImpl injector, Errors errors) {
-      Binding<V> valueBinding = injector.getExistingBinding(valueKey);
-      entry = Maps.immutableEntry(key, valueBinding.getProvider());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `acceptTargetVisitor` may produce `NullPointerException`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-          // Guice deduplication, so we need to re-implement our own here, ignoring
-          // uniqueId.
-          if (index.put(key, valueBinding.acceptTargetVisitor(indexer))) {
-
-            entriesBuilder.add(Maps.immutableEntry(key, valueBinding));
-```
-
-### DataFlowIssue
-Method invocation `getSource` may produce `NullPointerException`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-          for (Key<V> key : keysOnlyFromBindings) {
-            sb.append(
-                Errors.format("  %s bound at: %s%n", key, valueKeyToBinding.get(key).getSource()));
-          }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getSource` may produce `NullPointerException`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-                Errors.format(
-                    "  '%s' bound at: %s%n",
-                    valueKeyToKey.get(key), valueKeyToEntryBinding.get(key).getSource()));
-          }
-        }
-```
-
-### DataFlowIssue
-Argument `bindingSelection.getMapBindings().get(key)` might be null
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-
-        if (value == null) {
-          throw createNullValueException(key, bindingSelection.getMapBindings().get(key));
-        }
-
-```
-
-### DataFlowIssue
-Argument `injectors` might be null
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-                  injector.getParametersInjectors(dependenciesForKey, errors);
-
-          perKeyDatas[i] = new PerKeyData<>(entry.getKey(), bindingsArray, injectors);
-          i++;
-        }
 ```
 
 ## RuleId[ruleID=TypeParameterHidesVisibleType]
@@ -3309,9 +3295,9 @@ in `core/src/com/google/inject/internal/EncounterImpl.java`
 ```java
 
   @Override
-  public <T> MembersInjector<T> getMembersInjector(Class<T> type) {
-    return getMembersInjector(TypeLiteral.get(type));
-  }
+  public <T> MembersInjector<T> getMembersInjector(TypeLiteral<T> typeLiteral) {
+    checkState(valid, "Encounters may not be used after hear() returns.");
+    return lookups.getMembersInjector(typeLiteral);
 ```
 
 ### TypeParameterHidesVisibleType
@@ -3321,34 +3307,22 @@ in `core/src/com/google/inject/internal/EncounterImpl.java`
 ```java
 
   @Override
-  public <T> MembersInjector<T> getMembersInjector(TypeLiteral<T> typeLiteral) {
-    checkState(valid, "Encounters may not be used after hear() returns.");
-    return lookups.getMembersInjector(typeLiteral);
+  public <T> MembersInjector<T> getMembersInjector(Class<T> type) {
+    return getMembersInjector(TypeLiteral.get(type));
+  }
 ```
 
 ## RuleId[ruleID=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'ThrowingProvider' is still used
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/ThrowingProvider.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface ThrowingProvider<T, E extends Exception> extends CheckedProvider<T> {
-  @Override
-  T get() throws E;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'continueRequest' is still used
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+Deprecated member 'getProviderInstance' is still used
+in `core/src/com/google/inject/spi/ProviderInstanceBinding.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public static <T> Callable<T> continueRequest(Callable<T> callable, Map<Key<?>, Object> seedMap) {
-    return wrap(callable, continueRequest(seedMap));
-  }
+  Provider<? extends T> getProviderInstance();
+
+  /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -3388,15 +3362,27 @@ public class MultibindingsScanner {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getProviderInstance' is still used
-in `core/src/com/google/inject/spi/ProviderInstanceBinding.java`
+Deprecated member 'ThrowingProvider' is still used
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/ThrowingProvider.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface ThrowingProvider<T, E extends Exception> extends CheckedProvider<T> {
+  @Override
+  T get() throws E;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'continueRequest' is still used
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  Provider<? extends T> getProviderInstance();
-
-  /**
+  public static <T> Callable<T> continueRequest(Callable<T> callable, Map<Key<?>, Object> seedMap) {
+    return wrap(callable, continueRequest(seedMap));
+  }
 ```
 
 ### DeprecatedIsStillUsed
@@ -3429,18 +3415,6 @@ Lambda can be replaced with method reference
 in `core/src/com/google/inject/internal/RealMultibinder.java`
 #### Snippet
 ```java
-    ExtensionRealMultibinderProvider(RealMultibinderProvider<T> delegate) {
-      // Note: method reference doesn't work for the 2nd arg for some reason when compiling on java8
-      super(delegate.bindingSelection, bs -> bs.getDependencies());
-      this.delegate = delegate;
-    }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `core/src/com/google/inject/internal/RealMultibinder.java`
-#### Snippet
-```java
     RealMultibinderProvider(BindingSelection<T> bindingSelection) {
       // Note: method reference doesn't work for the 2nd arg for some reason when compiling on java8
       super(bindingSelection, bs -> bs.getDependencies());
@@ -3460,7 +3434,31 @@ in `core/src/com/google/inject/internal/RealMultibinder.java`
 
 ```
 
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `core/src/com/google/inject/internal/RealMultibinder.java`
+#### Snippet
+```java
+    ExtensionRealMultibinderProvider(RealMultibinderProvider<T> delegate) {
+      // Note: method reference doesn't work for the 2nd arg for some reason when compiling on java8
+      super(delegate.bindingSelection, bs -> bs.getDependencies());
+      this.delegate = delegate;
+    }
+```
+
 ## RuleId[ruleID=JavaReflectionMemberAccess]
+### JavaReflectionMemberAccess
+Cannot resolve method 'defineHiddenClass'
+in `core/src/com/google/inject/internal/aop/HiddenClassDefiner.java`
+#### Snippet
+```java
+      HIDDEN_DEFINE_METHOD =
+          Lookup.class.getMethod(
+              "defineHiddenClass", byte[].class, boolean.class, HIDDEN_CLASS_OPTIONS.getClass());
+    } catch (ReflectiveOperationException e) {
+      throw new ExceptionInInitializerError(e);
+```
+
 ### JavaReflectionMemberAccess
 Cannot resolve constructor with specified argument types
 in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
@@ -3472,18 +3470,6 @@ in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvid
                   Class.class, Class.class, int.class);
         }
         cxtor.setAccessible(true);
-```
-
-### JavaReflectionMemberAccess
-Cannot resolve method 'defineHiddenClass'
-in `core/src/com/google/inject/internal/aop/HiddenClassDefiner.java`
-#### Snippet
-```java
-      HIDDEN_DEFINE_METHOD =
-          Lookup.class.getMethod(
-              "defineHiddenClass", byte[].class, boolean.class, HIDDEN_CLASS_OPTIONS.getClass());
-    } catch (ReflectiveOperationException e) {
-      throw new ExceptionInInitializerError(e);
 ```
 
 ## RuleId[ruleID=NonSerializableFieldInSerializableClass]
@@ -3505,10 +3491,10 @@ in `core/src/com/google/inject/matcher/Matchers.java`
 #### Snippet
 ```java
 
-  private static class IdenticalTo extends AbstractMatcher<Object> implements Serializable {
+  private static class Only extends AbstractMatcher<Object> implements Serializable {
     private final Object value;
 
-    public IdenticalTo(Object value) {
+    public Only(Object value) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -3517,10 +3503,10 @@ in `core/src/com/google/inject/matcher/Matchers.java`
 #### Snippet
 ```java
 
-  private static class Only extends AbstractMatcher<Object> implements Serializable {
+  private static class IdenticalTo extends AbstractMatcher<Object> implements Serializable {
     private final Object value;
 
-    public Only(Object value) {
+    public IdenticalTo(Object value) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -3536,14 +3522,14 @@ in `core/src/com/google/inject/internal/Errors.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'key' in a Serializable class
-in `core/src/com/google/inject/internal/MissingImplementationError.java`
+Non-serializable field 'type' in a Serializable class
+in `core/src/com/google/inject/internal/MissingConstructorError.java`
 #### Snippet
 ```java
-    extends InternalErrorDetail<MissingImplementationError<T>> {
-
-  private final Key<T> key;
-  private final ImmutableList<String> suggestions;
+/** Error reported when Guice can't find an useable constructor to create objects. */
+final class MissingConstructorError extends InternalErrorDetail<MissingConstructorError> {
+  private final TypeLiteral<?> type;
+  private final boolean atInjectRequired;
 
 ```
 
@@ -3560,14 +3546,14 @@ final class DuplicateElementError<T> extends InternalErrorDetail<DuplicateElemen
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'type' in a Serializable class
-in `core/src/com/google/inject/internal/MissingConstructorError.java`
+Non-serializable field 'key' in a Serializable class
+in `core/src/com/google/inject/internal/MissingImplementationError.java`
 #### Snippet
 ```java
-/** Error reported when Guice can't find an useable constructor to create objects. */
-final class MissingConstructorError extends InternalErrorDetail<MissingConstructorError> {
-  private final TypeLiteral<?> type;
-  private final boolean atInjectRequired;
+    extends InternalErrorDetail<MissingImplementationError<T>> {
+
+  private final Key<T> key;
+  private final ImmutableList<String> suggestions;
 
 ```
 
@@ -3607,20 +3593,19 @@ in `extensions/throwingproviders/src/com/google/inject/throwingproviders/Throwin
 
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `core/src/com/google/inject/internal/RealMultibinder.java`
+## RuleId[ruleID=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `index`
+in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
 #### Snippet
 ```java
-      if (local == null) {
-        local =
-            permitDuplicatesKey = Key.get(Boolean.class, named(toString() + " permits duplicates"));
-      }
-      return local;
+        //bind it as a raw param (1-based index, yes I know its different from Hibernate, blargh)
+        jpaQuery.setParameter(index, argument);
+        index++;
+      } else if (annotation instanceof FirstResult) {
+        jpaQuery.setFirstResult((Integer) argument);
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `srcPos`
 in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
@@ -3633,16 +3618,17 @@ in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
             }
 ```
 
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `index`
-in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
+## RuleId[ruleID=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `core/src/com/google/inject/internal/RealMultibinder.java`
 #### Snippet
 ```java
-        //bind it as a raw param (1-based index, yes I know its different from Hibernate, blargh)
-        jpaQuery.setParameter(index, argument);
-        index++;
-      } else if (annotation instanceof FirstResult) {
-        jpaQuery.setFirstResult((Integer) argument);
+      if (local == null) {
+        local =
+            permitDuplicatesKey = Key.get(Boolean.class, named(toString() + " permits duplicates"));
+      }
+      return local;
 ```
 
 ## RuleId[ruleID=StringEqualsEmptyString]
@@ -3659,78 +3645,6 @@ in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
 ```
 
 ## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `boundClasses` accessed in synchronized context
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
-#### Snippet
-```java
-      if (strutsInjector == null) {
-        // We can only bind each class once.
-        if (!boundClasses.contains(clazz)) {
-          try {
-            // Calling these methods now helps us detect ClassNotFoundErrors
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `boundClasses` accessed in synchronized context
-in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
-#### Snippet
-```java
-            clazz.getDeclaredMethods();
-
-            boundClasses.add(clazz);
-          } catch (Throwable t) {
-            // Struts should still work even though some classes aren't in the
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `injector` accessed in synchronized context
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-    if (injector == null) {
-      synchronized (this) {
-        if (injector == null) {
-          createInjector();
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `injector` accessed in synchronized context
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-
-    synchronized (this) {
-      if (injector == null) {
-        // We can only bind each class once.
-        if (!boundClasses.contains(clazz)) {
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `boundClasses` accessed in synchronized context
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-      if (injector == null) {
-        // We can only bind each class once.
-        if (!boundClasses.contains(clazz)) {
-          try {
-            // Calling these methods now helps us detect ClassNotFoundErrors
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `boundClasses` accessed in synchronized context
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-            clazz.getDeclaredMethods();
-
-            boundClasses.add(clazz);
-          } catch (Throwable t) {
-            // Struts should still work even though some classes aren't in the
-```
-
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.binder` accessed in synchronized context
 in `core/src/com/google/inject/AbstractModule.java`
@@ -3789,6 +3703,78 @@ in `core/src/com/google/inject/internal/SingletonScope.java`
               if (instance == null) {
                 // creating a proxy to satisfy circular dependency across several threads
                 Dependency<?> dependency =
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `boundClasses` accessed in synchronized context
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+      if (strutsInjector == null) {
+        // We can only bind each class once.
+        if (!boundClasses.contains(clazz)) {
+          try {
+            // Calling these methods now helps us detect ClassNotFoundErrors
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `boundClasses` accessed in synchronized context
+in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
+#### Snippet
+```java
+            clazz.getDeclaredMethods();
+
+            boundClasses.add(clazz);
+          } catch (Throwable t) {
+            // Struts should still work even though some classes aren't in the
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `injector` accessed in synchronized context
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+
+    synchronized (this) {
+      if (injector == null) {
+        // We can only bind each class once.
+        if (!boundClasses.contains(clazz)) {
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `boundClasses` accessed in synchronized context
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+      if (injector == null) {
+        // We can only bind each class once.
+        if (!boundClasses.contains(clazz)) {
+          try {
+            // Calling these methods now helps us detect ClassNotFoundErrors
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `boundClasses` accessed in synchronized context
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+            clazz.getDeclaredMethods();
+
+            boundClasses.add(clazz);
+          } catch (Throwable t) {
+            // Struts should still work even though some classes aren't in the
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `injector` accessed in synchronized context
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+    if (injector == null) {
+      synchronized (this) {
+        if (injector == null) {
+          createInjector();
+        }
 ```
 
 ## RuleId[ruleID=RedundantSuppression]
@@ -3991,6 +3977,78 @@ in `extensions/struts2/src/com/google/inject/struts2/Struts2Factory.java`
 
 ## RuleId[ruleID=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parent'
+in `core/src/com/google/inject/internal/InjectorJitBindingData.java`
+#### Snippet
+```java
+  private final Object lock;
+
+  InjectorJitBindingData(Optional<InjectorJitBindingData> parent) {
+    this.parent = parent;
+    this.lock = parent.isPresent() ? parent.get().lock() : this;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'parent'
+in `core/src/com/google/inject/internal/InjectorJitBindingData.java`
+#### Snippet
+```java
+
+  // The InjectorJitBindingData corresponding to the Injector's parent, if it exists.
+  private final Optional<InjectorJitBindingData> parent;
+
+  /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parent'
+in `core/src/com/google/inject/internal/InjectorBindingData.java`
+#### Snippet
+```java
+      ArrayListMultimap.create();
+
+  InjectorBindingData(Optional<InjectorBindingData> parent) {
+    this.parent = parent;
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'parent'
+in `core/src/com/google/inject/internal/InjectorBindingData.java`
+#### Snippet
+```java
+
+  // The parent injector's InjectorBindingData, if the parent injector exists.
+  private final Optional<InjectorBindingData> parent;
+
+  // Must be a linked hashmap in order to preserve order of bindings in Modules.
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'value'
+in `core/src/com/google/inject/internal/RealOptionalBinder.java`
+#### Snippet
+```java
+  private static final class RealOptionalProviderProvider<T>
+      extends RealOptionalBinderProviderWithDependencies<T, Optional<Provider<T>>> {
+    private Optional<Provider<T>> value;
+
+    RealOptionalProviderProvider(BindingSelection<T> bindingSelection) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`java.util.Optional`> used as type for field 'value'
+in `core/src/com/google/inject/internal/RealOptionalBinder.java`
+#### Snippet
+```java
+  private static final class JavaOptionalProviderProvider<T>
+      extends RealOptionalBinderProviderWithDependencies<T, java.util.Optional<Provider<T>>> {
+    private java.util.Optional<Provider<T>> value;
+
+    JavaOptionalProviderProvider(BindingSelection<T> bindingSelection) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'valueType'
 in `extensions/throwingproviders/src/com/google/inject/throwingproviders/ProviderChecker.java`
 #### Snippet
@@ -4000,6 +4058,18 @@ in `extensions/throwingproviders/src/com/google/inject/throwingproviders/Provide
       Class<P> interfaceType, Optional<? extends Type> valueType) {
     checkArgument(interfaceType.isInterface(), "%s must be an interface", interfaceType.getName());
     checkArgument(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviders.java`
+#### Snippet
+```java
+  }
+
+  private static Optional<Class<?>> getClassOptional(Optional<?> value) {
+    if (!value.isPresent()) {
+      return Optional.absent();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4024,18 +4094,6 @@ in `extensions/throwingproviders/src/com/google/inject/throwingproviders/Checked
       TypeLiteral<P> providerType, Optional<T> value, InvocationHandler handler) {
     // TODO(user): Understand why TypeLiteral#getRawType returns a Class<? super T> rather
     // than a Class<T> and remove this unsafe cast.
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviders.java`
-#### Snippet
-```java
-  }
-
-  private static Optional<Class<?>> getClassOptional(Optional<?> value) {
-    if (!value.isPresent()) {
-      return Optional.absent();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4072,78 +4130,6 @@ in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModul
     private void checkBindingIsAssignable(Field field, Optional<TypeLiteral<?>> naturalType)
         throws BoundFieldException {
       if (naturalType.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parent'
-in `core/src/com/google/inject/internal/InjectorJitBindingData.java`
-#### Snippet
-```java
-  private final Object lock;
-
-  InjectorJitBindingData(Optional<InjectorJitBindingData> parent) {
-    this.parent = parent;
-    this.lock = parent.isPresent() ? parent.get().lock() : this;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'parent'
-in `core/src/com/google/inject/internal/InjectorJitBindingData.java`
-#### Snippet
-```java
-
-  // The InjectorJitBindingData corresponding to the Injector's parent, if it exists.
-  private final Optional<InjectorJitBindingData> parent;
-
-  /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`java.util.Optional`> used as type for field 'value'
-in `core/src/com/google/inject/internal/RealOptionalBinder.java`
-#### Snippet
-```java
-  private static final class JavaOptionalProviderProvider<T>
-      extends RealOptionalBinderProviderWithDependencies<T, java.util.Optional<Provider<T>>> {
-    private java.util.Optional<Provider<T>> value;
-
-    JavaOptionalProviderProvider(BindingSelection<T> bindingSelection) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'value'
-in `core/src/com/google/inject/internal/RealOptionalBinder.java`
-#### Snippet
-```java
-  private static final class RealOptionalProviderProvider<T>
-      extends RealOptionalBinderProviderWithDependencies<T, Optional<Provider<T>>> {
-    private Optional<Provider<T>> value;
-
-    RealOptionalProviderProvider(BindingSelection<T> bindingSelection) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'parent'
-in `core/src/com/google/inject/internal/InjectorBindingData.java`
-#### Snippet
-```java
-
-  // The parent injector's InjectorBindingData, if the parent injector exists.
-  private final Optional<InjectorBindingData> parent;
-
-  // Must be a linked hashmap in order to preserve order of bindings in Modules.
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parent'
-in `core/src/com/google/inject/internal/InjectorBindingData.java`
-#### Snippet
-```java
-      ArrayListMultimap.create();
-
-  InjectorBindingData(Optional<InjectorBindingData> parent) {
-    this.parent = parent;
-  }
 ```
 
 ## RuleId[ruleID=SystemOutErr]
@@ -4259,182 +4245,38 @@ in `extensions/grapher/src/com/google/inject/grapher/graphviz/GraphvizGrapher.ja
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject` is unnecessary and can be removed
-in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
-#### Snippet
-```java
-   * into a master list.
-   *
-   * <p>We have a guarantee that {@link com.google.inject.Injector#getBindings()} returns a map that
-   * preserves insertion order in entry-set iterators.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `extensions/servlet/src/com/google/inject/servlet/ManagedServletPipeline.java`
-#### Snippet
-```java
-   * into a master list.
-   *
-   * <p>We have a guarantee that {@link com.google.inject.Injector#getBindings()} returns a map that
-   * preserves insertion order in entry-set iterators.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `extensions/servlet/src/com/google/inject/servlet/ServletModule.java`
-#### Snippet
-```java
-   * Servlets (and filters) allow you to pass in init params using the {@code <init-param>} tag in
-   * web.xml. You can similarly pass in parameters to Servlets and filters registered in
-   * Guice-servlet using a {@link java.util.Map} of parameter name/value pairs. For example, to
-   * initialize {@code MyServlet} with two parameters ({@code name="Dhanji", site="google.com"}) you
-   * could write:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary and can be removed
-in `extensions/servlet/src/com/google/inject/servlet/DefaultFilterPipeline.java`
-#### Snippet
-```java
- *
- * @author dhanji@gmail.com (Dhanji R. Prasanna)
- * @see com.google.inject.servlet.ManagedFilterPipeline See Also ManagedFilterPipeline.
- */
-class DefaultFilterPipeline implements FilterPipeline {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.struts2` is unnecessary and can be removed
-in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
-#### Snippet
-```java
-import java.util.logging.Logger;
-
-/** @deprecated Use {@link com.google.inject.struts2.Struts2Factory} instead. */
-@Deprecated
-public class GuiceObjectFactory extends ObjectFactory {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-   * instead.
-   *
-   * <p>A transparent provider is a {@link com.google.inject.Provider} or {@link
-   * javax.inject.Provider} which binds to it's parameterized type when used as the argument to
-   * {@link Binder#bind}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-   */
-  private static boolean isTransparentProvider(Class<?> clazz) {
-    return com.google.inject.Provider.class == clazz || javax.inject.Provider.class == clazz;
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+in `core/src/com/google/inject/Exposed.java`
 #### Snippet
 ```java
 
-  private static boolean hasInject(Field field) {
-    return field.isAnnotationPresent(javax.inject.Inject.class)
-        || field.isAnnotationPresent(com.google.inject.Inject.class);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary, and can be replaced with an import
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-  private static boolean hasInject(Field field) {
-    return field.isAnnotationPresent(javax.inject.Inject.class)
-        || field.isAnnotationPresent(com.google.inject.Inject.class);
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `extensions/persist/src/com/google/inject/persist/PersistFilter.java`
-#### Snippet
-```java
- * Apply this filter to enable the HTTP Request unit of work and to have guice-persist manage the
- * lifecycle of active units of work. The filter automatically starts and stops the relevant {@link
- * PersistService} upon {@link javax.servlet.Filter#init(javax.servlet.FilterConfig)} and {@link
- * javax.servlet.Filter#destroy()} respectively.
+/**
+ * Acccompanies a {@literal @}{@link com.google.inject.Provides Provides} method annotation in a
+ * private module to indicate that the provided binding is exposed.
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `extensions/persist/src/com/google/inject/persist/PersistFilter.java`
-#### Snippet
-```java
- * Apply this filter to enable the HTTP Request unit of work and to have guice-persist manage the
- * lifecycle of active units of work. The filter automatically starts and stops the relevant {@link
- * PersistService} upon {@link javax.servlet.Filter#init(javax.servlet.FilterConfig)} and {@link
- * javax.servlet.Filter#destroy()} respectively.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `extensions/persist/src/com/google/inject/persist/PersistFilter.java`
-#### Snippet
-```java
- * lifecycle of active units of work. The filter automatically starts and stops the relevant {@link
- * PersistService} upon {@link javax.servlet.Filter#init(javax.servlet.FilterConfig)} and {@link
- * javax.servlet.Filter#destroy()} respectively.
- *
- * <p>To be able to use the open session-in-view pattern (i.e. work per request), register this
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
-in `extensions/spring/src/com/google/inject/spring/SpringIntegration.java`
+Qualifier `com.google.inject.binder` is unnecessary and can be removed
+in `core/src/com/google/inject/PrivateBinder.java`
 #### Snippet
 ```java
   /**
-   * Creates a provider which looks up objects from Spring using the given name. Expects a binding
-   * to {@link org.springframework.beans.factory.BeanFactory}. Example usage:
-   *
-   * <pre>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.name` is unnecessary and can be removed
-in `extensions/spring/src/com/google/inject/spring/SpringIntegration.java`
-#### Snippet
-```java
-   *
-   * @see com.google.inject.name.Named
-   * @see com.google.inject.name.Names#named(String)
+   * Makes a binding for {@code type} available to the enclosing environment. Use {@link
+   * com.google.inject.binder.AnnotatedElementBuilder#annotatedWith(Class) annotatedWith()} to
+   * expose {@code type} with a binding annotation.
    */
-  public static void bindAll(Binder binder, ListableBeanFactory beanFactory) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary, and can be replaced with an import
-in `core/src/com/google/inject/ConfigurationException.java`
+Qualifier `com.google.inject` is unnecessary and can be removed
+in `core/src/com/google/inject/PrivateBinder.java`
 #### Snippet
 ```java
-public final class ConfigurationException extends RuntimeException {
-
-  private final com.google.common.collect.ImmutableSet<Message> messages;
-  private Object partialValue = null;
-
+/**
+ * Returns a binder whose configuration information is hidden from its environment by default. See
+ * {@link com.google.inject.PrivateModule PrivateModule} for details.
+ *
+ * @author jessewilson@google.com (Jesse Wilson)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4450,38 +4292,26 @@ in `core/src/com/google/inject/ConfigurationException.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.matcher` is unnecessary and can be removed
-in `core/src/com/google/inject/AbstractModule.java`
+Qualifier `com.google.common.collect` is unnecessary, and can be replaced with an import
+in `core/src/com/google/inject/ConfigurationException.java`
 #### Snippet
 ```java
+public final class ConfigurationException extends RuntimeException {
 
-  /**
-   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
-   * @since 2.0
-   */
+  private final com.google.common.collect.ImmutableSet<Message> messages;
+  private Object partialValue = null;
+
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject.spi` is unnecessary and can be removed
-in `core/src/com/google/inject/AbstractModule.java`
+in `core/src/com/google/inject/spi/ProvidesMethodTargetVisitor.java`
 #### Snippet
 ```java
-
-  /**
-   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
-   * @since 2.0
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `core/src/com/google/inject/Exposed.java`
-#### Snippet
-```java
-
-/**
- * Acccompanies a {@literal @}{@link com.google.inject.Provides Provides} method annotation in a
- * private module to indicate that the provided binding is exposed.
+ * A visitor for the {@literal @}{@link Provides} bindings.
+ *
+ * <p>If your {@link com.google.inject.spi.BindingTargetVisitor} implements this interface, bindings
+ * created by using {@code @Provides} will be visited through this interface.
  *
 ```
 
@@ -4510,39 +4340,39 @@ in `core/src/com/google/inject/Scopes.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.binder` is unnecessary and can be removed
-in `core/src/com/google/inject/PrivateBinder.java`
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `core/src/com/google/inject/spi/ProviderKeyBinding.java`
 #### Snippet
 ```java
-  /**
-   * Makes a binding for {@code type} available to the enclosing environment. Use {@link
-   * com.google.inject.binder.AnnotatedElementBuilder#annotatedWith(Class) annotatedWith()} to
-   * expose {@code type} with a binding annotation.
+   * Injector.getBinding(providerKey)}
    */
+  Key<? extends javax.inject.Provider<? extends T>> getProviderKey();
+}
+
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `core/src/com/google/inject/PrivateBinder.java`
+Qualifier `com.google.inject.matcher` is unnecessary and can be removed
+in `core/src/com/google/inject/PrivateModule.java`
 #### Snippet
 ```java
-/**
- * Returns a binder whose configuration information is hidden from its environment by default. See
- * {@link com.google.inject.PrivateModule PrivateModule} for details.
- *
- * @author jessewilson@google.com (Jesse Wilson)
+
+  /**
+   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
+   */
+  protected void bindListener(Matcher<? super TypeLiteral<?>> typeMatcher, TypeListener listener) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject.spi` is unnecessary and can be removed
-in `core/src/com/google/inject/spi/ProvidesMethodTargetVisitor.java`
+in `core/src/com/google/inject/PrivateModule.java`
 #### Snippet
 ```java
- * A visitor for the {@literal @}{@link Provides} bindings.
- *
- * <p>If your {@link com.google.inject.spi.BindingTargetVisitor} implements this interface, bindings
- * created by using {@code @Provides} will be visited through this interface.
- *
+
+  /**
+   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
+   */
+  protected void bindListener(Matcher<? super TypeLiteral<?>> typeMatcher, TypeListener listener) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4606,30 +4436,6 @@ in `core/src/com/google/inject/PrivateModule.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.matcher` is unnecessary and can be removed
-in `core/src/com/google/inject/PrivateModule.java`
-#### Snippet
-```java
-
-  /**
-   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
-   */
-  protected void bindListener(Matcher<? super TypeLiteral<?>> typeMatcher, TypeListener listener) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.spi` is unnecessary and can be removed
-in `core/src/com/google/inject/PrivateModule.java`
-#### Snippet
-```java
-
-  /**
-   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
-   */
-  protected void bindListener(Matcher<? super TypeLiteral<?>> typeMatcher, TypeListener listener) {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject` is unnecessary and can be removed
 in `core/src/com/google/inject/PrivateModule.java`
 #### Snippet
@@ -4639,18 +4445,6 @@ in `core/src/com/google/inject/PrivateModule.java`
  * com.google.inject.Provides Provides} bindings can be exposed with the {@literal @}{@link Exposed}
  * annotation:
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.servlet` is unnecessary and can be removed
-in `extensions/servlet/src/com/google/inject/servlet/ServletsModuleBuilder.java`
-#### Snippet
-```java
-/**
- * Builds the guice module that binds configured servlets, with their wrapper ServletDefinitions. Is
- * part of the binding EDSL. Very similar to {@link com.google.inject.servlet.FiltersModuleBuilder}.
- *
- * @author Dhanji R. Prasanna (dhanji@gmail.com)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4666,27 +4460,27 @@ in `core/src/com/google/inject/spi/MembersInjectorLookup.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `core/src/com/google/inject/spi/Message.java`
+Qualifier `com.google.inject.matcher` is unnecessary and can be removed
+in `core/src/com/google/inject/AbstractModule.java`
 #### Snippet
 ```java
- * An error message and the context in which it occured. Messages are usually created internally by
- * Guice and its extensions. Messages can be created explicitly in a module using {@link
- * com.google.inject.Binder#addError(Throwable) addError()} statements:
- *
- * <pre>
+
+  /**
+   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
+   * @since 2.0
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `core/src/com/google/inject/spi/ProviderKeyBinding.java`
+Qualifier `com.google.inject.spi` is unnecessary and can be removed
+in `core/src/com/google/inject/AbstractModule.java`
 #### Snippet
 ```java
-   * Injector.getBinding(providerKey)}
-   */
-  Key<? extends javax.inject.Provider<? extends T>> getProviderKey();
-}
 
+  /**
+   * @see Binder#bindListener(com.google.inject.matcher.Matcher, com.google.inject.spi.TypeListener)
+   * @since 2.0
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4715,6 +4509,18 @@ in `core/src/com/google/inject/spi/StaticInjectionRequest.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject` is unnecessary and can be removed
+in `core/src/com/google/inject/spi/ScopeBinding.java`
+#### Snippet
+```java
+/**
+ * Registration of a scope annotation with the scope that implements it. Instances are created
+ * explicitly in a module using {@link com.google.inject.Binder#bindScope(Class, Scope) bindScope()}
+ * statements:
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary and can be removed
 in `core/src/com/google/inject/spi/InjectionRequest.java`
 #### Snippet
 ```java
@@ -4727,13 +4533,25 @@ in `core/src/com/google/inject/spi/InjectionRequest.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.inject` is unnecessary and can be removed
-in `core/src/com/google/inject/spi/ScopeBinding.java`
+in `core/src/com/google/inject/spi/Message.java`
+#### Snippet
+```java
+ * An error message and the context in which it occured. Messages are usually created internally by
+ * Guice and its extensions. Messages can be created explicitly in a module using {@link
+ * com.google.inject.Binder#addError(Throwable) addError()} statements:
+ *
+ * <pre>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary and can be removed
+in `core/src/com/google/inject/spi/TypeConverterBinding.java`
 #### Snippet
 ```java
 /**
- * Registration of a scope annotation with the scope that implements it. Instances are created
- * explicitly in a module using {@link com.google.inject.Binder#bindScope(Class, Scope) bindScope()}
- * statements:
+ * Registration of type converters for matching target types. Instances are created explicitly in a
+ * module using {@link com.google.inject.Binder#convertToTypes(Matcher, TypeConverter)
+ * convertToTypes()} statements:
  *
 ```
 
@@ -4759,18 +4577,6 @@ in `core/src/com/google/inject/spi/InterceptorBinding.java`
  * org.aopalliance.intercept.MethodInterceptor[]) TypeEncounter.bindInterceptor()}.
  *
  * @author jessewilson@google.com (Jesse Wilson)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject` is unnecessary and can be removed
-in `core/src/com/google/inject/spi/TypeConverterBinding.java`
-#### Snippet
-```java
-/**
- * Registration of type converters for matching target types. Instances are created explicitly in a
- * module using {@link com.google.inject.Binder#convertToTypes(Matcher, TypeConverter)
- * convertToTypes()} statements:
- *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4847,18 +4653,6 @@ in `core/src/com/google/inject/internal/CycleDetectingLock.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `core/src/com/google/inject/internal/Annotations.java`
-#### Snippet
-```java
-
-  private static final AnnotationChecker scopeChecker =
-      new AnnotationChecker(Arrays.asList(ScopeAnnotation.class, javax.inject.Scope.class));
-
-  public static boolean isScopeAnnotation(Class<? extends Annotation> annotationType) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
 in `core/src/com/google/inject/internal/InternalProvisionException.java`
 #### Snippet
 ```java
@@ -4867,6 +4661,18 @@ in `core/src/com/google/inject/internal/InternalProvisionException.java`
       Class<? extends javax.inject.Provider<?>> providerType, Class<?> type) {
     return create(
         ErrorId.SUBTYPE_NOT_PROVIDED, "%s doesn't provide instances of %s.", providerType, type);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `core/src/com/google/inject/internal/InternalFactoryToInitializableAdapter.java`
+#### Snippet
+```java
+  @Override
+  protected T provision(
+      javax.inject.Provider<? extends T> provider,
+      Dependency<?> dependency,
+      ConstructionContext<T> constructionContext)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4895,14 +4701,14 @@ in `core/src/com/google/inject/internal/InternalFactoryToInitializableAdapter.ja
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `core/src/com/google/inject/internal/InternalFactoryToInitializableAdapter.java`
+in `core/src/com/google/inject/internal/Annotations.java`
 #### Snippet
 ```java
-  @Override
-  protected T provision(
-      javax.inject.Provider<? extends T> provider,
-      Dependency<?> dependency,
-      ConstructionContext<T> constructionContext)
+
+  private static final AnnotationChecker scopeChecker =
+      new AnnotationChecker(Arrays.asList(ScopeAnnotation.class, javax.inject.Scope.class));
+
+  public static boolean isScopeAnnotation(Class<? extends Annotation> annotationType) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4934,18 +4740,6 @@ Qualifier `javax.inject` is unnecessary and can be removed
 in `core/src/com/google/inject/internal/BoundProviderFactory.java`
 #### Snippet
 ```java
-      throws InternalProvisionException {
-    try {
-      javax.inject.Provider<? extends T> provider = providerFactory.get(context, dependency, true);
-      return circularGet(provider, context, dependency, provisionCallback);
-    } catch (InternalProvisionException ipe) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary and can be removed
-in `core/src/com/google/inject/internal/BoundProviderFactory.java`
-#### Snippet
-```java
   private final ProvisionListenerStackCallback<T> provisionCallback;
   private final InjectorImpl injector;
   final Key<? extends javax.inject.Provider<? extends T>> providerKey;
@@ -4958,11 +4752,11 @@ Qualifier `javax.inject` is unnecessary and can be removed
 in `core/src/com/google/inject/internal/BoundProviderFactory.java`
 #### Snippet
 ```java
-  private final InjectorImpl injector;
-  final Key<? extends javax.inject.Provider<? extends T>> providerKey;
-  private InternalFactory<? extends javax.inject.Provider<? extends T>> providerFactory;
-
-  BoundProviderFactory(
+      throws InternalProvisionException {
+    try {
+      javax.inject.Provider<? extends T> provider = providerFactory.get(context, dependency, true);
+      return circularGet(provider, context, dependency, provisionCallback);
+    } catch (InternalProvisionException ipe) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4978,27 +4772,15 @@ in `core/src/com/google/inject/internal/BoundProviderFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.internal` is unnecessary and can be removed
-in `core/src/com/google/inject/internal/InjectorImpl.java`
+Qualifier `javax.inject` is unnecessary and can be removed
+in `core/src/com/google/inject/internal/BoundProviderFactory.java`
 #### Snippet
 ```java
-   *
-   * @return the binding if it could be resolved, or null if the binding doesn't exist
-   * @throws com.google.inject.internal.ErrorsException if there was an error resolving the binding
-   */
-  private <T> BindingImpl<T> convertConstantStringBinding(Key<T> key, Errors errors)
-```
+  private final InjectorImpl injector;
+  final Key<? extends javax.inject.Provider<? extends T>> providerKey;
+  private InternalFactory<? extends javax.inject.Provider<? extends T>> providerFactory;
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.inject.internal` is unnecessary and can be removed
-in `core/src/com/google/inject/internal/InjectorImpl.java`
-#### Snippet
-```java
-   * </ol>
-   *
-   * @throws com.google.inject.internal.ErrorsException if the binding cannot be created.
-   */
-  private <T> BindingImpl<T> createJustInTimeBinding(
+  BoundProviderFactory(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5008,33 +4790,9 @@ in `core/src/com/google/inject/internal/LinkedProviderBindingImpl.java`
 ```java
       InternalFactory<? extends T> internalFactory,
       Scoping scoping,
-      Key<? extends javax.inject.Provider<? extends T>> providerKey) {
-    this(injector, key, source, internalFactory, scoping, providerKey, null);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `core/src/com/google/inject/internal/LinkedProviderBindingImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Key<? extends javax.inject.Provider<? extends T>> getProviderKey() {
-    return providerKey;
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.inject` is unnecessary, and can be replaced with an import
-in `core/src/com/google/inject/internal/LinkedProviderBindingImpl.java`
-#### Snippet
-```java
-    implements ProviderKeyBinding<T>, HasDependencies, DelayedInitialize {
-
-  final Key<? extends javax.inject.Provider<? extends T>> providerKey;
-  final DelayedInitialize delayedInitializer;
-
+      Key<? extends javax.inject.Provider<? extends T>> providerKey,
+      DelayedInitialize delayedInitializer) {
+    super(injector, key, source, internalFactory, scoping);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5068,9 +4826,33 @@ in `core/src/com/google/inject/internal/LinkedProviderBindingImpl.java`
 ```java
       InternalFactory<? extends T> internalFactory,
       Scoping scoping,
-      Key<? extends javax.inject.Provider<? extends T>> providerKey,
-      DelayedInitialize delayedInitializer) {
-    super(injector, key, source, internalFactory, scoping);
+      Key<? extends javax.inject.Provider<? extends T>> providerKey) {
+    this(injector, key, source, internalFactory, scoping, providerKey, null);
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `core/src/com/google/inject/internal/LinkedProviderBindingImpl.java`
+#### Snippet
+```java
+    implements ProviderKeyBinding<T>, HasDependencies, DelayedInitialize {
+
+  final Key<? extends javax.inject.Provider<? extends T>> providerKey;
+  final DelayedInitialize delayedInitializer;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `core/src/com/google/inject/internal/LinkedProviderBindingImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public Key<? extends javax.inject.Provider<? extends T>> getProviderKey() {
+    return providerKey;
+  }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5098,6 +4880,126 @@ in `core/src/com/google/inject/internal/util/LineNumbers.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `extensions/persist/src/com/google/inject/persist/PersistFilter.java`
+#### Snippet
+```java
+ * Apply this filter to enable the HTTP Request unit of work and to have guice-persist manage the
+ * lifecycle of active units of work. The filter automatically starts and stops the relevant {@link
+ * PersistService} upon {@link javax.servlet.Filter#init(javax.servlet.FilterConfig)} and {@link
+ * javax.servlet.Filter#destroy()} respectively.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `extensions/persist/src/com/google/inject/persist/PersistFilter.java`
+#### Snippet
+```java
+ * Apply this filter to enable the HTTP Request unit of work and to have guice-persist manage the
+ * lifecycle of active units of work. The filter automatically starts and stops the relevant {@link
+ * PersistService} upon {@link javax.servlet.Filter#init(javax.servlet.FilterConfig)} and {@link
+ * javax.servlet.Filter#destroy()} respectively.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `extensions/persist/src/com/google/inject/persist/PersistFilter.java`
+#### Snippet
+```java
+ * lifecycle of active units of work. The filter automatically starts and stops the relevant {@link
+ * PersistService} upon {@link javax.servlet.Filter#init(javax.servlet.FilterConfig)} and {@link
+ * javax.servlet.Filter#destroy()} respectively.
+ *
+ * <p>To be able to use the open session-in-view pattern (i.e. work per request), register this
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.internal` is unnecessary and can be removed
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+   *
+   * @return the binding if it could be resolved, or null if the binding doesn't exist
+   * @throws com.google.inject.internal.ErrorsException if there was an error resolving the binding
+   */
+  private <T> BindingImpl<T> convertConstantStringBinding(Key<T> key, Errors errors)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.internal` is unnecessary and can be removed
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+   * </ol>
+   *
+   * @throws com.google.inject.internal.ErrorsException if the binding cannot be created.
+   */
+  private <T> BindingImpl<T> createJustInTimeBinding(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.struts2` is unnecessary and can be removed
+in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
+#### Snippet
+```java
+import java.util.logging.Logger;
+
+/** @deprecated Use {@link com.google.inject.struts2.Struts2Factory} instead. */
+@Deprecated
+public class GuiceObjectFactory extends ObjectFactory {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary and can be removed
+in `extensions/servlet/src/com/google/inject/servlet/ManagedFilterPipeline.java`
+#### Snippet
+```java
+   * into a master list.
+   *
+   * <p>We have a guarantee that {@link com.google.inject.Injector#getBindings()} returns a map that
+   * preserves insertion order in entry-set iterators.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary and can be removed
+in `extensions/servlet/src/com/google/inject/servlet/ManagedServletPipeline.java`
+#### Snippet
+```java
+   * into a master list.
+   *
+   * <p>We have a guarantee that {@link com.google.inject.Injector#getBindings()} returns a map that
+   * preserves insertion order in entry-set iterators.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `extensions/servlet/src/com/google/inject/servlet/ServletModule.java`
+#### Snippet
+```java
+   * Servlets (and filters) allow you to pass in init params using the {@code <init-param>} tag in
+   * web.xml. You can similarly pass in parameters to Servlets and filters registered in
+   * Guice-servlet using a {@link java.util.Map} of parameter name/value pairs. For example, to
+   * initialize {@code MyServlet} with two parameters ({@code name="Dhanji", site="google.com"}) you
+   * could write:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary and can be removed
+in `extensions/servlet/src/com/google/inject/servlet/DefaultFilterPipeline.java`
+#### Snippet
+```java
+ *
+ * @author dhanji@gmail.com (Dhanji R. Prasanna)
+ * @see com.google.inject.servlet.ManagedFilterPipeline See Also ManagedFilterPipeline.
+ */
+class DefaultFilterPipeline implements FilterPipeline {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `javax.naming` is unnecessary and can be removed
 in `extensions/jndi/src/com/google/inject/jndi/JndiIntegration.java`
 #### Snippet
@@ -5107,6 +5009,90 @@ in `extensions/jndi/src/com/google/inject/jndi/JndiIntegration.java`
  * Integrates Guice with JNDI. Requires a binding to {@link javax.naming.Context}.
  *
  * @author crazybob@google.com (Bob Lee)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
+in `extensions/spring/src/com/google/inject/spring/SpringIntegration.java`
+#### Snippet
+```java
+  /**
+   * Creates a provider which looks up objects from Spring using the given name. Expects a binding
+   * to {@link org.springframework.beans.factory.BeanFactory}. Example usage:
+   *
+   * <pre>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.name` is unnecessary and can be removed
+in `extensions/spring/src/com/google/inject/spring/SpringIntegration.java`
+#### Snippet
+```java
+   *
+   * @see com.google.inject.name.Named
+   * @see com.google.inject.name.Names#named(String)
+   */
+  public static void bindAll(Binder binder, ListableBeanFactory beanFactory) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary and can be removed
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+   * instead.
+   *
+   * <p>A transparent provider is a {@link com.google.inject.Provider} or {@link
+   * javax.inject.Provider} which binds to it's parameterized type when used as the argument to
+   * {@link Binder#bind}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary and can be removed
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+   */
+  private static boolean isTransparentProvider(Class<?> clazz) {
+    return com.google.inject.Provider.class == clazz || javax.inject.Provider.class == clazz;
+  }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.inject` is unnecessary, and can be replaced with an import
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+
+  private static boolean hasInject(Field field) {
+    return field.isAnnotationPresent(javax.inject.Inject.class)
+        || field.isAnnotationPresent(com.google.inject.Inject.class);
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject` is unnecessary, and can be replaced with an import
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
+#### Snippet
+```java
+  private static boolean hasInject(Field field) {
+    return field.isAnnotationPresent(javax.inject.Inject.class)
+        || field.isAnnotationPresent(com.google.inject.Inject.class);
+  }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.inject.servlet` is unnecessary and can be removed
+in `extensions/servlet/src/com/google/inject/servlet/ServletsModuleBuilder.java`
+#### Snippet
+```java
+/**
+ * Builds the guice module that binds configured servlets, with their wrapper ServletDefinitions. Is
+ * part of the binding EDSL. Very similar to {@link com.google.inject.servlet.FiltersModuleBuilder}.
+ *
+ * @author Dhanji R. Prasanna (dhanji@gmail.com)
 ```
 
 ## RuleId[ruleID=ThrowablePrintStackTrace]
@@ -5124,15 +5110,15 @@ in `extensions/struts2/src/com/google/inject/struts2/GuiceObjectFactory.java`
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractInjectorGrapher()` of an abstract class should not be declared 'public'
-in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
+Constructor `AbstractBindingBuilder()` of an abstract class should not be declared 'public'
+in `core/src/com/google/inject/internal/AbstractBindingBuilder.java`
 #### Snippet
 ```java
-  }
+  private BindingImpl<T> binding;
 
-  public AbstractInjectorGrapher(GrapherParameters options) {
-    this.rootKeySetCreator = options.getRootKeySetCreator();
-    this.aliasCreator = options.getAliasCreator();
+  public AbstractBindingBuilder(Binder binder, List<Element> elements, Object source, Key<T> key) {
+    this.binder = binder;
+    this.elements = elements;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -5148,30 +5134,18 @@ in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.jav
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractBindingBuilder()` of an abstract class should not be declared 'public'
-in `core/src/com/google/inject/internal/AbstractBindingBuilder.java`
+Constructor `AbstractInjectorGrapher()` of an abstract class should not be declared 'public'
+in `extensions/grapher/src/com/google/inject/grapher/AbstractInjectorGrapher.java`
 #### Snippet
 ```java
-  private BindingImpl<T> binding;
+  }
 
-  public AbstractBindingBuilder(Binder binder, List<Element> elements, Object source, Key<T> key) {
-    this.binder = binder;
-    this.elements = elements;
+  public AbstractInjectorGrapher(GrapherParameters options) {
+    this.rootKeySetCreator = options.getRootKeySetCreator();
+    this.aliasCreator = options.getAliasCreator();
 ```
 
 ## RuleId[ruleID=Anonymous2MethodRef]
-### Anonymous2MethodRef
-Anonymous new Factory() can be replaced with method reference
-in `extensions/testlib/src/com/google/inject/testing/throwingproviders/CheckedProviderSubject.java`
-#### Snippet
-```java
-
-  private static Factory<UnexpectedFailureSubject, Throwable> unexpectedFailures() {
-    return new Factory<UnexpectedFailureSubject, Throwable>() {
-      @Override
-      public UnexpectedFailureSubject createSubject(FailureMetadata metadata, Throwable actual) {
-```
-
 ### Anonymous2MethodRef
 Anonymous new MethodInvoker() can be replaced with method reference
 in `core/src/com/google/inject/internal/SingleMethodInjector.java`
@@ -5182,6 +5156,18 @@ in `core/src/com/google/inject/internal/SingleMethodInjector.java`
     return new MethodInvoker() {
       @Override
       public Object invoke(Object target, Object... parameters)
+```
+
+### Anonymous2MethodRef
+Anonymous new Factory() can be replaced with method reference
+in `extensions/testlib/src/com/google/inject/testing/throwingproviders/CheckedProviderSubject.java`
+#### Snippet
+```java
+
+  private static Factory<UnexpectedFailureSubject, Throwable> unexpectedFailures() {
+    return new Factory<UnexpectedFailureSubject, Throwable>() {
+      @Override
+      public UnexpectedFailureSubject createSubject(FailureMetadata metadata, Throwable actual) {
 ```
 
 ## RuleId[ruleID=JavaReflectionInvocation]
@@ -5211,138 +5197,6 @@ in `core/src/com/google/inject/internal/InjectorImpl.java`
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerAdapter.java`
-#### Snippet
-```java
-    @Override
-    public void configure(Binder binder) {
-      binder = binder.skipSources(getClass());
-      ModuleAnnotatedMethodScanner scanner = DaggerMethodScanner.create(predicate);
-      for (Object module : deduplicateModules(binder, transitiveModules())) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
-#### Snippet
-```java
-    if (queryStart != -1) {
-      query = path.substring(queryStart);
-      path = path.substring(0, queryStart);
-    }
-    // Normalize the path.  we need to decode path segments, normalize and rejoin in order to
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `string`
-in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
-#### Snippet
-```java
-
-    if (decodePlus) {
-      string = string.replace('+', ' ');
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uri`
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
-#### Snippet
-```java
-    int queryIdx = uri.indexOf('?');
-    if (queryIdx != -1) {
-      uri = uri.substring(0, queryIdx);
-    }
-    return uri;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uri`
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
-#### Snippet
-```java
-      }
-
-      uri = getUri(uri);
-      if (patternKind == Kind.PREFIX) {
-        return uri.endsWith(literal);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviderMethodsModule.java`
-#### Snippet
-```java
-    @SuppressWarnings("rawtypes") // Class literal uses rawtypes.
-    Class<? extends CheckedProvider> throwingProvider = checkedProvides.value();
-    binder = binder.withSource(method);
-    Errors errors = new Errors(method);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviderMethod.java`
-#### Snippet
-```java
-
-  void configure(Binder binder) {
-    binder = binder.withSource(method);
-
-    SecondaryBinder<?, ?> sbinder =
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `source`
-in `extensions/grapher/src/com/google/inject/grapher/ShortNameFactory.java`
-#### Snippet
-```java
-  public String getSourceName(Object source) {
-    if (source instanceof ElementSource) {
-      source = ((ElementSource) source).getDeclaringSource();
-    }
-    if (source instanceof Method) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `source`
-in `extensions/grapher/src/com/google/inject/grapher/ShortNameFactory.java`
-#### Snippet
-```java
-    }
-    if (source instanceof Method) {
-      source = StackTraceElements.forMember((Method) source);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
-#### Snippet
-```java
-  @Override
-  public void configure(Binder binder) {
-    binder = binder.skipSources(BoundFieldModule.class);
-
-    for (Message message : deferredBindingErrors) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `extensions/spring/src/com/google/inject/spring/SpringIntegration.java`
-#### Snippet
-```java
-   */
-  public static void bindAll(Binder binder, ListableBeanFactory beanFactory) {
-    binder = binder.skipSources(SpringIntegration.class);
-
-    for (String name : beanFactory.getBeanDefinitionNames()) {
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `toResolve`
 in `core/src/com/google/inject/TypeLiteral.java`
@@ -5404,30 +5258,6 @@ in `core/src/com/google/inject/Scopes.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `elementSource`
-in `core/src/com/google/inject/spi/BindingSourceRestriction.java`
-#### Snippet
-```java
-    while (elementSource != null) {
-      elementSource.moduleSource.getPermitMap().clear();
-      elementSource = elementSource.getOriginalElementSource();
-    }
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `annotationType`
-in `core/src/com/google/inject/Key.java`
-#### Snippet
-```java
-  /** Gets the strategy for an annotation type. */
-  static AnnotationStrategy strategyFor(Class<? extends Annotation> annotationType) {
-    annotationType = Annotations.canonicalizeIfNamed(annotationType);
-    if (isAllDefaultMethods(annotationType)) {
-      return strategyFor(generateAnnotation(annotationType));
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `binder`
 in `core/src/com/google/inject/name/Names.java`
 #### Snippet
@@ -5452,15 +5282,15 @@ in `core/src/com/google/inject/name/Names.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `core/src/com/google/inject/util/Modules.java`
+Assignment to method parameter `elementSource`
+in `core/src/com/google/inject/spi/BindingSourceRestriction.java`
 #### Snippet
 ```java
-    @Override
-    public void configure(Binder binder) {
-      binder = binder.skipSources(getClass());
-      for (Module module : modulesSet) {
-        binder.install(module);
+    while (elementSource != null) {
+      elementSource.moduleSource.getPermitMap().clear();
+      elementSource = elementSource.getOriginalElementSource();
+    }
+  }
 ```
 
 ### AssignmentToMethodParameter
@@ -5473,6 +5303,30 @@ in `core/src/com/google/inject/internal/AbstractBindingProcessor.java`
       original = (BindingImpl<?>) bindingData.getExplicitBindingsThisLevel().get(binding.getKey());
       // If no original at this level, the original was on a parent, and we don't
       // allow deduplication between parents & children.
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `annotationType`
+in `core/src/com/google/inject/Key.java`
+#### Snippet
+```java
+  /** Gets the strategy for an annotation type. */
+  static AnnotationStrategy strategyFor(Class<? extends Annotation> annotationType) {
+    annotationType = Annotations.canonicalizeIfNamed(annotationType);
+    if (isAllDefaultMethods(annotationType)) {
+      return strategyFor(generateAnnotation(annotationType));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `core/src/com/google/inject/util/Modules.java`
+#### Snippet
+```java
+    @Override
+    public void configure(Binder binder) {
+      binder = binder.skipSources(getClass());
+      for (Module module : modulesSet) {
+        binder.install(module);
 ```
 
 ### AssignmentToMethodParameter
@@ -5608,18 +5462,6 @@ in `core/src/com/google/inject/internal/Messages.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `key`
-in `core/src/com/google/inject/internal/InjectorImpl.java`
-#### Snippet
-```java
-    }
-
-    key = MoreTypes.canonicalizeKey(key); // before storing the key long-term, canonicalize it.
-    BindingImpl<T> binding = createJustInTimeBinding(key, errors, jitDisabled, jitType);
-    jitBindingData.banKeyInParent(key, bindingData, binding.getSource());
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `inMemoryStackTraceElement`
 in `core/src/com/google/inject/internal/util/StackTraceElements.java`
 #### Snippet
@@ -5641,6 +5483,162 @@ in `core/src/com/google/inject/internal/RealMultibinder.java`
     binder = binder.skipSources(RealMultibinder.class);
     RealMultibinder<T> result = new RealMultibinder<>(binder, key);
     binder.install(result);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviderMethodsModule.java`
+#### Snippet
+```java
+    @SuppressWarnings("rawtypes") // Class literal uses rawtypes.
+    Class<? extends CheckedProvider> throwingProvider = checkedProvides.value();
+    binder = binder.withSource(method);
+    Errors errors = new Errors(method);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `extensions/throwingproviders/src/com/google/inject/throwingproviders/CheckedProviderMethod.java`
+#### Snippet
+```java
+
+  void configure(Binder binder) {
+    binder = binder.withSource(method);
+
+    SecondaryBinder<?, ?> sbinder =
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `key`
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+    }
+
+    key = MoreTypes.canonicalizeKey(key); // before storing the key long-term, canonicalize it.
+    BindingImpl<T> binding = createJustInTimeBinding(key, errors, jitDisabled, jitType);
+    jitBindingData.banKeyInParent(key, bindingData, binding.getSource());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerAdapter.java`
+#### Snippet
+```java
+    @Override
+    public void configure(Binder binder) {
+      binder = binder.skipSources(getClass());
+      ModuleAnnotatedMethodScanner scanner = DaggerMethodScanner.create(predicate);
+      for (Object module : deduplicateModules(binder, transitiveModules())) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
+#### Snippet
+```java
+    if (queryStart != -1) {
+      query = path.substring(queryStart);
+      path = path.substring(0, queryStart);
+    }
+    // Normalize the path.  we need to decode path segments, normalize and rejoin in order to
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `string`
+in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
+#### Snippet
+```java
+
+    if (decodePlus) {
+      string = string.replace('+', ' ');
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uri`
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
+#### Snippet
+```java
+    int queryIdx = uri.indexOf('?');
+    if (queryIdx != -1) {
+      uri = uri.substring(0, queryIdx);
+    }
+    return uri;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uri`
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
+#### Snippet
+```java
+      }
+
+      uri = getUri(uri);
+      if (patternKind == Kind.PREFIX) {
+        return uri.endsWith(literal);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `extensions/spring/src/com/google/inject/spring/SpringIntegration.java`
+#### Snippet
+```java
+   */
+  public static void bindAll(Binder binder, ListableBeanFactory beanFactory) {
+    binder = binder.skipSources(SpringIntegration.class);
+
+    for (String name : beanFactory.getBeanDefinitionNames()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `source`
+in `extensions/grapher/src/com/google/inject/grapher/ShortNameFactory.java`
+#### Snippet
+```java
+  public String getSourceName(Object source) {
+    if (source instanceof ElementSource) {
+      source = ((ElementSource) source).getDeclaringSource();
+    }
+    if (source instanceof Method) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `source`
+in `extensions/grapher/src/com/google/inject/grapher/ShortNameFactory.java`
+#### Snippet
+```java
+    }
+    if (source instanceof Method) {
+      source = StackTraceElements.forMember((Method) source);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+  public static <K, V> RealMapBinder<K, V> newMapRealBinder(
+      Binder binder, TypeLiteral<K> keyType, TypeLiteral<V> valueType) {
+    binder = binder.skipSources(RealMapBinder.class);
+    return newRealMapBinder(
+        binder,
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `binder`
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+      TypeLiteral<V> valueType,
+      Class<? extends Annotation> annotationType) {
+    binder = binder.skipSources(RealMapBinder.class);
+    return newRealMapBinder(
+        binder,
 ```
 
 ### AssignmentToMethodParameter
@@ -5669,26 +5667,14 @@ in `core/src/com/google/inject/internal/RealMapBinder.java`
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `binder`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
+in `extensions/testlib/src/com/google/inject/testing/fieldbinder/BoundFieldModule.java`
 #### Snippet
 ```java
-  public static <K, V> RealMapBinder<K, V> newMapRealBinder(
-      Binder binder, TypeLiteral<K> keyType, TypeLiteral<V> valueType) {
-    binder = binder.skipSources(RealMapBinder.class);
-    return newRealMapBinder(
-        binder,
-```
+  @Override
+  public void configure(Binder binder) {
+    binder = binder.skipSources(BoundFieldModule.class);
 
-### AssignmentToMethodParameter
-Assignment to method parameter `binder`
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-      TypeLiteral<V> valueType,
-      Class<? extends Annotation> annotationType) {
-    binder = binder.skipSources(RealMapBinder.class);
-    return newRealMapBinder(
-        binder,
+    for (Message message : deferredBindingErrors) {
 ```
 
 ## RuleId[ruleID=UnnecessaryContinue]
@@ -5705,6 +5691,18 @@ in `extensions/persist/src/com/google/inject/persist/jpa/JpaFinderProxy.java`
 ```
 
 ## RuleId[ruleID=SynchronizationOnLocalVariableOrMethodParameter]
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `enhancers`
+in `core/src/com/google/inject/internal/aop/EnhancerBuilderImpl.java`
+#### Snippet
+```java
+    Map<BitSet, Function<String, BiFunction<Object, Object[], Object>>> enhancers =
+        ENHANCERS.get(hostClass);
+    synchronized (enhancers) {
+      return enhancers.computeIfAbsent(methodIndices, this::doBuildEnhancer);
+    }
+```
+
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `session`
 in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
@@ -5729,223 +5727,7 @@ in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
             if (NullObject.INSTANCE == obj) {
 ```
 
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `enhancers`
-in `core/src/com/google/inject/internal/aop/EnhancerBuilderImpl.java`
-#### Snippet
-```java
-    Map<BitSet, Function<String, BiFunction<Object, Object[], Object>>> enhancers =
-        ENHANCERS.get(hostClass);
-    synchronized (enhancers) {
-      return enhancers.computeIfAbsent(methodIndices, this::doBuildEnhancer);
-    }
-```
-
 ## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/ManagedServletPipeline.java`
-#### Snippet
-```java
-
-    //otherwise, can't process
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/FilterChainInvocation.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/FilterDefinition.java`
-#### Snippet
-```java
-      return filter.get();
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
-#### Snippet
-```java
-    public String extractPath(String path) {
-      if (patternKind == Kind.PREFIX) {
-        return null;
-      } else if (patternKind == Kind.SUFFIX) {
-        String extract = literal;
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
-#### Snippet
-```java
-        return new RegexUriPatternMatcher(pattern);
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
-#### Snippet
-```java
-    Method method = (Method) injectionPoint.getMember();
-    if (!predicate.apply(method)) {
-      return null;
-    }
-    Class<? extends Annotation> annotationType = annotation.annotationType();
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
-#### Snippet
-```java
-    } else if (annotationType.equals(Binds.class)) {
-      configureBindsKey(binder, method, key);
-      return null;
-    } else if (annotationType.equals(Multibinds.class)) {
-      configureMultibindsKey(binder, method, key);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
-#### Snippet
-```java
-    } else if (annotationType.equals(Multibinds.class)) {
-      configureMultibindsKey(binder, method, key);
-      return null;
-    } else if (annotationType.equals(BindsOptionalOf.class)) {
-      OptionalBinder.newOptionalBinder(binder, key);
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
-#### Snippet
-```java
-    } else if (annotationType.equals(BindsOptionalOf.class)) {
-      OptionalBinder.newOptionalBinder(binder, key);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
-#### Snippet
-```java
-            final String info = getPathInfo();
-
-            return (null == info) ? null : getRealPath(info);
-          }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/internal/LookupTester.java`
-#### Snippet
-```java
-  interface Hidden {
-    default Hidden method() {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
-#### Snippet
-```java
-            Object obj = session.getAttribute(name);
-            if (NullObject.INSTANCE == obj) {
-              return null;
-            }
-            @SuppressWarnings("unchecked")
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
-#### Snippet
-```java
-              // Accounts for @Nullable providers.
-              if (NullObject.INSTANCE == t) {
-                return null;
-              }
-
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
-#### Snippet
-```java
-            Object obj = request.getAttribute(name);
-            if (NullObject.INSTANCE == obj) {
-              return null;
-            }
-            @SuppressWarnings("unchecked")
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/persist/src/com/google/inject/persist/finder/DynamicFinder.java`
-#### Snippet
-```java
-   */
-  public static DynamicFinder from(Method method) {
-    return method.isAnnotationPresent(Finder.class) ? new DynamicFinder(method) : null;
-  }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `core/src/com/google/inject/Scopes.java`
@@ -5960,47 +5742,35 @@ in `core/src/com/google/inject/Scopes.java`
 
 ### ReturnNull
 Return of `null`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+in `core/src/com/google/inject/spi/DefaultBindingScopingVisitor.java`
 #### Snippet
 ```java
-        // but we target JDK8.
-        // TODO(sameb): When we drop JDK8 support, catch ReflectiveOperation|Security|Inaccessible
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
-#### Snippet
-```java
-    MethodHandles.Lookup lookup = userLookups == null ? MethodHandles.lookup() : userLookups;
-    MethodHandle handle = strategy.superMethodHandle(method, lookup);
-    return handle != null ? handle.bindTo(proxy) : null;
+  /** Default visit implementation. Returns {@code null}. */
+  protected V visitOther() {
+    return null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+in `core/src/com/google/inject/spi/DefaultBindingTargetVisitor.java`
 #### Snippet
 ```java
-    static MethodHandle superMethodHandle(Method method) throws ReflectiveOperationException {
-      if (privateLookupCxtor == null) {
-        return null; // fall back to assistDataBuilder workaround
-      }
-      Class<?> declaringClass = method.getDeclaringClass();
+  /** Default visit implementation. Returns {@code null}. */
+  protected V visitOther(Binding<? extends T> binding) {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/spi/DefaultBindingScopingVisitor.java`
+in `core/src/com/google/inject/spi/DefaultElementVisitor.java`
 #### Snippet
 ```java
   /** Default visit implementation. Returns {@code null}. */
-  protected V visitOther() {
+  protected V visitOther(Element element) {
     return null;
   }
 
@@ -6027,30 +5797,6 @@ in `core/src/com/google/inject/Key.java`
     public Annotation getAnnotation() {
       return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/com/google/inject/spi/DefaultBindingTargetVisitor.java`
-#### Snippet
-```java
-  /** Default visit implementation. Returns {@code null}. */
-  protected V visitOther(Binding<? extends T> binding) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/com/google/inject/spi/DefaultElementVisitor.java`
-#### Snippet
-```java
-  /** Default visit implementation. Returns {@code null}. */
-  protected V visitOther(Element element) {
-    return null;
-  }
 
 ```
 
@@ -6119,8 +5865,8 @@ Return of `null`
 in `core/src/com/google/inject/internal/Scoping.java`
 #### Snippet
 ```java
-  /** Returns the scope instance, or {@code null} if that isn't known for this instance. */
-  public Scope getScopeInstance() {
+  /** Returns the scope annotation, or {@code null} if that isn't known for this instance. */
+  public Class<? extends Annotation> getScopeAnnotation() {
     return null;
   }
 
@@ -6131,8 +5877,8 @@ Return of `null`
 in `core/src/com/google/inject/internal/Scoping.java`
 #### Snippet
 ```java
-  /** Returns the scope annotation, or {@code null} if that isn't known for this instance. */
-  public Class<? extends Annotation> getScopeAnnotation() {
+  /** Returns the scope instance, or {@code null} if that isn't known for this instance. */
+  public Scope getScopeInstance() {
     return null;
   }
 
@@ -6176,13 +5922,13 @@ in `core/src/com/google/inject/internal/ProvisionListenerCallbackStore.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/BytecodeGen.java`
+in `core/src/com/google/inject/internal/Messages.java`
 #### Snippet
 ```java
-      return fastClass(constructor).apply(signature(constructor));
-    }
-    return null;
-  }
+
+      if (onlyCause != null && !ThrowableEquivalence.INSTANCE.equivalent(onlyCause, messageCause)) {
+        return null;
+      }
 
 ```
 
@@ -6200,26 +5946,98 @@ in `core/src/com/google/inject/internal/BytecodeGen.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/Messages.java`
+in `core/src/com/google/inject/internal/BytecodeGen.java`
 #### Snippet
 ```java
-
-      if (onlyCause != null && !ThrowableEquivalence.INSTANCE.equivalent(onlyCause, messageCause)) {
-        return null;
-      }
+      return fastClass(constructor).apply(signature(constructor));
+    }
+    return null;
+  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/InjectorImpl.java`
+in `core/src/com/google/inject/internal/aop/UnsafeClassDefiner.java`
 #### Snippet
 ```java
+    } catch (Throwable e) {
+      logger.log(Level.FINE, errorMessage, e);
+      return null;
+    }
+  }
+```
 
-    // No existing binding exists.
-    return null;
+### ReturnNull
+Return of `null`
+in `core/src/com/google/inject/internal/SingletonScope.java`
+#### Snippet
+```java
+          @SuppressWarnings("unchecked")
+          T initializedTypedInstance = (T) initializedInstance;
+          return initializedInstance == NULL ? null : initializedTypedInstance;
+        } else {
+          // singleton is already initialized and local cache can be used
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/com/google/inject/internal/SingletonScope.java`
+#### Snippet
+```java
+          @SuppressWarnings("unchecked")
+          T typedInitialIntance = (T) initialInstance;
+          return initialInstance == NULL ? null : typedInitialIntance;
+        }
+      }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/com/google/inject/internal/util/LineNumbers.java`
+#### Snippet
+```java
+    public FieldVisitor visitField(
+        int access, String name, String desc, String signature, Object value) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/com/google/inject/internal/util/LineNumbers.java`
+#### Snippet
+```java
+        int access, String name, String desc, String signature, String[] exceptions) {
+      if ((access & Opcodes.ACC_PRIVATE) != 0) {
+        return null;
+      }
+      pendingMethod = name + desc;
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/persist/src/com/google/inject/persist/finder/DynamicFinder.java`
+#### Snippet
+```java
+   */
+  public static DynamicFinder from(Method method) {
+    return method.isAnnotationPresent(Finder.class) ? new DynamicFinder(method) : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/internal/LookupTester.java`
+#### Snippet
+```java
+  interface Hidden {
+    default Hidden method() {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -6260,35 +6078,143 @@ in `core/src/com/google/inject/internal/InjectorImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/SingletonScope.java`
+in `core/src/com/google/inject/internal/InjectorImpl.java`
 #### Snippet
 ```java
-          @SuppressWarnings("unchecked")
-          T initializedTypedInstance = (T) initializedInstance;
-          return initializedInstance == NULL ? null : initializedTypedInstance;
-        } else {
-          // singleton is already initialized and local cache can be used
+
+    // No existing binding exists.
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/SingletonScope.java`
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
 #### Snippet
 ```java
-          @SuppressWarnings("unchecked")
-          T typedInitialIntance = (T) initialInstance;
-          return initialInstance == NULL ? null : typedInitialIntance;
-        }
+    Method method = (Method) injectionPoint.getMember();
+    if (!predicate.apply(method)) {
+      return null;
+    }
+    Class<? extends Annotation> annotationType = annotation.annotationType();
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
+#### Snippet
+```java
+    } else if (annotationType.equals(Binds.class)) {
+      configureBindsKey(binder, method, key);
+      return null;
+    } else if (annotationType.equals(Multibinds.class)) {
+      configureMultibindsKey(binder, method, key);
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
+#### Snippet
+```java
+    } else if (annotationType.equals(Multibinds.class)) {
+      configureMultibindsKey(binder, method, key);
+      return null;
+    } else if (annotationType.equals(BindsOptionalOf.class)) {
+      OptionalBinder.newOptionalBinder(binder, key);
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/dagger-adapter/src/com/google/inject/daggeradapter/DaggerMethodScanner.java`
+#### Snippet
+```java
+    } else if (annotationType.equals(BindsOptionalOf.class)) {
+      OptionalBinder.newOptionalBinder(binder, key);
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/ManagedServletPipeline.java`
+#### Snippet
+```java
+
+    //otherwise, can't process
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+    static MethodHandle superMethodHandle(Method method) throws ReflectiveOperationException {
+      if (privateLookupCxtor == null) {
+        return null; // fall back to assistDataBuilder workaround
       }
+      Class<?> declaringClass = method.getDeclaringClass();
 ```
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/aop/UnsafeClassDefiner.java`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
 #### Snippet
 ```java
-    } catch (Throwable e) {
-      logger.log(Level.FINE, errorMessage, e);
+        // but we target JDK8.
+        // TODO(sameb): When we drop JDK8 support, catch ReflectiveOperation|Security|Inaccessible
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/assistedinject/src/com/google/inject/assistedinject/FactoryProvider2.java`
+#### Snippet
+```java
+    MethodHandles.Lookup lookup = userLookups == null ? MethodHandles.lookup() : userLookups;
+    MethodHandle handle = strategy.superMethodHandle(method, lookup);
+    return handle != null ? handle.bindTo(proxy) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/ServletUtils.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/FilterChainInvocation.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/FilterDefinition.java`
+#### Snippet
+```java
+      return filter.get();
+    } else {
       return null;
     }
   }
@@ -6296,11 +6222,23 @@ in `core/src/com/google/inject/internal/aop/UnsafeClassDefiner.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/util/LineNumbers.java`
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
 #### Snippet
 ```java
-    public FieldVisitor visitField(
-        int access, String name, String desc, String signature, Object value) {
+        return new RegexUriPatternMatcher(pattern);
+      default:
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
+#### Snippet
+```java
+        }
+      }
       return null;
     }
 
@@ -6308,29 +6246,65 @@ in `core/src/com/google/inject/internal/util/LineNumbers.java`
 
 ### ReturnNull
 Return of `null`
-in `core/src/com/google/inject/internal/util/LineNumbers.java`
+in `extensions/servlet/src/com/google/inject/servlet/UriPatternType.java`
 #### Snippet
 ```java
-        int access, String name, String desc, String signature, String[] exceptions) {
-      if ((access & Opcodes.ACC_PRIVATE) != 0) {
+    public String extractPath(String path) {
+      if (patternKind == Kind.PREFIX) {
         return null;
-      }
-      pendingMethod = name + desc;
+      } else if (patternKind == Kind.SUFFIX) {
+        String extract = literal;
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/ServletDefinition.java`
+#### Snippet
+```java
+            final String info = getPathInfo();
+
+            return (null == info) ? null : getRealPath(info);
+          }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+#### Snippet
+```java
+            Object obj = session.getAttribute(name);
+            if (NullObject.INSTANCE == obj) {
+              return null;
+            }
+            @SuppressWarnings("unchecked")
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+#### Snippet
+```java
+              // Accounts for @Nullable providers.
+              if (NullObject.INSTANCE == t) {
+                return null;
+              }
+
+```
+
+### ReturnNull
+Return of `null`
+in `extensions/servlet/src/com/google/inject/servlet/ServletScopes.java`
+#### Snippet
+```java
+            Object obj = request.getAttribute(name);
+            if (NullObject.INSTANCE == obj) {
+              return null;
+            }
+            @SuppressWarnings("unchecked")
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `builder` is redundant
-in `core/src/com/google/inject/spi/Elements.java`
-#### Snippet
-```java
-    @Override
-    public <T> AnnotatedBindingBuilder<T> bind(Key<T> key) {
-      BindingBuilder<T> builder =
-          new BindingBuilder<T>(this, elements, getElementSource(), MoreTypes.canonicalizeKey(key));
-      return builder;
-```
-
 ### UnnecessaryLocalVariable
 Local variable `t` is redundant
 in `core/src/com/google/inject/internal/ProviderToInternalFactoryAdapter.java`
@@ -6344,6 +6318,18 @@ in `core/src/com/google/inject/internal/ProviderToInternalFactoryAdapter.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `builder` is redundant
+in `core/src/com/google/inject/spi/Elements.java`
+#### Snippet
+```java
+    @Override
+    public <T> AnnotatedBindingBuilder<T> bind(Key<T> key) {
+      BindingBuilder<T> builder =
+          new BindingBuilder<T>(this, elements, getElementSource(), MoreTypes.canonicalizeKey(key));
+      return builder;
+```
+
+### UnnecessaryLocalVariable
 Local variable `localTargetKey` is redundant
 in `core/src/com/google/inject/internal/FactoryProxy.java`
 #### Snippet
@@ -6353,18 +6339,6 @@ in `core/src/com/google/inject/internal/FactoryProxy.java`
     Key<? extends T> localTargetKey = targetKey;
     try {
       return targetFactory.get(context, dependency, true);
-```
-
-### UnnecessaryLocalVariable
-Local variable `exception` is redundant
-in `core/src/com/google/inject/internal/Errors.java`
-#### Snippet
-```java
-      return;
-    }
-    ProvisionException exception = new ProvisionException(getMessages());
-    throw exception;
-  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -6387,6 +6361,18 @@ in `core/src/com/google/inject/internal/Errors.java`
     }
 
     ConfigurationException exception = new ConfigurationException(getMessages());
+    throw exception;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `exception` is redundant
+in `core/src/com/google/inject/internal/Errors.java`
+#### Snippet
+```java
+      return;
+    }
+    ProvisionException exception = new ProvisionException(getMessages());
     throw exception;
   }
 ```
@@ -6428,18 +6414,6 @@ in `core/src/com/google/inject/internal/InjectorImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `source` is redundant
-in `core/src/com/google/inject/internal/InjectorImpl.java`
-#### Snippet
-```java
-    ProvidedByInternalFactory<T> internalFactory =
-        new ProvidedByInternalFactory<T>(rawType, providerType, providerKey);
-    Object source = rawType;
-    BindingImpl<T> binding =
-        LinkedProviderBindingImpl.createWithInitializer(
-```
-
-### UnnecessaryLocalVariable
 Local variable `exception` is redundant
 in `core/src/com/google/inject/internal/InjectorImpl.java`
 #### Snippet
@@ -6461,6 +6435,18 @@ in `core/src/com/google/inject/internal/InjectorImpl.java`
     Object source = rawType;
     FactoryProxy<T> factory = new FactoryProxy<>(this, key, targetKey, source);
     factory.notify(errors); // causes the factory to initialize itself internally
+```
+
+### UnnecessaryLocalVariable
+Local variable `source` is redundant
+in `core/src/com/google/inject/internal/InjectorImpl.java`
+#### Snippet
+```java
+    ProvidedByInternalFactory<T> internalFactory =
+        new ProvidedByInternalFactory<T>(rawType, providerType, providerKey);
+    Object source = rawType;
+    BindingImpl<T> binding =
+        LinkedProviderBindingImpl.createWithInitializer(
 ```
 
 ### UnnecessaryLocalVariable
@@ -6500,6 +6486,18 @@ in `core/src/com/google/inject/internal/InjectorImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `bindingsArray` is redundant
+in `core/src/com/google/inject/internal/RealMapBinder.java`
+#### Snippet
+```java
+          @SuppressWarnings({"unchecked", "rawtypes"})
+          Binding<V>[] typedBindings = new Binding[bindings.size()];
+          Binding<V>[] bindingsArray = typedBindings;
+          int j = 0;
+          for (Binding<V> binding : bindings) {
+```
+
+### UnnecessaryLocalVariable
 Local variable `userSuppliedProvider` is redundant
 in `core/src/com/google/inject/internal/RealMapBinder.java`
 #### Snippet
@@ -6521,18 +6519,6 @@ in `core/src/com/google/inject/internal/RealMapBinder.java`
             ProviderMapEntry<K, V> entry = typedUserSuppliedProvider;
 
             keyToValueKeyBuilder.put(entry.getKey(), entry.getValueKey());
-```
-
-### UnnecessaryLocalVariable
-Local variable `bindingsArray` is redundant
-in `core/src/com/google/inject/internal/RealMapBinder.java`
-#### Snippet
-```java
-          @SuppressWarnings({"unchecked", "rawtypes"})
-          Binding<V>[] typedBindings = new Binding[bindings.size()];
-          Binding<V>[] bindingsArray = typedBindings;
-          int j = 0;
-          for (Binding<V> binding : bindings) {
 ```
 
 ## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
