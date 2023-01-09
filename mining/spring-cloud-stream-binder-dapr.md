@@ -1,12 +1,13 @@
 # spring-cloud-stream-binder-dapr 
  
 # Bad smells
-I found 14 bad smells with 2 repairable:
+I found 15 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 4 | false |
 | IgnoreResultOfCall | 3 | false |
 | RedundantFieldInitialization | 2 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
@@ -35,6 +36,19 @@ in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream
 	private int i = 0;
 	public static void main(String[] args) {
 		SpringApplication.run(DaprSampleApplication.class, args);
+```
+
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-09-19-37-56.077.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -103,15 +117,15 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DaprStubCustomizer`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
+Can generalize to `? extends Sensor`
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
 #### Snippet
 ```java
-	public DaprGrpc.DaprStub daprStub(ManagedChannel channel,
-			DaprBinderConfigurationProperties daprBinderProperties,
-			ObjectProvider<DaprStubCustomizer> daprStubCustomizers) {
-		DaprGrpc.DaprStub daprStub = DaprGrpc.newStub(channel);
-		DaprBinderConfigurationProperties.DaprStub daprStubProperties = daprBinderProperties.getDaprStub();
+	}
+
+	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
+		return group
+				.reduce(new Accumulator(0, 0),
 ```
 
 ### BoundedWildcard
@@ -127,15 +141,15 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Sensor`
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+Can generalize to `? extends DaprStubCustomizer`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
 ```java
-	}
-
-	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
-		return group
-				.reduce(new Accumulator(0, 0),
+	public DaprGrpc.DaprStub daprStub(ManagedChannel channel,
+			DaprBinderConfigurationProperties daprBinderProperties,
+			ObjectProvider<DaprStubCustomizer> daprStubCustomizers) {
+		DaprGrpc.DaprStub daprStub = DaprGrpc.newStub(channel);
+		DaprBinderConfigurationProperties.DaprStub daprStubProperties = daprBinderProperties.getDaprStub();
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
