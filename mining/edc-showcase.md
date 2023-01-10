@@ -60,14 +60,14 @@ in `extensions/identity-hub-verifier/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
-Value `monitor` is always 'null'
-in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
+Value `commit` is always 'null'
+in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
 #### Snippet
 ```java
-        var monitor = context.getMonitor();
+                Map.of("region", "eu", "created", Instant.now().toEpochMilli());
+        var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
+        hubStore.write(commit);
 
-        var controller = new FederatedCatalogApiController(monitor, catalogQueryEngine);
-        webService.registerResource("data", controller);
 
 ```
 
@@ -84,14 +84,14 @@ in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnecto
 ```
 
 ### ConstantValue
-Value `commit` is always 'null'
-in `extensions/dataseeding/hub/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/IdentityHubDataseedingExtension.java`
+Value `monitor` is always 'null'
+in `extensions/federated-catalog-api/src/main/java/org/eclipse/dataspaceconnector/demo/edc_demo/api/FederatedCatalogApiExtension.java`
 #### Snippet
 ```java
-                Map.of("region", "eu", "created", Instant.now().toEpochMilli());
-        var commit = Commit.Builder.newInstance().type("RegistrationCredentials").context("ION Demo").iss(context.getConnectorId()).sub("test").objectId(objectId).payload(payload).build();
-        hubStore.write(commit);
+        var monitor = context.getMonitor();
 
+        var controller = new FederatedCatalogApiController(monitor, catalogQueryEngine);
+        webService.registerResource("data", controller);
 
 ```
 
@@ -216,18 +216,6 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
 ```
 
 ### ConstantValue
-Value `cdef` is always 'null'
-in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
-#### Snippet
-```java
-                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
-                .build();
-        contractDefinitionStore.save(cdef);
-    }
-
-```
-
-### ConstantValue
 Value `nodesFile` is always 'null'
 in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
 #### Snippet
@@ -248,6 +236,18 @@ in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/
         // populate node directory
         var nodes = readNodesFromJson(nodesFile);
         nodes.forEach(nodeDirectory::insert);
+
+```
+
+### ConstantValue
+Value `cdef` is always 'null'
+in `extensions/dataseeding/catalog/src/main/java/org/eclipse/dataspaceconnector/dataseeding/catalog/CatalogDataseedingExtension.java`
+#### Snippet
+```java
+                .selectorExpression(AssetSelectorExpression.Builder.newInstance().whenEquals(Asset.PROPERTY_ID, asset.getId()).build())
+                .build();
+        contractDefinitionStore.save(cdef);
+    }
 
 ```
 
