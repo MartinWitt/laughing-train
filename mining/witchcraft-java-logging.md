@@ -103,6 +103,19 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
             // Use the slf4j provided utility directly
 ```
 
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `TestReportFormattingPlugin` has no concrete subclass
+in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+#### Snippet
+```java
+ * lines much like our intellij plugin.
+ */
+public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+
+    @Override
+```
+
 ## RuleId[ruleID=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends Pair`
@@ -138,18 +151,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     private static String interpolateParameters(String original, Function<String, Object> lookup) {
         Matcher matcher = PARAMETER_PATTERN.matcher(original);
         String current = original;
-```
-
-### BoundedWildcard
-Can generalize to `? super StringBuilder`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
-#### Snippet
-```java
-    }
-
-    static String withStringBuilder(Consumer<StringBuilder> function) {
-        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
-        builder.setLength(0);
 ```
 
 ### BoundedWildcard
@@ -210,6 +211,18 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     CombineWithLogVisitor(LogVisitor<T> first, LogVisitor<U> second, BiFunction<T, U, R> combiner) {
         this.first = first;
         this.second = second;
+```
+
+### BoundedWildcard
+Can generalize to `? super StringBuilder`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/Formatting.java`
+#### Snippet
+```java
+    }
+
+    static String withStringBuilder(Consumer<StringBuilder> function) {
+        StringBuilder builder = REUSABLE_STRING_BUILDER.get();
+        builder.setLength(0);
 ```
 
 ### BoundedWildcard
@@ -279,18 +292,6 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
 ```java
     }
 
-    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
-        try {
-            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
-```
-
-### BoundedWildcard
-Can generalize to `? extends L`
-in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
-#### Snippet
-```java
-    }
-
     private <L> Optional<T> applyToLogLine(String logLine, Class<L> clazz, Function<L, Optional<T>> function) {
         return parseJson(logLine, clazz).flatMap(function);
     }
@@ -308,17 +309,16 @@ in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/log
     }
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `TestReportFormattingPlugin` has no concrete subclass
-in `gradle-witchcraft-logging/src/main/groovy/com/palantir/witchcraft/java/logging/gradle/testreport/TestReportFormattingPlugin.java`
+### BoundedWildcard
+Can generalize to `? extends L`
+in `witchcraft-logging-formatting/src/main/java/com/palantir/witchcraft/java/logging/format/LogParser.java`
 #### Snippet
 ```java
- * lines much like our intellij plugin.
- */
-public abstract class TestReportFormattingPlugin implements Plugin<Project> {
+    }
 
-    @Override
+    private static <L> Optional<L> parseJson(String logLine, Class<L> clazz) {
+        try {
+            return Optional.of(OBJECT_MAPPER.readValue(logLine, clazz));
 ```
 
 ## RuleId[ruleID=CodeBlock2Expr]
