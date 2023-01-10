@@ -148,12 +148,13 @@ public class DataBaseMigration {
     private void removeBadSmellsWithWrongProjectUrl() {
         badSmellRepository
                 .getAll()
-                .filter(v -> v.getProjectUrl().contains(".git"))
+                .filter(v -> v.getProjectUrl().endsWith(".git"))
                 .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
         projectRepository.getAll().stream()
-                .filter(v -> v.getProjectUrl().contains(".git"))
+                .filter(v -> v.getProjectUrl().endsWith(".git"))
                 .forEach(project -> {
                     projectConfigRepository.deleteByProjectUrl(project.getProjectUrl());
+                    projectRepository.deleteByProjectName(project.getProjectName());
                     var deleted = projectRepository.deleteByProjectUrl(project.getProjectUrl());
                     logger.atInfo().log("Deleted %d project %s", deleted, project.getProjectUrl());
                 });
