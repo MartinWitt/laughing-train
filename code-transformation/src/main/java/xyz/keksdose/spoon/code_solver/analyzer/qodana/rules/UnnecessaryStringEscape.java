@@ -52,11 +52,9 @@ public class UnnecessaryStringEscape extends AbstractRefactoring {
         List<CtLiteral<String>> literals = filterMatches(PositionScanner.findLineOnly(type, result.position()));
         for (CtLiteral<String> literal : literals) {
             String value = literal.getValue();
-            value.chars().forEach(v -> System.out.println((int) v));
             if (value.contains(result.message().split("`")[1]) && !listener.isFixed(result)) {
                 String newValue = String.valueOf(value.toCharArray());
-                CtLiteral<?> createLiteral = literal.getFactory().createLiteral(new StringHolder(newValue));
-                literal.replace(createLiteral);
+                literal.replace(literal.getFactory().createLiteral(new StringHolder(newValue)));
                 String changeText = "Replaced `%s` with `%s`".formatted(escaped, newValue);
                 Change change = new Change(BAD_SMELL, MarkdownString.fromMarkdown(changeText), type, result);
                 listener.setChanged(type, change);
