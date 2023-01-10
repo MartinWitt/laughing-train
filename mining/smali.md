@@ -270,11 +270,11 @@ Modifier `private` is redundant for enum constructors
 in `dexlib2/src/main/java/org/jf/dexlib2/Format.java`
 #### Snippet
 ```java
-    public final boolean isPayloadFormat;
-
-    private Format(int size) {
-        this(size, false);
     }
+
+    private Format(int size, boolean isPayloadFormat) {
+        this.size = size;
+        this.isPayloadFormat = isPayloadFormat;
 ```
 
 ### UnnecessaryModifier
@@ -282,11 +282,11 @@ Modifier `private` is redundant for enum constructors
 in `dexlib2/src/main/java/org/jf/dexlib2/Format.java`
 #### Snippet
 ```java
-    }
+    public final boolean isPayloadFormat;
 
-    private Format(int size, boolean isPayloadFormat) {
-        this.size = size;
-        this.isPayloadFormat = isPayloadFormat;
+    private Format(int size) {
+        this(size, false);
+    }
 ```
 
 ### UnnecessaryModifier
@@ -330,11 +330,11 @@ Modifier `public` is redundant for interface members
 in `dexlib2/src/main/java/org/jf/dexlib2/iface/instruction/formats/ArrayPayload.java`
 #### Snippet
 ```java
-
 public interface ArrayPayload extends PayloadInstruction {
     public int getElementWidth();
     @Nonnull public List<Number> getArrayElements();
 }
+
 ```
 
 ### UnnecessaryModifier
@@ -342,11 +342,11 @@ Modifier `public` is redundant for interface members
 in `dexlib2/src/main/java/org/jf/dexlib2/iface/instruction/formats/ArrayPayload.java`
 #### Snippet
 ```java
+
 public interface ArrayPayload extends PayloadInstruction {
     public int getElementWidth();
     @Nonnull public List<Number> getArrayElements();
 }
-
 ```
 
 ### UnnecessaryModifier
@@ -359,30 +359,6 @@ public abstract class BuilderEncodedValues {
     public static interface BuilderEncodedValue extends EncodedValue {
     }
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/AnnotationsDirectory.java`
-#### Snippet
-```java
-         * Resets the iterator to the beginning of its list.
-         */
-        public void reset();
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/AnnotationsDirectory.java`
-#### Snippet
-```java
-         * @return The annotation offset associated with the requested key, or 0 if not found.
-         */
-        public int seekTo(int key);
-
-        /**
 ```
 
 ### UnnecessaryModifier
@@ -423,6 +399,42 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/AnnotationsDirectory.jav
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/AnnotationsDirectory.java`
+#### Snippet
+```java
+         * Resets the iterator to the beginning of its list.
+         */
+        public void reset();
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/AnnotationsDirectory.java`
+#### Snippet
+```java
+         * @return The annotation offset associated with the requested key, or 0 if not found.
+         */
+        public int seekTo(int key);
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `third_party/smali/src/main/java/org/jf/smali/LexerErrorInterface.java`
+#### Snippet
+```java
+
+public interface LexerErrorInterface {
+    public int getNumberOfSyntaxErrors();
+
+    //ANTLR doesn't provide any way to add interfaces to the lexer class directly, so this is an intermediate
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `third_party/smali/src/main/java/org/jf/smali/LexerErrorInterface.java`
 #### Snippet
 ```java
@@ -443,18 +455,6 @@ in `third_party/smali/src/main/java/org/jf/smali/LexerErrorInterface.java`
     public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
         public ANTLRLexerWithErrorInterface() {
         }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `third_party/smali/src/main/java/org/jf/smali/LexerErrorInterface.java`
-#### Snippet
-```java
-
-public interface LexerErrorInterface {
-    public int getNumberOfSyntaxErrors();
-
-    //ANTLR doesn't provide any way to add interfaces to the lexer class directly, so this is an intermediate
 ```
 
 ## RuleId[ruleID=ConditionalBreakInInfiniteLoop]
@@ -521,18 +521,6 @@ in `third_party/util/src/main/java/org/jf/util/PathUtil.java`
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_range_lengths`
-in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
-#### Snippet
-```java
-}
-
-private static final byte _SyntheticAccessorFSM_range_lengths[] = init__SyntheticAccessorFSM_range_lengths_0();
-
-
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of field `_SyntheticAccessorFSM_key_offsets`
 in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
@@ -545,25 +533,25 @@ private static final short _SyntheticAccessorFSM_key_offsets[] = init__Synthetic
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_indicies`
+C-style array declaration of field `_SyntheticAccessorFSM_actions`
 in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
 ```java
 }
 
-private static final byte _SyntheticAccessorFSM_indicies[] = init__SyntheticAccessorFSM_indicies_0();
+private static final byte _SyntheticAccessorFSM_actions[] = init__SyntheticAccessorFSM_actions_0();
 
 
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_index_offsets`
+C-style array declaration of field `_SyntheticAccessorFSM_range_lengths`
 in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
 ```java
 }
 
-private static final short _SyntheticAccessorFSM_index_offsets[] = init__SyntheticAccessorFSM_index_offsets_0();
+private static final byte _SyntheticAccessorFSM_range_lengths[] = init__SyntheticAccessorFSM_range_lengths_0();
 
 
 ```
@@ -593,13 +581,25 @@ private static final byte _SyntheticAccessorFSM_trans_targs[] = init__SyntheticA
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_actions`
+C-style array declaration of field `_SyntheticAccessorFSM_single_lengths`
 in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
 ```java
 }
 
-private static final byte _SyntheticAccessorFSM_actions[] = init__SyntheticAccessorFSM_actions_0();
+private static final byte _SyntheticAccessorFSM_single_lengths[] = init__SyntheticAccessorFSM_single_lengths_0();
+
+
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `_SyntheticAccessorFSM_index_offsets`
+in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
+#### Snippet
+```java
+}
+
+private static final short _SyntheticAccessorFSM_index_offsets[] = init__SyntheticAccessorFSM_index_offsets_0();
 
 
 ```
@@ -617,13 +617,13 @@ private static final byte _SyntheticAccessorFSM_trans_actions[] = init__Syntheti
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `_SyntheticAccessorFSM_single_lengths`
+C-style array declaration of field `_SyntheticAccessorFSM_indicies`
 in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
 #### Snippet
 ```java
 }
 
-private static final byte _SyntheticAccessorFSM_single_lengths[] = init__SyntheticAccessorFSM_single_lengths_0();
+private static final byte _SyntheticAccessorFSM_indicies[] = init__SyntheticAccessorFSM_indicies_0();
 
 
 ```
@@ -691,18 +691,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeListPool.java`
-#### Snippet
-```java
-
-        BuilderTypeList typeList = new BuilderTypeList(
-                ImmutableList.copyOf(Iterables.transform(types, new Function<CharSequence, BuilderTypeReference>() {
-                    @Nonnull @Override public BuilderTypeReference apply(CharSequence input) {
-                        return dexBuilder.typeSection.internType(input.toString());
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
 #### Snippet
 ```java
@@ -727,26 +715,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeListPool.java`
 #### Snippet
 ```java
-    @Nullable @Override
-    public Iterable<? extends BuilderStringReference> getParameterNames(@Nonnull BuilderMethod method) {
-        return Iterables.transform(method.getParameters(), new Function<BuilderMethodParameter, BuilderStringReference>() {
-            @Nullable @Override public BuilderStringReference apply(BuilderMethodParameter input) {
-                return input.name;
+
+        BuilderTypeList typeList = new BuilderTypeList(
+                ImmutableList.copyOf(Iterables.transform(types, new Function<CharSequence, BuilderTypeReference>() {
+                    @Nonnull @Override public BuilderTypeReference apply(CharSequence input) {
+                        return dexBuilder.typeSection.internType(input.toString());
 ```
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
-            @Nonnull final BuilderMethod method) {
-        final List<? extends BuilderMethodParameter> parameters = method.getParameters();
-        boolean hasParameterAnnotations = Iterables.any(parameters, HAS_PARAMETER_ANNOTATIONS);
+    @Nonnull @Override
+    public List<String> getInterfaces() {
+        return Lists.transform(this.interfaces, Functions.toStringFunction());
+    }
 
-        if (hasParameterAnnotations) {
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -775,14 +763,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
 #### Snippet
 ```java
-    @Nonnull @Override
-    public List<String> getInterfaces() {
-        return Lists.transform(this.interfaces, Functions.toStringFunction());
-    }
+    @Nullable @Override
+    public Iterable<? extends BuilderStringReference> getParameterNames(@Nonnull BuilderMethod method) {
+        return Iterables.transform(method.getParameters(), new Function<BuilderMethodParameter, BuilderStringReference>() {
+            @Nullable @Override public BuilderStringReference apply(BuilderMethodParameter input) {
+                return input.name;
+```
 
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
+#### Snippet
+```java
+            @Nonnull final BuilderMethod method) {
+        final List<? extends BuilderMethodParameter> parameters = method.getParameters();
+        boolean hasParameterAnnotations = Iterables.any(parameters, HAS_PARAMETER_ANNOTATIONS);
+
+        if (hasParameterAnnotations) {
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -1518,7 +1518,7 @@ in `dexlib2/src/main/java/org/jf/util/ImmutableConverter.java`
 in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 #### Snippet
 ```java
-                List<? extends DexFile> oatDexFiles = oatFile.getDexFiles();
+                List<DexBackedDexFile> oatDexFiles = oatFile.getDexFiles();
 
                 if (oatDexFiles.size() == 0) {
                     throw new DexFileNotFoundException("Oat file %s contains no dex files", file.getName());
@@ -1542,7 +1542,7 @@ in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 #### Snippet
 ```java
-                List<DexBackedDexFile> oatDexFiles = oatFile.getDexFiles();
+                List<? extends DexFile> oatDexFiles = oatFile.getDexFiles();
 
                 if (oatDexFiles.size() == 0) {
                     throw new DexFileNotFoundException("Oat file %s contains no dex files", file.getName());
@@ -1586,6 +1586,66 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/AnnotationSetPool.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nullable @Override public Set<? extends Annotation> getClassAnnotations(@Nonnull PoolClassDef classDef) {
+        Set<? extends Annotation> annotations = classDef.getAnnotations();
+        if (annotations.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`input.getAnnotations().size() > 0` can be replaced with '!input.getAnnotations().isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+        @Override
+        public boolean apply(MethodParameter input) {
+            return input.getAnnotations().size() > 0;
+        }
+    };
+```
+
+### SizeReplaceableByIsEmpty
+`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nullable @Override public Set<? extends Annotation> getMethodAnnotations(@Nonnull PoolMethod method) {
+        Set<? extends Annotation> annotations = method.getAnnotations();
+        if (annotations.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nullable @Override public Set<? extends Annotation> getFieldAnnotations(@Nonnull Field field) {
+        Set<? extends Annotation> annotations = field.getAnnotations();
+        if (annotations.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`tryBlocks.size() > 0` can be replaced with '!tryBlocks.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+
+            List<? extends TryBlock> tryBlocks = methodImpl.getTryBlocks();
+            if (!hasInstruction && tryBlocks.size() > 0) {
+                throw new ExceptionWithContext("Method %s has no instructions, but has try blocks.", method);
+            }
+```
+
+### SizeReplaceableByIsEmpty
 `types.size() == 0` can be replaced with 'types.isEmpty()'
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeListPool.java`
 #### Snippet
@@ -1611,66 +1671,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeListPool.java
 
 ### SizeReplaceableByIsEmpty
 `input.getAnnotations().size() > 0` can be replaced with '!input.getAnnotations().isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-        @Override
-        public boolean apply(MethodParameter input) {
-            return input.getAnnotations().size() > 0;
-        }
-    };
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nullable @Override public Set<? extends Annotation> getClassAnnotations(@Nonnull PoolClassDef classDef) {
-        Set<? extends Annotation> annotations = classDef.getAnnotations();
-        if (annotations.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`tryBlocks.size() > 0` can be replaced with '!tryBlocks.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-
-            List<? extends TryBlock> tryBlocks = methodImpl.getTryBlocks();
-            if (!hasInstruction && tryBlocks.size() > 0) {
-                throw new ExceptionWithContext("Method %s has no instructions, but has try blocks.", method);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nullable @Override public Set<? extends Annotation> getFieldAnnotations(@Nonnull Field field) {
-        Set<? extends Annotation> annotations = field.getAnnotations();
-        if (annotations.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.size() == 0` can be replaced with 'annotations.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nullable @Override public Set<? extends Annotation> getMethodAnnotations(@Nonnull PoolMethod method) {
-        Set<? extends Annotation> annotations = method.getAnnotations();
-        if (annotations.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`input.getAnnotations().size() > 0` can be replaced with '!input.getAnnotations().isEmpty()'
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
 #### Snippet
 ```java
@@ -1691,54 +1691,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/CustomInlineMethodResolver.jav
                 if (line.length() > 0) {
                     lines.add(line);
                 }
-```
-
-### SizeReplaceableByIsEmpty
-`staticFields.size() > 0` can be replaced with '!staticFields.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-        Collection<? extends MethodKey> directMethods = classSection.getSortedDirectMethods(key);
-        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
-        boolean classHasData = staticFields.size() > 0 ||
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-```
-
-### SizeReplaceableByIsEmpty
-`instanceFields.size() > 0` can be replaced with '!instanceFields.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
-        boolean classHasData = staticFields.size() > 0 ||
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-                virtualMethods.size() > 0;
-```
-
-### SizeReplaceableByIsEmpty
-`directMethods.size() > 0` can be replaced with '!directMethods.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-        boolean classHasData = staticFields.size() > 0 ||
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-                virtualMethods.size() > 0;
-
-```
-
-### SizeReplaceableByIsEmpty
-`virtualMethods.size() > 0` can be replaced with '!virtualMethods.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-                instanceFields.size() > 0 ||
-                directMethods.size() > 0 ||
-                virtualMethods.size() > 0;
-
-        if (classHasData) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1886,6 +1838,54 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`staticFields.size() > 0` can be replaced with '!staticFields.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        Collection<? extends MethodKey> directMethods = classSection.getSortedDirectMethods(key);
+        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
+        boolean classHasData = staticFields.size() > 0 ||
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+```
+
+### SizeReplaceableByIsEmpty
+`instanceFields.size() > 0` can be replaced with '!instanceFields.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        Collection<? extends MethodKey> virtualMethods = classSection.getSortedVirtualMethods(key);
+        boolean classHasData = staticFields.size() > 0 ||
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+                virtualMethods.size() > 0;
+```
+
+### SizeReplaceableByIsEmpty
+`directMethods.size() > 0` can be replaced with '!directMethods.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        boolean classHasData = staticFields.size() > 0 ||
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+                virtualMethods.size() > 0;
+
+```
+
+### SizeReplaceableByIsEmpty
+`virtualMethods.size() > 0` can be replaced with '!virtualMethods.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+                instanceFields.size() > 0 ||
+                directMethods.size() > 0 ||
+                virtualMethods.size() > 0;
+
+        if (classHasData) {
+```
+
+### SizeReplaceableByIsEmpty
 `tryBlocks.size() > 0` can be replaced with '!tryBlocks.isEmpty()'
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
@@ -1970,6 +1970,18 @@ public class TypeRewriter implements Rewriter<String> {
 ```
 
 ### SizeReplaceableByIsEmpty
+`elements.size() == 0` can be replaced with 'elements.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+            List<? extends SwitchElement> elements = instruction.getSwitchElements();
+            writer.writeUshort(elements.size());
+            if (elements.size() == 0) {
+                writer.writeInt(0);
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
 `unresolvedInterfaces.size() > 0` can be replaced with '!unresolvedInterfaces.isEmpty()'
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 #### Snippet
@@ -1995,14 +2007,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 
 ### SizeReplaceableByIsEmpty
 `elements.size() == 0` can be replaced with 'elements.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
 #### Snippet
 ```java
-            List<? extends SwitchElement> elements = instruction.getSwitchElements();
-            writer.writeUshort(elements.size());
+
+            out.annotate(2, "size = %d", elements.size());
             if (elements.size() == 0) {
-                writer.writeInt(0);
+                out.annotate(4, "first_key");
             } else {
+```
+
+### SizeReplaceableByIsEmpty
+`elements.size() > 0` can be replaced with '!elements.isEmpty()'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
+#### Snippet
+```java
+            out.indent();
+            out.annotate(2, "size = %d", elements.size());
+            if (elements.size() > 0) {
+                out.annotate(0, "keys:");
+                out.indent();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2027,30 +2051,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
             if (elements.size() > 0) {
                 for (int i = 0; i < elements.size(); i++) {
                     if (elementWidth == 8) {
-```
-
-### SizeReplaceableByIsEmpty
-`elements.size() > 0` can be replaced with '!elements.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-            out.indent();
-            out.annotate(2, "size = %d", elements.size());
-            if (elements.size() > 0) {
-                out.annotate(0, "keys:");
-                out.indent();
-```
-
-### SizeReplaceableByIsEmpty
-`elements.size() == 0` can be replaced with 'elements.isEmpty()'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-
-            out.annotate(2, "size = %d", elements.size());
-            if (elements.size() == 0) {
-                out.annotate(4, "first_key");
-            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2126,6 +2126,18 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/FieldDefinition.
 ```
 
 ### SizeReplaceableByIsEmpty
+`intLiteral.length() == 0` can be replaced with 'intLiteral.isEmpty()'
+in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
+#### Snippet
+```java
+            throw new NumberFormatException("string is null");
+        }
+        if (intLiteral.length() == 0) {
+            throw new NumberFormatException("string is blank");
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `longLiteral.length() == 0` can be replaced with 'longLiteral.isEmpty()'
 in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
 #### Snippet
@@ -2162,42 +2174,6 @@ in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`intLiteral.length() == 0` can be replaced with 'intLiteral.isEmpty()'
-in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
-#### Snippet
-```java
-            throw new NumberFormatException("string is null");
-        }
-        if (intLiteral.length() == 0) {
-            throw new NumberFormatException("string is blank");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`classAnnotations.size() != 0` can be replaced with '!classAnnotations.isEmpty()'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-    private void writeAnnotations(BaksmaliWriter writer) throws IOException {
-        Collection<? extends Annotation> classAnnotations = classDef.getAnnotations();
-        if (classAnnotations.size() != 0) {
-            writer.write("\n\n");
-            writer.write("# annotations\n");
-```
-
-### SizeReplaceableByIsEmpty
-`interfaces.size() != 0` can be replaced with '!interfaces.isEmpty()'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-        List<String> interfaces = classDef.getInterfaces();
-
-        if (interfaces.size() != 0) {
-            writer.write('\n');
-            writer.write("# interfaces\n");
-```
-
-### SizeReplaceableByIsEmpty
 `tryBlocks.size() == 0` can be replaced with 'tryBlocks.isEmpty()'
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
@@ -2231,6 +2207,30 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition
                 if (annotations.size() > 0) {
                     writer.indent(4);
                     AnnotationFormatter.writeTo(writer, annotations);
+```
+
+### SizeReplaceableByIsEmpty
+`classAnnotations.size() != 0` can be replaced with '!classAnnotations.isEmpty()'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+    private void writeAnnotations(BaksmaliWriter writer) throws IOException {
+        Collection<? extends Annotation> classAnnotations = classDef.getAnnotations();
+        if (classAnnotations.size() != 0) {
+            writer.write("\n\n");
+            writer.write("# annotations\n");
+```
+
+### SizeReplaceableByIsEmpty
+`interfaces.size() != 0` can be replaced with '!interfaces.isEmpty()'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+        List<String> interfaces = classDef.getInterfaces();
+
+        if (interfaces.size() != 0) {
+            writer.write('\n');
+            writer.write("# interfaces\n");
 ```
 
 ## RuleId[ruleID=StringBufferReplaceableByString]
@@ -2284,18 +2284,6 @@ in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `value > 0xFF | value < -0x80`
-in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
-#### Snippet
-```java
-
-    public static void checkByte(long value) {
-        if (value > 0xFF | value < -0x80) {
-            throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
-        }
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `value > 0xFFFF | value < -0x8000`
 in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
 #### Snippet
@@ -2304,6 +2292,18 @@ in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
     public static void checkShort(long value) {
         if (value > 0xFFFF | value < -0x8000) {
             throw new NumberFormatException(Long.toString(value) + " cannot fit into a short");
+        }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `value > 0xFF | value < -0x80`
+in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
+#### Snippet
+```java
+
+    public static void checkByte(long value) {
+        if (value > 0xFF | value < -0x80) {
+            throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
         }
 ```
 
@@ -2317,91 +2317,6 @@ in `dexlib2/src/main/java/org/jf/util/WrappedIndentingWriter.java`
         }
         if (currentIndent > maxIndent) {
             return maxIndent;
-        }
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `NibbleUtils` has no concrete subclass
-in `dexlib2/src/main/java/org/jf/util/NibbleUtils.java`
-#### Snippet
-```java
-package org.jf.util;
-
-public abstract class NibbleUtils {
-    /**
-     * Extracts the high signed 4-bit nibble from the least significant
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AlignmentUtils` has no concrete subclass
-in `dexlib2/src/main/java/org/jf/dexlib2/util/AlignmentUtils.java`
-#### Snippet
-```java
-package org.jf.dexlib2.util;
-
-public abstract class AlignmentUtils {
-    public static int alignOffset(int offset, int alignment) {
-        int mask = alignment - 1;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `BuilderEncodedValues` has no concrete subclass
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public abstract class BuilderEncodedValues {
-    public static interface BuilderEncodedValue extends EncodedValue {
-    }
-```
-
-### AbstractClassNeverImplemented
-Abstract class `VariableSizeCollection` has no concrete subclass
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeCollection.java`
-#### Snippet
-```java
-import java.util.AbstractCollection;
-
-public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
-    @Nonnull private final DexBuffer buffer;
-    private final int offset;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DexBackedReference` has no concrete subclass
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedReference.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public abstract class DexBackedReference {
-    public static Reference makeReference(@Nonnull DexBackedDexFile dexFile, int referenceType, int referenceIndex) {
-        switch (referenceType) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DexBackedEncodedValue` has no concrete subclass
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedEncodedValue.java`
-#### Snippet
-```java
-import javax.annotation.Nonnull;
-
-public abstract class DexBackedEncodedValue {
-    @Nonnull
-    public static EncodedValue readFrom(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ANTLRLexerWithErrorInterface` has no concrete subclass
-in `third_party/smali/src/main/java/org/jf/smali/LexerErrorInterface.java`
-#### Snippet
-```java
-    //ANTLR doesn't provide any way to add interfaces to the lexer class directly, so this is an intermediate
-    //class that implements LexerErrorInterface that we can have the ANTLR parser extend 
-    public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
-        public ANTLRLexerWithErrorInterface() {
         }
 ```
 
@@ -2452,6 +2367,30 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/DebugWriter.java`
                 @Nonnull TypeSection<StringKey, TypeKey, ?> typeSection,
                 @Nonnull DexDataWriter writer) {
         this.stringSection = stringSection;
+```
+
+### BoundedWildcard
+Can generalize to `? super CharSequence`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    }
+
+    @Override public void writeDebugItem(@Nonnull DebugWriter<CharSequence, CharSequence> writer,
+                                         DebugItem debugItem) throws IOException {
+        switch (debugItem.getDebugItemType()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super CharSequence`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    }
+
+    @Override public void writeDebugItem(@Nonnull DebugWriter<CharSequence, CharSequence> writer,
+                                         DebugItem debugItem) throws IOException {
+        switch (debugItem.getDebugItemType()) {
 ```
 
 ### BoundedWildcard
@@ -2563,30 +2502,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CharSequence`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    }
-
-    @Override public void writeDebugItem(@Nonnull DebugWriter<CharSequence, CharSequence> writer,
-                                         DebugItem debugItem) throws IOException {
-        switch (debugItem.getDebugItemType()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CharSequence`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    }
-
-    @Override public void writeDebugItem(@Nonnull DebugWriter<CharSequence, CharSequence> writer,
-                                         DebugItem debugItem) throws IOException {
-        switch (debugItem.getDebugItemType()) {
-```
-
-### BoundedWildcard
 Can generalize to `? super BuilderStringReference`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
 #### Snippet
@@ -2620,42 +2535,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
     public ClassPath(Iterable<ClassProvider> classProviders) throws IOException {
         this(classProviders, false, NOT_ART);
     }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Method`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    }
-
-    private int findMethodIndexInVtable(@Nonnull List<Method> vtable, MethodReference method) {
-        for (int i=0; i<vtable.size(); i++) {
-            Method candidate = vtable.get(i);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Method`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    }
-
-    private int findMethodIndexInVtableReverse(@Nonnull List<Method> vtable, MethodReference method) {
-        for (int i=vtable.size() - 1; i>=0; i--) {
-            Method candidate = vtable.get(i);
-```
-
-### BoundedWildcard
-Can generalize to `? super FieldGap`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-                }
-
-                private void addFieldGap(int gapStart, int gapEnd, @Nonnull PriorityQueue<FieldGap> gaps) {
-                    int offset = gapStart;
-
 ```
 
 ### BoundedWildcard
@@ -2743,27 +2622,39 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super MethodItem`
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+Can generalize to `? super FieldGap`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-    }
+                }
 
-    private void addAnalyzedInstructionMethodItems(List<MethodItem> methodItems) {
-        MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classDef.options.classPath, method,
-                classDef.options.inlineResolver, classDef.options.normalizeVirtualMethods);
+                private void addFieldGap(int gapStart, int gapEnd, @Nonnull PriorityQueue<FieldGap> gaps) {
+                    int offset = gapStart;
+
 ```
 
 ### BoundedWildcard
-Can generalize to `? super MethodItem`
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+Can generalize to `? extends Method`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
     }
 
-    private void addInstructionMethodItems(List<MethodItem> methodItems) {
-        int currentCodeAddress = 0;
+    private int findMethodIndexInVtableReverse(@Nonnull List<Method> vtable, MethodReference method) {
+        for (int i=vtable.size() - 1; i>=0; i--) {
+            Method candidate = vtable.get(i);
+```
 
+### BoundedWildcard
+Can generalize to `? extends Method`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    }
+
+    private int findMethodIndexInVtable(@Nonnull List<Method> vtable, MethodReference method) {
+        for (int i=0; i<vtable.size(); i++) {
+            Method candidate = vtable.get(i);
 ```
 
 ### BoundedWildcard
@@ -2785,9 +2676,118 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition
 ```java
     }
 
+    private void addInstructionMethodItems(List<MethodItem> methodItems) {
+        int currentCodeAddress = 0;
+
+```
+
+### BoundedWildcard
+Can generalize to `? super MethodItem`
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+    }
+
     private void addDebugInfo(final List<MethodItem> methodItems) {
         for (DebugItem debugItem: methodImpl.getDebugItems()) {
             methodItems.add(DebugMethodItem.build(classDef, registerFormatter, debugItem));
+```
+
+### BoundedWildcard
+Can generalize to `? super MethodItem`
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+    }
+
+    private void addAnalyzedInstructionMethodItems(List<MethodItem> methodItems) {
+        MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classDef.options.classPath, method,
+                classDef.options.inlineResolver, classDef.options.normalizeVirtualMethods);
+```
+
+## RuleId[ruleID=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `NibbleUtils` has no concrete subclass
+in `dexlib2/src/main/java/org/jf/util/NibbleUtils.java`
+#### Snippet
+```java
+package org.jf.util;
+
+public abstract class NibbleUtils {
+    /**
+     * Extracts the high signed 4-bit nibble from the least significant
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AlignmentUtils` has no concrete subclass
+in `dexlib2/src/main/java/org/jf/dexlib2/util/AlignmentUtils.java`
+#### Snippet
+```java
+package org.jf.dexlib2.util;
+
+public abstract class AlignmentUtils {
+    public static int alignOffset(int offset, int alignment) {
+        int mask = alignment - 1;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BuilderEncodedValues` has no concrete subclass
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public abstract class BuilderEncodedValues {
+    public static interface BuilderEncodedValue extends EncodedValue {
+    }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `VariableSizeCollection` has no concrete subclass
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeCollection.java`
+#### Snippet
+```java
+import java.util.AbstractCollection;
+
+public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
+    @Nonnull private final DexBuffer buffer;
+    private final int offset;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DexBackedReference` has no concrete subclass
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedReference.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public abstract class DexBackedReference {
+    public static Reference makeReference(@Nonnull DexBackedDexFile dexFile, int referenceType, int referenceIndex) {
+        switch (referenceType) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DexBackedEncodedValue` has no concrete subclass
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedEncodedValue.java`
+#### Snippet
+```java
+import javax.annotation.Nonnull;
+
+public abstract class DexBackedEncodedValue {
+    @Nonnull
+    public static EncodedValue readFrom(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ANTLRLexerWithErrorInterface` has no concrete subclass
+in `third_party/smali/src/main/java/org/jf/smali/LexerErrorInterface.java`
+#### Snippet
+```java
+    //ANTLR doesn't provide any way to add interfaces to the lexer class directly, so this is an intermediate
+    //class that implements LexerErrorInterface that we can have the ANTLR parser extend 
+    public abstract static class ANTLRLexerWithErrorInterface extends Lexer implements LexerErrorInterface {
+        public ANTLRLexerWithErrorInterface() {
+        }
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -2889,18 +2889,6 @@ in `smali/src/main/java/org/jf/smali/SmaliMethodParameter.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `smali/src/main/java/org/jf/smali/SmaliMethodParameter.java`
-#### Snippet
-```java
-public class SmaliMethodParameter extends BaseMethodParameter implements WithRegister {
-    public final int register;
-    @Nonnull public final String type;
-    @Nonnull public Set<? extends Annotation> annotations;
-    @Nullable public String name;
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `smali/src/main/java/org/jf/smali/SmaliMethodParameter.java`
 #### Snippet
@@ -2914,14 +2902,14 @@ in `smali/src/main/java/org/jf/smali/SmaliMethodParameter.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `util/src/main/java/org/jf/util/jcommander/Command.java`
+in `smali/src/main/java/org/jf/smali/SmaliMethodParameter.java`
 #### Snippet
 ```java
-public abstract class Command {
-
-    @Nonnull
-    protected final List<JCommander> commandAncestors;
-
+public class SmaliMethodParameter extends BaseMethodParameter implements WithRegister {
+    public final int register;
+    @Nonnull public final String type;
+    @Nonnull public Set<? extends Annotation> annotations;
+    @Nullable public String name;
 ```
 
 ### NullableProblems
@@ -2934,6 +2922,18 @@ public class RandomAccessFileOutputStream extends OutputStream {
     @Nonnull private final RandomAccessFile raf;
 
     public RandomAccessFileOutputStream(@Nonnull RandomAccessFile raf, int startFilePosition) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `util/src/main/java/org/jf/util/jcommander/Command.java`
+#### Snippet
+```java
+public abstract class Command {
+
+    @Nonnull
+    protected final List<JCommander> commandAncestors;
+
 ```
 
 ### NullableProblems
@@ -2989,6 +2989,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/Opcodes.java`
 #### Snippet
 ```java
+    public final int artVersion;
+    @Nonnull private final Opcode[] opcodesByValue = new Opcode[256];
+    @Nonnull private final EnumMap<Opcode, Short> opcodeValues;
+    @Nonnull private final HashMap<String, Opcode> opcodesByName;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/Opcodes.java`
+#### Snippet
+```java
     @Nonnull private final Opcode[] opcodesByValue = new Opcode[256];
     @Nonnull private final EnumMap<Opcode, Short> opcodeValues;
     @Nonnull private final HashMap<String, Opcode> opcodesByName;
@@ -3009,15 +3021,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/Opcodes.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/Opcodes.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 #### Snippet
 ```java
-    public final int artVersion;
-    @Nonnull private final Opcode[] opcodesByValue = new Opcode[256];
-    @Nonnull private final EnumMap<Opcode, Short> opcodeValues;
-    @Nonnull private final HashMap<String, Opcode> opcodesByName;
+        private final File vdexFile;
 
+        @Nullable
+        private byte[] buf = null;
+        private boolean loadedVdex = false;
 ```
 
 ### NullableProblems
@@ -3033,18 +3045,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
-#### Snippet
-```java
-        private final File vdexFile;
-
-        @Nullable
-        private byte[] buf = null;
-        private boolean loadedVdex = false;
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/util/InstructionOffsetMap.java`
 #### Snippet
@@ -3054,18 +3054,6 @@ public class InstructionOffsetMap {
     @Nonnull private final int[] instructionCodeOffsets;
 
     public InstructionOffsetMap(@Nonnull List<? extends Instruction> instructions) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorResolver.java`
-#### Snippet
-```java
-    public static class AccessedMember {
-        public final int accessedMemberType;
-        @Nonnull public final Reference accessedMember;
-
-        public AccessedMember(int accessedMemberType, @Nonnull Reference accessedMember) {
 ```
 
 ### NullableProblems
@@ -3082,14 +3070,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/iface/MultiDexContainer.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/util/AnnotatedBytes.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorResolver.java`
 #### Snippet
 ```java
-    private static class AnnotationEndpoint {
-        /** Annotations that are associated with a specific point between bytes */
-        @Nonnull
-        public final List<AnnotationItem> pointAnnotations = Lists.newArrayList();
-        /** Annotations that are associated with a range of bytes */
+    public static class AccessedMember {
+        public final int accessedMemberType;
+        @Nonnull public final Reference accessedMember;
+
+        public AccessedMember(int accessedMemberType, @Nonnull Reference accessedMember) {
 ```
 
 ### NullableProblems
@@ -3117,15 +3105,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/util/AnnotatedBytes.java`
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `dexlib2/src/main/java/org/jf/dexlib2/iface/reference/MethodProtoReference.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/util/AnnotatedBytes.java`
 #### Snippet
 ```java
-     * @return The return type of the referenced method prototype.
-     */
-    @Nonnull String getReturnType();
-
-    /**
+    private static class AnnotationEndpoint {
+        /** Annotations that are associated with a specific point between bytes */
+        @Nonnull
+        public final List<AnnotationItem> pointAnnotations = Lists.newArrayList();
+        /** Annotations that are associated with a range of bytes */
 ```
 
 ### NullableProblems
@@ -3136,6 +3124,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/iface/reference/MethodProtoReference.ja
      * @return A list of the parameter types of this method prototype, as strings.
      */
     @Nonnull List<? extends CharSequence> getParameterTypes();
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dexlib2/src/main/java/org/jf/dexlib2/iface/reference/MethodProtoReference.java`
+#### Snippet
+```java
+     * @return The return type of the referenced method prototype.
+     */
+    @Nonnull String getReturnType();
 
     /**
 ```
@@ -3178,14 +3178,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/util/SyntheticAccessorFSM.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DebugWriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/FileDeferredOutputStream.java`
+#### Snippet
+```java
+    private static final int DEFAULT_BUFFER_SIZE = 4 * 1024;
+
+    @Nonnull private final File backingFile;
+    @Nonnull private final NakedBufferedOutputStream output;
+    private int writtenBytes;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/FileDeferredOutputStream.java`
 #### Snippet
 ```java
 
-public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSequence> {
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<StringKey, TypeKey, ?> typeSection;
-    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final File backingFile;
+    @Nonnull private final NakedBufferedOutputStream output;
+    private int writtenBytes;
+
 ```
 
 ### NullableProblems
@@ -3214,26 +3226,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/DebugWriter.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/FileDeferredOutputStream.java`
-#### Snippet
-```java
-    private static final int DEFAULT_BUFFER_SIZE = 4 * 1024;
-
-    @Nonnull private final File backingFile;
-    @Nonnull private final NakedBufferedOutputStream output;
-    private int writtenBytes;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/FileDeferredOutputStream.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DebugWriter.java`
 #### Snippet
 ```java
 
-    @Nonnull private final File backingFile;
-    @Nonnull private final NakedBufferedOutputStream output;
-    private int writtenBytes;
-
+public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSequence> {
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<StringKey, TypeKey, ?> typeSection;
+    @Nonnull private final DexDataWriter writer;
 ```
 
 ### NullableProblems
@@ -3274,18 +3274,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/TypeListPool.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolMethod.java`
-#### Snippet
-```java
-
-class PoolMethod extends BaseMethodReference implements Method {
-    @Nonnull private final Method method;
-    protected int annotationSetRefListOffset = DexPool.NO_OFFSET;
-    protected int codeItemOffset = DexPool.NO_OFFSET;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
 #### Snippet
 ```java
@@ -3294,6 +3282,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
     @Nonnull final ImmutableSortedSet<Field> staticFields;
     @Nonnull final ImmutableSortedSet<Field> instanceFields;
     @Nonnull final ImmutableSortedSet<PoolMethod> directMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
+#### Snippet
+```java
+
+class PoolClassDef extends BaseTypeReference implements ClassDef {
+    @Nonnull final ClassDef classDef;
+    @Nonnull final TypeListPool.Key<List<String>> interfaces;
+    @Nonnull final ImmutableSortedSet<Field> staticFields;
 ```
 
 ### NullableProblems
@@ -3325,18 +3325,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
 #### Snippet
 ```java
-
-class PoolClassDef extends BaseTypeReference implements ClassDef {
-    @Nonnull final ClassDef classDef;
-    @Nonnull final TypeListPool.Key<List<String>> interfaces;
-    @Nonnull final ImmutableSortedSet<Field> staticFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
-#### Snippet
-```java
     @Nonnull final ImmutableSortedSet<Field> staticFields;
     @Nonnull final ImmutableSortedSet<Field> instanceFields;
     @Nonnull final ImmutableSortedSet<PoolMethod> directMethods;
@@ -3354,6 +3342,18 @@ class PoolClassDef extends BaseTypeReference implements ClassDef {
     @Nonnull final TypeListPool.Key<List<String>> interfaces;
     @Nonnull final ImmutableSortedSet<Field> staticFields;
     @Nonnull final ImmutableSortedSet<Field> instanceFields;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolMethod.java`
+#### Snippet
+```java
+
+class PoolMethod extends BaseMethodReference implements Method {
+    @Nonnull private final Method method;
+    protected int annotationSetRefListOffset = DexPool.NO_OFFSET;
+    protected int codeItemOffset = DexPool.NO_OFFSET;
 ```
 
 ### NullableProblems
@@ -3394,182 +3394,14 @@ class BuilderAnnotation extends BaseAnnotation {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/Opcode.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
 #### Snippet
 ```java
-    private static class VersionConstraint {
-        @Nonnull public final Range<Integer> apiRange;
-        @Nonnull public final Range<Integer> artVersionRange;
-        public final int opcodeValue;
+    @Nonnull @Override public Collection<? extends Map.Entry<PoolClassDef, Integer>> getItems() {
+        class MapEntry implements Map.Entry<PoolClassDef, Integer> {
+            @Nonnull private final PoolClassDef classDef;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/Opcode.java`
-#### Snippet
-```java
-
-    private static class VersionConstraint {
-        @Nonnull public final Range<Integer> apiRange;
-        @Nonnull public final Range<Integer> artVersionRange;
-        public final int opcodeValue;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationPool.java`
-#### Snippet
-```java
-class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection<BuilderStringReference,
-        BuilderTypeReference, BuilderAnnotation, BuilderAnnotationElement, BuilderEncodedValue> {
-    @Nonnull private final ConcurrentMap<Annotation, BuilderAnnotation> internedItems =
-            Maps.newConcurrentMap();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-        MethodRefKey extends MethodReference, AnnotationElement extends org.jf.dexlib2.iface.AnnotationElement,
-        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
-
-    public EncodedValueWriter(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
-#### Snippet
-```java
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderFieldPool.java`
-#### Snippet
-```java
-public class BuilderFieldPool extends BaseBuilderPool
-        implements FieldSection<BuilderStringReference, BuilderTypeReference, BuilderFieldReference, BuilderField> {
-    @Nonnull private final ConcurrentMap<FieldReference, BuilderFieldReference> internedItems =
-            Maps.newConcurrentMap();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
-#### Snippet
-```java
-        @Nonnull private final String definingClass;
-        @Nonnull private final String name;
-        @Nonnull private final List<? extends CharSequence> parameterTypes;
-        @Nonnull private final String returnType;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
-#### Snippet
-```java
-    private static class MethodKey extends BaseMethodReference implements MethodReference {
-        @Nonnull private final String definingClass;
-        @Nonnull private final String name;
-        @Nonnull private final List<? extends CharSequence> parameterTypes;
-        @Nonnull private final String returnType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
-#### Snippet
-```java
-class BuilderMethodPool extends BaseBuilderPool implements MethodSection<BuilderStringReference, BuilderTypeReference,
-        BuilderMethodProtoReference, BuilderMethodReference, BuilderMethod>{
-    @Nonnull private final ConcurrentMap<MethodReference, BuilderMethodReference> internedItems =
-            Maps.newConcurrentMap();
-
+            public MapEntry(@Nonnull PoolClassDef classDef) {
 ```
 
 ### NullableProblems
@@ -3589,11 +3421,47 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
 #### Snippet
 ```java
+class BuilderMethodPool extends BaseBuilderPool implements MethodSection<BuilderStringReference, BuilderTypeReference,
+        BuilderMethodProtoReference, BuilderMethodReference, BuilderMethod>{
+    @Nonnull private final ConcurrentMap<MethodReference, BuilderMethodReference> internedItems =
+            Maps.newConcurrentMap();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
+#### Snippet
+```java
 
     private static class MethodKey extends BaseMethodReference implements MethodReference {
         @Nonnull private final String definingClass;
         @Nonnull private final String name;
         @Nonnull private final List<? extends CharSequence> parameterTypes;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
+#### Snippet
+```java
+    private static class MethodKey extends BaseMethodReference implements MethodReference {
+        @Nonnull private final String definingClass;
+        @Nonnull private final String name;
+        @Nonnull private final List<? extends CharSequence> parameterTypes;
+        @Nonnull private final String returnType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodPool.java`
+#### Snippet
+```java
+        @Nonnull private final String definingClass;
+        @Nonnull private final String name;
+        @Nonnull private final List<? extends CharSequence> parameterTypes;
+        @Nonnull private final String returnType;
+
 ```
 
 ### NullableProblems
@@ -3610,25 +3478,25 @@ class BuilderStringPool implements StringSection<BuilderStringReference, Builder
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeListPool.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderFieldPool.java`
 #### Snippet
 ```java
-
-class BuilderTypeListPool extends BaseBuilderPool implements TypeListSection<BuilderTypeReference, BuilderTypeList> {
-    @Nonnull private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
+public class BuilderFieldPool extends BaseBuilderPool
+        implements FieldSection<BuilderStringReference, BuilderTypeReference, BuilderFieldReference, BuilderField> {
+    @Nonnull private final ConcurrentMap<FieldReference, BuilderFieldReference> internedItems =
             Maps.newConcurrentMap();
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationElement.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationPool.java`
 #### Snippet
 ```java
-
-public class BuilderAnnotationElement extends BaseAnnotationElement {
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderEncodedValue value;
+class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection<BuilderStringReference,
+        BuilderTypeReference, BuilderAnnotation, BuilderAnnotationElement, BuilderEncodedValue> {
+    @Nonnull private final ConcurrentMap<Annotation, BuilderAnnotation> internedItems =
+            Maps.newConcurrentMap();
 
 ```
 
@@ -3646,14 +3514,74 @@ public class BuilderAnnotationElement extends BaseAnnotationElement {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderFieldReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationElement.java`
 #### Snippet
 ```java
 
-public class BuilderFieldReference extends BaseFieldReference implements BuilderReference {
+public class BuilderAnnotationElement extends BaseAnnotationElement {
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderEncodedValue value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
+#### Snippet
+```java
+        return Lists.newArrayList(new Iterator<TryBlock<EH>>() {
+            // The next TryBlock to return. This has already been merged, if needed.
+            @Nullable private MutableTryBlock<EH> next;
+
+            {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
+#### Snippet
+```java
+    private static class TryBounds<EH extends ExceptionHandler> {
+        @Nonnull public final MutableTryBlock<EH> start;
+        @Nonnull public final MutableTryBlock<EH> end;
+
+        public TryBounds(@Nonnull MutableTryBlock<EH> start, @Nonnull MutableTryBlock<EH> end) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
+#### Snippet
+```java
+        public int startCodeAddress;
+        public int endCodeAddress;
+        @Nonnull public List<EH> exceptionHandlers = Lists.newArrayList();
+
+        public MutableTryBlock(int startCodeAddress, int endCodeAddress) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
+#### Snippet
+```java
+
+    private static class TryBounds<EH extends ExceptionHandler> {
+        @Nonnull public final MutableTryBlock<EH> start;
+        @Nonnull public final MutableTryBlock<EH> end;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderFieldReference.java`
+#### Snippet
+```java
     @Nonnull final BuilderTypeReference definingClass;
     @Nonnull final BuilderStringReference name;
     @Nonnull final BuilderTypeReference fieldType;
+    int index = DexWriter.NO_INDEX;
+
 ```
 
 ### NullableProblems
@@ -3673,22 +3601,34 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderFieldReference.java`
 #### Snippet
 ```java
+
+public class BuilderFieldReference extends BaseFieldReference implements BuilderReference {
     @Nonnull final BuilderTypeReference definingClass;
     @Nonnull final BuilderStringReference name;
     @Nonnull final BuilderTypeReference fieldType;
-    int index = DexWriter.NO_INDEX;
-
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/Opcode.java`
 #### Snippet
 ```java
 
-public class BuilderTypeReference extends BaseTypeReference implements BuilderReference {
-    @Nonnull final BuilderStringReference stringReference;
-    int index = DexWriter.NO_INDEX;
+    private static class VersionConstraint {
+        @Nonnull public final Range<Integer> apiRange;
+        @Nonnull public final Range<Integer> artVersionRange;
+        public final int opcodeValue;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/Opcode.java`
+#### Snippet
+```java
+    private static class VersionConstraint {
+        @Nonnull public final Range<Integer> apiRange;
+        @Nonnull public final Range<Integer> artVersionRange;
+        public final int opcodeValue;
 
 ```
 
@@ -3697,11 +3637,35 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethod.java`
 #### Snippet
 ```java
+public class BuilderMethod extends BaseMethodReference implements Method {
+    @Nonnull final BuilderMethodReference methodReference;
     @Nonnull final List<? extends BuilderMethodParameter> parameters;
+    final int accessFlags;
+    @Nonnull final BuilderAnnotationSet annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethod.java`
+#### Snippet
+```java
     final int accessFlags;
     @Nonnull final BuilderAnnotationSet annotations;
     @Nonnull final Set<HiddenApiRestriction> hiddenApiRestrictions;
     @Nullable final MethodImplementation methodImplementation;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethod.java`
+#### Snippet
+```java
+
+public class BuilderMethod extends BaseMethodReference implements Method {
+    @Nonnull final BuilderMethodReference methodReference;
+    @Nonnull final List<? extends BuilderMethodParameter> parameters;
+    final int accessFlags;
 ```
 
 ### NullableProblems
@@ -3721,35 +3685,119 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethod.java`
 #### Snippet
 ```java
+    @Nonnull final List<? extends BuilderMethodParameter> parameters;
     final int accessFlags;
     @Nonnull final BuilderAnnotationSet annotations;
     @Nonnull final Set<HiddenApiRestriction> hiddenApiRestrictions;
     @Nullable final MethodImplementation methodImplementation;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeListPool.java`
+#### Snippet
+```java
+
+class BuilderTypeListPool extends BaseBuilderPool implements TypeListSection<BuilderTypeReference, BuilderTypeList> {
+    @Nonnull private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
+            Maps.newConcurrentMap();
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethod.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
 #### Snippet
 ```java
-public class BuilderMethod extends BaseMethodReference implements Method {
-    @Nonnull final BuilderMethodReference methodReference;
-    @Nonnull final List<? extends BuilderMethodParameter> parameters;
-    final int accessFlags;
-    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethod.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
 #### Snippet
 ```java
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+```
 
-public class BuilderMethod extends BaseMethodReference implements Method {
-    @Nonnull final BuilderMethodReference methodReference;
-    @Nonnull final List<? extends BuilderMethodParameter> parameters;
-    final int accessFlags;
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+
+    public EncodedValueWriter(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+        MethodRefKey extends MethodReference, AnnotationElement extends org.jf.dexlib2.iface.AnnotationElement,
+        ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<StringKey, ?> stringSection;
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/EncodedValueWriter.java`
+#### Snippet
+```java
+    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
 ```
 
 ### NullableProblems
@@ -3762,6 +3810,54 @@ public class BuilderMethodHandleReference extends BaseMethodHandleReference impl
     @Nonnull final BuilderReference memberReference;
     int index = NO_INDEX;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderCallSiteReference.java`
+#### Snippet
+```java
+
+public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
+    @Nonnull final String name;
+    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
+    int index = NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderCallSiteReference.java`
+#### Snippet
+```java
+public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
+    @Nonnull final String name;
+    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
+    int index = NO_INDEX;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTypeReference.java`
+#### Snippet
+```java
+
+public class BuilderTypeReference extends BaseTypeReference implements BuilderReference {
+    @Nonnull final BuilderStringReference stringReference;
+    int index = DexWriter.NO_INDEX;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTryBlock.java`
+#### Snippet
+```java
+    private final int startCodeAddress;
+    private final int codeUnitCount;
+    @Nonnull private final List<? extends BuilderExceptionHandler> exceptionHandlers;
+
+    public BuilderTryBlock(int startCodeAddress, int codeUnitCount,
 ```
 
 ### NullableProblems
@@ -3790,38 +3886,38 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMapEntryCollectio
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderCallSiteReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationSet.java`
 #### Snippet
 ```java
+            new BuilderAnnotationSet(ImmutableSet.<BuilderAnnotation>of());
 
-public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
-    @Nonnull final String name;
-    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
-    int index = NO_INDEX;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderCallSiteReference.java`
-#### Snippet
-```java
-public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
-    @Nonnull final String name;
-    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
-    int index = NO_INDEX;
+    @Nonnull final Set<BuilderAnnotation> annotations;
+    int offset = DexWriter.NO_OFFSET;
 
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderTryBlock.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodParameter.java`
 #### Snippet
 ```java
-    private final int startCodeAddress;
-    private final int codeUnitCount;
-    @Nonnull private final List<? extends BuilderExceptionHandler> exceptionHandlers;
+public class BuilderMethodParameter extends BaseMethodParameter {
+    @Nonnull final BuilderTypeReference type;
+    @Nullable final BuilderStringReference name;
+    @Nonnull final BuilderAnnotationSet annotations;
 
-    public BuilderTryBlock(int startCodeAddress, int codeUnitCount,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodParameter.java`
+#### Snippet
+```java
+
+public class BuilderMethodParameter extends BaseMethodParameter {
+    @Nonnull final BuilderTypeReference type;
+    @Nullable final BuilderStringReference name;
+    @Nonnull final BuilderAnnotationSet annotations;
 ```
 
 ### NullableProblems
@@ -3838,37 +3934,13 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodParameter.j
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodParameter.java`
-#### Snippet
-```java
-public class BuilderMethodParameter extends BaseMethodParameter {
-    @Nonnull final BuilderTypeReference type;
-    @Nullable final BuilderStringReference name;
-    @Nonnull final BuilderAnnotationSet annotations;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodParameter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderExceptionHandler.java`
 #### Snippet
 ```java
 
-public class BuilderMethodParameter extends BaseMethodParameter {
-    @Nonnull final BuilderTypeReference type;
-    @Nullable final BuilderStringReference name;
-    @Nonnull final BuilderAnnotationSet annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationSet.java`
-#### Snippet
-```java
-            new BuilderAnnotationSet(ImmutableSet.<BuilderAnnotation>of());
-
-    @Nonnull final Set<BuilderAnnotation> annotations;
-    int offset = DexWriter.NO_OFFSET;
+public class BuilderExceptionHandler extends BaseExceptionHandler {
+    @Nullable final BuilderTypeReference exceptionType;
+    final int handlerCodeAddress;
 
 ```
 
@@ -3882,78 +3954,6 @@ class BuilderTypePool extends BaseBuilderPool
     @Nonnull private final ConcurrentMap<String, BuilderTypeReference> internedItems = Maps.newConcurrentMap();
 
     public BuilderTypePool(@Nonnull DexBuilder dexBuilder) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-        public int startCodeAddress;
-        public int endCodeAddress;
-        @Nonnull public List<EH> exceptionHandlers = Lists.newArrayList();
-
-        public MutableTryBlock(int startCodeAddress, int endCodeAddress) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-    private static class TryBounds<EH extends ExceptionHandler> {
-        @Nonnull public final MutableTryBlock<EH> start;
-        @Nonnull public final MutableTryBlock<EH> end;
-
-        public TryBounds(@Nonnull MutableTryBlock<EH> start, @Nonnull MutableTryBlock<EH> end) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-
-    private static class TryBounds<EH extends ExceptionHandler> {
-        @Nonnull public final MutableTryBlock<EH> start;
-        @Nonnull public final MutableTryBlock<EH> end;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
-#### Snippet
-```java
-        return Lists.newArrayList(new Iterator<TryBlock<EH>>() {
-            // The next TryBlock to return. This has already been merged, if needed.
-            @Nullable private MutableTryBlock<EH> next;
-
-            {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderExceptionHandler.java`
-#### Snippet
-```java
-
-public class BuilderExceptionHandler extends BaseExceptionHandler {
-    @Nullable final BuilderTypeReference exceptionType;
-    final int handlerCodeAddress;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderCallSitePool.java`
-#### Snippet
-```java
-public class BuilderCallSitePool extends BaseBuilderPool
-        implements CallSiteSection<BuilderCallSiteReference, BuilderArrayEncodedValue> {
-    @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
-            Maps.newConcurrentMap();
-
 ```
 
 ### NullableProblems
@@ -3978,138 +3978,6 @@ public class BuilderStringReference extends BaseStringReference implements Build
     @Nonnull final String string;
     int index = DexWriter.NO_INDEX;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderProtoPool.java`
-#### Snippet
-```java
-class BuilderProtoPool extends BaseBuilderPool
-        implements ProtoSection<BuilderStringReference, BuilderTypeReference, BuilderMethodProtoReference, BuilderTypeList> {
-    @Nonnull private final ConcurrentMap<MethodProtoReference, BuilderMethodProtoReference> internedItems =
-            Maps.newConcurrentMap();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderMethodEncodedValue extends BaseMethodEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderMethodReference methodReference;
-
-        BuilderMethodEncodedValue(@Nonnull BuilderMethodReference methodReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderMethodTypeEncodedValue extends BaseMethodTypeEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderMethodProtoReference methodProtoReference;
-
-        public BuilderMethodTypeEncodedValue(@Nonnull BuilderMethodProtoReference methodProtoReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderMethodHandleEncodedValue extends BaseMethodHandleEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderMethodHandleReference methodHandleReference;
-
-        public BuilderMethodHandleEncodedValue(@Nonnull BuilderMethodHandleReference methodHandleReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderTypeReference typeReference;
-        @Nonnull final Set<? extends BuilderAnnotationElement> elements;
-
-        BuilderAnnotationEncodedValue(@Nonnull BuilderTypeReference typeReference,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderAnnotationEncodedValue extends BaseAnnotationEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderTypeReference typeReference;
-        @Nonnull final Set<? extends BuilderAnnotationElement> elements;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderStringEncodedValue extends BaseStringEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderStringReference stringReference;
-
-        BuilderStringEncodedValue(@Nonnull BuilderStringReference stringReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderEnumEncodedValue extends BaseEnumEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderFieldReference enumReference;
-
-        BuilderEnumEncodedValue(@Nonnull BuilderFieldReference enumReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderFieldEncodedValue extends BaseFieldEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderFieldReference fieldReference;
-
-        BuilderFieldEncodedValue(@Nonnull BuilderFieldReference fieldReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-
-    public static class BuilderArrayEncodedValue extends BaseArrayEncodedValue implements BuilderEncodedValue {
-        @Nonnull final List<? extends BuilderEncodedValue> elements;
-        int offset = DexWriter.NO_OFFSET;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
-#### Snippet
-```java
-    public static class BuilderTypeEncodedValue extends BaseTypeEncodedValue
-            implements BuilderEncodedValue {
-        @Nonnull final BuilderTypeReference typeReference;
-
-        BuilderTypeEncodedValue(@Nonnull BuilderTypeReference typeReference) {
 ```
 
 ### NullableProblems
@@ -4141,6 +4009,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodReference.java`
 #### Snippet
 ```java
+
+public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
+    @Nonnull final BuilderTypeReference definingClass;
+    @Nonnull final BuilderStringReference name;
+    @Nonnull final BuilderMethodProtoReference proto;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodReference.java`
+#### Snippet
+```java
 public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
     @Nonnull final BuilderTypeReference definingClass;
     @Nonnull final BuilderStringReference name;
@@ -4150,14 +4030,86 @@ public class BuilderMethodReference extends BaseMethodReference implements Build
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+    final int accessFlags;
+    @Nullable final BuilderEncodedValue initialValue;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+    @Nonnull final BuilderFieldReference fieldReference;
+    final int accessFlags;
+    @Nullable final BuilderEncodedValue initialValue;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
 #### Snippet
 ```java
 
-public class BuilderMethodReference extends BaseMethodReference implements BuilderReference {
-    @Nonnull final BuilderTypeReference definingClass;
-    @Nonnull final BuilderStringReference name;
-    @Nonnull final BuilderMethodProtoReference proto;
+public class BuilderField extends BaseFieldReference implements Field {
+    @Nonnull final BuilderFieldReference fieldReference;
+    final int accessFlags;
+    @Nullable final BuilderEncodedValue initialValue;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
+#### Snippet
+```java
+    @Nullable final BuilderEncodedValue initialValue;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+
+    BuilderField(@Nonnull BuilderFieldReference fieldReference,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderCallSitePool.java`
+#### Snippet
+```java
+public class BuilderCallSitePool extends BaseBuilderPool
+        implements CallSiteSection<BuilderCallSiteReference, BuilderArrayEncodedValue> {
+    @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
+            Maps.newConcurrentMap();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodProtoReference.java`
+#### Snippet
+```java
+        MethodProtoReference, BuilderReference {
+    @Nonnull final BuilderStringReference shorty;
+    @Nonnull final BuilderTypeList parameterTypes;
+    @Nonnull final BuilderTypeReference returnType;
+    int index = DexWriter.NO_INDEX;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodProtoReference.java`
+#### Snippet
+```java
+    @Nonnull final BuilderStringReference shorty;
+    @Nonnull final BuilderTypeList parameterTypes;
+    @Nonnull final BuilderTypeReference returnType;
+    int index = DexWriter.NO_INDEX;
+
 ```
 
 ### NullableProblems
@@ -4174,25 +4126,145 @@ public class BuilderMethodProtoReference extends BaseMethodProtoReference implem
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodProtoReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
-        MethodProtoReference, BuilderReference {
-    @Nonnull final BuilderStringReference shorty;
-    @Nonnull final BuilderTypeList parameterTypes;
-    @Nonnull final BuilderTypeReference returnType;
-    int index = DexWriter.NO_INDEX;
+    public static class BuilderMethodTypeEncodedValue extends BaseMethodTypeEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderMethodProtoReference methodProtoReference;
+
+        public BuilderMethodTypeEncodedValue(@Nonnull BuilderMethodProtoReference methodProtoReference) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderMethodProtoReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
 #### Snippet
 ```java
-    @Nonnull final BuilderStringReference shorty;
-    @Nonnull final BuilderTypeList parameterTypes;
-    @Nonnull final BuilderTypeReference returnType;
-    int index = DexWriter.NO_INDEX;
+    public static class BuilderMethodEncodedValue extends BaseMethodEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderMethodReference methodReference;
+
+        BuilderMethodEncodedValue(@Nonnull BuilderMethodReference methodReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderAnnotationEncodedValue extends BaseAnnotationEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderTypeReference typeReference;
+        @Nonnull final Set<? extends BuilderAnnotationElement> elements;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderFieldEncodedValue extends BaseFieldEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderFieldReference fieldReference;
+
+        BuilderFieldEncodedValue(@Nonnull BuilderFieldReference fieldReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderTypeEncodedValue extends BaseTypeEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderTypeReference typeReference;
+
+        BuilderTypeEncodedValue(@Nonnull BuilderTypeReference typeReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderMethodHandleEncodedValue extends BaseMethodHandleEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderMethodHandleReference methodHandleReference;
+
+        public BuilderMethodHandleEncodedValue(@Nonnull BuilderMethodHandleReference methodHandleReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderEnumEncodedValue extends BaseEnumEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderFieldReference enumReference;
+
+        BuilderEnumEncodedValue(@Nonnull BuilderFieldReference enumReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+
+    public static class BuilderArrayEncodedValue extends BaseArrayEncodedValue implements BuilderEncodedValue {
+        @Nonnull final List<? extends BuilderEncodedValue> elements;
+        int offset = DexWriter.NO_OFFSET;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+    public static class BuilderStringEncodedValue extends BaseStringEncodedValue
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderStringReference stringReference;
+
+        BuilderStringEncodedValue(@Nonnull BuilderStringReference stringReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedValues.java`
+#### Snippet
+```java
+            implements BuilderEncodedValue {
+        @Nonnull final BuilderTypeReference typeReference;
+        @Nonnull final Set<? extends BuilderAnnotationElement> elements;
+
+        BuilderAnnotationEncodedValue(@Nonnull BuilderTypeReference typeReference,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderProtoPool.java`
+#### Snippet
+```java
+class BuilderProtoPool extends BaseBuilderPool
+        implements ProtoSection<BuilderStringReference, BuilderTypeReference, BuilderMethodProtoReference, BuilderTypeList> {
+    @Nonnull private final ConcurrentMap<MethodProtoReference, BuilderMethodProtoReference> internedItems =
+            Maps.newConcurrentMap();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedArrayPool.java`
+#### Snippet
+```java
+public class BuilderEncodedArrayPool extends BaseBuilderPool implements
+        EncodedArraySection<BuilderArrayEncodedValue, BuilderEncodedValue> {
+    @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
+            Maps.newConcurrentMap();
 
 ```
 
@@ -4210,73 +4282,49 @@ public class BuilderMethodHandlePool extends BaseBuilderPool
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
-#### Snippet
-```java
-    @Nullable final BuilderEncodedValue initialValue;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
-
-    BuilderField(@Nonnull BuilderFieldReference fieldReference,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
-#### Snippet
-```java
-    final int accessFlags;
-    @Nullable final BuilderEncodedValue initialValue;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderInstruction.java`
 #### Snippet
 ```java
 
-public class BuilderField extends BaseFieldReference implements Field {
-    @Nonnull final BuilderFieldReference fieldReference;
-    final int accessFlags;
-    @Nullable final BuilderEncodedValue initialValue;
+public abstract class BuilderInstruction implements Instruction {
+    @Nonnull protected final Opcode opcode;
+
+    @Nullable MethodLocation location;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderField.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderInstruction.java`
 #### Snippet
 ```java
-    @Nonnull final BuilderFieldReference fieldReference;
-    final int accessFlags;
-    @Nullable final BuilderEncodedValue initialValue;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nonnull protected final Opcode opcode;
+
+    @Nullable MethodLocation location;
+
+    protected BuilderInstruction(@Nonnull Opcode opcode) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/SwitchLabelElement.java`
 #### Snippet
 ```java
-    @Nonnull @Override public Collection<? extends Map.Entry<PoolClassDef, Integer>> getItems() {
-        class MapEntry implements Map.Entry<PoolClassDef, Integer> {
-            @Nonnull private final PoolClassDef classDef;
+public class SwitchLabelElement {
+    public final int key;
+    @Nonnull public final Label target;
 
-            public MapEntry(@Nonnull PoolClassDef classDef) {
+    public SwitchLabelElement(int key, @Nonnull Label target) {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderEncodedArrayPool.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/ItemWithLocation.java`
 #### Snippet
 ```java
-public class BuilderEncodedArrayPool extends BaseBuilderPool implements
-        EncodedArraySection<BuilderArrayEncodedValue, BuilderEncodedValue> {
-    @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
-            Maps.newConcurrentMap();
+
+public abstract class ItemWithLocation {
+    @Nullable
+    MethodLocation location;
 
 ```
 
@@ -4318,50 +4366,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderTryBlock.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/ItemWithLocation.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/LocatedItems.java`
 #### Snippet
 ```java
 
-public abstract class ItemWithLocation {
-    @Nullable
-    MethodLocation location;
+                return new Iterator<T>() {
+                    private @Nullable
+                    T currentItem = null;
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderInstruction.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/LocatedItems.java`
 #### Snippet
 ```java
-    @Nonnull protected final Opcode opcode;
+    // when building a new dex file, so it's worth the trouble of lazily creating
+    // the labels and debugItems lists only when they are needed
+    @Nullable
+    private List<T> items = null;
 
-    @Nullable MethodLocation location;
-
-    protected BuilderInstruction(@Nonnull Opcode opcode) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/SwitchLabelElement.java`
-#### Snippet
-```java
-public class SwitchLabelElement {
-    public final int key;
-    @Nonnull public final Label target;
-
-    public SwitchLabelElement(int key, @Nonnull Label target) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderInstruction.java`
-#### Snippet
-```java
-
-public abstract class BuilderInstruction implements Instruction {
-    @Nonnull protected final Opcode opcode;
-
-    @Nullable MethodLocation location;
 ```
 
 ### NullableProblems
@@ -4390,26 +4414,14 @@ public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/LocatedItems.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/MethodLocation.java`
 #### Snippet
 ```java
 
-                return new Iterator<T>() {
-                    private @Nullable
-                    T currentItem = null;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/LocatedItems.java`
-#### Snippet
-```java
-    // when building a new dex file, so it's worth the trouble of lazily creating
-    // the labels and debugItems lists only when they are needed
-    @Nullable
-    private List<T> items = null;
-
+public class MethodLocation {
+    @Nullable BuilderInstruction instruction;
+    int codeAddress;
+    int index;
 ```
 
 ### NullableProblems
@@ -4425,27 +4437,123 @@ public abstract class BuilderOffsetInstruction extends BuilderInstruction implem
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/MethodLocation.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/MethodImplementationBuilder.java`
 #### Snippet
 ```java
+    private final HashMap<String, Label> labels = new HashMap<String, Label>();
 
-public class MethodLocation {
-    @Nullable BuilderInstruction instruction;
-    int codeAddress;
-    int index;
+    @Nonnull
+    private final MutableMethodImplementation impl;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderStartLocal.java`
+#### Snippet
+```java
+    private final int register;
+    @Nullable private final StringReference name;
+    @Nullable private final TypeReference type;
+    @Nullable private final StringReference signature;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderStartLocal.java`
+#### Snippet
+```java
+public class BuilderStartLocal extends BuilderDebugItem implements StartLocal {
+    private final int register;
+    @Nullable private final StringReference name;
+    @Nullable private final TypeReference type;
+    @Nullable private final StringReference signature;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderStartLocal.java`
+#### Snippet
+```java
+    @Nullable private final StringReference name;
+    @Nullable private final TypeReference type;
+    @Nullable private final StringReference signature;
+
+    public BuilderStartLocal(int register,
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
-        BuilderTypeReference, BuilderTypeList, BuilderClassDef, BuilderField, BuilderMethod, BuilderAnnotationSet,
-        BuilderArrayEncodedValue> {
-    @Nonnull private final ConcurrentMap<String, BuilderClassDef> internedItems =
-            Maps.newConcurrentMap();
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
+    @Nullable final BuilderArrayEncodedValue staticInitializers;
+```
 
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+
+public class BuilderClassDef extends BaseTypeReference implements ClassDef {
+    @Nonnull final BuilderTypeReference type;
+    final int accessFlags;
+    @Nullable final BuilderTypeReference superclass;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final BuilderTypeReference type;
+    final int accessFlags;
+    @Nullable final BuilderTypeReference superclass;
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nullable final BuilderTypeReference superclass;
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
 ```
 
 ### NullableProblems
@@ -4465,143 +4573,35 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
+    final int accessFlags;
+    @Nullable final BuilderTypeReference superclass;
+    @Nonnull final BuilderTypeList interfaces;
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
+    @Nullable final BuilderStringReference sourceFile;
+    @Nonnull final BuilderAnnotationSet annotations;
+    @Nonnull final SortedSet<BuilderField> staticFields;
+    @Nonnull final SortedSet<BuilderField> instanceFields;
+    @Nonnull final SortedSet<BuilderMethod> directMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
+#### Snippet
+```java
     @Nonnull final SortedSet<BuilderField> instanceFields;
     @Nonnull final SortedSet<BuilderMethod> directMethods;
     @Nonnull final SortedSet<BuilderMethod> virtualMethods;
     @Nullable final BuilderArrayEncodedValue staticInitializers;
 
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
-    @Nullable final BuilderArrayEncodedValue staticInitializers;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    final int accessFlags;
-    @Nullable final BuilderTypeReference superclass;
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final BuilderTypeReference type;
-    final int accessFlags;
-    @Nullable final BuilderTypeReference superclass;
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-
-public class BuilderClassDef extends BaseTypeReference implements ClassDef {
-    @Nonnull final BuilderTypeReference type;
-    final int accessFlags;
-    @Nullable final BuilderTypeReference superclass;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-    @Nonnull final SortedSet<BuilderField> instanceFields;
-    @Nonnull final SortedSet<BuilderMethod> directMethods;
-    @Nonnull final SortedSet<BuilderMethod> virtualMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
-#### Snippet
-```java
-    @Nullable final BuilderTypeReference superclass;
-    @Nonnull final BuilderTypeList interfaces;
-    @Nullable final BuilderStringReference sourceFile;
-    @Nonnull final BuilderAnnotationSet annotations;
-    @Nonnull final SortedSet<BuilderField> staticFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderStartLocal.java`
-#### Snippet
-```java
-    private final int register;
-    @Nullable private final StringReference name;
-    @Nullable private final TypeReference type;
-    @Nullable private final StringReference signature;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderStartLocal.java`
-#### Snippet
-```java
-    @Nullable private final StringReference name;
-    @Nullable private final TypeReference type;
-    @Nullable private final StringReference signature;
-
-    public BuilderStartLocal(int register,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderStartLocal.java`
-#### Snippet
-```java
-public class BuilderStartLocal extends BuilderDebugItem implements StartLocal {
-    private final int register;
-    @Nullable private final StringReference name;
-    @Nullable private final TypeReference type;
-    @Nullable private final StringReference signature;
 ```
 
 ### NullableProblems
@@ -4613,18 +4613,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/debug/BuilderSetSourceFile.java
 public class BuilderSetSourceFile extends BuilderDebugItem implements SetSourceFile {
     @Nullable
     private final StringReference sourceFile;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/MethodImplementationBuilder.java`
-#### Snippet
-```java
-    private final HashMap<String, Label> labels = new HashMap<String, Label>();
-
-    @Nonnull
-    private final MutableMethodImplementation impl;
 
 ```
 
@@ -4642,14 +4630,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction2
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
 #### Snippet
 ```java
-    public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
+        BuilderTypeReference, BuilderTypeList, BuilderClassDef, BuilderField, BuilderMethod, BuilderAnnotationSet,
+        BuilderArrayEncodedValue> {
+    @Nonnull private final ConcurrentMap<String, BuilderClassDef> internedItems =
+            Maps.newConcurrentMap();
 
-    @Nonnull protected final List<BuilderSwitchElement> switchElements;
-
-    public BuilderSparseSwitchPayload(@Nullable List<? extends SwitchLabelElement> switchElements) {
 ```
 
 ### NullableProblems
@@ -4678,6 +4666,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderSwitchElemen
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
+#### Snippet
+```java
+    public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
+
+    @Nonnull protected final List<BuilderSwitchElement> switchElements;
+
+    public BuilderSparseSwitchPayload(@Nullable List<? extends SwitchLabelElement> switchElements) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction20bc.java`
 #### Snippet
 ```java
@@ -4690,26 +4690,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction2
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction31c.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderArrayPayload.java`
 #### Snippet
 ```java
 
-    protected final int registerA;
-    @Nonnull protected final Reference reference;
+    protected final int elementWidth;
+    @Nonnull protected final List<Number> arrayElements;
 
-    public BuilderInstruction31c(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction4rcc.java`
-#### Snippet
-```java
-    protected final int registerCount;
-
-    @Nonnull protected final Reference reference;
-    @Nonnull protected final Reference reference2;
-
+    public BuilderArrayPayload(int elementWidth,
 ```
 
 ### NullableProblems
@@ -4726,6 +4714,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction4
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction4rcc.java`
+#### Snippet
+```java
+    protected final int registerCount;
+
+    @Nonnull protected final Reference reference;
+    @Nonnull protected final Reference reference2;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction21c.java`
 #### Snippet
 ```java
@@ -4734,18 +4734,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction2
     @Nonnull protected final Reference reference;
 
     public BuilderInstruction21c(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderArrayPayload.java`
-#### Snippet
-```java
-
-    protected final int elementWidth;
-    @Nonnull protected final List<Number> arrayElements;
-
-    public BuilderArrayPayload(int elementWidth,
 ```
 
 ### NullableProblems
@@ -4774,14 +4762,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderPackedSwitch
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction45cc.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction31c.java`
 #### Snippet
 ```java
-    protected final int registerF;
-    protected final int registerG;
-    @Nonnull protected final Reference reference;
-    @Nonnull protected final Reference reference2;
 
+    protected final int registerA;
+    @Nonnull protected final Reference reference;
+
+    public BuilderInstruction31c(@Nonnull Opcode opcode,
 ```
 
 ### NullableProblems
@@ -4794,6 +4782,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction4
     @Nonnull protected final Reference reference2;
 
     public BuilderInstruction45cc(@Nonnull Opcode opcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderInstruction45cc.java`
+#### Snippet
+```java
+    protected final int registerF;
+    protected final int registerG;
+    @Nonnull protected final Reference reference;
+    @Nonnull protected final Reference reference2;
+
 ```
 
 ### NullableProblems
@@ -4846,50 +4846,14 @@ public class CustomInlineMethodResolver extends InlineMethodResolver {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
 
-public class ClassPath {
-    @Nonnull private final TypeProto unknownClass;
-    @Nonnull private List<ClassProvider> classProviders;
-    private final boolean checkPackagePrivateAccess;
-```
+    private static class CodeItemOffset<MethodKey> {
+        @Nonnull MethodKey method;
+        int codeOffset;
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
-#### Snippet
-```java
-    };
-
-    @Nonnull private LoadingCache<String, TypeProto> loadedClasses = CacheBuilder.newBuilder().build(classLoader);
-
-    @Nonnull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
-#### Snippet
-```java
-public class ClassPath {
-    @Nonnull private final TypeProto unknownClass;
-    @Nonnull private List<ClassProvider> classProviders;
-    private final boolean checkPackagePrivateAccess;
-    public final int oatVersion;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/OdexedFieldInstructionMapper.java`
-#### Snippet
-```java
-        @Nonnull public final Opcode normalOpcode;
-        @Nullable public final Opcode quickOpcode;
-        @Nullable public final Opcode volatileOpcode;
-
-        public FieldOpcode(char type, @Nonnull Opcode normalOpcode, @Nullable Opcode quickOpcode,
 ```
 
 ### NullableProblems
@@ -4918,6 +4882,54 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/OdexedFieldInstructionMapper.j
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/OdexedFieldInstructionMapper.java`
+#### Snippet
+```java
+        @Nonnull public final Opcode normalOpcode;
+        @Nullable public final Opcode quickOpcode;
+        @Nullable public final Opcode volatileOpcode;
+
+        public FieldOpcode(char type, @Nonnull Opcode normalOpcode, @Nullable Opcode quickOpcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
+#### Snippet
+```java
+    };
+
+    @Nonnull private LoadingCache<String, TypeProto> loadedClasses = CacheBuilder.newBuilder().build(classLoader);
+
+    @Nonnull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
+#### Snippet
+```java
+public class ClassPath {
+    @Nonnull private final TypeProto unknownClass;
+    @Nonnull private List<ClassProvider> classProviders;
+    private final boolean checkPackagePrivateAccess;
+    public final int oatVersion;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPath.java`
+#### Snippet
+```java
+
+public class ClassPath {
+    @Nonnull private final TypeProto unknownClass;
+    @Nonnull private List<ClassProvider> classProviders;
+    private final boolean checkPackagePrivateAccess;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/util/TypeProtoUtils.java`
 #### Snippet
 ```java
@@ -4926,30 +4938,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/util/TypeProtoUtils.java`
                     @Nullable private TypeProto type = getSuperclassAsTypeProto(typeProto);
 
                     @Override public boolean hasNext() {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-
-    private static class CodeItemOffset<MethodKey> {
-        @Nonnull MethodKey method;
-        int codeOffset;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/RegisterType.java`
-#### Snippet
-```java
-public class RegisterType {
-    public final byte category;
-    @Nullable public final TypeProto type;
-
-    private RegisterType(byte category, @Nullable TypeProto type) {
 ```
 
 ### NullableProblems
@@ -4965,14 +4953,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/MutableMethodImplementation.jav
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/AnalyzedInstruction.java`
 #### Snippet
 ```java
-     * This contains the register types *after* the instruction has executed
+     * This contains optional register type overrides for register types from predecessors
      */
-    @Nonnull
-    protected final RegisterType[] postRegisterMap;
+    @Nullable
+    protected Map<PredecessorOverrideKey, RegisterType> predecessorRegisterOverrides = null;
 
 ```
 
@@ -4993,10 +4981,10 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/AnalyzedInstruction.java`
 #### Snippet
 ```java
-     * The actual instruction
+     * The MethodAnalyzer containing this instruction
      */
     @Nonnull
-    protected Instruction instruction;
+    protected final MethodAnalyzer methodAnalyzer;
 
 ```
 
@@ -5017,10 +5005,22 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/AnalyzedInstruction.java`
 #### Snippet
 ```java
-     * The MethodAnalyzer containing this instruction
+     * This contains the register types *after* the instruction has executed
      */
     @Nonnull
-    protected final MethodAnalyzer methodAnalyzer;
+    protected final RegisterType[] postRegisterMap;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/AnalyzedInstruction.java`
+#### Snippet
+```java
+     * The actual instruction
+     */
+    @Nonnull
+    protected Instruction instruction;
 
 ```
 
@@ -5038,14 +5038,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/AnalyzedInstruction.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/AnalyzedInstruction.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/RegisterType.java`
 #### Snippet
 ```java
-     * This contains optional register type overrides for register types from predecessors
-     */
-    @Nullable
-    protected Map<PredecessorOverrideKey, RegisterType> predecessorRegisterOverrides = null;
+public class RegisterType {
+    public final byte category;
+    @Nullable public final TypeProto type;
 
+    private RegisterType(byte category, @Nullable TypeProto type) {
 ```
 
 ### NullableProblems
@@ -5074,26 +5074,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/DexFileRewriter.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodReferenceRewriter.java`
 #### Snippet
 ```java
 
-public class FieldRewriter implements Rewriter<Field> {
+public class MethodReferenceRewriter implements Rewriter<MethodReference> {
     @Nonnull protected final Rewriters rewriters;
 
-    public FieldRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenField extends BaseFieldReference implements Field {
-        @Nonnull protected Field field;
-
-        public RewrittenField(@Nonnull Field field) {
+    public MethodReferenceRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
@@ -5110,74 +5098,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodReferenceRewriter.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodReferenceRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldRewriter.java`
 #### Snippet
 ```java
 
-public class MethodReferenceRewriter implements Rewriter<MethodReference> {
+    protected class RewrittenField extends BaseFieldReference implements Field {
+        @Nonnull protected Field field;
+
+        public RewrittenField(@Nonnull Field field) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldRewriter.java`
+#### Snippet
+```java
+
+public class FieldRewriter implements Rewriter<Field> {
     @Nonnull protected final Rewriters rewriters;
 
-    public MethodReferenceRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodParameterRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenMethodParameter extends BaseMethodParameter {
-        @Nonnull protected MethodParameter methodParameter;
-
-        public RewrittenMethodParameter(@Nonnull MethodParameter methodParameter) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/InstructionRewriter.java`
-#### Snippet
-```java
-    protected class BaseRewrittenReferenceInstruction<T extends ReferenceInstruction>
-            implements ReferenceInstruction {
-        @Nonnull protected T instruction;
-
-        protected BaseRewrittenReferenceInstruction(@Nonnull T instruction) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/InstructionRewriter.java`
-#### Snippet
-```java
-
-public class InstructionRewriter implements Rewriter<Instruction> {
-    @Nonnull protected final Rewriters rewriters;
-
-    public InstructionRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodParameterRewriter.java`
-#### Snippet
-```java
-
-public class MethodParameterRewriter implements Rewriter<MethodParameter> {
-    @Nonnull protected final Rewriters rewriters;
-
-    public MethodParameterRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/DebugItemRewriter.java`
-#### Snippet
-```java
-
-    protected class BaseRewrittenLocalInfoDebugItem<T extends DebugItem & LocalInfo> implements DebugItem, LocalInfo {
-        @Nonnull protected T debugItem;
-
-        public BaseRewrittenLocalInfoDebugItem (@Nonnull T debugItem) {
+    public FieldRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
@@ -5190,6 +5130,18 @@ public class DebugItemRewriter implements Rewriter<DebugItem> {
     @Nonnull protected final Rewriters rewriters;
 
     public DebugItemRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/DebugItemRewriter.java`
+#### Snippet
+```java
+
+    protected class BaseRewrittenLocalInfoDebugItem<T extends DebugItem & LocalInfo> implements DebugItem, LocalInfo {
+        @Nonnull protected T debugItem;
+
+        public BaseRewrittenLocalInfoDebugItem (@Nonnull T debugItem) {
 ```
 
 ### NullableProblems
@@ -5218,62 +5170,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodImplementationRewriter.j
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/ExceptionHandlerRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodParameterRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenExceptionHandler extends BaseExceptionHandler {
-        @Nonnull protected ExceptionHandler exceptionHandler;
-
-        public RewrittenExceptionHandler(@Nonnull ExceptionHandler exceptionHandler) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldReferenceRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenFieldReference extends BaseFieldReference {
-        @Nonnull protected FieldReference fieldReference;
-
-        public RewrittenFieldReference(@Nonnull FieldReference fieldReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldReferenceRewriter.java`
-#### Snippet
-```java
-
-public class FieldReferenceRewriter implements Rewriter<FieldReference> {
+public class MethodParameterRewriter implements Rewriter<MethodParameter> {
     @Nonnull protected final Rewriters rewriters;
 
-    public FieldReferenceRewriter(@Nonnull Rewriters rewriters) {
+    public MethodParameterRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/AnnotationRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/MethodParameterRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenAnnotation extends BaseAnnotation {
-        @Nonnull protected Annotation annotation;
+    protected class RewrittenMethodParameter extends BaseMethodParameter {
+        @Nonnull protected MethodParameter methodParameter;
 
-        public RewrittenAnnotation(@Nonnull Annotation annotation) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/AnnotationRewriter.java`
-#### Snippet
-```java
-
-public class AnnotationRewriter implements Rewriter<Annotation> {
-    @Nonnull protected final Rewriters rewriters;
-
-    public AnnotationRewriter(@Nonnull Rewriters rewriters) {
+        public RewrittenMethodParameter(@Nonnull MethodParameter methodParameter) {
 ```
 
 ### NullableProblems
@@ -5290,38 +5206,86 @@ public class ExceptionHandlerRewriter implements Rewriter<ExceptionHandler> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/TryBlockRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/ExceptionHandlerRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenTryBlock extends BaseTryBlock<ExceptionHandler> {
-        @Nonnull protected TryBlock<? extends ExceptionHandler> tryBlock;
+    protected class RewrittenExceptionHandler extends BaseExceptionHandler {
+        @Nonnull protected ExceptionHandler exceptionHandler;
 
-        public RewrittenTryBlock(@Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
+        public RewrittenExceptionHandler(@Nonnull ExceptionHandler exceptionHandler) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/TryBlockRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldReferenceRewriter.java`
 #### Snippet
 ```java
 
-public class TryBlockRewriter implements Rewriter<TryBlock<? extends ExceptionHandler>> {
+public class FieldReferenceRewriter implements Rewriter<FieldReference> {
     @Nonnull protected final Rewriters rewriters;
 
-    public TryBlockRewriter(@Nonnull Rewriters rewriters) {
+    public FieldReferenceRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/AnnotationElementRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/FieldReferenceRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenAnnotationElement extends BaseAnnotationElement {
-        @Nonnull protected AnnotationElement annotationElement;
+    protected class RewrittenFieldReference extends BaseFieldReference {
+        @Nonnull protected FieldReference fieldReference;
 
-        public RewrittenAnnotationElement(@Nonnull AnnotationElement annotationElement) {
+        public RewrittenFieldReference(@Nonnull FieldReference fieldReference) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/InstructionRewriter.java`
+#### Snippet
+```java
+    protected class BaseRewrittenReferenceInstruction<T extends ReferenceInstruction>
+            implements ReferenceInstruction {
+        @Nonnull protected T instruction;
+
+        protected BaseRewrittenReferenceInstruction(@Nonnull T instruction) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/AnnotationRewriter.java`
+#### Snippet
+```java
+
+public class AnnotationRewriter implements Rewriter<Annotation> {
+    @Nonnull protected final Rewriters rewriters;
+
+    public AnnotationRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/AnnotationRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenAnnotation extends BaseAnnotation {
+        @Nonnull protected Annotation annotation;
+
+        public RewrittenAnnotation(@Nonnull Annotation annotation) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/InstructionRewriter.java`
+#### Snippet
+```java
+
+public class InstructionRewriter implements Rewriter<Instruction> {
+    @Nonnull protected final Rewriters rewriters;
+
+    public InstructionRewriter(@Nonnull Rewriters rewriters) {
 ```
 
 ### NullableProblems
@@ -5334,6 +5298,18 @@ public class AnnotationElementRewriter implements Rewriter<AnnotationElement> {
     @Nonnull protected final Rewriters rewriters;
 
     public AnnotationElementRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/AnnotationElementRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenAnnotationElement extends BaseAnnotationElement {
+        @Nonnull protected AnnotationElement annotationElement;
+
+        public RewrittenAnnotationElement(@Nonnull AnnotationElement annotationElement) {
 ```
 
 ### NullableProblems
@@ -5362,14 +5338,26 @@ public class MethodRewriter implements Rewriter<Method> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/EncodedValueRewriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/TryBlockRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenEnumEncodedValue extends BaseEnumEncodedValue {
-        @Nonnull protected EnumEncodedValue enumEncodedValue;
+public class TryBlockRewriter implements Rewriter<TryBlock<? extends ExceptionHandler>> {
+    @Nonnull protected final Rewriters rewriters;
 
-        public RewrittenEnumEncodedValue(@Nonnull EnumEncodedValue enumEncodedValue) {
+    public TryBlockRewriter(@Nonnull Rewriters rewriters) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/TryBlockRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenTryBlock extends BaseTryBlock<ExceptionHandler> {
+        @Nonnull protected TryBlock<? extends ExceptionHandler> tryBlock;
+
+        public RewrittenTryBlock(@Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
 ```
 
 ### NullableProblems
@@ -5378,10 +5366,10 @@ in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/EncodedValueRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenMethodEncodedValue extends BaseMethodEncodedValue {
-        @Nonnull protected MethodEncodedValue methodEncodedValue;
+    protected class RewrittenArrayEncodedValue extends BaseArrayEncodedValue {
+        @Nonnull protected ArrayEncodedValue arrayEncodedValue;
 
-        public RewrittenMethodEncodedValue(@Nonnull MethodEncodedValue methodEncodedValue) {
+        public RewrittenArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
 ```
 
 ### NullableProblems
@@ -5394,18 +5382,6 @@ public class EncodedValueRewriter implements Rewriter<EncodedValue> {
     @Nonnull protected final Rewriters rewriters;
 
     public EncodedValueRewriter(@Nonnull Rewriters rewriters) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/EncodedValueRewriter.java`
-#### Snippet
-```java
-
-    protected class RewrittenAnnotationEncodedValue extends BaseAnnotationEncodedValue {
-        @Nonnull protected AnnotationEncodedValue annotationEncodedValue;
-
-        public RewrittenAnnotationEncodedValue(@Nonnull AnnotationEncodedValue annotationEncodedValue) {
 ```
 
 ### NullableProblems
@@ -5438,10 +5414,58 @@ in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/EncodedValueRewriter.java`
 #### Snippet
 ```java
 
-    protected class RewrittenArrayEncodedValue extends BaseArrayEncodedValue {
-        @Nonnull protected ArrayEncodedValue arrayEncodedValue;
+    protected class RewrittenMethodEncodedValue extends BaseMethodEncodedValue {
+        @Nonnull protected MethodEncodedValue methodEncodedValue;
 
-        public RewrittenArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
+        public RewrittenMethodEncodedValue(@Nonnull MethodEncodedValue methodEncodedValue) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/EncodedValueRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenEnumEncodedValue extends BaseEnumEncodedValue {
+        @Nonnull protected EnumEncodedValue enumEncodedValue;
+
+        public RewrittenEnumEncodedValue(@Nonnull EnumEncodedValue enumEncodedValue) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/rewriter/EncodedValueRewriter.java`
+#### Snippet
+```java
+
+    protected class RewrittenAnnotationEncodedValue extends BaseAnnotationEncodedValue {
+        @Nonnull protected AnnotationEncodedValue annotationEncodedValue;
+
+        public RewrittenAnnotationEncodedValue(@Nonnull AnnotationEncodedValue annotationEncodedValue) {
+```
+
+### NullableProblems
+Parameter annotated @Nonnull must not override @Nullable parameter
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedOdexFile.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
+            throws IOException {
+        DexUtil.verifyOdexHeader(is);
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
+#### Snippet
+```java
+
+public class DexBuffer {
+    @Nonnull final byte[] buf;
+    final int baseOffset;
+
 ```
 
 ### NullableProblems
@@ -5470,14 +5494,14 @@ public class ClassDefRewriter implements Rewriter<ClassDef> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedAnnotationElement.java`
 #### Snippet
 ```java
 
-public class DexBuffer {
-    @Nonnull final byte[] buf;
-    final int baseOffset;
-
+public class DexBackedAnnotationElement extends BaseAnnotationElement {
+    @Nonnull private final DexBackedDexFile dexFile;
+    public final int nameIndex;
+    @Nonnull public final EncodedValue value;
 ```
 
 ### NullableProblems
@@ -5494,54 +5518,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedAnnotationElement.ja
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedAnnotationElement.java`
-#### Snippet
-```java
-
-public class DexBackedAnnotationElement extends BaseAnnotationElement {
-    @Nonnull private final DexBackedDexFile dexFile;
-    public final int nameIndex;
-    @Nonnull public final EncodedValue value;
-```
-
-### NullableProblems
-Parameter annotated @Nonnull must not override @Nullable parameter
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedOdexFile.java`
-#### Snippet
-```java
-    }
-
-    @Nonnull public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
-            throws IOException {
-        DexUtil.verifyOdexHeader(is);
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethodImplementation.java`
-#### Snippet
-```java
-
-public class DexBackedMethodImplementation implements MethodImplementation {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedMethod method;
-    protected final int codeOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethodImplementation.java`
-#### Snippet
-```java
-public class DexBackedMethodImplementation implements MethodImplementation {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedMethod method;
-    protected final int codeOffset;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedTryBlock.java`
 #### Snippet
 ```java
@@ -5550,18 +5526,6 @@ public class DexBackedTryBlock extends BaseTryBlock<DexBackedExceptionHandler> {
     @Nonnull public final DexBackedDexFile dexFile;
     private final int tryItemOffset;
     private final int handlersStartOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexReader.java`
-#### Snippet
-```java
-
-public class DexReader<T extends DexBuffer> {
-    @Nonnull public final T dexBuf;
-    private int offset;
-
 ```
 
 ### NullableProblems
@@ -5574,6 +5538,126 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/ZipDexContainer.java`
     @Nullable private final Opcodes opcodes;
 
     /**
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+
+    @Nonnull private final ClassPath classPath;
+    @Nullable private final InlineMethodResolver inlineResolver;
+
+    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+ */
+public class MethodAnalyzer {
+    @Nonnull private final Method method;
+    @Nonnull private final MethodImplementation methodImpl;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+public class MethodAnalyzer {
+    @Nonnull private final Method method;
+    @Nonnull private final MethodImplementation methodImpl;
+
+    private final boolean normalizeVirtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+
+    // Which instructions have been analyzed, keyed by instruction index
+    @Nonnull private final BitSet analyzedState;
+
+    @Nullable private AnalysisException analysisException = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+
+    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
+    @Nonnull private final SparseArray<AnalyzedInstruction> analyzedInstructions =
+            new SparseArray<AnalyzedInstruction>(0);
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+    private final int paramRegisterCount;
+
+    @Nonnull private final ClassPath classPath;
+    @Nullable private final InlineMethodResolver inlineResolver;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+    @Nonnull private final BitSet analyzedState;
+
+    @Nullable private AnalysisException analysisException = null;
+
+    // This is a dummy instruction that occurs immediately before the first real instruction. We can initialize the
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethodImplementation.java`
+#### Snippet
+```java
+public class DexBackedMethodImplementation implements MethodImplementation {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final DexBackedMethod method;
+    protected final int codeOffset;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethodImplementation.java`
+#### Snippet
+```java
+
+public class DexBackedMethodImplementation implements MethodImplementation {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final DexBackedMethod method;
+    protected final int codeOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexReader.java`
+#### Snippet
+```java
+
+public class DexReader<T extends DexBuffer> {
+    @Nonnull public final T dexBuf;
+    private int offset;
+
 ```
 
 ### NullableProblems
@@ -5598,6 +5682,30 @@ public class DexBackedTypedExceptionHandler extends DexBackedExceptionHandler {
     @Nonnull private final DexBackedDexFile dexFile;
     private final int typeId;
     private final int handlerCodeAddress;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethod.java`
+#### Snippet
+```java
+public class DexBackedMethod extends BaseMethodReference implements Method {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final DexBackedClassDef classDef;
+
+    public final int accessFlags;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethod.java`
+#### Snippet
+```java
+
+public class DexBackedMethod extends BaseMethodReference implements Method {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final DexBackedClassDef classDef;
+
 ```
 
 ### NullableProblems
@@ -5638,110 +5746,14 @@ public class DexBackedField extends BaseFieldReference implements Field {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethod.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/SectionAnnotator.java`
 #### Snippet
 ```java
-public class DexBackedMethod extends BaseMethodReference implements Method {
+
+public abstract class SectionAnnotator {
+    @Nonnull public final DexAnnotator annotator;
     @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedClassDef classDef;
-
-    public final int accessFlags;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedMethod.java`
-#### Snippet
-```java
-
-public class DexBackedMethod extends BaseMethodReference implements Method {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedClassDef classDef;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-
-    // Which instructions have been analyzed, keyed by instruction index
-    @Nonnull private final BitSet analyzedState;
-
-    @Nullable private AnalysisException analysisException = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-
-    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
-    @Nonnull private final SparseArray<AnalyzedInstruction> analyzedInstructions =
-            new SparseArray<AnalyzedInstruction>(0);
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-
-    @Nonnull private final ClassPath classPath;
-    @Nullable private final InlineMethodResolver inlineResolver;
-
-    // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-    @Nonnull private final BitSet analyzedState;
-
-    @Nullable private AnalysisException analysisException = null;
-
-    // This is a dummy instruction that occurs immediately before the first real instruction. We can initialize the
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-public class MethodAnalyzer {
-    @Nonnull private final Method method;
-    @Nonnull private final MethodImplementation methodImpl;
-
-    private final boolean normalizeVirtualMethods;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
- */
-public class MethodAnalyzer {
-    @Nonnull private final Method method;
-    @Nonnull private final MethodImplementation methodImpl;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-    private final int paramRegisterCount;
-
-    @Nonnull private final ClassPath classPath;
-    @Nullable private final InlineMethodResolver inlineResolver;
-
+    public final int itemType;
 ```
 
 ### NullableProblems
@@ -5754,30 +5766,6 @@ public abstract class SectionAnnotator {
     @Nonnull public final DexBackedDexFile dexFile;
     public final int itemType;
     public final int sectionOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/SectionAnnotator.java`
-#### Snippet
-```java
-
-public abstract class SectionAnnotator {
-    @Nonnull public final DexAnnotator annotator;
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int itemType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedDexFile.java`
-#### Snippet
-```java
-    private final DexBuffer dataBuffer;
-
-    @Nonnull private final Opcodes opcodes;
-
-    private final int stringCount;
 ```
 
 ### NullableProblems
@@ -5794,62 +5782,134 @@ public class CdexDebugOffsetTable {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedDexFile.java`
 #### Snippet
 ```java
+    private final DexBuffer dataBuffer;
 
-    private final boolean is64bit;
-    @Nonnull private final OatHeader oatHeader;
     @Nonnull private final Opcodes opcodes;
-    @Nullable private final VdexProvider vdexProvider;
+
+    private final int stringCount;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
 #### Snippet
 ```java
-
-    class SymbolTable {
-        @Nonnull private final StringTable stringTable;
-        private final int offset;
-        private final int entryCount;
+        CallSiteKey extends CallSiteReference> {
+    @Nonnull private final Opcodes opcodes;
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
 #### Snippet
 ```java
-    private final boolean is64bit;
-    @Nonnull private final OatHeader oatHeader;
-    @Nonnull private final Opcodes opcodes;
-    @Nullable private final VdexProvider vdexProvider;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
 
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
 #### Snippet
 ```java
-    @Nonnull private final OatHeader oatHeader;
-    @Nonnull private final Opcodes opcodes;
-    @Nullable private final VdexProvider vdexProvider;
-
-    public OatFile(@Nonnull byte[] buf) {
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+        ProtoRefKey extends MethodProtoReference, MethodHandleKey extends MethodHandleReference,
+        CallSiteKey extends CallSiteReference> {
+    @Nonnull private final Opcodes opcodes;
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final Opcodes opcodes;
+    @Nonnull private final DexDataWriter writer;
+    @Nonnull private final StringSection<?, StringRef> stringSection;
+    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+#### Snippet
+```java
+    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
+
+    @Nonnull static <StringRef extends StringReference, TypeRef extends TypeReference,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
 #### Snippet
 ```java
-                            dexFile.getDataBuffer(), methodsStartOffset) {
-                        private int count;
-                        @Nullable private MethodReference previousMethod;
-                        private int previousIndex;
+    static final int NO_HIDDEN_API_RESTRICTIONS = 7;
 
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int classDefOffset;
+    @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
 ```
 
 ### NullableProblems
@@ -5862,6 +5922,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
     @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
 
     private final int staticFieldsOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+                            dexFile.getDataBuffer(), fieldsStartOffset) {
+                        private int count;
+                        @Nullable private FieldReference previousField;
+                        private int previousIndex;
+
 ```
 
 ### NullableProblems
@@ -5889,18 +5961,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-    static final int NO_HIDDEN_API_RESTRICTIONS = 7;
-
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int classDefOffset;
-    @Nullable private final HiddenApiRestrictionsReader hiddenApiRestrictionsReader;
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
 #### Snippet
@@ -5917,9 +5977,9 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
 #### Snippet
 ```java
-                            dexFile.getDataBuffer(), fieldsStartOffset) {
+                            dexFile.getDataBuffer(), methodsStartOffset) {
                         private int count;
-                        @Nullable private FieldReference previousField;
+                        @Nullable private MethodReference previousMethod;
                         private int previousIndex;
 
 ```
@@ -5934,6 +5994,66 @@ public abstract class VariableSizeLookaheadIterator<T> extends AbstractIterator<
     @Nonnull private final DexReader reader;
 
     protected VariableSizeLookaheadIterator(@Nonnull DexBuffer buffer, int offset) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+#### Snippet
+```java
+
+    private final boolean is64bit;
+    @Nonnull private final OatHeader oatHeader;
+    @Nonnull private final Opcodes opcodes;
+    @Nullable private final VdexProvider vdexProvider;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+#### Snippet
+```java
+
+    class SymbolTable {
+        @Nonnull private final StringTable stringTable;
+        private final int offset;
+        private final int entryCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+#### Snippet
+```java
+    @Nonnull private final OatHeader oatHeader;
+    @Nonnull private final Opcodes opcodes;
+    @Nullable private final VdexProvider vdexProvider;
+
+    public OatFile(@Nonnull byte[] buf) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+#### Snippet
+```java
+    private final boolean is64bit;
+    @Nonnull private final OatHeader oatHeader;
+    @Nonnull private final Opcodes opcodes;
+    @Nullable private final VdexProvider vdexProvider;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/FixedSizeList.java`
+#### Snippet
+```java
+     * @return The item at the given index
+     */
+    @Nonnull
+    public abstract T readItem(int index);
+}
 ```
 
 ### NullableProblems
@@ -5961,15 +6081,15 @@ public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/FixedSizeList.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeList.java`
 #### Snippet
 ```java
-     * @return The item at the given index
-     */
-    @Nonnull
-    public abstract T readItem(int index);
-}
+
+public abstract class VariableSizeList<T> extends AbstractSequentialList<T> {
+    @Nonnull private final DexBuffer buffer;
+    private final int offset;
+    private final int size;
 ```
 
 ### NullableProblems
@@ -6001,18 +6121,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
 #### Snippet
 ```java
-
-    private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
-        @Nonnull private final DexReader reader;
-        @Nonnull private final DexBackedDexFile dexFile;
-        private final int size;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
-#### Snippet
-```java
     private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
         @Nonnull private final DexReader reader;
         @Nonnull private final DexBackedDexFile dexFile;
@@ -6022,14 +6130,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/EncodedArrayItemIterator
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeList.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
 #### Snippet
 ```java
 
-public abstract class VariableSizeList<T> extends AbstractSequentialList<T> {
-    @Nonnull private final DexBuffer buffer;
-    private final int offset;
-    private final int size;
+    private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
+        @Nonnull private final DexReader reader;
+        @Nonnull private final DexBackedDexFile dexFile;
+        private final int size;
 ```
 
 ### NullableProblems
@@ -6041,6 +6149,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/AnnotationsDirectory.jav
     private static class AnnotationsDirectoryImpl extends AnnotationsDirectory {
         @Nonnull public final DexBackedDexFile dexFile;
         private final int directoryOffset;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedStringEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedStringEncodedValue extends BaseStringEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int stringIndex;
 
 ```
 
@@ -6058,18 +6178,6 @@ public abstract class VariableSizeListIterator<T> implements ListIterator<T> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedStringEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedStringEncodedValue extends BaseStringEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int stringIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedMethodHandleEncodedValue.java`
 #### Snippet
 ```java
@@ -6082,90 +6190,6 @@ public class DexBackedMethodHandleEncodedValue extends BaseMethodHandleEncodedVa
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedTypeEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedTypeEncodedValue extends BaseTypeEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int typeIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedMethodTypeEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedMethodTypeEncodedValue extends BaseMethodTypeEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int methodProtoIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedEnumEncodedValue.java`
-#### Snippet
-```java
-
-public class DexBackedEnumEncodedValue extends BaseEnumEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int fieldIndex;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-     * generate an identical vtable
-     */
-    @Nonnull private final Supplier<List<Method>> buggyPostDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
-        @Override public List<Method> get() {
-            List<Method> vtable = Lists.newArrayList();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    }
-
-    @Nonnull private final Supplier<SparseArray<FieldReference>> artInstanceFieldsSupplier =
-            Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-
-    //TODO: check the case when we have a package private method that overrides an interface method
-    @Nonnull private final Supplier<List<Method>> preDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
-        @Override public List<Method> get() {
-            List<Method> vtable = Lists.newArrayList();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-    }
-
-    @Nonnull private final Supplier<SparseArray<FieldReference>> dalvikInstanceFieldsSupplier =
-            Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
-                @Override public SparseArray<FieldReference> get() {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
@@ -6174,6 +6198,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
     @Nonnull private final Supplier<List<Method>> postDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
         @Override public List<Method> get() {
             List<Method> vtable = Lists.newArrayList();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+     * This calculates the interfaces in the order required for vtable generation for dalvik and pre-default method ART
+     */
+    @Nonnull
+    private final Supplier<LinkedHashMap<String, ClassDef>> preDefaultMethodInterfaceSupplier =
+            Suppliers.memoize(new Supplier<LinkedHashMap<String, ClassDef>>() {
 ```
 
 ### NullableProblems
@@ -6205,11 +6241,47 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
-     * This calculates the interfaces in the order required for vtable generation for dalvik and pre-default method ART
+     * generate an identical vtable
      */
-    @Nonnull
-    private final Supplier<LinkedHashMap<String, ClassDef>> preDefaultMethodInterfaceSupplier =
-            Suppliers.memoize(new Supplier<LinkedHashMap<String, ClassDef>>() {
+    @Nonnull private final Supplier<List<Method>> buggyPostDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+        @Override public List<Method> get() {
+            List<Method> vtable = Lists.newArrayList();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+
+    //TODO: check the case when we have a package private method that overrides an interface method
+    @Nonnull private final Supplier<List<Method>> preDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+        @Override public List<Method> get() {
+            List<Method> vtable = Lists.newArrayList();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/util/DexAnnotator.java`
+#### Snippet
+```java
+
+public class DexAnnotator extends AnnotatedBytes {
+    @Nonnull public final DexBackedDexFile dexFile;
+
+    private final Map<Integer, SectionAnnotator> annotators = Maps.newHashMap();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull private final Supplier<SparseArray<FieldReference>> dalvikInstanceFieldsSupplier =
+            Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
+                @Override public SparseArray<FieldReference> get() {
 ```
 
 ### NullableProblems
@@ -6229,6 +6301,18 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 #### Snippet
 ```java
+    }
+
+    @Nonnull private final Supplier<SparseArray<FieldReference>> artInstanceFieldsSupplier =
+            Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
 
     @Nonnull protected final ClassPath classPath;
     @Nonnull protected final String type;
@@ -6238,122 +6322,26 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedFieldEncodedValue.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedMethodTypeEncodedValue.java`
 #### Snippet
 ```java
 
-public class DexBackedFieldEncodedValue extends BaseFieldEncodedValue {
+public class DexBackedMethodTypeEncodedValue extends BaseMethodTypeEncodedValue {
     @Nonnull public final DexBackedDexFile dexFile;
-    private final int fieldIndex;
+    private final int methodProtoIndex;
 
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedTypeEncodedValue.java`
 #### Snippet
 ```java
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
-```
+public class DexBackedTypeEncodedValue extends BaseTypeEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int typeIndex;
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-        CallSiteKey extends CallSiteReference> {
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-        ProtoRefKey extends MethodProtoReference, MethodHandleKey extends MethodHandleReference,
-        CallSiteKey extends CallSiteReference> {
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
-
-    @Nonnull static <StringRef extends StringReference, TypeRef extends TypeReference,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/InstructionWriter.java`
-#### Snippet
-```java
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
 ```
 
 ### NullableProblems
@@ -6365,6 +6353,54 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedMethodEncodedV
 public class DexBackedMethodEncodedValue extends BaseMethodEncodedValue {
     @Nonnull public final DexBackedDexFile dexFile;
     private final int methodIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final String type;
+    private final int elementCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
+#### Snippet
+```java
+public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final String type;
+    private final int elementCount;
+    private final int elementsOffset;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedEnumEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedEnumEncodedValue extends BaseEnumEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int fieldIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedFieldEncodedValue.java`
+#### Snippet
+```java
+
+public class DexBackedFieldEncodedValue extends BaseFieldEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int fieldIndex;
 
 ```
 
@@ -6382,26 +6418,14 @@ public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
-#### Snippet
-```java
-public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final String type;
-    private final int elementCount;
-    private final int elementsOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedMethodHandleReference.java`
 #### Snippet
 ```java
 
-public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
+public class DexBackedMethodHandleReference extends BaseMethodHandleReference {
     @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final String type;
-    private final int elementCount;
+    public final int methodHandleIndex;
+    public final int methodHandleOffset;
 ```
 
 ### NullableProblems
@@ -6418,18 +6442,6 @@ public class DexBackedStringReference extends BaseStringReference {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedMethodHandleReference.java`
-#### Snippet
-```java
-
-public class DexBackedMethodHandleReference extends BaseMethodHandleReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    public final int methodHandleIndex;
-    public final int methodHandleOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedTypeReference.java`
 #### Snippet
 ```java
@@ -6437,6 +6449,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedTypeRefere
 public class DexBackedTypeReference extends BaseTypeReference {
     @Nonnull public final DexBackedDexFile dexFile;
     public final int typeIndex;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedMethodProtoReference.java`
+#### Snippet
+```java
+
+public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int protoIndex;
 
 ```
 
@@ -6454,14 +6478,14 @@ public class DexBackedFieldReference extends BaseFieldReference {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedMethodProtoReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedMethodReference.java`
 #### Snippet
 ```java
 
-public class DexBackedMethodProtoReference extends BaseMethodProtoReference {
+public class DexBackedMethodReference extends BaseMethodReference {
     @Nonnull public final DexBackedDexFile dexFile;
-    private final int protoIndex;
-
+    private final int methodIndex;
+    private int protoIdItemOffset;
 ```
 
 ### NullableProblems
@@ -6490,30 +6514,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/DebugInfo.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/util/DexAnnotator.java`
-#### Snippet
-```java
-
-public class DexAnnotator extends AnnotatedBytes {
-    @Nonnull public final DexBackedDexFile dexFile;
-
-    private final Map<Integer, SectionAnnotator> annotators = Maps.newHashMap();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedMethodReference.java`
-#### Snippet
-```java
-
-public class DexBackedMethodReference extends BaseMethodReference {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int methodIndex;
-    private int protoIdItemOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/reference/DexBackedCallSiteReference.java`
 #### Snippet
 ```java
@@ -6522,30 +6522,6 @@ public class DexBackedCallSiteReference extends BaseCallSiteReference {
     @Nonnull public final DexBackedDexFile dexFile;
     public final int callSiteIndex;
     public final int callSiteIdOffset;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
-#### Snippet
-```java
-
-public abstract class DexBackedInstruction implements Instruction {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final Opcode opcode;
-    public final int instructionStart;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
-#### Snippet
-```java
-public abstract class DexBackedInstruction implements Instruction {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final Opcode opcode;
-    public final int instructionStart;
-
 ```
 
 ### NullableProblems
@@ -6569,6 +6545,102 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableDexFile.java`
 public class ImmutableDexFile implements DexFile {
     @Nonnull protected final ImmutableSet<? extends ImmutableClassDef> classes;
     @Nonnull private final Opcodes opcodes;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
+#### Snippet
+```java
+public abstract class DexBackedInstruction implements Instruction {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final Opcode opcode;
+    public final int instructionStart;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/instruction/DexBackedInstruction.java`
+#### Snippet
+```java
+
+public abstract class DexBackedInstruction implements Instruction {
+    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull public final Opcode opcode;
+    public final int instructionStart;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableAnnotationElement.java`
+#### Snippet
+```java
+
+public class ImmutableAnnotationElement extends BaseAnnotationElement {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableEncodedValue value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableAnnotationElement.java`
+#### Snippet
+```java
+public class ImmutableAnnotationElement extends BaseAnnotationElement {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableEncodedValue value;
+
+    public ImmutableAnnotationElement(@Nonnull String name,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodImplementation.java`
+#### Snippet
+```java
+    protected final int registerCount;
+    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
+    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
+    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodImplementation.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
+    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
+    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
+
+    public ImmutableMethodImplementation(int registerCount,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodImplementation.java`
+#### Snippet
+```java
+public class ImmutableMethodImplementation implements MethodImplementation {
+    protected final int registerCount;
+    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
+    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
+    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableExceptionHandler.java`
+#### Snippet
+```java
+
+public class ImmutableExceptionHandler extends BaseExceptionHandler implements ExceptionHandler {
+    @Nullable protected final String exceptionType;
+    protected final int handlerCodeAddress;
 
 ```
 
@@ -6610,86 +6682,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodParameter.java
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodImplementation.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableAnnotation.java`
 #### Snippet
 ```java
-    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
-    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
-    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
+    protected final int visibility;
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
 
-    public ImmutableMethodImplementation(int registerCount,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodImplementation.java`
-#### Snippet
-```java
-public class ImmutableMethodImplementation implements MethodImplementation {
-    protected final int registerCount;
-    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
-    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
-    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethodImplementation.java`
-#### Snippet
-```java
-    protected final int registerCount;
-    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
-    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
-    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableAnnotationElement.java`
-#### Snippet
-```java
-
-public class ImmutableAnnotationElement extends BaseAnnotationElement {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableEncodedValue value;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableAnnotationElement.java`
-#### Snippet
-```java
-public class ImmutableAnnotationElement extends BaseAnnotationElement {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableEncodedValue value;
-
-    public ImmutableAnnotationElement(@Nonnull String name,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableExceptionHandler.java`
-#### Snippet
-```java
-
-public class ImmutableExceptionHandler extends BaseExceptionHandler implements ExceptionHandler {
-    @Nullable protected final String exceptionType;
-    protected final int handlerCodeAddress;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableTryBlock.java`
-#### Snippet
-```java
-    protected final int startCodeAddress;
-    protected final int codeUnitCount;
-    @Nonnull protected final ImmutableList<? extends ImmutableExceptionHandler> exceptionHandlers;
-
-    public ImmutableTryBlock(int startCodeAddress,
+    public ImmutableAnnotation(int visibility,
 ```
 
 ### NullableProblems
@@ -6706,26 +6706,14 @@ public class ImmutableAnnotation extends BaseAnnotation {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableAnnotation.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableTryBlock.java`
 #### Snippet
 ```java
-    protected final int visibility;
-    @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
+    protected final int startCodeAddress;
+    protected final int codeUnitCount;
+    @Nonnull protected final ImmutableList<? extends ImmutableExceptionHandler> exceptionHandlers;
 
-    public ImmutableAnnotation(int visibility,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableField.java`
-#### Snippet
-```java
-    @Nonnull protected final String type;
-    protected final int accessFlags;
-    @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    public ImmutableTryBlock(int startCodeAddress,
 ```
 
 ### NullableProblems
@@ -6745,11 +6733,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableField.java`
 #### Snippet
 ```java
+public class ImmutableField extends BaseFieldReference implements Field {
     @Nonnull protected final String definingClass;
     @Nonnull protected final String name;
     @Nonnull protected final String type;
     protected final int accessFlags;
-    @Nullable protected final ImmutableEncodedValue initialValue;
 ```
 
 ### NullableProblems
@@ -6757,11 +6745,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableField.java`
 #### Snippet
 ```java
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final String type;
     protected final int accessFlags;
     @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-
 ```
 
 ### NullableProblems
@@ -6781,124 +6769,40 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableField.java`
 #### Snippet
 ```java
-public class ImmutableField extends BaseFieldReference implements Field {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
+    protected final int accessFlags;
+    @Nullable protected final ImmutableEncodedValue initialValue;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableField.java`
+#### Snippet
+```java
     @Nonnull protected final String type;
     protected final int accessFlags;
+    @Nullable protected final ImmutableEncodedValue initialValue;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable protected final ImmutableMethodImplementation methodImplementation;
-
-    public ImmutableMethod(@Nonnull String definingClass,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
-    protected final int accessFlags;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-public class ImmutableMethod extends BaseMethodReference implements Method {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
-    protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    @Nonnull protected final String returnType;
-    protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable protected final ImmutableMethodImplementation methodImplementation;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-    protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
-    @Nullable protected final ImmutableMethodImplementation methodImplementation;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
-#### Snippet
-```java
-
-public class ImmutableMethod extends BaseMethodReference implements Method {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableSetSourceFile.java`
-#### Snippet
-```java
-
-public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSourceFile {
-    @Nullable protected final String sourceFile;
-
-    public ImmutableSetSourceFile(int codeAddress,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.java`
 #### Snippet
 ```java
     @Nullable protected final String name;
     @Nullable protected final String type;
     @Nullable protected final String signature;
 
-    public ImmutableRestartLocal(int codeAddress,
+    public ImmutableStartLocal(int codeAddress,
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.java`
 #### Snippet
 ```java
     protected final int register;
@@ -6910,26 +6814,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.j
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.java`
 #### Snippet
 ```java
-public class ImmutableRestartLocal extends ImmutableDebugItem implements RestartLocal {
+public class ImmutableStartLocal extends ImmutableDebugItem implements StartLocal {
     protected final int register;
     @Nullable protected final String name;
     @Nullable protected final String type;
     @Nullable protected final String signature;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableEndLocal.java`
-#### Snippet
-```java
-    protected final int register;
-    @Nullable protected final String name;
-    @Nullable protected final String type;
-    @Nullable protected final String signature;
-
 ```
 
 ### NullableProblems
@@ -6958,22 +6850,22 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableEndLocal.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableEndLocal.java`
 #### Snippet
 ```java
+    protected final int register;
     @Nullable protected final String name;
     @Nullable protected final String type;
     @Nullable protected final String signature;
 
-    public ImmutableStartLocal(int codeAddress,
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.java`
 #### Snippet
 ```java
-public class ImmutableStartLocal extends ImmutableDebugItem implements StartLocal {
+public class ImmutableRestartLocal extends ImmutableDebugItem implements RestartLocal {
     protected final int register;
     @Nullable protected final String name;
     @Nullable protected final String type;
@@ -6982,7 +6874,7 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.java`
 #### Snippet
 ```java
     protected final int register;
@@ -6990,6 +6882,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableStartLocal.jav
     @Nullable protected final String type;
     @Nullable protected final String signature;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableRestartLocal.java`
+#### Snippet
+```java
+    @Nullable protected final String name;
+    @Nullable protected final String type;
+    @Nullable protected final String signature;
+
+    public ImmutableRestartLocal(int codeAddress,
 ```
 
 ### NullableProblems
@@ -7006,14 +6910,86 @@ public class ImmutableFieldEncodedValue extends BaseFieldEncodedValue implements
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableStringEncodedValue.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    protected final int accessFlags;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable protected final ImmutableMethodImplementation methodImplementation;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+public class ImmutableMethod extends BaseMethodReference implements Method {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final String returnType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final String returnType;
+    protected final int accessFlags;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable protected final ImmutableMethodImplementation methodImplementation;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final String returnType;
+    protected final int accessFlags;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nullable protected final ImmutableMethodImplementation methodImplementation;
+
+    public ImmutableMethod(@Nonnull String definingClass,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
 #### Snippet
 ```java
 
-public class ImmutableStringEncodedValue extends BaseStringEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final String value;
+public class ImmutableMethod extends BaseMethodReference implements Method {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+```
 
-    public ImmutableStringEncodedValue(@Nonnull String value) {
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableMethod.java`
+#### Snippet
+```java
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final String returnType;
+    protected final int accessFlags;
 ```
 
 ### NullableProblems
@@ -7042,6 +7018,18 @@ public class ImmutableTypeEncodedValue extends BaseTypeEncodedValue implements I
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableStringEncodedValue.java`
+#### Snippet
+```java
+
+public class ImmutableStringEncodedValue extends BaseStringEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final String value;
+
+    public ImmutableStringEncodedValue(@Nonnull String value) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableMethodEncodedValue.java`
 #### Snippet
 ```java
@@ -7050,6 +7038,18 @@ public class ImmutableMethodEncodedValue extends BaseMethodEncodedValue implemen
     @Nonnull protected final ImmutableMethodReference value;
 
     public ImmutableMethodEncodedValue(@Nonnull ImmutableMethodReference value) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableMethodHandleEncodedValue.java`
+#### Snippet
+```java
+
+public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final ImmutableMethodHandleReference methodHandleReference;
+
+    public ImmutableMethodHandleEncodedValue(@Nonnull ImmutableMethodHandleReference methodHandleReference) {
 ```
 
 ### NullableProblems
@@ -7065,15 +7065,27 @@ public class ImmutableMethodTypeEncodedValue extends BaseMethodTypeEncodedValue 
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableEnumEncodedValue.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/debug/ImmutableSetSourceFile.java`
 #### Snippet
 ```java
 
-public class ImmutableEnumEncodedValue extends BaseEnumEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableFieldReference value;
+public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSourceFile {
+    @Nullable protected final String sourceFile;
 
-    public ImmutableEnumEncodedValue(@Nonnull ImmutableFieldReference value) {
+    public ImmutableSetSourceFile(int codeAddress,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableAnnotationEncodedValue.java`
+#### Snippet
+```java
+
+public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final String type;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
+
 ```
 
 ### NullableProblems
@@ -7090,14 +7102,14 @@ public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue 
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableAnnotationEncodedValue.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableFieldReference.java`
 #### Snippet
 ```java
 
-public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
+public class ImmutableFieldReference extends BaseFieldReference implements ImmutableReference {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
     @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
-
 ```
 
 ### NullableProblems
@@ -7126,114 +7138,6 @@ public class ImmutableFieldReference extends BaseFieldReference implements Immut
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableFieldReference.java`
-#### Snippet
-```java
-
-public class ImmutableFieldReference extends BaseFieldReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final String type;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableStringReference.java`
-#### Snippet
-```java
-
-public class ImmutableStringReference extends BaseStringReference implements ImmutableReference {
-    @Nonnull protected final String str;
-
-    public ImmutableStringReference(String str) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableMethodHandleEncodedValue.java`
-#### Snippet
-```java
-
-public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableMethodHandleReference methodHandleReference;
-
-    public ImmutableMethodHandleEncodedValue(@Nonnull ImmutableMethodHandleReference methodHandleReference) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableTypeReference.java`
-#### Snippet
-```java
-
-public class ImmutableTypeReference extends BaseTypeReference implements ImmutableReference {
-    @Nonnull protected final String type;
-
-    public ImmutableTypeReference(String type) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-
-public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
-
-    public ImmutableCallSiteReference(@Nonnull String name, @Nonnull MethodHandleReference methodHandle,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
-#### Snippet
-```java
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodHandleReference.java`
 #### Snippet
 ```java
@@ -7246,62 +7150,26 @@ public class ImmutableMethodHandleReference extends BaseMethodHandleReference im
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableEnumEncodedValue.java`
 #### Snippet
 ```java
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<String> parameters;
-    @Nonnull protected final String returnType;
 
+public class ImmutableEnumEncodedValue extends BaseEnumEncodedValue implements ImmutableEncodedValue {
+    @Nonnull protected final ImmutableFieldReference value;
+
+    public ImmutableEnumEncodedValue(@Nonnull ImmutableFieldReference value) {
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableStringReference.java`
 #### Snippet
 ```java
 
-public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<String> parameters;
-```
+public class ImmutableStringReference extends BaseStringReference implements ImmutableReference {
+    @Nonnull protected final String str;
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
-#### Snippet
-```java
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<String> parameters;
-    @Nonnull protected final String returnType;
-
-    public ImmutableMethodReference(@Nonnull String definingClass,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
-#### Snippet
-```java
-public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<String> parameters;
-    @Nonnull protected final String returnType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction22c.java`
-#### Snippet
-```java
-    protected final int registerA;
-    protected final int registerB;
-    @Nonnull protected final ImmutableReference reference;
-
-    public ImmutableInstruction22c(@Nonnull Opcode opcode,
+    public ImmutableStringReference(String str) {
 ```
 
 ### NullableProblems
@@ -7330,6 +7198,18 @@ public class ImmutableMethodProtoReference extends BaseMethodProtoReference impl
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableTypeReference.java`
+#### Snippet
+```java
+
+public class ImmutableTypeReference extends BaseTypeReference implements ImmutableReference {
+    @Nonnull protected final String type;
+
+    public ImmutableTypeReference(String type) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction35c.java`
 #### Snippet
 ```java
@@ -7342,14 +7222,146 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruct
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
+#### Snippet
+```java
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<String> parameters;
+    @Nonnull protected final String returnType;
+
+    public ImmutableMethodReference(@Nonnull String definingClass,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
+#### Snippet
+```java
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<String> parameters;
+    @Nonnull protected final String returnType;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
+#### Snippet
+```java
+public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<String> parameters;
+    @Nonnull protected final String returnType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableMethodReference.java`
+#### Snippet
+```java
+
+public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
+    @Nonnull protected final String definingClass;
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableList<String> parameters;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction22c.java`
+#### Snippet
+```java
+    protected final int registerA;
+    protected final int registerB;
+    @Nonnull protected final ImmutableReference reference;
+
+    public ImmutableInstruction22c(@Nonnull Opcode opcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
+
+    public ImmutableCallSiteReference(@Nonnull String name, @Nonnull MethodHandleReference methodHandle,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+    @Nonnull protected final ImmutableMethodProtoReference methodProto;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableCallSiteReference.java`
+#### Snippet
+```java
+
+public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
+    @Nonnull protected final String name;
+    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull protected final String methodName;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
 #### Snippet
 ```java
+    protected final int accessFlags;
+    @Nullable protected final String superclass;
+    @Nonnull protected final ImmutableList<String> interfaces;
+    @Nullable protected final String sourceFile;
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableList<String> interfaces;
     @Nullable protected final String sourceFile;
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
     @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
     @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
 ```
 
 ### NullableProblems
@@ -7365,15 +7377,39 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
 #### Snippet
 ```java
-    @Nullable protected final String superclass;
-    @Nonnull protected final ImmutableList<String> interfaces;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
+    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
+#### Snippet
+```java
     @Nullable protected final String sourceFile;
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
     @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
 ```
 
 ### NullableProblems
@@ -7389,27 +7425,15 @@ public class ImmutableClassDef extends BaseTypeReference implements ClassDef {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
 #### Snippet
 ```java
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    protected final int accessFlags;
     @Nullable protected final String superclass;
     @Nonnull protected final ImmutableList<String> interfaces;
     @Nullable protected final String sourceFile;
     @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
 ```
 
 ### NullableProblems
@@ -7422,30 +7446,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
     @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
 
     public ImmutableClassDef(@Nonnull String type,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableList<String> interfaces;
-    @Nullable protected final String sourceFile;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/ImmutableClassDef.java`
-#### Snippet
-```java
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> staticFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableField> instanceFields;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> directMethods;
-    @Nonnull protected final ImmutableSortedSet<? extends ImmutableMethod> virtualMethods;
 ```
 
 ### NullableProblems
@@ -7486,26 +7486,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruct
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction31c.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction4rcc.java`
 #### Snippet
 ```java
 
-    protected final int registerA;
     @Nonnull protected final ImmutableReference reference;
+    @Nonnull protected final ImmutableReference reference2;
 
-    public ImmutableInstruction31c(@Nonnull Opcode opcode,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction20bc.java`
-#### Snippet
-```java
-
-    protected final int verificationError;
-    @Nonnull protected final ImmutableReference reference;
-
-    public ImmutableInstruction20bc(@Nonnull Opcode opcode,
+    public ImmutableInstruction4rcc(
 ```
 
 ### NullableProblems
@@ -7522,14 +7510,50 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruct
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction4rcc.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction20bc.java`
 #### Snippet
 ```java
 
+    protected final int verificationError;
     @Nonnull protected final ImmutableReference reference;
-    @Nonnull protected final ImmutableReference reference2;
 
-    public ImmutableInstruction4rcc(
+    public ImmutableInstruction20bc(@Nonnull Opcode opcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutablePackedSwitchPayload.java`
+#### Snippet
+```java
+    public static final Opcode OPCODE = Opcode.PACKED_SWITCH_PAYLOAD;
+
+    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
+
+    public ImmutablePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction31c.java`
+#### Snippet
+```java
+
+    protected final int registerA;
+    @Nonnull protected final ImmutableReference reference;
+
+    public ImmutableInstruction31c(@Nonnull Opcode opcode,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableSparseSwitchPayload.java`
+#### Snippet
+```java
+    public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
+
+    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
+
+    public ImmutableSparseSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
 ```
 
 ### NullableProblems
@@ -7558,30 +7582,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruct
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutablePackedSwitchPayload.java`
-#### Snippet
-```java
-    public static final Opcode OPCODE = Opcode.PACKED_SWITCH_PAYLOAD;
-
-    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
-
-    public ImmutablePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableSparseSwitchPayload.java`
-#### Snippet
-```java
-    public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
-
-    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
-
-    public ImmutableSparseSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruction.java`
 #### Snippet
 ```java
@@ -7597,30 +7597,6 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
 #### Snippet
 ```java
-
-public class StartLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final ClassDefinition classDef;
-    @Nonnull private final StartLocal startLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
-#### Snippet
-```java
-public class StartLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final ClassDefinition classDef;
-    @Nonnull private final StartLocal startLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
-#### Snippet
-```java
     @Nonnull private final ClassDefinition classDef;
     @Nonnull private final StartLocal startLocal;
     @Nonnull private final RegisterFormatter registerFormatter;
@@ -7629,51 +7605,27 @@ in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/StartLocalMethodItem.j
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/SetSourceFileMethodItem.java`
-#### Snippet
-```java
-
-public class SetSourceFileMethodItem extends DebugMethodItem {
-    @Nullable private final String sourceFile;
-
-    public SetSourceFileMethodItem(int codeAddress, int sortOrder, @Nonnull SetSourceFile setSourceFile) {
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/EndLocalMethodItem.java`
+in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
 #### Snippet
 ```java
-public class EndLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final EndLocal endLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
-
-    public EndLocalMethodItem(int codeAddress, int sortOrder, @Nonnull RegisterFormatter registerFormatter,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/EndLocalMethodItem.java`
-#### Snippet
-```java
-
-public class EndLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final EndLocal endLocal;
+public class StartLocalMethodItem extends DebugMethodItem {
+    @Nonnull private final ClassDefinition classDef;
+    @Nonnull private final StartLocal startLocal;
     @Nonnull private final RegisterFormatter registerFormatter;
 
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliFormatter.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/StartLocalMethodItem.java`
 #### Snippet
 ```java
-public class BaksmaliFormatter extends DexFormatter {
 
-    @Nullable private final String classContext;
-
-    public BaksmaliFormatter() {
+public class StartLocalMethodItem extends DebugMethodItem {
+    @Nonnull private final ClassDefinition classDef;
+    @Nonnull private final StartLocal startLocal;
+    @Nonnull private final RegisterFormatter registerFormatter;
 ```
 
 ### NullableProblems
@@ -7710,6 +7662,54 @@ public class RestartLocalMethodItem extends DebugMethodItem {
     @Nonnull private final ClassDefinition classDef;
     @Nonnull private final RestartLocal restartLocal;
     @Nonnull private final RegisterFormatter registerFormatter;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliFormatter.java`
+#### Snippet
+```java
+public class BaksmaliFormatter extends DexFormatter {
+
+    @Nullable private final String classContext;
+
+    public BaksmaliFormatter() {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/SetSourceFileMethodItem.java`
+#### Snippet
+```java
+
+public class SetSourceFileMethodItem extends DebugMethodItem {
+    @Nullable private final String sourceFile;
+
+    public SetSourceFileMethodItem(int codeAddress, int sortOrder, @Nonnull SetSourceFile setSourceFile) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/EndLocalMethodItem.java`
+#### Snippet
+```java
+public class EndLocalMethodItem extends DebugMethodItem {
+    @Nonnull private final EndLocal endLocal;
+    @Nonnull private final RegisterFormatter registerFormatter;
+
+    public EndLocalMethodItem(int codeAddress, int sortOrder, @Nonnull RegisterFormatter registerFormatter,
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `baksmali/src/main/java/org/jf/baksmali/Adaptors/Debug/EndLocalMethodItem.java`
+#### Snippet
+```java
+
+public class EndLocalMethodItem extends DebugMethodItem {
+    @Nonnull private final EndLocal endLocal;
+    @Nonnull private final RegisterFormatter registerFormatter;
+
 ```
 
 ### NullableProblems
@@ -7765,11 +7765,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/PreInstructionRegisterInfoMethodItem.java`
 #### Snippet
 ```java
+    private final int registerInfo;
     @Nonnull private final MethodAnalyzer methodAnalyzer;
     @Nonnull private final RegisterFormatter registerFormatter;
     @Nonnull private final AnalyzedInstruction analyzedInstruction;
 
-    public PreInstructionRegisterInfoMethodItem(int registerInfo,
 ```
 
 ### NullableProblems
@@ -7777,11 +7777,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/PreInstructionRegisterInfoMethodItem.java`
 #### Snippet
 ```java
-    private final int registerInfo;
     @Nonnull private final MethodAnalyzer methodAnalyzer;
     @Nonnull private final RegisterFormatter registerFormatter;
     @Nonnull private final AnalyzedInstruction analyzedInstruction;
 
+    public PreInstructionRegisterInfoMethodItem(int registerInfo,
 ```
 
 ### NullableProblems
@@ -7825,18 +7825,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
 #### Snippet
 ```java
-        @Nullable public final DirectoryEntry parent;
-        @Nonnull public final String logicalName;
-        @Nullable protected String physicalName = null;
-
-        private FileSystemEntry(@Nullable DirectoryEntry parent, @Nonnull String logicalName) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
-#### Snippet
-```java
 
     private abstract class FileSystemEntry {
         @Nullable public final DirectoryEntry parent;
@@ -7845,63 +7833,15 @@ in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
 #### Snippet
 ```java
-    public RegisterFormatter registerFormatter;
+        @Nullable public final DirectoryEntry parent;
+        @Nonnull public final String logicalName;
+        @Nullable protected String physicalName = null;
 
-    @Nonnull private final LabelCache labelCache = new LabelCache();
-
-    @Nonnull private final SparseIntArray packedSwitchMap;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-public class ClassDefinition {
-    @Nonnull public final BaksmaliOptions options;
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-    @Nonnull private final BaksmaliFormatter formatter;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
-    @Nonnull public final List<Instruction> effectiveInstructions;
-
-    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final BaksmaliOptions options;
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-    @Nonnull private final BaksmaliFormatter formatter;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-    @Nonnull private final BaksmaliFormatter formatter;
-
-    protected boolean validationErrors;
+        private FileSystemEntry(@Nullable DirectoryEntry parent, @Nonnull String logicalName) {
 ```
 
 ### NullableProblems
@@ -7918,49 +7858,37 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-
-public class ClassDefinition {
-    @Nonnull public final BaksmaliOptions options;
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
 
-    @Nonnull private final SparseIntArray packedSwitchMap;
-    @Nonnull private final SparseIntArray sparseSwitchMap;
-    @Nonnull private final InstructionOffsetMap instructionOffsetMap;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
-    @Nonnull public final List<Instruction> effectiveInstructions;
-
-    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
-    public RegisterFormatter registerFormatter;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
-#### Snippet
-```java
+public class MethodDefinition {
+    @Nonnull public final ClassDefinition classDef;
     @Nonnull public final Method method;
     @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
     @Nonnull public final List<Instruction> effectiveInstructions;
+
+    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
+    public RegisterFormatter registerFormatter;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+
+    @Nonnull private final SparseIntArray packedSwitchMap;
+    @Nonnull private final SparseIntArray sparseSwitchMap;
+    @Nonnull private final InstructionOffsetMap instructionOffsetMap;
 
 ```
 
@@ -7993,6 +7921,30 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
+    @Nonnull public final Method method;
+    @Nonnull public final MethodImplementation methodImpl;
+    @Nonnull public final ImmutableList<Instruction> instructions;
+    @Nonnull public final List<Instruction> effectiveInstructions;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
+    public RegisterFormatter registerFormatter;
+
+    @Nonnull private final LabelCache labelCache = new LabelCache();
+
+    @Nonnull private final SparseIntArray packedSwitchMap;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
+#### Snippet
+```java
     @Nonnull public final ClassDefinition classDef;
     @Nonnull public final Method method;
     @Nonnull public final MethodImplementation methodImpl;
@@ -8005,23 +7957,59 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
-
-public class MethodDefinition {
-    @Nonnull public final ClassDefinition classDef;
-    @Nonnull public final Method method;
     @Nonnull public final MethodImplementation methodImpl;
+    @Nonnull public final ImmutableList<Instruction> instructions;
+    @Nonnull public final List<Instruction> effectiveInstructions;
+
+    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/Format/InstructionMethodItem.java`
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+    @Nonnull public final ClassDef classDef;
+    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
+    @Nonnull private final BaksmaliFormatter formatter;
+
+    protected boolean validationErrors;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+    @Nonnull public final BaksmaliOptions options;
+    @Nonnull public final ClassDef classDef;
+    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
+    @Nonnull private final BaksmaliFormatter formatter;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+public class ClassDefinition {
+    @Nonnull public final BaksmaliOptions options;
+    @Nonnull public final ClassDef classDef;
+    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
+    @Nonnull private final BaksmaliFormatter formatter;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
 #### Snippet
 ```java
 
-public class InstructionMethodItem<T extends Instruction> extends MethodItem {
-    @Nonnull protected final MethodDefinition methodDef;
-    @Nonnull protected final T instruction;
-
+public class ClassDefinition {
+    @Nonnull public final BaksmaliOptions options;
+    @Nonnull public final ClassDef classDef;
+    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
 ```
 
 ### NullableProblems
@@ -8034,6 +8022,18 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
     @Nonnull protected final T instruction;
 
     public InstructionMethodItem(@Nonnull MethodDefinition methodDef, int codeAddress, @Nonnull T instruction) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/Format/InstructionMethodItem.java`
+#### Snippet
+```java
+
+public class InstructionMethodItem<T extends Instruction> extends MethodItem {
+    @Nonnull protected final MethodDefinition methodDef;
+    @Nonnull protected final T instruction;
+
 ```
 
 ## RuleId[ruleID=NegativeIntConstantInLongContext]
@@ -8125,18 +8125,6 @@ in `third_party/util/src/main/java/org/jf/util/PathUtil.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-                // future potential filename that would end up colliding. So we have to actually create the file here,
-                // to force the Schrodinger filename to collapse to this particular version.
-                file.mkdirs();
-            }
-        }
-```
-
-### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
 #### Snippet
@@ -8144,6 +8132,18 @@ in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
                 // future potential filename that would end up colliding. So we have to actually create the file here,
                 // to force the Schrodinger filename to collapse to this particular version.
                 file.createNewFile();
+            }
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+                // future potential filename that would end up colliding. So we have to actually create the file here,
+                // to force the Schrodinger filename to collapse to this particular version.
+                file.mkdirs();
             }
         }
 ```
@@ -8540,6 +8540,18 @@ in `baksmali/src/main/java/org/jf/baksmali/ListDexCommand.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
+Contents of collection `inputList` are queried, but never updated
+in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+    @Parameter(description = "An oat/odex file")
+    @ExtendedParameter(argumentNames = "file")
+    private List<String> inputList = Lists.newArrayList();
+
+    public ListDependenciesCommand(@Nonnull List<JCommander> commandAncestors) {
+```
+
+### MismatchedCollectionQueryUpdate
 Contents of collection `commands` are queried, but never updated
 in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
 #### Snippet
@@ -8552,15 +8564,15 @@ in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `inputList` are queried, but never updated
-in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+Contents of collection `commands` are queried, but never updated
+in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
 #### Snippet
 ```java
-    @Parameter(description = "An oat/odex file")
-    @ExtendedParameter(argumentNames = "file")
-    private List<String> inputList = Lists.newArrayList();
+    @Parameter(description = "If specified, show the detailed usage information for the given commands")
+    @ExtendedParameter(argumentNames = "commands")
+    private List<String> commands;
 
-    public ListDependenciesCommand(@Nonnull List<JCommander> commandAncestors) {
+    public ListHelpCommand(@Nonnull List<JCommander> commandAncestors) {
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -8587,18 +8599,6 @@ in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
     @Parameter(names = {"-j", "--jobs"},
 ```
 
-### MismatchedCollectionQueryUpdate
-Contents of collection `commands` are queried, but never updated
-in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-    @Parameter(description = "If specified, show the detailed usage information for the given commands")
-    @ExtendedParameter(argumentNames = "commands")
-    private List<String> commands;
-
-    public ListHelpCommand(@Nonnull List<JCommander> commandAncestors) {
-```
-
 ## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `file` is accessed in both synchronized and unsynchronized contexts
@@ -8618,11 +8618,11 @@ Field initialization to `false` is redundant
 in `smali/src/main/java/org/jf/smali/SmaliOptions.java`
 #### Snippet
 ```java
+
+    public int jobs = Runtime.getRuntime().availableProcessors();
     public boolean allowOdexOpcodes = false;
     public boolean verboseErrors = false;
     public boolean printTokens = false;
-}
-
 ```
 
 ### RedundantFieldInitialization
@@ -8630,11 +8630,11 @@ Field initialization to `false` is redundant
 in `smali/src/main/java/org/jf/smali/SmaliOptions.java`
 #### Snippet
 ```java
-
-    public int jobs = Runtime.getRuntime().availableProcessors();
     public boolean allowOdexOpcodes = false;
     public boolean verboseErrors = false;
     public boolean printTokens = false;
+}
+
 ```
 
 ### RedundantFieldInitialization
@@ -8710,6 +8710,18 @@ public class SparseArray<E> {
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
+#### Snippet
+```java
+                return new Iterator<String>() {
+                    private int currentLineStart = 0;
+                    private boolean nextLineSet = false;
+                    private String nextLine;
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
 #### Snippet
@@ -8722,14 +8734,14 @@ in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
+Field initialization to `null` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 #### Snippet
 ```java
-                return new Iterator<String>() {
-                    private int currentLineStart = 0;
-                    private boolean nextLineSet = false;
-                    private String nextLine;
+
+        @Nullable
+        private byte[] buf = null;
+        private boolean loadedVdex = false;
 
 ```
 
@@ -8743,18 +8755,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
         private boolean loadedVdex = false;
 
         public FilenameVdexProvider(File oatFile) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
-#### Snippet
-```java
-
-        @Nullable
-        private byte[] buf = null;
-        private boolean loadedVdex = false;
-
 ```
 
 ### RedundantFieldInitialization
@@ -8783,6 +8783,18 @@ public class MemoryDataStore implements DexDataStore {
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    }
+
+    private ImmutableList<PoolClassDef> sortedClasses = null;
+    @Nonnull @Override public Collection<? extends PoolClassDef> getSortedClasses() {
+        if (sortedClasses == null) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
 #### Snippet
 ```java
@@ -8803,18 +8815,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
         public MutableTryBlock<EH> prev = null;
         public MutableTryBlock<EH> next = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    }
-
-    private ImmutableList<PoolClassDef> sortedClasses = null;
-    @Nonnull @Override public Collection<? extends PoolClassDef> getSortedClasses() {
-        if (sortedClasses == null) {
 ```
 
 ### RedundantFieldInitialization
@@ -8858,47 +8858,11 @@ Field initialization to `0` is redundant
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-
-    protected int numAnnotationSetRefItems = 0;
     protected int numAnnotationDirectoryItems = 0;
-    protected int numDebugInfoItems = 0;
-    protected int numCodeItemItems = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-        private final DexDataWriter restrictionsWriter;
-
-        private boolean writeRestrictionsForClass = false;
-        private int pendingBlankEntries = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
     protected int numDebugInfoItems = 0;
     protected int numCodeItemItems = 0;
     protected int numClassDataItems = 0;
 
-    // The sections defined here must be kept in sync with these section arrays:
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-    protected boolean hasHiddenApiRestrictions = false;
-
-    protected int numAnnotationSetRefItems = 0;
-    protected int numAnnotationDirectoryItems = 0;
-    protected int numDebugInfoItems = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -8930,11 +8894,11 @@ Field initialization to `0` is redundant
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
+    protected int numAnnotationSetRefItems = 0;
     protected int numAnnotationDirectoryItems = 0;
     protected int numDebugInfoItems = 0;
     protected int numCodeItemItems = 0;
     protected int numClassDataItems = 0;
-
 ```
 
 ### RedundantFieldInitialization
@@ -8942,11 +8906,47 @@ Field initialization to `0` is redundant
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
+
     protected int numAnnotationSetRefItems = 0;
     protected int numAnnotationDirectoryItems = 0;
     protected int numDebugInfoItems = 0;
     protected int numCodeItemItems = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+    protected boolean hasHiddenApiRestrictions = false;
+
+    protected int numAnnotationSetRefItems = 0;
+    protected int numAnnotationDirectoryItems = 0;
+    protected int numDebugInfoItems = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+    protected int numDebugInfoItems = 0;
+    protected int numCodeItemItems = 0;
     protected int numClassDataItems = 0;
+
+    // The sections defined here must be kept in sync with these section arrays:
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+#### Snippet
+```java
+        private final DexDataWriter restrictionsWriter;
+
+        private boolean writeRestrictionsForClass = false;
+        private int pendingBlankEntries = 0;
+
 ```
 
 ### RedundantFieldInitialization
@@ -8987,13 +8987,37 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/ClassDataItem.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+    private int instanceFieldsOffset = 0;
+    private int directMethodsOffset = 0;
+    private int virtualMethodsOffset = 0;
+
+    private final int staticFieldCount;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
 #### Snippet
 ```java
 
-    private class DexEntryIterator implements Iterator<OatDexEntry> {
-        int index = 0;
-        int offset = oatHeader.getDexListStart();
+    private final int staticFieldsOffset;
+    private int instanceFieldsOffset = 0;
+    private int directMethodsOffset = 0;
+    private int virtualMethodsOffset = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
+#### Snippet
+```java
+    private final int staticFieldsOffset;
+    private int instanceFieldsOffset = 0;
+    private int directMethodsOffset = 0;
+    private int virtualMethodsOffset = 0;
 
 ```
 
@@ -9011,50 +9035,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/ClassDefItem.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
 
-    private final int staticFieldsOffset;
-    private int instanceFieldsOffset = 0;
-    private int directMethodsOffset = 0;
-    private int virtualMethodsOffset = 0;
-```
+    private class DexEntryIterator implements Iterator<OatDexEntry> {
+        int index = 0;
+        int offset = oatHeader.getDexListStart();
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-    private final int staticFieldsOffset;
-    private int instanceFieldsOffset = 0;
-    private int directMethodsOffset = 0;
-    private int virtualMethodsOffset = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedClassDef.java`
-#### Snippet
-```java
-    private int instanceFieldsOffset = 0;
-    private int directMethodsOffset = 0;
-    private int virtualMethodsOffset = 0;
-
-    private final int staticFieldCount;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
-#### Snippet
-```java
-        @Nonnull private final DexBackedDexFile dexFile;
-        private final int size;
-        private int index = 0;
-
-        public EncodedArrayItemIteratorImpl(@Nonnull DexBackedDexFile dexFile, int offset) {
 ```
 
 ### RedundantFieldInitialization
@@ -9067,6 +9055,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/FixedSizeSet.java`
             int index = 0;
 
             @Override public boolean hasNext() { return index < size(); }
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/EncodedArrayItemIterator.java`
+#### Snippet
+```java
+        @Nonnull private final DexBackedDexFile dexFile;
+        private final int size;
+        private int index = 0;
+
+        public EncodedArrayItemIteratorImpl(@Nonnull DexBackedDexFile dexFile, int offset) {
 ```
 
 ### RedundantFieldInitialization
@@ -9142,138 +9142,6 @@ in `baksmali/src/main/java/org/jf/baksmali/ListVtablesCommand.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean accessorComments = true;
-    public boolean allowOdex = false;
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-    public boolean normalizeVirtualMethods = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
-    public InlineMethodResolver inlineResolver = null;
-    public ClassPath classPath = null;
-    public SyntheticAccessorResolver syntheticAccessorResolver = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-
-    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
-    public InlineMethodResolver inlineResolver = null;
-    public ClassPath classPath = null;
-    public SyntheticAccessorResolver syntheticAccessorResolver = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-    public boolean normalizeVirtualMethods = false;
-
-    // register info values
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean sequentialLabels = false;
-    public boolean debugInfo = true;
-    public boolean codeOffsets = false;
-    public boolean accessorComments = true;
-    public boolean allowOdex = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public static final int FULLMERGE = 64;
-
-    public int registerInfo = 0;
-
-    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean allowOdex = false;
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-    public boolean normalizeVirtualMethods = false;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean codeOffsets = false;
-    public boolean accessorComments = true;
-    public boolean allowOdex = false;
-    public boolean deodex = false;
-    public boolean implicitReferences = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public boolean parameterRegisters = true;
-    public boolean localsDirective = false;
-    public boolean sequentialLabels = false;
-    public boolean debugInfo = true;
-    public boolean codeOffsets = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-
-    public boolean parameterRegisters = true;
-    public boolean localsDirective = false;
-    public boolean sequentialLabels = false;
-    public boolean debugInfo = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
-#### Snippet
-```java
-    public InlineMethodResolver inlineResolver = null;
-    public ClassPath classPath = null;
-    public SyntheticAccessorResolver syntheticAccessorResolver = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
 #### Snippet
@@ -9311,6 +9179,138 @@ in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+
+    public boolean parameterRegisters = true;
+    public boolean localsDirective = false;
+    public boolean sequentialLabels = false;
+    public boolean debugInfo = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+    public InlineMethodResolver inlineResolver = null;
+    public ClassPath classPath = null;
+    public SyntheticAccessorResolver syntheticAccessorResolver = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+    public boolean normalizeVirtualMethods = false;
+
+    // register info values
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean parameterRegisters = true;
+    public boolean localsDirective = false;
+    public boolean sequentialLabels = false;
+    public boolean debugInfo = true;
+    public boolean codeOffsets = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public static final int FULLMERGE = 64;
+
+    public int registerInfo = 0;
+
+    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean codeOffsets = false;
+    public boolean accessorComments = true;
+    public boolean allowOdex = false;
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean sequentialLabels = false;
+    public boolean debugInfo = true;
+    public boolean codeOffsets = false;
+    public boolean accessorComments = true;
+    public boolean allowOdex = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+
+    public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+    public InlineMethodResolver inlineResolver = null;
+    public ClassPath classPath = null;
+    public SyntheticAccessorResolver syntheticAccessorResolver = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public InlineMethodResolver inlineResolver = null;
+    public ClassPath classPath = null;
+    public SyntheticAccessorResolver syntheticAccessorResolver = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean allowOdex = false;
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+    public boolean normalizeVirtualMethods = false;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/BaksmaliOptions.java`
+#### Snippet
+```java
+    public boolean accessorComments = true;
+    public boolean allowOdex = false;
+    public boolean deodex = false;
+    public boolean implicitReferences = false;
+    public boolean normalizeVirtualMethods = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
@@ -9338,6 +9338,18 @@ Field initialization to `false` is redundant
 in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
+    @Parameter(names = {"--code-offsets", "--offsets", "--off"},
+            description = "Add a comment before each instruction with it's code offset within the method.")
+    private boolean codeOffsets = false;
+
+    @Parameter(names = {"--resolve-resources", "--rr"}, arity = 2,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
+#### Snippet
+```java
             description = "Create label names using a sequential numbering scheme per label type, rather than " +
                     "using the bytecode address.")
     private boolean sequentialLabels = false;
@@ -9355,18 +9367,6 @@ in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
     private boolean normalizeVirtualMethods = false;
 
     @Parameter(names = {"-o", "--output"},
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
-#### Snippet
-```java
-    @Parameter(names = {"--code-offsets", "--offsets", "--off"},
-            description = "Add a comment before each instruction with it's code offset within the method.")
-    private boolean codeOffsets = false;
-
-    @Parameter(names = {"--resolve-resources", "--rr"}, arity = 2,
 ```
 
 ### RedundantFieldInitialization
@@ -9517,18 +9517,6 @@ public abstract class VariableSizeLookaheadIterator<T> extends AbstractIterator<
 ```
 
 ### RedundantImplements
-Redundant interface declaration `ArrayEncodedValue`
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedArrayEncodedValue.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements ArrayEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
-    private final int elementCount;
-```
-
-### RedundantImplements
 Redundant interface declaration `AnnotationEncodedValue`
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedAnnotationEncodedValue.java`
 #### Snippet
@@ -9538,6 +9526,18 @@ import java.util.Set;
 public class DexBackedAnnotationEncodedValue extends BaseAnnotationEncodedValue implements AnnotationEncodedValue {
     @Nonnull public final DexBackedDexFile dexFile;
     @Nonnull public final String type;
+```
+
+### RedundantImplements
+Redundant interface declaration `ArrayEncodedValue`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/value/DexBackedArrayEncodedValue.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements ArrayEncodedValue {
+    @Nonnull public final DexBackedDexFile dexFile;
+    private final int elementCount;
 ```
 
 ### RedundantImplements
@@ -9762,30 +9762,6 @@ in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
-#### Snippet
-```java
-
-                if (!publicXmlFile.exists()) {
-                    System.err.println(String.format("Can't find file: %s", publicXmlFile));
-                    System.exit(-1);
-                }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
-#### Snippet
-```java
-                options.registerInfo  |= BaksmaliOptions.FULLMERGE;
-            } else {
-                System.err.println(String.format("Invalid register info type: %s", registerInfoType));
-                usage();
-                System.exit(-1);
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
 in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
 #### Snippet
 ```java
@@ -9810,26 +9786,26 @@ in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
-                writer.write("# duplicate field ignored\n");
-                fieldWriter = getCommentingWriter(writer);
-                System.err.println(String.format("Ignoring duplicate field: %s->%s", classDef.getType(), fieldString));
-                setInStaticConstructor = false;
-            } else {
+
+                if (!publicXmlFile.exists()) {
+                    System.err.println(String.format("Can't find file: %s", publicXmlFile));
+                    System.exit(-1);
+                }
 ```
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
 #### Snippet
 ```java
-                writer.write("# There is both a direct and virtual method with this signature.\n" +
-                             "# You will need to rename one of these methods, including all references.\n");
-                System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
-                        classDef.getType(), methodString));
-                System.err.println("You will need to rename one of these methods, including all references.");
+                options.registerInfo  |= BaksmaliOptions.FULLMERGE;
+            } else {
+                System.err.println(String.format("Invalid register info type: %s", registerInfoType));
+                usage();
+                System.exit(-1);
 ```
 
 ### RedundantStringFormatCall
@@ -9854,6 +9830,30 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.
                 System.err.println(String.format("Duplicate static+instance field found: %s->%s",
                         classDef.getType(), fieldString));
                 System.err.println("You will need to rename one of these fields, including all references.");
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+                writer.write("# There is both a direct and virtual method with this signature.\n" +
+                             "# You will need to rename one of these methods, including all references.\n");
+                System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
+                        classDef.getType(), methodString));
+                System.err.println("You will need to rename one of these methods, including all references.");
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+                writer.write("# duplicate field ignored\n");
+                fieldWriter = getCommentingWriter(writer);
+                System.err.println(String.format("Ignoring duplicate field: %s->%s", classDef.getType(), fieldString));
+                setInStaticConstructor = false;
+            } else {
 ```
 
 ## RuleId[ruleID=DuplicateThrows]
@@ -10275,18 +10275,6 @@ in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
 ```
 
 ### FieldMayBeStatic
-Field `CASE_SENSITIVE` may be 'static'
-in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
-#### Snippet
-```java
-    private final int NO_VALUE = -1;
-    private final int CASE_INSENSITIVE = 0;
-    private final int CASE_SENSITIVE = 1;
-    private int forcedCaseSensitivity = NO_VALUE;
-
-```
-
-### FieldMayBeStatic
 Field `CASE_INSENSITIVE` may be 'static'
 in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
 #### Snippet
@@ -10296,6 +10284,18 @@ in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
     private final int CASE_INSENSITIVE = 0;
     private final int CASE_SENSITIVE = 1;
     private int forcedCaseSensitivity = NO_VALUE;
+```
+
+### FieldMayBeStatic
+Field `CASE_SENSITIVE` may be 'static'
+in `third_party/util/src/main/java/org/jf/util/ClassFileNameHandler.java`
+#### Snippet
+```java
+    private final int NO_VALUE = -1;
+    private final int CASE_INSENSITIVE = 0;
+    private final int CASE_SENSITIVE = 1;
+    private int forcedCaseSensitivity = NO_VALUE;
+
 ```
 
 ## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
@@ -10312,18 +10312,6 @@ public class LinearSearch {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ExtendedCommands` has only 'static' members, and lacks a 'private' constructor
-in `util/src/main/java/org/jf/util/jcommander/ExtendedCommands.java`
-#### Snippet
-```java
- * Utilities related to "extended" commands - JCommander commands with additional information
- */
-public class ExtendedCommands {
-
-    @Nonnull
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CharSequenceUtils` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/util/CharSequenceUtils.java`
 #### Snippet
@@ -10336,27 +10324,15 @@ public class CharSequenceUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ImmutableUtils` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/util/ImmutableUtils.java`
+Class `ExtendedCommands` has only 'static' members, and lacks a 'private' constructor
+in `util/src/main/java/org/jf/util/jcommander/ExtendedCommands.java`
 #### Snippet
 ```java
-import javax.annotation.Nullable;
+ * Utilities related to "extended" commands - JCommander commands with additional information
+ */
+public class ExtendedCommands {
 
-public class ImmutableUtils {
-    @Nonnull public static <T> ImmutableList<T> nullToEmptyList(@Nullable ImmutableList<T> list) {
-        if (list == null) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Smali` has only 'static' members, and lacks a 'private' constructor
-in `smali/src/main/java/org/jf/smali/Smali.java`
-#### Snippet
-```java
-import java.util.concurrent.*;
-
-public class Smali {
-
-    /**
+    @Nonnull
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10372,6 +10348,18 @@ public class BitSetUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `ImmutableUtils` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/util/ImmutableUtils.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class ImmutableUtils {
+    @Nonnull public static <T> ImmutableList<T> nullToEmptyList(@Nullable ImmutableList<T> list) {
+        if (list == null) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `CollectionUtils` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/util/CollectionUtils.java`
 #### Snippet
@@ -10381,6 +10369,18 @@ import java.util.*;
 public class CollectionUtils {
     public static <T> int listHashCode(@Nonnull Iterable<T> iterable) {
         int hashCode = 1;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Smali` has only 'static' members, and lacks a 'private' constructor
+in `smali/src/main/java/org/jf/smali/Smali.java`
+#### Snippet
+```java
+import java.util.concurrent.*;
+
+public class Smali {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10420,18 +10420,6 @@ public class NumberUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `VersionMap` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/VersionMap.java`
-#### Snippet
-```java
-package org.jf.dexlib2;
-
-public class VersionMap {
-    public static final int NO_VERSION = -1;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Utf8Utils` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/util/Utf8Utils.java`
 #### Snippet
@@ -10441,6 +10429,18 @@ in `dexlib2/src/main/java/org/jf/util/Utf8Utils.java`
 public final class Utf8Utils {
     /**
      * Converts a string into its Java-style UTF-8 form. Java-style UTF-8
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VersionMap` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/VersionMap.java`
+#### Snippet
+```java
+package org.jf.dexlib2;
+
+public class VersionMap {
+    public static final int NO_VERSION = -1;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10468,18 +10468,6 @@ public class StringWrapper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Preconditions` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/util/Preconditions.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class Preconditions {
-    public static void checkFormat(Opcode opcode, Format expectedFormat) {
-        if (opcode.format != expectedFormat) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `DexUtil` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/util/DexUtil.java`
 #### Snippet
@@ -10489,6 +10477,18 @@ import java.io.InputStream;
 public class DexUtil {
 
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Preconditions` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/util/Preconditions.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class Preconditions {
+    public static void checkFormat(Opcode opcode, Format expectedFormat) {
+        if (opcode.format != expectedFormat) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10576,18 +10576,6 @@ public class ProtoIdItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FieldIdItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/FieldIdItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class FieldIdItem {
-    public static final int ITEM_SIZE = 8;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `EncodedArrayItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/EncodedArrayItem.java`
 #### Snippet
@@ -10597,6 +10585,18 @@ import javax.annotation.Nullable;
 public class EncodedArrayItem {
     @Nonnull
     public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FieldIdItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/FieldIdItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class FieldIdItem {
+    public static final int ITEM_SIZE = 8;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10612,18 +10612,6 @@ public class AnnotationSetItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CdexDebugOffsetTable` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CdexDebugOffsetTable.java`
-#### Snippet
-```java
- * the beginning of the debug offset table.
- */
-public class CdexDebugOffsetTable {
-    @Nonnull
-    public static void annotate(@Nonnull DexAnnotator annotator, DexBuffer buffer) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `StringDataItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/StringDataItem.java`
 #### Snippet
@@ -10636,6 +10624,18 @@ public class StringDataItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CdexDebugOffsetTable` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CdexDebugOffsetTable.java`
+#### Snippet
+```java
+ * the beginning of the debug offset table.
+ */
+public class CdexDebugOffsetTable {
+    @Nonnull
+    public static void annotate(@Nonnull DexAnnotator annotator, DexBuffer buffer) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `MethodHandleItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/MethodHandleItem.java`
 #### Snippet
@@ -10643,6 +10643,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/MethodHandleItem.java`
 import javax.annotation.Nullable;
 
 public class MethodHandleItem {
+    public static final int ITEM_SIZE = 8;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MethodIdItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/MethodIdItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class MethodIdItem {
     public static final int ITEM_SIZE = 8;
 
 ```
@@ -10660,18 +10672,6 @@ public class ItemType {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MethodIdItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/MethodIdItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class MethodIdItem {
-    public static final int ITEM_SIZE = 8;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `AnnotationDirectoryItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/AnnotationDirectoryItem.java`
 #### Snippet
@@ -10681,42 +10681,6 @@ import javax.annotation.Nullable;
 public class AnnotationDirectoryItem {
     public static final int CLASS_ANNOTATIONS_OFFSET  = 0;
     public static final int FIELD_SIZE_OFFSET = 4;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassDataItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/ClassDataItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class ClassDataItem {
-    @Nonnull
-    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AnnotationSetRefList` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/AnnotationSetRefList.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class AnnotationSetRefList {
-    public static final int SIZE_OFFSET = 0;
-    public static final int LIST_OFFSET = 4;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TypeIdItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/TypeIdItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class TypeIdItem {
-    public static final int ITEM_SIZE = 4;
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10732,6 +10696,42 @@ public class TypeListItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `AnnotationSetRefList` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/AnnotationSetRefList.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class AnnotationSetRefList {
+    public static final int SIZE_OFFSET = 0;
+    public static final int LIST_OFFSET = 4;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClassDataItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/ClassDataItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class ClassDataItem {
+    @Nonnull
+    public static SectionAnnotator makeAnnotator(@Nonnull DexAnnotator annotator, @Nonnull MapItem mapItem) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TypeIdItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/TypeIdItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class TypeIdItem {
+    public static final int ITEM_SIZE = 4;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StringIdItem` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/StringIdItem.java`
 #### Snippet
@@ -10739,18 +10739,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/StringIdItem.java`
 import javax.annotation.Nullable;
 
 public class StringIdItem {
-    public static final int ITEM_SIZE = 4;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CallSiteIdItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CallSiteIdItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class CallSiteIdItem {
     public static final int ITEM_SIZE = 4;
 
 ```
@@ -10768,6 +10756,18 @@ public class OdexHeaderItem {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CallSiteIdItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CallSiteIdItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class CallSiteIdItem {
+    public static final int ITEM_SIZE = 4;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `EncodedValue` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/EncodedValue.java`
 #### Snippet
@@ -10777,18 +10777,6 @@ import javax.annotation.Nonnull;
 public class EncodedValue {
     public static void annotateEncodedValue(
             @Nonnull DexBackedDexFile dexFile,
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassDefItem` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/ClassDefItem.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class ClassDefItem {
-    public static final int ITEM_SIZE = 32;
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10825,6 +10813,18 @@ import javax.annotation.Nullable;
 public class HiddenApiClassDataItem {
     public static final int SIZE_OFFSET = 0x0;
     public static final int OFFSETS_LIST_OFFSET = 0x4;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClassDefItem` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/ClassDefItem.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class ClassDefItem {
+    public static final int ITEM_SIZE = 32;
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10876,18 +10876,6 @@ public class ParamUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ImmutableEncodedValueFactory` has only 'static' members, and lacks a 'private' constructor
-in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableEncodedValueFactory.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class ImmutableEncodedValueFactory {
-    @Nonnull
-    public static ImmutableEncodedValue of(@Nonnull EncodedValue encodedValue) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ImmutableReferenceFactory` has only 'static' members, and lacks a 'private' constructor
 in `dexlib2/src/main/java/org/jf/dexlib2/immutable/reference/ImmutableReferenceFactory.java`
 #### Snippet
@@ -10897,6 +10885,18 @@ import javax.annotation.Nonnull;
 public class ImmutableReferenceFactory {
     @Nonnull
     public static ImmutableReference of(Reference reference) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImmutableEncodedValueFactory` has only 'static' members, and lacks a 'private' constructor
+in `dexlib2/src/main/java/org/jf/dexlib2/immutable/value/ImmutableEncodedValueFactory.java`
+#### Snippet
+```java
+import javax.annotation.Nullable;
+
+public class ImmutableEncodedValueFactory {
+    @Nonnull
+    public static ImmutableEncodedValue of(@Nonnull EncodedValue encodedValue) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10924,6 +10924,18 @@ public class LocalFormatter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `AnnotationFormatter` has only 'static' members, and lacks a 'private' constructor
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/AnnotationFormatter.java`
+#### Snippet
+```java
+import java.util.Collection;
+
+public class AnnotationFormatter {
+
+    public static void writeTo(@Nonnull BaksmaliWriter writer,
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ConsoleUtil` has only 'static' members, and lacks a 'private' constructor
 in `third_party/util/src/main/java/org/jf/util/ConsoleUtil.java`
 #### Snippet
@@ -10936,15 +10948,15 @@ public class ConsoleUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AnnotationFormatter` has only 'static' members, and lacks a 'private' constructor
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/AnnotationFormatter.java`
+Class `Baksmali` has only 'static' members, and lacks a 'private' constructor
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Baksmali.java`
 #### Snippet
 ```java
-import java.util.Collection;
+import java.util.concurrent.*;
 
-public class AnnotationFormatter {
-
-    public static void writeTo(@Nonnull BaksmaliWriter writer,
+public class Baksmali {
+    public static boolean disassembleDexFile(DexFile dexFile, File outputDir, int jobs, final BaksmaliOptions options) {
+        return disassembleDexFile(dexFile, outputDir, jobs, options, null);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -10971,18 +10983,6 @@ public class LiteralTools
     public static byte parseByte(String byteLiteral)
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `Baksmali` has only 'static' members, and lacks a 'private' constructor
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Baksmali.java`
-#### Snippet
-```java
-import java.util.concurrent.*;
-
-public class Baksmali {
-    public static boolean disassembleDexFile(DexFile dexFile, File outputDir, int jobs, final BaksmaliOptions options) {
-        return disassembleDexFile(dexFile, outputDir, jobs, options, null);
-```
-
 ## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `equals` may produce `NullPointerException`
@@ -11003,9 +11003,9 @@ in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 ```java
 
             try {
-                DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(opcodes, inputStream);
-                return new SingletonMultiDexContainer(file.getPath(), odexFile);
+                return DexBackedOdexFile.fromInputStream(opcodes, inputStream);
             } catch (DexBackedOdexFile.NotAnOdexFile ex) {
+                // just eat it
 ```
 
 ### DataFlowIssue
@@ -11015,9 +11015,9 @@ in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 ```java
 
             try {
-                return DexBackedOdexFile.fromInputStream(opcodes, inputStream);
+                DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(opcodes, inputStream);
+                return new SingletonMultiDexContainer(file.getPath(), odexFile);
             } catch (DexBackedOdexFile.NotAnOdexFile ex) {
-                // just eat it
 ```
 
 ### DataFlowIssue
@@ -11141,6 +11141,42 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/StaticInitializerUtil.java`
 ```
 
 ### DataFlowIssue
+Argument `poolMethod.getImplementation()` might be null
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+    @Nonnull @Override
+    public MutableMethodImplementation makeMutableMethodImplementation(@Nonnull PoolMethod poolMethod) {
+        return new MutableMethodImplementation(poolMethod.getImplementation());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getAnnotations` may produce `NullPointerException`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+        @Override
+        public boolean apply(MethodParameter input) {
+            return input.getAnnotations().size() > 0;
+        }
+    };
+```
+
+### DataFlowIssue
+Method invocation `getAnnotations` may produce `NullPointerException`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
+#### Snippet
+```java
+                @Override
+                public Set<? extends Annotation> apply(MethodParameter input) {
+                    return input.getAnnotations();
+                }
+            };
+```
+
+### DataFlowIssue
 Dereference of `next` may produce `NullPointerException`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/util/TryListBuilder.java`
 #### Snippet
@@ -11165,42 +11201,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderAnnotationSetPool
 ```
 
 ### DataFlowIssue
-Method invocation `getAnnotations` may produce `NullPointerException`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-        @Override
-        public boolean apply(MethodParameter input) {
-            return input.getAnnotations().size() > 0;
-        }
-    };
-```
-
-### DataFlowIssue
-Argument `poolMethod.getImplementation()` might be null
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-    @Nonnull @Override
-    public MutableMethodImplementation makeMutableMethodImplementation(@Nonnull PoolMethod poolMethod) {
-        return new MutableMethodImplementation(poolMethod.getImplementation());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getAnnotations` may produce `NullPointerException`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/ClassPool.java`
-#### Snippet
-```java
-                @Override
-                public Set<? extends Annotation> apply(MethodParameter input) {
-                    return input.getAnnotations();
-                }
-            };
-```
-
-### DataFlowIssue
 @Nullable method 'getExceptionType' always returns a non-null value
 in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderExceptionHandler.java`
 #### Snippet
@@ -11208,6 +11208,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderExceptionHandler.java`
         }
         return new BuilderExceptionHandler(handler) {
             @Nullable @Override public String getExceptionType() {
+                return exceptionType;
+            }
+```
+
+### DataFlowIssue
+@Nullable method 'getExceptionTypeReference' always returns a non-null value
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderExceptionHandler.java`
+#### Snippet
+```java
+            }
+
+            @Nullable @Override public TypeReference getExceptionTypeReference() {
                 return exceptionType;
             }
 ```
@@ -11225,15 +11237,39 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderExceptionHandler.java`
 ```
 
 ### DataFlowIssue
-@Nullable method 'getExceptionTypeReference' always returns a non-null value
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/BuilderExceptionHandler.java`
+Argument `instruction` might be null
+in `dexlib2/src/main/java/org/jf/dexlib2/builder/MethodImplementationBuilder.java`
 #### Snippet
 ```java
-            }
 
-            @Nullable @Override public TypeReference getExceptionTypeReference() {
-                return exceptionType;
-            }
+    public void addInstruction(@Nullable BuilderInstruction instruction) {
+        impl.addInstruction(instruction);
+        currentLocation = impl.instructionList.get(impl.instructionList.size()-1);
+    }
+```
+
+### DataFlowIssue
+Method invocation `getInitialValue` may produce `NullPointerException`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
+#### Snippet
+```java
+        @Override
+        public boolean apply(Field input) {
+            EncodedValue encodedValue = input.getInitialValue();
+            return encodedValue != null && !EncodedValueUtils.isDefaultValue(encodedValue);
+        }
+```
+
+### DataFlowIssue
+Method invocation `getAnnotations` may produce `NullPointerException`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
+#### Snippet
+```java
+                @Override
+                public boolean apply(BuilderMethodParameter input) {
+                    return input.getAnnotations().size() > 0;
+                }
+            };
 ```
 
 ### DataFlowIssue
@@ -11253,11 +11289,11 @@ Method invocation `getInitialValue` may produce `NullPointerException`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
 #### Snippet
 ```java
-        @Override
-        public boolean apply(Field input) {
-            EncodedValue encodedValue = input.getInitialValue();
-            return encodedValue != null && !EncodedValueUtils.isDefaultValue(encodedValue);
-        }
+                @Override
+                public BuilderEncodedValue apply(BuilderField input) {
+                    BuilderEncodedValue initialValue = input.getInitialValue();
+                    if (initialValue == null) {
+                        return BuilderEncodedValues.defaultValueForType(input.getType());
 ```
 
 ### DataFlowIssue
@@ -11273,42 +11309,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getInitialValue` may produce `NullPointerException`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
-#### Snippet
-```java
-                @Override
-                public BuilderEncodedValue apply(BuilderField input) {
-                    BuilderEncodedValue initialValue = input.getInitialValue();
-                    if (initialValue == null) {
-                        return BuilderEncodedValues.defaultValueForType(input.getType());
-```
-
-### DataFlowIssue
-Method invocation `getAnnotations` may produce `NullPointerException`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassPool.java`
-#### Snippet
-```java
-                @Override
-                public boolean apply(BuilderMethodParameter input) {
-                    return input.getAnnotations().size() > 0;
-                }
-            };
-```
-
-### DataFlowIssue
-Argument `instruction` might be null
-in `dexlib2/src/main/java/org/jf/dexlib2/builder/MethodImplementationBuilder.java`
-#### Snippet
-```java
-
-    public void addInstruction(@Nullable BuilderInstruction instruction) {
-        impl.addInstruction(instruction);
-        currentLocation = impl.instructionList.get(impl.instructionList.size()-1);
-    }
-```
-
-### DataFlowIssue
 @Nullable method 'apply' always returns a non-null value
 in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderSparseSwitchPayload.java`
 #### Snippet
@@ -11321,15 +11321,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/instruction/BuilderSparseSwitch
 ```
 
 ### DataFlowIssue
-Method invocation `getDexFile` may produce `NullPointerException`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/PathEntryLoader.java`
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/DexBuilder.java`
 #### Snippet
 ```java
-
-        for (String entryName : entryNames) {
-            classProviders.add(new DexClassProvider(container.getEntry(entryName).getDexFile()));
-        }
-
+                Iterators.transform(elements.iterator(),
+                        new Function<AnnotationElement, BuilderAnnotationElement>() {
+                            @Nullable @Override
+                            public BuilderAnnotationElement apply(AnnotationElement input) {
+                                return internAnnotationElement(input);
 ```
 
 ### DataFlowIssue
@@ -11357,15 +11357,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/DexBuilder.java`
 ```
 
 ### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/DexBuilder.java`
+Method invocation `getDexFile` may produce `NullPointerException`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/PathEntryLoader.java`
 #### Snippet
 ```java
-                Iterators.transform(elements.iterator(),
-                        new Function<AnnotationElement, BuilderAnnotationElement>() {
-                            @Nullable @Override
-                            public BuilderAnnotationElement apply(AnnotationElement input) {
-                                return internAnnotationElement(input);
+
+        for (String entryName : entryNames) {
+            classProviders.add(new DexClassProvider(container.getEntry(entryName).getDexFile()));
+        }
+
 ```
 
 ### DataFlowIssue
@@ -11378,6 +11378,54 @@ in `dexlib2/src/main/java/org/jf/dexlib2/builder/MutableMethodImplementation.jav
                     @Nullable @Override public Iterable<? extends DebugItem> apply(@Nullable MethodLocation input) {
                         assert input != null;
                         if (fixInstructions) {
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                return Iterators.transform(staticFields,
+                        new Function<java.lang.reflect.Field, Field>() {
+                            @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
+                                return new ReflectionField(input);
+                            }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                        Iterators.transform(Iterators.forArray(cls.getDeclaredConstructors()),
+                                new Function<Constructor, Method>() {
+                                    @Nullable @Override public Method apply(@Nullable Constructor input) {
+                                        return new ReflectionConstructor(input);
+                                    }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                return Iterators.transform(Iterators.forArray(cls.getDeclaredFields()),
+                        new Function<java.lang.reflect.Field, Field>() {
+                            @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
+                                return new ReflectionField(input);
+                            }
+```
+
+### DataFlowIssue
+@Nullable method 'apply' always returns a non-null value
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
+#### Snippet
+```java
+                        Iterators.transform(Iterators.forArray(cls.getDeclaredMethods()),
+                                new Function<java.lang.reflect.Method, Method>() {
+                                    @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
+                                        return new ReflectionMethod(input);
+                                    }
 ```
 
 ### DataFlowIssue
@@ -11409,18 +11457,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
 #### Snippet
 ```java
-                return Iterators.transform(staticFields,
-                        new Function<java.lang.reflect.Field, Field>() {
-                            @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
-                                return new ReflectionField(input);
-                            }
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
                 return Iterators.transform(directMethods,
                         new Function<java.lang.reflect.Method, Method>() {
                             @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
@@ -11433,18 +11469,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.
 in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
 #### Snippet
 ```java
-                        Iterators.transform(Iterators.forArray(cls.getDeclaredConstructors()),
-                                new Function<Constructor, Method>() {
-                                    @Nullable @Override public Method apply(@Nullable Constructor input) {
-                                        return new ReflectionConstructor(input);
-                                    }
-```
-
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
                 return Iterators.transform(staticFields,
                         new Function<java.lang.reflect.Field, Field>() {
                             @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
@@ -11453,27 +11477,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.
 ```
 
 ### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
+Method invocation `setItemIdentity` may produce `NullPointerException`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CdexDebugOffsetTable.java`
 #### Snippet
 ```java
-                        Iterators.transform(Iterators.forArray(cls.getDeclaredMethods()),
-                                new Function<java.lang.reflect.Method, Method>() {
-                                    @Nullable @Override public Method apply(@Nullable java.lang.reflect.Method input) {
-                                        return new ReflectionMethod(input);
-                                    }
-```
+                            offsetDelta, debugOffset);
 
-### DataFlowIssue
-@Nullable method 'apply' always returns a non-null value
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/reflection/ReflectionClassDef.java`
-#### Snippet
-```java
-                return Iterators.transform(Iterators.forArray(cls.getDeclaredFields()),
-                        new Function<java.lang.reflect.Field, Field>() {
-                            @Nullable @Override public Field apply(@Nullable java.lang.reflect.Field input) {
-                                return new ReflectionField(input);
-                            }
+                    debugInfoAnnotator.setItemIdentity(debugOffset,
+                            annotator.dexFile.getMethodSection().get(methodIndex + i).toString());
+                }
 ```
 
 ### DataFlowIssue
@@ -11498,18 +11510,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBackedDexFile.java`
                     return mapItem.getOffset() + index * CallSiteIdItem.ITEM_SIZE;
                 }
             };
-```
-
-### DataFlowIssue
-Method invocation `setItemIdentity` may produce `NullPointerException`
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CdexDebugOffsetTable.java`
-#### Snippet
-```java
-                            offsetDelta, debugOffset);
-
-                    debugInfoAnnotator.setItemIdentity(debugOffset,
-                            annotator.dexFile.getMethodSection().get(methodIndex + i).toString());
-                }
 ```
 
 ### DataFlowIssue
@@ -11627,9 +11627,9 @@ Unnecessary `Long.toString()` call
 in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
 #### Snippet
 ```java
-    public static void checkByte(long value) {
-        if (value > 0xFF | value < -0x80) {
-            throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
+    public static void checkShort(long value) {
+        if (value > 0xFFFF | value < -0x8000) {
+            throw new NumberFormatException(Long.toString(value) + " cannot fit into a short");
         }
     }
 ```
@@ -11639,9 +11639,9 @@ Unnecessary `Long.toString()` call
 in `third_party/smali/src/main/java/org/jf/smali/LiteralTools.java`
 #### Snippet
 ```java
-    public static void checkShort(long value) {
-        if (value > 0xFFFF | value < -0x8000) {
-            throw new NumberFormatException(Long.toString(value) + " cannot fit into a short");
+    public static void checkByte(long value) {
+        if (value > 0xFF | value < -0x80) {
+            throw new NumberFormatException(Long.toString(value) + " cannot fit into a byte");
         }
     }
 ```
@@ -11685,18 +11685,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/immutable/instruction/ImmutableInstruct
 
 ## RuleId[ruleID=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `mark()` overrides synchronized method
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/MemoryDataStore.java`
-#### Snippet
-```java
-            }
-
-            @Override public void mark(int i) {
-                mark = position;
-            }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `reset()` overrides synchronized method
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/MemoryDataStore.java`
 #### Snippet
@@ -11705,6 +11693,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/MemoryDataStore.java`
 
             @Override public void reset() throws IOException {
                 position = mark;
+            }
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `mark()` overrides synchronized method
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/io/MemoryDataStore.java`
+#### Snippet
+```java
+            }
+
+            @Override public void mark(int i) {
+                mark = position;
             }
 ```
 
@@ -12108,11 +12108,11 @@ StandardCharsets.US_ASCII can be used instead
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
+            }
 
-                // TODO: what is the correct character encoding?
-                String filename = new String(buf, offset, filenameLength, Charset.forName("US-ASCII"));
-                offset += filenameLength;
-
+            return new String(buf, start, end-start, Charset.forName("US-ASCII"));
+        }
+    }
 ```
 
 ### CharsetObjectCanBeUsed
@@ -12120,11 +12120,11 @@ StandardCharsets.US_ASCII can be used instead
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/OatFile.java`
 #### Snippet
 ```java
-            }
 
-            return new String(buf, start, end-start, Charset.forName("US-ASCII"));
-        }
-    }
+                // TODO: what is the correct character encoding?
+                String filename = new String(buf, offset, filenameLength, Charset.forName("US-ASCII"));
+                offset += filenameLength;
+
 ```
 
 ### CharsetObjectCanBeUsed
@@ -12140,6 +12140,42 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Baksmali.java`
 ```
 
 ## RuleId[ruleID=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/org/jf/smali/Main.java`
+#### Snippet
+```java
+
+    protected static void version() {
+        System.out.println("smali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/org/jf/smali/Main.java`
+#### Snippet
+```java
+    protected static void version() {
+        System.out.println("smali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+        System.exit(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/org/jf/smali/Main.java`
+#### Snippet
+```java
+        System.out.println("smali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+        System.exit(0);
+    }
+```
+
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `smali/src/main/java/org/jf/smali/HelpCommand.java`
@@ -12190,42 +12226,6 @@ in `smali/src/main/java/org/jf/smali/HelpCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/org/jf/smali/Main.java`
-#### Snippet
-```java
-
-    protected static void version() {
-        System.out.println("smali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/org/jf/smali/Main.java`
-#### Snippet
-```java
-    protected static void version() {
-        System.out.println("smali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-        System.exit(0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/org/jf/smali/Main.java`
-#### Snippet
-```java
-        System.out.println("smali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-        System.exit(0);
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `util/src/main/java/org/jf/util/jcommander/Command.java`
 #### Snippet
 ```java
@@ -12234,6 +12234,30 @@ in `util/src/main/java/org/jf/util/jcommander/Command.java`
         System.out.println(new HelpFormatter()
                 .width(ConsoleUtil.getConsoleWidth())
                 .format(getCommandHierarchy()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/org/jf/smali/Smali.java`
+#### Snippet
+```java
+                    tokenName = smaliParser.tokenNames[token.getType()];
+                }
+                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
+            }
+            System.out.flush();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `smali/src/main/java/org/jf/smali/Smali.java`
+#### Snippet
+```java
+                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
+            }
+            System.out.flush();
+
+            return lexer.getNumberOfSyntaxErrors() == 0;
 ```
 
 ### SystemOutErr
@@ -12270,30 +12294,6 @@ in `smali/src/main/java/org/jf/smali/Smali.java`
                 System.out.println(t.toStringTree());
             }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/org/jf/smali/Smali.java`
-#### Snippet
-```java
-                    tokenName = smaliParser.tokenNames[token.getType()];
-                }
-                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
-            }
-            System.out.flush();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `smali/src/main/java/org/jf/smali/Smali.java`
-#### Snippet
-```java
-                System.out.println(tokenName + "(\"" + StringUtils.escapeString(token.getText()) + "\")");
-            }
-            System.out.flush();
-
-            return lexer.getNumberOfSyntaxErrors() == 0;
 ```
 
 ### SystemOutErr
@@ -12358,18 +12358,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/MethodIdItem.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/TypeIdItem.java`
-#### Snippet
-```java
-            return String.format("type_id_item[%d]: %s", typeIndex, typeString);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.err);
-        }
-        return String.format("type_id_item[%d]", typeIndex);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/TypeListItem.java`
 #### Snippet
 ```java
@@ -12378,6 +12366,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/TypeListItem.java`
             ex.printStackTrace(System.err);
         }
         return String.format("type_list_item[0x%x]", typeListOffset);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/TypeIdItem.java`
+#### Snippet
+```java
+            return String.format("type_id_item[%d]: %s", typeIndex, typeString);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.err);
+        }
+        return String.format("type_id_item[%d]", typeIndex);
 ```
 
 ### SystemOutErr
@@ -12442,18 +12442,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/AnnotationItem.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
-#### Snippet
-```java
-                }
-            } catch (ExceptionWithContext ex) {
-                ex.printStackTrace(System.err);
-                out.annotate(0, "annotation error: %s", ex.getMessage());
-                out.moveTo(end);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/util/DexAnnotator.java`
 #### Snippet
 ```java
@@ -12478,6 +12466,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/util/DexAnnotator.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/CodeItem.java`
+#### Snippet
+```java
+                }
+            } catch (ExceptionWithContext ex) {
+                ex.printStackTrace(System.err);
+                out.annotate(0, "annotation error: %s", ex.getMessage());
+                out.moveTo(end);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `dexlib2/accessorTestGenerator/src/main/java/org/jf/dexlib2/AccessorTestGenerator.java`
 #### Snippet
 ```java
@@ -12486,30 +12486,6 @@ in `dexlib2/accessorTestGenerator/src/main/java/org/jf/dexlib2/AccessorTestGener
             System.err.println("Usage: java org.jf.dexlib2.AccessorTestGenerator <output_file>");
         }
 
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListClassesCommand.java`
-#### Snippet
-```java
-
-        if (inputList.size() > 1) {
-            System.err.println("Too many files specified");
-            usage();
-            return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListClassesCommand.java`
-#### Snippet
-```java
-
-        for (ClassDef classDef: dexFile.getClasses()) {
-            System.out.println(formatter.getType(classDef.getType()));
-        }
-    }
 ```
 
 ### SystemOutErr
@@ -12550,7 +12526,19 @@ in `baksmali/src/main/java/org/jf/baksmali/ListDexCommand.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
+in `baksmali/src/main/java/org/jf/baksmali/DexInputCommand.java`
+#### Snippet
+```java
+
+        if (file == null || !file.exists() || file.isDirectory()) {
+            System.err.println("Can't find file: " + input);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListClassesCommand.java`
 #### Snippet
 ```java
 
@@ -12562,36 +12550,12 @@ in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
+in `baksmali/src/main/java/org/jf/baksmali/ListClassesCommand.java`
 #### Snippet
 ```java
 
-        try {
-            dump(dexFile, System.out);
-        } catch (IOException ex) {
-            System.err.println("There was an error while dumping the dex file");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
-#### Snippet
-```java
-            dump(dexFile, System.out);
-        } catch (IOException ex) {
-            System.err.println("There was an error while dumping the dex file");
-            ex.printStackTrace(System.err);
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
-#### Snippet
-```java
-        } catch (IOException ex) {
-            System.err.println("There was an error while dumping the dex file");
-            ex.printStackTrace(System.err);
+        for (ClassDef classDef: dexFile.getClasses()) {
+            System.out.println(formatter.getType(classDef.getType()));
         }
     }
 ```
@@ -12669,92 +12633,32 @@ in `baksmali/src/main/java/org/jf/baksmali/ListVtablesCommand.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
 #### Snippet
 ```java
-
-        if (commands == null || commands.isEmpty()) {
-            System.out.println(new HelpFormatter()
-                    .width(ConsoleUtil.getConsoleWidth())
-                    .format(commandAncestors));
+                File file = new File(dir);
+                if (!file.exists()) {
+                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
+                } else if (!file.isDirectory()) {
+                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
 #### Snippet
 ```java
-                            ConsoleUtil.getConsoleWidth());
-                    for (String line : lines) {
-                        System.out.println(line);
-                    }
-                } else if (cmd.equals("input")) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
-#### Snippet
-```java
-                            ConsoleUtil.getConsoleWidth());
-                    for (String line : lines) {
-                        System.out.println(line);
-                    }
-                } else if (cmd.equals("classpath")) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
-#### Snippet
-```java
-                            ConsoleUtil.getConsoleWidth());
-                    for (String line : lines) {
-                        System.out.println(line);
-                    }
+                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
+                } else if (!file.isDirectory()) {
+                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
                 } else {
+                    filteredClassPathDirectories.add(dir);
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
-#### Snippet
-```java
-                    JCommander command = ExtendedCommands.getSubcommand(parentJc, cmd);
-                    if (command == null) {
-                        System.err.println("No such command: " + cmd);
-                    } else {
-                        printedHelp = true;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
-#### Snippet
-```java
-                    } else {
-                        printedHelp = true;
-                        System.out.println(new HelpFormatter()
-                                .width(ConsoleUtil.getConsoleWidth())
-                                .format(((Command)command.getObjects().get(0)).getCommandHierarchy()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
-#### Snippet
-```java
-            }
-            if (!printedHelp) {
-                System.out.println(new HelpFormatter()
-                        .width(ConsoleUtil.getConsoleWidth())
-                        .format(commandAncestors));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
 #### Snippet
 ```java
 
@@ -12765,86 +12669,38 @@ in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-            inputStream = new BufferedInputStream(new FileInputStream(input));
-        } catch (FileNotFoundException ex) {
-            System.err.println("Could not find file: " + input);
-            System.exit(-1);
-        }
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
 #### Snippet
 ```java
-            OatFile oatFile = OatFile.fromInputStream(inputStream);
-            for (String entry: oatFile.getBootClassPath()) {
-                System.out.println(entry);
-            }
-            return;
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
-#### Snippet
-```java
-            DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(Opcodes.getDefault(), inputStream);
-            for (String entry: odexFile.getDependencies()) {
-                System.out.println(entry);
-            }
-            return;
+        try {
+            dump(dexFile, System.out);
+        } catch (IOException ex) {
+            System.err.println("There was an error while dumping the dex file");
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
 #### Snippet
 ```java
+            dump(dexFile, System.out);
+        } catch (IOException ex) {
+            System.err.println("There was an error while dumping the dex file");
+            ex.printStackTrace(System.err);
         }
-
-        System.err.println(input + " is not an odex or oat file.");
-        System.exit(-1);
-    }
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/Main.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/DumpCommand.java`
 #### Snippet
 ```java
-
-    protected static void version() {
-        System.out.println("baksmali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/Main.java`
-#### Snippet
-```java
-    protected static void version() {
-        System.out.println("baksmali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-        System.exit(0);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/Main.java`
-#### Snippet
-```java
-        System.out.println("baksmali " + VERSION + " (http://smali.org)");
-        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
-        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
-        System.exit(0);
+        } catch (IOException ex) {
+            System.err.println("There was an error while dumping the dex file");
+            ex.printStackTrace(System.err);
+        }
     }
 ```
 
@@ -12934,38 +12790,218 @@ in `baksmali/src/main/java/org/jf/baksmali/ListFieldOffsetsCommand.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DexInputCommand.java`
+in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
 #### Snippet
 ```java
 
-        if (file == null || !file.exists() || file.isDirectory()) {
-            System.err.println("Can't find file: " + input);
-            System.exit(1);
+        if (inputList.size() > 1) {
+            System.err.println("Too many files specified");
+            usage();
+            return;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+            inputStream = new BufferedInputStream(new FileInputStream(input));
+        } catch (FileNotFoundException ex) {
+            System.err.println("Could not find file: " + input);
+            System.exit(-1);
         }
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
 #### Snippet
 ```java
-                File file = new File(dir);
-                if (!file.exists()) {
-                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
-                } else if (!file.isDirectory()) {
-                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
+            OatFile oatFile = OatFile.fromInputStream(inputStream);
+            for (String entry: oatFile.getBootClassPath()) {
+                System.out.println(entry);
+            }
+            return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
+#### Snippet
+```java
+            DexBackedOdexFile odexFile = DexBackedOdexFile.fromInputStream(Opcodes.getDefault(), inputStream);
+            for (String entry: odexFile.getDependencies()) {
+                System.out.println(entry);
+            }
+            return;
 ```
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
+in `baksmali/src/main/java/org/jf/baksmali/ListDependenciesCommand.java`
 #### Snippet
 ```java
-                    System.err.println(String.format("Warning: directory %s does not exist. Ignoring.", dir));
-                } else if (!file.isDirectory()) {
-                    System.err.println(String.format("Warning: %s is not a directory. Ignoring.", dir));
+        }
+
+        System.err.println(input + " is not an odex or oat file.");
+        System.exit(-1);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/Main.java`
+#### Snippet
+```java
+
+    protected static void version() {
+        System.out.println("baksmali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/Main.java`
+#### Snippet
+```java
+    protected static void version() {
+        System.out.println("baksmali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+        System.exit(0);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+
+        if (commands == null || commands.isEmpty()) {
+            System.out.println(new HelpFormatter()
+                    .width(ConsoleUtil.getConsoleWidth())
+                    .format(commandAncestors));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+                            ConsoleUtil.getConsoleWidth());
+                    for (String line : lines) {
+                        System.out.println(line);
+                    }
+                } else if (cmd.equals("input")) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+                            ConsoleUtil.getConsoleWidth());
+                    for (String line : lines) {
+                        System.out.println(line);
+                    }
+                } else if (cmd.equals("classpath")) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+                            ConsoleUtil.getConsoleWidth());
+                    for (String line : lines) {
+                        System.out.println(line);
+                    }
                 } else {
-                    filteredClassPathDirectories.add(dir);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+                    JCommander command = ExtendedCommands.getSubcommand(parentJc, cmd);
+                    if (command == null) {
+                        System.err.println("No such command: " + cmd);
+                    } else {
+                        printedHelp = true;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+                    } else {
+                        printedHelp = true;
+                        System.out.println(new HelpFormatter()
+                                .width(ConsoleUtil.getConsoleWidth())
+                                .format(((Command)command.getObjects().get(0)).getCommandHierarchy()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/HelpCommand.java`
+#### Snippet
+```java
+            }
+            if (!printedHelp) {
+                System.out.println(new HelpFormatter()
+                        .width(ConsoleUtil.getConsoleWidth())
+                        .format(commandAncestors));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/Main.java`
+#### Snippet
+```java
+        System.out.println("baksmali " + VERSION + " (http://smali.org)");
+        System.out.println("Copyright (C) 2010 Ben Gruver (JesusFreke@JesusFreke.com)");
+        System.out.println("BSD license (http://www.opensource.org/licenses/bsd-license.php)");
+        System.exit(0);
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
+#### Snippet
+```java
+                File inlineTableFile = new File(inlineTable);
+                if (!inlineTableFile.exists()) {
+                    System.err.println(String.format("Could not find file: %s", inlineTable));
+                    System.exit(-1);
+                }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
+#### Snippet
+```java
+                    options.inlineResolver = new CustomInlineMethodResolver(options.classPath, inlineTableFile);
+                } catch (IOException ex) {
+                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
+                    ex.printStackTrace(System.err);
+                    System.exit(-1);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
+#### Snippet
+```java
+                } catch (IOException ex) {
+                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
+                    ex.printStackTrace(System.err);
+                    System.exit(-1);
+                }
 ```
 
 ### SystemOutErr
@@ -12990,6 +13026,54 @@ in `baksmali/src/main/java/org/jf/baksmali/ListReferencesCommand.java`
             System.out.println(formatter.getReference(reference));
         }
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+    public void run() {
+        if (commands == null || commands.isEmpty()) {
+            System.out.println(new HelpFormatter()
+                    .width(ConsoleUtil.getConsoleWidth())
+                    .format(commandAncestors));
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+                JCommander command = ExtendedCommands.getSubcommand(parentJc, cmd);
+                if (command == null) {
+                    System.err.println("No such command: " + cmd);
+                } else {
+                    printedHelp = true;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+                } else {
+                    printedHelp = true;
+                    System.out.println(new HelpFormatter()
+                            .width(ConsoleUtil.getConsoleWidth())
+                            .format(((Command)command.getObjects().get(0)).getCommandHierarchy()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
+#### Snippet
+```java
+            }
+            if (!printedHelp) {
+                System.out.println(new HelpFormatter()
+                        .width(ConsoleUtil.getConsoleWidth())
+                        .format(commandAncestors));
 ```
 
 ### SystemOutErr
@@ -13126,90 +13210,6 @@ in `baksmali/src/main/java/org/jf/baksmali/DisassembleCommand.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                File inlineTableFile = new File(inlineTable);
-                if (!inlineTableFile.exists()) {
-                    System.err.println(String.format("Could not find file: %s", inlineTable));
-                    System.exit(-1);
-                }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                    options.inlineResolver = new CustomInlineMethodResolver(options.classPath, inlineTableFile);
-                } catch (IOException ex) {
-                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
-                    ex.printStackTrace(System.err);
-                    System.exit(-1);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/DeodexCommand.java`
-#### Snippet
-```java
-                } catch (IOException ex) {
-                    System.err.println(String.format("Error while reading file: %s", inlineTableFile));
-                    ex.printStackTrace(System.err);
-                    System.exit(-1);
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-    public void run() {
-        if (commands == null || commands.isEmpty()) {
-            System.out.println(new HelpFormatter()
-                    .width(ConsoleUtil.getConsoleWidth())
-                    .format(commandAncestors));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-                JCommander command = ExtendedCommands.getSubcommand(parentJc, cmd);
-                if (command == null) {
-                    System.err.println("No such command: " + cmd);
-                } else {
-                    printedHelp = true;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-                } else {
-                    printedHelp = true;
-                    System.out.println(new HelpFormatter()
-                            .width(ConsoleUtil.getConsoleWidth())
-                            .format(((Command)command.getObjects().get(0)).getCommandHierarchy()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `baksmali/src/main/java/org/jf/baksmali/ListHelpCommand.java`
-#### Snippet
-```java
-            }
-            if (!printedHelp) {
-                System.out.println(new HelpFormatter()
-                        .width(ConsoleUtil.getConsoleWidth())
-                        .format(commandAncestors));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Baksmali.java`
 #### Snippet
 ```java
@@ -13282,42 +13282,6 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Baksmali.java`
 
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-                writer.write("# duplicate field ignored\n");
-                fieldWriter = getCommentingWriter(writer);
-                System.err.println(String.format("Ignoring duplicate field: %s->%s", classDef.getType(), fieldString));
-                setInStaticConstructor = false;
-            } else {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-                writer.write("# There is both a direct and virtual method with this signature.\n" +
-                             "# You will need to rename one of these methods, including all references.\n");
-                System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
-                        classDef.getType(), methodString));
-                System.err.println("You will need to rename one of these methods, including all references.");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
-#### Snippet
-```java
-                System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
-                        classDef.getType(), methodString));
-                System.err.println("You will need to rename one of these methods, including all references.");
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/MethodDefinition.java`
 #### Snippet
 ```java
@@ -13364,6 +13328,42 @@ in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.
                 writer.write("# There is both a static and instance field with this signature.\n" +
 ```
 
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+                writer.write("# There is both a direct and virtual method with this signature.\n" +
+                             "# You will need to rename one of these methods, including all references.\n");
+                System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
+                        classDef.getType(), methodString));
+                System.err.println("You will need to rename one of these methods, including all references.");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+                System.err.println(String.format("Duplicate direct+virtual method found: %s->%s",
+                        classDef.getType(), methodString));
+                System.err.println("You will need to rename one of these methods, including all references.");
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `third_party/baksmali/src/main/java/org/jf/baksmali/Adaptors/ClassDefinition.java`
+#### Snippet
+```java
+                writer.write("# duplicate field ignored\n");
+                fieldWriter = getCommentingWriter(writer);
+                System.err.println(String.format("Ignoring duplicate field: %s->%s", classDef.getType(), fieldString));
+                setInStaticConstructor = false;
+            } else {
+```
+
 ## RuleId[ruleID=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'o != null' covered by subsequent condition 'o instanceof AnnotationElement'
@@ -13390,18 +13390,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/base/value/BaseFloatEncodedValue.java`
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'o != null' covered by subsequent condition 'o instanceof MethodReference'
-in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseMethodReference.java`
-#### Snippet
-```java
-    @Override
-    public boolean equals(@Nullable Object o) {
-        if (o != null && o instanceof MethodReference) {
-            MethodReference other = (MethodReference)o;
-            return getDefiningClass().equals(other.getDefiningClass()) &&
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'o != null' covered by subsequent condition 'o instanceof StringReference'
 in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseStringReference.java`
 #### Snippet
@@ -13414,15 +13402,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseStringReference.java
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'o != null' covered by subsequent condition 'o instanceof MethodHandleReference'
-in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseMethodHandleReference.java`
+Condition 'o != null' covered by subsequent condition 'o instanceof MethodReference'
+in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseMethodReference.java`
 #### Snippet
 ```java
     @Override
-    public boolean equals(Object o) {
-        if (o != null && o instanceof MethodHandleReference) {
-            MethodHandleReference other = (MethodHandleReference) o;
-            return getMethodHandleType() == other.getMethodHandleType() &&
+    public boolean equals(@Nullable Object o) {
+        if (o != null && o instanceof MethodReference) {
+            MethodReference other = (MethodReference)o;
+            return getDefiningClass().equals(other.getDefiningClass()) &&
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -13435,6 +13423,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseCallSiteReference.ja
         if (o != null && o instanceof CallSiteReference) {
             CallSiteReference other = (CallSiteReference) o;
             return getMethodHandle().equals(other.getMethodHandle()) &&
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'o != null' covered by subsequent condition 'o instanceof MethodHandleReference'
+in `dexlib2/src/main/java/org/jf/dexlib2/base/reference/BaseMethodHandleReference.java`
+#### Snippet
+```java
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o instanceof MethodHandleReference) {
+            MethodHandleReference other = (MethodHandleReference) o;
+            return getMethodHandleType() == other.getMethodHandleType() &&
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -13457,9 +13457,9 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/DexPool.java`
 ```java
     }
 
-    public static void writeTo(@Nonnull String path, @Nonnull org.jf.dexlib2.iface.DexFile input) throws IOException {
+    public static void writeTo(@Nonnull DexDataStore dataStore, @Nonnull org.jf.dexlib2.iface.DexFile input)
+            throws IOException {
         DexPool dexPool = new DexPool(input.getOpcodes());
-        for (ClassDef classDef: input.getClasses()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13469,9 +13469,9 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/DexPool.java`
 ```java
     }
 
-    public static void writeTo(@Nonnull DexDataStore dataStore, @Nonnull org.jf.dexlib2.iface.DexFile input)
-            throws IOException {
+    public static void writeTo(@Nonnull String path, @Nonnull org.jf.dexlib2.iface.DexFile input) throws IOException {
         DexPool dexPool = new DexPool(input.getOpcodes());
+        for (ClassDef classDef: input.getClasses()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -13549,18 +13549,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/BaseNullableOffsetPool.java
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `StringTypeBasePool()` of an abstract class should not be declared 'public'
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/StringTypeBasePool.java`
-#### Snippet
-```java
-        implements NullableIndexSection<CharSequence>, Markable {
-
-    public StringTypeBasePool(@Nonnull DexPool dexPool) {
-        super(dexPool);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `BaseOffsetPool()` of an abstract class should not be declared 'public'
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/BaseOffsetPool.java`
 #### Snippet
@@ -13568,6 +13556,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/BaseOffsetPool.java`
 public abstract class BaseOffsetPool<Key> extends BasePool<Key, Integer> implements OffsetSection<Key> {
 
     public BaseOffsetPool(@Nonnull DexPool dexPool) {
+        super(dexPool);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `StringTypeBasePool()` of an abstract class should not be declared 'public'
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/StringTypeBasePool.java`
+#### Snippet
+```java
+        implements NullableIndexSection<CharSequence>, Markable {
+
+    public StringTypeBasePool(@Nonnull DexPool dexPool) {
         super(dexPool);
     }
 ```
@@ -13681,18 +13681,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeCollection.j
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `VariableSizeSet()` of an abstract class should not be declared 'public'
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeSet.java`
-#### Snippet
-```java
-    private final int size;
-
-    public VariableSizeSet(@Nonnull DexBuffer buffer, int offset, int size) {
-        this.buffer = buffer;
-        this.offset = offset;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `VariableSizeList()` of an abstract class should not be declared 'public'
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeList.java`
 #### Snippet
@@ -13700,6 +13688,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeList.java`
     private final int size;
 
     public VariableSizeList(@Nonnull DexBuffer buffer, int offset, int size) {
+        this.buffer = buffer;
+        this.offset = offset;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `VariableSizeSet()` of an abstract class should not be declared 'public'
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/util/VariableSizeSet.java`
+#### Snippet
+```java
+    private final int size;
+
+    public VariableSizeSet(@Nonnull DexBuffer buffer, int offset, int size) {
         this.buffer = buffer;
         this.offset = offset;
 ```
@@ -13815,18 +13815,6 @@ in `smali/src/main/java/org/jf/smali/SmaliMethodParameter.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `smali/src/main/java/org/jf/smali/Smali.java`
-#### Snippet
-```java
-
-        for (final File file: filesToProcessSet) {
-            tasks.add(executor.submit(new Callable<Boolean>() {
-                @Override public Boolean call() throws Exception {
-                    return assembleSmaliFile(file, dexBuilder, options);
-```
-
-### Convert2Lambda
 Anonymous new Comparator\>() can be replaced with lambda
 in `dexlib2/src/main/java/org/jf/util/CollectionUtils.java`
 #### Snippet
@@ -13851,15 +13839,15 @@ in `dexlib2/src/main/java/org/jf/util/CollectionUtils.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `util/src/main/java/org/jf/util/jcommander/HelpFormatter.java`
+Anonymous new Callable() can be replaced with lambda
+in `smali/src/main/java/org/jf/smali/Smali.java`
 #### Snippet
 ```java
-        final Pattern pattern = Pattern.compile("^-*(.*)$");
 
-        Collections.sort(parameters, new Comparator<ParameterDescription>() {
-            @Override public int compare(ParameterDescription o1, ParameterDescription o2) {
-                String s1;
+        for (final File file: filesToProcessSet) {
+            tasks.add(executor.submit(new Callable<Boolean>() {
+                @Override public Boolean call() throws Exception {
+                    return assembleSmaliFile(file, dexBuilder, options);
 ```
 
 ### Convert2Lambda
@@ -13876,6 +13864,18 @@ in `util/src/main/java/org/jf/util/jcommander/HelpFormatter.java`
 
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
+in `util/src/main/java/org/jf/util/jcommander/HelpFormatter.java`
+#### Snippet
+```java
+        final Pattern pattern = Pattern.compile("^-*(.*)$");
+
+        Collections.sort(parameters, new Comparator<ParameterDescription>() {
+            @Override public int compare(ParameterDescription o1, ParameterDescription o2) {
+                String s1;
+```
+
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
 in `dexlib2/src/main/java/org/jf/dexlib2/base/BaseAnnotationElement.java`
 #### Snippet
 ```java
@@ -13884,18 +13884,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/base/BaseAnnotationElement.java`
     public static final Comparator<AnnotationElement> BY_NAME = new Comparator<AnnotationElement>() {
         @Override
         public int compare(@Nonnull AnnotationElement element1, @Nonnull AnnotationElement element2) {
-```
-
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/org/jf/dexlib2/base/BaseExceptionHandler.java`
-#### Snippet
-```java
-
-
-    public static final Comparator<ExceptionHandler> BY_EXCEPTION = new Comparator<ExceptionHandler>() {
-        @Override public int compare(ExceptionHandler o1, ExceptionHandler o2) {
-            String exceptionType1 = o1.getExceptionType();
 ```
 
 ### Convert2Lambda
@@ -13912,26 +13900,14 @@ in `dexlib2/src/main/java/org/jf/dexlib2/base/BaseAnnotation.java`
 
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/base/BaseExceptionHandler.java`
 #### Snippet
 ```java
 
-    private static Comparator<Map.Entry> toStringKeyComparator =
-            new Comparator<Map.Entry>() {
-                @Override public int compare(Entry o1, Entry o2) {
-                    return o1.getKey().toString().compareTo(o2.getKey().toString());
-```
 
-### Convert2Lambda
-Anonymous new Comparator\>() can be replaced with lambda
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
-#### Snippet
-```java
-
-    private static <T extends Comparable<? super T>> Comparator<Map.Entry<? extends T, ?>> comparableKeyComparator() {
-        return new Comparator<Entry<? extends T, ?>>() {
-            @Override public int compare(Entry<? extends T, ?> o1, Entry<? extends T, ?> o2) {
-                return o1.getKey().compareTo(o2.getKey());
+    public static final Comparator<ExceptionHandler> BY_EXCEPTION = new Comparator<ExceptionHandler>() {
+        @Override public int compare(ExceptionHandler o1, ExceptionHandler o2) {
+            String exceptionType1 = o1.getExceptionType();
 ```
 
 ### Convert2Lambda
@@ -13947,39 +13923,27 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+Anonymous new Comparator\>() can be replaced with lambda
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-                }
 
-                Comparator<MethodReference> comparator = new Comparator<MethodReference>() {
-                    @Override public int compare(MethodReference o1, MethodReference o2) {
-                        return Ints.compare(methodOrder.get(o1), methodOrder.get(o2));
+    private static <T extends Comparable<? super T>> Comparator<Map.Entry<? extends T, ?>> comparableKeyComparator() {
+        return new Comparator<Entry<? extends T, ?>>() {
+            @Override public int compare(Entry<? extends T, ?> o1, Entry<? extends T, ?> o2) {
+                return o1.getKey().compareTo(o2.getKey());
 ```
 
 ### Convert2Lambda
 Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexWriter.java`
 #### Snippet
 ```java
-                private ArrayList<Field> getSortedInstanceFields(@Nonnull ClassDef classDef) {
-                    ArrayList<Field> fields = Lists.newArrayList(classDef.getInstanceFields());
-                    Collections.sort(fields, new Comparator<Field>() {
-                        @Override public int compare(Field field1, Field field2) {
-                            int result = Ints.compare(getFieldSortOrder(field1), getFieldSortOrder(field2));
-```
 
-### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
-#### Snippet
-```java
-                }
-
-                Comparator<MethodReference> comparator = new Comparator<MethodReference>() {
-                    @Override public int compare(MethodReference o1, MethodReference o2) {
-                        return Ints.compare(methodOrder.get(o1), methodOrder.get(o2));
+    private static Comparator<Map.Entry> toStringKeyComparator =
+            new Comparator<Map.Entry>() {
+                @Override public int compare(Entry o1, Entry o2) {
+                    return o1.getKey().toString().compareTo(o2.getKey().toString());
 ```
 
 ### Convert2Lambda
@@ -14007,6 +13971,42 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/raw/util/DexAnnotator.java`
 ```
 
 ### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+                }
+
+                Comparator<MethodReference> comparator = new Comparator<MethodReference>() {
+                    @Override public int compare(MethodReference o1, MethodReference o2) {
+                        return Ints.compare(methodOrder.get(o1), methodOrder.get(o2));
+```
+
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+                }
+
+                Comparator<MethodReference> comparator = new Comparator<MethodReference>() {
+                    @Override public int compare(MethodReference o1, MethodReference o2) {
+                        return Ints.compare(methodOrder.get(o1), methodOrder.get(o2));
+```
+
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassProto.java`
+#### Snippet
+```java
+                private ArrayList<Field> getSortedInstanceFields(@Nonnull ClassDef classDef) {
+                    ArrayList<Field> fields = Lists.newArrayList(classDef.getInstanceFields());
+                    Collections.sort(fields, new Comparator<Field>() {
+                        @Override public int compare(Field field1, Field field2) {
+                            int result = Ints.compare(getFieldSortOrder(field1), getFieldSortOrder(field2));
+```
+
+### Convert2Lambda
 Anonymous new Callable() can be replaced with lambda
 in `third_party/baksmali/src/main/java/org/jf/baksmali/Baksmali.java`
 #### Snippet
@@ -14029,30 +14029,6 @@ in `dexlib2/src/main/java/org/jf/util/TwoColumnOutput.java`
             amt--;
         }
     }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `visibility`
-in `dexlib2/src/main/java/org/jf/dexlib2/AnnotationVisibility.java`
-#### Snippet
-```java
-
-    public static int getVisibility(String visibility) {
-        visibility = visibility.toLowerCase();
-        if (visibility.equals("build")) {
-            return BUILD;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `utf16Length`
-in `dexlib2/src/main/java/org/jf/util/Utf8Utils.java`
-#### Snippet
-```java
-
-        int at = 0;
-        for (at = start; utf16Length > 0; utf16Length--) {
-            int v0 = bytes[at] & 0xFF;
-            char out;
 ```
 
 ### AssignmentToMethodParameter
@@ -14092,15 +14068,27 @@ in `dexlib2/src/main/java/org/jf/util/Utf8Utils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `arr`
-in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
+Assignment to method parameter `utf16Length`
+in `dexlib2/src/main/java/org/jf/util/Utf8Utils.java`
 #### Snippet
 ```java
-    private static String[] addString(@Nonnull String[] arr, String str, int index) {
-        if (index >= arr.length) {
-            arr = enlargeArray(arr, (int)(Math.ceil((arr.length + 1) * 1.5)));
-        }
 
+        int at = 0;
+        for (at = start; utf16Length > 0; utf16Length--) {
+            int v0 = bytes[at] & 0xFF;
+            char out;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `visibility`
+in `dexlib2/src/main/java/org/jf/dexlib2/AnnotationVisibility.java`
+#### Snippet
+```java
+
+    public static int getVisibility(String visibility) {
+        visibility = visibility.toLowerCase();
+        if (visibility.equals("build")) {
+            return BUILD;
 ```
 
 ### AssignmentToMethodParameter
@@ -14164,6 +14152,18 @@ in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `arr`
+in `dexlib2/src/main/java/org/jf/util/StringWrapper.java`
+#### Snippet
+```java
+    private static String[] addString(@Nonnull String[] arr, String str, int index) {
+        if (index >= arr.length) {
+            arr = enlargeArray(arr, (int)(Math.ceil((arr.length + 1) * 1.5)));
+        }
+
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `entry`
 in `dexlib2/src/main/java/org/jf/dexlib2/DexFileFactory.java`
 #### Snippet
@@ -14192,18 +14192,6 @@ Assignment to method parameter `value`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
 #### Snippet
 ```java
-        do {
-            tempBuf[index--] = (byte)((value & 0xFF00000000000000L) >>> 56);
-            value <<= 8;
-        } while (value != 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
-#### Snippet
-```java
             while (value > 0x7f) {
                 tempBuf[index++] = (byte)value;
                 value >>= 8;
@@ -14228,11 +14216,11 @@ Assignment to method parameter `value`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
 #### Snippet
 ```java
-        do {
-            tempBuf[index++] = (byte)value;
-            value >>>= 8;
-        } while (value != 0);
-        writeEncodedValueHeader(valueType, index-1);
+        while ((value & 0xffffffffL) > 0x7f) {
+            out.write((value & 0x7f) | 0x80);
+            value >>>= 7;
+        }
+        out.write(value);
 ```
 
 ### AssignmentToMethodParameter
@@ -14252,6 +14240,18 @@ Assignment to method parameter `value`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
 #### Snippet
 ```java
+        do {
+            tempBuf[index++] = (byte)value;
+            value >>>= 8;
+        } while (value != 0);
+        writeEncodedValueHeader(valueType, index-1);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
+#### Snippet
+```java
             while (value > 0x7f) {
                 tempBuf[index++] = (byte)value;
                 value >>= 8;
@@ -14269,6 +14269,18 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
                 value >>= 8;
             }
         }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
+#### Snippet
+```java
+        do {
+            tempBuf[index--] = (byte)((value & 0xFF00000000000000L) >>> 56);
+            value <<= 8;
+        } while (value != 0);
+
 ```
 
 ### AssignmentToMethodParameter
@@ -14293,18 +14305,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
                 value >>= 7;
             }
             out.write(value & 0x7f);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `dexlib2/src/main/java/org/jf/dexlib2/writer/DexDataWriter.java`
-#### Snippet
-```java
-        while ((value & 0xffffffffL) > 0x7f) {
-            out.write((value & 0x7f) | 0x80);
-            value >>>= 7;
-        }
-        out.write(value);
 ```
 
 ### AssignmentToMethodParameter
@@ -14480,7 +14480,19 @@ Assignment to method parameter `offset`
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
 #### Snippet
 ```java
-    public int readSmallUint(int offset) {
+    public int readUshort(int offset) {
+        byte[] buf = this.buf;
+        offset += baseOffset;
+        return (buf[offset] & 0xff) |
+                ((buf[offset+1] & 0xff) << 8);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
+#### Snippet
+```java
+    public int readOptionalUint(int offset) {
         byte[] buf = this.buf;
         offset += baseOffset;
         int result = (buf[offset] & 0xff) |
@@ -14497,18 +14509,6 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
         offset += baseOffset;
         return (buf[offset] & 0xff) |
                 ((buf[offset+1] & 0xff) << 8) |
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
-#### Snippet
-```java
-    public int readUshort(int offset) {
-        byte[] buf = this.buf;
-        offset += baseOffset;
-        return (buf[offset] & 0xff) |
-                ((buf[offset+1] & 0xff) << 8);
 ```
 
 ### AssignmentToMethodParameter
@@ -14540,7 +14540,7 @@ Assignment to method parameter `offset`
 in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
 #### Snippet
 ```java
-    public int readOptionalUint(int offset) {
+    public int readSmallUint(int offset) {
         byte[] buf = this.buf;
         offset += baseOffset;
         int result = (buf[offset] & 0xff) |
@@ -14548,15 +14548,27 @@ in `dexlib2/src/main/java/org/jf/dexlib2/dexbacked/DexBuffer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `bootClassPathEntries`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPathResolver.java`
+Assignment to method parameter `destRegisterType`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
 #### Snippet
 ```java
-
-        if (bootClassPathEntries == null) {
-            bootClassPathEntries = getDefaultBootClassPath(dexEntry, dexFile.getOpcodes().api);
+            if (BooleanCategories.get(source1RegisterType.category) &&
+                    BooleanCategories.get(source2RegisterType.category)) {
+                destRegisterType = RegisterType.BOOLEAN_TYPE;
+            }
         }
+```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `destRegisterType`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+#### Snippet
+```java
+            if (BooleanCategories.get(source1RegisterType.category) &&
+                    BooleanCategories.get(source2RegisterType.category)) {
+                destRegisterType = RegisterType.BOOLEAN_TYPE;
+            }
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -14572,27 +14584,15 @@ in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `destRegisterType`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
+Assignment to method parameter `bootClassPathEntries`
+in `dexlib2/src/main/java/org/jf/dexlib2/analysis/ClassPathResolver.java`
 #### Snippet
 ```java
-            if (BooleanCategories.get(source1RegisterType.category) &&
-                    BooleanCategories.get(source2RegisterType.category)) {
-                destRegisterType = RegisterType.BOOLEAN_TYPE;
-            }
-        }
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `destRegisterType`
-in `dexlib2/src/main/java/org/jf/dexlib2/analysis/MethodAnalyzer.java`
-#### Snippet
-```java
-            if (BooleanCategories.get(source1RegisterType.category) &&
-                    BooleanCategories.get(source2RegisterType.category)) {
-                destRegisterType = RegisterType.BOOLEAN_TYPE;
-            }
+        if (bootClassPathEntries == null) {
+            bootClassPathEntries = getDefaultBootClassPath(dexEntry, dexFile.getOpcodes().api);
         }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -14740,39 +14740,15 @@ in `baksmali/src/main/java/org/jf/baksmali/AnalysisArguments.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliWriter.java`
+Assignment to method parameter `start`
+in `third_party/dexlib2/src/main/java/org/jf/util/IndentingWriter.java`
 #### Snippet
 ```java
-            buffer[bufferIndex--] = (char)(digit + '0');
-
-            value = value / 10;
-        } while (value != 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliWriter.java`
-#### Snippet
-```java
-            buffer[bufferIndex--] = (char)(digit + '0');
-
-            value = value / 10;
-        } while (value != 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliWriter.java`
-#### Snippet
-```java
-            }
-
-            value >>>= 4;
-        } while (value != 0);
-
+                beginningOfLine = true;
+                pos++;
+                start = pos;
+            } else {
+                pos++;
 ```
 
 ### AssignmentToMethodParameter
@@ -14788,15 +14764,51 @@ in `third_party/dexlib2/src/main/java/org/jf/util/IndentingWriter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `start`
-in `third_party/dexlib2/src/main/java/org/jf/util/IndentingWriter.java`
+Assignment to method parameter `value`
+in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliWriter.java`
 #### Snippet
 ```java
-                beginningOfLine = true;
-                pos++;
-                start = pos;
-            } else {
-                pos++;
+            }
+
+            value >>>= 4;
+        } while (value != 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliWriter.java`
+#### Snippet
+```java
+            buffer[bufferIndex--] = (char)(digit + '0');
+
+            value = value / 10;
+        } while (value != 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `baksmali/src/main/java/org/jf/baksmali/formatter/BaksmaliWriter.java`
+#### Snippet
+```java
+            buffer[bufferIndex--] = (char)(digit + '0');
+
+            value = value / 10;
+        } while (value != 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
+#### Snippet
+```java
+        for (int i = 0; i < 8; i++) {
+            result[7 - i] = Character.forDigit(v & 0x0f, 16);
+            v >>= 4;
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -14828,42 +14840,6 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
 #### Snippet
 ```java
-        for (int i = 0; i < 4; i++) {
-            result[3 - i] = Character.forDigit(v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 2; i++) {
-            result[1 - i] = Character.forDigit(v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 16; i++) {
-            result[15 - i] = Character.forDigit((int) v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
-#### Snippet
-```java
         for (int i = 0; i < 6; i++) {
             result[5 - i] = Character.forDigit(v & 0x0f, 16);
             v >>= 4;
@@ -14876,8 +14852,8 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
 #### Snippet
 ```java
-        for (int i = 0; i < 8; i++) {
-            result[7 - i] = Character.forDigit(v & 0x0f, 16);
+        for (int i = 0; i < 16; i++) {
+            result[15 - i] = Character.forDigit((int) v & 0x0f, 16);
             v >>= 4;
         }
 
@@ -14912,44 +14888,8 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
 #### Snippet
 ```java
-        if (v < 0) {
-            result[0] = '-';
-            v = -v;
-        } else {
-            result[0] = '+';
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 4; i++) {
-            result[4 - i] = Character.forDigit(v & 0x0f, 16);
-            v >>= 4;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
-#### Snippet
-```java
-        if (v < 0) {
-            result[0] = '-';
-            v = -v;
-        } else {
-            result[0] = '+';
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `v`
-in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
-#### Snippet
-```java
-        for (int i = 0; i < 16; i++) {
-            result[16 - i] = Character.forDigit((int) v & 0x0f, 16);
+        for (int i = 0; i < 2; i++) {
+            result[1 - i] = Character.forDigit(v & 0x0f, 16);
             v >>= 4;
         }
 
@@ -15008,8 +14948,68 @@ Assignment to method parameter `v`
 in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
 #### Snippet
 ```java
+        for (int i = 0; i < 16; i++) {
+            result[16 - i] = Character.forDigit((int) v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
+#### Snippet
+```java
+        if (v < 0) {
+            result[0] = '-';
+            v = -v;
+        } else {
+            result[0] = '+';
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
+#### Snippet
+```java
         for (int i = 0; i < 8; i++) {
             result[8 - i] = Character.forDigit(v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
+#### Snippet
+```java
+        if (v < 0) {
+            result[0] = '-';
+            v = -v;
+        } else {
+            result[0] = '+';
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
+#### Snippet
+```java
+        for (int i = 0; i < 4; i++) {
+            result[4 - i] = Character.forDigit(v & 0x0f, 16);
+            v >>= 4;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `v`
+in `third_party/dexlib2/src/main/java/org/jf/util/Hex.java`
+#### Snippet
+```java
+        for (int i = 0; i < 4; i++) {
+            result[3 - i] = Character.forDigit(v & 0x0f, 16);
             v >>= 4;
         }
 
@@ -15276,10 +15276,10 @@ in `dexlib2/src/main/java/org/jf/dexlib2/util/DexUtil.java`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
 #### Snippet
 ```java
-        return new AbstractCollection<Field>() {
-            @Nonnull @Override public Iterator<Field> iterator() {
+        return new AbstractCollection<PoolMethod>() {
+            @Nonnull @Override public Iterator<PoolMethod> iterator() {
                 return Iterators.mergeSorted(
-                        ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
+                        ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
                         Ordering.natural());
 ```
 
@@ -15288,10 +15288,10 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/pool/PoolClassDef.java`
 #### Snippet
 ```java
-        return new AbstractCollection<PoolMethod>() {
-            @Nonnull @Override public Iterator<PoolMethod> iterator() {
+        return new AbstractCollection<Field>() {
+            @Nonnull @Override public Iterator<Field> iterator() {
                 return Iterators.mergeSorted(
-                        ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
+                        ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
                         Ordering.natural());
 ```
 
@@ -15468,10 +15468,10 @@ in `dexlib2/src/main/java/org/jf/dexlib2/Opcode.java`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
-        return new AbstractCollection<BuilderField>() {
-            @Nonnull @Override public Iterator<BuilderField> iterator() {
+        return new AbstractCollection<BuilderMethod>() {
+            @Nonnull @Override public Iterator<BuilderMethod> iterator() {
                 return Iterators.mergeSorted(
-                        ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
+                        ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
                         Ordering.natural());
 ```
 
@@ -15480,10 +15480,10 @@ in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 in `dexlib2/src/main/java/org/jf/dexlib2/writer/builder/BuilderClassDef.java`
 #### Snippet
 ```java
-        return new AbstractCollection<BuilderMethod>() {
-            @Nonnull @Override public Iterator<BuilderMethod> iterator() {
+        return new AbstractCollection<BuilderField>() {
+            @Nonnull @Override public Iterator<BuilderField> iterator() {
                 return Iterators.mergeSorted(
-                        ImmutableList.of(directMethods.iterator(), virtualMethods.iterator()),
+                        ImmutableList.of(staticFields.iterator(), instanceFields.iterator()),
                         Ordering.natural());
 ```
 
