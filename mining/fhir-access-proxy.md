@@ -32,18 +32,6 @@ public class FhirUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/proxy/MainApp.java`
-#### Snippet
-```java
-@SpringBootApplication
-@ServletComponentScan
-public class MainApp {
-
-  public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/proxy/ExceptionUtil.java`
 #### Snippet
@@ -53,6 +41,18 @@ import org.slf4j.Logger;
 public class ExceptionUtil {
 
   static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MainApp` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/proxy/MainApp.java`
+#### Snippet
+```java
+@SpringBootApplication
+@ServletComponentScan
+public class MainApp {
+
+  public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -106,30 +106,6 @@ in `server/src/main/java/com/google/fhir/proxy/GcpFhirClient.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getIssuer` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Failed to decode JWT: " + e.getMessage(), e, AuthenticationException.class);
-    }
-    String issuer = jwt.getIssuer();
-    String algorithm = jwt.getAlgorithm();
-    JWTVerifier jwtVerifier = buildJwtVerifier(issuer);
-```
-
-### DataFlowIssue
-Method invocation `verify` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-    DecodedJWT verifiedJwt = null;
-    try {
-      verifiedJwt = jwtVerifier.verify(jwt);
-    } catch (JWTVerificationException e) {
-      // Throwing an AuthenticationException instead since it is handled by HAPI and a 401
-```
-
-### DataFlowIssue
 Argument `authHeader` might be null
 in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
 #### Snippet
@@ -151,6 +127,30 @@ in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.ja
     AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
     if (!outcome.canAccess()) {
       ExceptionUtil.throwRuntimeExceptionAndLog(
+```
+
+### DataFlowIssue
+Method invocation `getIssuer` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Failed to decode JWT: " + e.getMessage(), e, AuthenticationException.class);
+    }
+    String issuer = jwt.getIssuer();
+    String algorithm = jwt.getAlgorithm();
+    JWTVerifier jwtVerifier = buildJwtVerifier(issuer);
+```
+
+### DataFlowIssue
+Method invocation `verify` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/proxy/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    DecodedJWT verifiedJwt = null;
+    try {
+      verifiedJwt = jwtVerifier.verify(jwt);
+    } catch (JWTVerificationException e) {
+      // Throwing an AuthenticationException instead since it is handled by HAPI and a 401
 ```
 
 ### DataFlowIssue
@@ -278,19 +278,20 @@ in `plugins/src/main/java/com/google/fhir/proxy/plugin/ListAccessChecker.java`
   @Override
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
+## RuleId[ruleID=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-10-23-24-33.587.html`
 #### Snippet
 ```java
-  public static String getIdOrNull(RequestDetailsReader requestDetails) {
-    if (requestDetails.getId() == null) {
-      return null;
-    }
-    return requestDetails.getId().getIdPart();
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
+## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `server/src/main/java/com/google/fhir/proxy/HttpUtil.java`
@@ -301,6 +302,18 @@ in `server/src/main/java/com/google/fhir/proxy/HttpUtil.java`
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/proxy/FhirUtil.java`
+#### Snippet
+```java
+  public static String getIdOrNull(RequestDetailsReader requestDetails) {
+    if (requestDetails.getId() == null) {
+      return null;
+    }
+    return requestDetails.getId().getIdPart();
 ```
 
 ### ReturnNull
@@ -344,18 +357,6 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 #### Snippet
 ```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
-      return null;
-    }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
-#### Snippet
-```java
     }
     // It should never reach here!
     return null;
@@ -375,17 +376,16 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
   }
 ```
 
-## RuleId[ruleID=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-10-17-16-57.120.html`
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
+          InvalidRequestException.class);
+      return null;
+    }
+    Map<String, String[]> queryParams = requestDetails.getParameters();
 ```
 
 ## RuleId[ruleID=UnnecessaryLocalVariable]
@@ -402,30 +402,6 @@ in `server/src/main/java/com/google/fhir/proxy/AllowedQueriesConfig.java`
 ```
 
 ## RuleId[ruleID=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
-#### Snippet
-```java
-  private static void makeSearchParamMap(
-      CompartmentDefinition patientCompartment,
-      final Map<String, List<String>> patientSearchParams) {
-    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
-      String resourceType = resource.getCode();
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
-#### Snippet
-```java
-  private static void makeSearchParamMap(
-      CompartmentDefinition patientCompartment,
-      final Map<String, List<String>> patientSearchParams) {
-    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
-      String resourceType = resource.getCode();
-```
-
 ### BoundedWildcard
 Can generalize to `? extends List`
 in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
@@ -448,6 +424,30 @@ in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
       Map<String, List<String>> patientSearchParams,
       boolean blockJoins) {
     this.fhirContext = fhirContext;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+#### Snippet
+```java
+  private static void makeSearchParamMap(
+      CompartmentDefinition patientCompartment,
+      final Map<String, List<String>> patientSearchParams) {
+    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
+      String resourceType = resource.getCode();
+```
+
+### BoundedWildcard
+Can generalize to `? super List`
+in `server/src/main/java/com/google/fhir/proxy/PatientFinderImp.java`
+#### Snippet
+```java
+  private static void makeSearchParamMap(
+      CompartmentDefinition patientCompartment,
+      final Map<String, List<String>> patientSearchParams) {
+    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
+      String resourceType = resource.getCode();
 ```
 
 ## RuleId[ruleID=ConstantValue]
