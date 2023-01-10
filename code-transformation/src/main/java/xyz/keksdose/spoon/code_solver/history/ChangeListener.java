@@ -4,6 +4,7 @@ import com.google.common.flogger.FluentLogger;
 import java.util.HashSet;
 import java.util.Set;
 import spoon.reflect.declaration.CtType;
+import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class ChangeListener {
 
@@ -29,6 +30,16 @@ public class ChangeListener {
 
     public boolean isChanged(CtType<?> type) {
         return changedTypes.contains(type);
+    }
+    /**
+     * Checks if the result is already fixed in the changelog.
+     * @param result the analyzer result to check
+     * @return  true iff the result is already fixed.
+     */
+    public boolean isFixed(AnalyzerResult result) {
+        return changelog.getChanges().stream()
+                .filter(v -> v.getAnalyzerResult() != null)
+                .anyMatch(v -> v.getAnalyzerResult().equals(result));
     }
 
     /**

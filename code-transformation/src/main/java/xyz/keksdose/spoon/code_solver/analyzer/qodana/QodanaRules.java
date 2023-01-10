@@ -20,6 +20,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryInterface
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryLocalVariable;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryModifier;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryReturn;
+import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryStringEscape;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnnecessaryToStringCall;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedImport;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedLabel;
@@ -50,7 +51,8 @@ public enum QodanaRules implements AnalyzerRule {
     UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
             "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new),
     CODE_BLOCK_2_EXPR("CodeBlock2Expr", CodeBlock2Expr::new),
-    REDUNDANT_ARRAY_CREATION("RedundantArrayCreation", RedundantArrayCreation::new);
+    REDUNDANT_ARRAY_CREATION("RedundantArrayCreation", RedundantArrayCreation::new),
+    UNNECESSARY_STRING_ESCAPE("UnnecessaryStringEscape", UnnecessaryStringEscape::new);
 
     private final RuleId ruleId;
     private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
