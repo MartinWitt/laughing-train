@@ -29,8 +29,8 @@ I found 171 bad smells with 61 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 1 | false |
 | TrivialStringConcatenation | 1 | false |
-| ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | NestedAssignment | 1 | false |
+| ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | EmptyMethod | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | BusyWait | 1 | false |
@@ -40,6 +40,150 @@ Modifier `static` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
+  static final String QUIET_MODE = "xmlReportParsing.quietMode";
+
+  static final String SPLIT_REGEX = " *[,\n\r] *";
+
+  static final String BUILD_PROBLEM_TYPE = "xmlReportParsing";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String QUIET_MODE = "xmlReportParsing.quietMode";
+
+  static final String SPLIT_REGEX = " *[,\n\r] *";
+
+  static final String BUILD_PROBLEM_TYPE = "xmlReportParsing";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
+
+  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
+
+  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+
+  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
+  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+
+  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
+  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+
+  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
+
+  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+
+  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
+
+  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
   static final String SPLIT_REGEX = " *[,\n\r] *";
 
   static final String BUILD_PROBLEM_TYPE = "xmlReportParsing";
@@ -64,35 +208,11 @@ Modifier `static` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
-
-  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
   static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-
-  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
   static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
 
   static final String QUIET_MODE = "xmlReportParsing.quietMode";
-
-  static final String SPLIT_REGEX = " *[,\n\r] *";
 ```
 
 ### UnnecessaryModifier
@@ -100,35 +220,11 @@ Modifier `final` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
   static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
 
   static final String QUIET_MODE = "xmlReportParsing.quietMode";
-
-  static final String SPLIT_REGEX = " *[,\n\r] *";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
-
-  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
-
-  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
-
-  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
-
-  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
 ```
 
 ### UnnecessaryModifier
@@ -160,6 +256,30 @@ Modifier `static` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
+  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
+  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
+  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
+  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
+  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
   static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
 
   static final String MAX_ERRORS = "xmlReportParsing.max.errors";
@@ -184,11 +304,11 @@ Modifier `static` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
-  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
-  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
+  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
+
+  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
+
+  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
 ```
 
 ### UnnecessaryModifier
@@ -196,11 +316,11 @@ Modifier `final` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
-  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
-  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
+  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
+
+  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
+
+  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
 ```
 
 ### UnnecessaryModifier
@@ -208,11 +328,11 @@ Modifier `static` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
   static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
 
+  static final String QUIET_MODE = "xmlReportParsing.quietMode";
+
+  static final String SPLIT_REGEX = " *[,\n\r] *";
 ```
 
 ### UnnecessaryModifier
@@ -220,11 +340,59 @@ Modifier `final` is redundant for interface fields
 in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
 #### Snippet
 ```java
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
   static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
 
+  static final String QUIET_MODE = "xmlReportParsing.quietMode";
+
+  static final String SPLIT_REGEX = " *[,\n\r] *";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+
+  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
+  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
+
+  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+
+  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
+  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
+
+  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+public interface XmlReportPluginConstants {
+  static final String REPORT_TYPE = "xmlReportParsing.reportType";
+  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
+
+  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
+#### Snippet
+```java
+public interface XmlReportPluginConstants {
+  static final String REPORT_TYPE = "xmlReportParsing.reportType";
+  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
+
+  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
 ```
 
 ### UnnecessaryModifier
@@ -249,174 +417,6 @@ public interface XmlReportPluginConstants {
   static final String REPORT_TYPE = "xmlReportParsing.reportType";
   static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String QUIET_MODE = "xmlReportParsing.quietMode";
-
-  static final String SPLIT_REGEX = " *[,\n\r] *";
-
-  static final String BUILD_PROBLEM_TYPE = "xmlReportParsing";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String QUIET_MODE = "xmlReportParsing.quietMode";
-
-  static final String SPLIT_REGEX = " *[,\n\r] *";
-
-  static final String BUILD_PROBLEM_TYPE = "xmlReportParsing";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
-  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
-
-  static final String QUIET_MODE = "xmlReportParsing.quietMode";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
-  static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
-
-  static final String QUIET_MODE = "xmlReportParsing.quietMode";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-
-  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
-  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
-
-  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-
-  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
-  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
-
-  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-  static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  static final String FAIL_BUILD_IF_PARSING_FAILED = "xmlReportParsing.failBuildIfParsingFailed";
-  static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-  static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
-
-  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
-  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
-
-  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
-  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-public interface XmlReportPluginConstants {
-  static final String REPORT_TYPE = "xmlReportParsing.reportType";
-  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
-
-  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-public interface XmlReportPluginConstants {
-  static final String REPORT_TYPE = "xmlReportParsing.reportType";
-  static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
-
-  static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-
-  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
-  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
-
-  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `common/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginConstants.java`
-#### Snippet
-```java
-
-  static final String MAX_ERRORS = "xmlReportParsing.max.errors";
-  static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
-
-  static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
 ```
 
 ### UnnecessaryModifier
@@ -605,27 +605,27 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/TRXParser.jav
 ```
 
 ### SizeReplaceableByIsEmpty
-`testData.getStdOut().length() > 0` can be replaced with '!testData.getStdOut().isEmpty()'
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/antJUnit/AntJUnitReportParser.java`
+`sourcepath.length() > 0` can be replaced with '!sourcepath.isEmpty()'
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
 #### Snippet
 ```java
-            myTestReporter.openTest(testName);
-            if (!testData.isExecuted()) myTestReporter.testIgnored("");
-            if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
-              myTestReporter.testStdOutput(testData.getStdOut());
-            }
+    String file = null;
+
+    if (sourcepath != null && sourcepath.length() > 0) {
+      file = myFileFinder.getVeryFullFilePath(sourcepath);
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
-`testData.getStdErr().length() > 0` can be replaced with '!testData.getStdErr().isEmpty()'
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/antJUnit/AntJUnitReportParser.java`
+`clazz.length() > 0` can be replaced with '!clazz.isEmpty()'
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
 #### Snippet
 ```java
-              myTestReporter.testStdOutput(testData.getStdOut());
-            }
-            if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
-              if (myLogInternalSystemError) {
-                myTestReporter.info(testData.getStdErr());
+    }
+
+    if (file == null && clazz != null && clazz.length() > 0) {
+      if (clazz.contains("$")) {
+        clazz = clazz.substring(0, clazz.indexOf("$"));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -653,27 +653,27 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/antJUnit/AntJUnitRep
 ```
 
 ### SizeReplaceableByIsEmpty
-`sourcepath.length() > 0` can be replaced with '!sourcepath.isEmpty()'
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
+`testData.getStdOut().length() > 0` can be replaced with '!testData.getStdOut().isEmpty()'
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/antJUnit/AntJUnitReportParser.java`
 #### Snippet
 ```java
-    String file = null;
-
-    if (sourcepath != null && sourcepath.length() > 0) {
-      file = myFileFinder.getVeryFullFilePath(sourcepath);
-    }
+            myTestReporter.openTest(testName);
+            if (!testData.isExecuted()) myTestReporter.testIgnored("");
+            if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
+              myTestReporter.testStdOutput(testData.getStdOut());
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
-`clazz.length() > 0` can be replaced with '!clazz.isEmpty()'
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
+`testData.getStdErr().length() > 0` can be replaced with '!testData.getStdErr().isEmpty()'
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/antJUnit/AntJUnitReportParser.java`
 #### Snippet
 ```java
-    }
-
-    if (file == null && clazz != null && clazz.length() > 0) {
-      if (clazz.contains("$")) {
-        clazz = clazz.substring(0, clazz.indexOf("$"));
+              myTestReporter.testStdOutput(testData.getStdOut());
+            }
+            if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
+              if (myLogInternalSystemError) {
+                myTestReporter.info(testData.getStdErr());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1322,19 +1322,6 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/duplicates/DuplicatingFragme
   public int getHash() {
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`path = path + ": Report is incomplete or has unexpected structure"` could be simplified to 'path += ": Report is incomplete or has unexpected structure"'
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
-#### Snippet
-```java
-                                           String path = getPathInCheckoutDir(file);
-
-                                           if (problem == null) path = path + ": Report is incomplete or has unexpected structure";
-                                           else if (StringUtil.isNotEmpty(problem.getMessage())) path = path + ": " + problem.getMessage();
-
-```
-
 ## RuleId[ruleID=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -1348,19 +1335,20 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
 
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `ProblemParsingResult()` of an abstract class should not be declared 'public'
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/ProblemParsingResult.java`
+## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`path = path + ": Report is incomplete or has unexpected structure"` could be simplified to 'path += ": Report is incomplete or has unexpected structure"'
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
 #### Snippet
 ```java
-  private Throwable myProblem;
+                                           String path = getPathInCheckoutDir(file);
 
-  public ProblemParsingResult() {
-    this(null);
-  }
+                                           if (problem == null) path = path + ": Report is incomplete or has unexpected structure";
+                                           else if (StringUtil.isNotEmpty(problem.getMessage())) path = path + ": " + problem.getMessage();
+
 ```
 
+## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `ProblemParsingResult()` of an abstract class should not be declared 'public'
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/ProblemParsingResult.java`
@@ -1370,6 +1358,18 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/ProblemParsingResult.java`
 
   public ProblemParsingResult(@Nullable Throwable problem) {
     myProblem = problem;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ProblemParsingResult()` of an abstract class should not be declared 'public'
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/ProblemParsingResult.java`
+#### Snippet
+```java
+  private Throwable myProblem;
+
+  public ProblemParsingResult() {
+    this(null);
   }
 ```
 
@@ -1465,18 +1465,6 @@ Anonymous new Runnable() can be replaced with lambda
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
 #### Snippet
 ```java
-
-    processingContext.finished = false;
-    monitor = new Thread(new Runnable() {
-      public void run() {
-        while (!processingContext.finished) {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
-#### Snippet
-```java
           if (!failedToParse.isEmpty()) {
             LoggingUtils.logInTarget("Parsing errors",
                                      new Runnable() {
@@ -1508,6 +1496,18 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
               public void run() {
 ```
 
+### Convert2Lambda
+Anonymous new Runnable() can be replaced with lambda
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPlugin.java`
+#### Snippet
+```java
+
+    processingContext.finished = false;
+    monitor = new Thread(new Runnable() {
+      public void run() {
+        while (!processingContext.finished) {
+```
+
 ## RuleId[ruleID=EmptyMethod]
 ### EmptyMethod
 The method is empty
@@ -1523,18 +1523,6 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/ctest/TestXmlReportP
 
 ## RuleId[ruleID=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/TRXParser.java`
-#### Snippet
-```java
-  private final String myDefaultSuiteName;
-
-  @SuppressWarnings("FieldMayBeFinal") private int myReportedTestsCount = 0;
-
-  public TRXParser(@NotNull final TestReporter logger, @NotNull final String defaultSuiteName) {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportXmlParser.java`
 #### Snippet
@@ -1547,15 +1535,39 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsRep
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/BaseXmlXppAbstractParser.java`
+Field initialization to `0` is redundant
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/TRXParser.java`
 #### Snippet
 ```java
-  protected abstract class ORHandler implements CloseableHandler, XmlHandler {
-    private final List<XmlHandler> myDelegates;
-    private boolean myMatched = false;
+  private final String myDefaultSuiteName;
 
-    public ORHandler(XmlHandler... delegates) {
+  @SuppressWarnings("FieldMayBeFinal") private int myReportedTestsCount = 0;
+
+  public TRXParser(@NotNull final TestReporter logger, @NotNull final String defaultSuiteName) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/utils/ParserUtils.java`
+#### Snippet
+```java
+  private static final class CompleteReportHandler extends DefaultHandler {
+    private String myRootTag;
+    private int myDepth = 0;
+    private boolean myRightStart = false;
+    private boolean myRightEnd = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/utils/ParserUtils.java`
+#### Snippet
+```java
+    private String myRootTag;
+    private int myDepth = 0;
+    private boolean myRightStart = false;
+    private boolean myRightEnd = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -1572,26 +1584,14 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/utils/ParserUtils.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/utils/ParserUtils.java`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/BaseXmlXppAbstractParser.java`
 #### Snippet
 ```java
-    private String myRootTag;
-    private int myDepth = 0;
-    private boolean myRightStart = false;
-    private boolean myRightEnd = false;
+  protected abstract class ORHandler implements CloseableHandler, XmlHandler {
+    private final List<XmlHandler> myDelegates;
+    private boolean myMatched = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/utils/ParserUtils.java`
-#### Snippet
-```java
-  private static final class CompleteReportHandler extends DefaultHandler {
-    private String myRootTag;
-    private int myDepth = 0;
-    private boolean myRightStart = false;
-    private boolean myRightEnd = false;
+    public ORHandler(XmlHandler... delegates) {
 ```
 
 ## RuleId[ruleID=AssignmentToMethodParameter]
@@ -1632,18 +1632,6 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/testng/TestData.java
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `clazz`
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
-#### Snippet
-```java
-    if (file == null && clazz != null && clazz.length() > 0) {
-      if (clazz.contains("$")) {
-        clazz = clazz.substring(0, clazz.indexOf("$"));
-      }
-      //noinspection ConstantConditions
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `message`
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
 #### Snippet
@@ -1656,6 +1644,18 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsRep
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `clazz`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FindBugsReportParser.java`
+#### Snippet
+```java
+    if (file == null && clazz != null && clazz.length() > 0) {
+      if (clazz.contains("$")) {
+        clazz = clazz.substring(0, clazz.indexOf("$"));
+      }
+      //noinspection ConstantConditions
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `error`
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/tests/TeamCityTestReporter.java`
 #### Snippet
@@ -1665,30 +1665,6 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/tests/TeamCityTestReporter.j
     if (error == null) error = "";
     myLogger.logTestFailed(myTests.peek(), error, stacktrace);
   }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `jar`
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FileFinder.java`
-#### Snippet
-```java
-
-  public void addJar(@NotNull String jar) {
-    jar = getDependentPath(jar);
-    if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
-      try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `filePath`
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FileFinder.java`
-#### Snippet
-```java
-    if (filePath == null) return null;
-
-    filePath = getDependentPath(filePath);
-
-    if (myLookup == null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -1749,6 +1725,30 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/utils/ParserUtils.java`
     s = removeHtmlTags(s);
     return s.trim();
   }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `filePath`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FileFinder.java`
+#### Snippet
+```java
+    if (filePath == null) return null;
+
+    filePath = getDependentPath(filePath);
+
+    if (myLookup == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `jar`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FileFinder.java`
+#### Snippet
+```java
+
+  public void addJar(@NotNull String jar) {
+    jar = getDependentPath(jar);
+    if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
+      try {
 ```
 
 ### AssignmentToMethodParameter
@@ -1791,7 +1791,7 @@ public class MSTestFactory extends TRXFactory implements ParserFactory {
 ## RuleId[ruleID=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-08-22-21-13.577.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-10-13-15-15.983.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1804,24 +1804,24 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-01-08-22-21-13.577.
 ## RuleId[ruleID=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/jslint/JSLintXmlReportParser.java`
-#### Snippet
-```java
-    if (hasEvidence) return evidence;
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/TestResult.java`
 #### Snippet
 ```java
 
   public TestName getTestName() {
     return myTestId == null ? null : new TestName(myTestId, myDataRowInfo);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/jslint/JSLintXmlReportParser.java`
+#### Snippet
+```java
+    if (hasEvidence) return evidence;
+
+    return null;
   }
 
 ```
@@ -1903,11 +1903,11 @@ Return of `null`
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FileFinder.java`
 #### Snippet
 ```java
-    @Override
-    public String getFilePath(@NotNull String fileName) {
-      return myFile.endsWith(fileName) ? myFile : null;
-    }
-  }
+  @Contract("null -> null")
+  public String getVeryFullFilePath(@Nullable String filePath) {
+    if (filePath == null) return null;
+
+    filePath = getDependentPath(filePath);
 ```
 
 ### ReturnNull
@@ -1915,11 +1915,11 @@ Return of `null`
 in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/findBugs/FileFinder.java`
 #### Snippet
 ```java
-  @Contract("null -> null")
-  public String getVeryFullFilePath(@Nullable String filePath) {
-    if (filePath == null) return null;
-
-    filePath = getDependentPath(filePath);
+    @Override
+    public String getFilePath(@NotNull String fileName) {
+      return myFile.endsWith(fileName) ? myFile : null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -1943,18 +1943,6 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/BaseXmlXppAbstractPa
       }
       return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/TestNamesTableParser.java`
-#### Snippet
-```java
-    if (StringUtil.isNotEmpty(testDescription)) return testDescription;
-
-    return null;
-  }
 
 ```
 
@@ -1984,12 +1972,12 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/DurationParse
 
 ### ReturnNull
 Return of `null`
-in `agent/src/jetbrains/buildServer/xmlReportPlugin/RulesState.java`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/parsers/mstest/TestNamesTableParser.java`
 #### Snippet
 ```java
-  public synchronized Long getLastModified(@NotNull final File report) {
-    FileState store = myParsingResults.get(report);
-    return store != null ? store.lastModified : null;
+    if (StringUtil.isNotEmpty(testDescription)) return testDescription;
+
+    return null;
   }
 
 ```
@@ -2002,6 +1990,18 @@ in `agent/src/jetbrains/buildServer/xmlReportPlugin/RulesState.java`
   public synchronized Long getLength(@NotNull final File report) {
     FileState store = myParsingResults.get(report);
     return store != null ? store.length : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/jetbrains/buildServer/xmlReportPlugin/RulesState.java`
+#### Snippet
+```java
+  public synchronized Long getLastModified(@NotNull final File report) {
+    FileState store = myParsingResults.get(report);
+    return store != null ? store.lastModified : null;
   }
 
 ```
