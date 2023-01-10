@@ -33,13 +33,13 @@ I found 100 bad smells with 27 repairable:
 | ZeroLengthArrayInitialization | 1 | false |
 ## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new NavigationItem\[properties.size()\]'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
+Call to `toArray()` with pre-sized array argument 'new ResolveResult\[results.size()\]'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
 #### Snippet
 ```java
-    // TODO: include non project items
-    List<SimpleProperty> properties = SimpleUtil.findProperties(project, name);
-    return properties.toArray(new NavigationItem[properties.size()]);
+      results.add(new PsiElementResolveResult(property));
+    }
+    return results.toArray(new ResolveResult[results.size()]);
   }
 
 ```
@@ -57,13 +57,13 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ResolveResult\[results.size()\]'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
+Call to `toArray()` with pre-sized array argument 'new NavigationItem\[properties.size()\]'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
 #### Snippet
 ```java
-      results.add(new PsiElementResolveResult(property));
-    }
-    return results.toArray(new ResolveResult[results.size()]);
+    // TODO: include non project items
+    List<SimpleProperty> properties = SimpleUtil.findProperties(project, name);
+    return properties.toArray(new NavigationItem[properties.size()]);
   }
 
 ```
@@ -81,18 +81,6 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 ```
 
 ## RuleId[ruleID=MarkedForRemoval]
-### MarkedForRemoval
-'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
-in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
-#### Snippet
-```java
-  //  Legacy code, awaiting refactoring of AbstractProjectViewPSIPane#createBuilder
-  @Override
-  protected BaseProjectTreeBuilder createBuilder(@NotNull DefaultTreeModel treeModel) {
-    return null;
-  }
-```
-
 ### MarkedForRemoval
 'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
 in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
@@ -150,6 +138,18 @@ in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/Imag
   @Override
   protected AbstractTreeUpdater createTreeUpdater(@NotNull AbstractTreeBuilder builder) {
     throw new IllegalStateException("ImagesProjectViewPane tree is async now");
+  }
+```
+
+### MarkedForRemoval
+'com.intellij.ide.projectView.BaseProjectTreeBuilder' is deprecated and marked for removal
+in `code_samples/project_view_pane/src/main/java/org/intellij/sdk/view/pane/ImagesProjectViewPane.java`
+#### Snippet
+```java
+  //  Legacy code, awaiting refactoring of AbstractProjectViewPSIPane#createBuilder
+  @Override
+  protected BaseProjectTreeBuilder createBuilder(@NotNull DefaultTreeModel treeModel) {
+    return null;
   }
 ```
 
@@ -251,18 +251,6 @@ public class SimpleIcons {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SimpleElementFactory` has only 'static' members, and lacks a 'private' constructor
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/SimpleElementFactory.java`
-#### Snippet
-```java
-import org.intellij.sdk.language.SimpleFileType;
-
-public class SimpleElementFactory {
-
-  public static SimpleProperty createProperty(Project project, String name) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `SimpleUtil` has only 'static' members, and lacks a 'private' constructor
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleUtil.java`
 #### Snippet
@@ -272,6 +260,18 @@ import java.util.*;
 public class SimpleUtil {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SimpleElementFactory` has only 'static' members, and lacks a 'private' constructor
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/SimpleElementFactory.java`
+#### Snippet
+```java
+import org.intellij.sdk.language.SimpleFileType;
+
+public class SimpleElementFactory {
+
+  public static SimpleProperty createProperty(Project project, String name) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -505,18 +505,6 @@ in `code_samples/comparing_references_inspection/src/main/java/org/intellij/sdk/
 
 ## RuleId[ruleID=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Z`
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-
-  /* The ZZ_CMAP_Z table has 272 entries */
-  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\1\100\1\200\u010d\100");
-
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of field `ZZ_CMAP_A`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
@@ -526,6 +514,18 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
     "\11\0\1\4\1\2\1\1\1\5\1\3\22\0\1\7\1\10\1\0\1\10\26\0\1\11\2\0\1\11\36\0\1"+
     "\6\50\0\1\1\242\0\2\1\26\0");
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of field `ZZ_CMAP_Y`
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+
+  /* The ZZ_CMAP_Y table has 192 entries */
+  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
+    "\1\0\1\1\1\2\175\3\1\4\77\3");
+
 ```
 
 ### CStyleArrayDeclaration
@@ -541,14 +541,14 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of field `ZZ_CMAP_Y`
+C-style array declaration of field `ZZ_CMAP_Z`
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
 
-  /* The ZZ_CMAP_Y table has 192 entries */
-  static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\1\2\175\3\1\4\77\3");
+  /* The ZZ_CMAP_Z table has 272 entries */
+  static final char ZZ_CMAP_Z[] = zzUnpackCMap(
+    "\1\0\1\100\1\200\u010d\100");
 
 ```
 
@@ -652,18 +652,6 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ### SizeReplaceableByIsEmpty
 `property.getKey().length() > 0` can be replaced with '!property.getKey().isEmpty()'
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
-#### Snippet
-```java
-    List<String> names = new ArrayList<>(properties.size());
-    for (SimpleProperty property : properties) {
-      if (property.getKey() != null && property.getKey().length() > 0) {
-        names.add(property.getKey());
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`property.getKey().length() > 0` can be replaced with '!property.getKey().isEmpty()'
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleReference.java`
 #### Snippet
 ```java
@@ -672,6 +660,18 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
       if (property.getKey() != null && property.getKey().length() > 0) {
         variants.add(LookupElementBuilder
                 .create(property).withIcon(SimpleIcons.FILE)
+```
+
+### SizeReplaceableByIsEmpty
+`property.getKey().length() > 0` can be replaced with '!property.getKey().isEmpty()'
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleChooseByNameContributor.java`
+#### Snippet
+```java
+    List<String> names = new ArrayList<>(properties.size());
+    for (SimpleProperty property : properties) {
+      if (property.getKey() != null && property.getKey().length() > 0) {
+        names.add(property.getKey());
+      }
 ```
 
 ## RuleId[ruleID=NonShortCircuitBoolean]
@@ -739,18 +739,6 @@ in `code_samples/action_basics/src/main/java/org/intellij/sdk/action/PopupDialog
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/LibrariesAction.java`
-#### Snippet
-```java
-      String fileAndLibs;
-      if (jars.length() > 0) {
-        fileAndLibs = virtualFile.getName() + ": " + jars.toString();
-      } else {
-        fileAndLibs = "None";
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/ShowSourceRootsActions.java`
 #### Snippet
 ```java
@@ -759,6 +747,18 @@ in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/Show
             "Source roots for the " + projectName + " plugin:\n" + sourceRootsList.toString(),
             "Project Properties"
     );
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `code_samples/project_model/src/main/java/org/intellij/sdk/project/model/LibrariesAction.java`
+#### Snippet
+```java
+      String fileAndLibs;
+      if (jars.length() > 0) {
+        fileAndLibs = virtualFile.getName() + ": " + jars.toString();
+      } else {
+        fileAndLibs = "None";
 ```
 
 ## RuleId[ruleID=MissortedModifiers]
@@ -826,6 +826,30 @@ in `code_samples/inspection_basics/src/main/java/org/intellij/sdk/inspection/Dem
 
 ## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
+#### Snippet
+```java
+      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
+      // like it has LF embedded in it and embedded " to escaped "
+      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
+    }
+    return retTxt;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
+#### Snippet
+```java
+      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
+      // like it has LF embedded in it and embedded " to escaped "
+      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
+    }
+    return retTxt;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleUtil.java`
 #### Snippet
@@ -835,30 +859,6 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
         String commentText = element.getText().replaceFirst("[!# ]+", "");
         result.add(commentText);
       }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
-      // like it has LF embedded in it and embedded " to escaped "
-      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
-    }
-    return retTxt;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/SimpleFoldingBuilder.java`
-#### Snippet
-```java
-      // IMPORTANT: Convert embedded \n to backslash n, so that the string will look
-      // like it has LF embedded in it and embedded " to escaped "
-      return place == null ? retTxt : place.replaceAll("\n", "\\n").replaceAll("\"", "\\\\\"");
-    }
-    return retTxt;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -915,18 +915,6 @@ Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
 ```java
-   * @param   in  the java.io.Reader to read input from.
-   */
-  SimpleLexer(java.io.Reader in) {
-    this.zzReader = in;
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
   private boolean zzRefill() throws java.io.IOException {
@@ -944,6 +932,18 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
   private java.io.Reader zzReader;
 
   /** the current state of the DFA */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+   * @param   in  the java.io.Reader to read input from.
+   */
+  SimpleLexer(java.io.Reader in) {
+    this.zzReader = in;
+  }
 ```
 
 ## RuleId[ruleID=NestedAssignment]
@@ -1128,7 +1128,7 @@ Return of `null`
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/impl/SimplePsiImplUtil.java`
 #### Snippet
 ```java
-      return valueNode.getText();
+      return keyNode.getText().replaceAll("\\\\ ", " ");
     } else {
       return null;
     }
@@ -1152,7 +1152,7 @@ Return of `null`
 in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/psi/impl/SimplePsiImplUtil.java`
 #### Snippet
 ```java
-      return keyNode.getText().replaceAll("\\\\ ", " ");
+      return valueNode.getText();
     } else {
       return null;
     }
@@ -1199,30 +1199,6 @@ in `code_samples/simple_language_plugin/src/main/java/org/intellij/sdk/language/
 
 ## RuleId[ruleID=UnusedAssignment]
 ### UnusedAssignment
-The value `zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[21];
-    int offset = 0;
-    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
-The value `zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result)` assigned to `offset` is never used
-in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
-#### Snippet
-```java
-    int [] result = new int[170];
-    int offset = 0;
-    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
-    return result;
-  }
-```
-
-### UnusedAssignment
 The value `zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result)` assigned to `offset` is never used
 in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
 #### Snippet
@@ -1242,6 +1218,30 @@ in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/S
     int [] result = new int[21];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[21];
+    int offset = 0;
+    offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
+    return result;
+  }
+```
+
+### UnusedAssignment
+The value `zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result)` assigned to `offset` is never used
+in `code_samples/simple_language_plugin/src/main/gen/org/intellij/sdk/language/SimpleLexer.java`
+#### Snippet
+```java
+    int [] result = new int[170];
+    int offset = 0;
+    offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
   }
 ```
