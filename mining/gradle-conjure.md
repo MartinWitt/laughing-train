@@ -63,19 +63,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                     .map(language -> projectName + "-" + language)
 ```
 
-## RuleId[ruleID=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
-#### Snippet
-```java
-
-        // Consort with the ancestors
-        Enumeration<URL> parentResources = super.findResources(name);
-        if (parentResources != null) {
-            while (parentResources.hasMoreElements()) {
-```
-
 ## RuleId[ruleID=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
@@ -101,19 +88,20 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServ
                     + serviceDependency.getMaximumVersion());
 ```
 
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getSourceSets` may produce `NullPointerException`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+## RuleId[ruleID=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
 #### Snippet
 ```java
-        org.gradle.api.plugins.JavaPluginConvention javaPlugin =
-                subproj.getConvention().findPlugin(org.gradle.api.plugins.JavaPluginConvention.class);
-        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(subproj.files(JAVA_GENERATED_SOURCE_DIRNAME));
-    }
 
+        // Consort with the ancestors
+        Enumeration<URL> parentResources = super.findResources(name);
+        if (parentResources != null) {
+            while (parentResources.hasMoreElements()) {
 ```
 
+## RuleId[ruleID=DataFlowIssue]
 ### DataFlowIssue
 `null` is returned by the method declared as @NonNullApi
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
@@ -124,6 +112,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
                                                     opts.has("packageName") ? (String) opts.get("packageName") : null)
                                             .orElse(compileConjureTypeScript.flatMap(
                                                     CompileConjureTypeScriptTask::getPackageName)));
+```
+
+### DataFlowIssue
+Method invocation `getSourceSets` may produce `NullPointerException`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+        org.gradle.api.plugins.JavaPluginConvention javaPlugin =
+                subproj.getConvention().findPlugin(org.gradle.api.plugins.JavaPluginConvention.class);
+        javaPlugin.getSourceSets().getByName("main").getJava().srcDir(subproj.files(JAVA_GENERATED_SOURCE_DIRNAME));
+    }
+
 ```
 
 ## RuleId[ruleID=UnnecessaryFullyQualifiedName]
@@ -202,6 +202,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugi
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
+#### Snippet
+```java
+
+    private static void createServiceDependenciesTask(Project project, ConjureProductDependenciesExtension ext) {
+        project.getTasks().register(SERVICE_DEPENDENCIES_TASK, GenerateConjureServiceDependenciesTask.class, task -> {
+            task.setConjureServiceDependencies(ext::getProductDependencies);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureJavaServiceDependencies.java`
 #### Snippet
 ```java
@@ -214,14 +226,14 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureJavaServiceD
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
 ```java
-
-    private static void createServiceDependenciesTask(Project project, ConjureProductDependenciesExtension ext) {
-        project.getTasks().register(SERVICE_DEPENDENCIES_TASK, GenerateConjureServiceDependenciesTask.class, task -> {
-            task.setConjureServiceDependencies(ext::getProductDependencies);
-        });
+        if (!useFlatProjectStructure) {
+            return Maps.filterKeys(project.getChildProjects(), childProjectName -> {
+                return childProjectName.startsWith(projectName)
+                        && !FIRST_CLASS_GENERATOR_PROJECT_NAMES.contains(
+                                extractSubprojectLanguage(projectName, childProjectName));
 ```
 
 ### CodeBlock2Expr
@@ -258,18 +270,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
         project.getPluginManager().withPlugin("maven-publish", _packagingPlugin -> {
             project.getTasks().named("publish").configure(t -> t.dependsOn(depTask));
         });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-        if (!useFlatProjectStructure) {
-            return Maps.filterKeys(project.getChildProjects(), childProjectName -> {
-                return childProjectName.startsWith(projectName)
-                        && !FIRST_CLASS_GENERATOR_PROJECT_NAMES.contains(
-                                extractSubprojectLanguage(projectName, childProjectName));
 ```
 
 ## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
@@ -439,11 +439,11 @@ Field initialization to `null` is redundant
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
 #### Snippet
 ```java
-    static final String TASK_GROUP = "Conjure";
 
     private TaskProvider<CompileIrTask> compileIrProvider = null;
     private ConjureExtension conjureExtension = null;
 
+    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -451,11 +451,11 @@ Field initialization to `null` is redundant
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
 #### Snippet
 ```java
+    static final String TASK_GROUP = "Conjure";
 
     private TaskProvider<CompileIrTask> compileIrProvider = null;
     private ConjureExtension conjureExtension = null;
 
-    @Override
 ```
 
 ## RuleId[ruleID=AbstractMethodCallInConstructor]
@@ -680,18 +680,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/RenderGeneratorOpti
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends GenerateConjureServiceDependenciesTask`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-            TaskProvider<?> compileConjure,
-            TaskProvider<?> compileIrTask,
-            TaskProvider<GenerateConjureServiceDependenciesTask> productDependencyTask) {
-        String typescriptProjectName = project.getName() + "-typescript";
-        if (derivedProjectExists(project, typescriptProjectName)) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
@@ -701,6 +689,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
             Function<String, GeneratorOptions> getGenericOptions,
             TaskProvider<?> compileConjure,
             TaskProvider<?> compileIrTask,
+```
+
+### BoundedWildcard
+Can generalize to `? extends GenerateConjureServiceDependenciesTask`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+            TaskProvider<?> compileConjure,
+            TaskProvider<?> compileIrTask,
+            TaskProvider<GenerateConjureServiceDependenciesTask> productDependencyTask) {
+        String typescriptProjectName = project.getName() + "-typescript";
+        if (derivedProjectExists(project, typescriptProjectName)) {
 ```
 
 ### BoundedWildcard
@@ -765,18 +765,6 @@ public abstract class CompileConjureTypeScriptTask extends ConjureGeneratorTask 
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `CompileConjurePythonTask` has no concrete subclass
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePythonTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class CompileConjurePythonTask extends ConjureGeneratorTask {
-
-    @Override
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ConjureLocalGenerateTask` has no concrete subclass
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureLocalGenerateTask.java`
 #### Snippet
@@ -784,6 +772,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureLocalGenerat
 
 @CacheableTask
 public abstract class ConjureLocalGenerateTask extends ConjureGeneratorTask {
+
+    @Override
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CompileConjurePythonTask` has no concrete subclass
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePythonTask.java`
+#### Snippet
+```java
+
+@CacheableTask
+public abstract class CompileConjurePythonTask extends ConjureGeneratorTask {
 
     @Override
 ```
